@@ -1,30 +1,47 @@
+# VMware Cloud Director UI Common components
+
+This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 8.3.20.
+
+## Repo Structure
+This repo houses three separate but related projects 
+
+### Component Library (./projects/components)
+Reusable components for vcd-ui and its plugin developers. These can be used by using npm install @vmw/vcd-ui-components
+
+### Sample Code Runners  (./projects/doc-lib)
+Reusable components that allows showcasing a component by displaying
+
+* Runnable examples
+* Source Code
+* API / Description
+* Live/editable examples
+
+It can be installed using `npm install @vmw/vcd-ui-doc-lib
 
 
-# vcd-ui-common
+### Examples container (./projects/examples)
+It's the application that uses ` @vmw/vcd-ui-components` and showcases the components 
 
-## Overview
+## Development server
 
-## Try it out
+Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
 
-### Prerequisites
+## Code scaffolding
 
-* Prereq 1
-* Prereq 2
-* Prereq 3
+Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
 
-### Build & Run
+## Build
 
-1. Step 1
-2. Step 2
-3. Step 3
+Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
 
-## Documentation
+## Running unit tests
 
-## Contributing
+Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
 
-The vcd-ui-common project team welcomes contributions from the community. Before you start working with vcd-ui-common, please
-read our [Developer Certificate of Origin](https://cla.vmware.com/dco). All contributions to this repository must be
-signed as described on that page. Your signature certifies that you wrote the patch or have the right to pass it on
-as an open-source patch. For more detailed information, refer to [CONTRIBUTING.md](CONTRIBUTING.md).
+## Running end-to-end tests
 
-## License
+Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
+
+## Further help
+
+To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
