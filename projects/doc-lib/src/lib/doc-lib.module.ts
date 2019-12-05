@@ -1,12 +1,14 @@
+/*!
+ * Copyright 2019 VMware, Inc.
+ * SPDX-License-Identifier: BSD-2-Clause
+ */
+
 import { NgModule } from '@angular/core';
 import { DocLibComponent } from './doc-lib.component';
 
-
-
 @NgModule({
-  declarations: [DocLibComponent],
-  imports: [
-  ],
-  exports: [DocLibComponent]
+    declarations: [DocLibComponent],
+    imports: [],
+    exports: [DocLibComponent],
 })
-export class DocLibModule { }
+export class DocLibModule {}
