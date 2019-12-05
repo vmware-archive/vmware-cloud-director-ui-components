@@ -1,0 +1,23 @@
+# The following commit template is intended to guide committers into
+# writing concise and useful commit messages.  Please refer to
+# https://chris.beams.io/posts/git-commit/ for a more detailed analysis
+# of a good commit message.
+#
+# Summary line (limit to 50 chars)
+# -----------------------------------------------|*********************|
+# If this commit is applied, it will...
+
+
+# Do not forget to separate subject from body with a blank line
+# Why was this change made?
+
+# What testing was performed on this change?
+# Please list steps as bullet items for manual testing.
+Testing Done:
+
+# Reference to Bugzilla or JIRA issues
+Bug Number:
+
+# Reviewboard information [REQUIRED]
+Review URL:
+Reviewed by:
