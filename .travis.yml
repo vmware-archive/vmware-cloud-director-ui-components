@@ -1,0 +1,46 @@
+language: node_js
+node_js:
+    - 13
+cache:
+    directories:
+        - dist/components
+        - dist/doc-lib
+stages:
+    - prepare
+    - build-libs
+    - build-app
+    - test
+    - name: publish
+      if: branch = master
+jobs:
+    include:
+        - stage: prepare
+          name: Lint /components
+          script: npm run lint components
+        - stage: prepare
+          name: Lint /doc-lib
+          script: npm run lint doc-lib
+        - stage: prepare
+          name: Lint /examples
+          script: npm run lint examples
+
+        - stage: build-libs
+          name: Build /components
+          script: npm run build:components
+        - stage: build-libs
+          name: Build /doc-lib
+          script: npm run build:doc-lib
+
+        - stage: build-app
+          name: Build /examples
+          script: npm run build:examples
+
+        - stage: test
+          name: Unit tests for /components
+          script: npm run test:ci:components
+        - stage: test
+          name: Unit Tests for /doc-lib
+          script: npm run test:ci:doc-lib
+        - stage: test
+          name: Unit tests for /examples
+          script: npm run test:ci:examples

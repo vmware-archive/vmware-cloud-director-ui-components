@@ -4,13 +4,13 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
-    "build": "ng build",
+    "build:examples": "ng build examples",
     "build:components": "ng build components",
     "build:doc-lib": "ng build doc-lib",
     "test": "ng test",
     "test-coverage": "ng test --code-coverage --watch=false",
-    "test:ci:doc-lib": "CHROME_BIN=chromium-browser ng test components --watch=false --browsers ChromeHeadlessNoSandbox --code-coverage",
-    "test:ci:components": "CHROME_BIN=chromium-browser ng test doc-lib --watch=false --browsers ChromeHeadlessNoSandbox --code-coverage",
+    "test:ci:doc-lib": "ng test doc-lib --watch=false --browsers ChromeHeadlessNoSandbox --code-coverage",
+    "test:ci:components": "ng test components --watch=false --browsers ChromeHeadlessNoSandbox --code-coverage",
     "lint": "ng lint",
     "lint-fix": "npx tslint --fix 'projects/**/*.ts'",
     "e2e": "ng e2e"
@@ -61,8 +61,9 @@
     "pretty-quick": "2.0.0",
     "protractor": "5.4.0",
     "ts-node": "7.0.0",
+    "tsickle": "0.37.1",
     "tslint": "5.15.0",
-    "tslint-microsoft-contrib": "^6.2.0",
+    "tslint-microsoft-contrib": "6.2.0",
     "typescript": "3.5.3"
   }
 }

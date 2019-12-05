@@ -1,5 +1,5 @@
 {
-    "name": "components",
+    "name": "@vmw/vcd-ui-components",
     "version": "0.0.1",
     "peerDependencies": {
         "@angular/common": "^8.2.14",

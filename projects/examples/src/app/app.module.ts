@@ -8,10 +8,12 @@ import { NgModule } from '@angular/core';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { ComponentsModule } from '@vmw/vcd-ui-components';
+import { DocLibModule } from '@vmw/vcd-ui-doc-lib';
 
 @NgModule({
     declarations: [AppComponent],
-    imports: [BrowserModule, AppRoutingModule],
+    imports: [BrowserModule, AppRoutingModule, ComponentsModule, DocLibModule],
     providers: [],
     bootstrap: [AppComponent],
 })
