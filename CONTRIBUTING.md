@@ -15,11 +15,21 @@ This is a rough outline of what a contributor's workflow looks like:
 -   Push your changes to a topic branch in your fork of the repository
 -   Submit a pull request
 
-Example:
-
 ## Contribution Requirements
 
--   Public/exported members should be documented using [tsdoc](https://github.com/microsoft/tsdoc)
+-   Public/exported members must be documented using [tsdoc](https://github.com/microsoft/tsdoc)
+-   Every commit must contain unit tests, striving for full coverage. If full coverage cannot be achieved, the Pull
+    Request should explain why tests could not be written.
+-   Descriptive Pull Requests:
+
+    -   Include list of steps for manual testing
+    -   Explain alternatives that were considered
+    -   For bug fixes, explain what was causing the issue, don't repeat the text from the issue
+    -   When committing to a specific project, please add [doc-lib], [components], [examples] to the commit description
+
+# Merge vs fast-forward
+
+PRs with single commits should use --fast-forward. Otherwise, pull requests should be merge commits.
 
 ### Staying In Sync With Upstream
 
