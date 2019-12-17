@@ -1,0 +1,26 @@
+<clr-datagrid [clrDgLoading]="isLoading">
+    <clr-dg-column *ngFor="let column of columnsConfig">
+        {{ column.displayName }}
+    </clr-dg-column>
+
+    <clr-dg-row *ngFor="let restItem of items">
+        <clr-dg-cell *ngFor="let column of columnsConfig">
+            <!-- Default renderer -->
+            <ng-container *ngIf="column.fieldName">
+                {{ restItem | nestedProperty: column.fieldName }}
+            </ng-container>
+
+            <!-- Renderer is a function -->
+            <ng-container *ngIf="column.fieldRenderer">
+                <span>{{ restItem | functionRenderer: column.fieldRenderer }}</span>
+            </ng-container>
+
+            <!-- Renderer is a componentRenderer -->
+            <ng-template
+                *ngIf="column.fieldColumnRendererSpec"
+                [vcdComponentRendererOutlet]="{ rendererSpec: column.fieldColumnRendererSpec, context: restItem }"
+            >
+            </ng-template>
+        </clr-dg-cell>
+    </clr-dg-row>
+</clr-datagrid>
