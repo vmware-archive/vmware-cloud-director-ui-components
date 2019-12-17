@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve",
+    "start": "ng build components; ng build doc-lib; ng serve",
     "build:examples": "ng build examples",
     "build:components": "ng build components",
     "build:doc-lib": "ng build doc-lib",
@@ -65,5 +65,18 @@
     "tslint": "5.15.0",
     "tslint-microsoft-contrib": "6.2.0",
     "typescript": "3.5.3"
+  },
+  "peerDependencies": {
+    "@angular/animations": "8.*",
+    "@angular/common": "8.*",
+    "@angular/compiler": "8.*",
+    "@angular/core": "8.*",
+    "@angular/forms": "8.*",
+    "@angular/platform-browser": "8.*",
+    "@angular/platform-browser-dynamic": "8.*",
+    "@angular/router": "8.*",
+    "@clr/angular": "2.*",
+    "@clr/ui": "2.*",
+    "@clr/icons": "2.*"
   }
 }
