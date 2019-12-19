@@ -33,7 +33,7 @@ class ClickTrackerComponent {
  * functionality
  */
 class ClickTrackerWidgetObject extends WidgetObject<ClickTrackerComponent> {
-    static tagName = `vcd-click-tracker`;
+    static tagName = 'vcd-click-tracker';
 
     get clickCount(): number {
         // If we wanted to use the instance, but we want to show base functionali
