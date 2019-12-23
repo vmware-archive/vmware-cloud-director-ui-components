@@ -10,6 +10,20 @@
 </clr-alert>
 <h1>VCD UI Common Components</h1>
 <router-outlet></router-outlet>
-<vcd-components></vcd-components>
+
+<h2>Data Exporter</h2>
+<button (click)="dataExporterOpen = true">
+    Show Modal
+</button>
+<vcd-data-exporter
+    *ngIf="dataExporterOpen"
+    [(open)]="dataExporterOpen"
+    (dataExportRequest)="onExportRequest($event)"
+    [columns]="exportColumns"
+>
+</vcd-data-exporter>
+
+<h2></h2>
 <vcd-doc-lib></vcd-doc-lib>
+
 <clr-icon shape="atom"></clr-icon>

@@ -129,8 +129,10 @@ interface FindParams<T> {
  * Finds instances that implement {@link FindableWidget}
  */
 export class WidgetFinder {
-    // We don't care or could possibly know the type of fixture
-    private fixture: ComponentFixture<unknown>;
+    /**
+     * We don't care or could possibly know the type of fixture
+     */
+    public fixture: ComponentFixture<unknown>;
 
     /**
      * @param componentConstructor The host component to be created as the root of the tests's fixture
@@ -171,7 +173,7 @@ export class WidgetFinder {
         if (widgets.length > 1) {
             throw Error(`Expected to find a single <${params.woConstructor.tagName}> but found ${widgets.length}`);
         }
-        return widgets[0];
+        return widgets[0] as InstanceType<T>;
     }
 
     destroy(): void {
