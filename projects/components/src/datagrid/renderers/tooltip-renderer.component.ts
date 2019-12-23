@@ -3,13 +3,25 @@
  * SPDX-License-Identifier: BSD-2-Clause
  */
 
-import { ComponentRenderer } from '../interfaces/datagrid-column.interface';
 import { Component, Input } from '@angular/core';
+import { ComponentRenderer } from '../interfaces/component-renderer.interface';
 
+/**
+ * {@link ComponentRenderer.config} type that the {@link TooltipRendererComponent} can understand
+ */
 export interface TooltipRendererConfiguration {
+    /**
+     * Text displayed inside the tool tip trigger element
+     */
     text: string;
-    tooltipText?: string | number;
-    position?: 'top-left' | 'top-right';
+    /**
+     * Text displayed inside the tooltip
+     */
+    tooltipText: string;
+    /**
+     * Sets the direction in which the tooltip will open. This given as input to the {@link ClrTooltipContent.position}
+     */
+    position?: 'bottom-left' | 'bottom-right' | 'top-left' | 'top-right' | 'right' | 'left';
 }
 
 /**
@@ -17,11 +29,11 @@ export interface TooltipRendererConfiguration {
  * It takes in a value of type ToolTip which it uses as a con text for the content in side it's HTML. This is used with
  * {@link RendererSpec} to pass the value dynamically to it.
  *
- * Example usage with createColumnRendererSpec:
+ * Example usage with RendererSpec:
  * columns: GridColumn<MockRecord>[] = [
  * {
  *     displayName: 'Component Renderer',
- *     renderer: createColumnRendererSpec<MockRecord, Tooltip>(
+ *     renderer: RendererSpec(
  *       TooltipRendererComponent,
  *       (record: MockRecord) => ({text: record.name, tooltipText: record.details.gender})
  *       )
@@ -31,14 +43,14 @@ export interface TooltipRendererConfiguration {
 @Component({
     template: `
         <clr-tooltip>
-            <span clrTooltipTrigger>{{ configuration.text }}</span>
-            <clr-tooltip-content [clrPosition]="configuration.position" clrSize="sm" *clrIfOpen>
-                <span>{{ configuration.tooltipText }}</span>
+            <span clrTooltipTrigger>{{ config.text }}</span>
+            <clr-tooltip-content [clrPosition]="config.position" clrSize="sm" *clrIfOpen>
+                <span>{{ config.tooltipText }}</span>
             </clr-tooltip-content>
         </clr-tooltip>
     `,
 })
 export class TooltipRendererComponent implements ComponentRenderer<TooltipRendererConfiguration> {
     @Input()
-    configuration: TooltipRendererConfiguration;
+    config: TooltipRendererConfiguration;
 }

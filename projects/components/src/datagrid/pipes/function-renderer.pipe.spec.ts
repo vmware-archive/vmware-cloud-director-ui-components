@@ -13,7 +13,7 @@ describe('FunctionRendererPipe', () => {
         expect(functionRendererPipe.transform({}, null)).toBeNull();
     });
 
-    it('returns correct value transformed by the function', () => {
+    it('returns transformed value as the value returned by the function given as input', () => {
         const item = {
             prop: 'value',
         };

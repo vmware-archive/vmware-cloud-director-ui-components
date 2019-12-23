@@ -6,8 +6,7 @@
 /**
  * Whether something shows up in the column toggler
  */
-
-import { Type } from '@angular/core';
+import { ComponentRendererSpec } from './component-renderer.interface';
 
 export enum GridColumnHideable {
     /**
@@ -95,71 +94,4 @@ export interface GridColumn<R> {
      *  The above to-do is going to be worked on as part of https://jira.eng.vmware.com/browse/VDUCC-27 and
      */
     filter?: ComponentRendererSpec<R, unknown>;
-}
-
-/**
- * Implemented by all the component renderers
- */
-export interface ComponentRenderer<T> {
-    /**
-     * Object used by the component renderers inside their HTML template
-     */
-    configuration: T;
-}
-
-/**
- * Used for the type safety of {@link ComponentRendererSpec#type}
- */
-export type ComponentRendererConstructor<V> = Type<ComponentRenderer<V>>;
-
-/**
- * An object that has the constructor of a component(ComponentRenderer) to be displayed and value getter
- * function definition that would get the value to be used by the component in its template
- *
- * The component using this renderer spec to display the component will be responsible for setting the actual
- * renderer's value{@link ComponentRenderer#configuration} after dynamically initializing it but the caller is responsible for
- * providing a {#link valueGetter}
- */
-export interface ComponentRendererSpec<R, V> {
-    /**
-     * Constructor of a specific type of component renderer desired to be used
-     */
-    type: ComponentRendererConstructor<V>;
-
-    /**
-     * Function that retrieves that `value` property to be set on the ComponentRenderer that is used as a context for
-     * the HTML template
-     * @param record An object to be transformed into {@link ComponentRenderer#configuration}. It's passed in by the calling
-     * component
-     */
-    configGetter: (record?: R) => V;
-}
-
-/**
- * Often with generics, there will be some locations where a type parameter should be inferrable from usage, and other
- * places where the type parameter should only be used to enforce typechecking. The following type helps with this.
- *
- * if you change a type parameter in an inference site from T to T & {}, it lowers the site's priority. So the compiler
- * will tend to infer T from other inference sites first and only come back to the T & {} one if it fails to infer from
- * other places. please see {@link RendererSpec} for example usage.
- */
-type InferLast<T> = T & {};
-
-/**
- * Utility function to enforce type safety on output of the valueGetter function. The output is used as value context
- * inside ComponentRenderer's template
- *
- * Example usage:
- * const gridColumn = {
- *   renderer: createComponentRendererSpec<SomeRecord, Icon>(IconComponentRendererCtor, (r: SomeRecord) => v)
- * }
- *
- * In the above example, this method helps in making sure that the value "v" returned by the valueGetter function is of
- * Icon type
- */
-export function RendererSpec<R, C>(componentRendererSpec: {
-    type: ComponentRendererConstructor<C>;
-    configGetter: (record?: R) => InferLast<C>;
-}): ComponentRendererSpec<R, C> {
-    return componentRendererSpec;
 }

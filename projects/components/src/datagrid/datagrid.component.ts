@@ -7,9 +7,21 @@ import { AfterViewInit, Component, EventEmitter, Input, OnInit, Output, Template
 import { ComponentRendererSpec, FunctionRenderer, GridColumn } from './interfaces/datagrid-column.interface';
 import { ClrDatagridFilter } from '@clr/angular';
 
+/**
+ * Different types of row selection on the grid
+ */
 export enum GridSelectionType {
+    /**
+     * For selecting multiple rows
+     */
     Multi = 'MULTI',
+    /**
+     * For selecting only one row at a time
+     */
     Single = 'SINGLE',
+    /**
+     * Disables the selection
+     */
     None = 'NONE',
 }
 
@@ -81,8 +93,9 @@ interface ColumnConfigInternal<R, T> extends GridColumn<R> {
     templateUrl: './datagrid.component.html',
 })
 export class DatagridComponent<R> implements OnInit {
-    private _columns: GridColumn<R>[];
-
+    /**
+     * Sets the configuration of columns on the grid and updates the {@link columnsConfig} array
+     */
     @Input()
     set columns(cols: GridColumn<R>[]) {
         this._columns = cols;
@@ -91,6 +104,7 @@ export class DatagridComponent<R> implements OnInit {
     get columns(): GridColumn<R>[] {
         return this._columns;
     }
+    private _columns: GridColumn<R>[];
 
     /**
      * Set from the caller component using this grid. The input is set upon fetching data by the caller
@@ -100,6 +114,9 @@ export class DatagridComponent<R> implements OnInit {
         this.items = result.items;
     }
 
+    /**
+     * Type of row selection on the grid
+     */
     selectionType: GridSelectionType.None;
 
     /**
@@ -207,7 +224,7 @@ export class DatagridComponent<R> implements OnInit {
 
             if (column.renderer instanceof Function) {
                 columnConfig.fieldRenderer = column.renderer as FunctionRenderer<R>;
-            } else if (!!(column.renderer as ComponentRendererSpec<R, unknown>).configGetter) {
+            } else if ((column.renderer as ComponentRendererSpec<R, unknown>).config) {
                 columnConfig.fieldColumnRendererSpec = column.renderer as ComponentRendererSpec<R, unknown>;
             } else {
                 columnConfig.fieldName = column.renderer as string;

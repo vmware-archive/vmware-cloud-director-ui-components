@@ -5,9 +5,8 @@
 
 import { NgModule } from '@angular/core';
 import { NestedPropertyPipe } from './nested-property.pipe';
-import { FunctionRendererPipe } from './function-renderer.pipe';
 
-const declarations = [NestedPropertyPipe, FunctionRendererPipe];
+const declarations = [NestedPropertyPipe];
 
 @NgModule({
     declarations,

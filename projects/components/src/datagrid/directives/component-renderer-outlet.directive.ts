@@ -21,7 +21,7 @@ export interface ComponentRendererType<R, T> {
     rendererSpec: ComponentRendererSpec<R, T>;
 
     /**
-     * serves as argument for {@link ComponentRenderer.configuration} method
+     * serves as argument for {@link ComponentRenderer.config} method
      */
     context: R;
 }
@@ -29,7 +29,7 @@ export interface ComponentRendererType<R, T> {
 /**
  * Component that acts as a host element for dynamic rendering of component constructors.
  * It takes {@link ComponentRendererSpec} as input and also 'context' as input that serves as argument for
- * {@link ComponentRenderer.configuration} method. Attaches the component to be rendered to the view container of host element
+ * {@link ComponentRenderer.config} method. Attaches the component to be rendered to the view container of host element
  * and updates it's configuration whenever changed.
  *
  * Example usage:
@@ -41,7 +41,7 @@ export interface ComponentRendererType<R, T> {
 @Directive({
     selector: '[vcdComponentRendererOutlet]',
 })
-export class ComponentRendererOutletDirective<R, T> implements OnDestroy {
+export class ComponentRendererOutletDirective<R, T> {
     private componentRef: ComponentRef<ComponentRenderer<T>>;
     private componentType: ComponentRendererConstructor<T>;
 
@@ -54,7 +54,7 @@ export class ComponentRendererOutletDirective<R, T> implements OnDestroy {
             this.componentType = renderer.rendererSpec.type;
             this.componentRef = this.attachRenderer();
         }
-        this.assignValue(renderer.rendererSpec.configGetter, renderer.context);
+        this.assignValue(renderer.rendererSpec.config, renderer.context);
     }
 
     /**
@@ -75,15 +75,11 @@ export class ComponentRendererOutletDirective<R, T> implements OnDestroy {
         if (!this.componentRef || !this.componentRef.instance) {
             return;
         }
-        this.componentRef.instance.configuration = configGetter(context);
+        this.componentRef.instance.config = configGetter(context);
     }
 
     private detachRenderer(): void {
         this.viewContainerRef.remove();
         this.componentRef = null;
-    }
-
-    ngOnDestroy(): void {
-        this.viewContainerRef = null;
     }
 }

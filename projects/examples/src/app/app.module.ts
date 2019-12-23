@@ -18,11 +18,18 @@ import { FormsModule } from '@angular/forms';
 
 import localeFr from '@angular/common/locales/fr';
 import localeEs from '@angular/common/locales/es';
-import localeEs_BR from '@angular/common/locales/es-BR';
 
 registerLocaleData(localeFr, 'fr');
-registerLocaleData(localeEs_BR, 'es-BR');
 registerLocaleData(localeEs, 'es');
+
+const supportedLocales = ['fr', 'es'];
+const defaultLocale = 'en-US';
+const LOCALE_SEPARATOR = '-';
+
+const locale = supportedLocales.find(
+    (supportedLocale: string) =>
+        navigator.language === supportedLocale || navigator.language === supportedLocale.split(LOCALE_SEPARATOR)[0]
+);
 
 @NgModule({
     declarations: [AppComponent],
@@ -36,7 +43,7 @@ registerLocaleData(localeEs, 'es');
         PipesModule,
         FormsModule,
     ],
-    providers: [{ provide: LOCALE_ID, useValue: navigator.language }],
+    providers: [{ provide: LOCALE_ID, useValue: locale || defaultLocale }],
     bootstrap: [AppComponent],
 })
 export class AppModule {}

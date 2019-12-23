@@ -14,9 +14,8 @@ import { Pipe, PipeTransform } from '@angular/core';
     pure: true,
 })
 export class FunctionRendererPipe implements PipeTransform {
-    // tslint:disable-next-line:ban-types
-    public transform<T>(item: any, renderer: Function): string {
-        if (!item || !renderer || !(renderer instanceof Function)) {
+    public transform(item: any, renderer: (val: any) => any): string {
+        if (!item || !renderer) {
             return null;
         }
         return renderer(item);
