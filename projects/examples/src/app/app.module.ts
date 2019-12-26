@@ -12,7 +12,6 @@ import { DataExporterModule } from '@vmw/vcd-ui-components';
 import { DocLibModule } from '@vmw/vcd-ui-doc-lib';
 import { ClarityModule } from '@clr/angular';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { CsvExporterService } from '../../../components/src/data-exporter/csv-exporter.service';
 
 @NgModule({
     declarations: [AppComponent],
@@ -24,7 +23,6 @@ import { CsvExporterService } from '../../../components/src/data-exporter/csv-ex
         ClarityModule,
         BrowserAnimationsModule,
     ],
-    providers: [CsvExporterService],
     bootstrap: [AppComponent],
 })
 export class AppModule {}

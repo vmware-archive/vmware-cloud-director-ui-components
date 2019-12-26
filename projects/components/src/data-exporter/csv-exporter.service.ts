@@ -48,7 +48,7 @@ export class CsvExporterService {
  * @param row A list of cells to be turned into a CSV string, separated by commas
  */
 function processRow(row: any[]): string {
-    return row.map(cell => this.encodeValue(cell)).join(',');
+    return row.map(cell => encodeValue(cell)).join(',');
 }
 
 /**

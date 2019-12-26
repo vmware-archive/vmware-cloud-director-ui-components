@@ -22,6 +22,8 @@ import { FindableWidget } from './widget-object';
  * assert code on its own.
  *
  * `T` is the type of the JS/TS object being wrapped
+ *
+ * It is recommended that files for implementations be named with a `.wo.ts` extension
  */
 export abstract class WidgetObject<T> {
     /**

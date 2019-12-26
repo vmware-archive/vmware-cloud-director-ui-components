@@ -56,7 +56,7 @@ export interface DataExportRequestEvent {
     templateUrl: 'data-exporter.component.html',
     styleUrls: ['./data-exporter.component.scss'],
 })
-export class DataExporterComponent implements OnInit, OnDestroy {
+export class DataExporterComponent implements OnInit {
     constructor(private csvExporterService: CsvExporterService) {}
 
     /**
@@ -93,11 +93,6 @@ export class DataExporterComponent implements OnInit, OnDestroy {
      * Called when the export is ready to be created
      */
     @Output() dataExportRequest = new EventEmitter<DataExportRequestEvent>();
-
-    /**
-     * To prevent downloads after a user closed dialog
-     */
-    private isDestroyed = false;
 
     /**
      * True between the time {@link dataExportRequest} fires and {@link DataExportRequestEvent.exportData} is called
@@ -162,12 +157,8 @@ export class DataExporterComponent implements OnInit, OnDestroy {
         this.formGroup = new FormGroup(controls);
     }
 
-    ngOnDestroy(): void {
-        this.isDestroyed = true;
-    }
-
     private exportData = (records: any[]) => {
-        if (this.isDestroyed) {
+        if (!this.open) {
             return;
         }
         this.open = false;
