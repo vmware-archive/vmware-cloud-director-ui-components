@@ -38,24 +38,29 @@ export class NestedPropertyPipe implements PipeTransform {
         if (splitProperty.length > 1) {
             let value = item;
             for (const nestedProp of splitProperty) {
-                if (value === null || value === undefined || value[nestedProp] === undefined) {
+                if (isNullOrUndefined(value) || isNullOrUndefined(value[nestedProp])) {
                     return null;
                 }
                 value = value[nestedProp];
             }
             returnValue = value;
         } else {
+            if (isNullOrUndefined(item[property])) {
+                return null;
+            }
             returnValue = item[property];
         }
 
-        if (!returnValue) {
-            return null;
-        }
         if (typeof returnValue === 'number') {
             return new DecimalPipe(this.localeId).transform(returnValue);
         }
-        return Object.prototype.toString.call(returnValue) === DATE_OBJECT_CLASS
-            ? new DatePipe(this.localeId).transform(returnValue)
-            : returnValue;
+        return returnValue instanceof Date ? new DatePipe(this.localeId).transform(returnValue) : returnValue;
     }
+}
+
+/**
+ * Utility method for covering the 'null' and 'undefined' checks as 'value == null' is equivalent to 'value === null || value === undefined'
+ */
+function isNullOrUndefined(value: unknown): boolean {
+    return value == null;
 }

@@ -26,10 +26,18 @@ const supportedLocales = ['fr', 'es'];
 const defaultLocale = 'en-US';
 const LOCALE_SEPARATOR = '-';
 
-const locale = supportedLocales.find(
-    (supportedLocale: string) =>
-        navigator.language === supportedLocale || navigator.language === supportedLocale.split(LOCALE_SEPARATOR)[0]
-);
+function getSupportedLocale(): string {
+    let partiallyMatchedLocale: string;
+    const completelyMatchedLocale = supportedLocales.find(
+        (supportedLocale: string) => navigator.language === supportedLocale
+    );
+    if (!completelyMatchedLocale) {
+        partiallyMatchedLocale = supportedLocales.find(
+            (supportedLocale: string) => navigator.language.split(LOCALE_SEPARATOR)[0] === supportedLocale
+        );
+    }
+    return completelyMatchedLocale || partiallyMatchedLocale || defaultLocale;
+}
 
 @NgModule({
     declarations: [AppComponent],
@@ -43,7 +51,7 @@ const locale = supportedLocales.find(
         PipesModule,
         FormsModule,
     ],
-    providers: [{ provide: LOCALE_ID, useValue: locale || defaultLocale }],
+    providers: [{ provide: LOCALE_ID, useValue: getSupportedLocale() }],
     bootstrap: [AppComponent],
 })
 export class AppModule {}

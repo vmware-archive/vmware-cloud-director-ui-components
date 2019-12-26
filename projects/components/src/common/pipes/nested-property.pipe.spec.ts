@@ -7,7 +7,6 @@ import { NestedPropertyPipe } from './nested-property.pipe';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { Component, LOCALE_ID } from '@angular/core';
 import { PipesModule } from './pipes.module';
-import { By } from '@angular/platform-browser';
 import localeFrData from '@angular/common/locales/fr';
 import { DatePipe, DecimalPipe, registerLocaleData } from '@angular/common';
 import { WidgetObject } from '../../utils/test/widget-object';
@@ -48,6 +47,10 @@ describe('NestedPropertyPipe', () => {
         expect(nestedPropertyPipe.transform(item, 'prop2.notAvailable')).toEqual(null);
     });
 
+    it('should not throw an error by digging deeper after encountering an unavailable property', () => {
+        expect(nestedPropertyPipe.transform(item, 'notAvailable.notThere')).toEqual(null);
+    });
+
     describe('localization:', () => {
         beforeEach(async () => {
             await TestBed.configureTestingModule({
@@ -56,18 +59,25 @@ describe('NestedPropertyPipe', () => {
             }).compileComponents();
         });
         it('takes the default locale as "en_US" and formats a input accordingly', () => {
-            const testHostWidgetObject = new TestHostWidgetObject(getComponentFixtureWith());
+            const testHostWidgetObject = new TestHostWidgetObject(getComponentFixture());
             const expectedNumberOutput = new DecimalPipe(localeEnUs).transform(MOCK_OBJ.number);
             const expectedDateOutput = new DatePipe(localeEnUs).transform(MOCK_OBJ.date);
-            expect(testHostWidgetObject.getInnerText('#number')).toEqual(expectedNumberOutput);
-            expect(testHostWidgetObject.getInnerText('#date')).toEqual(expectedDateOutput);
+            expect(testHostWidgetObject.transformedNumber).toEqual(expectedNumberOutput);
+            expect(testHostWidgetObject.transformedDate).toEqual(expectedDateOutput);
         });
         it('formats a decimal number input based on a locale injected', async () => {
-            const testHostWidgetObject = new TestHostWidgetObject(getComponentFixtureWith(localeFr));
+            const testHostWidgetObject = new TestHostWidgetObject(getComponentFixture(localeFr));
             const expectedNumberOutput = new DecimalPipe(localeFr).transform(MOCK_OBJ.number);
             const expectedDateOutput = new DatePipe(localeFr).transform(MOCK_OBJ.date);
-            expect(testHostWidgetObject.getInnerText('#number')).toEqual(expectedNumberOutput);
-            expect(testHostWidgetObject.getInnerText('#date')).toEqual(expectedDateOutput);
+            expect(testHostWidgetObject.transformedNumber).toEqual(expectedNumberOutput);
+            expect(testHostWidgetObject.transformedDate).toEqual(expectedDateOutput);
+        });
+        it('should not transform number zero as null', () => {
+            const testHostWidgetObject = new TestHostWidgetObject(getComponentFixture());
+            testHostWidgetObject.numberInput = 0;
+            testHostWidgetObject.detectChanges();
+            expect(testHostWidgetObject.transformedNumber).not.toBeNull();
+            expect(testHostWidgetObject.transformedNumber).toEqual('0');
         });
     });
 });
@@ -78,15 +88,15 @@ const MOCK_OBJ = {
 };
 @Component({
     template: `
-        <span id="number">{{ testObj | nestedProperty: 'number' }}</span>
-        <span id="date">{{ testObj | nestedProperty: 'date' }}</span>
+        <span class="number">{{ testObj | nestedProperty: 'number' }}</span>
+        <span class="date">{{ testObj | nestedProperty: 'date' }}</span>
     `,
 })
 export class TestComponent {
     testObj = MOCK_OBJ;
 }
 
-function getComponentFixtureWith(locale?: string): ComponentFixture<TestComponent> {
+function getComponentFixture(locale?: string): ComponentFixture<TestComponent> {
     if (locale) {
         registerLocaleData(localeFrData, localeFr);
         TestBed.overrideProvider(LOCALE_ID, { useValue: localeFr });
@@ -100,7 +110,17 @@ class TestHostWidgetObject extends WidgetObject<TestComponent> {
     constructor(fixture: ComponentFixture<TestComponent>) {
         super(fixture);
     }
-    getInnerText(cssSelector: string): string {
-        return this.getText(cssSelector);
+    get transformedNumber(): string {
+        return this.getText('.number');
+    }
+    get transformedDate(): string {
+        return this.getText('.date');
+    }
+
+    set numberInput(value: number) {
+        this.component.testObj = {
+            ...this.component.testObj,
+            number: value,
+        };
     }
 }

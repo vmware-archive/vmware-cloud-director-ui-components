@@ -7,7 +7,6 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ClarityModule } from '@clr/angular';
 import { DatagridComponent } from './datagrid.component';
-import { TooltipRendererComponent } from './renderers/tooltip-renderer.component';
 import { ComponentRendererOutletDirective } from './directives/component-renderer-outlet.directive';
 import { PipesModule } from '../common/pipes/pipes.module';
 import { ReactiveFormsModule } from '@angular/forms';
@@ -18,9 +17,9 @@ const pipes = [FunctionRendererPipe];
 
 @NgModule({
     imports: [CommonModule, ClarityModule, PipesModule, ReactiveFormsModule],
-    declarations: [...directives, ...pipes, TooltipRendererComponent],
+    declarations: [...directives, ...pipes],
     providers: [],
     exports: [DatagridComponent],
-    entryComponents: [TooltipRendererComponent],
+    entryComponents: [],
 })
 export class DatagridModule {}

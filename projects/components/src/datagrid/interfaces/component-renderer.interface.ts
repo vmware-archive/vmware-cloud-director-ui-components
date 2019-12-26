@@ -36,9 +36,9 @@ export interface ComponentRendererSpec<R, V> {
     type: ComponentRendererConstructor<V>;
 
     /**
-     * Function that retrieves that `value` property to be set on the ComponentRenderer that is used as a context for
-     * the HTML template
-     * @param record An object to be transformed into {@link ComponentRenderer#config}. It's passed in by the calling
+     * This can either be a function that creates the config object (in case of a cell renderer) or config object itself (in
+     * case of a filter renderer) to be set on the ComponentRenderer.
+     * @param value An object to be transformed into {@link ComponentRenderer#config}. It's passed in by the calling
      * component
      */
     config: (value?: R) => V | V;

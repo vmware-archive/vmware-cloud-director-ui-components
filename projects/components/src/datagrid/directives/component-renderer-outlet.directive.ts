@@ -3,12 +3,12 @@
  * SPDX-License-Identifier: BSD-2-Clause
  */
 
-import { ComponentFactoryResolver, ComponentRef, Directive, Input, OnDestroy, ViewContainerRef } from '@angular/core';
+import { ComponentFactoryResolver, ComponentRef, Directive, Input, ViewContainerRef } from '@angular/core';
 import {
     ComponentRenderer,
     ComponentRendererConstructor,
     ComponentRendererSpec,
-} from '../interfaces/datagrid-column.interface';
+} from '../interfaces/component-renderer.interface';
 
 /**
  * Type of the Input given to the {@link ComponentRendererOutletDirective.vcdComponentRendererOutlet}
@@ -71,11 +71,11 @@ export class ComponentRendererOutletDirective<R, T> {
     /**
      * Updates the configuration of instantiated component
      */
-    private assignValue(configGetter: (r: R) => T, context: R): void {
+    private assignValue(config: (r: R) => T | T, context: R): void {
         if (!this.componentRef || !this.componentRef.instance) {
             return;
         }
-        this.componentRef.instance.config = configGetter(context);
+        this.componentRef.instance.config = config instanceof Function ? config(context) : config;
     }
 
     private detachRenderer(): void {

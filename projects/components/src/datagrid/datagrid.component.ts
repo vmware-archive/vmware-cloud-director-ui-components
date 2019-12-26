@@ -3,9 +3,10 @@
  * SPDX-License-Identifier: BSD-2-Clause
  */
 
-import { AfterViewInit, Component, EventEmitter, Input, OnInit, Output, TemplateRef, ViewChild } from '@angular/core';
-import { ComponentRendererSpec, FunctionRenderer, GridColumn } from './interfaces/datagrid-column.interface';
+import { Component, EventEmitter, Input, OnInit, Output, TemplateRef, ViewChild } from '@angular/core';
+import { FunctionRenderer, GridColumn } from './interfaces/datagrid-column.interface';
 import { ClrDatagridFilter } from '@clr/angular';
+import { ComponentRendererSpec } from './interfaces/component-renderer.interface';
 
 /**
  * Different types of row selection on the grid
@@ -56,7 +57,7 @@ export interface GridDataFetchResult<R> {
 
 /**
  * The current state of various features of the grid like filtering, sorting, pagination. This object is emitted as
- * part of the event {@link Grid.onGridRefresh}. The handler then used this object to construct a query.
+ * part of the event {@link DatagridComponent.gridRefresh}. The handler then used this object to construct a query.
  * TODO: This interface is going to defined as part of working on the following tasks:
  *  https://jira.eng.vmware.com/browse/VDUCC-14
  *  https://jira.eng.vmware.com/browse/VDUCC-15
