@@ -1,0 +1,11 @@
+div.progress {
+    visibility: hidden;
+
+    &.pending {
+        visibility: visible;
+    }
+}
+button.select-all {
+    margin: 0;
+    padding: 0;
+}
