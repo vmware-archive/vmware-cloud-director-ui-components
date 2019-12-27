@@ -88,7 +88,9 @@ export abstract class WidgetObject<T> {
      */
     protected getText(val?: Element | DebugElement | string): string {
         let nativeElement;
-        if (typeof val === 'string') {
+        if (!val) {
+            nativeElement = this.root.nativeElement;
+        } else if (typeof val === 'string') {
             nativeElement = this.findElement(val).nativeElement;
         } else {
             nativeElement = (val as DebugElement).nativeElement || val;
