@@ -10,6 +10,7 @@
     "test": "ng test",
     "test-coverage": "ng test --code-coverage --watch=false",
     "test:ci:doc-lib": "ng test doc-lib --watch=false --browsers ChromeHeadlessNoSandbox --code-coverage",
+    "test:components": "ng test components",
     "test:ci:components": "ng test components --watch=false --browsers ChromeHeadlessNoSandbox --code-coverage",
     "lint": "ng lint",
     "lint-fix": "npx tslint --fix 'projects/**/*.ts'",
