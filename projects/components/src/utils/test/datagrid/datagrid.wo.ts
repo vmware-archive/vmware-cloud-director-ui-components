@@ -21,6 +21,11 @@ export class DatagridWidgetObject extends WidgetObject<ClrDatagrid> {
         return this.getText(`${ROW_TAG}:nth-of-type(${row + 1}) ${CELL_TAG}:nth-of-type(${column + 1})`);
     }
 
+    isCellHavingStrongElement(row: number, column: number): boolean {
+        const cellElement = this.getCell(row, column);
+        return !!cellElement.querySelector('strong');
+    }
+
     private get columns(): DebugElement[] {
         return this.findElements(COLUMN_CSS_SELECTOR);
     }

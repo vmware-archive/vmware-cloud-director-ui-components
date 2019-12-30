@@ -29,7 +29,7 @@ export abstract class WidgetObject<T> {
     /**
      *
      * Constructor should only be called directly if you are directly instantiating the widget being wrapped (T). If you
-     * need to find a widget within the tree, you should use {@link findWidget}.
+     * need to find a widget within the tree, you should use {@link find}.
      *
      * @param component The component instance being managed. Whenever possible, we should access the component's API.
      * @param root The root element (host) for the component instance. We typically prefer to interact with the

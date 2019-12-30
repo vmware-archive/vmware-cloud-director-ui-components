@@ -11,15 +11,17 @@ import { ComponentRendererOutletDirective } from './directives/component-rendere
 import { PipesModule } from '../common/pipes/pipes.module';
 import { ReactiveFormsModule } from '@angular/forms';
 import { FunctionRendererPipe } from './pipes/function-renderer.pipe';
+import { BoldTextRendererComponent } from './renderers/bold-text-renderer.component';
 
 const directives = [DatagridComponent, ComponentRendererOutletDirective];
 const pipes = [FunctionRendererPipe];
+const renderers = [BoldTextRendererComponent];
 
 @NgModule({
     imports: [CommonModule, ClarityModule, PipesModule, ReactiveFormsModule],
-    declarations: [...directives, ...pipes],
+    declarations: [...directives, ...renderers, ...pipes],
     providers: [],
-    exports: [DatagridComponent],
-    entryComponents: [],
+    exports: [DatagridComponent, ...renderers],
+    entryComponents: [...renderers],
 })
 export class DatagridModule {}
