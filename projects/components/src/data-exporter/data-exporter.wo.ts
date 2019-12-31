@@ -5,22 +5,70 @@
 
 import { DataExporterComponent } from './data-exporter.component';
 import { WidgetObject } from '../utils/test/widget-object';
+import { DebugElement } from '@angular/core';
 
+const Css = {
+    SelectAll: '.select-all',
+    SelectColumn: '.column-selection label',
+};
 /**
  * Testing Object for {@link DataExporterComponent}
  */
 export class DataExporterWidgetObject extends WidgetObject<DataExporterComponent> {
     static tagName = 'vcd-data-exporter';
 
-    get isOpen(): boolean {
-        return this.component.open;
+    /**
+     * Whether the progress bar is currently showing indefinite progress, that is a looping loading indicator
+     */
+    get isLoopingProgressBar(): boolean {
+        return !!this.findElement('.progress.loop');
     }
 
+    /**
+     * The strings for the available check boxes
+     */
     get columnCheckBoxes(): string[] {
-        return this.findElements('.column-selection ').map(el => this.getText(el));
+        return this.getTexts('.column-selection label');
+    }
+
+    /**
+     * Whether the select all button is displayed
+     */
+    get isSelectAllVisible(): boolean {
+        return !!this.selectAllLink;
+    }
+
+    private get selectAllLink(): DebugElement {
+        return this.findElement(Css.SelectAll);
+    }
+
+    /**
+     * Click the select all link. Throws an error if the link is not available
+     */
+    clickSelectAll(): void {
+        this.click(Css.SelectAll);
+    }
+
+    /**
+     * Whether the select all link is enabled. Throws an error if link is not available
+     */
+    get isSelectAllEnabled(): boolean {
+        return !this.selectAllLink.nativeElement.disabled;
+    }
+
+    /**
+     * Clicks the checkbox for a colum
+     * @param index Index of column, 0 based
+     */
+    clickColumn(index: number): void {
+        this.click(`.column-selection li:nth-of-type(${index + 1}) label`);
     }
 
     clickCancel(): void {
         this.click('.cancel');
+    }
+
+    clickExport(): void {
+        this.click('.export');
     }
 }
