@@ -47,14 +47,6 @@ class ClickTrackerWidgetObject extends WidgetObject<ClickTrackerComponent> {
         return this.getText('h1');
     }
 
-    /**
-     * Tests should not return DebugElements, this is just to showcase the base class's findElement
-     */
-    get itself(): DebugElement {
-        // Since we're not passing a selector, or a parent, the root debug element is returned
-        return this.findElement();
-    }
-
     clickTrackedElement(): void {
         // Clicking requires the DOM
         this.click('p');
@@ -121,9 +113,7 @@ describe('WidgetFinder', () => {
 
             it('throws an error if multiple widgets are found', function(this: HasFinder): void {
                 expect(() => {
-                    this.finder.find({
-                        woConstructor: ClickTrackerWidgetObject,
-                    });
+                    this.finder.find(ClickTrackerWidgetObject);
                 }).toThrow();
             });
         });
@@ -145,7 +135,7 @@ describe('WidgetFinder', () => {
 
         describe('find', () => {
             it('returns the first one within the fixture if no classname is specified', function(this: HasFinder): void {
-                const widget = this.finder.find({ woConstructor: ClickTrackerWidgetObject });
+                const widget = this.finder.find(ClickTrackerWidgetObject);
                 expect(widget.headerText).toBe('First');
             });
         });
@@ -193,12 +183,6 @@ describe('WidgetObject (through ClickTracerWidgetObject)', () => {
         it('calls detectChanges after clicking', function(this: HasClickTracker): void {
             this.clickTracker.clickTrackedElement();
             expect(this.clickTracker.clickCount).toBe(1);
-        });
-    });
-
-    describe('findElement', () => {
-        it('returns the element itself when no CSS query is passed in', function(this: HasClickTracker): void {
-            expect(this.clickTracker.itself.componentInstance).toBe(this.clickTracker.component);
         });
     });
 });

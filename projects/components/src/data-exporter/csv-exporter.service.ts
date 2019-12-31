@@ -28,6 +28,7 @@ export class CsvExporterService {
     public downloadCsvFile(csvFile: string, filename: string): void {
         const mimeType = 'text/csv;charset=utf-8;';
         const blob = new Blob([csvFile], { type: mimeType });
+        // Jan 1, 2020 - Chrome and IE support this
         if (navigator.msSaveBlob) {
             navigator.msSaveBlob(blob, filename);
         } else {
@@ -47,7 +48,7 @@ export class CsvExporterService {
  * Returns a string
  * @param row A list of cells to be turned into a CSV string, separated by commas
  */
-function processRow(row: any[]): string {
+function processRow(row: unknown[]): string {
     return row.map(cell => encodeValue(cell)).join(',');
 }
 
@@ -55,8 +56,8 @@ function processRow(row: any[]): string {
  * Returns a cell's cellValue encoded against spaces, quotes, and CSV injection character
  * @param cellValue Cell cellValue to be encoded
  */
-function encodeValue(cellValue: any): string {
-    let innerValue = cellValue === null ? '' : cellValue.toString();
+function encodeValue(cellValue: unknown): string {
+    let innerValue = cellValue == null ? '' : cellValue.toString();
     if (cellValue instanceof Date) {
         innerValue = cellValue.toLocaleString();
     }
@@ -79,9 +80,9 @@ function encodeValue(cellValue: any): string {
  * Prepends a single quote to a value if it starts with =,+,=,@ to prevent formulas from being executed
  * @param value Value to be escaped
  */
-function escapeAgainstCsvInjection(value: string): string {
-    if (/^[=+\-@|%]/.test(value)) {
-        return `'${value}'`;
-    }
-    return value;
-}
+// function escapeAgainstCsvInjection(value: string): string {
+//     if (/^[=+\-@|%]/.test(value)) {
+//         return `'${value}'`;
+//     }
+//     return value;
+// }

@@ -36,7 +36,7 @@ export interface DataExportRequestEvent {
      * This should only be called once after all data fetching is finished
      * @param records Records to be converted into a csv file
      */
-    exportData: (records: any[]) => void;
+    exportData: (records: object[]) => void;
 
     /**
      * Columns selected by the user.
@@ -82,10 +82,19 @@ export class DataExporterComponent implements OnInit {
     /**
      * Whether the dialog is open
      */
-    @Input() open = false;
+    @Input()
+    set open(value: boolean) {
+        this._open = value;
+        this.openChange.emit(value);
+    }
+    get open(): boolean {
+        return this._open;
+    }
+
+    private _open = false;
 
     /**
-     * Fires when {@link open} changes. Its parameter indicates the new state.
+     * Fires when {@link _open} changes. Its parameter indicates the new state.
      */
     @Output() openChange = new EventEmitter<boolean>();
 
@@ -116,8 +125,8 @@ export class DataExporterComponent implements OnInit {
     onClickExport(): void {
         this._isRequestPending = true;
         this.dataExportRequest.emit({
-            exportData: this.exportData,
-            updateProgress: this.updateProgress,
+            exportData: this.exportData.bind(this),
+            updateProgress: this.updateProgress.bind(this),
             selectedColumns: this.columns.filter(col => this.formGroup.controls[col.fieldName].value),
         });
     }
@@ -157,7 +166,7 @@ export class DataExporterComponent implements OnInit {
         this.formGroup = new FormGroup(controls);
     }
 
-    private exportData = (records: any[]) => {
+    private exportData(records: object[]): void {
         if (!this.open) {
             return;
         }
@@ -173,11 +182,11 @@ export class DataExporterComponent implements OnInit {
 
         const csvFile = this.csvExporterService.createCsv(rows);
         this.csvExporterService.downloadCsvFile(csvFile, this.fileName);
-    };
+    }
 
-    private updateProgress = (progress: number) => {
+    private updateProgress(progress: number): void {
         this._progress = progress;
-    };
+    }
 
     private getDisplayNameForField(fieldName: string): string {
         for (const column of this.columns) {
