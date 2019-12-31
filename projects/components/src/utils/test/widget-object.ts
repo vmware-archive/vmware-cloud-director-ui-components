@@ -29,7 +29,7 @@ export abstract class WidgetObject<T> {
     /**
      *
      * Constructor should only be called directly if you are directly instantiating the widget being wrapped (T). If you
-     * need to find a widget within the tree, you should use {@link findWidget}.
+     * need to find a widget within the tree, you should use {@link find}.
      *
      * @param component The component instance being managed. Whenever possible, we should access the component's API.
      * @param root The root element (host) for the component instance. We typically prefer to interact with the
@@ -45,14 +45,6 @@ export abstract class WidgetObject<T> {
 
     detectChanges(): void {
         this.fixture.detectChanges();
-    }
-
-    /**
-     * Call to destroy the fixture and to remove element from the DOM
-     */
-    destroy(): void {
-        this.fixture.destroy();
-        this.fixture.debugElement.nativeElement.remove();
     }
 
     /**
@@ -204,6 +196,7 @@ export class WidgetFinder<H = unknown> {
 
     destroy(): void {
         this.fixture.destroy();
+        this.fixture.debugElement.nativeElement.remove();
     }
 }
 

@@ -71,7 +71,7 @@ export class ComponentRendererOutletDirective<R, T> {
     /**
      * Updates the configuration of instantiated component
      */
-    private assignValue(config: (r: R) => T | T, context: R): void {
+    private assignValue(config: ((r: R) => T) | T, context: R): void {
         if (!this.componentRef || !this.componentRef.instance) {
             return;
         }

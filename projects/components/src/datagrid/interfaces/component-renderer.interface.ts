@@ -41,7 +41,7 @@ export interface ComponentRendererSpec<R, V> {
      * @param value An object to be transformed into {@link ComponentRenderer#config}. It's passed in by the calling
      * component
      */
-    config: (value?: R) => V | V;
+    config: ((value?: R) => V) | V;
 }
 
 /**
@@ -59,10 +59,11 @@ export interface ComponentRendererSpec<R, V> {
 export function RendererSpec<R, C>(componentRendererSpec: {
     type: ComponentRendererConstructor<C>;
     /**
-     *  This makes the return type be not used as the inference site for C and instead use the constructor type from the first argument.
+     *  'C & {}' makes the return type be not used as the inference site for C and instead use the constructor type from
+     *  the first argument.
      *  {@link https://stackoverflow.com/questions/59055154/typescript-generics-infer-type-from-the-type-of-function-arguments}
      */
-    config: (record?: R) => C & {};
+    config: ((record?: R) => C & {}) | C;
 }): ComponentRendererSpec<R, C> {
     return componentRendererSpec;
 }
