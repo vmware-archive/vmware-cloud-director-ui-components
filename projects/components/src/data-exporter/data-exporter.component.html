@@ -1,4 +1,4 @@
-<clr-modal [clrModalOpen]="open" (clrModalOpenChange)="openChange.emit($event)" [clrModalSize]="'sm'">
+<clr-modal [clrModalOpen]="open" (clrModalOpenChange)="openChange.emit($event)" [clrModalSize]="'sm'" #modal>
     <h3 class="modal-title">{{ dialogHeader }}</h3>
     <div class="modal-body">
         <button
@@ -10,7 +10,7 @@
         >
             Select All
         </button>
-        <ul class="list-unstyled" [formGroup]="formGroup">
+        <ul class="list-unstyled column-selection" [formGroup]="formGroup">
             <li *ngFor="let col of columns">
                 <clr-checkbox-wrapper>
                     <input type="checkbox" clrCheckbox [formControlName]="col.fieldName" />
@@ -25,8 +25,10 @@
     <hr />
 
     <div class="modal-footer">
-        <button type="button" class="btn btn-outline" (click)="open = false">Cancel</button>
-        <button type="button" class="btn btn-primary" [disabled]="!isExportEnabled" (click)="onClickExport()">
+        <button type="button" class="btn btn-outline cancel" (click)="open = false">
+            Cancel
+        </button>
+        <button type="button" class="btn btn-primary export" [disabled]="!isExportEnabled" (click)="onClickExport()">
             Export
         </button>
     </div>

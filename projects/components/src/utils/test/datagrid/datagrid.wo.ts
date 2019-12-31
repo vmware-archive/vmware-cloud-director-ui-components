@@ -11,19 +11,18 @@ const ROW_TAG = 'clr-dg-row';
 const CELL_TAG = 'clr-dg-cell';
 const COLUMN_CSS_SELECTOR = '.datagrid-column';
 
+/**
+ * Can be used by anyone who needs to assert information about a Clarity DataGrid
+ */
 export class DatagridWidgetObject extends WidgetObject<ClrDatagrid> {
     static tagName = `clr-datagrid`;
 
-    private getCell(row: number, column: number): Element {
-        return this.root.nativeElement.querySelectorAll(ROW_TAG)[row].querySelectorAll(CELL_TAG)[column];
-    }
-
     getCellText(row: number, column: number): string {
-        return this.getText(this.getCell(row, column));
+        return this.getText(`${ROW_TAG}:nth-of-type(${row + 1}) ${CELL_TAG}:nth-of-type(${column + 1})`);
     }
 
     private get columns(): DebugElement[] {
-        return this.findElements(COLUMN_CSS_SELECTOR, this.root);
+        return this.findElements(COLUMN_CSS_SELECTOR);
     }
 
     get columnCount(): number {
@@ -31,15 +30,15 @@ export class DatagridWidgetObject extends WidgetObject<ClrDatagrid> {
     }
 
     getColumnHeader(columnIndex: number): string {
-        return this.getText(this.columns[columnIndex]);
+        return this.getText(`${COLUMN_CSS_SELECTOR}:nth-of-type(${columnIndex + 1})`);
     }
 
     get columnHeaders(): string[] {
-        return this.columns.map(col => this.getText(col));
+        return this.getTexts(COLUMN_CSS_SELECTOR);
     }
 
     private get rows(): DebugElement[] {
-        return this.root.nativeElement.querySelectorAll(ROW_TAG);
+        return this.findElements(ROW_TAG);
     }
 
     get rowCount(): number {

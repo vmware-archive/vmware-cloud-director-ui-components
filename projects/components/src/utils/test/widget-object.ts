@@ -47,6 +47,9 @@ export abstract class WidgetObject<T> {
         this.fixture.detectChanges();
     }
 
+    /**
+     * Call to destroy the fixture and to remove element from the DOM
+     */
     destroy(): void {
         this.fixture.destroy();
         this.fixture.debugElement.nativeElement.remove();
@@ -57,17 +60,14 @@ export abstract class WidgetObject<T> {
      * @param cssSelector What to search for
      * @param parent Where to start the search; defaults to the root of this component
      */
-    protected findElement(cssSelector?: string, parent: DebugElement = this.root): DebugElement {
-        if (!cssSelector) {
-            return parent;
-        }
+    protected findElement(cssSelector: string, parent: DebugElement = this.root): DebugElement {
         return parent.query(By.css(cssSelector));
     }
 
-    protected findElements(cssSelector?: string, parent: DebugElement = this.root): DebugElement[] {
-        if (!cssSelector) {
-            throw Error(`A css selector of desired elements is expected`);
-        }
+    /**
+     * Same as {@link findElement} but returns all elements
+     */
+    protected findElements(cssSelector: string, parent: DebugElement = this.root): DebugElement[] {
         return parent.queryAll(By.css(cssSelector));
     }
 
@@ -84,18 +84,25 @@ export abstract class WidgetObject<T> {
 
     /**
      * Returns text content of this widget
-     * @param val Pass this in if you want to retrieve text for a specific element within this widget.
+     * @param cssSelector Pass this in if you want to retrieve text for a specific element within this widget.
      */
-    protected getText(val?: Element | DebugElement | string): string {
-        let nativeElement;
-        if (!val) {
-            nativeElement = this.root.nativeElement;
-        } else if (typeof val === 'string') {
-            nativeElement = this.findElement(val).nativeElement;
-        } else {
-            nativeElement = (val as DebugElement).nativeElement || val;
-        }
-        return nativeElement.textContent.trim() || '';
+
+    protected getText(cssSelector: string): string {
+        return this.getNodeText(this.findElement(cssSelector));
+    }
+
+    /**
+     * Same as {@link getText} but return the text for all matching nodes
+     */
+    protected getTexts(cssSelector: string): string[] {
+        return this.findElements(cssSelector).map(el => this.getNodeText(el));
+    }
+
+    protected getNodeText(el: DebugElement): string {
+        // The || '' is because textContent could technically be null when passed in the document
+        // element object. We know that cannot be pased in here, so we ignore it for coverage
+        // but we still need the line there to make strictNullChecks work
+        return el.nativeElement.textContent || /* istanbul ignore next */ '';
     }
 }
 
@@ -131,26 +138,36 @@ interface FindParams<T> {
 
 /**
  * Finds instances that implement {@link FindableWidget}
+ * H is the host component's type
  */
-export class WidgetFinder {
+export class WidgetFinder<H = unknown> {
     /**
      * We don't care or could possibly know the type of fixture
      */
-    public fixture: ComponentFixture<unknown>;
+    private fixture: ComponentFixture<H>;
+
+    /**
+     * If you need direct access to manipulate the host
+     */
+    public hostComponent: H;
 
     /**
      * @param componentConstructor The host component to be created as the root of the tests's fixture
      */
-    constructor(componentConstructor: Type<unknown>) {
+    constructor(componentConstructor: Type<H>) {
         this.fixture = TestBed.createComponent(componentConstructor);
+        this.hostComponent = this.fixture.componentInstance;
     }
 
     /**
      * Finds widgets within a fixture
      * @return A Potentially empty list of widgets matching the given specs
      */
-    public findWidgets<C, T extends FindableWidget<C>>(params: FindParams<T>): InstanceType<T>[] {
-        const { woConstructor, ancestor = this.fixture.debugElement, className = '' } = params;
+    public findWidgets<C, T extends FindableWidget<C>>(params: FindParams<T> | T): InstanceType<T>[] {
+        const defaults = { ancestor: this.fixture.debugElement, className: '' };
+        const { woConstructor, ancestor, className } = isFindParamsObject(params)
+            ? { ...defaults, ...params }
+            : { ...defaults, woConstructor: params };
 
         let query = woConstructor.tagName;
         if (className) {
@@ -161,7 +178,7 @@ export class WidgetFinder {
             // Typescript is not able to infer it correctly as the subclass but we know for sure
             root => new woConstructor(this.fixture, root, root.componentInstance) as InstanceType<T>
         );
-        widgets.forEach(widget => widget.detectChanges());
+        this.fixture.detectChanges();
         return widgets;
     }
 
@@ -169,15 +186,20 @@ export class WidgetFinder {
      * Finds a single widget object
      * @throws An error if the widget is not found or if there are multiple instances
      */
-    public find<C, T extends FindableWidget<C>>(params: FindParams<T>): InstanceType<T> {
+    public find<C, T extends FindableWidget<C>>(params: FindParams<T> | T): InstanceType<T> {
         const widgets = this.findWidgets(params);
+        const tagName = isFindParamsObject(params) ? params.woConstructor.tagName : params.tagName;
         if (widgets.length === 0) {
-            throw Error(`Did not find a <${params.woConstructor.tagName}>`);
+            throw Error(`Did not find a <${tagName}>`);
         }
         if (widgets.length > 1) {
-            throw Error(`Expected to find a single <${params.woConstructor.tagName}> but found ${widgets.length}`);
+            throw Error(`Expected to find a single <${tagName}> but found ${widgets.length}`);
         }
         return widgets[0] as InstanceType<T>;
+    }
+
+    public detectChanges(): void {
+        this.fixture.detectChanges();
     }
 
     destroy(): void {
@@ -185,9 +207,12 @@ export class WidgetFinder {
     }
 }
 
+function isFindParamsObject<T>(params: FindParams<T> | T): params is FindParams<T> {
+    return !!(params as FindParams<T>).woConstructor;
+}
 /**
  * Can be used in tests that use `this` to share a finder with before/AfterEach instead of leaky closures
  */
-export interface HasFinder {
-    finder: WidgetFinder;
+export interface HasFinder<T = unknown> {
+    finder: WidgetFinder<T>;
 }
