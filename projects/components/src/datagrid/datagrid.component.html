@@ -1,19 +1,15 @@
 <clr-datagrid [clrDgLoading]="isLoading">
-    <clr-dg-column *ngFor="let column of columnsConfig">
-        {{ column.displayName }}
-    </clr-dg-column>
+    <clr-dg-column *ngFor="let column of columnsConfig">{{ column.displayName }}</clr-dg-column>
 
     <clr-dg-row *ngFor="let restItem of items">
         <clr-dg-cell *ngFor="let column of columnsConfig">
             <!-- Default renderer -->
-            <ng-container *ngIf="column.fieldName">
-                {{ restItem | nestedProperty: column.fieldName }}
-            </ng-container>
+            <ng-container *ngIf="column.fieldName">{{ restItem | nestedProperty: column.fieldName }}</ng-container>
 
             <!-- Renderer is a function -->
-            <ng-container *ngIf="column.fieldRenderer">
-                <span>{{ restItem | functionRenderer: column.fieldRenderer }}</span>
-            </ng-container>
+            <ng-container *ngIf="column.fieldRenderer">{{
+                restItem | functionRenderer: column.fieldRenderer
+            }}</ng-container>
 
             <!-- Renderer is a componentRenderer -->
             <ng-template

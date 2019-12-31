@@ -18,19 +18,17 @@ export interface BoldTextRendererConfig {
 
 /**
  * A {@link ComponentRenderer} component that is used for rendering a bold text inside a column cell template
- * It takes {@link ComponentRenderer.config} of type BoldTextRendererConfig as input. This is used as a context for the
- * content inside it's HTML. {@link RendererSpec} function is used to pass the config with type safety.
  *
- * Example usage with RendererSpec:
- * columns: GridColumn<MockRecord>[] = [
- *   {
- *     displayName: 'Component Renderer',
- *     renderer: RendererSpec(
- *       BoldTextRendererComponent,
- *       (record: MockRecord) => ({text: record.name})
- *     )
- *   }
- * ];
+ * @example Example usage with RendererSpec:
+ *     columns: GridColumn<MockRecord>[] = [
+ *       {
+ *         displayName: 'Component Renderer',
+ *         renderer: RendererSpec(
+ *           BoldTextRendererComponent,
+ *           (record: MockRecord) => ({text: record.name})
+ *         )
+ *       }
+ *     ];
  */
 @Component({
     template: `

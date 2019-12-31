@@ -3,8 +3,8 @@
  * SPDX-License-Identifier: BSD-2-Clause
  */
 
-import { TestBed, async } from '@angular/core/testing';
-import { Component, DebugElement, Input, Type } from '@angular/core';
+import { TestBed, async, ComponentFixture } from '@angular/core/testing';
+import { Component, Input, Type } from '@angular/core';
 import { HasFinder, WidgetFinder, WidgetObject } from './widget-object';
 
 /**
@@ -36,7 +36,7 @@ class ClickTrackerWidgetObject extends WidgetObject<ClickTrackerComponent> {
     static tagName = 'vcd-click-tracker';
 
     get clickCount(): number {
-        // If we wanted to use the instance, but we want to show base functionali
+        // If we wanted to use the instance, but we want to show base functionality
         // return this.component.clickCount;
         return Number(this.getText('.click-count'));
     }
@@ -142,8 +142,12 @@ describe('WidgetFinder', () => {
     });
 });
 
+/**
+ * Test object for the tests below
+ */
 interface HasClickTracker {
     clickTracker: ClickTrackerWidgetObject;
+    fixture: ComponentFixture<ClickTrackerComponent>;
 }
 
 /**
@@ -151,19 +155,19 @@ interface HasClickTracker {
  * in the concrete {@link ClickTrackerWidgetObject}
  */
 describe('WidgetObject (through ClickTracerWidgetObject)', () => {
-    beforeEach(async(function(this: HasClickTracker): void {
-        TestBed.configureTestingModule({
+    beforeEach(async function(this: HasClickTracker): Promise<void> {
+        await TestBed.configureTestingModule({
             declarations: [ClickTrackerComponent],
         }).compileComponents();
 
-        const fixture = TestBed.createComponent(ClickTrackerComponent);
-        fixture.detectChanges();
-        this.clickTracker = new ClickTrackerWidgetObject(fixture);
-    }));
+        this.fixture = TestBed.createComponent(ClickTrackerComponent);
+        this.fixture.detectChanges();
+        this.clickTracker = new ClickTrackerWidgetObject(this.fixture);
+    });
 
     afterEach(function(this: HasClickTracker): void {
-        if (this.clickTracker) {
-            this.clickTracker.destroy();
+        if (this.fixture) {
+            this.fixture.destroy();
         }
     });
 

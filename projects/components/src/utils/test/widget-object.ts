@@ -48,14 +48,6 @@ export abstract class WidgetObject<T> {
     }
 
     /**
-     * Call to destroy the fixture and to remove element from the DOM
-     */
-    destroy(): void {
-        this.fixture.destroy();
-        this.fixture.debugElement.nativeElement.remove();
-    }
-
-    /**
      * Finds first element within this widget matching the given selector
      * @param cssSelector What to search for
      * @param parent Where to start the search; defaults to the root of this component
@@ -204,6 +196,7 @@ export class WidgetFinder<H = unknown> {
 
     destroy(): void {
         this.fixture.destroy();
+        this.fixture.debugElement.nativeElement.remove();
     }
 }
 
