@@ -9,3 +9,5 @@
 
 export * from './data-exporter/data-exporter.component';
 export * from './data-exporter/data-exporter.module';
+export * from './datagrid/datagrid.component';
+export * from './datagrid/datagrid.module';

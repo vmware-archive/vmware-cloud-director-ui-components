@@ -9,39 +9,68 @@ import { ClrDatagrid } from '@clr/angular';
 
 const ROW_TAG = 'clr-dg-row';
 const CELL_TAG = 'clr-dg-cell';
-const COLUMN_CSS_SELECTOR = '.datagrid-column';
+const COLUMN_CSS_SELECTOR = '.datagrid-column-title';
 
 /**
- * Can be used by anyone who needs to assert information about a Clarity DataGrid
+ * Widget Object for a Clarity DataGrid
  */
-export class DatagridWidgetObject extends WidgetObject<ClrDatagrid> {
+export class ClrDatagridWidgetObject extends WidgetObject<ClrDatagrid> {
     static tagName = `clr-datagrid`;
 
+    /**
+     * Retrieves the text content of a cell
+     * @param row 0-based index of row
+     * @param column 0-based index of column
+     */
     getCellText(row: number, column: number): string {
-        return this.getText(`${ROW_TAG}:nth-of-type(${row + 1}) ${CELL_TAG}:nth-of-type(${column + 1})`);
+        return this.getNodeText(this.getCell(row, column));
     }
 
-    private get columns(): DebugElement[] {
-        return this.findElements(COLUMN_CSS_SELECTOR);
-    }
-
+    /**
+     * Returns the number of visible columns
+     */
     get columnCount(): number {
         return this.component.columns ? this.component.columns.length : this.columns.length;
     }
 
+    /**
+     * Returns the text for a header
+     * @param columnIndex 0-based index of header to retrieve
+     */
     getColumnHeader(columnIndex: number): string {
         return this.getText(`${COLUMN_CSS_SELECTOR}:nth-of-type(${columnIndex + 1})`);
     }
 
+    /**
+     * Returns an array of the texts for columns, in DOM order
+     */
     get columnHeaders(): string[] {
         return this.getTexts(COLUMN_CSS_SELECTOR);
+    }
+
+    /**
+     * Returns the number of rows currently displayed
+     */
+    get rowCount(): number {
+        return this.rows.length;
+    }
+
+    /**
+     * Can be used by subclasses to create methods that assert about HTML in custom rendered columns. Note that
+     * subclasses should not return the DebugElement, they should return a string from a section of the HTML.
+     *
+     * @param row 0-based index of row
+     * @param column 0-based index of column
+     */
+    protected getCell(row: number, column: number): DebugElement {
+        return this.findElement(`${ROW_TAG}:nth-of-type(${row + 1}) ${CELL_TAG}:nth-of-type(${column + 1})`);
     }
 
     private get rows(): DebugElement[] {
         return this.findElements(ROW_TAG);
     }
 
-    get rowCount(): number {
-        return this.rows.length;
+    private get columns(): DebugElement[] {
+        return this.findElements(COLUMN_CSS_SELECTOR);
     }
 }

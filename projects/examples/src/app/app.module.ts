@@ -18,7 +18,6 @@ import { FormsModule } from '@angular/forms';
 
 import localeFr from '@angular/common/locales/fr';
 import localeEs from '@angular/common/locales/es';
-import { ComponentsModule } from '../../../components/src/lib/components.module';
 
 registerLocaleData(localeFr, 'fr');
 registerLocaleData(localeEs, 'es');
@@ -49,7 +48,6 @@ function getSupportedLocale(): string {
         DocLibModule,
         ClarityModule,
         BrowserAnimationsModule,
-        ComponentsModule,
         DocLibModule,
         ClarityModule,
         BrowserAnimationsModule,
