@@ -1,0 +1,10 @@
+<clr-tooltip>
+    <div #cliptextContainer clrTooltipTrigger class="cliptext-container text-truncate">
+        <ng-content></ng-content>
+    </div>
+    <clr-tooltip-content aria-hidden="true" *clrIfOpen [clrPosition]="tooltipPosition" [clrSize]="size">
+        <span>
+            {{ tooltipText }}
+        </span>
+    </clr-tooltip-content>
+</clr-tooltip>

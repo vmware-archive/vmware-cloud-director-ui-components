@@ -1,0 +1,9 @@
+<label>Dynamic text:</label>
+<input placeholder="Write some text" [formControl]="dynamicText" />
+
+<p>
+    Modify the input above and observe the text:
+    <vcd-cliptext class="inline-clip">{{ dynamicText.value }}</vcd-cliptext>
+    You can try with long and short text. There is no tooltip when the text fits the provided width.
+</p>
+<p>The toolptip is updated upon display.</p>
