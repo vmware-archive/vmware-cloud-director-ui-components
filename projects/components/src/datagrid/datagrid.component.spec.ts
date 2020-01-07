@@ -90,6 +90,45 @@ describe('DatagridComponent', () => {
             it('displays rows based on the grid data received', function(this: HasFinderAndGrid): void {
                 expect(this.clrGridWidget.rowCount).toBe(mockData.length);
             });
+
+            it('should return the proper css class for the grid', function(this: HasFinderAndGrid): void {
+                expect(this.clrGridWidget.gridCssClass).toContain('some_class');
+            });
+
+            it('sets no default CSS classnames for the rows', function(this: HasFinderAndGrid): void {
+                expect(this.clrGridWidget.rowsCssClass[0]).toEqual(['datagrid-row', 'datagrid-selected']);
+            });
+
+            it('sets CSS classnames on rows', function(this: HasFinderAndGrid): void {
+                const firstCall = ['firstRowA', 'secondRowA'];
+                const secondCall = ['firstRowB', 'secondRowB'];
+
+                this.finder.hostComponent.clrDatarowCssClass = (rec: MockRecord, index: number) => {
+                    return firstCall[index];
+                };
+                this.finder.detectChanges();
+                expect(this.clrGridWidget.rowsCssClass[0]).toContain(
+                    'firstRowA',
+                    'Expected the initial class to display for the first row.'
+                );
+                expect(this.clrGridWidget.rowsCssClass[1]).toContain(
+                    'secondRowA',
+                    'Expected some different initial class to display for the second row.'
+                );
+
+                this.finder.hostComponent.clrDatarowCssClass = (rec: MockRecord, index: number) => {
+                    return secondCall[index];
+                };
+                this.finder.detectChanges();
+                expect(this.clrGridWidget.rowsCssClass[0]).toContain(
+                    'firstRowB',
+                    'Expected a new class to display for the first row.'
+                );
+                expect(this.clrGridWidget.rowsCssClass[1]).toContain(
+                    'secondRowB',
+                    'Expected a different new class to display for the second row.'
+                );
+            });
         });
 
         it('displays loading indicators while data is loading', function(this: HasFinderAndGrid): void {
@@ -206,7 +245,13 @@ describe('DatagridComponent', () => {
 
 @Component({
     template: `
-        <vcd-datagrid [gridData]="gridData" (gridRefresh)="refresh($event)" [columns]="columns"></vcd-datagrid>
+        <vcd-datagrid
+            [gridData]="gridData"
+            (gridRefresh)="refresh($event)"
+            [columns]="columns"
+            [clrDatagridCssClass]="clrDatagridCssClass"
+            [clrDatarowCssClassGetter]="clrDatarowCssClass"
+        ></vcd-datagrid>
     `,
 })
 export class HostWithDatagridComponent {
@@ -220,8 +265,25 @@ export class HostWithDatagridComponent {
     @ViewChild(DatagridComponent, { static: false }) grid!: MockRecordDatagridComponent;
 
     /** Will be set in tests */
-    columns: GridColumn<MockRecord>[] = [];
+    columns: GridColumn<MockRecord>[] = [
+        {
+            displayName: 'Default Renderer',
+            renderer: 'details.gender',
+        },
+    ];
 
-    /** Will be mocked in tests */
-    refresh(event: GridState<MockRecord>): void {}
+    clrDatagridCssClass = 'some_class';
+
+    clrDatarowCssClass(a: MockRecord, index: number): string {
+        return '';
+    }
+
+    refresh(eventData: GridState<MockRecord>): void {
+        this.gridData = {
+            items: mockData,
+            totalItems: 2,
+            pageSize: 2,
+            page: 1,
+        };
+    }
 }

@@ -123,6 +123,11 @@ export class DatagridComponent<R> implements OnInit {
     selectionType: GridSelectionType.None;
 
     /**
+     * The CSS class to use for the Clarity datagrid.
+     */
+    @Input() clrDatagridCssClass = '';
+
+    /**
      * Fired whenever the selection changes. The event data is array of rows selected. The array will contain only one
      * element in case of single selection
      */
@@ -209,6 +214,13 @@ export class DatagridComponent<R> implements OnInit {
     gridRefresh: EventEmitter<GridState<R>> = new EventEmitter<GridState<R>>();
 
     @ViewChild(ClrDatagridFilter, { static: false }) numericFilter: ClrDatagridFilter;
+
+    /**
+     * Gives the CSS class to use for a given datarow based on it's relative index and entity definition.
+     */
+    @Input() clrDatarowCssClassGetter(row: R, index: number): string {
+        return '';
+    }
 
     ngOnInit(): void {
         this.isLoading = true;
