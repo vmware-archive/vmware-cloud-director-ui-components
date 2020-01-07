@@ -4,7 +4,7 @@
  */
 
 import { Component, EventEmitter, Input, OnInit, Output, TemplateRef, ViewChild } from '@angular/core';
-import { FunctionRenderer, GridColumn } from './interfaces/datagrid-column.interface';
+import { FunctionRenderer, GridColumn, GridColumnHideable } from './interfaces/datagrid-column.interface';
 import { ClrDatagridFilter } from '@clr/angular';
 import { ComponentRendererSpec } from './interfaces/component-renderer.interface';
 
@@ -94,6 +94,8 @@ interface ColumnConfigInternal<R, T> extends GridColumn<R> {
     templateUrl: './datagrid.component.html',
 })
 export class DatagridComponent<R> implements OnInit {
+    GridColumnHideable = GridColumnHideable;
+
     /**
      * Sets the configuration of columns on the grid and updates the {@link columnsConfig} array
      */
@@ -211,6 +213,10 @@ export class DatagridComponent<R> implements OnInit {
     ngOnInit(): void {
         this.isLoading = true;
         this.gridRefresh.emit({});
+    }
+
+    isColumnHideable(column: GridColumn<R>): boolean {
+        return column && column.hideable && column.hideable !== GridColumnHideable.Never;
     }
 
     /**

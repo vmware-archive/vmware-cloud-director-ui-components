@@ -76,7 +76,7 @@ export interface GridColumn<R> {
     renderer: string | FunctionRenderer<R> | ComponentRendererSpec<R, unknown>;
 
     /**
-     * Whether the column shows up in the column toggler and if teh column shows up, it reflects the toggle state
+     * Whether the column shows up in the column toggler and if the column shows up, it reflects the toggle state
      */
     hideable?: GridColumnHideable;
 

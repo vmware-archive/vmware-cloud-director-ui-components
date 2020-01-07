@@ -1,5 +1,12 @@
 <clr-datagrid [clrDgLoading]="isLoading">
-    <clr-dg-column *ngFor="let column of columnsConfig">{{ column.displayName }}</clr-dg-column>
+    <clr-dg-column *ngFor="let column of columnsConfig">
+        <ng-container *ngIf="isColumnHideable(column); else notHideable">
+            <ng-container *clrDgHideableColumn="{ hidden: column.hideable === GridColumnHideable.Hidden }">{{
+                column.displayName
+            }}</ng-container>
+        </ng-container>
+        <ng-template #notHideable>{{ column.displayName }}</ng-template>
+    </clr-dg-column>
 
     <clr-dg-row *ngFor="let restItem of items">
         <clr-dg-cell *ngFor="let column of columnsConfig">
@@ -19,4 +26,6 @@
             </ng-template>
         </clr-dg-cell>
     </clr-dg-row>
+
+    <clr-dg-footer> </clr-dg-footer>
 </clr-datagrid>
