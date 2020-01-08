@@ -3,10 +3,6 @@
  * SPDX-License-Identifier: BSD-2-Clause
  */
 
-/*
- * Copyright 2019 VMware, Inc. All rights reserved.
- */
-
 import { AfterViewInit, ChangeDetectorRef, Component, ElementRef, Input, ViewChild } from '@angular/core';
 import { ClrIfOpen, ClrTooltipContent } from '@clr/angular';
 

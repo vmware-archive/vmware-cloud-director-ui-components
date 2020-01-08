@@ -3,9 +3,6 @@
  * SPDX-License-Identifier: BSD-2-Clause
  */
 
-/*
- * Copyright 2019 VMware, Inc. All rights reserved.
- */
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { CliptextComponent } from './cliptext.component';
