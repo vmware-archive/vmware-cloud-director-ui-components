@@ -94,8 +94,6 @@ describe('DatagridComponent', () => {
 
         it('displays loading indicators while data is loading', function(this: HasFinderAndGrid): void {
             spyOn(this.finder.hostComponent, 'refresh').and.callFake(() => {
-                // The datagrid's loading flag is set, but change detection is required for its crl grid to be updated
-                // expect(this.finder.hostComponent.grid.isLoading).toBe(true);
                 this.finder.detectChanges();
                 expect(this.clrGridWidget.component.loading).toBe(true, 'Initially loading indicator should be true');
                 this.finder.hostComponent.gridData = {
@@ -110,7 +108,6 @@ describe('DatagridComponent', () => {
                     'After setting gridData, loading indicator should not be visible'
                 );
             });
-            // This initializes the component
             this.finder.detectChanges();
         });
     });
