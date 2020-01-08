@@ -9,6 +9,7 @@ import { ClrDatagrid } from '@clr/angular';
 
 const ROW_TAG = 'clr-dg-row';
 const CELL_TAG = 'clr-dg-cell';
+const COLUMN_SELECTOR = 'clr-dg-column';
 const COLUMN_CSS_SELECTOR = '.datagrid-column-title';
 
 /**
@@ -53,6 +54,13 @@ export class ClrDatagridWidgetObject extends WidgetObject<ClrDatagrid> {
      */
     get rowCount(): number {
         return this.rows.length;
+    }
+
+    /**
+     * Returns whether or not the column with the given index is displayed by the CSS.
+     */
+    isColumnDisplayed(index: number): boolean {
+        return this.findElements(COLUMN_SELECTOR)[index].classes['datagrid-hidden-column'] !== true;
     }
 
     /**
