@@ -170,7 +170,6 @@ export class WidgetFinder<H = unknown> {
             // Typescript is not able to infer it correctly as the subclass but we know for sure
             root => new woConstructor(this.fixture, root, root.componentInstance) as InstanceType<T>
         );
-        this.fixture.detectChanges();
         return widgets;
     }
 
@@ -192,11 +191,6 @@ export class WidgetFinder<H = unknown> {
 
     public detectChanges(): void {
         this.fixture.detectChanges();
-    }
-
-    destroy(): void {
-        this.fixture.destroy();
-        this.fixture.debugElement.nativeElement.remove();
     }
 }
 

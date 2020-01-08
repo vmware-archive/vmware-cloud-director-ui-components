@@ -3,15 +3,16 @@
  * SPDX-License-Identifier: BSD-2-Clause
  */
 
-import { Component } from '@angular/core';
-import { GridDataFetchResult, GridState } from './datagrid.component';
+import { Component, ViewChild } from '@angular/core';
+import { DatagridComponent, GridDataFetchResult, GridState } from './datagrid.component';
 import { GridColumn } from './interfaces/datagrid-column.interface';
 import { TestBed } from '@angular/core/testing';
 import { DatagridModule } from './datagrid.module';
 import { RendererSpec } from './interfaces/component-renderer.interface';
-import { HasFinder, WidgetFinder } from '../utils/test/widget-object';
+import { WidgetFinder } from '../utils/test/widget-object';
 import { BoldTextRendererComponent } from './renderers/bold-text-renderer.component';
 import { ClrDatagridWidgetObject } from '../utils/test/datagrid/datagrid.wo';
+import { WithGridBoldRenderer } from './renderers/bold-text-renderer.wo';
 
 export interface MockRecord {
     name: string;
@@ -44,98 +45,114 @@ export const mockData: MockRecord[] = [
     },
 ];
 
-interface HasClrDatagrid {
-    datagrid: TestDataGrid;
+type MockRecordDatagridComponent = DatagridComponent<MockRecord>;
+
+class GridWithBoldRenderer extends WithGridBoldRenderer(ClrDatagridWidgetObject) {}
+
+interface HasFinderAndGrid {
+    finder: WidgetFinder<HostWithDatagridComponent>;
+    // The Widget Object for the underlying Clarity grid
+    clrGridWidget: GridWithBoldRenderer;
+    // The instance of DatagridComponent
+    component: MockRecordDatagridComponent;
 }
 
-type HasFinderAndGrid = HasFinder<HostWithDatagridComponent> & HasClrDatagrid;
-
-const FIRST_ROW = 0;
-
-const ComponentRenderer = 0;
-const FunctionRenderer = 1;
-const DefaultRenderer = 2;
-
-describe('ClrDatagridComponent', () => {
+describe('DatagridComponent', () => {
     beforeEach(async function(this: HasFinderAndGrid): Promise<void> {
         await TestBed.configureTestingModule({
             imports: [DatagridModule],
             declarations: [HostWithDatagridComponent],
         }).compileComponents();
-        this.finder = new WidgetFinder(HostWithDatagridComponent);
-        this.datagrid = this.finder.find(TestDataGrid);
-        // This does not render the data on the grid
-        // detectChanges must be called again since we are updating the
-        // grid data synchronously (in this test only) from an event handler
-    });
 
-    afterEach(function(this: HasFinderAndGrid): void {
-        if (this.finder) {
-            this.finder.destroy();
-        }
+        this.finder = new WidgetFinder(HostWithDatagridComponent);
+        this.clrGridWidget = this.finder.find(GridWithBoldRenderer);
     });
 
     describe('Grid', () => {
         describe('', () => {
             beforeEach(function(this: HasFinderAndGrid): void {
+                this.finder.hostComponent.columns = [
+                    { displayName: 'Name', renderer: 'name' },
+                    { displayName: 'City', renderer: 'city' },
+                ];
                 this.finder.detectChanges();
             });
             it('displays number of columns', function(this: HasFinderAndGrid): void {
-                expect(this.datagrid.columnCount).toBe(this.finder.hostComponent.columns.length);
+                expect(this.clrGridWidget.columnCount).toBe(this.finder.hostComponent.columns.length);
             });
 
             it('displays columns with headers', function(this: HasFinderAndGrid): void {
-                expect(this.finder.hostComponent.columns.map(col => col.displayName)).toEqual(
-                    this.datagrid.columnHeaders
+                expect(this.clrGridWidget.columnHeaders).toEqual(
+                    this.finder.hostComponent.columns.map(col => col.displayName)
                 );
             });
 
-            it('displays rows based on the grid data received', function(this: HasClrDatagrid): void {
-                expect(this.datagrid.rowCount).toEqual(mockData.length);
+            it('displays rows based on the grid data received', function(this: HasFinderAndGrid): void {
+                expect(this.clrGridWidget.rowCount).toBe(mockData.length);
             });
         });
 
-        it('displays loading indicators while data is loading initially', function(this: HasFinderAndGrid): void {
-            expect(this.datagrid.component.loading).toBe(true);
-            // Change detection will call `@Input() set gridData`, which is typically done asynchronously but
-            // synchronously in this test
-            this.datagrid.detectChanges();
-            expect(this.datagrid.component.loading).toBe(false);
+        it('displays loading indicators while data is loading', function(this: HasFinderAndGrid): void {
+            spyOn(this.finder.hostComponent, 'refresh').and.callFake(() => {
+                this.finder.detectChanges();
+                expect(this.clrGridWidget.component.loading).toBe(true, 'Initially loading indicator should be true');
+                this.finder.hostComponent.gridData = {
+                    items: mockData,
+                    totalItems: 2,
+                    pageSize: 2,
+                    page: 1,
+                };
+                this.finder.detectChanges();
+                expect(this.clrGridWidget.component.loading).toBe(
+                    false,
+                    'After setting gridData, loading indicator should not be visible'
+                );
+            });
+            this.finder.detectChanges();
         });
     });
 
     describe('Column Renderers', () => {
-        beforeEach(function(this: HasFinderAndGrid): void {
-            this.finder.detectChanges();
-        });
         describe('Default renderer', () => {
             it('uses property path from  "renderer" property of column config ', function(this: HasFinderAndGrid): void {
-                expect(this.datagrid.getCellText(FIRST_ROW, DefaultRenderer)).toEqual(mockData[0].details.gender);
+                this.finder.hostComponent.columns = [{ displayName: '', renderer: 'details.gender' }];
+                this.finder.detectChanges();
+                expect(this.clrGridWidget.getCellText(0, 0)).toEqual(mockData[0].details.gender);
             });
         });
 
         describe('Function renderer', () => {
             it('renders the string returned from the renderer function', function(this: HasFinderAndGrid): void {
-                expect(this.datagrid.getCellText(FIRST_ROW, FunctionRenderer)).toEqual(
-                    `${mockData[0].city}, ${mockData[0].state}`
-                );
+                this.finder.hostComponent.columns = [
+                    {
+                        displayName: 'Function Renderer',
+                        renderer: record => `${record.city}, ${record.state}`,
+                    },
+                ];
+                this.finder.detectChanges();
+                expect(this.clrGridWidget.getCellText(0, 0)).toEqual(`${mockData[0].city}, ${mockData[0].state}`);
             });
         });
 
         describe('Component renderer', () => {
             it('renders the passed in component using config from RendererSpec', function(this: HasFinderAndGrid): void {
-                expect(this.datagrid.getBoldText(FIRST_ROW, ComponentRenderer)).toBe(mockData[0].name);
+                this.finder.hostComponent.columns = [
+                    {
+                        displayName: 'Component Renderer',
+                        renderer: RendererSpec({
+                            type: BoldTextRendererComponent,
+                            config: record => ({
+                                text: record.name,
+                            }),
+                        }),
+                    },
+                ];
+                this.finder.detectChanges();
+                expect(this.clrGridWidget.getBoldText(0, 0)).toBe(mockData[0].name);
             });
         });
     });
 });
-
-class TestDataGrid extends ClrDatagridWidgetObject {
-    getBoldText(row: number, column: number): string {
-        const cellElement = this.getCell(row, column);
-        return this.getNodeText(this.findElement('strong', cellElement));
-    }
-}
 
 @Component({
     template: `
@@ -144,37 +161,17 @@ class TestDataGrid extends ClrDatagridWidgetObject {
 })
 export class HostWithDatagridComponent {
     gridData: GridDataFetchResult<MockRecord> = {
-        items: [],
+        items: mockData,
+        totalItems: 2,
+        pageSize: 2,
+        page: 1,
     };
 
-    columns: GridColumn<MockRecord>[] = [
-        {
-            displayName: 'Component Renderer',
-            renderer: RendererSpec({
-                type: BoldTextRendererComponent,
-                config: record => ({
-                    text: record.name,
-                }),
-            }),
-        },
+    @ViewChild(DatagridComponent, { static: false }) grid!: MockRecordDatagridComponent;
 
-        {
-            displayName: 'String Renderer',
-            renderer: (record: MockRecord) => `${record.city}, ${record.state}`,
-        },
+    /** Will be set in tests */
+    columns: GridColumn<MockRecord>[] = [];
 
-        {
-            displayName: 'Default Renderer',
-            renderer: 'details.gender',
-        },
-    ];
-
-    refresh(eventData: GridState<MockRecord>): void {
-        this.gridData = {
-            items: mockData,
-            totalItems: 2,
-            pageSize: 2,
-            page: 1,
-        };
-    }
+    /** Will be mocked in tests */
+    refresh(event: GridState<MockRecord>): void {}
 }

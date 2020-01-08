@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: BSD-2-Clause
  */
 
-import { TestBed, async, ComponentFixture } from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { Component, Input, Type } from '@angular/core';
 import { HasFinder, WidgetFinder, WidgetObject } from './widget-object';
 
@@ -80,12 +80,7 @@ function setup(fixtureRoot: Type<unknown>): void {
             declarations: [ClickTrackerComponent, fixtureRoot],
         }).compileComponents();
         this.finder = new WidgetFinder(fixtureRoot);
-    });
-
-    afterEach(function(this: HasFinder): void {
-        if (this.finder) {
-            this.finder.destroy();
-        }
+        this.finder.detectChanges();
     });
 }
 
