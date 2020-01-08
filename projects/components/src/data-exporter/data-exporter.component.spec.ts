@@ -25,31 +25,21 @@ describe('VcdExportTableComponent', () => {
 
     beforeEach(function(this: HasFinder): void {
         this.finder = new WidgetFinder(TestHostComponent);
+        this.finder.detectChanges();
     });
-
-    afterEach(function(this: HasFinder): void {
-        if (this.finder) {
-            this.finder.destroy();
-        }
-    });
-
-    function openDataExporter(finder: WidgetFinder<TestHostComponent>): void {
-        finder.hostComponent.dataExporterOpen = true;
-        finder.detectChanges();
-    }
 
     describe('opening/closing with two way binding and ngIf', () => {
-        it('does not display in the DOM when closed', function(this: HasFinder): void {
+        it('does not display in the DOM when closed', function(this: TestHostFinder): void {
+            this.finder.hostComponent.dataExporterOpen = false;
+            this.finder.detectChanges();
             expect(this.finder.findWidgets(DataExporterWidgetObject).length).toBe(0);
         });
 
         it('is added to the DOM when displayed', function(this: TestHostFinder): void {
-            openDataExporter(this.finder);
             expect(this.finder.findWidgets(DataExporterWidgetObject).length).toBe(1);
         });
 
         it('is removed from the DOM after being closed by the user', function(this: TestHostFinder): void {
-            openDataExporter(this.finder);
             this.finder.find(DataExporterWidgetObject).clickCancel();
             expect(this.finder.findWidgets(DataExporterWidgetObject).length).toBe(0);
         });
@@ -57,14 +47,12 @@ describe('VcdExportTableComponent', () => {
 
     describe('@Input: columns', () => {
         it('displays them as checkboxes', function(this: TestHostFinder): void {
-            openDataExporter(this.finder);
             expect(this.finder.find(DataExporterWidgetObject).columnCheckBoxes).toEqual(['Name', 'Description']);
         });
     });
 
     describe('@Input: fileName', () => {
         it('customizes the file to be downloaded', function(this: TestHostFinder): void {
-            openDataExporter(this.finder);
             const exporter = this.finder.find(DataExporterWidgetObject);
             exporter.component.fileName = 'my-export.csv';
             const downloadService = TestBed.get(CsvExporterService) as CsvExporterService;
@@ -79,33 +67,29 @@ describe('VcdExportTableComponent', () => {
 
     describe('@Input: showSelectAll', () => {
         it('hides the select all columns option when set to false', function(this: TestHostFinder): void {
-            openDataExporter(this.finder);
             const exporter = this.finder.find(DataExporterWidgetObject);
             exporter.component.showSelectAll = false;
             this.finder.detectChanges();
             expect(this.finder.find(DataExporterWidgetObject).isSelectAllVisible).toBe(false);
         });
         it('is disabled when all checkboxes are clicked', function(this: TestHostFinder): void {
-            openDataExporter(this.finder);
             const exporter = this.finder.find(DataExporterWidgetObject);
             expect(exporter.isSelectAllEnabled).toBe(false);
         });
 
         it('selects all checkboxes when clicked', function(this: TestHostFinder): void {
-            openDataExporter(this.finder);
             const exporter = this.finder.find(DataExporterWidgetObject);
             exporter.clickColumn(0);
             exporter.clickColumn(1);
             expect(exporter.isSelectAllEnabled).toBe(true);
             exporter.clickSelectAll();
-            expect(exporter.columnCheckBoxes);
+            expect(exporter.columnCheckBoxes.length).toBe(2);
         });
     });
 
     describe('@Output - dataExporter', () => {
         describe('updateProgress', () => {
             it('displays a looping progress bar when set to -1', function(this: TestHostFinder): void {
-                openDataExporter(this.finder);
                 const exporter = this.finder.find(DataExporterWidgetObject);
                 const downloadService = TestBed.get(CsvExporterService) as CsvExporterService;
                 spyOn(downloadService, 'downloadCsvFile');
@@ -119,7 +103,6 @@ describe('VcdExportTableComponent', () => {
             });
 
             it('updates the progress bar when passed values', function(this: TestHostFinder): void {
-                openDataExporter(this.finder);
                 const exporter = this.finder.find(DataExporterWidgetObject);
                 const downloadService = TestBed.get(CsvExporterService) as CsvExporterService;
                 spyOn(downloadService, 'downloadCsvFile');
@@ -135,7 +118,6 @@ describe('VcdExportTableComponent', () => {
 
         describe('exportData', () => {
             it('dismisses the dialog and calls the service to create a client side download', function(this: TestHostFinder): void {
-                openDataExporter(this.finder);
                 const exporter = this.finder.find(DataExporterWidgetObject);
                 const downloadService = TestBed.get(CsvExporterService) as CsvExporterService;
                 spyOn(downloadService, 'downloadCsvFile');
@@ -159,7 +141,6 @@ describe('VcdExportTableComponent', () => {
             });
 
             it('does not download a file if the dialog has been closed', function(this: TestHostFinder): void {
-                openDataExporter(this.finder);
                 const exporter = this.finder.find(DataExporterWidgetObject);
                 const downloadService = TestBed.get(CsvExporterService) as CsvExporterService;
                 spyOn(downloadService, 'downloadCsvFile');
@@ -175,7 +156,6 @@ describe('VcdExportTableComponent', () => {
             });
 
             it('uses field name if there is no matching displayName for a field', function(this: TestHostFinder): void {
-                openDataExporter(this.finder);
                 const exporter = this.finder.find(DataExporterWidgetObject);
                 const downloadService = TestBed.get(CsvExporterService) as CsvExporterService;
                 spyOn(downloadService, 'downloadCsvFile');
@@ -194,7 +174,6 @@ describe('VcdExportTableComponent', () => {
 
         describe('selectedColumns', () => {
             it('contains the columns selected by the users', function(this: TestHostFinder): void {
-                openDataExporter(this.finder);
                 const exporter = this.finder.find(DataExporterWidgetObject);
                 spyOn(this.finder.hostComponent, 'onExportRequest').and.callFake((e: DataExportRequestEvent) => {
                     expect(e.selectedColumns).toEqual(TestData.exportColumns);
@@ -224,7 +203,7 @@ const TestData = {
     `,
 })
 class TestHostComponent {
-    dataExporterOpen = false;
+    dataExporterOpen = true;
 
     exportColumns: ExportColumn[] = TestData.exportColumns;
 
