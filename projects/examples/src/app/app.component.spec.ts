@@ -3,13 +3,12 @@
  * SPDX-License-Identifier: BSD-2-Clause
  */
 
-import { TestBed, async } from '@angular/core/testing';
+import { TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { AppComponent } from './app.component';
 import { ClarityModule } from '@clr/angular';
-import { ComponentsModule } from '../../../components/src/lib/components.module';
-import { DataExporterModule } from '../../../components/src/data-exporter/data-exporter.module';
-import { DocLibModule } from '../../../doc-lib/src/lib/doc-lib.module';
+import { DataExporterModule } from '@vmw/vcd-ui-components';
+import { DocLibModule } from '@vmw/vcd-ui-doc-lib';
 
 describe('AppComponent', () => {
     beforeEach(async () => {

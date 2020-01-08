@@ -14,6 +14,7 @@ import { ClarityModule } from '@clr/angular';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { registerLocaleData } from '@angular/common';
 import { PipesModule } from '../../../components/src/common/pipes/pipes.module';
+import { CliptexExamplestModule } from '../components/cliptext/cliptext.examples.module';
 import { FormsModule } from '@angular/forms';
 
 import localeFr from '@angular/common/locales/fr';
@@ -48,9 +49,7 @@ function getSupportedLocale(): string {
         DocLibModule,
         ClarityModule,
         BrowserAnimationsModule,
-        DocLibModule,
-        ClarityModule,
-        BrowserAnimationsModule,
+        CliptexExamplestModule,
         PipesModule,
         FormsModule,
     ],

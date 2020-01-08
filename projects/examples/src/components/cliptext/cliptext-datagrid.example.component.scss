@@ -1,0 +1,9 @@
+clr-datagrid {
+    ::ng-deep .datagrid {
+        overflow: visible;
+    }
+
+    .clip-text-width {
+        width: 200px;
+    }
+}
