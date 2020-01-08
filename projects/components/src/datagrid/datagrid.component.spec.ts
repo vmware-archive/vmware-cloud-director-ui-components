@@ -5,7 +5,7 @@
 
 import { Component, ViewChild } from '@angular/core';
 import { DatagridComponent, GridDataFetchResult, GridState } from './datagrid.component';
-import { GridColumn } from './interfaces/datagrid-column.interface';
+import { GridColumn, GridColumnHideable } from './interfaces/datagrid-column.interface';
 import { TestBed } from '@angular/core/testing';
 import { DatagridModule } from './datagrid.module';
 import { RendererSpec } from './interfaces/component-renderer.interface';
@@ -109,6 +109,56 @@ describe('DatagridComponent', () => {
                 );
             });
             this.finder.detectChanges();
+        });
+
+        describe('Show/Hide Functionality', () => {
+            beforeEach(function(this: HasFinderAndGrid): void {
+                this.finder.hostComponent.columns = [
+                    {
+                        displayName: 'Component Renderer',
+                        renderer: RendererSpec({
+                            type: BoldTextRendererComponent,
+                            config: record => ({
+                                text: record.name,
+                            }),
+                        }),
+                        hideable: GridColumnHideable.Never,
+                    },
+
+                    {
+                        displayName: 'String Renderer',
+                        renderer: (record: MockRecord) => `${record.city}, ${record.state}`,
+                        hideable: GridColumnHideable.Shown,
+                    },
+
+                    {
+                        displayName: 'Default Renderer',
+                        renderer: 'details.gender',
+                        hideable: GridColumnHideable.Hidden,
+                    },
+
+                    {
+                        displayName: 'Filler Renderer',
+                        renderer: 'filler',
+                    },
+                ];
+                this.finder.detectChanges();
+            });
+            it('shows the columns with hidable value of  "Never"', function(this: HasFinderAndGrid): void {
+                expect(this.clrGridWidget.isColumnDisplayed(0)).toBe(true);
+            });
+
+            it('shows the columns with hidable value of  "Shown"', function(this: HasFinderAndGrid): void {
+                expect(this.clrGridWidget.isColumnDisplayed(1)).toBe(true);
+            });
+
+            it('hides the columns with hidable value of  "Hidden"', function(this: HasFinderAndGrid): void {
+                expect(this.clrGridWidget.isColumnDisplayed(2)).toBe(false);
+            });
+
+            it('shows the columns with hidable value of undefined', function(this: HasFinderAndGrid): void {
+                expect(this.clrGridWidget.isColumnDisplayed(3)).toBe(true);
+            });
         });
     });
 
