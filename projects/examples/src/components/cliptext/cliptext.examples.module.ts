@@ -10,6 +10,26 @@ import { CliptextDynamicInlineExampleComponent } from './cliptext-dynamic-inline
 import { ClarityModule } from '@clr/angular';
 import { CliptextModule } from '../../../../components/src/cliptext';
 import { ReactiveFormsModule } from '@angular/forms';
+import { Documentation } from '@vmw/vcd-ui-doc-lib';
+import { CliptextComponent } from '@vmw/vcd-ui-components';
+
+Documentation.registerDocumentationEntry({
+    component: CliptextComponent,
+    displayName: 'Cliptext',
+    urlSegment: 'cliptext',
+    examples: [
+        {
+            component: CliptextDatagridExampleComponent,
+            forComponent: null,
+            title: 'Cliptext in a datagrid',
+        },
+        {
+            component: CliptextDynamicInlineExampleComponent,
+            forComponent: null,
+            title: 'Dynamic Inline Text',
+        },
+    ],
+});
 
 @NgModule({
     declarations: [CliptextDatagridExampleComponent, CliptextDynamicInlineExampleComponent],
@@ -17,4 +37,4 @@ import { ReactiveFormsModule } from '@angular/forms';
     exports: [CliptextDatagridExampleComponent, CliptextDynamicInlineExampleComponent],
     entryComponents: [CliptextDatagridExampleComponent, CliptextDynamicInlineExampleComponent],
 })
-export class CliptexExamplestModule {}
+export class CliptexExamplesModule {}

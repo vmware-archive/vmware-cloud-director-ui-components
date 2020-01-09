@@ -5,20 +5,20 @@
 
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { DocLibComponent } from './doc-lib.component';
+import { ExampleViewerComponent } from './example-viewer.component';
 
-describe('DocLibComponent', () => {
-    let component: DocLibComponent;
-    let fixture: ComponentFixture<DocLibComponent>;
+describe(ExampleViewerComponent.name, () => {
+    let component: ExampleViewerComponent;
+    let fixture: ComponentFixture<ExampleViewerComponent>;
 
     beforeEach(async(() => {
         TestBed.configureTestingModule({
-            declarations: [DocLibComponent],
+            declarations: [ExampleViewerComponent],
         }).compileComponents();
     }));
 
     beforeEach(() => {
-        fixture = TestBed.createComponent(DocLibComponent);
+        fixture = TestBed.createComponent(ExampleViewerComponent);
         component = fixture.componentInstance;
         fixture.detectChanges();
     });

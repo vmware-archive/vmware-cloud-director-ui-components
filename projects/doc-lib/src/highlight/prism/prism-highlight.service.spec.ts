@@ -4,14 +4,13 @@
  */
 
 import { TestBed } from '@angular/core/testing';
+import { HighlightService } from '../highlight.service';
 
-import { DocLibService } from './doc-lib.service';
-
-describe('DocLibService', () => {
+describe('PrismHighlightService', () => {
     beforeEach(() => TestBed.configureTestingModule({}));
 
     it('should be created', () => {
-        const service: DocLibService = TestBed.get(DocLibService);
+        const service: HighlightService = TestBed.get(HighlightService);
         expect(service).toBeTruthy();
     });
 });

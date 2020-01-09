@@ -1,0 +1,1169 @@
+{
+    "pipes": [],
+    "interfaces": [
+        {
+            "name": "Data",
+            "id": "interface-Data-9cdece1c442ed28c1b32a2d39fec961e",
+            "file": "projects/examples/src/components/datagrid/css-classes-datagrid.example.component.ts",
+            "type": "interface",
+            "sourceCode": "import { Component } from '@angular/core';\nimport { GridDataFetchResult, GridState, GridColumn } from '@vmw/vcd-ui-components';\n\ninterface Data {\n    value: string;\n}\n\n/**\n * A component that holds an example of the css classes per row capability.\n */\n@Component({\n    selector: 'vcd-datagrid-css-classes-example',\n    styleUrls: ['css-classes-datagrid.example.component.scss'],\n    templateUrl: 'css-classes-datagrid.example.component.html',\n})\nexport class CssClassesDatagridExampleComponent {\n    gridData: GridDataFetchResult<Data> = {\n        items: [],\n    };\n\n    columns: GridColumn<Data>[] = [\n        {\n            displayName: 'Some Column',\n            renderer: 'value',\n        },\n    ];\n\n    refresh(eventData: GridState<Data>): void {\n        this.gridData = {\n            items: [{ value: 'warn' }, { value: 'error' }, { value: 'ok' }, { value: 'ok' }, { value: 'error' }],\n            totalItems: 2,\n            pageSize: 2,\n            page: 1,\n        };\n    }\n\n    clrDatarowCssClassGetter(entity: Data, index: number): string {\n        if (entity.value === 'warn') {\n            return 'yellow-row';\n        } else if (entity.value === 'error') {\n            return 'red-row';\n        } else {\n            return '';\n        }\n    }\n}\n",
+            "properties": [
+                {
+                    "name": "value",
+                    "type": "string",
+                    "optional": false,
+                    "description": "",
+                    "line": 10
+                }
+            ],
+            "indexSignatures": [],
+            "kind": 150,
+            "methods": []
+        },
+        {
+            "name": "Data",
+            "id": "interface-Data-1757be57796ed6cbf96ca9f83e9bcefc-1",
+            "file": "projects/examples/src/components/datagrid/show-hide-datagrid.example.component.ts",
+            "type": "interface",
+            "sourceCode": "import { Component } from '@angular/core';\nimport { GridDataFetchResult, GridColumn, GridColumnHideable, GridState } from '@vmw/vcd-ui-components';\n\ninterface Data {\n    value: string;\n}\n\n/**\n * A component that holds an example of the show/hide columns capability.\n */\n@Component({\n    selector: 'vcd-datagrid-show-hide-example',\n    styleUrls: ['show-hide-datagrid.example.component.scss'],\n    templateUrl: 'show-hide-datagrid.example.component.html',\n})\nexport class ShowHideDatagridExampleComponent {\n    gridData: GridDataFetchResult<Data> = {\n        items: [],\n    };\n\n    columns: GridColumn<Data>[] = [\n        {\n            displayName: 'Shown Initially',\n            renderer: 'value',\n            hideable: GridColumnHideable.Shown,\n        },\n        {\n            displayName: 'Hidden Initially',\n            renderer: 'value',\n            hideable: GridColumnHideable.Hidden,\n        },\n        {\n            displayName: 'Always Shown',\n            renderer: 'value',\n            hideable: GridColumnHideable.Never,\n        },\n        {\n            displayName: 'Always Shown Way #2',\n            renderer: 'value',\n        },\n    ];\n\n    refresh(eventData: GridState<Data>): void {\n        this.gridData = {\n            items: [{ value: 'a' }, { value: 'b' }],\n            totalItems: 2,\n            pageSize: 2,\n            page: 1,\n        };\n    }\n}\n",
+            "properties": [
+                {
+                    "name": "value",
+                    "type": "string",
+                    "optional": false,
+                    "description": "",
+                    "line": 10
+                }
+            ],
+            "indexSignatures": [],
+            "kind": 150,
+            "methods": [],
+            "isDuplicate": true,
+            "duplicateId": 1,
+            "duplicateName": "Data-1"
+        },
+        {
+            "name": "MockRecord",
+            "id": "interface-MockRecord-b76eb59a9b9a997a0fbbd95b212a7763",
+            "file": "projects/examples/src/components/datagrid/3-renderers-datagrid.example.component.ts",
+            "type": "interface",
+            "sourceCode": "import { Component } from '@angular/core';\nimport {\n    BoldTextRendererComponent,\n    GridColumn,\n    GridDataFetchResult,\n    GridState,\n    RendererSpec,\n} from '@vmw/vcd-ui-components';\n\nexport interface MockRecord {\n    name: string;\n    city: string;\n    state: string;\n    details: {\n        gender: string;\n    };\n    age: number;\n}\n\nexport const mockData: MockRecord[] = [\n    {\n        name: 'Person 1',\n        city: 'Palo Alto',\n        state: 'CA',\n        details: {\n            gender: 'Male',\n        },\n        age: 30,\n    },\n    {\n        name: 'Person 2',\n        city: 'Boston',\n        state: 'MA',\n        details: {\n            gender: 'Female',\n        },\n        age: 60,\n    },\n];\n\n@Component({\n    templateUrl: '3-renderers-datagrid.example.component.html',\n})\nexport class ThreeRenderersDatagridExampleComponent {\n    gridData: GridDataFetchResult<MockRecord> = {\n        items: [],\n    };\n\n    columns: GridColumn<MockRecord>[] = [\n        {\n            displayName: 'Component Renderer',\n            renderer: RendererSpec({\n                type: BoldTextRendererComponent,\n                config: record => ({\n                    text: record.name,\n                }),\n            }),\n        },\n\n        {\n            displayName: 'Function Renderer',\n            renderer: (record: MockRecord) => `${record.city}, ${record.state}`,\n        },\n\n        {\n            displayName: 'Default(string) Renderer',\n            renderer: 'details.gender',\n        },\n    ];\n\n    async refresh(eventData: GridState<MockRecord>): Promise<void> {\n        this.gridData = {\n            items: mockData,\n            totalItems: 2,\n            pageSize: 2,\n            page: 1,\n        };\n    }\n}\n",
+            "properties": [
+                {
+                    "name": "age",
+                    "type": "number",
+                    "optional": false,
+                    "description": "",
+                    "line": 22
+                },
+                {
+                    "name": "city",
+                    "type": "string",
+                    "optional": false,
+                    "description": "",
+                    "line": 17
+                },
+                {
+                    "name": "details",
+                    "type": "literal type",
+                    "optional": false,
+                    "description": "",
+                    "line": 19
+                },
+                {
+                    "name": "name",
+                    "type": "string",
+                    "optional": false,
+                    "description": "",
+                    "line": 16
+                },
+                {
+                    "name": "state",
+                    "type": "string",
+                    "optional": false,
+                    "description": "",
+                    "line": 18
+                }
+            ],
+            "indexSignatures": [],
+            "kind": 150,
+            "methods": []
+        },
+        {
+            "name": "SideNavEntries",
+            "id": "interface-SideNavEntries-670b74f800a16f11376bdce98168a07f",
+            "file": "projects/examples/src/app/app.component.ts",
+            "type": "interface",
+            "sourceCode": "import { Component } from '@angular/core';\nimport { Documentation, DocumentationEntry } from '@vmw/vcd-ui-doc-lib';\n\ninterface SideNavEntries {\n    title: string;\n    path: string;\n}\n\n@Component({\n    selector: 'vcd-examples-app',\n    templateUrl: './app.component.html',\n    styleUrls: ['./app.component.scss'],\n})\nexport class AppComponent {\n    /**\n     * Gets the registered documentation entries {@link Documentation.getAllEntries} and sets them on a array to display\n     * on the side navigation\n     */\n    sideNavEntries: SideNavEntries[] = Documentation.getAllEntries().map((entry: DocumentationEntry) => ({\n        title: entry.displayName,\n        path: entry.urlSegment,\n    }));\n}\n",
+            "properties": [
+                {
+                    "name": "path",
+                    "type": "string",
+                    "optional": false,
+                    "description": "",
+                    "line": 11
+                },
+                {
+                    "name": "title",
+                    "type": "string",
+                    "optional": false,
+                    "description": "",
+                    "line": 10
+                }
+            ],
+            "indexSignatures": [],
+            "kind": 150,
+            "methods": []
+        }
+    ],
+    "injectables": [],
+    "classes": [],
+    "directives": [],
+    "components": [
+        {
+            "name": "AppComponent",
+            "id": "component-AppComponent-670b74f800a16f11376bdce98168a07f",
+            "file": "projects/examples/src/app/app.component.ts",
+            "encapsulation": [],
+            "entryComponents": [],
+            "inputs": [],
+            "outputs": [],
+            "providers": [],
+            "selector": "vcd-examples-app",
+            "styleUrls": [
+                "./app.component.scss"
+            ],
+            "styles": [],
+            "templateUrl": [
+                "./app.component.html"
+            ],
+            "viewProviders": [],
+            "inputsClass": [],
+            "outputsClass": [],
+            "propertiesClass": [
+                {
+                    "name": "sideNavEntries",
+                    "defaultValue": "Documentation.getAllEntries().map((entry: DocumentationEntry) => ({\n        title: entry.displayName,\n        path: entry.urlSegment,\n    }))",
+                    "type": "SideNavEntries[]",
+                    "optional": false,
+                    "description": "<p>Gets the registered documentation entries {@link Documentation.getAllEntries} and sets them on a array to display\non the side navigation</p>\n",
+                    "line": 24
+                }
+            ],
+            "methodsClass": [],
+            "hostBindings": [],
+            "hostListeners": [],
+            "description": "",
+            "rawdescription": "",
+            "type": "component",
+            "sourceCode": "import { Component } from '@angular/core';\nimport { Documentation, DocumentationEntry } from '@vmw/vcd-ui-doc-lib';\n\ninterface SideNavEntries {\n    title: string;\n    path: string;\n}\n\n@Component({\n    selector: 'vcd-examples-app',\n    templateUrl: './app.component.html',\n    styleUrls: ['./app.component.scss'],\n})\nexport class AppComponent {\n    /**\n     * Gets the registered documentation entries {@link Documentation.getAllEntries} and sets them on a array to display\n     * on the side navigation\n     */\n    sideNavEntries: SideNavEntries[] = Documentation.getAllEntries().map((entry: DocumentationEntry) => ({\n        title: entry.displayName,\n        path: entry.urlSegment,\n    }));\n}\n",
+            "assetsDirs": [],
+            "styleUrlsData": [
+                {
+                    "data": "",
+                    "styleUrl": "./app.component.scss"
+                }
+            ],
+            "stylesData": "",
+            "templateData": "<clr-main-container>\n    <clr-header class=\"header-6\">\n        <div class=\"branding\">\n            <a routerLink=\"/\" class=\"nav-nlink\">\n                <clr-icon shape=\"vm-bug\"></clr-icon>\n                <span class=\"title\">VMware VCD Common Components</span>\n            </a>\n        </div>\n    </clr-header>\n\n    <div class=\"content-container\">\n        <nav class=\"sidenav\" [clr-nav-level]=\"2\">\n            <section class=\"sidenav-content\">\n                <section class=\"nav-group\">\n                    <label>Components</label>\n                    <ul class=\"nav-list\">\n                        <ng-container *ngFor=\"let entry of sideNavEntries\">\n                            <li>\n                                <a class=\"nav-link\" [routerLink]=\"entry.path\" [routerLinkActive]=\"['active']\">\n                                    {{ entry.title }}\n                                </a>\n                            </li>\n                        </ng-container>\n                    </ul>\n                </section>\n            </section>\n        </nav>\n\n        <main class=\"content-area\">\n            <router-outlet></router-outlet>\n        </main>\n    </div>\n</clr-main-container>\n"
+        },
+        {
+            "name": "CliptextDatagridExampleComponent",
+            "id": "component-CliptextDatagridExampleComponent-b39c334fbb26fe01de381a3fdf037445",
+            "file": "projects/examples/src/components/cliptext/cliptext-datagrid.example.component.ts",
+            "encapsulation": [],
+            "entryComponents": [],
+            "inputs": [],
+            "outputs": [],
+            "providers": [],
+            "selector": "vcd-cliptext-datagrid-example",
+            "styleUrls": [
+                "cliptext-datagrid.example.component.scss"
+            ],
+            "styles": [],
+            "templateUrl": [
+                "./cliptext-datagrid.example.component.html"
+            ],
+            "viewProviders": [],
+            "inputsClass": [],
+            "outputsClass": [],
+            "propertiesClass": [],
+            "methodsClass": [],
+            "hostBindings": [],
+            "hostListeners": [],
+            "description": "",
+            "rawdescription": "",
+            "type": "component",
+            "sourceCode": "import { Component } from '@angular/core';\n\n@Component({\n    selector: 'vcd-cliptext-datagrid-example',\n    styleUrls: ['cliptext-datagrid.example.component.scss'],\n    templateUrl: './cliptext-datagrid.example.component.html',\n})\nexport class CliptextDatagridExampleComponent {}\n",
+            "assetsDirs": [],
+            "styleUrlsData": [
+                {
+                    "data": "clr-datagrid {\n    ::ng-deep .datagrid {\n        overflow: visible;\n    }\n\n    .clip-text-width {\n        width: 200px;\n        display: block;\n    }\n}\n",
+                    "styleUrl": "cliptext-datagrid.example.component.scss"
+                }
+            ],
+            "stylesData": "",
+            "templateData": "Resize the column and observe the text in the row where the textclip is used. Hoverover the cell to see the full text.\n\n<clr-datagrid>\n    <clr-dg-column class=\"clip-text-width\">Text</clr-dg-column>\n    <clr-dg-column>Clipping</clr-dg-column>\n\n    <clr-dg-row>\n        <clr-dg-cell>\n            Lorem ipsum dolor sit amet, consectetur adipiscing elit. In pharetra sem id mauris condimentum, dapibus\n            pretium neque commodo. Pellentesque rhoncus tincidunt libero, eget tempus leo vehicula non. Etiam ac\n            pulvinar odio.\n        </clr-dg-cell>\n        <clr-dg-cell>\n            No\n        </clr-dg-cell>\n    </clr-dg-row>\n\n    <clr-dg-row>\n        <clr-dg-cell>\n            <vcd-cliptext>\n                Lorem ipsum dolor sit amet, consectetur adipiscing elit. In pharetra sem id mauris condimentum, dapibus\n                pretium neque commodo. Pellentesque rhoncus tincidunt libero, eget tempus leo vehicula non. Etiam ac\n                pulvinar odio.\n            </vcd-cliptext>\n        </clr-dg-cell>\n        <clr-dg-cell>\n            Yes\n        </clr-dg-cell>\n    </clr-dg-row>\n</clr-datagrid>\n"
+        },
+        {
+            "name": "CliptextDynamicInlineExampleComponent",
+            "id": "component-CliptextDynamicInlineExampleComponent-d964182c22d82374bfce45fdafa41369",
+            "file": "projects/examples/src/components/cliptext/cliptext-dynamic-inline.example.component.ts",
+            "encapsulation": [],
+            "entryComponents": [],
+            "inputs": [],
+            "outputs": [],
+            "providers": [],
+            "selector": "vcd-cliptext-dynamic-inline-example",
+            "styleUrls": [
+                "cliptext-dynamic-inline.example.component.scss"
+            ],
+            "styles": [],
+            "templateUrl": [
+                "cliptext-dynamic-inline.example.component.html"
+            ],
+            "viewProviders": [],
+            "inputsClass": [],
+            "outputsClass": [],
+            "propertiesClass": [
+                {
+                    "name": "dynamicText",
+                    "defaultValue": "new FormControl('Dynamic text goes here')",
+                    "type": "",
+                    "optional": false,
+                    "description": "",
+                    "line": 18
+                }
+            ],
+            "methodsClass": [],
+            "hostBindings": [],
+            "hostListeners": [],
+            "description": "",
+            "rawdescription": "",
+            "type": "component",
+            "sourceCode": "import { Component } from '@angular/core';\nimport { FormControl } from '@angular/forms';\n\n@Component({\n    selector: 'vcd-cliptext-dynamic-inline-example',\n    styleUrls: ['cliptext-dynamic-inline.example.component.scss'],\n    templateUrl: 'cliptext-dynamic-inline.example.component.html',\n})\nexport class CliptextDynamicInlineExampleComponent {\n    dynamicText = new FormControl('Dynamic text goes here');\n}\n",
+            "assetsDirs": [],
+            "styleUrlsData": [
+                {
+                    "data": ".inline-clip {\n    vertical-align: middle;\n    max-width: 150px;\n    font-weight: bold;\n    font-style: italic;\n}\n",
+                    "styleUrl": "cliptext-dynamic-inline.example.component.scss"
+                }
+            ],
+            "stylesData": "",
+            "templateData": "<label>Dynamic text:</label>\n<input placeholder=\"Write some text\" [formControl]=\"dynamicText\" />\n\n<p>\n    Modify the input above and observe the text:\n    <vcd-cliptext class=\"inline-clip\">{{ dynamicText.value }}</vcd-cliptext>\n    You can try with long and short text. There is no tooltip when the text fits the provided width.\n</p>\n<p>The toolptip is updated upon display.</p>\n"
+        },
+        {
+            "name": "CssClassesDatagridExampleComponent",
+            "id": "component-CssClassesDatagridExampleComponent-9cdece1c442ed28c1b32a2d39fec961e",
+            "file": "projects/examples/src/components/datagrid/css-classes-datagrid.example.component.ts",
+            "encapsulation": [],
+            "entryComponents": [],
+            "inputs": [],
+            "outputs": [],
+            "providers": [],
+            "selector": "vcd-datagrid-css-classes-example",
+            "styleUrls": [
+                "css-classes-datagrid.example.component.scss"
+            ],
+            "styles": [],
+            "templateUrl": [
+                "css-classes-datagrid.example.component.html"
+            ],
+            "viewProviders": [],
+            "inputsClass": [],
+            "outputsClass": [],
+            "propertiesClass": [
+                {
+                    "name": "columns",
+                    "defaultValue": "[\n        {\n            displayName: 'Some Column',\n            renderer: 'value',\n        },\n    ]",
+                    "type": "GridColumn<Data>[]",
+                    "optional": false,
+                    "description": "",
+                    "line": 26
+                },
+                {
+                    "name": "gridData",
+                    "defaultValue": "{\n        items: [],\n    }",
+                    "type": "GridDataFetchResult<Data>",
+                    "optional": false,
+                    "description": "",
+                    "line": 22
+                }
+            ],
+            "methodsClass": [
+                {
+                    "name": "clrDatarowCssClassGetter",
+                    "args": [
+                        {
+                            "name": "entity",
+                            "type": "Data"
+                        },
+                        {
+                            "name": "index",
+                            "type": "number"
+                        }
+                    ],
+                    "optional": false,
+                    "returnType": "string",
+                    "typeParameters": [],
+                    "line": 42,
+                    "jsdoctags": [
+                        {
+                            "name": "entity",
+                            "type": "Data",
+                            "tagName": {
+                                "text": "param"
+                            }
+                        },
+                        {
+                            "name": "index",
+                            "type": "number",
+                            "tagName": {
+                                "text": "param"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "name": "refresh",
+                    "args": [
+                        {
+                            "name": "eventData",
+                            "type": "GridState<Data>"
+                        }
+                    ],
+                    "optional": false,
+                    "returnType": "void",
+                    "typeParameters": [],
+                    "line": 33,
+                    "jsdoctags": [
+                        {
+                            "name": "eventData",
+                            "type": "GridState<Data>",
+                            "tagName": {
+                                "text": "param"
+                            }
+                        }
+                    ]
+                }
+            ],
+            "hostBindings": [],
+            "hostListeners": [],
+            "description": "<p>A component that holds an example of the css classes per row capability.</p>\n",
+            "rawdescription": "A component that holds an example of the css classes per row capability.",
+            "type": "component",
+            "sourceCode": "import { Component } from '@angular/core';\nimport { GridDataFetchResult, GridState, GridColumn } from '@vmw/vcd-ui-components';\n\ninterface Data {\n    value: string;\n}\n\n/**\n * A component that holds an example of the css classes per row capability.\n */\n@Component({\n    selector: 'vcd-datagrid-css-classes-example',\n    styleUrls: ['css-classes-datagrid.example.component.scss'],\n    templateUrl: 'css-classes-datagrid.example.component.html',\n})\nexport class CssClassesDatagridExampleComponent {\n    gridData: GridDataFetchResult<Data> = {\n        items: [],\n    };\n\n    columns: GridColumn<Data>[] = [\n        {\n            displayName: 'Some Column',\n            renderer: 'value',\n        },\n    ];\n\n    refresh(eventData: GridState<Data>): void {\n        this.gridData = {\n            items: [{ value: 'warn' }, { value: 'error' }, { value: 'ok' }, { value: 'ok' }, { value: 'error' }],\n            totalItems: 2,\n            pageSize: 2,\n            page: 1,\n        };\n    }\n\n    clrDatarowCssClassGetter(entity: Data, index: number): string {\n        if (entity.value === 'warn') {\n            return 'yellow-row';\n        } else if (entity.value === 'error') {\n            return 'red-row';\n        } else {\n            return '';\n        }\n    }\n}\n",
+            "assetsDirs": [],
+            "styleUrlsData": [
+                {
+                    "data": "::ng-deep .yellow-row {\n    background-color: greenyellow;\n}\n\n::ng-deep .red-row {\n    background-color: lightcoral;\n}\n",
+                    "styleUrl": "css-classes-datagrid.example.component.scss"
+                }
+            ],
+            "stylesData": "",
+            "templateData": "<vcd-datagrid\n    [gridData]=\"gridData\"\n    (gridRefresh)=\"refresh($event)\"\n    [columns]=\"columns\"\n    [clrDatarowCssClassGetter]=\"clrDatarowCssClassGetter\"\n></vcd-datagrid>\n"
+        },
+        {
+            "name": "DataExporterExampleComponent",
+            "id": "component-DataExporterExampleComponent-a8561d836884c515999685d11aeb9a9e",
+            "file": "projects/examples/src/components/data-exporter/data-exporter.example.component.ts",
+            "encapsulation": [],
+            "entryComponents": [],
+            "inputs": [],
+            "outputs": [],
+            "providers": [],
+            "selector": "vcd-data-exporter-example",
+            "styleUrls": [],
+            "styles": [],
+            "templateUrl": [
+                "./data-exporter.example.component.html"
+            ],
+            "viewProviders": [],
+            "inputsClass": [],
+            "outputsClass": [],
+            "propertiesClass": [
+                {
+                    "name": "dataExporterOpen",
+                    "defaultValue": "false",
+                    "type": "",
+                    "optional": false,
+                    "description": "",
+                    "line": 19
+                },
+                {
+                    "name": "exportColumns",
+                    "defaultValue": "[\n        { fieldName: 'name', displayName: 'Name' },\n        { fieldName: 'desc', displayName: 'Description' },\n    ]",
+                    "type": "ExportColumn[]",
+                    "optional": false,
+                    "description": "",
+                    "line": 14
+                }
+            ],
+            "methodsClass": [
+                {
+                    "name": "onExportRequest",
+                    "args": [
+                        {
+                            "name": "request",
+                            "type": "DataExportRequestEvent"
+                        }
+                    ],
+                    "optional": false,
+                    "returnType": "void",
+                    "typeParameters": [],
+                    "line": 21,
+                    "jsdoctags": [
+                        {
+                            "name": "request",
+                            "type": "DataExportRequestEvent",
+                            "tagName": {
+                                "text": "param"
+                            }
+                        }
+                    ]
+                }
+            ],
+            "hostBindings": [],
+            "hostListeners": [],
+            "description": "",
+            "rawdescription": "",
+            "type": "component",
+            "sourceCode": "import { Component } from '@angular/core';\nimport { DataExportRequestEvent, ExportColumn } from '@vmw/vcd-ui-components';\n\n@Component({\n    selector: 'vcd-data-exporter-example',\n    templateUrl: './data-exporter.example.component.html',\n})\nexport class DataExporterExampleComponent {\n    exportColumns: ExportColumn[] = [\n        { fieldName: 'name', displayName: 'Name' },\n        { fieldName: 'desc', displayName: 'Description' },\n    ];\n\n    dataExporterOpen = false;\n\n    onExportRequest(request: DataExportRequestEvent): void {\n        let currentProgress = 0;\n\n        const updateProgress = () => {\n            currentProgress += 0.01;\n            if (currentProgress < 1) {\n                request.updateProgress(currentProgress);\n                setTimeout(updateProgress, 50);\n            } else {\n                request.exportData([\n                    { name: 'Jack', desc: 'Tis what tis' },\n                    { name: 'Jill', desc: 'Still tis what tis' },\n                ]);\n            }\n        };\n        updateProgress();\n    }\n}\n",
+            "assetsDirs": [],
+            "styleUrlsData": "",
+            "stylesData": "",
+            "templateData": "<h2>Data Exporter</h2>\n<button (click)=\"dataExporterOpen = true\">\n    Show Modal\n</button>\n<vcd-data-exporter\n    *ngIf=\"dataExporterOpen\"\n    [(open)]=\"dataExporterOpen\"\n    (dataExportRequest)=\"onExportRequest($event)\"\n    [columns]=\"exportColumns\"\n>\n</vcd-data-exporter>\n"
+        },
+        {
+            "name": "ShowHideDatagridExampleComponent",
+            "id": "component-ShowHideDatagridExampleComponent-1757be57796ed6cbf96ca9f83e9bcefc",
+            "file": "projects/examples/src/components/datagrid/show-hide-datagrid.example.component.ts",
+            "encapsulation": [],
+            "entryComponents": [],
+            "inputs": [],
+            "outputs": [],
+            "providers": [],
+            "selector": "vcd-datagrid-show-hide-example",
+            "styleUrls": [
+                "show-hide-datagrid.example.component.scss"
+            ],
+            "styles": [],
+            "templateUrl": [
+                "show-hide-datagrid.example.component.html"
+            ],
+            "viewProviders": [],
+            "inputsClass": [],
+            "outputsClass": [],
+            "propertiesClass": [
+                {
+                    "name": "columns",
+                    "defaultValue": "[\n        {\n            displayName: 'Shown Initially',\n            renderer: 'value',\n            hideable: GridColumnHideable.Shown,\n        },\n        {\n            displayName: 'Hidden Initially',\n            renderer: 'value',\n            hideable: GridColumnHideable.Hidden,\n        },\n        {\n            displayName: 'Always Shown',\n            renderer: 'value',\n            hideable: GridColumnHideable.Never,\n        },\n        {\n            displayName: 'Always Shown Way #2',\n            renderer: 'value',\n        },\n    ]",
+                    "type": "GridColumn<Data>[]",
+                    "optional": false,
+                    "description": "",
+                    "line": 26
+                },
+                {
+                    "name": "gridData",
+                    "defaultValue": "{\n        items: [],\n    }",
+                    "type": "GridDataFetchResult<Data>",
+                    "optional": false,
+                    "description": "",
+                    "line": 22
+                }
+            ],
+            "methodsClass": [
+                {
+                    "name": "refresh",
+                    "args": [
+                        {
+                            "name": "eventData",
+                            "type": "GridState<Data>"
+                        }
+                    ],
+                    "optional": false,
+                    "returnType": "void",
+                    "typeParameters": [],
+                    "line": 48,
+                    "jsdoctags": [
+                        {
+                            "name": "eventData",
+                            "type": "GridState<Data>",
+                            "tagName": {
+                                "text": "param"
+                            }
+                        }
+                    ]
+                }
+            ],
+            "hostBindings": [],
+            "hostListeners": [],
+            "description": "<p>A component that holds an example of the show/hide columns capability.</p>\n",
+            "rawdescription": "A component that holds an example of the show/hide columns capability.",
+            "type": "component",
+            "sourceCode": "import { Component } from '@angular/core';\nimport { GridDataFetchResult, GridColumn, GridColumnHideable, GridState } from '@vmw/vcd-ui-components';\n\ninterface Data {\n    value: string;\n}\n\n/**\n * A component that holds an example of the show/hide columns capability.\n */\n@Component({\n    selector: 'vcd-datagrid-show-hide-example',\n    styleUrls: ['show-hide-datagrid.example.component.scss'],\n    templateUrl: 'show-hide-datagrid.example.component.html',\n})\nexport class ShowHideDatagridExampleComponent {\n    gridData: GridDataFetchResult<Data> = {\n        items: [],\n    };\n\n    columns: GridColumn<Data>[] = [\n        {\n            displayName: 'Shown Initially',\n            renderer: 'value',\n            hideable: GridColumnHideable.Shown,\n        },\n        {\n            displayName: 'Hidden Initially',\n            renderer: 'value',\n            hideable: GridColumnHideable.Hidden,\n        },\n        {\n            displayName: 'Always Shown',\n            renderer: 'value',\n            hideable: GridColumnHideable.Never,\n        },\n        {\n            displayName: 'Always Shown Way #2',\n            renderer: 'value',\n        },\n    ];\n\n    refresh(eventData: GridState<Data>): void {\n        this.gridData = {\n            items: [{ value: 'a' }, { value: 'b' }],\n            totalItems: 2,\n            pageSize: 2,\n            page: 1,\n        };\n    }\n}\n",
+            "assetsDirs": [],
+            "styleUrlsData": [
+                {
+                    "data": "",
+                    "styleUrl": "show-hide-datagrid.example.component.scss"
+                }
+            ],
+            "stylesData": "",
+            "templateData": "<vcd-datagrid [gridData]=\"gridData\" (gridRefresh)=\"refresh($event)\" [columns]=\"columns\"></vcd-datagrid>\n"
+        },
+        {
+            "name": "ThreeRenderersDatagridExampleComponent",
+            "id": "component-ThreeRenderersDatagridExampleComponent-b76eb59a9b9a997a0fbbd95b212a7763",
+            "file": "projects/examples/src/components/datagrid/3-renderers-datagrid.example.component.ts",
+            "encapsulation": [],
+            "entryComponents": [],
+            "inputs": [],
+            "outputs": [],
+            "providers": [],
+            "styleUrls": [],
+            "styles": [],
+            "templateUrl": [
+                "3-renderers-datagrid.example.component.html"
+            ],
+            "viewProviders": [],
+            "inputsClass": [],
+            "outputsClass": [],
+            "propertiesClass": [
+                {
+                    "name": "columns",
+                    "defaultValue": "[\n        {\n            displayName: 'Component Renderer',\n            renderer: RendererSpec({\n                type: BoldTextRendererComponent,\n                config: record => ({\n                    text: record.name,\n                }),\n            }),\n        },\n\n        {\n            displayName: 'Function Renderer',\n            renderer: (record: MockRecord) => `${record.city}, ${record.state}`,\n        },\n\n        {\n            displayName: 'Default(string) Renderer',\n            renderer: 'details.gender',\n        },\n    ]",
+                    "type": "GridColumn<MockRecord>[]",
+                    "optional": false,
+                    "description": "",
+                    "line": 54
+                },
+                {
+                    "name": "gridData",
+                    "defaultValue": "{\n        items: [],\n    }",
+                    "type": "GridDataFetchResult<MockRecord>",
+                    "optional": false,
+                    "description": "",
+                    "line": 50
+                }
+            ],
+            "methodsClass": [
+                {
+                    "name": "refresh",
+                    "args": [
+                        {
+                            "name": "eventData",
+                            "type": "GridState<MockRecord>"
+                        }
+                    ],
+                    "optional": false,
+                    "returnType": "Promise<void>",
+                    "typeParameters": [],
+                    "line": 76,
+                    "modifierKind": [
+                        120
+                    ],
+                    "jsdoctags": [
+                        {
+                            "name": "eventData",
+                            "type": "GridState<MockRecord>",
+                            "tagName": {
+                                "text": "param"
+                            }
+                        }
+                    ]
+                }
+            ],
+            "hostBindings": [],
+            "hostListeners": [],
+            "description": "",
+            "rawdescription": "",
+            "type": "component",
+            "sourceCode": "import { Component } from '@angular/core';\nimport {\n    BoldTextRendererComponent,\n    GridColumn,\n    GridDataFetchResult,\n    GridState,\n    RendererSpec,\n} from '@vmw/vcd-ui-components';\n\nexport interface MockRecord {\n    name: string;\n    city: string;\n    state: string;\n    details: {\n        gender: string;\n    };\n    age: number;\n}\n\nexport const mockData: MockRecord[] = [\n    {\n        name: 'Person 1',\n        city: 'Palo Alto',\n        state: 'CA',\n        details: {\n            gender: 'Male',\n        },\n        age: 30,\n    },\n    {\n        name: 'Person 2',\n        city: 'Boston',\n        state: 'MA',\n        details: {\n            gender: 'Female',\n        },\n        age: 60,\n    },\n];\n\n@Component({\n    templateUrl: '3-renderers-datagrid.example.component.html',\n})\nexport class ThreeRenderersDatagridExampleComponent {\n    gridData: GridDataFetchResult<MockRecord> = {\n        items: [],\n    };\n\n    columns: GridColumn<MockRecord>[] = [\n        {\n            displayName: 'Component Renderer',\n            renderer: RendererSpec({\n                type: BoldTextRendererComponent,\n                config: record => ({\n                    text: record.name,\n                }),\n            }),\n        },\n\n        {\n            displayName: 'Function Renderer',\n            renderer: (record: MockRecord) => `${record.city}, ${record.state}`,\n        },\n\n        {\n            displayName: 'Default(string) Renderer',\n            renderer: 'details.gender',\n        },\n    ];\n\n    async refresh(eventData: GridState<MockRecord>): Promise<void> {\n        this.gridData = {\n            items: mockData,\n            totalItems: 2,\n            pageSize: 2,\n            page: 1,\n        };\n    }\n}\n",
+            "assetsDirs": [],
+            "styleUrlsData": "",
+            "stylesData": "",
+            "templateData": "<vcd-datagrid [gridData]=\"gridData\" (gridRefresh)=\"refresh($event)\" [columns]=\"columns\"></vcd-datagrid>\n"
+        }
+    ],
+    "modules": [
+        {
+            "name": "AppModule",
+            "children": [
+                {
+                    "type": "providers",
+                    "elements": []
+                },
+                {
+                    "type": "declarations",
+                    "elements": [
+                        {
+                            "name": "AppComponent"
+                        }
+                    ]
+                },
+                {
+                    "type": "imports",
+                    "elements": [
+                        {
+                            "name": "AppRoutingModule"
+                        },
+                        {
+                            "name": "CliptexExamplesModule"
+                        },
+                        {
+                            "name": "DataExporterExamplesModule"
+                        },
+                        {
+                            "name": "DatagridExamplesModule"
+                        }
+                    ]
+                },
+                {
+                    "type": "exports",
+                    "elements": []
+                },
+                {
+                    "type": "bootstrap",
+                    "elements": [
+                        {
+                            "name": "AppComponent"
+                        }
+                    ]
+                },
+                {
+                    "type": "classes",
+                    "elements": []
+                }
+            ]
+        },
+        {
+            "name": "AppRoutingModule",
+            "children": [
+                {
+                    "type": "providers",
+                    "elements": []
+                },
+                {
+                    "type": "declarations",
+                    "elements": []
+                },
+                {
+                    "type": "imports",
+                    "elements": []
+                },
+                {
+                    "type": "exports",
+                    "elements": []
+                },
+                {
+                    "type": "bootstrap",
+                    "elements": []
+                },
+                {
+                    "type": "classes",
+                    "elements": []
+                }
+            ]
+        },
+        {
+            "name": "CliptexExamplesModule",
+            "children": [
+                {
+                    "type": "providers",
+                    "elements": []
+                },
+                {
+                    "type": "declarations",
+                    "elements": [
+                        {
+                            "name": "CliptextDatagridExampleComponent"
+                        },
+                        {
+                            "name": "CliptextDynamicInlineExampleComponent"
+                        }
+                    ]
+                },
+                {
+                    "type": "imports",
+                    "elements": []
+                },
+                {
+                    "type": "exports",
+                    "elements": [
+                        {
+                            "name": "CliptextDatagridExampleComponent"
+                        },
+                        {
+                            "name": "CliptextDynamicInlineExampleComponent"
+                        }
+                    ]
+                },
+                {
+                    "type": "bootstrap",
+                    "elements": []
+                },
+                {
+                    "type": "classes",
+                    "elements": []
+                }
+            ]
+        },
+        {
+            "name": "DataExporterExamplesModule",
+            "children": [
+                {
+                    "type": "providers",
+                    "elements": []
+                },
+                {
+                    "type": "declarations",
+                    "elements": [
+                        {
+                            "name": "DataExporterExampleComponent"
+                        }
+                    ]
+                },
+                {
+                    "type": "imports",
+                    "elements": []
+                },
+                {
+                    "type": "exports",
+                    "elements": [
+                        {
+                            "name": "DataExporterExampleComponent"
+                        }
+                    ]
+                },
+                {
+                    "type": "bootstrap",
+                    "elements": []
+                },
+                {
+                    "type": "classes",
+                    "elements": []
+                }
+            ]
+        },
+        {
+            "name": "DatagridExamplesModule",
+            "children": [
+                {
+                    "type": "providers",
+                    "elements": []
+                },
+                {
+                    "type": "declarations",
+                    "elements": [
+                        {
+                            "name": "CssClassesDatagridExampleComponent"
+                        },
+                        {
+                            "name": "ShowHideDatagridExampleComponent"
+                        },
+                        {
+                            "name": "ThreeRenderersDatagridExampleComponent"
+                        }
+                    ]
+                },
+                {
+                    "type": "imports",
+                    "elements": []
+                },
+                {
+                    "type": "exports",
+                    "elements": [
+                        {
+                            "name": "CssClassesDatagridExampleComponent"
+                        },
+                        {
+                            "name": "ShowHideDatagridExampleComponent"
+                        },
+                        {
+                            "name": "ThreeRenderersDatagridExampleComponent"
+                        }
+                    ]
+                },
+                {
+                    "type": "bootstrap",
+                    "elements": []
+                },
+                {
+                    "type": "classes",
+                    "elements": []
+                }
+            ]
+        }
+    ],
+    "miscellaneous": {
+        "variables": [
+            {
+                "name": "declarations",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "projects/examples/src/components/datagrid/datagrid.example.module.ts",
+                "type": "[]",
+                "defaultValue": "[ShowHideDatagridExampleComponent, CssClassesDatagridExampleComponent, ThreeRenderersDatagridExampleComponent]"
+            },
+            {
+                "name": "defaultLocale",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "projects/examples/src/app/app.module.ts",
+                "type": "string",
+                "defaultValue": "'en-US'"
+            },
+            {
+                "name": "environment",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "projects/examples/src/environments/environment.prod.ts",
+                "type": "object",
+                "defaultValue": "{\n    production: true,\n}"
+            },
+            {
+                "name": "environment",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "projects/examples/src/environments/environment.ts",
+                "type": "object",
+                "defaultValue": "{\n    production: false,\n}"
+            },
+            {
+                "name": "LOCALE_SEPARATOR",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "projects/examples/src/app/app.module.ts",
+                "type": "string",
+                "defaultValue": "'-'"
+            },
+            {
+                "name": "mockData",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "projects/examples/src/components/datagrid/3-renderers-datagrid.example.component.ts",
+                "type": "MockRecord[]",
+                "defaultValue": "[\n    {\n        name: 'Person 1',\n        city: 'Palo Alto',\n        state: 'CA',\n        details: {\n            gender: 'Male',\n        },\n        age: 30,\n    },\n    {\n        name: 'Person 2',\n        city: 'Boston',\n        state: 'MA',\n        details: {\n            gender: 'Female',\n        },\n        age: 60,\n    },\n]"
+            },
+            {
+                "name": "supportedLocales",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "projects/examples/src/app/app.module.ts",
+                "type": "[]",
+                "defaultValue": "['fr', 'es']"
+            }
+        ],
+        "functions": [
+            {
+                "name": "getRouting",
+                "file": "projects/examples/src/app/app-routing.module.ts",
+                "ctype": "miscellaneous",
+                "subtype": "function",
+                "description": "<p>Gets the Angular routes to be navigated in the app components&#39;s router outlet{@link AppComponent}</p>\n",
+                "args": [],
+                "returnType": "Routes"
+            },
+            {
+                "name": "getSupportedLocale",
+                "file": "projects/examples/src/app/app.module.ts",
+                "ctype": "miscellaneous",
+                "subtype": "function",
+                "description": "",
+                "args": [],
+                "returnType": "string"
+            }
+        ],
+        "typealiases": [],
+        "enumerations": [],
+        "groupedVariables": {
+            "projects/examples/src/components/datagrid/datagrid.example.module.ts": [
+                {
+                    "name": "declarations",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "projects/examples/src/components/datagrid/datagrid.example.module.ts",
+                    "type": "[]",
+                    "defaultValue": "[ShowHideDatagridExampleComponent, CssClassesDatagridExampleComponent, ThreeRenderersDatagridExampleComponent]"
+                }
+            ],
+            "projects/examples/src/app/app.module.ts": [
+                {
+                    "name": "defaultLocale",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "projects/examples/src/app/app.module.ts",
+                    "type": "string",
+                    "defaultValue": "'en-US'"
+                },
+                {
+                    "name": "LOCALE_SEPARATOR",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "projects/examples/src/app/app.module.ts",
+                    "type": "string",
+                    "defaultValue": "'-'"
+                },
+                {
+                    "name": "supportedLocales",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "projects/examples/src/app/app.module.ts",
+                    "type": "[]",
+                    "defaultValue": "['fr', 'es']"
+                }
+            ],
+            "projects/examples/src/environments/environment.prod.ts": [
+                {
+                    "name": "environment",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "projects/examples/src/environments/environment.prod.ts",
+                    "type": "object",
+                    "defaultValue": "{\n    production: true,\n}"
+                }
+            ],
+            "projects/examples/src/environments/environment.ts": [
+                {
+                    "name": "environment",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "projects/examples/src/environments/environment.ts",
+                    "type": "object",
+                    "defaultValue": "{\n    production: false,\n}"
+                }
+            ],
+            "projects/examples/src/components/datagrid/3-renderers-datagrid.example.component.ts": [
+                {
+                    "name": "mockData",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "projects/examples/src/components/datagrid/3-renderers-datagrid.example.component.ts",
+                    "type": "MockRecord[]",
+                    "defaultValue": "[\n    {\n        name: 'Person 1',\n        city: 'Palo Alto',\n        state: 'CA',\n        details: {\n            gender: 'Male',\n        },\n        age: 30,\n    },\n    {\n        name: 'Person 2',\n        city: 'Boston',\n        state: 'MA',\n        details: {\n            gender: 'Female',\n        },\n        age: 60,\n    },\n]"
+                }
+            ]
+        },
+        "groupedFunctions": {
+            "projects/examples/src/app/app-routing.module.ts": [
+                {
+                    "name": "getRouting",
+                    "file": "projects/examples/src/app/app-routing.module.ts",
+                    "ctype": "miscellaneous",
+                    "subtype": "function",
+                    "description": "<p>Gets the Angular routes to be navigated in the app components&#39;s router outlet{@link AppComponent}</p>\n",
+                    "args": [],
+                    "returnType": "Routes"
+                }
+            ],
+            "projects/examples/src/app/app.module.ts": [
+                {
+                    "name": "getSupportedLocale",
+                    "file": "projects/examples/src/app/app.module.ts",
+                    "ctype": "miscellaneous",
+                    "subtype": "function",
+                    "description": "",
+                    "args": [],
+                    "returnType": "string"
+                }
+            ]
+        },
+        "groupedEnumerations": {},
+        "groupedTypeAliases": {}
+    },
+    "routes": [],
+    "coverage": {
+        "count": 9,
+        "status": "low",
+        "files": [
+            {
+                "filePath": "projects/examples/src/app/app-routing.module.ts",
+                "type": "function",
+                "linksubtype": "function",
+                "name": "getRouting",
+                "coveragePercent": 100,
+                "coverageCount": "1/1",
+                "status": "very-good"
+            },
+            {
+                "filePath": "projects/examples/src/app/app.component.ts",
+                "type": "component",
+                "linktype": "component",
+                "name": "AppComponent",
+                "coveragePercent": 50,
+                "coverageCount": "1/2",
+                "status": "medium"
+            },
+            {
+                "filePath": "projects/examples/src/app/app.component.ts",
+                "type": "interface",
+                "linktype": "interface",
+                "name": "SideNavEntries",
+                "coveragePercent": 0,
+                "coverageCount": "0/3",
+                "status": "low"
+            },
+            {
+                "filePath": "projects/examples/src/app/app.module.ts",
+                "type": "function",
+                "linksubtype": "function",
+                "name": "getSupportedLocale",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "projects/examples/src/app/app.module.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "defaultLocale",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "projects/examples/src/app/app.module.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "LOCALE_SEPARATOR",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "projects/examples/src/app/app.module.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "supportedLocales",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "projects/examples/src/components/cliptext/cliptext-datagrid.example.component.ts",
+                "type": "component",
+                "linktype": "component",
+                "name": "CliptextDatagridExampleComponent",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "projects/examples/src/components/cliptext/cliptext-dynamic-inline.example.component.ts",
+                "type": "component",
+                "linktype": "component",
+                "name": "CliptextDynamicInlineExampleComponent",
+                "coveragePercent": 0,
+                "coverageCount": "0/2",
+                "status": "low"
+            },
+            {
+                "filePath": "projects/examples/src/components/data-exporter/data-exporter.example.component.ts",
+                "type": "component",
+                "linktype": "component",
+                "name": "DataExporterExampleComponent",
+                "coveragePercent": 0,
+                "coverageCount": "0/4",
+                "status": "low"
+            },
+            {
+                "filePath": "projects/examples/src/components/datagrid/3-renderers-datagrid.example.component.ts",
+                "type": "component",
+                "linktype": "component",
+                "name": "ThreeRenderersDatagridExampleComponent",
+                "coveragePercent": 0,
+                "coverageCount": "0/4",
+                "status": "low"
+            },
+            {
+                "filePath": "projects/examples/src/components/datagrid/3-renderers-datagrid.example.component.ts",
+                "type": "interface",
+                "linktype": "interface",
+                "name": "MockRecord",
+                "coveragePercent": 0,
+                "coverageCount": "0/6",
+                "status": "low"
+            },
+            {
+                "filePath": "projects/examples/src/components/datagrid/3-renderers-datagrid.example.component.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "mockData",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "projects/examples/src/components/datagrid/css-classes-datagrid.example.component.ts",
+                "type": "component",
+                "linktype": "component",
+                "name": "CssClassesDatagridExampleComponent",
+                "coveragePercent": 20,
+                "coverageCount": "1/5",
+                "status": "low"
+            },
+            {
+                "filePath": "projects/examples/src/components/datagrid/css-classes-datagrid.example.component.ts",
+                "type": "interface",
+                "linktype": "interface",
+                "name": "Data",
+                "coveragePercent": 0,
+                "coverageCount": "0/2",
+                "status": "low"
+            },
+            {
+                "filePath": "projects/examples/src/components/datagrid/datagrid.example.module.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "declarations",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "projects/examples/src/components/datagrid/show-hide-datagrid.example.component.ts",
+                "type": "component",
+                "linktype": "component",
+                "name": "ShowHideDatagridExampleComponent",
+                "coveragePercent": 25,
+                "coverageCount": "1/4",
+                "status": "low"
+            },
+            {
+                "filePath": "projects/examples/src/components/datagrid/show-hide-datagrid.example.component.ts",
+                "type": "interface",
+                "linktype": "interface",
+                "name": "Data",
+                "coveragePercent": 0,
+                "coverageCount": "0/2",
+                "status": "low"
+            },
+            {
+                "filePath": "projects/examples/src/environments/environment.prod.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "environment",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "projects/examples/src/environments/environment.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "environment",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            }
+        ]
+    }
+}
