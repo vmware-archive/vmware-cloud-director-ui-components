@@ -25,7 +25,9 @@
       "@vmw/vcd-ui-doc-lib": [
         "dist/doc-lib"
       ]
-    }
+    },
+    "resolveJsonModule": true,
+    "esModuleInterop": true
   },
   "angularCompilerOptions": {
     "fullTemplateTypeCheck": true,

@@ -1,0 +1,41 @@
+<h6>Inputs</h6>
+<table class="table" *ngIf="inputParameters?.length">
+    <thead>
+        <tr>
+            <th class="left">Name</th>
+            <th>Type</th>
+            <th class="left">Description</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let par of inputParameters">
+            <td class="left">
+                <p>{{ par.name }}</p>
+            </td>
+            <td>{{ par.type }}</td>
+            <td class="left"><div [innerHTML]="par.description"></div></td>
+        </tr>
+    </tbody>
+</table>
+<p *ngIf="!inputParameters?.length">The component has no input parameters</p>
+
+<h6>Outputs</h6>
+<table class="table" *ngIf="outputParameters?.length">
+    <thead>
+        <tr>
+            <th class="left">Name</th>
+            <th>Type</th>
+            <th class="left">Description</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let par of outputParameters">
+            <td class="left">
+                <p>{{ par.name }}</p>
+            </td>
+            <td>{{ par.type }}</td>
+            <td class="left"><div [innerHTML]="par.description"></div></td>
+        </tr>
+    </tbody>
+</table>
+<p *ngIf="!outputParameters?.length">The component does not emit any values</p>

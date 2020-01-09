@@ -1,0 +1,29 @@
+$radius: 3px;
+$margin: 0.5rem;
+
+.card-header-main {
+    display: flex;
+
+    .card-header {
+        flex: 1;
+    }
+
+    .example-button-container {
+        display: flex;
+        margin: $margin $margin 0 0;
+
+        &.example-shown {
+            border-radius: $radius $radius 0 0;
+            background-color: hsl(201, 29%, 88%);
+        }
+
+        clr-icon {
+            align-self: center;
+        }
+    }
+}
+.source-code-container {
+    border-radius: $radius 0 $radius $radius;
+    background-color: hsl(201, 29%, 88%);
+    margin: 0 $margin;
+}

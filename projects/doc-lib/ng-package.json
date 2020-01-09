@@ -3,5 +3,9 @@
   "dest": "../../dist/doc-lib",
   "lib": {
     "entryFile": "src/public-api.ts"
-  }
+  },
+  "whitelistedNonPeerDependencies": [
+    "@compodoc/compodoc",
+    "prismjs"
+  ]
 }

@@ -3,6 +3,13 @@
     "version": "0.0.1",
     "peerDependencies": {
         "@angular/common": "^8.2.14",
-        "@angular/core": "^8.2.14"
+        "@angular/core": "^8.2.14",
+        "prismjs": "1.17.1"
+    },
+    "dependencies": {
+        "@compodoc/compodoc": "1.1.11"
+    },
+    "bin": {
+        "build-doc": "./node_modules/.bin/compodoc"
     }
 }

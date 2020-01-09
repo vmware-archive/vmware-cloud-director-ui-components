@@ -1,0 +1,19 @@
+<div class="card">
+    <div class="card-header-main">
+        <div class="card-header">
+            {{ exampleEntry?.title }}
+        </div>
+        <div class="example-button-container" [ngClass]="{ 'example-shown': showSourceCode }">
+            <clr-icon shape="code" size="32" (click)="showSourceCode = !showSourceCode"> </clr-icon>
+        </div>
+    </div>
+
+    <div class="card-block source-code-container" *ngIf="showSourceCode">
+        <vcd-source-code-viewer [component]="exampleEntry?.component"> </vcd-source-code-viewer>
+    </div>
+    <div class="card-block">
+        <div class="card-text">
+            <template #exampleContainer> </template>
+        </div>
+    </div>
+</div>

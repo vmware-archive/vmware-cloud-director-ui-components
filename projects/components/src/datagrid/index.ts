@@ -6,3 +6,5 @@
 export * from './datagrid.module';
 export * from './datagrid.component';
 export * from './interfaces/datagrid-column.interface';
+export * from './interfaces/component-renderer.interface';
+export * from './renderers';
