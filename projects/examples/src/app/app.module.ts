@@ -14,12 +14,15 @@ import { ClarityModule } from '@clr/angular';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { registerLocaleData } from '@angular/common';
 import { PipesModule } from '../../../components/src/common/pipes/pipes.module';
-import { CliptexExamplestModule } from '../components/cliptext/cliptext.examples.module';
+import { CliptexExamplesModule } from '../components/cliptext/cliptext.examples.module';
 import { FormsModule } from '@angular/forms';
 
 import localeFr from '@angular/common/locales/fr';
 import localeEs from '@angular/common/locales/es';
-import { DatagridExamplesModule } from './datagrid/datagrid.example.module';
+import componentsDocumentationJson from '../../gen/components-compodoc-documentation/documentation.json';
+import examplesDocumentationJson from '../../gen/examples-compodoc-documentation/documentation.json';
+import { DatagridExamplesModule } from '../components/datagrid/datagrid.example.module';
+import { DataExporterExamplesModule } from '../components/data-exporter/data-exporter.examples.module';
 
 registerLocaleData(localeFr, 'fr');
 registerLocaleData(localeEs, 'es');
@@ -47,14 +50,15 @@ function getSupportedLocale(): string {
         BrowserModule,
         AppRoutingModule,
         DataExporterModule,
-        DatagridModule,
-        DocLibModule,
         ClarityModule,
         BrowserAnimationsModule,
-        CliptexExamplestModule,
+        DocLibModule.forRoot([componentsDocumentationJson, examplesDocumentationJson]),
+        CliptexExamplesModule,
+        DatagridModule,
         PipesModule,
         FormsModule,
         DatagridExamplesModule,
+        DataExporterExamplesModule,
     ],
     providers: [{ provide: LOCALE_ID, useValue: getSupportedLocale() }],
     bootstrap: [AppComponent],

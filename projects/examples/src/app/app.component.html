@@ -1,44 +1,33 @@
-<clr-alert [clrAlertType]="'info'" [clrAlertAppLevel]="true">
-    <clr-alert-item>
-        <span class="alert-text">
-            Stay tuned! We will have components showing up here soon.
-        </span>
-        <div class="alert-actions">
-            <button class="btn alert-action">Fix</button>
+<clr-main-container>
+    <clr-header class="header-6">
+        <div class="branding">
+            <a routerLink="/" class="nav-nlink">
+                <clr-icon shape="vm-bug"></clr-icon>
+                <span class="title">VMware VCD Common Components</span>
+            </a>
         </div>
-    </clr-alert-item>
-</clr-alert>
-<h1>VCD UI Common Components</h1>
-<router-outlet></router-outlet>
+    </clr-header>
 
-<h2>Data Grid</h2>
-<vcd-datagrid-show-hide-example></vcd-datagrid-show-hide-example>
+    <div class="content-container">
+        <nav class="sidenav" [clr-nav-level]="2">
+            <section class="sidenav-content">
+                <section class="nav-group">
+                    <label>Components</label>
+                    <ul class="nav-list">
+                        <ng-container *ngFor="let entry of sideNavEntries">
+                            <li>
+                                <a class="nav-link" [routerLink]="entry.path" [routerLinkActive]="['active']">
+                                    {{ entry.title }}
+                                </a>
+                            </li>
+                        </ng-container>
+                    </ul>
+                </section>
+            </section>
+        </nav>
 
-<h2>CSS Classes and Datagrid</h2>
-<vcd-datagrid-css-classes-example></vcd-datagrid-css-classes-example>
-
-<h2>Data Exporter</h2>
-<button (click)="dataExporterOpen = true">
-    Show Modal
-</button>
-<vcd-data-exporter
-    *ngIf="dataExporterOpen"
-    [(open)]="dataExporterOpen"
-    (dataExportRequest)="onExportRequest($event)"
-    [columns]="exportColumns"
->
-</vcd-data-exporter>
-
-<h2>Clip Text</h2>
-
-<h3>In a Datagrid</h3>
-<vcd-cliptext-datagrid-example></vcd-cliptext-datagrid-example>
-
-<h3>Dynamic text</h3>
-<vcd-cliptext-dynamic-inline-example></vcd-cliptext-dynamic-inline-example>
-
-<h2>Doc Lib (TODO)</h2>
-<vcd-doc-lib></vcd-doc-lib>
-
-<h2>Clarity Icons Work</h2>
-<clr-icon shape="atom"></clr-icon>
+        <main class="content-area">
+            <router-outlet></router-outlet>
+        </main>
+    </div>
+</clr-main-container>

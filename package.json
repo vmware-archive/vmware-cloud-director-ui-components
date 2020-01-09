@@ -1,5 +1,5 @@
 {
-  "name": "vcd-ui-common",
+  "name": "vmware-cloud-director-ui-components",
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
@@ -13,8 +13,10 @@
     "test:components": "ng test components",
     "test:ci:components": "ng test components --watch=false --browsers ChromeHeadlessNoSandbox --code-coverage",
     "lint": "ng lint",
-    "lint-fix": "npx tslint --fix 'projects/**/*.ts'",
-    "e2e": "ng e2e"
+    "lint-fix": "tslint --fix 'projects/**/*.ts' -e 'projects/doc-lib/node_modules/**/*.ts'",
+    "e2e": "ng e2e",
+    "build-components-doc": "build-doc -p ./projects/components/tsconfig.lib.json -e json -d projects/examples/gen/components-compodoc-documentation",
+    "build-examples-doc": "build-doc -p ./projects/examples/tsconfig.app.json -e json -d projects/examples/gen/examples-compodoc-documentation"
   },
   "private": true,
   "dependencies": {
@@ -32,7 +34,8 @@
     "rxjs": "6.4.0",
     "tslib": "1.10.0",
     "zone.js": "0.9.1",
-    "@webcomponents/custom-elements": "1.0.0"
+    "@webcomponents/custom-elements": "1.0.0",
+    "prismjs": "1.17.1"
   },
   "husky": {
     "hooks": {
