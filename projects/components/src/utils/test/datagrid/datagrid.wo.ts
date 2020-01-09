@@ -63,6 +63,21 @@ export class ClrDatagridWidgetObject extends WidgetObject<ClrDatagrid> {
         return this.findElements(COLUMN_SELECTOR)[index].classes['datagrid-hidden-column'] !== true;
     }
 
+    /*
+     * Returns the CSS class of the Clarity datagrid.
+     */
+    get gridCssClass(): string[] {
+        console.log(this.root.classes);
+        return Object.keys(this.root.classes);
+    }
+
+    /**
+     * Returns the CSS class names of the given Clarity datarow.
+     */
+    getRowsCssClass(index: number): string[] {
+        return Object.keys(this.rows[index].classes);
+    }
+
     /**
      * Can be used by subclasses to create methods that assert about HTML in custom rendered columns. Note that
      * subclasses should not return the DebugElement, they should return a string from a section of the HTML.
