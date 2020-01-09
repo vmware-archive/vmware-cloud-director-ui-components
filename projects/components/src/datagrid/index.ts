@@ -5,4 +5,4 @@
 
 export * from './datagrid.module';
 export * from './datagrid.component';
-export * from './examples/datagrid.example.module';
+export * from './interfaces/datagrid-column.interface';

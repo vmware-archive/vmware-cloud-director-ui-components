@@ -72,12 +72,10 @@ export class ClrDatagridWidgetObject extends WidgetObject<ClrDatagrid> {
     }
 
     /**
-     * Returns the CSS class names of the Clarity datarow.
-     *
-     * TODO explain the 2d array
+     * Returns the CSS class names of the given Clarity datarow.
      */
-    get rowsCssClass(): string[][] {
-        return this.rows.map(row => row.classes).map(classes => Object.keys(classes));
+    getRowsCssClass(index: number): string[] {
+        return Object.keys(this.rows[index].classes);
     }
 
     /**

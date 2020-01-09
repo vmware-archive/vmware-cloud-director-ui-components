@@ -4,8 +4,7 @@
  */
 
 import { Component } from '@angular/core';
-import { GridDataFetchResult, GridState } from '../../public-api';
-import { GridColumn } from '../interfaces/datagrid-column.interface';
+import { GridDataFetchResult, GridState, GridColumn } from '@vmw/vcd-ui-components';
 
 interface Data {
     value: string;

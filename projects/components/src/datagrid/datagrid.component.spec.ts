@@ -91,40 +91,42 @@ describe('DatagridComponent', () => {
                 expect(this.clrGridWidget.rowCount).toBe(mockData.length);
             });
 
-            it('should return the proper css class for the grid', function(this: HasFinderAndGrid): void {
+            it('gives proper css class for the grid', function(this: HasFinderAndGrid): void {
+                this.finder.hostComponent.clrDatagridCssClass = 'some_class';
+                this.finder.detectChanges();
                 expect(this.clrGridWidget.gridCssClass).toContain('some_class');
             });
 
             it('sets no default CSS classnames for the rows', function(this: HasFinderAndGrid): void {
-                expect(this.clrGridWidget.rowsCssClass[0]).toEqual(['datagrid-row', 'datagrid-selected']);
+                expect(this.clrGridWidget.getRowsCssClass(0)).toEqual(['datagrid-row', 'datagrid-selected']);
             });
 
             it('sets CSS classnames on rows', function(this: HasFinderAndGrid): void {
                 const firstCall = ['firstRowA', 'secondRowA'];
                 const secondCall = ['firstRowB', 'secondRowB'];
 
-                this.finder.hostComponent.clrDatarowCssClass = (rec: MockRecord, index: number) => {
+                this.finder.hostComponent.clrDatarowCssClassGetter = (rec: MockRecord, index: number) => {
                     return firstCall[index];
                 };
                 this.finder.detectChanges();
-                expect(this.clrGridWidget.rowsCssClass[0]).toContain(
+                expect(this.clrGridWidget.getRowsCssClass(0)).toContain(
                     'firstRowA',
                     'Expected the initial class to display for the first row.'
                 );
-                expect(this.clrGridWidget.rowsCssClass[1]).toContain(
+                expect(this.clrGridWidget.getRowsCssClass(1)).toContain(
                     'secondRowA',
                     'Expected some different initial class to display for the second row.'
                 );
 
-                this.finder.hostComponent.clrDatarowCssClass = (rec: MockRecord, index: number) => {
+                this.finder.hostComponent.clrDatarowCssClassGetter = (rec: MockRecord, index: number) => {
                     return secondCall[index];
                 };
                 this.finder.detectChanges();
-                expect(this.clrGridWidget.rowsCssClass[0]).toContain(
+                expect(this.clrGridWidget.getRowsCssClass(0)).toContain(
                     'firstRowB',
                     'Expected a new class to display for the first row.'
                 );
-                expect(this.clrGridWidget.rowsCssClass[1]).toContain(
+                expect(this.clrGridWidget.getRowsCssClass(1)).toContain(
                     'secondRowB',
                     'Expected a different new class to display for the second row.'
                 );
@@ -250,7 +252,7 @@ describe('DatagridComponent', () => {
             (gridRefresh)="refresh($event)"
             [columns]="columns"
             [clrDatagridCssClass]="clrDatagridCssClass"
-            [clrDatarowCssClassGetter]="clrDatarowCssClass"
+            [clrDatarowCssClassGetter]="clrDatarowCssClassGetter"
         ></vcd-datagrid>
     `,
 })
@@ -265,25 +267,13 @@ export class HostWithDatagridComponent {
     @ViewChild(DatagridComponent, { static: false }) grid!: MockRecordDatagridComponent;
 
     /** Will be set in tests */
-    columns: GridColumn<MockRecord>[] = [
-        {
-            displayName: 'Default Renderer',
-            renderer: 'details.gender',
-        },
-    ];
+    columns: GridColumn<MockRecord>[] = [];
 
-    clrDatagridCssClass = 'some_class';
+    clrDatagridCssClass = '';
 
-    clrDatarowCssClass(a: MockRecord, index: number): string {
+    clrDatarowCssClassGetter(a: MockRecord, index: number): string {
         return '';
     }
 
-    refresh(eventData: GridState<MockRecord>): void {
-        this.gridData = {
-            items: mockData,
-            totalItems: 2,
-            pageSize: 2,
-            page: 1,
-        };
-    }
+    refresh(eventData: GridState<MockRecord>): void {}
 }

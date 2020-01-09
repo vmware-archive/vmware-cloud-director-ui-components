@@ -216,7 +216,7 @@ export class DatagridComponent<R> implements OnInit {
     @ViewChild(ClrDatagridFilter, { static: false }) numericFilter: ClrDatagridFilter;
 
     /**
-     * Gives the CSS class to use for a given datarow based on it's relative index and entity definition.
+     * Gives the CSS class to use for a given datarow based on its relative index and entity definition.
      */
     @Input() clrDatarowCssClassGetter(row: R, index: number): string {
         return '';
