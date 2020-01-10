@@ -15,10 +15,27 @@ interface Data {
  */
 @Component({
     selector: 'vcd-datagrid-css-classes-example',
-    styleUrls: ['css-classes-datagrid.example.component.scss'],
-    templateUrl: 'css-classes-datagrid.example.component.html',
+    styles: [
+        `
+            ::ng-deep .yellow-row {
+                background-color: greenyellow;
+            }
+
+            ::ng-deep .red-row {
+                background-color: lightcoral;
+            }
+        `,
+    ],
+    template: `
+        <vcd-datagrid
+            [gridData]="gridData"
+            (gridRefresh)="refresh($event)"
+            [columns]="columns"
+            [clrDatarowCssClassGetter]="clrDatarowCssClassGetter"
+        ></vcd-datagrid>
+    `,
 })
-export class CssClassesDatagridExampleComponent {
+export class DatagridCssClassesExampleComponent {
     gridData: GridDataFetchResult<Data> = {
         items: [],
     };
