@@ -5,8 +5,8 @@ plugins share the VCD UX.
 
 ## To install
 
-`npm install @vmw/vcd-ui-doc-lib` for the latest stable release or
-`npm install @vmw/vcd-ui-doc-lib@next` for the upcoming release, which could contain APIs that may not be stable
+`npm install @vcd/ui-doc-lib` for the latest stable release or
+`npm install @vcd/ui-doc-lib@next` for the upcoming release, which could contain APIs that may not be stable
 
 ## Running unit tests
 

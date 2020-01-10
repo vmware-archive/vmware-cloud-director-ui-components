@@ -4,7 +4,7 @@
 
 This [monorepo](https://angular.io/guide/file-structure#multiple-projects) contains three separate but related projects:
 
-### Component Library (./projects/components) `@vmw/vcd-ui-components`
+### Component Library (./projects/components) `@vcd/ui-components`
 
 Reusable components for vcd-ui and its plugin developers. See its [README](projects/components/README.md)
 for further details
@@ -23,7 +23,7 @@ for further details
 
 ### Examples App (./projects/examples)
 
-The application that showcases `@vmw/vcd-ui-components` using `@vmw/vcd-ui-doc-lib`.
+The application that showcases `@vcd/ui-components` using `@vcd/ui-doc-lib`.
 
 Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if
 you change any of the source files. This is where you'll see changes made in [components](./projects/components) and

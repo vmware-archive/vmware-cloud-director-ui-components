@@ -10,8 +10,8 @@ import { CliptextDynamicInlineExampleComponent } from './cliptext-dynamic-inline
 import { ClarityModule } from '@clr/angular';
 import { CliptextModule } from '../../../../components/src/cliptext';
 import { ReactiveFormsModule } from '@angular/forms';
-import { Documentation } from '@vmw/vcd-ui-doc-lib';
-import { CliptextComponent } from '@vmw/vcd-ui-components';
+import { Documentation } from '@vcd/ui-doc-lib';
+import { CliptextComponent } from '@vcd/ui-components';
 
 Documentation.registerDocumentationEntry({
     component: CliptextComponent,

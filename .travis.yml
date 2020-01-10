@@ -41,6 +41,3 @@ jobs:
         - stage: test
           name: Unit Tests for /doc-lib
           script: npm run test:ci:doc-lib
-        - stage: test
-          name: Unit tests for /examples
-          script: npm run test:ci:examples

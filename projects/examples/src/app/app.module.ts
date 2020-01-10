@@ -8,8 +8,8 @@ import { LOCALE_ID, NgModule } from '@angular/core';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { DataExporterModule, DatagridModule } from '@vmw/vcd-ui-components';
-import { DocLibModule } from '@vmw/vcd-ui-doc-lib';
+import { DataExporterModule, DatagridModule } from '@vcd/ui-components';
+import { DocLibModule } from '@vcd/ui-doc-lib';
 import { ClarityModule } from '@clr/angular';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { registerLocaleData } from '@angular/common';
@@ -55,7 +55,6 @@ function getSupportedLocale(): string {
         DocLibModule.forRoot([componentsDocumentationJson, examplesDocumentationJson]),
         CliptexExamplesModule,
         DatagridModule,
-        PipesModule,
         FormsModule,
         DatagridExamplesModule,
         DataExporterExamplesModule,

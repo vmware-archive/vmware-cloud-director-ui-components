@@ -27,8 +27,8 @@ of a WidgetObject pattern to minimize duplication of code accessing HTML in test
 
 ## To install
 
-`npm install @vmw/vcd-ui-components` for the latest stable release or
-`npm install @vmw/vcd-ui-components@next` for the upcoming release, which could contain APIs that may not be stable
+`npm install @vcd/ui-components` for the latest stable release or
+`npm install @vcd/ui-components@next` for the upcoming release, which could contain APIs that may not be stable
 
 ## Using within your app
 

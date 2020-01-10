@@ -9,8 +9,8 @@ import { CommonModule } from '@angular/common';
 import { ClarityModule } from '@clr/angular';
 import { ReactiveFormsModule } from '@angular/forms';
 
-import { Documentation } from '@vmw/vcd-ui-doc-lib';
-import { DataExporterComponent, DataExporterModule } from '@vmw/vcd-ui-components';
+import { Documentation } from '@vcd/ui-doc-lib';
+import { DataExporterComponent, DataExporterModule } from '@vcd/ui-components';
 
 Documentation.registerDocumentationEntry({
     component: DataExporterComponent,

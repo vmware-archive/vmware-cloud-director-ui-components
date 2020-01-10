@@ -19,10 +19,10 @@
       "dom"
     ],
     "paths": {
-      "@vmw/vcd-ui-components": [
+      "@vcd/ui-components": [
         "dist/components"
       ],
-      "@vmw/vcd-ui-doc-lib": [
+      "@vcd/ui-doc-lib": [
         "dist/doc-lib"
       ]
     },
