@@ -10,7 +10,7 @@ import {
     GridDataFetchResult,
     GridState,
     RendererSpec,
-} from '@vmw/vcd-ui-components';
+} from '@vcd/ui-components';
 
 export interface MockRecord {
     name: string;

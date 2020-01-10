@@ -5,7 +5,7 @@
 
 import { Injectable } from '@angular/core';
 
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export abstract class HighlightService {
     public abstract highlightTypescript(code: string): string;
     public abstract highlightHtml(code: string): string;

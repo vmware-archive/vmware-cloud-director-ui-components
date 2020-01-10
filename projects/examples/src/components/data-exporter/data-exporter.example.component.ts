@@ -4,7 +4,7 @@
  */
 
 import { Component } from '@angular/core';
-import { DataExportRequestEvent, ExportColumn } from '@vmw/vcd-ui-components';
+import { DataExportRequestEvent, ExportColumn } from '@vcd/ui-components';
 
 @Component({
     selector: 'vcd-data-exporter-example',
