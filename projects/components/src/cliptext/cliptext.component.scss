@@ -1,6 +1,8 @@
-:host {
+:host(.inline) {
     display: inline-block;
+    vertical-align: middle;
 }
+
 clr-tooltip {
     display: block;
 

@@ -15,10 +15,11 @@ interface Data {
  */
 @Component({
     selector: 'vcd-datagrid-show-hide-example',
-    styleUrls: ['show-hide-datagrid.example.component.scss'],
-    templateUrl: 'show-hide-datagrid.example.component.html',
+    template: `
+        <vcd-datagrid [gridData]="gridData" (gridRefresh)="refresh($event)" [columns]="columns"></vcd-datagrid>
+    `,
 })
-export class ShowHideDatagridExampleComponent {
+export class DatagridShowHideExampleComponent {
     gridData: GridDataFetchResult<Data> = {
         items: [],
     };

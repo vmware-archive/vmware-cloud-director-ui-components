@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: BSD-2-Clause
  */
 
-import { AfterViewInit, ChangeDetectorRef, Component, ElementRef, Input, ViewChild } from '@angular/core';
+import { AfterViewInit, ChangeDetectorRef, Component, ElementRef, HostBinding, Input, ViewChild } from '@angular/core';
 import { ClrIfOpen, ClrTooltipContent } from '@clr/angular';
 
 export enum Position {
@@ -12,6 +12,8 @@ export enum Position {
     BEFORE = 'BEFORE',
     AFTER = 'AFTER',
 }
+
+type InlineSpec = false | string;
 
 /**
  * Use a cliptext component when you need to restrict a displayed text to a certain width but still provide to the user
@@ -59,6 +61,27 @@ export class CliptextComponent implements AfterViewInit {
             default:
                 this._tooltipPosition = 'top-right';
         }
+    }
+
+    /**
+     * Whether the tooltip should take up a block, or be inline within text
+     *
+     * If its value is falsy (default), it will be displayed as a block (take up the parent's width).
+     * Otherwise, it should be a CSS string to be used as its max-width;
+     */
+    @Input()
+    set inlineWidth(width: string) {
+        this._inline = width;
+    }
+
+    private _inline: InlineSpec = false;
+
+    @HostBinding('class.inline') get isInline(): boolean {
+        return !!this._inline;
+    }
+
+    @HostBinding('style.maxWidth') get maxWidth(): string {
+        return this._inline || '';
     }
 
     /**
