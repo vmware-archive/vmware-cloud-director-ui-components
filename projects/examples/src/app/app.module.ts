@@ -13,7 +13,6 @@ import { DocLibModule } from '@vcd/ui-doc-lib';
 import { ClarityModule } from '@clr/angular';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { registerLocaleData } from '@angular/common';
-import { PipesModule } from '../../../components/src/common/pipes/pipes.module';
 import { CliptexExamplesModule } from '../components/cliptext/cliptext.examples.module';
 import { FormsModule } from '@angular/forms';
 
@@ -49,13 +48,10 @@ function getSupportedLocale(): string {
     imports: [
         BrowserModule,
         AppRoutingModule,
-        DataExporterModule,
         ClarityModule,
         BrowserAnimationsModule,
         DocLibModule.forRoot([componentsDocumentationJson, examplesDocumentationJson]),
         CliptexExamplesModule,
-        DatagridModule,
-        FormsModule,
         DatagridExamplesModule,
         DataExporterExamplesModule,
     ],
