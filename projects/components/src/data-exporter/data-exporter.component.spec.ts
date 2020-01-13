@@ -12,6 +12,7 @@ import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { DataExporterWidgetObject } from './data-exporter.wo';
 import { HasFinder, WidgetFinder } from '../utils/test/widget-object';
 import { CsvExporterService } from './csv-exporter.service';
+import { TranslationService, MockTranslationService } from '@vcd/i18n';
 
 type TestHostFinder = HasFinder<TestHostComponent>;
 
@@ -19,6 +20,12 @@ describe('VcdExportTableComponent', () => {
     beforeEach(async () => {
         await TestBed.configureTestingModule({
             imports: [DataExporterModule, NoopAnimationsModule],
+            providers: [
+                {
+                    provide: TranslationService,
+                    useValue: new MockTranslationService(),
+                },
+            ],
             declarations: [TestHostComponent],
         }).compileComponents();
     });

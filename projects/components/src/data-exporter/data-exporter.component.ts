@@ -72,7 +72,22 @@ export class DataExporterComponent implements OnInit {
     /**
      * Text for the Dialog Header
      */
-    @Input() dialogHeader = 'Select Columns';
+    @Input() dialogHeader: string;
+
+    /**
+     * Text for the cancel button.
+     */
+    @Input() cancelText: string;
+
+    /**
+     * Text for the select all button.
+     */
+    @Input() selectAllText: string;
+
+    /**
+     * Text for the export button.
+     */
+    @Input() exportText: string;
 
     /**
      * Whether a box to select/deselect all rows is available

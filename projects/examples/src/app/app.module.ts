@@ -3,8 +3,9 @@
  * SPDX-License-Identifier: BSD-2-Clause
  */
 
+import { InjectionToken } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { LOCALE_ID, NgModule } from '@angular/core';
+import { NgModule } from '@angular/core';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { registerLocaleData } from '@angular/common';
 import { ClarityModule } from '@clr/angular';
@@ -21,26 +22,17 @@ import componentsDocumentationJson from '../../gen/components-doc/documentation.
 import examplesDocumentationJson from '../../gen/examples-doc/documentation.json';
 import { DatagridExamplesModule } from '../components/datagrid/datagrid.examples.module';
 import { StackBlitzInfo } from '../../../doc-lib/src/stack-blitz-writer.service';
+import { HttpClientModule } from '@angular/common/http';
+import { I18nModule, TranslationService } from '@vcd/i18n';
+import { FormsModule } from '@angular/forms';
+import { DatagridModule } from 'projects/components/src/datagrid';
+import { DataExporterModule } from 'projects/components/src/public-api';
+import { CliptextModule } from 'projects/components/src/cliptext';
 
 registerLocaleData(localeFr, 'fr');
 registerLocaleData(localeEs, 'es');
 
-const supportedLocales = ['fr', 'es'];
-const defaultLocale = 'en-US';
-const LOCALE_SEPARATOR = '-';
-
-function getSupportedLocale(): string {
-    let partiallyMatchedLocale: string;
-    const completelyMatchedLocale = supportedLocales.find(
-        (supportedLocale: string) => navigator.language === supportedLocale
-    );
-    if (!completelyMatchedLocale) {
-        partiallyMatchedLocale = supportedLocales.find(
-            (supportedLocale: string) => navigator.language.split(LOCALE_SEPARATOR)[0] === supportedLocale
-        );
-    }
-    return completelyMatchedLocale || partiallyMatchedLocale || defaultLocale;
-}
+const ASSET_URL = new InjectionToken('ASSETS');
 
 /**
  * The following 2 constants are declared for AOT compilation purpose. Otherwise, the compilation would silently fail and
@@ -60,16 +52,32 @@ export const sbInfo: StackBlitzInfo = {
 @NgModule({
     declarations: [AppComponent],
     imports: [
+        HttpClientModule,
+        I18nModule.forChild(ASSET_URL, true),
         BrowserModule,
         AppRoutingModule,
+        DocLibModule,
         ClarityModule,
         BrowserAnimationsModule,
         DocLibModule.forRoot([docJson1, docJson2], sbInfo),
         CliptextExamplesModule,
+        FormsModule,
         DatagridExamplesModule,
         DataExporterExamplesModule,
+        DatagridModule,
+        DataExporterModule,
+        CliptextModule,
     ],
-    providers: [{ provide: LOCALE_ID, useValue: getSupportedLocale() }],
+    providers: [
+        {
+            provide: ASSET_URL,
+            useFactory: () => 'assets/translations',
+        },
+    ],
     bootstrap: [AppComponent],
 })
-export class AppModule {}
+export class AppModule {
+    constructor(translationService: TranslationService) {
+        translationService.registerTranslations();
+    }
+}
