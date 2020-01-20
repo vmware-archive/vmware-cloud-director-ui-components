@@ -8,10 +8,9 @@ import { CommonModule } from '@angular/common';
 import { CliptextDatagridExampleComponent } from './cliptext-datagrid.example.component';
 import { CliptextDynamicInlineExampleComponent } from './cliptext-dynamic-inline.example.component';
 import { ClarityModule } from '@clr/angular';
-import { CliptextModule } from '../../../../components/src/cliptext';
 import { ReactiveFormsModule } from '@angular/forms';
 import { Documentation } from '@vcd/ui-doc-lib';
-import { CliptextComponent } from '@vcd/ui-components';
+import { CliptextComponent, ComponentsModule } from '@vcd/ui-components';
 
 Documentation.registerDocumentationEntry({
     component: CliptextComponent,
@@ -33,7 +32,7 @@ Documentation.registerDocumentationEntry({
 
 @NgModule({
     declarations: [CliptextDatagridExampleComponent, CliptextDynamicInlineExampleComponent],
-    imports: [CommonModule, ClarityModule, ReactiveFormsModule, CliptextModule],
+    imports: [CommonModule, ClarityModule, ReactiveFormsModule, ComponentsModule],
     exports: [CliptextDatagridExampleComponent, CliptextDynamicInlineExampleComponent],
     entryComponents: [CliptextDatagridExampleComponent, CliptextDynamicInlineExampleComponent],
 })

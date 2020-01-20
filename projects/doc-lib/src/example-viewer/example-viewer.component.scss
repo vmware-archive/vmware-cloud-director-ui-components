@@ -27,3 +27,9 @@ $margin: 0.5rem;
     background-color: hsl(201, 29%, 88%);
     margin: 0 $margin;
 }
+
+:host ::ng-deep vcd-overview-viewer {
+    & > div > p {
+        margin-bottom: 10px;
+    }
+}

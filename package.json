@@ -5,6 +5,7 @@
     "ng": "ng",
     "start": "ng build components; ng build doc-lib; ng serve",
     "build:examples": "ng build examples",
+    "build:examples-aot": "ng build examples --aot=true",
     "build:components": "ng build components",
     "build:doc-lib": "ng build doc-lib",
     "test": "ng test",
@@ -29,13 +30,14 @@
     "@angular/platform-browser-dynamic": "8.2.8",
     "@angular/router": "8.2.8",
     "@clr/angular": "2.2.1",
-    "@clr/ui": "2.2.1",
     "@clr/icons": "2.2.1",
+    "@clr/ui": "2.2.1",
+    "@webcomponents/custom-elements": "1.0.0",
+    "prismjs": "1.17.1",
     "rxjs": "6.4.0",
     "tslib": "1.10.0",
     "zone.js": "0.9.1",
-    "@webcomponents/custom-elements": "1.0.0",
-    "prismjs": "1.17.1"
+    "firebase": ">= 5.5.7 <8"
   },
   "husky": {
     "hooks": {
@@ -68,7 +70,12 @@
     "tsickle": "0.37.1",
     "tslint": "5.15.0",
     "tslint-microsoft-contrib": "6.2.0",
-    "typescript": "3.5.3"
+    "typescript": "3.5.3",
+    "@angular-devkit/architect": "<0.900 || ^0.900.0-0 || ^9.0.0-0",
+    "firebase-tools": "^6.10.0",
+    "fuzzy": "^0.1.3",
+    "inquirer": "^6.2.2",
+    "inquirer-autocomplete-prompt": "^1.0.1"
   },
   "peerDependencies": {
     "@angular/animations": "8.*",

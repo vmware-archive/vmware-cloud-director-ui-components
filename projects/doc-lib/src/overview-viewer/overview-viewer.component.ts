@@ -18,12 +18,16 @@ export class OverviewViewerComponent {
     overview: string;
     constructor(private documentationRetriever: DocumentationRetrieverService) {}
 
+    @Input() isNoOverviewMessageShown = true;
+
     @Input()
     set component(component: Type<any>) {
         if (!component) {
             return;
         }
         // TODO: externalize string literals
-        this.overview = this.documentationRetriever.getOverview(component) || 'No Documentation found';
+        this.overview =
+            this.documentationRetriever.getOverview(component) ||
+            (this.isNoOverviewMessageShown ? 'No Documentation found' : '');
     }
 }
