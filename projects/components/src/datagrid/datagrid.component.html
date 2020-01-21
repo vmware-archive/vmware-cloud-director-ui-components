@@ -8,7 +8,12 @@
         <ng-template #notHideable>{{ column.displayName }}</ng-template>
     </clr-dg-column>
 
-    <clr-dg-row *ngFor="let restItem of items; let i = index" [ngClass]="this.clrDatarowCssClassGetter(restItem, i)">
+    <clr-dg-row
+        *ngFor="let restItem of items; let i = index"
+        [ngForTrackBy]="trackBy"
+        [ngClass]="this.clrDatarowCssClassGetter(restItem, i)"
+        [clrDgItem]="restItem"
+    >
         <clr-dg-cell *ngFor="let column of columnsConfig">
             <!-- Default renderer -->
             <ng-container *ngIf="column.fieldName">{{ restItem | nestedProperty: column.fieldName }}</ng-container>
@@ -31,6 +36,5 @@
             </clr-dg-row-detail>
         </ng-container>
     </clr-dg-row>
-
     <clr-dg-footer> </clr-dg-footer>
 </clr-datagrid>

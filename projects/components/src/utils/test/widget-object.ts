@@ -67,9 +67,10 @@ export abstract class WidgetObject<T> {
      * Clicks an element and detects changes so the DOM is immediately updated
      * @param cssSelector Pass this in if you want to click a specific element. If not passed in, the entire node will
      * receive the click event
+     * @param parent the parent element for which to search for the {@param cssSelector} within. Defaults to root if not provided.
      */
-    protected click(cssSelector?: string): void {
-        const nativeElement: HTMLBaseElement = this.findElement(cssSelector).nativeElement;
+    protected click(cssSelector?: string, parent: DebugElement = this.root): void {
+        const nativeElement: HTMLBaseElement = parent.query(By.css(cssSelector)).nativeElement;
         nativeElement.click();
         this.detectChanges();
     }
