@@ -44,3 +44,9 @@ testem.log
 # System Files
 .DS_Store
 Thumbs.db
+
+# Generated Files
+projects/examples/gen
+projects/doc-lib/node_modules/
+projects/doc-lib/scripts/create-module-data.js
+projects/doc-lib/scripts/create-module-data.js.map

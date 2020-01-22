@@ -6,6 +6,7 @@
   },
   "whitelistedNonPeerDependencies": [
     "@compodoc/compodoc",
-    "prismjs"
+    "prismjs",
+    "@stackblitz/sdk"
   ]
 }

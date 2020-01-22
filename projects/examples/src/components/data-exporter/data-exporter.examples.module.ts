@@ -5,12 +5,10 @@
 
 import { NgModule } from '@angular/core';
 import { DataExporterExampleComponent } from './data-exporter.example.component';
-import { CommonModule } from '@angular/common';
-import { ClarityModule } from '@clr/angular';
-import { ReactiveFormsModule } from '@angular/forms';
 
 import { Documentation } from '@vcd/ui-doc-lib';
-import { DataExporterComponent, ComponentsModule } from '@vcd/ui-components';
+import { DataExporterComponent } from '@vcd/ui-components';
+import { DataExporterExampleModule } from './data-exporter.example.module';
 
 Documentation.registerDocumentationEntry({
     component: DataExporterComponent,
@@ -26,9 +24,6 @@ Documentation.registerDocumentationEntry({
 });
 
 @NgModule({
-    declarations: [DataExporterExampleComponent],
-    imports: [CommonModule, ClarityModule, ReactiveFormsModule, ComponentsModule],
-    exports: [DataExporterExampleComponent],
-    entryComponents: [DataExporterExampleComponent],
+    imports: [DataExporterExampleModule],
 })
 export class DataExporterExamplesModule {}

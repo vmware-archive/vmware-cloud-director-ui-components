@@ -1,0 +1,21 @@
+{
+  "compilerOptions": {
+    "moduleResolution": "node",
+    "module": "commonjs",
+    "noImplicitAny": true,
+    "removeComments": true,
+    "preserveConstEnums": true,
+    "sourceMap": true,
+    "target": "es2016",
+    "outDir": "../../../dist/doc-lib",
+    "lib": [
+      "es2015",
+      "dom"
+    ],
+    "allowJs": true
+  },
+  "files": [
+    "create-module-data.ts",
+    "index.js"
+  ]
+}

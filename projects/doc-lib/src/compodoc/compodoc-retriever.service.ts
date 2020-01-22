@@ -5,7 +5,7 @@
 
 import { Type } from '@angular/core';
 import { ApiParameters, DocumentationRetrieverService } from '../documentation-retriever.service';
-import { CompodocComponent, CompodocSchema } from './compodoc-schema';
+import { CompodocComponent, CompodocModule, CompodocSchema } from './compodoc-schema';
 
 /**
  * This service retrieves specific properties from compodoc generated documentation
@@ -33,7 +33,7 @@ export class CompoDocRetrieverService implements DocumentationRetrieverService {
         return styleUrlsData.map(styleUrl => styleUrl.data).join('\n\n\n');
     }
 
-    private getComponent(component: Type<any>): CompodocComponent {
+    public getComponent(component: Type<any>): CompodocComponent {
         for (const documentationJson of this.documentationJson) {
             const compodocComponent = documentationJson.components.find(c => c.name === component.name);
             if (compodocComponent) {
@@ -41,6 +41,16 @@ export class CompoDocRetrieverService implements DocumentationRetrieverService {
             }
         }
         return { styleUrlsData: [] } as CompodocComponent;
+    }
+
+    public getModule(moduleName: string): CompodocModule | null {
+        for (const documentationJson of this.documentationJson) {
+            const compodocComponent = documentationJson.modules.find(module => module.name === moduleName);
+            if (compodocComponent) {
+                return compodocComponent;
+            }
+        }
+        return null;
     }
 
     public getInputParameters(component: Type<any>): ApiParameters[] {

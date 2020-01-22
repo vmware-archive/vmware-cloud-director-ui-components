@@ -4,7 +4,7 @@
  */
 
 import { Component } from '@angular/core';
-import { GridDataFetchResult, GridState, GridColumn } from '@vcd/ui-components';
+import { GridColumn, GridDataFetchResult, GridState } from '@vcd/ui-components';
 
 interface Data {
     value: string;

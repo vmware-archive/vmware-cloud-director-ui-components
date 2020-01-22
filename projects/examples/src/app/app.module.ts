@@ -5,21 +5,22 @@
 
 import { BrowserModule } from '@angular/platform-browser';
 import { LOCALE_ID, NgModule } from '@angular/core';
-import { AppRoutingModule } from './app-routing.module';
-import { AppComponent } from './app.component';
-import { DocLibModule } from '@vcd/ui-doc-lib';
-import { ClarityModule } from '@clr/angular';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { registerLocaleData } from '@angular/common';
-import { CliptexExamplesModule } from '../components/cliptext/cliptext.examples.module';
-import componentsDocumentationJson from '../../gen/components-compodoc-documentation/documentation.json';
-import examplesDocumentationJson from '../../gen/examples-compodoc-documentation/documentation.json';
-import { DatagridExamplesModule } from '../components/datagrid/datagrid.example.module';
+import { ClarityModule } from '@clr/angular';
+import { AppRoutingModule } from './app-routing.module';
+import { CompodocSchema, DocLibModule } from '@vcd/ui-doc-lib';
+
+import { AppComponent } from './app.component';
+import { CliptextExamplesModule } from '../components/cliptext/cliptext.examples.module';
 import { DataExporterExamplesModule } from '../components/data-exporter/data-exporter.examples.module';
-import { CompodocSchema } from '../../../doc-lib/src/compodoc/compodoc-schema';
 
 import localeFr from '@angular/common/locales/fr';
 import localeEs from '@angular/common/locales/es';
+import componentsDocumentationJson from '../../gen/components-doc.json';
+import examplesDocumentationJson from '../../gen/examples-doc.json';
+import { DatagridExamplesModule } from '../components/datagrid/datagrid.examples.module';
+import { StackBlitzInfo } from '../../../doc-lib/src/stack-blitz-writer.service';
 
 registerLocaleData(localeFr, 'fr');
 registerLocaleData(localeEs, 'es');
@@ -48,6 +49,13 @@ function getSupportedLocale(): string {
  */
 export const docJson1: CompodocSchema = componentsDocumentationJson;
 export const docJson2: CompodocSchema = examplesDocumentationJson;
+export const sbInfo: StackBlitzInfo = {
+    templateId: 'vcd-ui-cc-starter-clarity-v8-yhe4yg',
+    projectName: 'VMware Cloud Director UI Components',
+    moduleFinder(componentName: string): string {
+        return componentName.replace('ExampleComponent', 'ExampleModule');
+    },
+};
 
 @NgModule({
     declarations: [AppComponent],
@@ -56,8 +64,8 @@ export const docJson2: CompodocSchema = examplesDocumentationJson;
         AppRoutingModule,
         ClarityModule,
         BrowserAnimationsModule,
-        DocLibModule.forRoot([docJson1, docJson2]),
-        CliptexExamplesModule,
+        DocLibModule.forRoot([docJson1, docJson2], sbInfo),
+        CliptextExamplesModule,
         DatagridExamplesModule,
         DataExporterExamplesModule,
     ],

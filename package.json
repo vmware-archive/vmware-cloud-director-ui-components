@@ -3,23 +3,37 @@
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
-    "start": "ng build components; ng build doc-lib; ng serve",
+    "//": "Serves the application, running all required scripts. After initial start, just run ng serve unless you have modified the libraries",
+    "start": "ng build doc-lib; ng build components; npm run build:doc-lib:scripts-dev; npm run build-components-doc; npm run build-examples-doc; ng serve",
+
     "build:examples": "ng build examples",
     "build:examples-aot": "ng build examples --aot=true",
     "build:components": "ng build components",
-    "build:doc-lib": "ng build doc-lib",
+
+    "build:doc-lib": "ng build doc-lib; npm run build:doc-lib:scripts-dist",
+    "//": "Compiles the TS and JS into dist, used for packaging",
+    "build:doc-lib:scripts-dist": "tsc -p projects/doc-lib/scripts/tsconfig.dist.json",
+    "//": "Compiles the TS into the dev environment, required by build-components-doc and build-examples-doc",
+    "build:doc-lib:scripts-dev": "tsc -p projects/doc-lib/scripts/tsconfig.dev.json",
+
     "test": "ng test",
     "test-coverage": "ng test --code-coverage --watch=false",
     "test:ci:doc-lib": "ng test doc-lib --watch=false --browsers ChromeHeadlessNoSandbox --code-coverage",
     "test:components": "ng test components",
     "test:ci:components": "ng test components --watch=false --browsers ChromeHeadlessNoSandbox --code-coverage",
+
     "lint": "ng lint",
     "lint-fix": "tslint --fix 'projects/**/*.ts' -e 'projects/doc-lib/node_modules/**/*.ts'",
+
     "e2e": "ng e2e",
-    "build-components-doc": "build-doc -p ./projects/components/tsconfig.lib.json -e json -d projects/examples/gen/components-compodoc-documentation",
-    "build-examples-doc": "build-doc -p ./projects/examples/tsconfig.app.json -e json -d projects/examples/gen/examples-compodoc-documentation"
+
+    "//": "Requires running build: doc-lib",
+    "build-components-doc": "cd projects/doc-lib; node $NODE_DEBUG_OPTION scripts/index.js ../components/tsconfig.lib.json ../components/src/public-api.ts ../examples/gen/components-doc.json",
+    "build-examples-doc": "cd projects/doc-lib; node $NODE_DEBUG_OPTION scripts/index.js ../examples/tsconfig.app.json ../examples/src/main.ts ../examples/gen/examples-doc.json"
+
   },
   "private": true,
+
   "dependencies": {
     "@angular/animations": "8.2.8",
     "@angular/common": "8.2.8",
@@ -53,6 +67,7 @@
     "@types/jasminewd2": "2.0.3",
     "@types/node": "8.9.4",
     "codelyzer": "5.0.0",
+    "directory-tree": "2.2.4",
     "husky": "3.0.9",
     "jasmine-core": "3.4.0",
     "jasmine-spec-reporter": "4.2.1",
