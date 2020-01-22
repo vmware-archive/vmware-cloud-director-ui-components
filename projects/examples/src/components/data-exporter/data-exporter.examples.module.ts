@@ -10,7 +10,7 @@ import { ClarityModule } from '@clr/angular';
 import { ReactiveFormsModule } from '@angular/forms';
 
 import { Documentation } from '@vcd/ui-doc-lib';
-import { DataExporterComponent, DataExporterModule } from '@vcd/ui-components';
+import { DataExporterComponent, ComponentsModule } from '@vcd/ui-components';
 
 Documentation.registerDocumentationEntry({
     component: DataExporterComponent,
@@ -27,7 +27,7 @@ Documentation.registerDocumentationEntry({
 
 @NgModule({
     declarations: [DataExporterExampleComponent],
-    imports: [CommonModule, ClarityModule, ReactiveFormsModule, DataExporterModule],
+    imports: [CommonModule, ClarityModule, ReactiveFormsModule, ComponentsModule],
     exports: [DataExporterExampleComponent],
     entryComponents: [DataExporterExampleComponent],
 })

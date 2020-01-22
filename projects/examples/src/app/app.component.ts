@@ -5,6 +5,7 @@
 
 import { Component } from '@angular/core';
 import { Documentation, DocumentationEntry } from '@vcd/ui-doc-lib';
+import { Router } from '@angular/router';
 
 interface SideNavEntries {
     title: string;
@@ -25,4 +26,14 @@ export class AppComponent {
         title: entry.displayName,
         path: entry.urlSegment,
     }));
+
+    constructor(router: Router) {
+        /**
+         * Gets the Angular routes to be navigated in the app components's router outlet
+         * Loading the routes in {@link AppRoutingModule} is causing the following error: ERROR in Cannot read property
+         * 'loadChildren' of undefined https://stackoverflow.com/questions/44233195/dynamically-adding-routes-in-angular
+         * TODO: https://jira.eng.vmware.com/browse/VDUCC-72
+         */
+        router.resetConfig(Documentation.getRoutes());
+    }
 }

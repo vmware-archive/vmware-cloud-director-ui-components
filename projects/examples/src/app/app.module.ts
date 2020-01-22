@@ -5,24 +5,21 @@
 
 import { BrowserModule } from '@angular/platform-browser';
 import { LOCALE_ID, NgModule } from '@angular/core';
-
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { DataExporterModule, DatagridModule } from '@vcd/ui-components';
 import { DocLibModule } from '@vcd/ui-doc-lib';
 import { ClarityModule } from '@clr/angular';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { registerLocaleData } from '@angular/common';
-import { PipesModule } from '../../../components/src/common/pipes/pipes.module';
 import { CliptexExamplesModule } from '../components/cliptext/cliptext.examples.module';
-import { FormsModule } from '@angular/forms';
-
-import localeFr from '@angular/common/locales/fr';
-import localeEs from '@angular/common/locales/es';
 import componentsDocumentationJson from '../../gen/components-compodoc-documentation/documentation.json';
 import examplesDocumentationJson from '../../gen/examples-compodoc-documentation/documentation.json';
 import { DatagridExamplesModule } from '../components/datagrid/datagrid.example.module';
 import { DataExporterExamplesModule } from '../components/data-exporter/data-exporter.examples.module';
+import { CompodocSchema } from '../../../doc-lib/src/compodoc/compodoc-schema';
+
+import localeFr from '@angular/common/locales/fr';
+import localeEs from '@angular/common/locales/es';
 
 registerLocaleData(localeFr, 'fr');
 registerLocaleData(localeEs, 'es');
@@ -44,18 +41,23 @@ function getSupportedLocale(): string {
     return completelyMatchedLocale || partiallyMatchedLocale || defaultLocale;
 }
 
+/**
+ * The following 2 constants are declared for AOT compilation purpose. Otherwise, the compilation would silently fail and
+ * the doc jsons are given as null to the DocLibModule.
+ * NOTE: The following two has to be exported otherwise the AoT compiler won't see it.
+ */
+export const docJson1: CompodocSchema = componentsDocumentationJson;
+export const docJson2: CompodocSchema = examplesDocumentationJson;
+
 @NgModule({
     declarations: [AppComponent],
     imports: [
         BrowserModule,
         AppRoutingModule,
-        DataExporterModule,
         ClarityModule,
         BrowserAnimationsModule,
-        DocLibModule.forRoot([componentsDocumentationJson, examplesDocumentationJson]),
+        DocLibModule.forRoot([docJson1, docJson2]),
         CliptexExamplesModule,
-        DatagridModule,
-        FormsModule,
         DatagridExamplesModule,
         DataExporterExamplesModule,
     ],

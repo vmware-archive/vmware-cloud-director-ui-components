@@ -8,7 +8,7 @@ import { CommonModule } from '@angular/common';
 import { ClarityModule } from '@clr/angular';
 import { ReactiveFormsModule } from '@angular/forms';
 import { ShowHideDatagridExampleComponent } from './show-hide-datagrid.example.component';
-import { DatagridComponent, DatagridModule } from '@vcd/ui-components';
+import { DatagridComponent, ComponentsModule } from '@vcd/ui-components';
 import { Documentation } from '@vcd/ui-doc-lib';
 import { CssClassesDatagridExampleComponent } from './css-classes-datagrid.example.component';
 import { ThreeRenderersDatagridExampleComponent } from './3-renderers-datagrid.example.component';
@@ -47,7 +47,7 @@ const declarations = [
  */
 @NgModule({
     declarations: [...declarations],
-    imports: [CommonModule, ClarityModule, ReactiveFormsModule, DatagridModule],
+    imports: [CommonModule, ClarityModule, ReactiveFormsModule, ComponentsModule],
     exports: [...declarations],
     entryComponents: [...declarations],
 })

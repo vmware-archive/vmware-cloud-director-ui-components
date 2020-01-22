@@ -13,6 +13,10 @@
     </div>
     <div class="card-block">
         <div class="card-text">
+            <vcd-overview-viewer
+                [isNoOverviewMessageShown]="false"
+                [component]="exampleEntry?.component"
+            ></vcd-overview-viewer>
             <template #exampleContainer> </template>
         </div>
     </div>
