@@ -12,7 +12,7 @@ import {
     RendererSpec,
 } from '@vcd/ui-components';
 
-export interface MockRecord {
+interface MockRecord {
     name: string;
     city: string;
     state: string;
@@ -22,7 +22,7 @@ export interface MockRecord {
     age: number;
 }
 
-export const mockData: MockRecord[] = [
+const mockData: MockRecord[] = [
     {
         name: 'Person 1',
         city: 'Palo Alto',
@@ -44,7 +44,9 @@ export const mockData: MockRecord[] = [
 ];
 
 @Component({
-    templateUrl: '3-renderers-datagrid.example.component.html',
+    template: `
+        <vcd-datagrid [gridData]="gridData" (gridRefresh)="refresh($event)" [columns]="columns"></vcd-datagrid>
+    `,
 })
 export class ThreeRenderersDatagridExampleComponent {
     gridData: GridDataFetchResult<MockRecord> = {
@@ -61,19 +63,18 @@ export class ThreeRenderersDatagridExampleComponent {
                 }),
             }),
         },
-
         {
             displayName: 'Function Renderer',
             renderer: (record: MockRecord) => `${record.city}, ${record.state}`,
         },
 
         {
-            displayName: 'Default(string) Renderer',
+            displayName: 'Default Renderer',
             renderer: 'details.gender',
         },
     ];
 
-    async refresh(eventData: GridState<MockRecord>): Promise<void> {
+    refresh(eventData: GridState<MockRecord>): void {
         this.gridData = {
             items: mockData,
             totalItems: 2,

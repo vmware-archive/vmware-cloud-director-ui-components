@@ -7,11 +7,11 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ClarityModule } from '@clr/angular';
 import { ReactiveFormsModule } from '@angular/forms';
-import { ShowHideDatagridExampleComponent } from './show-hide-datagrid.example.component';
+import { DatagridShowHideExampleComponent } from './datagrid-show-hide.example.component';
 import { DatagridComponent, ComponentsModule } from '@vcd/ui-components';
 import { Documentation } from '@vcd/ui-doc-lib';
-import { CssClassesDatagridExampleComponent } from './css-classes-datagrid.example.component';
-import { ThreeRenderersDatagridExampleComponent } from './3-renderers-datagrid.example.component';
+import { DatagridCssClassesExampleComponent } from './datagrid-css-classes.example.component';
+import { ThreeRenderersDatagridExampleComponent } from './datagrid-three-renderers.example.component';
 
 Documentation.registerDocumentationEntry({
     component: DatagridComponent,
@@ -24,12 +24,12 @@ Documentation.registerDocumentationEntry({
             title: 'Example with 3 types of grid renderers',
         },
         {
-            component: CssClassesDatagridExampleComponent,
+            component: DatagridCssClassesExampleComponent,
             forComponent: null,
             title: 'Component that holds an example of the css classes per row capability',
         },
         {
-            component: ShowHideDatagridExampleComponent,
+            component: DatagridShowHideExampleComponent,
             forComponent: null,
             title: 'Show/Hide datagrid columns example',
         },
@@ -37,8 +37,8 @@ Documentation.registerDocumentationEntry({
 });
 
 const declarations = [
-    ShowHideDatagridExampleComponent,
-    CssClassesDatagridExampleComponent,
+    DatagridShowHideExampleComponent,
+    DatagridCssClassesExampleComponent,
     ThreeRenderersDatagridExampleComponent,
 ];
 

@@ -1,5 +1,5 @@
 <clr-tooltip>
-    <div #cliptextContainer clrTooltipTrigger class="cliptext-container text-truncate">
+    <div #cliptextContainer clrTooltipTrigger class="cliptext-container text-truncate" [ngClass]="{ inline: isInline }">
         <ng-content></ng-content>
     </div>
     <clr-tooltip-content aria-hidden="true" *clrIfOpen [clrPosition]="tooltipPosition" [clrSize]="size">

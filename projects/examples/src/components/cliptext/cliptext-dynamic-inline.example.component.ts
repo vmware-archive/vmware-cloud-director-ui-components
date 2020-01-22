@@ -3,16 +3,29 @@
  * SPDX-License-Identifier: BSD-2-Clause
  */
 
-/*
- * Copyright 2019 VMware, Inc. All rights reserved.
- */
 import { Component } from '@angular/core';
 import { FormControl } from '@angular/forms';
 
 @Component({
     selector: 'vcd-cliptext-dynamic-inline-example',
-    styleUrls: ['cliptext-dynamic-inline.example.component.scss'],
-    templateUrl: 'cliptext-dynamic-inline.example.component.html',
+    styles: [
+        `
+            vcd-cliptext {
+                font-weight: bold;
+            }
+        `,
+    ],
+
+    template: `
+        <label>Dynamic text:</label>
+        <input placeholder="Write some text" [formControl]="dynamicText" />
+        <p>
+            Modify the input above and observe the text:
+            <vcd-cliptext [inlineWidth]="'200px'">{{ dynamicText.value }}</vcd-cliptext>
+            You can try with long and short text. There is no tooltip when the text fits the provided width.
+        </p>
+        <p>The toolptip is updated upon display.</p>
+    `,
 })
 export class CliptextDynamicInlineExampleComponent {
     dynamicText = new FormControl('Dynamic text goes here');

@@ -8,7 +8,19 @@ import { DataExportRequestEvent, ExportColumn } from '@vcd/ui-components';
 
 @Component({
     selector: 'vcd-data-exporter-example',
-    templateUrl: './data-exporter.example.component.html',
+    template: `
+        <h2>Data Exporter</h2>
+        <button (click)="dataExporterOpen = true">
+            Show Modal
+        </button>
+        <vcd-data-exporter
+            *ngIf="dataExporterOpen"
+            [(open)]="dataExporterOpen"
+            (dataExportRequest)="onExportRequest($event)"
+            [columns]="exportColumns"
+        >
+        </vcd-data-exporter>
+    `,
 })
 export class DataExporterExampleComponent {
     exportColumns: ExportColumn[] = [
