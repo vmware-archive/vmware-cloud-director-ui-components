@@ -30,6 +30,9 @@ export class AppComponent {
     constructor(router: Router) {
         /**
          * Gets the Angular routes to be navigated in the app components's router outlet
+         * Loading the routes in {@link AppRoutingModule} is causing the following error: ERROR in Cannot read property
+         * 'loadChildren' of undefined https://stackoverflow.com/questions/44233195/dynamically-adding-routes-in-angular
+         * TODO: https://jira.eng.vmware.com/browse/VDUCC-72
          */
         router.resetConfig(Documentation.getRoutes());
     }

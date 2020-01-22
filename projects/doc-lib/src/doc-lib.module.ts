@@ -38,7 +38,7 @@ export class DocLibModule {
      * Called in the host package importing this doc library for providing the documentation JSONs needed for
      * {@link CompoDocRetrieverService}
      */
-    public static forRoot(documentations: any[]): ModuleWithProviders {
+    public static forRoot(documentations: CompodocSchema[]): ModuleWithProviders {
         return {
             ngModule: DocLibModule,
             providers: [

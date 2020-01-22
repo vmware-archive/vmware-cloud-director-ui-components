@@ -46,8 +46,8 @@ function getSupportedLocale(): string {
  * the doc jsons are given as null to the DocLibModule.
  * NOTE: The following two has to be exported otherwise the AoT compiler won't see it.
  */
-export const docJson1 = componentsDocumentationJson;
-export const docJson2 = examplesDocumentationJson;
+export const docJson1: CompodocSchema = componentsDocumentationJson;
+export const docJson2: CompodocSchema = examplesDocumentationJson;
 
 @NgModule({
     declarations: [AppComponent],
