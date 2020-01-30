@@ -11,7 +11,8 @@ stages:
     - build-app
     - test
     - name: publish
-      if: branch = travis-test
+      if: branch = travis-test-1
+
 jobs:
     include:
         - stage: prepare
