@@ -30,10 +30,11 @@ jobs:
         - stage: build-libs
           name: Build /doc-lib
           script: npm run build:doc-lib
+          after_success: npm run build:examples
 
-        - stage: build-app
-          name: Build /examples
-          script: npm run build:examples
+        #        - stage: build-app
+        #          name: Build /examples
+        #          script: npm run build:examples
 
         - stage: test
           name: Unit tests for /components
