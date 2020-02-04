@@ -67,7 +67,6 @@ export class ClrDatagridWidgetObject extends WidgetObject<ClrDatagrid> {
      * Returns the CSS class of the Clarity datagrid.
      */
     get gridCssClass(): string[] {
-        console.log(this.root.classes);
         return Object.keys(this.root.classes);
     }
 
@@ -76,6 +75,20 @@ export class ClrDatagridWidgetObject extends WidgetObject<ClrDatagrid> {
      */
     getRowsCssClass(index: number): string[] {
         return Object.keys(this.rows[index].classes);
+    }
+
+    /**
+     * Returns the native element contents within all the detail pane open.
+     */
+    getAllDetailContents(): string[] {
+        return this.findElements('clr-dg-row-detail').map(detail => detail.nativeElement);
+    }
+
+    /**
+     * Clicks the given details button.
+     */
+    clickDetailsButton(row: number): void {
+        this.detailsButtons[row].nativeElement.click();
     }
 
     /**
@@ -95,5 +108,9 @@ export class ClrDatagridWidgetObject extends WidgetObject<ClrDatagrid> {
 
     private get columns(): DebugElement[] {
         return this.findElements(COLUMN_CSS_SELECTOR);
+    }
+
+    private get detailsButtons(): DebugElement[] {
+        return this.findElements('.datagrid-expandable-caret-button');
     }
 }

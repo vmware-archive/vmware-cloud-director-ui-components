@@ -3,7 +3,17 @@
  * SPDX-License-Identifier: BSD-2-Clause
  */
 
-import { Component, EventEmitter, Input, OnInit, Output, TemplateRef, ViewChild } from '@angular/core';
+import {
+    Component,
+    EventEmitter,
+    Input,
+    OnInit,
+    Output,
+    TemplateRef,
+    ViewChild,
+    ContentChild,
+    ElementRef,
+} from '@angular/core';
 import { FunctionRenderer, GridColumn, GridColumnHideable } from './interfaces/datagrid-column.interface';
 import { ClrDatagridFilter } from '@clr/angular';
 import { ComponentRendererSpec } from './interfaces/component-renderer.interface';
@@ -116,6 +126,8 @@ export class DatagridComponent<R> implements OnInit {
         this.isLoading = false;
         this.items = result.items;
     }
+
+    @ContentChild(TemplateRef, { static: false }) detailTemplate!: TemplateRef<ElementRef>;
 
     /**
      * Type of row selection on the grid

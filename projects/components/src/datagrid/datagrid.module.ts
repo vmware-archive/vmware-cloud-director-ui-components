@@ -12,13 +12,14 @@ import { PipesModule } from '../common/pipes/pipes.module';
 import { ReactiveFormsModule } from '@angular/forms';
 import { FunctionRendererPipe } from './pipes/function-renderer.pipe';
 import { BoldTextRendererComponent } from './renderers/bold-text-renderer.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 const directives = [DatagridComponent, ComponentRendererOutletDirective];
 const pipes = [FunctionRendererPipe];
 const renderers = [BoldTextRendererComponent];
 
 @NgModule({
-    imports: [CommonModule, ClarityModule, PipesModule, ReactiveFormsModule],
+    imports: [CommonModule, ClarityModule, PipesModule, ReactiveFormsModule, BrowserAnimationsModule],
     declarations: [...directives, ...renderers, ...pipes],
     providers: [],
     exports: [DatagridComponent, ...renderers],

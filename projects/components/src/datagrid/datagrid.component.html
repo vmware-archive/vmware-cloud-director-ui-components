@@ -25,6 +25,11 @@
             >
             </ng-template>
         </clr-dg-cell>
+        <ng-container ngProjectAs="clr-dg-row-detail" *ngIf="detailTemplate !== undefined">
+            <clr-dg-row-detail *clrIfExpanded>
+                <ng-content *ngTemplateOutlet="detailTemplate; context: { record: restItem }"> </ng-content>
+            </clr-dg-row-detail>
+        </ng-container>
     </clr-dg-row>
 
     <clr-dg-footer> </clr-dg-footer>
