@@ -13,6 +13,7 @@ import { DatagridThreeRenderersExampleModule } from './datagrid-three-renderers.
 import { DatagridCssClassesExampleModule } from './datagrid-css-classes.example.module';
 import { DatagridShowHideExampleModule } from './datagrid-show-hide.example.module';
 import { DatagridDetailRowExampleComponent } from './datagrid-detail-row.example.component';
+import { DatagridDetailRowExampleModule } from './datagrid-detail-row.example.module';
 
 Documentation.registerDocumentationEntry({
     component: DatagridComponent,
@@ -45,7 +46,11 @@ Documentation.registerDocumentationEntry({
  * A module that imports all data grid example modules
  */
 @NgModule({
-    imports: [DatagridThreeRenderersExampleModule, DatagridCssClassesExampleModule,
-            DatagridShowHideExampleModule, DatagridDetailRowExampleComponent],
+    imports: [
+        DatagridThreeRenderersExampleModule,
+        DatagridCssClassesExampleModule,
+        DatagridShowHideExampleModule,
+        DatagridDetailRowExampleModule,
+    ],
 })
 export class DatagridExamplesModule {}
