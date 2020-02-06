@@ -74,7 +74,7 @@ export class DocLibModule {
                 },
                 {
                     provide: StackBlitzWriterService,
-                    deps: [STACKBLITZ_DATA, DocumentationRetrieverService],
+                    deps: [STACKBLITZ_INFO, DocumentationRetrieverService],
                     useFactory: getStackBlitzWriter,
                 },
             ],

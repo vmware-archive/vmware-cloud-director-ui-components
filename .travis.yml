@@ -5,13 +5,15 @@ cache:
     directories:
         - dist/components
         - dist/doc-lib
+        - dist/examples
 stages:
     - prepare
-    - build-libs
-    - build-app
+    - build-components-lib
+    - build-doc-lib
+    - build-app-aot
     - test
-    - name: publish
-      if: branch = master
+    - publish
+    - deploy
 jobs:
     include:
         - stage: prepare
@@ -24,20 +26,68 @@ jobs:
           name: Lint /examples
           script: npm run lint examples
 
-        - stage: build-libs
+        - stage: build-components-lib
           name: Build /components
           script: npm run build:components
-        - stage: build-libs
+
+        - stage: build-doc-lib
           name: Build /doc-lib
           script: npm run build:doc-lib
 
-        - stage: build-app
+        - stage: build-app-aot
           name: Build /examples
-          script: npm run build:examples
+          before_script:
+              - cd ./projects/doc-lib
+              - npm ci
+              - cd ../../
+              - npm run build-components-doc
+              - npm run build-examples-doc
+          script: npm run build:examples-aot
 
         - stage: test
           name: Unit tests for /components
           script: npm run test:ci:components
+
         - stage: test
           name: Unit Tests for /doc-lib
           script: npm run test:ci:doc-lib
+
+        - stage: publish
+          name: Publishing components to npm registry
+          script: skip
+          before_deploy:
+              - cd ./dist/components
+          deploy:
+              edge: true
+              skip_cleanup: true
+              provider: npm
+              api_key:
+                  secure: $NPM_TOKEN
+              on:
+                  repo: vmware/vmware-cloud-director-ui-components
+                  tags: true
+                  condition: $TRAVIS_TAG =~ ^components-v[0-999].[0-999].[0-999]$
+        - stage: publish
+            name: Publishing doc-lib to npm registry
+            script: skip
+            before_deploy:
+              - cd ./dist/doc-lib
+            deploy:
+              edge: true
+              skip_cleanup: true
+              provider: npm
+              api_key:
+                secure: $NPM_TOKEN
+              on:
+                repo: vmware/vmware-cloud-director-ui-components
+                tags: true
+                condition: $TRAVIS_TAG =~ ^doc-lib-v[0-999].[0-999].[0-999]$
+
+        - stage: deploy
+          name: Deploying to Github pages
+          script: skip
+          deploy:
+              - provider: pages
+                skip_cleanup: true
+                github_token: $GH_TOKEN
+                local_dir: dist/examples

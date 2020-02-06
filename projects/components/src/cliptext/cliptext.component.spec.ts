@@ -143,6 +143,11 @@ describe('ClipTextComponent', () => {
     template: `
         <vcd-cliptext style="width: 3em">{{ text }}</vcd-cliptext>
     `,
+    styles: [
+        `vcd-cliptext ::ng-deep clr-tooltip {
+            width: 200px
+        }`
+    ]
 })
 class TestHostComponent {
     text = '';
@@ -152,5 +157,10 @@ class TestHostComponent {
     template: `
         <vcd-cliptext style="width: 3em">I am <b>bad</b></vcd-cliptext>
     `,
+    styles: [
+        `vcd-cliptext ::ng-deep clr-tooltip {
+            width: 10px
+        }`
+    ]
 })
 class TestHtmlHostComponent {}
