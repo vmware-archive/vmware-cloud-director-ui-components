@@ -3,19 +3,14 @@
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
-    "//": "Serves the application, running all required scripts. After initial start, just run ng serve unless you have modified the libraries",
+    "//": "Requires running build: doc-lib",
     "start": "ng build doc-lib; ng build components; npm run build:doc-lib:scripts-dev; npm run build-components-doc; npm run build-examples-doc; ng serve",
-
     "build:examples": "ng build examples",
     "build:examples-aot": "ng build examples --aot=true",
     "build:components": "ng build components",
-
-    "build:doc-lib": "ng build doc-lib; npm run build:doc-lib:scripts-dist",
-    "//": "Compiles the TS and JS into dist, used for packaging",
+    "build:doc-lib": "ng build doc-lib; npm run build:doc-lib:scripts-dist; npm run build:doc-lib:scripts-dev",
     "build:doc-lib:scripts-dist": "tsc -p projects/doc-lib/scripts/tsconfig.dist.json",
-    "//": "Compiles the TS into the dev environment, required by build-components-doc and build-examples-doc",
     "build:doc-lib:scripts-dev": "tsc -p projects/doc-lib/scripts/tsconfig.dev.json",
-
     "test": "ng test",
     "test-coverage": "ng test --code-coverage --watch=false",
     "test:ci:doc-lib": "ng test doc-lib --watch=false --browsers ChromeHeadlessNoSandbox --code-coverage",
@@ -26,11 +21,8 @@
     "lint-fix": "tslint --fix 'projects/**/*.ts' -e 'projects/doc-lib/node_modules/**/*.ts'",
 
     "e2e": "ng e2e",
-
-    "//": "Requires running build: doc-lib",
-    "build-components-doc": "cd projects/doc-lib; node $NODE_DEBUG_OPTION scripts/index.js ../components/tsconfig.lib.json ../components/src/public-api.ts ../examples/gen/components-doc.json",
-    "build-examples-doc": "cd projects/doc-lib; node $NODE_DEBUG_OPTION scripts/index.js ../examples/tsconfig.app.json ../examples/src/main.ts ../examples/gen/examples-doc.json"
-
+    "build-components-doc": "mkdir -p projects/examples/gen; cd projects/doc-lib; node $NODE_DEBUG_OPTION scripts/index.js ../components/tsconfig.lib.json ../components/src/public-api.ts ../examples/gen/components-doc.json",
+    "build-examples-doc": "mkdir -p projects/examples/gen; cd projects/doc-lib; node $NODE_DEBUG_OPTION scripts/index.js ../examples/tsconfig.app.json ../examples/src/main.ts ../examples/gen/examples-doc.json"
   },
   "private": true,
 
