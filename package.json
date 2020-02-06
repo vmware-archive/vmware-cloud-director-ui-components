@@ -16,16 +16,13 @@
     "test:ci:doc-lib": "ng test doc-lib --watch=false --browsers ChromeHeadlessNoSandbox --code-coverage",
     "test:components": "ng test components",
     "test:ci:components": "ng test components --watch=false --browsers ChromeHeadlessNoSandbox --code-coverage",
-
     "lint": "ng lint",
     "lint-fix": "tslint --fix 'projects/**/*.ts' -e 'projects/doc-lib/node_modules/**/*.ts'",
-
     "e2e": "ng e2e",
-    "build-components-doc": "mkdir -p projects/examples/gen; cd projects/doc-lib; node $NODE_DEBUG_OPTION scripts/index.js ../components/tsconfig.lib.json ../components/src/public-api.ts ../examples/gen/components-doc.json",
-    "build-examples-doc": "mkdir -p projects/examples/gen; cd projects/doc-lib; node $NODE_DEBUG_OPTION scripts/index.js ../examples/tsconfig.app.json ../examples/src/main.ts ../examples/gen/examples-doc.json"
+    "build-components-doc": "compodoc -p projects/components/tsconfig.lib.json -e json -d projects/examples/gen/components-doc",
+    "build-examples-doc": "compodoc -p projects/examples/tsconfig.app.json -e json -d projects/examples/gen/examples-doc"
   },
   "private": true,
-
   "dependencies": {
     "@angular/animations": "8.2.8",
     "@angular/common": "8.2.8",
@@ -42,7 +39,9 @@
     "prismjs": "1.17.1",
     "rxjs": "6.4.0",
     "tslib": "1.10.0",
-    "zone.js": "0.9.1"
+    "zone.js": "0.9.1",
+    "@compodoc/compodoc": "1.1.11",
+    "@stackblitz/sdk": "1.3.0"
   },
   "husky": {
     "hooks": {

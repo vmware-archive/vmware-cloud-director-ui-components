@@ -10,21 +10,18 @@ stages:
     - prepare
     - build-components-lib
     - build-doc-lib
-    - build-app-aot
+    - build-app
     - test
     - publish
     - deploy
 jobs:
     include:
         - stage: prepare
-          name: Lint /components
-          script: npm run lint components
-        - stage: prepare
-          name: Lint /doc-lib
-          script: npm run lint doc-lib
-        - stage: prepare
-          name: Lint /examples
-          script: npm run lint examples
+          name: Lint
+          script:
+              - npm run lint components
+              - npm run lint doc-lib
+              - npm run lint examples
 
         - stage: build-components-lib
           name: Build /components
@@ -32,17 +29,18 @@ jobs:
 
         - stage: build-doc-lib
           name: Build /doc-lib
-          script: npm run build:doc-lib
+          script:
+              - npm run build:doc-lib:scripts-dev
+              - npm run build:doc-lib
 
-        - stage: build-app-aot
+        - stage: build-app
           name: Build /examples
-          before_script:
-              - cd ./projects/doc-lib
-              - npm ci
-              - cd ../../
+          script:
+              - mkdir -p projects/examples/gen
+              - npm run build:doc-lib:scripts-dev
               - npm run build-components-doc
               - npm run build-examples-doc
-          script: npm run build:examples-aot
+              - npm run build:examples
 
         - stage: test
           name: Unit tests for /components
@@ -67,21 +65,22 @@ jobs:
                   repo: vmware/vmware-cloud-director-ui-components
                   tags: true
                   condition: $TRAVIS_TAG =~ ^components-v[0-999].[0-999].[0-999]$
+
         - stage: publish
-            name: Publishing doc-lib to npm registry
-            script: skip
-            before_deploy:
+          name: Publishing doc-lib to npm registry
+          script: skip
+          before_deploy:
               - cd ./dist/doc-lib
-            deploy:
+          deploy:
               edge: true
               skip_cleanup: true
               provider: npm
               api_key:
-                secure: $NPM_TOKEN
+                  secure: $NPM_TOKEN
               on:
-                repo: vmware/vmware-cloud-director-ui-components
-                tags: true
-                condition: $TRAVIS_TAG =~ ^doc-lib-v[0-999].[0-999].[0-999]$
+                  repo: vmware/vmware-cloud-director-ui-components
+                  tags: true
+                  condition: $TRAVIS_TAG =~ ^doc-lib-v[0-999].[0-999].[0-999]$
 
         - stage: deploy
           name: Deploying to Github pages
