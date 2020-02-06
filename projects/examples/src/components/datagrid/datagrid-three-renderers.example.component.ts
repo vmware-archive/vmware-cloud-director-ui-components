@@ -47,8 +47,9 @@ const mockData: MockRecord[] = [
     template: `
         <vcd-datagrid [gridData]="gridData" (gridRefresh)="refresh($event)" [columns]="columns"></vcd-datagrid>
     `,
+    selector: 'vcd-datagrd-three-rendererers-example',
 })
-export class ThreeRenderersDatagridExampleComponent {
+export class DatagridThreeRenderersExampleComponent {
     gridData: GridDataFetchResult<MockRecord> = {
         items: [],
     };

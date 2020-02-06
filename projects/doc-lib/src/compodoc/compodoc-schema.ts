@@ -14,6 +14,7 @@ import { ApiParameters } from '../documentation-retriever.service';
  */
 export interface CompodocSchema {
     components: CompodocComponent[];
+    modules: CompodocModule[];
 }
 
 /**
@@ -23,12 +24,30 @@ export interface CompodocComponent {
     name: string;
     description: string;
     sourceCode: string;
+    templateUrl: string[];
     templateData: string;
+    styleUrls: string[];
     styleUrlsData: StyleUrlsData[];
     inputsClass: ApiParameters[];
     outputsClass: ApiParameters[];
+    file: string;
+    selector: string;
+}
+
+export interface CompodocModule {
+    /**
+     * Name of the class that has the @NgModule() declaration
+     */
+    name: string;
+    path: string;
+    sourceCode: string;
+    children: {
+        type: string;
+        elements: { name: string }[];
+    }[];
 }
 
 export interface StyleUrlsData {
     data: string;
+    styleUrl: string;
 }

@@ -4,13 +4,12 @@
  */
 
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { Documentation } from '@vcd/ui-doc-lib';
+import { CliptextComponent } from '@vcd/ui-components';
 import { CliptextDatagridExampleComponent } from './cliptext-datagrid.example.component';
 import { CliptextDynamicInlineExampleComponent } from './cliptext-dynamic-inline.example.component';
-import { ClarityModule } from '@clr/angular';
-import { ReactiveFormsModule } from '@angular/forms';
-import { Documentation } from '@vcd/ui-doc-lib';
-import { CliptextComponent, ComponentsModule } from '@vcd/ui-components';
+import { CliptextDatagridExampleModule } from './cliptext-datagrid.example.module';
+import { CliptextDynamicInlineExampleModule } from './cliptext-dynamic-inline.example.module';
 
 Documentation.registerDocumentationEntry({
     component: CliptextComponent,
@@ -31,9 +30,6 @@ Documentation.registerDocumentationEntry({
 });
 
 @NgModule({
-    declarations: [CliptextDatagridExampleComponent, CliptextDynamicInlineExampleComponent],
-    imports: [CommonModule, ClarityModule, ReactiveFormsModule, ComponentsModule],
-    exports: [CliptextDatagridExampleComponent, CliptextDynamicInlineExampleComponent],
-    entryComponents: [CliptextDatagridExampleComponent, CliptextDynamicInlineExampleComponent],
+    imports: [CliptextDatagridExampleModule, CliptextDynamicInlineExampleModule],
 })
-export class CliptexExamplesModule {}
+export class CliptextExamplesModule {}

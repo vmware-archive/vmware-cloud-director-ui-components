@@ -4,6 +4,7 @@
  */
 
 import { Type } from '@angular/core';
+import { CompodocComponent, CompodocModule } from './compodoc/compodoc-schema';
 
 /**
  * Represents the inputClass/outputClass properties of a component in compodoc generated documentation
@@ -56,4 +57,10 @@ export abstract class DocumentationRetrieverService {
      * Returns the outputsClass property value of the provided component from the Compodoc generated JSON
      */
     public abstract getOutputParameters(component: Type<any>): ApiParameters[];
+
+    /** The raw CompoDoc component */
+    public abstract getComponent(component: Type<any>): CompodocComponent;
+
+    /** The raw Compodoc module object */
+    public abstract getModule(moduleName: string): CompodocModule;
 }

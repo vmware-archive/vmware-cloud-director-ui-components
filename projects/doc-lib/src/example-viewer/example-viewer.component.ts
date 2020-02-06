@@ -5,6 +5,8 @@
 
 import { Component, ComponentFactoryResolver, Input, ViewChild, ViewContainerRef } from '@angular/core';
 import { ExampleEntry } from '../documentation';
+import { DocumentationRetrieverService } from '../documentation-retriever.service';
+import { StackBlitzWriterService } from '../stack-blitz-writer.service';
 
 @Component({
     selector: 'vcd-example-viewer',
@@ -17,7 +19,11 @@ export class ExampleViewerComponent {
      */
     showSourceCode = false;
 
-    constructor(private resolver: ComponentFactoryResolver) {}
+    constructor(
+        private resolver: ComponentFactoryResolver,
+        private docRetriever: DocumentationRetrieverService,
+        private stackblitzWriter: StackBlitzWriterService
+    ) {}
 
     /**
      * Gets the example entry from documentation entry and renders the example component
@@ -28,6 +34,7 @@ export class ExampleViewerComponent {
         this._exampleEntry = exampleEntry;
         this.createExample();
     }
+
     get exampleEntry(): ExampleEntry {
         return this._exampleEntry;
     }
@@ -46,5 +53,13 @@ export class ExampleViewerComponent {
         }
         const factory = this.resolver.resolveComponentFactory(exampleEntry.component);
         this.exampleContainer.createComponent(factory);
+    }
+
+    onCodeButtonClick(): void {
+        this.showSourceCode = !this.showSourceCode;
+    }
+
+    onRunButtonClick(): void {
+        this.stackblitzWriter.openStackBlitz(this.exampleEntry);
     }
 }

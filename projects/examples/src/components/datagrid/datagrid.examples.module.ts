@@ -4,14 +4,14 @@
  */
 
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { ClarityModule } from '@clr/angular';
-import { ReactiveFormsModule } from '@angular/forms';
 import { DatagridShowHideExampleComponent } from './datagrid-show-hide.example.component';
-import { DatagridComponent, ComponentsModule } from '@vcd/ui-components';
+import { DatagridComponent } from '@vcd/ui-components';
 import { Documentation } from '@vcd/ui-doc-lib';
 import { DatagridCssClassesExampleComponent } from './datagrid-css-classes.example.component';
-import { ThreeRenderersDatagridExampleComponent } from './datagrid-three-renderers.example.component';
+import { DatagridThreeRenderersExampleComponent } from './datagrid-three-renderers.example.component';
+import { DatagridThreeRenderersExampleModule } from './datagrid-three-renderers.example.module';
+import { DatagridCssClassesExampleModule } from './datagrid-css-classes.example.module';
+import { DatagridShowHideExampleModule } from './datagrid-show-hide.example.module';
 
 Documentation.registerDocumentationEntry({
     component: DatagridComponent,
@@ -19,7 +19,7 @@ Documentation.registerDocumentationEntry({
     urlSegment: 'datagrid',
     examples: [
         {
-            component: ThreeRenderersDatagridExampleComponent,
+            component: DatagridThreeRenderersExampleComponent,
             forComponent: null,
             title: 'Example with 3 types of grid renderers',
         },
@@ -36,19 +36,10 @@ Documentation.registerDocumentationEntry({
     ],
 });
 
-const declarations = [
-    DatagridShowHideExampleComponent,
-    DatagridCssClassesExampleComponent,
-    ThreeRenderersDatagridExampleComponent,
-];
-
 /**
- * A module that contains components that are various examples of features of the datagrid.
+ * A module that imports all data grid example modules
  */
 @NgModule({
-    declarations: [...declarations],
-    imports: [CommonModule, ClarityModule, ReactiveFormsModule, ComponentsModule],
-    exports: [...declarations],
-    entryComponents: [...declarations],
+    imports: [DatagridThreeRenderersExampleModule, DatagridCssClassesExampleModule, DatagridShowHideExampleModule],
 })
 export class DatagridExamplesModule {}
