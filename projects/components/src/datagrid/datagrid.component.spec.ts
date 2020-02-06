@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: BSD-2-Clause
  */
 
-import { Component, ViewChild } from '@angular/core';
+import { Component, ViewChild, TemplateRef, ContentChild } from '@angular/core';
 import { DatagridComponent, GridDataFetchResult, GridState } from './datagrid.component';
 import { GridColumn, GridColumnHideable } from './interfaces/datagrid-column.interface';
 import { TestBed } from '@angular/core/testing';
@@ -201,6 +201,23 @@ describe('DatagridComponent', () => {
                 expect(this.clrGridWidget.isColumnDisplayed(3)).toBe(true);
             });
         });
+
+        describe('Row expansion functionality', () => {
+            beforeEach(function(this: HasFinderAndGrid): void {
+                this.finder.hostComponent.columns = [
+                    {
+                        displayName: 'Column',
+                        renderer: 'name',
+                    },
+                ];
+                this.finder.detectChanges();
+            });
+
+            it('opens one detail pane when you click the button', function(this: HasFinderAndGrid): void {
+                this.clrGridWidget.clickDetailsButton(0);
+                expect(this.clrGridWidget.getAllDetailContents().length).toEqual(1);
+            });
+        });
     });
 
     describe('Column Renderers', () => {
@@ -253,7 +270,9 @@ describe('DatagridComponent', () => {
             [columns]="columns"
             [clrDatagridCssClass]="clrDatagridCssClass"
             [clrDatarowCssClassGetter]="clrDatarowCssClassGetter"
-        ></vcd-datagrid>
+        >
+            <ng-template let-record="record"> DETAILS: {{ record.name }} </ng-template>
+        </vcd-datagrid>
     `,
 })
 export class HostWithDatagridComponent {
