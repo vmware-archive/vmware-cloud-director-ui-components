@@ -49,9 +49,11 @@ describe('TranslationPipe', () => {
     it('should forward to translation service', () => {
         const translationService = new MockTranslationService();
         const subject = new GeneralTranslationPipe(translationService, changeRef as ChangeDetectorRef);
-        spyOn(translationService, 'translateAsync').and.returnValue(new BehaviorSubject('Hi doctor nick!'));
-        const result = subject.transform('test.translation', 'one', 'two', 'three');
-        expect(result).toBe('Hi doctor nick!');
+        const observable = new BehaviorSubject('?test.translation');
+        spyOn(translationService, 'translateAsync').and.returnValue(observable);
+        expect(subject.transform('test.translation', 'one', 'two', 'three')).toBe('?test.translation');
+        observable.next('Hi doctor nick!');
+        expect(subject.transform('test.translation', 'one', 'two', 'three')).toBe('Hi doctor nick!');
         expect(translationService.translateAsync).toHaveBeenCalledWith('test.translation', ['one', 'two', 'three']);
     });
 });

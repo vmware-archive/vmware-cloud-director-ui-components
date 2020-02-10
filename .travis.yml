@@ -7,6 +7,7 @@ cache:
         - dist/doc-lib
         - dist/i18n
         - dist/examples
+        - coverage
 stages:
     - prepare
     - build-i18n
@@ -51,16 +52,13 @@ jobs:
               - npm run build:examples
 
         - stage: test
-          name: Unit tests for /components
-          script: npm run test:ci:components
-
-        - stage: test
-          name: Unit Tests for /doc-lib
-          script: npm run test:ci:doc-lib
-
-        - stage: test
-          name: Unit Tests for /i18n
-          script: npm run test:ci:i18n
+          name: Unit tests
+          script:
+              - npm run test:ci:components
+              - npm run test:ci:doc-lib
+              - npm run test:ci:i18n
+          after_success:
+              - ./node_modules/.bin/codecov
 
         - stage: publish
           name: Publishing components to npm registry
