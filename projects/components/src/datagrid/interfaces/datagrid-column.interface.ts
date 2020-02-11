@@ -87,8 +87,6 @@ export interface GridColumn<R> {
      */
     emptyColumnPlaceholder?: string;
 
-    sortDirection?: GridColumnSortDirection;
-
     /**
      * TODO: Should this be made to work with top level search on grids across all columns?
      *  The above to-do is going to be worked on as part of https://jira.eng.vmware.com/browse/VDUCC-27 and
