@@ -252,7 +252,7 @@ export class DatagridComponent<R> implements OnInit {
     /**
      * Called when the {@param state} of the Clarity datagrid changes.
      */
-    gridChanged(state: ClrDatagridStateInterface): void {
+    gridStateChanged(state: ClrDatagridStateInterface): void {
         const toEmit: GridState<R> = {};
         if (state.sort && typeof state.sort.by === 'string') {
             toEmit.columnSorted = {

@@ -12,7 +12,7 @@ interface Data {
 }
 
 /**
- * A component that holds an example of the show/hide columns capability.
+ * A component that holds an example of the sorting columns capability.
  */
 @Component({
     selector: 'vcd-datagrid-sort-example',
