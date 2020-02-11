@@ -15,7 +15,7 @@ import {
     ElementRef,
 } from '@angular/core';
 import { FunctionRenderer, GridColumn, GridColumnHideable } from './interfaces/datagrid-column.interface';
-import { ClrDatagridFilter } from '@clr/angular';
+import { ClrDatagridFilter, ClrDatagridStateInterface, ClrDatagridSortOrder } from '@clr/angular';
 import { ComponentRendererSpec } from './interfaces/component-renderer.interface';
 
 /**
@@ -66,6 +66,14 @@ export interface GridDataFetchResult<R> {
 }
 
 /**
+ * The information about the currently sorted column.
+ */
+export interface SortedColumn {
+    reverse: boolean;
+    name: string;
+}
+
+/**
  * The current state of various features of the grid like filtering, sorting, pagination. This object is emitted as
  * part of the event {@link DatagridComponent.gridRefresh}. The handler then used this object to construct a query.
  * TODO: This interface is going to defined as part of working on the following tasks:
@@ -74,7 +82,9 @@ export interface GridDataFetchResult<R> {
  *  https://jira.eng.vmware.com/browse/VDUCC-20
  */
 // tslint:disable-next-line:no-empty-interface
-export interface GridState<R> {}
+export interface GridState<R> {
+    columnSorted?: SortedColumn;
+}
 
 /**
  * For simplifying logic inside the HTML template to differentiate between different {@link GridColumn.renderer}
@@ -237,6 +247,20 @@ export class DatagridComponent<R> implements OnInit {
     ngOnInit(): void {
         this.isLoading = true;
         this.gridRefresh.emit({});
+    }
+
+    /**
+     * Called when the {@param state} of the Clarity datagrid changes.
+     */
+    gridChanged(state: ClrDatagridStateInterface): void {
+        const toEmit: GridState<R> = {};
+        if (state.sort && typeof state.sort.by === 'string') {
+            toEmit.columnSorted = {
+                name: state.sort.by,
+                reverse: state.sort.reverse,
+            };
+        }
+        this.gridRefresh.emit(toEmit);
     }
 
     isColumnHideable(column: GridColumn<R>): boolean {

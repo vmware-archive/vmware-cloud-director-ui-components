@@ -92,6 +92,13 @@ export class ClrDatagridWidgetObject extends WidgetObject<ClrDatagrid> {
     }
 
     /**
+     * Sorts the column at the given index.
+     */
+    sortColumn(index: number): void {
+        this.columns[index].nativeElement.click();
+    }
+
+    /**
      * Can be used by subclasses to create methods that assert about HTML in custom rendered columns. Note that
      * subclasses should not return the DebugElement, they should return a string from a section of the HTML.
      *

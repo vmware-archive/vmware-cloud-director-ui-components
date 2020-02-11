@@ -134,22 +134,19 @@ describe('DatagridComponent', () => {
         });
 
         it('displays loading indicators while data is loading', function(this: HasFinderAndGrid): void {
-            spyOn(this.finder.hostComponent, 'refresh').and.callFake(() => {
-                this.finder.detectChanges();
-                expect(this.clrGridWidget.component.loading).toBe(true, 'Initially loading indicator should be true');
-                this.finder.hostComponent.gridData = {
-                    items: mockData,
-                    totalItems: 2,
-                    pageSize: 2,
-                    page: 1,
-                };
-                this.finder.detectChanges();
-                expect(this.clrGridWidget.component.loading).toBe(
-                    false,
-                    'After setting gridData, loading indicator should not be visible'
-                );
-            });
             this.finder.detectChanges();
+            expect(this.clrGridWidget.component.loading).toBe(true, 'Initially loading indicator should be true');
+            this.finder.hostComponent.gridData = {
+                items: mockData,
+                totalItems: 2,
+                pageSize: 2,
+                page: 1,
+            };
+            this.finder.detectChanges();
+            expect(this.clrGridWidget.component.loading).toBe(
+                false,
+                'After setting gridData, loading indicator should not be visible'
+            );
         });
 
         describe('Show/Hide Functionality', () => {
@@ -216,6 +213,36 @@ describe('DatagridComponent', () => {
             it('opens one detail pane when you click the button', function(this: HasFinderAndGrid): void {
                 this.clrGridWidget.clickDetailsButton(0);
                 expect(this.clrGridWidget.getAllDetailContents().length).toEqual(1);
+            });
+        });
+
+        describe('Sorting functionality', () => {
+            beforeEach(function(this: HasFinderAndGrid): void {
+                this.finder.hostComponent.columns = [
+                    {
+                        displayName: 'Column',
+                        renderer: 'name',
+                    },
+                ];
+                this.finder.detectChanges();
+            });
+
+            it('should emit the proper column when its sorted', function(this: HasFinderAndGrid): void {
+                const refreshMethod = spyOn(this.finder.hostComponent, 'refresh');
+                this.clrGridWidget.sortColumn(0);
+                expect(refreshMethod).toHaveBeenCalledWith({
+                    columnSorted: {
+                        name: 'Column',
+                        reverse: false,
+                    },
+                });
+                this.clrGridWidget.sortColumn(0);
+                expect(refreshMethod).toHaveBeenCalledWith({
+                    columnSorted: {
+                        name: 'Column',
+                        reverse: true,
+                    },
+                });
             });
         });
     });
