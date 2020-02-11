@@ -69,7 +69,13 @@ export interface GridDataFetchResult<R> {
  * The information about the currently sorted column.
  */
 export interface SortedColumn {
+    /**
+     * Whether the column is sorted normally or reversed.
+     */
     reverse: boolean;
+    /**
+     * The name of the column that is sorted.
+     */
     name: string;
 }
 
@@ -83,7 +89,10 @@ export interface SortedColumn {
  */
 // tslint:disable-next-line:no-empty-interface
 export interface GridState<R> {
-    columnSorted?: SortedColumn;
+    /**
+     * The currently sorted column in the datagrid.
+     */
+    sortColumn?: SortedColumn;
 }
 
 /**
@@ -255,7 +264,7 @@ export class DatagridComponent<R> implements OnInit {
     gridStateChanged(state: ClrDatagridStateInterface): void {
         const toEmit: GridState<R> = {};
         if (state.sort && typeof state.sort.by === 'string') {
-            toEmit.columnSorted = {
+            toEmit.sortColumn = {
                 name: state.sort.by,
                 reverse: state.sort.reverse,
             };

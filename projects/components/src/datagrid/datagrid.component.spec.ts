@@ -231,14 +231,14 @@ describe('DatagridComponent', () => {
                 const refreshMethod = spyOn(this.finder.hostComponent, 'refresh');
                 this.clrGridWidget.sortColumn(0);
                 expect(refreshMethod).toHaveBeenCalledWith({
-                    columnSorted: {
+                    sortColumn: {
                         name: 'Column',
                         reverse: false,
                     },
                 });
                 this.clrGridWidget.sortColumn(0);
                 expect(refreshMethod).toHaveBeenCalledWith({
-                    columnSorted: {
+                    sortColumn: {
                         name: 'Column',
                         reverse: true,
                     },
