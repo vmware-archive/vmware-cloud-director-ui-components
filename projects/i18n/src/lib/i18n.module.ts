@@ -53,7 +53,7 @@ export class I18nModule {
      */
     static forChild(extensionRoute?: InjectionToken<string>, combined?: boolean): ModuleWithProviders {
         /**
-         * A implementation of {@link TranslationService} that can inject all of it's dependencies.
+         * An implementation of {@link TranslationService} that can inject all of its dependencies.
          */
         class ServiceToUse extends MessageFormatTranslationService {
             constructor(@Inject(BOOTSTRAP_DETAILS) details: { locale: string }, @Optional() loader: TranslationLoader) {

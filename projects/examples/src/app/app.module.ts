@@ -6,8 +6,12 @@
 import { InjectionToken } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { registerLocaleData } from '@angular/common';
+import localeFr from '@angular/common/locales/fr';
+import localeEs from '@angular/common/locales/es';
+import { FormsModule } from '@angular/forms';
 import { ClarityModule } from '@clr/angular';
 import { AppRoutingModule } from './app-routing.module';
 import { CompodocSchema, DocLibModule } from '@vcd/ui-doc-lib';
@@ -16,15 +20,11 @@ import { AppComponent } from './app.component';
 import { CliptextExamplesModule } from '../components/cliptext/cliptext.examples.module';
 import { DataExporterExamplesModule } from '../components/data-exporter/data-exporter.examples.module';
 
-import localeFr from '@angular/common/locales/fr';
-import localeEs from '@angular/common/locales/es';
 import componentsDocumentationJson from '../../gen/components-doc/documentation.json';
 import examplesDocumentationJson from '../../gen/examples-doc/documentation.json';
 import { DatagridExamplesModule } from '../components/datagrid/datagrid.examples.module';
 import { StackBlitzInfo } from '../../../doc-lib/src/stack-blitz-writer.service';
-import { HttpClientModule } from '@angular/common/http';
 import { I18nModule, TranslationService } from '@vcd/i18n';
-import { FormsModule } from '@angular/forms';
 import { DatagridModule } from 'projects/components/src/datagrid';
 import { DataExporterModule } from 'projects/components/src/public-api';
 import { CliptextModule } from 'projects/components/src/cliptext';
