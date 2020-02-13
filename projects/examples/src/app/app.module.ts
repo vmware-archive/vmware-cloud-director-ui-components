@@ -17,8 +17,8 @@ import { DataExporterExamplesModule } from '../components/data-exporter/data-exp
 
 import localeFr from '@angular/common/locales/fr';
 import localeEs from '@angular/common/locales/es';
-import componentsDocumentationJson from '../../gen/components-doc.json';
-import examplesDocumentationJson from '../../gen/examples-doc.json';
+import componentsDocumentationJson from '../../gen/components-doc/documentation.json';
+import examplesDocumentationJson from '../../gen/examples-doc/documentation.json';
 import { DatagridExamplesModule } from '../components/datagrid/datagrid.examples.module';
 import { StackBlitzInfo } from '../../../doc-lib/src/stack-blitz-writer.service';
 
