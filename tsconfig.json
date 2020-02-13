@@ -24,6 +24,9 @@
       ],
       "@vcd/ui-doc-lib": [
         "dist/doc-lib"
+      ],
+      "@vcd/i18n": [
+        "dist/i18n"
       ]
     },
     "resolveJsonModule": true,

@@ -5,9 +5,11 @@ cache:
     directories:
         - dist/components
         - dist/doc-lib
+        - dist/i18n
         - dist/examples
 stages:
     - prepare
+    - build-i18n
     - build-components-lib
     - build-doc-lib
     - build-app
@@ -19,6 +21,7 @@ jobs:
         - stage: prepare
           name: Lint
           script:
+              - npm run lint i18n
               - npm run lint components
               - npm run lint doc-lib
               - npm run lint examples
@@ -33,6 +36,10 @@ jobs:
               - npm run build:doc-lib:scripts-dev
               - npm run build:doc-lib
 
+        - stage: build-i18n
+          name: Build /i18n
+          script: npm run build:i18n
+
         - stage: build-app
           name: Build /examples
           script:
@@ -40,6 +47,7 @@ jobs:
               - npm run build:doc-lib:scripts-dev
               - npm run build-components-doc
               - npm run build-examples-doc
+              - npm run generate-translations
               - npm run build:examples
 
         - stage: test
@@ -49,6 +57,10 @@ jobs:
         - stage: test
           name: Unit Tests for /doc-lib
           script: npm run test:ci:doc-lib
+
+        - stage: test
+          name: Unit Tests for /i18n
+          script: npm run test:ci:i18n
 
         - stage: publish
           name: Publishing components to npm registry
@@ -81,7 +93,21 @@ jobs:
                   repo: vmware/vmware-cloud-director-ui-components
                   tags: true
                   condition: $TRAVIS_TAG =~ ^doc-lib-v[0-999].[0-999].[0-999]$
-
+        - stage: publish
+          name: Publishing i18n to npm registry
+          script: skip
+          before_deploy:
+              - cd ./dist/i18n
+          deploy:
+              edge: true
+              skip_cleanup: true
+              provider: npm
+              api_key:
+                  secure: $NPM_TOKEN
+              on:
+                  repo: vmware/vmware-cloud-director-ui-components
+                  tags: true
+                  condition: $TRAVIS_TAG =~ ^i18n-v[0-999].[0-999].[0-999]$
         - stage: deploy
           name: Deploying to Github pages
           script: skip

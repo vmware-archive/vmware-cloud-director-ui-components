@@ -6,7 +6,7 @@
 /*
  * Public API Surface of components
  */
-export * from './data-exporter';
-export * from './datagrid';
-export * from './cliptext';
+export * from './data-exporter/index';
+export * from './datagrid/index';
+export * from './cliptext/index';
 export * from './components.module';

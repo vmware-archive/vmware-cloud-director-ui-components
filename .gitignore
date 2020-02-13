@@ -50,3 +50,5 @@ projects/examples/gen
 projects/doc-lib/node_modules/
 projects/doc-lib/scripts/create-module-data.js
 projects/doc-lib/scripts/create-module-data.js.map
+projects/examples/src/assets/i18n.json
+projects/components/src/assets/i18n.json
