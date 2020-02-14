@@ -44,8 +44,6 @@ jobs:
         - stage: build-app
           name: Build /examples
           script:
-              - mkdir -p projects/examples/gen
-              - npm run build:doc-lib:scripts-dev
               - npm run build-components-doc
               - npm run build-examples-doc
               - npm run generate-translations
@@ -75,7 +73,6 @@ jobs:
                   repo: vmware/vmware-cloud-director-ui-components
                   tags: true
                   condition: $TRAVIS_TAG =~ ^components-v[0-999].[0-999].[0-999]$
-
         - stage: publish
           name: Publishing doc-lib to npm registry
           script: skip
@@ -106,11 +103,11 @@ jobs:
                   repo: vmware/vmware-cloud-director-ui-components
                   tags: true
                   condition: $TRAVIS_TAG =~ ^i18n-v[0-999].[0-999].[0-999]$
+
         - stage: deploy
           name: Deploying to Github pages
-          script: skip
-          deploy:
-              - provider: pages
-                skip_cleanup: true
-                github_token: $GH_TOKEN
-                local_dir: dist/examples
+          script:
+              - npm run build-components-doc
+              - npm run build-examples-doc
+              - npm run generate-translations
+              - ng deploy
