@@ -13,9 +13,11 @@ import {
     ViewChild,
     ContentChild,
     ElementRef,
+    TrackByFunction
 } from '@angular/core';
+import { ClrDatagridStateInterface } from '@clr/angular';
 import { FunctionRenderer, GridColumn, GridColumnHideable } from './interfaces/datagrid-column.interface';
-import { ClrDatagridFilter, ClrDatagridStateInterface, ClrDatagridSortOrder } from '@clr/angular';
+import { ClrDatagridFilter, ClrDatagrid } from '@clr/angular';
 import { ComponentRendererSpec } from './interfaces/component-renderer.interface';
 
 /**
@@ -80,6 +82,13 @@ export interface SortedColumn {
 }
 
 /**
+ * Representation an entity that has a href property.
+ */
+interface HasHref {
+    href?: string;
+}
+
+/**
  * The current state of various features of the grid like filtering, sorting, pagination. This object is emitted as
  * part of the event {@link DatagridComponent.gridRefresh}. The handler then used this object to construct a query.
  * TODO: This interface is going to defined as part of working on the following tasks:
@@ -123,8 +132,6 @@ interface ColumnConfigInternal<R, T> extends GridColumn<R> {
     templateUrl: './datagrid.component.html',
 })
 export class DatagridComponent<R> implements OnInit {
-    GridColumnHideable = GridColumnHideable;
-
     /**
      * Sets the configuration of columns on the grid and updates the {@link columnsConfig} array
      */
@@ -136,7 +143,6 @@ export class DatagridComponent<R> implements OnInit {
     get columns(): GridColumn<R>[] {
         return this._columns;
     }
-    private _columns: GridColumn<R>[];
 
     /**
      * Set from the caller component using this grid. The input is set upon fetching data by the caller
@@ -144,6 +150,7 @@ export class DatagridComponent<R> implements OnInit {
     @Input() set gridData(result: GridDataFetchResult<R>) {
         this.isLoading = false;
         this.items = result.items;
+        this.updateSelectedItems();
     }
 
     @ContentChild(TemplateRef, { static: false }) detailTemplate!: TemplateRef<ElementRef>;
@@ -151,18 +158,19 @@ export class DatagridComponent<R> implements OnInit {
     /**
      * Type of row selection on the grid
      */
-    selectionType: GridSelectionType.None;
+    @Input() set selectionType(selectionType: GridSelectionType) {
+        this._selectionType = selectionType;
+        this.clearSelectionInformation();
+    }
+    GridColumnHideable = GridColumnHideable;
+    private _columns: GridColumn<R>[];
+
+    private _selectionType: GridSelectionType = GridSelectionType.None;
 
     /**
      * The CSS class to use for the Clarity datagrid.
      */
     @Input() clrDatagridCssClass = '';
-
-    /**
-     * Fired whenever the selection changes. The event data is array of rows selected. The array will contain only one
-     * element in case of single selection
-     */
-    selectionChanged: EventEmitter<R[]>;
 
     /**
      * Buttons to display in the toolbar on top of data grid
@@ -238,6 +246,16 @@ export class DatagridComponent<R> implements OnInit {
     items: R[];
 
     /**
+     * The value of the single selection.
+     */
+    singleSelected: R = undefined;
+
+    /**
+     * The value of the multi selection.
+     */
+    multiSelection: R[] = [];
+
+    /**
      * Emitted during the initial rendering, and is emitted whenever filtering/sorting/paging params change
      * {@link #GridState} is the type of value emitted
      */
@@ -245,6 +263,16 @@ export class DatagridComponent<R> implements OnInit {
     gridRefresh: EventEmitter<GridState<R>> = new EventEmitter<GridState<R>>();
 
     @ViewChild(ClrDatagridFilter, { static: false }) numericFilter: ClrDatagridFilter;
+
+    @ViewChild(ClrDatagrid, { static: true }) datagrid: ClrDatagrid;
+
+    /**
+     * Returns an identifier for the given record at the given index.
+     *
+     * If the record has a href, defaults to that. Else, defaults to index.
+     */
+    @Input() trackBy: TrackByFunction<R> = (index: number, record: (R & HasHref) | undefined): string | number =>
+        record && (record.href || index)
 
     /**
      * Gives the CSS class to use for a given datarow based on its relative index and entity definition.
@@ -256,6 +284,64 @@ export class DatagridComponent<R> implements OnInit {
     ngOnInit(): void {
         this.isLoading = true;
         this.gridRefresh.emit({});
+        this.clearSelectionInformation();
+    }
+
+    private updateSelectedItems(): void {
+        if (this._selectionType === GridSelectionType.Single) {
+            // Tries to find the currently selected item. If it isn't found, clears the selection.
+            const found = this.items.find(
+                (item, itemIndex) =>
+                    this.trackBy(itemIndex, item) ===
+                    this.trackBy(
+                        this.items.indexOf(this.datagrid.selection.currentSingle),
+                        this.datagrid.selection.currentSingle
+                    )
+            );
+            if (!found) {
+                this.datagrid.selection.currentSingle = undefined;
+            }
+        } else if (this._selectionType === GridSelectionType.Multi) {
+            // Tries to find the currently selected items. If an item isn't found, clears the selection for that item.
+            if (this.datagrid.selection.current) {
+                this.datagrid.selection.current = this.datagrid.selection.current.filter((selected, selectedIndex) => {
+                    const found = this.items.find(
+                        (item, itemIndex) => this.trackBy(itemIndex, item) === this.trackBy(selectedIndex, selected)
+                    );
+                    return found;
+                });
+            }
+        }
+    }
+
+    private clearSelectionInformation(): void {
+        if (!this.datagrid) {
+            return;
+        }
+        if (this._selectionType === GridSelectionType.Single) {
+            this.datagrid.selected = undefined;
+            this.datagrid.singleSelected = this.singleSelected;
+        } else if (this._selectionType === GridSelectionType.Multi) {
+            this.datagrid.singleSelected = undefined;
+            this.datagrid.selected = this.multiSelection;
+        } else if (this._selectionType === GridSelectionType.None) {
+            this.datagrid.selected = [];
+            this.datagrid.singleSelected = undefined;
+            this.datagrid.selected = undefined;
+        }
+    }
+
+    /**
+     * Returns the items selected in the VCD datagrid.
+     */
+    getDatagridSelection(): R[] {
+        if (this.datagrid.selection.currentSingle) {
+            return [this.datagrid.selection.currentSingle];
+        }
+        if (this.datagrid.selection.current) {
+            return this.datagrid.selection.current;
+        }
+        return [];
     }
 
     /**
@@ -275,7 +361,6 @@ export class DatagridComponent<R> implements OnInit {
     isColumnHideable(column: GridColumn<R>): boolean {
         return column && column.hideable && column.hideable !== GridColumnHideable.Never;
     }
-
     /**
      * Defines the {@property columnsConfig} by adding extra property required for differentiating different kinds
      * of renderers which is required in the HTML template.

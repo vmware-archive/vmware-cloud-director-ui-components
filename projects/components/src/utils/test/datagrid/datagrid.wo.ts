@@ -3,6 +3,12 @@
  * SPDX-License-Identifier: BSD-2-Clause
  */
 
+import { GridSelectionType } from './../../../datagrid/datagrid.component';
+/*!
+ * Copyright 2019 VMware, Inc.
+ * SPDX-License-Identifier: BSD-2-Clause
+ */
+
 import { WidgetObject } from '../widget-object';
 import { DebugElement } from '@angular/core';
 import { ClrDatagrid } from '@clr/angular';
@@ -96,6 +102,26 @@ export class ClrDatagridWidgetObject extends WidgetObject<ClrDatagrid> {
      */
     sortColumn(index: number): void {
         this.columns[index].nativeElement.click();
+    }
+
+    /**
+     * Returns the selection type of the grid.
+     */
+    getSelectionType(): GridSelectionType {
+        if (this.findElements('clr-checkbox-wrapper').length !== 0) {
+            return GridSelectionType.Multi;
+        } else if (this.findElements('clr-radio-wrapper').length !== 0) {
+            return GridSelectionType.Single;
+        } else {
+            return GridSelectionType.None;
+        }
+    }
+
+    /**
+     * Clicks the selection icon on the given row.
+     */
+    selectRow(row: number): void {
+        this.click(`input`, this.rows[row]);
     }
 
     /**
