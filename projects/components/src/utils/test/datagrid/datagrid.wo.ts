@@ -103,7 +103,7 @@ export class ClrDatagridWidgetObject extends WidgetObject<ClrDatagrid> {
     sortColumn(index: number): void {
         this.columns[index].nativeElement.click();
     }
-    
+
     /**
      * Returns the selection type of the grid.
      */
