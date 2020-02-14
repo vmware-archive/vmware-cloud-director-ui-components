@@ -7,6 +7,8 @@
  * Copyright 2017 VMware, Inc. All rights reserved. VMware Confidential
  */
 import { MessageFormatTranslationService } from './message-format-translation-service';
+import { TranslationLoader } from '../loader/translation-loader';
+import { BehaviorSubject } from 'rxjs';
 
 describe('MessageFormatTranslationService', () => {
     const translationSet = {
@@ -78,6 +80,36 @@ describe('MessageFormatTranslationService', () => {
         expect(translationService.translate('multiple.params', [{ count: 2, name: 'World' }])).toBe(`many Worlds`);
     });
 
+    it('translates the string via the translation loader via combined translation', () => {
+        const loader = new TranslationLoader(null, '');
+        spyOn(loader, 'getCombinedTranslation').and.returnValue(
+            new BehaviorSubject({
+                en: {
+                    hi: 'hello',
+                },
+            })
+        );
+        const translationService = new MessageFormatTranslationService('en', 'en', loader, true);
+        translationService.registerTranslations();
+        translationService.translateAsync('hi').subscribe(result => {
+            expect(result).toEqual('hello');
+        });
+    });
+
+    it('translates the string via the translation loader via single language translation', () => {
+        const loader = new TranslationLoader(null, '');
+        spyOn(loader, 'getTranslation').and.returnValue(
+            new BehaviorSubject({
+                hi: 'hello',
+            })
+        );
+        const translationService = new MessageFormatTranslationService('en', 'en', loader);
+        translationService.registerTranslations();
+        translationService.translateAsync('hi').subscribe(result => {
+            expect(result).toEqual('hello');
+        });
+    });
+
     it('translates the string using the provided multiple object keys', () => {
         const translationService = new MessageFormatTranslationService('en', 'en');
         translationService.registerTranslations(translationSet);
@@ -91,5 +123,39 @@ describe('MessageFormatTranslationService', () => {
         expect(translationService.translate('vm.computePolicy.compliance', getPolicySize(2))).toBe(
             `VM does not comply with compute policies "Oracle Sizing" and "Oracle Placement"`
         );
+    });
+
+    it('can format dates properly', () => {
+        const translationService = new MessageFormatTranslationService('en', 'en');
+        const date = new Date('1999/05/05');
+        expect(translationService.formatDate(date)).toEqual('05/05/1999');
+        expect(
+            translationService.formatDate(date, {
+                month: 'short',
+            })
+        ).toEqual('May');
+    });
+
+    it('can format times properly', () => {
+        const translationService = new MessageFormatTranslationService('en', 'en');
+        const date = new Date('1999/05/05');
+        expect(translationService.formatTime(date)).toEqual('12:00:00 AM');
+        expect(
+            translationService.formatTime(date, {
+                hour: '2-digit',
+            })
+        ).toEqual('12 AM');
+    });
+
+    it('can format date-times properly', () => {
+        const translationService = new MessageFormatTranslationService('en', 'en');
+        const date = new Date('1999/05/05');
+        expect(translationService.formatDateTime(date)).toEqual('05/05/1999, 12:00:00 AM');
+        expect(
+            translationService.formatDateTime(date, {
+                month: 'short',
+                hour: '2-digit',
+            })
+        ).toEqual('May, 12 AM');
     });
 });
