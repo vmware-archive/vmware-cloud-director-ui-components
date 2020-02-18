@@ -218,9 +218,16 @@ describe('DatagridComponent', () => {
                     this.finder.detectChanges();
                     expect(this.finder.hostComponent.getSelection()).toEqual([mockData[1]]);
                 });
+            });
 
-                it('displays the proper pagination information on page one', function(this: HasFinderAndGrid): void {
+            describe('@Input() paginationCallback', () => {
+                it('displays pagination callback information on page one', function(this: HasFinderAndGrid): void {
                     expect(this.clrGridWidget.getPaginationDescription()).toEqual(' 1 - 10 of 150 items ');
+                });
+            });
+
+            describe('@Input() paginationDropdownText', () => {
+                it('displays the pagination dropdown information on page one', function(this: HasFinderAndGrid): void {
                     expect(this.clrGridWidget.getPaginationSizeSelectorText()).toEqual('Total Items102050100');
                 });
             });
