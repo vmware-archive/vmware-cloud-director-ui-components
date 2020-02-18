@@ -191,7 +191,7 @@ export class DatagridComponent<R> implements OnInit {
     /**
      * The text placed next to the pagination number dropdown.
      */
-    @Input() paginationText = 'Rows per page';
+    @Input() paginationDropdownText = '';
 
     /**
      * Fired whenever the selection changes. The event data is array of rows selected. The array will contain only one

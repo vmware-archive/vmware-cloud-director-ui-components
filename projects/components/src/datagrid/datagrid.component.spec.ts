@@ -433,7 +433,7 @@ describe('DatagridComponent', () => {
             [selectionType]="selectionType"
             (selectionChanged)="selectionChanged($event)"
             [paginationCallback]="paginationCallback"
-            [paginationText]="paginationText"
+            [paginationDropdownText]="paginationText"
         >
             <ng-template let-record="record"> DETAILS: {{ record.name }} </ng-template>
         </vcd-datagrid>

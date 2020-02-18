@@ -1,5 +1,9 @@
 <clr-datagrid [clrDgLoading]="isLoading" [ngClass]="this.clrDatagridCssClass" (clrDgRefresh)="gridStateChanged($event)">
-    <clr-dg-column *ngFor="let column of columnsConfig" [clrDgField]="column.queryFieldName" (clrDgSortOrderChange)="resetToPageOne()">
+    <clr-dg-column
+        *ngFor="let column of columnsConfig"
+        [clrDgField]="column.queryFieldName"
+        (clrDgSortOrderChange)="resetToPageOne()"
+    >
         <ng-container *ngIf="isColumnHideable(column); else notHideable">
             <ng-container *clrDgHideableColumn="{ hidden: column.hideable === GridColumnHideable.Hidden }">{{
                 column.displayName
@@ -41,7 +45,7 @@
     <clr-dg-footer>
         <clr-dg-pagination #paginationData [clrDgTotalItems]="totalItems" [(clrDgPageSize)]="this.pagination.pageSize">
             <clr-dg-page-size [clrPageSizeOptions]="this.pagination.pageSizeOptions">{{
-                paginationText
+                paginationDropdownText
             }}</clr-dg-page-size>
             {{ paginationCallback(paginationData.firstItem + 1, paginationData.lastItem + 1, totalItems) }}
         </clr-dg-pagination>
