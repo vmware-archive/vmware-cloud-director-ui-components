@@ -186,8 +186,6 @@ describe('DatagridComponent', () => {
                         this.finder.hostComponent.gridData = {
                             items: [mockData[0]],
                             totalItems: 2,
-                            pageSize: 2,
-                            page: 1,
                         };
                         this.finder.detectChanges();
                         expect(this.finder.hostComponent.getSelection()).toEqual([]);
@@ -202,8 +200,6 @@ describe('DatagridComponent', () => {
                         this.finder.hostComponent.gridData = {
                             items: [mockData[0]],
                             totalItems: 2,
-                            pageSize: 2,
-                            page: 1,
                         };
                         this.finder.detectChanges();
                         expect(this.finder.hostComponent.getSelection()).toEqual([mockData[0]]);
@@ -218,8 +214,6 @@ describe('DatagridComponent', () => {
                     this.finder.hostComponent.gridData = {
                         items: [mockData[1]],
                         totalItems: 2,
-                        pageSize: 2,
-                        page: 1,
                     };
                     this.finder.detectChanges();
                     expect(this.finder.hostComponent.getSelection()).toEqual([mockData[1]]);
@@ -238,8 +232,6 @@ describe('DatagridComponent', () => {
             this.finder.hostComponent.gridData = {
                 items: mockData,
                 totalItems: 2,
-                pageSize: 2,
-                page: 1,
             };
             this.finder.detectChanges();
             expect(this.clrGridWidget.component.loading).toBe(
@@ -443,8 +435,6 @@ export class HostWithDatagridComponent {
     gridData: GridDataFetchResult<MockRecord> = {
         items: mockData,
         totalItems: 150,
-        pageSize: 2,
-        page: 1,
     };
 
     @ViewChild(DatagridComponent, { static: false }) grid!: MockRecordDatagridComponent;

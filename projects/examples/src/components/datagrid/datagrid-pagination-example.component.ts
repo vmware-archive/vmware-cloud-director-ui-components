@@ -53,8 +53,6 @@ export class DatagridPaginationExampleComponent {
                 eventData.pagination.pageNumber * eventData.pagination.itemsPerPage
             ),
             totalItems: data.length,
-            pageSize: 2,
-            page: 1,
         };
     }
 }

@@ -56,14 +56,6 @@ export interface GridDataFetchResult<R> {
      * Total number of items
      */
     totalItems?: number;
-    /**
-     * Number of the page being indexed
-     */
-    page?: number;
-    /**
-     * Size of a page
-     */
-    pageSize?: number;
 }
 
 /**
