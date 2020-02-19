@@ -421,6 +421,21 @@ export class DatagridComponent<R> implements OnInit {
     isColumnHideable(column: GridColumn<R>): boolean {
         return column && column.hideable && column.hideable !== GridColumnHideable.Never;
     }
+
+    /**
+     * Says if the number of items matches the page size.
+     */
+    sameItemsAsPageSize(): boolean {
+        return this.pagination.pageSize === this.items.length;
+    }
+
+    /**
+     * Updates the pagination data and makes the callback.
+     */
+    paginationCallbackWrapper(paginationData: ClrDatagridPagination): string {
+        return this.paginationCallback(paginationData.firstItem + 1, paginationData.lastItem + 1, this.totalItems);
+    }
+
     /**
      * Defines the {@property columnsConfig} by adding extra property required for differentiating different kinds
      * of renderers which is required in the HTML template.

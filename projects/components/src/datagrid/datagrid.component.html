@@ -40,14 +40,14 @@
             </clr-dg-row-detail>
         </ng-container>
     </clr-dg-row>
-    <clr-dg-row *ngIf="this.pagination.pageSize === this.items.length"> </clr-dg-row>
+    <clr-dg-row *ngIf="sameItemsAsPageSize()"> </clr-dg-row>
 
     <clr-dg-footer>
         <clr-dg-pagination #paginationData [clrDgTotalItems]="totalItems" [(clrDgPageSize)]="this.pagination.pageSize">
             <clr-dg-page-size [clrPageSizeOptions]="this.pagination.pageSizeOptions">{{
                 paginationDropdownText
             }}</clr-dg-page-size>
-            {{ paginationCallback(paginationData.firstItem + 1, paginationData.lastItem + 1, totalItems) }}
+            {{ paginationCallbackWrapper(paginationData) }}
         </clr-dg-pagination>
     </clr-dg-footer>
 </clr-datagrid>

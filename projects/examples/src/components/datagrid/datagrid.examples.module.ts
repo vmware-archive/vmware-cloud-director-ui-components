@@ -59,7 +59,7 @@ Documentation.registerDocumentationEntry({
         {
             component: DatagridPaginationExampleComponent,
             forComponent: null,
-            title: 'Shows the pagination capability of the datagrid',
+            title: 'Pagination functionality and text customization example',
         },
     ],
 });
