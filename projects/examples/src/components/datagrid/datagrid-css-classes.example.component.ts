@@ -51,8 +51,6 @@ export class DatagridCssClassesExampleComponent {
         this.gridData = {
             items: [{ value: 'warn' }, { value: 'error' }, { value: 'ok' }, { value: 'ok' }, { value: 'error' }],
             totalItems: 2,
-            pageSize: 2,
-            page: 1,
         };
     }
 

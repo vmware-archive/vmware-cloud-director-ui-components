@@ -64,8 +64,6 @@ export class DatagridSortExampleComponent {
         this.gridData = {
             items: data,
             totalItems: 2,
-            pageSize: 2,
-            page: 1,
         };
     }
 }

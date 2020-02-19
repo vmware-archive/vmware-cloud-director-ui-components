@@ -13,11 +13,10 @@ import {
     ViewChild,
     ContentChild,
     ElementRef,
-    TrackByFunction
+    TrackByFunction,
 } from '@angular/core';
-import { ClrDatagridStateInterface } from '@clr/angular';
 import { FunctionRenderer, GridColumn, GridColumnHideable } from './interfaces/datagrid-column.interface';
-import { ClrDatagridFilter, ClrDatagrid } from '@clr/angular';
+import { ClrDatagridFilter, ClrDatagrid, ClrDatagridStateInterface, ClrDatagridPagination } from '@clr/angular';
 import { ComponentRendererSpec } from './interfaces/component-renderer.interface';
 
 /**
@@ -57,14 +56,6 @@ export interface GridDataFetchResult<R> {
      * Total number of items
      */
     totalItems?: number;
-    /**
-     * Number of the page being indexed
-     */
-    page?: number;
-    /**
-     * Size of a page
-     */
-    pageSize?: number;
 }
 
 /**
@@ -89,6 +80,19 @@ interface HasHref {
 }
 
 /**
+ * The information about pagionation that will be exposed.
+ */
+export interface PagionationInformation {
+    /**
+     * What page is currently selected.
+     */
+    pageNumber: number;
+    /**
+     * How many items belong on a page.
+     */
+    itemsPerPage: number;
+}
+/**
  * The current state of various features of the grid like filtering, sorting, pagination. This object is emitted as
  * part of the event {@link DatagridComponent.gridRefresh}. The handler then used this object to construct a query.
  * TODO: This interface is going to defined as part of working on the following tasks:
@@ -96,12 +100,15 @@ interface HasHref {
  *  https://jira.eng.vmware.com/browse/VDUCC-15
  *  https://jira.eng.vmware.com/browse/VDUCC-20
  */
-// tslint:disable-next-line:no-empty-interface
 export interface GridState<R> {
     /**
      * The currently sorted column in the datagrid.
      */
     sortColumn?: SortedColumn;
+    /**
+     * The pagination information that the datagrid should show.
+     */
+    pagination: PagionationInformation;
 }
 
 /**
@@ -150,10 +157,9 @@ export class DatagridComponent<R> implements OnInit {
     @Input() set gridData(result: GridDataFetchResult<R>) {
         this.isLoading = false;
         this.items = result.items;
+        this.totalItems = result.totalItems;
         this.updateSelectedItems();
     }
-
-    @ContentChild(TemplateRef, { static: false }) detailTemplate!: TemplateRef<ElementRef>;
 
     /**
      * Type of row selection on the grid
@@ -165,12 +171,25 @@ export class DatagridComponent<R> implements OnInit {
     GridColumnHideable = GridColumnHideable;
     private _columns: GridColumn<R>[];
 
+    @ContentChild(TemplateRef, { static: false }) detailTemplate!: TemplateRef<ElementRef>;
+
     private _selectionType: GridSelectionType = GridSelectionType.None;
 
     /**
      * The CSS class to use for the Clarity datagrid.
      */
     @Input() clrDatagridCssClass = '';
+
+    /**
+     * The text placed next to the pagination number dropdown.
+     */
+    @Input() paginationDropdownText = '';
+
+    /**
+     * Fired whenever the selection changes. The event data is array of rows selected. The array will contain only one
+     * element in case of single selection
+     */
+    selectionChanged: EventEmitter<R[]>;
 
     /**
      * Buttons to display in the toolbar on top of data grid
@@ -201,11 +220,9 @@ export class DatagridComponent<R> implements OnInit {
     expandableRowTemplate: TemplateRef<R>;
 
     /**
-     * TODO: Pagination requires some more research to be defined properly and is going to be defined as part of
-     *  https://jira.eng.vmware.com/browse/VDUCC-20
+     * The pagination information that the user should supply.
      */
-    pagination: {
-        paginationKey: string;
+    @Input() pagination: {
         /**
          * Available page size options in the dropdown
          */
@@ -217,7 +234,11 @@ export class DatagridComponent<R> implements OnInit {
          *
          * Magic: Auto calculates the size based on available height of the container
          */
-        pageSize: number | 'Magic';
+        // TODO: implement 'Magic'
+        pageSize: number; // | 'Magic';
+    } = {
+        pageSize: 10,
+        pageSizeOptions: [10, 20, 50, 100],
     };
 
     /**
@@ -256,6 +277,11 @@ export class DatagridComponent<R> implements OnInit {
     multiSelection: R[] = [];
 
     /**
+     * The total number of items that could be displayed in the grid.
+     */
+    totalItems?: number;
+
+    /**
      * Emitted during the initial rendering, and is emitted whenever filtering/sorting/paging params change
      * {@link #GridState} is the type of value emitted
      */
@@ -267,12 +293,30 @@ export class DatagridComponent<R> implements OnInit {
     @ViewChild(ClrDatagrid, { static: true }) datagrid: ClrDatagrid;
 
     /**
+     * The pagination display within the datagrid.
+     */
+    @ViewChild(ClrDatagridPagination, { static: false }) paginationComponent: ClrDatagridPagination;
+
+    /**
      * Returns an identifier for the given record at the given index.
      *
      * If the record has a href, defaults to that. Else, defaults to index.
      */
-    @Input() trackBy: TrackByFunction<R> = (index: number, record: (R & HasHref) | undefined): string | number =>
-        record && (record.href || index)
+    @Input() trackBy: TrackByFunction<R> = (index: number, record: (R & HasHref) | undefined): string | number => {
+        return record && (record.href || index);
+        // tslint:disable-next-line: semicolon
+    };
+
+    /**
+     * Gives the correct string to display for the pagination.
+     *
+     * @param firstItem the index of the first item displayed.
+     * @param lastItem the index of the last item displayed.
+     * @param totalItems the total number of items that could be displayed.
+     */
+    @Input() paginationCallback(firstItem: number, lastItem: number, totalItems: number): string {
+        return `${firstItem} - ${lastItem} of ${totalItems} rows`;
+    }
 
     /**
      * Gives the CSS class to use for a given datarow based on its relative index and entity definition.
@@ -283,7 +327,6 @@ export class DatagridComponent<R> implements OnInit {
 
     ngOnInit(): void {
         this.isLoading = true;
-        this.gridRefresh.emit({});
         this.clearSelectionInformation();
     }
 
@@ -348,19 +391,51 @@ export class DatagridComponent<R> implements OnInit {
      * Called when the {@param state} of the Clarity datagrid changes.
      */
     gridStateChanged(state: ClrDatagridStateInterface): void {
-        const toEmit: GridState<R> = {};
+        // Update pagination information.
+        const pagination = {
+            pageNumber: state.page ? state.page.current : 1,
+            itemsPerPage: state.page ? state.page.size : 10,
+        };
+
+        // Update the sorting information.
+        const toEmit: GridState<R> = {
+            pagination,
+        };
         if (state.sort && typeof state.sort.by === 'string') {
             toEmit.sortColumn = {
                 name: state.sort.by,
                 reverse: state.sort.reverse,
             };
         }
+
         this.gridRefresh.emit(toEmit);
+    }
+
+    /**
+     * Resets the pagination to page 1.
+     */
+    resetToPageOne(): void {
+        this.paginationComponent.currentPage = 1;
     }
 
     isColumnHideable(column: GridColumn<R>): boolean {
         return column && column.hideable && column.hideable !== GridColumnHideable.Never;
     }
+
+    /**
+     * Says if the number of items matches the page size.
+     */
+    sameItemsAsPageSize(): boolean {
+        return this.pagination.pageSize === this.items.length;
+    }
+
+    /**
+     * Updates the pagination data and makes the callback.
+     */
+    paginationCallbackWrapper(paginationData: ClrDatagridPagination): string {
+        return this.paginationCallback(paginationData.firstItem + 1, paginationData.lastItem + 1, this.totalItems);
+    }
+
     /**
      * Defines the {@property columnsConfig} by adding extra property required for differentiating different kinds
      * of renderers which is required in the HTML template.

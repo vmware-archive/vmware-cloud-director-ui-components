@@ -79,8 +79,6 @@ export class DatagridThreeRenderersExampleComponent {
         this.gridData = {
             items: mockData,
             totalItems: 2,
-            pageSize: 2,
-            page: 1,
         };
     }
 }

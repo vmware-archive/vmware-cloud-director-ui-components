@@ -17,17 +17,18 @@ interface Data {
 @Component({
     selector: 'vcd-datagrid-row-select-example',
     template: `
-    <button class="btn btn-primary" (click)="selectionType = GridSelectionType.Single">Single Select</button>
-    <button class="btn btn-primary" (click)="selectionType = GridSelectionType.Multi">Multi Select Select</button>
-    <button class="btn btn-primary" (click)="selectionType = GridSelectionType.None">No Select Select</button>
-    <button class="btn btn-primary" (click)="this.newData()">New Data</button>
-    <vcd-datagrid
-        [gridData]="gridData"
-        (gridRefresh)="refresh($event)"
-        [columns]="columns"
-        [selectionType]="selectionType"
-        (selectionChanged)="selectionChanged($event)"
-    ></vcd-datagrid>`,
+        <button class="btn btn-primary" (click)="selectionType = GridSelectionType.Single">Single Select</button>
+        <button class="btn btn-primary" (click)="selectionType = GridSelectionType.Multi">Multi Select Select</button>
+        <button class="btn btn-primary" (click)="selectionType = GridSelectionType.None">No Select Select</button>
+        <button class="btn btn-primary" (click)="this.newData()">New Data</button>
+        <vcd-datagrid
+            [gridData]="gridData"
+            (gridRefresh)="refresh($event)"
+            [columns]="columns"
+            [selectionType]="selectionType"
+            (selectionChanged)="selectionChanged($event)"
+        ></vcd-datagrid>
+    `,
 })
 export class DatagridRowSelectExampleComponent {
     selectionType = GridSelectionType.Multi;
@@ -52,8 +53,6 @@ export class DatagridRowSelectExampleComponent {
         this.gridData = {
             items: [{ href: 'a' }, { href: 'b' }, { href: 'c' }],
             totalItems: 2,
-            pageSize: 2,
-            page: 1,
         };
     }
 
@@ -61,8 +60,6 @@ export class DatagridRowSelectExampleComponent {
         this.gridData = {
             items: [{ href: 'a' }, { href: 'b' }, { href: 'd' }],
             totalItems: 2,
-            pageSize: 2,
-            page: 1,
         };
     }
 }

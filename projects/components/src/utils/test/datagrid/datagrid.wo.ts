@@ -125,6 +125,27 @@ export class ClrDatagridWidgetObject extends WidgetObject<ClrDatagrid> {
     }
 
     /**
+     * Gives the pagination description text.
+     */
+    getPaginationDescription(): string {
+        return this.findElement('.pagination-description').nativeElement.textContent;
+    }
+
+    /**
+     * Gives the text next to the pagination selector.
+     */
+    getPaginationSizeSelectorText(): string {
+        return this.findElement('clr-dg-page-size').nativeElement.textContent;
+    }
+
+    /**
+     * Clicks the next page button.
+     */
+    nextPage(): void {
+        this.click('.pagination-next');
+    }
+
+    /**
      * Can be used by subclasses to create methods that assert about HTML in custom rendered columns. Note that
      * subclasses should not return the DebugElement, they should return a string from a section of the HTML.
      *

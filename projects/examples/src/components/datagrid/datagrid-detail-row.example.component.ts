@@ -37,8 +37,6 @@ export class DatagridDetailRowExampleComponent {
         this.gridData = {
             items: [{ value: 'a' }, { value: 'b' }],
             totalItems: 2,
-            pageSize: 2,
-            page: 1,
         };
     }
 }

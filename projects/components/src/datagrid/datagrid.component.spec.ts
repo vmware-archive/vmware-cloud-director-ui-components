@@ -186,8 +186,6 @@ describe('DatagridComponent', () => {
                         this.finder.hostComponent.gridData = {
                             items: [mockData[0]],
                             totalItems: 2,
-                            pageSize: 2,
-                            page: 1,
                         };
                         this.finder.detectChanges();
                         expect(this.finder.hostComponent.getSelection()).toEqual([]);
@@ -202,8 +200,6 @@ describe('DatagridComponent', () => {
                         this.finder.hostComponent.gridData = {
                             items: [mockData[0]],
                             totalItems: 2,
-                            pageSize: 2,
-                            page: 1,
                         };
                         this.finder.detectChanges();
                         expect(this.finder.hostComponent.getSelection()).toEqual([mockData[0]]);
@@ -218,11 +214,21 @@ describe('DatagridComponent', () => {
                     this.finder.hostComponent.gridData = {
                         items: [mockData[1]],
                         totalItems: 2,
-                        pageSize: 2,
-                        page: 1,
                     };
                     this.finder.detectChanges();
                     expect(this.finder.hostComponent.getSelection()).toEqual([mockData[1]]);
+                });
+            });
+
+            describe('@Input() paginationCallback', () => {
+                it('displays pagination callback information on page one', function(this: HasFinderAndGrid): void {
+                    expect(this.clrGridWidget.getPaginationDescription()).toEqual(' 1 - 10 of 150 items ');
+                });
+            });
+
+            describe('@Input() paginationDropdownText', () => {
+                it('displays the pagination dropdown information on page one', function(this: HasFinderAndGrid): void {
+                    expect(this.clrGridWidget.getPaginationSizeSelectorText()).toEqual('Total Items102050100');
                 });
             });
         });
@@ -233,8 +239,6 @@ describe('DatagridComponent', () => {
             this.finder.hostComponent.gridData = {
                 items: mockData,
                 totalItems: 2,
-                pageSize: 2,
-                page: 1,
             };
             this.finder.detectChanges();
             expect(this.clrGridWidget.component.loading).toBe(
@@ -334,6 +338,7 @@ describe('DatagridComponent', () => {
                         name: 'a',
                         reverse: false,
                     },
+                    pagination: { pageNumber: 1, itemsPerPage: 10 },
                 });
                 this.clrGridWidget.sortColumn(0);
                 expect(refreshMethod).toHaveBeenCalledWith({
@@ -341,6 +346,7 @@ describe('DatagridComponent', () => {
                         name: 'a',
                         reverse: true,
                     },
+                    pagination: { pageNumber: 1, itemsPerPage: 10 },
                 });
             });
 
@@ -348,6 +354,27 @@ describe('DatagridComponent', () => {
                 const refreshMethod = spyOn(this.finder.hostComponent, 'refresh');
                 this.clrGridWidget.sortColumn(1);
                 expect(refreshMethod).toHaveBeenCalledTimes(0);
+            });
+
+            it('allows the user to change pages', function(this: HasFinderAndGrid): void {
+                const refreshMethod = spyOn(this.finder.hostComponent, 'refresh');
+                this.clrGridWidget.nextPage();
+                expect(refreshMethod).toHaveBeenCalledWith({
+                    pagination: {
+                        pageNumber: 2,
+                        itemsPerPage: 10,
+                    },
+                });
+            });
+
+            it('goes to page 1 when sorting is clicked', function(this: HasFinderAndGrid): void {
+                const refreshMethod = spyOn(this.finder.hostComponent, 'refresh');
+                this.clrGridWidget.nextPage();
+                this.clrGridWidget.sortColumn(0);
+                expect(refreshMethod).toHaveBeenCalledWith({
+                    pagination: { pageNumber: 1, itemsPerPage: 10 },
+                    sortColumn: { name: 'a', reverse: false },
+                });
             });
         });
     });
@@ -404,6 +431,8 @@ describe('DatagridComponent', () => {
             [clrDatarowCssClassGetter]="clrDatarowCssClassGetter"
             [selectionType]="selectionType"
             (selectionChanged)="selectionChanged($event)"
+            [paginationCallback]="paginationCallback"
+            [paginationDropdownText]="paginationText"
         >
             <ng-template let-record="record"> DETAILS: {{ record.name }} </ng-template>
         </vcd-datagrid>
@@ -412,9 +441,7 @@ describe('DatagridComponent', () => {
 export class HostWithDatagridComponent {
     gridData: GridDataFetchResult<MockRecord> = {
         items: mockData,
-        totalItems: 2,
-        pageSize: 2,
-        page: 1,
+        totalItems: 150,
     };
 
     @ViewChild(DatagridComponent, { static: false }) grid!: MockRecordDatagridComponent;
@@ -428,7 +455,13 @@ export class HostWithDatagridComponent {
 
     @ViewChild(DatagridComponent, { static: false }) datagrid: DatagridComponent<MockRecord>;
 
+    paginationText = 'Total Items';
+
     selectionChanged(selection: MockRecord[]): void {}
+
+    paginationCallback(first: number, last: number, total: number): string {
+        return `${first} - ${last} of ${total} items`;
+    }
 
     clrDatarowCssClassGetter(a: MockRecord, index: number): string {
         return '';

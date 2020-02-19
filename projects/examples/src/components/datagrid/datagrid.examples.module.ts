@@ -18,6 +18,8 @@ import { DatagridSortExampleModule } from './datagrid-sort.example.module';
 import { DatagridSortExampleComponent } from './datagrid-sort.example.component';
 import { DatagridRowSelectExampleComponent } from './datagrid-row-select.example.component';
 import { DatagridRowSelectExampleModule } from './datagrid-row-select.example.module';
+import { DatagridPaginationExampleComponent } from './datagrid-pagination-example.component';
+import { DatagridPagionationExampleModule } from './datagrid-pagination-example.module';
 
 Documentation.registerDocumentationEntry({
     component: DatagridComponent,
@@ -54,6 +56,11 @@ Documentation.registerDocumentationEntry({
             forComponent: null,
             title: 'Select datagrid row example',
         },
+        {
+            component: DatagridPaginationExampleComponent,
+            forComponent: null,
+            title: 'Pagination functionality and text customization example',
+        },
     ],
 });
 /**
@@ -66,7 +73,8 @@ Documentation.registerDocumentationEntry({
         DatagridShowHideExampleModule,
         DatagridDetailRowExampleModule,
         DatagridSortExampleModule,
-        DatagridRowSelectExampleModule
+        DatagridRowSelectExampleModule,
+        DatagridPagionationExampleModule,
     ],
 })
 export class DatagridExamplesModule {}
