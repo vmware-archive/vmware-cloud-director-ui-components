@@ -1,20 +1,8 @@
 #
 # This file lists all files that should be localized for a release.
-# The file syntax and the 'l10n-util' command are described on the Wiki page
+# These localizations are maintained internally by VMware.
 #
-#    https://wiki.eng.vmware.com/Build/L10NSupport
-#
-# When updating this file, its contents should be verified prior to
-# submitting to source control, e.g.,
-#
-#    l10n-util verify -f vcdh5cc.l10n
-#
-# Products are expected to include this verification as part of the normal
-# build and failure to verify prior to submitting will cause build failures.
-#
-# Renaming rules should not be added or updated without consulting the
-# internationalization team.
-#
+
 
 # For VCD-CC, all files including *.properties are UTF-8 encoded.
 # Override default value ('java_escape') for java-resource (*.properties) files.
