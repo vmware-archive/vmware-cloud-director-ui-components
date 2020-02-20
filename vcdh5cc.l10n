@@ -1,0 +1,15 @@
+#
+# This file lists all files that should be localized for a release.
+# These localizations are maintained internally by VMware.
+#
+
+
+# For VCD-CC, all files including *.properties are UTF-8 encoded.
+# Override default value ('java_escape') for java-resource (*.properties) files.
+Encodingrule: java-resource => utf_8_sig
+Encodingrule: text-file => utf_8_sig
+
+#################################
+# HTML5 UI
+[projects/components/src/assets/resources]
+    %M.properties
