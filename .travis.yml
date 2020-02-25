@@ -47,6 +47,7 @@ jobs:
               - npm run build-components-doc
               - npm run build-examples-doc
               - npm run generate-translations
+              - npm run generate-example-translations
               - npm run build:examples
 
         - stage: test
@@ -111,3 +112,4 @@ jobs:
               - npm run build-examples-doc
               - npm run generate-translations
               - ng deploy
+          if: branch = master AND repo = vmware/vmware-cloud-director-ui-components AND type != pull_request
