@@ -112,4 +112,4 @@ jobs:
               - npm run build-examples-doc
               - npm run generate-translations
               - ng deploy
-          if: branch = master AND repo = vmware/vmware-cloud-director-ui-components
+          if: branch = master AND repo = vmware/vmware-cloud-director-ui-components AND type != pull_request
