@@ -5,7 +5,7 @@
 
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ClarityModule } from '@clr/angular';
 import { RouterModule } from '@angular/router';
 import { DatagridComponent } from './datagrid.component';
@@ -15,10 +15,14 @@ import { FunctionRendererPipe } from './pipes/function-renderer.pipe';
 import { LinkedTextRendererComponent } from './renderers/linked-text-renderer.component';
 import { BoldTextRendererComponent } from './renderers/bold-text-renderer.component';
 import { ShowClippedTextDirectiveModule } from '../lib/directives/show-clipped-text.directive.module';
+import { DatagridStringFilterComponent } from './filters/datagrid-string-filter.component';
+import { DatagridNumericFilterComponent } from './filters/datagrid-numeric-filter.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 const directives = [ComponentRendererOutletDirective];
 const pipes = [FunctionRendererPipe];
 const renderers = [BoldTextRendererComponent, LinkedTextRendererComponent];
+const filters = [DatagridNumericFilterComponent, DatagridStringFilterComponent];
 
 @NgModule({
     imports: [
@@ -27,11 +31,13 @@ const renderers = [BoldTextRendererComponent, LinkedTextRendererComponent];
         RouterModule,
         PipesModule,
         ReactiveFormsModule,
-        ShowClippedTextDirectiveModule
+        ShowClippedTextDirectiveModule,
+        FormsModule,
+        BrowserAnimationsModule,
     ],
     declarations: [DatagridComponent, ...directives, ...renderers, ...pipes],
     providers: [],
     exports: [DatagridComponent, ...renderers],
-    entryComponents: [...renderers],
+    entryComponents: [...renderers, ...filters],
 })
 export class DatagridModule {}

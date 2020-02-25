@@ -26,6 +26,8 @@ import { DatagridHeightExampleModule } from './datagrid-height.example.module';
 import { DatagridHeightExampleComponent } from './datagrid-height.example.component';
 import { DatagridHeaderExampleComponent } from './datagrid-header.example.component';
 import { DatagridHeaderExampleModule } from './datagrid-header.example.module';
+import { DatagridFilterExampleModule } from './datagrid-filter.example.module';
+import { DatagridFilterExampleComponent } from './datagrid-filter.example.component';
 
 Documentation.registerDocumentationEntry({
     component: DatagridComponent,
@@ -82,6 +84,11 @@ Documentation.registerDocumentationEntry({
             forComponent: null,
             title: 'Links from Datagrid Example',
         },
+        {
+            component: DatagridFilterExampleComponent,
+            forComponent: null,
+            title: 'Data grid filters',
+        },
     ],
 });
 /**
@@ -99,6 +106,7 @@ Documentation.registerDocumentationEntry({
         DatagridLinkExampleModule,
         DatagridHeightExampleModule,
         DatagridHeaderExampleModule,
+        DatagridFilterExampleModule,
     ],
 })
 export class DatagridExamplesModule {}

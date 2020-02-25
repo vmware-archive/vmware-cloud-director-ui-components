@@ -7,6 +7,7 @@
  * Whether something shows up in the column toggler
  */
 import { ComponentRendererSpec } from './component-renderer.interface';
+import { ClrDatagridComparatorInterface } from '@clr/angular';
 
 export enum GridColumnHideable {
     /**
@@ -222,5 +223,18 @@ export interface GridColumn<R> {
      * TODO: Should this be made to work with top level search on grids across all columns?
      *  The above to-do is going to be worked on as part of https://jira.eng.vmware.com/browse/VDUCC-27 and
      */
-    filter?: ComponentRendererSpec<R, unknown>;
+    filterRendererSpec?: ComponentRendererSpec<R, unknown>;
+
+    /**
+     * Wired to ClrDgSortBy input to enable custom sorting feature offered by the Clarity data grid. This is also used
+     * to enable sorting independently from filtering when clrDgField is given as input
+     */
+    sortBy?: ClrDatagridComparatorInterface<R> | string;
+
+    /**
+     * Switch used for turning off sorting on a column. This is because, it was not possible to switch sorting by using
+     * clrDgColumn's sortBy property. So, we pass in clrDgField as input, which enables both sorting and filtering by default.
+     * We then use this prop as part of column config and turn off sorting for columns that doesn't require it.
+     */
+    notSortable?: boolean;
 }

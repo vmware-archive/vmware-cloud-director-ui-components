@@ -29,6 +29,7 @@ import {
 } from './interfaces/datagrid-column.interface';
 import { ContextualButton } from './interfaces/datagrid-column.interface';
 import { ComponentRendererSpec } from './interfaces/component-renderer.interface';
+import { DatagridFilter, FilterConfig } from './filters/datagrid-filter';
 
 /**
  * The default number of items on a single page.
@@ -149,6 +150,10 @@ export interface PaginationConfiguration {
  *  https://jira.eng.vmware.com/browse/VDUCC-20
  */
 export interface GridState<R> {
+    /**
+     * List of column filter values which are FIQL formatted strings
+     */
+    filters?: string[];
     /**
      * The currently sorted column in the datagrid.
      */
@@ -558,24 +563,22 @@ export class DatagridComponent<R> implements OnInit, AfterViewInit {
      * Called when the {@param state} of the Clarity datagrid changes.
      */
     gridStateChanged(state: ClrDatagridStateInterface): void {
-        // Update pagination information.
-        const pagination = {
-            pageNumber: state.page ? state.page.current : 1,
-            itemsPerPage: state.page ? state.page.size : 10,
-        };
-
-        // Update the sorting information.
-        const toEmit: GridState<R> = {
-            pagination,
+        const vcdDgState: GridState<R> = {
+            pagination: {
+                pageNumber: state.page ? state.page.current : 1,
+                itemsPerPage: state.page ? state.page.size : 10,
+            },
+            filters: state.filters
+                ? state.filters.map((filter: DatagridFilter<unknown, unknown>) => filter.getValue())
+                : [],
         };
         if (state.sort && typeof state.sort.by === 'string') {
-            toEmit.sortColumn = {
+            vcdDgState.sortColumn = {
                 name: state.sort.by,
                 reverse: state.sort.reverse,
             };
         }
-
-        this.gridRefresh.emit(toEmit);
+        this.gridRefresh.emit(vcdDgState);
     }
 
     /**
@@ -670,6 +673,11 @@ export class DatagridComponent<R> implements OnInit, AfterViewInit {
                 columnConfig.fieldColumnRendererSpec = column.renderer as ComponentRendererSpec<R, unknown>;
             } else {
                 columnConfig.fieldName = column.renderer as string;
+            }
+
+            // Add query filed required for the column filtering. This is then used in DatagridFilter.queryField
+            if (!!column.queryFieldName && !!column.filterRendererSpec) {
+                (column.filterRendererSpec.config as FilterConfig<unknown>).filterBy = column.queryFieldName;
             }
 
             return columnConfig;

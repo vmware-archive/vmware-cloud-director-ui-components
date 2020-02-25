@@ -42,17 +42,30 @@
     <clr-dg-column *ngIf="shouldDisplayButtonsOnRow()" [ngClass]="'buttons-' + this.getMaxFeaturedButtonsOnRow()">
         Actions
     </clr-dg-column>
+    <!--The clrDgField being passed below is only used for enabling sorting and not filtering. This is because, it was
+        not possible to switch sorting using clrDgColumn.sortBy property-->
     <clr-dg-column
-        *ngFor="let column of columnsConfig"
-        [clrDgField]="column.queryFieldName"
-        (clrDgSortOrderChange)="resetToPageOne()"
+            *ngFor="let column of columnsConfig"
+            [clrDgField]="column.queryFieldName"
+            [clrDgSortBy]="column.sortBy"
+            (clrDgSortOrderChange)="resetToPageOne()"
     >
         <ng-container *ngIf="isColumnHideable(column); else notHideable">
             <ng-container *clrDgHideableColumn="{ hidden: column.hideable === GridColumnHideable.Hidden }">{{
                 column.displayName
-            }}</ng-container>
+                }}</ng-container>
         </ng-container>
         <ng-template #notHideable>{{ column.displayName }}</ng-template>
+        <clr-dg-filter *ngIf="column.queryFieldName">
+            <ng-template
+                    *ngIf="column.filterRendererSpec; else defaultFilter"
+                    [vcdComponentRendererOutlet]="{ rendererSpec: column.filterRendererSpec, context: null }"
+            >
+            </ng-template>
+            <ng-template #defaultFilter>
+                <vcd-dg-string-filter [config]="{ filterBy: column.queryFieldName }"></vcd-dg-string-filter>
+            </ng-template>
+        </clr-dg-filter>
     </clr-dg-column>
 
     <clr-dg-row
