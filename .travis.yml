@@ -48,7 +48,7 @@ jobs:
               - npm run build-examples-doc
               - npm run generate-translations
               - npm run generate-example-translations
-              - npm run build:examples
+              - npm run build:examples-prod
 
         - stage: test
           name: Unit tests
@@ -108,8 +108,5 @@ jobs:
         - stage: deploy
           name: Deploying to Github pages
           script:
-              - npm run build-components-doc
-              - npm run build-examples-doc
-              - npm run generate-translations
-              - ng deploy
+              - ng deploy --no-build
           if: branch = master AND repo = vmware/vmware-cloud-director-ui-components AND type != pull_request
