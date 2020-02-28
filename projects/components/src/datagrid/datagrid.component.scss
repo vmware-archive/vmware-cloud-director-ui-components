@@ -3,16 +3,42 @@
  * SPDX-License-Identifier: BSD-2-Clause
  */
 
-.action-button-col {
-    padding-top: 5px;
-    padding-bottom: 5px;
+// The amount of padding that should be placed above and below a button group.
+$PADDING: 5px;
+// How wide a single button should be.
+$BUTTON_WIDTH: 50px;
+
+$supported-buttons: (0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19);
+
+@each $num in $supported-buttons {
+    .buttons-#{$num} {
+        flex: 0 0 auto;
+        min-width: #{$BUTTON_WIDTH * ($num + 1.5)} !important;
+        max-width: 400px;
+        padding-left: #{$BUTTON_WIDTH/4};
+    }
+}
+
+.action-button-cell {
+    padding-top: $PADDING;
+    padding-bottom: $PADDING;
+}
+
+.action-button-group {
+    height: 100%;
+    margin-bottom: #{$PADDING * -2};
 }
 
 .action-button {
     height: 100%;
-    margin-bottom: -10px;
+    margin-bottom: #{$PADDING * -2};
+    width: $BUTTON_WIDTH !important;
+}
+
+.dropdown-small {
+    min-width: unset;
 }
 
 .action-icon {
-    margin-bottom: 10px;
+    margin-bottom: $PADDING;
 }

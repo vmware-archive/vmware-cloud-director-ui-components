@@ -118,6 +118,7 @@
     "no-string-based-set-immediate": true,
     "no-string-based-set-interval": true,
     "no-string-based-set-timeout": true,
-    "no-eval": true
+    "no-eval": true,
+    "semicolon": [true, "always", "strict-bound-class-methods"]
   }
 }

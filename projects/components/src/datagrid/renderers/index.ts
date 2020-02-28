@@ -4,3 +4,4 @@
  */
 
 export * from './bold-text-renderer.component';
+export * from './linked-text-renderer.component';

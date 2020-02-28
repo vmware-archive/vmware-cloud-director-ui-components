@@ -33,12 +33,143 @@ export enum GridColumnSortDirection {
 }
 
 /**
+ * The ways buttons should be displayed when they are inactive.
+ */
+export enum InactiveButtonDisplayMode {
+    Hide = 'HIDE',
+    Disable = 'Disable',
+}
+
+/**
  * Column renderer as a function. Defined in calling component when the cell value is calculated from different
  * properties.
  * @param record The record for the row being rendered
  * @return The string to be displayed for that cell
  */
 export type FunctionRenderer<T> = (record: T) => string;
+
+/**
+ * A generic interface for a button that can be displayed on the grid.
+ */
+export interface Button<R> {
+    /**
+     * The translated text of the button.
+     */
+    label: string;
+    /**
+     * The css class the button should have.
+     */
+    class?: string;
+    /**
+     * The way this button should be shown when inactive.
+     * Overrides {@link ButtonConfig.inactiveDisplayMode}.
+     */
+    inactiveDisplayMode?: InactiveButtonDisplayMode;
+    /**
+     * The function that is called when the button is pressed.
+     *
+     * @param entity the currently selected entities.
+     */
+    handler: (rec?: R[]) => void;
+    /**
+     * The function that is called to determine if the button should be displayed.
+     *
+     * @param entity the currently selected entities.
+     */
+    isActive: (rec?: R[]) => boolean;
+}
+
+/**
+ * A type of button whose displayability does not depend on the selected entity.
+ */
+export interface GlobalButton<R> extends Button<R> {
+    /**
+     * The function that is called when the button is pressed.
+     */
+    handler: () => void;
+    /**
+     * The function that is called to determine if the button should be displayed.
+     */
+    isActive: () => boolean;
+}
+
+/**
+ * A type of button whose displayability dependends on the selected entity.
+ */
+export interface ContextualButton<R> extends Button<R> {
+    /**
+     * The function that is called when the button is pressed.
+     *
+     * @param entity the currently selected entities.
+     */
+    handler: (entity: R[]) => void;
+    /**
+     * The function that is called to determine if the button should be displayed.
+     *
+     * @param entity the currently selected entities.
+     */
+    isActive: (rec: R[]) => boolean;
+    /**
+     * The ID of this button that is unique among buttons passed to the grid.
+     */
+    id: string;
+    /**
+     * The Clarity icon of the contextual button that is displayed if the button is featured.
+     */
+    icon: string;
+}
+
+/**
+ * An enum that describes where the contextual buttons should display.
+ */
+export enum ContextualButtonPosition {
+    TOP = 'TOP',
+    ROW = 'ROW',
+}
+
+/**
+ * A configuration that descibes all the information about the contextual buttons.
+ */
+export interface ContextualButtonConfig<R> {
+    /**
+     * A list of all the contextual buttons.
+     */
+    buttons: ContextualButton<R>[];
+    /**
+     * An ordered list of {@link ContextualButton.id}s of buttons that should be in a featured position.
+     *
+     * Only non-hidden buttons will be shown.
+     */
+    featured: string[];
+    /**
+     * How many buttons should display on the featured section.
+     *
+     * Used when you want to set a limit on the number of featured buttons shown.
+     */
+    featuredCount: number;
+    /**
+     * Where the buttons should display on the grid.
+     */
+    position: ContextualButtonPosition;
+}
+
+/**
+ * The configuration object that describes the type of buttons to put on the top of the grid.
+ */
+export interface ButtonConfig<R> {
+    /**
+     * The buttons whose displayability does not depend on the selected entity.
+     */
+    globalButtons: GlobalButton<R>[];
+    /**
+     * The buttons whose displayability depends on the selected entity.
+     */
+    contextualButtonConfig: ContextualButtonConfig<R>;
+    /**
+     * The way buttons should be shown when inactive.
+     */
+    inactiveDisplayMode?: InactiveButtonDisplayMode;
+}
 
 /**
  * Configuration object defined in the caller. This contains properties for the column header (text, filtering,

@@ -11,12 +11,21 @@ import {
     Output,
     TemplateRef,
     ViewChild,
+    TrackByFunction,
     ContentChild,
     ElementRef,
-    TrackByFunction,
 } from '@angular/core';
-import { FunctionRenderer, GridColumn, GridColumnHideable } from './interfaces/datagrid-column.interface';
 import { ClrDatagridFilter, ClrDatagrid, ClrDatagridStateInterface, ClrDatagridPagination } from '@clr/angular';
+import {
+    FunctionRenderer,
+    GridColumn,
+    GridColumnHideable,
+    ButtonConfig,
+    ContextualButtonPosition,
+    Button,
+    InactiveButtonDisplayMode,
+} from './interfaces/datagrid-column.interface';
+import { ContextualButton } from './interfaces/datagrid-column.interface';
 import { ComponentRendererSpec } from './interfaces/component-renderer.interface';
 
 /**
@@ -36,13 +45,6 @@ export enum GridSelectionType {
      */
     None = 'NONE',
 }
-
-/**
- * TODO: This API is going to have more properties and is going to be defined as part of
- *  https://jira.eng.vmware.com/browse/VDUCC-21
- */
-// tslint:disable-next-line:no-empty-interface
-export interface Button {}
 
 /**
  * Representation of data required for rendering contents of cells and pagination information
@@ -137,6 +139,7 @@ interface ColumnConfigInternal<R, T> extends GridColumn<R> {
 @Component({
     selector: 'vcd-datagrid',
     templateUrl: './datagrid.component.html',
+    styleUrls: ['./datagrid.component.scss'],
 })
 export class DatagridComponent<R> implements OnInit {
     /**
@@ -168,6 +171,7 @@ export class DatagridComponent<R> implements OnInit {
         this._selectionType = selectionType;
         this.clearSelectionInformation();
     }
+    ContextualButtonPosition = ContextualButtonPosition;
     GridColumnHideable = GridColumnHideable;
     private _columns: GridColumn<R>[];
 
@@ -186,24 +190,52 @@ export class DatagridComponent<R> implements OnInit {
     @Input() paginationDropdownText = '';
 
     /**
-     * Fired whenever the selection changes. The event data is array of rows selected. The array will contain only one
-     * element in case of single selection
+     * Sets the button configuration on the datagrid.
+     *
+     * {@link ButtonConfig.inactiveDisplayMode} defualts to Disabled.
      */
-    selectionChanged: EventEmitter<R[]>;
+    @Input() set buttonConfig(config: ButtonConfig<R>) {
+        this._buttonConfig = config;
+        this._buttonConfig.inactiveDisplayMode =
+            this._buttonConfig.inactiveDisplayMode || InactiveButtonDisplayMode.Disable;
+        this.featuredButtons = new Map(
+            this._buttonConfig.contextualButtonConfig.featured.map(featuredButtonId => [
+                featuredButtonId,
+                this._buttonConfig.contextualButtonConfig.buttons.find(button => button.id === featuredButtonId),
+            ])
+        );
+        this.featuredButtons.forEach(featured => {
+            if (!featured) {
+                throw new Error('Featured button was not found');
+            }
+        });
+    }
 
     /**
-     * Buttons to display in the toolbar on top of data grid
-     * showHide - Buttons that are not shown always (Eg: Delete button is hidden when there are no rows selected)
-     * enableDisable - Buttons that are always shown but disabled in certain conditions (Eg: Add/New button is always
-     * visible but disabled when no rights)
-     *
-     * TODO: There might be one more property required to define how many buttons should be visible before overflowing.
-     *  This API is going to be refined as part of https://jira.eng.vmware.com/browse/VDUCC-21
+     * Gives the button config of the datagrid.
      */
-    buttons: {
-        showHide: Button[];
-        enableDisable: Button[];
+    get buttonConfig(): ButtonConfig<R> {
+        return this._buttonConfig;
+    }
+
+    /**
+     * The stored button config where inactiveDisplayMode is always non-undefined.
+     */
+    _buttonConfig: ButtonConfig<R> = {
+        globalButtons: [],
+        contextualButtonConfig: {
+            buttons: [],
+            featured: [],
+            position: ContextualButtonPosition.TOP,
+            featuredCount: 0,
+        },
+        inactiveDisplayMode: InactiveButtonDisplayMode.Disable,
     };
+
+    /**
+     * The cache of button ID to button config that contains only the featured buttons.
+     */
+    featuredButtons: Map<string, ContextualButton<R>> = new Map();
 
     /**
      * When there is no data, show this message.
@@ -302,9 +334,8 @@ export class DatagridComponent<R> implements OnInit {
      *
      * If the record has a href, defaults to that. Else, defaults to index.
      */
-    @Input() trackBy: TrackByFunction<R> = (index: number, record: (R & HasHref) | undefined): string | number => {
-        return record && (record.href || index);
-        // tslint:disable-next-line: semicolon
+    @Input() trackBy: TrackByFunction<R & { href?: string }> = (index: number, record): string => {
+        return record.href || String(index);
     };
 
     /**
@@ -316,6 +347,74 @@ export class DatagridComponent<R> implements OnInit {
      */
     @Input() paginationCallback(firstItem: number, lastItem: number, totalItems: number): string {
         return `${firstItem} - ${lastItem} of ${totalItems} rows`;
+    }
+
+    /**
+     * Returns the buttons that should be featured given the {@link datagridSelection} or the given {@param record}.
+     *
+     * @throws Error if a featured button cannot be found.
+     */
+    getFeaturedButtons(record?: R): ContextualButton<R>[] {
+        return this._buttonConfig.contextualButtonConfig.buttons
+            .filter(button => this.isButtonShown(button, record) && this.featuredButtons.get(button.id))
+            .slice(0, this._buttonConfig.contextualButtonConfig.featuredCount);
+    }
+
+    /**
+     * Returns the maximum number of featured buttons next to a single row.
+     */
+    getMaxFeaturedButtonsOnRow(): number {
+        let max = 0;
+        this.items.forEach(item => {
+            max = Math.max(this.getFeaturedButtons(item).length, max);
+        });
+        return max;
+    }
+
+    /**
+     * Says if the given button should appear on the datagrid.
+     */
+    isButtonShown(button: Button<R>, record?: R): boolean {
+        const selection = record ? [record] : this.datagridSelection;
+        return button.isActive(selection) || this.getDisplayMode(button) === InactiveButtonDisplayMode.Disable;
+    }
+
+    /**
+     * Says if the given button should be marked as disabled.
+     */
+    isButtonDisabled(button: Button<R>, active: boolean): boolean {
+        return !active && this.getDisplayMode(button) === InactiveButtonDisplayMode.Disable;
+    }
+
+    /**
+     * Gives the display mode of a button.
+     */
+    getDisplayMode(button: Button<R>): InactiveButtonDisplayMode {
+        return button.inactiveDisplayMode || this._buttonConfig.inactiveDisplayMode;
+    }
+
+    /**
+     * Says if the contextual buttons should display on the top.
+     */
+    shouldDisplayButtonsOnTop(): boolean {
+        return (
+            this._buttonConfig.contextualButtonConfig.position === ContextualButtonPosition.TOP &&
+            this.datagridSelection.length !== 0
+        );
+    }
+
+    /**
+     * Says if the contextual buttons should display on the row.
+     */
+    shouldDisplayButtonsOnRow(): boolean {
+        return this._buttonConfig.contextualButtonConfig.position === ContextualButtonPosition.ROW;
+    }
+
+    /**
+     * Says if there are contextual buttons to display.
+     */
+    hasContextualButtons(): boolean {
+        return this._buttonConfig.contextualButtonConfig.buttons.length !== 0;
     }
 
     /**
@@ -331,7 +430,7 @@ export class DatagridComponent<R> implements OnInit {
     }
 
     private updateSelectedItems(): void {
-        if (this._selectionType === GridSelectionType.Single) {
+        if (this._selectionType === GridSelectionType.Single && this.datagrid.selection.currentSingle) {
             // Tries to find the currently selected item. If it isn't found, clears the selection.
             const found = this.items.find(
                 (item, itemIndex) =>
@@ -377,7 +476,7 @@ export class DatagridComponent<R> implements OnInit {
     /**
      * Returns the items selected in the VCD datagrid.
      */
-    getDatagridSelection(): R[] {
+    get datagridSelection(): R[] {
         if (this.datagrid.selection.currentSingle) {
             return [this.datagrid.selection.currentSingle];
         }

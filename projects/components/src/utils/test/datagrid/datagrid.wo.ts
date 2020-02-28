@@ -146,6 +146,34 @@ export class ClrDatagridWidgetObject extends WidgetObject<ClrDatagrid> {
     }
 
     /**
+     * Gives a list of the labels of the displayed action buttons at the top of the grid.
+     */
+    getTopPositionedButtons(): string[] {
+        return this.findElements('clr-dg-action-bar button').map(button => button.nativeElement.textContent);
+    }
+
+    /**
+     * Gives the class of the cell that holds the row buttons.
+     */
+    getRowButtonContainerClass(rowIndex: number): string[] {
+        return Object.keys(this.findElement(`.action-button-cell`, this.rows[rowIndex]).classes);
+    }
+
+    /**
+     * Presses the button at the given {@param index} on the top of the grid.
+     */
+    pressTopButton(index: number): void {
+        this.click(`clr-dg-action-bar button:nth-of-type(${index + 1})`);
+    }
+
+    /**
+     * Presses the button at the given {@param buttonIndex} at the row at the given {@param rowIndex}.
+     */
+    pressButtonAtRow(buttonIndex: number, rowIndex: number): void {
+        this.click(`.action-button-group button:nth-of-type(${buttonIndex + 1})`, this.rows[rowIndex]);
+    }
+
+    /**
      * Can be used by subclasses to create methods that assert about HTML in custom rendered columns. Note that
      * subclasses should not return the DebugElement, they should return a string from a section of the HTML.
      *
