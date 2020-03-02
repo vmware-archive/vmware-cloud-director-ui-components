@@ -7,6 +7,6 @@
  * Public API Surface of components
  */
 export * from './data-exporter/index';
+export * from './lib/directives/show-clipped-text.directive'; //
 export * from './datagrid/index';
-export * from './cliptext/index';
 export * from './components.module';

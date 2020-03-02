@@ -1,0 +1,16 @@
+.scroll-container {
+    position: relative;
+    width: 100%;
+    height: 500px;
+}
+
+.clipped-left {
+    position: absolute;
+    width: 100px;
+}
+
+.clipped-right {
+    position: absolute;
+    right: 10px;
+    width: 100px;
+}

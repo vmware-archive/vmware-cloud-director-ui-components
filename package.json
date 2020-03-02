@@ -24,8 +24,8 @@
     "lint": "ng lint",
     "lint-fix": "tslint --fix 'projects/**/*.ts' -e 'projects/doc-lib/node_modules/**/*.ts'",
     "e2e": "ng e2e",
-    "build-components-doc": "compodoc -p projects/components/tsconfig.lib.json -e json -d projects/examples/gen/components-doc",
-    "build-examples-doc": "compodoc -p projects/examples/tsconfig.app.json -e json -d projects/examples/gen/examples-doc",
+    "build-components-doc": "mkdir -p projects/examples/gen; cd projects/doc-lib; node $NODE_DEBUG_OPTION scripts/index.js ../components/tsconfig.lib.json ../components/src/public-api.ts ../examples/gen/components-doc.json",
+    "build-examples-doc": "mkdir -p projects/examples/gen; cd projects/doc-lib; node $NODE_DEBUG_OPTION scripts/index.js ../examples/tsconfig.app.json ../examples/src/main.ts ../examples/gen/examples-doc.json",
     "generate-translations": "node projects/components/src/assets/index.js",
     "generate-example-translations": "node projects/i18n/scripts/index.js dist/components/i18n.json projects/examples/src/assets/our-translations.json projects/examples/src/assets/i18n.json"
   },

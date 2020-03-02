@@ -1,0 +1,13 @@
+div {
+    border: 1px solid black;
+}
+
+.fixed-width {
+    width: 200px;
+}
+
+/** To use max-width, element must be inline-block */
+.max-width {
+    display: inline-block;
+    max-width: 200px;
+}
