@@ -16,13 +16,13 @@ import { BoldTextRendererComponent } from './renderers/bold-text-renderer.compon
 import { RouterModule } from '@angular/router';
 import { CliptextModule } from '../cliptext/cliptext.module';
 
-const directives = [DatagridComponent, ComponentRendererOutletDirective];
+const directives = [ComponentRendererOutletDirective];
 const pipes = [FunctionRendererPipe];
 const renderers = [BoldTextRendererComponent, LinkedTextRendererComponent];
 
 @NgModule({
     imports: [CommonModule, ClarityModule, RouterModule, PipesModule, ReactiveFormsModule, CliptextModule],
-    declarations: [...directives, ...renderers, ...pipes],
+    declarations: [DatagridComponent, ...directives, ...renderers, ...pipes],
     providers: [],
     exports: [DatagridComponent, ...renderers],
     entryComponents: [...renderers],

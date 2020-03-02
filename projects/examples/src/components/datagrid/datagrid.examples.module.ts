@@ -22,6 +22,8 @@ import { DatagridPaginationExampleComponent } from './datagrid-pagination-exampl
 import { DatagridPagionationExampleModule } from './datagrid-pagination-example.module';
 import { DatagridLinkExampleModule } from './datagrid-link.example.module';
 import { DatagridLinkExampleComponent } from './datagrid-link.example.component';
+import { DatagridHeightExampleModule } from './datagrid-height.example.module';
+import { DatagridHeightExampleComponent } from './datagrid-height.example.component';
 
 Documentation.registerDocumentationEntry({
     component: DatagridComponent,
@@ -68,6 +70,11 @@ Documentation.registerDocumentationEntry({
             forComponent: null,
             title: 'Links from Datagrid Example',
         },
+        {
+            component: DatagridHeightExampleComponent,
+            forComponent: null,
+            title: 'Setting height on the datagrid.',
+        },
     ],
 });
 /**
@@ -82,7 +89,8 @@ Documentation.registerDocumentationEntry({
         DatagridSortExampleModule,
         DatagridRowSelectExampleModule,
         DatagridPagionationExampleModule,
-        DatagridLinkExampleModule
+        DatagridLinkExampleModule,
+        DatagridHeightExampleModule,
     ],
 })
 export class DatagridExamplesModule {}

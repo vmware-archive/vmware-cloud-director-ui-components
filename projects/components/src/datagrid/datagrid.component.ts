@@ -14,6 +14,8 @@ import {
     TrackByFunction,
     ContentChild,
     ElementRef,
+    AfterViewInit,
+    AfterViewChecked,
 } from '@angular/core';
 import { ClrDatagridFilter, ClrDatagrid, ClrDatagridStateInterface, ClrDatagridPagination } from '@clr/angular';
 import {
@@ -27,6 +29,26 @@ import {
 } from './interfaces/datagrid-column.interface';
 import { ContextualButton } from './interfaces/datagrid-column.interface';
 import { ComponentRendererSpec } from './interfaces/component-renderer.interface';
+
+/**
+ * The default number of items on a single page.
+ */
+const DEFAULT_SIZE = 5;
+
+/**
+ * The default items to show in the page size dropdown.
+ */
+const DEFAULT_SIZE_OPTIONS = [DEFAULT_SIZE, 20, 50, 100];
+
+/**
+ * The maximum allowed .datagrid-header element clientHeight in pixels.
+ */
+const MAX_HEADER_HEIGHT = 40;
+
+/**
+ * The default clr-dr-row element clientHeight in pixels.
+ */
+const ROW_HEIGHT = 37;
 
 /**
  * Different types of row selection on the grid
@@ -141,7 +163,7 @@ interface ColumnConfigInternal<R, T> extends GridColumn<R> {
     templateUrl: './datagrid.component.html',
     styleUrls: ['./datagrid.component.scss'],
 })
-export class DatagridComponent<R> implements OnInit {
+export class DatagridComponent<R> implements OnInit, AfterViewInit, AfterViewChecked {
     /**
      * Sets the configuration of columns on the grid and updates the {@link columnsConfig} array
      */
@@ -171,6 +193,8 @@ export class DatagridComponent<R> implements OnInit {
         this._selectionType = selectionType;
         this.clearSelectionInformation();
     }
+
+    ROW_HEIGHT = ROW_HEIGHT;
     ContextualButtonPosition = ContextualButtonPosition;
     GridColumnHideable = GridColumnHideable;
     private _columns: GridColumn<R>[];
@@ -218,6 +242,8 @@ export class DatagridComponent<R> implements OnInit {
         return this._buttonConfig;
     }
 
+    constructor(private component: ElementRef) {}
+
     /**
      * The stored button config where inactiveDisplayMode is always non-undefined.
      */
@@ -245,16 +271,9 @@ export class DatagridComponent<R> implements OnInit {
     emptyGridPlaceholder: string;
 
     /**
-     * Inline HTML that is passed with the record/rest item as context
-     *
-     * TODO: https://jira.eng.vmware.com/browse/VDUCC-18
-     */
-    expandableRowTemplate: TemplateRef<R>;
-
-    /**
      * The pagination information that the user should supply.
      */
-    @Input() pagination: {
+    @Input() set pagination(pagination: {
         /**
          * Available page size options in the dropdown
          */
@@ -266,21 +285,51 @@ export class DatagridComponent<R> implements OnInit {
          *
          * Magic: Auto calculates the size based on available height of the container
          */
-        // TODO: implement 'Magic'
-        pageSize: number; // | 'Magic';
+        pageSize: number | 'Magic';
+    }) {
+        this._pagination = pagination;
+        this.updatePagination();
+    }
+
+    get pagination(): {
+        /**
+         * Available page size options in the dropdown
+         */
+        pageSizeOptions: number[];
+
+        /**
+         * Number of items to be displayed on one page. As a result, the server will return a set of pages with the defined
+         * number of items per page(They can be smaller than the number here in case of last page, filtering etc.,)
+         *
+         * Magic: Auto calculates the size based on available height of the container
+         */
+        pageSize: number | 'Magic';
+    } {
+        return this._pagination;
+    }
+
+    _pagination: {
+        pageSizeOptions: number[];
+        pageSize: number | 'Magic';
     } = {
-        pageSize: 10,
-        pageSizeOptions: [10, 20, 50, 100],
+        pageSize: DEFAULT_SIZE,
+        pageSizeOptions: DEFAULT_SIZE_OPTIONS,
     };
 
     /**
-     * Desired height of the grid
-     *
-     * TODO: Should we provide this option for setting the grid height and also for auto grow of the height of the grid.
-     *  Also investigate if we can set this through CSS instead of an input
-     *  The above to-do is going to be worked as part of https://jira.eng.vmware.com/browse/VDUCC-25
+     * The page size to display.
      */
-    height: number;
+    pageSize = DEFAULT_SIZE;
+
+    /**
+     * The complete set of options to show the user.
+     */
+    pageSizeOptions = DEFAULT_SIZE_OPTIONS;
+
+    /**
+     * Desired height of the grid. If unspecificed, the grid fills the parent container.
+     */
+    @Input() height: number;
 
     /**
      * Loading indicator on the grid
@@ -347,6 +396,16 @@ export class DatagridComponent<R> implements OnInit {
      */
     @Input() paginationCallback(firstItem: number, lastItem: number, totalItems: number): string {
         return `${firstItem} - ${lastItem} of ${totalItems} rows`;
+    }
+
+    /**
+     * Says if the action bar has contents to show.
+     */
+    shouldShowActionBar(): boolean {
+        return (
+            this.buttonConfig.globalButtons.length !== 0 ||
+            this.buttonConfig.contextualButtonConfig.buttons.length !== 0
+        );
     }
 
     /**
@@ -422,11 +481,6 @@ export class DatagridComponent<R> implements OnInit {
      */
     @Input() clrDatarowCssClassGetter(row: R, index: number): string {
         return '';
-    }
-
-    ngOnInit(): void {
-        this.isLoading = true;
-        this.clearSelectionInformation();
     }
 
     private updateSelectedItems(): void {
@@ -511,21 +565,17 @@ export class DatagridComponent<R> implements OnInit {
     }
 
     /**
-     * Resets the pagination to page 1.
+     * Is the given column hideable?
      */
-    resetToPageOne(): void {
-        this.paginationComponent.currentPage = 1;
-    }
-
     isColumnHideable(column: GridColumn<R>): boolean {
         return column && column.hideable && column.hideable !== GridColumnHideable.Never;
     }
 
     /**
-     * Says if the number of items matches the page size.
+     * Resets the pagination to page 1.
      */
-    sameItemsAsPageSize(): boolean {
-        return this.pagination.pageSize === this.items.length;
+    resetToPageOne(): void {
+        this.paginationComponent.currentPage = 1;
     }
 
     /**
@@ -533,6 +583,61 @@ export class DatagridComponent<R> implements OnInit {
      */
     paginationCallbackWrapper(paginationData: ClrDatagridPagination): string {
         return this.paginationCallback(paginationData.firstItem + 1, paginationData.lastItem + 1, this.totalItems);
+    }
+
+    /**
+     * The number of rows in a single page.
+     */
+    private getPageSize(): number {
+        if (typeof this.pagination.pageSize === 'number') {
+            return this.pagination.pageSize;
+        } else if (this.pagination.pageSize === 'Magic' && this.height) {
+            return this.calculatePageSize();
+        } else {
+            return DEFAULT_SIZE;
+        }
+    }
+
+    /**
+     * Available page size options in the dropdown
+     */
+    private getPageSizeOptions(): number[] {
+        let options = this.pagination.pageSizeOptions.map(size => size);
+        if (options.indexOf(this.getPageSize()) === -1) {
+            options.push(this.getPageSize());
+            options = options.sort((a, b) => a - b);
+        }
+        return options;
+    }
+
+    /**
+     *  Calculates the pageSize from the available space in the datagrid body
+     */
+    private calculatePageSize(): number {
+        const grid = this.component.nativeElement;
+
+        const headerHeight = grid.querySelector('.datagrid-header').clientHeight;
+        const rowHeight = headerHeight > MAX_HEADER_HEIGHT ? ROW_HEIGHT : headerHeight;
+
+        // Substracting the height of the header, actionbar and footer
+        let availableHeight = this.height - headerHeight - rowHeight;
+        if (this.shouldShowActionBar()) {
+            availableHeight -= rowHeight;
+        }
+
+        // Calculate the pageSize by dividing the available height by the row height.
+        const pageSize = Math.floor(availableHeight / rowHeight);
+
+        // If the calculated pageSize is less than the default, set the pageSize to the default one.
+        return pageSize;
+    }
+
+    /**
+     * Updates the pagination information by recalculating pageSize if needed.
+     */
+    private updatePagination(): void {
+        this.pageSize = this.getPageSize();
+        this.pageSizeOptions = this.getPageSizeOptions();
     }
 
     /**
@@ -555,5 +660,19 @@ export class DatagridComponent<R> implements OnInit {
 
             return columnConfig;
         });
+    }
+
+    ngOnInit(): void {
+        this.isLoading = true;
+        this.clearSelectionInformation();
+    }
+
+    ngAfterViewInit(): void {
+        this.updatePagination();
+    }
+
+    ngAfterViewChecked(): void {
+        this.component.nativeElement.querySelector('clr-datagrid').style =
+            'height: ' + (this.height ? this.height + 'px' : '100%');
     }
 }

@@ -174,6 +174,14 @@ export class ClrDatagridWidgetObject extends WidgetObject<ClrDatagrid> {
     }
 
     /**
+     * Gives the height CSS of this clr-datagrid.
+     */
+    getGridHeight(): string {
+        const datagrid = this.findElement(ClrDatagridWidgetObject.tagName);
+        return this.root.nativeElement.style.height;
+    }
+
+    /**
      * Can be used by subclasses to create methods that assert about HTML in custom rendered columns. Note that
      * subclasses should not return the DebugElement, they should return a string from a section of the HTML.
      *

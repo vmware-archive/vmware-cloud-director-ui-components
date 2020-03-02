@@ -227,15 +227,89 @@ describe('DatagridComponent', () => {
                 });
             });
 
+            describe('@Input() pagination', () => {
+                describe('pageSize', () => {
+                    it('magic pagination finds the most rows that can fit in the set height', function(this: HasFinderAndGrid): void {
+                        this.finder.hostComponent.height = 200;
+                        this.finder.detectChanges();
+                        this.finder.hostComponent.pagination = {
+                            pageSize: 'Magic',
+                            pageSizeOptions: [10],
+                        };
+                        this.finder.detectChanges();
+                        expect(this.clrGridWidget.getPaginationDescription()).toEqual(' 1 - 3 of 150 items ');
+                    });
+
+                    it('magic pagination does nothing when height is not set', function(this: HasFinderAndGrid): void {
+                        this.finder.hostComponent.pagination = {
+                            pageSize: 'Magic',
+                            pageSizeOptions: [10],
+                        };
+                        this.finder.detectChanges();
+                        expect(this.clrGridWidget.getPaginationDescription()).toEqual(' 1 - 5 of 150 items ');
+                    });
+
+                    it('lets the user set rows per page', function(this: HasFinderAndGrid): void {
+                        this.finder.hostComponent.pagination = {
+                            pageSize: 100,
+                            pageSizeOptions: [10],
+                        };
+                        this.finder.detectChanges();
+                        expect(this.clrGridWidget.getPaginationDescription()).toEqual(' 1 - 100 of 150 items ');
+                    });
+
+                    it('creates a smaller page when buttons are present', function(this: HasFinderAndGrid): void {
+                        this.finder.hostComponent.height = 200;
+                        this.finder.detectChanges();
+                        this.finder.hostComponent.pagination = {
+                            pageSize: 'Magic',
+                            pageSizeOptions: [10],
+                        };
+                        this.finder.hostComponent.buttonConfig = {
+                            globalButtons: [
+                                {
+                                    label: 'Add',
+                                    isActive: () => true,
+                                    handler: () => {},
+                                    class: 'button',
+                                },
+                            ],
+                            contextualButtonConfig: {
+                                buttons: [],
+                                featured: [],
+                                featuredCount: 0,
+                                position: ContextualButtonPosition.ROW,
+                            },
+                        };
+                        this.finder.detectChanges();
+                        expect(this.clrGridWidget.getPaginationDescription()).toEqual(' 1 - 2 of 150 items ');
+                    });
+                });
+            });
+
             describe('@Input() paginationCallback', () => {
                 it('displays pagination callback information on page one', function(this: HasFinderAndGrid): void {
-                    expect(this.clrGridWidget.getPaginationDescription()).toEqual(' 1 - 10 of 150 items ');
+                    expect(this.clrGridWidget.getPaginationDescription()).toEqual(' 1 - 5 of 150 items ');
                 });
             });
 
             describe('@Input() paginationDropdownText', () => {
                 it('displays the pagination dropdown information on page one', function(this: HasFinderAndGrid): void {
-                    expect(this.clrGridWidget.getPaginationSizeSelectorText()).toEqual('Total Items102050100');
+                    expect(this.clrGridWidget.getPaginationSizeSelectorText()).toEqual('Total Items52050100');
+                });
+            });
+
+            describe('@Input() height', () => {
+                it('defaults to parent height when height is not set', function(this: HasFinderAndGrid): void {
+                    this.finder.hostComponent.height = undefined;
+                    this.finder.detectChanges();
+                    expect(this.clrGridWidget.getGridHeight()).toEqual('100%');
+                });
+
+                it('uses the given height when height is set', function(this: HasFinderAndGrid): void {
+                    this.finder.hostComponent.height = 200;
+                    this.finder.detectChanges();
+                    expect(this.clrGridWidget.getGridHeight()).toEqual('200px');
                 });
             });
         });
@@ -345,7 +419,7 @@ describe('DatagridComponent', () => {
                         name: 'a',
                         reverse: false,
                     },
-                    pagination: { pageNumber: 1, itemsPerPage: 10 },
+                    pagination: { pageNumber: 1, itemsPerPage: 5 },
                 });
                 this.clrGridWidget.sortColumn(0);
                 expect(refreshMethod).toHaveBeenCalledWith({
@@ -353,7 +427,7 @@ describe('DatagridComponent', () => {
                         name: 'a',
                         reverse: true,
                     },
-                    pagination: { pageNumber: 1, itemsPerPage: 10 },
+                    pagination: { pageNumber: 1, itemsPerPage: 5 },
                 });
             });
 
@@ -369,7 +443,7 @@ describe('DatagridComponent', () => {
                 expect(refreshMethod).toHaveBeenCalledWith({
                     pagination: {
                         pageNumber: 2,
-                        itemsPerPage: 10,
+                        itemsPerPage: 5,
                     },
                 });
             });
@@ -379,7 +453,7 @@ describe('DatagridComponent', () => {
                 this.clrGridWidget.nextPage();
                 this.clrGridWidget.sortColumn(0);
                 expect(refreshMethod).toHaveBeenCalledWith({
-                    pagination: { pageNumber: 1, itemsPerPage: 10 },
+                    pagination: { pageNumber: 1, itemsPerPage: 5 },
                     sortColumn: { name: 'a', reverse: false },
                 });
             });
@@ -639,7 +713,9 @@ describe('DatagridComponent', () => {
             (selectionChanged)="selectionChanged($event)"
             [paginationCallback]="paginationCallback"
             [paginationDropdownText]="paginationText"
+            [pagination]="pagination"
             [buttonConfig]="buttonConfig"
+            [height]="height"
         >
             <ng-template let-record="record"> DETAILS: {{ record.name }} </ng-template>
         </vcd-datagrid>
@@ -660,6 +736,8 @@ export class HostWithDatagridComponent {
 
     selectionType = GridSelectionType.None;
 
+    height: number | undefined = undefined;
+
     buttonConfig: ButtonConfig<MockRecord> = {
         globalButtons: [],
         contextualButtonConfig: {
@@ -673,6 +751,14 @@ export class HostWithDatagridComponent {
     @ViewChild(DatagridComponent, { static: false }) datagrid: DatagridComponent<MockRecord>;
 
     paginationText = 'Total Items';
+
+    pagination: {
+        pageSize: number | 'Magic';
+        pageSizeOptions: number[];
+    } = {
+        pageSize: 5,
+        pageSizeOptions: [5, 20, 50, 100],
+    };
 
     selectionChanged(selection: MockRecord[]): void {}
 
