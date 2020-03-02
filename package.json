@@ -41,7 +41,7 @@
     "@clr/icons": "2.2.1",
     "@clr/ui": "2.2.1",
     "@webcomponents/custom-elements": "1.0.0",
-    "angular-cli-ghpages": "^0.6.2",
+    "angular-cli-ghpages": "0.6.2",
     "messageformat": "2.3.0",
     "codecov.io": "0.1.6",
     "karma-coverage": "2.0.1",
