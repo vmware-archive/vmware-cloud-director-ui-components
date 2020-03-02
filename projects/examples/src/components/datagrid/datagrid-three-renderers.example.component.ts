@@ -6,6 +6,7 @@
 import { Component } from '@angular/core';
 import {
     BoldTextRendererComponent,
+    LinkedTextRendererComponent,
     GridColumn,
     GridDataFetchResult,
     GridState,

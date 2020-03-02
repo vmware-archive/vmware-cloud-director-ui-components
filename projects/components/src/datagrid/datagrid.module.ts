@@ -14,13 +14,21 @@ import { PipesModule } from '../common/pipes/pipes.module';
 import { FunctionRendererPipe } from './pipes/function-renderer.pipe';
 import { LinkedTextRendererComponent } from './renderers/linked-text-renderer.component';
 import { BoldTextRendererComponent } from './renderers/bold-text-renderer.component';
+import { ShowClippedTextDirectiveModule } from '../lib/directives/show-clipped-text.directive.module';
 
 const directives = [ComponentRendererOutletDirective];
 const pipes = [FunctionRendererPipe];
 const renderers = [BoldTextRendererComponent, LinkedTextRendererComponent];
 
 @NgModule({
-    imports: [CommonModule, ClarityModule, RouterModule, PipesModule, ReactiveFormsModule],
+    imports: [
+        CommonModule,
+        ClarityModule,
+        RouterModule,
+        PipesModule,
+        ReactiveFormsModule,
+        ShowClippedTextDirectiveModule
+    ],
     declarations: [DatagridComponent, ...directives, ...renderers, ...pipes],
     providers: [],
     exports: [DatagridComponent, ...renderers],
