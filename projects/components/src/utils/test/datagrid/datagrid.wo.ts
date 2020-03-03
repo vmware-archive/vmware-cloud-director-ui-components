@@ -182,6 +182,14 @@ export class ClrDatagridWidgetObject extends WidgetObject<ClrDatagrid> {
     }
 
     /**
+     * Gives the header above the grid.
+     */
+    getGridHeader(): string | undefined {
+        const headerElement = this.root.nativeElement.previousSibling;
+        return headerElement.nodeType !== 8 ? headerElement.textContent : undefined;
+    }
+
+    /**
      * Can be used by subclasses to create methods that assert about HTML in custom rendered columns. Note that
      * subclasses should not return the DebugElement, they should return a string from a section of the HTML.
      *

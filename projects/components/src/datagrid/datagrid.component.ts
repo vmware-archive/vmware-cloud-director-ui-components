@@ -189,6 +189,12 @@ interface ColumnConfigInternal<R, T> extends GridColumn<R> {
 })
 export class DatagridComponent<R> implements OnInit, AfterViewInit, AfterViewChecked {
     /**
+     * A optional string to be displayed above the grid.
+     */
+    @Input()
+    header?: string;
+
+    /**
      * Sets the configuration of columns on the grid and updates the {@link columnsConfig} array
      */
     @Input()

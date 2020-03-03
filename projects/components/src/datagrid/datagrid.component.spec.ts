@@ -669,6 +669,23 @@ describe('DatagridComponent', () => {
                 });
             });
         });
+
+        describe('@Input() header', () => {
+            it('shows the header if set and allows it to be changed', function(this: HasFinderAndGrid): void {
+                this.finder.hostComponent.header = 'Some Header!';
+                this.finder.detectChanges();
+                expect(this.clrGridWidget.getGridHeader()).toEqual('Some Header!');
+                this.finder.hostComponent.header = 'Some Other Header!';
+                this.finder.detectChanges();
+                expect(this.clrGridWidget.getGridHeader()).toEqual('Some Other Header!');
+            });
+
+            it('does not show a header when none is set', function(this: HasFinderAndGrid): void {
+                this.finder.hostComponent.header = undefined;
+                this.finder.detectChanges();
+                expect(this.clrGridWidget.getGridHeader()).toEqual(undefined);
+            });
+        });
     });
 
     describe('Column Renderers', () => {
@@ -728,6 +745,7 @@ describe('DatagridComponent', () => {
             [pagination]="pagination"
             [buttonConfig]="buttonConfig"
             [height]="height"
+            [header]="header"
         >
             <ng-template let-record="record"> DETAILS: {{ record.name }} </ng-template>
         </vcd-datagrid>
@@ -749,6 +767,8 @@ export class HostWithDatagridComponent {
     selectionType = GridSelectionType.None;
 
     height?: number = undefined;
+
+    header?: string = undefined;
 
     buttonConfig: ButtonConfig<MockRecord> = {
         globalButtons: [],
