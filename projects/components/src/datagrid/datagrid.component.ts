@@ -305,7 +305,7 @@ export class DatagridComponent<R> implements OnInit, AfterViewInit, AfterViewChe
         return this._pagination;
     }
 
-    _pagination: PaginationConfiguration = {
+    private _pagination: PaginationConfiguration = {
         pageSize: DEFAULT_SIZE,
         pageSizeOptions: DEFAULT_SIZE_OPTIONS,
     };

@@ -237,7 +237,7 @@ describe('DatagridComponent', () => {
                             pageSizeOptions: [10],
                         };
                         this.finder.detectChanges();
-                        expect(this.clrGridWidget.getPaginationDescription()).toEqual(' 1 - 3 of 150 items ');
+                        expect(this.clrGridWidget.getPaginationDescription()).toEqual('1 - 3 of 150 items');
                     });
 
                     it('allows the user to set a custom row height with magic pagination ', function(this: HasFinderAndGrid): void {
@@ -249,7 +249,7 @@ describe('DatagridComponent', () => {
                             rowHeight: 100,
                         };
                         this.finder.detectChanges();
-                        expect(this.clrGridWidget.getPaginationDescription()).toEqual(' 1 - 1 of 150 items ');
+                        expect(this.clrGridWidget.getPaginationDescription()).toEqual('1 - 1 of 150 items');
                     });
 
                     it('uses default page size when height is not set with magic pagination ', function(this: HasFinderAndGrid): void {
@@ -258,7 +258,7 @@ describe('DatagridComponent', () => {
                             pageSizeOptions: [10],
                         };
                         this.finder.detectChanges();
-                        expect(this.clrGridWidget.getPaginationDescription()).toEqual(' 1 - 10 of 150 items ');
+                        expect(this.clrGridWidget.getPaginationDescription()).toEqual('1 - 10 of 150 items');
                     });
 
                     it('lets the user set rows per page', function(this: HasFinderAndGrid): void {
@@ -267,7 +267,7 @@ describe('DatagridComponent', () => {
                             pageSizeOptions: [10],
                         };
                         this.finder.detectChanges();
-                        expect(this.clrGridWidget.getPaginationDescription()).toEqual(' 1 - 100 of 150 items ');
+                        expect(this.clrGridWidget.getPaginationDescription()).toEqual('1 - 100 of 150 items');
                     });
 
                     it('creates a smaller page when buttons are present', function(this: HasFinderAndGrid): void {
@@ -294,14 +294,14 @@ describe('DatagridComponent', () => {
                             },
                         };
                         this.finder.detectChanges();
-                        expect(this.clrGridWidget.getPaginationDescription()).toEqual(' 1 - 2 of 150 items ');
+                        expect(this.clrGridWidget.getPaginationDescription()).toEqual('1 - 2 of 150 items');
                     });
                 });
             });
 
             describe('@Input() paginationCallback', () => {
                 it('displays pagination callback information on page one', function(this: HasFinderAndGrid): void {
-                    expect(this.clrGridWidget.getPaginationDescription()).toEqual(' 1 - 5 of 150 items ');
+                    expect(this.clrGridWidget.getPaginationDescription()).toEqual('1 - 5 of 150 items');
                 });
             });
 

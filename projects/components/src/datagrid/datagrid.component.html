@@ -121,10 +121,10 @@
 
     <clr-dg-footer>
         <clr-dg-pagination #paginationData [clrDgTotalItems]="totalItems" [clrDgPageSize]="this.pageSize">
+            <div>{{ paginationCallbackWrapper(paginationData) }}</div>
             <clr-dg-page-size [clrPageSizeOptions]="this.pageSizeOptions">{{
                 paginationDropdownText
             }}</clr-dg-page-size>
-            {{ paginationCallbackWrapper(paginationData) }}
         </clr-dg-pagination>
     </clr-dg-footer>
 </clr-datagrid>
