@@ -1,5 +1,5 @@
 <clr-datagrid [clrDgLoading]="isLoading" [ngClass]="this.clrDatagridCssClass" (clrDgRefresh)="gridStateChanged($event)">
-    <clr-dg-action-bar *ngIf="buttonConfig">
+    <clr-dg-action-bar *ngIf="shouldShowActionBar()">
         <div class="btn-group" *ngFor="let button of buttonConfig.globalButtons">
             <button
                 class="btn"
@@ -37,7 +37,11 @@
     <clr-dg-column *ngIf="shouldDisplayButtonsOnRow()" [ngClass]="'buttons-' + this.getMaxFeaturedButtonsOnRow()">
         Actions
     </clr-dg-column>
-    <clr-dg-column *ngFor="let column of columnsConfig" [clrDgField]="column.queryFieldName" (clrDgSortOrderChange)="resetToPageOne()">
+    <clr-dg-column
+        *ngFor="let column of columnsConfig"
+        [clrDgField]="column.queryFieldName"
+        (clrDgSortOrderChange)="resetToPageOne()"
+    >
         <ng-container *ngIf="isColumnHideable(column); else notHideable">
             <ng-container *clrDgHideableColumn="{ hidden: column.hideable === GridColumnHideable.Hidden }">{{
                 column.displayName
@@ -114,14 +118,13 @@
             </clr-dg-row-detail>
         </ng-container>
     </clr-dg-row>
-    <clr-dg-row *ngIf="sameItemsAsPageSize()"> </clr-dg-row>
 
     <clr-dg-footer>
-        <clr-dg-pagination #paginationData [clrDgTotalItems]="totalItems" [(clrDgPageSize)]="this.pagination.pageSize">
-            <clr-dg-page-size [clrPageSizeOptions]="this.pagination.pageSizeOptions">{{
+        <clr-dg-pagination #paginationData [clrDgTotalItems]="totalItems" [clrDgPageSize]="this.pageSize">
+            <div>{{ paginationCallbackWrapper(paginationData) }}</div>
+            <clr-dg-page-size [clrPageSizeOptions]="this.pageSizeOptions">{{
                 paginationDropdownText
             }}</clr-dg-page-size>
-            {{ paginationCallbackWrapper(paginationData) }}
         </clr-dg-pagination>
     </clr-dg-footer>
 </clr-datagrid>
