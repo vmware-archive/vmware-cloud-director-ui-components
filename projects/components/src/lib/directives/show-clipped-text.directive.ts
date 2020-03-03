@@ -38,12 +38,15 @@ const tip = {
     isMouseOver: false,
 
     /**
-     * The  that last caused the
+     * The host element that last caused the tooltip to be displayed
      */
     get currentHost(): HTMLElement {
         return tip.currentDirective.hostElement;
     },
 
+    /**
+     * The tooltip size requested for the last directive that caused the tooltip to be displayed
+     */
     get tooltipSize(): TooltipSize {
         return tip.currentDirective.tooltipSize;
     },
@@ -77,7 +80,7 @@ const tip = {
 
     destroy(): void {
         document.body.removeChild(tip.container);
-        watchEvents(tip.container, tip.onMouseEnter, tip.onMouseLeave);
+        unwatchEvents(tip.container, tip.onMouseEnter, tip.onMouseLeave);
         tip.content.removeEventListener('transitionend', this.onTransitionEnd);
         tip.container = null;
         tip.content = null;

@@ -44,7 +44,6 @@ jobs:
         - stage: build-app
           name: Build /examples
           script:
-              - npm run build:doc-lib:scripts-dev
               - npm run build-components-doc
               - npm run build-examples-doc
               - npm run generate-translations
