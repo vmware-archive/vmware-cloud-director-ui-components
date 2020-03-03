@@ -4,7 +4,7 @@
  */
 
 import { Component, ViewChild, TemplateRef, ContentChild } from '@angular/core';
-import { GridSelectionType } from './datagrid.component';
+import { GridSelectionType, PaginationConfiguration } from './datagrid.component';
 import { DatagridComponent, GridDataFetchResult, GridState } from './datagrid.component';
 import {
     GridColumn,
@@ -229,7 +229,7 @@ describe('DatagridComponent', () => {
 
             describe('@Input() pagination', () => {
                 describe('pageSize', () => {
-                    it('magic pagination finds the most rows that can fit in the set height', function(this: HasFinderAndGrid): void {
+                    it('finds the most rows that can fit in the set height with magic pagination ', function(this: HasFinderAndGrid): void {
                         this.finder.hostComponent.height = 200;
                         this.finder.detectChanges();
                         this.finder.hostComponent.pagination = {
@@ -240,13 +240,25 @@ describe('DatagridComponent', () => {
                         expect(this.clrGridWidget.getPaginationDescription()).toEqual(' 1 - 3 of 150 items ');
                     });
 
-                    it('magic pagination does nothing when height is not set', function(this: HasFinderAndGrid): void {
+                    it('allows the user to set a custom row height with magic pagination ', function(this: HasFinderAndGrid): void {
+                        this.finder.hostComponent.height = 200;
+                        this.finder.detectChanges();
+                        this.finder.hostComponent.pagination = {
+                            pageSize: 'Magic',
+                            pageSizeOptions: [10],
+                            rowHeight: 100,
+                        };
+                        this.finder.detectChanges();
+                        expect(this.clrGridWidget.getPaginationDescription()).toEqual(' 1 - 1 of 150 items ');
+                    });
+
+                    it('uses default page size when height is not set with magic pagination ', function(this: HasFinderAndGrid): void {
                         this.finder.hostComponent.pagination = {
                             pageSize: 'Magic',
                             pageSizeOptions: [10],
                         };
                         this.finder.detectChanges();
-                        expect(this.clrGridWidget.getPaginationDescription()).toEqual(' 1 - 5 of 150 items ');
+                        expect(this.clrGridWidget.getPaginationDescription()).toEqual(' 1 - 10 of 150 items ');
                     });
 
                     it('lets the user set rows per page', function(this: HasFinderAndGrid): void {
@@ -736,7 +748,7 @@ export class HostWithDatagridComponent {
 
     selectionType = GridSelectionType.None;
 
-    height: number | undefined = undefined;
+    height?: number = undefined;
 
     buttonConfig: ButtonConfig<MockRecord> = {
         globalButtons: [],
@@ -752,10 +764,7 @@ export class HostWithDatagridComponent {
 
     paginationText = 'Total Items';
 
-    pagination: {
-        pageSize: number | 'Magic';
-        pageSizeOptions: number[];
-    } = {
+    pagination: PaginationConfiguration = {
         pageSize: 5,
         pageSizeOptions: [5, 20, 50, 100],
     };

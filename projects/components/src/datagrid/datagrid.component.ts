@@ -33,7 +33,7 @@ import { ComponentRendererSpec } from './interfaces/component-renderer.interface
 /**
  * The default number of items on a single page.
  */
-const DEFAULT_SIZE = 5;
+const DEFAULT_SIZE = 10;
 
 /**
  * The default items to show in the page size dropdown.
@@ -116,6 +116,30 @@ export interface PagionationInformation {
      */
     itemsPerPage: number;
 }
+
+/**
+ * The information the user gives to show page size and page size options in the pagination footer.
+ */
+export interface PaginationConfiguration {
+    /**
+     * Available page size options in the dropdown
+     */
+    pageSizeOptions: number[];
+
+    /**
+     * Number of items to be displayed on one page. As a result, the server will return a set of pages with the defined
+     * number of items per page(They can be smaller than the number here in case of last page, filtering etc.,)
+     *
+     * Magic: Auto calculates the size based on available height of the container
+     */
+    pageSize: number | 'Magic';
+
+    /**
+     * The height of a row in the datagrid. If not set, will use the default of {@link ROW_HEIGHT}.
+     */
+    rowHeight?: number;
+}
+
 /**
  * The current state of various features of the grid like filtering, sorting, pagination. This object is emitted as
  * part of the event {@link DatagridComponent.gridRefresh}. The handler then used this object to construct a query.
@@ -194,7 +218,6 @@ export class DatagridComponent<R> implements OnInit, AfterViewInit, AfterViewChe
         this.clearSelectionInformation();
     }
 
-    ROW_HEIGHT = ROW_HEIGHT;
     ContextualButtonPosition = ContextualButtonPosition;
     GridColumnHideable = GridColumnHideable;
     private _columns: GridColumn<R>[];
@@ -242,7 +265,7 @@ export class DatagridComponent<R> implements OnInit, AfterViewInit, AfterViewChe
         return this._buttonConfig;
     }
 
-    constructor(private component: ElementRef) {}
+    constructor(private node: ElementRef) {}
 
     /**
      * The stored button config where inactiveDisplayMode is always non-undefined.
@@ -273,45 +296,16 @@ export class DatagridComponent<R> implements OnInit, AfterViewInit, AfterViewChe
     /**
      * The pagination information that the user should supply.
      */
-    @Input() set pagination(pagination: {
-        /**
-         * Available page size options in the dropdown
-         */
-        pageSizeOptions: number[];
-
-        /**
-         * Number of items to be displayed on one page. As a result, the server will return a set of pages with the defined
-         * number of items per page(They can be smaller than the number here in case of last page, filtering etc.,)
-         *
-         * Magic: Auto calculates the size based on available height of the container
-         */
-        pageSize: number | 'Magic';
-    }) {
+    @Input() set pagination(pagination: PaginationConfiguration) {
         this._pagination = pagination;
         this.updatePagination();
     }
 
-    get pagination(): {
-        /**
-         * Available page size options in the dropdown
-         */
-        pageSizeOptions: number[];
-
-        /**
-         * Number of items to be displayed on one page. As a result, the server will return a set of pages with the defined
-         * number of items per page(They can be smaller than the number here in case of last page, filtering etc.,)
-         *
-         * Magic: Auto calculates the size based on available height of the container
-         */
-        pageSize: number | 'Magic';
-    } {
+    get pagination(): PaginationConfiguration {
         return this._pagination;
     }
 
-    _pagination: {
-        pageSizeOptions: number[];
-        pageSize: number | 'Magic';
-    } = {
+    _pagination: PaginationConfiguration = {
         pageSize: DEFAULT_SIZE,
         pageSizeOptions: DEFAULT_SIZE_OPTIONS,
     };
@@ -565,7 +559,7 @@ export class DatagridComponent<R> implements OnInit, AfterViewInit, AfterViewChe
     }
 
     /**
-     * Is the given column hideable?
+     * Is the given column able to be hidden by the user through the show/hide menu.
      */
     isColumnHideable(column: GridColumn<R>): boolean {
         return column && column.hideable && column.hideable !== GridColumnHideable.Never;
@@ -591,11 +585,11 @@ export class DatagridComponent<R> implements OnInit, AfterViewInit, AfterViewChe
     private getPageSize(): number {
         if (typeof this.pagination.pageSize === 'number') {
             return this.pagination.pageSize;
-        } else if (this.pagination.pageSize === 'Magic' && this.height) {
-            return this.calculatePageSize();
-        } else {
-            return DEFAULT_SIZE;
         }
+        if (this.pagination.pageSize === 'Magic' && this.height) {
+            return this.calculatePageSize();
+        }
+        return DEFAULT_SIZE;
     }
 
     /**
@@ -614,22 +608,22 @@ export class DatagridComponent<R> implements OnInit, AfterViewInit, AfterViewChe
      *  Calculates the pageSize from the available space in the datagrid body
      */
     private calculatePageSize(): number {
-        const grid = this.component.nativeElement;
+        const grid = this.node.nativeElement;
 
         const headerHeight = grid.querySelector('.datagrid-header').clientHeight;
-        const rowHeight = headerHeight > MAX_HEADER_HEIGHT ? ROW_HEIGHT : headerHeight;
+        const rowHeight = this.pagination.rowHeight || ROW_HEIGHT;
 
         // Substracting the height of the header, actionbar and footer
         let availableHeight = this.height - headerHeight - rowHeight;
         if (this.shouldShowActionBar()) {
-            availableHeight -= rowHeight;
+            availableHeight -= ROW_HEIGHT;
         }
 
         // Calculate the pageSize by dividing the available height by the row height.
         const pageSize = Math.floor(availableHeight / rowHeight);
 
         // If the calculated pageSize is less than the default, set the pageSize to the default one.
-        return pageSize;
+        return Math.max(1, pageSize);
     }
 
     /**
@@ -672,7 +666,7 @@ export class DatagridComponent<R> implements OnInit, AfterViewInit, AfterViewChe
     }
 
     ngAfterViewChecked(): void {
-        this.component.nativeElement.querySelector('clr-datagrid').style =
+        this.node.nativeElement.querySelector('clr-datagrid').style =
             'height: ' + (this.height ? this.height + 'px' : '100%');
     }
 }
