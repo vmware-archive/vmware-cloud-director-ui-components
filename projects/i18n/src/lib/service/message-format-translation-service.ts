@@ -38,7 +38,6 @@ export class MessageFormatTranslationService extends TranslationService {
                     Object.assign(toSet[locale], set[locale]);
                 }
             }
-            console.log(toSet);
             this.translationSet.next(toSet);
         } else if (this.translationLoader) {
             let subscribable: Observable<object>;
