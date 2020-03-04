@@ -11,7 +11,7 @@ interface Data {
 }
 
 /**
- * Shows a expandable detail template within the rows.
+ * Shows an expandable detail template within the rows.
  */
 @Component({
     selector: 'vcd-datagrid-show-hide-example',

@@ -19,6 +19,19 @@ $supported-buttons: (0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 1
     }
 }
 
+.vcd-datagrid {
+    flex-direction: column;
+    display: flex;
+}
+
+.clr-datagrid {
+    flex: 1 1 auto;
+}
+
+.vcd-header {
+    flex: 0 1 auto;
+}
+
 .action-button-cell {
     padding-top: $PADDING;
     padding-bottom: $PADDING;

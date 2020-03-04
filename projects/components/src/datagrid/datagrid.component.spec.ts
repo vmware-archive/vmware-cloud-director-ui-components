@@ -315,13 +315,26 @@ describe('DatagridComponent', () => {
                 it('defaults to parent height when height is not set', function(this: HasFinderAndGrid): void {
                     this.finder.hostComponent.height = undefined;
                     this.finder.detectChanges();
-                    expect(this.clrGridWidget.getGridHeight()).toEqual('100%');
+                    expect(this.clrGridWidget.getGridContainerHeight()).toEqual('100%');
+                    expect(this.clrGridWidget.getGridHeight()).toEqual('unset');
                 });
 
                 it('uses the given height when height is set', function(this: HasFinderAndGrid): void {
                     this.finder.hostComponent.height = 200;
                     this.finder.detectChanges();
+                    expect(this.clrGridWidget.getGridContainerHeight()).toEqual('unset');
                     expect(this.clrGridWidget.getGridHeight()).toEqual('200px');
+                });
+
+                it('allows the height to be dynamically changed', function(this: HasFinderAndGrid): void {
+                    this.finder.hostComponent.height = 200;
+                    this.finder.detectChanges();
+                    expect(this.clrGridWidget.getGridContainerHeight()).toEqual('unset');
+                    expect(this.clrGridWidget.getGridHeight()).toEqual('200px');
+                    this.finder.hostComponent.height = undefined;
+                    this.finder.detectChanges();
+                    expect(this.clrGridWidget.getGridContainerHeight()).toEqual('100%');
+                    expect(this.clrGridWidget.getGridHeight()).toEqual('unset');
                 });
             });
         });

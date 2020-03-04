@@ -672,7 +672,12 @@ export class DatagridComponent<R> implements OnInit, AfterViewInit, AfterViewChe
     }
 
     ngAfterViewChecked(): void {
-        this.node.nativeElement.querySelector('clr-datagrid').style =
-            'height: ' + (this.height ? this.height + 'px' : '100%');
+        if (this.height) {
+            this.node.nativeElement.querySelector('clr-datagrid').style.height = this.height + 'px';
+            this.node.nativeElement.querySelector('.vcd-datagrid').style.height = 'unset';
+        } else {
+            this.node.nativeElement.querySelector('clr-datagrid').style.height = 'unset';
+            this.node.nativeElement.querySelector('.vcd-datagrid').style.height = '100%';
+        }
     }
 }

@@ -17,7 +17,13 @@ interface Data {
     selector: 'vcd-datagrid-height-example',
     template: `
         <div style="height:300px">
-            <vcd-datagrid [gridData]="gridData" (gridRefresh)="refresh($event)" [columns]="columns"> </vcd-datagrid>
+            <vcd-datagrid
+                [gridData]="gridData"
+                (gridRefresh)="refresh($event)"
+                [columns]="columns"
+                [header]="'Fill Parent'"
+            >
+            </vcd-datagrid>
         </div>
         <div style="height:300px">
             <vcd-datagrid
