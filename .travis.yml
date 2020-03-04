@@ -34,7 +34,6 @@ jobs:
         - stage: build-doc-lib
           name: Build /doc-lib
           script:
-              - npm run build:doc-lib:scripts-dev
               - npm run build:doc-lib
 
         - stage: build-i18n

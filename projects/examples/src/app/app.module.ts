@@ -3,9 +3,8 @@
  * SPDX-License-Identifier: BSD-2-Clause
  */
 
-import { InjectionToken } from '@angular/core';
+import { InjectionToken, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { registerLocaleData } from '@angular/common';
@@ -14,21 +13,18 @@ import localeFr from '@angular/common/locales/fr';
 import localeEs from '@angular/common/locales/es';
 import { FormsModule } from '@angular/forms';
 import { ClarityModule } from '@clr/angular';
+import { ComponentsModule } from '@vcd/ui-components';
+import { CompodocSchema, DocLibModule, StackBlitzInfo } from '@vcd/ui-doc-lib';
+import { I18nModule, TranslationService } from '@vcd/i18n';
 import { AppRoutingModule } from './app-routing.module';
-import { CompodocSchema, DocLibModule } from '@vcd/ui-doc-lib';
 
 import { AppComponent } from './app.component';
-import { CliptextExamplesModule } from '../components/cliptext/cliptext.examples.module';
-import { DataExporterExamplesModule } from '../components/data-exporter/data-exporter.examples.module';
 
-import componentsDocumentationJson from '../../gen/components-doc/documentation.json';
-import examplesDocumentationJson from '../../gen/examples-doc/documentation.json';
+import componentsDocumentationJson from '../../gen/components-doc.json';
+import examplesDocumentationJson from '../../gen/examples-doc.json';
 import { DatagridExamplesModule } from '../components/datagrid/datagrid.examples.module';
-import { StackBlitzInfo } from '../../../doc-lib/src/stack-blitz-writer.service';
-import { I18nModule, TranslationService } from '@vcd/i18n';
-import { DatagridModule } from 'projects/components/src/datagrid';
-import { DataExporterModule } from 'projects/components/src/public-api';
-import { CliptextModule } from 'projects/components/src/cliptext';
+import { ShowClippedTextExamplesModule } from './components/show-clipped-text/show-clipped-text-examples.module';
+import { DataExporterExamplesModule } from '../components/data-exporter/data-exporter.examples.module';
 
 registerLocaleData(localeFr, 'fr');
 registerLocaleData(localeEs, 'es');
@@ -61,13 +57,11 @@ export const sbInfo: StackBlitzInfo = {
         ClarityModule,
         BrowserAnimationsModule,
         DocLibModule.forRoot([docJson1, docJson2], sbInfo),
-        CliptextExamplesModule,
+        ComponentsModule,
         FormsModule,
         DatagridExamplesModule,
         DataExporterExamplesModule,
-        DatagridModule,
-        DataExporterModule,
-        CliptextModule,
+        ShowClippedTextExamplesModule,
     ],
     providers: [
         {

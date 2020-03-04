@@ -47,11 +47,7 @@ export interface LinkedTextRendererConfig {
     template: `
         <div class="flex-container">
             <div class="with-margin-right text-truncate">
-                <a [routerLink]="config.textLink">
-                    <vcd-cliptext>
-                        {{ config.text }}
-                    </vcd-cliptext>
-                </a>
+                <a [routerLink]="config.textLink" vcdShowClippedText>{{ config.text }}</a>
             </div>
             <clr-tooltip class="without-flex" *ngIf="config.popoutLink">
                 <span clrTooltipTrigger>

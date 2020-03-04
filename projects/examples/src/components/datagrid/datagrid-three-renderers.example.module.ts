@@ -6,12 +6,12 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ClarityModule } from '@clr/angular';
-import { DatagridModule } from '@vcd/ui-components';
+import { ComponentsModule } from '@vcd/ui-components';
 import { DatagridThreeRenderersExampleComponent } from './datagrid-three-renderers.example.component';
 
 @NgModule({
     declarations: [DatagridThreeRenderersExampleComponent],
-    imports: [CommonModule, ClarityModule, DatagridModule],
+    imports: [CommonModule, ClarityModule, ComponentsModule],
     exports: [DatagridThreeRenderersExampleComponent],
     entryComponents: [DatagridThreeRenderersExampleComponent],
 })
