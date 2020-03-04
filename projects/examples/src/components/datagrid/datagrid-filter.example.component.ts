@@ -12,7 +12,7 @@ import {
     GridState,
     RendererSpec,
 } from '@vcd/ui-components';
-import { mockData, MockRecord } from '../../../../components/src/datagrid/datagrid.component.spec';
+import { mockData, MockRecord } from './mock-data';
 
 @Component({
     template: `
@@ -21,7 +21,9 @@ import { mockData, MockRecord } from '../../../../components/src/datagrid/datagr
     selector: 'vcd-datagrid-filter-example',
 })
 export class DatagridFilterExampleComponent {
-    gridData: GridDataFetchResult<MockRecord>;
+    gridData: GridDataFetchResult<MockRecord> = {
+        items: [],
+    };
 
     columns: GridColumn<MockRecord>[] = [
         {
@@ -50,16 +52,13 @@ export class DatagridFilterExampleComponent {
             queryFieldName: 'gender',
             notSortable: true,
         },
-
         {
-            displayName: 'Non default Filter Renderer',
+            displayName: 'Custom Filter Renderer',
             renderer: 'age',
             queryFieldName: 'age',
             filterRendererSpec: RendererSpec({
                 type: DatagridNumericFilterComponent,
                 config: {
-                    from: true,
-                    to: true,
                     value: [1, 2],
                 },
             }),
@@ -67,6 +66,7 @@ export class DatagridFilterExampleComponent {
     ];
 
     refresh(eventData: GridState<MockRecord>): void {
+        console.log(eventData.filters);
         this.gridData = {
             items: mockData,
             totalItems: 2,

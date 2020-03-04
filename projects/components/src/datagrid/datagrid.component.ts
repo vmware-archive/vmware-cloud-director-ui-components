@@ -676,8 +676,8 @@ export class DatagridComponent<R> implements OnInit, AfterViewInit {
             }
 
             // Add query filed required for the column filtering. This is then used in DatagridFilter.queryField
-            if (!!column.queryFieldName && !!column.filterRendererSpec) {
-                (column.filterRendererSpec.config as FilterConfig<unknown>).filterBy = column.queryFieldName;
+            if (column.queryFieldName && column.filterRendererSpec) {
+                (column.filterRendererSpec.config as FilterConfig<unknown>).queryField = column.queryFieldName;
             }
 
             return columnConfig;

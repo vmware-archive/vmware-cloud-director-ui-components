@@ -3,76 +3,47 @@
  * SPDX-License-Identifier: BSD-2-Clause
  */
 
-import { Component, Host, Input, OnInit } from '@angular/core';
+import { Component, Host, OnInit } from '@angular/core';
 import { DatagridFilter, FilterConfig } from './datagrid-filter';
 import { ClrDatagridFilter } from '@clr/angular';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { FilterBuilder } from '../../utils/filter-builder';
-import { ComponentRenderer } from '..';
 
-enum BetweenNumbers {
+enum FormFields {
     from = 'from',
     to = 'to',
 }
 
-export interface DatagridNumericFilterConfig<V> extends FilterConfig<V> {
-    from: boolean;
-    to: boolean;
-}
-
-export type DatagridNumberFilterValueType = [number, number];
+/**
+ * Numeric filter UI widget has only single configuration. So there are no properties in addition to FilterConfig
+ */
+export type DatagridNumericFilterConfig = FilterConfig<[number, number]>;
 
 @Component({
     selector: 'vcd-dg-numeric-filter',
     template: `
-        <div [formGroup]="formGroup" [ngClass]="{ 'clr-form-control': !(config && config.from && config.to) }">
-            <label *ngIf="config && config.from && !config.to" for="min" class="clr-control-label">Min</label>
-            <label *ngIf="config && !config.from && config.to" for="max" class="clr-control-label">Max</label>
+        <div [formGroup]="formGroup" class="clr-row">
+            <div class="clr-col-6">
+                <label class="clr-control-label">From:</label>
+                <input class="from-input clr-input" type="number" [formControlName]="'from'" />
+            </div>
 
-            <input
-                *ngIf="config && config.from"
-                class="min-input clr-input"
-                type="number"
-                id="min"
-                [formControlName]="'from'"
-            />
-
-            <span *ngIf="config && config.from && config.to">
-                -
-            </span>
-
-            <input
-                *ngIf="config && config.to"
-                class="max-input clr-input"
-                type="number"
-                id="max"
-                [formControlName]="'to'"
-            />
+            <div class="clr-col-6">
+                <label class="clr-control-label">To:</label>
+                <input class="to-input clr-input" type="number" [formControlName]="'to'" />
+            </div>
         </div>
     `,
-    styles: [
-        `
-            .min-input {
-                margin-right: 10px;
-            }
-            .max-input {
-                margin-left: 10px;
-            }
-        `,
-    ],
 })
-export class DatagridNumericFilterComponent<
-    R,
-    V extends DatagridNumberFilterValueType,
-    C extends DatagridNumericFilterConfig<V>
-> extends DatagridFilter<R, V, C> implements OnInit {
+export class DatagridNumericFilterComponent extends DatagridFilter<[number, number], DatagridNumericFilterConfig>
+    implements OnInit {
     formGroup: FormGroup;
 
     constructor(@Host() private filterContainer: ClrDatagridFilter, private fb: FormBuilder) {
         super(filterContainer);
         this.formGroup = this.fb.group({
-            from: null,
-            to: null,
+            [FormFields.from]: null,
+            [FormFields.to]: null,
         });
     }
 
@@ -80,35 +51,43 @@ export class DatagridNumericFilterComponent<
         this.formGroup.valueChanges.subscribe(_ => this.changes.next());
     }
 
-    setValue(values: V): void {
+    setValue(values: [number, number]): void {
         if (
             values &&
-            (values[0] !== this.formGroup.get(BetweenNumbers.from).value ||
-                values[1] !== this.formGroup.get(BetweenNumbers.to).value)
+            (values[0] !== this.formGroup.get(FormFields.from).value ||
+                values[1] !== this.formGroup.get(FormFields.to).value)
         ) {
-            if (typeof values[0] === 'number' && this.config.from) {
-                this.formGroup.get(BetweenNumbers.from).setValue(values[0]);
+            if (typeof values[0] === 'number') {
+                this.formGroup.get(FormFields.from).setValue(values[0]);
             } else {
-                this.formGroup.get(BetweenNumbers.from).setValue(null);
+                this.formGroup.get(FormFields.from).setValue(null);
             }
-            if (typeof values[1] === 'number' && this.config.to) {
-                this.formGroup.get(BetweenNumbers.to).setValue(values[1]);
+            if (typeof values[1] === 'number') {
+                this.formGroup.get(FormFields.to).setValue(values[1]);
             } else {
-                this.formGroup.get(BetweenNumbers.to).setValue(null);
+                this.formGroup.get(FormFields.to).setValue(null);
             }
         }
     }
 
     getValue(): string {
         const filterBuilder = new FilterBuilder().is(this.queryField);
-        const values = Object.keys(this.formGroup.value).map(control => this.formGroup.get(control).value);
-        return filterBuilder.betweenNumbers(values).getString();
+        const from = this.formGroup.get(FormFields.from).value;
+        const to = this.formGroup.get(FormFields.to).value;
+        if (from && !to) {
+            return filterBuilder.greaterThan(from).getString();
+        }
+        if (!from && to) {
+            return filterBuilder.lessThan(to).getString();
+        }
+        if (from && to) {
+            return filterBuilder.betweenNumbers([from, to]).getString();
+        }
     }
 
     isActive(): boolean {
         return (
-            !!this.formGroup &&
-            (this.formGroup.get(BetweenNumbers.from).value || !!this.formGroup.get(BetweenNumbers.to).value)
+            !!this.formGroup && (this.formGroup.get(FormFields.from).value || this.formGroup.get(FormFields.to).value)
         );
     }
 }

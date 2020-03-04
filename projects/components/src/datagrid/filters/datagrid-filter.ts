@@ -6,9 +6,9 @@
 import { ClrDatagridFilterInterface } from '@clr/angular/data/datagrid/interfaces/filter.interface';
 import { ClrDatagridFilter } from '@clr/angular';
 import { Subject } from 'rxjs';
-import { FilterBuilder } from '../../utils/filter-builder';
 import { ComponentRenderer } from '..';
 import { Input } from '@angular/core';
+import { FormGroup } from '@angular/forms';
 
 /**
  * Basic properties required by all the grid filters
@@ -17,7 +17,7 @@ export interface FilterConfig<V> {
     /**
      * Used as a query field for server side filtering of the grid column
      */
-    filterBy?: string;
+    queryField?: string;
 
     /**
      * Value with which grid data can be filtered before initially being rendered
@@ -25,19 +25,29 @@ export interface FilterConfig<V> {
     value?: V;
 }
 
-export abstract class DatagridFilter<R, V, C extends FilterConfig<V>>
-    implements ClrDatagridFilterInterface<R>, ComponentRenderer<C> {
-    constructor(filterContainer: ClrDatagridFilter) {
+/**
+ * Extended by filter components used in {@link DatagridComponent}. Those components can only be used inside a
+ * clr-dg-filter component and are dynamically rendered by {@link ComponentRendererOutletDirective} using
+ * {@link GridColumn.filterRendererSpec}
+ * V is the type of filter input value that is passed into setValue method
+ * C extends FilterConfig<V> is configuration of a filter that contains queryField and a value of type V
+ */
+export abstract class DatagridFilter<V, C extends FilterConfig<V>>
+    implements ClrDatagridFilterInterface<unknown>, ComponentRenderer<C> {
+    formGroup: FormGroup;
+
+    protected constructor(filterContainer: ClrDatagridFilter) {
         filterContainer.setFilter(this);
     }
 
     /**
+     * Contains configuration needed for a filter UI widget and also it's value.
      * Assigned from {@link ComponentRendererOutletDirective#assignValue} after the filter component is created
      */
     private _config: C;
     @Input() set config(val: C) {
         this._config = val;
-        if (!!this.config.value) {
+        if (!!(this.config as FilterConfig<V>).value) {
             this.setValue(this.config.value);
         }
     }
@@ -46,18 +56,17 @@ export abstract class DatagridFilter<R, V, C extends FilterConfig<V>>
     }
 
     /**
-     * Emits whenever the filter form inputs changes
+     * Emits whenever a filter form inputs changes
      */
     changes = new Subject<null>();
 
     /**
-     * Setter for the input value of a grid filter used for assigning a value to
-     * the filter from outside
+     * Used for assigning a value to a filter from outside
      */
     abstract setValue(value: V): void;
 
     /**
-     * For getting the filter UI widget values in {@link FilterBuilder} format
+     * For getting the filter UI widget values in FIQL formatted string
      */
     abstract getValue(): string;
 
@@ -69,7 +78,7 @@ export abstract class DatagridFilter<R, V, C extends FilterConfig<V>>
     /**
      * Required by Clarity.
      */
-    accepts(resource: R): boolean {
+    accepts(): boolean {
         return true;
     }
 
@@ -78,8 +87,8 @@ export abstract class DatagridFilter<R, V, C extends FilterConfig<V>>
      */
     get queryField(): string {
         if (this.config) {
-            if (this.config.filterBy) {
-                return this.config.filterBy;
+            if (this.config.queryField) {
+                return this.config.queryField;
             }
             throw Error('Query field is not specified');
         }

@@ -21,40 +21,7 @@ import { BoldTextRendererComponent } from './renderers/bold-text-renderer.compon
 import { ClrDatagridWidgetObject } from '../utils/test/datagrid/datagrid.wo';
 import { WithGridBoldRenderer } from './renderers/bold-text-renderer.wo';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-
-export interface MockRecord {
-    name: string;
-    city: string;
-    state: string;
-    details: {
-        gender: string;
-    };
-    age: number;
-    href: string;
-}
-
-export const mockData: MockRecord[] = [
-    {
-        name: 'Person 1',
-        city: 'Palo Alto',
-        state: 'CA',
-        details: {
-            gender: 'Male',
-        },
-        age: 30,
-        href: '1',
-    },
-    {
-        name: 'Person 2',
-        city: 'Boston',
-        state: 'MA',
-        details: {
-            gender: 'Female',
-        },
-        age: 60,
-        href: '2',
-    },
-];
+import { mockData, MockRecord } from './mock-data';
 
 type MockRecordDatagridComponent = DatagridComponent<MockRecord>;
 
