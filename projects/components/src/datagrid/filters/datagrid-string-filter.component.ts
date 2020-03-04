@@ -18,7 +18,7 @@ export enum WildCardPosition {
  * Configures the '*' position in the FIQL string output
  */
 export interface DatagridStringFilterConfig<V = string> extends FilterConfig<V> {
-    wildCardPosition: WildCardPosition;
+    wildCardPosition?: WildCardPosition;
 }
 
 @Component({

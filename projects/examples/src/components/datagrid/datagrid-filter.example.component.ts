@@ -5,7 +5,6 @@
 
 import { Component } from '@angular/core';
 import {
-    BoldTextRendererComponent,
     DatagridNumericFilterComponent,
     GridColumn,
     GridDataFetchResult,
@@ -27,33 +26,12 @@ export class DatagridFilterExampleComponent {
 
     columns: GridColumn<MockRecord>[] = [
         {
-            displayName: 'Both Filtering & Sorting',
-            renderer: RendererSpec({
-                type: BoldTextRendererComponent,
-                config: record => ({
-                    text: record.name,
-                }),
-            }),
-            queryFieldName: 'name',
-        },
-        {
-            displayName: 'No Filtering & No Sorting',
-            renderer: (record: MockRecord) => `${record.city}, ${record.state}`,
-        },
-        {
-            displayName: 'Only Sorting',
+            displayName: 'Default String filter',
             renderer: 'state',
-            sortBy: 'state',
-        },
-        // Only filtering but no sorting - PROBLEM THE FIRST TIME
-        {
-            displayName: 'Only Filtering',
-            renderer: 'details.gender',
-            queryFieldName: 'gender',
-            notSortable: true,
+            queryFieldName: 'state',
         },
         {
-            displayName: 'Custom Filter Renderer',
+            displayName: 'Custom Numeric filter',
             renderer: 'age',
             queryFieldName: 'age',
             filterRendererSpec: RendererSpec({

@@ -35,7 +35,7 @@ const filters = [DatagridNumericFilterComponent, DatagridStringFilterComponent];
         FormsModule,
         BrowserAnimationsModule,
     ],
-    declarations: [DatagridComponent, ...directives, ...renderers, ...pipes],
+    declarations: [DatagridComponent, ...directives, ...renderers, ...pipes, ...filters],
     providers: [],
     exports: [DatagridComponent, ...renderers],
     entryComponents: [...renderers, ...filters],

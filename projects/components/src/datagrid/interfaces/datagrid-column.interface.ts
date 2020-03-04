@@ -25,15 +25,6 @@ export enum GridColumnHideable {
 }
 
 /**
- * The sorting direction of the column values
- */
-export enum GridColumnSortDirection {
-    Asc = 'ASCENDING',
-    Desc = 'DESCENDING',
-    None = 'NONE',
-}
-
-/**
  * The ways buttons should be displayed when they are inactive.
  */
 export enum InactiveButtonDisplayMode {
@@ -226,15 +217,8 @@ export interface GridColumn<R> {
     filterRendererSpec?: ComponentRendererSpec<R, unknown>;
 
     /**
-     * Wired to ClrDgSortBy input to enable custom sorting feature offered by the Clarity data grid. This is also used
-     * to enable sorting independently from filtering when clrDgField is given as input
+     * To enable only sorting without filtering on the column. This is because, passing in clrDgField turns both filtering
+     * and sorting feature on. And we want filtering to be off on some columns while still having sorting enabled.
      */
-    sortBy?: ClrDatagridComparatorInterface<R> | string;
-
-    /**
-     * Switch used for turning off sorting on a column. This is because, it was not possible to switch sorting by using
-     * clrDgColumn's sortBy property. So, we pass in clrDgField as input, which enables both sorting and filtering by default.
-     * We then use this prop as part of column config and turn off sorting for columns that doesn't require it.
-     */
-    notSortable?: boolean;
+    sortBy?: string;
 }
