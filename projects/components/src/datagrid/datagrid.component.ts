@@ -16,6 +16,7 @@ import {
     ElementRef,
     AfterViewInit,
     AfterViewChecked,
+    HostBinding,
 } from '@angular/core';
 import { ClrDatagridFilter, ClrDatagrid, ClrDatagridStateInterface, ClrDatagridPagination } from '@clr/angular';
 import {
@@ -187,7 +188,7 @@ interface ColumnConfigInternal<R, T> extends GridColumn<R> {
     templateUrl: './datagrid.component.html',
     styleUrls: ['./datagrid.component.scss'],
 })
-export class DatagridComponent<R> implements OnInit, AfterViewInit, AfterViewChecked {
+export class DatagridComponent<R> implements OnInit, AfterViewInit {
     /**
      * A optional string to be displayed above the grid.
      */
@@ -329,7 +330,26 @@ export class DatagridComponent<R> implements OnInit, AfterViewInit, AfterViewChe
     /**
      * Desired height of the grid. If unspecificed, the grid fills the parent container.
      */
-    @Input() height: number;
+    @Input() set height(height: number) {
+        this._height = height;
+        if (this.height) {
+            this.node.nativeElement
+                .querySelector('clr-datagrid')
+                .style.setProperty('--datagrid-height', this.height + 'px');
+        } else {
+            this.node.nativeElement.querySelector('clr-datagrid').style.setProperty('--datagrid-height', 'unset');
+        }
+    }
+
+    get height(): number {
+        return this._height;
+    }
+
+    private _height: number;
+
+    @HostBinding('class.fill-parent') get fillParent(): boolean {
+        return this.height === undefined;
+    }
 
     /**
      * Loading indicator on the grid
@@ -669,15 +689,5 @@ export class DatagridComponent<R> implements OnInit, AfterViewInit, AfterViewChe
 
     ngAfterViewInit(): void {
         this.updatePagination();
-    }
-
-    ngAfterViewChecked(): void {
-        if (this.height) {
-            this.node.nativeElement.querySelector('clr-datagrid').style.height = this.height + 'px';
-            this.node.nativeElement.querySelector('.vcd-datagrid').style.height = 'unset';
-        } else {
-            this.node.nativeElement.querySelector('clr-datagrid').style.height = 'unset';
-            this.node.nativeElement.querySelector('.vcd-datagrid').style.height = '100%';
-        }
     }
 }

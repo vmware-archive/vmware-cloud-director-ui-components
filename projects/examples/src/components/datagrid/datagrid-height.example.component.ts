@@ -16,7 +16,11 @@ interface Data {
 @Component({
     selector: 'vcd-datagrid-height-example',
     template: `
-        <div style="height:300px">
+        <div
+            style="height:300px;
+                    flex-direction: column;
+                    display: flex;"
+        >
             <vcd-datagrid
                 [gridData]="gridData"
                 (gridRefresh)="refresh($event)"
@@ -25,7 +29,11 @@ interface Data {
             >
             </vcd-datagrid>
         </div>
-        <div style="height:300px">
+        <div
+            style="height:300px;
+                    flex-direction: column;
+                    display: flex;"
+        >
             <vcd-datagrid
                 [gridData]="gridData"
                 (gridRefresh)="refresh($event)"

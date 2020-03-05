@@ -177,15 +177,14 @@ export class ClrDatagridWidgetObject extends WidgetObject<ClrDatagrid> {
      * Gives the height CSS of this clr-datagrid.
      */
     getGridHeight(): string {
-        const datagrid = this.findElement(ClrDatagridWidgetObject.tagName);
-        return this.root.nativeElement.style.height;
+        return this.root.nativeElement.style.getPropertyValue('--datagrid-height');
     }
 
     /**
      * Gives the height of the grids container.
      */
-    getGridContainerHeight(): string {
-        return this.root.parent.nativeElement.style.height;
+    getGridContainerClasses(): string[] {
+        return Object.keys(this.root.parent.classes);
     }
 
     /**
