@@ -160,6 +160,7 @@ describe('ShowClippedTextDirective', () => {
         it('displays tooltip on bottom-right when host is in top-left quadrant', function(this: Test): void {
             const helper = this.clippedTextHelper;
             helper.width = '10px';
+            helper.hostPosition = TooltipPosition.tl;
             helper.moveMouseOverHost();
             expect(helper.tooltipPosition).toBe(TooltipPosition.br);
         });
