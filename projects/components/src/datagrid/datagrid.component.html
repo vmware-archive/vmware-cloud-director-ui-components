@@ -1,4 +1,9 @@
-<clr-datagrid [clrDgLoading]="isLoading" [ngClass]="this.clrDatagridCssClass" (clrDgRefresh)="gridStateChanged($event)">
+<h3 *ngIf="this.header" class="vcd-header">{{ header }}</h3>
+<clr-datagrid
+    [clrDgLoading]="isLoading"
+    [ngClass]="[this.clrDatagridCssClass, this.height ? 'set-height' : 'fill-parent-grid']"
+    (clrDgRefresh)="gridStateChanged($event)"
+>
     <clr-dg-action-bar *ngIf="shouldShowActionBar()">
         <div class="btn-group" *ngFor="let button of buttonConfig.globalButtons">
             <button

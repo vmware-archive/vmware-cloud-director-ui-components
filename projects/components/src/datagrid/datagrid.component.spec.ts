@@ -315,13 +315,24 @@ describe('DatagridComponent', () => {
                 it('defaults to parent height when height is not set', function(this: HasFinderAndGrid): void {
                     this.finder.hostComponent.height = undefined;
                     this.finder.detectChanges();
-                    expect(this.clrGridWidget.getGridHeight()).toEqual('100%');
+                    expect(this.clrGridWidget.gridContainerClasses).toContain('fill-parent');
+                    expect(this.clrGridWidget.gridHeight).toEqual('unset');
                 });
 
                 it('uses the given height when height is set', function(this: HasFinderAndGrid): void {
                     this.finder.hostComponent.height = 200;
                     this.finder.detectChanges();
-                    expect(this.clrGridWidget.getGridHeight()).toEqual('200px');
+                    expect(this.clrGridWidget.gridHeight).toEqual('200px');
+                });
+
+                it('allows the height to be dynamically changed', function(this: HasFinderAndGrid): void {
+                    this.finder.hostComponent.height = 200;
+                    this.finder.detectChanges();
+                    expect(this.clrGridWidget.gridHeight).toEqual('200px');
+                    this.finder.hostComponent.height = undefined;
+                    this.finder.detectChanges();
+                    expect(this.clrGridWidget.gridContainerClasses).toContain('fill-parent');
+                    expect(this.clrGridWidget.gridHeight).toEqual('unset');
                 });
             });
         });
@@ -669,6 +680,23 @@ describe('DatagridComponent', () => {
                 });
             });
         });
+
+        describe('@Input() header', () => {
+            it('shows the header if set and allows it to be changed', function(this: HasFinderAndGrid): void {
+                this.finder.hostComponent.header = 'Some Header!';
+                this.finder.detectChanges();
+                expect(this.clrGridWidget.gridHeader).toEqual('Some Header!');
+                this.finder.hostComponent.header = 'Some Other Header!';
+                this.finder.detectChanges();
+                expect(this.clrGridWidget.gridHeader).toEqual('Some Other Header!');
+            });
+
+            it('does not show a header when none is set', function(this: HasFinderAndGrid): void {
+                this.finder.hostComponent.header = undefined;
+                this.finder.detectChanges();
+                expect(this.clrGridWidget.gridHeader).toEqual(undefined);
+            });
+        });
     });
 
     describe('Column Renderers', () => {
@@ -728,6 +756,7 @@ describe('DatagridComponent', () => {
             [pagination]="pagination"
             [buttonConfig]="buttonConfig"
             [height]="height"
+            [header]="header"
         >
             <ng-template let-record="record"> DETAILS: {{ record.name }} </ng-template>
         </vcd-datagrid>
@@ -748,7 +777,9 @@ export class HostWithDatagridComponent {
 
     selectionType = GridSelectionType.None;
 
-    height?: number = undefined;
+    height?: number;
+
+    header?: string;
 
     buttonConfig: ButtonConfig<MockRecord> = {
         globalButtons: [],

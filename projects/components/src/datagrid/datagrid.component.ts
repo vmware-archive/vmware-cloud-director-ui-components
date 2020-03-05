@@ -15,7 +15,7 @@ import {
     ContentChild,
     ElementRef,
     AfterViewInit,
-    AfterViewChecked,
+    HostBinding,
 } from '@angular/core';
 import { ClrDatagridFilter, ClrDatagrid, ClrDatagridStateInterface, ClrDatagridPagination } from '@clr/angular';
 import {
@@ -187,7 +187,13 @@ interface ColumnConfigInternal<R, T> extends GridColumn<R> {
     templateUrl: './datagrid.component.html',
     styleUrls: ['./datagrid.component.scss'],
 })
-export class DatagridComponent<R> implements OnInit, AfterViewInit, AfterViewChecked {
+export class DatagridComponent<R> implements OnInit, AfterViewInit {
+    /**
+     * A optional string to be displayed above the grid.
+     */
+    @Input()
+    header?: string;
+
     /**
      * Sets the configuration of columns on the grid and updates the {@link columnsConfig} array
      */
@@ -321,9 +327,23 @@ export class DatagridComponent<R> implements OnInit, AfterViewInit, AfterViewChe
     pageSizeOptions = DEFAULT_SIZE_OPTIONS;
 
     /**
-     * Desired height of the grid. If unspecificed, the grid fills the parent container.
+     * Desired height of the grid in pixels. If unspecificed, the grid fills the parent container.
      */
-    @Input() height: number;
+    @Input() set height(height: number) {
+        this._height = height;
+        const heightCssValue = this.height ? `${this.height}px` : 'unset';
+        this.node.nativeElement.style.setProperty('--datagrid-height', heightCssValue);
+    }
+
+    get height(): number {
+        return this._height;
+    }
+
+    private _height: number;
+
+    @HostBinding('class.fill-parent') get shouldFillParent(): boolean {
+        return this.height === undefined;
+    }
 
     /**
      * Loading indicator on the grid
@@ -663,10 +683,5 @@ export class DatagridComponent<R> implements OnInit, AfterViewInit, AfterViewChe
 
     ngAfterViewInit(): void {
         this.updatePagination();
-    }
-
-    ngAfterViewChecked(): void {
-        this.node.nativeElement.querySelector('clr-datagrid').style =
-            'height: ' + (this.height ? this.height + 'px' : '100%');
     }
 }

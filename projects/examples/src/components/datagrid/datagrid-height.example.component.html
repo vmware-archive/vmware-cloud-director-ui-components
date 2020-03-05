@@ -1,0 +1,15 @@
+<div class="fixed-height">
+    <vcd-datagrid [gridData]="gridData" (gridRefresh)="refresh($event)" [columns]="columns" [header]="'Fill Parent'">
+    </vcd-datagrid>
+</div>
+<div class="fixed-height">
+    <vcd-datagrid
+        [gridData]="gridData"
+        (gridRefresh)="refresh($event)"
+        [columns]="columns"
+        [height]="150"
+        [pagination]="pagination"
+    >
+    </vcd-datagrid>
+    <h3>Ends Here!</h3>
+</div>

@@ -20,7 +20,8 @@ interface Data {
 }
 
 /**
- * A component that holds an example of the show/hide columns capability.
+ * Shows linked buttons on the top of the datagrid.
+ * Has examples of both buttons that are global and contextual.
  */
 @Component({
     selector: 'vcd-datagrid-link-example',

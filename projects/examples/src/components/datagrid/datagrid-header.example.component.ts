@@ -11,17 +11,13 @@ interface Data {
 }
 
 /**
- * Shows an expandable detail template within the rows.
+ * Shows the capability of the datagrid to put a header on the top.
  */
 @Component({
-    selector: 'vcd-datagrid-show-hide-example',
-    template: `
-        <vcd-datagrid [gridData]="gridData" (gridRefresh)="refresh($event)" [columns]="columns">
-            <ng-template let-record="record"> DETAILS: {{ record.value }} </ng-template>
-        </vcd-datagrid>
-    `,
+    selector: 'vcd-datagrid-header-example',
+    templateUrl: './datagrid-header.example.component.html',
 })
-export class DatagridDetailRowExampleComponent {
+export class DatagridHeaderExampleComponent {
     gridData: GridDataFetchResult<Data> = {
         items: [],
     };
@@ -32,6 +28,8 @@ export class DatagridDetailRowExampleComponent {
             renderer: 'value',
         },
     ];
+
+    header = 'Some Header!';
 
     refresh(eventData: GridState<Data>): void {
         this.gridData = {
