@@ -15,10 +15,7 @@ interface Data {
  */
 @Component({
     selector: 'vcd-datagrid-header-example',
-    template: `
-        <vcd-datagrid [gridData]="gridData" (gridRefresh)="refresh($event)" [columns]="columns" [header]="header">
-        </vcd-datagrid>
-    `,
+    templateUrl: './datagrid-header.example.component.html',
 })
 export class DatagridHeaderExampleComponent {
     gridData: GridDataFetchResult<Data> = {

@@ -33,6 +33,41 @@ Documentation.registerDocumentationEntry({
     urlSegment: 'datagrid',
     examples: [
         {
+            component: DatagridThreeRenderersExampleComponent,
+            forComponent: null,
+            title: 'Example with 3 types of grid renderers',
+        },
+        {
+            component: DatagridCssClassesExampleComponent,
+            forComponent: null,
+            title: 'Component that holds an example of the css classes per row capability',
+        },
+        {
+            component: DatagridShowHideExampleComponent,
+            forComponent: null,
+            title: 'Show/Hide datagrid columns example',
+        },
+        {
+            component: DatagridDetailRowExampleComponent,
+            forComponent: null,
+            title: 'Detail row datagrid example',
+        },
+        {
+            component: DatagridSortExampleComponent,
+            forComponent: null,
+            title: 'Shows the sorting capability of the datagrid',
+        },
+        {
+            component: DatagridRowSelectExampleComponent,
+            forComponent: null,
+            title: 'Select datagrid row example',
+        },
+        {
+            component: DatagridPaginationExampleComponent,
+            forComponent: null,
+            title: 'Pagination functionality and text customization example',
+        },
+        {
             component: DatagridHeightExampleComponent,
             forComponent: null,
             title: 'Setting height on the datagrid.',
@@ -41,6 +76,11 @@ Documentation.registerDocumentationEntry({
             component: DatagridHeaderExampleComponent,
             forComponent: null,
             title: 'Setting the header on the datagrid.',
+        },
+        {
+            component: DatagridLinkExampleComponent,
+            forComponent: null,
+            title: 'Links from Datagrid Example',
         },
     ],
 });

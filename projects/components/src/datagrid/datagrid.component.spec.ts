@@ -315,24 +315,24 @@ describe('DatagridComponent', () => {
                 it('defaults to parent height when height is not set', function(this: HasFinderAndGrid): void {
                     this.finder.hostComponent.height = undefined;
                     this.finder.detectChanges();
-                    expect(this.clrGridWidget.getGridContainerClasses()).toContain('fill-parent');
-                    expect(this.clrGridWidget.getGridHeight()).toEqual('unset');
+                    expect(this.clrGridWidget.gridContainerClasses).toContain('fill-parent');
+                    expect(this.clrGridWidget.gridHeight).toEqual('unset');
                 });
 
                 it('uses the given height when height is set', function(this: HasFinderAndGrid): void {
                     this.finder.hostComponent.height = 200;
                     this.finder.detectChanges();
-                    expect(this.clrGridWidget.getGridHeight()).toEqual('200px');
+                    expect(this.clrGridWidget.gridHeight).toEqual('200px');
                 });
 
                 it('allows the height to be dynamically changed', function(this: HasFinderAndGrid): void {
                     this.finder.hostComponent.height = 200;
                     this.finder.detectChanges();
-                    expect(this.clrGridWidget.getGridHeight()).toEqual('200px');
+                    expect(this.clrGridWidget.gridHeight).toEqual('200px');
                     this.finder.hostComponent.height = undefined;
                     this.finder.detectChanges();
-                    expect(this.clrGridWidget.getGridContainerClasses()).toContain('fill-parent');
-                    expect(this.clrGridWidget.getGridHeight()).toEqual('unset');
+                    expect(this.clrGridWidget.gridContainerClasses).toContain('fill-parent');
+                    expect(this.clrGridWidget.gridHeight).toEqual('unset');
                 });
             });
         });
@@ -685,16 +685,16 @@ describe('DatagridComponent', () => {
             it('shows the header if set and allows it to be changed', function(this: HasFinderAndGrid): void {
                 this.finder.hostComponent.header = 'Some Header!';
                 this.finder.detectChanges();
-                expect(this.clrGridWidget.getGridHeader()).toEqual('Some Header!');
+                expect(this.clrGridWidget.gridHeader).toEqual('Some Header!');
                 this.finder.hostComponent.header = 'Some Other Header!';
                 this.finder.detectChanges();
-                expect(this.clrGridWidget.getGridHeader()).toEqual('Some Other Header!');
+                expect(this.clrGridWidget.gridHeader).toEqual('Some Other Header!');
             });
 
             it('does not show a header when none is set', function(this: HasFinderAndGrid): void {
                 this.finder.hostComponent.header = undefined;
                 this.finder.detectChanges();
-                expect(this.clrGridWidget.getGridHeader()).toEqual(undefined);
+                expect(this.clrGridWidget.gridHeader).toEqual(undefined);
             });
         });
     });
@@ -777,9 +777,9 @@ export class HostWithDatagridComponent {
 
     selectionType = GridSelectionType.None;
 
-    height?: number = undefined;
+    height?: number;
 
-    header?: string = undefined;
+    header?: string;
 
     buttonConfig: ButtonConfig<MockRecord> = {
         globalButtons: [],

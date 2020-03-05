@@ -15,7 +15,6 @@ import {
     ContentChild,
     ElementRef,
     AfterViewInit,
-    AfterViewChecked,
     HostBinding,
 } from '@angular/core';
 import { ClrDatagridFilter, ClrDatagrid, ClrDatagridStateInterface, ClrDatagridPagination } from '@clr/angular';
@@ -328,17 +327,12 @@ export class DatagridComponent<R> implements OnInit, AfterViewInit {
     pageSizeOptions = DEFAULT_SIZE_OPTIONS;
 
     /**
-     * Desired height of the grid. If unspecificed, the grid fills the parent container.
+     * Desired height of the grid in pixels. If unspecificed, the grid fills the parent container.
      */
     @Input() set height(height: number) {
         this._height = height;
-        if (this.height) {
-            this.node.nativeElement
-                .querySelector('clr-datagrid')
-                .style.setProperty('--datagrid-height', this.height + 'px');
-        } else {
-            this.node.nativeElement.querySelector('clr-datagrid').style.setProperty('--datagrid-height', 'unset');
-        }
+        const heightCssValue = this.height ? `${this.height}px` : 'unset';
+        this.node.nativeElement.style.setProperty('--datagrid-height', heightCssValue);
     }
 
     get height(): number {
@@ -347,7 +341,7 @@ export class DatagridComponent<R> implements OnInit, AfterViewInit {
 
     private _height: number;
 
-    @HostBinding('class.fill-parent') get fillParent(): boolean {
+    @HostBinding('class.fill-parent') get shouldFillParent(): boolean {
         return this.height === undefined;
     }
 
