@@ -95,7 +95,7 @@ export class StackBlitzWriterService {
         const [mergedFiles, openFile] = this.createPatch(templateFiles, exampleComponent, exampleModule);
 
         const project: Project = {
-            title: this.stackBlitzInfo.projectName,
+            title: this.stackBlitzInfo.templateId,
             description: entry.title,
             template: 'angular-cli',
             dependencies,
@@ -170,7 +170,7 @@ export class StackBlitzWriterService {
         iframeContainerParent.style.visibility = 'hidden';
         iframeContainerParent.style.position = 'absolute';
         document.body.appendChild(iframeContainerParent);
-        const vm = await sdk.embedProjectId(iframeContainer, this.stackBlitzInfo.projectName, { view: 'editor' });
+        const vm = await sdk.embedProjectId(iframeContainer, this.stackBlitzInfo.templateId, { view: 'editor' });
         this.template = [await vm.getFsSnapshot(), await vm.getDependencies()];
         document.body.removeChild(iframeContainerParent);
         return Promise.resolve(this.template);
