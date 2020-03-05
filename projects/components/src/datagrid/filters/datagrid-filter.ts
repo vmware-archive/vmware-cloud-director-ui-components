@@ -47,10 +47,14 @@ export abstract class DatagridFilter<V, C extends FilterConfig<V>>
     private _config: C;
     @Input() set config(val: C) {
         this._config = val;
-        if (!!(this.config as FilterConfig<V>).value) {
-            this.setValue(this.config.value);
+        if (this._config.value) {
+            this.setValue(this._config.value);
         }
     }
+
+    /**
+     * Used by the getValue method in sub classes to format the FIQL string output
+     */
     get config(): C {
         return this._config;
     }
@@ -76,7 +80,7 @@ export abstract class DatagridFilter<V, C extends FilterConfig<V>>
     abstract isActive(): boolean;
 
     /**
-     * Required by Clarity.
+     * Required by Clarity but ignored since we don't support client side filtering
      */
     accepts(): boolean {
         return true;
@@ -86,10 +90,11 @@ export abstract class DatagridFilter<V, C extends FilterConfig<V>>
      * Used in the {@link #getValue} method to make it part of the FIQL formatted string
      */
     get queryField(): string {
-        if (this.config) {
-            if (this.config.queryField) {
-                return this.config.queryField;
+        if (this._config) {
+            if (this._config.queryField) {
+                return this._config.queryField;
             }
+            // Write a test for this
             throw Error('Query field is not specified');
         }
     }

@@ -6,10 +6,12 @@
 import { Component } from '@angular/core';
 import {
     DatagridNumericFilterComponent,
+    DatagridStringFilterComponent,
     GridColumn,
     GridDataFetchResult,
     GridState,
     RendererSpec,
+    WildCardPosition,
 } from '@vcd/ui-components';
 import { mockData, MockRecord } from './mock-data';
 
@@ -29,6 +31,18 @@ export class DatagridFilterExampleComponent {
             displayName: 'Default String filter',
             renderer: 'state',
             queryFieldName: 'state',
+        },
+        {
+            displayName: 'Custom String filter',
+            renderer: 'state',
+            queryFieldName: 'state',
+            filterRendererSpec: RendererSpec({
+                type: DatagridStringFilterComponent,
+                config: {
+                    wildCardPosition: WildCardPosition.END,
+                    value: 'test-input',
+                },
+            }),
         },
         {
             displayName: 'Custom Numeric filter',

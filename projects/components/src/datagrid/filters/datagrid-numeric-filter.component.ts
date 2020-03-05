@@ -52,21 +52,18 @@ export class DatagridNumericFilterComponent extends DatagridFilter<[number, numb
     }
 
     setValue(values: [number, number]): void {
-        if (
-            values &&
-            (values[0] !== this.formGroup.get(FormFields.from).value ||
-                values[1] !== this.formGroup.get(FormFields.to).value)
-        ) {
-            if (typeof values[0] === 'number') {
-                this.formGroup.get(FormFields.from).setValue(values[0]);
-            } else {
-                this.formGroup.get(FormFields.from).setValue(null);
-            }
-            if (typeof values[1] === 'number') {
-                this.formGroup.get(FormFields.to).setValue(values[1]);
-            } else {
-                this.formGroup.get(FormFields.to).setValue(null);
-            }
+        if (!values) {
+            return;
+        }
+        if (typeof values[0] === 'number') {
+            this.formGroup.get(FormFields.from).setValue(values[0]);
+        } else {
+            this.formGroup.get(FormFields.from).setValue(null);
+        }
+        if (typeof values[1] === 'number') {
+            this.formGroup.get(FormFields.to).setValue(values[1]);
+        } else {
+            this.formGroup.get(FormFields.to).setValue(null);
         }
     }
 
@@ -86,8 +83,9 @@ export class DatagridNumericFilterComponent extends DatagridFilter<[number, numb
     }
 
     isActive(): boolean {
-        return (
-            !!this.formGroup && (this.formGroup.get(FormFields.from).value || this.formGroup.get(FormFields.to).value)
+        return !!(
+            this.formGroup &&
+            (this.formGroup.get(FormFields.from).value || this.formGroup.get(FormFields.to).value)
         );
     }
 }

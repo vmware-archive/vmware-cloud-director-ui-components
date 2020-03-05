@@ -568,10 +568,10 @@ export class DatagridComponent<R> implements OnInit, AfterViewInit {
                 pageNumber: state.page ? state.page.current : 1,
                 itemsPerPage: state.page ? state.page.size : 10,
             },
-            filters: state.filters
-                ? state.filters.map((filter: DatagridFilter<unknown, unknown>) => filter.getValue())
-                : [],
         };
+        if (state.filters) {
+            vcdDgState.filters = state.filters.map((filter: DatagridFilter<unknown, unknown>) => filter.getValue());
+        }
         if (state.sort && typeof state.sort.by === 'string') {
             vcdDgState.sortColumn = {
                 name: state.sort.by,

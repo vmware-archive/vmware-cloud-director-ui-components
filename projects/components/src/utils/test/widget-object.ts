@@ -49,18 +49,20 @@ export abstract class WidgetObject<T> {
 
     /**
      * Finds first element within this widget matching the given selector
-     * @param cssSelector What to search for
+     * @param selector What to search for
      * @param parent Where to start the search; defaults to the root of this component
      */
-    protected findElement(cssSelector: string, parent: DebugElement = this.root): DebugElement {
-        return parent.query(By.css(cssSelector));
+    protected findElement(selector: string | Type<unknown>, parent: DebugElement = this.root): DebugElement {
+        const query = typeof selector === 'string' ? By.css(selector) : By.directive(selector);
+        return parent.query(query);
     }
 
     /**
      * Same as {@link findElement} but returns all elements
      */
-    protected findElements(cssSelector: string, parent: DebugElement = this.root): DebugElement[] {
-        return parent.queryAll(By.css(cssSelector));
+    protected findElements(selector: string | Type<unknown>, parent: DebugElement = this.root): DebugElement[] {
+        const query = typeof selector === 'string' ? By.css(selector) : By.directive(selector);
+        return parent.queryAll(query);
     }
 
     /**

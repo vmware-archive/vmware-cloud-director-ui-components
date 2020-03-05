@@ -2,57 +2,97 @@
  * Copyright 2019 VMware, Inc.
  * SPDX-License-Identifier: BSD-2-Clause
  */
-import { DatagridNumericFilterComponent, DatagridNumericFilterConfig } from '..';
-import { createDatagridFilterTestHelper, DatagridFilterTestHelper } from '../../utils/test/datagrid/filter-utils';
+import { DatagridFilter, DatagridNumericFilterComponent, DatagridNumericFilterConfig } from '..';
+import { createDatagridFilterTestHelper, FilterTestHostComponent } from '../../utils/test/datagrid/filter-utils';
 
 interface HasDgNumericFilter {
-    filter: DatagridFilterTestHelper<[number, number], DatagridNumericFilterConfig>;
+    filter: DatagridFilter<[number, number], DatagridNumericFilterConfig>;
 }
 
 describe('Datagrid numeric filter', () => {
-    describe('Component:', () => {
+    describe('setValue', () => {
         beforeEach(function(this: HasDgNumericFilter): void {
-            this.filter = createDatagridFilterTestHelper(DatagridNumericFilterComponent, 'vcd-dg-numeric-filter', {
-                value: [null, 10],
-            });
+            this.filter = createDatagridFilterTestHelper(DatagridNumericFilterComponent);
         });
-        it('creates a formGroup as expected by the numeric filter', function(this: HasDgNumericFilter): void {
-            expect(this.filter.component.formGroup.getRawValue()).toEqual({
-                from: null,
-                to: 10,
-            });
+        it('sets from and to when both are defined', function(this: HasDgNumericFilter): void {
+            this.filter.setValue([1, 2]);
+            expect(this.filter.formGroup.get('from').value).toEqual(1);
+            expect(this.filter.formGroup.get('to').value).toEqual(2);
         });
-        it('configured with given initial value', function(this: HasDgNumericFilter): void {
-            expect(this.filter.component.config.value).toEqual([null, 10]);
+        it('sets only from when to is null', function(this: HasDgNumericFilter): void {
+            this.filter.setValue([1, null]);
+            expect(this.filter.formGroup.get('from').value).toEqual(1);
+            expect(this.filter.formGroup.get('to').value).toEqual(null);
         });
-        it('getValue is called whenever setValue is called', function(this: HasDgNumericFilter): void {
-            const spy = spyOn(this.filter.component, 'getValue');
-            this.filter.component.setValue([1, 10]);
+        it('sets only to when from is null', function(this: HasDgNumericFilter): void {
+            this.filter.setValue([null, 2]);
+            expect(this.filter.formGroup.get('from').value).toEqual(null);
+            expect(this.filter.formGroup.get('to').value).toEqual(2);
+        });
+        it('does not set when undefined or null is passed', function(this: HasDgNumericFilter): void {
+            this.filter.setValue(undefined);
+            expect(this.filter.formGroup.get('from').value).toEqual(null);
+            expect(this.filter.formGroup.get('to').value).toEqual(null);
+            this.filter.setValue(null);
+            expect(this.filter.formGroup.get('from').value).toEqual(null);
+            expect(this.filter.formGroup.get('to').value).toEqual(null);
+        });
+    });
+
+    describe('ClrDatagridFilterInterface.changes', () => {
+        beforeEach(function(this: HasDgNumericFilter): void {
+            this.filter = createDatagridFilterTestHelper(DatagridNumericFilterComponent);
+        });
+        it('emits when setValue is called', function(this: HasDgNumericFilter): void {
+            const spy = spyOn(this.filter.changes, 'next');
+            this.filter.setValue([1, 2]);
+            expect(spy).toHaveBeenCalled();
+        });
+        it('emits when config is set', function(this: HasDgNumericFilter): void {
+            const spy = spyOn(this.filter.changes, 'next');
+            this.filter.config = { value: [1, 2] };
             expect(spy).toHaveBeenCalled();
         });
     });
 
-    describe('View:', () => {
+    describe('getValue', () => {
+        const queryFieldName = FilterTestHostComponent.filterColumn.queryFieldName;
         beforeEach(function(this: HasDgNumericFilter): void {
-            this.filter = createDatagridFilterTestHelper(DatagridNumericFilterComponent, 'vcd-dg-numeric-filter');
+            this.filter = createDatagridFilterTestHelper(DatagridNumericFilterComponent);
         });
-        it('filter changes is triggered whenever the input is changed', function(this: HasDgNumericFilter): void {
-            const spy = spyOn(this.filter.component, 'getValue').and.callThrough();
-            this.filter.enterInput('1', '.from-input');
-            expect(spy).toHaveBeenCalled();
+        it('returns a FIQL string with gt as operator when only from is set', function(this: HasDgNumericFilter): void {
+            this.filter.setValue([1, null]);
+            expect(this.filter.getValue()).toEqual(`${queryFieldName}=gt=1`);
         });
-        it('gives a FIQL string with gt as operator when only lower limit is entered', function(this: HasDgNumericFilter): void {
-            this.filter.enterInput('1', '.from-input');
-            expect(this.filter.component.getValue()).toEqual('queryFieldName=gt=1');
+        it('returns a FIQL string with both ge and le as operators when both limits are set', function(this: HasDgNumericFilter): void {
+            this.filter.setValue([1, 10]);
+            expect(this.filter.getValue()).toEqual(`(${queryFieldName}=ge=1;${queryFieldName}=le=10)`);
         });
-        it('gives a FIQL string with both ge and le as operators when both limits are entered', function(this: HasDgNumericFilter): void {
-            this.filter.enterInput('1', '.from-input');
-            this.filter.enterInput('10', '.to-input');
-            expect(this.filter.component.getValue()).toEqual('(queryFieldName=ge=1;queryFieldName=le=10)');
+        it('returns a FIQL string with lt as operator when only to is set', function(this: HasDgNumericFilter): void {
+            this.filter.setValue([null, 10]);
+            expect(this.filter.getValue()).toEqual(`${queryFieldName}=lt=10`);
         });
-        it('gives a FIQL string with lt as operator when only upper limit is entered', function(this: HasDgNumericFilter): void {
-            this.filter.enterInput('10', '.to-input');
-            expect(this.filter.component.getValue()).toEqual('queryFieldName=lt=10');
+    });
+
+    describe('isActive', () => {
+        beforeEach(function(this: HasDgNumericFilter): void {
+            this.filter = createDatagridFilterTestHelper(DatagridNumericFilterComponent);
+        });
+        it('returns false when formGroup is undefined', function(this: HasDgNumericFilter): void {
+            this.filter.formGroup = null;
+            expect(this.filter.isActive()).toEqual(false);
+        });
+        it('returns false when both from and to inputs are null', function(this: HasDgNumericFilter): void {
+            this.filter.setValue([null, null]);
+            expect(this.filter.isActive()).toEqual(false);
+        });
+        it('returns true when either from or to or both inputs are defined', function(this: HasDgNumericFilter): void {
+            this.filter.setValue([1, null]);
+            expect(this.filter.isActive()).toEqual(true);
+            this.filter.setValue([null, 1]);
+            expect(this.filter.isActive()).toEqual(true);
+            this.filter.setValue([1, 2]);
+            expect(this.filter.isActive()).toEqual(true);
         });
     });
 });

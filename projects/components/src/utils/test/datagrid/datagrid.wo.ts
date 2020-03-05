@@ -10,9 +10,8 @@ import { GridSelectionType } from './../../../datagrid/datagrid.component';
  */
 
 import { WidgetObject } from '../widget-object';
-import { DebugElement } from '@angular/core';
+import { DebugElement, Type } from '@angular/core';
 import { ClrDatagrid } from '@clr/angular';
-import { By } from '@angular/platform-browser';
 import { DatagridFilter } from '../../../datagrid';
 
 const ROW_TAG = 'clr-dg-row';
@@ -229,12 +228,12 @@ export class ClrDatagridWidgetObject extends WidgetObject<ClrDatagrid> {
     }
 
     /**
-     * Used by the {@link createDatagridFilterTestHelper} to get the grid filter element. Opens the filter of first
-     * column and returns the filter element.
-     * @param filterTagName The component selector of a filter
+     * Used by the {@link createDatagridFilterTestHelper} to query for a filter component. Opens filter of first
+     * column and returns the filter component.
+     * @param ctor The constructor of a grid filter component
      */
-    getFilter(filterTagName: string): DebugElement {
+    getFilter<V, C>(ctor: Type<DatagridFilter<V, C>>): DatagridFilter<V, C> {
         this.openFilter();
-        return this.findElement(filterTagName);
+        return this.findElement(ctor).componentInstance;
     }
 }
