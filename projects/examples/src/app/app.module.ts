@@ -25,6 +25,7 @@ import examplesDocumentationJson from '../../gen/examples-doc.json';
 import { DatagridExamplesModule } from '../components/datagrid/datagrid.examples.module';
 import { ShowClippedTextExamplesModule } from './components/show-clipped-text/show-clipped-text-examples.module';
 import { DataExporterExamplesModule } from '../components/data-exporter/data-exporter.examples.module';
+import { SubscriptionTrackerExamplesModule } from '../components/subscription/subscription-tracker.examples.module';
 
 registerLocaleData(localeFr, 'fr');
 registerLocaleData(localeEs, 'es');
@@ -62,6 +63,7 @@ export const sbInfo: StackBlitzInfo = {
         DatagridExamplesModule,
         DataExporterExamplesModule,
         ShowClippedTextExamplesModule,
+        SubscriptionTrackerExamplesModule,
     ],
     providers: [
         {
