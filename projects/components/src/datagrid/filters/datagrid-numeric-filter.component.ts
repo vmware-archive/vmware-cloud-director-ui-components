@@ -37,7 +37,7 @@ export class DatagridNumericFilterComponent extends DatagridFilter<[number, numb
     }
 
     ngOnInit(): void {
-        this.formGroup.valueChanges.subscribe(_ => this.changes.next());
+        this.debounceChanges(this.formGroup.valueChanges);
     }
 
     setValue(values: [number, number]): void {

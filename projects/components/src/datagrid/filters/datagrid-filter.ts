@@ -5,10 +5,17 @@
 
 import { ClrDatagridFilterInterface } from '@clr/angular/data/datagrid/interfaces/filter.interface';
 import { ClrDatagridFilter } from '@clr/angular';
-import { Subject } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
 import { ComponentRenderer, ComponentRendererSpec } from '../interfaces/component-renderer.interface';
 import { Input } from '@angular/core';
 import { FormGroup } from '@angular/forms';
+import { debounceTime } from 'rxjs/operators';
+import { SubscriptionTrackerMixin } from '../../common/subscription';
+
+/**
+ * Number of milliseconds delayed before emitting the filter has changed observable
+ */
+export const DEBOUNCE_TIME_FOR_GRID_FILTER_CHANGES = 300;
 
 /**
  * Properties required by all the grid filters
@@ -43,11 +50,12 @@ export interface FilterRendererSpec<C> extends ComponentRendererSpec<C> {
  * V is the type of filter input value that is passed into setValue method
  * C extends FilterConfig<V> is configuration of a filter that contains queryField and a value of type V
  */
-export abstract class DatagridFilter<V, C extends FilterConfig<V>>
+export abstract class DatagridFilter<V, C extends FilterConfig<V>> extends SubscriptionTrackerMixin(Object)
     implements ClrDatagridFilterInterface<unknown>, ComponentRenderer<C> {
     formGroup: FormGroup;
 
     protected constructor(filterContainer: ClrDatagridFilter) {
+        super();
         filterContainer.setFilter(this);
     }
 
@@ -96,6 +104,9 @@ export abstract class DatagridFilter<V, C extends FilterConfig<V>>
     }
 
     /**
+     * @see unit tests of sub class {@link DatagridStringFilterComponent} for unit tests of following methods
+     */
+    /**
      * Used in the {@link #getValue} method to make it part of the FIQL formatted string
      */
     get queryField(): string {
@@ -105,5 +116,14 @@ export abstract class DatagridFilter<V, C extends FilterConfig<V>>
             }
             throw Error('Query field is not specified');
         }
+    }
+
+    /**
+     * Delay the emission of changes by {@link DEBOUNCE_TIME_FOR_GRID_FILTER_CHANGES} milliseconds to avoid firing of
+     * {@link ClrDatagridFilterInterface.changes} too often
+     * @param changesObs Changes coming from filter components
+     */
+    debounceChanges(changesObs: Observable<unknown>): void {
+        this.subscribe(changesObs.pipe(debounceTime(DEBOUNCE_TIME_FOR_GRID_FILTER_CHANGES)), () => this.changes.next());
     }
 }

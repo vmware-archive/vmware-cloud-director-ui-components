@@ -8,6 +8,7 @@ import { DatagridFilter, FilterConfig } from './datagrid-filter';
 import { ClrDatagridFilter } from '@clr/angular';
 import { FilterBuilder } from '../../utils/filter-builder';
 import { FormBuilder } from '@angular/forms';
+import { debounce, debounceTime } from 'rxjs/operators';
 
 export enum WildCardPosition {
     START = 'START',
@@ -38,7 +39,7 @@ export class DatagridStringFilterComponent extends DatagridFilter<string, Datagr
      * Changes in the formgroup are emitted for updating the clr grid state
      */
     ngOnInit(): void {
-        this.formGroup.valueChanges.subscribe(_ => this.changes.next());
+        this.debounceChanges(this.formGroup.valueChanges);
     }
 
     setValue(value: string): void {
