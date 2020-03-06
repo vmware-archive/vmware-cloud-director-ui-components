@@ -7,10 +7,10 @@ import { Component } from '@angular/core';
 import {
     DatagridNumericFilterComponent,
     DatagridStringFilterComponent,
+    FilterComponentRendererSpec,
     GridColumn,
     GridDataFetchResult,
     GridState,
-    RendererSpec,
     WildCardPosition,
 } from '@vcd/ui-components';
 import { mockData, MockRecord } from './mock-data';
@@ -36,11 +36,11 @@ export class DatagridFilterExampleComponent {
             displayName: 'Custom String filter',
             renderer: 'state',
             queryFieldName: 'state',
-            filterRendererSpec: RendererSpec({
+            filterRendererSpec: FilterComponentRendererSpec({
                 type: DatagridStringFilterComponent,
                 config: {
                     wildCardPosition: WildCardPosition.END,
-                    value: 'test-input',
+                    value: '',
                 },
             }),
         },
@@ -48,7 +48,7 @@ export class DatagridFilterExampleComponent {
             displayName: 'Custom Numeric filter',
             renderer: 'age',
             queryFieldName: 'age',
-            filterRendererSpec: RendererSpec({
+            filterRendererSpec: FilterComponentRendererSpec({
                 type: DatagridNumericFilterComponent,
                 config: {
                     value: [1, 2],

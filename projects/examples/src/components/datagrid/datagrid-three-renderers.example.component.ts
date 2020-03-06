@@ -6,11 +6,10 @@
 import { Component } from '@angular/core';
 import {
     BoldTextRendererComponent,
-    LinkedTextRendererComponent,
     GridColumn,
     GridDataFetchResult,
     GridState,
-    RendererSpec,
+    ColumnComponentRendererSpec,
 } from '@vcd/ui-components';
 import { mockData, MockRecord } from './mock-data';
 
@@ -28,10 +27,10 @@ export class DatagridThreeRenderersExampleComponent {
     columns: GridColumn<MockRecord>[] = [
         {
             displayName: 'Component Renderer',
-            renderer: RendererSpec({
+            renderer: ColumnComponentRendererSpec({
                 type: BoldTextRendererComponent,
                 config: record => ({
-                    text: record.name,
+                    text: '',
                 }),
             }),
         },

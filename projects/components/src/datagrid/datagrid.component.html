@@ -42,8 +42,6 @@
     <clr-dg-column *ngIf="shouldDisplayButtonsOnRow()" [ngClass]="'buttons-' + this.getMaxFeaturedButtonsOnRow()">
         Actions
     </clr-dg-column>
-    <!--The clrDgField being passed below is only used for enabling sorting and not filtering. This is because, it was
-        not possible to switch sorting using clrDgColumn.sortBy property-->
     <clr-dg-column
         *ngFor="let column of columnsConfig"
         [clrDgSortBy]="column.sortBy || column.queryFieldName"
@@ -58,7 +56,7 @@
         <clr-dg-filter *ngIf="column.queryFieldName">
             <ng-template
                 *ngIf="column.filterRendererSpec; else defaultFilter"
-                [vcdComponentRendererOutlet]="{ rendererSpec: column.filterRendererSpec, context: null }"
+                [vcdComponentRendererOutlet]="{ rendererSpec: column.filterRendererSpec }"
             >
             </ng-template>
             <ng-template #defaultFilter>

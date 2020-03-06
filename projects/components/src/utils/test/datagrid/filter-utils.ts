@@ -7,38 +7,36 @@ import { WidgetFinder } from '../widget-object';
 import { ClrDatagridWidgetObject } from './datagrid.wo';
 import { Component, Type } from '@angular/core';
 import {
-    ComponentRendererConstructor,
     DatagridFilter,
     DatagridModule,
+    FilterComponentRendererSpec,
     GridColumn,
     GridDataFetchResult,
-    RendererSpec,
 } from '../../../datagrid';
 import { TestBed } from '@angular/core/testing';
 import { MockRecord } from '../../../datagrid/mock-data';
 
 /**
  * Used inside beforeEach functions of filter tests and it does the following:
- * -Creates a testing module with {@link FilterTestHostComponent} that has only single column for filter testing
- * -Sets the filter on the column of host component({@link FilterTestHostComponent})
- * -Opens the filter and returns a component instance of the filter created
+ * - Creates a testing module with {@link FilterTestHostComponent} that has only single column for filter testing
+ * - Sets the filter on the column of host component({@link FilterTestHostComponent})
+ * - Opens the filter and returns a component instance of the filter created
  *
  * @param filterType to be created in the test host component grid's column
  * @param config The configuration for the filter
  *
  * Example:
  * beforeEach(function(this: HasDgStringFilter): void {
- *          this.filter = createDatagridFilterTestHelper(
- *              DatagridStringFilterComponent,
- *              { wildCardPosition: WildCardPosition.END, value: 'testInput-1' }
- *          );
- *  });
+ *     this.filter = createDatagridFilterTestHelper(
+ *         DatagridStringFilterComponent,
+ *         { wildCardPosition: WildCardPosition.END, value: 'testInput-1' }
+ *     );
+ * });
  */
 export function createDatagridFilterTestHelper<V, C>(
     filterType: Type<DatagridFilter<V, C>>,
     config?: C
 ): DatagridFilter<V, C> {
-    // Create testbed
     TestBed.configureTestingModule({
         imports: [DatagridModule],
         declarations: [FilterTestHostComponent],
@@ -87,7 +85,7 @@ export class FilterTestHostComponent {
         finder: WidgetFinder<FilterTestHostComponent>,
         config: C
     ): void {
-        this.column.filterRendererSpec = RendererSpec({ type: filterType as ComponentRendererConstructor<C>, config });
+        this.column.filterRendererSpec = FilterComponentRendererSpec({ type: filterType, config });
         finder.detectChanges();
     }
 }

@@ -6,12 +6,12 @@
 import { ClrDatagridFilterInterface } from '@clr/angular/data/datagrid/interfaces/filter.interface';
 import { ClrDatagridFilter } from '@clr/angular';
 import { Subject } from 'rxjs';
-import { ComponentRenderer } from '..';
+import { ComponentRenderer, ComponentRendererSpec } from '../interfaces/component-renderer.interface';
 import { Input } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 
 /**
- * Basic properties required by all the grid filters
+ * Properties required by all the grid filters
  */
 export interface FilterConfig<V> {
     /**
@@ -23,6 +23,17 @@ export interface FilterConfig<V> {
      * Value with which grid data can be filtered before initially being rendered
      */
     value?: V;
+}
+
+/**
+ * Renderer specification of a column that contains component type to be rendered in a filter widget and configuration for that
+ * component. used by the {@link ComponentRendererOutletDirective}
+ */
+export interface FilterRendererSpec<C> extends ComponentRendererSpec<C> {
+    /**
+     *  Config object required for the configuration of component that will be rendered in the column filter widget
+     */
+    config: C;
 }
 
 /**
@@ -42,7 +53,8 @@ export abstract class DatagridFilter<V, C extends FilterConfig<V>>
 
     /**
      * Contains configuration needed for a filter UI widget and also it's value.
-     * Assigned from {@link ComponentRendererOutletDirective#assignValue} after the filter component is created
+     * Assigned from {@link ComponentRendererOutletDirective#assignValue} after the filter component is created.
+     * Used by the getValue method in sub classes to format the FIQL string output.
      */
     private _config: C;
     @Input() set config(val: C) {
@@ -52,9 +64,6 @@ export abstract class DatagridFilter<V, C extends FilterConfig<V>>
         }
     }
 
-    /**
-     * Used by the getValue method in sub classes to format the FIQL string output
-     */
     get config(): C {
         return this._config;
     }
@@ -94,7 +103,6 @@ export abstract class DatagridFilter<V, C extends FilterConfig<V>>
             if (this._config.queryField) {
                 return this._config.queryField;
             }
-            // Write a test for this
             throw Error('Query field is not specified');
         }
     }

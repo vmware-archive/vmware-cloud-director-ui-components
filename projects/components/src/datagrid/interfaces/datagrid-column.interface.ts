@@ -6,8 +6,8 @@
 /**
  * Whether something shows up in the column toggler
  */
-import { ComponentRendererSpec } from './component-renderer.interface';
-import { ClrDatagridComparatorInterface } from '@clr/angular';
+import { FilterConfig, FilterRendererSpec } from '../filters/datagrid-filter';
+import { ComponentRendererConstructor, ComponentRendererSpec } from './component-renderer.interface';
 
 export enum GridColumnHideable {
     /**
@@ -164,6 +164,19 @@ export interface ButtonConfig<R> {
 }
 
 /**
+ * Renderer specification of a column that contains component type to be rendered in the cell and configuration for that
+ * component. used by the {@link ComponentRendererOutletDirective}
+ */
+export interface ColumnRendererSpec<R, C> extends ComponentRendererSpec<C> {
+    /**
+     * A function that creates a config object required for the configuration of component that will be rendered in the column
+     * @param record An object to be transformed into {@link ComponentRenderer#config}. It's passed in by the calling
+     * component
+     */
+    config: (record?: R) => C;
+}
+
+/**
  * Configuration object defined in the caller. This contains properties for the column header (text, filtering,
  * sorting, toggling etc.,) and content for row cells.
  *
@@ -194,9 +207,9 @@ export interface GridColumn<R> {
      * - string: Used as default renderer. Can be a dot separated string to identify a nested property of the item
      * - {@link FunctionRenderer}: When you want to create a calculated column, but don't need custom HTML
      * - TemplateRef: When custom HTML is needed and when it has to be passed in as a inline HTML
-     * - {@link ComponentRendererSpec}: When HTML is needed and when the HTML is provided as a component
+     * - {@link ColumnRendererSpec}: When HTML is needed and when the HTML is provided as a component
      */
-    renderer: string | FunctionRenderer<R> | ComponentRendererSpec<R, unknown>;
+    renderer: string | FunctionRenderer<R> | ColumnRendererSpec<R, unknown>;
 
     /**
      * Whether the column shows up in the column toggler and if the column shows up, it reflects the toggle state
@@ -214,7 +227,7 @@ export interface GridColumn<R> {
      * TODO: Should this be made to work with top level search on grids across all columns?
      *  The above to-do is going to be worked on as part of https://jira.eng.vmware.com/browse/VDUCC-27 and
      */
-    filterRendererSpec?: ComponentRendererSpec<R, unknown>;
+    filterRendererSpec?: FilterRendererSpec<FilterConfig<unknown>>;
 
     /**
      * To enable only sorting without filtering on the column. This is because, passing in clrDgField turns both filtering

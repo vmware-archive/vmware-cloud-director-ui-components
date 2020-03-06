@@ -26,10 +26,10 @@ import {
     ContextualButtonPosition,
     Button,
     InactiveButtonDisplayMode,
+    ColumnRendererSpec,
 } from './interfaces/datagrid-column.interface';
 import { ContextualButton } from './interfaces/datagrid-column.interface';
-import { ComponentRendererSpec } from './interfaces/component-renderer.interface';
-import { DatagridFilter, FilterConfig } from './filters/datagrid-filter';
+import { DatagridFilter } from './filters/datagrid-filter';
 
 /**
  * The default number of items on a single page.
@@ -151,7 +151,7 @@ export interface PaginationConfiguration {
  */
 export interface GridState<R> {
     /**
-     * List of column filter values which are FIQL formatted strings
+     * FIQL formatted list of active filters
      */
     filters?: string[];
     /**
@@ -171,7 +171,7 @@ export interface GridState<R> {
 interface ColumnConfigInternal<R, T> extends GridColumn<R> {
     fieldName?: string;
     fieldRenderer?: FunctionRenderer<R>;
-    fieldColumnRendererSpec?: ComponentRendererSpec<R, T>;
+    fieldColumnRendererSpec?: ColumnRendererSpec<R, T>;
 }
 
 /**
@@ -669,15 +669,15 @@ export class DatagridComponent<R> implements OnInit, AfterViewInit {
 
             if (column.renderer instanceof Function) {
                 columnConfig.fieldRenderer = column.renderer as FunctionRenderer<R>;
-            } else if ((column.renderer as ComponentRendererSpec<R, unknown>).config) {
-                columnConfig.fieldColumnRendererSpec = column.renderer as ComponentRendererSpec<R, unknown>;
+            } else if ((column.renderer as ColumnRendererSpec<R, unknown>).config) {
+                columnConfig.fieldColumnRendererSpec = column.renderer as ColumnRendererSpec<R, unknown>;
             } else {
                 columnConfig.fieldName = column.renderer as string;
             }
 
             // Add query filed required for the column filtering. This is then used in DatagridFilter.queryField
             if (column.queryFieldName && column.filterRendererSpec) {
-                (column.filterRendererSpec.config as FilterConfig<unknown>).queryField = column.queryFieldName;
+                column.filterRendererSpec.config.queryField = column.queryFieldName;
             }
 
             return columnConfig;

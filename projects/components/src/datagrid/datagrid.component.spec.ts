@@ -15,7 +15,7 @@ import {
 } from './interfaces/datagrid-column.interface';
 import { TestBed } from '@angular/core/testing';
 import { DatagridModule } from './datagrid.module';
-import { RendererSpec } from './interfaces/component-renderer.interface';
+import { ColumnComponentRendererSpec } from './interfaces/component-renderer.interface';
 import { WidgetFinder } from '../utils/test/widget-object';
 import { BoldTextRendererComponent } from './renderers/bold-text-renderer.component';
 import { ClrDatagridWidgetObject } from '../utils/test/datagrid/datagrid.wo';
@@ -323,7 +323,7 @@ describe('DatagridComponent', () => {
                 this.finder.hostComponent.columns = [
                     {
                         displayName: 'Component Renderer',
-                        renderer: RendererSpec({
+                        renderer: ColumnComponentRendererSpec({
                             type: BoldTextRendererComponent,
                             config: record => ({
                                 text: record.name,
@@ -693,7 +693,7 @@ describe('DatagridComponent', () => {
                 this.finder.hostComponent.columns = [
                     {
                         displayName: 'Component Renderer',
-                        renderer: RendererSpec({
+                        renderer: ColumnComponentRendererSpec({
                             type: BoldTextRendererComponent,
                             config: record => ({
                                 text: record.name,

@@ -2,7 +2,9 @@
  * Copyright 2019 VMware, Inc.
  * SPDX-License-Identifier: BSD-2-Clause
  */
-
+/**
+ * TODO: Remove FilterBuilder from VCD-UI https://jira.eng.vmware.com/browse/VDUCC-115
+ */
 export const Operators: { [key: string]: string } = {
     OR: ',',
     AND: ';',
@@ -254,11 +256,11 @@ export class FilterBuilder {
     public betweenNumbers(values: number[]): FilterBuilder {
         const builders: FilterBuilder[] = [];
 
-        if (values[0]) {
+        if (typeof values[0] === 'number') {
             builders.push(new FilterBuilder().is(this.result).condition(Operators.GE, values[0]));
         }
 
-        if (values[1]) {
+        if (typeof values[1] === 'number') {
             builders.push(new FilterBuilder().is(this.result).condition(Operators.LE, values[1]));
         }
 

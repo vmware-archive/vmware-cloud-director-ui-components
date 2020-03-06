@@ -3,11 +3,11 @@
  * SPDX-License-Identifier: BSD-2-Clause
  */
 
-import { Component, Host, Input, OnInit } from '@angular/core';
+import { Component, Host, OnInit } from '@angular/core';
 import { DatagridFilter, FilterConfig } from './datagrid-filter';
 import { ClrDatagridFilter } from '@clr/angular';
 import { FilterBuilder } from '../../utils/filter-builder';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder } from '@angular/forms';
 
 export enum WildCardPosition {
     START = 'START',
@@ -17,17 +17,13 @@ export enum WildCardPosition {
 /**
  * Configures the '*' position in the FIQL string output
  */
-export interface DatagridStringFilterConfig<V = string> extends FilterConfig<V> {
+export interface DatagridStringFilterConfig extends FilterConfig<string> {
     wildCardPosition?: WildCardPosition;
 }
 
 @Component({
     selector: 'vcd-dg-string-filter',
-    template: `
-        <form [formGroup]="formGroup">
-            <input type="text" name="search" [formControlName]="'filterText'" class="clr-input" />
-        </form>
-    `,
+    templateUrl: 'datagrid-string-filter.component.html',
 })
 export class DatagridStringFilterComponent extends DatagridFilter<string, DatagridStringFilterConfig>
     implements OnInit {

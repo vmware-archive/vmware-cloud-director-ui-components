@@ -72,6 +72,10 @@ describe('Datagrid numeric filter', () => {
             this.filter.setValue([null, 10]);
             expect(this.filter.getValue()).toEqual(`${queryFieldName}=lt=10`);
         });
+        it('returns a FIQL string with both ge and le as operators when both limits are 0', function(this: HasDgNumericFilter): void {
+            this.filter.setValue([0, 0]);
+            expect(this.filter.getValue()).toEqual(`(${queryFieldName}=ge=0;${queryFieldName}=le=0)`);
+        });
     });
 
     describe('isActive', () => {
@@ -92,6 +96,12 @@ describe('Datagrid numeric filter', () => {
             this.filter.setValue([null, 1]);
             expect(this.filter.isActive()).toEqual(true);
             this.filter.setValue([1, 2]);
+            expect(this.filter.isActive()).toEqual(true);
+        });
+        it('does not return false when inputs are 0', function(this: HasDgNumericFilter): void {
+            this.filter.setValue([0, null]);
+            expect(this.filter.isActive()).toEqual(true);
+            this.filter.setValue([null, 0]);
             expect(this.filter.isActive()).toEqual(true);
         });
     });

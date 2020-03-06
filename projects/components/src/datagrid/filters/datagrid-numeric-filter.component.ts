@@ -21,19 +21,8 @@ export type DatagridNumericFilterConfig = FilterConfig<[number, number]>;
 
 @Component({
     selector: 'vcd-dg-numeric-filter',
-    template: `
-        <div [formGroup]="formGroup" class="clr-row">
-            <div class="clr-col-6">
-                <label class="clr-control-label">From:</label>
-                <input class="from-input clr-input" type="number" [formControlName]="'from'" />
-            </div>
-
-            <div class="clr-col-6">
-                <label class="clr-control-label">To:</label>
-                <input class="to-input clr-input" type="number" [formControlName]="'to'" />
-            </div>
-        </div>
-    `,
+    templateUrl: 'datagrid-numeric-filter.component.html',
+    styleUrls: ['datagrid-numeric-filter.component.scss'],
 })
 export class DatagridNumericFilterComponent extends DatagridFilter<[number, number], DatagridNumericFilterConfig>
     implements OnInit {
@@ -71,13 +60,13 @@ export class DatagridNumericFilterComponent extends DatagridFilter<[number, numb
         const filterBuilder = new FilterBuilder().is(this.queryField);
         const from = this.formGroup.get(FormFields.from).value;
         const to = this.formGroup.get(FormFields.to).value;
-        if (from && !to) {
+        if (typeof from === 'number' && typeof to !== 'number') {
             return filterBuilder.greaterThan(from).getString();
         }
-        if (!from && to) {
+        if (typeof from !== 'number' && typeof to === 'number') {
             return filterBuilder.lessThan(to).getString();
         }
-        if (from && to) {
+        if (typeof from === 'number' && typeof to === 'number') {
             return filterBuilder.betweenNumbers([from, to]).getString();
         }
     }
@@ -85,7 +74,8 @@ export class DatagridNumericFilterComponent extends DatagridFilter<[number, numb
     isActive(): boolean {
         return !!(
             this.formGroup &&
-            (this.formGroup.get(FormFields.from).value || this.formGroup.get(FormFields.to).value)
+            (typeof this.formGroup.get(FormFields.from).value === 'number' ||
+                typeof this.formGroup.get(FormFields.to).value === 'number')
         );
     }
 }
