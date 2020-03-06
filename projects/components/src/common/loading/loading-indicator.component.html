@@ -1,0 +1,10 @@
+<ng-container *ngIf="isLoading">
+    <div class="overlay"></div>
+    <div *ngIf="showSpinner" class="indicator-container">
+        <div>
+            <span [ngClass]="['spinner', loadingTextKey ? 'spinner-inline' : 'spinner-' + size]"> </span>
+            <span class="qa-loading-text" *ngIf="loadingTextKey">{{ loadingTextKey | translate }}</span>
+        </div>
+    </div>
+</ng-container>
+<ng-content></ng-content>

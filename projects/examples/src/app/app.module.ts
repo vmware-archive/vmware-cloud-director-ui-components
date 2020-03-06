@@ -26,6 +26,9 @@ import { DatagridExamplesModule } from '../components/datagrid/datagrid.examples
 import { ShowClippedTextExamplesModule } from './components/show-clipped-text/show-clipped-text-examples.module';
 import { DataExporterExamplesModule } from '../components/data-exporter/data-exporter.examples.module';
 import { SubscriptionTrackerExamplesModule } from '../components/subscription/subscription-tracker.examples.module';
+import { LoadingIndicatorExamplesModule } from '../components/loading/loading-indicator.examples.module';
+import { ErrorBannerExamplesModule } from '../components/error/error-banner.examples.module';
+import { ActivityReporterExamplesModule } from '../components/activity-reporter/activity-reporter.examples.module';
 
 registerLocaleData(localeFr, 'fr');
 registerLocaleData(localeEs, 'es');
@@ -64,6 +67,9 @@ export const sbInfo: StackBlitzInfo = {
         DataExporterExamplesModule,
         ShowClippedTextExamplesModule,
         SubscriptionTrackerExamplesModule,
+        LoadingIndicatorExamplesModule,
+        ErrorBannerExamplesModule,
+        ActivityReporterExamplesModule,
     ],
     providers: [
         {

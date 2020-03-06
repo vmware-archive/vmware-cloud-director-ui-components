@@ -1,0 +1,4 @@
+<button *ngIf="!showBanner" (click)="startActivity()">Start Activity Reporter</button>
+<button *ngIf="showBanner" (click)="throwError()">Throw Error</button>
+<button *ngIf="showBanner" (click)="reportSuccess()">Report Success</button>
+<vcd-banner-activity-reporter></vcd-banner-activity-reporter>
