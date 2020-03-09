@@ -6,7 +6,7 @@
 import { Type } from '@angular/core';
 
 /**
- * Implemented by all the component renderers
+ * Implemented by all the component renderers. The components that have to be rendered dynamically.
  */
 export interface ComponentRenderer<T> {
     /**
@@ -16,54 +16,25 @@ export interface ComponentRenderer<T> {
 }
 
 /**
- * Used for the type safety of {@link ComponentRendererSpec#type}
+ * Used for the type safety of {@link ColumnRendererSpec#type}
  */
 export type ComponentRendererConstructor<V> = Type<ComponentRenderer<V>>;
 
 /**
- * An object that contains the constructor of a component{@link ComponentRenderer} to be displayed and value getter
- * function definition that would get the value to be used by the component in its template. This is useful for dynamically
- * rendering/configuring filters and columns/cells
+ * An object that contains the constructor of a component of {@link ComponentRenderer} type that has to be rendered dynamically.
  *
- * The directive{@link ComponentRendererOutletDirective} using this renderer spec to display the component will be
- * responsible for setting the actual renderer's value{@link ComponentRenderer#config} after dynamically
- * initializing it. But the caller is responsible for providing a config
+ * {@link ComponentRendererOutletDirective} uses this object to render the component. It is responsible for setting the
+ * component's configuration{@link ComponentRenderer#config} after dynamically initializing it. But the caller is responsible
+ * for providing a config
  */
-export interface ComponentRendererSpec<R, V> {
+export interface ComponentRendererSpec<C> {
     /**
-     * Constructor of a specific type of component renderer desired to be used
+     * Constructor of a specific type of component to be rendered
      */
-    type: ComponentRendererConstructor<V>;
-
-    /**
-     * This can either be a function that creates the config object (in case of a cell renderer) or config object itself (in
-     * case of a filter renderer) to be set on the ComponentRenderer.
-     * @param value An object to be transformed into {@link ComponentRenderer#config}. It's passed in by the calling
-     * component
-     */
-    config: ((value?: R) => V) | V;
-}
-
-/**
- * Utility function to enforce type safety on output of the config function. The output is used as value context
- * inside ComponentRenderer's template
- *
- * Example usage:
- * const gridColumn = {
- *   renderer: RendererSpec<SomeRecord, IconRendererConfiguration>(IconComponentRendererCtor, (r: SomeRecord) => v)
- * }
- *
- * In the above example, this method helps in making sure that the value "v" returned by the config function is of
- * IconRendererConfiguration type
- */
-export function RendererSpec<R, C>(componentRendererSpec: {
     type: ComponentRendererConstructor<C>;
     /**
-     *  'C & {}' makes the return type be not used as the inference site for C and instead use the constructor type from
-     *  the first argument.
-     *  {@link https://stackoverflow.com/questions/59055154/typescript-generics-infer-type-from-the-type-of-function-arguments}
+     * {@link ComponentRenderer.config}. In the case of a {@link ColumnRendererSpec} it is a function that takes a rest
+     * item as input and returns an object of {@link ComponentRenderer.config}
      */
-    config: ((record?: R) => C & {}) | C;
-}): ComponentRendererSpec<R, C> {
-    return componentRendererSpec;
+    config: C | ((restItem: unknown) => C);
 }

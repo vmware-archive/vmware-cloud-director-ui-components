@@ -6,43 +6,12 @@
 import { Component } from '@angular/core';
 import {
     BoldTextRendererComponent,
-    LinkedTextRendererComponent,
     GridColumn,
     GridDataFetchResult,
     GridState,
-    RendererSpec,
+    ColumnComponentRendererSpec,
 } from '@vcd/ui-components';
-
-interface MockRecord {
-    name: string;
-    city: string;
-    state: string;
-    details: {
-        gender: string;
-    };
-    age: number;
-}
-
-const mockData: MockRecord[] = [
-    {
-        name: 'Person 1',
-        city: 'Palo Alto',
-        state: 'CA',
-        details: {
-            gender: 'Male',
-        },
-        age: 30,
-    },
-    {
-        name: 'Person 2',
-        city: 'Boston',
-        state: 'MA',
-        details: {
-            gender: 'Female',
-        },
-        age: 60,
-    },
-];
+import { mockData, MockRecord } from './mock-data';
 
 @Component({
     template: `
@@ -58,10 +27,10 @@ export class DatagridThreeRenderersExampleComponent {
     columns: GridColumn<MockRecord>[] = [
         {
             displayName: 'Component Renderer',
-            renderer: RendererSpec({
+            renderer: ColumnComponentRendererSpec({
                 type: BoldTextRendererComponent,
                 config: record => ({
-                    text: record.name,
+                    text: '',
                 }),
             }),
         },

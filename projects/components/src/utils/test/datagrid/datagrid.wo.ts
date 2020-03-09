@@ -10,13 +10,15 @@ import { GridSelectionType } from './../../../datagrid/datagrid.component';
  */
 
 import { WidgetObject } from '../widget-object';
-import { DebugElement } from '@angular/core';
+import { DebugElement, Type } from '@angular/core';
 import { ClrDatagrid } from '@clr/angular';
+import { DatagridFilter } from '../../../datagrid';
 
 const ROW_TAG = 'clr-dg-row';
 const CELL_TAG = 'clr-dg-cell';
 const COLUMN_SELECTOR = 'clr-dg-column';
 const COLUMN_CSS_SELECTOR = '.datagrid-column-title';
+const FILTER_SELECTOR = 'clr-dg-filter';
 
 /**
  * Widget Object for a Clarity DataGrid
@@ -216,5 +218,22 @@ export class ClrDatagridWidgetObject extends WidgetObject<ClrDatagrid> {
 
     private get detailsButtons(): DebugElement[] {
         return this.findElements('.datagrid-expandable-caret-button');
+    }
+
+    private openFilter(): void {
+        const clrDgColumn = this.findElements(COLUMN_SELECTOR)[0];
+        const filterDebugEl = this.findElement(FILTER_SELECTOR, clrDgColumn);
+        this.click('.datagrid-filter-toggle', filterDebugEl);
+        this.detectChanges();
+    }
+
+    /**
+     * Used by the {@link createDatagridFilterTestHelper} to query for a filter component. Opens filter of first
+     * column and returns the filter component.
+     * @param ctor The constructor of a grid filter component
+     */
+    getFilter<V, C>(ctor: Type<DatagridFilter<V, C>>): DatagridFilter<V, C> {
+        this.openFilter();
+        return this.findElement(ctor).componentInstance;
     }
 }

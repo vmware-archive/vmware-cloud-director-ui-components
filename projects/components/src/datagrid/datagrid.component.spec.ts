@@ -12,49 +12,16 @@ import {
     ButtonConfig,
     ContextualButtonPosition,
     InactiveButtonDisplayMode,
+    ColumnComponentRendererSpec,
 } from './interfaces/datagrid-column.interface';
 import { TestBed } from '@angular/core/testing';
 import { DatagridModule } from './datagrid.module';
-import { RendererSpec } from './interfaces/component-renderer.interface';
 import { WidgetFinder } from '../utils/test/widget-object';
 import { BoldTextRendererComponent } from './renderers/bold-text-renderer.component';
 import { ClrDatagridWidgetObject } from '../utils/test/datagrid/datagrid.wo';
 import { WithGridBoldRenderer } from './renderers/bold-text-renderer.wo';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-
-export interface MockRecord {
-    name: string;
-    city: string;
-    state: string;
-    details: {
-        gender: string;
-    };
-    age: number;
-    href: string;
-}
-
-export const mockData: MockRecord[] = [
-    {
-        name: 'Person 1',
-        city: 'Palo Alto',
-        state: 'CA',
-        details: {
-            gender: 'Male',
-        },
-        age: 30,
-        href: '1',
-    },
-    {
-        name: 'Person 2',
-        city: 'Boston',
-        state: 'MA',
-        details: {
-            gender: 'Female',
-        },
-        age: 60,
-        href: '2',
-    },
-];
+import { mockData, MockRecord } from './mock-data';
 
 type MockRecordDatagridComponent = DatagridComponent<MockRecord>;
 
@@ -356,7 +323,7 @@ describe('DatagridComponent', () => {
                 this.finder.hostComponent.columns = [
                     {
                         displayName: 'Component Renderer',
-                        renderer: RendererSpec({
+                        renderer: ColumnComponentRendererSpec({
                             type: BoldTextRendererComponent,
                             config: record => ({
                                 text: record.name,
@@ -726,7 +693,7 @@ describe('DatagridComponent', () => {
                 this.finder.hostComponent.columns = [
                     {
                         displayName: 'Component Renderer',
-                        renderer: RendererSpec({
+                        renderer: ColumnComponentRendererSpec({
                             type: BoldTextRendererComponent,
                             config: record => ({
                                 text: record.name,
