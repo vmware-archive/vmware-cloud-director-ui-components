@@ -1,0 +1,52 @@
+# Trigger the workflow on push to any branch or on pull request into master
+on:
+    push:
+    pull_request:
+        branches:
+            - master
+
+jobs:
+    prepare_node_modules:
+        runs-on: ubuntu-latest
+        steps:
+            - uses: actions/checkout@v2
+            - uses: actions/setup-node@v1
+              with:
+                  node-version: '13'
+            - run: npm install
+            - uses: actions/cache@v1
+              with:
+                  path: node_modules
+                  key: node_modules
+
+    lint-projects:
+        runs-on: ubuntu-latest
+        name: Linting
+        needs: [prepare_node_modules]
+        steps:
+            - uses: actions/checkout@v2
+            - uses: actions/cache@v1
+              with:
+                  path: node_modules
+                  key: node_modules
+            - run: |
+                  - npm run lint i18n
+                  - npm run lint components
+                  - npm run lint doc-lib
+                  - npm run lint examples
+
+    build-components-lib:
+        runs-on: ubuntu-latest
+        name: Build /components
+        needs: [lint-projects]
+        steps:
+            - uses: actions/checkout@v2
+            - uses: actions/cache@v1
+              with:
+                  path: node_modules
+                  key: node_modules
+            - uses: actions/cache@v1
+              with:
+                  path: ./dist/components
+                  key: components
+            - run: npm run build:components
