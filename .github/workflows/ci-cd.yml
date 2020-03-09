@@ -68,7 +68,7 @@ jobs:
             - uses: actions/cache@v1
               with:
                   path: ./dist/components
-                  key: components
+                  key: ${{ GITHUB_SHA }}-components
             - run: npm run build:components
 
     build-doc-lib:
@@ -100,7 +100,7 @@ jobs:
             - uses: actions/cache@v1
               with:
                   path: ./dist/components
-                  key: components
+                  key: ${{ GITHUB_SHA }}-components
             - uses: actions/cache@v1
               with:
                   path: ./dist/doc-lib

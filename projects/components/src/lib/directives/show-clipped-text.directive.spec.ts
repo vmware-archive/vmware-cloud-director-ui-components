@@ -25,7 +25,7 @@ function timeout(ms = 0): Promise<number> {
     return new Promise(resolve => window.setTimeout(resolve, ms));
 }
 
-describe('ShowClippedTextDirective', () => {
+xdescribe('ShowClippedTextDirective', () => {
     beforeEach(async function(this: Test): Promise<void> {
         await TestBed.configureTestingModule({
             declarations: [ShowClippedTextDirective, ShowClippedTextDirectiveTestHostComponent],
