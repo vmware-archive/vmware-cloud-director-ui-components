@@ -63,8 +63,8 @@ jobs:
                   key: node_modules
             - uses: actions/cache@v1
               with:
-                  path: ./dist/i18n
-                  key: i18n
+                  path: ./dist/components
+                  key: components
             - run: npm run build:components
 
     build-doc-lib:
@@ -154,19 +154,18 @@ jobs:
                   key: coverage
             - name: Generate codecov
               run: npx codecov
-
-    gh-pages-deploy:
-        runs-on: ubuntu-latest
-        name: Deploying to Github pages
-        needs: [build-app]
-        steps:
-            - uses: actions/checkout@v2
-            - uses: actions/cache@v1
-              with:
-                  path: node_modules
-                  key: node_modules
-            - uses: actions/cache@v1
-              with:
-                  path: ./dist/examples
-                  key: examples
-            - run: ng deploy --no-build
+#    gh-pages-deploy:
+#        runs-on: ubuntu-latest
+#        name: Deploying to Github pages
+#        needs: [build-app]
+#        steps:
+#            - uses: actions/checkout@v2
+#            - uses: actions/cache@v1
+#              with:
+#                  path: node_modules
+#                  key: node_modules
+#            - uses: actions/cache@v1
+#              with:
+#                  path: ./dist/examples
+#                  key: examples
+#            - run: ng deploy --no-build
