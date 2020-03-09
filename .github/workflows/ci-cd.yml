@@ -61,10 +61,13 @@ jobs:
               with:
                   path: node_modules
                   key: node_modules
+           - uses: actions/cache@v1
+               with:
+                    path: node_modules
+                    key: node_modules
             - uses: actions/cache@v1
               with:
-                  path: ./dist/components
-                  key: components
+                  key: i18n
             - run: npm run build:components
 
     build-doc-lib:
