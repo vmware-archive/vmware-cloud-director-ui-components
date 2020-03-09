@@ -63,6 +63,10 @@ jobs:
                   key: node_modules
             - uses: actions/cache@v1
               with:
+                  path: ./dist/i18n
+                  key: i18n
+            - uses: actions/cache@v1
+              with:
                   path: ./dist/components
                   key: components
             - run: npm run build:components
@@ -139,9 +143,9 @@ jobs:
     #              if: success()
     #              run: npx codecov
 
-    generate-codecov:
+    upload-to-codecov:
         runs-on: ubuntu-latest
-        name: Generate Codecov
+        name: Upload coverage to Codecov
         needs: [unit-testing]
         steps:
             - uses: actions/cache@v1
@@ -152,8 +156,7 @@ jobs:
               with:
                   path: ./coverage
                   key: coverage
-            - name: Generate codecov
-              run: npx codecov
+            - uses: codecov/codecov-action@v1
 #    gh-pages-deploy:
 #        runs-on: ubuntu-latest
 #        name: Deploying to Github pages
