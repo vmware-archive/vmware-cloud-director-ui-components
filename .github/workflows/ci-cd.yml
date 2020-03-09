@@ -85,6 +85,7 @@ jobs:
     unit-testing:
         runs-on: ubuntu-latest
         name: Unit tests
+        needs: [prepare_node_modules]
         steps:
             - uses: actions/checkout@v2
             - uses: actions/cache@v1
