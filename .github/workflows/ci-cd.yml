@@ -35,10 +35,26 @@ jobs:
                   npm run lint doc-lib
                   npm run lint examples
 
+    build-i18n:
+        runs-on: ubuntu-latest
+        name: Build /i18n
+        needs: [lint-projects]
+        steps:
+            - uses: actions/checkout@v2
+            - uses: actions/cache@v1
+              with:
+                  path: node_modules
+                  key: node_modules
+            - uses: actions/cache@v1
+              with:
+                  path: ./dist/i18n
+                  key: i18n
+            - run: npm run build:i18n
+
     build-components-lib:
         runs-on: ubuntu-latest
         name: Build /components
-        needs: [lint-projects]
+        needs: [lint-projects, build-i18n]
         steps:
             - uses: actions/checkout@v2
             - uses: actions/cache@v1
@@ -50,3 +66,19 @@ jobs:
                   path: ./dist/components
                   key: components
             - run: npm run build:components
+
+    build-doc-lib:
+        runs-on: ubuntu-latest
+        name: Build /doc-lib
+        needs: [lint-projects]
+        steps:
+            - uses: actions/checkout@v2
+            - uses: actions/cache@v1
+              with:
+                  path: node_modules
+                  key: node_modules
+            - uses: actions/cache@v1
+              with:
+                  path: ./dist/doc-lib
+                  key: doc-lib
+            - run: npm run build:doc-lib
