@@ -152,6 +152,7 @@ jobs:
               with:
                   path: ./coverage
                   key: coverage
+            - name: Generate codecov
               run: npx codecov
 
     gh-pages-deploy:
