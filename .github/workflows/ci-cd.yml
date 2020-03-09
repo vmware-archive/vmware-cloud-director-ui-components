@@ -85,3 +85,18 @@ jobs:
                   path: ./dist/doc-lib
                   key: doc-lib
             - run: npm run build:doc-lib
+
+    unit-testing:
+      runs-on: ubuntu-latest
+      name: Unit tests
+      steps:
+        - uses: actions/checkout@v2
+        - uses: actions/cache@v1
+          with:
+            path: node_modules
+            key: node_modules
+        - run: |
+            npm run test:ci:components
+            npm run test:ci:doc-lib
+            npm run test:ci:i18n
+            ./node_modules/.bin/codecov
