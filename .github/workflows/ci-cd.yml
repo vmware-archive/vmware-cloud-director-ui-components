@@ -113,6 +113,10 @@ jobs:
               with:
                   path: node_modules
                   key: node_modules
+            - uses: actions/cache@v1
+              with:
+                  path: ./dist/i18n
+                  key: i18n
             - run: |
                   npm run test:ci:components
                   npm run test:ci:doc-lib
