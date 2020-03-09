@@ -12,10 +12,10 @@ import {
     ButtonConfig,
     ContextualButtonPosition,
     InactiveButtonDisplayMode,
+    ColumnComponentRendererSpec,
 } from './interfaces/datagrid-column.interface';
 import { TestBed } from '@angular/core/testing';
 import { DatagridModule } from './datagrid.module';
-import { ColumnComponentRendererSpec } from './interfaces/component-renderer.interface';
 import { WidgetFinder } from '../utils/test/widget-object';
 import { BoldTextRendererComponent } from './renderers/bold-text-renderer.component';
 import { ClrDatagridWidgetObject } from '../utils/test/datagrid/datagrid.wo';

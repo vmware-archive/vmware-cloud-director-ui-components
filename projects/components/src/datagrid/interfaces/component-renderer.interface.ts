@@ -4,8 +4,6 @@
  */
 
 import { Type } from '@angular/core';
-import { FilterRendererSpec } from '../filters/datagrid-filter';
-import { ColumnRendererSpec } from '../interfaces/datagrid-column.interface';
 
 /**
  * Implemented by all the component renderers. The components that have to be rendered dynamically.
@@ -39,34 +37,4 @@ export interface ComponentRendererSpec<C> {
      * item as input and returns an object of {@link ComponentRenderer.config}
      */
     config: C | ((restItem: unknown) => C);
-}
-
-/**
- * Utility functions to enforce type safety on config object of components of {@link ComponentRenderer} type. Used for creating
- * component renderer specifications of {@link ColumnRendererSpec}, {@link FilterRendererSpec} type
- *
- * Example usage:
- * const gridColumn = {
- *   renderer: ColumnComponentRendererSpec({type: BoldTextRendererComponent, config: record => ({text: ''}),
- *   filterRendererSpec: FilterComponentRendererSpec({type: DatagridNumericFilterComponent, config: {value: [1, 2]}}),
- * }
- *
- * In the above examples these methods help in making sure that:
- * - Value "v" returned by the config function is of BoldTextRendererConfig type for gridColumn.renderer
- * - Value "v" of the config property is of [number, number] type for gridColumn.filterRendererSpec
- *
- * #Note: 'C & {}' below makes the inference site for C be the constructor type from the first argument.
- * {@link https://stackoverflow.com/questions/59055154/typescript-generics-infer-type-from-the-type-of-function-arguments}
- */
-export function ColumnComponentRendererSpec<R, C>(componentRendererSpec: {
-    type: ComponentRendererConstructor<C>;
-    config: (record?: R) => C & {};
-}): ColumnRendererSpec<R, C> {
-    return componentRendererSpec;
-}
-export function FilterComponentRendererSpec<R, C>(componentRendererSpec: {
-    type: ComponentRendererConstructor<C>;
-    config: C & {};
-}): FilterRendererSpec<C> {
-    return componentRendererSpec;
 }

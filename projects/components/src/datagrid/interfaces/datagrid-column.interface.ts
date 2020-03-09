@@ -235,3 +235,25 @@ export interface GridColumn<R> {
      */
     sortBy?: string;
 }
+
+/**
+ * Utility function to enforce type safety on config object of components of {@link ComponentRenderer} type. Used for creating
+ * component renderer specification of {@link ColumnRendererSpec} type
+ *
+ * Example usage:
+ * const gridColumn = {
+ *   renderer: ColumnComponentRendererSpec({type: BoldTextRendererComponent, config: record => ({text: ''})
+ * }
+ *
+ * In the above example this method helps in making sure that:
+ * - Value "v" returned by the config function is of BoldTextRendererConfig type for gridColumn.renderer
+ *
+ * #Note: 'C & {}' below makes the inference site for C be the constructor type from the first argument.
+ * {@link https://stackoverflow.com/questions/59055154/typescript-generics-infer-type-from-the-type-of-function-arguments}
+ */
+export function ColumnComponentRendererSpec<R, C>(componentRendererSpec: {
+    type: ComponentRendererConstructor<C>;
+    config: (record?: R) => C & {};
+}): ColumnRendererSpec<R, C> {
+    return componentRendererSpec;
+}

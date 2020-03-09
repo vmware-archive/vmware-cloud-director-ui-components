@@ -3,9 +3,10 @@
  * SPDX-License-Identifier: BSD-2-Clause
  */
 
+import { Component, Type } from '@angular/core';
+import { TestBed } from '@angular/core/testing';
 import { WidgetFinder } from '../widget-object';
 import { ClrDatagridWidgetObject } from './datagrid.wo';
-import { Component, Type } from '@angular/core';
 import {
     DatagridFilter,
     DatagridModule,
@@ -13,7 +14,6 @@ import {
     GridColumn,
     GridDataFetchResult,
 } from '../../../datagrid';
-import { TestBed } from '@angular/core/testing';
 import { MockRecord } from '../../../datagrid/mock-data';
 
 /**

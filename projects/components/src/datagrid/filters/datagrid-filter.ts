@@ -6,7 +6,11 @@
 import { ClrDatagridFilterInterface } from '@clr/angular/data/datagrid/interfaces/filter.interface';
 import { ClrDatagridFilter } from '@clr/angular';
 import { Observable, Subject } from 'rxjs';
-import { ComponentRenderer, ComponentRendererSpec } from '../interfaces/component-renderer.interface';
+import {
+    ComponentRenderer,
+    ComponentRendererConstructor,
+    ComponentRendererSpec,
+} from '../interfaces/component-renderer.interface';
 import { Input } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { debounceTime } from 'rxjs/operators';
@@ -126,4 +130,26 @@ export abstract class DatagridFilter<V, C extends FilterConfig<V>> extends Subsc
     debounceChanges(changesObs: Observable<unknown>): void {
         this.subscribe(changesObs.pipe(debounceTime(DEBOUNCE_TIME_FOR_GRID_FILTER_CHANGES)), () => this.changes.next());
     }
+}
+
+/**
+ * Utility function to enforce type safety on config object of components of {@link ComponentRenderer} type. Used for creating
+ * component renderer specifications of {@link FilterRendererSpec} type
+ *
+ * Example usage:
+ * const gridColumn = {
+ *   filterRendererSpec: FilterComponentRendererSpec({type: DatagridNumericFilterComponent, config: {value: [1, 2]}}),
+ * }
+ *
+ * In the above examples these methods help in making sure that:
+ * - Value "v" of the config property is of [number, number] type for gridColumn.filterRendererSpec
+ *
+ * #Note: 'C & {}' below makes the inference site for C be the constructor type from the first argument.
+ * {@link https://stackoverflow.com/questions/59055154/typescript-generics-infer-type-from-the-type-of-function-arguments}
+ */
+export function FilterComponentRendererSpec<R, C>(componentRendererSpec: {
+    type: ComponentRendererConstructor<C>;
+    config: C & {};
+}): FilterRendererSpec<C> {
+    return componentRendererSpec;
 }
