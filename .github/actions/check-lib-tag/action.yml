@@ -1,0 +1,12 @@
+name: 'Is a git tag with library name and version present'
+description: 'Checks if a library name and version is present in a git tag'
+inputs:
+    lib-name: # id of input
+        description: 'Name of the library for which the git tag has to be checked'
+        required: true
+outputs:
+    isLibTag: # id of output
+        description: 'boolean to check if a library tag is present'
+runs:
+    using: 'node12'
+    main: 'index.js'

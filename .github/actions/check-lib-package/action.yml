@@ -1,0 +1,12 @@
+name: 'Is a library package version modified'
+description: 'Checks if a library package version is changed in its package.json'
+inputs:
+    lib-name: # id of input
+        description: 'Name of the library for which the package.json has to be checked'
+        required: true
+outputs:
+    isLibPackageChanged: # id of output
+        description: 'boolean to convey if a library package.json has changed'
+runs:
+    using: 'node12'
+    main: 'index.js'

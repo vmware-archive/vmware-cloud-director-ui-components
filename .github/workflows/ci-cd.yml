@@ -1,0 +1,231 @@
+# Trigger the workflow on push to any branch or on pull request into master
+on:
+    push:
+    pull_request:
+        branches:
+            - master
+
+jobs:
+    prepare_node_modules:
+        runs-on: ubuntu-latest
+        steps:
+            - uses: actions/checkout@v2
+            - uses: actions/setup-node@v1
+              with:
+                  node-version: '13'
+            - uses: actions/cache@v1
+              with:
+                  path: ./node_modules
+                  key: ${{github.sha}}-node_modules
+            - run: npm ci
+
+    lint-projects:
+        runs-on: ubuntu-latest
+        name: Linting
+        needs: [prepare_node_modules]
+        steps:
+            - uses: actions/checkout@v2
+            - uses: actions/cache@v1
+              with:
+                  path: ./node_modules
+                  key: ${{github.sha}}-node_modules
+            - run: |
+                  npm run lint i18n
+                  npm run lint components
+                  npm run lint doc-lib
+                  npm run lint examples
+
+    build-i18n:
+        runs-on: ubuntu-latest
+        name: Build /i18n
+        needs: [lint-projects]
+        steps:
+            - uses: actions/checkout@v2
+            - uses: actions/cache@v1
+              with:
+                  path: ./node_modules
+                  key: ${{github.sha}}-node_modules
+            - uses: actions/cache@v1
+              with:
+                  path: ./dist/i18n
+                  key: i18n
+            - run: npm run build:i18n
+
+    build-components-lib:
+        runs-on: ubuntu-latest
+        name: Build /components
+        needs: [build-i18n]
+        steps:
+            - uses: actions/checkout@v2
+            - uses: actions/cache@v1
+              with:
+                  path: ./node_modules
+                  key: ${{github.sha}}-node_modules
+            - uses: actions/cache@v1
+              with:
+                  path: ./dist/i18n
+                  key: i18n
+            - uses: actions/cache@v1
+              with:
+                  path: ./dist/components
+                  key: ${{ github.sha }}-components
+            - run: npm run build:components
+
+    build-doc-lib:
+        runs-on: ubuntu-latest
+        name: Build /doc-lib
+        needs: [lint-projects]
+        steps:
+            - uses: actions/checkout@v2
+            - uses: actions/cache@v1
+              with:
+                  path: ./node_modules
+                  key: ${{github.sha}}-node_modules
+            - uses: actions/cache@v1
+              with:
+                  path: ./dist/doc-lib
+                  key: doc-lib
+            - run: npm run build:doc-lib
+
+    build-app:
+        runs-on: ubuntu-latest
+        name: Build /examples-app
+        needs: [build-components-lib, build-doc-lib]
+        steps:
+            - uses: actions/checkout@v2
+            - uses: actions/cache@v1
+              with:
+                  path: ./node_modules
+                  key: ${{github.sha}}-node_modules
+            - uses: actions/cache@v1
+              with:
+                  path: ./dist/components
+                  key: ${{ github.sha }}-components
+            - uses: actions/cache@v1
+              with:
+                  path: ./dist/doc-lib
+                  key: doc-lib
+            - uses: actions/cache@v1
+              with:
+                  path: ./dist/i18n
+                  key: i18n
+            - uses: actions/cache@v1
+              with:
+                  path: ./dist/examples
+                  key: examples
+            - run: |
+                  npm run build-components-doc
+                  npm run build-examples-doc
+                  npm run generate-translations
+                  npm run generate-example-translations
+                  npm run build:examples-prod
+
+    unit-testing:
+        runs-on: ubuntu-latest
+        name: Unit tests
+        needs: [build-i18n]
+        steps:
+            - uses: actions/checkout@v2
+            - uses: actions/cache@v1
+              with:
+                  path: ./node_modules
+                  key: ${{github.sha}}-node_modules
+            - uses: actions/cache@v1
+              with:
+                  path: ./dist/i18n
+                  key: i18n
+            - uses: actions/cache@v1
+              with:
+                  path: ./coverage
+                  key: coverage
+            - name: Run unit-tests
+              run: |
+                  npm run test:ci:components
+                  npm run test:ci:doc-lib
+                  npm run test:ci:i18n
+            - name: Upload coverage to Codecov
+              if: success()
+              uses: codecov/codecov-action@v1
+
+    gh-pages-deploy:
+        runs-on: ubuntu-latest
+        name: Deploying to Github pages
+        needs: [build-app, unit-testing]
+        steps:
+            - uses: actions/checkout@v2
+            - uses: actions/cache@v1
+              with:
+                  path: ./node_modules
+                  key: ${{github.sha}}-node_modules
+            - uses: actions/cache@v1
+              with:
+                  path: ./dist/examples
+                  key: examples
+            - run: npx ng deploy --no-build
+              if: github.ref == 'master' && github.event_name != 'pull_request'
+              env:
+                  GH_TOKEN: ${{ secrets.GH_TOKEN }}
+
+    publish-components-latest:
+        needs: [build-components-lib, unit-testing]
+        runs-on: ubuntu-latest
+        steps:
+            - uses: actions/checkout@v2
+            - uses: actions/setup-node@v1
+              with:
+                  node-version: '13'
+                  registry-url: https://registry.npmjs.org/
+            - uses: actions/cache@v1
+              with:
+                  path: ./node_modules
+                  key: ${{github.sha}}-node_modules
+            - uses: actions/cache@v1
+              with:
+                  path: ./dist/components
+                  key: ${{ github.sha }}-components
+            - id: check-components-tag
+              uses: ./.github/actions/check-lib-tag
+              with:
+                  lib-name: 'components'
+            - name: Publish components@latest
+              if: steps.check-components-tag.outputs.isLibTag == 'true'
+              run: |
+                  cd ./dist/components
+                  npm publish --access public
+              env:
+                  NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}
+
+    publish-components-next:
+        needs: [build-components-lib, unit-testing]
+        runs-on: ubuntu-latest
+        steps:
+            - uses: actions/checkout@v2
+              with:
+                  fetch-depth: 2
+            - uses: actions/setup-node@v1
+              with:
+                  node-version: '13'
+                  registry-url: https://registry.npmjs.org/
+            - uses: actions/cache@v1
+              with:
+                  path: ./node_modules
+                  key: ${{github.sha}}-node_modules
+            - uses: actions/cache@v1
+              with:
+                  path: ./dist/components
+                  key: ${{ github.sha }}-components
+            - id: check-components-tag
+              uses: ./.github/actions/check-lib-tag
+              with:
+                  lib-name: 'components'
+            - id: check-components-package
+              uses: ./.github/actions/check-lib-package
+              with:
+                  lib-name: 'components'
+            - name: Publish components@next
+              if: steps.check-components-tag.outputs.isLibTag != 'true' && steps.check-components-package.outputs.isLibPackageChanged == 'true'
+              run: |
+                  cd ./dist/components
+                  npm publish
+              env:
+                  NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}
