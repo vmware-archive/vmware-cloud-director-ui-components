@@ -1,4 +1,8 @@
 <h3 *ngIf="this.header" class="vcd-header">{{ header }}</h3>
+<vcd-spinner-activity-reporter #actionReporter *ngIf="ActivityIndicatorType.SPINNER === indicatorType">
+</vcd-spinner-activity-reporter>
+<vcd-banner-activity-reporter #actionReporter *ngIf="ActivityIndicatorType.BANNER === indicatorType">
+</vcd-banner-activity-reporter>
 <clr-datagrid
     [clrDgLoading]="isLoading"
     [ngClass]="[this.clrDatagridCssClass, this.height ? 'set-height' : 'fill-parent-grid']"
@@ -10,7 +14,7 @@
                 class="btn"
                 [ngClass]="button.class"
                 *ngIf="isButtonShown(button)"
-                (click)="button.handler()"
+                (click)="runButtonHandler(button, [])"
                 [disabled]="isButtonDisabled(button, button.isActive())"
             >
                 <ng-container>{{ button.label }}</ng-container>
@@ -23,7 +27,7 @@
                     *ngFor="let button of this.getFeaturedButtons()"
                     type="button"
                     class="btn btn-icon"
-                    (click)="button.handler(datagridSelection)"
+                    (click)="runButtonHandler(button, datagridSelection)"
                     [disabled]="isButtonDisabled(button, button.isActive(datagridSelection))"
                 >
                     <a role="tooltip" aria-haspopup="true" class="tooltip tooltip-sm">
@@ -80,7 +84,7 @@
                 <button
                     class="btn btn-icon action-button"
                     *ngFor="let button of this.getFeaturedButtons(restItem)"
-                    (click)="button.handler([restItem])"
+                    (click)="runButtonHandler(button, [restItem])"
                     [disabled]="isButtonDisabled(button, button.isActive([restItem]))"
                 >
                     <a role="tooltip" aria-haspopup="true" class="tooltip tooltip-sm">
@@ -101,7 +105,7 @@
                                 class="btn"
                                 [ngClass]="button.class"
                                 [disabled]="!button.isActive([restItem])"
-                                (click)="button.handler([restItem])"
+                                (click)="runButtonHandler(button, [restItem])"
                             >
                                 {{ button.label }}
                             </button>
@@ -155,7 +159,7 @@
                 class="btn"
                 [ngClass]="button.class"
                 [disabled]="!button.isActive(this.datagridSelection)"
-                (click)="button.handler(this.datagridSelection)"
+                (click)="runButtonHandler(button, this.datagridSelection)"
             >
                 {{ button.label }}
             </button>

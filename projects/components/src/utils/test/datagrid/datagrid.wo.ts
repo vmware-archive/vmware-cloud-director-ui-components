@@ -200,8 +200,8 @@ export class ClrDatagridWidgetObject extends WidgetObject<ClrDatagrid> {
      * Gives the header above the grid.
      */
     get gridHeader(): string | undefined {
-        const headerElement = this.root.nativeElement.previousSibling;
-        return headerElement.nodeType !== 8 ? headerElement.textContent : undefined;
+        const headerElement = this.findElement('h3', this.root.parent);
+        return headerElement ? headerElement.nativeElement.textContent : undefined;
     }
 
     /**

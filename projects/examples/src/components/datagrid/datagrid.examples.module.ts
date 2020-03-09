@@ -12,7 +12,6 @@ import { DatagridCssClassesExampleComponent } from './datagrid-css-classes.examp
 import { DatagridCssClassesExampleModule } from './datagrid-css-classes.example.module';
 import { DatagridDetailRowExampleComponent } from './datagrid-detail-row.example.component';
 import { DatagridDetailRowExampleModule } from './datagrid-detail-row.example.module';
-import { DatagridFilterExampleComponent } from './datagrid-filter.example.component';
 import { DatagridFilterExampleModule } from './datagrid-filter.example.module';
 import { DatagridHeaderExampleComponent } from './datagrid-header.example.component';
 import { DatagridHeaderExampleModule } from './datagrid-header.example.module';
@@ -30,6 +29,8 @@ import { DatagridSortExampleComponent } from './datagrid-sort.example.component'
 import { DatagridSortExampleModule } from './datagrid-sort.example.module';
 import { DatagridThreeRenderersExampleComponent } from './datagrid-three-renderers.example.component';
 import { DatagridThreeRenderersExampleModule } from './datagrid-three-renderers.example.module';
+import { DatagridActivityReporterExampleComponent } from './datagrid-activity-reporter.example.component';
+import { DatagridActivityReporterExampleModule } from './datagrid-activity-reporter.example.module';
 
 Documentation.registerDocumentationEntry({
     component: DatagridComponent,
@@ -95,6 +96,10 @@ Documentation.registerDocumentationEntry({
             component: DatagridCliptextExampleComponent,
             forComponent: null,
             title: 'Cliptext in the datagrid cells',
+        }, {
+            component: DatagridActivityReporterExampleComponent,
+            forComponent: null,
+            title: 'Activity reporter + buttons example',
         },
     ],
 });
@@ -115,6 +120,7 @@ Documentation.registerDocumentationEntry({
         DatagridHeaderExampleModule,
         DatagridFilterExampleModule,
         DatagridCliptextExampleModule,
+        DatagridActivityReporterExampleModule,
     ],
 })
 export class DatagridExamplesModule {}

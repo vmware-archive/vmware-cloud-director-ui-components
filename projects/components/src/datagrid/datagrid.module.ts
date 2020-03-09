@@ -20,6 +20,7 @@ import { DatagridStringFilterComponent } from './filters/datagrid-string-filter.
 import { DatagridNumericFilterComponent } from './filters/datagrid-numeric-filter.component';
 import { DatagridSelectFilterComponent } from './filters/datagrid-select-filter.component';
 import { DatagridMultiSelectFilterComponent } from './filters/datagrid-multiselect-filter.component';
+import { ActivityReporterModule } from '../common/activity-reporter/activity-reporter.module';
 
 const directives = [ComponentRendererOutletDirective];
 const pipes = [FunctionRendererPipe];
@@ -42,6 +43,7 @@ const filters = [
         FormsModule,
         BrowserAnimationsModule,
         I18nModule,
+        ActivityReporterModule,
     ],
     declarations: [DatagridComponent, ...directives, ...renderers, ...pipes, ...filters],
     providers: [],

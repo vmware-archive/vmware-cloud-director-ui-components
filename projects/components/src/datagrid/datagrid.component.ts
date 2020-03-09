@@ -31,6 +31,7 @@ import {
     InactiveButtonDisplayMode,
 } from './interfaces/datagrid-column.interface';
 import { ContextualButton } from './interfaces/datagrid-column.interface';
+import { ActivityReporter } from '../common/activity-reporter/activity-reporter';
 
 /**
  * The default number of items on a single page.
@@ -96,6 +97,20 @@ export interface SortedColumn {
      * The name of the column that is sorted.
      */
     name: string;
+}
+
+/**
+ * The types of activity indicators that can be displayed on top of the grid.
+ */
+export enum ActivityIndicatorType {
+    /**
+     * Display a {@link SpinnerActivityReporterComponent} indicator
+     */
+    SPINNER,
+    /**
+     * Display a {@link BannerActivityReporterComponent} indicator
+     */
+    BANNER,
 }
 
 /**
@@ -213,6 +228,12 @@ export class DatagridComponent<R> implements OnInit, AfterViewInit {
     }
 
     /**
+     * The type of activity indicator that should sit ontop of the grid.
+     */
+    @Input()
+    indicatorType: ActivityIndicatorType;
+
+    /**
      * Set from the caller component using this grid. The input is set upon fetching data by the caller
      */
     @Input() set gridData(result: GridDataFetchResult<R>) {
@@ -233,6 +254,7 @@ export class DatagridComponent<R> implements OnInit, AfterViewInit {
     ContextualButtonPosition = ContextualButtonPosition;
     GridColumnHideable = GridColumnHideable;
     TooltipSize = TooltipSize;
+    ActivityIndicatorType = ActivityIndicatorType;
     private _columns: GridColumn<R>[];
 
     @ContentChild(TemplateRef, { static: false }) detailTemplate!: TemplateRef<ElementRef>;
@@ -400,6 +422,11 @@ export class DatagridComponent<R> implements OnInit, AfterViewInit {
     @ViewChild(ClrDatagridPagination, { static: false }) paginationComponent: ClrDatagridPagination;
 
     /**
+     * The activity reporter that all activites are displayed on
+     */
+    @ViewChild('actionReporter', { static: false }) actionReporter: ActivityReporter;
+
+    /**
      * Returns an identifier for the given record at the given index.
      *
      * If the record has a href, defaults to that. Else, defaults to index.
@@ -495,6 +522,16 @@ export class DatagridComponent<R> implements OnInit, AfterViewInit {
      */
     hasContextualButtons(): boolean {
         return this._buttonConfig.contextualButtonConfig.buttons.length !== 0;
+    }
+
+    /**
+     * Runs the handler function for the given button with the given selection.
+     */
+    runButtonHandler(button: Button<R>, selection?: R[]): void {
+        const response = button.handler(selection);
+        if (response && this.actionReporter) {
+            this.actionReporter.monitorActivity(response);
+        }
     }
 
     /**

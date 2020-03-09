@@ -9,7 +9,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { TooltipSize } from '../lib/directives/show-clipped-text.directive';
 import { ClrDatagridWidgetObject } from '../utils/test/datagrid/datagrid.wo';
 import { WidgetFinder } from '../utils/test/widget-object';
-import { GridSelectionType, PaginationConfiguration } from './datagrid.component';
+import { GridSelectionType, PaginationConfiguration, ActivityIndicatorType } from './datagrid.component';
 import { DatagridComponent, GridDataFetchResult, GridState } from './datagrid.component';
 import { DatagridModule } from './datagrid.module';
 import {
@@ -679,6 +679,41 @@ describe('DatagridComponent', () => {
                     });
                 });
             });
+
+            describe('@Input() indicatorType', () => {
+                let resolvePromise;
+
+                beforeEach(function(this: HasFinderAndGrid): void {
+                    this.finder.hostComponent.buttonConfig.globalButtons = [
+                        {
+                            label: 'Add',
+                            isActive: () => true,
+                            handler: () =>
+                                new Promise(resolve => {
+                                    resolvePromise = resolve;
+                                }),
+                            class: 'button',
+                        },
+                    ];
+                    this.finder.detectChanges();
+                });
+
+                it('is able to show the spinner indicator', function(this: HasFinderAndGrid): void {
+                    this.finder.hostComponent.indicatorType = ActivityIndicatorType.SPINNER;
+                    this.finder.detectChanges();
+                    const spy = spyOn(this.finder.hostComponent.grid.actionReporter, 'monitorActivity');
+                    this.clrGridWidget.pressTopButton(0);
+                    expect(spy).toHaveBeenCalledTimes(1);
+                });
+
+                it('is able to show the banner indicator', function(this: HasFinderAndGrid): void {
+                    this.finder.hostComponent.indicatorType = ActivityIndicatorType.BANNER;
+                    this.finder.detectChanges();
+                    const spy = spyOn(this.finder.hostComponent.grid.actionReporter, 'monitorActivity');
+                    this.clrGridWidget.pressTopButton(0);
+                    expect(spy).toHaveBeenCalledTimes(1);
+                });
+            });
         });
 
         describe('@Input() header', () => {
@@ -757,6 +792,7 @@ describe('DatagridComponent', () => {
             [buttonConfig]="buttonConfig"
             [height]="height"
             [header]="header"
+            [indicatorType]="indicatorType"
         >
             <ng-template let-record="record"> DETAILS: {{ record.name }} </ng-template>
         </vcd-datagrid>
@@ -780,6 +816,8 @@ export class HostWithDatagridComponent {
     height?: number;
 
     header?: string;
+
+    indicatorType?: ActivityIndicatorType;
 
     buttonConfig: ButtonConfig<MockRecord> = {
         globalButtons: [],
