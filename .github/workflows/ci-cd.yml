@@ -61,10 +61,6 @@ jobs:
               with:
                   path: node_modules
                   key: node_modules
-           - uses: actions/cache@v1
-               with:
-                  path: node_modules
-                  key: node_modules
             - uses: actions/cache@v1
               with:
                   key: i18n
@@ -87,16 +83,27 @@ jobs:
             - run: npm run build:doc-lib
 
     unit-testing:
-      runs-on: ubuntu-latest
-      name: Unit tests
-      steps:
-        - uses: actions/checkout@v2
-        - uses: actions/cache@v1
-          with:
-            path: node_modules
-            key: node_modules
-        - run: |
-            npm run test:ci:components
-            npm run test:ci:doc-lib
-            npm run test:ci:i18n
-            ./node_modules/.bin/codecov
+        runs-on: ubuntu-latest
+        name: Unit tests
+        steps:
+            - uses: actions/checkout@v2
+            - uses: actions/cache@v1
+              with:
+                  path: node_modules
+                  key: node_modules
+            - run: |
+                  npm run test:ci:components
+                  npm run test:ci:doc-lib
+                  npm run test:ci:i18n
+                  ./node_modules/.bin/codecov
+
+#    gh-pages-deploy:
+#      runs-on: ubuntu-latest
+#      name: Deploying to Github pages
+#      steps:
+#        - uses: actions/checkout@v2
+#        - uses: actions/cache@v1
+#            with:
+#              path: node_modules
+#              key: node_modules
+#        - run: ng deploy --no-build
