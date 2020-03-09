@@ -35,7 +35,6 @@ jobs:
                   npm run lint doc-lib
                   npm run lint examples
 
-
     build-i18n:
         runs-on: ubuntu-latest
         name: Build /i18n
@@ -85,24 +84,24 @@ jobs:
             - run: npm run build:doc-lib
 
     build-app:
-      runs-on: ubuntu-latest
-      name: Build /examples-app
-      needs: [build-components-lib, build-doc-lib]
-      steps:
-        - uses: actions/checkout@v2
-        - uses: actions/cache@v1
-          with:
-              path: node_modules
-              key: node_modules
-        - uses: actions/cache@v1
-            with:
-              path: ./dist/components
-              key: components
-        - uses: actions/cache@v1
-          with:
-              path: ./dist/doc-lib
-              key: doc-lib
-        - run: npm run build:doc-lib
+        runs-on: ubuntu-latest
+        name: Build /examples-app
+        needs: [build-components-lib, build-doc-lib]
+        steps:
+            - uses: actions/checkout@v2
+            - uses: actions/cache@v1
+              with:
+                  path: node_modules
+                  key: node_modules
+            - uses: actions/cache@v1
+              with:
+                  path: ./dist/components
+                  key: components
+            - uses: actions/cache@v1
+              with:
+                  path: ./dist/doc-lib
+                  key: doc-lib
+            - run: npm run build:doc-lib
 
     unit-testing:
         runs-on: ubuntu-latest
@@ -126,7 +125,7 @@ jobs:
 #      steps:
 #        - uses: actions/checkout@v2
 #        - uses: actions/cache@v1
-#            with:
-#              path: node_modules
-#              key: node_modules
+#          with:
+#            path: node_modules
+#            key: node_modules
 #        - run: ng deploy --no-build
