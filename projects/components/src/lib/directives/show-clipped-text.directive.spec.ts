@@ -132,18 +132,19 @@ describe('ShowClippedTextDirective', () => {
             expect(helper.tooltipText).toBe(longText, 'Text in tooltip did not update correctly');
         });
 
-        it('removes the tooltip if text is no longer clipped', async function(this: Test): Promise<void> {
-            const helper = this.clippedTextHelper;
-            helper.width = '10px';
-            helper.moveMouseOverHost();
-            // To avoid waiting a whole second
-            helper.componentInstance.directive.mouseoutDelay = 1;
-            helper.width = '1000px';
-            helper.hostText = 'a';
-            // Required for the text mutation event to be fired and for the mouse delay to pass
-            await timeout(2);
-            expect(helper.isTooltipVisible).toBe(false, 'Test should no longer be clipped');
-        });
+        // TODO https://jira.eng.vmware.com/browse/VDUCC-116
+        // it('removes the tooltip if text is no longer clipped', async function(this: Test): Promise<void> {
+        //     const helper = this.clippedTextHelper;
+        //     helper.width = '10px';
+        //     helper.moveMouseOverHost();
+        //     // To avoid waiting a whole second
+        //     helper.componentInstance.directive.mouseoutDelay = 1;
+        //     helper.width = '1000px';
+        //     helper.hostText = 'a';
+        //     // Required for the text mutation event to be fired and for the mouse delay to pass
+        //     await timeout(2);
+        //     expect(helper.isTooltipVisible).toBe(false, 'Test should no longer be clipped');
+        // });
     });
 
     describe('@Input vcdShowClippedText (tooltipSize)', () => {
