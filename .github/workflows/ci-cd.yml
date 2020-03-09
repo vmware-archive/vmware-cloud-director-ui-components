@@ -135,8 +135,23 @@ jobs:
                   npm run test:ci:components
                   npm run test:ci:doc-lib
                   npm run test:ci:i18n
-            - name: Generate codecov
-              if: success()
+    #            - name: Generate codecov
+    #              if: success()
+    #              run: npx codecov
+
+    generate-codecov:
+        runs-on: ubuntu-latest
+        name: Generate Codecov
+        needs: [unit-testing]
+        steps:
+            - uses: actions/cache@v1
+              with:
+                  path: node_modules
+                  key: node_modules
+            - uses: actions/cache@v1
+              with:
+                  path: ./coverage
+                  key: coverage
               run: npx codecov
 
     gh-pages-deploy:
