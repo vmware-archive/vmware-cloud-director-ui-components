@@ -142,6 +142,7 @@ jobs:
     gh-pages-deploy:
         runs-on: ubuntu-latest
         name: Deploying to Github pages
+        needs: [build-app]
         steps:
             - uses: actions/checkout@v2
             - uses: actions/cache@v1
@@ -153,4 +154,3 @@ jobs:
                   path: ./dist/examples
                   key: examples
             - run: ng deploy --no-build
-              if:
