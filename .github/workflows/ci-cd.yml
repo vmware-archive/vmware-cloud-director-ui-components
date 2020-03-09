@@ -63,8 +63,8 @@ jobs:
                   key: node_modules
            - uses: actions/cache@v1
                with:
-                    path: node_modules
-                    key: node_modules
+                  path: node_modules
+                  key: node_modules
             - uses: actions/cache@v1
               with:
                   key: i18n
