@@ -36,24 +36,13 @@ export class DatagridFilterExampleComponent {
             displayName: 'Custom String filter',
             renderer: 'state',
             queryFieldName: 'state',
-            filterRendererSpec: FilterComponentRendererSpec({
-                type: DatagridStringFilterComponent,
-                config: {
-                    wildCardPosition: WildCardPosition.END,
-                    value: '',
-                },
-            }),
+            filterRendererSpec: DatagridStringFilterComponent.factory(WildCardPosition.END, ''),
         },
         {
             displayName: 'Custom Numeric filter',
             renderer: 'age',
             queryFieldName: 'age',
-            filterRendererSpec: FilterComponentRendererSpec({
-                type: DatagridNumericFilterComponent,
-                config: {
-                    value: [1, 2],
-                },
-            }),
+            filterRendererSpec: DatagridNumericFilterComponent.factory([1, 2]),
         },
     ];
 

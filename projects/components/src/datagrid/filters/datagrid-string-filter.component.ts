@@ -4,7 +4,7 @@
  */
 
 import { Component, Host, OnInit } from '@angular/core';
-import { DatagridFilter, FilterConfig } from './datagrid-filter';
+import { DatagridFilter, FilterConfig, FilterComponentRendererSpec, FilterRendererSpec } from './datagrid-filter';
 import { ClrDatagridFilter } from '@clr/angular';
 import { FilterBuilder } from '../../utils/filter-builder';
 import { FormBuilder } from '@angular/forms';
@@ -32,6 +32,22 @@ export class DatagridStringFilterComponent extends DatagridFilter<string, Datagr
         super(filterContainer);
         this.formGroup = this.fb.group({
             filterText: '',
+        });
+    }
+
+    /**
+     * Creates a {@link FilterRendererSpec} with the given config.
+     */
+    static factory(
+        wildCardPosition?: WildCardPosition,
+        value?: string
+    ): FilterRendererSpec<DatagridStringFilterConfig> {
+        return FilterComponentRendererSpec({
+            type: DatagridStringFilterComponent,
+            config: {
+                wildCardPosition,
+                value,
+            },
         });
     }
 

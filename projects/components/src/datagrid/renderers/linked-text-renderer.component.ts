@@ -5,6 +5,7 @@
 
 import { Component, Input } from '@angular/core';
 import { ComponentRenderer } from '../interfaces/component-renderer.interface';
+import { ColumnRendererSpec, ColumnComponentRendererSpec } from '../interfaces/datagrid-column.interface';
 
 /**
  * {@link ComponentRenderer.config} type that the {@link LinkedTextRendererComponent} can understand
@@ -82,4 +83,16 @@ export interface LinkedTextRendererConfig {
 export class LinkedTextRendererComponent implements ComponentRenderer<LinkedTextRendererConfig> {
     @Input()
     config: LinkedTextRendererConfig;
+
+    /**
+     * Creates a {@link ColumnRendererSpec} for rendering bold text in a column.
+     */
+    static factory<R>(
+        configExtractor: (record: R) => LinkedTextRendererConfig
+    ): ColumnRendererSpec<R, LinkedTextRendererConfig> {
+        return ColumnComponentRendererSpec({
+            type: LinkedTextRendererComponent,
+            config: configExtractor,
+        });
+    }
 }

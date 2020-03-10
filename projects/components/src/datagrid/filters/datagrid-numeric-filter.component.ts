@@ -4,7 +4,7 @@
  */
 
 import { Component, Host, OnInit } from '@angular/core';
-import { DatagridFilter, FilterConfig } from './datagrid-filter';
+import { DatagridFilter, FilterConfig, FilterComponentRendererSpec, FilterRendererSpec } from './datagrid-filter';
 import { ClrDatagridFilter } from '@clr/angular';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { FilterBuilder } from '../../utils/filter-builder';
@@ -26,13 +26,24 @@ export type DatagridNumericFilterConfig = FilterConfig<[number, number]>;
 })
 export class DatagridNumericFilterComponent extends DatagridFilter<[number, number], DatagridNumericFilterConfig>
     implements OnInit {
-    formGroup: FormGroup;
-
-    constructor(@Host() private filterContainer: ClrDatagridFilter, private fb: FormBuilder) {
+    constructor(@Host() filterContainer: ClrDatagridFilter, private fb: FormBuilder) {
         super(filterContainer);
         this.formGroup = this.fb.group({
             [FormFields.from]: null,
             [FormFields.to]: null,
+        });
+    }
+    formGroup: FormGroup;
+
+    /**
+     * Creates a {@link FilterRendererSpec} with the given config.
+     */
+    static factory(value?: [number, number]): FilterRendererSpec<DatagridNumericFilterConfig> {
+        return FilterComponentRendererSpec({
+            type: DatagridNumericFilterComponent,
+            config: {
+                value,
+            },
         });
     }
 
