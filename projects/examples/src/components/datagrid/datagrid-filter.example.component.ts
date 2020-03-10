@@ -6,6 +6,7 @@
 import { Component } from '@angular/core';
 import {
     DatagridNumericFilterComponent,
+    DatagridSelectFilterComponent,
     DatagridStringFilterComponent,
     FilterComponentRendererSpec,
     GridColumn,
@@ -45,6 +46,27 @@ export class DatagridFilterExampleComponent {
             renderer: 'age',
             queryFieldName: 'age',
             filterRendererSpec: DatagridNumericFilter([1, 2]),
+        },
+        {
+            displayName: 'Custom Select filter',
+            renderer: 'age',
+            queryFieldName: 'age',
+            filterRendererSpec: FilterComponentRendererSpec({
+                type: DatagridSelectFilterComponent,
+                config: {
+                    options: [
+                        {
+                            value: 30,
+                            display: 'Thirty',
+                        },
+                        {
+                            value: 60,
+                            display: 'sixty',
+                        },
+                    ],
+                    value: 60,
+                },
+            }),
         },
     ];
 

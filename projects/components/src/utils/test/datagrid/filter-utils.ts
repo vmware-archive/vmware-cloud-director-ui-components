@@ -15,6 +15,7 @@ import {
     GridDataFetchResult,
 } from '../../../datagrid';
 import { MockRecord } from '../../../datagrid/mock-data';
+import { MockTranslationService, TranslationService } from '@vcd/i18n';
 
 /**
  * Used inside beforeEach functions of filter tests and it does the following:
@@ -40,6 +41,12 @@ export function createDatagridFilterTestHelper<V, C>(
     TestBed.configureTestingModule({
         imports: [DatagridModule],
         declarations: [FilterTestHostComponent],
+        providers: [
+            {
+                provide: TranslationService,
+                useClass: MockTranslationService,
+            },
+        ],
     }).compileComponents();
 
     // Add the filter to grid column

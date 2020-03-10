@@ -8,6 +8,8 @@ import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ClarityModule } from '@clr/angular';
 import { RouterModule } from '@angular/router';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { I18nModule } from '@vcd/i18n';
 import { DatagridComponent } from './datagrid.component';
 import { ComponentRendererOutletDirective } from './directives/component-renderer-outlet.directive';
 import { PipesModule } from '../common/pipes/pipes.module';
@@ -16,12 +18,12 @@ import { BoldTextRendererComponent } from './renderers/bold-text-renderer.compon
 import { ShowClippedTextDirectiveModule } from '../lib/directives/show-clipped-text.directive.module';
 import { DatagridStringFilterComponent } from './filters/datagrid-string-filter.component';
 import { DatagridNumericFilterComponent } from './filters/datagrid-numeric-filter.component';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { DatagridSelectFilterComponent } from './filters/datagrid-select-filter.component';
 
 const directives = [ComponentRendererOutletDirective];
 const pipes = [FunctionRendererPipe];
 const renderers = [BoldTextRendererComponent];
-const filters = [DatagridNumericFilterComponent, DatagridStringFilterComponent];
+const filters = [DatagridNumericFilterComponent, DatagridStringFilterComponent, DatagridSelectFilterComponent];
 
 @NgModule({
     imports: [
@@ -33,6 +35,7 @@ const filters = [DatagridNumericFilterComponent, DatagridStringFilterComponent];
         ShowClippedTextDirectiveModule,
         FormsModule,
         BrowserAnimationsModule,
+        I18nModule,
     ],
     declarations: [DatagridComponent, ...directives, ...renderers, ...pipes, ...filters],
     providers: [],
