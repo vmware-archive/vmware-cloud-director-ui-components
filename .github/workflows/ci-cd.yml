@@ -120,37 +120,38 @@ jobs:
                   npm run generate-example-translations
                   npm run build:examples-prod
 
-    unit-testing:
-        runs-on: ubuntu-latest
-        name: Unit tests
-        needs: [build-i18n]
-        steps:
-            - uses: actions/checkout@v2
-            - uses: actions/cache@v1
-              with:
-                  path: node_modules
-                  key: node_modules
-            - uses: actions/cache@v1
-              with:
-                  path: ./dist/i18n
-                  key: i18n
-            - uses: actions/cache@v1
-              with:
-                  path: ./coverage
-                  key: coverage
-            - name: Run unit-tests
-              run: |
-                  npm run test:ci:components
-                  npm run test:ci:doc-lib
-                  npm run test:ci:i18n
-            - name: Upload coverage to Codecov
-              if: success()
-              uses: codecov/codecov-action@v1
+    #    unit-testing:
+    #        runs-on: ubuntu-latest
+    #        name: Unit tests
+    #        needs: [build-i18n]
+    #        steps:
+    #            - uses: actions/checkout@v2
+    #            - uses: actions/cache@v1
+    #              with:
+    #                  path: node_modules
+    #                  key: node_modules
+    #            - uses: actions/cache@v1
+    #              with:
+    #                  path: ./dist/i18n
+    #                  key: i18n
+    #            - uses: actions/cache@v1
+    #              with:
+    #                  path: ./coverage
+    #                  key: coverage
+    #            - name: Run unit-tests
+    #              run: |
+    #                  npm run test:ci:components
+    #                  npm run test:ci:doc-lib
+    #                  npm run test:ci:i18n
+    #            - name: Upload coverage to Codecov
+    #              if: success()
+    #              uses: codecov/codecov-action@v1
 
     gh-pages-deploy:
         runs-on: ubuntu-latest
         name: Deploying to Github pages
-        needs: [build-app, unit-testing]
+        #      , unit-testing]
+        needs: [build-app]
         steps:
             - uses: actions/checkout@v2
             - uses: actions/cache@v1
@@ -162,4 +163,4 @@ jobs:
                   path: ./dist/examples
                   key: examples
             - run: ng deploy --no-build
-              if: github.ref == 'gh-actions' && github.repository == 'ps37/vmware-cloud-director-ui-components' && github.event_name != 'pull_request'
+              if: github.ref == 'gh-actions' && github.repository == 'https://github.com/ps37/vmware-cloud-director-ui-components' && github.event_name != 'pull_request'
