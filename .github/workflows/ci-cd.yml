@@ -152,6 +152,7 @@ jobs:
         name: Upload coverage to Codecov
         needs: [unit-testing]
         steps:
+            - uses: actions/checkout@v2
             - uses: actions/cache@v1
               with:
                   path: node_modules
