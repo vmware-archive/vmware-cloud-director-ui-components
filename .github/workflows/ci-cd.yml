@@ -167,7 +167,7 @@ jobs:
 
     publish-components-latest:
         #      , unit-testing]
-        needs: [build-components]
+        needs: [build-components-lib]
         runs-on: ubuntu-latest
         steps:
             - uses: actions/setup-node@v1
