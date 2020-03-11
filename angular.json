@@ -201,7 +201,7 @@
         "deploy": {
           "builder": "angular-cli-ghpages:deploy",
           "options": {
-              "repo": "https://github.com/vmware/vmware-cloud-director-ui-components",
+              "repo": "https://github.com/ps37/vmware-cloud-director-ui-components",
               "baseHref": "/vmware-cloud-director-ui-components/",
               "noSilent": true
           }
