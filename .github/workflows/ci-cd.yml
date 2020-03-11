@@ -162,4 +162,4 @@ jobs:
                   path: ./dist/examples
                   key: examples
             - run: ng deploy --no-build
-              if: github.ref = 'gh-actions' && github.repository = 'ps37/vmware-cloud-director-ui-components' && github.event_name !== 'pull_request'
+              if: github.ref == 'gh-actions' && github.repository == 'ps37/vmware-cloud-director-ui-components' && github.event_name != 'pull_request'
