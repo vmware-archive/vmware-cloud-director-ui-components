@@ -68,7 +68,7 @@ export abstract class DatagridFilter<V, C extends FilterConfig<V>> extends Subsc
      * Assigned from {@link ComponentRendererOutletDirective#assignValue} after the filter component is created.
      * Used by the getValue method in sub classes to format the FIQL string output.
      */
-    private _config: C;
+    protected _config: C;
     @Input() set config(val: C) {
         this._config = val;
         if (this._config.value) {

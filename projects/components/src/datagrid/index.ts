@@ -12,3 +12,4 @@ export * from './filters/datagrid-filter';
 export * from './filters/datagrid-numeric-filter.component';
 export * from './filters/datagrid-string-filter.component';
 export * from './filters/datagrid-select-filter.component';
+export * from './filters/datagrid-multiselect-filter.component';

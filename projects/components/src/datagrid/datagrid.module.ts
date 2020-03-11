@@ -19,11 +19,17 @@ import { ShowClippedTextDirectiveModule } from '../lib/directives/show-clipped-t
 import { DatagridStringFilterComponent } from './filters/datagrid-string-filter.component';
 import { DatagridNumericFilterComponent } from './filters/datagrid-numeric-filter.component';
 import { DatagridSelectFilterComponent } from './filters/datagrid-select-filter.component';
+import { DatagridMultiSelectFilterComponent } from './filters/datagrid-multiselect-filter.component';
 
 const directives = [ComponentRendererOutletDirective];
 const pipes = [FunctionRendererPipe];
 const renderers = [BoldTextRendererComponent];
-const filters = [DatagridNumericFilterComponent, DatagridStringFilterComponent, DatagridSelectFilterComponent];
+const filters = [
+    DatagridNumericFilterComponent,
+    DatagridStringFilterComponent,
+    DatagridSelectFilterComponent,
+    DatagridMultiSelectFilterComponent,
+];
 
 @NgModule({
     imports: [

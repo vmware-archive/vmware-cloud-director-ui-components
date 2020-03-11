@@ -5,6 +5,7 @@
 
 import { Component } from '@angular/core';
 import {
+    DatagridMultiSelectFilterComponent,
     DatagridNumericFilterComponent,
     DatagridSelectFilterComponent,
     DatagridStringFilterComponent,
@@ -65,6 +66,31 @@ export class DatagridFilterExampleComponent {
                         },
                     ],
                     value: 60,
+                },
+            }),
+        },
+        {
+            displayName: 'Custom multi-select filter',
+            renderer: 'state',
+            queryFieldName: 'state',
+            filterRendererSpec: FilterComponentRendererSpec({
+                type: DatagridMultiSelectFilterComponent,
+                config: {
+                    options: [
+                        {
+                            value: 'CA',
+                            display: 'California',
+                        },
+                        {
+                            value: 'MA',
+                            display: 'Massachusetts',
+                        },
+                        {
+                            value: 'NC',
+                            display: 'North Carolina',
+                        },
+                    ],
+                    value: ['MA', 'NC'],
                 },
             }),
         },
