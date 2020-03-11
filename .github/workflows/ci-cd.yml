@@ -163,4 +163,18 @@ jobs:
                   path: ./dist/examples
                   key: examples
             - run: ng deploy --no-build
-              if: github.ref == 'gh-actions' && github.repository == 'https://github.com/ps37/vmware-cloud-director-ui-components' && github.event_name != 'pull_request'
+#              if: github.ref == 'gh-actions' && github.repository == 'https://github.com/ps37/vmware-cloud-director-ui-components' && github.event_name != 'pull_request'
+
+#    publish-components-latest:
+#      needs: build
+#      runs-on: ubuntu-latest
+#      steps:
+#        - uses: actions/checkout@v2
+#        - uses: actions/setup-node@v1
+#          with:
+#            node-version: 13
+#            registry-url: https://registry.npmjs.org/
+#        - run: npm ci
+#        - run: npm publish
+#          env:
+#            NODE_AUTH_TOKEN: ${{secrets.npm_token}}
