@@ -107,6 +107,10 @@ jobs:
                   key: doc-lib
             - uses: actions/cache@v1
               with:
+                  path: ./dist/i18n
+                  key: i18n
+            - uses: actions/cache@v1
+              with:
                   path: ./dist/examples
                   key: examples
             - run: |
