@@ -13,6 +13,7 @@ import {
     GridColumn,
     GridDataFetchResult,
     GridState,
+    SelectOption,
     WildCardPosition,
     DatagridNumericFilter,
     DatagridStringFilter,
@@ -21,6 +22,8 @@ import { mockData, MockRecord } from './mock-data';
 
 @Component({
     template: `
+        <button [disabled]="!selectFilterOptions.length" (click)="removeSelectFilterOption()">Remove option</button>
+        <button (click)="updateSelectFilterOptions()">Update options</button>
         <vcd-datagrid [gridData]="gridData" (gridRefresh)="refresh($event)" [columns]="columns"></vcd-datagrid>
     `,
     selector: 'vcd-datagrid-filter-example',
@@ -30,6 +33,17 @@ export class DatagridFilterExampleComponent {
         items: [],
     };
 
+    selectFilterOptions: SelectOption[] = [
+        {
+            value: 30,
+            display: 'Thirty',
+        },
+        {
+            value: 60,
+            display: 'sixty',
+        },
+    ];
+
     columns: GridColumn<MockRecord>[] = [
         {
             displayName: 'Default String filter',
@@ -37,40 +51,31 @@ export class DatagridFilterExampleComponent {
             queryFieldName: 'state',
         },
         {
-            displayName: 'Custom String filter',
+            displayName: 'String filter with wild-card',
             renderer: 'state',
             queryFieldName: 'state',
             filterRendererSpec: DatagridStringFilter(WildCardPosition.END, ''),
         },
         {
-            displayName: 'Custom Numeric filter',
+            displayName: 'Numeric filter',
             renderer: 'age',
             queryFieldName: 'age',
             filterRendererSpec: DatagridNumericFilter([1, 2]),
         },
         {
-            displayName: 'Custom Select filter',
+            displayName: 'Select filter with dynamic options',
             renderer: 'age',
             queryFieldName: 'age',
             filterRendererSpec: FilterComponentRendererSpec({
                 type: DatagridSelectFilterComponent,
                 config: {
-                    options: [
-                        {
-                            value: 30,
-                            display: 'Thirty',
-                        },
-                        {
-                            value: 60,
-                            display: 'sixty',
-                        },
-                    ],
+                    options: this.selectFilterOptions,
                     value: 60,
                 },
             }),
         },
         {
-            displayName: 'Custom multi-select filter',
+            displayName: 'Multi-select filter',
             renderer: 'state',
             queryFieldName: 'state',
             filterRendererSpec: FilterComponentRendererSpec({
@@ -95,6 +100,33 @@ export class DatagridFilterExampleComponent {
             }),
         },
     ];
+
+    removeSelectFilterOption(): void {
+        if (this.selectFilterOptions.length) {
+            this.selectFilterOptions.pop();
+        }
+    }
+
+    updateSelectFilterOptions(): void {
+        const selectFilterOptions = [
+            {
+                value: 'CA',
+                display: 'California',
+            },
+            {
+                value: 'MA',
+                display: 'Massachusetts',
+            },
+            {
+                value: 'NC',
+                display: 'North Carolina',
+            },
+        ];
+        // Not assigning new array, as that would result in the options inside filter component losing the reference and thereby
+        // not getting any changes
+        this.selectFilterOptions.length = 0;
+        selectFilterOptions.forEach(option => this.selectFilterOptions.push(option));
+    }
 
     refresh(eventData: GridState<MockRecord>): void {
         console.log(eventData.filters);
