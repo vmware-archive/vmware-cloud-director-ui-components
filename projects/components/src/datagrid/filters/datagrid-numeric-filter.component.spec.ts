@@ -5,16 +5,20 @@
 import { createDatagridFilterTestHelper, FilterTestHostComponent } from '../../utils/test/datagrid/filter-utils';
 import { fakeAsync, tick } from '@angular/core/testing';
 import { DatagridFilter, DEBOUNCE_TIME_FOR_GRID_FILTER_CHANGES } from './datagrid-filter';
-import { DatagridNumericFilterConfig, DatagridNumericFilterComponent } from './datagrid-numeric-filter.component';
+import {
+    DatagridNumericFilterConfig,
+    DatagridNumericFilterComponent,
+    DatagridNumericFilter,
+} from './datagrid-numeric-filter.component';
 
 interface HasDgNumericFilter {
     filter: DatagridFilter<[number, number], DatagridNumericFilterConfig>;
 }
 
 describe('Datagrid numeric filter', () => {
-    describe('create', () => {
+    describe('DatagridNumericFilter factory function', () => {
         it('simplifies the creation of filters', () => {
-            const newFilter = DatagridNumericFilterComponent.factory([1, 2]);
+            const newFilter = DatagridNumericFilter([1, 2]);
             expect(newFilter.config.value).toEqual([1, 2]);
         });
     });

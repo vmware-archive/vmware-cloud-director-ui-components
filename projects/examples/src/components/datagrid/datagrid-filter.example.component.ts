@@ -12,6 +12,8 @@ import {
     GridDataFetchResult,
     GridState,
     WildCardPosition,
+    DatagridNumericFilter,
+    DatagridStringFilter,
 } from '@vcd/ui-components';
 import { mockData, MockRecord } from './mock-data';
 
@@ -36,13 +38,13 @@ export class DatagridFilterExampleComponent {
             displayName: 'Custom String filter',
             renderer: 'state',
             queryFieldName: 'state',
-            filterRendererSpec: DatagridStringFilterComponent.factory(WildCardPosition.END, ''),
+            filterRendererSpec: DatagridStringFilter(WildCardPosition.END, ''),
         },
         {
             displayName: 'Custom Numeric filter',
             renderer: 'age',
             queryFieldName: 'age',
-            filterRendererSpec: DatagridNumericFilterComponent.factory([1, 2]),
+            filterRendererSpec: DatagridNumericFilter([1, 2]),
         },
     ];
 

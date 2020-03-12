@@ -7,7 +7,7 @@ import { Component, ViewChild } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
 import { WidgetFinder } from '../../utils/test/widget-object';
 import { BoldTextRendererWidgetObject } from './bold-text-renderer.wo';
-import { BoldTextRendererComponent } from './bold-text-renderer.component';
+import { BoldTextRendererComponent, BoldTextRenderer } from './bold-text-renderer.component';
 
 @Component({
     template: `
@@ -35,9 +35,9 @@ describe('BannerActivityReporterComponent', () => {
         this.finder.detectChanges();
     });
 
-    describe('create', () => {
+    describe('BoldTextRenderer factory function', () => {
         it('simplifies the creation of filters', () => {
-            const newFilter = BoldTextRendererComponent.factory(() => 'hello!');
+            const newFilter = BoldTextRenderer(() => 'hello!');
             expect(newFilter.config('record').text).toEqual('hello!');
         });
     });

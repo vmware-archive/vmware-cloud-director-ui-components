@@ -41,19 +41,6 @@ export class DatagridNumericFilterComponent
     }
     formGroup: FormGroup;
 
-    /**
-     * Creates a {@link FilterRendererSpec} with the given config.
-     * @param value the default value that should go in this numeric filter.
-     */
-    static factory(value?: DatagridNumericFilterValue): FilterRendererSpec<DatagridNumericFilterConfig> {
-        return FilterComponentRendererSpec({
-            type: DatagridNumericFilterComponent,
-            config: {
-                value,
-            },
-        });
-    }
-
     ngOnInit(): void {
         this.debounceChanges(this.formGroup.valueChanges);
     }
@@ -96,4 +83,19 @@ export class DatagridNumericFilterComponent
                 typeof this.formGroup.get(FormFields.to).value === 'number')
         );
     }
+}
+
+/**
+ * Creates a {@link FilterRendererSpec} with the given config.
+ * @param value the default value that should go in this numeric filter.
+ */
+export function DatagridNumericFilter(
+    value?: DatagridNumericFilterValue
+): FilterRendererSpec<DatagridNumericFilterConfig> {
+    return FilterComponentRendererSpec({
+        type: DatagridNumericFilterComponent,
+        config: {
+            value,
+        },
+    });
 }

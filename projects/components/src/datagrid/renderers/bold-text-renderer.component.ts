@@ -39,18 +39,20 @@ export interface BoldTextRendererConfig {
 export class BoldTextRendererComponent implements ComponentRenderer<BoldTextRendererConfig> {
     @Input()
     config: BoldTextRendererConfig;
+}
 
-    /**
-     * Creates a {@link ColumnRendererSpec} for rendering bold text in a column.
-     */
-    static factory<R>(textExtractor: (record: R) => string): ColumnRendererSpec<R, BoldTextRendererConfig> {
-        return ColumnComponentRendererSpec({
-            type: BoldTextRendererComponent,
-            config(record): BoldTextRendererConfig {
-                return {
-                    text: textExtractor(record),
-                };
-            },
-        });
-    }
+/**
+ * Creates a {@link ColumnRendererSpec} for rendering bold text in a column.
+ */
+export function BoldTextRenderer<R>(
+    textExtractor: (record: R) => string
+): ColumnRendererSpec<R, BoldTextRendererConfig> {
+    return ColumnComponentRendererSpec({
+        type: BoldTextRendererComponent,
+        config(record): BoldTextRendererConfig {
+            return {
+                text: textExtractor(record),
+            };
+        },
+    });
 }
