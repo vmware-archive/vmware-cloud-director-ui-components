@@ -120,12 +120,12 @@ jobs:
         #                  npm run generate-example-translations
         #                  npm run build:examples-prod
 
-        unit-testing:
-            runs-on: ubuntu-latest
-            name: Unit tests
-            needs: [build-i18n]
-            steps:
-                - uses: actions/checkout@v2
+    unit-testing:
+        runs-on: ubuntu-latest
+        name: Unit tests
+        needs: [build-i18n]
+        steps:
+            - uses: actions/checkout@v2
     #                - uses: actions/cache@v1
     #                  with:
     #                      path: ./node_modules
