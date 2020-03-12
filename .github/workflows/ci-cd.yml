@@ -163,9 +163,9 @@ jobs:
                   path: ./dist/examples
                   key: examples
             - run: npx ng deploy --no-build
+              if: github.ref == 'gh-actions'
               env:
                   GH_TOKEN: ${{ secrets.GH_TOKEN }}
-    #              if: github.ref == 'gh-actions' && github.repository == 'https://github.com/ps37/vmware-cloud-director-ui-components' && github.event_name != 'pull_request'
 
     publish-components-latest:
         #      , unit-testing]
