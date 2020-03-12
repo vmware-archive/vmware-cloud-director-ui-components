@@ -59,25 +59,22 @@ export class DatagridMultiSelectFilterComponent extends DatagridFilter<string[],
     }
 
     /**
-     * Used in the HTML template
-     */
-    options: MultiSelectOption[];
-
-    /**
-     * Overrides the property config in Datagrid filter because apart from setting the config and value, the formGroup is
-     * also defined by the configuration set by the caller. Value of each option becomes a formControl inside the form.
+     * Overrides the config property because, the formGroup controls are defined by the config set by the caller.
+     * Value of each option becomes a formControl name inside the formGroup.
      */
     @Input() set config(config: DatagridMultiSelectFilterConfig) {
         config.options.forEach(option => {
             this.formGroup.addControl(option.value, new FormControl(false));
         });
-        this.options = config.options;
         // Duplicated from the super's set config method because it was not possible to call by super.config = config or
         // super.config(config)
         this._config = config;
         if (this._config.value) {
             this.setValue(this._config.value);
         }
+    }
+    get config(): DatagridMultiSelectFilterConfig {
+        return this._config;
     }
 
     ngOnInit(): void {

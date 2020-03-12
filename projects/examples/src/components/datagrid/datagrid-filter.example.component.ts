@@ -22,8 +22,10 @@ import { mockData, MockRecord } from './mock-data';
 
 @Component({
     template: `
-        <button [disabled]="!selectFilterOptions.length" (click)="removeSelectFilterOption()">Remove option</button>
-        <button (click)="updateSelectFilterOptions()">Update options</button>
+        <button class="btn btn-primary" [disabled]="!selectFilterOptions.length" (click)="removeSelectFilterOption()">
+            Remove option
+        </button>
+        <button class="btn btn-primary" (click)="updateSelectFilterOptions()">Update options</button>
         <vcd-datagrid [gridData]="gridData" (gridRefresh)="refresh($event)" [columns]="columns"></vcd-datagrid>
     `,
     selector: 'vcd-datagrid-filter-example',
