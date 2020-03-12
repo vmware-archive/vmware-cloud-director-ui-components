@@ -25,15 +25,15 @@ jobs:
         needs: [prepare_node_modules]
         steps:
             - uses: actions/checkout@v2
-            - uses: actions/cache@v1
-              with:
-                  path: ./node_modules
-                  key: ${{github.sha}}-node_modules
-            - run: |
-                  npm run lint i18n
-                  npm run lint components
-                  npm run lint doc-lib
-                  npm run lint examples
+    #            - uses: actions/cache@v1
+    #              with:
+    #                  path: ./node_modules
+    #                  key: ${{github.sha}}-node_modules
+    #            - run: |
+    #                  npm run lint i18n
+    #                  npm run lint components
+    #                  npm run lint doc-lib
+    #                  npm run lint examples
 
     build-i18n:
         runs-on: ubuntu-latest
@@ -77,15 +77,15 @@ jobs:
         needs: [lint-projects]
         steps:
             - uses: actions/checkout@v2
-            - uses: actions/cache@v1
-              with:
-                  path: ./node_modules
-                  key: ${{github.sha}}-node_modules
-            - uses: actions/cache@v1
-              with:
-                  path: ./dist/doc-lib
-                  key: doc-lib
-            - run: npm run build:doc-lib
+    #            - uses: actions/cache@v1
+    #              with:
+    #                  path: ./node_modules
+    #                  key: ${{github.sha}}-node_modules
+    #            - uses: actions/cache@v1
+    #              with:
+    #                  path: ./dist/doc-lib
+    #                  key: doc-lib
+    #            - run: npm run build:doc-lib
 
     build-app:
         runs-on: ubuntu-latest
@@ -93,83 +93,81 @@ jobs:
         needs: [build-components-lib, build-doc-lib]
         steps:
             - uses: actions/checkout@v2
-            - uses: actions/cache@v1
-              with:
-                  path: ./node_modules
-                  key: ${{github.sha}}-node_modules
-            - uses: actions/cache@v1
-              with:
-                  path: ./dist/components
-                  key: ${{ github.sha }}-components
-            - uses: actions/cache@v1
-              with:
-                  path: ./dist/doc-lib
-                  key: doc-lib
-            - uses: actions/cache@v1
-              with:
-                  path: ./dist/i18n
-                  key: i18n
-            - uses: actions/cache@v1
-              with:
-                  path: ./dist/examples
-                  key: examples
-            - run: |
-                  npm run build-components-doc
-                  npm run build-examples-doc
-                  npm run generate-translations
-                  npm run generate-example-translations
-                  npm run build:examples-prod
+        #            - uses: actions/cache@v1
+        #              with:
+        #                  path: ./node_modules
+        #                  key: ${{github.sha}}-node_modules
+        #            - uses: actions/cache@v1
+        #              with:
+        #                  path: ./dist/components
+        #                  key: ${{ github.sha }}-components
+        #            - uses: actions/cache@v1
+        #              with:
+        #                  path: ./dist/doc-lib
+        #                  key: doc-lib
+        #            - uses: actions/cache@v1
+        #              with:
+        #                  path: ./dist/i18n
+        #                  key: i18n
+        #            - uses: actions/cache@v1
+        #              with:
+        #                  path: ./dist/examples
+        #                  key: examples
+        #            - run: |
+        #                  npm run build-components-doc
+        #                  npm run build-examples-doc
+        #                  npm run generate-translations
+        #                  npm run generate-example-translations
+        #                  npm run build:examples-prod
 
-    #    unit-testing:
-    #        runs-on: ubuntu-latest
-    #        name: Unit tests
-    #        needs: [build-i18n]
-    #        steps:
-    #            - uses: actions/checkout@v2
+        unit-testing:
+            runs-on: ubuntu-latest
+            name: Unit tests
+            needs: [build-i18n]
+            steps:
+                - uses: actions/checkout@v2
+    #                - uses: actions/cache@v1
+    #                  with:
+    #                      path: ./node_modules
+    #                      key: ${{github.sha}}-node_modules
+    #                - uses: actions/cache@v1
+    #                  with:
+    #                      path: ./dist/i18n
+    #                      key: i18n
+    #                - uses: actions/cache@v1
+    #                  with:
+    #                      path: ./coverage
+    #                      key: coverage
+    #                - name: Run unit-tests
+    #                  run: |
+    #                      npm run test:ci:components
+    #                      npm run test:ci:doc-lib
+    #                      npm run test:ci:i18n
+    #                - name: Upload coverage to Codecov
+    #                  if: success()
+    #                  uses: codecov/codecov-action@v1
+
+    gh-pages-deploy:
+        runs-on: ubuntu-latest
+        name: Deploying to Github pages
+        needs: [build-app, unit-testing]
+        steps:
+            - uses: actions/checkout@v2
     #            - uses: actions/cache@v1
     #              with:
     #                  path: ./node_modules
     #                  key: ${{github.sha}}-node_modules
     #            - uses: actions/cache@v1
     #              with:
-    #                  path: ./dist/i18n
-    #                  key: i18n
-    #            - uses: actions/cache@v1
-    #              with:
-    #                  path: ./coverage
-    #                  key: coverage
-    #            - name: Run unit-tests
-    #              run: |
-    #                  npm run test:ci:components
-    #                  npm run test:ci:doc-lib
-    #                  npm run test:ci:i18n
-    #            - name: Upload coverage to Codecov
-    #              if: success()
-    #              uses: codecov/codecov-action@v1
-
-    gh-pages-deploy:
-        runs-on: ubuntu-latest
-        name: Deploying to Github pages
-        #      , unit-testing]
-        needs: [build-app]
-        steps:
-            - uses: actions/checkout@v2
-            - uses: actions/cache@v1
-              with:
-                  path: ./node_modules
-                  key: ${{github.sha}}-node_modules
-            - uses: actions/cache@v1
-              with:
-                  path: ./dist/examples
-                  key: examples
-            - run: npx ng deploy --no-build
-              if: github.ref == 'gh-actions'
-              env:
-                  GH_TOKEN: ${{ secrets.GH_TOKEN }}
+    #                  path: ./dist/examples
+    #                  key: examples
+    #            - run: npx ng deploy --no-build
+    #              if: github.ref == 'gh-actions'
+    #              env:
+    #                  GH_TOKEN: ${{ secrets.GH_TOKEN }}
 
     publish-components-latest:
-        #      , unit-testing]
-        needs: [build-components-lib]
+        needs: [build-components-lib, unit-testing]
         runs-on: ubuntu-latest
         steps:
             - uses: actions/checkout@v2
@@ -185,7 +183,8 @@ jobs:
               with:
                   path: ./dist/components
                   key: ${{ github.sha }}-components
-            - run: cd ./dist/components
-            - run: npm publish
+            - run: |
+                  cd ./dist/components
+                  npm publish
               env:
                   NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}
