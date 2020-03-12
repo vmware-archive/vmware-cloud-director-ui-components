@@ -37,6 +37,8 @@ export class DatagridStringFilterComponent extends DatagridFilter<string, Datagr
 
     /**
      * Creates a {@link FilterRendererSpec} with the given config.
+     * @param wildCardPosition where the * should go in the FIQL string output.
+     * @param value the default value of the filter
      */
     static factory(
         wildCardPosition?: WildCardPosition,

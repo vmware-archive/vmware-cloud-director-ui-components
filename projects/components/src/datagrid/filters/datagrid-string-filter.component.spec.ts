@@ -17,7 +17,7 @@ interface HasDgStringFilter {
 
 describe('Datagrid string filter', () => {
     describe('create', () => {
-        it('can create the filter via factory', () => {
+        it('simplifies the creation of filters', () => {
             const newFilter = DatagridStringFilterComponent.factory(WildCardPosition.END, '');
             expect(newFilter.config.wildCardPosition).toEqual(WildCardPosition.END);
             expect(newFilter.config.value).toEqual('');

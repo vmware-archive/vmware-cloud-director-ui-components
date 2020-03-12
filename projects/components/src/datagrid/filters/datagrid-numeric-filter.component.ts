@@ -15,16 +15,22 @@ enum FormFields {
 }
 
 /**
+ * The type of value that goes in the {@link DatagridNumericFilterConfig}.
+ */
+export type DatagridNumericFilterValue = [number, number];
+
+/**
  * Numeric filter UI widget has only single configuration. So there are no properties in addition to FilterConfig
  */
-export type DatagridNumericFilterConfig = FilterConfig<[number, number]>;
+export type DatagridNumericFilterConfig = FilterConfig<DatagridNumericFilterValue>;
 
 @Component({
     selector: 'vcd-dg-numeric-filter',
     templateUrl: 'datagrid-numeric-filter.component.html',
     styleUrls: ['datagrid-numeric-filter.component.scss'],
 })
-export class DatagridNumericFilterComponent extends DatagridFilter<[number, number], DatagridNumericFilterConfig>
+export class DatagridNumericFilterComponent
+    extends DatagridFilter<DatagridNumericFilterValue, DatagridNumericFilterConfig>
     implements OnInit {
     constructor(@Host() filterContainer: ClrDatagridFilter, private fb: FormBuilder) {
         super(filterContainer);
@@ -37,8 +43,9 @@ export class DatagridNumericFilterComponent extends DatagridFilter<[number, numb
 
     /**
      * Creates a {@link FilterRendererSpec} with the given config.
+     * @param value the default value that should go in this numeric filter.
      */
-    static factory(value?: [number, number]): FilterRendererSpec<DatagridNumericFilterConfig> {
+    static factory(value?: DatagridNumericFilterValue): FilterRendererSpec<DatagridNumericFilterConfig> {
         return FilterComponentRendererSpec({
             type: DatagridNumericFilterComponent,
             config: {
@@ -51,7 +58,7 @@ export class DatagridNumericFilterComponent extends DatagridFilter<[number, numb
         this.debounceChanges(this.formGroup.valueChanges);
     }
 
-    setValue(values: [number, number]): void {
+    setValue(values: DatagridNumericFilterValue): void {
         if (!values) {
             return;
         }

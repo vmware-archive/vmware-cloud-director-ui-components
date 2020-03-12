@@ -31,6 +31,7 @@ export interface BoldTextRendererConfig {
  *     ];
  */
 @Component({
+    selector: 'vcd-bold-text-renderer',
     template: `
         <strong>{{ config.text }}</strong>
     `,

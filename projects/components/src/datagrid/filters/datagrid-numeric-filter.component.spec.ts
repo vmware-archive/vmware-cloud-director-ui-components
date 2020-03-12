@@ -13,7 +13,7 @@ interface HasDgNumericFilter {
 
 describe('Datagrid numeric filter', () => {
     describe('create', () => {
-        it('can create the filter via factory', () => {
+        it('simplifies the creation of filters', () => {
             const newFilter = DatagridNumericFilterComponent.factory([1, 2]);
             expect(newFilter.config.value).toEqual([1, 2]);
         });
