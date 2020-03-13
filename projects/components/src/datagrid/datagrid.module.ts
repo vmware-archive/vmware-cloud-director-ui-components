@@ -12,7 +12,6 @@ import { DatagridComponent } from './datagrid.component';
 import { ComponentRendererOutletDirective } from './directives/component-renderer-outlet.directive';
 import { PipesModule } from '../common/pipes/pipes.module';
 import { FunctionRendererPipe } from './pipes/function-renderer.pipe';
-import { LinkedTextRendererComponent } from './renderers/linked-text-renderer.component';
 import { BoldTextRendererComponent } from './renderers/bold-text-renderer.component';
 import { ShowClippedTextDirectiveModule } from '../lib/directives/show-clipped-text.directive.module';
 import { DatagridStringFilterComponent } from './filters/datagrid-string-filter.component';
@@ -21,7 +20,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 const directives = [ComponentRendererOutletDirective];
 const pipes = [FunctionRendererPipe];
-const renderers = [BoldTextRendererComponent, LinkedTextRendererComponent];
+const renderers = [BoldTextRendererComponent];
 const filters = [DatagridNumericFilterComponent, DatagridStringFilterComponent];
 
 @NgModule({

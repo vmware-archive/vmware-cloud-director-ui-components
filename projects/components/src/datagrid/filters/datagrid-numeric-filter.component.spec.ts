@@ -2,20 +2,27 @@
  * Copyright 2019 VMware, Inc.
  * SPDX-License-Identifier: BSD-2-Clause
  */
-import {
-    DatagridFilter,
-    DatagridNumericFilterComponent,
-    DatagridNumericFilterConfig,
-    DEBOUNCE_TIME_FOR_GRID_FILTER_CHANGES,
-} from '..';
 import { createDatagridFilterTestHelper, FilterTestHostComponent } from '../../utils/test/datagrid/filter-utils';
 import { fakeAsync, tick } from '@angular/core/testing';
+import { DatagridFilter, DEBOUNCE_TIME_FOR_GRID_FILTER_CHANGES } from './datagrid-filter';
+import {
+    DatagridNumericFilterConfig,
+    DatagridNumericFilterComponent,
+    DatagridNumericFilter,
+} from './datagrid-numeric-filter.component';
 
 interface HasDgNumericFilter {
     filter: DatagridFilter<[number, number], DatagridNumericFilterConfig>;
 }
 
 describe('Datagrid numeric filter', () => {
+    describe('DatagridNumericFilter factory function', () => {
+        it('simplifies the creation of filters', () => {
+            const newFilter = DatagridNumericFilter([1, 2]);
+            expect(newFilter.config.value).toEqual([1, 2]);
+        });
+    });
+
     describe('setValue', () => {
         beforeEach(function(this: HasDgNumericFilter): void {
             this.filter = createDatagridFilterTestHelper(DatagridNumericFilterComponent);

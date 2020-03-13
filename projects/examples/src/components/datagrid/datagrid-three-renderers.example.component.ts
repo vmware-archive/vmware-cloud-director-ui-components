@@ -10,6 +10,7 @@ import {
     GridDataFetchResult,
     GridState,
     ColumnComponentRendererSpec,
+    BoldTextRenderer,
 } from '@vcd/ui-components';
 import { mockData, MockRecord } from './mock-data';
 
@@ -27,12 +28,7 @@ export class DatagridThreeRenderersExampleComponent {
     columns: GridColumn<MockRecord>[] = [
         {
             displayName: 'Component Renderer',
-            renderer: ColumnComponentRendererSpec({
-                type: BoldTextRendererComponent,
-                config: record => ({
-                    text: '',
-                }),
-            }),
+            renderer: BoldTextRenderer(rec => rec.name),
         },
         {
             displayName: 'Function Renderer',

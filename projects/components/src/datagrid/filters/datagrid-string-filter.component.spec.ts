@@ -6,6 +6,7 @@ import {
     DatagridStringFilterComponent,
     DatagridStringFilterConfig,
     WildCardPosition,
+    DatagridStringFilter,
 } from './datagrid-string-filter.component';
 import { createDatagridFilterTestHelper, FilterTestHostComponent } from '../../utils/test/datagrid/filter-utils';
 import { DatagridFilter, DEBOUNCE_TIME_FOR_GRID_FILTER_CHANGES } from './datagrid-filter';
@@ -16,6 +17,14 @@ interface HasDgStringFilter {
 }
 
 describe('Datagrid string filter', () => {
+    describe('DatagridStringFilter factory function', () => {
+        it('simplifies the creation of filters', () => {
+            const newFilter = DatagridStringFilter(WildCardPosition.END, '');
+            expect(newFilter.config.wildCardPosition).toEqual(WildCardPosition.END);
+            expect(newFilter.config.value).toEqual('');
+        });
+    });
+
     describe('setValue', () => {
         beforeEach(function(this: HasDgStringFilter): void {
             this.filter = createDatagridFilterTestHelper(DatagridStringFilterComponent);

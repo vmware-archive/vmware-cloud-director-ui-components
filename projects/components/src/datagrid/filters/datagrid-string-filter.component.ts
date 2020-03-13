@@ -4,7 +4,7 @@
  */
 
 import { Component, Host, OnInit } from '@angular/core';
-import { DatagridFilter, FilterConfig } from './datagrid-filter';
+import { DatagridFilter, FilterConfig, FilterComponentRendererSpec, FilterRendererSpec } from './datagrid-filter';
 import { ClrDatagridFilter } from '@clr/angular';
 import { FilterBuilder } from '../../utils/filter-builder';
 import { FormBuilder } from '@angular/forms';
@@ -60,4 +60,22 @@ export class DatagridStringFilterComponent extends DatagridFilter<string, Datagr
     isActive(): boolean {
         return !!this.formGroup && this.formGroup.get('filterText').value;
     }
+}
+
+/**
+ * Creates a {@link FilterRendererSpec} with the given config.
+ * @param wildCardPosition where the * should go in the FIQL string output.
+ * @param value the default value of the filter
+ */
+export function DatagridStringFilter(
+    wildCardPosition?: WildCardPosition,
+    value?: string
+): FilterRendererSpec<DatagridStringFilterConfig> {
+    return FilterComponentRendererSpec({
+        type: DatagridStringFilterComponent,
+        config: {
+            wildCardPosition,
+            value,
+        },
+    });
 }

@@ -4,7 +4,7 @@
  */
 
 import { Component, Host, OnInit } from '@angular/core';
-import { DatagridFilter, FilterConfig } from './datagrid-filter';
+import { DatagridFilter, FilterConfig, FilterComponentRendererSpec, FilterRendererSpec } from './datagrid-filter';
 import { ClrDatagridFilter } from '@clr/angular';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { FilterBuilder } from '../../utils/filter-builder';
@@ -15,32 +15,37 @@ enum FormFields {
 }
 
 /**
+ * The type of value that goes in the {@link DatagridNumericFilterConfig}.
+ */
+export type DatagridNumericFilterValue = [number, number];
+
+/**
  * Numeric filter UI widget has only single configuration. So there are no properties in addition to FilterConfig
  */
-export type DatagridNumericFilterConfig = FilterConfig<[number, number]>;
+export type DatagridNumericFilterConfig = FilterConfig<DatagridNumericFilterValue>;
 
 @Component({
     selector: 'vcd-dg-numeric-filter',
     templateUrl: 'datagrid-numeric-filter.component.html',
     styleUrls: ['datagrid-numeric-filter.component.scss'],
 })
-export class DatagridNumericFilterComponent extends DatagridFilter<[number, number], DatagridNumericFilterConfig>
+export class DatagridNumericFilterComponent
+    extends DatagridFilter<DatagridNumericFilterValue, DatagridNumericFilterConfig>
     implements OnInit {
-    formGroup: FormGroup;
-
-    constructor(@Host() private filterContainer: ClrDatagridFilter, private fb: FormBuilder) {
+    constructor(@Host() filterContainer: ClrDatagridFilter, private fb: FormBuilder) {
         super(filterContainer);
         this.formGroup = this.fb.group({
             [FormFields.from]: null,
             [FormFields.to]: null,
         });
     }
+    formGroup: FormGroup;
 
     ngOnInit(): void {
         this.debounceChanges(this.formGroup.valueChanges);
     }
 
-    setValue(values: [number, number]): void {
+    setValue(values: DatagridNumericFilterValue): void {
         if (!values) {
             return;
         }
@@ -78,4 +83,19 @@ export class DatagridNumericFilterComponent extends DatagridFilter<[number, numb
                 typeof this.formGroup.get(FormFields.to).value === 'number')
         );
     }
+}
+
+/**
+ * Creates a {@link FilterRendererSpec} with the given config.
+ * @param value the default value that should go in this numeric filter.
+ */
+export function DatagridNumericFilter(
+    value?: DatagridNumericFilterValue
+): FilterRendererSpec<DatagridNumericFilterConfig> {
+    return FilterComponentRendererSpec({
+        type: DatagridNumericFilterComponent,
+        config: {
+            value,
+        },
+    });
 }
