@@ -3,8 +3,8 @@
  * SPDX-License-Identifier: BSD-2-Clause
  */
 
-import { ComponentFixture } from '@angular/core/testing';
 import { Component, ElementRef, ViewChild } from '@angular/core';
+import { ComponentFixture } from '@angular/core/testing';
 import { ShowClippedTextDirective, TooltipPosition } from './show-clipped-text.directive';
 
 /**
@@ -41,6 +41,11 @@ export class ShowClippedTextDirectiveTestHelper {
         Object.assign(this.host.style, defaults);
     }
 
+    set disabled(disabled: boolean) {
+        this.componentInstance.disabled = disabled;
+        this.fixture.detectChanges();
+    }
+
     set hostText(text: string) {
         this.componentInstance.text = text;
         this.fixture.detectChanges();
@@ -71,8 +76,7 @@ export class ShowClippedTextDirectiveTestHelper {
     }
 
     get isTooltipVisible(): boolean {
-        const opacity = this.tooltip.style.opacity;
-        return opacity === '1' || opacity === '';
+        return !!this.tooltip && (this.tooltip.style.opacity === '1' || this.tooltip.style.opacity === '');
     }
 
     get tooltipText(): string {
@@ -118,8 +122,8 @@ export class ShowClippedTextDirectiveTestHelper {
 
 @Component({
     template: `
-        <div [vcdShowClippedText] style="width: 20px" #div>{{ text }}</div>
-        <div [vcdShowClippedText] style="width: 20px" #div2>{{ text2 }}</div>
+        <div [vcdShowClippedText]="{ disabled: disabled }" style="width: 20px" #div>{{ text }}</div>
+        <div [vcdShowClippedText]="{ disabled: disabled }" style="width: 20px" #div2>{{ text2 }}</div>
     `,
 })
 export class ShowClippedTextDirectiveTestHostComponent {
@@ -129,4 +133,5 @@ export class ShowClippedTextDirectiveTestHostComponent {
 
     public text = 'texting';
     public text2 = 'texting too';
+    public disabled = false;
 }

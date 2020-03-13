@@ -4,15 +4,13 @@
  */
 
 import { GridSelectionType } from './../../../datagrid/datagrid.component';
-/*!
- * Copyright 2019 VMware, Inc.
- * SPDX-License-Identifier: BSD-2-Clause
- */
 
-import { WidgetObject } from '../widget-object';
 import { DebugElement, Type } from '@angular/core';
+import { By } from '@angular/platform-browser';
 import { ClrDatagrid } from '@clr/angular';
 import { DatagridFilter } from '../../../datagrid';
+import { ShowClippedTextDirective } from '../../../lib/directives/show-clipped-text.directive';
+import { WidgetObject } from '../widget-object';
 
 const ROW_TAG = 'clr-dg-row';
 const CELL_TAG = 'clr-dg-cell';
@@ -33,6 +31,15 @@ export class ClrDatagridWidgetObject extends WidgetObject<ClrDatagrid> {
      */
     getCellText(row: number, column: number): string {
         return this.getNodeText(this.getCell(row, column));
+    }
+
+    /**
+     * Retrieves if the cell will clip text
+     * @param column 0-based index of column
+     */
+    columnClippedTextDirective(column: number): ShowClippedTextDirective {
+        const res = this.getCell(0, column);
+        return res.injector.get(ShowClippedTextDirective);
     }
 
     /**

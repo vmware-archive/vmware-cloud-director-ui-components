@@ -111,7 +111,7 @@
             </div>
         </clr-dg-cell>
 
-        <clr-dg-cell *ngFor="let column of columnsConfig">
+        <clr-dg-cell [vcdShowClippedText]="column.cliptextConfig" *ngFor="let column of columnsConfig">
             <!-- Default renderer -->
             <ng-container *ngIf="column.fieldName">{{ restItem | nestedProperty: column.fieldName }}</ng-container>
 
