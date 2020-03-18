@@ -1,5 +1,8 @@
 # Trigger the workflow on push to any branch or on pull request into master
 on:
+    push:
+        branches:
+            - master
     pull_request:
         branches:
             - master
@@ -162,7 +165,7 @@ jobs:
                   path: ./dist/examples
                   key: examples
             - run: npx ng deploy --no-build
-              if: github.ref == 'master' && github.event_name != 'pull_request'
+              if: github.event_name == 'push'
               env:
                   GH_TOKEN: ${{ secrets.GH_TOKEN }}
 
@@ -225,7 +228,7 @@ jobs:
               with:
                   lib-name: 'components'
             - name: Publish components@next
-              if: steps.check-components-tag.outputs.isLibTag != 'true' && steps.check-components-package.outputs.isLibPackageChanged == 'true' && github.ref == 'master'
+              if: steps.check-components-tag.outputs.isLibTag != 'true' && steps.check-components-package.outputs.isLibPackageChanged == 'true' && github.event_name == 'push'
               run: |
                   cd ./dist/components
                   npm publish
