@@ -12,8 +12,6 @@ import { DatagridCssClassesExampleComponent } from './datagrid-css-classes.examp
 import { DatagridCssClassesExampleModule } from './datagrid-css-classes.example.module';
 import { DatagridDetailRowExampleComponent } from './datagrid-detail-row.example.component';
 import { DatagridDetailRowExampleModule } from './datagrid-detail-row.example.module';
-import { DatagridFilterExampleModule } from './datagrid-filter.example.module';
-import { DatagridFilterExampleComponent } from './datagrid-filter.example.component';
 import { DatagridHeaderExampleComponent } from './datagrid-header.example.component';
 import { DatagridHeaderExampleModule } from './datagrid-header.example.module';
 import { DatagridHeightExampleComponent } from './datagrid-height.example.component';
@@ -32,6 +30,10 @@ import { DatagridThreeRenderersExampleComponent } from './datagrid-three-rendere
 import { DatagridThreeRenderersExampleModule } from './datagrid-three-renderers.example.module';
 import { DatagridActivityReporterExampleComponent } from './datagrid-activity-reporter.example.component';
 import { DatagridActivityReporterExampleModule } from './datagrid-activity-reporter.example.module';
+import { DatagridFilterExampleModule } from './datagrid-filter.example.module';
+import { DatagridFilterExampleComponent } from './datagrid-filter.example.component';
+import { DatagridRowIconExampleModule } from './datagrid-row-icon.example.module';
+import { DatagridRowIconExampleComponent } from './datagrid-row-icon.example.component';
 
 Documentation.registerDocumentationEntry({
     component: DatagridComponent,
@@ -103,6 +105,16 @@ Documentation.registerDocumentationEntry({
             forComponent: null,
             title: 'Activity reporter + buttons example',
         },
+        {
+            component: DatagridFilterExampleComponent,
+            forComponent: null,
+            title: 'Filters in the datagrid columns',
+        },
+        {
+            component: DatagridRowIconExampleComponent,
+            forComponent: null,
+            title: 'Data row icon that reloads the row',
+        },
     ],
 });
 /**
@@ -123,6 +135,7 @@ Documentation.registerDocumentationEntry({
         DatagridFilterExampleModule,
         DatagridCliptextExampleModule,
         DatagridActivityReporterExampleModule,
+        DatagridRowIconExampleModule,
     ],
 })
 export class DatagridExamplesModule {}

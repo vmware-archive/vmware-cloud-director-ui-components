@@ -149,6 +149,7 @@ const tip = {
             width: rect.width + 'px',
             height: rect.height + 'px',
             opacity: '1',
+            wordBreak: 'break-all',
         });
         setStyle(tip.content, {
             visibility: 'visible',
