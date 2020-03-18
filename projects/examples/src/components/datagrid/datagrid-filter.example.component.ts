@@ -5,18 +5,16 @@
 
 import { Component } from '@angular/core';
 import {
-    DatagridMultiSelectFilterComponent,
-    DatagridNumericFilterComponent,
-    DatagridSelectFilterComponent,
-    DatagridStringFilterComponent,
-    FilterComponentRendererSpec,
     GridColumn,
     GridDataFetchResult,
     GridState,
     SelectOption,
     WildCardPosition,
     DatagridNumericFilter,
+    DatagridSelectFilter,
     DatagridStringFilter,
+    DatagridMultiSelectFilter,
+    MultiSelectOption,
 } from '@vcd/ui-components';
 import { mockData, MockRecord } from './mock-data';
 
@@ -46,6 +44,21 @@ export class DatagridFilterExampleComponent {
         },
     ];
 
+    multiSelectFilterOptions: MultiSelectOption[] = [
+        {
+            value: 'CA',
+            display: 'California',
+        },
+        {
+            value: 'MA',
+            display: 'Massachusetts',
+        },
+        {
+            value: 'NC',
+            display: 'North Carolina',
+        },
+    ];
+
     columns: GridColumn<MockRecord>[] = [
         {
             displayName: 'Default String filter',
@@ -68,38 +81,13 @@ export class DatagridFilterExampleComponent {
             displayName: 'Select filter with dynamic options',
             renderer: 'age',
             queryFieldName: 'age',
-            filterRendererSpec: FilterComponentRendererSpec({
-                type: DatagridSelectFilterComponent,
-                config: {
-                    options: this.selectFilterOptions,
-                    value: 60,
-                },
-            }),
+            filterRendererSpec: DatagridSelectFilter(this.selectFilterOptions, 60),
         },
         {
             displayName: 'Multi-select filter',
             renderer: 'state',
             queryFieldName: 'state',
-            filterRendererSpec: FilterComponentRendererSpec({
-                type: DatagridMultiSelectFilterComponent,
-                config: {
-                    options: [
-                        {
-                            value: 'CA',
-                            display: 'California',
-                        },
-                        {
-                            value: 'MA',
-                            display: 'Massachusetts',
-                        },
-                        {
-                            value: 'NC',
-                            display: 'North Carolina',
-                        },
-                    ],
-                    value: ['MA', 'NC'],
-                },
-            }),
+            filterRendererSpec: DatagridMultiSelectFilter(this.multiSelectFilterOptions, ['MA', 'NC']),
         },
     ];
 

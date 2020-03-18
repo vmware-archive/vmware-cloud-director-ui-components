@@ -42,14 +42,17 @@ describe('DatagridMultiSelectFilterComponent', () => {
             });
         });
 
-        it('creates form controls that are of same number as number of options passed in', function(this: HasDgMultiSelectFilter): void {
-            const formControls = Object.keys(this.filter.formGroup.getRawValue());
-            expect(formControls.length).toEqual(this.filter.config.options.length);
-        });
+        describe('onBeforeSetConfig', () => {
+            // tslint:disable-next-line:max-line-length
+            it('creates form controls that are of same number as number of options passed in', function(this: HasDgMultiSelectFilter): void {
+                const formControls = Object.keys(this.filter.formGroup.getRawValue());
+                expect(formControls.length).toEqual(this.filter.config.options.length);
+            });
 
-        it('creates form controls with values of options as their names', function(this: HasDgMultiSelectFilter): void {
-            const formControlNames = Object.keys(this.filter.formGroup.getRawValue());
-            this.filter.config.options.forEach((option, i) => expect(option.value).toEqual(formControlNames[i]));
+            it('creates form controls with values of options as their names', function(this: HasDgMultiSelectFilter): void {
+                const formControlNames = Object.keys(this.filter.formGroup.getRawValue());
+                this.filter.config.options.forEach((option, i) => expect(option.value).toEqual(formControlNames[i]));
+            });
         });
     });
 

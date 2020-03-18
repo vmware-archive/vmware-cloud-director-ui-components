@@ -1,9 +1,9 @@
 <form [formGroup]="formGroup">
     <div class="clr-form-control">
         <div class="clr-control-container ">
-            <div class="clr-checkbox-wrapper" *ngFor="let option of config.options">
-                <input type="checkbox" class="clr-checkbox" [id]="option.display" [formControlName]="option.value" />
-                <label class="clr-control-label" [for]="option.display">
+            <div class="clr-checkbox-wrapper" *ngFor="let option of options">
+                <input type="checkbox" class="clr-checkbox" [id]="option.id" [formControlName]="option.value" />
+                <label class="clr-control-label" [for]="option.id">
                     {{ option.isTranslatable ? (option.display | translate) : option.display }}
                 </label>
             </div>

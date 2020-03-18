@@ -2,7 +2,7 @@
  * Copyright 2019 VMware, Inc.
  * SPDX-License-Identifier: BSD-2-Clause
  */
-import { DatagridFilter, FilterConfig } from './datagrid-filter';
+import { DatagridFilter, FilterComponentRendererSpec, FilterConfig, FilterRendererSpec } from './datagrid-filter';
 import { Component, Host, OnInit } from '@angular/core';
 import { ClrDatagridFilter } from '@clr/angular';
 import { FormBuilder } from '@angular/forms';
@@ -80,7 +80,7 @@ export class DatagridSelectFilterComponent extends DatagridFilter<string | numbe
     }
 
     ngOnInit(): void {
-        this.debounceChanges(this.formGroup.valueChanges);
+        this.formGroup.valueChanges.subscribe(() => this.changes.next());
     }
 
     setValue(value: string | number): void {
@@ -101,4 +101,22 @@ export class DatagridSelectFilterComponent extends DatagridFilter<string | numbe
     isActive(): boolean {
         return !!this.formGroup && this.formGroup.get('filterSelect').value;
     }
+}
+
+/**
+ * Creates a {@link FilterRendererSpec} with the given config.
+ * @param options List of options for select input
+ * @param value the default value that should go in this select filter.
+ */
+export function DatagridSelectFilter(
+    options: SelectOption[],
+    value?: string | number
+): FilterRendererSpec<DatagridSelectFilterConfig> {
+    return FilterComponentRendererSpec({
+        type: DatagridSelectFilterComponent,
+        config: {
+            options,
+            value,
+        },
+    });
 }
