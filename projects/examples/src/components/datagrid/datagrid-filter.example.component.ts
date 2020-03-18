@@ -44,6 +44,17 @@ export class DatagridFilterExampleComponent {
         },
     ];
 
+    selectFilterWithCustomFiqlOptions: SelectOption[] = [
+        {
+            display: 'Option 1',
+            value: 'field1==false;field2==true',
+        },
+        {
+            display: 'Option 2',
+            value: '(field1=ge=1;field2=le=10)',
+        },
+    ];
+
     multiSelectFilterOptions: MultiSelectOption[] = [
         {
             value: 'CA',
@@ -82,6 +93,16 @@ export class DatagridFilterExampleComponent {
             renderer: 'age',
             queryFieldName: 'age',
             filterRendererSpec: DatagridSelectFilter(this.selectFilterOptions, 60),
+        },
+        {
+            displayName: 'Select filter with custom FIQL',
+            renderer: 'age',
+            queryFieldName: 'age',
+            filterRendererSpec: DatagridSelectFilter(
+                this.selectFilterWithCustomFiqlOptions,
+                '(field1=ge=1;field2=le=10)',
+                true
+            ),
         },
         {
             displayName: 'Multi-select filter',
