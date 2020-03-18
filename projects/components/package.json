@@ -1,6 +1,6 @@
 {
-    "name": "@ps37/ui-components",
-    "version": "0.21.0",
+    "name": "@vcd/ui-components",
+    "version": "0.0.5",
     "peerDependencies": {
         "@angular/common": "^8.2.14",
         "@angular/core": "^8.2.14"

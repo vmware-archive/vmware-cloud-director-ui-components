@@ -234,3 +234,135 @@ jobs:
                   npm publish
               env:
                   NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}
+
+    publish-doc-lib-latest:
+        needs: [build-doc-lib, unit-testing]
+        runs-on: ubuntu-latest
+        steps:
+            - uses: actions/checkout@v2
+            - uses: actions/setup-node@v1
+              with:
+                  node-version: '13'
+                  registry-url: https://registry.npmjs.org/
+            - uses: actions/cache@v1
+              with:
+                  path: ./node_modules
+                  key: ${{github.sha}}-node_modules
+            - uses: actions/cache@v1
+              with:
+                  path: ./dist/doc-lib
+                  key: doc-lib
+            - id: check-doc-lib-tag
+              uses: ./.github/actions/check-lib-tag
+              with:
+                  lib-name: 'doc-lib'
+            - name: Publish doc-lib@latest
+              if: steps.check-doc-lib-tag.outputs.isLibTag == 'true'
+              run: |
+                  cd ./dist/doc-lib
+                  npm publish
+              env:
+                  NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}
+
+    publish-doc-lib-next:
+        needs: [build-doc-lib, unit-testing]
+        runs-on: ubuntu-latest
+        steps:
+            - uses: actions/checkout@v2
+              # Fetch depth is given as input because the check-components-package step below uses git diff-tree command
+              # to get list of files changed and it requires a base commit sha in addition to the commit sha that triggered this job.
+              with:
+                  fetch-depth: 2
+            - uses: actions/setup-node@v1
+              with:
+                  node-version: '13'
+                  registry-url: https://registry.npmjs.org/
+            - uses: actions/cache@v1
+              with:
+                  path: ./node_modules
+                  key: ${{github.sha}}-node_modules
+            - uses: actions/cache@v1
+              with:
+                  path: ./dist/doc-lib
+                  key: doc-lib
+            - id: check-doc-lib-tag
+              uses: ./.github/actions/check-lib-tag
+              with:
+                  lib-name: 'doc-lib'
+            - id: check-doc-lib-package
+              uses: ./.github/actions/check-lib-package
+              with:
+                  lib-name: 'doc-lib'
+            - name: Publish doc-lib@next
+              if: steps.check-doc-lib-tag.outputs.isLibTag != 'true' && steps.check-doc-lib-package.outputs.isLibPackageChanged == 'true' && github.event_name == 'push'
+              run: |
+                  cd ./dist/doc-lib
+                  npm publish
+              env:
+                  NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}
+
+    publish-i18n-latest:
+        needs: [build-i18n, unit-testing]
+        runs-on: ubuntu-latest
+        steps:
+            - uses: actions/checkout@v2
+            - uses: actions/setup-node@v1
+              with:
+                  node-version: '13'
+                  registry-url: https://registry.npmjs.org/
+            - uses: actions/cache@v1
+              with:
+                  path: ./node_modules
+                  key: ${{github.sha}}-node_modules
+            - uses: actions/cache@v1
+              with:
+                  path: ./dist/i18n
+                  key: i18n
+            - id: check-i18n-tag
+              uses: ./.github/actions/check-lib-tag
+              with:
+                  lib-name: 'i18n'
+            - name: Publish i18n@latest
+              if: steps.check-i18n-tag.outputs.isLibTag == 'true'
+              run: |
+                  cd ./dist/i18n
+                  npm publish
+              env:
+                  NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}
+
+    publish-i18n-next:
+        needs: [build-i18n, unit-testing]
+        runs-on: ubuntu-latest
+        steps:
+            - uses: actions/checkout@v2
+              # Fetch depth is given as input because the check-components-package step below uses git diff-tree command
+              # to get list of files changed and it requires a base commit sha in addition to the commit sha that triggered this job.
+              with:
+                  fetch-depth: 2
+            - uses: actions/setup-node@v1
+              with:
+                  node-version: '13'
+                  registry-url: https://registry.npmjs.org/
+            - uses: actions/cache@v1
+              with:
+                  path: ./node_modules
+                  key: ${{github.sha}}-node_modules
+            - uses: actions/cache@v1
+              with:
+                  path: ./dist/i18n
+                  key: i18n
+            - id: check-i18n-tag
+              uses: ./.github/actions/check-lib-tag
+              with:
+                  lib-name: 'i18n'
+            - id: check-i18n-package
+              uses: ./.github/actions/check-lib-package
+              with:
+                  lib-name: 'i18n'
+            - name: Publish i18n@next
+              if: steps.check-i18n-tag.outputs.isLibTag != 'true' && steps.check-i18n-package.outputs.isLibPackageChanged == 'true' && github.event_name == 'push'
+              run: |
+                  cd ./dist/i18n
+                  npm publish
+              env:
+                  NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}

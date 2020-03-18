@@ -203,9 +203,7 @@
           "options": {
               "repo": "https://github.com/vmware/vmware-cloud-director-ui-components",
               "baseHref": "/vmware-cloud-director-ui-components/",
-              "noSilent": true,
-              "name": "ps37",
-              "email": "prudhvi.af121@gmail.com"
+              "noSilent": true
           }
         }
       }
