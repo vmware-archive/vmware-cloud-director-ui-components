@@ -6,7 +6,7 @@ try {
     const libName = core.getInput('lib-name');
     core.info(`lib-name = ${libName}`);
 
-    const filesInCommitCmd = `git diff-tree --no-commit-id --name-only -r ${github.context.sha}`;
+    const filesInCommitCmd = `git diff-tree --no-commit-id --name-only -m -r ${github.context.sha}`;
     exec(filesInCommitCmd, function(err, stdout) {
         if (err != null) {
             core.setFailed(err);

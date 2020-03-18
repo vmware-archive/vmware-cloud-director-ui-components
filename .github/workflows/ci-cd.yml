@@ -1,9 +1,9 @@
 # Trigger the workflow on push to any branch or on pull request into master
 on:
-    push:
     pull_request:
         branches:
             - master
+        types: [opened, reopened, synchronize]
 
 jobs:
     prepare_node_modules:
@@ -200,6 +200,8 @@ jobs:
         runs-on: ubuntu-latest
         steps:
             - uses: actions/checkout@v2
+              # Fetch depth is given as input because the check-components-package step below uses git diff-tree command
+              # to get list of files changed and it requires a base commit sha in addition to the commit sha that triggered this job.
               with:
                   fetch-depth: 2
             - uses: actions/setup-node@v1
@@ -223,7 +225,7 @@ jobs:
               with:
                   lib-name: 'components'
             - name: Publish components@next
-              if: steps.check-components-tag.outputs.isLibTag != 'true' && steps.check-components-package.outputs.isLibPackageChanged == 'true'
+              if: steps.check-components-tag.outputs.isLibTag != 'true' && steps.check-components-package.outputs.isLibPackageChanged == 'true' && github.ref == 'master'
               run: |
                   cd ./dist/components
                   npm publish
