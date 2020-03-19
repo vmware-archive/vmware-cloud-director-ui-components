@@ -1,0 +1,19 @@
+<clr-alert *ngIf="running" clrAlertType="alert-info" [clrAlertClosable]="false">
+    <div>{{ loadingMessage ? loadingMessage : ('loading' | translate) }}</div>
+</clr-alert>
+
+<clr-alert *ngIf="errorText" clrAlertType="danger" (clrAlertClosed)="onErrorClosed()">
+    <div clr-alert-item class="alert-item">
+        <span class="alert-text">
+            {{ errorText }}
+        </span>
+    </div>
+</clr-alert>
+
+<clr-alert *ngIf="successMessage" clrAlertType="success" (clrAlertClosed)="onSuccessClosed()">
+    <div clr-alert-item class="alert-item">
+        <span class="alert-text">
+            {{ successMessage }}
+        </span>
+    </div>
+</clr-alert>
