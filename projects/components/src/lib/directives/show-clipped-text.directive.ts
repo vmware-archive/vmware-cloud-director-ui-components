@@ -19,6 +19,24 @@ export enum TooltipSize {
 }
 
 /**
+ * The configuration information for the cliptext within the cells of the datagrid.
+ */
+export interface CliptextConfig {
+    /**
+     * The size of the tooltip to be displayed in the cell.
+     */
+    size?: TooltipSize;
+    /**
+     * The time delay from mouse off to hide the cliptext.
+     */
+    mouseoutDelay?: number;
+    /**
+     * If the cliptext should be disabled.
+     */
+    disabled?: boolean;
+}
+
+/**
  * Singleton tooltip created by directive
  */
 const tip = {
@@ -202,12 +220,29 @@ export class ShowClippedTextDirective implements OnDestroy, OnInit {
     /** To destroy the tooltip when no longer needed */
     static instanceCount = 0;
 
-    /** Size of tooltip */
-    @Input('vcdShowClippedText') tooltipSize = TooltipSize.md;
+    @Input('vcdShowClippedText')
+    set config(config: CliptextConfig) {
+        if (config && config.mouseoutDelay) {
+            this.mouseoutDelay = config.mouseoutDelay;
+        }
+        if (config && config.size) {
+            this.tooltipSize = config.size;
+        }
+        const nextDisabled = config !== undefined && config.disabled;
+        if (this.disabled === nextDisabled) {
+            return;
+        }
+        this.disabled = nextDisabled;
+        if (this.disabled) {
+            this.deactivate();
+        } else {
+            this.activate();
+        }
+    }
 
-    // tslint:disable-next-line:no-input-rename
-    @Input('vcdShowClippedTextMouseOutDelay')
     mouseoutDelay = 500;
+    tooltipSize = TooltipSize.md;
+    disabled = false;
 
     /**
      * The HTML element receiving the directive
@@ -232,6 +267,12 @@ export class ShowClippedTextDirective implements OnDestroy, OnInit {
     constructor(private host: ElementRef) {}
 
     ngOnInit(): void {
+        if (!this.disabled) {
+            this.activate();
+        }
+    }
+
+    activate(): void {
         ShowClippedTextDirective.instanceCount++;
         tip.create();
         watchEvents(this.hostElement, this.onMouseIn, this.onMouseOut);
@@ -251,6 +292,12 @@ export class ShowClippedTextDirective implements OnDestroy, OnInit {
     }
 
     ngOnDestroy(): void {
+        if (!this.disabled) {
+            this.deactivate();
+        }
+    }
+
+    deactivate(): void {
         ShowClippedTextDirective.instanceCount--;
         unwatchEvents(this.hostElement, this.onMouseIn, this.onMouseOut);
         this.mutationObserver.disconnect();

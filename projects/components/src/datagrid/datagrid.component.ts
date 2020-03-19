@@ -4,32 +4,33 @@
  */
 
 import {
+    AfterViewInit,
     Component,
+    ContentChild,
+    ElementRef,
     EventEmitter,
+    HostBinding,
     Input,
     OnInit,
     Output,
     TemplateRef,
-    ViewChild,
     TrackByFunction,
-    ContentChild,
-    ElementRef,
-    AfterViewInit,
-    HostBinding,
+    ViewChild,
 } from '@angular/core';
-import { ClrDatagridFilter, ClrDatagrid, ClrDatagridStateInterface, ClrDatagridPagination } from '@clr/angular';
+import { ClrDatagrid, ClrDatagridFilter, ClrDatagridPagination, ClrDatagridStateInterface } from '@clr/angular';
+import { TooltipSize } from '../lib/directives/show-clipped-text.directive';
+import { DatagridFilter } from './filters/datagrid-filter';
 import {
+    Button,
+    ButtonConfig,
+    ColumnRendererSpec,
+    ContextualButtonPosition,
     FunctionRenderer,
     GridColumn,
     GridColumnHideable,
-    ButtonConfig,
-    ContextualButtonPosition,
-    Button,
     InactiveButtonDisplayMode,
-    ColumnRendererSpec,
 } from './interfaces/datagrid-column.interface';
 import { ContextualButton } from './interfaces/datagrid-column.interface';
-import { DatagridFilter } from './filters/datagrid-filter';
 
 /**
  * The default number of items on a single page.
@@ -231,6 +232,7 @@ export class DatagridComponent<R> implements OnInit, AfterViewInit {
 
     ContextualButtonPosition = ContextualButtonPosition;
     GridColumnHideable = GridColumnHideable;
+    TooltipSize = TooltipSize;
     private _columns: GridColumn<R>[];
 
     @ContentChild(TemplateRef, { static: false }) detailTemplate!: TemplateRef<ElementRef>;

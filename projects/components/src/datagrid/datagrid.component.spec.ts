@@ -3,25 +3,26 @@
  * SPDX-License-Identifier: BSD-2-Clause
  */
 
-import { Component, ViewChild, TemplateRef, ContentChild } from '@angular/core';
+import { Component, ContentChild, TemplateRef, ViewChild } from '@angular/core';
+import { TestBed } from '@angular/core/testing';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { TooltipSize } from '../lib/directives/show-clipped-text.directive';
+import { ClrDatagridWidgetObject } from '../utils/test/datagrid/datagrid.wo';
+import { WidgetFinder } from '../utils/test/widget-object';
 import { GridSelectionType, PaginationConfiguration } from './datagrid.component';
 import { DatagridComponent, GridDataFetchResult, GridState } from './datagrid.component';
+import { DatagridModule } from './datagrid.module';
 import {
+    ButtonConfig,
+    ColumnComponentRendererSpec,
+    ContextualButtonPosition,
     GridColumn,
     GridColumnHideable,
-    ButtonConfig,
-    ContextualButtonPosition,
     InactiveButtonDisplayMode,
-    ColumnComponentRendererSpec,
 } from './interfaces/datagrid-column.interface';
-import { TestBed } from '@angular/core/testing';
-import { DatagridModule } from './datagrid.module';
-import { WidgetFinder } from '../utils/test/widget-object';
-import { BoldTextRendererComponent } from './renderers/bold-text-renderer.component';
-import { ClrDatagridWidgetObject } from '../utils/test/datagrid/datagrid.wo';
-import { WithGridBoldRenderer } from './renderers/bold-text-renderer.wo';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { mockData, MockRecord } from './mock-data';
+import { BoldTextRendererComponent } from './renderers/bold-text-renderer.component';
+import { WithGridBoldRenderer } from './renderers/bold-text-renderer.wo';
 
 type MockRecordDatagridComponent = DatagridComponent<MockRecord>;
 
@@ -108,6 +109,38 @@ describe('DatagridComponent', () => {
                     'secondRowB',
                     'Expected a different new class to display for the second row.'
                 );
+            });
+
+            describe('@Input() columns.disableCliptext', () => {
+                beforeEach(function(this: HasFinderAndGrid): void {
+                    this.finder.hostComponent.gridData = {
+                        items: mockData,
+                        totalItems: 2,
+                    };
+                    this.finder.detectChanges();
+                });
+
+                it('clips text when disableCliptext is unset', function(this: HasFinderAndGrid): void {
+                    this.finder.hostComponent.columns = [{ displayName: 'Name', renderer: 'name' }];
+                    this.finder.detectChanges();
+                    expect(this.clrGridWidget.columnClippedTextDirective(0).disabled).toBeFalsy();
+                });
+
+                it('clips text when disableCliptext is false', function(this: HasFinderAndGrid): void {
+                    this.finder.hostComponent.columns = [
+                        { displayName: 'Name', renderer: 'name', cliptextConfig: { size: TooltipSize.md } },
+                    ];
+                    this.finder.detectChanges();
+                    expect(this.clrGridWidget.columnClippedTextDirective(0).disabled).toBeFalsy();
+                });
+
+                it('does not clip text when disableCliptext is true', function(this: HasFinderAndGrid): void {
+                    this.finder.hostComponent.columns = [
+                        { displayName: 'Name', renderer: 'name', cliptextConfig: { disabled: true } },
+                    ];
+                    this.finder.detectChanges();
+                    expect(this.clrGridWidget.columnClippedTextDirective(0).disabled).toBeTruthy();
+                });
             });
 
             describe('@Input() selectionType', () => {

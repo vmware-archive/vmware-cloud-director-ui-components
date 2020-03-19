@@ -6,6 +6,7 @@
 /**
  * Whether something shows up in the column toggler
  */
+import { TooltipSize, CliptextConfig } from '../../lib/directives/show-clipped-text.directive';
 import { FilterConfig, FilterRendererSpec } from '../filters/datagrid-filter';
 import { ComponentRendererConstructor, ComponentRendererSpec } from './component-renderer.interface';
 
@@ -234,6 +235,13 @@ export interface GridColumn<R> {
      * and sorting feature on. And we want filtering to be off on some columns while still having sorting enabled.
      */
     sortBy?: string;
+
+    /**
+     * The configuration for the cliptext in the datagrid.
+     * Defaults to size: 'lg', mouseoutDelay: undefined.
+     * If null, will disable cliptext
+     */
+    cliptextConfig?: CliptextConfig;
 }
 
 /**

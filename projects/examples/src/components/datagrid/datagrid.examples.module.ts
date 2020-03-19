@@ -4,30 +4,32 @@
  */
 
 import { NgModule } from '@angular/core';
-import { DatagridShowHideExampleComponent } from './datagrid-show-hide.example.component';
 import { DatagridComponent } from '@vcd/ui-components';
 import { Documentation } from '@vcd/ui-doc-lib';
+import { DatagridCliptextExampleComponent } from './datagrid-cliptext.example.component';
+import { DatagridCliptextExampleModule } from './datagrid-cliptext.example.module';
 import { DatagridCssClassesExampleComponent } from './datagrid-css-classes.example.component';
-import { DatagridThreeRenderersExampleComponent } from './datagrid-three-renderers.example.component';
-import { DatagridThreeRenderersExampleModule } from './datagrid-three-renderers.example.module';
 import { DatagridCssClassesExampleModule } from './datagrid-css-classes.example.module';
-import { DatagridShowHideExampleModule } from './datagrid-show-hide.example.module';
 import { DatagridDetailRowExampleComponent } from './datagrid-detail-row.example.component';
 import { DatagridDetailRowExampleModule } from './datagrid-detail-row.example.module';
-import { DatagridSortExampleModule } from './datagrid-sort.example.module';
-import { DatagridSortExampleComponent } from './datagrid-sort.example.component';
-import { DatagridRowSelectExampleComponent } from './datagrid-row-select.example.component';
-import { DatagridRowSelectExampleModule } from './datagrid-row-select.example.module';
-import { DatagridPaginationExampleComponent } from './datagrid-pagination-example.component';
-import { DatagridPagionationExampleModule } from './datagrid-pagination-example.module';
-import { DatagridLinkExampleModule } from './datagrid-link.example.module';
-import { DatagridLinkExampleComponent } from './datagrid-link.example.component';
-import { DatagridHeightExampleModule } from './datagrid-height.example.module';
-import { DatagridHeightExampleComponent } from './datagrid-height.example.component';
+import { DatagridFilterExampleComponent } from './datagrid-filter.example.component';
+import { DatagridFilterExampleModule } from './datagrid-filter.example.module';
 import { DatagridHeaderExampleComponent } from './datagrid-header.example.component';
 import { DatagridHeaderExampleModule } from './datagrid-header.example.module';
-import { DatagridFilterExampleModule } from './datagrid-filter.example.module';
-import { DatagridFilterExampleComponent } from './datagrid-filter.example.component';
+import { DatagridHeightExampleComponent } from './datagrid-height.example.component';
+import { DatagridHeightExampleModule } from './datagrid-height.example.module';
+import { DatagridLinkExampleComponent } from './datagrid-link.example.component';
+import { DatagridLinkExampleModule } from './datagrid-link.example.module';
+import { DatagridPaginationExampleComponent } from './datagrid-pagination-example.component';
+import { DatagridPagionationExampleModule } from './datagrid-pagination-example.module';
+import { DatagridRowSelectExampleComponent } from './datagrid-row-select.example.component';
+import { DatagridRowSelectExampleModule } from './datagrid-row-select.example.module';
+import { DatagridShowHideExampleComponent } from './datagrid-show-hide.example.component';
+import { DatagridShowHideExampleModule } from './datagrid-show-hide.example.module';
+import { DatagridSortExampleComponent } from './datagrid-sort.example.component';
+import { DatagridSortExampleModule } from './datagrid-sort.example.module';
+import { DatagridThreeRenderersExampleComponent } from './datagrid-three-renderers.example.component';
+import { DatagridThreeRenderersExampleModule } from './datagrid-three-renderers.example.module';
 
 Documentation.registerDocumentationEntry({
     component: DatagridComponent,
@@ -85,9 +87,9 @@ Documentation.registerDocumentationEntry({
             title: 'Links from Datagrid Example',
         },
         {
-            component: DatagridFilterExampleComponent,
+            component: DatagridCliptextExampleComponent,
             forComponent: null,
-            title: 'Data grid filters',
+            title: 'Cliptext in the datagrid cells',
         },
     ],
 });
@@ -107,6 +109,7 @@ Documentation.registerDocumentationEntry({
         DatagridHeightExampleModule,
         DatagridHeaderExampleModule,
         DatagridFilterExampleModule,
+        DatagridCliptextExampleModule,
     ],
 })
 export class DatagridExamplesModule {}
