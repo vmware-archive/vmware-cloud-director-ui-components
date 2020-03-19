@@ -4,7 +4,7 @@ const exec = require('child_process').exec;
 
 try {
     const libName = core.getInput('lib-name');
-    core.info(`lib-name = ${libName}`);
+    console.log(`lib-name = ${libName}`);
 
     const filesInCommitCmd = `git diff-tree --no-commit-id --name-only -m -r ${github.context.sha}`;
     exec(filesInCommitCmd, function(err, stdout) {

@@ -8,5 +8,5 @@ outputs:
     isLibPackageChanged: # id of output
         description: 'boolean to convey if a library package.json has changed'
 runs:
-    using: 'node12'
+    using: 'node12' # Custom actions don't support node 13 as used in the ci-cd.yaml file
     main: 'index.js'

@@ -1,8 +1,6 @@
 # Trigger the workflow on push to any branch or on pull request into master
 on:
     push:
-        branches:
-            - master
     pull_request:
         branches:
             - master
@@ -165,7 +163,7 @@ jobs:
                   path: ./dist/examples
                   key: examples
             - run: npx ng deploy --no-build
-              if: github.event_name == 'push'
+              if: github.event_name == 'push' && github.ref == 'master'
               env:
                   GH_TOKEN: ${{ secrets.GH_TOKEN }}
 
@@ -194,7 +192,7 @@ jobs:
               if: steps.check-components-tag.outputs.isLibTag == 'true'
               run: |
                   cd ./dist/components
-                  npm publish --access public
+                  npm publish
               env:
                   NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}
 
@@ -203,8 +201,9 @@ jobs:
         runs-on: ubuntu-latest
         steps:
             - uses: actions/checkout@v2
-              # Fetch depth is given as input because the check-components-package step below uses git diff-tree command
-              # to get list of files changed and it requires a base commit sha in addition to the commit sha that triggered this job.
+              # Fetch depth is given as input because by default, it does a shallow clone (one without any history) for performance reasons.
+              # But the check-components-package step below uses git diff-tree command to get list of files changed and
+              # it requires a base commit sha in addition to the commit sha that triggered this job.
               with:
                   fetch-depth: 2
             - uses: actions/setup-node@v1
@@ -228,10 +227,10 @@ jobs:
               with:
                   lib-name: 'components'
             - name: Publish components@next
-              if: steps.check-components-tag.outputs.isLibTag != 'true' && steps.check-components-package.outputs.isLibPackageChanged == 'true' && github.event_name == 'push'
+              if: steps.check-components-tag.outputs.isLibTag != 'true' && steps.check-components-package.outputs.isLibPackageChanged == 'true' && github.event_name == 'push' && github.ref == 'master'
               run: |
                   cd ./dist/components
-                  npm publish
+                  npm publish --tag next
               env:
                   NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}
 
@@ -269,8 +268,9 @@ jobs:
         runs-on: ubuntu-latest
         steps:
             - uses: actions/checkout@v2
-              # Fetch depth is given as input because the check-components-package step below uses git diff-tree command
-              # to get list of files changed and it requires a base commit sha in addition to the commit sha that triggered this job.
+              # Fetch depth is given as input because by default, it does a shallow clone (one without any history) for performance reasons.
+              # But the check-components-package step below uses git diff-tree command to get list of files changed and
+              # it requires a base commit sha in addition to the commit sha that triggered this job.
               with:
                   fetch-depth: 2
             - uses: actions/setup-node@v1
@@ -294,10 +294,10 @@ jobs:
               with:
                   lib-name: 'doc-lib'
             - name: Publish doc-lib@next
-              if: steps.check-doc-lib-tag.outputs.isLibTag != 'true' && steps.check-doc-lib-package.outputs.isLibPackageChanged == 'true' && github.event_name == 'push'
+              if: steps.check-doc-lib-tag.outputs.isLibTag != 'true' && steps.check-doc-lib-package.outputs.isLibPackageChanged == 'true' && github.event_name == 'push' && github.ref == 'master'
               run: |
                   cd ./dist/doc-lib
-                  npm publish
+                  npm publish --tag next
               env:
                   NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}
 
@@ -335,8 +335,9 @@ jobs:
         runs-on: ubuntu-latest
         steps:
             - uses: actions/checkout@v2
-              # Fetch depth is given as input because the check-components-package step below uses git diff-tree command
-              # to get list of files changed and it requires a base commit sha in addition to the commit sha that triggered this job.
+              # Fetch depth is given as input because by default, it does a shallow clone (one without any history) for performance reasons.
+              # But the check-components-package step below uses git diff-tree command to get list of files changed and
+              # it requires a base commit sha in addition to the commit sha that triggered this job.
               with:
                   fetch-depth: 2
             - uses: actions/setup-node@v1
@@ -360,9 +361,9 @@ jobs:
               with:
                   lib-name: 'i18n'
             - name: Publish i18n@next
-              if: steps.check-i18n-tag.outputs.isLibTag != 'true' && steps.check-i18n-package.outputs.isLibPackageChanged == 'true' && github.event_name == 'push'
+              if: steps.check-i18n-tag.outputs.isLibTag != 'true' && steps.check-i18n-package.outputs.isLibPackageChanged == 'true' && github.event_name == 'push' && github.ref == 'master'
               run: |
                   cd ./dist/i18n
-                  npm publish
+                  npm publish --tag next
               env:
                   NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}

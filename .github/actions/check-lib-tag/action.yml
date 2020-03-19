@@ -8,5 +8,5 @@ outputs:
     isLibTag: # id of output
         description: 'boolean to check if a library tag is present'
 runs:
-    using: 'node12'
+    using: 'node12' # Custom actions don't support node 13 as used in the ci-cd.yaml file
     main: 'index.js'

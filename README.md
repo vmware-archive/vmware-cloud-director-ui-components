@@ -62,6 +62,24 @@ the extremely long folder name.
 
 Publishing happens through the CI/CD pipeline. See [package.json](.github/workflows/ci-cd.yml)
 
+### Steps for publishing an @next release:
+
+-   Update version number in projects/<lib-name>/package.json
+-   Push the changes to a remote topic branch and create a pull request into vmware/vmware-cloud-director-ui-components/master
+-   Upon approval of the PR, merge that PR into master
+
+Following the above steps makes the CI-CD pipeline to execute publishing job to npm with @next tag(npm publish --tag next)
+
+### Steps for publishing an @latest release:
+
+-   Update version number in projects/<lib-name>/package.json
+-   Push the changes to a remote topic branch and create a pull request into vmware/vmware-cloud-director-ui-components/master
+-   Upon approval of the PR, Push the changes to remote repo using Git tag using following commands:
+    -   Add a Git tag to the HEAD commit that has to be published as latest: `git tag -fa <lib-name>-v[0-999].[0-999].[0-999]`
+    -   Push to the remote repo(vmware/vmware-cloud-director-ui-components): `git push git@github.com:vmware/vmware-cloud-director-ui-components.git refs/tags/<lib-name>-v[0-999].[0-999].[0-999]`
+
+Following the above steps makes the CI-CD pipeline to execute publishing job to npm with @latest tag(npm publish)
+
 ## Angular CLI
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 8.3.20. We attempt to
