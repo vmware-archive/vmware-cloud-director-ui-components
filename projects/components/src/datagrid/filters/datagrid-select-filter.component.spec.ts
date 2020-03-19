@@ -123,4 +123,29 @@ describe('Datagrid select filter', () => {
             expect(this.filter.getValue()).toEqual(`${queryFieldName}==30`);
         });
     });
+
+    describe('when customFiql is set to be true', () => {
+        beforeEach(function(this: HasDgSelectFilter): void {
+            this.filter = createDatagridFilterTestHelper(DatagridSelectFilterComponent, {
+                customFiql: true,
+                options: [
+                    {
+                        display: 'Option 1',
+                        value: 'field1==false;field2==true',
+                    },
+                    {
+                        display: 'Option 2',
+                        value: '(field1=ge=1;field2=le=10)',
+                    },
+                ],
+            });
+        });
+        describe('getValue', () => {
+            it('returns value of the selected option without converting to FIQL', function(this: HasDgSelectFilter): void {
+                const customFiqlOptionValue = '(field1=ge=1;field2=le=10)';
+                this.filter.setValue(customFiqlOptionValue);
+                expect(this.filter.getValue()).toEqual(customFiqlOptionValue);
+            });
+        });
+    });
 });

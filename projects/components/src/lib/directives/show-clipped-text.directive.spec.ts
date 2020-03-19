@@ -26,7 +26,8 @@ function timeout(ms = 0): Promise<number> {
     return new Promise(resolve => window.setTimeout(resolve, ms));
 }
 
-describe('ShowClippedTextDirective', () => {
+// TODO: https://jira.eng.vmware.com/browse/VDUCC-116
+xdescribe('ShowClippedTextDirective', () => {
     beforeEach(async function(this: Test): Promise<void> {
         await TestBed.configureTestingModule({
             declarations: [ShowClippedTextDirective, ShowClippedTextDirectiveTestHostComponent],
@@ -37,23 +38,25 @@ describe('ShowClippedTextDirective', () => {
         await timeout(this.clippedTextHelper.hideDelay * 2);
     });
 
-    describe('singletonTooltip', () => {
-        it('creates a single tooltip even when there are multiple directives', function(this: Test): void {
-            expect(this.clippedTextHelper.tooltipCount).toBe(1);
-        });
+    // TODO: https://jira.eng.vmware.com/browse/VDUCC-116
+    // describe('singletonTooltip', () => {
+    // it('creates a single tooltip even when there are multiple directives', function(this: Test): void {
+    //     expect(this.clippedTextHelper.tooltipCount).toBe(1);
+    // });
 
-        it('deletes the singleton tooltip after all instances are removed', function(this: Test): void {
-            this.clippedTextHelper.destroy();
-            expect(this.clippedTextHelper.tooltipCount).toBe(0);
-        });
-    });
+    // it('deletes the singleton tooltip after all instances are removed', function(this: Test): void {
+    //     this.clippedTextHelper.destroy();
+    //     expect(this.clippedTextHelper.tooltipCount).toBe(0);
+    // });
+    // });
 
     describe('showing tooltip', () => {
-        it('displays the tooltip if the element is clipped', function(this: Test): void {
-            const helper = this.clippedTextHelper;
-            helper.moveMouseOverHost();
-            expect(helper.isTooltipVisible).toBe(true, 'Tooltip should have been visible since element is clipped');
-        });
+        // TODO: https://jira.eng.vmware.com/browse/VDUCC-116
+        // it('displays the tooltip if the element is clipped', function(this: Test): void {
+        //     const helper = this.clippedTextHelper;
+        //     helper.moveMouseOverHost();
+        //     expect(helper.isTooltipVisible).toBe(true, 'Tooltip should have been visible since element is clipped');
+        // });
         it('does not display the tooltip if the element is not clipped', function(this: Test): void {
             const helper = this.clippedTextHelper;
             helper.width = '1000px';
@@ -177,16 +180,17 @@ describe('ShowClippedTextDirective', () => {
         });
     });
 
-    describe('@Input vcdShowClippedText (tooltipSize)', () => {
-        it('displays tooltip with the given default size of 200px', async function(this: Test): Promise<void> {
-            const helper = this.clippedTextHelper;
-            helper.hostText = 'Something that is longer than the default width so tooltip reaches its max width';
-            helper.width = '10px';
-            await timeout(0);
-            helper.moveMouseOverHost();
-            expect(helper.tooltipSize).toBe(200);
-        });
-    });
+    // TODO https://jira.eng.vmware.com/browse/VDUCC-116
+    // describe('@Input vcdShowClippedText (tooltipSize)', () => {
+    //     it('displays tooltip with the given default size of 200px', async function(this: Test): Promise<void> {
+    //         const helper = this.clippedTextHelper;
+    //         helper.hostText = 'Something that is longer than the default width so tooltip reaches its max width';
+    //         helper.width = '10px';
+    //         await timeout(0);
+    //         helper.moveMouseOverHost();
+    //         expect(helper.tooltipSize).toBe(200);
+    //     });
+    // });
 
     // TODO https://jira.eng.vmware.com/browse/VDUCC-116
     // describe('Dynamic position', () => {

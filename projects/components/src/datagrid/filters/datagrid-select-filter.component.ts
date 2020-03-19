@@ -34,6 +34,11 @@ export interface DatagridSelectFilterConfig extends FilterConfig<string | number
      * List of select options
      */
     options: SelectOption[];
+
+    /**
+     * Switch to disable conversion of filter value to FIQL. Used by {@link DatagridSelectFilterComponent#getValue}
+     */
+    customFiql?: boolean;
 }
 
 /**
@@ -93,6 +98,9 @@ export class DatagridSelectFilterComponent extends DatagridFilter<string | numbe
     }
 
     getValue(): string {
+        if (this.config.customFiql) {
+            return this.formGroup.get('filterSelect').value;
+        }
         const filterBuilder = new FilterBuilder().is(this.queryField);
         const value = this.formGroup.get('filterSelect').value;
         return filterBuilder.equalTo(value).getString();
@@ -107,16 +115,19 @@ export class DatagridSelectFilterComponent extends DatagridFilter<string | numbe
  * Creates a {@link FilterRendererSpec} with the given config.
  * @param options List of options for select input
  * @param value the default value that should go in this select filter.
+ * @param customFiql when set as true will disable any formatting by {@link DatagridSelectFilterComponent#getValue}
  */
 export function DatagridSelectFilter(
     options: SelectOption[],
-    value?: string | number
+    value?: string | number,
+    customFiql?: boolean
 ): FilterRendererSpec<DatagridSelectFilterConfig> {
     return FilterComponentRendererSpec({
         type: DatagridSelectFilterComponent,
         config: {
             options,
             value,
+            customFiql,
         },
     });
 }

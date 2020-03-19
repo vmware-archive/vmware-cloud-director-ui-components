@@ -87,6 +87,11 @@ Documentation.registerDocumentationEntry({
             title: 'Links from Datagrid Example',
         },
         {
+            component: DatagridFilterExampleComponent,
+            forComponent: null,
+            title: 'Data grid filters',
+        },
+        {
             component: DatagridCliptextExampleComponent,
             forComponent: null,
             title: 'Cliptext in the datagrid cells',
