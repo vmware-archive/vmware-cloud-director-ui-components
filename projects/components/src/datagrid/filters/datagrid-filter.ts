@@ -64,12 +64,13 @@ export abstract class DatagridFilter<V, C extends FilterConfig<V>> extends Subsc
     }
 
     /**
-     * Contains configuration needed for a filter UI widget and also it's value.
+     * Sets the configuration needed for a filter UI widget and also it's value.
      * Assigned from {@link ComponentRendererOutletDirective#assignValue} after the filter component is created.
      * Used by the getValue method in sub classes to format the FIQL string output.
      */
-    private _config: C;
+    protected _config: C;
     @Input() set config(val: C) {
+        this.onBeforeSetConfig(val);
         this._config = val;
         if (this._config.value) {
             this.setValue(this._config.value);
@@ -84,6 +85,12 @@ export abstract class DatagridFilter<V, C extends FilterConfig<V>> extends Subsc
      * Emits whenever a filter form inputs changes
      */
     changes = new Subject<null>();
+
+    /**
+     * Called inside setter of {@link DatagridFilter#config} and Defined in the derived classes to perform some logic before
+     * assigning the UI widget configuration and setting a value
+     */
+    protected onBeforeSetConfig(config: C): void {}
 
     /**
      * Used for assigning a value to a filter from outside

@@ -5,6 +5,7 @@
 
 import { Component, Type } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
+import { MockTranslationService, TranslationService } from '@vcd/i18n';
 import { WidgetFinder } from '../widget-object';
 import { ClrDatagridWidgetObject } from './datagrid.wo';
 import {
@@ -15,6 +16,7 @@ import {
     GridDataFetchResult,
 } from '../../../datagrid';
 import { MockRecord } from '../../../datagrid/mock-data';
+import { IdGenerator } from '../../id-generator/id-generator';
 
 /**
  * Used inside beforeEach functions of filter tests and it does the following:
@@ -40,6 +42,16 @@ export function createDatagridFilterTestHelper<V, C>(
     TestBed.configureTestingModule({
         imports: [DatagridModule],
         declarations: [FilterTestHostComponent],
+        providers: [
+            {
+                provide: TranslationService,
+                useClass: MockTranslationService,
+            },
+            {
+                provide: IdGenerator,
+                useValue: new IdGenerator('vcd-id'),
+            },
+        ],
     }).compileComponents();
 
     // Add the filter to grid column
