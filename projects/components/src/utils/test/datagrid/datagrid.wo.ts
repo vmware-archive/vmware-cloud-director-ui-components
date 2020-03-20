@@ -6,7 +6,6 @@
 import { GridSelectionType } from './../../../datagrid/datagrid.component';
 
 import { DebugElement, Type } from '@angular/core';
-import { By } from '@angular/platform-browser';
 import { ClrDatagrid } from '@clr/angular';
 import { DatagridFilter } from '../../../datagrid';
 import { ShowClippedTextDirective } from '../../../lib/directives/show-clipped-text.directive';
@@ -197,21 +196,13 @@ export class ClrDatagridWidgetObject extends WidgetObject<ClrDatagrid> {
     }
 
     /**
-     * Gives the header above the grid.
-     */
-    get gridHeader(): string | undefined {
-        const headerElement = this.findElement('h3', this.root.parent);
-        return headerElement ? headerElement.nativeElement.textContent : undefined;
-    }
-
-    /**
      * Can be used by subclasses to create methods that assert about HTML in custom rendered columns. Note that
      * subclasses should not return the DebugElement, they should return a string from a section of the HTML.
      *
      * @param row 0-based index of row
      * @param column 0-based index of column
      */
-    protected getCell(row: number, column: number): DebugElement {
+    getCell(row: number, column: number): DebugElement {
         return this.findElement(`${ROW_TAG}:nth-of-type(${row + 1}) ${CELL_TAG}:nth-of-type(${column + 1})`);
     }
 

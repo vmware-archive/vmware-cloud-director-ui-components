@@ -13,6 +13,7 @@ import { DatagridCssClassesExampleModule } from './datagrid-css-classes.example.
 import { DatagridDetailRowExampleComponent } from './datagrid-detail-row.example.component';
 import { DatagridDetailRowExampleModule } from './datagrid-detail-row.example.module';
 import { DatagridFilterExampleModule } from './datagrid-filter.example.module';
+import { DatagridFilterExampleComponent } from './datagrid-filter.example.component';
 import { DatagridHeaderExampleComponent } from './datagrid-header.example.component';
 import { DatagridHeaderExampleModule } from './datagrid-header.example.module';
 import { DatagridHeightExampleComponent } from './datagrid-height.example.component';
@@ -96,7 +97,8 @@ Documentation.registerDocumentationEntry({
             component: DatagridCliptextExampleComponent,
             forComponent: null,
             title: 'Cliptext in the datagrid cells',
-        }, {
+        },
+        {
             component: DatagridActivityReporterExampleComponent,
             forComponent: null,
             title: 'Activity reporter + buttons example',
