@@ -1,0 +1,9 @@
+<button *ngIf="started" (click)="this.reject('Woah there!')">Throw Error</button>
+<button *ngIf="started" (click)="this.resolve('Good!')">Sucess</button>
+<vcd-datagrid
+    [gridData]="gridData"
+    (gridRefresh)="refresh($event)"
+    [columns]="columns"
+    [buttonConfig]="buttonConfig"
+    [indicatorType]="indicatorType"
+></vcd-datagrid>

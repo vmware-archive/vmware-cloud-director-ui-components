@@ -9,7 +9,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { TooltipSize } from '../lib/directives/show-clipped-text.directive';
 import { ClrDatagridWidgetObject } from '../utils/test/datagrid/datagrid.wo';
 import { WidgetFinder } from '../utils/test/widget-object';
-import { GridSelectionType, PaginationConfiguration } from './datagrid.component';
+import { GridSelectionType, PaginationConfiguration, ActivityIndicatorType } from './datagrid.component';
 import { DatagridComponent, GridDataFetchResult, GridState } from './datagrid.component';
 import { DatagridModule } from './datagrid.module';
 import {
@@ -23,15 +23,18 @@ import {
 import { mockData, MockRecord } from './mock-data';
 import { BoldTextRendererComponent } from './renderers/bold-text-renderer.component';
 import { WithGridBoldRenderer } from './renderers/bold-text-renderer.wo';
+import { VcdDatagridWidgetObject } from '../utils/test/datagrid/vcd-datagrid.wo';
 
 type MockRecordDatagridComponent = DatagridComponent<MockRecord>;
 
-class GridWithBoldRenderer extends WithGridBoldRenderer(ClrDatagridWidgetObject) {}
+class GridWithBoldRenderer extends WithGridBoldRenderer(VcdDatagridWidgetObject)<MockRecord> {}
 
 interface HasFinderAndGrid {
     finder: WidgetFinder<HostWithDatagridComponent>;
     // The Widget Object for the underlying Clarity grid
-    clrGridWidget: GridWithBoldRenderer;
+    clrGridWidget: ClrDatagridWidgetObject;
+    // The Widget Object for the VCD Datagrid
+    vcdDatagrid: GridWithBoldRenderer;
     // The instance of DatagridComponent
     component: MockRecordDatagridComponent;
 }
@@ -44,7 +47,8 @@ describe('DatagridComponent', () => {
         }).compileComponents();
 
         this.finder = new WidgetFinder(HostWithDatagridComponent);
-        this.clrGridWidget = this.finder.find(GridWithBoldRenderer);
+        this.vcdDatagrid = this.finder.find(GridWithBoldRenderer);
+        this.clrGridWidget = this.vcdDatagrid.clrDatagrid;
     });
 
     describe('Grid', () => {
@@ -679,22 +683,57 @@ describe('DatagridComponent', () => {
                     });
                 });
             });
+
+            describe('@Input() indicatorType', () => {
+                let resolvePromise;
+
+                beforeEach(function(this: HasFinderAndGrid): void {
+                    this.finder.hostComponent.buttonConfig.globalButtons = [
+                        {
+                            label: 'Add',
+                            isActive: () => true,
+                            handler: () =>
+                                new Promise(resolve => {
+                                    resolvePromise = resolve;
+                                }),
+                            class: 'button',
+                        },
+                    ];
+                    this.finder.detectChanges();
+                });
+
+                it('is able to show the spinner indicator', function(this: HasFinderAndGrid): void {
+                    this.finder.hostComponent.indicatorType = ActivityIndicatorType.SPINNER;
+                    this.finder.detectChanges();
+                    const spy = spyOn(this.finder.hostComponent.grid.actionReporter, 'monitorActivity');
+                    this.clrGridWidget.pressTopButton(0);
+                    expect(spy).toHaveBeenCalledTimes(1);
+                });
+
+                it('is able to show the banner indicator', function(this: HasFinderAndGrid): void {
+                    this.finder.hostComponent.indicatorType = ActivityIndicatorType.BANNER;
+                    this.finder.detectChanges();
+                    const spy = spyOn(this.finder.hostComponent.grid.actionReporter, 'monitorActivity');
+                    this.clrGridWidget.pressTopButton(0);
+                    expect(spy).toHaveBeenCalledTimes(1);
+                });
+            });
         });
 
         describe('@Input() header', () => {
             it('shows the header if set and allows it to be changed', function(this: HasFinderAndGrid): void {
                 this.finder.hostComponent.header = 'Some Header!';
                 this.finder.detectChanges();
-                expect(this.clrGridWidget.gridHeader).toEqual('Some Header!');
+                expect(this.vcdDatagrid.gridHeader).toEqual('Some Header!');
                 this.finder.hostComponent.header = 'Some Other Header!';
                 this.finder.detectChanges();
-                expect(this.clrGridWidget.gridHeader).toEqual('Some Other Header!');
+                expect(this.vcdDatagrid.gridHeader).toEqual('Some Other Header!');
             });
 
             it('does not show a header when none is set', function(this: HasFinderAndGrid): void {
                 this.finder.hostComponent.header = undefined;
                 this.finder.detectChanges();
-                expect(this.clrGridWidget.gridHeader).toEqual(undefined);
+                expect(this.vcdDatagrid.gridHeader).toEqual('');
             });
         });
     });
@@ -735,7 +774,7 @@ describe('DatagridComponent', () => {
                     },
                 ];
                 this.finder.detectChanges();
-                expect(this.clrGridWidget.getBoldText(0, 0)).toBe(mockData[0].name);
+                expect(this.vcdDatagrid.getBoldText(0, 0)).toBe(mockData[0].name);
             });
         });
     });
@@ -757,6 +796,7 @@ describe('DatagridComponent', () => {
             [buttonConfig]="buttonConfig"
             [height]="height"
             [header]="header"
+            [indicatorType]="indicatorType"
         >
             <ng-template let-record="record"> DETAILS: {{ record.name }} </ng-template>
         </vcd-datagrid>
@@ -780,6 +820,8 @@ export class HostWithDatagridComponent {
     height?: number;
 
     header?: string;
+
+    indicatorType?: ActivityIndicatorType;
 
     buttonConfig: ButtonConfig<MockRecord> = {
         globalButtons: [],

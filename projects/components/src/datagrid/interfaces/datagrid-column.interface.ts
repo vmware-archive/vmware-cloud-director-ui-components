@@ -63,7 +63,7 @@ export interface Button<R> {
      *
      * @param entity the currently selected entities.
      */
-    handler: (rec?: R[]) => void;
+    handler: (rec?: R[]) => Promise<string | undefined> | void;
     /**
      * The function that is called to determine if the button should be displayed.
      *
@@ -76,10 +76,6 @@ export interface Button<R> {
  * A type of button whose displayability does not depend on the selected entity.
  */
 export interface GlobalButton<R> extends Button<R> {
-    /**
-     * The function that is called when the button is pressed.
-     */
-    handler: () => void;
     /**
      * The function that is called to determine if the button should be displayed.
      */
@@ -95,7 +91,7 @@ export interface ContextualButton<R> extends Button<R> {
      *
      * @param entity the currently selected entities.
      */
-    handler: (entity: R[]) => void;
+    handler: (entity: R[]) => Promise<string | undefined> | void;
     /**
      * The function that is called to determine if the button should be displayed.
      *
