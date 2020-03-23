@@ -16,8 +16,8 @@ export class VcdDatagridWidgetObject<R> extends WidgetObject<DatagridComponent<R
     /**
      * Gives the header above the grid.
      */
-    get gridHeader(): string | undefined {
-        return this.findElement('h3') ? this.getText('h3') : undefined;
+    get gridHeader(): string {
+        return this.getText('h3');
     }
 
     /**

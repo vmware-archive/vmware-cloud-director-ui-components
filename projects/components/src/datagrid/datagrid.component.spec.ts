@@ -733,7 +733,7 @@ describe('DatagridComponent', () => {
             it('does not show a header when none is set', function(this: HasFinderAndGrid): void {
                 this.finder.hostComponent.header = undefined;
                 this.finder.detectChanges();
-                expect(this.vcdDatagrid.gridHeader).toEqual(undefined);
+                expect(this.vcdDatagrid.gridHeader).toEqual('');
             });
         });
     });

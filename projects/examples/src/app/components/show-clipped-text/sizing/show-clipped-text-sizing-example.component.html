@@ -1,11 +1,11 @@
 <h2>Using fixed width and small tooltip</h2>
 <label>Text for div below: <input [(ngModel)]="text" type="text"/></label>
-<div [vcdShowClippedText]="TooltipSize.sm" class="fixed-width">{{ text }}</div>
+<div [vcdShowClippedText]="{ size: TooltipSize.sm }" class="fixed-width">{{ text }}</div>
 
 <h2>Using Max width using medium tooltip</h2>
 <label>Text for div below: <input [(ngModel)]="text2" type="text"/></label><br />
-<div [vcdShowClippedText]="TooltipSize.md" class="max-width">{{ text2 }}</div>
+<div [vcdShowClippedText]="{ size: TooltipSize.md }" class="max-width">{{ text2 }}</div>
 
 <h2>This div is a standard block using large tooltip</h2>
 <label>Text for div below: <input [(ngModel)]="text3" type="text"/></label>
-<div [vcdShowClippedText]="TooltipSize.lg">{{ text3 }}</div>
+<div [vcdShowClippedText]="{ size: TooltipSize.lg }">{{ text3 }}</div>

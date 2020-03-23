@@ -79,11 +79,13 @@ export abstract class WidgetObject<T> {
 
     /**
      * Returns text content of this widget
+     * If the element cannot be found, gives empty string.
      * @param cssSelector Pass this in if you want to retrieve text for a specific element within this widget.
      */
 
     protected getText(cssSelector: string): string {
-        return this.getNodeText(this.findElement(cssSelector));
+        const element = this.findElement(cssSelector);
+        return element ? this.getNodeText(element) : '';
     }
 
     /**
