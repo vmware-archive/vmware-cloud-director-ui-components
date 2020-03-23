@@ -163,7 +163,7 @@ jobs:
                   path: ./dist/examples
                   key: examples
             - run: npx ng deploy --no-build
-              if: github.event_name == 'push' && github.ref == 'master'
+              if: github.event_name == 'push' && github.ref == 'refs/heads/master'
               env:
                   GH_TOKEN: ${{ secrets.GH_TOKEN }}
 
@@ -227,7 +227,7 @@ jobs:
               with:
                   lib-name: 'components'
             - name: Publish components@next
-              if: steps.check-components-tag.outputs.isLibTag != 'true' && steps.check-components-package.outputs.isLibPackageChanged == 'true' && github.event_name == 'push' && github.ref == 'master'
+              if: steps.check-components-tag.outputs.isLibTag != 'true' && steps.check-components-package.outputs.isLibPackageChanged == 'true' && github.event_name == 'push' && github.ref == 'refs/heads/master'
               run: |
                   cd ./dist/components
                   npm publish --tag next
@@ -294,7 +294,7 @@ jobs:
               with:
                   lib-name: 'doc-lib'
             - name: Publish doc-lib@next
-              if: steps.check-doc-lib-tag.outputs.isLibTag != 'true' && steps.check-doc-lib-package.outputs.isLibPackageChanged == 'true' && github.event_name == 'push' && github.ref == 'master'
+              if: steps.check-doc-lib-tag.outputs.isLibTag != 'true' && steps.check-doc-lib-package.outputs.isLibPackageChanged == 'true' && github.event_name == 'push' && github.ref == 'refs/heads/master'
               run: |
                   cd ./dist/doc-lib
                   npm publish --tag next
@@ -361,7 +361,7 @@ jobs:
               with:
                   lib-name: 'i18n'
             - name: Publish i18n@next
-              if: steps.check-i18n-tag.outputs.isLibTag != 'true' && steps.check-i18n-package.outputs.isLibPackageChanged == 'true' && github.event_name == 'push' && github.ref == 'master'
+              if: steps.check-i18n-tag.outputs.isLibTag != 'true' && steps.check-i18n-package.outputs.isLibPackageChanged == 'true' && github.event_name == 'push' && github.ref == 'refs/heads/master'
               run: |
                   cd ./dist/i18n
                   npm publish --tag next
