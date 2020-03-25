@@ -4,9 +4,23 @@
             {{ exampleEntry?.title }}
         </div>
 
-        <div class="example-button-container" [ngClass]="{ 'example-shown': showSourceCode }">
-            <clr-icon shape="play" size="32" class="is-solid" (click)="onRunButtonClick()"></clr-icon>
-            <clr-icon shape="code" size="32" (click)="onCodeButtonClick()"> </clr-icon>
+        <div class="example-button-container">
+            <clr-icon
+                shape="play"
+                size="32"
+                class="is-solid"
+                (click)="onRunButtonClick()"
+                aria-label="Edit example on StackBlitz"
+                title="Edit example on StackBlitz"
+            ></clr-icon>
+            <clr-icon
+                shape="code"
+                size="32"
+                (click)="onCodeButtonClick()"
+                [ngClass]="{ 'is-showing': showSourceCode }"
+                aria-label="Show source code"
+                title="Show source code"
+            ></clr-icon>
         </div>
     </div>
 

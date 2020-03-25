@@ -14,19 +14,19 @@
                 <section class="nav-group">
                     <label>Components</label>
                     <ul class="nav-list">
-                        <ng-container *ngFor="let entry of sideNavEntries">
-                            <li>
-                                <a class="nav-link" [routerLink]="entry.path" [routerLinkActive]="['active']">
-                                    {{ entry.title }}
-                                </a>
-                            </li>
-                        </ng-container>
+                        <li *ngFor="let entry of sideNavEntries">
+                            <a class="nav-link" [routerLink]="entry.path" [routerLinkActive]="['active']">
+                                {{ entry.title }}
+                            </a>
+                        </li>
                     </ul>
                 </section>
             </section>
         </nav>
 
         <main class="content-area">
+            <ng-template vcdTabset="[]"></ng-template>
+            <div #customTabsEl vcdTabset=""></div>
             <router-outlet></router-outlet>
         </main>
     </div>
