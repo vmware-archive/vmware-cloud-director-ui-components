@@ -4,12 +4,12 @@
  */
 
 import { Component, Host, Input, OnInit } from '@angular/core';
-import { DatagridFilter, FilterComponentRendererSpec, FilterConfig, FilterRendererSpec } from './datagrid-filter';
-import { SelectOption } from './datagrid-select-filter.component';
-import { ClrDatagridFilter } from '@clr/angular';
 import { FormControl, FormGroup } from '@angular/forms';
+import { ClrDatagridFilter } from '@clr/angular';
 import { FilterBuilder } from '../../utils/filter-builder';
 import { IdGenerator } from '../../utils/id-generator/id-generator';
+import { DatagridFilter, FilterComponentRendererSpec, FilterConfig, FilterRendererSpec } from './datagrid-filter';
+import { SelectOption } from './datagrid-select-filter.component';
 
 /**
  * Same as the {@link SelectOption} but value is always a string

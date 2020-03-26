@@ -5,16 +5,16 @@
 
 import { Component } from '@angular/core';
 import {
-    GridColumn,
-    GridDataFetchResult,
-    GridState,
-    SelectOption,
-    WildCardPosition,
+    DatagridMultiSelectFilter,
     DatagridNumericFilter,
     DatagridSelectFilter,
     DatagridStringFilter,
-    DatagridMultiSelectFilter,
+    GridColumn,
+    GridDataFetchResult,
+    GridState,
     MultiSelectOption,
+    SelectOption,
+    WildCardPosition,
 } from '@vcd/ui-components';
 import { mockData, MockRecord } from './mock-data';
 

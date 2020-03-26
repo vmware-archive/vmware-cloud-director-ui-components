@@ -4,8 +4,8 @@
  */
 
 import { NgModule } from '@angular/core';
-import { Documentation } from '@vcd/ui-doc-lib';
 import { ErrorBannerComponent } from '@vcd/ui-components';
+import { Documentation } from '@vcd/ui-doc-lib';
 import { ErrorBannerExampleComponent } from './error-banner.example.component';
 import { ErrorBannerExampleModule } from './error-banner.example.module';
 

@@ -6,8 +6,8 @@
 import { Component, ViewChild } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
 import { WidgetFinder } from '../../utils/test/widget-object';
+import { BoldTextRenderer, BoldTextRendererComponent } from './bold-text-renderer.component';
 import { BoldTextRendererWidgetObject } from './bold-text-renderer.wo';
-import { BoldTextRendererComponent, BoldTextRenderer } from './bold-text-renderer.component';
 
 @Component({
     template: `

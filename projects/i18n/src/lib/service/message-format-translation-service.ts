@@ -3,12 +3,12 @@
  * SPDX-License-Identifier: BSD-2-Clause
  */
 
+import MessageFormat from 'messageformat';
+import { BehaviorSubject, Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 import { TranslationLoader } from '../loader/translation-loader';
 import { FormatDateOptions } from './basic-translation-service';
 import { TranslationService, TranslationSet } from './translation-service';
-import MessageFormat from 'messageformat';
-import { Observable, BehaviorSubject } from 'rxjs';
-import { map } from 'rxjs/operators';
 
 /**
  * Translation service to implement ICU MessageFormat.

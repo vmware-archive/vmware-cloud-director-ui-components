@@ -3,12 +3,12 @@
  * SPDX-License-Identifier: BSD-2-Clause
  */
 
+import { Inject, InjectionToken } from '@angular/core';
 import sdk from '@stackblitz/sdk';
+import { OpenOptions, Project } from '@stackblitz/sdk/typings/interfaces';
+import { CompodocComponent, CompodocModule } from './compodoc/compodoc-schema';
 import { ExampleEntry } from './documentation';
 import { DocumentationRetrieverService } from './documentation-retriever.service';
-import { CompodocComponent, CompodocModule } from './compodoc/compodoc-schema';
-import { OpenOptions, Project } from '@stackblitz/sdk/typings/interfaces';
-import { Inject, InjectionToken } from '@angular/core';
 
 export interface StackBlitzInfo {
     /** Something like 'vcd-ui-cc-starter-clarity-v8-yhe4yg', then ID of a StackBlitz URL */

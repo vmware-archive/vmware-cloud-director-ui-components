@@ -3,9 +3,9 @@
  * SPDX-License-Identifier: BSD-2-Clause
  */
 
-import { DataExporterComponent } from './data-exporter.component';
-import { WidgetObject } from '../utils/test/widget-object';
 import { DebugElement } from '@angular/core';
+import { WidgetObject } from '../utils/test/widget-object';
+import { DataExporterComponent } from './data-exporter.component';
 
 const Css = {
     SelectAll: '.select-all',

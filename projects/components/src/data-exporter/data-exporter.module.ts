@@ -3,12 +3,12 @@
  * SPDX-License-Identifier: BSD-2-Clause
  */
 
-import { I18nModule } from '@vcd/i18n';
-import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { DataExporterComponent } from './data-exporter.component';
-import { ClarityModule } from '@clr/angular';
+import { NgModule } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
+import { ClarityModule } from '@clr/angular';
+import { I18nModule } from '@vcd/i18n';
+import { DataExporterComponent } from './data-exporter.component';
 
 @NgModule({
     declarations: [DataExporterComponent],

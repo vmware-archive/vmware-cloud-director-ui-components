@@ -5,12 +5,12 @@
 
 import { Component, Input } from '@angular/core';
 import {
+    ColumnComponentRendererSpec,
+    ColumnRendererSpec,
+    ComponentRenderer,
     GridColumn,
     GridDataFetchResult,
     GridState,
-    ComponentRenderer,
-    ColumnComponentRendererSpec,
-    ColumnRendererSpec,
 } from '@vcd/ui-components';
 
 interface Data {

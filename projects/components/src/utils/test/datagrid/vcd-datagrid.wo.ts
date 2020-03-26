@@ -3,8 +3,8 @@
  * SPDX-License-Identifier: BSD-2-Clause
  */
 
-import { DatagridComponent } from './../../../datagrid/datagrid.component';
 import { WidgetObject } from '../widget-object';
+import { DatagridComponent } from './../../../datagrid/datagrid.component';
 import { ClrDatagridWidgetObject } from './datagrid.wo';
 
 /**

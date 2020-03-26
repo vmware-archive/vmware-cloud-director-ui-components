@@ -4,11 +4,11 @@
  */
 
 import { Component, Host, OnInit } from '@angular/core';
-import { DatagridFilter, FilterConfig, FilterComponentRendererSpec, FilterRendererSpec } from './datagrid-filter';
-import { ClrDatagridFilter } from '@clr/angular';
-import { FilterBuilder } from '../../utils/filter-builder';
 import { FormBuilder } from '@angular/forms';
+import { ClrDatagridFilter } from '@clr/angular';
 import { debounce, debounceTime } from 'rxjs/operators';
+import { FilterBuilder } from '../../utils/filter-builder';
+import { DatagridFilter, FilterComponentRendererSpec, FilterConfig, FilterRendererSpec } from './datagrid-filter';
 
 export enum WildCardPosition {
     START = 'START',

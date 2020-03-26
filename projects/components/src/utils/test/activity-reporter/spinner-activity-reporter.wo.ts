@@ -4,8 +4,8 @@
  */
 
 import { DebugElement } from '@angular/core';
-import { WidgetObject } from '../widget-object';
 import { SpinnerActivityReporterComponent } from '../../../common/activity-reporter';
+import { WidgetObject } from '../widget-object';
 
 export class SpinnerActivityReporterWidgetObject extends WidgetObject<SpinnerActivityReporterComponent> {
     static tagName = 'vcd-spinner-activity-reporter';

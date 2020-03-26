@@ -2,15 +2,15 @@
  * Copyright 2019 VMware, Inc.
  * SPDX-License-Identifier: BSD-2-Clause
  */
+import { fakeAsync, tick } from '@angular/core/testing';
+import { createDatagridFilterTestHelper, FilterTestHostComponent } from '../../utils/test/datagrid/filter-utils';
+import { DatagridFilter, DEBOUNCE_TIME_FOR_GRID_FILTER_CHANGES } from './datagrid-filter';
 import {
+    DatagridStringFilter,
     DatagridStringFilterComponent,
     DatagridStringFilterConfig,
     WildCardPosition,
-    DatagridStringFilter,
 } from './datagrid-string-filter.component';
-import { createDatagridFilterTestHelper, FilterTestHostComponent } from '../../utils/test/datagrid/filter-utils';
-import { DatagridFilter, DEBOUNCE_TIME_FOR_GRID_FILTER_CHANGES } from './datagrid-filter';
-import { fakeAsync, tick } from '@angular/core/testing';
 
 interface HasDgStringFilter {
     filter: DatagridFilter<string, DatagridStringFilterConfig>;

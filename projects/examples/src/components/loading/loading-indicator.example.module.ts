@@ -3,12 +3,12 @@
  * SPDX-License-Identifier: BSD-2-Clause
  */
 
-import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ClarityModule } from '@clr/angular';
+import { NgModule } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
-import { LoadingIndicatorExampleComponent } from './loading-indicator.example.component';
+import { ClarityModule } from '@clr/angular';
 import { LoadingIndicatorModule } from '@vcd/ui-components';
+import { LoadingIndicatorExampleComponent } from './loading-indicator.example.component';
 
 @NgModule({
     declarations: [LoadingIndicatorExampleComponent],

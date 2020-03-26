@@ -5,7 +5,7 @@
 
 import { Component, Input } from '@angular/core';
 import { ComponentRenderer } from '../interfaces/component-renderer.interface';
-import { ColumnRendererSpec, ColumnComponentRendererSpec } from '../interfaces/datagrid-column.interface';
+import { ColumnComponentRendererSpec, ColumnRendererSpec } from '../interfaces/datagrid-column.interface';
 /**
  * {@link ComponentRenderer.config} type that the {@link BoldTextRendererComponent} can understand
  */

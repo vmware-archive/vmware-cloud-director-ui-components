@@ -7,6 +7,7 @@
 
 import 'zone.js/dist/zone';
 import 'zone.js/dist/zone-testing';
+// tslint:disable-next-line: ordered-imports
 import { getTestBed } from '@angular/core/testing';
 import { BrowserDynamicTestingModule, platformBrowserDynamicTesting } from '@angular/platform-browser-dynamic/testing';
 

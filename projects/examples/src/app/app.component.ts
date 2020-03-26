@@ -4,8 +4,8 @@
  */
 
 import { Component } from '@angular/core';
-import { Documentation, DocumentationEntry } from '@vcd/ui-doc-lib';
 import { Router } from '@angular/router';
+import { Documentation, DocumentationEntry } from '@vcd/ui-doc-lib';
 
 interface SideNavEntries {
     title: string;

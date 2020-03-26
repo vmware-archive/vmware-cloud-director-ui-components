@@ -4,7 +4,7 @@
  */
 
 import { Component, ViewChild } from '@angular/core';
-import { SpinnerActivityReporterComponent, ActivityReporter } from '@vcd/ui-components';
+import { ActivityReporter, SpinnerActivityReporterComponent } from '@vcd/ui-components';
 
 /**
  * Press the button to show/hide the spinner activity reporter

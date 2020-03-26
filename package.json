@@ -20,7 +20,7 @@
     "test:i18n": "ng test i18n",
     "test:ci:i18n": "ng test i18n --watch=false --browsers ChromeHeadlessNoSandbox --code-coverage",
     "lint": "ng lint",
-    "lint-fix": "tslint --fix 'projectmkdir -p s/**/*.ts' -e 'projects/doc-lib/node_modules/**/*.ts'",
+    "lint-fix": "tslint --fix -p tsconfig.json",
     "e2e": "ng e2e",
     "build-components-doc": "mkdir -p projects/examples/gen; node $NODE_DEBUG_OPTION dist/doc-lib/index.js projects/components/tsconfig.lib.json projects/components/src/public-api.ts projects/examples/gen/components-doc.json",
     "build-examples-doc": "mkdir -p projects/examples/gen; node $NODE_DEBUG_OPTION dist/doc-lib/index.js projects/examples/tsconfig.app.json projects/examples/src/main.ts projects/examples/gen/examples-doc.json",

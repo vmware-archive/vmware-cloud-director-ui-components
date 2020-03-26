@@ -5,12 +5,12 @@
 
 import { Component } from '@angular/core';
 import {
+    BoldTextRenderer,
     BoldTextRendererComponent,
+    ColumnComponentRendererSpec,
     GridColumn,
     GridDataFetchResult,
     GridState,
-    ColumnComponentRendererSpec,
-    BoldTextRenderer,
 } from '@vcd/ui-components';
 import { mockData, MockRecord } from './mock-data';
 

@@ -6,9 +6,9 @@
 import { enableProdMode } from '@angular/core';
 import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
 
+import { BOOTSTRAP_DETAILS } from '@vcd/i18n';
 import { AppModule } from './app/app.module';
 import { environment } from './environments/environment';
-import { BOOTSTRAP_DETAILS } from '@vcd/i18n';
 
 if (environment.production) {
     enableProdMode();

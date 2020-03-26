@@ -4,10 +4,10 @@
  */
 
 import { NgModule } from '@angular/core';
-import { Documentation } from '@vcd/ui-doc-lib';
-import { SubscriptionTrackerMixinExampleModule } from './subscription-tracker-mixin.example.module';
-import { SubscriptionTrackerMixinExampleComponent } from './subscription-tracker-mixin.example.component';
 import { SubscriptionTracker } from '@vcd/ui-components';
+import { Documentation } from '@vcd/ui-doc-lib';
+import { SubscriptionTrackerMixinExampleComponent } from './subscription-tracker-mixin.example.component';
+import { SubscriptionTrackerMixinExampleModule } from './subscription-tracker-mixin.example.module';
 
 Documentation.registerDocumentationEntry({
     component: SubscriptionTracker,
