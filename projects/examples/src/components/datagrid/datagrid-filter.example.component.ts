@@ -81,7 +81,7 @@ export class DatagridFilterExampleComponent {
             renderer: 'state',
             queryFieldName: 'state',
             filter: DatagridStringFilter(WildCardPosition.END, ''),
-            notSortable: true,
+            sortable: false,
         },
         {
             displayName: 'String filter with wild-card',

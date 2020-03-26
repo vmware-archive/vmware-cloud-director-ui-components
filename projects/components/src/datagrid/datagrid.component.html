@@ -49,7 +49,7 @@
     </clr-dg-column>
     <clr-dg-column
         *ngFor="let column of columnsConfig"
-        [clrDgSortBy]="!column.notSortable && column.queryFieldName"
+        [clrDgSortBy]="column.sortable !== false && column.queryFieldName"
         (clrDgSortOrderChange)="resetToPageOne()"
     >
         <ng-container *ngIf="isColumnHideable(column); else notHideable">

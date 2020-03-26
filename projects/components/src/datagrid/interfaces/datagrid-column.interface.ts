@@ -234,10 +234,9 @@ export interface GridColumn<R> {
     cliptextConfig?: CliptextConfig;
 
     /**
-     * Boolean to turn off sorting on the column. Adding a {@link GridColumn.queryFieldName} by default turns both
-     * filtering and sorting on and this switch allows for turning on just the filtering
+     * Whether to show the column as sortable. Defaults to true
      */
-    notSortable?: boolean;
+    sortable?: boolean;
 }
 
 /**
