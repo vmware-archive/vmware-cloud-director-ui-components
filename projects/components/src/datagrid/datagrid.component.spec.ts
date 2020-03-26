@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: BSD-2-Clause
  */
 
-import { Component, ContentChild, TemplateRef, ViewChild } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { TooltipSize } from '../lib/directives/show-clipped-text.directive';
@@ -24,6 +24,7 @@ import { mockData, MockRecord } from './mock-data';
 import { BoldTextRendererComponent } from './renderers/bold-text-renderer.component';
 import { WithGridBoldRenderer } from './renderers/bold-text-renderer.wo';
 import { VcdDatagridWidgetObject } from '../utils/test/datagrid/vcd-datagrid.wo';
+import { DatagridStringFilter, WildCardPosition } from './filters/datagrid-string-filter.component';
 
 type MockRecordDatagridComponent = DatagridComponent<MockRecord>;
 
@@ -633,18 +634,14 @@ describe('DatagridComponent', () => {
                 describe('getFeaturedButtons()', () => {
                     it('shows only the given number of featured buttons', function(this: HasFinderAndGrid): void {
                         expect(
-                            this.finder.hostComponent.datagrid
-                                .getFeaturedButtons(mockData[0])
-                                .map(button => button.label)
+                            this.finder.hostComponent.grid.getFeaturedButtons(mockData[0]).map(button => button.label)
                         ).toEqual(['Add', 'Remove']);
                     });
 
                     it('shows all the featured buttons when featuredCount is greater than length', function(this: HasFinderAndGrid): void {
                         this.finder.hostComponent.buttonConfig.contextualButtonConfig.featuredCount = 4;
                         expect(
-                            this.finder.hostComponent.datagrid
-                                .getFeaturedButtons(mockData[0])
-                                .map(button => button.label)
+                            this.finder.hostComponent.grid.getFeaturedButtons(mockData[0]).map(button => button.label)
                         ).toEqual(['Add', 'Remove', 'Other']);
                     });
                 });
@@ -734,6 +731,44 @@ describe('DatagridComponent', () => {
                 this.finder.hostComponent.header = undefined;
                 this.finder.detectChanges();
                 expect(this.vcdDatagrid.gridHeader).toEqual('');
+            });
+        });
+
+        describe('GridColumn', () => {
+            it('enables only sorting when queryFieldName is given but no filter is provided', function(this: HasFinderAndGrid): void {
+                this.finder.hostComponent.columns = [{ displayName: 'Name', renderer: 'name', queryFieldName: 'name' }];
+                this.finder.detectChanges();
+                expect(this.clrGridWidget.component.columns.first.sortable).toEqual(true);
+                expect(this.clrGridWidget.component.columns.first.customFilter).toEqual(false);
+            });
+            // tslint:disable-next-line:max-line-length
+            it('enables only filtering when queryFieldName, filter are provided and sortable is set to false', function(this: HasFinderAndGrid): void {
+                this.finder.hostComponent.columns = [
+                    {
+                        displayName: 'Name',
+                        renderer: 'name',
+                        queryFieldName: 'name',
+                        filter: DatagridStringFilter(WildCardPosition.END, ''),
+                        sortable: false,
+                    },
+                ];
+                this.finder.detectChanges();
+                expect(this.clrGridWidget.component.columns.first.sortable).toEqual(false);
+                expect(this.clrGridWidget.component.columns.first.customFilter).toEqual(true);
+            });
+            // tslint:disable-next-line:max-line-length
+            it('enables both filtering and sorting when queryFieldName, filter are provided and sortable is not set to false', function(this: HasFinderAndGrid): void {
+                this.finder.hostComponent.columns = [
+                    {
+                        displayName: 'Name',
+                        renderer: 'name',
+                        queryFieldName: 'name',
+                        filter: DatagridStringFilter(WildCardPosition.END, ''),
+                    },
+                ];
+                this.finder.detectChanges();
+                expect(this.clrGridWidget.component.columns.first.sortable).toEqual(true);
+                expect(this.clrGridWidget.component.columns.first.customFilter).toEqual(true);
             });
         });
     });
@@ -833,8 +868,6 @@ export class HostWithDatagridComponent {
         },
     };
 
-    @ViewChild(DatagridComponent, { static: false }) datagrid: DatagridComponent<MockRecord>;
-
     paginationText = 'Total Items';
 
     pagination: PaginationConfiguration = {
@@ -855,6 +888,6 @@ export class HostWithDatagridComponent {
     refresh(eventData: GridState<MockRecord>): void {}
 
     getSelection(): MockRecord[] {
-        return this.datagrid.datagridSelection;
+        return this.grid.datagridSelection;
     }
 }

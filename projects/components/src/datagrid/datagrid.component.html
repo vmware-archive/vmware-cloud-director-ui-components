@@ -49,7 +49,7 @@
     </clr-dg-column>
     <clr-dg-column
         *ngFor="let column of columnsConfig"
-        [clrDgSortBy]="column.sortBy || column.queryFieldName"
+        [clrDgSortBy]="column.sortable !== false && column.queryFieldName"
         (clrDgSortOrderChange)="resetToPageOne()"
     >
         <ng-container *ngIf="isColumnHideable(column); else notHideable">
@@ -58,15 +58,8 @@
             }}</ng-container>
         </ng-container>
         <ng-template #notHideable>{{ column.displayName }}</ng-template>
-        <clr-dg-filter *ngIf="column.queryFieldName">
-            <ng-template
-                *ngIf="column.filterRendererSpec; else defaultFilter"
-                [vcdComponentRendererOutlet]="{ rendererSpec: column.filterRendererSpec }"
-            >
-            </ng-template>
-            <ng-template #defaultFilter>
-                <vcd-dg-string-filter [config]="{ queryField: column.queryFieldName }"></vcd-dg-string-filter>
-            </ng-template>
+        <clr-dg-filter *ngIf="column.queryFieldName && column.filter">
+            <ng-template [vcdComponentRendererOutlet]="{ rendererSpec: column.filter }"> </ng-template>
         </clr-dg-filter>
     </clr-dg-column>
 

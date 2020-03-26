@@ -72,43 +72,46 @@ export class DatagridFilterExampleComponent {
 
     columns: GridColumn<MockRecord>[] = [
         {
-            displayName: 'Default String filter',
+            displayName: 'Only sortable',
             renderer: 'state',
             queryFieldName: 'state',
+        },
+        {
+            displayName: 'Only filterable',
+            renderer: 'state',
+            queryFieldName: 'state',
+            filter: DatagridStringFilter(WildCardPosition.END, ''),
+            sortable: false,
         },
         {
             displayName: 'String filter with wild-card',
             renderer: 'state',
             queryFieldName: 'state',
-            filterRendererSpec: DatagridStringFilter(WildCardPosition.END, ''),
+            filter: DatagridStringFilter(WildCardPosition.END, ''),
         },
         {
             displayName: 'Numeric filter',
             renderer: 'age',
             queryFieldName: 'age',
-            filterRendererSpec: DatagridNumericFilter([1, 2]),
+            filter: DatagridNumericFilter([1, 2]),
         },
         {
             displayName: 'Select filter with dynamic options',
             renderer: 'age',
             queryFieldName: 'age',
-            filterRendererSpec: DatagridSelectFilter(this.selectFilterOptions, 60),
+            filter: DatagridSelectFilter(this.selectFilterOptions, 60),
         },
         {
             displayName: 'Select filter with custom FIQL',
             renderer: 'age',
             queryFieldName: 'age',
-            filterRendererSpec: DatagridSelectFilter(
-                this.selectFilterWithCustomFiqlOptions,
-                '(field1=ge=1;field2=le=10)',
-                true
-            ),
+            filter: DatagridSelectFilter(this.selectFilterWithCustomFiqlOptions, '(field1=ge=1;field2=le=10)', true),
         },
         {
             displayName: 'Multi-select filter',
             renderer: 'state',
             queryFieldName: 'state',
-            filterRendererSpec: DatagridMultiSelectFilter(this.multiSelectFilterOptions, ['MA', 'NC']),
+            filter: DatagridMultiSelectFilter(this.multiSelectFilterOptions, ['MA', 'NC']),
         },
     ];
 

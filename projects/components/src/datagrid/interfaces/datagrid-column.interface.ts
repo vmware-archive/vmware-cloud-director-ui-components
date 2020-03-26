@@ -224,13 +224,7 @@ export interface GridColumn<R> {
      * TODO: Should this be made to work with top level search on grids across all columns?
      *  The above to-do is going to be worked on as part of https://jira.eng.vmware.com/browse/VDUCC-27 and
      */
-    filterRendererSpec?: FilterRendererSpec<FilterConfig<unknown>>;
-
-    /**
-     * To enable only sorting without filtering on the column. This is because, passing in clrDgField turns both filtering
-     * and sorting feature on. And we want filtering to be off on some columns while still having sorting enabled.
-     */
-    sortBy?: string;
+    filter?: FilterRendererSpec<FilterConfig<unknown>>;
 
     /**
      * The configuration for the cliptext in the datagrid.
@@ -238,6 +232,11 @@ export interface GridColumn<R> {
      * If null, will disable cliptext
      */
     cliptextConfig?: CliptextConfig;
+
+    /**
+     * Whether to show the column as sortable. Defaults to true
+     */
+    sortable?: boolean;
 }
 
 /**
