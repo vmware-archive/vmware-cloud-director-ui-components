@@ -2,9 +2,19 @@
     "name": "@vcd/ui-doc-lib",
     "version": "0.0.1",
     "peerDependencies": {
-        "@angular/common": "^8.2.14",
-        "@angular/core": "^8.2.14",
-        "prismjs": "1.17.1"
+      "@angular/animations": "8.*",
+      "@angular/common": "8.*",
+      "@angular/compiler": "8.*",
+      "@angular/core": "8.*",
+      "@angular/forms": "8.*",
+      "@angular/platform-browser": "8.*",
+      "@angular/platform-browser-dynamic": "8.*",
+      "@angular/router": "8.*",
+      "@clr/angular": "2.*",
+      "@clr/ui": "2.*",
+      "@clr/icons": "2.*",
+      "lit-html": "1.1.2",
+      "prismjs": "1.17.1"
     },
     "dependencies": {
         "@compodoc/compodoc": "1.1.11",

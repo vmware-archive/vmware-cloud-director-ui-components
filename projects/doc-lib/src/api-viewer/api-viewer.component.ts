@@ -3,8 +3,8 @@
  * SPDX-License-Identifier: BSD-2-Clause
  */
 
-import { Component, Input, Type } from '@angular/core';
-import { ApiParameters, DocumentationRetrieverService } from '../documentation-retriever.service';
+import {Component, Input, Type} from '@angular/core';
+import {ApiParameters, DocumentationRetrieverService} from '../documentation-retriever.service';
 
 @Component({
     selector: ' vcd-api-viewer',

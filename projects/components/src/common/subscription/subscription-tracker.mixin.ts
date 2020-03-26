@@ -18,12 +18,7 @@ type Constructor<T = {}> = new (...args: any[]) => T;
 // tslint:disable-next-line: typedef
 export function SubscriptionTrackerMixin<TBase extends Constructor>(Base: TBase) {
     return class extends Base implements ISubscriptionTracker, OnDestroy {
-        constructor(...params: any[]) {
-            super(params);
-            this.tracker = new SubscriptionTracker(this);
-        }
-
-        tracker: SubscriptionTracker;
+        tracker = new SubscriptionTracker(this);
 
         public subscribe<T>(
             observable: Observable<T>,

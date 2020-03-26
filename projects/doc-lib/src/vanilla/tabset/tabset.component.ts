@@ -3,9 +3,8 @@
  * SPDX-License-Identifier: BSD-2-Clause
  */
 
-import { html, render, TemplateResult } from 'lit-html';
-import { unsafeHTML } from 'lit-html/directives/unsafe-html';
-import { JsComponent } from '../js.component';
+import {html, render, TemplateResult} from 'lit-html';
+import {JsComponent} from '../js.component';
 
 export interface VcdTab {
     /**

@@ -3,9 +3,9 @@
  * SPDX-License-Identifier: BSD-2-Clause
  */
 
-import { Type } from '@angular/core';
-import { ApiParameters, DocumentationRetrieverService } from '../documentation-retriever.service';
-import { CompodocComponent, CompodocModule, CompodocSchema } from './compodoc-schema';
+import {Type} from '@angular/core';
+import {ApiParameters, DocumentationRetrieverService} from '../documentation-retriever.service';
+import {CompodocComponent, CompodocModule, CompodocSchema} from './compodoc-schema';
 
 /**
  * This service retrieves specific properties from compodoc generated documentation

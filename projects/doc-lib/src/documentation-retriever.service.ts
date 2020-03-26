@@ -3,8 +3,8 @@
  * SPDX-License-Identifier: BSD-2-Clause
  */
 
-import { Type } from '@angular/core';
-import { CompodocComponent, CompodocModule } from './compodoc/compodoc-schema';
+import {Type} from '@angular/core';
+import {CompodocComponent, CompodocModule} from './compodoc/compodoc-schema';
 
 /**
  * Represents the inputClass/outputClass properties of a component in compodoc generated documentation

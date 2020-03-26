@@ -3,9 +3,9 @@
  * SPDX-License-Identifier: BSD-2-Clause
  */
 
-import { Component, ElementRef, Input, OnDestroy, Type } from '@angular/core';
-import { DocumentationRetrieverService } from '../documentation-retriever.service';
-import { TabbedCodeViewer } from '../vanilla/tabbed-code-viewer/tabbed-code-viewer.component';
+import {Component, ElementRef, Input, OnDestroy, Type} from '@angular/core';
+import {DocumentationRetrieverService} from '../documentation-retriever.service';
+import {TabbedCodeViewer} from '../vanilla/tabbed-code-viewer/tabbed-code-viewer.component';
 import Prism from 'prismjs';
 import 'prismjs/components/prism-typescript';
 import 'prismjs/components/prism-scss';
@@ -16,7 +16,6 @@ import 'prismjs/components/prism-scss';
 @Component({
     selector: 'vcd-source-code-viewer',
     template: '',
-    styleUrls: ['./source-code-viewer.component.scss'],
 })
 export class SourceCodeViewerComponent implements OnDestroy {
     constructor(private documentationRetriever: DocumentationRetrieverService, private el: ElementRef) {}
