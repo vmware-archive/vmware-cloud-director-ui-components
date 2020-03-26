@@ -97,7 +97,7 @@ export class FilterTestHostComponent {
         finder: WidgetFinder<FilterTestHostComponent>,
         config: C
     ): void {
-        this.column.filterRendererSpec = FilterComponentRendererSpec({ type: filterType, config });
+        this.column.filter = FilterComponentRendererSpec({ type: filterType, config });
         finder.detectChanges();
     }
 }
