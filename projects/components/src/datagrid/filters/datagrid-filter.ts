@@ -54,7 +54,7 @@ export interface FilterRendererSpec<C> extends ComponentRendererSpec<C> {
  * V is the type of filter input value that is passed into setValue method
  * C extends FilterConfig<V> is configuration of a filter that contains queryField and a value of type V
  */
-export abstract class DatagridFilter<V, C extends FilterConfig<V>> extends SubscriptionTrackerMixin(Object)
+export abstract class DatagridFilter<V, C extends FilterConfig<V>> extends SubscriptionTrackerMixin(class {})
     implements ClrDatagridFilterInterface<unknown>, ComponentRenderer<C> {
     formGroup: FormGroup;
 

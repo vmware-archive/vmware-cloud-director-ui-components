@@ -7,7 +7,7 @@ import { GridSelectionType } from './../../../datagrid/datagrid.component';
 
 import { DebugElement, Type } from '@angular/core';
 import { ClrDatagrid } from '@clr/angular';
-import { DatagridFilter } from '../../../datagrid';
+import { DatagridFilter } from '../../../datagrid/filters/datagrid-filter';
 import { ShowClippedTextDirective } from '../../../lib/directives/show-clipped-text.directive';
 import { WidgetObject } from '../widget-object';
 

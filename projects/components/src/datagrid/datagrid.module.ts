@@ -41,7 +41,6 @@ const filters = [
         ReactiveFormsModule,
         ShowClippedTextDirectiveModule,
         FormsModule,
-        BrowserAnimationsModule,
         I18nModule,
         ActivityReporterModule,
     ],

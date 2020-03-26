@@ -5,7 +5,7 @@
 
 import { OnDestroy } from '@angular/core';
 import { Observable, PartialObserver, Subscription } from 'rxjs';
-import { toSubscriber } from 'rxjs/util/toSubscriber';
+import { toSubscriber } from 'rxjs/internal-compatibility';
 
 /**
  * An interface that knows how to subscribe and ubsubscribe from observables.

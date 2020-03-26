@@ -1,0 +1,6 @@
+<p>
+    Shows that when the data within the grid is reloaded but the trackBy value stays the same, the DOM is not
+    re-rendered. Thus, any row within the datagrid maintains its state. If the DOM was re-rendered, the modal would not
+    open when you clicked the button because the state of the row would be cleared.
+</p>
+<vcd-datagrid [gridData]="gridData" (gridRefresh)="refresh($event)" [columns]="columns"></vcd-datagrid>

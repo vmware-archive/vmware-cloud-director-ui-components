@@ -177,7 +177,7 @@ export interface GridState<R> {
     /**
      * The pagination information that the datagrid should show.
      */
-    pagination: PagionationInformation;
+    pagination?: PagionationInformation;
 }
 
 /**
