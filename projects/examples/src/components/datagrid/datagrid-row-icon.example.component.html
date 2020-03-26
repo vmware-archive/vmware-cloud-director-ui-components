@@ -1,0 +1,5 @@
+<p>
+    Shows that when the data within the grid is reloaded but the trackBy value stays the same, the DOM is not
+    re-rendered. Thus, any row within the datagrid maintains its state.
+</p>
+<vcd-datagrid [gridData]="gridData" (gridRefresh)="refresh($event)" [columns]="columns"></vcd-datagrid>

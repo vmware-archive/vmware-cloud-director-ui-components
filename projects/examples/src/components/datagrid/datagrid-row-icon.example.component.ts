@@ -19,9 +19,7 @@ interface Data {
 
 @Component({
     selector: 'vcd-datagrid-row-icon-example',
-    template: `
-        <vcd-datagrid [gridData]="gridData" (gridRefresh)="refresh($event)" [columns]="columns"></vcd-datagrid>
-    `,
+    templateUrl: './datagrid-row-icon.example.component.html',
 })
 export class DatagridRowIconExampleComponent {
     gridData: GridDataFetchResult<Data> = {

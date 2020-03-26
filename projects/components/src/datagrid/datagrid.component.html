@@ -71,7 +71,7 @@
     </clr-dg-column>
 
     <clr-dg-row
-        *clrDgItems="let restItem of items; let i = index; trackBy: trackBy"
+        *ngFor="let restItem of items; let i = index; trackBy: trackBy"
         [ngForTrackBy]="trackBy"
         [ngClass]="this.clrDatarowCssClassGetter(restItem, i)"
         [clrDgItem]="restItem"
