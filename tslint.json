@@ -79,7 +79,7 @@
       "as-needed"
     ],
     "object-literal-sort-keys": false,
-    "ordered-imports": false,
+    "ordered-imports": true,
     "quotemark": [
       true,
       "single"
@@ -106,8 +106,6 @@
       "allow-leading-underscore",
       "allow-pascal-case"
     ],
-
-    // Security related
     "function-constructor": true,
     "no-delete-expression": true,
     "no-document-domain": true,

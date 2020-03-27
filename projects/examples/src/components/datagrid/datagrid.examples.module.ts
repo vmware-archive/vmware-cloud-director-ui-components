@@ -6,12 +6,16 @@
 import { NgModule } from '@angular/core';
 import { DatagridComponent } from '@vcd/ui-components';
 import { Documentation } from '@vcd/ui-doc-lib';
+import { DatagridActivityReporterExampleComponent } from './datagrid-activity-reporter.example.component';
+import { DatagridActivityReporterExampleModule } from './datagrid-activity-reporter.example.module';
 import { DatagridCliptextExampleComponent } from './datagrid-cliptext.example.component';
 import { DatagridCliptextExampleModule } from './datagrid-cliptext.example.module';
 import { DatagridCssClassesExampleComponent } from './datagrid-css-classes.example.component';
 import { DatagridCssClassesExampleModule } from './datagrid-css-classes.example.module';
 import { DatagridDetailRowExampleComponent } from './datagrid-detail-row.example.component';
 import { DatagridDetailRowExampleModule } from './datagrid-detail-row.example.module';
+import { DatagridFilterExampleComponent } from './datagrid-filter.example.component';
+import { DatagridFilterExampleModule } from './datagrid-filter.example.module';
 import { DatagridHeaderExampleComponent } from './datagrid-header.example.component';
 import { DatagridHeaderExampleModule } from './datagrid-header.example.module';
 import { DatagridHeightExampleComponent } from './datagrid-height.example.component';
@@ -20,6 +24,8 @@ import { DatagridLinkExampleComponent } from './datagrid-link.example.component'
 import { DatagridLinkExampleModule } from './datagrid-link.example.module';
 import { DatagridPaginationExampleComponent } from './datagrid-pagination-example.component';
 import { DatagridPagionationExampleModule } from './datagrid-pagination-example.module';
+import { DatagridRowIconExampleComponent } from './datagrid-row-icon.example.component';
+import { DatagridRowIconExampleModule } from './datagrid-row-icon.example.module';
 import { DatagridRowSelectExampleComponent } from './datagrid-row-select.example.component';
 import { DatagridRowSelectExampleModule } from './datagrid-row-select.example.module';
 import { DatagridShowHideExampleComponent } from './datagrid-show-hide.example.component';
@@ -28,12 +34,6 @@ import { DatagridSortExampleComponent } from './datagrid-sort.example.component'
 import { DatagridSortExampleModule } from './datagrid-sort.example.module';
 import { DatagridThreeRenderersExampleComponent } from './datagrid-three-renderers.example.component';
 import { DatagridThreeRenderersExampleModule } from './datagrid-three-renderers.example.module';
-import { DatagridActivityReporterExampleComponent } from './datagrid-activity-reporter.example.component';
-import { DatagridActivityReporterExampleModule } from './datagrid-activity-reporter.example.module';
-import { DatagridFilterExampleModule } from './datagrid-filter.example.module';
-import { DatagridFilterExampleComponent } from './datagrid-filter.example.component';
-import { DatagridRowIconExampleModule } from './datagrid-row-icon.example.module';
-import { DatagridRowIconExampleComponent } from './datagrid-row-icon.example.component';
 
 Documentation.registerDocumentationEntry({
     component: DatagridComponent,

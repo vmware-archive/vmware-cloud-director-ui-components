@@ -2,11 +2,11 @@
  * Copyright 2019 VMware, Inc.
  * SPDX-License-Identifier: BSD-2-Clause
  */
-import { DatagridFilter, FilterComponentRendererSpec, FilterConfig, FilterRendererSpec } from './datagrid-filter';
 import { Component, Host, OnInit } from '@angular/core';
-import { ClrDatagridFilter } from '@clr/angular';
 import { FormBuilder } from '@angular/forms';
+import { ClrDatagridFilter } from '@clr/angular';
 import { FilterBuilder } from '../../utils/filter-builder';
+import { DatagridFilter, FilterComponentRendererSpec, FilterConfig, FilterRendererSpec } from './datagrid-filter';
 
 /**
  * Options displayed in a select input option list

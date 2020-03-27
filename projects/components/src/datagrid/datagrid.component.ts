@@ -18,6 +18,7 @@ import {
     ViewChild,
 } from '@angular/core';
 import { ClrDatagrid, ClrDatagridFilter, ClrDatagridPagination, ClrDatagridStateInterface } from '@clr/angular';
+import { ActivityReporter } from '../common/activity-reporter/activity-reporter';
 import { TooltipSize } from '../lib/directives/show-clipped-text.directive';
 import { DatagridFilter } from './filters/datagrid-filter';
 import {
@@ -31,7 +32,6 @@ import {
     InactiveButtonDisplayMode,
 } from './interfaces/datagrid-column.interface';
 import { ContextualButton } from './interfaces/datagrid-column.interface';
-import { ActivityReporter } from '../common/activity-reporter/activity-reporter';
 
 /**
  * The default number of items on a single page.

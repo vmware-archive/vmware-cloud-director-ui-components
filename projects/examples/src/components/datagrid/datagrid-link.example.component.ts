@@ -5,12 +5,12 @@
 
 import { Component } from '@angular/core';
 import {
-    GridDataFetchResult,
-    GridColumn,
-    GridState,
     ButtonConfig,
-    GridSelectionType,
     ContextualButtonPosition,
+    GridColumn,
+    GridDataFetchResult,
+    GridSelectionType,
+    GridState,
     InactiveButtonDisplayMode,
 } from '@vcd/ui-components';
 

@@ -4,8 +4,8 @@
  */
 
 import { NgModule } from '@angular/core';
-import { Documentation } from '@vcd/ui-doc-lib';
 import { LoadingIndicatorComponent } from '@vcd/ui-components';
+import { Documentation } from '@vcd/ui-doc-lib';
 import { LoadingIndicatorExampleComponent } from './loading-indicator.example.component';
 import { LoadingIndicatorExampleModule } from './loading-indicator.example.module';
 

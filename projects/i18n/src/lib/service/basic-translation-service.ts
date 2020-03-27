@@ -4,8 +4,8 @@
  */
 
 import { BehaviorSubject } from 'rxjs';
-import { TranslationService, TranslationSet } from './translation-service';
 import { Observable } from 'rxjs';
+import { TranslationService, TranslationSet } from './translation-service';
 
 /**
  * Interpolate a translation using regex.

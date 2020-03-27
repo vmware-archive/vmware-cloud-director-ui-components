@@ -4,10 +4,10 @@
  */
 
 import { ChangeDetectorRef } from '@angular/core';
-import { MockTranslationService } from '../service/mock-translation-service';
-import { TranslationPipe } from './translation-pipe';
-import { TranslationService } from '../service/translation-service';
 import { BehaviorSubject } from 'rxjs';
+import { MockTranslationService } from '../service/mock-translation-service';
+import { TranslationService } from '../service/translation-service';
+import { TranslationPipe } from './translation-pipe';
 
 class GeneralTranslationPipe extends TranslationPipe {
     constructor(service: TranslationService, myChangeRef: ChangeDetectorRef) {

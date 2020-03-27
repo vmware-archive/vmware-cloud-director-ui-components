@@ -3,8 +3,8 @@
  * SPDX-License-Identifier: BSD-2-Clause
  */
 
-import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { NgModule } from '@angular/core';
 import { ClarityModule } from '@clr/angular';
 import { I18nModule } from '@vcd/i18n';
 import { LoadingIndicatorComponent } from './loading-indicator.component';

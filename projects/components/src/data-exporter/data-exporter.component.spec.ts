@@ -5,14 +5,14 @@
 
 import { TestBed } from '@angular/core/testing';
 
-import { DataExportRequestEvent, ExportColumn } from './data-exporter.component';
-import { DataExporterModule } from './data-exporter.module';
 import { Component } from '@angular/core';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-import { DataExporterWidgetObject } from './data-exporter.wo';
+import { MockTranslationService, TranslationService } from '@vcd/i18n';
 import { HasFinder, WidgetFinder } from '../utils/test/widget-object';
 import { CsvExporterService } from './csv-exporter.service';
-import { TranslationService, MockTranslationService } from '@vcd/i18n';
+import { DataExportRequestEvent, ExportColumn } from './data-exporter.component';
+import { DataExporterModule } from './data-exporter.module';
+import { DataExporterWidgetObject } from './data-exporter.wo';
 
 type TestHostFinder = HasFinder<TestHostComponent>;
 

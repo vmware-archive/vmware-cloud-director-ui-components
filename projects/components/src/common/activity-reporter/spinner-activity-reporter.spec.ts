@@ -5,10 +5,10 @@
 
 import { Component, ViewChild } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
-import { SpinnerActivityReporterComponent } from './spinner-activity-reporter.component';
 import { SpinnerActivityReporterWidgetObject } from '../../utils/test/activity-reporter/spinner-activity-reporter.wo';
-import { ActivityReporterModule } from './activity-reporter.module';
 import { WidgetFinder } from '../../utils/test/widget-object';
+import { ActivityReporterModule } from './activity-reporter.module';
+import { SpinnerActivityReporterComponent } from './spinner-activity-reporter.component';
 
 @Component({
     template: `

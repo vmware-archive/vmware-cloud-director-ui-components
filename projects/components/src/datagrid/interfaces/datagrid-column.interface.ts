@@ -6,7 +6,7 @@
 /**
  * Whether something shows up in the column toggler
  */
-import { TooltipSize, CliptextConfig } from '../../lib/directives/show-clipped-text.directive';
+import { CliptextConfig, TooltipSize } from '../../lib/directives/show-clipped-text.directive';
 import { FilterConfig, FilterRendererSpec } from '../filters/datagrid-filter';
 import { ComponentRendererConstructor, ComponentRendererSpec } from './component-renderer.interface';
 

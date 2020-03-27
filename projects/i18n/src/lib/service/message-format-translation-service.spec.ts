@@ -6,9 +6,9 @@
 /*
  * Copyright 2017 VMware, Inc. All rights reserved. VMware Confidential
  */
-import { MessageFormatTranslationService } from './message-format-translation-service';
-import { TranslationLoader } from '../loader/translation-loader';
 import { BehaviorSubject } from 'rxjs';
+import { TranslationLoader } from '../loader/translation-loader';
+import { MessageFormatTranslationService } from './message-format-translation-service';
 
 describe('MessageFormatTranslationService', () => {
     const translationSet = {

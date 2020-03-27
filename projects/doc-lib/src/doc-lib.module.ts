@@ -4,12 +4,12 @@
  */
 
 import { InjectionToken, ModuleWithProviders, NgModule } from '@angular/core';
-import { CompodocSchema } from './compodoc/compodoc-schema';
-import { DocumentationRetrieverService } from './documentation-retriever.service';
 import { CompoDocRetrieverService } from './compodoc/compodoc-retriever.service';
-import { PrismHighlightService } from './highlight/prism/prism-highlight.service';
-import { HighlightService } from './highlight/highlight.service';
+import { CompodocSchema } from './compodoc/compodoc-schema';
 import { DocumentationContainerModule } from './documentation-container/documentation-container.module';
+import { DocumentationRetrieverService } from './documentation-retriever.service';
+import { HighlightService } from './highlight/highlight.service';
+import { PrismHighlightService } from './highlight/prism/prism-highlight.service';
 import { STACKBLITZ_INFO, StackBlitzInfo, StackBlitzWriterService } from './stack-blitz-writer.service';
 
 const declarations = [];

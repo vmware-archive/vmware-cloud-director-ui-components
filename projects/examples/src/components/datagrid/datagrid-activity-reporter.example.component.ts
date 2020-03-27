@@ -5,12 +5,12 @@
 
 import { Component } from '@angular/core';
 import {
+    ActivityIndicatorType,
+    ButtonConfig,
+    ContextualButtonPosition,
     GridColumn,
     GridDataFetchResult,
     GridState,
-    ButtonConfig,
-    ContextualButtonPosition,
-    ActivityIndicatorType,
 } from '@vcd/ui-components';
 
 interface Data {

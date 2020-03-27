@@ -5,8 +5,8 @@
 
 import { OnDestroy } from '@angular/core';
 
-import { Subscription, Observable, PartialObserver } from 'rxjs';
-import { SubscriptionTracker, ISubscriptionTracker } from './subscription-tracker';
+import { Observable, PartialObserver, Subscription } from 'rxjs';
+import { ISubscriptionTracker, SubscriptionTracker } from './subscription-tracker';
 
 type Constructor<T = {}> = new (...args: any[]) => T;
 

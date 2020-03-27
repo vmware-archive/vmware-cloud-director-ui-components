@@ -8,10 +8,12 @@ import { TestBed } from '@angular/core/testing';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { TooltipSize } from '../lib/directives/show-clipped-text.directive';
 import { ClrDatagridWidgetObject } from '../utils/test/datagrid/datagrid.wo';
+import { VcdDatagridWidgetObject } from '../utils/test/datagrid/vcd-datagrid.wo';
 import { WidgetFinder } from '../utils/test/widget-object';
-import { GridSelectionType, PaginationConfiguration, ActivityIndicatorType } from './datagrid.component';
+import { ActivityIndicatorType, GridSelectionType, PaginationConfiguration } from './datagrid.component';
 import { DatagridComponent, GridDataFetchResult, GridState } from './datagrid.component';
 import { DatagridModule } from './datagrid.module';
+import { DatagridStringFilter, WildCardPosition } from './filters/datagrid-string-filter.component';
 import {
     ButtonConfig,
     ColumnComponentRendererSpec,
@@ -23,8 +25,6 @@ import {
 import { mockData, MockRecord } from './mock-data';
 import { BoldTextRendererComponent } from './renderers/bold-text-renderer.component';
 import { WithGridBoldRenderer } from './renderers/bold-text-renderer.wo';
-import { VcdDatagridWidgetObject } from '../utils/test/datagrid/vcd-datagrid.wo';
-import { DatagridStringFilter, WildCardPosition } from './filters/datagrid-string-filter.component';
 
 type MockRecordDatagridComponent = DatagridComponent<MockRecord>;
 

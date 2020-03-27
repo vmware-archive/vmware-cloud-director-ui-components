@@ -3,9 +3,9 @@
  * SPDX-License-Identifier: BSD-2-Clause
  */
 
+import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { ClarityModule } from '@clr/angular';
-import { CommonModule } from '@angular/common';
 import { OverviewViewerComponent } from './overview-viewer.component';
 
 const declarations = [OverviewViewerComponent];

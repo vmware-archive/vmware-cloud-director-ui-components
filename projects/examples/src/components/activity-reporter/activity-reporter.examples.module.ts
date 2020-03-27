@@ -4,12 +4,12 @@
  */
 
 import { NgModule } from '@angular/core';
-import { Documentation } from '@vcd/ui-doc-lib';
 import { BannerActivityReporterComponent } from '@vcd/ui-components';
+import { Documentation } from '@vcd/ui-doc-lib';
+import { BannerActivityReporterExampleComponent } from './banner-activity-reporter.example.component';
+import { BannerActivityReporterExampleModule } from './banner-activity-reporter.example.module';
 import { SpinnerActivityReporterExampleComponent } from './spinner-activity-reporter.example.component';
 import { SpinnerActivityReporterExampleModule } from './spinner-activity-reporter.example.module';
-import { BannerActivityReporterExampleModule } from './banner-activity-reporter.example.module';
-import { BannerActivityReporterExampleComponent } from './banner-activity-reporter.example.component';
 
 Documentation.registerDocumentationEntry({
     component: BannerActivityReporterComponent, // TODO: allow doc-lib to supoort documentation for non-components

@@ -3,15 +3,15 @@
  * SPDX-License-Identifier: BSD-2-Clause
  */
 
-import { TranslationLoader } from './loader/translation-loader';
+import { HttpClient } from '@angular/common/http';
 import { ModuleWithProviders, Optional, Provider } from '@angular/core';
-import { NgModule, InjectionToken, Inject } from '@angular/core';
+import { Inject, InjectionToken, NgModule } from '@angular/core';
+import { TranslationLoader } from './loader/translation-loader';
 import { FormatDateTimePipe } from './pipe/format-date-time-pipe';
+import { TranslationPipe } from './pipe/translation-pipe';
 import { MessageFormatTranslationService } from './service/message-format-translation-service';
 import { TranslationService } from './service/translation-service';
 import { BOOTSTRAP_DETAILS } from './utils/tokens';
-import { TranslationPipe } from './pipe/translation-pipe';
-import { HttpClient } from '@angular/common/http';
 
 let singletonService: TranslationService = null;
 

@@ -7,8 +7,8 @@
  * Copyright 2018-2019 VMware, Inc. All rights reserved. VMware Confidential
  */
 import { Injectable, Pipe, PipeTransform } from '@angular/core';
-import { PlatformUtil } from '../utils/platform-util';
 import { TranslationService } from '../service/translation-service';
+import { PlatformUtil } from '../utils/platform-util';
 
 /**
  * This function modifies the timezone format in the provided date string in order to work in IE11

@@ -6,8 +6,6 @@
 import { Component, Type } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
 import { MockTranslationService, TranslationService } from '@vcd/i18n';
-import { WidgetFinder } from '../widget-object';
-import { ClrDatagridWidgetObject } from './datagrid.wo';
 import {
     DatagridFilter,
     DatagridModule,
@@ -17,6 +15,8 @@ import {
 } from '../../../datagrid';
 import { MockRecord } from '../../../datagrid/mock-data';
 import { IdGenerator } from '../../id-generator/id-generator';
+import { WidgetFinder } from '../widget-object';
+import { ClrDatagridWidgetObject } from './datagrid.wo';
 
 /**
  * Used inside beforeEach functions of filter tests and it does the following:

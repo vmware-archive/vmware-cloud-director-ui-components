@@ -4,9 +4,9 @@
  */
 
 import { Type } from '@angular/core';
-import { BoldTextRendererComponent } from './bold-text-renderer.component';
-import { WidgetObject } from '../../utils/test/widget-object';
 import { VcdDatagridWidgetObject } from '../../utils/test/datagrid/vcd-datagrid.wo';
+import { WidgetObject } from '../../utils/test/widget-object';
+import { BoldTextRendererComponent } from './bold-text-renderer.component';
 
 /**
  * Mixin that allows {@link ClrDatagridWidgetObject} to read information from {@link BoldTextRendererComponent}

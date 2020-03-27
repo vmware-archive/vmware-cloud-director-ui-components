@@ -4,8 +4,8 @@
  */
 
 import { Type } from '@angular/core';
-import { DocumentationContainerComponent } from './documentation-container/documentation-container.component';
 import { Routes } from '@angular/router';
+import { DocumentationContainerComponent } from './documentation-container/documentation-container.component';
 
 /**
  * Represents each entry in {@link DocumentationEntry.examples}, that is an examples that shows a particular usage of a components

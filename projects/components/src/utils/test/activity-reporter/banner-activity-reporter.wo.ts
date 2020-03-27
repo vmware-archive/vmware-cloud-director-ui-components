@@ -3,8 +3,8 @@
  * SPDX-License-Identifier: BSD-2-Clause
  */
 
-import { WidgetObject } from '../widget-object';
 import { BannerActivityReporterComponent } from '../../../common/activity-reporter';
+import { WidgetObject } from '../widget-object';
 
 export class BannerActivityReporterWidgetObject extends WidgetObject<BannerActivityReporterComponent> {
     static tagName = 'vcd-banner-activity-reporter';

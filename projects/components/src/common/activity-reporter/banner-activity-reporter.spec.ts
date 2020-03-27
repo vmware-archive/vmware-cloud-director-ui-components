@@ -5,11 +5,11 @@
 
 import { Component, ViewChild } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
-import { ActivityReporterModule } from './activity-reporter.module';
-import { WidgetFinder } from '../../utils/test/widget-object';
-import { BannerActivityReporterComponent } from './banner-activity-reporter.component';
+import { MockTranslationService, TranslationService } from '@vcd/i18n';
 import { BannerActivityReporterWidgetObject } from '../../utils/test/activity-reporter/banner-activity-reporter.wo';
-import { TranslationService, MockTranslationService } from '@vcd/i18n';
+import { WidgetFinder } from '../../utils/test/widget-object';
+import { ActivityReporterModule } from './activity-reporter.module';
+import { BannerActivityReporterComponent } from './banner-activity-reporter.component';
 
 @Component({
     template: `

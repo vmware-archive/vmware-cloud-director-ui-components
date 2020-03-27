@@ -4,7 +4,7 @@
  */
 
 import { Component, ViewChild } from '@angular/core';
-import { BannerActivityReporterComponent, ActivityReporter } from '@vcd/ui-components';
+import { ActivityReporter, BannerActivityReporterComponent } from '@vcd/ui-components';
 
 /**
  * Press the button to show/hide the banner activity reporter

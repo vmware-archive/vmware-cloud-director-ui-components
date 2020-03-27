@@ -3,18 +3,18 @@
  * SPDX-License-Identifier: BSD-2-Clause
  */
 
-import { ClrDatagridFilterInterface } from '@clr/angular/data/datagrid/interfaces/filter.interface';
+import { Input } from '@angular/core';
+import { FormGroup } from '@angular/forms';
 import { ClrDatagridFilter } from '@clr/angular';
+import { ClrDatagridFilterInterface } from '@clr/angular/data/datagrid/interfaces/filter.interface';
 import { Observable, Subject } from 'rxjs';
+import { debounceTime } from 'rxjs/operators';
+import { SubscriptionTrackerMixin } from '../../common/subscription';
 import {
     ComponentRenderer,
     ComponentRendererConstructor,
     ComponentRendererSpec,
 } from '../interfaces/component-renderer.interface';
-import { Input } from '@angular/core';
-import { FormGroup } from '@angular/forms';
-import { debounceTime } from 'rxjs/operators';
-import { SubscriptionTrackerMixin } from '../../common/subscription';
 
 /**
  * Number of milliseconds delayed before emitting the filter has changed observable

@@ -3,13 +3,13 @@
  * SPDX-License-Identifier: BSD-2-Clause
  */
 
-import { DatagridFilter, DEBOUNCE_TIME_FOR_GRID_FILTER_CHANGES } from './datagrid-filter';
 import { fakeAsync, tick } from '@angular/core/testing';
+import { createDatagridFilterTestHelper, FilterTestHostComponent } from '../../utils/test/datagrid/filter-utils';
+import { DatagridFilter, DEBOUNCE_TIME_FOR_GRID_FILTER_CHANGES } from './datagrid-filter';
 import {
     DatagridMultiSelectFilterComponent,
     DatagridMultiSelectFilterConfig,
 } from './datagrid-multiselect-filter.component';
-import { createDatagridFilterTestHelper, FilterTestHostComponent } from '../../utils/test/datagrid/filter-utils';
 
 interface HasDgMultiSelectFilter {
     filter: DatagridFilter<string[], DatagridMultiSelectFilterConfig>;

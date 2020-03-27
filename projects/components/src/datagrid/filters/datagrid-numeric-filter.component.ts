@@ -4,10 +4,10 @@
  */
 
 import { Component, Host, OnInit } from '@angular/core';
-import { DatagridFilter, FilterConfig, FilterComponentRendererSpec, FilterRendererSpec } from './datagrid-filter';
-import { ClrDatagridFilter } from '@clr/angular';
 import { FormBuilder, FormGroup } from '@angular/forms';
+import { ClrDatagridFilter } from '@clr/angular';
 import { FilterBuilder } from '../../utils/filter-builder';
+import { DatagridFilter, FilterComponentRendererSpec, FilterConfig, FilterRendererSpec } from './datagrid-filter';
 
 enum FormFields {
     from = 'from',

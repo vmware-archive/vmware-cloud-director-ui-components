@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: BSD-2-Clause
  */
 
-import { PipeTransform, ChangeDetectorRef, Injectable, Pipe } from '@angular/core';
+import { ChangeDetectorRef, Injectable, Pipe, PipeTransform } from '@angular/core';
 import { TranslationService } from '../service/translation-service';
 
 /**

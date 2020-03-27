@@ -4,8 +4,8 @@
  */
 
 import { Component, Input, OnInit } from '@angular/core';
-import { BehaviorSubject, Observable } from 'rxjs';
 import { SubscriptionTrackerMixin } from '@vcd/ui-components';
+import { BehaviorSubject, Observable } from 'rxjs';
 
 /**
  * Automatically destroy subscriptions when components are destroyed by using the {@link SubscriptionTrackerMixin}.
