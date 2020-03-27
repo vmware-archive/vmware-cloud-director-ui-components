@@ -106,11 +106,6 @@ Documentation.registerDocumentationEntry({
             title: 'Activity reporter + buttons example',
         },
         {
-            component: DatagridFilterExampleComponent,
-            forComponent: null,
-            title: 'Filters in the datagrid columns',
-        },
-        {
             component: DatagridRowIconExampleComponent,
             forComponent: null,
             title: 'Data row icon that reloads the row',

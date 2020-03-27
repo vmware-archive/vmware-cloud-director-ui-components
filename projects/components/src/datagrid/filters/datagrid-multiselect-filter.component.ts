@@ -36,6 +36,8 @@ interface MultiSelectOptionInternal extends MultiSelectOption {
     id: string;
 }
 
+const idGenerator = new IdGenerator('vcd-multiselect-filter-id');
+
 /**
  * Used within a clarity grid column {@link DatagridComponent} to render a filter widget with list of checkboxes to select
  * multiple options
@@ -65,7 +67,7 @@ interface MultiSelectOptionInternal extends MultiSelectOption {
 })
 export class DatagridMultiSelectFilterComponent extends DatagridFilter<string[], DatagridMultiSelectFilterConfig>
     implements OnInit {
-    constructor(@Host() private filterContainer: ClrDatagridFilter, private idGenerator: IdGenerator) {
+    constructor(@Host() private filterContainer: ClrDatagridFilter) {
         super(filterContainer);
         this.formGroup = new FormGroup({});
     }
@@ -82,7 +84,7 @@ export class DatagridMultiSelectFilterComponent extends DatagridFilter<string[],
     onBeforeSetConfig(config: DatagridMultiSelectFilterConfig): void {
         this.options = config.options.map(option => ({
             ...option,
-            id: this.idGenerator.generate(),
+            id: idGenerator.generate(),
         }));
         // Remove all the form controls in the form before adding new controls
         Object.keys(this.formGroup.controls).forEach(control => {
