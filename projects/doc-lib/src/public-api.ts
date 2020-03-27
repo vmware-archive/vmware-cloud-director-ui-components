@@ -18,4 +18,4 @@ export * from './highlight';
 export * from './overview-viewer';
 export * from './source-code-viewer';
 export * from './stack-blitz-writer.service';
-export * from './vanilla';
+export * from './plain-js-components';

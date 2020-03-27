@@ -3,11 +3,11 @@
  * SPDX-License-Identifier: BSD-2-Clause
  */
 
+import { html } from 'lit-html';
+import { unsafeHTML } from 'lit-html/directives/unsafe-html';
 import Prism from 'prismjs';
-import {JsComponent} from '../js.component';
-import {Tabset} from '../tabset/tabset.component';
-import {html} from 'lit-html';
-import {unsafeHTML} from 'lit-html/directives/unsafe-html';
+import { JsComponent } from '../js.component';
+import { Tabset } from '../tabset/tabset.component';
 
 /**
  * Each language to be displayed within the tabbed interface
@@ -37,18 +37,17 @@ interface SourceCode {
  * Displays code in a {@link Tabset}
  */
 export class TabbedCodeViewer extends JsComponent {
-    tabs: Tabset;
+    private tabs: Tabset;
 
-    constructor(codes: SourceCode[] = []) {
+    constructor(sourceCodeList: SourceCode[] = []) {
         super();
 
         this.tabs = new Tabset(
-            codes.map((code: SourceCode) => ({
+            sourceCodeList.map((code: SourceCode) => ({
                 title: code.language,
                 panel: html`
-                    <pre class=${'language-' + code.languageId}><code class=${'language-' + code.languageId}>${
-                        unsafeHTML(Prism.highlight(code.sourceCode, code.languageId))
-                    }</code></pre>
+                    <pre class=${'language-' + code.languageId}><code class=${'language-' +
+                        code.languageId}>${unsafeHTML(Prism.highlight(code.sourceCode, code.languageId))}</code></pre>
                 `,
             }))
         );

@@ -36,10 +36,21 @@ export class JsComponent {
      */
     protected onBeforeDestroy(): void {}
 
-    up(elem: Node, selector: string): HTMLElement {
-        //
+    /**
+     * Search the element itself and its ancestors looking for an element that matches the given selector
+     * The search stops at the root element.
+     *
+     * This is useful for finding the target of delegated events
+     *
+     * @param elem Element to start search from.
+     * @param selector Selector that returned element should match
+     * @param parent If traversing the parents of the given element reaches this element,
+     * the search will stop and null will be returned
+     * @return The matching element or null
+     */
+    findClosestParent(elem: Node, selector: string, parent: Node = this.el): HTMLElement {
         // Get closest match
-        while (elem && elem !== document) {
+        while (elem && elem !== parent) {
             if ((elem as HTMLElement).matches(selector)) {
                 return elem as HTMLElement;
             }

@@ -3,12 +3,10 @@
  * SPDX-License-Identifier: BSD-2-Clause
  */
 
-import { OnDestroy } from '@angular/core';
+import { OnDestroy, Type } from '@angular/core';
 
 import { Observable, PartialObserver, Subscription } from 'rxjs';
 import { ISubscriptionTracker, SubscriptionTracker } from './subscription-tracker';
-
-type Constructor<T = {}> = new (...args: any[]) => T;
 
 /**
  * Creates a constructor for a class that can automatically subscribe and unsubscribe from observables.
@@ -16,7 +14,7 @@ type Constructor<T = {}> = new (...args: any[]) => T;
  * All subscriptions are automatically removed when the component is destroyed
  */
 // tslint:disable-next-line: typedef
-export function SubscriptionTrackerMixin<TBase extends Constructor>(Base: TBase) {
+export function SubscriptionTrackerMixin<TBase extends Type<{}>>(Base: TBase) {
     return class extends Base implements ISubscriptionTracker, OnDestroy {
         tracker = new SubscriptionTracker(this);
 

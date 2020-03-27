@@ -3,9 +3,9 @@
  * SPDX-License-Identifier: BSD-2-Clause
  */
 
-import {Type} from '@angular/core';
-import {ApiParameters, DocumentationRetrieverService} from '../documentation-retriever.service';
-import {CompodocComponent, CompodocModule, CompodocSchema} from './compodoc-schema';
+import { Type } from '@angular/core';
+import { ApiParameters, DocumentationRetrieverService } from '../documentation-retriever.service';
+import { CompodocComponent, CompodocModule, CompodocSchema } from './compodoc-schema';
 
 /**
  * This service retrieves specific properties from compodoc generated documentation
@@ -13,19 +13,19 @@ import {CompodocComponent, CompodocModule, CompodocSchema} from './compodoc-sche
 export class CompoDocRetrieverService implements DocumentationRetrieverService {
     constructor(private documentationJson: CompodocSchema[]) {}
 
-    public getOverview(component: Type<any>): string {
+    public getOverview(component: Type<unknown>): string {
         return this.getComponent(component).description;
     }
 
-    public getTypescriptSourceCode(component: Type<any>): string {
+    public getTypescriptSourceCode(component: Type<unknown>): string {
         return this.getComponent(component).sourceCode;
     }
 
-    public getHtmlSourceCode(component: Type<any>): string {
+    public getHtmlSourceCode(component: Type<unknown>): string {
         return this.getComponent(component).templateData;
     }
 
-    public getCssSourceCode(component: Type<any>): string {
+    public getCssSourceCode(component: Type<unknown>): string {
         const styleUrlsData = this.getComponent(component).styleUrlsData;
         if (!styleUrlsData) {
             return;
@@ -53,12 +53,12 @@ export class CompoDocRetrieverService implements DocumentationRetrieverService {
         return null;
     }
 
-    public getInputParameters(component: Type<any>): ApiParameters[] {
+    public getInputParameters(component: Type<unknown>): ApiParameters[] {
         const comp = this.getComponent(component);
         return comp.inputsClass || [];
     }
 
-    public getOutputParameters(component: Type<any>): ApiParameters[] {
+    public getOutputParameters(component: Type<unknown>): ApiParameters[] {
         const comp = this.getComponent(component);
         return comp.outputsClass || [];
     }

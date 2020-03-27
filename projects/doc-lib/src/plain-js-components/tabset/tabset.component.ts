@@ -3,8 +3,8 @@
  * SPDX-License-Identifier: BSD-2-Clause
  */
 
-import {html, render, TemplateResult} from 'lit-html';
-import {JsComponent} from '../js.component';
+import { html, render, TemplateResult } from 'lit-html';
+import { JsComponent } from '../js.component';
 
 export interface VcdTab {
     /**
@@ -118,7 +118,7 @@ export class Tabset extends JsComponent {
     }
 
     onClick = (e: MouseEvent) => {
-        const button = this.up(e.target as HTMLElement, 'li.nav-item button');
+        const button = this.findClosestParent(e.target as HTMLElement, 'li.nav-item button');
         if (!button) {
             return;
         }
