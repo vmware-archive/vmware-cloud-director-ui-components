@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: BSD-2-Clause
  */
 
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing';
 import { ShowClippedTextDirective, tip, TooltipPosition } from './show-clipped-text.directive';
 import {
     ShowClippedTextDirectiveTestHelper,
@@ -34,7 +34,6 @@ describe('ShowClippedTextDirective', () => {
         this.fixture = TestBed.createComponent(ShowClippedTextDirectiveTestHostComponent);
         this.fixture.detectChanges();
         this.clippedTextHelper = new ShowClippedTextDirectiveTestHelper(this.fixture);
-        await timeout(this.clippedTextHelper.hideDelay * 2);
     });
 
     describe('singletonTooltip', () => {
@@ -66,53 +65,49 @@ describe('ShowClippedTextDirective', () => {
     });
 
     describe('hiding the tooltip', () => {
-        it('hides the tooltip after a timeout', async function(this: Test): Promise<void> {
+        it('hides the tooltip after a timeout', fakeAsync(function(this: Test): void {
             const helper = this.clippedTextHelper;
             helper.moveMouseOverHost();
             helper.moveMouseOffHost();
-            await timeout(helper.hideDelay);
+            tick(helper.hideDelay);
             expect(helper.isTooltipVisible).toBe(false);
-        });
+        }));
 
-        it('does not hide the tooltip if the mouse quickly goes to the tooltip', async function(this: Test): Promise<
-            void
-        > {
+        it('does not hide the tooltip if the mouse quickly goes to the tooltip', fakeAsync(function(this: Test): void {
             const helper = this.clippedTextHelper;
             helper.width = '10px';
             helper.moveMouseOverHost();
             helper.moveMouseOffHost();
-            await timeout(helper.hideDelay - 1);
+            tick(helper.hideDelay - 1);
             helper.moveMouseOverTooltip();
             expect(helper.isTooltipVisible).toBe(true);
-        });
+        }));
 
-        it('hides the tooltip if the mouse moves away from the tooltip', async function(this: Test): Promise<void> {
+        it('hides the tooltip if the mouse moves away from the tooltip', fakeAsync(function(this: Test): void {
             const helper = this.clippedTextHelper;
             helper.disabled = false;
             helper.componentInstance.directive.mouseoutDelay = 2; // TODO: make setter
             helper.width = '10px';
             helper.moveMouseOverHost();
             helper.moveMouseOffHost();
-            await timeout(1);
+            tick(1);
             helper.moveMouseOverTooltip();
             helper.moveMouseOffTooltip();
-            await timeout(10);
+            tick(10);
             expect(helper.isTooltipVisible).toBe(false);
-        });
+        }));
 
-        it('does not hide tooltip if the mouse quickly returns to host element', async function(this: Test): Promise<
-            void
-        > {
+        it('does not hide tooltip if the mouse quickly returns to host element', fakeAsync(function(this: Test): void {
             const helper = this.clippedTextHelper;
             helper.width = '10px';
             helper.moveMouseOverHost();
             helper.moveMouseOffHost();
-            await timeout(1);
+            tick(1);
             helper.moveMouseOverHost();
             expect(helper.isTooltipVisible).toBe(true);
-        });
+        }));
 
-        it('changes visibility to hidden after the tooltip fades out', async function(this: Test): Promise<void> {
+        it('changes visibility to hidden after the tooltip fades out', fakeAsync(function(this: Test): void {
             const helper = this.clippedTextHelper;
             helper.width = '10px';
             helper.moveMouseOverHost();
@@ -120,11 +115,11 @@ describe('ShowClippedTextDirective', () => {
             helper.componentInstance.directive.mouseoutDelay = 1;
             helper.transitionTime = '1ms';
             helper.moveMouseOffHost();
-            await timeout(50);
+            tick(50);
             // Transition end is not called when the window is not focused, so need to add this.
             tip.onTransitionEnd(new Event('transitionend'));
             expect(helper.tooltipVisibility).toBe('hidden', 'CSS visibility should have been set to hidden');
-        });
+        }));
     });
 
     describe('disabling the tooltip', () => {
@@ -136,7 +131,7 @@ describe('ShowClippedTextDirective', () => {
             helper.disabled = false;
         });
 
-        it('can be modified dynamically', async function(this: Test): Promise<void> {
+        it('can be modified dynamically', fakeAsync(function(this: Test): void {
             const helper = this.clippedTextHelper;
             helper.disabled = true;
             helper.moveMouseOverHost();
@@ -145,8 +140,8 @@ describe('ShowClippedTextDirective', () => {
             helper.moveMouseOverHost();
             expect(helper.isTooltipVisible).toBeTruthy();
             helper.moveMouseOffHost();
-            await timeout(helper.hideDelay);
-        });
+            tick(helper.hideDelay);
+        }));
     });
 
     describe('tracking host changes while mouse is hovering', () => {
@@ -176,14 +171,14 @@ describe('ShowClippedTextDirective', () => {
     });
 
     describe('@Input vcdShowClippedText (tooltipSize)', () => {
-        it('displays tooltip with the given default size of 200px', async function(this: Test): Promise<void> {
+        it('displays tooltip with the given default size of 200px', fakeAsync(function(this: Test): void {
             const helper = this.clippedTextHelper;
             helper.hostText = 'Something that is longer than the default width so tooltip reaches its max width';
             helper.width = '10px';
-            await timeout(0);
+            tick(0);
             helper.moveMouseOverHost();
             expect(helper.tooltipSize).toBe(200);
-        });
+        }));
     });
 
     describe('Dynamic position', () => {
