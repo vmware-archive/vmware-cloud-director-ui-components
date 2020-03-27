@@ -115,7 +115,7 @@ export class ShowClippedTextDirectiveTestHelper {
         return this.tooltip.querySelector('.tooltip-content');
     }
 
-    private get tooltip(): HTMLElement {
+    public get tooltip(): HTMLElement {
         return document.querySelector('.tooltip.vcd-show-clipped-text');
     }
 }
