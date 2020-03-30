@@ -8,8 +8,8 @@
  */
 export * from './common/subscription';
 export * from './common/error';
-export * from './common/activity-reporter';
 export * from './common/loading';
+export * from './common/activity-reporter/index';
 export * from './data-exporter';
 export * from './lib/directives';
 export * from './datagrid';
