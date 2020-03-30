@@ -256,7 +256,7 @@ export class ShowClippedTextDirective implements OnDestroy, OnInit {
     private mutationObserver = new MutationObserver(() => {
         // Make sure isMouseOver is first. It's an optimization to avoid measuring the DOM
         // Also don't update the tooltip if content changes but the mouse is over a different host
-        if (tip.isMouseOver && this.hostElement === tip.currentHost) {
+        if (tip.isMouseOver && tip.currentDirective && this.hostElement === tip.currentHost) {
             if (this.isOverflowing()) {
                 tip.update();
             } else {
@@ -327,3 +327,14 @@ export class ShowClippedTextDirective implements OnDestroy, OnInit {
         return Math.ceil(this.hostElement.getBoundingClientRect().width) < this.hostElement.scrollWidth;
     }
 }
+
+/**
+ * Used to call {@link tip.onTransitionEnd} from outside this file.
+ * We need to expose {@link tip.onTransitionEnd} because when the window is not focused
+ * (as in a headless chrome environment), the transitionend event is not fired.
+ * As such, from the tests, you need to manually call this method.
+ */
+export const fireTipTransitionEndForTests = (event: Event) => {
+    // Since we're at it, please remove the param from onTransitionEnd since we don't use it
+    tip.onTransitionEnd(event);
+};

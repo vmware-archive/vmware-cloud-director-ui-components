@@ -99,10 +99,6 @@ export class ShowClippedTextDirectiveTestHelper {
         return document.querySelectorAll('.tooltip.vcd-show-clipped-text').length;
     }
 
-    public set transitionTime(time: string) {
-        this.tooltipContent.style.transitionDuration = time;
-    }
-
     public get tooltipVisibility(): string {
         return this.tooltipContent.style.visibility;
     }

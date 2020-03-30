@@ -3,8 +3,8 @@
  * SPDX-License-Identifier: BSD-2-Clause
  */
 
-import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { ShowClippedTextDirective } from './show-clipped-text.directive';
+import { ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing';
+import { fireTipTransitionEndForTests, ShowClippedTextDirective, TooltipPosition } from './show-clipped-text.directive';
 import {
     ShowClippedTextDirectiveTestHelper,
     ShowClippedTextDirectiveTestHostComponent,
@@ -26,8 +26,7 @@ function timeout(ms = 0): Promise<number> {
     return new Promise(resolve => window.setTimeout(resolve, ms));
 }
 
-// TODO: https://jira.eng.vmware.com/browse/VDUCC-116
-xdescribe('ShowClippedTextDirective', () => {
+describe('ShowClippedTextDirective', () => {
     beforeEach(async function(this: Test): Promise<void> {
         await TestBed.configureTestingModule({
             declarations: [ShowClippedTextDirective, ShowClippedTextDirectiveTestHostComponent],
@@ -35,28 +34,25 @@ xdescribe('ShowClippedTextDirective', () => {
         this.fixture = TestBed.createComponent(ShowClippedTextDirectiveTestHostComponent);
         this.fixture.detectChanges();
         this.clippedTextHelper = new ShowClippedTextDirectiveTestHelper(this.fixture);
-        await timeout(this.clippedTextHelper.hideDelay * 2);
     });
 
-    // TODO: https://jira.eng.vmware.com/browse/VDUCC-116
-    // describe('singletonTooltip', () => {
-    // it('creates a single tooltip even when there are multiple directives', function(this: Test): void {
-    //     expect(this.clippedTextHelper.tooltipCount).toBe(1);
-    // });
+    describe('singletonTooltip', () => {
+        it('creates a single tooltip even when there are multiple directives', function(this: Test): void {
+            expect(this.clippedTextHelper.tooltipCount).toBe(1);
+        });
 
-    // it('deletes the singleton tooltip after all instances are removed', function(this: Test): void {
-    //     this.clippedTextHelper.destroy();
-    //     expect(this.clippedTextHelper.tooltipCount).toBe(0);
-    // });
-    // });
+        it('deletes the singleton tooltip after all instances are removed', function(this: Test): void {
+            this.clippedTextHelper.destroy();
+            expect(this.clippedTextHelper.tooltipCount).toBe(0);
+        });
+    });
 
     describe('showing tooltip', () => {
-        // TODO: https://jira.eng.vmware.com/browse/VDUCC-116
-        // it('displays the tooltip if the element is clipped', function(this: Test): void {
-        //     const helper = this.clippedTextHelper;
-        //     helper.moveMouseOverHost();
-        //     expect(helper.isTooltipVisible).toBe(true, 'Tooltip should have been visible since element is clipped');
-        // });
+        it('displays the tooltip if the element is clipped', function(this: Test): void {
+            const helper = this.clippedTextHelper;
+            helper.moveMouseOverHost();
+            expect(helper.isTooltipVisible).toBe(true, 'Tooltip should have been visible since element is clipped');
+        });
         it('does not display the tooltip if the element is not clipped', function(this: Test): void {
             const helper = this.clippedTextHelper;
             helper.width = '1000px';
@@ -69,67 +65,59 @@ xdescribe('ShowClippedTextDirective', () => {
     });
 
     describe('hiding the tooltip', () => {
-        it('hides the tooltip after a timeout', async function(this: Test): Promise<void> {
+        it('hides the tooltip after a timeout', fakeAsync(function(this: Test): void {
             const helper = this.clippedTextHelper;
             helper.moveMouseOverHost();
             helper.moveMouseOffHost();
-            await timeout(helper.hideDelay);
+            tick(helper.hideDelay);
             expect(helper.isTooltipVisible).toBe(false);
-        });
+        }));
 
-        it('does not hide the tooltip if the mouse quickly goes to the tooltip', async function(this: Test): Promise<
-            void
-        > {
+        it('does not hide the tooltip if the mouse quickly goes to the tooltip', fakeAsync(function(this: Test): void {
             const helper = this.clippedTextHelper;
             helper.width = '10px';
             helper.moveMouseOverHost();
             helper.moveMouseOffHost();
-            await timeout(helper.hideDelay - 1);
+            tick(helper.hideDelay - 1);
             helper.moveMouseOverTooltip();
             expect(helper.isTooltipVisible).toBe(true);
-        });
+        }));
 
-        it('hides the tooltip if the mouse moves away from the tooltip', async function(this: Test): Promise<void> {
+        it('hides the tooltip if the mouse moves away from the tooltip', fakeAsync(function(this: Test): void {
             const helper = this.clippedTextHelper;
             helper.disabled = false;
-            helper.componentInstance.directive.mouseoutDelay = 2; // TODO: make setter
             helper.width = '10px';
             helper.moveMouseOverHost();
             helper.moveMouseOffHost();
-            await timeout(1);
+            tick(helper.hideDelay / 2);
             helper.moveMouseOverTooltip();
             helper.moveMouseOffTooltip();
-            await timeout(10);
+            tick(helper.hideDelay * 2);
             expect(helper.isTooltipVisible).toBe(false);
-        });
+        }));
 
-        it('does not hide tooltip if the mouse quickly returns to host element', async function(this: Test): Promise<
-            void
-        > {
+        it('does not hide tooltip if the mouse quickly returns to host element', fakeAsync(function(this: Test): void {
             const helper = this.clippedTextHelper;
             helper.width = '10px';
             helper.moveMouseOverHost();
             helper.moveMouseOffHost();
-            await timeout(1);
+            tick(1);
             helper.moveMouseOverHost();
             expect(helper.isTooltipVisible).toBe(true);
-        });
+        }));
 
-        // TODO https://jira.eng.vmware.com/browse/VDUCC-116
-        // it('changes visibility to hidden after the tooltip fades out', async function(this: Test): Promise<void> {
-        //     const helper = this.clippedTextHelper;
-        //     helper.width = '10px';
-        //     helper.moveMouseOverHost();
-        //     // To avoid waiting a whole second
-        //     helper.componentInstance.directive.mouseoutDelay = 1;
-        //     helper.transitionTime = '1ms';
-        //     helper.moveMouseOffHost();
-        //     // Required for the transition to end, trying to set it to the 1ms above does not work, 25ms works sometimes
-        //     // 50 seems to work all the time
-        //     // Potential for flakiness here ¯\_(ツ)_/¯
-        //     await timeout(50);
-        //     expect(helper.tooltipVisibility).toBe('hidden', 'CSS visibility should have been set to hidden');
-        // });
+        it('changes visibility to hidden after the tooltip fades out', fakeAsync(function(this: Test): void {
+            const helper = this.clippedTextHelper;
+            helper.width = '10px';
+            helper.moveMouseOverHost();
+            // To avoid waiting a whole second
+            helper.componentInstance.directive.mouseoutDelay = 1;
+            helper.moveMouseOffHost();
+            tick(2);
+            // Transition end is not called when the window is not focused, so need to add this.
+            fireTipTransitionEndForTests(new Event('transitionend'));
+            expect(helper.tooltipVisibility).toBe('hidden', 'CSS visibility should have been set to hidden');
+        }));
     });
 
     describe('disabling the tooltip', () => {
@@ -141,7 +129,7 @@ xdescribe('ShowClippedTextDirective', () => {
             helper.disabled = false;
         });
 
-        it('can be modified dynamically', async function(this: Test): Promise<void> {
+        it('can be modified dynamically', fakeAsync(function(this: Test): void {
             const helper = this.clippedTextHelper;
             helper.disabled = true;
             helper.moveMouseOverHost();
@@ -150,8 +138,8 @@ xdescribe('ShowClippedTextDirective', () => {
             helper.moveMouseOverHost();
             expect(helper.isTooltipVisible).toBeTruthy();
             helper.moveMouseOffHost();
-            await timeout(helper.hideDelay);
-        });
+            tick(helper.hideDelay);
+        }));
     });
 
     describe('tracking host changes while mouse is hovering', () => {
@@ -180,50 +168,48 @@ xdescribe('ShowClippedTextDirective', () => {
         });
     });
 
-    // TODO https://jira.eng.vmware.com/browse/VDUCC-116
-    // describe('@Input vcdShowClippedText (tooltipSize)', () => {
-    //     it('displays tooltip with the given default size of 200px', async function(this: Test): Promise<void> {
-    //         const helper = this.clippedTextHelper;
-    //         helper.hostText = 'Something that is longer than the default width so tooltip reaches its max width';
-    //         helper.width = '10px';
-    //         await timeout(0);
-    //         helper.moveMouseOverHost();
-    //         expect(helper.tooltipSize).toBe(200);
-    //     });
-    // });
+    describe('@Input vcdShowClippedText (tooltipSize)', () => {
+        it('displays tooltip with the given default size of 200px', fakeAsync(function(this: Test): void {
+            const helper = this.clippedTextHelper;
+            helper.hostText = 'Something that is longer than the default width so tooltip reaches its max width';
+            helper.width = '10px';
+            tick(0);
+            helper.moveMouseOverHost();
+            expect(helper.tooltipSize).toBe(200);
+        }));
+    });
 
-    // TODO https://jira.eng.vmware.com/browse/VDUCC-116
-    // describe('Dynamic position', () => {
-    //     it('displays tooltip on bottom-right when host is in top-left quadrant', function(this: Test): void {
-    //         const helper = this.clippedTextHelper;
-    //         helper.width = '10px';
-    //         helper.hostPosition = TooltipPosition.tl;
-    //         helper.moveMouseOverHost();
-    //         expect(helper.tooltipPosition).toBe(TooltipPosition.br);
-    //     });
-    //
-    //     it('displays tooltip on bottom-left when host is in top-right quadrant', function(this: Test): void {
-    //         const helper = this.clippedTextHelper;
-    //         helper.width = '10px';
-    //         helper.hostPosition = TooltipPosition.tr;
-    //         helper.moveMouseOverHost();
-    //         expect(helper.tooltipPosition).toBe(TooltipPosition.bl);
-    //     });
-    //
-    //     it('displays tooltip on top-right when host is in bottom-left quadrant', function(this: Test): void {
-    //         const helper = this.clippedTextHelper;
-    //         helper.width = '10px';
-    //         helper.hostPosition = TooltipPosition.bl;
-    //         helper.moveMouseOverHost();
-    //         expect(helper.tooltipPosition).toBe(TooltipPosition.tr);
-    //     });
-    //
-    //     it('displays tooltip on top-left when host is in bottom-right quadrant', function(this: Test): void {
-    //         const helper = this.clippedTextHelper;
-    //         helper.width = '10px';
-    //         helper.hostPosition = TooltipPosition.br;
-    //         helper.moveMouseOverHost();
-    //         expect(helper.tooltipPosition).toBe(TooltipPosition.tl);
-    //     });
-    // });
+    describe('Dynamic position', () => {
+        it('displays tooltip on bottom-right when host is in top-left quadrant', function(this: Test): void {
+            const helper = this.clippedTextHelper;
+            helper.width = '10px';
+            helper.hostPosition = TooltipPosition.tl;
+            helper.moveMouseOverHost();
+            expect(helper.tooltipPosition).toBe(TooltipPosition.br);
+        });
+
+        it('displays tooltip on bottom-left when host is in top-right quadrant', function(this: Test): void {
+            const helper = this.clippedTextHelper;
+            helper.width = '10px';
+            helper.hostPosition = TooltipPosition.tr;
+            helper.moveMouseOverHost();
+            expect(helper.tooltipPosition).toBe(TooltipPosition.bl);
+        });
+
+        it('displays tooltip on top-right when host is in bottom-left quadrant', function(this: Test): void {
+            const helper = this.clippedTextHelper;
+            helper.width = '10px';
+            helper.hostPosition = TooltipPosition.bl;
+            helper.moveMouseOverHost();
+            expect(helper.tooltipPosition).toBe(TooltipPosition.tr);
+        });
+
+        it('displays tooltip on top-left when host is in bottom-right quadrant', function(this: Test): void {
+            const helper = this.clippedTextHelper;
+            helper.width = '10px';
+            helper.hostPosition = TooltipPosition.br;
+            helper.moveMouseOverHost();
+            expect(helper.tooltipPosition).toBe(TooltipPosition.tl);
+        });
+    });
 });
