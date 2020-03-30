@@ -33,6 +33,26 @@ export class ClrDatagridWidgetObject extends WidgetObject<ClrDatagrid> {
     }
 
     /**
+     * Gives the text content of all the cells in a row.
+     */
+    getRowValues(rowIndex: number): string[] {
+        const toReturn = [];
+        for (let columnIndex = 0; columnIndex < this.columnCount; columnIndex++) {
+            toReturn.push(this.getCellText(rowIndex, columnIndex));
+        }
+        return toReturn;
+    }
+
+    /**
+     * Gives the linked text in the given cell represented by the {@param rowIndex} and {@param columnIndex} if present.
+     */
+    getCellLink(rowIndex: number, columnIndex: number): string[] {
+        return this.getCell(rowIndex, columnIndex)
+            .nativeElement.querySelector('a')
+            .getAttribute('href');
+    }
+
+    /**
      * Retrieves if the cell will clip text
      * @param column 0-based index of column
      */
@@ -64,10 +84,24 @@ export class ClrDatagridWidgetObject extends WidgetObject<ClrDatagrid> {
     }
 
     /**
+     * Returns an array of the texts for columns that are hidden.
+     */
+    get hiddenColumnHeaders(): string[] {
+        return this.getTexts('clr-dg-column.datagrid-hidden-column');
+    }
+
+    /**
      * Returns the number of rows currently displayed
      */
     get rowCount(): number {
         return this.rows.length;
+    }
+
+    /**
+     * Says if this datagrid is loading.
+     */
+    get loading(): boolean {
+        return this.component.loading;
     }
 
     /**
@@ -168,10 +202,25 @@ export class ClrDatagridWidgetObject extends WidgetObject<ClrDatagrid> {
     }
 
     /**
-     * Presses the button at the given {@param index} on the top of the grid.
+     * Presses the button at the given {@param index} on the top of the grid in the given {@param group}.
      */
-    pressTopButton(index: number): void {
-        this.click(`clr-dg-action-bar button:nth-of-type(${index + 1})`);
+    pressTopButton(index: number, group: number): void {
+        this.click(`clr-dg-action-bar div:nth-of-type(${group}) button:nth-of-type(${index + 1})`);
+    }
+
+    /**
+     * Gives the text of the button at the given {@param index} in the given {@param group} on the top of the grid.
+     */
+    getTopButtonText(index: number, group: number): string {
+        return this.getText(`clr-dg-action-bar div:nth-of-type(${group}) button:nth-of-type(${index + 1})`);
+    }
+
+    /**
+     * Says if the button at the given {@param index} in the given {@param group} on the top of the grid is disabled.
+     */
+    getTopButtonDisabled(index: number, group: number): string {
+        return this.findElement(`clr-dg-action-bar div:nth-of-type(${group}) button:nth-of-type(${index + 1})`)
+            .nativeElement.disabled;
     }
 
     /**
@@ -179,6 +228,23 @@ export class ClrDatagridWidgetObject extends WidgetObject<ClrDatagrid> {
      */
     pressButtonAtRow(buttonIndex: number, rowIndex: number): void {
         this.click(`.action-button-group button:nth-of-type(${buttonIndex + 1})`, this.rows[rowIndex]);
+    }
+
+    /**
+     * Gives the text of the button at the given {@param buttonIndex} at the row at the given {@param rowIndex}.
+     */
+    getButtonAtRowText(buttonIndex: number, rowIndex: number): string {
+        return this.getText(
+            `${ROW_TAG}:nth-of-type(${rowIndex + 1}) .action-button-group button:nth-of-type(${buttonIndex + 1})`
+        );
+    }
+
+    /**
+     * Says if the button at the given {@param buttonIndex} at the row at the given {@param rowIndex} is disabled.
+     */
+    getButtonAtRowDisabled(buttonIndex: number, rowIndex: number): string {
+        return this.findElement(`${ROW_TAG}:nth-of-type(${rowIndex + 1})
+             .action-button-group button:nth-of-type(${buttonIndex + 1})`).nativeElement.disabled;
     }
 
     /**

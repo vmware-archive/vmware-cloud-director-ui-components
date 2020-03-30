@@ -624,7 +624,7 @@ export class DatagridComponent<R> implements OnInit, AfterViewInit {
      * Is the given column able to be hidden by the user through the show/hide menu.
      */
     isColumnHideable(column: GridColumn<R>): boolean {
-        return column && column.hideable && column.hideable !== GridColumnHideable.Never;
+        return column && column.hideable !== GridColumnHideable.Never;
     }
 
     /**

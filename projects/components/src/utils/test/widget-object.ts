@@ -48,6 +48,13 @@ export abstract class WidgetObject<T> {
     }
 
     /**
+     * Destroys the fixture of this widget object.
+     */
+    destroy(): void {
+        this.fixture.destroy();
+    }
+
+    /**
      * Finds first element within this widget matching the given selector
      * @param selector What to search for
      * @param parent Where to start the search; defaults to the root of this component
@@ -99,7 +106,7 @@ export abstract class WidgetObject<T> {
         // The || '' is because textContent could technically be null when passed in the document
         // element object. We know that cannot be pased in here, so we ignore it for coverage
         // but we still need the line there to make strictNullChecks work
-        return el.nativeElement.textContent || /* istanbul ignore next */ '';
+        return el.nativeElement.textContent.trim() || /* istanbul ignore next */ '';
     }
 }
 
