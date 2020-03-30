@@ -56,6 +56,8 @@ MIT
 @clr/ui
 MIT
 
+@ps37/ui-components
+
 @stackblitz/sdk
 MIT
 MIT License
@@ -82,8 +84,6 @@ SOFTWARE.
 
 
 @vcd/i18n
-
-@vcd/ui-components
 
 @vcd/ui-doc-lib
 
