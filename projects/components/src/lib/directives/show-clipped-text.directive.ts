@@ -39,7 +39,7 @@ export interface CliptextConfig {
 /**
  * Singleton tooltip created by directive
  */
-export const tip = {
+const tip = {
     /** A single DOM node structure for the popup is created and shared with all instances (the .tooltip)  */
     container: null as HTMLElement,
 
@@ -327,3 +327,14 @@ export class ShowClippedTextDirective implements OnDestroy, OnInit {
         return Math.ceil(this.hostElement.getBoundingClientRect().width) < this.hostElement.scrollWidth;
     }
 }
+
+/**
+ * Used to call {@link tip.onTransitionEnd} from outside this file.
+ * We need to expose {@link tip.onTransitionEnd} because when the window is not focused
+ * (as in a headless chrome environment), the transitionend event is not fired.
+ * As such, from the tests, you need to manually call this method.
+ */
+export const fireTipTransitionEndForTests = (event: Event) => {
+    // Since we're at it, please remove the param from onTransitionEnd since we don't use it
+    tip.onTransitionEnd(event);
+};

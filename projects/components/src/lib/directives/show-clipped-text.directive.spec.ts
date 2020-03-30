@@ -4,7 +4,7 @@
  */
 
 import { ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing';
-import { ShowClippedTextDirective, tip, TooltipPosition } from './show-clipped-text.directive';
+import { fireTipTransitionEndForTests, ShowClippedTextDirective, TooltipPosition } from './show-clipped-text.directive';
 import {
     ShowClippedTextDirectiveTestHelper,
     ShowClippedTextDirectiveTestHostComponent,
@@ -86,14 +86,13 @@ describe('ShowClippedTextDirective', () => {
         it('hides the tooltip if the mouse moves away from the tooltip', fakeAsync(function(this: Test): void {
             const helper = this.clippedTextHelper;
             helper.disabled = false;
-            helper.componentInstance.directive.mouseoutDelay = 2; // TODO: make setter
             helper.width = '10px';
             helper.moveMouseOverHost();
             helper.moveMouseOffHost();
-            tick(1);
+            tick(helper.hideDelay / 2);
             helper.moveMouseOverTooltip();
             helper.moveMouseOffTooltip();
-            tick(10);
+            tick(helper.hideDelay * 2);
             expect(helper.isTooltipVisible).toBe(false);
         }));
 
@@ -113,11 +112,10 @@ describe('ShowClippedTextDirective', () => {
             helper.moveMouseOverHost();
             // To avoid waiting a whole second
             helper.componentInstance.directive.mouseoutDelay = 1;
-            helper.transitionTime = '1ms';
             helper.moveMouseOffHost();
-            tick(50);
+            tick(2);
             // Transition end is not called when the window is not focused, so need to add this.
-            tip.onTransitionEnd(new Event('transitionend'));
+            fireTipTransitionEndForTests(new Event('transitionend'));
             expect(helper.tooltipVisibility).toBe('hidden', 'CSS visibility should have been set to hidden');
         }));
     });
