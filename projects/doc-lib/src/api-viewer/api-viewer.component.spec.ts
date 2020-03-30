@@ -3,6 +3,6 @@
  * SPDX-License-Identifier: BSD-2-Clause
  */
 
-import { ApiViewerComponent } from './api-viewer.component';
+import {ApiViewerComponent} from './api-viewer.component';
 
 describe(ApiViewerComponent.name, () => {});

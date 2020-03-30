@@ -5,8 +5,21 @@
         </div>
 
         <div class="example-button-container" [ngClass]="{ 'example-shown': showSourceCode }">
-            <clr-icon shape="play" size="32" class="is-solid" (click)="onRunButtonClick()"></clr-icon>
-            <clr-icon shape="code" size="32" (click)="onCodeButtonClick()"> </clr-icon>
+            <clr-icon
+                shape="play"
+                size="32"
+                class="is-solid"
+                (click)="onRunButtonClick()"
+                aria-label="Edit example on StackBlitz"
+                title="Edit example on StackBlitz"
+            ></clr-icon>
+            <clr-icon
+                shape="code"
+                size="32"
+                (click)="onCodeButtonClick()"
+                [attr.aria-label]="sourceCodeButtonText"
+                [attr.title]="sourceCodeButtonText"
+            ></clr-icon>
         </div>
     </div>
 

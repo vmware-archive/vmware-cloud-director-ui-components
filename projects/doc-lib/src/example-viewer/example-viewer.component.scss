@@ -1,5 +1,6 @@
 $radius: 3px;
 $margin: 0.5rem;
+$bg-clr: #d8e3e9;
 
 .card-header-main {
     display: flex;
@@ -10,26 +11,23 @@ $margin: 0.5rem;
 
     .example-button-container {
         display: flex;
-        margin: $margin $margin 0 0;
+        margin: 0.4rem $margin 0 0;
+        padding: 0 4px;
 
         &.example-shown {
             border-radius: $radius $radius 0 0;
-            background-color: hsl(201, 29%, 88%);
+            background-color: $bg-clr;
         }
-
         clr-icon {
+            margin: 0 2px;
+            cursor: pointer;
             align-self: center;
         }
     }
 }
 .source-code-container {
     border-radius: $radius 0 $radius $radius;
-    background-color: hsl(201, 29%, 88%);
     margin: 0 $margin;
+    background-color: $bg-clr;
 }
 
-:host ::ng-deep vcd-overview-viewer {
-    & > div > p {
-        margin-bottom: 10px;
-    }
-}

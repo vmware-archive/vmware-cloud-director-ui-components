@@ -3,10 +3,10 @@
  * SPDX-License-Identifier: BSD-2-Clause
  */
 
-import { Component, ComponentFactoryResolver, Input, ViewChild, ViewContainerRef } from '@angular/core';
-import { ExampleEntry } from '../documentation';
-import { DocumentationRetrieverService } from '../documentation-retriever.service';
-import { StackBlitzWriterService } from '../stack-blitz-writer.service';
+import {Component, ComponentFactoryResolver, Input, ViewChild, ViewContainerRef} from '@angular/core';
+import {ExampleEntry} from '../documentation';
+import {DocumentationRetrieverService} from '../documentation-retriever.service';
+import {StackBlitzWriterService} from '../stack-blitz-writer.service';
 
 @Component({
     selector: 'vcd-example-viewer',
@@ -18,6 +18,10 @@ export class ExampleViewerComponent {
      * For showing and hiding of {@link SourceCodeViewerComponent} in the HTML
      */
     showSourceCode = false;
+
+    get sourceCodeButtonText(): string {
+        return this.showSourceCode ? 'Show source code' : 'Hide source code';
+    }
 
     constructor(
         private resolver: ComponentFactoryResolver,

@@ -3,9 +3,9 @@
  * SPDX-License-Identifier: BSD-2-Clause
  */
 
-import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Data } from '@angular/router';
-import { DocumentationEntry } from '../documentation';
+import {Component, OnInit} from '@angular/core';
+import {ActivatedRoute, Data} from '@angular/router';
+import {DocumentationEntry} from '../documentation';
 
 @Component({
     selector: 'vcd-documentation-container',

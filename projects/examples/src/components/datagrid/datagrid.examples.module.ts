@@ -48,7 +48,7 @@ Documentation.registerDocumentationEntry({
         {
             component: DatagridCssClassesExampleComponent,
             forComponent: null,
-            title: 'Component that holds an example of the css classes per row capability',
+            title: 'Custom CSS classes per row capability',
         },
         {
             component: DatagridShowHideExampleComponent,
@@ -63,17 +63,17 @@ Documentation.registerDocumentationEntry({
         {
             component: DatagridSortExampleComponent,
             forComponent: null,
-            title: 'Shows the sorting capability of the datagrid',
+            title: 'Datagrid sorting',
         },
         {
             component: DatagridRowSelectExampleComponent,
             forComponent: null,
-            title: 'Select datagrid row example',
+            title: 'Selectable datagrid rows',
         },
         {
             component: DatagridPaginationExampleComponent,
             forComponent: null,
-            title: 'Pagination functionality and text customization example',
+            title: 'Pagination functionality and text customization',
         },
         {
             component: DatagridHeightExampleComponent,
@@ -83,7 +83,7 @@ Documentation.registerDocumentationEntry({
         {
             component: DatagridHeaderExampleComponent,
             forComponent: null,
-            title: 'Setting the header on the datagrid.',
+            title: 'A header above the datagrid.',
         },
         {
             component: DatagridLinkExampleComponent,

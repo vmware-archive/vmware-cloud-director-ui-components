@@ -196,6 +196,8 @@ interface ColumnConfigInternal<R, T> extends GridColumn<R> {
  *
  * Example usage in a component:
  * In the component view, different properties required for the grid are wired as Inputs and Outputs.
+ *
+ * @example
  * <vcd-datagrid
  *    (onGridRefresh)="fetchData()"
  *    [columns]="columns"

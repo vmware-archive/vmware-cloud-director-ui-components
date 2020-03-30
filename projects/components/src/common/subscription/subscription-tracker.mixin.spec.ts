@@ -8,7 +8,7 @@ import { Subject } from 'rxjs';
 import { SubscriptionTrackerMixin } from './subscription-tracker.mixin';
 
 describe('SubscriptionTrackerMixin', () => {
-    class SubscribeObject extends SubscriptionTrackerMixin(Object) {}
+    class SubscribeObject extends SubscriptionTrackerMixin(class {}) {}
 
     describe('subscribing', () => {
         it('adds a subscription', () => {
