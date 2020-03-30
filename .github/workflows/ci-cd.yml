@@ -49,7 +49,7 @@ jobs:
             - uses: actions/cache@v1
               with:
                   path: ./dist/i18n
-                  key: i18n
+                  key: ${{github.sha}}-i18n
             - run: npm run build:i18n
 
     build-components-lib:
@@ -65,7 +65,7 @@ jobs:
             - uses: actions/cache@v1
               with:
                   path: ./dist/i18n
-                  key: i18n
+                  key: ${{github.sha}}-i18n
             - uses: actions/cache@v1
               with:
                   path: ./dist/components
@@ -85,7 +85,7 @@ jobs:
             - uses: actions/cache@v1
               with:
                   path: ./dist/doc-lib
-                  key: doc-lib
+                  key: ${{github.sha}}-doc-lib
             - run: npm run build:doc-lib
 
     build-app:
@@ -105,11 +105,11 @@ jobs:
             - uses: actions/cache@v1
               with:
                   path: ./dist/doc-lib
-                  key: doc-lib
+                  key: ${{github.sha}}-doc-lib
             - uses: actions/cache@v1
               with:
                   path: ./dist/i18n
-                  key: i18n
+                  key: ${{github.sha}}-i18n
             - uses: actions/cache@v1
               with:
                   path: ./dist/examples
@@ -134,7 +134,7 @@ jobs:
             - uses: actions/cache@v1
               with:
                   path: ./dist/i18n
-                  key: i18n
+                  key: ${{github.sha}}-i18n
             - uses: actions/cache@v1
               with:
                   path: ./coverage
@@ -230,7 +230,7 @@ jobs:
               if: steps.check-components-tag.outputs.isLibTag != 'true' && steps.check-components-package.outputs.isLibPackageChanged == 'true' && github.event_name == 'push' && github.ref == 'refs/heads/master'
               run: |
                   cd ./dist/components
-                  npm publish --tag next
+                  npm publish --tag next --access public
               env:
                   NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}
 
@@ -250,7 +250,7 @@ jobs:
             - uses: actions/cache@v1
               with:
                   path: ./dist/doc-lib
-                  key: doc-lib
+                  key: ${{github.sha}}-doc-lib
             - id: check-doc-lib-tag
               uses: ./.github/actions/check-lib-tag
               with:
@@ -284,7 +284,7 @@ jobs:
             - uses: actions/cache@v1
               with:
                   path: ./dist/doc-lib
-                  key: doc-lib
+                  key: ${{github.sha}}-doc-lib
             - id: check-doc-lib-tag
               uses: ./.github/actions/check-lib-tag
               with:
@@ -297,7 +297,7 @@ jobs:
               if: steps.check-doc-lib-tag.outputs.isLibTag != 'true' && steps.check-doc-lib-package.outputs.isLibPackageChanged == 'true' && github.event_name == 'push' && github.ref == 'refs/heads/master'
               run: |
                   cd ./dist/doc-lib
-                  npm publish --tag next
+                  npm publish --tag next --access public
               env:
                   NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}
 
@@ -317,7 +317,7 @@ jobs:
             - uses: actions/cache@v1
               with:
                   path: ./dist/i18n
-                  key: i18n
+                  key: ${{github.sha}}-i18n
             - id: check-i18n-tag
               uses: ./.github/actions/check-lib-tag
               with:
@@ -351,7 +351,7 @@ jobs:
             - uses: actions/cache@v1
               with:
                   path: ./dist/i18n
-                  key: i18n
+                  key: ${{github.sha}}-i18n
             - id: check-i18n-tag
               uses: ./.github/actions/check-lib-tag
               with:
@@ -364,6 +364,6 @@ jobs:
               if: steps.check-i18n-tag.outputs.isLibTag != 'true' && steps.check-i18n-package.outputs.isLibPackageChanged == 'true' && github.event_name == 'push' && github.ref == 'refs/heads/master'
               run: |
                   cd ./dist/i18n
-                  npm publish --tag next
+                  npm publish --tag next --access public
               env:
                   NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}
