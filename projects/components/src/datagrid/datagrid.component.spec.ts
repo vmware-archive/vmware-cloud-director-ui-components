@@ -554,19 +554,19 @@ describe('DatagridComponent', () => {
                             label: 'Add',
                             isActive: () => true,
                             handler: () => {},
-                            class: 'button',
+                            class: 'add',
                         },
                         {
                             label: 'Remove',
                             isActive: () => false,
                             handler: () => {},
-                            class: 'button',
+                            class: 'remove',
                         },
                         {
                             label: 'Change',
                             isActive: () => false,
                             handler: () => {},
-                            class: 'button',
+                            class: 'change',
                         },
                     ];
                     this.finder.detectChanges();
@@ -578,9 +578,9 @@ describe('DatagridComponent', () => {
 
                 it('the button handler is called when the button is pressed', function(this: HasFinderAndGrid): void {
                     const spy = spyOn(this.finder.hostComponent.buttonConfig.globalButtons[0], 'handler');
-                    expect(this.clrGridWidget.getTopButtonText(0, 1)).toEqual('Add');
-                    expect(this.clrGridWidget.getTopButtonDisabled(0, 1)).toBeFalsy();
-                    this.clrGridWidget.pressTopButton(0, 1);
+                    expect(this.clrGridWidget.getButtonText('add')).toEqual('Add');
+                    expect(this.clrGridWidget.getButtonDisabled('add')).toBeFalsy();
+                    this.clrGridWidget.pressButton('add');
                     expect(spy).toHaveBeenCalledTimes(1);
                 });
             });
@@ -600,24 +600,21 @@ describe('DatagridComponent', () => {
                                 label: 'Add',
                                 isActive: (row: MockRecord[]) => true,
                                 handler: () => {},
-                                class: 'button',
-                                id: 'a',
+                                class: 'a',
                                 icon: 'play',
                             },
                             {
                                 label: 'Remove',
                                 isActive: () => false,
                                 handler: () => {},
-                                class: 'button',
-                                id: 'b',
+                                class: 'b',
                                 icon: 'pause',
                             },
                             {
                                 label: 'Other',
                                 isActive: (row: MockRecord[]) => row.length && row[0].name === 'Person 1',
                                 handler: () => {},
-                                class: 'button',
-                                id: 'c',
+                                class: 'c',
                                 icon: 'pause',
                             },
                         ],
@@ -659,7 +656,7 @@ describe('DatagridComponent', () => {
                         const spy = jasmine.createSpy('clickHandler');
                         this.finder.hostComponent.buttonConfig.contextualButtonConfig.buttons[0].handler = spy;
                         this.clrGridWidget.selectRow(0);
-                        this.clrGridWidget.pressTopButton(0, 1);
+                        this.clrGridWidget.pressButton('a');
                         expect(spy).toHaveBeenCalledWith([mockData[0]]);
                     });
                 });
@@ -675,10 +672,10 @@ describe('DatagridComponent', () => {
                         const spy = jasmine.createSpy('clickHandler');
                         this.finder.hostComponent.buttonConfig.contextualButtonConfig.buttons[0].handler = spy;
                         this.finder.detectChanges();
-                        this.clrGridWidget.pressButtonAtRow(0, 0);
+                        this.clrGridWidget.pressButton('a');
                         expect(spy).toHaveBeenCalledWith([mockData[0]]);
-                        expect(this.clrGridWidget.getButtonAtRowText(0, 0)).toEqual('Add');
-                        expect(this.clrGridWidget.getButtonAtRowDisabled(0, 0)).toBeFalsy();
+                        expect(this.clrGridWidget.getButtonText('a')).toEqual('Add');
+                        expect(this.clrGridWidget.getButtonDisabled('a')).toBeFalsy();
                     });
 
                     it('adds CSS to set the width based on the maximum number of buttons', function(this: HasFinderAndGrid): void {
@@ -709,7 +706,7 @@ describe('DatagridComponent', () => {
                     this.finder.hostComponent.indicatorType = ActivityIndicatorType.SPINNER;
                     this.finder.detectChanges();
                     const spy = spyOn(this.finder.hostComponent.grid.actionReporter, 'monitorActivity');
-                    this.clrGridWidget.pressTopButton(0, 1);
+                    this.clrGridWidget.pressButton('button');
                     expect(spy).toHaveBeenCalledTimes(1);
                 });
 
@@ -717,7 +714,7 @@ describe('DatagridComponent', () => {
                     this.finder.hostComponent.indicatorType = ActivityIndicatorType.BANNER;
                     this.finder.detectChanges();
                     const spy = spyOn(this.finder.hostComponent.grid.actionReporter, 'monitorActivity');
-                    this.clrGridWidget.pressTopButton(0, 1);
+                    this.clrGridWidget.pressButton('button');
                     expect(spy).toHaveBeenCalledTimes(1);
                 });
             });

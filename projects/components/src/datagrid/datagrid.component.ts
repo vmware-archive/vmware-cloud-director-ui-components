@@ -280,17 +280,28 @@ export class DatagridComponent<R> implements OnInit, AfterViewInit {
         this._buttonConfig = config;
         this._buttonConfig.inactiveDisplayMode =
             this._buttonConfig.inactiveDisplayMode || InactiveButtonDisplayMode.Disable;
-        this.featuredButtons = new Map(
-            this._buttonConfig.contextualButtonConfig.featured.map(featuredButtonId => [
-                featuredButtonId,
-                this._buttonConfig.contextualButtonConfig.buttons.find(button => button.id === featuredButtonId),
-            ])
-        );
-        this.featuredButtons.forEach(featured => {
-            if (!featured) {
-                throw new Error('Featured button was not found');
-            }
-        });
+        if (this._buttonConfig.contextualButtonConfig.featured) {
+            this.featuredButtons = new Map(
+                this._buttonConfig.contextualButtonConfig.featured.map(featuredButtonClass => [
+                    featuredButtonClass,
+                    this._buttonConfig.contextualButtonConfig.buttons.find(
+                        button => button.class === featuredButtonClass
+                    ),
+                ])
+            );
+            this.featuredButtons.forEach(featured => {
+                if (!featured) {
+                    throw new Error('Featured button was not found');
+                }
+            });
+        } else {
+            this.featuredButtons = new Map(
+                this._buttonConfig.contextualButtonConfig.buttons.map(featuredButton => [
+                    featuredButton.class,
+                    featuredButton,
+                ])
+            );
+        }
     }
 
     /**
@@ -463,8 +474,8 @@ export class DatagridComponent<R> implements OnInit, AfterViewInit {
      */
     getFeaturedButtons(record?: R): ContextualButton<R>[] {
         return this._buttonConfig.contextualButtonConfig.buttons
-            .filter(button => this.isButtonShown(button, record) && this.featuredButtons.get(button.id))
-            .slice(0, this._buttonConfig.contextualButtonConfig.featuredCount);
+            .filter(button => this.isButtonShown(button, record) && this.featuredButtons.get(button.class))
+            .slice(0, this._buttonConfig.contextualButtonConfig.featuredCount || this.featuredButtons.size);
     }
 
     /**

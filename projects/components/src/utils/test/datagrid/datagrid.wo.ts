@@ -202,49 +202,24 @@ export class ClrDatagridWidgetObject extends WidgetObject<ClrDatagrid> {
     }
 
     /**
-     * Presses the button at the given {@param index} on the top of the grid in the given {@param group}.
+     * Gives the text of the button with the given {@param buttonClass}
      */
-    pressTopButton(index: number, group: number): void {
-        this.click(`clr-dg-action-bar div:nth-of-type(${group}) button:nth-of-type(${index + 1})`);
+    getButtonText(buttonClass: string): string {
+        return this.getText(`button.${buttonClass}`);
     }
 
     /**
-     * Gives the text of the button at the given {@param index} in the given {@param group} on the top of the grid.
+     * Says if the button with the given {@param buttonClass} is disabled.
      */
-    getTopButtonText(index: number, group: number): string {
-        return this.getText(`clr-dg-action-bar div:nth-of-type(${group}) button:nth-of-type(${index + 1})`);
+    getButtonDisabled(buttonClass: string): string {
+        return this.findElement(`button.${buttonClass}`).nativeElement.disabled;
     }
 
     /**
-     * Says if the button at the given {@param index} in the given {@param group} on the top of the grid is disabled.
+     * Presses the button with the given {@param buttonClass}.
      */
-    getTopButtonDisabled(index: number, group: number): string {
-        return this.findElement(`clr-dg-action-bar div:nth-of-type(${group}) button:nth-of-type(${index + 1})`)
-            .nativeElement.disabled;
-    }
-
-    /**
-     * Presses the button at the given {@param buttonIndex} at the row at the given {@param rowIndex}.
-     */
-    pressButtonAtRow(buttonIndex: number, rowIndex: number): void {
-        this.click(`.action-button-group button:nth-of-type(${buttonIndex + 1})`, this.rows[rowIndex]);
-    }
-
-    /**
-     * Gives the text of the button at the given {@param buttonIndex} at the row at the given {@param rowIndex}.
-     */
-    getButtonAtRowText(buttonIndex: number, rowIndex: number): string {
-        return this.getText(
-            `${ROW_TAG}:nth-of-type(${rowIndex + 1}) .action-button-group button:nth-of-type(${buttonIndex + 1})`
-        );
-    }
-
-    /**
-     * Says if the button at the given {@param buttonIndex} at the row at the given {@param rowIndex} is disabled.
-     */
-    getButtonAtRowDisabled(buttonIndex: number, rowIndex: number): string {
-        return this.findElement(`${ROW_TAG}:nth-of-type(${rowIndex + 1})
-             .action-button-group button:nth-of-type(${buttonIndex + 1})`).nativeElement.disabled;
+    pressButton(buttonClass: string): void {
+        this.click(`button.${buttonClass}`);
     }
 
     /**
