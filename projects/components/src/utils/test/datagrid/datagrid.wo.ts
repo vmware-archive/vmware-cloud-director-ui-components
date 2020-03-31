@@ -105,6 +105,13 @@ export class ClrDatagridWidgetObject extends WidgetObject<ClrDatagrid> {
     }
 
     /**
+     * Says if the datagrid is showing a placeholder.
+     */
+    get hasPlaceholder(): boolean {
+        return !!this.findElement('clr-dg-placeholder');
+    }
+
+    /**
      * Returns whether or not the column with the given index is displayed by the CSS.
      */
     isColumnDisplayed(index: number): boolean {

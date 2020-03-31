@@ -190,6 +190,15 @@ describe('DatagridComponent', () => {
             });
 
             describe('@Input() gridData', () => {
+                it('shows a placeholder when no data is present', function(this: HasFinderAndGrid): void {
+                    this.finder.hostComponent.gridData = {
+                        items: [],
+                        totalItems: 0,
+                    };
+                    this.finder.detectChanges();
+                    expect(this.clrGridWidget.hasPlaceholder).toBeTruthy();
+                });
+
                 describe('when data is refreshed unselects a row if the row is removed', () => {
                     it('in single selection', function(this: HasFinderAndGrid): void {
                         this.finder.hostComponent.selectionType = GridSelectionType.Single;
