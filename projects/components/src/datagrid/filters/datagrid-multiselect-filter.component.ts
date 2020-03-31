@@ -65,17 +65,19 @@ const idGenerator = new IdGenerator('vcd-multiselect-filter-id');
     selector: 'vcd-dg-multiselect-filter',
     templateUrl: './datagrid-multiselect-filter.component.html',
 })
-export class DatagridMultiSelectFilterComponent extends DatagridFilter<string[], DatagridMultiSelectFilterConfig>
-    implements OnInit {
+export class DatagridMultiSelectFilterComponent extends DatagridFilter<string[], DatagridMultiSelectFilterConfig> {
     constructor(@Host() private filterContainer: ClrDatagridFilter) {
         super(filterContainer);
-        this.formGroup = new FormGroup({});
     }
 
     /**
      * Used inside the HTML to instantiate checkbox options
      */
     options: MultiSelectOptionInternal[];
+
+    createFormGroup(): FormGroup {
+        return new FormGroup({});
+    }
 
     /**
      * Overrides the config property because, the formGroup controls are defined by the config set by the caller.
@@ -95,8 +97,8 @@ export class DatagridMultiSelectFilterComponent extends DatagridFilter<string[],
         });
     }
 
-    ngOnInit(): void {
-        this.formGroup.valueChanges.subscribe(() => this.changes.next());
+    protected getDebounceTimeMs(): number {
+        return 1000;
     }
 
     setValue(values: string[]): void {

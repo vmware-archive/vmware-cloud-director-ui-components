@@ -2,9 +2,8 @@
  * Copyright 2019 VMware, Inc.
  * SPDX-License-Identifier: BSD-2-Clause
  */
-import { fakeAsync, tick } from '@angular/core/testing';
 import { createDatagridFilterTestHelper, FilterTestHostComponent } from '../../utils/test/datagrid/filter-utils';
-import { DatagridFilter, DEBOUNCE_TIME_FOR_GRID_FILTER_CHANGES } from './datagrid-filter';
+import { DatagridFilter } from './datagrid-filter';
 import {
     DatagridNumericFilter,
     DatagridNumericFilterComponent,
@@ -50,24 +49,6 @@ describe('Datagrid numeric filter', () => {
             expect(this.filter.formGroup.get('from').value).toEqual(null);
             expect(this.filter.formGroup.get('to').value).toEqual(null);
         });
-    });
-
-    describe('ClrDatagridFilterInterface.changes', () => {
-        beforeEach(function(this: HasDgNumericFilter): void {
-            this.filter = createDatagridFilterTestHelper(DatagridNumericFilterComponent);
-        });
-        it('emits when setValue is called', fakeAsync(function(this: HasDgNumericFilter): void {
-            const spy = spyOn(this.filter.changes, 'next');
-            this.filter.setValue([1, 2]);
-            tick(DEBOUNCE_TIME_FOR_GRID_FILTER_CHANGES);
-            expect(spy).toHaveBeenCalled();
-        }));
-        it('emits when config is set', fakeAsync(function(this: HasDgNumericFilter): void {
-            const spy = spyOn(this.filter.changes, 'next');
-            this.filter.config = { value: [1, 2] };
-            tick(DEBOUNCE_TIME_FOR_GRID_FILTER_CHANGES);
-            expect(spy).toHaveBeenCalled();
-        }));
     });
 
     describe('getValue', () => {

@@ -3,9 +3,8 @@
  * SPDX-License-Identifier: BSD-2-Clause
  */
 
-import { fakeAsync, tick } from '@angular/core/testing';
 import { createDatagridFilterTestHelper, FilterTestHostComponent } from '../../utils/test/datagrid/filter-utils';
-import { DatagridFilter, DEBOUNCE_TIME_FOR_GRID_FILTER_CHANGES } from './datagrid-filter';
+import { DatagridFilter } from './datagrid-filter';
 import {
     DatagridMultiSelectFilterComponent,
     DatagridMultiSelectFilterConfig,
@@ -16,46 +15,6 @@ interface HasDgMultiSelectFilter {
 }
 
 describe('DatagridMultiSelectFilterComponent', () => {
-    describe('config', () => {
-        beforeEach(function(this: HasDgMultiSelectFilter): void {
-            this.filter = createDatagridFilterTestHelper(DatagridMultiSelectFilterComponent, {
-                options: [
-                    {
-                        value: 'MA',
-                        display: 'Massachusetts',
-                    },
-                    {
-                        value: 'NC',
-                        display: 'North Carolina',
-                    },
-                ],
-            });
-        });
-        it('sets the filter options as list of options passed in', function(this: HasDgMultiSelectFilter): void {
-            expect(this.filter.config.options[0]).toEqual({
-                value: 'MA',
-                display: 'Massachusetts',
-            });
-            expect(this.filter.config.options[1]).toEqual({
-                value: 'NC',
-                display: 'North Carolina',
-            });
-        });
-
-        describe('onBeforeSetConfig', () => {
-            // tslint:disable-next-line:max-line-length
-            it('creates form controls that are of same number as number of options passed in', function(this: HasDgMultiSelectFilter): void {
-                const formControls = Object.keys(this.filter.formGroup.getRawValue());
-                expect(formControls.length).toEqual(this.filter.config.options.length);
-            });
-
-            it('creates form controls with values of options as their names', function(this: HasDgMultiSelectFilter): void {
-                const formControlNames = Object.keys(this.filter.formGroup.getRawValue());
-                this.filter.config.options.forEach((option, i) => expect(option.value).toEqual(formControlNames[i]));
-            });
-        });
-    });
-
     describe('setValue', () => {
         beforeEach(function(this: HasDgMultiSelectFilter): void {
             this.filter = createDatagridFilterTestHelper(DatagridMultiSelectFilterComponent, {
@@ -89,39 +48,6 @@ describe('DatagridMultiSelectFilterComponent', () => {
                 `A multi select filter option with value 'TX' does not exist`
             );
         });
-    });
-
-    describe('ClrDatagridFilterInterface.changes', () => {
-        beforeEach(function(this: HasDgMultiSelectFilter): void {
-            this.filter = createDatagridFilterTestHelper(DatagridMultiSelectFilterComponent, {
-                options: [
-                    {
-                        value: 'MA',
-                        display: 'Massachusetts',
-                    },
-                ],
-            });
-        });
-        it('emits when setValue is called', fakeAsync(function(this: HasDgMultiSelectFilter): void {
-            const filterChanges = spyOn(this.filter.changes, 'next');
-            this.filter.setValue(['MA']);
-            tick(DEBOUNCE_TIME_FOR_GRID_FILTER_CHANGES);
-            expect(filterChanges).toHaveBeenCalled();
-        }));
-        it('emits when config is set', fakeAsync(function(this: HasDgMultiSelectFilter): void {
-            const spy = spyOn(this.filter.changes, 'next');
-            this.filter.config = {
-                options: [
-                    {
-                        value: 'NC',
-                        display: 'Massachusetts',
-                    },
-                ],
-                value: ['NC'],
-            };
-            tick(DEBOUNCE_TIME_FOR_GRID_FILTER_CHANGES);
-            expect(spy).toHaveBeenCalled();
-        }));
     });
 
     describe('getValue', () => {

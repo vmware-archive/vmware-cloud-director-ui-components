@@ -2,9 +2,9 @@
  * Copyright 2019 VMware, Inc.
  * SPDX-License-Identifier: BSD-2-Clause
  */
-import { fakeAsync, tick } from '@angular/core/testing';
+
 import { createDatagridFilterTestHelper, FilterTestHostComponent } from '../../utils/test/datagrid/filter-utils';
-import { DatagridFilter, DEBOUNCE_TIME_FOR_GRID_FILTER_CHANGES } from './datagrid-filter';
+import { DatagridFilter } from './datagrid-filter';
 import {
     DatagridStringFilter,
     DatagridStringFilterComponent,
@@ -12,7 +12,7 @@ import {
     WildCardPosition,
 } from './datagrid-string-filter.component';
 
-interface HasDgStringFilter {
+export interface HasDgStringFilter {
     filter: DatagridFilter<string, DatagridStringFilterConfig>;
 }
 
@@ -33,39 +33,6 @@ describe('Datagrid string filter', () => {
             this.filter.setValue('test-input');
             expect(this.filter.formGroup.get('filterText').value).toEqual('test-input');
         });
-    });
-
-    describe('debounceChanges', () => {
-        beforeEach(function(this: HasDgStringFilter): void {
-            this.filter = createDatagridFilterTestHelper(DatagridStringFilterComponent);
-        });
-        it('delays emission of changes by 300 ms when filter value is set', fakeAsync(function(
-            this: HasDgStringFilter
-        ): void {
-            const filterChanges = spyOn(this.filter.changes, 'next');
-            this.filter.setValue('test-input');
-            expect(filterChanges).not.toHaveBeenCalled();
-            tick(DEBOUNCE_TIME_FOR_GRID_FILTER_CHANGES);
-            expect(filterChanges).toHaveBeenCalled();
-        }));
-    });
-
-    describe('ClrDatagridFilterInterface.changes', () => {
-        beforeEach(function(this: HasDgStringFilter): void {
-            this.filter = createDatagridFilterTestHelper(DatagridStringFilterComponent);
-        });
-        it('emits when setValue is called', fakeAsync(function(this: HasDgStringFilter): void {
-            const spy = spyOn(this.filter.changes, 'next');
-            this.filter.setValue('test-input');
-            tick(DEBOUNCE_TIME_FOR_GRID_FILTER_CHANGES);
-            expect(spy).toHaveBeenCalled();
-        }));
-        it('emits when config is set', fakeAsync(function(this: HasDgStringFilter): void {
-            const spy = spyOn(this.filter.changes, 'next');
-            this.filter.config = { value: 'test-input' };
-            tick(DEBOUNCE_TIME_FOR_GRID_FILTER_CHANGES);
-            expect(spy).toHaveBeenCalled();
-        }));
     });
 
     describe('getValue', () => {
