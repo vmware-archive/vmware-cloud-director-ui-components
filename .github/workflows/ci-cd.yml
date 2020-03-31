@@ -113,7 +113,7 @@ jobs:
             - uses: actions/cache@v1
               with:
                   path: ./dist/examples
-                  key: examples
+                  key: ${{github.sha}}-examples
             - run: |
                   npm run build-components-doc
                   npm run build-examples-doc
@@ -161,7 +161,7 @@ jobs:
             - uses: actions/cache@v1
               with:
                   path: ./dist/examples
-                  key: examples
+                  key: ${{github.sha}}-examples
             - run: npx ng deploy --no-build
               if: github.event_name == 'push' && github.ref == 'refs/heads/master'
               env:
