@@ -48,13 +48,6 @@ export abstract class WidgetObject<T> {
     }
 
     /**
-     * Destroys the fixture of this widget object.
-     */
-    destroy(): void {
-        this.fixture.destroy();
-    }
-
-    /**
      * Finds first element within this widget matching the given selector
      * @param selector What to search for
      * @param parent Where to start the search; defaults to the root of this component
@@ -88,10 +81,11 @@ export abstract class WidgetObject<T> {
      * Returns text content of this widget
      * If the element cannot be found, gives empty string.
      * @param cssSelector Pass this in if you want to retrieve text for a specific element within this widget.
+     * @param parent Where to start the search; defaults to the root of this component
      */
 
-    protected getText(cssSelector: string): string {
-        const element = this.findElement(cssSelector);
+    protected getText(cssSelector: string, parent: DebugElement = this.root): string {
+        const element = this.findElement(cssSelector, parent);
         return element ? this.getNodeText(element) : '';
     }
 

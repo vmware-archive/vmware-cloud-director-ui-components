@@ -126,12 +126,16 @@ export interface ContextualButtonConfig<R> {
      * An ordered list of {@link ContextualButton.id}s of buttons that should be in a featured position.
      *
      * Only non-hidden buttons will be shown.
+     *
+     * If featured is not set, all buttons will become featured.
      */
     featured?: string[];
     /**
      * How many buttons should display on the featured section.
      *
      * Used when you want to set a limit on the number of featured buttons shown.
+     *
+     * If featuredCount is not set, it will default to the total number of buttons.
      */
     featuredCount?: number;
     /**

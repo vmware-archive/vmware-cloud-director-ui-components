@@ -34,13 +34,10 @@ export class ClrDatagridWidgetObject extends WidgetObject<ClrDatagrid> {
 
     /**
      * Gives the text content of all the cells in a row.
+     * @param rowIndex 0-based index of row
      */
     getRowValues(rowIndex: number): string[] {
-        const toReturn = [];
-        for (let columnIndex = 0; columnIndex < this.columnCount; columnIndex++) {
-            toReturn.push(this.getCellText(rowIndex, columnIndex));
-        }
-        return toReturn;
+        return this.getTexts(`${ROW_TAG}:nth-of-type(${rowIndex + 1}) ${CELL_TAG}`);
     }
 
     /**
@@ -209,24 +206,48 @@ export class ClrDatagridWidgetObject extends WidgetObject<ClrDatagrid> {
     }
 
     /**
-     * Gives the text of the button with the given {@param buttonClass}
+     * Gives the text of the button with the given buttonClass on the top of the datagrid.
      */
-    getButtonText(buttonClass: string): string {
+    getTopButtonText(buttonClass: string): string {
         return this.getText(`button.${buttonClass}`);
     }
 
     /**
-     * Says if the button with the given {@param buttonClass} is disabled.
+     * Gives the text of the button with the given buttonClass at a row of the datagrid.
+     * @param row 0-based index of row
      */
-    getButtonDisabled(buttonClass: string): string {
-        return this.findElement(`button.${buttonClass}`).nativeElement.disabled;
+    getRowButtonText(buttonClass: string, row: number): string {
+        return this.getText(`button.${buttonClass}`, this.rows[row]);
     }
 
     /**
-     * Presses the button with the given {@param buttonClass}.
+     * Says if the button on the top of the grid with the given buttonClass is enabled.
      */
-    pressButton(buttonClass: string): void {
+    isTopButtonEnabled(buttonClass: string): boolean {
+        return !this.findElement(`button.${buttonClass}`).nativeElement.disabled;
+    }
+
+    /**
+     * Says if the button at a row in the datagrid with the given buttonClass is enabled.
+     * @param row 0-based index of row
+     */
+    isRowButtonEnabled(buttonClass: string, row: number): boolean {
+        return !this.findElement(`button.${buttonClass}`, this.rows[row]).nativeElement.disabled;
+    }
+
+    /**
+     * Presses the button with the given buttonClass on the top of the datagrid.
+     */
+    pressTopButton(buttonClass: string): void {
         this.click(`button.${buttonClass}`);
+    }
+
+    /**
+     * Presses the button with the given buttonClass on a row of the datagrid.
+     * @param row 0-based index of row
+     */
+    pressRowButton(buttonClass: string, row: number): void {
+        this.click(`button.${buttonClass}`, this.rows[row]);
     }
 
     /**
@@ -249,6 +270,10 @@ export class ClrDatagridWidgetObject extends WidgetObject<ClrDatagrid> {
      *
      * @param row 0-based index of row
      * @param column 0-based index of column
+     *
+     * Because the custom renderer widget object requires getting the {@link DebugElement} of a cell,
+     * but doesn't directly extend {@link ClrDatagridWidgetObject}, this method needs to be public.
+     * This will be fixed in {@link https://jira.eng.vmware.com/browse/VDUCC-127}.
      */
     getCell(row: number, column: number): DebugElement {
         return this.findElement(`${ROW_TAG}:nth-of-type(${row + 1}) ${CELL_TAG}:nth-of-type(${column + 1})`);
