@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: BSD-2-Clause
  */
 import { Component, Host, OnInit } from '@angular/core';
-import { FormBuilder } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { ClrDatagridFilter } from '@clr/angular';
 import { FilterBuilder } from '../../utils/filter-builder';
 import { DatagridFilter, FilterComponentRendererSpec, FilterConfig, FilterRendererSpec } from './datagrid-filter';
@@ -77,6 +77,12 @@ export class DatagridSelectFilterComponent extends DatagridFilter<string | numbe
         display: '',
     };
 
+    createFormGroup(): FormGroup {
+        return new FormGroup({
+            filterSelect: new FormControl(''),
+        });
+    }
+
     constructor(@Host() private filterContainer: ClrDatagridFilter, private fb: FormBuilder) {
         super(filterContainer);
         this.formGroup = this.fb.group({
@@ -84,8 +90,8 @@ export class DatagridSelectFilterComponent extends DatagridFilter<string | numbe
         });
     }
 
-    ngOnInit(): void {
-        this.formGroup.valueChanges.subscribe(() => this.changes.next());
+    protected getDebounceTimeMs(): number {
+        return 0;
     }
 
     setValue(value: string | number): void {

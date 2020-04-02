@@ -4,7 +4,7 @@
  */
 
 import { Component, Host, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { ClrDatagridFilter } from '@clr/angular';
 import { FilterBuilder } from '../../utils/filter-builder';
 import { DatagridFilter, FilterComponentRendererSpec, FilterConfig, FilterRendererSpec } from './datagrid-filter';
@@ -32,17 +32,15 @@ export type DatagridNumericFilterConfig = FilterConfig<DatagridNumericFilterValu
 export class DatagridNumericFilterComponent
     extends DatagridFilter<DatagridNumericFilterValue, DatagridNumericFilterConfig>
     implements OnInit {
-    constructor(@Host() filterContainer: ClrDatagridFilter, private fb: FormBuilder) {
-        super(filterContainer);
-        this.formGroup = this.fb.group({
-            [FormFields.from]: null,
-            [FormFields.to]: null,
+    createFormGroup(): FormGroup {
+        return new FormGroup({
+            [FormFields.from]: new FormControl(null),
+            [FormFields.to]: new FormControl(null),
         });
     }
-    formGroup: FormGroup;
 
-    ngOnInit(): void {
-        this.debounceChanges(this.formGroup.valueChanges);
+    constructor(@Host() filterContainer: ClrDatagridFilter, private fb: FormBuilder) {
+        super(filterContainer);
     }
 
     setValue(values: DatagridNumericFilterValue): void {

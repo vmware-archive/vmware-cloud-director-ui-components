@@ -3,11 +3,11 @@
  * SPDX-License-Identifier: BSD-2-Clause
  */
 
-import { Input } from '@angular/core';
+import { Input, OnInit } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { ClrDatagridFilter } from '@clr/angular';
 import { ClrDatagridFilterInterface } from '@clr/angular/data/datagrid/interfaces/filter.interface';
-import { Observable, Subject } from 'rxjs';
+import { Subject } from 'rxjs';
 import { debounceTime } from 'rxjs/operators';
 import { SubscriptionTrackerMixin } from '../../common/subscription';
 import {
@@ -55,8 +55,8 @@ export interface FilterRendererSpec<C> extends ComponentRendererSpec<C> {
  * C extends FilterConfig<V> is configuration of a filter that contains queryField and a value of type V
  */
 export abstract class DatagridFilter<V, C extends FilterConfig<V>> extends SubscriptionTrackerMixin(class {})
-    implements ClrDatagridFilterInterface<V>, ComponentRenderer<C> {
-    formGroup: FormGroup;
+    implements OnInit, ClrDatagridFilterInterface<V>, ComponentRenderer<C> {
+    formGroup = this.createFormGroup();
 
     protected constructor(filterContainer: ClrDatagridFilter) {
         super();
@@ -86,11 +86,30 @@ export abstract class DatagridFilter<V, C extends FilterConfig<V>> extends Subsc
      */
     changes = new Subject<null>();
 
+    ngOnInit(): void {
+        const obs = this.getDebounceTimeMs()
+            ? this.formGroup.valueChanges.pipe(debounceTime(this.getDebounceTimeMs()))
+            : this.formGroup.valueChanges;
+        this.subscribe(obs, () => this.changes.next());
+    }
+
+    /**
+     * To override the default delay time for emission of changes
+     */
+    protected getDebounceTimeMs(): number {
+        return DEBOUNCE_TIME_FOR_GRID_FILTER_CHANGES;
+    }
+
     /**
      * Called inside setter of {@link DatagridFilter#config} and Defined in the derived classes to perform some logic before
      * assigning the UI widget configuration and setting a value
      */
     protected onBeforeSetConfig(config: C): void {}
+
+    /**
+     * To initialize the {@link formGroup} from sub classes
+     */
+    abstract createFormGroup(): FormGroup;
 
     /**
      * Used for assigning a value to a filter from outside
@@ -127,15 +146,6 @@ export abstract class DatagridFilter<V, C extends FilterConfig<V>> extends Subsc
             }
             throw Error('Query field is not specified');
         }
-    }
-
-    /**
-     * Delay the emission of changes by {@link DEBOUNCE_TIME_FOR_GRID_FILTER_CHANGES} milliseconds to avoid firing of
-     * {@link ClrDatagridFilterInterface.changes} too often
-     * @param changesObs Changes coming from filter components
-     */
-    debounceChanges(changesObs: Observable<unknown>): void {
-        this.subscribe(changesObs.pipe(debounceTime(DEBOUNCE_TIME_FOR_GRID_FILTER_CHANGES)), () => this.changes.next());
     }
 }
 

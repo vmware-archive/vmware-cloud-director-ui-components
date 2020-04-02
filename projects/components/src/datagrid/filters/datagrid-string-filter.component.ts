@@ -4,7 +4,7 @@
  */
 
 import { Component, Host, OnInit } from '@angular/core';
-import { FormBuilder } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { ClrDatagridFilter } from '@clr/angular';
 import { debounce, debounceTime } from 'rxjs/operators';
 import { FilterBuilder } from '../../utils/filter-builder';
@@ -26,20 +26,15 @@ export interface DatagridStringFilterConfig extends FilterConfig<string> {
     selector: 'vcd-dg-string-filter',
     templateUrl: 'datagrid-string-filter.component.html',
 })
-export class DatagridStringFilterComponent extends DatagridFilter<string, DatagridStringFilterConfig>
-    implements OnInit {
-    constructor(@Host() private filterContainer: ClrDatagridFilter, private fb: FormBuilder) {
-        super(filterContainer);
-        this.formGroup = this.fb.group({
-            filterText: '',
+export class DatagridStringFilterComponent extends DatagridFilter<string, DatagridStringFilterConfig> {
+    createFormGroup(): FormGroup {
+        return new FormGroup({
+            filterText: new FormControl(''),
         });
     }
 
-    /**
-     * Changes in the formgroup are emitted for updating the clr grid state
-     */
-    ngOnInit(): void {
-        this.debounceChanges(this.formGroup.valueChanges);
+    constructor(@Host() private filterContainer: ClrDatagridFilter) {
+        super(filterContainer);
     }
 
     setValue(value: string): void {
