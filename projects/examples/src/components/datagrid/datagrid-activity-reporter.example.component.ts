@@ -64,6 +64,7 @@ export class DatagridActivityReporterExampleComponent {
                             throw error;
                         });
                 },
+                class: 'start',
             },
         ],
         contextualButtonConfig: {

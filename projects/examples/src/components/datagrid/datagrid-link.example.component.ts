@@ -56,6 +56,7 @@ export class DatagridLinkExampleComponent {
                     console.log('Adding stuff!');
                 },
                 isActive: () => true,
+                class: 'add',
             },
             {
                 label: 'Delete All',
@@ -63,6 +64,7 @@ export class DatagridLinkExampleComponent {
                     console.log('Deleting stuff!');
                 },
                 isActive: () => false,
+                class: 'delete',
             },
         ],
         contextualButtonConfig: {
@@ -74,7 +76,7 @@ export class DatagridLinkExampleComponent {
                         rec[0].paused = false;
                     },
                     isActive: (rec: Data[]) => rec.length === 1 && rec[0].paused,
-                    id: 'a',
+                    class: 'a',
                     icon: 'play',
                     inactiveDisplayMode: InactiveButtonDisplayMode.Hide,
                 },
@@ -85,7 +87,7 @@ export class DatagridLinkExampleComponent {
                         rec[0].paused = true;
                     },
                     isActive: (rec: Data[]) => rec.length === 1 && !rec[0].paused,
-                    id: 'b',
+                    class: 'b',
                     icon: 'pause',
                     inactiveDisplayMode: InactiveButtonDisplayMode.Hide,
                 },
@@ -95,7 +97,7 @@ export class DatagridLinkExampleComponent {
                         console.log('Adding ' + rec[0].value);
                     },
                     isActive: (rec: Data[]) => rec.length === 1 && rec[0].value === 'a',
-                    id: 'c',
+                    class: 'c',
                     icon: 'warn',
                 },
             ],

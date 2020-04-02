@@ -51,8 +51,10 @@ export interface Button<R> {
     label: string;
     /**
      * The css class the button should have.
+     *
+     * @unique among all added buttons
      */
-    class?: string;
+    class: string;
     /**
      * The way this button should be shown when inactive.
      * Overrides {@link ButtonConfig.inactiveDisplayMode}.
@@ -99,10 +101,6 @@ export interface ContextualButton<R> extends Button<R> {
      */
     isActive: (rec: R[]) => boolean;
     /**
-     * The ID of this button that is unique among buttons passed to the grid.
-     */
-    id: string;
-    /**
      * The Clarity icon of the contextual button that is displayed if the button is featured.
      */
     icon: string;
@@ -128,14 +126,18 @@ export interface ContextualButtonConfig<R> {
      * An ordered list of {@link ContextualButton.id}s of buttons that should be in a featured position.
      *
      * Only non-hidden buttons will be shown.
+     *
+     * If featured is not set, all buttons will become featured.
      */
-    featured: string[];
+    featured?: string[];
     /**
      * How many buttons should display on the featured section.
      *
      * Used when you want to set a limit on the number of featured buttons shown.
+     *
+     * If featuredCount is not set, it will default to the total number of buttons.
      */
-    featuredCount: number;
+    featuredCount?: number;
     /**
      * Where the buttons should display on the grid.
      */

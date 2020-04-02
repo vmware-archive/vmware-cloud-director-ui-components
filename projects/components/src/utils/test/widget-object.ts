@@ -81,10 +81,11 @@ export abstract class WidgetObject<T> {
      * Returns text content of this widget
      * If the element cannot be found, gives empty string.
      * @param cssSelector Pass this in if you want to retrieve text for a specific element within this widget.
+     * @param parent Where to start the search; defaults to the root of this component
      */
 
-    protected getText(cssSelector: string): string {
-        const element = this.findElement(cssSelector);
+    protected getText(cssSelector: string, parent: DebugElement = this.root): string {
+        const element = this.findElement(cssSelector, parent);
         return element ? this.getNodeText(element) : '';
     }
 
@@ -99,7 +100,7 @@ export abstract class WidgetObject<T> {
         // The || '' is because textContent could technically be null when passed in the document
         // element object. We know that cannot be pased in here, so we ignore it for coverage
         // but we still need the line there to make strictNullChecks work
-        return el.nativeElement.textContent || /* istanbul ignore next */ '';
+        return el.nativeElement.textContent.trim() || /* istanbul ignore next */ '';
     }
 }
 

@@ -33,6 +33,23 @@ export class ClrDatagridWidgetObject extends WidgetObject<ClrDatagrid> {
     }
 
     /**
+     * Gives the text content of all the cells in a row.
+     * @param rowIndex 0-based index of row
+     */
+    getRowValues(rowIndex: number): string[] {
+        return this.getTexts(`${ROW_TAG}:nth-of-type(${rowIndex + 1}) ${CELL_TAG}`);
+    }
+
+    /**
+     * Gives the linked text in the given cell represented by the {@param rowIndex} and {@param columnIndex} if present.
+     */
+    getCellLink(rowIndex: number, columnIndex: number): string[] {
+        return this.getCell(rowIndex, columnIndex)
+            .nativeElement.querySelector('a')
+            .getAttribute('href');
+    }
+
+    /**
      * Retrieves if the cell will clip text
      * @param column 0-based index of column
      */
@@ -64,10 +81,31 @@ export class ClrDatagridWidgetObject extends WidgetObject<ClrDatagrid> {
     }
 
     /**
+     * Returns an array of the texts for columns that are hidden.
+     */
+    get hiddenColumnHeaders(): string[] {
+        return this.getTexts('clr-dg-column.datagrid-hidden-column');
+    }
+
+    /**
      * Returns the number of rows currently displayed
      */
     get rowCount(): number {
         return this.rows.length;
+    }
+
+    /**
+     * Says if this datagrid is loading.
+     */
+    get loading(): boolean {
+        return this.component.loading;
+    }
+
+    /**
+     * Says if the datagrid is showing a placeholder.
+     */
+    get hasPlaceholder(): boolean {
+        return !!this.findElement('clr-dg-placeholder');
     }
 
     /**
@@ -168,17 +206,48 @@ export class ClrDatagridWidgetObject extends WidgetObject<ClrDatagrid> {
     }
 
     /**
-     * Presses the button at the given {@param index} on the top of the grid.
+     * Gives the text of the button with the given buttonClass on the top of the datagrid.
      */
-    pressTopButton(index: number): void {
-        this.click(`clr-dg-action-bar button:nth-of-type(${index + 1})`);
+    getTopButtonText(buttonClass: string): string {
+        return this.getText(`button.${buttonClass}`);
     }
 
     /**
-     * Presses the button at the given {@param buttonIndex} at the row at the given {@param rowIndex}.
+     * Gives the text of the button with the given buttonClass at a row of the datagrid.
+     * @param row 0-based index of row
      */
-    pressButtonAtRow(buttonIndex: number, rowIndex: number): void {
-        this.click(`.action-button-group button:nth-of-type(${buttonIndex + 1})`, this.rows[rowIndex]);
+    getRowButtonText(buttonClass: string, row: number): string {
+        return this.getText(`button.${buttonClass}`, this.rows[row]);
+    }
+
+    /**
+     * Says if the button on the top of the grid with the given buttonClass is enabled.
+     */
+    isTopButtonEnabled(buttonClass: string): boolean {
+        return !this.findElement(`button.${buttonClass}`).nativeElement.disabled;
+    }
+
+    /**
+     * Says if the button at a row in the datagrid with the given buttonClass is enabled.
+     * @param row 0-based index of row
+     */
+    isRowButtonEnabled(buttonClass: string, row: number): boolean {
+        return !this.findElement(`button.${buttonClass}`, this.rows[row]).nativeElement.disabled;
+    }
+
+    /**
+     * Presses the button with the given buttonClass on the top of the datagrid.
+     */
+    pressTopButton(buttonClass: string): void {
+        this.click(`button.${buttonClass}`);
+    }
+
+    /**
+     * Presses the button with the given buttonClass on a row of the datagrid.
+     * @param row 0-based index of row
+     */
+    pressRowButton(buttonClass: string, row: number): void {
+        this.click(`button.${buttonClass}`, this.rows[row]);
     }
 
     /**
@@ -201,6 +270,10 @@ export class ClrDatagridWidgetObject extends WidgetObject<ClrDatagrid> {
      *
      * @param row 0-based index of row
      * @param column 0-based index of column
+     *
+     * Because the custom renderer widget object requires getting the {@link DebugElement} of a cell,
+     * but doesn't directly extend {@link ClrDatagridWidgetObject}, this method needs to be public.
+     * This will be fixed in {@link https://jira.eng.vmware.com/browse/VDUCC-127}.
      */
     getCell(row: number, column: number): DebugElement {
         return this.findElement(`${ROW_TAG}:nth-of-type(${row + 1}) ${CELL_TAG}:nth-of-type(${column + 1})`);
