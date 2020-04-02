@@ -6,9 +6,14 @@
 import { fakeAsync, tick } from '@angular/core/testing';
 import { createDatagridFilterTestHelper } from '../../utils/test/datagrid/filter-utils';
 import { DatagridFilter, DEBOUNCE_TIME_FOR_GRID_FILTER_CHANGES } from './datagrid-filter';
+import { DatagridSelectFilterComponent } from './datagrid-select-filter.component';
 import { DatagridStringFilterComponent, WildCardPosition } from './datagrid-string-filter.component';
 import { HasDgStringFilter } from './datagrid-string-filter.component.spec';
 
+/**
+ * Tests for the DatagridFilter base class use the sub class DatagridStringFilterComponent instead of writing a dummy
+ * implementation
+ */
 describe('DatagridFilter', () => {
     describe('config', () => {
         beforeEach(function(this: HasDgStringFilter): void {
@@ -38,18 +43,23 @@ describe('DatagridFilter', () => {
         }));
     });
     describe('debounceChanges', () => {
-        beforeEach(function(this: HasDgStringFilter): void {
-            this.filter = createDatagridFilterTestHelper(DatagridStringFilterComponent);
-        });
-        it('delays emission of changes by 300 ms when filter value is set', fakeAsync(function(
-            this: HasDgStringFilter
-        ): void {
-            const filterChanges = spyOn(this.filter.changes, 'next');
-            this.filter.setValue('test-input');
+        it('delays emission of changes by 300 ms when filter value is set', fakeAsync(() => {
+            const filter = createDatagridFilterTestHelper(DatagridStringFilterComponent);
+            const filterChanges = spyOn(filter.changes, 'next');
+            filter.setValue('test-input');
             expect(filterChanges).not.toHaveBeenCalled();
             tick(DEBOUNCE_TIME_FOR_GRID_FILTER_CHANGES);
             expect(filterChanges).toHaveBeenCalled();
         }));
+        // Using select filter for this test as it has debounce time as 0
+        it('does not delay the emission of changes when debounce time is 0', () => {
+            const filter = createDatagridFilterTestHelper(DatagridSelectFilterComponent, {
+                options: [{ value: 30, display: 'Thirty' }],
+            });
+            const filterChanges = spyOn(filter.changes, 'next');
+            filter.setValue(30);
+            expect(filterChanges).toHaveBeenCalled();
+        });
     });
     describe('onBeforeSetConfig', () => {
         beforeEach(function(this: HasDgStringFilter): void {
