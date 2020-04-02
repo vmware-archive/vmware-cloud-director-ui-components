@@ -7,12 +7,12 @@ import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import { ClarityModule } from '@clr/angular';
-import { ErrorBannerModule } from '@vcd/ui-components';
+import { ComponentsModule } from '@vcd/ui-components';
 import { ErrorBannerExampleComponent } from './error-banner.example.component';
 
 @NgModule({
     declarations: [ErrorBannerExampleComponent],
-    imports: [CommonModule, ClarityModule, ReactiveFormsModule, ErrorBannerModule],
+    imports: [CommonModule, ClarityModule, ReactiveFormsModule, ComponentsModule],
     exports: [ErrorBannerExampleComponent],
     entryComponents: [ErrorBannerExampleComponent],
 })

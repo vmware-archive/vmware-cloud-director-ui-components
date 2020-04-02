@@ -74,8 +74,7 @@ export class StackBlitzWriterService {
         @Inject(STACKBLITZ_INFO) private stackBlitzInfo: StackBlitzInfo,
         private docRetriever: DocumentationRetrieverService
     ) {
-        // Temporary until VDCUCC-75
-        // this.fetchSbTemplate();
+        this.fetchSbTemplate();
     }
 
     private template: [StackBlitzFileSystem, StackBlitzDependencies] = null;
