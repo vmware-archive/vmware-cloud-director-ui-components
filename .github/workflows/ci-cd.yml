@@ -120,7 +120,7 @@ jobs:
                   npm run build-examples-doc
                   npm run generate-translations
                   npm run generate-example-translations
-                  npm run build:examples-prod-aot
+                  npm run build:examples-prod
 
     unit-testing:
         runs-on: ubuntu-latest
