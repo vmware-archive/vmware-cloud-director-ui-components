@@ -7,6 +7,7 @@ import { HttpClient } from '@angular/common/http';
 import { ModuleWithProviders, Optional, Provider } from '@angular/core';
 import { Inject, InjectionToken, NgModule } from '@angular/core';
 import { TranslationLoader } from './loader/translation-loader';
+import { DisplayTranslationPipe } from './pipe/display-translation.pipe';
 import { FormatDateTimePipe } from './pipe/format-date-time-pipe';
 import { TranslationPipe } from './pipe/translation-pipe';
 import { MessageFormatTranslationService } from './service/message-format-translation-service';
@@ -27,10 +28,10 @@ const TRANSLATIONS_COMBINED = new InjectionToken('TRANSLATIONS_COMBINED');
 /**
  * An implementation of {@link TranslationService} that can inject all of its dependencies.
  */
-export class LoadedTranslationService extends MessageFormatTranslationService {
+export class InjectedTranslationService extends MessageFormatTranslationService {
     constructor(
         @Inject(BOOTSTRAP_DETAILS) details: { locale: string },
-        @Optional() loader: TranslationLoader,
+        @Inject(TranslationLoader) @Optional() loader: TranslationLoader,
         @Inject(TRANSLATIONS_COMBINED) @Optional() combined: boolean
     ) {
         super(details.locale, 'en', loader, combined);
@@ -41,8 +42,8 @@ export class LoadedTranslationService extends MessageFormatTranslationService {
  * A module that mananges translation capabilites for the application.
  */
 @NgModule({
-    declarations: [TranslationPipe, FormatDateTimePipe],
-    exports: [FormatDateTimePipe, TranslationPipe],
+    declarations: [DisplayTranslationPipe, FormatDateTimePipe, TranslationPipe],
+    exports: [DisplayTranslationPipe, FormatDateTimePipe, TranslationPipe],
 })
 export class I18nModule {
     /**
@@ -69,11 +70,11 @@ export class I18nModule {
     static forChild(extensionRoute?: InjectionToken<string>, combined?: boolean): ModuleWithProviders {
         return {
             ngModule: I18nModule,
-            providers: extensionRoute
+            providers: !extensionRoute
                 ? [
                       {
                           provide: TranslationService,
-                          useClass: LoadedTranslationService,
+                          useClass: InjectedTranslationService,
                       },
                   ]
                 : [
@@ -82,12 +83,13 @@ export class I18nModule {
                           useValue: combined,
                       },
                       {
-                          provide: TranslationService,
-                          useClass: MessageFormatTranslationService,
+                          provide: TranslationLoader,
+                          useClass: TranslationLoader,
+                          deps: [HttpClient, extensionRoute],
                       },
                       {
-                          provide: TranslationLoader,
-                          deps: [HttpClient, extensionRoute],
+                          provide: TranslationService,
+                          useClass: InjectedTranslationService,
                       },
                   ],
         };

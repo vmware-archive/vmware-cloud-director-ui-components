@@ -3,7 +3,9 @@
  * SPDX-License-Identifier: BSD-2-Clause
  */
 
-import { Component, Input } from '@angular/core';
+import { Component, Inject, Input } from '@angular/core';
+import { TranslatedText, TranslationService } from '@vcd/i18n';
+import { Observable } from 'rxjs';
 import { ActivityReporter } from './activity-reporter';
 
 /**
@@ -22,9 +24,9 @@ export class BannerActivityReporterComponent extends ActivityReporter {
      * The translated message that is displayed to the user while loading.
      */
     @Input()
-    loadingMessage: string;
+    loadingMessage: TranslatedText = this.translationService.translateAsync('vcd.cc.loading');
 
-    constructor() {
+    constructor(private translationService: TranslationService) {
         super();
     }
 

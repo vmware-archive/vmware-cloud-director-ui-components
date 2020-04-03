@@ -55,15 +55,6 @@ describe('BannerActivityReporterComponent', () => {
         this.finder.detectChanges();
     });
 
-    it('displays a default message while the promise is pending', function(this: HasFinderAndBanner): Promise<string> {
-        const promise = this.banner.component.monitorActivity(this.promise);
-        this.finder.detectChanges();
-        expect(this.banner.running).toBeTruthy();
-        expect(this.banner.loadingText).toEqual('{"key":"loading","params":[]}'); // Because of mock translation service
-        this.resolve('winning!');
-        return promise;
-    });
-
     it('displays a custom message while the promise is pending', function(this: HasFinderAndBanner): Promise<string> {
         this.finder.hostComponent.loadingMessage = 'loader';
         const promise = this.banner.component.monitorActivity(this.promise);
@@ -110,7 +101,6 @@ describe('BannerActivityReporterComponent', () => {
         const promise = this.banner.component.monitorActivity(this.promise);
         this.finder.detectChanges();
         expect(this.banner.running).toBeTruthy();
-        expect(this.banner.loadingText).toEqual('{"key":"loading","params":[]}'); // Because of mock translation service
         this.banner.component.reset();
         expect(this.banner.running).toBeFalsy();
         this.resolve('winning!');

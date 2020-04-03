@@ -75,7 +75,7 @@ export const sbInfo: StackBlitzInfo = {
     providers: [
         {
             provide: ASSET_URL,
-            useFactory: () => 'assets/translations',
+            useValue: 'assets/translations',
         },
     ],
     bootstrap: [AppComponent],

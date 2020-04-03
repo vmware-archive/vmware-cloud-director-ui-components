@@ -1,5 +1,5 @@
 <clr-modal [clrModalOpen]="open" (clrModalOpenChange)="openChange.emit($event)" [clrModalSize]="'sm'" #modal>
-    <h3 class="modal-title">{{ dialogHeader || ('data-exporter.title' | translate) }}</h3>
+    <h3 class="modal-title">{{ dialogHeader | displayTranslation }}</h3>
     <div class="modal-body">
         <button
             *ngIf="showSelectAll"
@@ -8,7 +8,7 @@
             (click)="onClickCheckAll()"
             [disabled]="!isSelectAllEnabled"
         >
-            {{ selectAllText || ('select.all' | translate) }}
+            {{ selectAllText | displayTranslation }}
         </button>
         <ul class="list-unstyled column-selection" [formGroup]="formGroup">
             <li *ngFor="let col of columns">
@@ -26,10 +26,10 @@
 
     <div class="modal-footer">
         <button type="button" class="btn btn-outline cancel" (click)="open = false">
-            {{ cancelText || ('cancel' | translate) }}
+            {{ cancelText | displayTranslation }}
         </button>
         <button type="button" class="btn btn-primary export" [disabled]="!isExportEnabled" (click)="onClickExport()">
-            {{ exportText || ('export' | translate) }}
+            {{ exportText | displayTranslation }}
         </button>
     </div>
 </clr-modal>

@@ -15,32 +15,6 @@ class GeneralTranslationPipe extends TranslationPipe {
     }
 }
 
-class MockChangeDetectorRef extends ChangeDetectorRef {
-    constructor() {
-        super();
-    }
-
-    markForCheck(): void {
-        throw new Error('Unimplemented');
-    }
-
-    detach(): void {
-        throw new Error('Unimplemented');
-    }
-
-    detectChanges(): void {
-        throw new Error('Unimplemented');
-    }
-
-    checkNoChanges(): void {
-        throw new Error('Unimplemented');
-    }
-
-    reattach(): void {
-        throw new Error('Unimplemented');
-    }
-}
-
 const changeRef = {
     markForCheck: () => {},
 };

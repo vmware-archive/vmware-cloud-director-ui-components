@@ -5,6 +5,7 @@
 
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
+import { TranslatedText, TranslationService } from '@vcd/i18n';
 import { CsvExporterService } from './csv-exporter.service';
 
 /**
@@ -57,7 +58,7 @@ export interface DataExportRequestEvent {
     styleUrls: ['./data-exporter.component.scss'],
 })
 export class DataExporterComponent implements OnInit {
-    constructor(private csvExporterService: CsvExporterService) {}
+    constructor(private csvExporterService: CsvExporterService, public translationService: TranslationService) {}
 
     /**
      * List of columns that can be exported, user may deselect some before sending the download request
@@ -72,22 +73,26 @@ export class DataExporterComponent implements OnInit {
     /**
      * Text for the Dialog Header
      */
-    @Input() dialogHeader: string;
+    @Input()
+    dialogHeader: TranslatedText = this.translationService.translateAsync('vcd.cc.data-exporter.title');
 
     /**
      * Text for the cancel button.
      */
-    @Input() cancelText: string;
+    @Input()
+    cancelText: TranslatedText = this.translationService.translateAsync('vcd.cc.cancel');
 
     /**
      * Text for the select all button.
      */
-    @Input() selectAllText: string;
+    @Input()
+    selectAllText: TranslatedText = this.translationService.translateAsync('vcd.cc.select.all');
 
     /**
      * Text for the export button.
      */
-    @Input() exportText: string;
+    @Input()
+    exportText: TranslatedText = this.translationService.translateAsync('vcd.cc.export');
 
     /**
      * Whether a box to select/deselect all rows is available

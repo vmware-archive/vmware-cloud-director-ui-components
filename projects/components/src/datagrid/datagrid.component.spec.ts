@@ -6,6 +6,7 @@
 import { Component, ViewChild } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MockTranslationService, TranslationService } from '@vcd/i18n';
 import { TooltipSize } from '../lib/directives/show-clipped-text.directive';
 import { ClrDatagridWidgetObject } from '../utils/test/datagrid/datagrid.wo';
 import { VcdDatagridWidgetObject } from '../utils/test/datagrid/vcd-datagrid.wo';
@@ -44,6 +45,12 @@ describe('DatagridComponent', () => {
     beforeEach(async function(this: HasFinderAndGrid): Promise<void> {
         await TestBed.configureTestingModule({
             imports: [DatagridModule, BrowserAnimationsModule],
+            providers: [
+                {
+                    provide: TranslationService,
+                    useValue: new MockTranslationService(),
+                },
+            ],
             declarations: [HostWithDatagridComponent],
         }).compileComponents();
 

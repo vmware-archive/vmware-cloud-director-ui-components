@@ -11,5 +11,4 @@ export * from './lib/pipe/format-date-time-pipe';
 export * from './lib/service/message-format-translation-service';
 export * from './lib/service/mock-translation-service';
 export * from './lib/loader/translation-loader';
-export * from './lib/utils/platform-util';
-export * from './lib/utils/tokens';
+export * from './lib/utils/index';
