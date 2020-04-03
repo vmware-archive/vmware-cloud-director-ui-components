@@ -8,6 +8,7 @@
     "build:examples": "ng build examples",
     "build:examples-prod": "ng build examples --prod=true --base-href=/vmware-cloud-director-ui-components/",
     "build:examples-aot": "ng build examples --aot=true",
+    "build:examples-prod-aot": "ng build examples --aot=true --prod=true --base-href=/vmware-cloud-director-ui-components/",
     "build:components": "ng build components",
     "postbuild:components": "npm run generate-translations; cp projects/components/src/assets/i18n.json dist/components/i18n.json",
     "build:doc-lib": "ng build doc-lib; tsc -p projects/doc-lib/scripts/tsconfig.json",

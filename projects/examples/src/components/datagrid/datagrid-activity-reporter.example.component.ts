@@ -40,7 +40,7 @@ export class DatagridActivityReporterExampleComponent {
     ];
 
     resolve: () => void;
-    reject: (error: Error) => void;
+    reject: (error: string) => void;
     started = false;
     indicatorType = ActivityIndicatorType.BANNER;
 
