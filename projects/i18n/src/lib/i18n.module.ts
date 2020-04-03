@@ -22,6 +22,21 @@ export function genericSingletonFactory(details: { locale: string }): Translatio
     return singletonService;
 }
 
+const TRANSLATIONS_COMBINED = new InjectionToken('TRANSLATIONS_COMBINED');
+
+/**
+ * An implementation of {@link TranslationService} that can inject all of its dependencies.
+ */
+export class LoadedTranslationService extends MessageFormatTranslationService {
+    constructor(
+        @Inject(BOOTSTRAP_DETAILS) details: { locale: string },
+        @Optional() loader: TranslationLoader,
+        @Inject(TRANSLATIONS_COMBINED) @Optional() combined: boolean
+    ) {
+        super(details.locale, 'en', loader, combined);
+    }
+}
+
 /**
  * A module that mananges translation capabilites for the application.
  */
@@ -52,34 +67,29 @@ export class I18nModule {
      * @param combined if the translations are in one file or many different files.
      */
     static forChild(extensionRoute?: InjectionToken<string>, combined?: boolean): ModuleWithProviders {
-        /**
-         * An implementation of {@link TranslationService} that can inject all of its dependencies.
-         */
-        class ServiceToUse extends MessageFormatTranslationService {
-            constructor(@Inject(BOOTSTRAP_DETAILS) details: { locale: string }, @Optional() loader: TranslationLoader) {
-                super(details.locale, 'en', loader, combined);
-            }
-        }
-
-        const providers: Provider[] = [
-            {
-                provide: TranslationService,
-                useClass: ServiceToUse,
-            },
-        ];
-        // Provide the translation loader if the user provides a URL where the translations should be loaded from.
-        if (extensionRoute) {
-            providers.push({
-                provide: TranslationLoader,
-                useFactory: (client: HttpClient, route: string) => {
-                    return new TranslationLoader(client, route);
-                },
-                deps: [HttpClient, extensionRoute],
-            });
-        }
         return {
             ngModule: I18nModule,
-            providers,
+            providers: extensionRoute
+                ? [
+                      {
+                          provide: TranslationService,
+                          useClass: LoadedTranslationService,
+                      },
+                  ]
+                : [
+                      {
+                          provide: TRANSLATIONS_COMBINED,
+                          useValue: combined,
+                      },
+                      {
+                          provide: TranslationService,
+                          useClass: MessageFormatTranslationService,
+                      },
+                      {
+                          provide: TranslationLoader,
+                          deps: [HttpClient, extensionRoute],
+                      },
+                  ],
         };
     }
 }

@@ -6,12 +6,12 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { ClarityModule } from '@clr/angular';
-import { DatagridModule } from '@vcd/ui-components';
+import { ComponentsModule } from '@vcd/ui-components';
 import { DatagridFilterExampleComponent } from './datagrid-filter.example.component';
 
 @NgModule({
     declarations: [DatagridFilterExampleComponent],
-    imports: [CommonModule, ClarityModule, DatagridModule],
+    imports: [CommonModule, ClarityModule, ComponentsModule],
     exports: [DatagridFilterExampleComponent],
     entryComponents: [DatagridFilterExampleComponent],
 })
