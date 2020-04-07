@@ -35,6 +35,9 @@ registerLocaleData(localeEs, 'es');
 
 const ASSET_URL = new InjectionToken('ASSETS');
 
+export function moduleFinder(componentName: string): string {
+    return componentName.replace('ExampleComponent', 'ExampleModule');
+}
 /**
  * The following 2 constants are declared for AOT compilation purpose. Otherwise, the compilation would silently fail and
  * the doc jsons are given as null to the DocLibModule.
@@ -45,9 +48,7 @@ export const docJson2: CompodocSchema = examplesDocumentationJson;
 export const sbInfo: StackBlitzInfo = {
     templateId: 'vcd-ui-cc-starter-clarity-v8-yhe4yg',
     projectName: 'VMware Cloud Director UI Components',
-    moduleFinder(componentName: string): string {
-        return componentName.replace('ExampleComponent', 'ExampleModule');
-    },
+    moduleFinder,
 };
 
 @NgModule({

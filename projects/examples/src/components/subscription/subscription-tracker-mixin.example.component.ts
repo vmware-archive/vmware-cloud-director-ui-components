@@ -16,7 +16,9 @@ import { BehaviorSubject, Observable } from 'rxjs';
         <h1>This is a Sub Component</h1>
     `,
 })
-export class SubscriptionTrackerMixinExampleSubComponent extends SubscriptionTrackerMixin(Object) implements OnInit {
+// Use an empty class as its base class instead of Object to support IE11
+// See https://github.com/microsoft/TypeScript/issues/37601
+export class SubscriptionTrackerMixinExampleSubComponent extends SubscriptionTrackerMixin(class {}) implements OnInit {
     @Input()
     observable: Observable<number>;
 
