@@ -179,9 +179,11 @@ export class ClrDatagridWidgetObject extends WidgetObject<ClrDatagrid> {
 
     /**
      * Gives the text next to the pagination selector.
+     * Gives empty string if the size dropdown is not in the page.
      */
     getPaginationSizeSelectorText(): string {
-        return this.findElement('clr-dg-page-size').nativeElement.textContent;
+        const sizer = this.findElement('clr-dg-page-size');
+        return sizer ? sizer.nativeElement.textContent : '';
     }
 
     /**

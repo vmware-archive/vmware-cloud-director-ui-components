@@ -115,6 +115,15 @@ export enum ContextualButtonPosition {
 }
 
 /**
+ * An enum that describes the possible ways to display the button title.
+ */
+export enum ButtonTitleDisplay {
+    ICON = 'ICON',
+    LABEL = 'LABEL',
+    ICON_AND_LABEL = 'ICON_AND_LABEL',
+}
+
+/**
  * A configuration that descibes all the information about the contextual buttons.
  */
 export interface ContextualButtonConfig<R> {
@@ -142,6 +151,11 @@ export interface ContextualButtonConfig<R> {
      * Where the buttons should display on the grid.
      */
     position: ContextualButtonPosition;
+    /**
+     * If the title should be the button label, icon, or both
+     * Defaults to ICON if unset.
+     */
+    titleDisplay?: ButtonTitleDisplay;
 }
 
 /**

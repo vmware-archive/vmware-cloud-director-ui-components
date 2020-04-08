@@ -1,8 +1,8 @@
 <h3 *ngIf="this.header" class="vcd-header">{{ header }}</h3>
-<vcd-spinner-activity-reporter #actionReporter *ngIf="ActivityIndicatorType.SPINNER === indicatorType">
-</vcd-spinner-activity-reporter>
-<vcd-banner-activity-reporter #actionReporter *ngIf="ActivityIndicatorType.BANNER === indicatorType">
-</vcd-banner-activity-reporter>
+<vcd-cc-spinner-activity-reporter #actionReporter *ngIf="ActivityIndicatorType.SPINNER === indicatorType">
+</vcd-cc-spinner-activity-reporter>
+<vcd-cc-banner-activity-reporter #actionReporter *ngIf="ActivityIndicatorType.BANNER === indicatorType">
+</vcd-cc-banner-activity-reporter>
 <clr-datagrid
     [clrDgLoading]="isLoading"
     [ngClass]="[this.clrDatagridCssClass, this.height ? 'set-height' : 'fill-parent-grid']"
@@ -22,22 +22,7 @@
         </div>
 
         <ng-container *ngIf="shouldDisplayButtonsOnTop()">
-            <div class="btn-group" *ngIf="this.getFeaturedButtons().length !== 0">
-                <button
-                    *ngFor="let button of this.getFeaturedButtons()"
-                    type="button"
-                    class="btn btn-icon"
-                    (click)="runButtonHandler(button, datagridSelection)"
-                    [disabled]="isButtonDisabled(button, button.isActive(datagridSelection))"
-                    [ngClass]="button.class"
-                >
-                    <a role="tooltip" aria-haspopup="true" class="tooltip tooltip-sm">
-                        <clr-icon [attr.shape]="button.icon"></clr-icon>
-                        <span class="tooltip-content">{{ button.label }}</span>
-                    </a>
-                </button>
-                <ng-container *ngTemplateOutlet="dropdown"></ng-container>
-            </div>
+            <ng-container *ngTemplateOutlet="featuredBar; context: { $implicit: datagridSelection }"></ng-container>
             <ng-container *ngIf="this.getFeaturedButtons().length === 0">
                 <ng-container *ngTemplateOutlet="dropdown"></ng-container>
             </ng-container>
@@ -64,7 +49,7 @@
     </clr-dg-column>
 
     <clr-dg-row
-        *clrDgItems="let restItem of items; let i = index; trackBy: trackBy"
+        *ngFor="let restItem of items; let i = index"
         [ngForTrackBy]="trackBy"
         [ngClass]="this.clrDatarowCssClassGetter(restItem, i)"
         [clrDgItem]="restItem"
@@ -74,40 +59,17 @@
             class="action-button-cell"
             [ngClass]="'buttons-' + this.getMaxFeaturedButtonsOnRow()"
         >
-            <div class="btn-group action-button-group">
-                <button
-                    class="btn btn-icon action-button"
-                    *ngFor="let button of this.getFeaturedButtons(restItem)"
-                    (click)="runButtonHandler(button, [restItem])"
-                    [disabled]="isButtonDisabled(button, button.isActive([restItem]))"
-                    [ngClass]="button.class"
-                >
-                    <a role="tooltip" aria-haspopup="true" class="tooltip tooltip-sm">
-                        <clr-icon size="1em" [attr.shape]="button.icon" class="action-icon"></clr-icon>
-                        <span class="tooltip-content">{{ button.label }}</span>
-                    </a>
-                </button>
-                <clr-dropdown
-                    class="btn-group-overflow open action-button"
-                    *ngIf="buttonConfig.contextualButtonConfig.buttons.length !== 0"
-                >
-                    <button class="btn action-button dropdown-small" clrDropdownTrigger>
-                        <clr-icon shape="ellipsis-horizontal action-icon"></clr-icon>
-                    </button>
-                    <clr-dropdown-menu class="dropdown-menu" *clrIfOpen>
-                        <ng-container *ngFor="let button of buttonConfig.contextualButtonConfig.buttons">
-                            <button
-                                class="btn"
-                                [ngClass]="button.class"
-                                [disabled]="!button.isActive([restItem])"
-                                (click)="runButtonHandler(button, [restItem])"
-                            >
-                                {{ button.label }}
-                            </button>
-                        </ng-container>
-                    </clr-dropdown-menu>
-                </clr-dropdown>
-            </div>
+            <ng-container
+                *ngTemplateOutlet="
+                    featuredBar;
+                    context: {
+                        $implicit: [restItem],
+                        groupClass: 'action-button-group',
+                        buttonClass: 'action-button',
+                        iconClass: 'action-icon'
+                    }
+                "
+            ></ng-container>
         </clr-dg-cell>
 
         <clr-dg-cell [vcdShowClippedText]="column.cliptextConfig" *ngFor="let column of columnsConfig">
@@ -136,17 +98,63 @@
     <clr-dg-footer>
         <clr-dg-pagination #paginationData [clrDgTotalItems]="totalItems" [clrDgPageSize]="this.pageSize">
             <div>{{ paginationCallbackWrapper(paginationData) | lazyString }}</div>
-            <clr-dg-page-size [clrPageSizeOptions]="this.pageSizeOptions">{{
-                paginationDropdownText
-            }}</clr-dg-page-size>
+            <clr-dg-page-size
+                [clrPageSizeOptions]="this.pageSizeOptions"
+                *ngIf="this.pagination.shouldShowPageSizeSelector"
+                >{{ paginationDropdownText }}</clr-dg-page-size
+            >
         </clr-dg-pagination>
     </clr-dg-footer>
 </clr-datagrid>
 
-<ng-template #dropdown>
-    <clr-dropdown class="btn-group-overflow open" *ngIf="hasContextualButtons()">
-        <button class="btn dropdown-toggle dropdown-small" clrDropdownTrigger>
-            <clr-icon shape="ellipsis-horizontal"></clr-icon>
+<ng-template
+    #featuredBar
+    let-selection
+    let-groupClass="groupClass"
+    let-buttonClass="buttonClass"
+    let-iconClass="iconClass"
+>
+    <div class="btn-group" [ngClass]="groupClass">
+        <button
+            class="btn btn-icon"
+            *ngFor="let button of this.getFeaturedButtons(selection)"
+            (click)="runButtonHandler(button, selection)"
+            [disabled]="isButtonDisabled(button, button.isActive(selection))"
+            [ngClass]="!buttonClass ? [button.class] : [button.class, buttonClass]"
+        >
+            <ng-container *ngIf="buttonConfig.contextualButtonConfig.titleDisplay !== ButtonTitleDisplay.ICON">{{
+                button.label
+            }}</ng-container>
+            <a
+                role="tooltip"
+                aria-haspopup="true"
+                class="tooltip tooltip-sm"
+                *ngIf="buttonConfig.contextualButtonConfig.titleDisplay !== ButtonTitleDisplay.LABEL"
+            >
+                <clr-icon size="1em" [attr.shape]="button.icon" [ngClass]="iconClass"></clr-icon>
+                <span
+                    class="tooltip-content"
+                    *ngIf="buttonConfig.contextualButtonConfig.titleDisplay === ButtonTitleDisplay.ICON"
+                    >{{ button.label }}</span
+                >
+            </a>
+        </button>
+        <ng-container
+            *ngIf="
+                this.getFeaturedButtons(selection).length !== this.buttonConfig.contextualButtonConfig.buttons.length
+            "
+        >
+            <ng-container
+                *ngTemplateOutlet="dropdown; context: { buttonClass: buttonClass, iconClass: iconClass }"
+            ></ng-container>
+        </ng-container>
+    </div>
+</ng-template>
+
+<ng-template #dropdown let-buttonClass="buttonClass" let-iconClass="iconClass">
+    <clr-dropdown class="btn-group-overflow open" *ngIf="hasContextualButtons()" [ngClass]="buttonClass">
+        <button class="btn dropdown-toggle dropdown-small" clrDropdownTrigger [ngClass]="buttonClass">
+            <clr-icon shape="ellipsis-horizontal" [ngClass]="iconClass"></clr-icon>
         </button>
         <clr-dropdown-menu class="dropdown-menu" *clrIfOpen>
             <button

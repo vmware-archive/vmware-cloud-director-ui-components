@@ -16,7 +16,7 @@ export type SpinnerSize = keyof typeof SIZES;
  * Loading indicator for blocking modal dialogs while loading.
  */
 @Component({
-    selector: 'vcd-loading-indicator',
+    selector: 'vcd-cc-loading-indicator',
     templateUrl: 'loading-indicator.component.html',
     styleUrls: ['loading-indicator.component.scss'],
 })

@@ -26,6 +26,7 @@ import { DatagridFilter } from './filters/datagrid-filter';
 import {
     Button,
     ButtonConfig,
+    ButtonTitleDisplay,
     ColumnRendererSpec,
     ContextualButtonPosition,
     FunctionRenderer,
@@ -38,7 +39,7 @@ import { ContextualButton } from './interfaces/datagrid-column.interface';
 /**
  * The default number of items on a single page.
  */
-const DEFAULT_SIZE = 10;
+const DEFAULT_SIZE = 15;
 
 /**
  * The default items to show in the page size dropdown.
@@ -157,6 +158,12 @@ export interface PaginationConfiguration {
      * The height of a row in the datagrid. If not set, will use the default of {@link ROW_HEIGHT}.
      */
     rowHeight?: number;
+    /**
+     * If the page size option dropdown should be shown.
+     * Defaults to false.
+     */
+    shouldShowPageSizeSelector?: boolean;
+    // TODO: add disable page number input when we upgrade Clarity minor version
 }
 
 /**
@@ -259,6 +266,7 @@ export class DatagridComponent<R> extends CanTranslate(class {}) implements OnIn
     GridColumnHideable = GridColumnHideable;
     TooltipSize = TooltipSize;
     ActivityIndicatorType = ActivityIndicatorType;
+    ButtonTitleDisplay = ButtonTitleDisplay;
     private _columns: GridColumn<R>[];
 
     @ContentChild(TemplateRef, { static: false }) detailTemplate!: TemplateRef<ElementRef>;
@@ -282,6 +290,8 @@ export class DatagridComponent<R> extends CanTranslate(class {}) implements OnIn
      */
     @Input() set buttonConfig(config: ButtonConfig<R>) {
         this._buttonConfig = config;
+        this._buttonConfig.contextualButtonConfig.titleDisplay =
+            this._buttonConfig.contextualButtonConfig.titleDisplay || ButtonTitleDisplay.ICON;
         this._buttonConfig.inactiveDisplayMode =
             this._buttonConfig.inactiveDisplayMode || InactiveButtonDisplayMode.Disable;
         if (this._buttonConfig.contextualButtonConfig.featured) {
@@ -349,7 +359,10 @@ export class DatagridComponent<R> extends CanTranslate(class {}) implements OnIn
      * The pagination information that the user should supply.
      */
     @Input() set pagination(pagination: PaginationConfiguration) {
-        this._pagination = pagination;
+        this._pagination = { ...pagination };
+        if (this._pagination.shouldShowPageSizeSelector === undefined) {
+            this._pagination.shouldShowPageSizeSelector = false;
+        }
         this.updatePagination();
     }
 
@@ -358,7 +371,7 @@ export class DatagridComponent<R> extends CanTranslate(class {}) implements OnIn
     }
 
     private _pagination: PaginationConfiguration = {
-        pageSize: DEFAULT_SIZE,
+        pageSize: 'Magic',
         pageSizeOptions: DEFAULT_SIZE_OPTIONS,
     };
 
@@ -379,6 +392,7 @@ export class DatagridComponent<R> extends CanTranslate(class {}) implements OnIn
         this._height = height;
         const heightCssValue = this.height ? `${this.height}px` : 'unset';
         this.node.nativeElement.style.setProperty('--datagrid-height', heightCssValue);
+        this.updatePagination();
     }
 
     get height(): number {
@@ -484,9 +498,9 @@ export class DatagridComponent<R> extends CanTranslate(class {}) implements OnIn
      *
      * @throws Error if a featured button cannot be found.
      */
-    getFeaturedButtons(record?: R): ContextualButton<R>[] {
+    getFeaturedButtons(records?: R[]): ContextualButton<R>[] {
         return this._buttonConfig.contextualButtonConfig.buttons
-            .filter(button => this.isButtonShown(button, record) && this.featuredButtons.get(button.class))
+            .filter(button => this.isButtonShown(button, records) && this.featuredButtons.get(button.class))
             .slice(0, this._buttonConfig.contextualButtonConfig.featuredCount || this.featuredButtons.size);
     }
 
@@ -496,7 +510,7 @@ export class DatagridComponent<R> extends CanTranslate(class {}) implements OnIn
     getMaxFeaturedButtonsOnRow(): number {
         let max = 0;
         this.items.forEach(item => {
-            max = Math.max(this.getFeaturedButtons(item).length, max);
+            max = Math.max(this.getFeaturedButtons([item]).length, max);
         });
         return max;
     }
@@ -504,8 +518,8 @@ export class DatagridComponent<R> extends CanTranslate(class {}) implements OnIn
     /**
      * Says if the given button should appear on the datagrid.
      */
-    isButtonShown(button: Button<R>, record?: R): boolean {
-        const selection = record ? [record] : this.datagridSelection;
+    isButtonShown(button: Button<R>, records?: R[]): boolean {
+        const selection = records ? records : this.datagridSelection;
         return button.isActive(selection) || this.getDisplayMode(button) === InactiveButtonDisplayMode.Disable;
     }
 
@@ -628,7 +642,7 @@ export class DatagridComponent<R> extends CanTranslate(class {}) implements OnIn
         const vcdDgState: GridState<R> = {
             pagination: {
                 pageNumber: state.page ? state.page.current : 1,
-                itemsPerPage: state.page ? state.page.size : 10,
+                itemsPerPage: state.page ? state.page.size : DEFAULT_SIZE,
             },
         };
         if (state.filters) {
@@ -671,7 +685,7 @@ export class DatagridComponent<R> extends CanTranslate(class {}) implements OnIn
         if (typeof this.pagination.pageSize === 'number') {
             return this.pagination.pageSize;
         }
-        if (this.pagination.pageSize === 'Magic' && this.height) {
+        if (this.pagination.pageSize === 'Magic') {
             return this.calculatePageSize();
         }
         return DEFAULT_SIZE;
@@ -694,12 +708,18 @@ export class DatagridComponent<R> extends CanTranslate(class {}) implements OnIn
      */
     private calculatePageSize(): number {
         const grid = this.node.nativeElement;
+        const gridHeight = grid.parentNode.clientHeight;
 
         const headerHeight = grid.querySelector('.datagrid-header').clientHeight;
+        const footerHeight = grid.querySelector('clr-dg-footer').clientHeight;
         const rowHeight = this.pagination.rowHeight || ROW_HEIGHT;
 
         // Substracting the height of the header, actionbar and footer
-        let availableHeight = this.height - headerHeight - rowHeight;
+        let availableHeight = (this.height || gridHeight) - headerHeight - footerHeight;
+        if (!this.height) {
+            const header = grid.querySelector('.vcd-header');
+            availableHeight -= header ? header.clientHeight : 0;
+        }
         if (this.shouldShowActionBar()) {
             availableHeight -= ROW_HEIGHT;
         }
@@ -708,7 +728,7 @@ export class DatagridComponent<R> extends CanTranslate(class {}) implements OnIn
         const pageSize = Math.floor(availableHeight / rowHeight);
 
         // If the calculated pageSize is less than the default, set the pageSize to the default one.
-        return Math.max(1, pageSize);
+        return Math.max(DEFAULT_SIZE, pageSize);
     }
 
     /**
@@ -752,6 +772,8 @@ export class DatagridComponent<R> extends CanTranslate(class {}) implements OnIn
     }
 
     ngAfterViewInit(): void {
-        this.updatePagination();
+        setTimeout(() => {
+            this.updatePagination();
+        });
     }
 }

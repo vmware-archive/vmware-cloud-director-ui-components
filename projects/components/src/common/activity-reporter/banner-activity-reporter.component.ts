@@ -12,7 +12,7 @@ import { ActivityReporter } from './activity-reporter';
  * Shows a banner to the user to represent the state of an activity.
  */
 @Component({
-    selector: 'vcd-banner-activity-reporter',
+    selector: 'vcd-cc-banner-activity-reporter',
     templateUrl: './banner-activity-reporter.component.html',
 })
 export class BannerActivityReporterComponent extends CanTranslate(ActivityReporter) {
