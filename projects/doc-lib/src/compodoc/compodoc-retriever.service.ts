@@ -34,8 +34,9 @@ export class CompoDocRetrieverService implements DocumentationRetrieverService {
     }
 
     public getComponent(component: Type<any>): CompodocComponent {
-        for (const documentationJson of this.documentationJson) {
-            const compodocComponent = documentationJson.components.find(c => c.name === component.name);
+        const findByName = c => c.name === component.name;
+        for (const docJson of this.documentationJson) {
+            const compodocComponent = docJson.components.find(findByName) || docJson.directives.find(findByName);
             if (compodocComponent) {
                 return compodocComponent;
             }
