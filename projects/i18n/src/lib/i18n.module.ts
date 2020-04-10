@@ -4,11 +4,11 @@
  */
 
 import { HttpClient } from '@angular/common/http';
-import { ModuleWithProviders, Optional, Provider } from '@angular/core';
+import { ModuleWithProviders, Optional } from '@angular/core';
 import { Inject, InjectionToken, NgModule } from '@angular/core';
 import { TranslationLoader } from './loader/translation-loader';
-import { DisplayTranslationPipe } from './pipe/display-translation.pipe';
 import { FormatDateTimePipe } from './pipe/format-date-time-pipe';
+import { LazyStringPipe } from './pipe/lazy-string.pipe';
 import { TranslationPipe } from './pipe/translation-pipe';
 import { MessageFormatTranslationService } from './service/message-format-translation-service';
 import { TranslationService } from './service/translation-service';
@@ -23,27 +23,38 @@ export function genericSingletonFactory(details: { locale: string }): Translatio
     return singletonService;
 }
 
-const TRANSLATIONS_COMBINED = new InjectionToken('TRANSLATIONS_COMBINED');
-
 /**
  * An implementation of {@link TranslationService} that can inject all of its dependencies.
  */
 export class InjectedTranslationService extends MessageFormatTranslationService {
     constructor(
         @Inject(BOOTSTRAP_DETAILS) details: { locale: string },
-        @Inject(TranslationLoader) @Optional() loader: TranslationLoader,
-        @Inject(TRANSLATIONS_COMBINED) @Optional() combined: boolean
+        @Inject(TranslationLoader) @Optional() loader: TranslationLoader
     ) {
-        super(details.locale, 'en', loader, combined);
+        super(details.locale, 'en', loader, false);
     }
 }
+/**
+ * An implementation of {@link TranslationService} that can inject all of its dependencies
+ * and has combined set to true.
+ */
+export class CombinedInjectedTranslationService extends MessageFormatTranslationService {
+    constructor(
+        @Inject(BOOTSTRAP_DETAILS) details: { locale: string },
+        @Inject(TranslationLoader) @Optional() loader: TranslationLoader
+    ) {
+        super(details.locale, 'en', loader, true);
+    }
+}
+
+const translationProvider = [{ provide: TranslationService, useClass: InjectedTranslationService }];
 
 /**
  * A module that mananges translation capabilites for the application.
  */
 @NgModule({
-    declarations: [DisplayTranslationPipe, FormatDateTimePipe, TranslationPipe],
-    exports: [DisplayTranslationPipe, FormatDateTimePipe, TranslationPipe],
+    declarations: [LazyStringPipe, FormatDateTimePipe, TranslationPipe],
+    exports: [LazyStringPipe, FormatDateTimePipe, TranslationPipe],
 })
 export class I18nModule {
     /**
@@ -67,29 +78,22 @@ export class I18nModule {
      * @param extensionRoute the route translations are located at.
      * @param combined if the translations are in one file or many different files.
      */
-    static forChild(extensionRoute?: InjectionToken<string>, combined?: boolean): ModuleWithProviders {
+    static forChild(extensionRoute?: string | InjectionToken<string>, combined?: boolean): ModuleWithProviders {
         return {
             ngModule: I18nModule,
             providers: !extensionRoute
-                ? [
-                      {
-                          provide: TranslationService,
-                          useClass: InjectedTranslationService,
-                      },
-                  ]
+                ? [translationProvider]
                 : [
-                      {
-                          provide: TRANSLATIONS_COMBINED,
-                          useValue: combined,
-                      },
+                      combined
+                          ? {
+                                provide: TranslationService,
+                                useClass: CombinedInjectedTranslationService,
+                            }
+                          : translationProvider,
                       {
                           provide: TranslationLoader,
                           useClass: TranslationLoader,
                           deps: [HttpClient, extensionRoute],
-                      },
-                      {
-                          provide: TranslationService,
-                          useClass: InjectedTranslationService,
                       },
                   ],
         };

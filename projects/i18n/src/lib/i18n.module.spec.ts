@@ -8,10 +8,11 @@ import { Component, InjectionToken } from '@angular/core';
 import { fakeAsync, TestBed, tick } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { I18nModule } from './i18n.module';
 import { MessageFormatTranslationService } from './service/message-format-translation-service';
 import { TranslationService } from './service/translation-service';
+import { CanTranslate } from './service/translation-service.mixin';
 import { BOOTSTRAP_DETAILS } from './utils/tokens';
 
 describe('I18nModule', () => {
@@ -37,6 +38,7 @@ describe('I18nModule', () => {
         tick();
         fixture.detectChanges();
         expect(fixture.debugElement.query(By.css('h2')).nativeElement.textContent).toEqual('cancel');
+        expect(fixture.debugElement.query(By.css('h4')).nativeElement.textContent).toEqual('cancel');
     }));
 
     it('translates correctly with forChild', fakeAsync(async () => {
@@ -65,6 +67,7 @@ describe('I18nModule', () => {
         tick();
         fixture.detectChanges();
         expect(fixture.debugElement.query(By.css('h2')).nativeElement.textContent).toEqual('cancel');
+        expect(fixture.debugElement.query(By.css('h4')).nativeElement.textContent).toEqual('cancel');
         expect(fixture.debugElement.query(By.css('h3')).nativeElement.textContent).toEqual('?unloaded');
     }));
 });
@@ -73,7 +76,14 @@ describe('I18nModule', () => {
     template: `
         <h2>{{ 'vcd.cc.cancel' | translate }}</h2>
         <h3>{{ 'unloaded' | translate }}</h3>
+        <h4>{{ text | lazyString }}</h4>
     `,
     selector: 'lib-translate-test',
 })
-class TestClassComponent {}
+class TestClassComponent extends CanTranslate(class {}) {
+    text: Observable<string> = this.translateAsync('vcd.cc.cancel');
+
+    constructor(public translationService: TranslationService) {
+        super();
+    }
+}

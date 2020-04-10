@@ -4,8 +4,8 @@
  */
 
 import { Component, Inject, Input } from '@angular/core';
-import { TranslatedText, TranslationService } from '@vcd/i18n';
-import { Observable } from 'rxjs';
+import { TranslationService } from '@vcd/i18n';
+import { CanTranslate, LazyString } from '@vcd/i18n';
 import { ActivityReporter } from './activity-reporter';
 
 /**
@@ -15,7 +15,7 @@ import { ActivityReporter } from './activity-reporter';
     selector: 'vcd-banner-activity-reporter',
     templateUrl: './banner-activity-reporter.component.html',
 })
-export class BannerActivityReporterComponent extends ActivityReporter {
+export class BannerActivityReporterComponent extends CanTranslate(ActivityReporter) {
     running = false;
     errorText: string;
     successMessage: string;
@@ -24,9 +24,9 @@ export class BannerActivityReporterComponent extends ActivityReporter {
      * The translated message that is displayed to the user while loading.
      */
     @Input()
-    loadingMessage: TranslatedText = this.translationService.translateAsync('vcd.cc.loading');
+    loadingMessage = this.translateAsync('vcd.cc.loading');
 
-    constructor(private translationService: TranslationService) {
+    constructor(public translationService: TranslationService) {
         super();
     }
 

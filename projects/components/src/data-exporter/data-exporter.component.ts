@@ -5,7 +5,7 @@
 
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
-import { TranslatedText, TranslationService } from '@vcd/i18n';
+import { CanTranslate, LazyString, TranslationService } from '@vcd/i18n';
 import { CsvExporterService } from './csv-exporter.service';
 
 /**
@@ -57,8 +57,10 @@ export interface DataExportRequestEvent {
     templateUrl: 'data-exporter.component.html',
     styleUrls: ['./data-exporter.component.scss'],
 })
-export class DataExporterComponent implements OnInit {
-    constructor(private csvExporterService: CsvExporterService, public translationService: TranslationService) {}
+export class DataExporterComponent extends CanTranslate(class {}) implements OnInit {
+    constructor(private csvExporterService: CsvExporterService, public translationService: TranslationService) {
+        super();
+    }
 
     /**
      * List of columns that can be exported, user may deselect some before sending the download request
@@ -74,25 +76,25 @@ export class DataExporterComponent implements OnInit {
      * Text for the Dialog Header
      */
     @Input()
-    dialogHeader: TranslatedText = this.translationService.translateAsync('vcd.cc.data-exporter.title');
+    dialogHeader: LazyString = this.translateAsync('vcd.cc.data-exporter.title');
 
     /**
      * Text for the cancel button.
      */
     @Input()
-    cancelText: TranslatedText = this.translationService.translateAsync('vcd.cc.cancel');
+    cancelText: LazyString = this.translateAsync('vcd.cc.cancel');
 
     /**
      * Text for the select all button.
      */
     @Input()
-    selectAllText: TranslatedText = this.translationService.translateAsync('vcd.cc.select.all');
+    selectAllText: LazyString = this.translateAsync('vcd.cc.select.all');
 
     /**
      * Text for the export button.
      */
     @Input()
-    exportText: TranslatedText = this.translationService.translateAsync('vcd.cc.export');
+    exportText: LazyString = this.translateAsync('vcd.cc.export');
 
     /**
      * Whether a box to select/deselect all rows is available

@@ -22,11 +22,6 @@ export interface TranslationSet {
 }
 
 /**
- * The result of a call to either {@link TranslationService.translate} or {@link TranslationService.translateAsync}.
- */
-export type TranslatedText = string | Observable<string>;
-
-/**
  * Basic translation service to implement ICU positional interpolation only.
  */
 @Injectable()

@@ -135,7 +135,7 @@
 
     <clr-dg-footer>
         <clr-dg-pagination #paginationData [clrDgTotalItems]="totalItems" [clrDgPageSize]="this.pageSize">
-            <div>{{ paginationCallbackWrapper(paginationData) | displayTranslation }}</div>
+            <div>{{ paginationCallbackWrapper(paginationData) | lazyString }}</div>
             <clr-dg-page-size [clrPageSizeOptions]="this.pageSizeOptions">{{
                 paginationDropdownText
             }}</clr-dg-page-size>

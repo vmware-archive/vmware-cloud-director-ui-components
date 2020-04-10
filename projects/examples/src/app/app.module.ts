@@ -33,7 +33,7 @@ import { ShowClippedTextExamplesModule } from './components/show-clipped-text/sh
 registerLocaleData(localeFr, 'fr');
 registerLocaleData(localeEs, 'es');
 
-const ASSET_URL = new InjectionToken('ASSETS');
+const ASSET_URL = 'ASSETS';
 
 export function moduleFinder(componentName: string): string {
     return componentName.replace('ExampleComponent', 'ExampleModule');
