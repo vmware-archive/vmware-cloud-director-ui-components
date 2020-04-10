@@ -5,6 +5,7 @@
 
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
+import { CanTranslate, LazyString, TranslationService } from '@vcd/i18n';
 import { CsvExporterService } from './csv-exporter.service';
 
 /**
@@ -56,8 +57,10 @@ export interface DataExportRequestEvent {
     templateUrl: 'data-exporter.component.html',
     styleUrls: ['./data-exporter.component.scss'],
 })
-export class DataExporterComponent implements OnInit {
-    constructor(private csvExporterService: CsvExporterService) {}
+export class DataExporterComponent extends CanTranslate(class {}) implements OnInit {
+    constructor(private csvExporterService: CsvExporterService, public translationService: TranslationService) {
+        super();
+    }
 
     /**
      * List of columns that can be exported, user may deselect some before sending the download request
@@ -72,22 +75,26 @@ export class DataExporterComponent implements OnInit {
     /**
      * Text for the Dialog Header
      */
-    @Input() dialogHeader: string;
+    @Input()
+    dialogHeader: LazyString = this.translateAsync('vcd.cc.data-exporter.title');
 
     /**
      * Text for the cancel button.
      */
-    @Input() cancelText: string;
+    @Input()
+    cancelText: LazyString = this.translateAsync('vcd.cc.cancel');
 
     /**
      * Text for the select all button.
      */
-    @Input() selectAllText: string;
+    @Input()
+    selectAllText: LazyString = this.translateAsync('vcd.cc.select.all');
 
     /**
      * Text for the export button.
      */
-    @Input() exportText: string;
+    @Input()
+    exportText: LazyString = this.translateAsync('vcd.cc.export');
 
     /**
      * Whether a box to select/deselect all rows is available

@@ -9,26 +9,35 @@ type Response = string | undefined;
  * Expresses the contract between a activity status and the UI displaying a loading message, reporting
  * success or errors
  * Currently, only one concurrent activity is supported.
+ *
+ * This classs should be abstract, but becuase mixins currently cannot use abstract classes, we chose
+ * to make this class concrete.
  */
-export abstract class ActivityReporter {
+export class ActivityReporter {
     /**
-     * Indicates the operation completed with an error
+     * Override this method to provide custom error reporting behavior.
+     *
+     * N.B. this should not be called from outside a subclass of {@link ActivityReporter}
      *
      *  @param errorText The text to display in the error alert.
      */
-    abstract reportError(errorText: string): void;
+    reportError(errorText: string): void {}
 
     /**
-     * Indicates the operation completed successfully
+     * Override this method to provide custom success reporting behavior.
+     *
+     * N.B. this should not be called from outside a subclass of {@link ActivityReporter}
      *
      * @param successMessage A message to display to the user.
      */
-    abstract reportSuccess(successMessage?: string): void;
+    reportSuccess(successMessage?: string): void {}
 
     /*
-     * Indicates an operation has started and the UI should show an activity indicator
+     * Override this method to provide custom error activity starting behavior.
+     *
+     * N.B. this should not be called from outside a subclass of {@link ActivityReporter}
      */
-    abstract startActivity(): void;
+    startActivity(): void {}
 
     /**
      * Monitors an activity passed as a Promise

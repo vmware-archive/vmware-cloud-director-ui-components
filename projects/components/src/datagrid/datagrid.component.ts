@@ -18,6 +18,8 @@ import {
     ViewChild,
 } from '@angular/core';
 import { ClrDatagrid, ClrDatagridFilter, ClrDatagridPagination, ClrDatagridStateInterface } from '@clr/angular';
+import { CanTranslate, LazyString, TranslationService } from '@vcd/i18n';
+import { Observable } from 'rxjs';
 import { ActivityReporter } from '../common/activity-reporter/activity-reporter';
 import { TooltipSize } from '../lib/directives/show-clipped-text.directive';
 import { DatagridFilter } from './filters/datagrid-filter';
@@ -210,7 +212,7 @@ interface ColumnConfigInternal<R, T> extends GridColumn<R> {
     templateUrl: './datagrid.component.html',
     styleUrls: ['./datagrid.component.scss'],
 })
-export class DatagridComponent<R> implements OnInit, AfterViewInit {
+export class DatagridComponent<R> extends CanTranslate(class {}) implements OnInit, AfterViewInit {
     /**
      * A optional string to be displayed above the grid.
      */
@@ -313,7 +315,9 @@ export class DatagridComponent<R> implements OnInit, AfterViewInit {
         return this._buttonConfig;
     }
 
-    constructor(private node: ElementRef) {}
+    constructor(private node: ElementRef, public translationService: TranslationService) {
+        super();
+    }
 
     /**
      * The stored button config where inactiveDisplayMode is always non-undefined.
@@ -455,8 +459,14 @@ export class DatagridComponent<R> implements OnInit, AfterViewInit {
      * @param lastItem the index of the last item displayed.
      * @param totalItems the total number of items that could be displayed.
      */
-    @Input() paginationCallback(firstItem: number, lastItem: number, totalItems: number): string {
-        return `${firstItem} - ${lastItem} of ${totalItems} rows`;
+    @Input() paginationCallback(firstItem: number, lastItem: number, totalItems: number): string | Observable<string> {
+        return this.translateAsync('vcd.cc.grid.default.pagination', [
+            {
+                firstItem,
+                lastItem,
+                totalItems,
+            },
+        ]);
     }
 
     /**
@@ -650,7 +660,7 @@ export class DatagridComponent<R> implements OnInit, AfterViewInit {
     /**
      * Updates the pagination data and makes the callback.
      */
-    paginationCallbackWrapper(paginationData: ClrDatagridPagination): string {
+    paginationCallbackWrapper(paginationData: ClrDatagridPagination): LazyString {
         return this.paginationCallback(paginationData.firstItem + 1, paginationData.lastItem + 1, this.totalItems);
     }
 

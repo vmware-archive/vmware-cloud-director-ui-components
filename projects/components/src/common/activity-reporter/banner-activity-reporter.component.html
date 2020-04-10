@@ -1,5 +1,5 @@
 <clr-alert *ngIf="running" clrAlertType="alert-info" [clrAlertClosable]="false">
-    <div>{{ loadingMessage ? loadingMessage : ('loading' | translate) }}</div>
+    <div>{{ loadingMessage | lazyString }}</div>
 </clr-alert>
 
 <clr-alert *ngIf="errorText" clrAlertType="danger" (clrAlertClosed)="onErrorClosed()">
