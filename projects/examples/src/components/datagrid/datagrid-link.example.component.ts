@@ -6,13 +6,13 @@
 import { Component } from '@angular/core';
 import {
     ButtonConfig,
-    ButtonTitleDisplay,
     ContextualButtonPosition,
     GridColumn,
     GridDataFetchResult,
     GridSelectionType,
     GridState,
     InactiveButtonDisplayMode,
+    TextIcon,
 } from '@vcd/ui-components';
 
 interface Data {
@@ -105,7 +105,7 @@ export class DatagridLinkExampleComponent {
             featuredCount: 3,
             featured: ['a', 'b', 'c'],
             position: ContextualButtonPosition.TOP,
-            titleDisplay: ButtonTitleDisplay.LABEL,
+            buttonContents: TextIcon.TEXT,
         },
         inactiveDisplayMode: InactiveButtonDisplayMode.Disable,
     };

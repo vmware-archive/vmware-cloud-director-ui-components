@@ -9,7 +9,7 @@ import { Component } from '@angular/core';
  * Press the button to show/hide the error banner.
  */
 @Component({
-    selector: 'vcd-cc-error-banner-example',
+    selector: 'vcd-temp-error-banner-example',
     templateUrl: './error-banner.example.component.html',
 })
 export class ErrorBannerExampleComponent {

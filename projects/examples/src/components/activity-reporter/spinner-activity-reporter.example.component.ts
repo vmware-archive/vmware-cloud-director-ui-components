@@ -10,7 +10,7 @@ import { ActivityReporter, SpinnerActivityReporterComponent } from '@vcd/ui-comp
  * Press the button to show/hide the spinner activity reporter
  */
 @Component({
-    selector: 'vcd-cc-spinner-activity-reporter-example',
+    selector: 'vcd-temp-spinner-activity-reporter-example',
     templateUrl: './spinner-activity-reporter.example.component.html',
 })
 export class SpinnerActivityReporterExampleComponent {

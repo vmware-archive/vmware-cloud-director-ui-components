@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: BSD-2-Clause
  */
 
-import { Component, ViewChild } from '@angular/core';
+import { Component, HostBinding, ViewChild } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MockTranslationService, TranslationService } from '@vcd/i18n';
@@ -22,6 +22,7 @@ import {
     GridColumn,
     GridColumnHideable,
     InactiveButtonDisplayMode,
+    TextIcon,
 } from './interfaces/datagrid-column.interface';
 import { mockData, MockRecord } from './mock-data';
 import { BoldTextRendererComponent } from './renderers/bold-text-renderer.component';
@@ -264,7 +265,7 @@ describe('DatagridComponent', () => {
 
             describe('@Input() pagination', () => {
                 describe('pageSize', () => {
-                    it('finds the most rows that can fit in the set height with magic pagination ', function(this: HasFinderAndGrid): void {
+                    it('finds the most rows that can fit in the set height with magic pagination', function(this: HasFinderAndGrid): void {
                         this.finder.hostComponent.parentHeight = '2000px';
                         this.finder.detectChanges();
                         this.finder.hostComponent.pagination = {
@@ -273,6 +274,17 @@ describe('DatagridComponent', () => {
                         };
                         this.finder.detectChanges();
                         expect(this.clrGridWidget.getPaginationDescription()).toEqual('1 - 51 of 150 items');
+                    });
+
+                    it('shows a minimum of 15 rows', function(this: HasFinderAndGrid): void {
+                        this.finder.hostComponent.parentHeight = '200px';
+                        this.finder.detectChanges();
+                        this.finder.hostComponent.pagination = {
+                            pageSize: 'Magic',
+                            pageSizeOptions: [10],
+                        };
+                        this.finder.detectChanges();
+                        expect(this.clrGridWidget.getPaginationDescription()).toEqual('1 - 15 of 150 items');
                     });
 
                     it('allows the user to set a custom row height with magic pagination ', function(this: HasFinderAndGrid): void {
@@ -688,6 +700,33 @@ describe('DatagridComponent', () => {
                     expect(() => this.finder.detectChanges()).toThrowError('Featured button was not found');
                 });
 
+                describe('buttonContents', () => {
+                    it('shows icon when set to only show icon', function(this: HasFinderAndGrid): void {
+                        this.finder.hostComponent.buttonConfig.contextualButtonConfig.buttonContents = TextIcon.ICON;
+                        this.finder.detectChanges();
+                        expect(this.vcdDatagrid.component.shouldShowIcon()).toBeTruthy();
+                        expect(this.vcdDatagrid.component.shouldShowText()).toBeFalsy();
+                        expect(this.vcdDatagrid.component.shouldShowTooltip()).toBeTruthy();
+                    });
+
+                    it('shows label when set to only show label', function(this: HasFinderAndGrid): void {
+                        this.finder.hostComponent.buttonConfig.contextualButtonConfig.buttonContents = TextIcon.TEXT;
+                        this.finder.detectChanges();
+                        expect(this.vcdDatagrid.component.shouldShowIcon()).toBeFalsy();
+                        expect(this.vcdDatagrid.component.shouldShowText()).toBeTruthy();
+                        expect(this.vcdDatagrid.component.shouldShowTooltip()).toBeFalsy();
+                    });
+
+                    it('shows icon and label when set to only show both', function(this: HasFinderAndGrid): void {
+                        this.finder.hostComponent.buttonConfig.contextualButtonConfig.buttonContents =
+                            TextIcon.ICON_AND_TEXT;
+                        this.finder.detectChanges();
+                        expect(this.vcdDatagrid.component.shouldShowIcon()).toBeTruthy();
+                        expect(this.vcdDatagrid.component.shouldShowText()).toBeTruthy();
+                        expect(this.vcdDatagrid.component.shouldShowTooltip()).toBeFalsy();
+                    });
+                });
+
                 describe('getFeaturedButtons()', () => {
                     it('shows only the given number of featured buttons', function(this: HasFinderAndGrid): void {
                         expect(
@@ -916,7 +955,7 @@ export class HostWithDatagridComponent {
 
     height?: number;
 
-    parentHeight = 'unset';
+    @HostBinding('class.height') parentHeight = 'unset';
 
     header?: string;
 

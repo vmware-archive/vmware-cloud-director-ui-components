@@ -26,13 +26,14 @@ import { DatagridFilter } from './filters/datagrid-filter';
 import {
     Button,
     ButtonConfig,
-    ButtonTitleDisplay,
     ColumnRendererSpec,
+    ContextualButtonConfig,
     ContextualButtonPosition,
     FunctionRenderer,
     GridColumn,
     GridColumnHideable,
     InactiveButtonDisplayMode,
+    TextIcon,
 } from './interfaces/datagrid-column.interface';
 import { ContextualButton } from './interfaces/datagrid-column.interface';
 
@@ -163,7 +164,11 @@ export interface PaginationConfiguration {
      * Defaults to false.
      */
     shouldShowPageSizeSelector?: boolean;
-    // TODO: add disable page number input when we upgrade Clarity minor version
+    /**
+     * If the page number input should be shown.
+     * Defaults to false.
+     */
+    shouldShowPageNumberInput?: boolean;
 }
 
 /**
@@ -221,12 +226,6 @@ interface ColumnConfigInternal<R, T> extends GridColumn<R> {
 })
 export class DatagridComponent<R> extends CanTranslate(class {}) implements OnInit, AfterViewInit {
     /**
-     * A optional string to be displayed above the grid.
-     */
-    @Input()
-    header?: string;
-
-    /**
      * Sets the configuration of columns on the grid and updates the {@link columnsConfig} array
      */
     @Input()
@@ -237,12 +236,6 @@ export class DatagridComponent<R> extends CanTranslate(class {}) implements OnIn
     get columns(): GridColumn<R>[] {
         return this._columns;
     }
-
-    /**
-     * The type of activity indicator that should sit ontop of the grid.
-     */
-    @Input()
-    indicatorType: ActivityIndicatorType;
 
     /**
      * Set from the caller component using this grid. The input is set upon fetching data by the caller
@@ -262,27 +255,6 @@ export class DatagridComponent<R> extends CanTranslate(class {}) implements OnIn
         this.clearSelectionInformation();
     }
 
-    ContextualButtonPosition = ContextualButtonPosition;
-    GridColumnHideable = GridColumnHideable;
-    TooltipSize = TooltipSize;
-    ActivityIndicatorType = ActivityIndicatorType;
-    ButtonTitleDisplay = ButtonTitleDisplay;
-    private _columns: GridColumn<R>[];
-
-    @ContentChild(TemplateRef, { static: false }) detailTemplate!: TemplateRef<ElementRef>;
-
-    private _selectionType: GridSelectionType = GridSelectionType.None;
-
-    /**
-     * The CSS class to use for the Clarity datagrid.
-     */
-    @Input() clrDatagridCssClass = '';
-
-    /**
-     * The text placed next to the pagination number dropdown.
-     */
-    @Input() paginationDropdownText = '';
-
     /**
      * Sets the button configuration on the datagrid.
      *
@@ -290,8 +262,8 @@ export class DatagridComponent<R> extends CanTranslate(class {}) implements OnIn
      */
     @Input() set buttonConfig(config: ButtonConfig<R>) {
         this._buttonConfig = config;
-        this._buttonConfig.contextualButtonConfig.titleDisplay =
-            this._buttonConfig.contextualButtonConfig.titleDisplay || ButtonTitleDisplay.ICON;
+        this._buttonConfig.contextualButtonConfig.buttonContents =
+            this._buttonConfig.contextualButtonConfig.buttonContents || TextIcon.ICON;
         this._buttonConfig.inactiveDisplayMode =
             this._buttonConfig.inactiveDisplayMode || InactiveButtonDisplayMode.Disable;
         if (this._buttonConfig.contextualButtonConfig.featured) {
@@ -330,6 +302,87 @@ export class DatagridComponent<R> extends CanTranslate(class {}) implements OnIn
     }
 
     /**
+     * The pagination information that the user should supply.
+     */
+    @Input() set pagination(pagination: PaginationConfiguration) {
+        this._pagination = { ...pagination };
+        if (this._pagination.shouldShowPageSizeSelector === undefined) {
+            this._pagination.shouldShowPageSizeSelector = false;
+        }
+        if (this._pagination.shouldShowPageNumberInput === undefined) {
+            this._pagination.shouldShowPageNumberInput = false;
+        }
+        this.updatePagination();
+    }
+
+    get pagination(): PaginationConfiguration {
+        return this._pagination;
+    }
+
+    /**
+     * Desired height of the grid in pixels. If unspecificed, the grid fills the parent container.
+     */
+    @Input() set height(height: number) {
+        this._height = height;
+        const heightCssValue = this.height ? `${this.height}px` : 'unset';
+        this.node.nativeElement.style.setProperty('--datagrid-height', heightCssValue);
+        this.updatePagination();
+    }
+
+    get height(): number {
+        return this._height;
+    }
+
+    @HostBinding('class.fill-parent') get shouldFillParent(): boolean {
+        return this.height === undefined;
+    }
+
+    /**
+     * Returns the items selected in the VCD datagrid.
+     */
+    get datagridSelection(): R[] {
+        if (this.datagrid.selection.currentSingle) {
+            return [this.datagrid.selection.currentSingle];
+        }
+        if (this.datagrid.selection.current) {
+            return this.datagrid.selection.current;
+        }
+        return [];
+    }
+    /**
+     * A optional string to be displayed above the grid.
+     */
+    @Input()
+    header?: string;
+
+    /**
+     * The type of activity indicator that should sit ontop of the grid.
+     */
+    @Input()
+    indicatorType: ActivityIndicatorType;
+
+    ContextualButtonPosition = ContextualButtonPosition;
+    GridColumnHideable = GridColumnHideable;
+    TooltipSize = TooltipSize;
+    ActivityIndicatorType = ActivityIndicatorType;
+    TextIcon = TextIcon;
+    private _columns: GridColumn<R>[];
+
+    @ContentChild(TemplateRef, { static: false }) detailTemplate!: TemplateRef<ElementRef>;
+
+    private _selectionType: GridSelectionType = GridSelectionType.None;
+
+    /**
+     * The CSS class to use for the Clarity datagrid.
+     */
+    @Input() clrDatagridCssClass = '';
+
+    /**
+     * The text placed next to the pagination number dropdown.
+     */
+    @Input() paginationDropdownText = '';
+
+    /**
      * The stored button config where inactiveDisplayMode is always non-undefined.
      */
     _buttonConfig: ButtonConfig<R> = {
@@ -355,21 +408,6 @@ export class DatagridComponent<R> extends CanTranslate(class {}) implements OnIn
      */
     emptyGridPlaceholder: string;
 
-    /**
-     * The pagination information that the user should supply.
-     */
-    @Input() set pagination(pagination: PaginationConfiguration) {
-        this._pagination = { ...pagination };
-        if (this._pagination.shouldShowPageSizeSelector === undefined) {
-            this._pagination.shouldShowPageSizeSelector = false;
-        }
-        this.updatePagination();
-    }
-
-    get pagination(): PaginationConfiguration {
-        return this._pagination;
-    }
-
     private _pagination: PaginationConfiguration = {
         pageSize: 'Magic',
         pageSizeOptions: DEFAULT_SIZE_OPTIONS,
@@ -385,25 +423,7 @@ export class DatagridComponent<R> extends CanTranslate(class {}) implements OnIn
      */
     pageSizeOptions = DEFAULT_SIZE_OPTIONS;
 
-    /**
-     * Desired height of the grid in pixels. If unspecificed, the grid fills the parent container.
-     */
-    @Input() set height(height: number) {
-        this._height = height;
-        const heightCssValue = this.height ? `${this.height}px` : 'unset';
-        this.node.nativeElement.style.setProperty('--datagrid-height', heightCssValue);
-        this.updatePagination();
-    }
-
-    get height(): number {
-        return this._height;
-    }
-
     private _height: number;
-
-    @HostBinding('class.fill-parent') get shouldFillParent(): boolean {
-        return this.height === undefined;
-    }
 
     /**
      * Loading indicator on the grid
@@ -457,6 +477,8 @@ export class DatagridComponent<R> extends CanTranslate(class {}) implements OnIn
      */
     @ViewChild('actionReporter', { static: false }) actionReporter: ActivityReporter;
 
+    private viewInitted = false;
+
     /**
      * Returns an identifier for the given record at the given index.
      *
@@ -491,6 +513,27 @@ export class DatagridComponent<R> extends CanTranslate(class {}) implements OnIn
             this.buttonConfig.globalButtons.length !== 0 ||
             this.buttonConfig.contextualButtonConfig.buttons.length !== 0
         );
+    }
+
+    /**
+     * If the button icon should be displayed.
+     */
+    shouldShowIcon(): boolean {
+        return (TextIcon.ICON & this.buttonConfig.contextualButtonConfig.buttonContents) === TextIcon.ICON;
+    }
+
+    /**
+     * If the text should be displayed on the button.
+     */
+    shouldShowText(): boolean {
+        return (TextIcon.TEXT & this.buttonConfig.contextualButtonConfig.buttonContents) === TextIcon.TEXT;
+    }
+
+    /**
+     * If the buttons icon should have a tooltip.
+     */
+    shouldShowTooltip(): boolean {
+        return this.buttonConfig.contextualButtonConfig.buttonContents === TextIcon.ICON;
     }
 
     /**
@@ -623,19 +666,6 @@ export class DatagridComponent<R> extends CanTranslate(class {}) implements OnIn
     }
 
     /**
-     * Returns the items selected in the VCD datagrid.
-     */
-    get datagridSelection(): R[] {
-        if (this.datagrid.selection.currentSingle) {
-            return [this.datagrid.selection.currentSingle];
-        }
-        if (this.datagrid.selection.current) {
-            return this.datagrid.selection.current;
-        }
-        return [];
-    }
-
-    /**
      * Called when the {@param state} of the Clarity datagrid changes.
      */
     gridStateChanged(state: ClrDatagridStateInterface): void {
@@ -696,8 +726,8 @@ export class DatagridComponent<R> extends CanTranslate(class {}) implements OnIn
      */
     private getPageSizeOptions(): number[] {
         let options = this.pagination.pageSizeOptions.map(size => size);
-        if (options.indexOf(this.getPageSize()) === -1) {
-            options.push(this.getPageSize());
+        if (options.indexOf(this.pageSize) === -1) {
+            options.push(this.pageSize);
             options = options.sort((a, b) => a - b);
         }
         return options;
@@ -735,8 +765,10 @@ export class DatagridComponent<R> extends CanTranslate(class {}) implements OnIn
      * Updates the pagination information by recalculating pageSize if needed.
      */
     private updatePagination(): void {
-        this.pageSize = this.getPageSize();
-        this.pageSizeOptions = this.getPageSizeOptions();
+        if (this.viewInitted) {
+            this.pageSize = this.getPageSize();
+            this.pageSizeOptions = this.getPageSizeOptions();
+        }
     }
 
     /**
@@ -772,8 +804,9 @@ export class DatagridComponent<R> extends CanTranslate(class {}) implements OnIn
     }
 
     ngAfterViewInit(): void {
-        setTimeout(() => {
+        this.viewInitted = true;
+        if (this.pagination.pageSize === 'Magic') {
             this.updatePagination();
-        });
+        }
     }
 }

@@ -7,7 +7,7 @@ import { BannerActivityReporterComponent } from '../../../common/activity-report
 import { WidgetObject } from '../widget-object';
 
 export class BannerActivityReporterWidgetObject extends WidgetObject<BannerActivityReporterComponent> {
-    static tagName = 'vcd-cc-banner-activity-reporter';
+    static tagName = 'vcd-temp-banner-activity-reporter';
 
     get running(): boolean {
         return this.component.running;
