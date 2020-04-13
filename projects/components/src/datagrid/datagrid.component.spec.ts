@@ -370,7 +370,7 @@ describe('DatagridComponent', () => {
 
             describe('@Input() paginationCallback', () => {
                 it('displays pagination callback information on page one', function(this: HasFinderAndGrid): void {
-                    expect(this.clrGridWidget.getPaginationDescription()).toEqual('1 - 5 of 150 items');
+                    expect(this.clrGridWidget.getPaginationDescription()).toEqual('1 - 15 of 150 items');
                 });
             });
 
@@ -517,7 +517,7 @@ describe('DatagridComponent', () => {
                         name: 'a',
                         reverse: false,
                     },
-                    pagination: { pageNumber: 1, itemsPerPage: 5 },
+                    pagination: { pageNumber: 1, itemsPerPage: 15 },
                 });
                 this.clrGridWidget.sortColumn(0);
                 expect(refreshMethod).toHaveBeenCalledWith({
@@ -525,7 +525,7 @@ describe('DatagridComponent', () => {
                         name: 'a',
                         reverse: true,
                     },
-                    pagination: { pageNumber: 1, itemsPerPage: 5 },
+                    pagination: { pageNumber: 1, itemsPerPage: 15 },
                 });
             });
 
@@ -541,7 +541,7 @@ describe('DatagridComponent', () => {
                 expect(refreshMethod).toHaveBeenCalledWith({
                     pagination: {
                         pageNumber: 2,
-                        itemsPerPage: 5,
+                        itemsPerPage: 15,
                     },
                 });
             });
@@ -551,7 +551,7 @@ describe('DatagridComponent', () => {
                 this.clrGridWidget.nextPage();
                 this.clrGridWidget.sortColumn(0);
                 expect(refreshMethod).toHaveBeenCalledWith({
-                    pagination: { pageNumber: 1, itemsPerPage: 5 },
+                    pagination: { pageNumber: 1, itemsPerPage: 15 },
                     sortColumn: { name: 'a', reverse: false },
                 });
             });

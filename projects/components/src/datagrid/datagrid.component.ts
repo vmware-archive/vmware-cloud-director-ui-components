@@ -5,6 +5,7 @@
 
 import {
     AfterViewInit,
+    ChangeDetectorRef,
     Component,
     ContentChild,
     ElementRef,
@@ -297,7 +298,11 @@ export class DatagridComponent<R> extends CanTranslate(class {}) implements OnIn
         return this._buttonConfig;
     }
 
-    constructor(private node: ElementRef, public translationService: TranslationService) {
+    constructor(
+        private node: ElementRef,
+        public translationService: TranslationService,
+        private changeDetectorRef: ChangeDetectorRef
+    ) {
         super();
     }
 
@@ -807,6 +812,12 @@ export class DatagridComponent<R> extends CanTranslate(class {}) implements OnIn
         this.viewInitted = true;
         if (this.pagination.pageSize === 'Magic') {
             this.updatePagination();
+            // We need to update the page size in ngAfterViewInit because when it is set
+            // to magically calculate, we need to know that the rest of the page has been rendered.
+            // Yet, this causes a ExpressionChangedAfterItHasBeenCheckedError because we are changing
+            // pageSize in this method. So we need to detectChanges to avoid an error or
+            // calling a setTimeout.
+            this.changeDetectorRef.detectChanges();
         }
     }
 }
