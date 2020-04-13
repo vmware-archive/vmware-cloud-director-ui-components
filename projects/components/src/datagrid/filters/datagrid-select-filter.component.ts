@@ -5,26 +5,9 @@
 import { Component, Host, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { ClrDatagridFilter } from '@clr/angular';
+import { SelectOption } from '../../common/interfaces/select-option';
 import { FilterBuilder } from '../../utils/filter-builder';
 import { DatagridFilter, FilterComponentRendererSpec, FilterConfig, FilterRendererSpec } from './datagrid-filter';
-
-/**
- * Options displayed in a select input option list
- */
-export interface SelectOption {
-    /**
-     * Value of a option
-     */
-    value: string | number;
-    /**
-     * Text to be shown for the option
-     */
-    display: string;
-    /**
-     * Used for translation of the {@link SelectOption.display} text
-     */
-    isTranslatable?: boolean;
-}
 
 /**
  * List of select options and initial value for the filter are passed through this
