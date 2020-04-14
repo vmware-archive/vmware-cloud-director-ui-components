@@ -6,9 +6,12 @@
 import createSpy = jasmine.createSpy;
 import { Subject } from 'rxjs';
 import { SubscriptionTrackerMixin } from './subscription-tracker.mixin';
+import { OnDestroy } from '@angular/core';
 
 describe('SubscriptionTrackerMixin', () => {
-    class SubscribeObject extends SubscriptionTrackerMixin(class {}) {}
+    class SubscribeObject extends SubscriptionTrackerMixin(class {}) implements OnDestroy {
+        ngOnDestroy(): void {}
+    }
 
     describe('subscribing', () => {
         it('adds a subscription', () => {

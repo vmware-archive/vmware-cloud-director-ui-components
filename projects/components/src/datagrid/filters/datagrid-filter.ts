@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: BSD-2-Clause
  */
 
-import { Input, OnInit } from '@angular/core';
+import { Input, OnDestroy, OnInit } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { ClrDatagridFilter } from '@clr/angular';
 import { ClrDatagridFilterInterface } from '@clr/angular/data/datagrid/interfaces/filter.interface';
@@ -55,7 +55,7 @@ export interface FilterRendererSpec<C> extends ComponentRendererSpec<C> {
  * C extends FilterConfig<V> is configuration of a filter that contains queryField and a value of type V
  */
 export abstract class DatagridFilter<V, C extends FilterConfig<V>> extends SubscriptionTrackerMixin(class {})
-    implements OnInit, ClrDatagridFilterInterface<V>, ComponentRenderer<C> {
+    implements OnInit, OnDestroy, ClrDatagridFilterInterface<V>, ComponentRenderer<C> {
     formGroup = this.createFormGroup();
 
     protected constructor(filterContainer: ClrDatagridFilter) {
@@ -92,6 +92,8 @@ export abstract class DatagridFilter<V, C extends FilterConfig<V>> extends Subsc
             : this.formGroup.valueChanges;
         this.subscribe(obs, () => this.changes.next());
     }
+
+    ngOnDestroy(): void {}
 
     /**
      * To override the default delay time for emission of changes

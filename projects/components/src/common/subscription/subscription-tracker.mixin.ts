@@ -15,7 +15,7 @@ import { ISubscriptionTracker, SubscriptionTracker } from './subscription-tracke
  */
 // tslint:disable-next-line: typedef
 export function SubscriptionTrackerMixin<TBase extends Type<{}>>(Base: TBase) {
-    return class extends Base implements ISubscriptionTracker, OnDestroy {
+    abstract class Mixin extends Base implements ISubscriptionTracker, OnDestroy {
         tracker = new SubscriptionTracker(this);
 
         public subscribe<T>(
@@ -35,8 +35,7 @@ export function SubscriptionTrackerMixin<TBase extends Type<{}>>(Base: TBase) {
             this.tracker.unsubscribeAll();
         }
 
-        ngOnDestroy(): void {
-            this.unsubscribeAll();
-        }
-    };
+        abstract ngOnDestroy(): void;
+    }
+    return Mixin;
 }

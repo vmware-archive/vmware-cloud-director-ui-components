@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: BSD-2-Clause
  */
 
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { SubscriptionTrackerMixin } from '@vcd/ui-components';
 import { BehaviorSubject, Observable } from 'rxjs';
 
@@ -18,13 +18,16 @@ import { BehaviorSubject, Observable } from 'rxjs';
 })
 // Use an empty class as its base class instead of Object to support IE11
 // See https://github.com/microsoft/TypeScript/issues/37601
-export class SubscriptionTrackerMixinExampleSubComponent extends SubscriptionTrackerMixin(class {}) implements OnInit {
+export class SubscriptionTrackerMixinExampleSubComponent extends SubscriptionTrackerMixin(class {})
+    implements OnInit, OnDestroy {
     @Input()
     observable: Observable<number>;
 
     ngOnInit(): void {
         this.subscribe(this.observable, value => console.log(value));
     }
+
+    ngOnDestroy(): void {}
 }
 
 /**
