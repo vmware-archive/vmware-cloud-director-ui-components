@@ -5,7 +5,6 @@
 
 export * from './lib/i18n.module';
 export * from './lib/service/translation-service';
-export * from './lib/service/translation-service.mixin';
 export * from './lib/pipe/translation-pipe';
 export * from './lib/service/basic-translation-service';
 export * from './lib/pipe/format-date-time-pipe';

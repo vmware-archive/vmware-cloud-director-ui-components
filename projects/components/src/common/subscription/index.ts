@@ -4,4 +4,3 @@
  */
 
 export * from './subscription-tracker';
-export * from './subscription-tracker.mixin';

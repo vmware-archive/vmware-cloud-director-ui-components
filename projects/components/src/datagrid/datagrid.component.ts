@@ -19,7 +19,7 @@ import {
     ViewChild,
 } from '@angular/core';
 import { ClrDatagrid, ClrDatagridFilter, ClrDatagridPagination, ClrDatagridStateInterface } from '@clr/angular';
-import { CanTranslate, LazyString, TranslationService } from '@vcd/i18n';
+import { LazyString, TranslationService } from '@vcd/i18n';
 import { Observable } from 'rxjs';
 import { ActivityReporter } from '../common/activity-reporter/activity-reporter';
 import { TooltipSize } from '../lib/directives/show-clipped-text.directive';
@@ -225,7 +225,7 @@ interface ColumnConfigInternal<R, T> extends GridColumn<R> {
     templateUrl: './datagrid.component.html',
     styleUrls: ['./datagrid.component.scss'],
 })
-export class DatagridComponent<R> extends CanTranslate(class {}) implements OnInit, AfterViewInit {
+export class DatagridComponent<R> implements OnInit, AfterViewInit {
     /**
      * Sets the configuration of columns on the grid and updates the {@link columnsConfig} array
      */
@@ -300,11 +300,9 @@ export class DatagridComponent<R> extends CanTranslate(class {}) implements OnIn
 
     constructor(
         private node: ElementRef,
-        public translationService: TranslationService,
+        private translationService: TranslationService,
         private changeDetectorRef: ChangeDetectorRef
-    ) {
-        super();
-    }
+    ) {}
 
     /**
      * The pagination information that the user should supply.
@@ -501,7 +499,7 @@ export class DatagridComponent<R> extends CanTranslate(class {}) implements OnIn
      * @param totalItems the total number of items that could be displayed.
      */
     @Input() paginationCallback(firstItem: number, lastItem: number, totalItems: number): string | Observable<string> {
-        return this.translateAsync('vcd.cc.grid.default.pagination', [
+        return this.translationService.translateAsync('vcd.cc.grid.default.pagination', [
             {
                 firstItem,
                 lastItem,

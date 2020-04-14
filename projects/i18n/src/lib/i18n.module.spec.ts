@@ -12,7 +12,6 @@ import { BehaviorSubject, Observable } from 'rxjs';
 import { I18nModule } from './i18n.module';
 import { MessageFormatTranslationService } from './service/message-format-translation-service';
 import { TranslationService } from './service/translation-service';
-import { CanTranslate } from './service/translation-service.mixin';
 
 describe('I18nModule', () => {
     it('translates correctly with forRoot', fakeAsync(async () => {
@@ -79,10 +78,8 @@ describe('I18nModule', () => {
     `,
     selector: 'lib-translate-test',
 })
-class TestClassComponent extends CanTranslate(class {}) {
-    text: Observable<string> = this.translateAsync('vcd.cc.cancel');
+class TestClassComponent {
+    text: Observable<string> = this.translationService.translateAsync('vcd.cc.cancel');
 
-    constructor(public translationService: TranslationService) {
-        super();
-    }
+    constructor(private translationService: TranslationService) {}
 }
