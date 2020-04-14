@@ -11,7 +11,7 @@ import { ErrorBannerModule } from './error-banner.module';
 
 @Component({
     template: `
-        <vcd-error-banner #banner [errorMessage]="message"></vcd-error-banner>
+        <vcd-temp-error-banner #banner [errorMessage]="message"></vcd-temp-error-banner>
     `,
 })
 class TestErrorComponent {

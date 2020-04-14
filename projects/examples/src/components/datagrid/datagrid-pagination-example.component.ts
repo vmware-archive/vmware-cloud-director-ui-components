@@ -33,6 +33,8 @@ export class DatagridPaginationExampleComponent {
     paginationInfo: PaginationConfiguration = {
         pageSize: 2,
         pageSizeOptions: [2, 20, 50, 100],
+        shouldShowPageNumberInput: true,
+        shouldShowPageSizeSelector: true,
     };
 
     columns: GridColumn<Data>[] = [

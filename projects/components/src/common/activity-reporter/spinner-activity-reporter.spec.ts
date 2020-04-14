@@ -12,7 +12,7 @@ import { SpinnerActivityReporterComponent } from './spinner-activity-reporter.co
 
 @Component({
     template: `
-        <vcd-spinner-activity-reporter #activityReporter></vcd-spinner-activity-reporter>
+        <vcd-temp-spinner-activity-reporter #activityReporter></vcd-temp-spinner-activity-reporter>
     `,
 })
 class TestSpinnerComponent {

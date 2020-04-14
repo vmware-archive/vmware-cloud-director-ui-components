@@ -13,7 +13,7 @@ import { BannerActivityReporterComponent } from './banner-activity-reporter.comp
 
 @Component({
     template: `
-        <vcd-banner-activity-reporter [loadingMessage]="loadingMessage"></vcd-banner-activity-reporter>
+        <vcd-temp-banner-activity-reporter [loadingMessage]="loadingMessage"></vcd-temp-banner-activity-reporter>
     `,
 })
 class TestBannerComponent {

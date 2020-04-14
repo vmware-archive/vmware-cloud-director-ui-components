@@ -11,7 +11,7 @@ import { ActivityReporter } from './activity-reporter';
  * An error message is displayed through the error banner.
  */
 @Component({
-    selector: 'vcd-spinner-activity-reporter',
+    selector: 'vcd-temp-spinner-activity-reporter',
     templateUrl: './spinner-activity-reporter.component.html',
 })
 export class SpinnerActivityReporterComponent extends ActivityReporter {

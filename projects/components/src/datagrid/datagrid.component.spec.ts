@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: BSD-2-Clause
  */
 
-import { Component, ViewChild } from '@angular/core';
+import { Component, HostBinding, ViewChild } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MockTranslationService, TranslationService } from '@vcd/i18n';
@@ -22,6 +22,7 @@ import {
     GridColumn,
     GridColumnHideable,
     InactiveButtonDisplayMode,
+    TextIcon,
 } from './interfaces/datagrid-column.interface';
 import { mockData, MockRecord } from './mock-data';
 import { BoldTextRendererComponent } from './renderers/bold-text-renderer.component';
@@ -78,6 +79,19 @@ describe('DatagridComponent', () => {
                 );
                 expect(this.clrGridWidget.getColumnHeader(0)).toEqual(this.finder.hostComponent.columns[0].displayName);
             });
+
+            // TODO: uncomment when we upgrade to Clarity 3. Due to a bug in Clarity, there
+            // is some debug pollution in the datagrid columns.
+            /*it('displays the correct headers even when columns are reloaded', function(this: HasFinderAndGrid): void {
+                this.finder.hostComponent.columns = [
+                    { displayName: 'One More', renderer: 'name' },
+                ];
+                this.finder.detectChanges();
+                expect(this.clrGridWidget.columnHeaders).toEqual(
+                    this.finder.hostComponent.columns.map(col => col.displayName)
+                );
+                expect(this.clrGridWidget.getColumnHeader(0)).toEqual(this.finder.hostComponent.columns[0].displayName);
+            });*/
 
             it('displays rows based on the grid data received', function(this: HasFinderAndGrid): void {
                 expect(this.clrGridWidget.rowCount).toBe(mockData.length);
@@ -251,19 +265,30 @@ describe('DatagridComponent', () => {
 
             describe('@Input() pagination', () => {
                 describe('pageSize', () => {
-                    it('finds the most rows that can fit in the set height with magic pagination ', function(this: HasFinderAndGrid): void {
-                        this.finder.hostComponent.height = 200;
+                    it('finds the most rows that can fit in the set height with magic pagination', function(this: HasFinderAndGrid): void {
+                        this.finder.hostComponent.parentHeight = '2000px';
                         this.finder.detectChanges();
                         this.finder.hostComponent.pagination = {
                             pageSize: 'Magic',
                             pageSizeOptions: [10],
                         };
                         this.finder.detectChanges();
-                        expect(this.clrGridWidget.getPaginationDescription()).toEqual('1 - 3 of 150 items');
+                        expect(this.clrGridWidget.getPaginationDescription()).toEqual('1 - 51 of 150 items');
+                    });
+
+                    it('shows a minimum of 15 rows', function(this: HasFinderAndGrid): void {
+                        this.finder.hostComponent.parentHeight = '200px';
+                        this.finder.detectChanges();
+                        this.finder.hostComponent.pagination = {
+                            pageSize: 'Magic',
+                            pageSizeOptions: [10],
+                        };
+                        this.finder.detectChanges();
+                        expect(this.clrGridWidget.getPaginationDescription()).toEqual('1 - 15 of 150 items');
                     });
 
                     it('allows the user to set a custom row height with magic pagination ', function(this: HasFinderAndGrid): void {
-                        this.finder.hostComponent.height = 200;
+                        this.finder.hostComponent.parentHeight = '2000px';
                         this.finder.detectChanges();
                         this.finder.hostComponent.pagination = {
                             pageSize: 'Magic',
@@ -271,16 +296,18 @@ describe('DatagridComponent', () => {
                             rowHeight: 100,
                         };
                         this.finder.detectChanges();
-                        expect(this.clrGridWidget.getPaginationDescription()).toEqual('1 - 1 of 150 items');
+                        expect(this.clrGridWidget.getPaginationDescription()).toEqual('1 - 19 of 150 items');
                     });
 
-                    it('uses default page size when height is not set with magic pagination ', function(this: HasFinderAndGrid): void {
+                    it('uses grid height when height is set to calculate page size ', function(this: HasFinderAndGrid): void {
+                        this.finder.hostComponent.parentHeight = '2000px';
+                        this.finder.hostComponent.height = 1000;
                         this.finder.hostComponent.pagination = {
                             pageSize: 'Magic',
                             pageSizeOptions: [10],
                         };
                         this.finder.detectChanges();
-                        expect(this.clrGridWidget.getPaginationDescription()).toEqual('1 - 10 of 150 items');
+                        expect(this.clrGridWidget.getPaginationDescription()).toEqual('1 - 24 of 150 items');
                     });
 
                     it('lets the user set rows per page', function(this: HasFinderAndGrid): void {
@@ -293,7 +320,7 @@ describe('DatagridComponent', () => {
                     });
 
                     it('creates a smaller page when buttons are present', function(this: HasFinderAndGrid): void {
-                        this.finder.hostComponent.height = 200;
+                        this.finder.hostComponent.parentHeight = '2000px';
                         this.finder.detectChanges();
                         this.finder.hostComponent.pagination = {
                             pageSize: 'Magic',
@@ -316,19 +343,44 @@ describe('DatagridComponent', () => {
                             },
                         };
                         this.finder.detectChanges();
-                        expect(this.clrGridWidget.getPaginationDescription()).toEqual('1 - 2 of 150 items');
+                        expect(this.clrGridWidget.getPaginationDescription()).toEqual('1 - 50 of 150 items');
+                    });
+                });
+
+                describe('shouldShowPageSizeSelector', () => {
+                    it('hides the dropdown when set to false', function(this: HasFinderAndGrid): void {
+                        this.finder.hostComponent.pagination = {
+                            ...this.finder.hostComponent.pagination,
+                            shouldShowPageSizeSelector: false,
+                        };
+                        this.finder.detectChanges();
+                        expect(this.clrGridWidget.getPaginationSizeSelectorText()).toEqual('');
+                    });
+
+                    it('shows the dropdown when set to true', function(this: HasFinderAndGrid): void {
+                        this.finder.hostComponent.pagination = {
+                            ...this.finder.hostComponent.pagination,
+                            shouldShowPageSizeSelector: true,
+                        };
+                        this.finder.detectChanges();
+                        expect(this.clrGridWidget.getPaginationSizeSelectorText()).toEqual('Total Items52050100');
                     });
                 });
             });
 
             describe('@Input() paginationCallback', () => {
                 it('displays pagination callback information on page one', function(this: HasFinderAndGrid): void {
-                    expect(this.clrGridWidget.getPaginationDescription()).toEqual('1 - 5 of 150 items');
+                    expect(this.clrGridWidget.getPaginationDescription()).toEqual('1 - 15 of 150 items');
                 });
             });
 
             describe('@Input() paginationDropdownText', () => {
                 it('displays the pagination dropdown information on page one', function(this: HasFinderAndGrid): void {
+                    this.finder.hostComponent.pagination = {
+                        ...this.finder.hostComponent.pagination,
+                        shouldShowPageSizeSelector: true,
+                    };
+                    this.finder.detectChanges();
                     expect(this.clrGridWidget.getPaginationSizeSelectorText()).toEqual('Total Items52050100');
                 });
             });
@@ -465,7 +517,7 @@ describe('DatagridComponent', () => {
                         name: 'a',
                         reverse: false,
                     },
-                    pagination: { pageNumber: 1, itemsPerPage: 5 },
+                    pagination: { pageNumber: 1, itemsPerPage: 15 },
                 });
                 this.clrGridWidget.sortColumn(0);
                 expect(refreshMethod).toHaveBeenCalledWith({
@@ -473,7 +525,7 @@ describe('DatagridComponent', () => {
                         name: 'a',
                         reverse: true,
                     },
-                    pagination: { pageNumber: 1, itemsPerPage: 5 },
+                    pagination: { pageNumber: 1, itemsPerPage: 15 },
                 });
             });
 
@@ -489,7 +541,7 @@ describe('DatagridComponent', () => {
                 expect(refreshMethod).toHaveBeenCalledWith({
                     pagination: {
                         pageNumber: 2,
-                        itemsPerPage: 5,
+                        itemsPerPage: 15,
                     },
                 });
             });
@@ -499,7 +551,7 @@ describe('DatagridComponent', () => {
                 this.clrGridWidget.nextPage();
                 this.clrGridWidget.sortColumn(0);
                 expect(refreshMethod).toHaveBeenCalledWith({
-                    pagination: { pageNumber: 1, itemsPerPage: 5 },
+                    pagination: { pageNumber: 1, itemsPerPage: 15 },
                     sortColumn: { name: 'a', reverse: false },
                 });
             });
@@ -648,17 +700,44 @@ describe('DatagridComponent', () => {
                     expect(() => this.finder.detectChanges()).toThrowError('Featured button was not found');
                 });
 
+                describe('buttonContents', () => {
+                    it('shows icon when set to only show icon', function(this: HasFinderAndGrid): void {
+                        this.finder.hostComponent.buttonConfig.contextualButtonConfig.buttonContents = TextIcon.ICON;
+                        this.finder.detectChanges();
+                        expect(this.vcdDatagrid.component.shouldShowIcon()).toBeTruthy();
+                        expect(this.vcdDatagrid.component.shouldShowText()).toBeFalsy();
+                        expect(this.vcdDatagrid.component.shouldShowTooltip()).toBeTruthy();
+                    });
+
+                    it('shows label when set to only show label', function(this: HasFinderAndGrid): void {
+                        this.finder.hostComponent.buttonConfig.contextualButtonConfig.buttonContents = TextIcon.TEXT;
+                        this.finder.detectChanges();
+                        expect(this.vcdDatagrid.component.shouldShowIcon()).toBeFalsy();
+                        expect(this.vcdDatagrid.component.shouldShowText()).toBeTruthy();
+                        expect(this.vcdDatagrid.component.shouldShowTooltip()).toBeFalsy();
+                    });
+
+                    it('shows icon and label when set to only show both', function(this: HasFinderAndGrid): void {
+                        this.finder.hostComponent.buttonConfig.contextualButtonConfig.buttonContents =
+                            TextIcon.ICON_AND_TEXT;
+                        this.finder.detectChanges();
+                        expect(this.vcdDatagrid.component.shouldShowIcon()).toBeTruthy();
+                        expect(this.vcdDatagrid.component.shouldShowText()).toBeTruthy();
+                        expect(this.vcdDatagrid.component.shouldShowTooltip()).toBeFalsy();
+                    });
+                });
+
                 describe('getFeaturedButtons()', () => {
                     it('shows only the given number of featured buttons', function(this: HasFinderAndGrid): void {
                         expect(
-                            this.finder.hostComponent.grid.getFeaturedButtons(mockData[0]).map(button => button.label)
+                            this.finder.hostComponent.grid.getFeaturedButtons(mockData).map(button => button.label)
                         ).toEqual(['Add', 'Remove']);
                     });
 
                     it('shows all the featured buttons when featuredCount is greater than length', function(this: HasFinderAndGrid): void {
                         this.finder.hostComponent.buttonConfig.contextualButtonConfig.featuredCount = 4;
                         expect(
-                            this.finder.hostComponent.grid.getFeaturedButtons(mockData[0]).map(button => button.label)
+                            this.finder.hostComponent.grid.getFeaturedButtons(mockData).map(button => button.label)
                         ).toEqual(['Add', 'Remove', 'Other']);
                     });
                 });
@@ -837,24 +916,26 @@ describe('DatagridComponent', () => {
 
 @Component({
     template: `
-        <vcd-datagrid
-            [gridData]="gridData"
-            (gridRefresh)="refresh($event)"
-            [columns]="columns"
-            [clrDatagridCssClass]="clrDatagridCssClass"
-            [clrDatarowCssClassGetter]="clrDatarowCssClassGetter"
-            [selectionType]="selectionType"
-            (selectionChanged)="selectionChanged($event)"
-            [paginationCallback]="paginationCallback"
-            [paginationDropdownText]="paginationText"
-            [pagination]="pagination"
-            [buttonConfig]="buttonConfig"
-            [height]="height"
-            [header]="header"
-            [indicatorType]="indicatorType"
-        >
-            <ng-template let-record="record"> DETAILS: {{ record.name }} </ng-template>
-        </vcd-datagrid>
+        <div [ngStyle]="{ height: parentHeight }">
+            <vcd-datagrid
+                [gridData]="gridData"
+                (gridRefresh)="refresh($event)"
+                [columns]="columns"
+                [clrDatagridCssClass]="clrDatagridCssClass"
+                [clrDatarowCssClassGetter]="clrDatarowCssClassGetter"
+                [selectionType]="selectionType"
+                (selectionChanged)="selectionChanged($event)"
+                [paginationCallback]="paginationCallback"
+                [paginationDropdownText]="paginationText"
+                [pagination]="pagination"
+                [buttonConfig]="buttonConfig"
+                [height]="height"
+                [header]="header"
+                [indicatorType]="indicatorType"
+            >
+                <ng-template let-record="record"> DETAILS: {{ record.name }} </ng-template>
+            </vcd-datagrid>
+        </div>
     `,
 })
 export class HostWithDatagridComponent {
@@ -873,6 +954,8 @@ export class HostWithDatagridComponent {
     selectionType = GridSelectionType.None;
 
     height?: number;
+
+    @HostBinding('class.height') parentHeight = 'unset';
 
     header?: string;
 

@@ -12,6 +12,7 @@ import {
     GridSelectionType,
     GridState,
     InactiveButtonDisplayMode,
+    TextIcon,
 } from '@vcd/ui-components';
 
 interface Data {
@@ -104,6 +105,7 @@ export class DatagridLinkExampleComponent {
             featuredCount: 3,
             featured: ['a', 'b', 'c'],
             position: ContextualButtonPosition.TOP,
+            buttonContents: TextIcon.TEXT,
         },
         inactiveDisplayMode: InactiveButtonDisplayMode.Disable,
     };

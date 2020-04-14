@@ -11,7 +11,7 @@ import { LoadingIndicatorModule } from './loading-indicator.module';
 
 @Component({
     template: `
-        <vcd-loading-indicator #loading [isLoading]="loadingVal" [size]="size"></vcd-loading-indicator>
+        <vcd-temp-loading-indicator #loading [isLoading]="loadingVal" [size]="size"></vcd-temp-loading-indicator>
     `,
 })
 class TestErrorComponent {
