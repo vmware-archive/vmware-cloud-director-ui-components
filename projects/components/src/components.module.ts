@@ -9,6 +9,7 @@ import { ErrorBannerModule } from './common/error/error-banner.module';
 import { LoadingIndicatorModule } from './common/loading/loading-indicator.module';
 import { DataExporterModule } from './data-exporter/data-exporter.module';
 import { DatagridModule } from './datagrid/datagrid.module';
+import { FormModule } from './form/form.module';
 import { ShowClippedTextDirectiveModule } from './lib/directives/show-clipped-text.directive.module';
 
 @NgModule({
@@ -19,6 +20,7 @@ import { ShowClippedTextDirectiveModule } from './lib/directives/show-clipped-te
         ErrorBannerModule,
         LoadingIndicatorModule,
         ActivityReporterModule,
+        FormModule,
     ],
     exports: [
         DataExporterModule,
@@ -27,6 +29,7 @@ import { ShowClippedTextDirectiveModule } from './lib/directives/show-clipped-te
         ErrorBannerModule,
         LoadingIndicatorModule,
         ActivityReporterModule,
+        FormModule,
     ],
 })
 export class ComponentsModule {}

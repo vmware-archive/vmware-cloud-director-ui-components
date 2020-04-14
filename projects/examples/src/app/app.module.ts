@@ -5,7 +5,7 @@
 
 import { registerLocaleData } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
-import { InjectionToken, NgModule } from '@angular/core';
+import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
@@ -26,6 +26,7 @@ import { ActivityReporterExamplesModule } from '../components/activity-reporter/
 import { DataExporterExamplesModule } from '../components/data-exporter/data-exporter.examples.module';
 import { DatagridExamplesModule } from '../components/datagrid/datagrid.examples.module';
 import { ErrorBannerExamplesModule } from '../components/error/error-banner.examples.module';
+import { FormInputComponentsExamplesModule } from '../components/form-input/form-input-components.examples.module';
 import { LoadingIndicatorExamplesModule } from '../components/loading/loading-indicator.examples.module';
 import { SubscriptionTrackerExamplesModule } from '../components/subscription/subscription-tracker.examples.module';
 import { ShowClippedTextExamplesModule } from './components/show-clipped-text/show-clipped-text-examples.module';
@@ -71,6 +72,7 @@ export const sbInfo: StackBlitzInfo = {
         LoadingIndicatorExamplesModule,
         ErrorBannerExamplesModule,
         ActivityReporterExamplesModule,
+        FormInputComponentsExamplesModule,
     ],
     providers: [
         {

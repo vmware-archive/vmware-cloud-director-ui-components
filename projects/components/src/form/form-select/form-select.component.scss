@@ -1,0 +1,15 @@
+.form-group.hide-label {
+    padding-left: 0;
+}
+
+.form-group.hide-label label:first-child {
+    visibility: hidden;
+}
+
+.error-content {
+    white-space: normal;
+}
+
+:host(.site-selector-single-site) {
+    display: none;
+}

@@ -3,13 +3,13 @@
  * SPDX-License-Identifier: BSD-2-Clause
  */
 
-import { Component, Host, Input, OnInit } from '@angular/core';
+import { Component, Host } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { ClrDatagridFilter } from '@clr/angular';
+import { SelectOption } from '../../common/interfaces/select-option';
 import { FilterBuilder } from '../../utils/filter-builder';
 import { IdGenerator } from '../../utils/id-generator/id-generator';
 import { DatagridFilter, FilterComponentRendererSpec, FilterConfig, FilterRendererSpec } from './datagrid-filter';
-import { SelectOption } from './datagrid-select-filter.component';
 
 /**
  * Same as the {@link SelectOption} but value is always a string
