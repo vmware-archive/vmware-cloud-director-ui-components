@@ -4,7 +4,7 @@
  */
 
 import { HttpClientTestingModule } from '@angular/common/http/testing';
-import { Component, InjectionToken } from '@angular/core';
+import { Component, InjectionToken, LOCALE_ID } from '@angular/core';
 import { fakeAsync, TestBed, tick } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -13,7 +13,6 @@ import { I18nModule } from './i18n.module';
 import { MessageFormatTranslationService } from './service/message-format-translation-service';
 import { TranslationService } from './service/translation-service';
 import { CanTranslate } from './service/translation-service.mixin';
-import { BOOTSTRAP_DETAILS } from './utils/tokens';
 
 describe('I18nModule', () => {
     it('translates correctly with forRoot', fakeAsync(async () => {
@@ -21,8 +20,8 @@ describe('I18nModule', () => {
             imports: [I18nModule.forRoot(), BrowserAnimationsModule],
             providers: [
                 {
-                    provide: BOOTSTRAP_DETAILS,
-                    useValue: { locale: 'en' },
+                    provide: LOCALE_ID,
+                    useValue: 'en',
                 },
             ],
             declarations: [TestClassComponent],
@@ -47,8 +46,8 @@ describe('I18nModule', () => {
             imports: [I18nModule.forChild(route, true), BrowserAnimationsModule, HttpClientTestingModule],
             providers: [
                 {
-                    provide: BOOTSTRAP_DETAILS,
-                    useValue: { locale: 'en' },
+                    provide: LOCALE_ID,
+                    useValue: 'en',
                 },
                 {
                     provide: route,
