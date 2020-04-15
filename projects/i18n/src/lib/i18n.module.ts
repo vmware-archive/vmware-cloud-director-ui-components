@@ -4,7 +4,7 @@
  */
 
 import { HttpClient } from '@angular/common/http';
-import { ModuleWithProviders, Optional } from '@angular/core';
+import { LOCALE_ID, ModuleWithProviders, Optional } from '@angular/core';
 import { Inject, InjectionToken, NgModule } from '@angular/core';
 import { TranslationLoader } from './loader/translation-loader';
 import { FormatDateTimePipe } from './pipe/format-date-time-pipe';
@@ -12,7 +12,6 @@ import { LazyStringPipe } from './pipe/lazy-string.pipe';
 import { TranslationPipe } from './pipe/translation-pipe';
 import { MessageFormatTranslationService } from './service/message-format-translation-service';
 import { TranslationService } from './service/translation-service';
-import { BOOTSTRAP_DETAILS } from './utils/tokens';
 
 let singletonService: TranslationService = null;
 
@@ -27,11 +26,8 @@ export function genericSingletonFactory(details: { locale: string }): Translatio
  * An implementation of {@link TranslationService} that can inject all of its dependencies.
  */
 export class InjectedTranslationService extends MessageFormatTranslationService {
-    constructor(
-        @Inject(BOOTSTRAP_DETAILS) details: { locale: string },
-        @Inject(TranslationLoader) @Optional() loader: TranslationLoader
-    ) {
-        super(details.locale, 'en', loader, false);
+    constructor(@Inject(LOCALE_ID) locale: string, @Inject(TranslationLoader) @Optional() loader: TranslationLoader) {
+        super(locale, 'en', loader, false);
     }
 }
 /**
@@ -39,11 +35,8 @@ export class InjectedTranslationService extends MessageFormatTranslationService 
  * and has combined set to true.
  */
 export class CombinedInjectedTranslationService extends MessageFormatTranslationService {
-    constructor(
-        @Inject(BOOTSTRAP_DETAILS) details: { locale: string },
-        @Inject(TranslationLoader) @Optional() loader: TranslationLoader
-    ) {
-        super(details.locale, 'en', loader, true);
+    constructor(@Inject(LOCALE_ID) locale: string, @Inject(TranslationLoader) @Optional() loader: TranslationLoader) {
+        super(locale, 'en', loader, true);
     }
 }
 
@@ -67,7 +60,7 @@ export class I18nModule {
                 {
                     provide: TranslationService,
                     useFactory: genericSingletonFactory,
-                    deps: [BOOTSTRAP_DETAILS],
+                    deps: [LOCALE_ID],
                 },
             ],
         };

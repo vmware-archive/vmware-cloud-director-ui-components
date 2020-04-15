@@ -4,4 +4,3 @@
  */
 
 export * from './platform-util';
-export * from './tokens';
