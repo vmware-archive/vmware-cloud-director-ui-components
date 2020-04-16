@@ -1,0 +1,46 @@
+<div class="form-group" *ngIf="isReadOnly">
+    <label>{{ label }}</label>
+    <span class="readonly-text">{{ this.displayValue }}</span>
+</div>
+<form [formGroup]="formGroup" *ngIf="!isReadOnly" class="input-number-with-unit">
+    <vcd-form-input
+        formControlName="limited"
+        [placeholder]="placeholder"
+        type="number"
+        [size]="size"
+        [min]="min"
+        [max]="max"
+        [maxlength]="maxlength"
+        [showAsterisk]="showAsterisk"
+        [label]="label"
+        [description]="description"
+        [errorLabels]="errorLabels"
+    >
+        <aside [ngSwitch]="unitOptions?.length">
+            <ng-container *ngSwitchCase="0">
+                <!-- Do not display unit -->
+            </ng-container>
+            <ng-container *ngSwitchCase="1">
+                <div class="single-option">
+                    {{ unitOptions[0].getUnitNameTranslationKey() | translate }}
+                </div>
+            </ng-container>
+            <vcd-form-select
+                class="combo-options"
+                *ngSwitchDefault
+                #unitDropdown
+                [options]="comboOptions"
+                formControlName="comboUnitOptions"
+            >
+            </vcd-form-select>
+            <clr-signpost *ngIf="hint">
+                <clr-signpost-content [clrPosition]="hintPosition" *clrIfOpen>
+                    <p>{{ hint }}</p>
+                </clr-signpost-content>
+            </clr-signpost>
+        </aside>
+        <footer *ngIf="showUnlimitedOption">
+            <vcd-form-checkbox [text]="'unlimited' | translate" formControlName="unlimited"> </vcd-form-checkbox>
+        </footer>
+    </vcd-form-input>
+</form>

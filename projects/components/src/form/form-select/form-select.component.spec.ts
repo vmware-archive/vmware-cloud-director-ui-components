@@ -28,7 +28,7 @@ export class VcdFormSelectWidgetObject extends WidgetObject<FormSelectComponent>
     }
 }
 
-describe('VcdFormSelectComponent', () => {
+describe('FormSelectComponent', () => {
     let hostComponent: TestHostComponent;
     let finder: WidgetFinder<TestHostComponent>;
     let selectInput: VcdFormSelectWidgetObject;

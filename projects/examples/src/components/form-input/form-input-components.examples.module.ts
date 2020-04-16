@@ -4,12 +4,17 @@
  */
 
 import { NgModule } from '@angular/core';
-import { FormInputComponent, FormSelectComponent } from '@vcd/ui-components';
+import { FormInputComponent, FormSelectComponent, NumberWithUnitFormInputComponent } from '@vcd/ui-components';
 import { Documentation } from '@vcd/ui-doc-lib';
+import { FormCheckboxComponent } from '../../../../components/src/form/form-checkbox/form-checkbox.component';
+import { FormCheckboxExampleComponent } from './form-checkbox.example.component';
+import { FormCheckboxExampleModule } from './form-checkbox.example.module';
 import { FormInputExampleComponent } from './form-input.example.component';
 import { FormInputExampleModule } from './form-input.example.module';
 import { FormSelectExampleComponent } from './form-select.example.component';
 import { FormSelectExampleModule } from './form-select.example.module';
+import { NumberWithUnitFormInputExampleComponent } from './number-with-unit-form-input.example.component';
+import { NumberWithUnitFormInputExampleModule } from './number-with-unit-form-input.example.module';
 
 Documentation.registerDocumentationEntry({
     component: FormInputComponent,
@@ -37,10 +42,41 @@ Documentation.registerDocumentationEntry({
     ],
 });
 
+Documentation.registerDocumentationEntry({
+    component: FormCheckboxComponent,
+    displayName: 'Checkbox',
+    urlSegment: 'formCheckbox',
+    examples: [
+        {
+            component: FormCheckboxExampleComponent,
+            forComponent: null,
+            title: 'Checkbox form input',
+        },
+    ],
+});
+
+Documentation.registerDocumentationEntry({
+    component: NumberWithUnitFormInputComponent,
+    displayName: 'Number with unit input',
+    urlSegment: 'numberWithUnitFormInput',
+    examples: [
+        {
+            component: NumberWithUnitFormInputExampleComponent,
+            forComponent: null,
+            title: 'Number with unit form input',
+        },
+    ],
+});
+
 /**
  * A module that imports all error banner examples.
  */
 @NgModule({
-    imports: [FormInputExampleModule, FormSelectExampleModule],
+    imports: [
+        FormInputExampleModule,
+        FormSelectExampleModule,
+        FormCheckboxExampleModule,
+        NumberWithUnitFormInputExampleModule,
+    ],
 })
 export class FormInputComponentsExamplesModule {}
