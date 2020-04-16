@@ -106,8 +106,8 @@ export abstract class ThousandsUnit extends Unit {
 }
 
 export class Hertz extends ThousandsUnit {
-    static valueWithUnitTranslationKeyPrefix = 'cpu.speed.unit.';
-    static unitNameTranslationKeyPrefix = 'units.hertz';
+    static valueWithUnitTranslationKeyPrefix = 'vcd.cc.cpu.speed.unit.';
+    static unitNameTranslationKeyPrefix = 'vcd.cc.units.hertz.';
     static Hz = new Hertz(1, 'Hz');
     static Khz = new Hertz(1e3, 'KHz');
     static Mhz = new Hertz(1e6, 'MHz');
@@ -129,8 +129,8 @@ export class Hertz extends ThousandsUnit {
 }
 
 export class Bytes extends ThousandsUnit {
-    static valueWithUnitTranslationKeyPrefix = 'filesize.unit.';
-    static unitNameTranslationKeyPrefix = 'units.bytes.';
+    static valueWithUnitTranslationKeyPrefix = 'vcd.cc.filesize.unit.';
+    static unitNameTranslationKeyPrefix = 'vcd.cc.units.bytes.';
     static B = new Bytes(1, 'B');
     static KB = new Bytes(1024, 'KB');
     static MB = new Bytes(1024 ** 2, 'MB');
@@ -159,8 +159,8 @@ export class Bytes extends ThousandsUnit {
  * In both formats single unitName - "%" is used represent the value
  */
 export class Percent extends Unit {
-    static valueWithUnitTranslationKey = 'display.percent';
-    static unitTranslationKey = 'units.percent';
+    static valueWithUnitTranslationKey = 'vcd.cc.display.percent';
+    static unitTranslationKey = 'vcd.cc.units.percent';
 
     /**
      * Percent always has unitName as "%"

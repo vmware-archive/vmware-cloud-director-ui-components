@@ -175,8 +175,8 @@ export class NumberWithUnitFormInputComponent extends BaseFormControl implements
     }
 
     ngOnInit(): void {
-        const validator = FormValidators.isNumberInRange(this.min, this.max, 'warning.numRange');
-        const validatorUnlimited = FormValidators.isNumberInRange(-1, this.max, 'warning.numRange');
+        const validator = FormValidators.isNumberInRange(this.min, this.max, 'vcd.cc.warning.numRange');
+        const validatorUnlimited = FormValidators.isNumberInRange(-1, this.max, 'vcd.cc.warning.numRange');
         this.computeBestUnitAndValue(this.initialValue as number);
         if (!this.showUnlimitedOption) {
             this.formGroup = this.fb.group({
