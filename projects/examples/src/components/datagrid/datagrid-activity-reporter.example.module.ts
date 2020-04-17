@@ -6,12 +6,12 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { ClarityModule } from '@clr/angular';
-import { ComponentsModule } from '@vcd/ui-components';
+import { VcdComponentsModule } from '@vcd/ui-components';
 import { DatagridActivityReporterExampleComponent } from './datagrid-activity-reporter.example.component';
 
 @NgModule({
     declarations: [DatagridActivityReporterExampleComponent],
-    imports: [CommonModule, ClarityModule, ComponentsModule],
+    imports: [CommonModule, ClarityModule, VcdComponentsModule],
     exports: [DatagridActivityReporterExampleComponent],
     entryComponents: [DatagridActivityReporterExampleComponent],
 })

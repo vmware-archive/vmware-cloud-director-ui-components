@@ -23,7 +23,7 @@ export class BannerActivityReporterExampleComponent {
     startActivity(): void {
         this.showBanner = true;
         this.reporter
-            .monitorActivity(
+            .monitorGet(
                 new Promise((resolve, reject) => {
                     this.reject = reject;
                     this.resolve = resolve;

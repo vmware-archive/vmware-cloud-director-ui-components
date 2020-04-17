@@ -15,4 +15,4 @@ import { DataExporterComponent } from './data-exporter.component';
     imports: [CommonModule, ReactiveFormsModule, ClarityModule, I18nModule],
     exports: [DataExporterComponent],
 })
-export class DataExporterModule {}
+export class VcdDataExporterModule {}

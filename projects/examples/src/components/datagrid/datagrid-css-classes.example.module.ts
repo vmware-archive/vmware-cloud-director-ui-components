@@ -6,12 +6,12 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { ClarityModule } from '@clr/angular';
-import { ComponentsModule } from '@vcd/ui-components';
+import { VcdComponentsModule } from '@vcd/ui-components';
 import { DatagridCssClassesExampleComponent } from './datagrid-css-classes.example.component';
 
 @NgModule({
     declarations: [DatagridCssClassesExampleComponent],
-    imports: [CommonModule, ClarityModule, ComponentsModule],
+    imports: [CommonModule, ClarityModule, VcdComponentsModule],
     exports: [DatagridCssClassesExampleComponent],
     entryComponents: [DatagridCssClassesExampleComponent],
 })

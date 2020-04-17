@@ -10,7 +10,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterModule } from '@angular/router';
 import { ClarityModule } from '@clr/angular';
 import { I18nModule } from '@vcd/i18n';
-import { ActivityReporterModule } from '../common/activity-reporter/activity-reporter.module';
+import { VcdActivityReporterModule } from '../common/activity-reporter/activity-reporter.module';
 import { PipesModule } from '../common/pipes/pipes.module';
 import { ShowClippedTextDirectiveModule } from '../lib/directives/show-clipped-text.directive.module';
 import { DatagridComponent } from './datagrid.component';
@@ -42,11 +42,11 @@ const filters = [
         ShowClippedTextDirectiveModule,
         FormsModule,
         I18nModule,
-        ActivityReporterModule,
+        VcdActivityReporterModule,
     ],
     declarations: [DatagridComponent, ...directives, ...renderers, ...pipes, ...filters],
     providers: [],
     exports: [DatagridComponent, ...renderers],
     entryComponents: [...renderers, ...filters],
 })
-export class DatagridModule {}
+export class VcdDatagridModule {}

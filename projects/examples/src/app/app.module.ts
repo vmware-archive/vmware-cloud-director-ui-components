@@ -14,7 +14,7 @@ import localeFr from '@angular/common/locales/fr';
 import { FormsModule } from '@angular/forms';
 import { ClarityModule } from '@clr/angular';
 import { I18nModule, TranslationService } from '@vcd/i18n';
-import { ComponentsModule } from '@vcd/ui-components';
+import { ActivityPromiseResolver, VcdComponentsModule } from '@vcd/ui-components';
 import { CompodocSchema, DocLibModule, StackBlitzInfo } from '@vcd/ui-doc-lib';
 import { AppRoutingModule } from './app-routing.module';
 
@@ -63,7 +63,7 @@ export const sbInfo: StackBlitzInfo = {
         ClarityModule,
         BrowserAnimationsModule,
         DocLibModule.forRoot([docJson1, docJson2], sbInfo),
-        ComponentsModule,
+        VcdComponentsModule,
         FormsModule,
         DatagridExamplesModule,
         DataExporterExamplesModule,
@@ -79,6 +79,7 @@ export const sbInfo: StackBlitzInfo = {
             provide: ASSET_URL,
             useValue: 'assets/translations',
         },
+        ActivityPromiseResolver,
     ],
     bootstrap: [AppComponent],
 })

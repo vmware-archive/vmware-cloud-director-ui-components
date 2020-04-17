@@ -5,14 +5,14 @@
 
 import { Component, Inject, Input } from '@angular/core';
 import { TranslationService } from '@vcd/i18n';
-import { LazyString } from '@vcd/i18n';
+import { ActivityPromiseResolver } from './activity-promise-resolver';
 import { ActivityReporter } from './activity-reporter';
 
 /**
  * Shows a banner to the user to represent the state of an activity.
  */
 @Component({
-    selector: 'vcd-temp-banner-activity-reporter',
+    selector: 'vcd-banner-activity-reporter',
     templateUrl: './banner-activity-reporter.component.html',
 })
 export class BannerActivityReporterComponent extends ActivityReporter {
@@ -26,8 +26,11 @@ export class BannerActivityReporterComponent extends ActivityReporter {
     @Input()
     loadingMessage = this.translationService.translateAsync('vcd.cc.loading');
 
-    constructor(private translationService: TranslationService) {
-        super();
+    constructor(
+        private translationService: TranslationService,
+        @Inject(ActivityPromiseResolver) promiseResolver: ActivityPromiseResolver<any>
+    ) {
+        super(promiseResolver);
     }
 
     /**

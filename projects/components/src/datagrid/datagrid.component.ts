@@ -21,14 +21,13 @@ import {
 import { ClrDatagrid, ClrDatagridFilter, ClrDatagridPagination, ClrDatagridStateInterface } from '@clr/angular';
 import { LazyString, TranslationService } from '@vcd/i18n';
 import { Observable } from 'rxjs';
-import { ActivityReporter } from '../common/activity-reporter/activity-reporter';
+import { ActivityReporter } from '../common/activity-reporter';
 import { TooltipSize } from '../lib/directives/show-clipped-text.directive';
 import { DatagridFilter } from './filters/datagrid-filter';
 import {
     Button,
     ButtonConfig,
     ColumnRendererSpec,
-    ContextualButtonConfig,
     ContextualButtonPosition,
     FunctionRenderer,
     GridColumn,
@@ -621,7 +620,7 @@ export class DatagridComponent<R> implements OnInit, AfterViewInit {
     runButtonHandler(button: Button<R>, selection?: R[]): void {
         const response = button.handler(selection);
         if (response && this.actionReporter) {
-            this.actionReporter.monitorActivity(response);
+            this.actionReporter.monitorGet(response);
         }
     }
 

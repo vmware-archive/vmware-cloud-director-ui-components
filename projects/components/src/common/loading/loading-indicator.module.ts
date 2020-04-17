@@ -15,4 +15,4 @@ import { LoadingIndicatorComponent } from './loading-indicator.component';
     exports: [LoadingIndicatorComponent],
     entryComponents: [LoadingIndicatorComponent],
 })
-export class LoadingIndicatorModule {}
+export class VcdLoadingIndicatorModule {}

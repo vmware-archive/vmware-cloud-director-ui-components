@@ -4,7 +4,7 @@
  */
 
 import { Component } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { WidgetFinder, WidgetObject } from '../../utils/test';
 import { configureFormInputTestingModule } from '../base-form-control.spec';
 import { FormInputComponent, getFormattedDateValue } from './form-input.component';
@@ -76,6 +76,11 @@ describe('FormInputComponent', () => {
                 numberInput.enter('70.9');
                 expect(hostComponent.formGroup.get('numberInput').value).toEqual(70.9);
             });
+
+            it('is not valid when set to null', () => {
+                numberInput.enter(null);
+                expect(hostComponent.formGroup.get('numberInput').valid).toBeFalsy();
+            });
         });
         describe('type datetime-local', () => {
             it('updates the form control with string input converted into a ISO formatted date string', () => {
@@ -102,7 +107,7 @@ class TestHostComponent {
     constructor(private fb: FormBuilder) {
         this.formGroup = this.fb.group({
             stringInput: ['test'],
-            numberInput: [70.9],
+            numberInput: [[70.9], Validators.required],
             dateInput: [new Date().toISOString()],
         });
     }

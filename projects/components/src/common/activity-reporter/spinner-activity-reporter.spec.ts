@@ -7,12 +7,13 @@ import { Component, ViewChild } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
 import { SpinnerActivityReporterWidgetObject } from '../../utils/test/activity-reporter/spinner-activity-reporter.wo';
 import { WidgetFinder } from '../../utils/test/widget-object';
-import { ActivityReporterModule } from './activity-reporter.module';
+import { ActivityPromiseResolver } from './activity-promise-resolver';
+import { VcdActivityReporterModule } from './activity-reporter.module';
 import { SpinnerActivityReporterComponent } from './spinner-activity-reporter.component';
 
 @Component({
     template: `
-        <vcd-temp-spinner-activity-reporter #activityReporter></vcd-temp-spinner-activity-reporter>
+        <vcd-spinner-activity-reporter #activityReporter></vcd-spinner-activity-reporter>
     `,
 })
 class TestSpinnerComponent {
@@ -34,8 +35,9 @@ interface HasFinderAndSpinner {
 describe('SpinnerActivityReporterComponent', () => {
     beforeEach(async function(this: HasFinderAndSpinner): Promise<void> {
         await TestBed.configureTestingModule({
-            imports: [ActivityReporterModule],
+            imports: [VcdActivityReporterModule],
             declarations: [TestSpinnerComponent],
+            providers: [ActivityPromiseResolver],
         }).compileComponents();
 
         this.finder = new WidgetFinder(TestSpinnerComponent);
@@ -48,7 +50,7 @@ describe('SpinnerActivityReporterComponent', () => {
     });
 
     it('displays the spinner while the promise is pending', function(this: HasFinderAndSpinner): Promise<string> {
-        const promise = this.spinner.component.monitorActivity(this.promise);
+        const promise = this.spinner.component.monitorGet(this.promise);
         this.finder.detectChanges();
         expect(this.spinner.isSpinnerSpinning()).toBeTruthy();
         this.resolve('wow!');
@@ -58,7 +60,7 @@ describe('SpinnerActivityReporterComponent', () => {
     it('removes the activity reporter from the screen after the promise resolves', function(this: HasFinderAndSpinner): Promise<
         void
     > {
-        const promise = this.spinner.component.monitorActivity(this.promise).then(() => {
+        const promise = this.spinner.component.monitorGet(this.promise).then(() => {
             this.finder.detectChanges();
             expect(this.spinner.running).toBeFalsy();
             expect(this.spinner.isSpinnerSpinning()).toBeFalsy();
@@ -72,7 +74,7 @@ describe('SpinnerActivityReporterComponent', () => {
     it('displays an error on the screen if the promise is rejected', function(this: HasFinderAndSpinner): Promise<
         void
     > {
-        const promise = this.spinner.component.monitorActivity(this.promise).then(() => {
+        const promise = this.spinner.component.monitorGet(this.promise).then(() => {
             expect(this.spinner.running).toBeFalsy();
             expect(this.spinner.errorText).toEqual('Woah there!');
         });

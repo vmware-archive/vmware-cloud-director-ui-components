@@ -7,11 +7,11 @@ import { Component, ViewChild } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
 import { WidgetFinder } from '../../utils/test/widget-object';
 import { ErrorBannerComponent } from './error-banner.component';
-import { ErrorBannerModule } from './error-banner.module';
+import { VcdErrorBannerModule } from './error-banner.module';
 
 @Component({
     template: `
-        <vcd-temp-error-banner #banner [errorMessage]="message"></vcd-temp-error-banner>
+        <vcd-error-banner #banner [errorMessage]="message"></vcd-error-banner>
     `,
 })
 class TestErrorComponent {
@@ -26,7 +26,7 @@ interface HasFinderAndError {
 describe('ErrorBannerComponent', () => {
     beforeEach(async function(this: HasFinderAndError): Promise<void> {
         await TestBed.configureTestingModule({
-            imports: [ErrorBannerModule],
+            imports: [VcdErrorBannerModule],
             declarations: [TestErrorComponent],
         }).compileComponents();
 

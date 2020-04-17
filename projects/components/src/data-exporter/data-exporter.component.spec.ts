@@ -11,7 +11,7 @@ import { MockTranslationService, TranslationService } from '@vcd/i18n';
 import { HasFinder, WidgetFinder } from '../utils/test/widget-object';
 import { CsvExporterService } from './csv-exporter.service';
 import { DataExportRequestEvent, ExportColumn } from './data-exporter.component';
-import { DataExporterModule } from './data-exporter.module';
+import { VcdDataExporterModule } from './data-exporter.module';
 import { DataExporterWidgetObject } from './data-exporter.wo';
 
 type TestHostFinder = HasFinder<TestHostComponent>;
@@ -19,7 +19,7 @@ type TestHostFinder = HasFinder<TestHostComponent>;
 describe('VcdExportTableComponent', () => {
     beforeEach(async () => {
         await TestBed.configureTestingModule({
-            imports: [DataExporterModule, NoopAnimationsModule],
+            imports: [VcdDataExporterModule, NoopAnimationsModule],
             providers: [
                 {
                     provide: TranslationService,

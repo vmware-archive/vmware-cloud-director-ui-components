@@ -5,12 +5,12 @@
 
 import { NgModule } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
-import { FormModule } from '@vcd/ui-components';
+import { VcdFormModule } from '@vcd/ui-components';
 import { FormSelectExampleComponent } from './form-select.example.component';
 
 @NgModule({
     declarations: [FormSelectExampleComponent],
-    imports: [FormModule, ReactiveFormsModule],
+    imports: [VcdFormModule, ReactiveFormsModule],
     exports: [FormSelectExampleComponent],
     entryComponents: [FormSelectExampleComponent],
 })

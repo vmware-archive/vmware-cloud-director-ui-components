@@ -8,7 +8,7 @@ import { SpinnerActivityReporterComponent } from '../../../common/activity-repor
 import { WidgetObject } from '../widget-object';
 
 export class SpinnerActivityReporterWidgetObject extends WidgetObject<SpinnerActivityReporterComponent> {
-    static tagName = 'vcd-temp-spinner-activity-reporter';
+    static tagName = 'vcd-spinner-activity-reporter';
 
     get running(): boolean {
         return this.component.running;

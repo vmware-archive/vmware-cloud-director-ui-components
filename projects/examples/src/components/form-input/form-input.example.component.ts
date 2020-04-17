@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: BSD-2-Clause
  */
 
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
@@ -15,7 +15,7 @@ export class FormInputExampleComponent {
     constructor(private fb: FormBuilder) {
         this.formGroup = this.fb.group({
             ['stringInput']: ['test@vcd.com', [Validators.required, Validators.email, Validators.maxLength(15)]],
-            ['numberInput']: [75],
+            ['numberInput']: [75, [Validators.required]],
             ['dateInput']: [new Date().toISOString()],
         });
     }

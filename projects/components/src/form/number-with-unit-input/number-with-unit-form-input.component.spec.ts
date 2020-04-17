@@ -12,7 +12,7 @@ import { I18nModule, MockTranslationService, TranslationService } from '@vcd/i18
 import { WidgetFinder } from '../../utils/test';
 import { Hertz, Percent, Unit } from '../../utils/unit/unit';
 import { UnitFormatter } from '../../utils/unit/unit-formatter';
-import { FormModule } from '../form.module';
+import { VcdFormModule } from '../form.module';
 import { UNLIMITED } from './number-with-unit-form-input.component';
 import { NumberWithUnitFormInputWidgetObject } from './number-with-unit-form-input.widget-object';
 
@@ -47,7 +47,14 @@ describe('VcdNumberWithUnitFormInputComponent', () => {
 
     beforeEach(fakeAsync(async () => {
         await TestBed.configureTestingModule({
-            imports: [BrowserAnimationsModule, I18nModule, FormsModule, ReactiveFormsModule, ClarityModule, FormModule],
+            imports: [
+                BrowserAnimationsModule,
+                I18nModule,
+                FormsModule,
+                ReactiveFormsModule,
+                ClarityModule,
+                VcdFormModule,
+            ],
             declarations: [TestHostComponent],
             providers: [
                 {

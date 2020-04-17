@@ -7,11 +7,11 @@ import { Component, ViewChild } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
 import { WidgetFinder } from '../../utils/test/widget-object';
 import { LoadingIndicatorComponent } from './loading-indicator.component';
-import { LoadingIndicatorModule } from './loading-indicator.module';
+import { VcdLoadingIndicatorModule } from './loading-indicator.module';
 
 @Component({
     template: `
-        <vcd-temp-loading-indicator #loading [isLoading]="loadingVal" [size]="size"></vcd-temp-loading-indicator>
+        <vcd-loading-indicator #loading [isLoading]="loadingVal" [size]="size"></vcd-loading-indicator>
     `,
 })
 class TestErrorComponent {
@@ -27,7 +27,7 @@ interface HasFinderAndLoading {
 describe('LoadingIndicatorReporterComponent', () => {
     beforeEach(async function(this: HasFinderAndLoading): Promise<void> {
         await TestBed.configureTestingModule({
-            imports: [LoadingIndicatorModule],
+            imports: [VcdLoadingIndicatorModule],
             declarations: [TestErrorComponent],
         }).compileComponents();
 
