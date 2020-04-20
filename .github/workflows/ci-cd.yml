@@ -8,27 +8,13 @@ on:
         types: [opened, reopened, synchronize]
 
 jobs:
-    prepare_node_modules:
-        runs-on: ubuntu-latest
-        steps:
-            - uses: actions/checkout@v2
-            - uses: actions/cache@v1
-              with:
-                  path: ./node_modules
-                  key: ${{github.sha}}-node_modules
-            - run: npm ci
-
     lint-projects:
         runs-on: ubuntu-latest
         name: Linting
-        needs: [prepare_node_modules]
         steps:
             - uses: actions/checkout@v2
-            - uses: actions/cache@v1
-              with:
-                  path: ./node_modules
-                  key: ${{github.sha}}-node_modules
             - run: |
+                  npm ci
                   npm run lint i18n
                   npm run lint components
                   npm run lint doc-lib
@@ -42,13 +28,11 @@ jobs:
             - uses: actions/checkout@v2
             - uses: actions/cache@v1
               with:
-                  path: ./node_modules
-                  key: ${{github.sha}}-node_modules
-            - uses: actions/cache@v1
-              with:
                   path: ./dist/i18n
                   key: ${{github.sha}}-i18n
-            - run: npm run build:i18n
+            - run: |
+                  npm ci
+                  npm run build:i18n
 
     build-components-lib:
         runs-on: ubuntu-latest
@@ -58,17 +42,15 @@ jobs:
             - uses: actions/checkout@v2
             - uses: actions/cache@v1
               with:
-                  path: ./node_modules
-                  key: ${{github.sha}}-node_modules
-            - uses: actions/cache@v1
-              with:
                   path: ./dist/i18n
                   key: ${{github.sha}}-i18n
             - uses: actions/cache@v1
               with:
                   path: ./dist/components
                   key: ${{ github.sha }}-components
-            - run: npm run build:components
+            - run: |
+                  npm ci
+                  npm run build:components
 
     build-doc-lib:
         runs-on: ubuntu-latest
@@ -78,13 +60,11 @@ jobs:
             - uses: actions/checkout@v2
             - uses: actions/cache@v1
               with:
-                  path: ./node_modules
-                  key: ${{github.sha}}-node_modules
-            - uses: actions/cache@v1
-              with:
                   path: ./dist/doc-lib
                   key: ${{github.sha}}-doc-lib
-            - run: npm run build:doc-lib
+            - run: |
+                  npm ci
+                  npm run build:doc-lib
 
     build-app:
         runs-on: ubuntu-latest
@@ -92,10 +72,6 @@ jobs:
         needs: [build-components-lib, build-doc-lib]
         steps:
             - uses: actions/checkout@v2
-            - uses: actions/cache@v1
-              with:
-                  path: ./node_modules
-                  key: ${{github.sha}}-node_modules
             - uses: actions/cache@v1
               with:
                   path: ./dist/components
@@ -113,6 +89,7 @@ jobs:
                   path: ./dist/examples
                   key: ${{github.sha}}-examples
             - run: |
+                  npm ci
                   npm run build-components-doc
                   npm run build-examples-doc
                   npm run generate-translations
@@ -127,10 +104,6 @@ jobs:
             - uses: actions/checkout@v2
             - uses: actions/cache@v1
               with:
-                  path: ./node_modules
-                  key: ${{github.sha}}-node_modules
-            - uses: actions/cache@v1
-              with:
                   path: ./dist/i18n
                   key: ${{github.sha}}-i18n
             - uses: actions/cache@v1
@@ -139,6 +112,7 @@ jobs:
                   key: coverage
             - name: Run unit-tests
               run: |
+                  npm ci
                   npm run test:ci:components
                   npm run test:ci:doc-lib
                   npm run test:ci:i18n
@@ -154,47 +128,16 @@ jobs:
             - uses: actions/checkout@v2
             - uses: actions/cache@v1
               with:
-                  path: ./node_modules
-                  key: ${{github.sha}}-node_modules
-            - uses: actions/cache@v1
-              with:
                   path: ./dist/examples
                   key: ${{github.sha}}-examples
-            - run: npx ng deploy --no-build
+            - run: |
+                  npm ci
+                  npx ng deploy --no-build
               if: github.event_name == 'push' && github.ref == 'refs/heads/master'
               env:
                   GH_TOKEN: ${{ secrets.GH_TOKEN }}
 
-    publish-components-latest:
-        needs: [build-components-lib, unit-testing]
-        runs-on: ubuntu-latest
-        steps:
-            - uses: actions/checkout@v2
-            - uses: actions/setup-node@v1
-              with:
-                  node-version: '13'
-                  registry-url: https://registry.npmjs.org/
-            - uses: actions/cache@v1
-              with:
-                  path: ./node_modules
-                  key: ${{github.sha}}-node_modules
-            - uses: actions/cache@v1
-              with:
-                  path: ./dist/components
-                  key: ${{ github.sha }}-components
-            - id: check-components-tag
-              uses: ./.github/actions/check-lib-tag
-              with:
-                  lib-name: 'components'
-            - name: Publish components@latest
-              if: steps.check-components-tag.outputs.isLibTag == 'true'
-              run: |
-                  cd ./dist/components
-                  npm publish
-              env:
-                  NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}
-
-    publish-components-next:
+    publish-components:
         needs: [build-components-lib, unit-testing]
         runs-on: ubuntu-latest
         steps:
@@ -210,12 +153,10 @@ jobs:
                   registry-url: https://registry.npmjs.org/
             - uses: actions/cache@v1
               with:
-                  path: ./node_modules
-                  key: ${{github.sha}}-node_modules
-            - uses: actions/cache@v1
-              with:
                   path: ./dist/components
                   key: ${{ github.sha }}-components
+            - name: Install node_modules
+              run: npm ci
             - id: check-components-tag
               uses: ./.github/actions/check-lib-tag
               with:
@@ -229,39 +170,15 @@ jobs:
               run: |
                   cd ./dist/components
                   npm publish --tag next --access public
-              env:
-                  NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}
-
-    publish-doc-lib-latest:
-        needs: [build-doc-lib, unit-testing]
-        runs-on: ubuntu-latest
-        steps:
-            - uses: actions/checkout@v2
-            - uses: actions/setup-node@v1
-              with:
-                  node-version: '13'
-                  registry-url: https://registry.npmjs.org/
-            - uses: actions/cache@v1
-              with:
-                  path: ./node_modules
-                  key: ${{github.sha}}-node_modules
-            - uses: actions/cache@v1
-              with:
-                  path: ./dist/doc-lib
-                  key: ${{github.sha}}-doc-lib
-            - id: check-doc-lib-tag
-              uses: ./.github/actions/check-lib-tag
-              with:
-                  lib-name: 'doc-lib'
-            - name: Publish doc-lib@latest
-              if: steps.check-doc-lib-tag.outputs.isLibTag == 'true'
+            - name: Publish components@latest
+              if: steps.check-components-tag.outputs.isLibTag == 'true'
               run: |
-                  cd ./dist/doc-lib
+                  cd ./dist/components
                   npm publish
               env:
                   NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}
 
-    publish-doc-lib-next:
+    publish-doc-lib:
         needs: [build-doc-lib, unit-testing]
         runs-on: ubuntu-latest
         steps:
@@ -277,12 +194,10 @@ jobs:
                   registry-url: https://registry.npmjs.org/
             - uses: actions/cache@v1
               with:
-                  path: ./node_modules
-                  key: ${{github.sha}}-node_modules
-            - uses: actions/cache@v1
-              with:
                   path: ./dist/doc-lib
                   key: ${{github.sha}}-doc-lib
+            - name: Install node_modules
+              run: npm ci
             - id: check-doc-lib-tag
               uses: ./.github/actions/check-lib-tag
               with:
@@ -291,6 +206,11 @@ jobs:
               uses: ./.github/actions/check-lib-package
               with:
                   lib-name: 'doc-lib'
+            - name: Publish doc-lib@latest
+              if: steps.check-doc-lib-tag.outputs.isLibTag == 'true'
+              run: |
+                  cd ./dist/doc-lib
+                  npm publish
             - name: Publish doc-lib@next
               if: steps.check-doc-lib-tag.outputs.isLibTag != 'true' && steps.check-doc-lib-package.outputs.isLibPackageChanged == 'true' && github.event_name == 'push' && github.ref == 'refs/heads/master'
               run: |
@@ -299,36 +219,7 @@ jobs:
               env:
                   NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}
 
-    publish-i18n-latest:
-        needs: [build-i18n, unit-testing]
-        runs-on: ubuntu-latest
-        steps:
-            - uses: actions/checkout@v2
-            - uses: actions/setup-node@v1
-              with:
-                  node-version: '13'
-                  registry-url: https://registry.npmjs.org/
-            - uses: actions/cache@v1
-              with:
-                  path: ./node_modules
-                  key: ${{github.sha}}-node_modules
-            - uses: actions/cache@v1
-              with:
-                  path: ./dist/i18n
-                  key: ${{github.sha}}-i18n
-            - id: check-i18n-tag
-              uses: ./.github/actions/check-lib-tag
-              with:
-                  lib-name: 'i18n'
-            - name: Publish i18n@latest
-              if: steps.check-i18n-tag.outputs.isLibTag == 'true'
-              run: |
-                  cd ./dist/i18n
-                  npm publish
-              env:
-                  NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}
-
-    publish-i18n-next:
+    publish-i18n:
         needs: [build-i18n, unit-testing]
         runs-on: ubuntu-latest
         steps:
@@ -344,12 +235,10 @@ jobs:
                   registry-url: https://registry.npmjs.org/
             - uses: actions/cache@v1
               with:
-                  path: ./node_modules
-                  key: ${{github.sha}}-node_modules
-            - uses: actions/cache@v1
-              with:
                   path: ./dist/i18n
                   key: ${{github.sha}}-i18n
+            - name: Install node_modules
+              run: npm ci
             - id: check-i18n-tag
               uses: ./.github/actions/check-lib-tag
               with:
@@ -363,5 +252,10 @@ jobs:
               run: |
                   cd ./dist/i18n
                   npm publish --tag next --access public
+            - name: Publish i18n@latest
+              if: steps.check-i18n-tag.outputs.isLibTag == 'true'
+              run: |
+                  cd ./dist/i18n
+                  npm publish
               env:
                   NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}
