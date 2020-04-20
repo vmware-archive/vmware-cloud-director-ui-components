@@ -155,6 +155,8 @@ jobs:
               with:
                   path: ./dist/components
                   key: ${{ github.sha }}-components
+            - name: Install node_modules
+              run: npm ci
             - id: check-components-tag
               uses: ./.github/actions/check-lib-tag
               with:
@@ -166,13 +168,11 @@ jobs:
             - name: Publish components@next
               if: steps.check-components-tag.outputs.isLibTag != 'true' && steps.check-components-package.outputs.isLibPackageChanged == 'true' && github.event_name == 'push' && github.ref == 'refs/heads/master'
               run: |
-                  npm ci
                   cd ./dist/components
                   npm publish --tag next --access public
             - name: Publish components@latest
               if: steps.check-components-tag.outputs.isLibTag == 'true'
               run: |
-                  npm ci
                   cd ./dist/components
                   npm publish
               env:
@@ -194,12 +194,10 @@ jobs:
                   registry-url: https://registry.npmjs.org/
             - uses: actions/cache@v1
               with:
-                  path: ./node_modules
-                  key: ${{github.sha}}-node_modules
-            - uses: actions/cache@v1
-              with:
                   path: ./dist/doc-lib
                   key: ${{github.sha}}-doc-lib
+            - name: Install node_modules
+              run: npm ci
             - id: check-doc-lib-tag
               uses: ./.github/actions/check-lib-tag
               with:
@@ -211,13 +209,11 @@ jobs:
             - name: Publish doc-lib@latest
               if: steps.check-doc-lib-tag.outputs.isLibTag == 'true'
               run: |
-                  npm ci
                   cd ./dist/doc-lib
                   npm publish
             - name: Publish doc-lib@next
               if: steps.check-doc-lib-tag.outputs.isLibTag != 'true' && steps.check-doc-lib-package.outputs.isLibPackageChanged == 'true' && github.event_name == 'push' && github.ref == 'refs/heads/master'
               run: |
-                  npm ci
                   cd ./dist/doc-lib
                   npm publish --tag next --access public
               env:
@@ -239,12 +235,10 @@ jobs:
                   registry-url: https://registry.npmjs.org/
             - uses: actions/cache@v1
               with:
-                  path: ./node_modules
-                  key: ${{github.sha}}-node_modules
-            - uses: actions/cache@v1
-              with:
                   path: ./dist/i18n
                   key: ${{github.sha}}-i18n
+            - name: Install node_modules
+              run: npm ci
             - id: check-i18n-tag
               uses: ./.github/actions/check-lib-tag
               with:
@@ -256,13 +250,11 @@ jobs:
             - name: Publish i18n@next
               if: steps.check-i18n-tag.outputs.isLibTag != 'true' && steps.check-i18n-package.outputs.isLibPackageChanged == 'true' && github.event_name == 'push' && github.ref == 'refs/heads/master'
               run: |
-                  npm ci
                   cd ./dist/i18n
                   npm publish --tag next --access public
             - name: Publish i18n@latest
               if: steps.check-i18n-tag.outputs.isLibTag == 'true'
               run: |
-                  npm ci
                   cd ./dist/i18n
                   npm publish
               env:
