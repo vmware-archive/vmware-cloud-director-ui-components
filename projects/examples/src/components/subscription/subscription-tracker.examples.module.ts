@@ -6,8 +6,8 @@
 import { NgModule } from '@angular/core';
 import { SubscriptionTracker } from '@vcd/ui-components';
 import { Documentation } from '@vcd/ui-doc-lib';
-import { SubscriptionTrackerMixinExampleComponent } from './subscription-tracker-mixin.example.component';
-import { SubscriptionTrackerMixinExampleModule } from './subscription-tracker-mixin.example.module';
+import { SubscriptionTrackerExampleComponent } from './subscription-tracker.example.component';
+import { SubscriptionTrackerExampleModule } from './subscription-tracker.example.module';
 
 Documentation.registerDocumentationEntry({
     component: SubscriptionTracker,
@@ -15,7 +15,7 @@ Documentation.registerDocumentationEntry({
     urlSegment: 'subscriptionTracker',
     examples: [
         {
-            component: SubscriptionTrackerMixinExampleComponent,
+            component: SubscriptionTrackerExampleComponent,
             forComponent: null,
             title: 'Automatically destroy subscriptions when components are destroyed',
         },
@@ -26,6 +26,6 @@ Documentation.registerDocumentationEntry({
  * A module that imports all subscription tracker examples.
  */
 @NgModule({
-    imports: [SubscriptionTrackerMixinExampleModule],
+    imports: [SubscriptionTrackerExampleModule],
 })
 export class SubscriptionTrackerExamplesModule {}

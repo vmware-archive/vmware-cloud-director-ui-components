@@ -3,13 +3,13 @@
  * SPDX-License-Identifier: BSD-2-Clause
  */
 
-import { Input, OnInit } from '@angular/core';
+import { Input, OnDestroy, OnInit } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { ClrDatagridFilter } from '@clr/angular';
 import { ClrDatagridFilterInterface } from '@clr/angular/data/datagrid/interfaces/filter.interface';
 import { Subject } from 'rxjs';
 import { debounceTime } from 'rxjs/operators';
-import { SubscriptionTrackerMixin } from '../../common/subscription';
+import { SubscriptionTracker } from '../../common/subscription';
 import {
     ComponentRenderer,
     ComponentRendererConstructor,
@@ -54,12 +54,12 @@ export interface FilterRendererSpec<C> extends ComponentRendererSpec<C> {
  * V is the type of filter input value that is passed into setValue method
  * C extends FilterConfig<V> is configuration of a filter that contains queryField and a value of type V
  */
-export abstract class DatagridFilter<V, C extends FilterConfig<V>> extends SubscriptionTrackerMixin(class {})
-    implements OnInit, ClrDatagridFilterInterface<V>, ComponentRenderer<C> {
+export abstract class DatagridFilter<V, C extends FilterConfig<V>>
+    implements OnInit, OnDestroy, ClrDatagridFilterInterface<V>, ComponentRenderer<C> {
     formGroup = this.createFormGroup();
+    private subscriptionTracker = new SubscriptionTracker(this);
 
     protected constructor(filterContainer: ClrDatagridFilter) {
-        super();
         filterContainer.setFilter(this);
     }
 
@@ -90,7 +90,7 @@ export abstract class DatagridFilter<V, C extends FilterConfig<V>> extends Subsc
         const obs = this.getDebounceTimeMs()
             ? this.formGroup.valueChanges.pipe(debounceTime(this.getDebounceTimeMs()))
             : this.formGroup.valueChanges;
-        this.subscribe(obs, () => this.changes.next());
+        this.subscriptionTracker.subscribe(obs, () => this.changes.next());
     }
 
     /**
@@ -125,6 +125,11 @@ export abstract class DatagridFilter<V, C extends FilterConfig<V>> extends Subsc
      * Return true if the filter is currently activated (e.g. a value is provided)
      */
     abstract isActive(): boolean;
+
+    /**
+     * @inheritdoc
+     */
+    abstract ngOnDestroy(): void;
 
     /**
      * Required by Clarity but ignored since we don't support client side filtering

@@ -2,7 +2,7 @@
  * Copyright 2019 VMware, Inc.
  * SPDX-License-Identifier: BSD-2-Clause
  */
-import { Component, Host, OnInit } from '@angular/core';
+import { Component, Host, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { ClrDatagridFilter } from '@clr/angular';
 import { SelectOption } from '../../common/interfaces/select-option';
@@ -51,7 +51,7 @@ export interface DatagridSelectFilterConfig extends FilterConfig<string | number
     templateUrl: 'datagrid-select-filter.component.html',
 })
 export class DatagridSelectFilterComponent extends DatagridFilter<string | number, DatagridSelectFilterConfig>
-    implements OnInit {
+    implements OnInit, OnDestroy {
     /**
      * Displayed as the first option with a falsy value. Selecting this option would deactivate the filter
      */
@@ -98,6 +98,8 @@ export class DatagridSelectFilterComponent extends DatagridFilter<string | numbe
     isActive(): boolean {
         return !!this.formGroup && this.formGroup.get('filterSelect').value;
     }
+
+    ngOnDestroy(): void {}
 }
 
 /**

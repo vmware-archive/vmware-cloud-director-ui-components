@@ -3,10 +3,9 @@
  * SPDX-License-Identifier: BSD-2-Clause
  */
 
-import { Component, Host, OnInit } from '@angular/core';
+import { Component, Host, OnDestroy } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { ClrDatagridFilter } from '@clr/angular';
-import { debounce, debounceTime } from 'rxjs/operators';
 import { FilterBuilder } from '../../utils/filter-builder';
 import { DatagridFilter, FilterComponentRendererSpec, FilterConfig, FilterRendererSpec } from './datagrid-filter';
 
@@ -26,7 +25,8 @@ export interface DatagridStringFilterConfig extends FilterConfig<string> {
     selector: 'vcd-dg-string-filter',
     templateUrl: 'datagrid-string-filter.component.html',
 })
-export class DatagridStringFilterComponent extends DatagridFilter<string, DatagridStringFilterConfig> {
+export class DatagridStringFilterComponent extends DatagridFilter<string, DatagridStringFilterConfig>
+    implements OnDestroy {
     createFormGroup(): FormGroup {
         return new FormGroup({
             filterText: new FormControl(''),
@@ -55,6 +55,8 @@ export class DatagridStringFilterComponent extends DatagridFilter<string, Datagr
     isActive(): boolean {
         return !!this.formGroup && this.formGroup.get('filterText').value;
     }
+
+    ngOnDestroy(): void {}
 }
 
 /**

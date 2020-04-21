@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: BSD-2-Clause
  */
 
-import { Component, Host } from '@angular/core';
+import { Component, Host, OnDestroy } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { ClrDatagridFilter } from '@clr/angular';
 import { SelectOption } from '../../common/interfaces/select-option';
@@ -65,7 +65,8 @@ const idGenerator = new IdGenerator('vcd-multiselect-filter-id');
     selector: 'vcd-dg-multiselect-filter',
     templateUrl: './datagrid-multiselect-filter.component.html',
 })
-export class DatagridMultiSelectFilterComponent extends DatagridFilter<string[], DatagridMultiSelectFilterConfig> {
+export class DatagridMultiSelectFilterComponent extends DatagridFilter<string[], DatagridMultiSelectFilterConfig>
+    implements OnDestroy {
     constructor(@Host() private filterContainer: ClrDatagridFilter) {
         super(filterContainer);
     }
@@ -124,6 +125,8 @@ export class DatagridMultiSelectFilterComponent extends DatagridFilter<string[],
             !!Object.keys(this.formGroup.getRawValue()).filter(frmCtrl => this.formGroup.get(frmCtrl).value).length
         );
     }
+
+    ngOnDestroy(): void {}
 }
 
 /**

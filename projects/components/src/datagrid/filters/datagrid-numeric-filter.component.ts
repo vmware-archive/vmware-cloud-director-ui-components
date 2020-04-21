@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: BSD-2-Clause
  */
 
-import { Component, Host, OnInit } from '@angular/core';
+import { Component, Host, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { ClrDatagridFilter } from '@clr/angular';
 import { FilterBuilder } from '../../utils/filter-builder';
@@ -31,7 +31,7 @@ export type DatagridNumericFilterConfig = FilterConfig<DatagridNumericFilterValu
 })
 export class DatagridNumericFilterComponent
     extends DatagridFilter<DatagridNumericFilterValue, DatagridNumericFilterConfig>
-    implements OnInit {
+    implements OnInit, OnDestroy {
     createFormGroup(): FormGroup {
         return new FormGroup({
             [FormFields.from]: new FormControl(null),
@@ -81,6 +81,8 @@ export class DatagridNumericFilterComponent
                 typeof this.formGroup.get(FormFields.to).value === 'number')
         );
     }
+
+    ngOnDestroy(): void {}
 }
 
 /**
