@@ -16,6 +16,6 @@ export * from './lib/directives';
 export * from './datagrid';
 export * from './datagrid/datagrid.module';
 export * from './components.module';
-export * from './utils/test';
+export * from './utils';
 export * from './form';
 export * from './form/form.module';

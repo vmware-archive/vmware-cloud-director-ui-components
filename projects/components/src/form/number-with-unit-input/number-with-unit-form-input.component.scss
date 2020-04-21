@@ -1,0 +1,41 @@
+single-option {
+    margin-left: 4px;
+    margin-top: 12px;
+}
+
+:host {
+    display: block;
+}
+
+:host ::ng-deep {
+    .clr-control-container {
+        flex: 0 1 auto;
+    }
+
+    .input-number-with-unit {
+        .clr-control-label {
+            + .clr-control-container {
+                width: auto;
+                .clr-input-wrapper {
+                    display: flex;
+                    .clr-input {
+                        margin-right: 0;
+                    }
+                }
+            }
+        }
+
+        aside {
+            display: flex;
+            flex: 0 1 auto;
+            min-width: 50px;
+            margin-top: -1px !important;
+            margin-left: 5px;
+            vcd-form-select {
+                .clr-form-control {
+                    margin-top: 0;
+                }
+            }
+        }
+    }
+}

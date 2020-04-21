@@ -1,0 +1,19 @@
+<form [formGroup]="formGroup" class="clr-form-horizontal">
+    <vcd-form-checkbox
+        #checkbox
+        [label]="'Checkbox'"
+        [formControlName]="'checkboxInput'"
+        [description]="'Helper Text'"
+        [text]="'Right Label'"
+    >
+    </vcd-form-checkbox>
+
+    <vcd-form-checkbox
+        #toggleswitch
+        [label]="'Toggle switch'"
+        [styling]="styling.TOGGLESWITCH"
+        [formControlName]="'toggleInput'"
+        [description]="'Helper Text'"
+    >
+    </vcd-form-checkbox>
+</form>

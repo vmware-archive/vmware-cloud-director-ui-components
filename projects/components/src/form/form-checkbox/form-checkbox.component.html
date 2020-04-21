@@ -1,0 +1,30 @@
+<div class="form-group">
+    <div class="clr-form-control" [ngClass]="{ 'clr-form-control-disabled': disabled }">
+        <label class="clr-control-label" [for]="id" *ngIf="label">{{ label }}</label>
+        <div class="clr-control-container" [ngClass]="{ 'clr-error': showErrors }">
+            <div [ngClass]="{ 'clr-checkbox-wrapper': isCheckbox, 'clr-toggle-wrapper': !isCheckbox }">
+                <input
+                    type="checkbox"
+                    [id]="id"
+                    [ngClass]="{ 'clr-checkbox': isCheckbox, 'clr-toggle': !isCheckbox }"
+                    [formControl]="formControl"
+                />
+                <label class="clr-control-label right-label" (click)="rightSideLabelClicked()">
+                    <clr-icon *ngIf="iconShape" [attr.shape]="iconShape"></clr-icon>
+                    {{ text }}
+                </label>
+            </div>
+            <span class="clr-subtext" *ngIf="showErrors">
+                <div *ngFor="let key of errorKeys">
+                    <div>{{ key | translate: formControl.value }}</div>
+                </div>
+            </span>
+            <span class="clr-subtext" *ngIf="!showErrors && description">
+                {{ description }}
+            </span>
+        </div>
+    </div>
+    <span class="clr-subtext">
+        <ng-content select="footer"></ng-content>
+    </span>
+</div>

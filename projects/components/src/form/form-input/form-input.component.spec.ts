@@ -27,7 +27,7 @@ export class VcdFormInputWidgetObject extends WidgetObject<FormInputComponent> {
     }
 }
 
-describe('VcdFormInputComponent', () => {
+describe('FormInputComponent', () => {
     let hostComponent: TestHostComponent;
     let finder: WidgetFinder<TestHostComponent>;
     let stringInput: VcdFormInputWidgetObject;

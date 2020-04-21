@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: BSD-2-Clause
  */
 
-import { Input } from '@angular/core';
+import { Input, Type } from '@angular/core';
 import { ControlValueAccessor, FormControl, NgControl } from '@angular/forms';
 import { IdGenerator } from '../utils/id-generator/id-generator';
 import { CanBeReadOnly } from './interfaces/can-be-read-only.interface';
@@ -14,7 +14,7 @@ const idGenerator = new IdGenerator('base-form-control-id');
  * Wrapper to enforce UX decisions like readonly-ness, label position and error displaying. And also to make
  * the form control backing a form control name directive available to sub classes.
  */
-export abstract class BaseFormControl implements ControlValueAccessor, CanBeReadOnly {
+export class BaseFormControl implements ControlValueAccessor, CanBeReadOnly {
     /**
      * Auto generated ID for the input field.
      */
@@ -71,7 +71,7 @@ export abstract class BaseFormControl implements ControlValueAccessor, CanBeRead
      */
     protected initialValue: number | string | boolean;
 
-    protected constructor(ngControl: NgControl) {
+    constructor(ngControl: NgControl) {
         this.id = idGenerator.generate();
         if (ngControl) {
             ngControl.valueAccessor = this;
