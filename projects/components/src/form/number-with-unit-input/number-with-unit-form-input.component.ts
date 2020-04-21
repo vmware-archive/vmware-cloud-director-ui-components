@@ -17,7 +17,7 @@ import {
 } from '@angular/forms';
 import { TranslationService } from '@vcd/i18n';
 import { SelectOption } from '../../common/interfaces';
-import { SubscriptionTracker, SubscriptionTrackerMixin } from '../../common/subscription';
+import { SubscriptionTracker } from '../../common/subscription';
 import { Unit } from '../../utils/unit/unit';
 import { UnitFormatter } from '../../utils/unit/unit-formatter';
 import { BaseFormControl } from '../base-form-control';
