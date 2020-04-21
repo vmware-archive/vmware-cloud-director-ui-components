@@ -30,6 +30,8 @@ describe('I18nModule', () => {
         (TestBed.get(TranslationService) as TranslationService).registerTranslations({
             en: {
                 'vcd.cc.cancel': 'cancel',
+                // tslint:disable-next-line: quotemark
+                'vcd.cc.interp': "'{0}'",
             },
         });
 
@@ -38,6 +40,8 @@ describe('I18nModule', () => {
         fixture.detectChanges();
         expect(fixture.debugElement.query(By.css('h2')).nativeElement.textContent).toEqual('cancel');
         expect(fixture.debugElement.query(By.css('h4')).nativeElement.textContent).toEqual('cancel');
+        // tslint:disable-next-line: quotemark
+        expect(fixture.debugElement.query(By.css('h5')).nativeElement.textContent).toEqual("'name'");
     }));
 
     it('translates correctly with forChild', fakeAsync(async () => {
@@ -76,6 +80,7 @@ describe('I18nModule', () => {
         <h2>{{ 'vcd.cc.cancel' | translate }}</h2>
         <h3>{{ 'unloaded' | translate }}</h3>
         <h4>{{ text | lazyString }}</h4>
+        <h5>{{ 'vcd.cc.interp' | translate: 'name' }}</h5>
     `,
     selector: 'lib-translate-test',
 })

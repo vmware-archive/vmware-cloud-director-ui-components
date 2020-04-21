@@ -48,7 +48,7 @@
     "codecov.io": "0.1.6",
     "karma-coverage": "2.0.1",
     "lit-html": "1.1.2",
-    "messageformat": "2.3.0",
+    "messageformat": "1.0.2",
     "prismjs": "1.17.1",
     "properties": "1.2.1",
     "rxjs": "6.4.0",
