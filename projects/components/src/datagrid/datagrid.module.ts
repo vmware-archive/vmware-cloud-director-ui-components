@@ -6,12 +6,12 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterModule } from '@angular/router';
 import { ClarityModule } from '@clr/angular';
 import { I18nModule } from '@vcd/i18n';
 import { VcdActivityReporterModule } from '../common/activity-reporter/activity-reporter.module';
 import { PipesModule } from '../common/pipes/pipes.module';
+import { FormModule } from '../form/form.module';
 import { ShowClippedTextDirectiveModule } from '../lib/directives/show-clipped-text.directive.module';
 import { DatagridComponent } from './datagrid.component';
 import { ComponentRendererOutletDirective } from './directives/component-renderer-outlet.directive';
@@ -43,6 +43,7 @@ const filters = [
         FormsModule,
         I18nModule,
         VcdActivityReporterModule,
+        FormModule
     ],
     declarations: [DatagridComponent, ...directives, ...renderers, ...pipes, ...filters],
     providers: [],

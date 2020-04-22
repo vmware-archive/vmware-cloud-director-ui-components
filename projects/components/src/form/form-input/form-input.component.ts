@@ -3,7 +3,17 @@
  * SPDX-License-Identifier: BSD-2-Clause
  */
 
-import { AfterViewInit, Component, ElementRef, Input, Optional, Self, ViewChild } from '@angular/core';
+import {
+    AfterViewInit,
+    Component,
+    ElementRef,
+    EventEmitter,
+    Input,
+    Optional,
+    Output,
+    Self,
+    ViewChild,
+} from '@angular/core';
 import { NgControl } from '@angular/forms';
 import { BaseFormControl } from '../base-form-control';
 
@@ -70,6 +80,19 @@ export class FormInputComponent extends BaseFormControl implements AfterViewInit
      * The input field element
      */
     @ViewChild('textInput', { static: true }) textInput: ElementRef;
+
+    /**
+     * Emitted when enter key is released for callers to handle the event like... closing a filter widget
+     * {@link DatagridNumericFilterComponent.close}
+     */
+    // tslint:disable-next-line:no-output-on-prefix
+    @Output() onEnter = new EventEmitter(false);
+
+    /**
+     * Emitted when escape key is released for callers to handle the event
+     */
+    // tslint:disable-next-line:no-output-on-prefix
+    @Output() onEscape = new EventEmitter(false);
 
     constructor(@Self() @Optional() controlDirective: NgControl) {
         super(controlDirective);
