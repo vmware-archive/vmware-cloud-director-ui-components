@@ -3,9 +3,10 @@
  * SPDX-License-Identifier: BSD-2-Clause
  */
 
-import { Component, HostBinding, ViewChild } from '@angular/core';
+import { Component, HostBinding, InjectionToken, Type, ViewChild } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { LoadingListener } from '@clr/angular';
 import { MockTranslationService, TranslationService } from '@vcd/i18n';
 import { ActivityPromiseResolver } from '../common/activity-reporter/activity-promise-resolver';
 import { TooltipSize } from '../lib/directives/show-clipped-text.directive';
@@ -54,7 +55,7 @@ describe('DatagridComponent', () => {
                 },
                 ActivityPromiseResolver,
             ],
-            declarations: [HostWithDatagridComponent],
+            declarations: [HostWithDatagridComponent, DatagridDetailsComponent],
         }).compileComponents();
 
         this.finder = new WidgetFinder(HostWithDatagridComponent);
@@ -478,7 +479,7 @@ describe('DatagridComponent', () => {
             });
         });
 
-        describe('Row expansion functionality', () => {
+        describe('@Input() detailComponent', () => {
             beforeEach(function(this: HasFinderAndGrid): void {
                 this.finder.hostComponent.columns = [
                     {
@@ -492,6 +493,18 @@ describe('DatagridComponent', () => {
             it('opens one detail pane when you click the button', function(this: HasFinderAndGrid): void {
                 this.clrGridWidget.clickDetailsButton(0);
                 expect(this.clrGridWidget.getAllDetailContents().length).toEqual(1);
+            });
+        });
+
+        describe('getRowLoadingListenerInjector()', () => {
+            beforeEach(function(this: HasFinderAndGrid): void {
+                this.finder.hostComponent.columns = [
+                    {
+                        displayName: 'Column',
+                        renderer: 'name',
+                    },
+                ];
+                this.finder.detectChanges();
             });
         });
 
@@ -935,8 +948,8 @@ describe('DatagridComponent', () => {
                 [header]="header"
                 [indicatorType]="indicatorType"
                 [trackBy]="trackBy"
+                [detailComponent]="details"
             >
-                <ng-template let-record="record"> DETAILS: {{ record.name }} </ng-template>
             </vcd-datagrid>
         </div>
     `,
@@ -974,6 +987,8 @@ export class HostWithDatagridComponent {
         },
     };
 
+    details = DatagridDetailsComponent;
+
     paginationText = 'Total Items';
 
     pagination: PaginationConfiguration = {
@@ -998,4 +1013,13 @@ export class HostWithDatagridComponent {
     getSelection(): MockRecord[] {
         return this.grid.datagridSelection;
     }
+}
+
+@Component({
+    template: `
+        DETAILS
+    `,
+})
+class DatagridDetailsComponent {
+    constructor(public loadingListener: LoadingListener) {}
 }

@@ -52,7 +52,7 @@
         Whereas the trackBy in ngForTrackBy is to inform Clarity on how to track changes to it's
         items. -->
     <clr-dg-row
-        *ngFor="let restItem of items; let i = index; trackBy: trackBy"
+        *ngFor="let restItem of items; let i = index; let count = count; trackBy: trackBy"
         [ngForTrackBy]="trackBy"
         [ngClass]="this.clrDatarowCssClassGetter(restItem, i)"
         [clrDgItem]="restItem"
@@ -91,9 +91,15 @@
             >
             </ng-template>
         </clr-dg-cell>
-        <ng-container ngProjectAs="clr-dg-row-detail" *ngIf="detailTemplate !== undefined">
+
+        <ng-container ngProjectAs="clr-dg-row-detail" *ngIf="detailComponent !== undefined">
             <clr-dg-row-detail *clrIfExpanded>
-                <ng-content *ngTemplateOutlet="detailTemplate; context: { record: restItem }"> </ng-content>
+                <ng-template
+                    [vcdComponentRendererOutlet]="{
+                        rendererSpec: getDetailRenderSpec(restItem, i, count)
+                    }"
+                >
+                </ng-template>
             </clr-dg-row-detail>
         </ng-container>
     </clr-dg-row>

@@ -7,23 +7,34 @@ import {
     AfterViewInit,
     ChangeDetectorRef,
     Component,
-    ContentChild,
     ElementRef,
     EventEmitter,
     HostBinding,
+    Injector,
     Input,
     OnInit,
     Output,
-    TemplateRef,
     TrackByFunction,
+    Type,
     ViewChild,
 } from '@angular/core';
-import { ClrDatagrid, ClrDatagridFilter, ClrDatagridPagination, ClrDatagridStateInterface } from '@clr/angular';
+import {
+    ClrDatagrid,
+    ClrDatagridFilter,
+    ClrDatagridPagination,
+    ClrDatagridStateInterface,
+    LoadingListener,
+} from '@clr/angular';
 import { LazyString, TranslationService } from '@vcd/i18n';
 import { Observable } from 'rxjs';
 import { ActivityReporter } from '../common/activity-reporter';
 import { TooltipSize } from '../lib/directives/show-clipped-text.directive';
 import { DatagridFilter } from './filters/datagrid-filter';
+import {
+    ComponentRenderer,
+    ComponentRendererConstructor,
+    ComponentRendererSpec,
+} from './interfaces/component-renderer.interface';
 import {
     Button,
     ButtonConfig,
@@ -169,6 +180,24 @@ export interface PaginationConfiguration {
      * Defaults to false.
      */
     shouldShowPageNumberInput?: boolean;
+}
+
+/**
+ * The configuration object that is passed to the detail row component.
+ */
+export interface DetailRowConfig<R> {
+    /**
+     * The record that this detail row should render.
+     */
+    record: R;
+    /**
+     * The index this detail row is in the datagrid.
+     */
+    index: number;
+    /**
+     * The total number of rows in the datagrid.
+     */
+    count: number;
 }
 
 /**
@@ -378,8 +407,12 @@ export class DatagridComponent<R> implements OnInit, AfterViewInit {
     TextIcon = TextIcon;
     private _columns: GridColumn<R>[];
 
-    @ContentChild(TemplateRef, { static: false }) detailTemplate!: TemplateRef<ElementRef>;
-
+    /**
+     * The component that sound be rendered for this detail row.
+     *
+     * @param R The type of record that this detail component will display.
+     */
+    @Input() detailComponent: ComponentRendererConstructor<DetailRowConfig<R>>;
     private _selectionType: GridSelectionType = GridSelectionType.None;
 
     /**
@@ -476,12 +509,10 @@ export class DatagridComponent<R> implements OnInit, AfterViewInit {
     @ViewChild(ClrDatagridFilter, { static: false }) numericFilter: ClrDatagridFilter;
 
     @ViewChild(ClrDatagrid, { static: true }) datagrid: ClrDatagrid;
-
     /**
      * The pagination display within the datagrid.
      */
     @ViewChild(ClrDatagridPagination, { static: false }) paginationComponent: ClrDatagridPagination;
-
     /**
      * The activity reporter that all activites are displayed on
      */
@@ -622,6 +653,17 @@ export class DatagridComponent<R> implements OnInit, AfterViewInit {
         if (response && this.actionReporter) {
             this.actionReporter.monitorGet(response);
         }
+    }
+
+    /**
+     * Gives the render spec to create the detail row for the row with the given record, at the given index, and
+     * in a datagrid with the given count of total items.
+     */
+    getDetailRenderSpec(record: R, index: number, count: number): ComponentRendererSpec<DetailRowConfig<R>> {
+        return {
+            type: this.detailComponent,
+            config: { record, index, count },
+        };
     }
 
     /**
