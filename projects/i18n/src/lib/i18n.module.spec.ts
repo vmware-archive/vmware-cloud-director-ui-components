@@ -14,66 +14,68 @@ import { MessageFormatTranslationService } from './service/message-format-transl
 import { TranslationService } from './service/translation-service';
 
 describe('I18nModule', () => {
-    it('translates correctly with forRoot', fakeAsync(async () => {
-        await TestBed.configureTestingModule({
-            imports: [I18nModule.forRoot(), BrowserAnimationsModule],
-            providers: [
-                {
-                    provide: LOCALE_ID,
-                    useValue: 'en',
+    describe('forRoot', () => {
+        it('provides translate and lazyString pipe', fakeAsync(async () => {
+            await TestBed.configureTestingModule({
+                imports: [I18nModule.forRoot(), BrowserAnimationsModule],
+                providers: [
+                    {
+                        provide: LOCALE_ID,
+                        useValue: 'en',
+                    },
+                ],
+                declarations: [TestClassComponent],
+            }).compileComponents();
+
+            (TestBed.get(TranslationService) as TranslationService).registerTranslations({
+                en: {
+                    'vcd.cc.cancel': 'cancel',
                 },
-            ],
-            declarations: [TestClassComponent],
-        }).compileComponents();
+            });
 
-        (TestBed.get(TranslationService) as TranslationService).registerTranslations({
-            en: {
-                'vcd.cc.cancel': 'cancel',
-            },
-        });
+            const fixture = TestBed.createComponent(TestClassComponent);
+            tick();
+            fixture.detectChanges();
+            expect(fixture.debugElement.query(By.css('h2')).nativeElement.textContent).toEqual('cancel');
+            expect(fixture.debugElement.query(By.css('h4')).nativeElement.textContent).toEqual('cancel');
+        }));
+    });
 
-        const fixture = TestBed.createComponent(TestClassComponent);
-        tick();
-        fixture.detectChanges();
-        expect(fixture.debugElement.query(By.css('h2')).nativeElement.textContent).toEqual('cancel');
-        expect(fixture.debugElement.query(By.css('h4')).nativeElement.textContent).toEqual('cancel');
-    }));
+    describe('forChild', () => {
+        it('provides translate and lazyString pipe', fakeAsync(async () => {
+            const route = new InjectionToken('ROUTE');
+            await TestBed.configureTestingModule({
+                imports: [I18nModule.forChild(route, true), BrowserAnimationsModule, HttpClientTestingModule],
+                providers: [
+                    {
+                        provide: LOCALE_ID,
+                        useValue: 'en',
+                    },
+                    {
+                        provide: route,
+                        useValue: 'route',
+                    },
+                ],
+                declarations: [TestClassComponent],
+            }).compileComponents();
 
-    it('translates correctly with forChild', fakeAsync(async () => {
-        const route = new InjectionToken('ROUTE');
-        await TestBed.configureTestingModule({
-            imports: [I18nModule.forChild(route, true), BrowserAnimationsModule, HttpClientTestingModule],
-            providers: [
-                {
-                    provide: LOCALE_ID,
-                    useValue: 'en',
-                },
-                {
-                    provide: route,
-                    useValue: 'route',
-                },
-            ],
-            declarations: [TestClassComponent],
-        }).compileComponents();
+            const service = TestBed.get(TranslationService) as MessageFormatTranslationService;
+            const observable = new BehaviorSubject({ en: { 'vcd.cc.cancel': 'cancel' } });
+            spyOn((service as any).translationLoader, 'getCombinedTranslation').and.returnValue(observable);
+            service.registerTranslations();
 
-        const service = TestBed.get(TranslationService) as MessageFormatTranslationService;
-        const observable = new BehaviorSubject({ en: { 'vcd.cc.cancel': 'cancel' } });
-        spyOn((service as any).translationLoader, 'getCombinedTranslation').and.returnValue(observable);
-        service.registerTranslations();
-
-        const fixture = TestBed.createComponent(TestClassComponent);
-        tick();
-        fixture.detectChanges();
-        expect(fixture.debugElement.query(By.css('h2')).nativeElement.textContent).toEqual('cancel');
-        expect(fixture.debugElement.query(By.css('h4')).nativeElement.textContent).toEqual('cancel');
-        expect(fixture.debugElement.query(By.css('h3')).nativeElement.textContent).toEqual('?unloaded');
-    }));
+            const fixture = TestBed.createComponent(TestClassComponent);
+            tick();
+            fixture.detectChanges();
+            expect(fixture.debugElement.query(By.css('h2')).nativeElement.textContent).toEqual('cancel');
+            expect(fixture.debugElement.query(By.css('h4')).nativeElement.textContent).toEqual('cancel');
+        }));
+    });
 });
 
 @Component({
     template: `
         <h2>{{ 'vcd.cc.cancel' | translate }}</h2>
-        <h3>{{ 'unloaded' | translate }}</h3>
         <h4>{{ text | lazyString }}</h4>
     `,
     selector: 'lib-translate-test',
