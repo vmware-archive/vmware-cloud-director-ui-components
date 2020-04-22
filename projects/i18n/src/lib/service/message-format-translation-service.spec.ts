@@ -37,6 +37,7 @@ describe('MessageFormatTranslationService', () => {
                 '{count, plural, =0{VM does not comply with compute policies}' +
                 'one{VM does not comply with compute policy "{0}"}' +
                 'other{VM does not comply with compute policies "{0}" and "{1}"}}',
+            'quoted.param': `'{0}'`,
         },
         fr: {},
     };
@@ -123,6 +124,12 @@ describe('MessageFormatTranslationService', () => {
         expect(translationService.translate('vm.computePolicy.compliance', getPolicySize(2))).toBe(
             `VM does not comply with compute policies "Oracle Sizing" and "Oracle Placement"`
         );
+    });
+
+    it('doesnt treat single quote as an escape character', () => {
+        const translationService = new MessageFormatTranslationService('en', 'en');
+        translationService.registerTranslations(translationSet);
+        expect(translationService.translate('quoted.param', ['name'])).toEqual(`'name'`);
     });
 
     it('can format dates properly', () => {
