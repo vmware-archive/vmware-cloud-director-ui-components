@@ -18,8 +18,8 @@
                     [max]="max"
                     [attr.maxlength]="maxlength"
                     (blur)="inputChanged()"
-                    (keyup.enter)="onEnter.emit(true)"
-                    (keyup.escape)="onEscape.emit(true)"
+                    (keyup.enter)="enterClicked.emit(true)"
+                    (keyup.escape)="escapeClicked.emit(true)"
                 />
                 <clr-icon *ngIf="showErrors && !hint" class="clr-validate-icon" shape="exclamation-circle"></clr-icon>
             </div>

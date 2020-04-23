@@ -16,8 +16,8 @@
             [label]="'vcd.cc.numeric.filter.from' | translate"
             [formControlName]="'from'"
             [maxlength]="maxNumberLength"
-            (onEnter)="close()"
-            (onEscape)="close()"
+            (enterClicked)="close()"
+            (escapeClicked)="close()"
         ></vcd-form-input>
     </div>
 
@@ -38,8 +38,8 @@
             [label]="'vcd.cc.numeric.filter.to' | translate"
             [formControlName]="'to'"
             [maxlength]="maxNumberLength"
-            (onEnter)="close()"
-            (onEscape)="close()"
+            (enterClicked)="close()"
+            (escapeClicked)="close()"
         ></vcd-form-input>
     </div>
 </div>

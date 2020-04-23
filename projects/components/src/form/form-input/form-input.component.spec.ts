@@ -12,7 +12,7 @@ import { FormInputComponent, getFormattedDateValue } from './form-input.componen
 export class VcdFormInputWidgetObject extends WidgetObject<FormInputComponent> {
     static tagName = `vcd-form-input`;
 
-    get inputElement(): HTMLInputElement {
+    private get inputElement(): HTMLInputElement {
         return this.findElement('input').nativeElement;
     }
 

@@ -85,14 +85,12 @@ export class FormInputComponent extends BaseFormControl implements AfterViewInit
      * Emitted when enter key is released for callers to handle the event like... closing a filter widget
      * {@link DatagridNumericFilterComponent.close}
      */
-    // tslint:disable-next-line:no-output-on-prefix
-    @Output() onEnter = new EventEmitter(false);
+    @Output() enterClicked = new EventEmitter(false);
 
     /**
      * Emitted when escape key is released for callers to handle the event
      */
-    // tslint:disable-next-line:no-output-on-prefix
-    @Output() onEscape = new EventEmitter(false);
+    @Output() escapeClicked = new EventEmitter(false);
 
     constructor(@Self() @Optional() controlDirective: NgControl) {
         super(controlDirective);
