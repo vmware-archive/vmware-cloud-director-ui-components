@@ -170,6 +170,8 @@ jobs:
               run: |
                   cd ./dist/components
                   npm publish --tag next --access public
+              env:
+                  NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}
             - name: Publish components@latest
               if: steps.check-components-tag.outputs.isLibTag == 'true'
               run: |
@@ -211,6 +213,8 @@ jobs:
               run: |
                   cd ./dist/doc-lib
                   npm publish
+              env:
+                  NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}
             - name: Publish doc-lib@next
               if: steps.check-doc-lib-tag.outputs.isLibTag != 'true' && steps.check-doc-lib-package.outputs.isLibPackageChanged == 'true' && github.event_name == 'push' && github.ref == 'refs/heads/master'
               run: |
@@ -252,6 +256,8 @@ jobs:
               run: |
                   cd ./dist/i18n
                   npm publish --tag next --access public
+              env:
+                  NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}
             - name: Publish i18n@latest
               if: steps.check-i18n-tag.outputs.isLibTag == 'true'
               run: |
