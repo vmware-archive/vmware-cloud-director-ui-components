@@ -30,6 +30,7 @@ export class DatagridDetailRowExampleComponent {
         {
             displayName: 'Column',
             renderer: 'value',
+            queryFieldName: 'column',
         },
     ];
 

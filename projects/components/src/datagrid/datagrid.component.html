@@ -49,7 +49,7 @@
     </clr-dg-column>
 
     <clr-dg-row
-        *ngFor="let restItem of items; let i = index"
+        *ngFor="let restItem of items; let i = index; trackBy: trackBy"
         [ngForTrackBy]="trackBy"
         [ngClass]="this.clrDatarowCssClassGetter(restItem, i)"
         [clrDgItem]="restItem"

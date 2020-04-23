@@ -932,6 +932,7 @@ describe('DatagridComponent', () => {
                 [height]="height"
                 [header]="header"
                 [indicatorType]="indicatorType"
+                [trackBy]="trackBy"
             >
                 <ng-template let-record="record"> DETAILS: {{ record.name }} </ng-template>
             </vcd-datagrid>
@@ -977,6 +978,8 @@ export class HostWithDatagridComponent {
         pageSize: 5,
         pageSizeOptions: [5, 20, 50, 100],
     };
+
+    trackBy = (index, record: MockRecord) => record.name;
 
     selectionChanged(selection: MockRecord[]): void {}
 
