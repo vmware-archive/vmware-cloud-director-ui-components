@@ -635,11 +635,8 @@ export class DatagridComponent<R> implements OnInit, AfterViewInit {
     private updateSelectedItems(): void {
         if (this._selectionType === GridSelectionType.Single && this.datagrid.selection.currentSingle) {
             // Tries to find the currently selected item. If it isn't found, clears the selection.
-            const current = this.datagrid.selection.currentSingle;
-            const found = this.items.find(
-                (item, itemIndex) =>
-                    this.trackBy(itemIndex, item) === this.trackBy(this.items.indexOf(current), current)
-            );
+            const current = this.datagrid.selection.currentSingle as R;
+            const found = this.mapSelectedRecords([current], this.items)[0];
             if (!found) {
                 this.datagrid.selection.clearSelection();
             } else {
@@ -648,22 +645,30 @@ export class DatagridComponent<R> implements OnInit, AfterViewInit {
         } else if (this._selectionType === GridSelectionType.Multi) {
             // Tries to find the currently selected items. If an item isn't found, clears the selection for that item.
             if (this.datagrid.selection.current) {
-                const current = [...this.datagrid.selection.current];
+                const current = [...this.datagrid.selection.current] as R[];
                 this.datagrid.selection.clearSelection();
-                const nextSelection = current
-                    .map((selected, selectedIndex) => {
-                        const found = this.items.find(
-                            (item, itemIndex) => this.trackBy(itemIndex, item) === this.trackBy(selectedIndex, selected)
-                        );
-                        return found;
-                    })
-                    .filter(item => item);
+                const nextSelection = this.mapSelectedRecords(current, this.items).filter(item => item);
                 this.datagrid.selection.updateCurrent(nextSelection, false);
             }
         }
         if (this.datagrid.rows) {
             this.datagrid.rows.notifyOnChanges();
         }
+    }
+
+    /**
+     * Given an existing selection that is made up of records that are about to become stale,
+     * and new records to be loaded into the grid, returns the selection mapped to records
+     * from the newly added records, excluding any records that may not be present in the
+     * new selection because they are not present in the new data.
+     */
+    private mapSelectedRecords(currentSelection: R[], newRecords: R[]): R[] {
+        return currentSelection.map((selected, selectedIndex) => {
+            const found = newRecords.find(
+                (item, itemIndex) => this.trackBy(itemIndex, item) === this.trackBy(selectedIndex, selected)
+            );
+            return found;
+        });
     }
 
     private clearSelectionInformation(): void {

@@ -48,6 +48,9 @@
         </clr-dg-filter>
     </clr-dg-column>
 
+    <!--The trackBy in the ngFor is to inform Angular on how to track changes to clrDgRow.
+        Whereas the trackBy in ngForTrackBy is to inform Clarity on how to track changes to it's
+        items. -->
     <clr-dg-row
         *ngFor="let restItem of items; let i = index; trackBy: trackBy"
         [ngForTrackBy]="trackBy"
