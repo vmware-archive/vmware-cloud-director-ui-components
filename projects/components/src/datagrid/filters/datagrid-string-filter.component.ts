@@ -12,6 +12,7 @@ import { DatagridFilter, FilterComponentRendererSpec, FilterConfig, FilterRender
 export enum WildCardPosition {
     START = 'START',
     END = 'END',
+    START_AND_END = 'START_AND_END',
 }
 
 /**
@@ -47,7 +48,13 @@ export class DatagridStringFilterComponent extends DatagridFilter<string, Datagr
         const filterBuilder = new FilterBuilder().is(this.queryField);
         let value = this.formGroup.get('filterText').value;
         if (this.config && this.config.wildCardPosition) {
-            value = this.config.wildCardPosition === WildCardPosition.START ? '*' + value : value + '*';
+            if (this.config.wildCardPosition === WildCardPosition.START_AND_END) {
+                value = '*' + value + '*';
+            } else if (this.config.wildCardPosition === WildCardPosition.START) {
+                value = '*' + value;
+            } else {
+                value = value + '*';
+            }
         }
         return filterBuilder.equalTo(value).getString();
     }
