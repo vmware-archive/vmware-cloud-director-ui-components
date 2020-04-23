@@ -119,7 +119,6 @@ jobs:
             - name: Upload coverage to Codecov
               if: success()
               uses: codecov/codecov-action@v1
-
     gh-pages-deploy:
         runs-on: ubuntu-latest
         name: Deploying to Github pages
