@@ -301,4 +301,17 @@ export class NumberWithUnitFormInputComponent extends BaseFormControl implements
     ngOnDestroy(): void {
         this.tracker.unsubscribeAll();
     }
+
+    setDisabledState(isDisabled: boolean): void {
+        if (this.formGroup) {
+            if (isDisabled) {
+                this.formGroup.get('comboUnitOptions').disable();
+                this.formGroup.get('limited').disable();
+            } else {
+                this.formGroup.get('comboUnitOptions').enable();
+                this.formGroup.get('limited').enable();
+            }
+        }
+        this.disabled = isDisabled;
+    }
 }

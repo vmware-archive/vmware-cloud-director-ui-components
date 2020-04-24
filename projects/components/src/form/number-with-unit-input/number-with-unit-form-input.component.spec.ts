@@ -200,4 +200,21 @@ describe('VcdNumberWithUnitFormInputComponent', () => {
             expect(numberWithUnitInput.formControl.value).toEqual(98 / 100);
         });
     });
+
+    describe('setDisabledState', () => {
+        it(
+            'disables or enables comboUnitOptions and limited formControls when cpuLimit formControl is disabled or' +
+                'enabled',
+            () => {
+                numberWithUnitInput.formControl.disable();
+                numberWithUnitInput.detectChanges();
+                expect(numberWithUnitInput.valueFormControl.disabled).toBe(true);
+                expect(numberWithUnitInput.unitFormControl.disabled).toBe(true);
+                numberWithUnitInput.formControl.enable();
+                numberWithUnitInput.detectChanges();
+                expect(numberWithUnitInput.valueFormControl.enabled).toBe(true);
+                expect(numberWithUnitInput.unitFormControl.enabled).toBe(true);
+            }
+        );
+    });
 });
