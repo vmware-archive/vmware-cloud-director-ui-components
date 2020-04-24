@@ -7,13 +7,14 @@ import { Component, HostBinding, ViewChild } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MockTranslationService, TranslationService } from '@vcd/i18n';
+import { ActivityPromiseResolver } from '../common/activity-reporter/activity-promise-resolver';
 import { TooltipSize } from '../lib/directives/show-clipped-text.directive';
 import { ClrDatagridWidgetObject } from '../utils/test/datagrid/datagrid.wo';
 import { VcdDatagridWidgetObject } from '../utils/test/datagrid/vcd-datagrid.wo';
 import { WidgetFinder } from '../utils/test/widget-object';
 import { ActivityIndicatorType, GridSelectionType, PaginationConfiguration } from './datagrid.component';
 import { DatagridComponent, GridDataFetchResult, GridState } from './datagrid.component';
-import { DatagridModule } from './datagrid.module';
+import { VcdDatagridModule } from './datagrid.module';
 import { DatagridStringFilter, WildCardPosition } from './filters/datagrid-string-filter.component';
 import {
     ButtonConfig,
@@ -45,12 +46,13 @@ interface HasFinderAndGrid {
 describe('DatagridComponent', () => {
     beforeEach(async function(this: HasFinderAndGrid): Promise<void> {
         await TestBed.configureTestingModule({
-            imports: [DatagridModule, BrowserAnimationsModule],
+            imports: [VcdDatagridModule, BrowserAnimationsModule],
             providers: [
                 {
                     provide: TranslationService,
                     useValue: new MockTranslationService(),
                 },
+                ActivityPromiseResolver,
             ],
             declarations: [HostWithDatagridComponent],
         }).compileComponents();
@@ -800,7 +802,7 @@ describe('DatagridComponent', () => {
                 it('is able to show the spinner indicator', function(this: HasFinderAndGrid): void {
                     this.finder.hostComponent.indicatorType = ActivityIndicatorType.SPINNER;
                     this.finder.detectChanges();
-                    const spy = spyOn(this.finder.hostComponent.grid.actionReporter, 'monitorActivity');
+                    const spy = spyOn(this.finder.hostComponent.grid.actionReporter, 'monitorGet');
                     this.clrGridWidget.pressTopButton('button');
                     expect(spy).toHaveBeenCalledTimes(1);
                 });
@@ -808,7 +810,7 @@ describe('DatagridComponent', () => {
                 it('is able to show the banner indicator', function(this: HasFinderAndGrid): void {
                     this.finder.hostComponent.indicatorType = ActivityIndicatorType.BANNER;
                     this.finder.detectChanges();
-                    const spy = spyOn(this.finder.hostComponent.grid.actionReporter, 'monitorActivity');
+                    const spy = spyOn(this.finder.hostComponent.grid.actionReporter, 'monitorGet');
                     this.clrGridWidget.pressTopButton('button');
                     expect(spy).toHaveBeenCalledTimes(1);
                 });

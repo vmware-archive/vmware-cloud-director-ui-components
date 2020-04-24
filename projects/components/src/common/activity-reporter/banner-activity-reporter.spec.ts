@@ -8,12 +8,13 @@ import { TestBed } from '@angular/core/testing';
 import { MockTranslationService, TranslationService } from '@vcd/i18n';
 import { BannerActivityReporterWidgetObject } from '../../utils/test/activity-reporter/banner-activity-reporter.wo';
 import { WidgetFinder } from '../../utils/test/widget-object';
-import { ActivityReporterModule } from './activity-reporter.module';
+import { ActivityPromiseResolver } from './activity-promise-resolver';
+import { VcdActivityReporterModule } from './activity-reporter.module';
 import { BannerActivityReporterComponent } from './banner-activity-reporter.component';
 
 @Component({
     template: `
-        <vcd-temp-banner-activity-reporter [loadingMessage]="loadingMessage"></vcd-temp-banner-activity-reporter>
+        <vcd-banner-activity-reporter [loadingMessage]="loadingMessage"></vcd-banner-activity-reporter>
     `,
 })
 class TestBannerComponent {
@@ -36,13 +37,14 @@ interface HasFinderAndBanner {
 describe('BannerActivityReporterComponent', () => {
     beforeEach(async function(this: HasFinderAndBanner): Promise<void> {
         await TestBed.configureTestingModule({
-            imports: [ActivityReporterModule],
+            imports: [VcdActivityReporterModule],
             declarations: [TestBannerComponent],
             providers: [
                 {
                     provide: TranslationService,
                     useValue: new MockTranslationService(),
                 },
+                ActivityPromiseResolver,
             ],
         }).compileComponents();
 
@@ -57,7 +59,7 @@ describe('BannerActivityReporterComponent', () => {
 
     it('displays a custom message while the promise is pending', function(this: HasFinderAndBanner): Promise<string> {
         this.finder.hostComponent.loadingMessage = 'loader';
-        const promise = this.banner.component.monitorActivity(this.promise);
+        const promise = this.banner.component.monitorGet(this.promise);
         this.finder.detectChanges();
         expect(this.banner.running).toBeTruthy();
         expect(this.banner.loadingText).toEqual('loader'); // Because of mock translation service
@@ -68,7 +70,7 @@ describe('BannerActivityReporterComponent', () => {
     it('removes the activity reporter from the screen after the promise resolves', function(this: HasFinderAndBanner): Promise<
         void
     > {
-        const promise = this.banner.component.monitorActivity(this.promise).then(() => {
+        const promise = this.banner.component.monitorGet(this.promise).then(() => {
             expect(this.banner.running).toBeFalsy();
             expect(this.banner.sucessText).toEqual('winning!');
             this.banner.component.onSuccessClosed();
@@ -82,7 +84,7 @@ describe('BannerActivityReporterComponent', () => {
     });
 
     it('displays an error on the screen if the promise is rejected', function(this: HasFinderAndBanner): Promise<void> {
-        const promise = this.banner.component.monitorActivity(this.promise).then(() => {
+        const promise = this.banner.component.monitorGet(this.promise).then(() => {
             expect(this.banner.running).toBeFalsy();
             expect(this.banner.errorText).toEqual('Bad!');
             this.banner.component.onErrorClosed();
@@ -98,7 +100,7 @@ describe('BannerActivityReporterComponent', () => {
     });
 
     it('clears all content when reset', function(this: HasFinderAndBanner): Promise<string> {
-        const promise = this.banner.component.monitorActivity(this.promise);
+        const promise = this.banner.component.monitorGet(this.promise);
         this.finder.detectChanges();
         expect(this.banner.running).toBeTruthy();
         this.banner.component.reset();

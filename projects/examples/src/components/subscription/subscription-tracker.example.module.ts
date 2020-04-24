@@ -7,7 +7,7 @@ import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import { ClarityModule } from '@clr/angular';
-import { ComponentsModule } from '@vcd/ui-components';
+import { VcdComponentsModule } from '@vcd/ui-components';
 import {
     SubscriptionTrackerExampleComponent,
     SubscriptionTrackerExampleSubComponent,
@@ -15,7 +15,7 @@ import {
 
 @NgModule({
     declarations: [SubscriptionTrackerExampleComponent, SubscriptionTrackerExampleSubComponent],
-    imports: [CommonModule, ClarityModule, ReactiveFormsModule, ComponentsModule],
+    imports: [CommonModule, ClarityModule, ReactiveFormsModule, VcdComponentsModule],
     exports: [SubscriptionTrackerExampleComponent],
     entryComponents: [SubscriptionTrackerExampleComponent],
 })

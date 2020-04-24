@@ -3,7 +3,8 @@
  * SPDX-License-Identifier: BSD-2-Clause
  */
 
-import { Component } from '@angular/core';
+import { Component, Inject } from '@angular/core';
+import { ActivityPromiseResolver } from './activity-promise-resolver';
 import { ActivityReporter } from './activity-reporter';
 
 /**
@@ -11,7 +12,7 @@ import { ActivityReporter } from './activity-reporter';
  * An error message is displayed through the error banner.
  */
 @Component({
-    selector: 'vcd-temp-spinner-activity-reporter',
+    selector: 'vcd-spinner-activity-reporter',
     templateUrl: './spinner-activity-reporter.component.html',
 })
 export class SpinnerActivityReporterComponent extends ActivityReporter {
@@ -25,8 +26,8 @@ export class SpinnerActivityReporterComponent extends ActivityReporter {
      */
     public errorText: string = null;
 
-    constructor() {
-        super();
+    constructor(@Inject(ActivityPromiseResolver) promiseResolver: ActivityPromiseResolver<any>) {
+        super(promiseResolver);
     }
 
     /**

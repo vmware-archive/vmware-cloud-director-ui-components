@@ -5,12 +5,12 @@
 
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
-import { ComponentsModule } from '@vcd/ui-components';
+import { VcdComponentsModule } from '@vcd/ui-components';
 import { ShowClippedTextPositioningExampleComponent } from './show-clipped-text-positioning-example.component';
 
 @NgModule({
     declarations: [ShowClippedTextPositioningExampleComponent],
-    imports: [CommonModule, ComponentsModule],
+    imports: [CommonModule, VcdComponentsModule],
     exports: [ShowClippedTextPositioningExampleComponent],
     entryComponents: [ShowClippedTextPositioningExampleComponent],
 })

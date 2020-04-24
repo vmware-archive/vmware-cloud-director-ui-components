@@ -8,10 +8,10 @@ import { TestBed } from '@angular/core/testing';
 import { MockTranslationService, TranslationService } from '@vcd/i18n';
 import {
     DatagridFilter,
-    DatagridModule,
     FilterComponentRendererSpec,
     GridColumn,
     GridDataFetchResult,
+    VcdDatagridModule,
 } from '../../../datagrid';
 import { MockRecord } from '../../../datagrid/mock-data';
 import { IdGenerator } from '../../id-generator/id-generator';
@@ -40,7 +40,7 @@ export function createDatagridFilterTestHelper<V, C>(
     config?: C
 ): DatagridFilter<V, C> {
     TestBed.configureTestingModule({
-        imports: [DatagridModule],
+        imports: [VcdDatagridModule],
         declarations: [FilterTestHostComponent],
         providers: [
             {

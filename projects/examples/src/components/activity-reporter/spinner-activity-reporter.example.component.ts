@@ -10,7 +10,7 @@ import { ActivityReporter, SpinnerActivityReporterComponent } from '@vcd/ui-comp
  * Press the button to show/hide the spinner activity reporter
  */
 @Component({
-    selector: 'vcd-temp-spinner-activity-reporter-example',
+    selector: 'vcd-spinner-activity-reporter-example',
     templateUrl: './spinner-activity-reporter.example.component.html',
 })
 export class SpinnerActivityReporterExampleComponent {
@@ -23,7 +23,7 @@ export class SpinnerActivityReporterExampleComponent {
     startActivity(): void {
         this.showSpinner = true;
         this.reporter
-            .monitorActivity(
+            .monitorGet(
                 new Promise((resolve, reject) => {
                     this.reject = reject;
                     this.resolve = resolve;

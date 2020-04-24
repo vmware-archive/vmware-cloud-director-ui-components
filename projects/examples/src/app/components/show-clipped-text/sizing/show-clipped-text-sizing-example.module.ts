@@ -6,12 +6,12 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { ComponentsModule } from '@vcd/ui-components';
+import { VcdComponentsModule } from '@vcd/ui-components';
 import { ShowClippedTextSizingExampleComponent } from './show-clipped-text-sizing-example.component';
 
 @NgModule({
     declarations: [ShowClippedTextSizingExampleComponent],
-    imports: [CommonModule, FormsModule, ComponentsModule],
+    imports: [CommonModule, FormsModule, VcdComponentsModule],
     exports: [ShowClippedTextSizingExampleComponent],
     entryComponents: [ShowClippedTextSizingExampleComponent],
 })

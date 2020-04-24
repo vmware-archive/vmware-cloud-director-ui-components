@@ -5,12 +5,12 @@
 
 import { NgModule } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
-import { FormModule } from '@vcd/ui-components';
+import { VcdFormModule } from '@vcd/ui-components';
 import { FormInputExampleComponent } from './form-input.example.component';
 
 @NgModule({
     declarations: [FormInputExampleComponent],
-    imports: [FormModule, ReactiveFormsModule],
+    imports: [VcdFormModule, ReactiveFormsModule],
     exports: [FormInputExampleComponent],
     entryComponents: [FormInputExampleComponent],
 })

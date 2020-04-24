@@ -108,7 +108,11 @@ export class FormInputComponent extends BaseFormControl implements AfterViewInit
         this.initialValue = value;
 
         if (this.type === 'number') {
-            this.onChange(parseFloat(value));
+            if (!value) {
+                this.onChange(value);
+            } else {
+                this.onChange(parseFloat(value));
+            }
             return;
         }
         if (this.type === 'datetime-local' && value !== '') {

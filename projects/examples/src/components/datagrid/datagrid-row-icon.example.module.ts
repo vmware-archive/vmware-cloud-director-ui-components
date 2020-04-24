@@ -6,12 +6,12 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { ClarityModule } from '@clr/angular';
-import { ComponentsModule } from '@vcd/ui-components';
+import { VcdComponentsModule } from '@vcd/ui-components';
 import { DatagridRowIconExampleComponent, RowIconRendererComponent } from './datagrid-row-icon.example.component';
 
 @NgModule({
     declarations: [DatagridRowIconExampleComponent, RowIconRendererComponent],
-    imports: [CommonModule, ClarityModule, ComponentsModule],
+    imports: [CommonModule, ClarityModule, VcdComponentsModule],
     exports: [DatagridRowIconExampleComponent],
     entryComponents: [DatagridRowIconExampleComponent, RowIconRendererComponent],
 })

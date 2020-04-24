@@ -5,5 +5,6 @@
 
 export * from './activity-reporter.module';
 export * from './activity-reporter';
+export * from './activity-promise-resolver';
 export * from './banner-activity-reporter.component';
 export * from './spinner-activity-reporter.component';

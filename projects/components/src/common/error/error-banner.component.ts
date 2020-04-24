@@ -9,7 +9,7 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
  * Component that displays the error message only if a non empty errorMessage is passed in
  */
 @Component({
-    selector: 'vcd-temp-error-banner',
+    selector: 'vcd-error-banner',
     templateUrl: './error-banner.component.html',
     styleUrls: ['./error-banner.component.scss'],
 })

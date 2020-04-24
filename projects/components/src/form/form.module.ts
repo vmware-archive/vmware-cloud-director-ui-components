@@ -31,4 +31,4 @@ const declarations = [
     providers: [UnitFormatter],
     exports: [...declarations],
 })
-export class FormModule {}
+export class VcdFormModule {}

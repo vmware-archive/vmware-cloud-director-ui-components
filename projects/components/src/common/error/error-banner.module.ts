@@ -15,4 +15,4 @@ import { ErrorBannerComponent } from './error-banner.component';
     exports: [ErrorBannerComponent],
     entryComponents: [ErrorBannerComponent],
 })
-export class ErrorBannerModule {}
+export class VcdErrorBannerModule {}

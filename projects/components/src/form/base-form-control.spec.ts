@@ -10,7 +10,7 @@ import { MockTranslationService, TranslationService } from '@vcd/i18n';
 import { WidgetFinder } from '../utils/test';
 import { FormInputComponent } from './form-input/form-input.component';
 import { VcdFormInputWidgetObject } from './form-input/form-input.component.spec';
-import { FormModule } from './form.module';
+import { VcdFormModule } from './form.module';
 
 /**
  * Tests for the BaseFormControl base class use the sub class VcdFormInputComponent instead of writing a dummy
@@ -103,7 +103,7 @@ class TestHostComponent {
 
 export async function configureFormInputTestingModule(testHostComponent: Type<unknown>): Promise<void> {
     await TestBed.configureTestingModule({
-        imports: [FormModule, ReactiveFormsModule],
+        imports: [VcdFormModule, ReactiveFormsModule],
         declarations: [testHostComponent],
         providers: [
             {
