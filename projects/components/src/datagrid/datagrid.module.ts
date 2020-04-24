@@ -11,7 +11,7 @@ import { ClarityModule } from '@clr/angular';
 import { I18nModule } from '@vcd/i18n';
 import { VcdActivityReporterModule } from '../common/activity-reporter/activity-reporter.module';
 import { PipesModule } from '../common/pipes/pipes.module';
-import { FormModule } from '../form/form.module';
+import { VcdFormModule } from '../form/form.module';
 import { ShowClippedTextDirectiveModule } from '../lib/directives/show-clipped-text.directive.module';
 import { DatagridComponent } from './datagrid.component';
 import { ComponentRendererOutletDirective } from './directives/component-renderer-outlet.directive';
@@ -43,7 +43,7 @@ const filters = [
         FormsModule,
         I18nModule,
         VcdActivityReporterModule,
-        FormModule
+        VcdFormModule,
     ],
     declarations: [DatagridComponent, ...directives, ...renderers, ...pipes, ...filters],
     providers: [],
