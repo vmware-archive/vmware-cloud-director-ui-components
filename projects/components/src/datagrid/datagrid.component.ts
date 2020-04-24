@@ -245,6 +245,14 @@ export class DatagridComponent<R> implements OnInit, AfterViewInit {
         this.isLoading = false;
         this.items = result.items;
         this.totalItems = result.totalItems;
+        /**
+         * This is due to a known bug in clarity (@link https://github.com/vmware/clarity/issues/2265)
+         * where using trackBy breaks the select all functionality unless you
+         * add a detectChanges before updating the selection manually.
+         */
+        if (this.viewInitted) {
+            this.changeDetectorRef.detectChanges();
+        }
         this.updateSelectedItems();
     }
 
@@ -627,28 +635,40 @@ export class DatagridComponent<R> implements OnInit, AfterViewInit {
     private updateSelectedItems(): void {
         if (this._selectionType === GridSelectionType.Single && this.datagrid.selection.currentSingle) {
             // Tries to find the currently selected item. If it isn't found, clears the selection.
-            const found = this.items.find(
-                (item, itemIndex) =>
-                    this.trackBy(itemIndex, item) ===
-                    this.trackBy(
-                        this.items.indexOf(this.datagrid.selection.currentSingle),
-                        this.datagrid.selection.currentSingle
-                    )
-            );
+            const current = this.datagrid.selection.currentSingle as R;
+            const found = this.mapSelectedRecords([current], this.items)[0];
             if (!found) {
-                this.datagrid.selection.currentSingle = undefined;
+                this.datagrid.selection.clearSelection();
+            } else {
+                this.datagrid.selection.setSelected(found, true);
             }
         } else if (this._selectionType === GridSelectionType.Multi) {
             // Tries to find the currently selected items. If an item isn't found, clears the selection for that item.
             if (this.datagrid.selection.current) {
-                this.datagrid.selection.current = this.datagrid.selection.current.filter((selected, selectedIndex) => {
-                    const found = this.items.find(
-                        (item, itemIndex) => this.trackBy(itemIndex, item) === this.trackBy(selectedIndex, selected)
-                    );
-                    return found;
-                });
+                const current = [...this.datagrid.selection.current] as R[];
+                this.datagrid.selection.clearSelection();
+                const nextSelection = this.mapSelectedRecords(current, this.items).filter(item => item);
+                this.datagrid.selection.updateCurrent(nextSelection, false);
             }
         }
+        if (this.datagrid.rows) {
+            this.datagrid.rows.notifyOnChanges();
+        }
+    }
+
+    /**
+     * Given an existing selection that is made up of records that are about to become stale,
+     * and new records to be loaded into the grid, returns the selection mapped to records
+     * from the newly added records, excluding any records that may not be present in the
+     * new selection because they are not present in the new data.
+     */
+    private mapSelectedRecords(currentSelection: R[], newRecords: R[]): R[] {
+        return currentSelection.map((selected, selectedIndex) => {
+            const found = newRecords.find(
+                (item, itemIndex) => this.trackBy(itemIndex, item) === this.trackBy(selectedIndex, selected)
+            );
+            return found;
+        });
     }
 
     private clearSelectionInformation(): void {
