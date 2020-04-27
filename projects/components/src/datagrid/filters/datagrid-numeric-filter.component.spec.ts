@@ -128,7 +128,7 @@ describe('Datagrid numeric filter', () => {
                 this.finder = finderAndFilter.finder;
                 this.filter = finderAndFilter.filter;
             });
-            it('returns a FIQL string with values converted to base unit of MB ' + 'from selected unit of GB', function(
+            it('returns a FIQL string with values converted to base unit of MB from selected unit of ' + 'GB', function(
                 this: HasFinderAndFilter
             ): void {
                 const [fromValInGb, toValInGb] = [1, 10];
