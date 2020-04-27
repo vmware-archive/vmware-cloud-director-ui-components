@@ -71,4 +71,12 @@ export class DataExporterWidgetObject extends WidgetObject<DataExporterComponent
     clickExport(): void {
         this.click('.export');
     }
+
+    clickYes(): void {
+        this.click('.yes');
+    }
+
+    clickNo(): void {
+        this.click('.no');
+    }
 }

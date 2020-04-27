@@ -147,6 +147,52 @@ describe('VcdExportTableComponent', () => {
                 exporter.clickExport();
             });
 
+            describe('verifies with the user if the data potentially contains injection', () => {
+                it('allows the user to purify injection', function(this: TestHostFinder): void {
+                    const exporter = this.finder.find(DataExporterWidgetObject);
+                    const downloadService = TestBed.get(CsvExporterService) as CsvExporterService;
+                    spyOn(downloadService, 'downloadCsvFile');
+                    spyOn(this.finder.hostComponent, 'onExportRequest').and.callFake((e: DataExportRequestEvent) => {
+                        e.exportData(InjectionData.exportData);
+                        this.finder.detectChanges();
+                        expect(this.finder.hostComponent.dataExporterOpen).toBe(true);
+                        exporter.clickYes();
+                        const exportData: unknown[][] = [
+                            TestData.exportColumns.map(col => col.displayName),
+                            ...FixedInjection.exportData.map(row => Object.values(row)),
+                        ];
+                        const csvString = downloadService.createCsv(exportData);
+                        expect(downloadService.downloadCsvFile).toHaveBeenCalledWith(
+                            csvString,
+                            exporter.component.fileName
+                        );
+                    });
+                    exporter.clickExport();
+                });
+
+                it('allows the user to not purify injection', function(this: TestHostFinder): void {
+                    const exporter = this.finder.find(DataExporterWidgetObject);
+                    const downloadService = TestBed.get(CsvExporterService) as CsvExporterService;
+                    spyOn(downloadService, 'downloadCsvFile');
+                    spyOn(this.finder.hostComponent, 'onExportRequest').and.callFake((e: DataExportRequestEvent) => {
+                        e.exportData(InjectionData.exportData);
+                        this.finder.detectChanges();
+                        expect(this.finder.hostComponent.dataExporterOpen).toBe(true);
+                        exporter.clickNo();
+                        const exportData: unknown[][] = [
+                            TestData.exportColumns.map(col => col.displayName),
+                            ...InjectionData.exportData.map(row => Object.values(row)),
+                        ];
+                        const csvString = downloadService.createCsv(exportData);
+                        expect(downloadService.downloadCsvFile).toHaveBeenCalledWith(
+                            csvString,
+                            exporter.component.fileName
+                        );
+                    });
+                    exporter.clickExport();
+                });
+            });
+
             it('does not download a file if the dialog has been closed', function(this: TestHostFinder): void {
                 const exporter = this.finder.find(DataExporterWidgetObject);
                 const downloadService = TestBed.get(CsvExporterService) as CsvExporterService;
@@ -197,6 +243,14 @@ const TestData = {
     exportColumns: [{ fieldName: 'name', displayName: 'Name' }, { fieldName: 'desc', displayName: 'Description' }],
     exportData: [{ name: 'Jaak', desc: 'Tis what tis' }, { name: 'Jill', desc: 'Still tis what tis' }],
     exportDataWrongField: [{ noexist: 'Jack' }, { noexist: 'Jill' }],
+};
+
+const InjectionData = {
+    exportData: [{ name: '+a', desc: 'Tis what tis' }, { name: 'Jill', desc: 'Still tis what tis' }],
+};
+
+const FixedInjection = {
+    exportData: [{ name: '\t+a', desc: 'Tis what tis' }, { name: 'Jill', desc: 'Still tis what tis' }],
 };
 
 @Component({

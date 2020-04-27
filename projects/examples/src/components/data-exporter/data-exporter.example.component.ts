@@ -26,6 +26,7 @@ export class DataExporterExampleComponent {
     exportColumns: ExportColumn[] = [
         { fieldName: 'name', displayName: 'Name' },
         { fieldName: 'desc', displayName: 'Description' },
+        { fieldName: 'injection', displayName: 'Injection' },
     ];
 
     dataExporterOpen = false;
@@ -40,8 +41,8 @@ export class DataExporterExampleComponent {
                 setTimeout(updateProgress, 50);
             } else {
                 request.exportData([
-                    { name: 'Jack', desc: 'Tis what tis' },
-                    { name: 'Jill', desc: 'Still tis what tis' },
+                    { name: 'Jack', desc: 'Tis what tis', injection: '=1+1' },
+                    { name: 'Jill', desc: 'Still tis what tis', injection: '+1+1' },
                 ]);
             }
         };

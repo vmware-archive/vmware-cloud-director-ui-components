@@ -16,8 +16,17 @@ export class CsvExporterService {
      * Creates a string that can be used to create a Blob for a CSV
      * @param rows 2D array of data. First row is the names for the fields
      */
-    public createCsv(rows: any[][]): string {
-        return rows.map(row => processRow(row)).join('\n');
+    public createCsv(rows: any[][], shouldPurify = false): string {
+        return rows.map(row => processRow(row, shouldPurify)).join('\n');
+    }
+
+    /**
+     * Says if the CSV that would result from the export is at risk of code injection
+     * @param rows 2D array of data. First row is the names for the fields
+     * @param shouldPurify if the tab character should be put in front of any formula cells.
+     */
+    public hasPotentialInjection(rows: any[][]): boolean {
+        return rows.some(hasPotentialInjection);
     }
 
     /**
@@ -44,19 +53,28 @@ export class CsvExporterService {
     }
 }
 
+const SPECIAL_CHAR = new RegExp('^\\+|^-|^=|^@');
+
+/**
+ * Says if the given row data is at risk of code injection when exported to CSV.
+ */
+function hasPotentialInjection(row: unknown[]): boolean {
+    return row.some(cell => SPECIAL_CHAR.test(encodeValue(cell, false)));
+}
+
 /**
  * Returns a string
  * @param row A list of cells to be turned into a CSV string, separated by commas
  */
-function processRow(row: unknown[]): string {
-    return row.map(cell => encodeValue(cell)).join(',');
+function processRow(row: unknown[], shouldPurify: boolean): string {
+    return row.map(cell => encodeValue(cell, shouldPurify)).join(',');
 }
 
 /**
  * Returns a cell's cellValue encoded against spaces, quotes, and CSV injection character
  * @param cellValue Cell cellValue to be encoded
  */
-function encodeValue(cellValue: unknown): string {
+function encodeValue(cellValue: unknown, shouldPurify: boolean): string {
     let innerValue = cellValue == null ? '' : cellValue.toString();
     if (cellValue instanceof Date) {
         innerValue = cellValue.toLocaleString();
@@ -72,7 +90,21 @@ function encodeValue(cellValue: unknown): string {
         result = `"${result}"`;
     }
     // Escape against
+    if (shouldPurify) {
+        return sanitizeString(result);
+    }
     return result;
+}
+
+/**
+ * Prevents CSV injection by prefixing with a tab character if the string contains a
+ * special character.
+ */
+function sanitizeString(value: string): string {
+    if (SPECIAL_CHAR.test(value)) {
+        return '\t' + value;
+    }
+    return value;
 }
 
 /**
