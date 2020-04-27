@@ -65,7 +65,7 @@ describe('Datagrid string filter', () => {
         it('returns a FIQL string with equalTo operator and * added at both the beginning and at the end of a filter input', function(this: HasDgStringFilter): void {
             this.filter.config = {
                 ...this.filter.config,
-                wildCardPosition: WildCardPosition.START_AND_END,
+                wildCardPosition: WildCardPosition.WRAP,
             };
             this.filter.setValue('test-input');
             expect(this.filter.getValue()).toEqual(`${queryFieldName}==*test-input*`);
