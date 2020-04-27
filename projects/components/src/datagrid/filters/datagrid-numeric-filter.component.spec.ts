@@ -2,8 +2,6 @@
  * Copyright 2019 VMware, Inc.
  * SPDX-License-Identifier: BSD-2-Clause
  */
-import { fakeAsync, tick } from '@angular/core/testing';
-import { VcdFormInputWidgetObject } from '../../form/form-input/form-input.component.spec';
 import { NumberWithUnitFormInputWidgetObject } from '../../form/number-with-unit-input/number-with-unit-form-input.widget-object';
 import { WidgetFinder } from '../../utils/test';
 import {
