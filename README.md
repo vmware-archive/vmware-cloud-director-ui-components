@@ -2,14 +2,19 @@
 
 ## Repo Structure
 
-This [monorepo](https://angular.io/guide/file-structure#multiple-projects) contains three separate but related projects:
+This [monorepo](https://angular.io/guide/file-structure#multiple-projects) contains four separate but related projects:
 
 ### Component Library (./projects/components) `@vcd/ui-components`
 
 Reusable components for vcd-ui and its plugin developers. See its [README](projects/components/README.md)
 for further details
 
-### Documentation Library (./projects/doc-lib) `@vmw/vcd-ui-doc`
+### Internalization Library (./projects/i18n) `@vcd/i18n`
+
+Translation code for vcd-ui and its plugin developers. See its [README](projects/i18n/README.md)
+for further details
+
+### Documentation Library (./projects/doc-lib) `@vcd/ui-doc-lib`
 
 Reusable components that allow showcasing a component by displaying
 
@@ -18,14 +23,14 @@ Reusable components that allow showcasing a component by displaying
 -   API / Description
 -   Live / editable examples
 
-See [README](projects/components/README.md)
+See [README](projects/doc-lib/README.md)
 for further details
 
 ### Examples App (./projects/examples)
 
 The application that showcases `@vcd/ui-components` using `@vcd/ui-doc-lib`.
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if
+Run `npm start` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if
 you change any of the source files. This is where you'll see changes made in [components](./projects/components) and
 [doc-lib](./projects/doc-lib)
 
@@ -42,12 +47,11 @@ Run `ng generate component component-name` to generate a new component. You can 
 
 ## Build
 
-Run `ng build components` or `ng build doc-lib`. The build artifacts will be stored in the `dist/` directory. Use the
-`--prod` flag for a production build.
+Run `npm run build:components`, `npm run build:doc-lib`, or `npm run build:i18n`. The build artifacts will be stored in the `dist/` directory.
 
 ## Running unit tests
 
-Run `ng test components` or `ng test doc-lib` to execute the unit tests via [Karma](https://karma-runner.github.io).
+Run `npm run test:components`, `npm run test:doc-lib`, or `npm run test:i18n` to execute the unit tests via [Karma](https://karma-runner.github.io).
 
 ## Running end-to-end tests (Examples App)
 

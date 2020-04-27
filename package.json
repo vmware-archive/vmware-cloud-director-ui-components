@@ -14,6 +14,7 @@
     "build:i18n": "ng build i18n",
     "test": "ng test",
     "test-coverage": "ng test --code-coverage --watch=false",
+    "test:doc-lib": "ng test doc-lib",
     "test:ci:doc-lib": "ng test doc-lib --watch=false --browsers ChromeHeadlessNoSandbox --code-coverage",
     "test:components": "ng test components",
     "test:ci:components": "ng test components --watch=false --browsers ChromeHeadlessNoSandbox --code-coverage",

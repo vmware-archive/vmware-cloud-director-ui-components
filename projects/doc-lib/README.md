@@ -22,13 +22,13 @@ We are using [Angular Material Docs](https://material.angular.io/components) as 
 
 ## Running unit tests
 
-Run `ng test doc-lib` to execute the unit tests via [Karma](https://karma-runner.github.io). Our unit tests make use
+Run `npm run test:doc-lib` to execute the unit tests via [Karma](https://karma-runner.github.io). Our unit tests make use
 of a WidgetObject pattern to minimize duplication of code accessing HTML in tests making the specs easier to read.
 
 ## To install
 
-`npm install @vcd/ui-components` for the latest stable release or
-`npm install @vcd/ui-components@next` for the upcoming release, which could contain APIs that may not be stable
+`npm install @vcd/ui-doc-lib` for the latest stable release or
+`npm install @vcd/ui-doc-lib@next` for the upcoming release, which could contain APIs that may not be stable
 
 ## Using within your app
 
