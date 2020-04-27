@@ -61,5 +61,14 @@ describe('Datagrid string filter', () => {
             this.filter.setValue('test-input');
             expect(this.filter.getValue()).toEqual(`${queryFieldName}==*test-input`);
         });
+        // tslint:disable-next-line:max-line-length
+        it('returns a FIQL string with equalTo operator and * added at both the beginning and at the end of a filter input', function(this: HasDgStringFilter): void {
+            this.filter.config = {
+                ...this.filter.config,
+                wildCardPosition: WildCardPosition.WRAP,
+            };
+            this.filter.setValue('test-input');
+            expect(this.filter.getValue()).toEqual(`${queryFieldName}==*test-input*`);
+        });
     });
 });

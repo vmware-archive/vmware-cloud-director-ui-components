@@ -10,8 +10,10 @@ import { FilterBuilder } from '../../utils/filter-builder';
 import { DatagridFilter, FilterComponentRendererSpec, FilterConfig, FilterRendererSpec } from './datagrid-filter';
 
 export enum WildCardPosition {
-    START = 'START',
-    END = 'END',
+    NONE = 0,
+    START = 1,
+    END = 2,
+    WRAP = WildCardPosition.START | WildCardPosition.END,
 }
 
 /**
@@ -47,13 +49,28 @@ export class DatagridStringFilterComponent extends DatagridFilter<string, Datagr
         const filterBuilder = new FilterBuilder().is(this.queryField);
         let value = this.formGroup.get('filterText').value;
         if (this.config && this.config.wildCardPosition) {
-            value = this.config.wildCardPosition === WildCardPosition.START ? '*' + value : value + '*';
+            value = this.addWildCard(value, this.config.wildCardPosition);
         }
         return filterBuilder.equalTo(value).getString();
     }
 
     isActive(): boolean {
         return !!this.formGroup && this.formGroup.get('filterText').value;
+    }
+
+    /**
+     * Wraps a string with a `wrapCharacter` in given position;
+     */
+    private addWildCard(input: string, position: WildCardPosition, wildcardCharacter = '*'): string {
+        const start = getWrapCharacter(position, WildCardPosition.START);
+        const end = getWrapCharacter(position, WildCardPosition.END);
+        return `${start}${input}${end}`;
+        /**
+         * @return `wrapCharacter` if the passed in position should show it, an empty string otherwise
+         */
+        function getWrapCharacter(inputPosition: WildCardPosition, checkPosition: WildCardPosition): string {
+            return inputPosition & checkPosition ? wildcardCharacter : '';
+        }
     }
 
     ngOnDestroy(): void {}
