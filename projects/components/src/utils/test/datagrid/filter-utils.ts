@@ -19,6 +19,26 @@ import { WidgetFinder } from '../widget-object';
 import { ClrDatagridWidgetObject } from './datagrid.wo';
 
 /**
+ * Creates a testing module with {@link FilterTestHostComponent} that has only single column for filter testing
+ */
+async function configureTestingModule(): Promise<void> {
+    await TestBed.configureTestingModule({
+        imports: [VcdDatagridModule],
+        declarations: [FilterTestHostComponent],
+        providers: [
+            {
+                provide: TranslationService,
+                useClass: MockTranslationService,
+            },
+            {
+                provide: IdGenerator,
+                useValue: new IdGenerator('vcd-id'),
+            },
+        ],
+    }).compileComponents();
+}
+
+/**
  * Used inside beforeEach functions of filter tests and it does the following:
  * - Creates a testing module with {@link FilterTestHostComponent} that has only single column for filter testing
  * - Sets the filter on the column of host component({@link FilterTestHostComponent})
@@ -39,20 +59,7 @@ export function createDatagridFilterTestHelper<V, C>(
     filterType: Type<DatagridFilter<V, C>>,
     config?: C
 ): DatagridFilter<V, C> {
-    TestBed.configureTestingModule({
-        imports: [VcdDatagridModule],
-        declarations: [FilterTestHostComponent],
-        providers: [
-            {
-                provide: TranslationService,
-                useClass: MockTranslationService,
-            },
-            {
-                provide: IdGenerator,
-                useValue: new IdGenerator('vcd-id'),
-            },
-        ],
-    }).compileComponents();
+    configureTestingModule();
 
     // Add the filter to grid column
     const finder = new WidgetFinder(FilterTestHostComponent);
@@ -60,6 +67,23 @@ export function createDatagridFilterTestHelper<V, C>(
     finder.hostComponent.setFilter(filterType, finder, config || ({} as C));
 
     return grid.getFilter(filterType);
+}
+
+/**
+ * Same as the above function but used for tests which need finder
+ */
+export function createDatagridFilterTestHelperWithFinder<V, C>(
+    filterType: Type<DatagridFilter<V, C>>,
+    config?: C
+): { finder: WidgetFinder; filter: DatagridFilter<V, C> } {
+    configureTestingModule();
+
+    // Add the filter to grid column
+    const finder = new WidgetFinder(FilterTestHostComponent);
+    const grid = finder.find(ClrDatagridWidgetObject);
+    finder.hostComponent.setFilter(filterType, finder, config || ({} as C));
+
+    return { finder, filter: grid.getFilter(filterType) };
 }
 
 /**

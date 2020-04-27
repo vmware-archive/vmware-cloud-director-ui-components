@@ -5,6 +5,7 @@
 
 import { Component } from '@angular/core';
 import {
+    Bytes,
     DatagridMultiSelectFilter,
     DatagridNumericFilter,
     DatagridSelectFilter,
@@ -94,6 +95,12 @@ export class DatagridFilterExampleComponent {
             renderer: 'age',
             queryFieldName: 'age',
             filter: DatagridNumericFilter([1, 2]),
+        },
+        {
+            displayName: 'Numeric filter with units',
+            renderer: 'age',
+            queryFieldName: 'age',
+            filter: DatagridNumericFilter([1, 2], [...Bytes.types]),
         },
         {
             displayName: 'Select filter with dynamic options',
