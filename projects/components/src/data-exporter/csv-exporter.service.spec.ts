@@ -56,11 +56,14 @@ describe('CsvExporterService', () => {
             expect(service.createCsv([['a', 'b'], [null, undefined]])).toEqual('a,b\n,');
         });
 
-        it('adds a tab character if the value contains any special characters', () => {
+        it('adds a tab character if the value begins with any special characters', () => {
             const service: CsvExporterService = TestBed.get(CsvExporterService);
-            expect(service.createCsv([['+', '-', '@', '=', 'a+'], [null, undefined]], true)).toEqual(
-                '\t+,\t-,\t@,\t=,a+\n,'
-            );
+            expect(service.createCsv([['+', '-', '@', '='], [null, undefined]], true)).toEqual('\t+,\t-,\t@,\t=\n,');
+        });
+
+        it('does not add a tab character if the value contains but does not begin with with any special characters', () => {
+            const service: CsvExporterService = TestBed.get(CsvExporterService);
+            expect(service.createCsv([['a+', 'a-', 'a@', 'a='], [null, undefined]], true)).toEqual('a+,a-,a@,a=\n,');
         });
     });
 

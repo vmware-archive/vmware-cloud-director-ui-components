@@ -1,7 +1,7 @@
 <clr-modal [clrModalOpen]="open" (clrModalOpenChange)="openChange.emit($event)" [clrModalSize]="'sm'" #modal>
     <h3 class="modal-title">{{ dialogHeader | lazyString }}</h3>
     <div class="modal-body">
-        <ng-container *ngIf="!_shouldPurifyData; else purifyDataMessage">
+        <ng-container *ngIf="!shouldSanitizeData; else purifyDataMessage">
             <button
                 *ngIf="showSelectAll"
                 class="btn btn-sm btn-link select-all"
@@ -29,7 +29,7 @@
     </div>
 
     <div class="modal-footer">
-        <ng-container *ngIf="!_shouldPurifyData; else purifyDataButtons">
+        <ng-container *ngIf="!shouldSanitizeData; else purifyDataButtons">
             <button type="button" class="btn btn-outline cancel" (click)="open = false">
                 {{ cancelText | lazyString }}
             </button>
@@ -44,10 +44,10 @@
         </ng-container>
         <ng-template #purifyDataButtons>
             <div class="modal-footer">
-                <button type="button" class="btn btn-outline no" (click)="_downloadData(_data, false)">
+                <button type="button" class="btn btn-outline no" (click)="downloadData(data, false)">
                     {{ noText | lazyString }}
                 </button>
-                <button type="button" class="btn btn-primary yes" (click)="_downloadData(_data, true)">
+                <button type="button" class="btn btn-primary yes" (click)="downloadData(data, true)">
                     {{ yesText | lazyString }}
                 </button>
             </div>

@@ -131,8 +131,8 @@ export class DataExporterComponent implements OnInit {
 
     private _open = false;
 
-    _shouldPurifyData = false;
-    _data: any[][];
+    shouldSanitizeData = false;
+    data: any[][];
 
     /**
      * Fires when {@link _open} changes. Its parameter indicates the new state.
@@ -219,14 +219,14 @@ export class DataExporterComponent implements OnInit {
             ...records.map(rec => Object.keys(rec).map(key => rec[key])),
         ];
         if (this.csvExporterService.hasPotentialInjection(rows)) {
-            this._data = rows;
-            this._shouldPurifyData = true;
+            this.data = rows;
+            this.shouldSanitizeData = true;
             return;
         }
-        this._downloadData(rows);
+        this.downloadData(rows);
     }
 
-    _downloadData(rows: any[][], shouldPurify: boolean = false): void {
+    downloadData(rows: any[][], shouldPurify: boolean = false): void {
         this.open = false;
         this._isRequestPending = false;
         const csvFile = this.csvExporterService.createCsv(rows, shouldPurify);
