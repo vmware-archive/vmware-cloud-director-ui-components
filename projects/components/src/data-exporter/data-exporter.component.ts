@@ -95,6 +95,24 @@ export class DataExporterComponent implements OnInit {
     exportText: LazyString = this.translationService.translateAsync('vcd.cc.export');
 
     /**
+     * Text for the yes button.
+     */
+    @Input()
+    yesText: LazyString = this.translationService.translateAsync('vcd.cc.yes');
+
+    /**
+     * Text for the yes button.
+     */
+    @Input()
+    noText: LazyString = this.translationService.translateAsync('vcd.cc.no');
+
+    /**
+     * Text for the yes button.
+     */
+    @Input()
+    badDataText: LazyString = this.translationService.translateAsync('vcd.cc.bad.data');
+
+    /**
      * Whether a box to select/deselect all rows is available
      */
     @Input() showSelectAll = true;
@@ -112,6 +130,9 @@ export class DataExporterComponent implements OnInit {
     }
 
     private _open = false;
+
+    dataHasPotentialInjection = false;
+    data: any[][];
 
     /**
      * Fires when {@link _open} changes. Its parameter indicates the new state.
@@ -190,8 +211,6 @@ export class DataExporterComponent implements OnInit {
         if (!this.open) {
             return;
         }
-        this.open = false;
-        this._isRequestPending = false;
 
         const rows = [
             // First row is the display names
@@ -199,8 +218,18 @@ export class DataExporterComponent implements OnInit {
             // Then the data
             ...records.map(rec => Object.keys(rec).map(key => rec[key])),
         ];
+        this.data = rows;
+        if (this.csvExporterService.hasPotentialInjection(rows)) {
+            this.dataHasPotentialInjection = true;
+            return;
+        }
+        this.downloadData();
+    }
 
-        const csvFile = this.csvExporterService.createCsv(rows);
+    downloadData(shouldSanitize: boolean = false): void {
+        this.open = false;
+        this._isRequestPending = false;
+        const csvFile = this.csvExporterService.createCsv(this.data, shouldSanitize);
         this.csvExporterService.downloadCsvFile(csvFile, this.fileName);
     }
 

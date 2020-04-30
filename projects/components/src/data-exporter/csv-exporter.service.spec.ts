@@ -7,6 +7,21 @@ import { TestBed } from '@angular/core/testing';
 import { CsvExporterService } from './csv-exporter.service';
 
 describe('CsvExporterService', () => {
+    describe('hasPotentialInjection', () => {
+        it('doesnt detect injection on a row without formulas', () => {
+            const service: CsvExporterService = TestBed.get(CsvExporterService);
+            expect(service.hasPotentialInjection([['a+', 'b'], [1, 2]])).toBeFalsy();
+        });
+
+        it('does detect injection on a row with formulas', () => {
+            const service: CsvExporterService = TestBed.get(CsvExporterService);
+            expect(service.hasPotentialInjection([['+', 'b'], [1, 2]])).toBeTruthy();
+            expect(service.hasPotentialInjection([['-', 'b'], [1, 2]])).toBeTruthy();
+            expect(service.hasPotentialInjection([['=', 'b'], [1, 2]])).toBeTruthy();
+            expect(service.hasPotentialInjection([['@', 'b'], [1, 2]])).toBeTruthy();
+        });
+    });
+
     describe('createCsv', () => {
         it('creates a csv out of 2D array of cell values', () => {
             const service: CsvExporterService = TestBed.get(CsvExporterService);
@@ -39,6 +54,16 @@ describe('CsvExporterService', () => {
         it('prints null and undefined as an empty string', () => {
             const service: CsvExporterService = TestBed.get(CsvExporterService);
             expect(service.createCsv([['a', 'b'], [null, undefined]])).toEqual('a,b\n,');
+        });
+
+        it('adds a tab character if the value begins with any special characters', () => {
+            const service: CsvExporterService = TestBed.get(CsvExporterService);
+            expect(service.createCsv([['+', '-', '@', '='], [null, undefined]], true)).toEqual('\t+,\t-,\t@,\t=\n,');
+        });
+
+        it('does not add a tab character if the value contains but does not begin with with any special characters', () => {
+            const service: CsvExporterService = TestBed.get(CsvExporterService);
+            expect(service.createCsv([['a+', 'a-', 'a@', 'a='], [null, undefined]], true)).toEqual('a+,a-,a@,a=\n,');
         });
     });
 

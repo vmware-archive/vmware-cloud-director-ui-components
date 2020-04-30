@@ -1,35 +1,56 @@
 <clr-modal [clrModalOpen]="open" (clrModalOpenChange)="openChange.emit($event)" [clrModalSize]="'sm'" #modal>
     <h3 class="modal-title">{{ dialogHeader | lazyString }}</h3>
     <div class="modal-body">
-        <button
-            *ngIf="showSelectAll"
-            class="btn btn-sm btn-link select-all"
-            type="button"
-            (click)="onClickCheckAll()"
-            [disabled]="!isSelectAllEnabled"
-        >
-            {{ selectAllText | lazyString }}
-        </button>
-        <ul class="list-unstyled column-selection" [formGroup]="formGroup">
-            <li *ngFor="let col of columns">
-                <clr-checkbox-wrapper>
-                    <input type="checkbox" clrCheckbox [formControlName]="col.fieldName" />
-                    <label>{{ col.displayName }}</label>
-                </clr-checkbox-wrapper>
-            </li>
-        </ul>
-        <div class="progress" [ngClass]="{ loop: progress == -1, pending: isRequestPending }">
-            <progress max="100" value="{{ progress * 100 }}"></progress>
-        </div>
+        <ng-container *ngIf="!dataHasPotentialInjection; else sanitizeDataMessage">
+            <button
+                *ngIf="showSelectAll"
+                class="btn btn-sm btn-link select-all"
+                type="button"
+                (click)="onClickCheckAll()"
+                [disabled]="!isSelectAllEnabled"
+            >
+                {{ selectAllText | lazyString }}
+            </button>
+            <ul class="list-unstyled column-selection" [formGroup]="formGroup">
+                <li *ngFor="let col of columns">
+                    <clr-checkbox-wrapper>
+                        <input type="checkbox" clrCheckbox [formControlName]="col.fieldName" />
+                        <label>{{ col.displayName }}</label>
+                    </clr-checkbox-wrapper>
+                </li>
+            </ul>
+            <div class="progress" [ngClass]="{ loop: progress == -1, pending: isRequestPending }">
+                <progress max="100" value="{{ progress * 100 }}"></progress>
+            </div>
+        </ng-container>
+        <ng-template #sanitizeDataMessage>
+            {{ badDataText | lazyString }}
+        </ng-template>
     </div>
-    <hr />
 
     <div class="modal-footer">
-        <button type="button" class="btn btn-outline cancel" (click)="open = false">
-            {{ cancelText | lazyString }}
-        </button>
-        <button type="button" class="btn btn-primary export" [disabled]="!isExportEnabled" (click)="onClickExport()">
-            {{ exportText | lazyString }}
-        </button>
+        <ng-container *ngIf="!dataHasPotentialInjection; else sanitizeDataButtons">
+            <button type="button" class="btn btn-outline cancel" (click)="open = false">
+                {{ cancelText | lazyString }}
+            </button>
+            <button
+                type="button"
+                class="btn btn-primary export"
+                [disabled]="!isExportEnabled"
+                (click)="onClickExport()"
+            >
+                {{ exportText | lazyString }}
+            </button>
+        </ng-container>
+        <ng-template #sanitizeDataButtons>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline no" (click)="downloadData(false)">
+                    {{ noText | lazyString }}
+                </button>
+                <button type="button" class="btn btn-primary yes" (click)="downloadData(true)">
+                    {{ yesText | lazyString }}
+                </button>
+            </div>
+        </ng-template>
     </div>
 </clr-modal>
