@@ -1,7 +1,7 @@
 <clr-modal [clrModalOpen]="open" (clrModalOpenChange)="openChange.emit($event)" [clrModalSize]="'sm'" #modal>
     <h3 class="modal-title">{{ dialogHeader | lazyString }}</h3>
     <div class="modal-body">
-        <ng-container *ngIf="!shouldSanitizeData; else purifyDataMessage">
+        <ng-container *ngIf="!dataHasPotentialInjection; else sanitizeDataMessage">
             <button
                 *ngIf="showSelectAll"
                 class="btn btn-sm btn-link select-all"
@@ -23,13 +23,13 @@
                 <progress max="100" value="{{ progress * 100 }}"></progress>
             </div>
         </ng-container>
-        <ng-template #purifyDataMessage>
+        <ng-template #sanitizeDataMessage>
             {{ badDataText | lazyString }}
         </ng-template>
     </div>
 
     <div class="modal-footer">
-        <ng-container *ngIf="!shouldSanitizeData; else purifyDataButtons">
+        <ng-container *ngIf="!dataHasPotentialInjection; else sanitizeDataButtons">
             <button type="button" class="btn btn-outline cancel" (click)="open = false">
                 {{ cancelText | lazyString }}
             </button>
@@ -42,12 +42,12 @@
                 {{ exportText | lazyString }}
             </button>
         </ng-container>
-        <ng-template #purifyDataButtons>
+        <ng-template #sanitizeDataButtons>
             <div class="modal-footer">
-                <button type="button" class="btn btn-outline no" (click)="downloadData(data, false)">
+                <button type="button" class="btn btn-outline no" (click)="downloadData(false)">
                     {{ noText | lazyString }}
                 </button>
-                <button type="button" class="btn btn-primary yes" (click)="downloadData(data, true)">
+                <button type="button" class="btn btn-primary yes" (click)="downloadData(true)">
                     {{ yesText | lazyString }}
                 </button>
             </div>

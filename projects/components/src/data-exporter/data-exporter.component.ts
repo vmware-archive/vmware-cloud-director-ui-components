@@ -131,7 +131,7 @@ export class DataExporterComponent implements OnInit {
 
     private _open = false;
 
-    shouldSanitizeData = false;
+    dataHasPotentialInjection = false;
     data: any[][];
 
     /**
@@ -218,18 +218,18 @@ export class DataExporterComponent implements OnInit {
             // Then the data
             ...records.map(rec => Object.keys(rec).map(key => rec[key])),
         ];
+        this.data = rows;
         if (this.csvExporterService.hasPotentialInjection(rows)) {
-            this.data = rows;
-            this.shouldSanitizeData = true;
+            this.dataHasPotentialInjection = true;
             return;
         }
-        this.downloadData(rows);
+        this.downloadData();
     }
 
-    downloadData(rows: any[][], shouldPurify: boolean = false): void {
+    downloadData(shouldSanitize: boolean = false): void {
         this.open = false;
         this._isRequestPending = false;
-        const csvFile = this.csvExporterService.createCsv(rows, shouldPurify);
+        const csvFile = this.csvExporterService.createCsv(this.data, shouldSanitize);
         this.csvExporterService.downloadCsvFile(csvFile, this.fileName);
     }
 

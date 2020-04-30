@@ -148,7 +148,7 @@ describe('VcdExportTableComponent', () => {
             });
 
             describe('verifies with the user if the data potentially contains injection', () => {
-                it('allows the user to purify injection', function(this: TestHostFinder): void {
+                it('allows the user to sanitize injection', function(this: TestHostFinder): void {
                     const exporter = this.finder.find(DataExporterWidgetObject);
                     const downloadService = TestBed.get(CsvExporterService) as CsvExporterService;
                     spyOn(downloadService, 'downloadCsvFile');
@@ -170,7 +170,7 @@ describe('VcdExportTableComponent', () => {
                     exporter.clickExport();
                 });
 
-                it('allows the user to not purify injection', function(this: TestHostFinder): void {
+                it('allows the user to not sanitize injection', function(this: TestHostFinder): void {
                     const exporter = this.finder.find(DataExporterWidgetObject);
                     const downloadService = TestBed.get(CsvExporterService) as CsvExporterService;
                     spyOn(downloadService, 'downloadCsvFile');
