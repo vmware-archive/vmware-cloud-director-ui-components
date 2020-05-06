@@ -885,8 +885,10 @@ describe('DatagridComponent', () => {
             });
         });
 
-        describe('@Input() columns', () => {
-            it('updates the columnsUpdatedObservable when set', function(this: HasFinderAndGrid): void {
+        describe('columnsUpdated event', () => {
+            it('is fired when columns is set', function(this: HasFinderAndGrid): void {
+                this.finder.detectChanges();
+                const spy = spyOn(this.finder.hostComponent.grid.columnsUpdated, 'emit').and.callThrough();
                 this.finder.hostComponent.columns = [
                     {
                         displayName: 'Column',
@@ -894,9 +896,23 @@ describe('DatagridComponent', () => {
                     },
                 ];
                 this.finder.detectChanges();
-                this.finder.hostComponent.grid.columnsUpdatedObservable.subscribe(updated => {
-                    expect(updated).toBe(true);
+                expect(spy).toHaveBeenCalled();
+            });
+            it('is not fired when addColumn or removeColumn is called', function(this: HasFinderAndGrid): void {
+                this.finder.detectChanges();
+                const spy = spyOn(this.finder.hostComponent.grid.columnsUpdated, 'emit').and.callThrough();
+                this.finder.hostComponent.grid.addColumn({
+                    displayName: 'Column2',
+                    renderer: 'name2',
                 });
+                this.finder.detectChanges();
+                expect(spy).not.toHaveBeenCalled();
+                this.finder.hostComponent.grid.removeColumn({
+                    displayName: 'Column2',
+                    renderer: 'name2',
+                });
+                this.finder.detectChanges();
+                expect(spy).not.toHaveBeenCalled();
             });
         });
 

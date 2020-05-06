@@ -10,31 +10,19 @@ import {
     ElementRef,
     EventEmitter,
     HostBinding,
-    Injector,
     Input,
     OnInit,
     Output,
     TrackByFunction,
-    Type,
     ViewChild,
 } from '@angular/core';
-import {
-    ClrDatagrid,
-    ClrDatagridFilter,
-    ClrDatagridPagination,
-    ClrDatagridStateInterface,
-    LoadingListener,
-} from '@clr/angular';
+import { ClrDatagrid, ClrDatagridFilter, ClrDatagridPagination, ClrDatagridStateInterface } from '@clr/angular';
 import { LazyString, TranslationService } from '@vcd/i18n';
-import { BehaviorSubject, Observable, Subject } from 'rxjs';
+import { Observable } from 'rxjs';
 import { ActivityReporter } from '../common/activity-reporter';
 import { TooltipSize } from '../lib/directives/show-clipped-text.directive';
 import { DatagridFilter } from './filters/datagrid-filter';
-import {
-    ComponentRenderer,
-    ComponentRendererConstructor,
-    ComponentRendererSpec,
-} from './interfaces/component-renderer.interface';
+import { ComponentRendererConstructor, ComponentRendererSpec } from './interfaces/component-renderer.interface';
 import {
     Button,
     ButtonConfig,
@@ -262,8 +250,7 @@ export class DatagridComponent<R> implements OnInit, AfterViewInit {
     set columns(cols: GridColumn<R>[]) {
         this._columns = cols;
         this.updateColumnsConfig();
-        // Push notification
-        this.columnsUpdated.next(true);
+        this.columnsUpdated.emit();
     }
     get columns(): GridColumn<R>[] {
         return this._columns;
@@ -391,12 +378,11 @@ export class DatagridComponent<R> implements OnInit, AfterViewInit {
         }
         return [];
     }
-    /**
-     * Stream to send push notifications when ever columns are updated by the calling components using this data grid
-     */
-    private columnsUpdated = new Subject<boolean>();
 
-    columnsUpdatedObservable = this.columnsUpdated.asObservable();
+    /**
+     * Emitted whenever {@link #columns} input is updated
+     */
+    @Output() columnsUpdated = new EventEmitter();
 
     /**
      * Columns are updated using set columns, addColumn and removeColumn methods. This cache helps in preserving changes
@@ -544,7 +530,7 @@ export class DatagridComponent<R> implements OnInit, AfterViewInit {
             return;
         }
         const colIndex = this.findColumnIndex(col);
-        if (colIndex !== null) {
+        if (colIndex !== -1) {
             this._columns[colIndex] = col;
         } else {
             this._columns.push(col);
@@ -561,15 +547,14 @@ export class DatagridComponent<R> implements OnInit, AfterViewInit {
             return;
         }
         const colIndex = this.findColumnIndex(col);
-        if (colIndex !== null) {
+        if (colIndex !== -1) {
             this._columns.splice(colIndex, 1);
             this.updateColumnsConfig();
         }
     }
 
     private findColumnIndex(col: GridColumn<R>): number {
-        const colIndex = this.columns.findIndex(column => col.displayName === column.displayName);
-        return colIndex >= 0 ? colIndex : null;
+        return this.columns.findIndex(column => col.displayName === column.displayName);
     }
 
     private updateColumnsConfig(): void {
