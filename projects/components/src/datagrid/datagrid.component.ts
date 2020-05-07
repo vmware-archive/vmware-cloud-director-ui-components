@@ -10,31 +10,19 @@ import {
     ElementRef,
     EventEmitter,
     HostBinding,
-    Injector,
     Input,
     OnInit,
     Output,
     TrackByFunction,
-    Type,
     ViewChild,
 } from '@angular/core';
-import {
-    ClrDatagrid,
-    ClrDatagridFilter,
-    ClrDatagridPagination,
-    ClrDatagridStateInterface,
-    LoadingListener,
-} from '@clr/angular';
+import { ClrDatagrid, ClrDatagridFilter, ClrDatagridPagination, ClrDatagridStateInterface } from '@clr/angular';
 import { LazyString, TranslationService } from '@vcd/i18n';
 import { Observable } from 'rxjs';
 import { ActivityReporter } from '../common/activity-reporter';
 import { TooltipSize } from '../lib/directives/show-clipped-text.directive';
 import { DatagridFilter } from './filters/datagrid-filter';
-import {
-    ComponentRenderer,
-    ComponentRendererConstructor,
-    ComponentRendererSpec,
-} from './interfaces/component-renderer.interface';
+import { ComponentRendererConstructor, ComponentRendererSpec } from './interfaces/component-renderer.interface';
 import {
     Button,
     ButtonConfig,
@@ -255,12 +243,14 @@ interface ColumnConfigInternal<R, T> extends GridColumn<R> {
 })
 export class DatagridComponent<R> implements OnInit, AfterViewInit {
     /**
-     * Sets the configuration of columns on the grid and updates the {@link columnsConfig} array
+     * Sets the configuration of columns on the grid and updates the {@link columnsConfig} array. Also pushes
+     * notifications for listeners to make changes to the _columns array
      */
     @Input()
     set columns(cols: GridColumn<R>[]) {
         this._columns = cols;
-        this.getColumnsConfig();
+        this.updateColumnsConfig();
+        this.columnsUpdated.emit();
     }
     get columns(): GridColumn<R>[] {
         return this._columns;
@@ -388,6 +378,18 @@ export class DatagridComponent<R> implements OnInit, AfterViewInit {
         }
         return [];
     }
+
+    /**
+     * Emitted whenever {@link #columns} input is updated
+     */
+    @Output() columnsUpdated = new EventEmitter();
+
+    /**
+     * Columns are updated using set columns, addColumn and removeColumn methods. This cache helps in preserving changes
+     * made by each of the methods to columns array and helps in not overwriting the changes made by one of the methods
+     * with changes made by another method
+     */
+    private _columns: GridColumn<R>[];
     /**
      * A optional string to be displayed above the grid.
      */
@@ -405,7 +407,6 @@ export class DatagridComponent<R> implements OnInit, AfterViewInit {
     TooltipSize = TooltipSize;
     ActivityIndicatorType = ActivityIndicatorType;
     TextIcon = TextIcon;
-    private _columns: GridColumn<R>[];
 
     /**
      * The component that sound be rendered for this detail row.
@@ -519,6 +520,46 @@ export class DatagridComponent<R> implements OnInit, AfterViewInit {
     @ViewChild('actionReporter', { static: false }) actionReporter: ActivityReporter;
 
     private viewInitted = false;
+
+    /**
+     * To add or replace a column of this datagrid columns. Exposed for columns modifiers(eg: directives) that listen to
+     * {@link columnsUpdated} event and want to modify the columns set by components using this datagrid.
+     */
+    public addColumn(col: GridColumn<R>): void {
+        if (!col) {
+            return;
+        }
+        const colIndex = this.findColumnIndex(col);
+        if (colIndex !== -1) {
+            this._columns[colIndex] = col;
+        } else {
+            this._columns.push(col);
+        }
+        this.updateColumnsConfig();
+    }
+
+    /**
+     * To remove a column from this datagrid columns. Exposed for columns modifiers(eg: directives) that listen to
+     * {@link columnsUpdated} event and want to modify the columns set by components using this datagrid.
+     */
+    public removeColumn(col: GridColumn<R>): void {
+        if (!col) {
+            return;
+        }
+        const colIndex = this.findColumnIndex(col);
+        if (colIndex !== -1) {
+            this._columns.splice(colIndex, 1);
+            this.updateColumnsConfig();
+        }
+    }
+
+    private findColumnIndex(col: GridColumn<R>): number {
+        return this.columns.findIndex(column => col.displayName === column.displayName);
+    }
+
+    private updateColumnsConfig(): void {
+        this.columnsConfig = this.getColumnsConfig(this.columns);
+    }
 
     /**
      * Returns an identifier for the given record at the given index.
@@ -839,8 +880,8 @@ export class DatagridComponent<R> implements OnInit, AfterViewInit {
      * Defines the {@property columnsConfig} by adding extra property required for differentiating different kinds
      * of renderers which is required in the HTML template.
      */
-    private getColumnsConfig(): void {
-        this.columnsConfig = this.columns.map(column => {
+    public getColumnsConfig(columns): ColumnConfigInternal<R, unknown>[] {
+        return columns.map(column => {
             const columnConfig: ColumnConfigInternal<R, unknown> = {
                 ...column,
             };

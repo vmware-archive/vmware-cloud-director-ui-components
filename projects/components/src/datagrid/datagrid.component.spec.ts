@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: BSD-2-Clause
  */
 
-import { Component, HostBinding, InjectionToken, Type, ViewChild } from '@angular/core';
+import { Component, HostBinding, ViewChild } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { LoadingListener } from '@clr/angular';
@@ -883,6 +883,104 @@ describe('DatagridComponent', () => {
                 expect(this.clrGridWidget.component.columns.first.sortable).toEqual(true);
                 expect(this.clrGridWidget.component.columns.first.customFilter).toEqual(true);
             });
+        });
+
+        describe('columnsUpdated event', () => {
+            it('is fired when columns is set', function(this: HasFinderAndGrid): void {
+                this.finder.detectChanges();
+                const spy = spyOn(this.finder.hostComponent.grid.columnsUpdated, 'emit').and.callThrough();
+                this.finder.hostComponent.columns = [
+                    {
+                        displayName: 'Column',
+                        renderer: 'name',
+                    },
+                ];
+                this.finder.detectChanges();
+                expect(spy).toHaveBeenCalled();
+            });
+            it('is not fired when addColumn or removeColumn is called', function(this: HasFinderAndGrid): void {
+                this.finder.detectChanges();
+                const spy = spyOn(this.finder.hostComponent.grid.columnsUpdated, 'emit').and.callThrough();
+                this.finder.hostComponent.grid.addColumn({
+                    displayName: 'Column2',
+                    renderer: 'name2',
+                });
+                this.finder.detectChanges();
+                expect(spy).not.toHaveBeenCalled();
+                this.finder.hostComponent.grid.removeColumn({
+                    displayName: 'Column2',
+                    renderer: 'name2',
+                });
+                this.finder.detectChanges();
+                expect(spy).not.toHaveBeenCalled();
+            });
+        });
+
+        describe('addColumn', () => {
+            beforeEach(function(this: HasFinderAndGrid): void {
+                this.finder.hostComponent.columns = [
+                    {
+                        displayName: 'Column',
+                        renderer: 'name',
+                    },
+                ];
+                this.finder.detectChanges();
+            });
+            it('adds the passed in column to list of existing grid columns', function(this: HasFinderAndGrid): void {
+                expect(this.finder.hostComponent.grid.columns.length).toBe(1);
+                this.finder.hostComponent.grid.addColumn({
+                    displayName: 'Column2',
+                    renderer: 'name2',
+                });
+                this.finder.detectChanges();
+                expect(this.finder.hostComponent.grid.columns.length).toBe(2);
+                expect(this.finder.hostComponent.grid.columns[1].displayName).toBe('Column2');
+            });
+            it(
+                'updates a existing column if a column exists with same display name as the column passed ' + 'in',
+                function(this: HasFinderAndGrid): void {
+                    expect(this.finder.hostComponent.grid.columns[0].renderer).toBe('name');
+                    this.finder.hostComponent.grid.addColumn({
+                        displayName: 'Column',
+                        renderer: 'updated-name',
+                    });
+                    this.finder.detectChanges();
+                    expect(this.finder.hostComponent.grid.columns[0].renderer).toBe('updated-name');
+                }
+            );
+        });
+
+        describe('removeColumn', () => {
+            beforeEach(function(this: HasFinderAndGrid): void {
+                this.finder.hostComponent.columns = [
+                    {
+                        displayName: 'Column',
+                        renderer: 'name',
+                    },
+                ];
+                this.finder.detectChanges();
+            });
+            it('removes the column from list of existing grid columns', function(this: HasFinderAndGrid): void {
+                expect(this.finder.hostComponent.grid.columns.length).toBe(1);
+                this.finder.hostComponent.grid.removeColumn({
+                    displayName: 'Column',
+                    renderer: 'name',
+                });
+                this.finder.detectChanges();
+                expect(this.finder.hostComponent.grid.columns.length).toBe(0);
+            });
+            it(
+                'does not do anything if there is no column with same display name as the column passed ' + 'in',
+                function(this: HasFinderAndGrid): void {
+                    expect(this.finder.hostComponent.grid.columns.length).toBe(1);
+                    this.finder.hostComponent.grid.removeColumn({
+                        displayName: 'Non-existing-Column',
+                        renderer: 'name',
+                    });
+                    this.finder.detectChanges();
+                    expect(this.finder.hostComponent.grid.columns.length).toBe(1);
+                }
+            );
         });
     });
 
