@@ -6,7 +6,7 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { ShowClippedTextDirective } from '@vcd/ui-components';
-import { Documentation } from '@vcd/ui-doc-lib';
+import { Documentation } from '@vmw/ng-live-docs';
 import { ShowClippedTextPositioningExampleComponent } from './positioning/show-clipped-text-positioning-example.component';
 import { ShowClippedTextPositioningExampleModule } from './positioning/show-clipped-text-positioning-example.module';
 import { ShowClippedTextSizingExampleComponent } from './sizing/show-clipped-text-sizing-example.component';

@@ -5,14 +5,14 @@
 
 import { NgModule } from '@angular/core';
 import { BannerActivityReporterComponent } from '@vcd/ui-components';
-import { Documentation } from '@vcd/ui-doc-lib';
+import { Documentation } from '@vmw/ng-live-docs';
 import { BannerActivityReporterExampleComponent } from './banner-activity-reporter.example.component';
 import { BannerActivityReporterExampleModule } from './banner-activity-reporter.example.module';
 import { SpinnerActivityReporterExampleComponent } from './spinner-activity-reporter.example.component';
 import { SpinnerActivityReporterExampleModule } from './spinner-activity-reporter.example.module';
 
 Documentation.registerDocumentationEntry({
-    component: BannerActivityReporterComponent, // TODO: allow doc-lib to supoort documentation for non-components
+    component: BannerActivityReporterComponent,
     displayName: 'Activity Reporter',
     urlSegment: 'activityReporter',
     examples: [

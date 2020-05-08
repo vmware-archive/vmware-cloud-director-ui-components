@@ -3,19 +3,15 @@
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
-    "//": "Requires running build: doc-lib",
-    "start": "npm run build:i18n; npm run build:doc-lib; npm run build:components; npm run build-components-doc; npm run generate-example-translations; npm run build-examples-doc; ng serve",
+    "start": "npm run build:i18n; npm run build:components; npm run build-components-doc; npm run generate-example-translations; npm run build-examples-doc; ng serve",
     "build:examples": "ng build examples",
     "build:examples-prod": "ng build examples --prod=true --base-href=/vmware-cloud-director-ui-components/",
     "build:examples-aot": "ng build examples --aot=true",
     "build:components": "ng build components",
     "postbuild:components": "npm run generate-translations; cp projects/components/src/assets/i18n.json dist/components/i18n.json",
-    "build:doc-lib": "ng build doc-lib; tsc -p projects/doc-lib/scripts/tsconfig.json",
     "build:i18n": "ng build i18n",
     "test": "ng test",
     "test-coverage": "ng test --code-coverage --watch=false",
-    "test:doc-lib": "ng test doc-lib",
-    "test:ci:doc-lib": "ng test doc-lib --watch=false --browsers ChromeHeadlessNoSandbox --code-coverage",
     "test:components": "ng test components",
     "test:ci:components": "ng test components --watch=false --browsers ChromeHeadlessNoSandbox --code-coverage",
     "test:i18n": "ng test i18n",
@@ -23,8 +19,8 @@
     "lint": "ng lint",
     "lint-fix": "tslint --fix -p tsconfig.json",
     "e2e": "ng e2e",
-    "build-components-doc": "mkdir -p projects/examples/gen; node $NODE_DEBUG_OPTION dist/doc-lib/index.js projects/components/tsconfig.lib.json projects/components/src/public-api.ts projects/examples/gen/components-doc.json",
-    "build-examples-doc": "mkdir -p projects/examples/gen; node $NODE_DEBUG_OPTION dist/doc-lib/index.js projects/examples/tsconfig.app.json projects/examples/src/main.ts projects/examples/gen/examples-doc.json",
+    "build-components-doc": "mkdir -p projects/examples/gen; node $NODE_DEBUG_OPTION node_modules/@vmw/ng-live-docs/index.js projects/components/tsconfig.lib.json projects/components/src/public-api.ts projects/examples/gen/components-doc.json",
+    "build-examples-doc": "mkdir -p projects/examples/gen; node $NODE_DEBUG_OPTION node_modules/@vmw/ng-live-docs/index.js projects/examples/tsconfig.app.json projects/examples/src/main.ts projects/examples/gen/examples-doc.json",
     "generate-translations": "node projects/components/src/assets/index.js",
     "generate-example-translations": "node projects/i18n/scripts/index.js dist/components/i18n.json projects/examples/src/assets/our-translations.json projects/examples/src/assets/i18n.json"
   },
@@ -54,7 +50,8 @@
     "properties": "1.2.1",
     "rxjs": "6.4.0",
     "tslib": "1.10.0",
-    "zone.js": "0.9.1"
+    "zone.js": "0.9.1",
+    "@vmw/ng-live-docs": "0.0.0"
   },
   "husky": {
     "hooks": {

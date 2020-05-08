@@ -17,7 +17,6 @@ jobs:
                   npm ci
                   npm run lint i18n
                   npm run lint components
-                  npm run lint doc-lib
                   npm run lint examples
 
     build-i18n:
@@ -52,34 +51,16 @@ jobs:
                   npm ci
                   npm run build:components
 
-    build-doc-lib:
-        runs-on: ubuntu-latest
-        name: Build /doc-lib
-        needs: [lint-projects]
-        steps:
-            - uses: actions/checkout@v2
-            - uses: actions/cache@v1
-              with:
-                  path: ./dist/doc-lib
-                  key: ${{github.sha}}-doc-lib
-            - run: |
-                  npm ci
-                  npm run build:doc-lib
-
     build-app:
         runs-on: ubuntu-latest
         name: Build /examples-app
-        needs: [build-components-lib, build-doc-lib]
+        needs: [build-components-lib]
         steps:
             - uses: actions/checkout@v2
             - uses: actions/cache@v1
               with:
                   path: ./dist/components
                   key: ${{ github.sha }}-components
-            - uses: actions/cache@v1
-              with:
-                  path: ./dist/doc-lib
-                  key: ${{github.sha}}-doc-lib
             - uses: actions/cache@v1
               with:
                   path: ./dist/i18n
@@ -114,7 +95,6 @@ jobs:
               run: |
                   npm ci
                   npm run test:ci:components
-                  npm run test:ci:doc-lib
                   npm run test:ci:i18n
             - name: Upload coverage to Codecov
               if: success()
@@ -176,49 +156,6 @@ jobs:
               run: |
                   cd ./dist/components
                   npm publish
-              env:
-                  NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}
-
-    publish-doc-lib:
-        needs: [build-doc-lib, unit-testing]
-        runs-on: ubuntu-latest
-        steps:
-            - uses: actions/checkout@v2
-              # Fetch depth is given as input because by default, it does a shallow clone (one without any history) for performance reasons.
-              # But the check-components-package step below uses git diff-tree command to get list of files changed and
-              # it requires a base commit sha in addition to the commit sha that triggered this job.
-              with:
-                  fetch-depth: 2
-            - uses: actions/setup-node@v1
-              with:
-                  node-version: '13'
-                  registry-url: https://registry.npmjs.org/
-            - uses: actions/cache@v1
-              with:
-                  path: ./dist/doc-lib
-                  key: ${{github.sha}}-doc-lib
-            - name: Install node_modules
-              run: npm ci
-            - id: check-doc-lib-tag
-              uses: ./.github/actions/check-lib-tag
-              with:
-                  lib-name: 'doc-lib'
-            - id: check-doc-lib-package
-              uses: ./.github/actions/check-lib-package
-              with:
-                  lib-name: 'doc-lib'
-            - name: Publish doc-lib@latest
-              if: steps.check-doc-lib-tag.outputs.isLibTag == 'true'
-              run: |
-                  cd ./dist/doc-lib
-                  npm publish
-              env:
-                  NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}
-            - name: Publish doc-lib@next
-              if: steps.check-doc-lib-tag.outputs.isLibTag != 'true' && steps.check-doc-lib-package.outputs.isLibPackageChanged == 'true' && github.event_name == 'push' && github.ref == 'refs/heads/master'
-              run: |
-                  cd ./dist/doc-lib
-                  npm publish --tag next --access public
               env:
                   NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}
 
