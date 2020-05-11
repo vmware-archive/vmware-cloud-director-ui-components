@@ -54,7 +54,11 @@ describe('VcdExportTableComponent', () => {
 
     describe('@Input: columns', () => {
         it('displays them as checkboxes', function(this: TestHostFinder): void {
-            expect(this.finder.find(DataExporterWidgetObject).columnCheckBoxes).toEqual(['Name', 'Description']);
+            const exporter = this.finder.find(DataExporterWidgetObject);
+            exporter.clickExportAll();
+            this.finder.detectChanges();
+            exporter.openColumnDropdown();
+            expect(exporter.columnCheckBoxes).toEqual(['Name', 'Description']);
         });
     });
 
@@ -79,17 +83,19 @@ describe('VcdExportTableComponent', () => {
             this.finder.detectChanges();
             expect(this.finder.find(DataExporterWidgetObject).isSelectAllVisible).toBe(false);
         });
-        it('is disabled when all checkboxes are clicked', function(this: TestHostFinder): void {
+        it('hides column checkboxes when clicked', function(this: TestHostFinder): void {
             const exporter = this.finder.find(DataExporterWidgetObject);
-            expect(exporter.isSelectAllEnabled).toBe(false);
+            exporter.clickExportAll();
+            expect(exporter.columnCheckBoxes.length).toBe(0);
         });
 
         it('selects all checkboxes when clicked', function(this: TestHostFinder): void {
             const exporter = this.finder.find(DataExporterWidgetObject);
+            exporter.clickExportAll();
+            exporter.openColumnDropdown();
+            this.finder.detectChanges();
             exporter.clickColumn(0);
             exporter.clickColumn(1);
-            expect(exporter.isSelectAllEnabled).toBe(true);
-            exporter.clickSelectAll();
             expect(exporter.columnCheckBoxes.length).toBe(2);
         });
     });
@@ -147,52 +153,6 @@ describe('VcdExportTableComponent', () => {
                 exporter.clickExport();
             });
 
-            describe('verifies with the user if the data potentially contains injection', () => {
-                it('allows the user to sanitize injection', function(this: TestHostFinder): void {
-                    const exporter = this.finder.find(DataExporterWidgetObject);
-                    const downloadService = TestBed.get(CsvExporterService) as CsvExporterService;
-                    spyOn(downloadService, 'downloadCsvFile');
-                    spyOn(this.finder.hostComponent, 'onExportRequest').and.callFake((e: DataExportRequestEvent) => {
-                        e.exportData(InjectionData.exportData);
-                        this.finder.detectChanges();
-                        expect(this.finder.hostComponent.dataExporterOpen).toBe(true);
-                        exporter.clickYes();
-                        const exportData: unknown[][] = [
-                            TestData.exportColumns.map(col => col.displayName),
-                            ...FixedInjection.exportData.map(row => Object.values(row)),
-                        ];
-                        const csvString = downloadService.createCsv(exportData);
-                        expect(downloadService.downloadCsvFile).toHaveBeenCalledWith(
-                            csvString,
-                            exporter.component.fileName
-                        );
-                    });
-                    exporter.clickExport();
-                });
-
-                it('allows the user to not sanitize injection', function(this: TestHostFinder): void {
-                    const exporter = this.finder.find(DataExporterWidgetObject);
-                    const downloadService = TestBed.get(CsvExporterService) as CsvExporterService;
-                    spyOn(downloadService, 'downloadCsvFile');
-                    spyOn(this.finder.hostComponent, 'onExportRequest').and.callFake((e: DataExportRequestEvent) => {
-                        e.exportData(InjectionData.exportData);
-                        this.finder.detectChanges();
-                        expect(this.finder.hostComponent.dataExporterOpen).toBe(true);
-                        exporter.clickNo();
-                        const exportData: unknown[][] = [
-                            TestData.exportColumns.map(col => col.displayName),
-                            ...InjectionData.exportData.map(row => Object.values(row)),
-                        ];
-                        const csvString = downloadService.createCsv(exportData);
-                        expect(downloadService.downloadCsvFile).toHaveBeenCalledWith(
-                            csvString,
-                            exporter.component.fileName
-                        );
-                    });
-                    exporter.clickExport();
-                });
-            });
-
             it('does not download a file if the dialog has been closed', function(this: TestHostFinder): void {
                 const exporter = this.finder.find(DataExporterWidgetObject);
                 const downloadService = TestBed.get(CsvExporterService) as CsvExporterService;
@@ -221,6 +181,48 @@ describe('VcdExportTableComponent', () => {
                     );
                 });
 
+                exporter.clickExport();
+            });
+
+            it('allows the user to not sanitize injection', function(this: TestHostFinder): void {
+                const exporter = this.finder.find(DataExporterWidgetObject);
+                const downloadService = TestBed.get(CsvExporterService) as CsvExporterService;
+                spyOn(downloadService, 'downloadCsvFile');
+                spyOn(this.finder.hostComponent, 'onExportRequest').and.callFake((e: DataExportRequestEvent) => {
+                    e.exportData(InjectionData.exportData);
+                    this.finder.detectChanges();
+                    const exportData: unknown[][] = [
+                        TestData.exportColumns.map(col => col.displayName),
+                        ...FixedInjection.exportData.map(row => Object.values(row)),
+                    ];
+                    const csvString = downloadService.createCsv(exportData);
+                    expect(downloadService.downloadCsvFile).toHaveBeenCalledWith(
+                        csvString,
+                        exporter.component.fileName
+                    );
+                });
+                exporter.clickSanitize();
+                exporter.clickExport();
+            });
+
+            it('allows the export raw column names', function(this: TestHostFinder): void {
+                const exporter = this.finder.find(DataExporterWidgetObject);
+                const downloadService = TestBed.get(CsvExporterService) as CsvExporterService;
+                spyOn(downloadService, 'downloadCsvFile');
+                spyOn(this.finder.hostComponent, 'onExportRequest').and.callFake((e: DataExportRequestEvent) => {
+                    e.exportData(TestData.exportData);
+                    this.finder.detectChanges();
+                    const exportData: unknown[][] = [
+                        TestData.exportColumns.map(col => col.fieldName),
+                        ...TestData.exportData.map(row => Object.values(row)),
+                    ];
+                    const csvString = downloadService.createCsv(exportData);
+                    expect(downloadService.downloadCsvFile).toHaveBeenCalledWith(
+                        csvString,
+                        exporter.component.fileName
+                    );
+                });
+                exporter.clickFriendlyNames();
                 exporter.clickExport();
             });
         });

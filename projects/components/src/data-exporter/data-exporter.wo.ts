@@ -3,14 +3,9 @@
  * SPDX-License-Identifier: BSD-2-Clause
  */
 
-import { DebugElement } from '@angular/core';
 import { WidgetObject } from '../utils/test/widget-object';
 import { DataExporterComponent } from './data-exporter.component';
 
-const Css = {
-    SelectAll: '.select-all',
-    SelectColumn: '.column-selection label',
-};
 /**
  * Testing Object for {@link DataExporterComponent}
  */
@@ -25,35 +20,24 @@ export class DataExporterWidgetObject extends WidgetObject<DataExporterComponent
     }
 
     /**
+     * Opens the dropdown to show the column selectors.
+     */
+    openColumnDropdown(): void {
+        this.click('.dropdown-button');
+    }
+
+    /**
+     * Says if the button to select all columns is visible.
+     */
+    get isSelectAllVisible(): boolean {
+        return !!this.findElement('export-all');
+    }
+
+    /**
      * The strings for the available check boxes
      */
     get columnCheckBoxes(): string[] {
         return this.getTexts('.column-selection label');
-    }
-
-    /**
-     * Whether the select all button is displayed
-     */
-    get isSelectAllVisible(): boolean {
-        return !!this.selectAllLink;
-    }
-
-    private get selectAllLink(): DebugElement {
-        return this.findElement(Css.SelectAll);
-    }
-
-    /**
-     * Click the select all link. Throws an error if the link is not available
-     */
-    clickSelectAll(): void {
-        this.click(Css.SelectAll);
-    }
-
-    /**
-     * Whether the select all link is enabled. Throws an error if link is not available
-     */
-    get isSelectAllEnabled(): boolean {
-        return !this.selectAllLink.nativeElement.disabled;
     }
 
     /**
@@ -64,19 +48,38 @@ export class DataExporterWidgetObject extends WidgetObject<DataExporterComponent
         this.click(`.column-selection li:nth-of-type(${index + 1}) label`);
     }
 
+    /**
+     * Clicks the cancel button.
+     */
     clickCancel(): void {
         this.click('.cancel');
     }
 
+    /**
+     * Clicks the export button.
+     */
     clickExport(): void {
         this.click('.export');
     }
 
-    clickYes(): void {
-        this.click('.yes');
+    /**
+     * Clicks the checkbox to show friendly names or not.
+     */
+    clickFriendlyNames(): void {
+        this.click('.friendly-names');
     }
 
-    clickNo(): void {
-        this.click('.no');
+    /**
+     * Clicks the checkbox the sanitize the data.
+     */
+    clickSanitize(): void {
+        this.click('.sanitize-cells');
+    }
+
+    /**
+     * Clicks the checkbox to export all columns.
+     */
+    clickExportAll(): void {
+        this.click('.export-all');
     }
 }

@@ -1,56 +1,82 @@
-<clr-modal [clrModalOpen]="open" (clrModalOpenChange)="openChange.emit($event)" [clrModalSize]="'sm'" #modal>
+<clr-modal [clrModalOpen]="open" (clrModalOpenChange)="openChange.emit($event)" [clrModalSize]="'md'" #modal>
     <h3 class="modal-title">{{ dialogHeader | lazyString }}</h3>
     <div class="modal-body">
-        <ng-container *ngIf="!dataHasPotentialInjection; else sanitizeDataMessage">
-            <button
-                *ngIf="showSelectAll"
-                class="btn btn-sm btn-link select-all"
-                type="button"
-                (click)="onClickCheckAll()"
-                [disabled]="!isSelectAllEnabled"
-            >
-                {{ selectAllText | lazyString }}
-            </button>
-            <ul class="list-unstyled column-selection" [formGroup]="formGroup">
-                <li *ngFor="let col of columns">
+        <div>
+            <ul class="list-unstyled" [formGroup]="optionsFormGroup">
+                <li>
                     <clr-checkbox-wrapper>
-                        <input type="checkbox" clrCheckbox [formControlName]="col.fieldName" />
-                        <label>{{ col.displayName }}</label>
+                        <input class="friendly-names" type="checkbox" clrCheckbox [formControlName]="'friendlyNames'" />
+                        <label style="display: flex; flex-direction: row;">
+                            {{ friendlyNamesCheckboxLabel | lazyString }}
+                            <div style="flex: 1"></div>
+                            <clr-tooltip>
+                                <clr-icon clrTooltipTrigger shape="info-circle" size="24"></clr-icon>
+                                <clr-tooltip-content clrPosition="bottom-left" clrSize="md" *clrIfOpen>
+                                    <span>{{ friendlyNamesInfoMessage | lazyString }}</span>
+                                </clr-tooltip-content>
+                            </clr-tooltip>
+                        </label>
+                    </clr-checkbox-wrapper>
+                    <i>{{ friendlyNamesHint | lazyString }}</i>
+                    <clr-checkbox-wrapper>
+                        <input class="sanitize-cells" type="checkbox" clrCheckbox [formControlName]="'sanitize'" />
+                        <label style="display: flex; flex-direction: row;">
+                            {{ sanitizeCheckboxLabel | lazyString }}
+                            <div style="flex: 1"></div>
+                            <clr-tooltip>
+                                <clr-icon clrTooltipTrigger shape="info-circle" size="24"></clr-icon>
+                                <clr-tooltip-content clrPosition="bottom-left" clrSize="md" *clrIfOpen>
+                                    <span>{{ sanitizeInfoMessage | lazyString }}</span>
+                                </clr-tooltip-content>
+                            </clr-tooltip>
+                        </label>
+                    </clr-checkbox-wrapper>
+                    <i>{{ sanitizeCheckboxHint | lazyString }}</i>
+                    <clr-checkbox-wrapper *ngIf="showSelectAll">
+                        <input
+                            class="export-all"
+                            type="checkbox"
+                            clrCheckbox
+                            [formControlName]="'selectAll'"
+                            (click)="onClickCheckAll()"
+                        />
+                        <label>{{ exportAllText | lazyString }}</label>
                     </clr-checkbox-wrapper>
                 </li>
             </ul>
-            <div class="progress" [ngClass]="{ loop: progress == -1, pending: isRequestPending }">
-                <progress max="100" value="{{ progress * 100 }}"></progress>
+            <div style="width: 10px"></div>
+            <div style="height:200px">
+                <clr-dropdown *ngIf="!isSelectAllEnabled || !showSelectAll">
+                    <button class="btn btn-outline-primary dropdown-button" clrDropdownTrigger>
+                        {{ selectColumnsText | lazyString }}
+                        <clr-icon shape="caret down"></clr-icon>
+                    </button>
+                    <clr-dropdown-menu clrPosition="bottom" *clrIfOpen style="height:200px; overflow: scroll;">
+                        <ul class="list-unstyled column-selection" [formGroup]="formGroup">
+                            <li *ngFor="let col of columns" class="dropdown-item">
+                                <clr-checkbox-wrapper>
+                                    <input type="checkbox" clrCheckbox [formControlName]="col.fieldName" />
+                                    <label>{{ this.isFriendlyFieldsEnabled ? col.displayName : col.fieldName }}</label>
+                                </clr-checkbox-wrapper>
+                            </li>
+                        </ul>
+                    </clr-dropdown-menu>
+                </clr-dropdown>
             </div>
-        </ng-container>
-        <ng-template #sanitizeDataMessage>
-            {{ badDataText | lazyString }}
-        </ng-template>
+        </div>
+        <ng-container *ngIf="isRequestPending">{{ exportStage | lazyString }}</ng-container>
+        <div style="height: 20px"></div>
+        <div class="progress" [ngClass]="{ loop: progress == -1, pending: isRequestPending }">
+            <progress max="100" value="{{ progress * 100 }}"></progress>
+        </div>
     </div>
 
     <div class="modal-footer">
-        <ng-container *ngIf="!dataHasPotentialInjection; else sanitizeDataButtons">
-            <button type="button" class="btn btn-outline cancel" (click)="open = false">
-                {{ cancelText | lazyString }}
-            </button>
-            <button
-                type="button"
-                class="btn btn-primary export"
-                [disabled]="!isExportEnabled"
-                (click)="onClickExport()"
-            >
-                {{ exportText | lazyString }}
-            </button>
-        </ng-container>
-        <ng-template #sanitizeDataButtons>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-outline no" (click)="downloadData(false)">
-                    {{ noText | lazyString }}
-                </button>
-                <button type="button" class="btn btn-primary yes" (click)="downloadData(true)">
-                    {{ yesText | lazyString }}
-                </button>
-            </div>
-        </ng-template>
+        <button type="button" class="btn btn-outline cancel" (click)="open = false">
+            {{ cancelText | lazyString }}
+        </button>
+        <button type="button" class="btn btn-primary export" [disabled]="!isExportEnabled" (click)="onClickExport()">
+            {{ exportText | lazyString }}
+        </button>
     </div>
 </clr-modal>

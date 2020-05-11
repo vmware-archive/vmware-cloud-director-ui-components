@@ -83,10 +83,16 @@ export class DataExporterComponent implements OnInit {
     cancelText: LazyString = this.translationService.translateAsync('vcd.cc.cancel');
 
     /**
-     * Text for the select all button.
+     * Text for the export all button.
      */
     @Input()
-    selectAllText: LazyString = this.translationService.translateAsync('vcd.cc.select.all');
+    exportAllText: LazyString = this.translationService.translateAsync('vcd.cc.export.all');
+
+    /**
+     * Text for the select columns dropdown button.
+     */
+    @Input()
+    selectColumnsText: LazyString = this.translationService.translateAsync('vcd.cc.select.columns');
 
     /**
      * Text for the export button.
@@ -107,10 +113,50 @@ export class DataExporterComponent implements OnInit {
     noText: LazyString = this.translationService.translateAsync('vcd.cc.no');
 
     /**
-     * Text for the yes button.
+     * Text label that is next to the friendly field names checkbox.
      */
     @Input()
-    badDataText: LazyString = this.translationService.translateAsync('vcd.cc.bad.data');
+    friendlyNamesCheckboxLabel: LazyString = this.translationService.translateAsync('vcd.cc.friendly.names.question');
+
+    /**
+     * Text the info message next to the friendly field names checkbox.
+     */
+    @Input()
+    friendlyNamesInfoMessage: LazyString = this.translationService.translateAsync('vcd.cc.friendly.names.info');
+
+    /**
+     * Text the hint message below the friendly field names checkbox.
+     */
+    @Input()
+    friendlyNamesHint: LazyString = this.translationService.translateAsync('vcd.cc.friendly.names.hint');
+
+    /**
+     * Text label that is next to the sanitize checkbox.
+     */
+    @Input()
+    sanitizeCheckboxLabel: LazyString = this.translationService.translateAsync('vcd.cc.sanitize.question');
+
+    /**
+     * Hint message that is below the sanitize checkbox.
+     */
+    @Input()
+    sanitizeCheckboxHint: LazyString = this.translationService.translateAsync('vcd.cc.sanitize.hint');
+
+    /**
+     * Text the info message next to the sanitize checkbox.
+     */
+    @Input()
+    sanitizeInfoMessage: LazyString = this.translationService.translateAsync('vcd.cc.sanitize.info');
+
+    /**
+     * The message that is displayed while the data is downloading.
+     */
+    downloadingMessage: LazyString = this.translationService.translateAsync('vcd.cc.exporter.downloading');
+
+    /**
+     * The message that is displayed while the data is sanitizing.
+     */
+    sanitizingMessage: LazyString = this.translationService.translateAsync('vcd.cc.exporter.sanitizing');
 
     /**
      * Whether a box to select/deselect all rows is available
@@ -130,9 +176,6 @@ export class DataExporterComponent implements OnInit {
     }
 
     private _open = false;
-
-    dataHasPotentialInjection = false;
-    data: any[][];
 
     /**
      * Fires when {@link _open} changes. Its parameter indicates the new state.
@@ -163,6 +206,14 @@ export class DataExporterComponent implements OnInit {
 
     formGroup: FormGroup;
 
+    exportStage: LazyString = this.downloadingMessage;
+
+    optionsFormGroup = new FormGroup({
+        selectAll: new FormControl(true),
+        friendlyNames: new FormControl(true),
+        sanitize: new FormControl(false),
+    });
+
     onClickExport(): void {
         this._isRequestPending = true;
         this.dataExportRequest.emit({
@@ -179,12 +230,15 @@ export class DataExporterComponent implements OnInit {
     }
 
     get isSelectAllEnabled(): boolean {
-        for (const column of this.columns) {
-            if (!this.formGroup.controls[column.fieldName].value) {
-                return true;
-            }
-        }
-        return false;
+        return this.optionsFormGroup.controls.selectAll.value;
+    }
+
+    get isSanitizeEnabled(): boolean {
+        return this.optionsFormGroup.controls.sanitize.value;
+    }
+
+    get isFriendlyFieldsEnabled(): boolean {
+        return this.optionsFormGroup.controls.friendlyNames.value;
     }
 
     get isExportEnabled(): boolean {
@@ -214,23 +268,21 @@ export class DataExporterComponent implements OnInit {
 
         const rows = [
             // First row is the display names
-            Object.keys(records[0]).map(fieldName => this.getDisplayNameForField(fieldName)),
+            Object.keys(records[0]).map(fieldName =>
+                this.isFriendlyFieldsEnabled ? this.getDisplayNameForField(fieldName) : fieldName
+            ),
             // Then the data
             ...records.map(rec => Object.keys(rec).map(key => rec[key])),
         ];
-        this.data = rows;
-        if (this.csvExporterService.hasPotentialInjection(rows)) {
-            this.dataHasPotentialInjection = true;
-            return;
-        }
-        this.downloadData();
+        this.downloadData(rows, this.isSanitizeEnabled);
     }
 
-    downloadData(shouldSanitize: boolean = false): void {
-        this.open = false;
+    downloadData(data: any[][], shouldSanitize: boolean = false): void {
         this._isRequestPending = false;
-        const csvFile = this.csvExporterService.createCsv(this.data, shouldSanitize);
+        this.exportStage = this.sanitizingMessage;
+        const csvFile = this.csvExporterService.createCsv(data, shouldSanitize);
         this.csvExporterService.downloadCsvFile(csvFile, this.fileName);
+        this.open = false;
     }
 
     private updateProgress(progress: number): void {
