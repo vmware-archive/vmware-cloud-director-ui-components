@@ -47,7 +47,7 @@ export function moduleFinder(componentName: string): string {
 export const docJson1: CompodocSchema = componentsDocumentationJson;
 export const docJson2: CompodocSchema = examplesDocumentationJson;
 export const sbInfo: StackBlitzInfo = {
-    templateId: 'vcd-ui-cc-starter-clarity-v8-yhe4yg',
+    templateId: 'vcd-ui-cc-starter-template',
     projectName: 'VMware Cloud Director UI Components',
     moduleFinder,
 };
