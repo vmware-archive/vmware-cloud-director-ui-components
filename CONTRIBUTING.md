@@ -25,7 +25,6 @@ This is a rough outline of what a contributor's workflow looks like:
     -   Include list of steps for manual testing
     -   Explain alternatives that were considered
     -   For bug fixes, explain what was causing the issue, don't repeat the text from the issue
-    -   When committing to a specific project, please add [components], [examples] to the commit description
 
 # Merge vs fast-forward
 

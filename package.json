@@ -39,6 +39,7 @@
     "@clr/ui": "2.3.8",
     "@compodoc/compodoc": "1.1.11",
     "@stackblitz/sdk": "1.3.0",
+    "@vmw/ng-live-docs": "0.0.0",
     "@webcomponents/custom-elements": "1.0.0",
     "angular-cli-ghpages": "0.6.2",
     "classlist.js": "1.1.20150312",
@@ -50,8 +51,7 @@
     "properties": "1.2.1",
     "rxjs": "6.4.0",
     "tslib": "1.10.0",
-    "zone.js": "0.9.1",
-    "@vmw/ng-live-docs": "0.0.0"
+    "zone.js": "0.9.1"
   },
   "husky": {
     "hooks": {
