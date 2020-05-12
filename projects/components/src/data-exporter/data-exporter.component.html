@@ -4,7 +4,7 @@
         <div>
             <ul class="list-unstyled" [formGroup]="optionsFormGroup">
                 <li>
-                    <div style="display: flex; flex-direction: row;">
+                    <div class="flex-row">
                         <clr-checkbox-wrapper>
                             <input
                                 class="friendly-names"
@@ -14,7 +14,7 @@
                             />
                             <label>{{ friendlyNamesCheckboxLabel | lazyString }}</label>
                         </clr-checkbox-wrapper>
-                        <div style="flex: 1"></div>
+                        <div class="fill-space"></div>
                         <clr-signpost>
                             <clr-icon clrSignpostTrigger shape="info-circle" size="24"></clr-icon>
                             <clr-signpost-content *clrIfOpen>
@@ -23,12 +23,12 @@
                         </clr-signpost>
                     </div>
                     <i>{{ friendlyNamesHint | lazyString }}</i>
-                    <div style="display: flex; flex-direction: row;">
+                    <div class="flex-row">
                         <clr-checkbox-wrapper>
                             <input class="sanitize-cells" type="checkbox" clrCheckbox [formControlName]="'sanitize'" />
                             <label>{{ sanitizeCheckboxLabel | lazyString }}</label>
                         </clr-checkbox-wrapper>
-                        <div style="flex: 1"></div>
+                        <div class="fill-space"></div>
                         <clr-signpost>
                             <clr-icon clrSignpostTrigger shape="info-circle" size="24"></clr-icon>
                             <clr-signpost-content *clrIfOpen>
@@ -37,40 +37,61 @@
                         </clr-signpost>
                     </div>
                     <i>{{ sanitizeCheckboxHint | lazyString }}</i>
-                    <clr-checkbox-wrapper *ngIf="showSelectAll">
-                        <input
-                            class="export-all"
-                            type="checkbox"
-                            clrCheckbox
-                            [formControlName]="'selectAll'"
-                            (click)="onClickCheckAll()"
-                        />
-                        <label>{{ exportAllText | lazyString }}</label>
-                    </clr-checkbox-wrapper>
+                    <div class="flex-row">
+                        <clr-checkbox-wrapper>
+                            <input
+                                class="export-all"
+                                type="checkbox"
+                                clrCheckbox
+                                [formControlName]="'selectAll'"
+                                (click)="onClickCheckAll($event)"
+                            />
+                            <label>{{ exportAllText | lazyString }}</label>
+                        </clr-checkbox-wrapper>
+                        <clr-dropdown *ngIf="!isSelectAllEnabled">
+                            <clr-icon
+                                shape="caret down"
+                                size="24"
+                                clrDropdownTrigger
+                                class="dropdown-button"
+                            ></clr-icon>
+                            <clr-dropdown-menu
+                                clrPosition="bottom"
+                                *clrIfOpen="columnDropdownOpen"
+                                class="column-dropdown-menu"
+                            >
+                                <ul class="list-unstyled column-selection" [formGroup]="formGroup">
+                                    <li *ngFor="let col of columns" class="dropdown-item">
+                                        <clr-checkbox-wrapper class="column-checkbox">
+                                            <input type="checkbox" clrCheckbox [formControlName]="col.fieldName" />
+                                            <label>{{
+                                                this.isFriendlyFieldsEnabled ? col.displayName : col.fieldName
+                                            }}</label>
+                                        </clr-checkbox-wrapper>
+                                    </li>
+                                </ul>
+                            </clr-dropdown-menu>
+                        </clr-dropdown>
+                    </div>
                 </li>
             </ul>
-            <div style="width: 10px"></div>
-            <div style="height:200px">
-                <clr-dropdown *ngIf="!isSelectAllEnabled || !showSelectAll">
-                    <button class="btn btn-outline-primary dropdown-button" clrDropdownTrigger>
-                        {{ selectColumnsText | lazyString }}
-                        <clr-icon shape="caret down"></clr-icon>
-                    </button>
-                    <clr-dropdown-menu clrPosition="bottom" *clrIfOpen style="height:200px; overflow: scroll;">
-                        <ul class="list-unstyled column-selection" [formGroup]="formGroup">
-                            <li *ngFor="let col of columns" class="dropdown-item">
-                                <clr-checkbox-wrapper>
-                                    <input type="checkbox" clrCheckbox [formControlName]="col.fieldName" />
-                                    <label>{{ this.isFriendlyFieldsEnabled ? col.displayName : col.fieldName }}</label>
-                                </clr-checkbox-wrapper>
-                            </li>
-                        </ul>
-                    </clr-dropdown-menu>
-                </clr-dropdown>
+            <div
+                [ngStyle]="!isSelectAllEnabled ? { visibility: 'visible' } : { visibility: 'hidden' }"
+                class="column-container"
+            >
+                <a
+                    class="label column-label clickable"
+                    *ngFor="let column of selectedColumns"
+                    (click)="selectColumn(column, false)"
+                >
+                    {{ this.isFriendlyFieldsEnabled ? column.displayName : column.fieldName }}
+                    <clr-icon shape="close"> </clr-icon>
+                </a>
             </div>
         </div>
+        <div class="progress-divider"></div>
         <ng-container *ngIf="isRequestPending">{{ exportStage | lazyString }}</ng-container>
-        <div style="height: 20px"></div>
+        <div class="progress-divider"></div>
         <div class="progress" [ngClass]="{ loop: progress == -1, pending: isRequestPending }">
             <progress max="100" value="{{ progress * 100 }}"></progress>
         </div>

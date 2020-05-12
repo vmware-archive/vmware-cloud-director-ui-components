@@ -159,11 +159,6 @@ export class DataExporterComponent implements OnInit {
     sanitizingMessage: LazyString = this.translationService.translateAsync('vcd.cc.exporter.sanitizing');
 
     /**
-     * Whether a box to select/deselect all rows is available
-     */
-    @Input() showSelectAll = true;
-
-    /**
      * Whether the dialog is open
      */
     @Input()
@@ -176,6 +171,8 @@ export class DataExporterComponent implements OnInit {
     }
 
     private _open = false;
+
+    columnDropdownOpen = false;
 
     /**
      * Fires when {@link _open} changes. Its parameter indicates the new state.
@@ -206,7 +203,7 @@ export class DataExporterComponent implements OnInit {
 
     formGroup: FormGroup;
 
-    exportStage: LazyString = this.downloadingMessage;
+    exportStage: LazyString;
 
     optionsFormGroup = new FormGroup({
         selectAll: new FormControl(true),
@@ -215,17 +212,22 @@ export class DataExporterComponent implements OnInit {
     });
 
     onClickExport(): void {
+        this.exportStage = this.downloadingMessage;
         this._isRequestPending = true;
         this.dataExportRequest.emit({
             exportData: this.exportData.bind(this),
             updateProgress: this.updateProgress.bind(this),
-            selectedColumns: this.columns.filter(col => this.formGroup.controls[col.fieldName].value),
+            selectedColumns: this.selectedColumns,
         });
     }
 
-    onClickCheckAll(): void {
-        for (const column of this.columns) {
-            this.formGroup.controls[column.fieldName].setValue(true);
+    onClickCheckAll(value: boolean): void {
+        if (!this.optionsFormGroup.get('selectAll').value) {
+            for (const column of this.columns) {
+                this.formGroup.controls[column.fieldName].setValue(true);
+            }
+        } else {
+            this.columnDropdownOpen = true;
         }
     }
 
@@ -251,6 +253,20 @@ export class DataExporterComponent implements OnInit {
             }
         }
         return false;
+    }
+
+    /**
+     * Gives a list of all the columns that are selected.
+     */
+    get selectedColumns(): ExportColumn[] {
+        return this.columns.filter(col => this.formGroup.controls[col.fieldName].value);
+    }
+
+    /**
+     * Sets the selected value of the given column.
+     */
+    selectColumn(column: ExportColumn, selected: boolean): void {
+        this.formGroup.controls[column.fieldName].setValue(selected);
     }
 
     ngOnInit(): void {

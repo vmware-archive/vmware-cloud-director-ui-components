@@ -57,8 +57,20 @@ describe('VcdExportTableComponent', () => {
             const exporter = this.finder.find(DataExporterWidgetObject);
             exporter.clickExportAll();
             this.finder.detectChanges();
-            exporter.openColumnDropdown();
             expect(exporter.columnCheckBoxes).toEqual(['Name', 'Description']);
+        });
+
+        it('hides column checkboxes when clicked', function(this: TestHostFinder): void {
+            const exporter = this.finder.find(DataExporterWidgetObject);
+            exporter.clickExportAll();
+            expect(exporter.columnCheckBoxes.length).toBe(2);
+        });
+
+        it('allows the user to remove selected columns', function(this: TestHostFinder): void {
+            const exporter = this.finder.find(DataExporterWidgetObject);
+            exporter.clickExportAll();
+            exporter.removeColumn(0);
+            expect(exporter.component.selectedColumns.length).toBe(1);
         });
     });
 
@@ -73,30 +85,6 @@ describe('VcdExportTableComponent', () => {
                 expect(spy.calls.mostRecent().args[1]).toBe('my-export.csv');
             });
             exporter.clickExport();
-        });
-    });
-
-    describe('@Input: showSelectAll', () => {
-        it('hides the select all columns option when set to false', function(this: TestHostFinder): void {
-            const exporter = this.finder.find(DataExporterWidgetObject);
-            exporter.component.showSelectAll = false;
-            this.finder.detectChanges();
-            expect(this.finder.find(DataExporterWidgetObject).isSelectAllVisible).toBe(false);
-        });
-        it('hides column checkboxes when clicked', function(this: TestHostFinder): void {
-            const exporter = this.finder.find(DataExporterWidgetObject);
-            exporter.clickExportAll();
-            expect(exporter.columnCheckBoxes.length).toBe(0);
-        });
-
-        it('selects all checkboxes when clicked', function(this: TestHostFinder): void {
-            const exporter = this.finder.find(DataExporterWidgetObject);
-            exporter.clickExportAll();
-            exporter.openColumnDropdown();
-            this.finder.detectChanges();
-            exporter.clickColumn(0);
-            exporter.clickColumn(1);
-            expect(exporter.columnCheckBoxes.length).toBe(2);
         });
     });
 

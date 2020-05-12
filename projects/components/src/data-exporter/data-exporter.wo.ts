@@ -20,32 +20,18 @@ export class DataExporterWidgetObject extends WidgetObject<DataExporterComponent
     }
 
     /**
-     * Opens the dropdown to show the column selectors.
-     */
-    openColumnDropdown(): void {
-        this.click('.dropdown-button');
-    }
-
-    /**
-     * Says if the button to select all columns is visible.
-     */
-    get isSelectAllVisible(): boolean {
-        return !!this.findElement('export-all');
-    }
-
-    /**
      * The strings for the available check boxes
      */
     get columnCheckBoxes(): string[] {
-        return this.getTexts('.column-selection label');
+        return this.getTexts('.column-label');
     }
 
     /**
-     * Clicks the checkbox for a colum
+     * Clicks the remove button for a colum
      * @param index Index of column, 0 based
      */
-    clickColumn(index: number): void {
-        this.click(`.column-selection li:nth-of-type(${index + 1}) label`);
+    removeColumn(index: number): void {
+        this.click(`.column-label:nth-of-type(${index + 1})`);
     }
 
     /**
