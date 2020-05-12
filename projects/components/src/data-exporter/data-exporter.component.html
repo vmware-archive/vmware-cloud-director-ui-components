@@ -4,33 +4,38 @@
         <div>
             <ul class="list-unstyled" [formGroup]="optionsFormGroup">
                 <li>
-                    <clr-checkbox-wrapper>
-                        <input class="friendly-names" type="checkbox" clrCheckbox [formControlName]="'friendlyNames'" />
-                        <label style="display: flex; flex-direction: row;">
-                            {{ friendlyNamesCheckboxLabel | lazyString }}
-                            <div style="flex: 1"></div>
-                            <clr-tooltip>
-                                <clr-icon clrTooltipTrigger shape="info-circle" size="24"></clr-icon>
-                                <clr-tooltip-content clrPosition="bottom-left" clrSize="md" *clrIfOpen>
-                                    <span>{{ friendlyNamesInfoMessage | lazyString }}</span>
-                                </clr-tooltip-content>
-                            </clr-tooltip>
-                        </label>
-                    </clr-checkbox-wrapper>
+                    <div style="display: flex; flex-direction: row;">
+                        <clr-checkbox-wrapper>
+                            <input
+                                class="friendly-names"
+                                type="checkbox"
+                                clrCheckbox
+                                [formControlName]="'friendlyNames'"
+                            />
+                            <label>{{ friendlyNamesCheckboxLabel | lazyString }}</label>
+                        </clr-checkbox-wrapper>
+                        <div style="flex: 1"></div>
+                        <clr-signpost>
+                            <clr-icon clrSignpostTrigger shape="info-circle" size="24"></clr-icon>
+                            <clr-signpost-content *clrIfOpen>
+                                <span>{{ friendlyNamesInfoMessage | lazyString }}</span>
+                            </clr-signpost-content>
+                        </clr-signpost>
+                    </div>
                     <i>{{ friendlyNamesHint | lazyString }}</i>
-                    <clr-checkbox-wrapper>
-                        <input class="sanitize-cells" type="checkbox" clrCheckbox [formControlName]="'sanitize'" />
-                        <label style="display: flex; flex-direction: row;">
-                            {{ sanitizeCheckboxLabel | lazyString }}
-                            <div style="flex: 1"></div>
-                            <clr-tooltip>
-                                <clr-icon clrTooltipTrigger shape="info-circle" size="24"></clr-icon>
-                                <clr-tooltip-content clrPosition="bottom-left" clrSize="md" *clrIfOpen>
-                                    <span>{{ sanitizeInfoMessage | lazyString }}</span>
-                                </clr-tooltip-content>
-                            </clr-tooltip>
-                        </label>
-                    </clr-checkbox-wrapper>
+                    <div style="display: flex; flex-direction: row;">
+                        <clr-checkbox-wrapper>
+                            <input class="sanitize-cells" type="checkbox" clrCheckbox [formControlName]="'sanitize'" />
+                            <label>{{ sanitizeCheckboxLabel | lazyString }}</label>
+                        </clr-checkbox-wrapper>
+                        <div style="flex: 1"></div>
+                        <clr-signpost>
+                            <clr-icon clrSignpostTrigger shape="info-circle" size="24"></clr-icon>
+                            <clr-signpost-content *clrIfOpen>
+                                <span>{{ sanitizeInfoMessage | lazyString }}</span>
+                            </clr-signpost-content>
+                        </clr-signpost>
+                    </div>
                     <i>{{ sanitizeCheckboxHint | lazyString }}</i>
                     <clr-checkbox-wrapper *ngIf="showSelectAll">
                         <input
