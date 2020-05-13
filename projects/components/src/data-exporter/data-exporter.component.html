@@ -60,11 +60,7 @@
                                 clrDropdownTrigger
                                 class="dropdown-button"
                             ></clr-icon>
-                            <clr-dropdown-menu
-                                clrPosition="bottom"
-                                *clrIfOpen="forceDropdownOpen"
-                                class="column-dropdown-menu"
-                            >
+                            <clr-dropdown-menu clrPosition="bottom" *clrIfOpen="forceDropdownOpen">
                                 <ul class="list-unstyled column-selection" [formGroup]="formGroup">
                                     <li *ngFor="let col of columns" class="dropdown-item">
                                         <clr-checkbox-wrapper class="column-checkbox">
@@ -80,13 +76,10 @@
                     </div>
                 </li>
             </ul>
-            <div
-                [ngStyle]="shouldShowBubbles ? { visibility: 'visible' } : { visibility: 'hidden' }"
-                class="column-container"
-            >
+            <div [ngStyle]="{ visibility: shouldShowBubbles ? 'visible' : 'hidden' }" class="column-container">
                 <span class="label column-label" *ngFor="let column of selectedColumns">
                     {{ this.friendlyFieldsControl.value ? column.displayName : column.fieldName }}
-                    <clr-icon shape="close" (click)="selectColumn(column, false)"> </clr-icon>
+                    <clr-icon shape="close" class="badge badge-info" (click)="selectColumn(column, false)"> </clr-icon>
                 </span>
             </div>
         </div>
