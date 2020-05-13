@@ -22,6 +22,8 @@ import { DatagridHeightExampleComponent } from './datagrid-height.example.compon
 import { DatagridHeightExampleModule } from './datagrid-height.example.module';
 import { DatagridLinkExampleComponent } from './datagrid-link.example.component';
 import { DatagridLinkExampleModule } from './datagrid-link.example.module';
+import { DatagridLoadingPlaceholderExampleComponent } from './datagrid-loading-placeholder.example.component';
+import { DatagridLoadingPlaceholderExampleModule } from './datagrid-loading-placeholder.example.module';
 import { DatagridPaginationExampleComponent } from './datagrid-pagination-example.component';
 import { DatagridPagionationExampleModule } from './datagrid-pagination-example.module';
 import { DatagridRowIconExampleComponent } from './datagrid-row-icon.example.component';
@@ -110,6 +112,11 @@ Documentation.registerDocumentationEntry({
             forComponent: null,
             title: 'Data row icon that reloads the row',
         },
+        {
+            component: DatagridLoadingPlaceholderExampleComponent,
+            forComponent: null,
+            title: 'Shows the loading icon + placeholder capabilities',
+        },
     ],
 });
 /**
@@ -131,6 +138,7 @@ Documentation.registerDocumentationEntry({
         DatagridCliptextExampleModule,
         DatagridActivityReporterExampleModule,
         DatagridRowIconExampleModule,
+        DatagridLoadingPlaceholderExampleModule,
     ],
 })
 export class DatagridExamplesModule {}

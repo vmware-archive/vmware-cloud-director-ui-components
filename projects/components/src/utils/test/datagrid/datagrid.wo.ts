@@ -102,10 +102,10 @@ export class ClrDatagridWidgetObject extends WidgetObject<ClrDatagrid> {
     }
 
     /**
-     * Says if the datagrid is showing a placeholder.
+     * Gives the placeholder present on the datagrid.
      */
-    get hasPlaceholder(): boolean {
-        return !!this.findElement('clr-dg-placeholder');
+    get placeholder(): string {
+        return this.getText('clr-dg-placeholder');
     }
 
     /**
