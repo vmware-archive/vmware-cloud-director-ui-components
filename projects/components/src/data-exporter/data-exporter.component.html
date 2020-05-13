@@ -10,7 +10,7 @@
                                 class="friendly-names"
                                 type="checkbox"
                                 clrCheckbox
-                                [formControlName]="'friendlyNames'"
+                                [formControl]="this.friendlyFieldsControl"
                             />
                             <label>{{ friendlyNamesCheckboxLabel | lazyString }}</label>
                         </clr-checkbox-wrapper>
@@ -25,7 +25,12 @@
                     <i>{{ friendlyNamesHint | lazyString }}</i>
                     <div class="flex-row">
                         <clr-checkbox-wrapper>
-                            <input class="sanitize-cells" type="checkbox" clrCheckbox [formControlName]="'sanitize'" />
+                            <input
+                                class="sanitize-cells"
+                                type="checkbox"
+                                clrCheckbox
+                                [formControl]="this.sanitizeControl"
+                            />
                             <label>{{ sanitizeCheckboxLabel | lazyString }}</label>
                         </clr-checkbox-wrapper>
                         <div class="fill-space"></div>
@@ -43,21 +48,21 @@
                                 class="export-all"
                                 type="checkbox"
                                 clrCheckbox
-                                [formControlName]="'selectAll'"
-                                (click)="onClickCheckAll($event)"
+                                [formControl]="this.selectAllControl"
                             />
                             <label>{{ exportAllText | lazyString }}</label>
                         </clr-checkbox-wrapper>
-                        <clr-dropdown *ngIf="!isSelectAllEnabled">
+                        <clr-dropdown *ngIf="!this.selectAllControl.value">
                             <clr-icon
                                 shape="caret down"
+                                [attr.shape]="isDropdownOpen ? 'caret up' : 'caret down'"
                                 size="24"
                                 clrDropdownTrigger
                                 class="dropdown-button"
                             ></clr-icon>
                             <clr-dropdown-menu
                                 clrPosition="bottom"
-                                *clrIfOpen="columnDropdownOpen"
+                                *clrIfOpen="forceDropdownOpen"
                                 class="column-dropdown-menu"
                             >
                                 <ul class="list-unstyled column-selection" [formGroup]="formGroup">
@@ -65,7 +70,7 @@
                                         <clr-checkbox-wrapper class="column-checkbox">
                                             <input type="checkbox" clrCheckbox [formControlName]="col.fieldName" />
                                             <label>{{
-                                                this.isFriendlyFieldsEnabled ? col.displayName : col.fieldName
+                                                this.friendlyFieldsControl.value ? col.displayName : col.fieldName
                                             }}</label>
                                         </clr-checkbox-wrapper>
                                     </li>
@@ -76,17 +81,13 @@
                 </li>
             </ul>
             <div
-                [ngStyle]="!isSelectAllEnabled ? { visibility: 'visible' } : { visibility: 'hidden' }"
+                [ngStyle]="shouldShowBubbles ? { visibility: 'visible' } : { visibility: 'hidden' }"
                 class="column-container"
             >
-                <a
-                    class="label column-label clickable"
-                    *ngFor="let column of selectedColumns"
-                    (click)="selectColumn(column, false)"
-                >
-                    {{ this.isFriendlyFieldsEnabled ? column.displayName : column.fieldName }}
-                    <clr-icon shape="close"> </clr-icon>
-                </a>
+                <span class="label column-label" *ngFor="let column of selectedColumns">
+                    {{ this.friendlyFieldsControl.value ? column.displayName : column.fieldName }}
+                    <clr-icon shape="close" (click)="selectColumn(column, false)"> </clr-icon>
+                </span>
             </div>
         </div>
         <div class="progress-divider"></div>

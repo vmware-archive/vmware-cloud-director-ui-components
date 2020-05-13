@@ -1,5 +1,5 @@
 /*!
- * Copyright 2019 VMware, Inc.
+ * Copyright 2019-2020 VMware, Inc.
  * SPDX-License-Identifier: BSD-2-Clause
  */
 
@@ -15,13 +15,16 @@ import { DataExportRequestEvent, ExportColumn } from '@vcd/ui-components';
             allowing the client to input columns to export, and then giving notifications to the client to query to the
             backend. It then takes the resulting data and downloads a CSV.
         </p>
-        <br />
-        <p>
-            As for the user experience, we give the users a few options. One, they can choose to select all columns or
-            manually go through and select columns. Two, they can choose whether the header should be the direct object
-            field name or a translated, friendly name. Three, they can choose if cells should be checked for code
-            injection and prefixed with the tab character.
-        </p>
+        <h3>UX</h3>
+        <p>As for the user experience, we give the users a few options.</p>
+        <ol>
+            <li>They can choose to select all columns or manually go through and select columns.</li>
+            <li>
+                They can choose whether the header should be the direct object field name or a translated, friendly
+                name.
+            </li>
+            <li>they can choose if cells should be checked for code injection and prefixed with the tab character.</li>
+        </ol>
         <button (click)="dataExporterOpen = true">
             Show Modal
         </button>
