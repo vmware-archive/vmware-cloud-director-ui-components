@@ -5,6 +5,36 @@ div.progress {
         visibility: visible;
     }
 }
+
+.flex-row {
+    display: flex;
+    flex-direction: row;
+}
+
+.fill-space {
+    flex: 1;
+}
+
+.column-dropdown-menu {
+    height: 200px;
+    overflow: scroll;
+}
+
+.dropdown-button {
+    margin-top: -1px;
+    margin-left: 2px;
+}
+
+.progress-divider {
+    height: 20px;
+}
+
+.column-container {
+    overflow: auto;
+    height: 50px;
+    display: block;
+}
+
 button.select-all {
     margin: 0;
     padding: 0;

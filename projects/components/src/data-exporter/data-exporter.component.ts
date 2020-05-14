@@ -1,11 +1,13 @@
 /*!
- * Copyright 2019 VMware, Inc.
+ * Copyright 2019-2020 VMware, Inc.
  * SPDX-License-Identifier: BSD-2-Clause
  */
 
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
+import { Component, EventEmitter, Input, OnDestroy, OnInit, Output, ViewChild } from '@angular/core';
+import { AbstractControl, FormControl, FormGroup } from '@angular/forms';
+import { ClrDropdown } from '@clr/angular';
 import { LazyString, TranslationService } from '@vcd/i18n';
+import { SubscriptionTracker } from '../common/subscription';
 import { CsvExporterService } from './csv-exporter.service';
 
 /**
@@ -22,6 +24,12 @@ export interface ExportColumn {
     fieldName: string;
 }
 
+export enum UserOptions {
+    selectAll = 'selectAll',
+    friendlyNames = 'friendlyNames',
+    sanitize = 'sanitize',
+}
+
 /**
  * Information passed to the caller so they can fetch the data
  */
@@ -36,8 +44,9 @@ export interface DataExportRequestEvent {
      * Call this when all records have been fetched to initiate the CSV creation.
      * This should only be called once after all data fetching is finished
      * @param records Records to be converted into a csv file
+     * @return a promise of the resulting CSV to indicate when this potentially lengthy process is over
      */
-    exportData: (records: object[]) => void;
+    exportData: (records: object[]) => Promise<string>;
 
     /**
      * Columns selected by the user.
@@ -57,8 +66,17 @@ export interface DataExportRequestEvent {
     templateUrl: 'data-exporter.component.html',
     styleUrls: ['./data-exporter.component.scss'],
 })
-export class DataExporterComponent implements OnInit {
+export class DataExporterComponent implements OnInit, OnDestroy {
     constructor(private csvExporterService: CsvExporterService, private translationService: TranslationService) {}
+
+    @ViewChild(ClrDropdown, { static: false }) set columnDropdown(columnDropdown: ClrDropdown) {
+        if (!columnDropdown) {
+            return;
+        }
+        this.subscriptionTracker.subscribe(columnDropdown.ifOpenService.openChange, opened => {
+            this.isDropdownOpen = opened;
+        });
+    }
 
     /**
      * List of columns that can be exported, user may deselect some before sending the download request
@@ -83,10 +101,16 @@ export class DataExporterComponent implements OnInit {
     cancelText: LazyString = this.translationService.translateAsync('vcd.cc.cancel');
 
     /**
-     * Text for the select all button.
+     * Text for the export all button.
      */
     @Input()
-    selectAllText: LazyString = this.translationService.translateAsync('vcd.cc.select.all');
+    exportAllText: LazyString = this.translationService.translateAsync('vcd.cc.export.all');
+
+    /**
+     * Text for the select columns dropdown button.
+     */
+    @Input()
+    selectColumnsText: LazyString = this.translationService.translateAsync('vcd.cc.select.columns');
 
     /**
      * Text for the export button.
@@ -107,15 +131,52 @@ export class DataExporterComponent implements OnInit {
     noText: LazyString = this.translationService.translateAsync('vcd.cc.no');
 
     /**
-     * Text for the yes button.
+     * Text label that is next to the friendly field names checkbox.
      */
     @Input()
-    badDataText: LazyString = this.translationService.translateAsync('vcd.cc.bad.data');
+    friendlyNamesCheckboxLabel: LazyString = this.translationService.translateAsync('vcd.cc.friendly.names.question');
 
     /**
-     * Whether a box to select/deselect all rows is available
+     * Text the info message next to the friendly field names checkbox.
      */
-    @Input() showSelectAll = true;
+    @Input()
+    friendlyNamesInfoMessage: LazyString = this.translationService.translateAsync('vcd.cc.friendly.names.info');
+
+    /**
+     * Text the hint message below the friendly field names checkbox.
+     */
+    @Input()
+    friendlyNamesHint: LazyString = this.translationService.translateAsync('vcd.cc.friendly.names.hint');
+
+    /**
+     * Text label that is next to the sanitize checkbox.
+     */
+    @Input()
+    sanitizeCheckboxLabel: LazyString = this.translationService.translateAsync('vcd.cc.sanitize.question');
+
+    /**
+     * Hint message that is below the sanitize checkbox.
+     */
+    @Input()
+    sanitizeCheckboxHint: LazyString = this.translationService.translateAsync('vcd.cc.sanitize.hint');
+
+    /**
+     * Text the info message next to the sanitize checkbox.
+     */
+    @Input()
+    sanitizeInfoMessage: LazyString = this.translationService.translateAsync('vcd.cc.sanitize.info');
+
+    /**
+     * The message that is displayed while the data is downloading.
+     */
+    @Input()
+    downloadingMessage: LazyString = this.translationService.translateAsync('vcd.cc.exporter.downloading');
+
+    /**
+     * The message that is displayed while the data is writing to file.
+     */
+    @Input()
+    writingMessage: LazyString = this.translationService.translateAsync('vcd.cc.exporter.writing');
 
     /**
      * Whether the dialog is open
@@ -130,9 +191,9 @@ export class DataExporterComponent implements OnInit {
     }
 
     private _open = false;
+    private subscriptionTracker = new SubscriptionTracker(this);
 
-    dataHasPotentialInjection = false;
-    data: any[][];
+    forceDropdownOpen = false;
 
     /**
      * Fires when {@link _open} changes. Its parameter indicates the new state.
@@ -163,28 +224,39 @@ export class DataExporterComponent implements OnInit {
 
     formGroup: FormGroup;
 
+    exportStage: LazyString;
+
+    optionsFormGroup = new FormGroup({
+        [UserOptions.selectAll]: new FormControl(true),
+        [UserOptions.friendlyNames]: new FormControl(true),
+        [UserOptions.sanitize]: new FormControl(false),
+    });
+
+    /**
+     * Says if the column dropdown is open.
+     */
+    isDropdownOpen = false;
+
     onClickExport(): void {
+        this.exportStage = this.downloadingMessage;
         this._isRequestPending = true;
         this.dataExportRequest.emit({
             exportData: this.exportData.bind(this),
             updateProgress: this.updateProgress.bind(this),
-            selectedColumns: this.columns.filter(col => this.formGroup.controls[col.fieldName].value),
+            selectedColumns: this.selectedColumns,
         });
     }
 
-    onClickCheckAll(): void {
-        for (const column of this.columns) {
-            this.formGroup.controls[column.fieldName].setValue(true);
-        }
+    get selectAllControl(): FormControl {
+        return this.optionsFormGroup.get(UserOptions.selectAll) as FormControl;
     }
 
-    get isSelectAllEnabled(): boolean {
-        for (const column of this.columns) {
-            if (!this.formGroup.controls[column.fieldName].value) {
-                return true;
-            }
-        }
-        return false;
+    get sanitizeControl(): FormControl {
+        return this.optionsFormGroup.get(UserOptions.sanitize) as FormControl;
+    }
+
+    get friendlyFieldsControl(): FormControl {
+        return this.optionsFormGroup.get(UserOptions.friendlyNames) as FormControl;
     }
 
     get isExportEnabled(): boolean {
@@ -199,38 +271,75 @@ export class DataExporterComponent implements OnInit {
         return false;
     }
 
+    get shouldShowBubbles(): boolean {
+        return !this.selectAllControl.value && !this.isDropdownOpen;
+    }
+
+    /**
+     * Gives a list of all the columns that are selected.
+     */
+    get selectedColumns(): ExportColumn[] {
+        return this.columns.filter(col => this.formGroup.controls[col.fieldName].value);
+    }
+
+    /**
+     * Sets the selected value of the given column.
+     */
+    selectColumn(column: ExportColumn, selected: boolean): void {
+        this.formGroup.controls[column.fieldName].setValue(selected);
+    }
+
     ngOnInit(): void {
         const controls = this.columns.reduce((previousValue, currentValue) => {
             previousValue[currentValue.fieldName] = new FormControl(true);
             return previousValue;
         }, {});
         this.formGroup = new FormGroup(controls);
+        this.subscriptionTracker.subscribe(this.selectAllControl.valueChanges, change => {
+            if (change) {
+                for (const column of this.columns) {
+                    this.formGroup.controls[column.fieldName].setValue(true);
+                }
+            } else {
+                this.forceDropdownOpen = true;
+                this.isDropdownOpen = true;
+            }
+        });
     }
 
-    private exportData(records: object[]): void {
+    ngOnDestroy(): void {}
+
+    private exportData(records: object[]): Promise<string> {
         if (!this.open) {
             return;
         }
 
         const rows = [
             // First row is the display names
-            Object.keys(records[0]).map(fieldName => this.getDisplayNameForField(fieldName)),
+            Object.keys(records[0]).map(fieldName =>
+                this.friendlyFieldsControl.value ? this.getDisplayNameForField(fieldName) : fieldName
+            ),
             // Then the data
             ...records.map(rec => Object.keys(rec).map(key => rec[key])),
         ];
-        this.data = rows;
-        if (this.csvExporterService.hasPotentialInjection(rows)) {
-            this.dataHasPotentialInjection = true;
-            return;
-        }
-        this.downloadData();
+        return this.downloadData(rows, this.sanitizeControl.value);
     }
 
-    downloadData(shouldSanitize: boolean = false): void {
-        this.open = false;
-        this._isRequestPending = false;
-        const csvFile = this.csvExporterService.createCsv(this.data, shouldSanitize);
-        this.csvExporterService.downloadCsvFile(csvFile, this.fileName);
+    downloadData(data: any[][], shouldSanitize: boolean = false): Promise<string> {
+        this.exportStage = this.writingMessage;
+        return new Promise(resolve => {
+            // We need to setTimeout because we changed how the message should be displayed
+            // but we need to interrupt the current task to get the message to display
+            // We tried to use window.requestAnimationFrame, but this didn't work so we had to use
+            // setTimeout().
+            setTimeout(() => {
+                this._isRequestPending = false;
+                const csvFile = this.csvExporterService.createCsv(data, shouldSanitize);
+                this.csvExporterService.downloadCsvFile(csvFile, this.fileName);
+                this.open = false;
+                resolve(csvFile);
+            });
+        });
     }
 
     private updateProgress(progress: number): void {
