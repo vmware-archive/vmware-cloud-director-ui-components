@@ -173,7 +173,7 @@ export class DataExporterComponent implements OnInit, OnDestroy {
     downloadingMessage: LazyString = this.translationService.translateAsync('vcd.cc.exporter.downloading');
 
     /**
-     * The message that is displayed while the data is sanitizing.
+     * The message that is displayed while the data is writing to file.
      */
     @Input()
     writingMessage: LazyString = this.translationService.translateAsync('vcd.cc.exporter.writing');
@@ -327,7 +327,11 @@ export class DataExporterComponent implements OnInit, OnDestroy {
 
     downloadData(data: any[][], shouldSanitize: boolean = false): Promise<string> {
         this.exportStage = this.writingMessage;
-        return new Promise((resolve, reject) => {
+        return new Promise(resolve => {
+            // We need to setTimeout because we changed how the message should be displayed
+            // but we need to interrupt the current task to get the message to display
+            // We tried to use window.requestAnimationFrame, but this didn't work so we had to use
+            // setTimeout().
             setTimeout(() => {
                 this._isRequestPending = false;
                 const csvFile = this.csvExporterService.createCsv(data, shouldSanitize);
