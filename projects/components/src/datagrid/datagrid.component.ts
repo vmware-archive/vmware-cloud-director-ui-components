@@ -447,10 +447,9 @@ export class DatagridComponent<R> implements OnInit, AfterViewInit {
 
     /**
      * When there is no data, show this message.
-     *
-     * TODO: Try to avoid showing this before initial load.
      */
-    emptyGridPlaceholder: string;
+    @Input()
+    emptyGridPlaceholder;
 
     private _pagination: PaginationConfiguration = {
         pageSize: 'Magic',

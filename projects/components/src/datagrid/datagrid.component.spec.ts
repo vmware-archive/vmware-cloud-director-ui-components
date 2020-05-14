@@ -214,15 +214,6 @@ describe('DatagridComponent', () => {
             });
 
             describe('@Input() gridData', () => {
-                it('shows a placeholder when no data is present', function(this: HasFinderAndGrid): void {
-                    this.finder.hostComponent.gridData = {
-                        items: [],
-                        totalItems: 0,
-                    };
-                    this.finder.detectChanges();
-                    expect(this.clrGridWidget.hasPlaceholder).toBeTruthy();
-                });
-
                 describe('when data is refreshed unselects a row if the row is removed', () => {
                     it('in single selection', function(this: HasFinderAndGrid): void {
                         this.finder.hostComponent.selectionType = GridSelectionType.Single;
@@ -411,6 +402,38 @@ describe('DatagridComponent', () => {
                     expect(this.clrGridWidget.gridContainerClasses).toContain('fill-parent');
                     expect(this.clrGridWidget.gridHeight).toEqual('unset');
                 });
+            });
+        });
+
+        describe('@Input() emptyGridPlaceholder', () => {
+            it('does not show the placeholder while the grid is loading', function(this: HasFinderAndGrid): void {
+                this.finder.detectChanges();
+                expect(this.clrGridWidget.loading).toBeTruthy();
+                expect(this.clrGridWidget.placeholder).toEqual('');
+            });
+
+            it('shows the placeholder if the grid is empty', function(this: HasFinderAndGrid): void {
+                this.finder.detectChanges();
+                expect(this.clrGridWidget.loading).toBeTruthy();
+                this.finder.hostComponent.gridData = {
+                    items: [],
+                    totalItems: 0,
+                };
+                this.finder.detectChanges();
+                expect(this.clrGridWidget.loading).toBeFalsy();
+                expect(this.clrGridWidget.placeholder).toEqual('Placeholder');
+            });
+
+            it('does not show the placeholder if the grid has data', function(this: HasFinderAndGrid): void {
+                this.finder.detectChanges();
+                expect(this.clrGridWidget.loading).toBeTruthy();
+                this.finder.hostComponent.gridData = {
+                    items: mockData,
+                    totalItems: 2,
+                };
+                this.finder.detectChanges();
+                expect(this.clrGridWidget.loading).toBeFalsy();
+                expect(this.clrGridWidget.placeholder).toEqual('');
             });
         });
 
@@ -1047,6 +1070,7 @@ describe('DatagridComponent', () => {
                 [indicatorType]="indicatorType"
                 [trackBy]="trackBy"
                 [detailComponent]="details"
+                [emptyGridPlaceholder]="placeholder"
             >
             </vcd-datagrid>
         </div>
@@ -1088,6 +1112,8 @@ export class HostWithDatagridComponent {
     details = DatagridDetailsComponent;
 
     paginationText = 'Total Items';
+
+    placeholder = 'Placeholder';
 
     pagination: PaginationConfiguration = {
         pageSize: 5,

@@ -8,6 +8,7 @@
     [ngClass]="[this.clrDatagridCssClass, this.height ? 'set-height' : 'fill-parent-grid']"
     (clrDgRefresh)="gridStateChanged($event)"
 >
+    <clr-dg-placeholder>{{ emptyGridPlaceholder }}</clr-dg-placeholder>
     <clr-dg-action-bar *ngIf="shouldShowActionBar()">
         <div class="btn-group" *ngFor="let button of buttonConfig.globalButtons">
             <button
