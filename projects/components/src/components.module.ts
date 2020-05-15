@@ -10,6 +10,7 @@ import { VcdLoadingIndicatorModule } from './common/loading/loading-indicator.mo
 import { VcdDataExporterModule } from './data-exporter/data-exporter.module';
 import { VcdDatagridModule } from './datagrid/datagrid.module';
 import { VcdFormModule } from './form/form.module';
+import { VcdFormlyModule } from './formly/vcd/index';
 import { ShowClippedTextDirectiveModule } from './lib/directives/show-clipped-text.directive.module';
 
 @NgModule({
@@ -21,6 +22,7 @@ import { ShowClippedTextDirectiveModule } from './lib/directives/show-clipped-te
         VcdLoadingIndicatorModule,
         VcdActivityReporterModule,
         VcdFormModule,
+        VcdFormlyModule,
     ],
 })
 export class VcdComponentsModule {}

@@ -5,7 +5,7 @@
 
 import { registerLocaleData } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
-import { NgModule } from '@angular/core';
+import { FactoryProvider, ModuleWithProviders, NgModule, Provider } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
@@ -19,6 +19,7 @@ import { AppRoutingModule } from './app-routing.module';
 
 import { AppComponent } from './app.component';
 
+import { FormlyModule } from '@ngx-formly/core';
 import { CompodocSchema, NgLiveDocsModule, StackBlitzInfo } from '@vmw/ng-live-docs';
 import componentsDocumentationJson from '../../gen/components-doc.json';
 import examplesDocumentationJson from '../../gen/examples-doc.json';
@@ -27,6 +28,7 @@ import { DataExporterExamplesModule } from '../components/data-exporter/data-exp
 import { DatagridExamplesModule } from '../components/datagrid/datagrid.examples.module';
 import { ErrorBannerExamplesModule } from '../components/error/error-banner.examples.module';
 import { FormInputComponentsExamplesModule } from '../components/form-input/form-input-components.examples.module';
+import { FormlyInputComponentsExamplesModule } from '../components/formly/input/formly-input.examples.module';
 import { LoadingIndicatorExamplesModule } from '../components/loading/loading-indicator.examples.module';
 import { SubscriptionTrackerExamplesModule } from '../components/subscription/subscription-tracker.examples.module';
 import { ShowClippedTextExamplesModule } from './components/show-clipped-text/show-clipped-text-examples.module';
@@ -73,6 +75,8 @@ export const sbInfo: StackBlitzInfo = {
         ErrorBannerExamplesModule,
         ActivityReporterExamplesModule,
         FormInputComponentsExamplesModule,
+        FormlyInputComponentsExamplesModule,
+        FormlyModule.forRoot(),
     ],
     entryComponents: [HomeComponent],
     providers: [
