@@ -229,7 +229,7 @@ export class DataExporterComponent implements OnInit, OnDestroy {
     optionsFormGroup = new FormGroup({
         [UserOptions.selectAll]: new FormControl(true),
         [UserOptions.friendlyNames]: new FormControl(true),
-        [UserOptions.sanitize]: new FormControl(false),
+        [UserOptions.sanitize]: new FormControl(true),
     });
 
     /**

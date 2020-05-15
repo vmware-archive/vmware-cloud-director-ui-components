@@ -15,11 +15,6 @@ div.progress {
     flex: 1;
 }
 
-.column-dropdown-menu {
-    height: 200px;
-    overflow: scroll;
-}
-
 .dropdown-button {
     margin-top: -1px;
     margin-left: 2px;
@@ -38,4 +33,9 @@ div.progress {
 button.select-all {
     margin: 0;
     padding: 0;
+}
+
+clr-dropdown-menu {
+    height: 200px;
+    overflow: auto;
 }
