@@ -5,7 +5,7 @@
 
 import { NgModule } from '@angular/core';
 import { DatagridComponent } from '@vcd/ui-components';
-import { Documentation } from '@vcd/ui-doc-lib';
+import { Documentation } from '@vmw/ng-live-docs';
 import { DatagridActivityReporterExampleComponent } from './datagrid-activity-reporter.example.component';
 import { DatagridActivityReporterExampleModule } from './datagrid-activity-reporter.example.module';
 import { DatagridCliptextExampleComponent } from './datagrid-cliptext.example.component';

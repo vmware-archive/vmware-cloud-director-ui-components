@@ -7,7 +7,7 @@ import { NgModule } from '@angular/core';
 import { DataExporterExampleComponent } from './data-exporter.example.component';
 
 import { DataExporterComponent } from '@vcd/ui-components';
-import { Documentation } from '@vcd/ui-doc-lib';
+import { Documentation } from '@vmw/ng-live-docs';
 import { DataExporterExampleModule } from './data-exporter.example.module';
 
 Documentation.registerDocumentationEntry({

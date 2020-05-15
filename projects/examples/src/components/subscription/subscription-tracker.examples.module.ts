@@ -5,7 +5,7 @@
 
 import { NgModule } from '@angular/core';
 import { SubscriptionTracker } from '@vcd/ui-components';
-import { Documentation } from '@vcd/ui-doc-lib';
+import { Documentation } from '@vmw/ng-live-docs';
 import { SubscriptionTrackerExampleComponent } from './subscription-tracker.example.component';
 import { SubscriptionTrackerExampleModule } from './subscription-tracker.example.module';
 

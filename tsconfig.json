@@ -22,9 +22,6 @@
       "@vcd/ui-components": [
         "dist/components"
       ],
-      "@vcd/ui-doc-lib": [
-        "dist/doc-lib"
-      ],
       "@vcd/i18n": [
         "dist/i18n"
       ]

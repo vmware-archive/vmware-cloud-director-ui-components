@@ -2,7 +2,7 @@
 
 ## Repo Structure
 
-This [monorepo](https://angular.io/guide/file-structure#multiple-projects) contains four separate but related projects:
+This [monorepo](https://angular.io/guide/file-structure#multiple-projects) contains three separate but related projects:
 
 ### Component Library (./projects/components) `@vcd/ui-components`
 
@@ -14,29 +14,16 @@ for further details
 Translation code for vcd-ui and its plugin developers. See its [README](projects/i18n/README.md)
 for further details
 
-### Documentation Library (./projects/doc-lib) `@vcd/ui-doc-lib`
-
-Reusable components that allow showcasing a component by displaying
-
--   Runnable examples
--   Source Code
--   API / Description
--   Live / editable examples
-
-See [README](projects/doc-lib/README.md)
-for further details
-
 ### Examples App (./projects/examples)
 
-The application that showcases `@vcd/ui-components` using `@vcd/ui-doc-lib`.
+The application that showcases `@vcd/ui-components` using `@vmw/ng-live-docs`.
 
 Run `npm start` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if
-you change any of the source files. This is where you'll see changes made in [components](./projects/components) and
-[doc-lib](./projects/doc-lib)
+you change any of the source files. This is where you'll see changes made in [components](./projects/components)
 
 ## Peer Dependencies
 
-The component and doc-lib libraries depend on [Clarity](https://clarity.design/) and [Angular](https://angular.io/)
+The component library depends on [Clarity](https://clarity.design/) and [Angular](https://angular.io/)
 which must must be installed from your application's `package.json`. See [package.json](package.json) for version
 information.
 
@@ -47,11 +34,11 @@ Run `ng generate component component-name` to generate a new component. You can 
 
 ## Build
 
-Run `npm run build:components`, `npm run build:doc-lib`, or `npm run build:i18n`. The build artifacts will be stored in the `dist/` directory.
+Run `npm run build:components`, or `npm run build:i18n`. The build artifacts will be stored in the `dist/` directory.
 
 ## Running unit tests
 
-Run `npm run test:components`, `npm run test:doc-lib`, or `npm run test:i18n` to execute the unit tests via [Karma](https://karma-runner.github.io).
+Run `npm run test:components`, or `npm run test:i18n` to execute the unit tests via [Karma](https://karma-runner.github.io).
 
 ## Running end-to-end tests (Examples App)
 

@@ -15,11 +15,11 @@ import { FormsModule } from '@angular/forms';
 import { ClarityModule } from '@clr/angular';
 import { I18nModule, TranslationService } from '@vcd/i18n';
 import { ActivityPromiseResolver, VcdComponentsModule } from '@vcd/ui-components';
-import { CompodocSchema, DocLibModule, StackBlitzInfo } from '@vcd/ui-doc-lib';
 import { AppRoutingModule } from './app-routing.module';
 
 import { AppComponent } from './app.component';
 
+import { CompodocSchema, NgLiveDocsModule, StackBlitzInfo } from '@vmw/ng-live-docs';
 import componentsDocumentationJson from '../../gen/components-doc.json';
 import examplesDocumentationJson from '../../gen/examples-doc.json';
 import { ActivityReporterExamplesModule } from '../components/activity-reporter/activity-reporter.examples.module';
@@ -41,13 +41,13 @@ export function moduleFinder(componentName: string): string {
 }
 /**
  * The following 2 constants are declared for AOT compilation purpose. Otherwise, the compilation would silently fail and
- * the doc jsons are given as null to the DocLibModule.
+ * the doc jsons are given as null to the NgLiveDocsModule.
  * NOTE: The following two has to be exported otherwise the AoT compiler won't see it.
  */
 export const docJson1: CompodocSchema = componentsDocumentationJson;
 export const docJson2: CompodocSchema = examplesDocumentationJson;
 export const sbInfo: StackBlitzInfo = {
-    templateId: 'vcd-ui-cc-starter-clarity-v8-yhe4yg',
+    templateId: 'vcd-ui-cc-starter-template',
     projectName: 'VMware Cloud Director UI Components',
     moduleFinder,
 };
@@ -59,10 +59,9 @@ export const sbInfo: StackBlitzInfo = {
         I18nModule.forChild(ASSET_URL, true),
         BrowserModule,
         AppRoutingModule,
-        DocLibModule,
         ClarityModule,
         BrowserAnimationsModule,
-        DocLibModule.forRoot([docJson1, docJson2], sbInfo),
+        NgLiveDocsModule.forRoot([docJson1, docJson2], sbInfo),
         VcdComponentsModule,
         FormsModule,
         DatagridExamplesModule,

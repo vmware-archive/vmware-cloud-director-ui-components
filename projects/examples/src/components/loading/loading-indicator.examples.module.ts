@@ -5,7 +5,7 @@
 
 import { NgModule } from '@angular/core';
 import { LoadingIndicatorComponent } from '@vcd/ui-components';
-import { Documentation } from '@vcd/ui-doc-lib';
+import { Documentation } from '@vmw/ng-live-docs';
 import { LoadingIndicatorExampleComponent } from './loading-indicator.example.component';
 import { LoadingIndicatorExampleModule } from './loading-indicator.example.module';
 

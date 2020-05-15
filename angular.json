@@ -38,41 +38,6 @@
         }
       }
     },
-    "doc-lib": {
-      "projectType": "library",
-      "root": "projects/doc-lib",
-      "sourceRoot": "projects/doc-lib/src",
-      "prefix": "vcd",
-      "architect": {
-        "build": {
-          "builder": "@angular-devkit/build-ng-packagr:build",
-          "options": {
-            "tsConfig": "projects/doc-lib/tsconfig.lib.json",
-            "project": "projects/doc-lib/ng-package.json"
-          }
-        },
-        "test": {
-          "builder": "@angular-devkit/build-angular:karma",
-          "options": {
-            "main": "projects/doc-lib/src/test.ts",
-            "tsConfig": "projects/doc-lib/tsconfig.spec.json",
-            "karmaConfig": "projects/doc-lib/karma.conf.js"
-          }
-        },
-        "lint": {
-          "builder": "@angular-devkit/build-angular:tslint",
-          "options": {
-            "tsConfig": [
-              "projects/doc-lib/tsconfig.lib.json",
-              "projects/doc-lib/tsconfig.spec.json"
-            ],
-            "exclude": [
-              "**/node_modules/**"
-            ]
-          }
-        }
-      }
-    },
     "examples": {
       "projectType": "application",
       "schematics": {
