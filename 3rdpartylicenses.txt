@@ -82,7 +82,9 @@ SOFTWARE.
 
 @vcd/ui-components
 
-@vcd/ui-doc-lib
+@vmw/ng-live-docs
+
+@vmw/plain-js-live-docs
 
 assert
 MIT
