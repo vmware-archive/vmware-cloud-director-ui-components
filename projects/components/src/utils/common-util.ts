@@ -15,4 +15,11 @@ export class CommonUtil {
         }
         return Number(Math.round(Number(value + 'e' + digits)) + 'e-' + digits);
     }
+    /**
+     * To get a new copy of an object. Typically used inside unit tests to avoid mutating mock data used by multiple
+     * tests
+     */
+    static getNewObj<T extends { [key: string]: any }>(obj: T): T {
+        return { ...obj };
+    }
 }

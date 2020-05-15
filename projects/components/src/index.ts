@@ -23,3 +23,4 @@ export * from './spotlight-search/index';
 export * from './utils/index';
 export * from './form/index';
 export * from './action-menu/index';
+export * from './formly/vcd/index';
