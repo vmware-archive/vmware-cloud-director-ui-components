@@ -102,19 +102,19 @@ export class NumberWithUnitFormInputComponent extends BaseFormControl implements
     /**
      * The value when the component is set to unlimited.
      */
-    @Input() unlimitedValue = UNLIMITED;
+    @Input() unlimitedValue: number = UNLIMITED;
 
     /**
      * Minimum value allowed.
      * (This is an input specified in the component attribute.)
      */
-    @Input() min = UNLIMITED;
+    @Input() min: number = UNLIMITED;
 
     /**
      * Maximum value allowed.
      * (This is an input specified in the component attribute.)
      */
-    @Input() max = Number.MAX_SAFE_INTEGER;
+    @Input() max: number = Number.MAX_SAFE_INTEGER;
 
     /**
      * Input 'size' field.

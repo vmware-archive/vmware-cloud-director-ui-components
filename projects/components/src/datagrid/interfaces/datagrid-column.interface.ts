@@ -39,7 +39,9 @@ export enum InactiveButtonDisplayMode {
  * @param record The record for the row being rendered
  * @return The string to be displayed for that cell
  */
-export type FunctionRenderer<T> = (record: T) => string;
+export interface FunctionRenderer<T> {
+    (record: T): string;
+}
 
 /**
  * A generic interface for a button that can be displayed on the grid.

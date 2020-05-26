@@ -60,7 +60,8 @@
             "aot": false,
             "assets": [
               "projects/examples/src/favicon.ico",
-              "projects/examples/src/assets"
+              "projects/examples/src/assets",
+              "projects/examples/src/compodoc"
             ],
             "styles": [
               "node_modules/@clr/icons/clr-icons.min.css",
@@ -130,7 +131,8 @@
             "karmaConfig": "projects/examples/karma.conf.js",
             "assets": [
               "projects/examples/src/favicon.ico",
-              "projects/examples/src/assets"
+              "projects/examples/src/assets",
+              "projects/examples/src/compodoc"
             ],
             "styles": [
               "projects/examples/src/styles.scss"

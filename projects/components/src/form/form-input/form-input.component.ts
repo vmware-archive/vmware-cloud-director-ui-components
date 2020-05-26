@@ -43,13 +43,13 @@ export class FormInputComponent extends BaseFormControl implements AfterViewInit
      * Minimum value allowed.
      * (This is an input specified in the component attribute.)
      */
-    @Input() min = Number.MIN_SAFE_INTEGER;
+    @Input() min: number = Number.MIN_SAFE_INTEGER;
 
     /**
      * Maximum value allowed.
      * (This is an input specified in the component attribute.)
      */
-    @Input() max = Number.MAX_SAFE_INTEGER;
+    @Input() max: number = Number.MAX_SAFE_INTEGER;
 
     /**
      * Input 'type' field.
@@ -85,12 +85,12 @@ export class FormInputComponent extends BaseFormControl implements AfterViewInit
      * Emitted when enter key is released for callers to handle the event like... closing a filter widget
      * {@link DatagridNumericFilterComponent.close}
      */
-    @Output() enterClicked = new EventEmitter(false);
+    @Output() enterClicked = new EventEmitter<boolean>(false);
 
     /**
      * Emitted when escape key is released for callers to handle the event
      */
-    @Output() escapeClicked = new EventEmitter(false);
+    @Output() escapeClicked = new EventEmitter<boolean>(false);
 
     constructor(@Self() @Optional() controlDirective: NgControl) {
         super(controlDirective);
