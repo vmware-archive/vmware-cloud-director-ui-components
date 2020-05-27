@@ -250,21 +250,6 @@ export class ShowClippedTextDirective implements OnDestroy, OnInit {
      */
     public hostElement: HTMLElement = this.host.nativeElement;
 
-    /**
-     * Be notified whenever the host element changes content or its CSS style
-     */
-    private mutationObserver = new MutationObserver(() => {
-        // Make sure isMouseOver is first. It's an optimization to avoid measuring the DOM
-        // Also don't update the tooltip if content changes but the mouse is over a different host
-        if (tip.isMouseOver && tip.currentDirective && this.hostElement === tip.currentHost) {
-            if (this.isOverflowing()) {
-                tip.update();
-            } else {
-                tip.hideTooltip(this.mouseoutDelay);
-            }
-        }
-    });
-
     constructor(private host: ElementRef) {}
 
     ngOnInit(): void {
@@ -277,12 +262,6 @@ export class ShowClippedTextDirective implements OnDestroy, OnInit {
         ShowClippedTextDirective.instanceCount++;
         tip.create();
         watchEvents(this.hostElement, this.onMouseIn, this.onMouseOut);
-        this.mutationObserver.observe(this.hostElement, {
-            attributeFilter: ['style'],
-            childList: true,
-            subtree: true,
-            characterData: true,
-        });
 
         // A host must have the following styles to show text ellipsis when overflowing
         setStyle(this.hostElement, {
@@ -301,7 +280,6 @@ export class ShowClippedTextDirective implements OnDestroy, OnInit {
     deactivate(): void {
         ShowClippedTextDirective.instanceCount--;
         unwatchEvents(this.hostElement, this.onMouseIn, this.onMouseOut);
-        this.mutationObserver.disconnect();
         if (ShowClippedTextDirective.instanceCount === 0) {
             tip.destroy();
         }
