@@ -1,0 +1,1217 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>vmware-cloud-director-ui-components documentation</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
+	      <link rel="stylesheet" href="../styles/style.css">
+    </head>
+    <body>
+
+        <div class="navbar navbar-default navbar-fixed-top visible-xs">
+            <a href="../" class="navbar-brand">vmware-cloud-director-ui-components documentation</a>
+            <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
+        </div>
+
+        <div class="xs-menu menu" id="mobile-menu">
+                <div id="book-search-input" role="search"><input type="text" placeholder="Type to search"></div>            <compodoc-menu></compodoc-menu>
+        </div>
+
+        <div class="container-fluid main">
+           <div class="row main">
+               <div class="hidden-xs menu">
+                   <compodoc-menu mode="normal"></compodoc-menu>
+               </div>
+               <!-- START CONTENT -->
+               <div class="content interface">
+                   <div class="content-data">
+
+
+
+
+
+
+
+
+
+
+
+
+<ol class="breadcrumb">
+  <li>Interfaces</li>
+  <li>GridState</li>
+</ol>
+
+<ul class="nav nav-tabs" role="tablist">
+        <li class="active">
+            <a href="#info" role="tab" id="info-tab" data-toggle="tab" data-link="info">Info</a>
+        </li>
+        <li >
+            <a href="#source" role="tab" id="source-tab" data-toggle="tab" data-link="source">Source</a>
+        </li>
+</ul>
+
+<div class="tab-content">
+    <div class="tab-pane fade active in" id="c-info">
+        <p class="comment">
+            <h3>File</h3>
+        </p>
+        <p class="comment">
+            <code>projects/components/src/datagrid/datagrid.component.ts</code>
+        </p>
+
+            <p class="comment">
+                <h3>Description</h3>
+            </p>
+            <p class="comment">
+                <p>The current state of various features of the grid like filtering, sorting, pagination. This object is emitted as
+part of the event <a href="DatagridComponent.gridRefresh">DatagridComponent.gridRefresh</a>. The handler then used this object to construct a query.
+TODO: This interface is going to defined as part of working on the following tasks:
+  <a href="https://jira.eng.vmware.com/browse/VDUCC-14">https://jira.eng.vmware.com/browse/VDUCC-14</a>
+  <a href="https://jira.eng.vmware.com/browse/VDUCC-15">https://jira.eng.vmware.com/browse/VDUCC-15</a>
+  <a href="https://jira.eng.vmware.com/browse/VDUCC-20">https://jira.eng.vmware.com/browse/VDUCC-20</a></p>
+
+            </p>
+
+
+        <section>
+            <h3 id="index">Index</h3>
+            <table class="table table-sm table-bordered index-table">
+                <tbody>
+                    <tr>
+                        <td class="col-md-4">
+                            <h6><b>Properties</b></h6>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <ul class="index-list">
+                                <li>
+                                            <span class="modifier">Optional</span>
+                                        <a href="#filters">filters</a>
+                                </li>
+                                <li>
+                                            <span class="modifier">Optional</span>
+                                        <a href="#pagination">pagination</a>
+                                </li>
+                                <li>
+                                            <span class="modifier">Optional</span>
+                                        <a href="#sortColumn">sortColumn</a>
+                                </li>
+                            </ul>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+
+
+            <section>
+                <h3 id="inputs">Properties</h3>
+                    <table class="table table-sm table-bordered">
+                        <tbody>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <a name="filters"></a>
+                                        <span class="name"><b>filters</b><a href="#filters"><span class="icon ion-ios-link"></span></a></span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <code>filters:     <code>string[]</code>
+</code>
+                                    </td>
+                                </tr>
+
+
+                                    <tr>
+                                        <td class="col-md-4">
+                                            <i>Type : </i>    <code>string[]</code>
+
+                                        </td>
+                                    </tr>
+
+                                    <tr>
+                                        <td class="col-md-4">
+                                            <i>Optional</i>
+                                        </td>
+                                    </tr>
+
+
+
+
+                            <tr>
+                                <td class="col-md-4">
+                                    <div class="io-description"><p>FIQL formatted list of active filters</p>
+</div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <table class="table table-sm table-bordered">
+                        <tbody>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <a name="pagination"></a>
+                                        <span class="name"><b>pagination</b><a href="#pagination"><span class="icon ion-ios-link"></span></a></span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <code>pagination:         <code><a href="../interfaces/PagionationInformation.html" target="_self" >PagionationInformation</a></code>
+</code>
+                                    </td>
+                                </tr>
+
+
+                                    <tr>
+                                        <td class="col-md-4">
+                                            <i>Type : </i>        <code><a href="../interfaces/PagionationInformation.html" target="_self" >PagionationInformation</a></code>
+
+                                        </td>
+                                    </tr>
+
+                                    <tr>
+                                        <td class="col-md-4">
+                                            <i>Optional</i>
+                                        </td>
+                                    </tr>
+
+
+
+
+                            <tr>
+                                <td class="col-md-4">
+                                    <div class="io-description"><p>The pagination information that the datagrid should show.</p>
+</div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <table class="table table-sm table-bordered">
+                        <tbody>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <a name="sortColumn"></a>
+                                        <span class="name"><b>sortColumn</b><a href="#sortColumn"><span class="icon ion-ios-link"></span></a></span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <code>sortColumn:         <code><a href="../interfaces/SortedColumn.html" target="_self" >SortedColumn</a></code>
+</code>
+                                    </td>
+                                </tr>
+
+
+                                    <tr>
+                                        <td class="col-md-4">
+                                            <i>Type : </i>        <code><a href="../interfaces/SortedColumn.html" target="_self" >SortedColumn</a></code>
+
+                                        </td>
+                                    </tr>
+
+                                    <tr>
+                                        <td class="col-md-4">
+                                            <i>Optional</i>
+                                        </td>
+                                    </tr>
+
+
+
+
+                            <tr>
+                                <td class="col-md-4">
+                                    <div class="io-description"><p>The currently sorted column in the datagrid.</p>
+</div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+            </section>
+    </div>
+
+
+    <div class="tab-pane fade  tab-source-code" id="c-source">
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import {
+    AfterViewInit,
+    ChangeDetectorRef,
+    Component,
+    ElementRef,
+    EventEmitter,
+    HostBinding,
+    Input,
+    OnInit,
+    Output,
+    TrackByFunction,
+    ViewChild,
+} from &#x27;@angular/core&#x27;;
+import { ClrDatagrid, ClrDatagridFilter, ClrDatagridPagination, ClrDatagridStateInterface } from &#x27;@clr/angular&#x27;;
+import { LazyString, TranslationService } from &#x27;@vcd/i18n&#x27;;
+import { Observable } from &#x27;rxjs&#x27;;
+import { ActivityReporter } from &#x27;../common/activity-reporter&#x27;;
+import { TooltipSize } from &#x27;../lib/directives/show-clipped-text.directive&#x27;;
+import { DatagridFilter } from &#x27;./filters/datagrid-filter&#x27;;
+import { ComponentRendererConstructor, ComponentRendererSpec } from &#x27;./interfaces/component-renderer.interface&#x27;;
+import {
+    Button,
+    ButtonConfig,
+    ColumnRendererSpec,
+    ContextualButtonPosition,
+    FunctionRenderer,
+    GridColumn,
+    GridColumnHideable,
+    InactiveButtonDisplayMode,
+    TextIcon,
+} from &#x27;./interfaces/datagrid-column.interface&#x27;;
+import { ContextualButton } from &#x27;./interfaces/datagrid-column.interface&#x27;;
+
+/**
+ * The default number of items on a single page.
+ */
+const DEFAULT_SIZE &#x3D; 15;
+
+/**
+ * The default items to show in the page size dropdown.
+ */
+const DEFAULT_SIZE_OPTIONS &#x3D; [DEFAULT_SIZE, 20, 50, 100];
+
+/**
+ * The maximum allowed .datagrid-header element clientHeight in pixels.
+ */
+const MAX_HEADER_HEIGHT &#x3D; 40;
+
+/**
+ * The default clr-dr-row element clientHeight in pixels.
+ */
+const ROW_HEIGHT &#x3D; 37;
+
+/**
+ * Different types of row selection on the grid
+ */
+export enum GridSelectionType {
+    /**
+     * For selecting multiple rows
+     */
+    Multi &#x3D; &#x27;MULTI&#x27;,
+    /**
+     * For selecting only one row at a time
+     */
+    Single &#x3D; &#x27;SINGLE&#x27;,
+    /**
+     * Disables the selection
+     */
+    None &#x3D; &#x27;NONE&#x27;,
+}
+
+/**
+ * Representation of data required for rendering contents of cells and pagination information
+ */
+export interface GridDataFetchResult&lt;R&gt; {
+    /**
+     * Items to be listed in the grid
+     */
+    items: R[];
+    /**
+     * Total number of items
+     */
+    totalItems?: number;
+}
+
+/**
+ * The information about the currently sorted column.
+ */
+export interface SortedColumn {
+    /**
+     * Whether the column is sorted normally or reversed.
+     */
+    reverse: boolean;
+    /**
+     * The name of the column that is sorted.
+     */
+    name: string;
+}
+
+/**
+ * The types of activity indicators that can be displayed on top of the grid.
+ */
+export enum ActivityIndicatorType {
+    /**
+     * Display a {@link SpinnerActivityReporterComponent} indicator
+     */
+    SPINNER,
+    /**
+     * Display a {@link BannerActivityReporterComponent} indicator
+     */
+    BANNER,
+}
+
+/**
+ * The information about pagionation that will be exposed.
+ */
+export interface PagionationInformation {
+    /**
+     * What page is currently selected.
+     */
+    pageNumber: number;
+    /**
+     * How many items belong on a page.
+     */
+    itemsPerPage: number;
+}
+
+/**
+ * The information the user gives to show page size and page size options in the pagination footer.
+ */
+export interface PaginationConfiguration {
+    /**
+     * Available page size options in the dropdown
+     */
+    pageSizeOptions: number[];
+
+    /**
+     * Number of items to be displayed on one page. As a result, the server will return a set of pages with the defined
+     * number of items per page(They can be smaller than the number here in case of last page, filtering etc.,)
+     *
+     * Magic: Auto calculates the size based on available height of the container
+     */
+    pageSize: number | &#x27;Magic&#x27;;
+
+    /**
+     * The height of a row in the datagrid. If not set, will use the default of {@link ROW_HEIGHT}.
+     */
+    rowHeight?: number;
+    /**
+     * If the page size option dropdown should be shown.
+     * Defaults to false.
+     */
+    shouldShowPageSizeSelector?: boolean;
+    /**
+     * If the page number input should be shown.
+     * Defaults to false.
+     */
+    shouldShowPageNumberInput?: boolean;
+}
+
+/**
+ * The configuration object that is passed to the detail row component.
+ */
+export interface DetailRowConfig&lt;R&gt; {
+    /**
+     * The record that this detail row should render.
+     */
+    record: R;
+    /**
+     * The index this detail row is in the datagrid.
+     */
+    index: number;
+    /**
+     * The total number of rows in the datagrid.
+     */
+    count: number;
+}
+
+/**
+ * The current state of various features of the grid like filtering, sorting, pagination. This object is emitted as
+ * part of the event {@link DatagridComponent.gridRefresh}. The handler then used this object to construct a query.
+ * TODO: This interface is going to defined as part of working on the following tasks:
+ *  https://jira.eng.vmware.com/browse/VDUCC-14
+ *  https://jira.eng.vmware.com/browse/VDUCC-15
+ *  https://jira.eng.vmware.com/browse/VDUCC-20
+ */
+export interface GridState&lt;R&gt; {
+    /**
+     * FIQL formatted list of active filters
+     */
+    filters?: string[];
+    /**
+     * The currently sorted column in the datagrid.
+     */
+    sortColumn?: SortedColumn;
+    /**
+     * The pagination information that the datagrid should show.
+     */
+    pagination?: PagionationInformation;
+}
+
+/**
+ * A function that can be used to render the pagination data in the grid.
+ */
+export interface PaginationCallback {
+    (firstItem: number, lastItem: number, totalItems: number): string | Observable&lt;string&gt;;
+}
+
+/**
+ * For simplifying logic inside the HTML template to differentiate between different {@link GridColumn.renderer}
+ * types.
+ */
+interface ColumnConfigInternal&lt;R, T&gt; extends GridColumn&lt;R&gt; {
+    fieldName?: string;
+    fieldRenderer?: FunctionRenderer&lt;R&gt;;
+    fieldColumnRendererSpec?: ColumnRendererSpec&lt;R, T&gt;;
+}
+
+/**
+ * Component used for saving the time required for developing a data grid. It takes different properties required for
+ * rendering as Inputs and Outputs.
+ *
+ * Example usage in a component:
+ * In the component view, different properties required for the grid are wired as Inputs and Outputs.
+ *
+ * @example
+ * &lt;vcd-datagrid
+ *    (onGridRefresh)&#x3D;&quot;fetchData()&quot;
+ *    [columns]&#x3D;&quot;columns&quot;
+ *    [gridData]&#x3D;&quot;gridData&quot;&gt;
+ *  &lt;/vcd-datagrid&gt;
+ *
+ */
+@Component({
+    selector: &#x27;vcd-datagrid&#x27;,
+    templateUrl: &#x27;./datagrid.component.html&#x27;,
+    styleUrls: [&#x27;./datagrid.component.scss&#x27;],
+})
+export class DatagridComponent&lt;R&gt; implements OnInit, AfterViewInit {
+    /**
+     * Sets the configuration of columns on the grid and updates the {@link columnsConfig} array. Also pushes
+     * notifications for listeners to make changes to the _columns array
+     */
+    @Input()
+    set columns(cols: GridColumn&lt;R&gt;[]) {
+        this._columns &#x3D; cols;
+        this.updateColumnsConfig();
+        this.columnsUpdated.emit();
+    }
+    get columns(): GridColumn&lt;R&gt;[] {
+        return this._columns;
+    }
+
+    /**
+     * Set from the caller component using this grid. The input is set upon fetching data by the caller
+     */
+    @Input() set gridData(result: GridDataFetchResult&lt;R&gt;) {
+        this.isLoading &#x3D; false;
+        this.items &#x3D; result.items;
+        this.totalItems &#x3D; result.totalItems;
+        /**
+         * This is due to a known bug in clarity (@link https://github.com/vmware/clarity/issues/2265)
+         * where using trackBy breaks the select all functionality unless you
+         * add a detectChanges before updating the selection manually.
+         */
+        if (this.viewInitted) {
+            this.changeDetectorRef.detectChanges();
+        }
+        this.updateSelectedItems();
+    }
+
+    /**
+     * Type of row selection on the grid
+     */
+    @Input() set selectionType(selectionType: GridSelectionType) {
+        this._selectionType &#x3D; selectionType;
+        this.clearSelectionInformation();
+    }
+
+    /**
+     * Sets the button configuration on the datagrid.
+     *
+     * {@link ButtonConfig.inactiveDisplayMode} defualts to Disabled.
+     */
+    @Input() set buttonConfig(config: ButtonConfig&lt;R&gt;) {
+        this._buttonConfig &#x3D; config;
+        this._buttonConfig.contextualButtonConfig.buttonContents &#x3D;
+            this._buttonConfig.contextualButtonConfig.buttonContents || TextIcon.ICON;
+        this._buttonConfig.inactiveDisplayMode &#x3D;
+            this._buttonConfig.inactiveDisplayMode || InactiveButtonDisplayMode.Disable;
+        if (this._buttonConfig.contextualButtonConfig.featured) {
+            this.featuredButtons &#x3D; new Map(
+                this._buttonConfig.contextualButtonConfig.featured.map(featuredButtonClass &#x3D;&gt; [
+                    featuredButtonClass,
+                    this._buttonConfig.contextualButtonConfig.buttons.find(
+                        button &#x3D;&gt; button.class &#x3D;&#x3D;&#x3D; featuredButtonClass
+                    ),
+                ])
+            );
+            this.featuredButtons.forEach(featured &#x3D;&gt; {
+                if (!featured) {
+                    throw new Error(&#x27;Featured button was not found&#x27;);
+                }
+            });
+        } else {
+            this.featuredButtons &#x3D; new Map(
+                this._buttonConfig.contextualButtonConfig.buttons.map(featuredButton &#x3D;&gt; [
+                    featuredButton.class,
+                    featuredButton,
+                ])
+            );
+        }
+    }
+
+    /**
+     * Gives the button config of the datagrid.
+     */
+    get buttonConfig(): ButtonConfig&lt;R&gt; {
+        return this._buttonConfig;
+    }
+
+    constructor(
+        private node: ElementRef,
+        private translationService: TranslationService,
+        private changeDetectorRef: ChangeDetectorRef
+    ) {}
+
+    /**
+     * The pagination information that the user should supply.
+     */
+    @Input() set pagination(pagination: PaginationConfiguration) {
+        this._pagination &#x3D; { ...pagination };
+        if (this._pagination.shouldShowPageSizeSelector &#x3D;&#x3D;&#x3D; undefined) {
+            this._pagination.shouldShowPageSizeSelector &#x3D; false;
+        }
+        if (this._pagination.shouldShowPageNumberInput &#x3D;&#x3D;&#x3D; undefined) {
+            this._pagination.shouldShowPageNumberInput &#x3D; false;
+        }
+        this.updatePagination();
+    }
+
+    get pagination(): PaginationConfiguration {
+        return this._pagination;
+    }
+
+    /**
+     * Desired height of the grid in pixels. If unspecificed, the grid fills the parent container.
+     */
+    @Input() set height(height: number) {
+        this._height &#x3D; height;
+        const heightCssValue &#x3D; this.height ? &#x60;${this.height}px&#x60; : &#x27;unset&#x27;;
+        this.node.nativeElement.style.setProperty(&#x27;--datagrid-height&#x27;, heightCssValue);
+        this.updatePagination();
+    }
+
+    get height(): number {
+        return this._height;
+    }
+
+    @HostBinding(&#x27;class.fill-parent&#x27;) get shouldFillParent(): boolean {
+        return this.height &#x3D;&#x3D;&#x3D; undefined;
+    }
+
+    /**
+     * Returns the items selected in the VCD datagrid.
+     */
+    get datagridSelection(): R[] {
+        if (this.datagrid.selection.currentSingle) {
+            return [this.datagrid.selection.currentSingle];
+        }
+        if (this.datagrid.selection.current) {
+            return this.datagrid.selection.current;
+        }
+        return [];
+    }
+
+    /**
+     * Emitted whenever {@link #columns} input is updated
+     */
+    @Output() columnsUpdated &#x3D; new EventEmitter&lt;void&gt;();
+
+    /**
+     * Columns are updated using set columns, addColumn and removeColumn methods. This cache helps in preserving changes
+     * made by each of the methods to columns array and helps in not overwriting the changes made by one of the methods
+     * with changes made by another method
+     */
+    private _columns: GridColumn&lt;R&gt;[];
+    /**
+     * A optional string to be displayed above the grid.
+     */
+    @Input()
+    header?: string;
+
+    /**
+     * The type of activity indicator that should sit ontop of the grid.
+     */
+    @Input()
+    indicatorType: ActivityIndicatorType;
+
+    ContextualButtonPosition &#x3D; ContextualButtonPosition;
+    GridColumnHideable &#x3D; GridColumnHideable;
+    TooltipSize &#x3D; TooltipSize;
+    ActivityIndicatorType &#x3D; ActivityIndicatorType;
+    TextIcon &#x3D; TextIcon;
+
+    /**
+     * The component that sound be rendered for this detail row.
+     *
+     * @param R The type of record that this detail component will display.
+     */
+    @Input() detailComponent: ComponentRendererConstructor&lt;DetailRowConfig&lt;R&gt;&gt;;
+    private _selectionType: GridSelectionType &#x3D; GridSelectionType.None;
+
+    /**
+     * The CSS class to use for the Clarity datagrid.
+     */
+    @Input() clrDatagridCssClass &#x3D; &#x27;&#x27;;
+
+    /**
+     * The text placed next to the pagination number dropdown.
+     */
+    @Input() paginationDropdownText &#x3D; &#x27;&#x27;;
+
+    /**
+     * The stored button config where inactiveDisplayMode is always non-undefined.
+     */
+    _buttonConfig: ButtonConfig&lt;R&gt; &#x3D; {
+        globalButtons: [],
+        contextualButtonConfig: {
+            buttons: [],
+            featured: [],
+            position: ContextualButtonPosition.TOP,
+            featuredCount: 0,
+        },
+        inactiveDisplayMode: InactiveButtonDisplayMode.Disable,
+    };
+
+    /**
+     * The cache of button ID to button config that contains only the featured buttons.
+     */
+    featuredButtons: Map&lt;string, ContextualButton&lt;R&gt;&gt; &#x3D; new Map();
+
+    /**
+     * When there is no data, show this message.
+     */
+    @Input()
+    emptyGridPlaceholder: string;
+
+    private _pagination: PaginationConfiguration &#x3D; {
+        pageSize: &#x27;Magic&#x27;,
+        pageSizeOptions: DEFAULT_SIZE_OPTIONS,
+    };
+
+    /**
+     * The page size to display.
+     */
+    pageSize &#x3D; DEFAULT_SIZE;
+
+    /**
+     * The complete set of options to show the user.
+     */
+    pageSizeOptions &#x3D; DEFAULT_SIZE_OPTIONS;
+
+    private _height: number;
+
+    /**
+     * Loading indicator on the grid
+     */
+    isLoading &#x3D; false;
+
+    /**
+     * Used for simplifying logic inside the HTML template to differentiate between different
+     * {@link GridColumn.renderer} types.
+     */
+    columnsConfig: ColumnConfigInternal&lt;R, unknown&gt;[];
+
+    /**
+     * List of items used for displaying rows on the grid
+     */
+    items: R[];
+
+    /**
+     * The value of the single selection.
+     */
+    singleSelected: R &#x3D; undefined;
+
+    /**
+     * The value of the multi selection.
+     */
+    multiSelection: R[] &#x3D; [];
+
+    /**
+     * The total number of items that could be displayed in the grid.
+     */
+    totalItems?: number;
+
+    /**
+     * Emitted during the initial rendering, and is emitted whenever filtering/sorting/paging params change
+     * {@link #GridState} is the type of value emitted
+     */
+    @Output()
+    gridRefresh: EventEmitter&lt;GridState&lt;R&gt;&gt; &#x3D; new EventEmitter&lt;GridState&lt;R&gt;&gt;();
+
+    @ViewChild(ClrDatagridFilter, { static: false }) numericFilter: ClrDatagridFilter;
+
+    @ViewChild(ClrDatagrid, { static: true }) datagrid: ClrDatagrid;
+    /**
+     * The pagination display within the datagrid.
+     */
+    @ViewChild(ClrDatagridPagination, { static: false }) paginationComponent: ClrDatagridPagination;
+    /**
+     * The activity reporter that all activites are displayed on
+     */
+    @ViewChild(&#x27;actionReporter&#x27;, { static: false }) actionReporter: ActivityReporter;
+
+    private viewInitted &#x3D; false;
+
+    /**
+     * Gives the correct string to display for the pagination.
+     *
+     * @param firstItem the index of the first item displayed.
+     * @param lastItem the index of the last item displayed.
+     * @param totalItems the total number of items that could be displayed.
+     */
+    @Input() paginationCallback: PaginationCallback &#x3D; (firstItem: number, lastItem: number, totalItems: number) &#x3D;&gt; {
+        return this.translationService.translateAsync(&#x27;vcd.cc.grid.default.pagination&#x27;, [
+            {
+                firstItem,
+                lastItem,
+                totalItems,
+            },
+        ]);
+    };
+
+    /**
+     * To add or replace a column of this datagrid columns. Exposed for columns modifiers(eg: directives) that listen to
+     * {@link columnsUpdated} event and want to modify the columns set by components using this datagrid.
+     */
+    public addColumn(col: GridColumn&lt;R&gt;): void {
+        if (!col) {
+            return;
+        }
+        const colIndex &#x3D; this.findColumnIndex(col);
+        if (colIndex !&#x3D;&#x3D; -1) {
+            this._columns[colIndex] &#x3D; col;
+        } else {
+            this._columns.push(col);
+        }
+        this.updateColumnsConfig();
+    }
+
+    /**
+     * To remove a column from this datagrid columns. Exposed for columns modifiers(eg: directives) that listen to
+     * {@link columnsUpdated} event and want to modify the columns set by components using this datagrid.
+     */
+    public removeColumn(col: GridColumn&lt;R&gt;): void {
+        if (!col) {
+            return;
+        }
+        const colIndex &#x3D; this.findColumnIndex(col);
+        if (colIndex !&#x3D;&#x3D; -1) {
+            this._columns.splice(colIndex, 1);
+            this.updateColumnsConfig();
+        }
+    }
+
+    private findColumnIndex(col: GridColumn&lt;R&gt;): number {
+        return this.columns.findIndex(column &#x3D;&gt; col.displayName &#x3D;&#x3D;&#x3D; column.displayName);
+    }
+
+    private updateColumnsConfig(): void {
+        this.columnsConfig &#x3D; this.getColumnsConfig(this.columns);
+    }
+
+    /**
+     * Returns an identifier for the given record at the given index.
+     *
+     * If the record has a href, defaults to that. Else, defaults to index.
+     */
+    @Input() trackBy: TrackByFunction&lt;R&gt; &#x3D; (index: number, record): string &#x3D;&gt; {
+        return (record as any).href || String(index);
+    };
+
+    /**
+     * Says if the action bar has contents to show.
+     */
+    shouldShowActionBar(): boolean {
+        return (
+            this.buttonConfig.globalButtons.length !&#x3D;&#x3D; 0 ||
+            this.buttonConfig.contextualButtonConfig.buttons.length !&#x3D;&#x3D; 0
+        );
+    }
+
+    /**
+     * If the button icon should be displayed.
+     */
+    shouldShowIcon(): boolean {
+        return (TextIcon.ICON &amp; this.buttonConfig.contextualButtonConfig.buttonContents) &#x3D;&#x3D;&#x3D; TextIcon.ICON;
+    }
+
+    /**
+     * If the text should be displayed on the button.
+     */
+    shouldShowText(): boolean {
+        return (TextIcon.TEXT &amp; this.buttonConfig.contextualButtonConfig.buttonContents) &#x3D;&#x3D;&#x3D; TextIcon.TEXT;
+    }
+
+    /**
+     * If the buttons icon should have a tooltip.
+     */
+    shouldShowTooltip(): boolean {
+        return this.buttonConfig.contextualButtonConfig.buttonContents &#x3D;&#x3D;&#x3D; TextIcon.ICON;
+    }
+
+    /**
+     * Returns the buttons that should be featured given the {@link datagridSelection} or the given {@param record}.
+     *
+     * @throws Error if a featured button cannot be found.
+     */
+    getFeaturedButtons(records?: R[]): ContextualButton&lt;R&gt;[] {
+        return this._buttonConfig.contextualButtonConfig.buttons
+            .filter(button &#x3D;&gt; this.isButtonShown(button, records) &amp;&amp; this.featuredButtons.get(button.class))
+            .slice(0, this._buttonConfig.contextualButtonConfig.featuredCount || this.featuredButtons.size);
+    }
+
+    /**
+     * Returns the maximum number of featured buttons next to a single row.
+     */
+    getMaxFeaturedButtonsOnRow(): number {
+        let max &#x3D; 0;
+        this.items.forEach(item &#x3D;&gt; {
+            max &#x3D; Math.max(this.getFeaturedButtons([item]).length, max);
+        });
+        return max;
+    }
+
+    /**
+     * Says if the given button should appear on the datagrid.
+     */
+    isButtonShown(button: Button&lt;R&gt;, records?: R[]): boolean {
+        const selection &#x3D; records ? records : this.datagridSelection;
+        return button.isActive(selection) || this.getDisplayMode(button) &#x3D;&#x3D;&#x3D; InactiveButtonDisplayMode.Disable;
+    }
+
+    /**
+     * Says if the given button should be marked as disabled.
+     */
+    isButtonDisabled(button: Button&lt;R&gt;, active: boolean): boolean {
+        return !active &amp;&amp; this.getDisplayMode(button) &#x3D;&#x3D;&#x3D; InactiveButtonDisplayMode.Disable;
+    }
+
+    /**
+     * Gives the display mode of a button.
+     */
+    getDisplayMode(button: Button&lt;R&gt;): InactiveButtonDisplayMode {
+        return button.inactiveDisplayMode || this._buttonConfig.inactiveDisplayMode;
+    }
+
+    /**
+     * Says if the contextual buttons should display on the top.
+     */
+    shouldDisplayButtonsOnTop(): boolean {
+        return (
+            this._buttonConfig.contextualButtonConfig.position &#x3D;&#x3D;&#x3D; ContextualButtonPosition.TOP &amp;&amp;
+            this.datagridSelection.length !&#x3D;&#x3D; 0
+        );
+    }
+
+    /**
+     * Says if the contextual buttons should display on the row.
+     */
+    shouldDisplayButtonsOnRow(): boolean {
+        return this._buttonConfig.contextualButtonConfig.position &#x3D;&#x3D;&#x3D; ContextualButtonPosition.ROW;
+    }
+
+    /**
+     * Says if there are contextual buttons to display.
+     */
+    hasContextualButtons(): boolean {
+        return this._buttonConfig.contextualButtonConfig.buttons.length !&#x3D;&#x3D; 0;
+    }
+
+    /**
+     * Runs the handler function for the given button with the given selection.
+     */
+    runButtonHandler(button: Button&lt;R&gt;, selection?: R[]): void {
+        const response &#x3D; button.handler(selection);
+        if (response &amp;&amp; this.actionReporter) {
+            this.actionReporter.monitorGet(response);
+        }
+    }
+
+    /**
+     * Gives the render spec to create the detail row for the row with the given record, at the given index, and
+     * in a datagrid with the given count of total items.
+     */
+    getDetailRenderSpec(record: R, index: number, count: number): ComponentRendererSpec&lt;DetailRowConfig&lt;R&gt;&gt; {
+        return {
+            type: this.detailComponent,
+            config: { record, index, count },
+        };
+    }
+
+    /**
+     * Gives the CSS class to use for a given datarow based on its relative index and entity definition.
+     */
+    @Input() clrDatarowCssClassGetter(row: R, index: number): string {
+        return &#x27;&#x27;;
+    }
+
+    private updateSelectedItems(): void {
+        if (this._selectionType &#x3D;&#x3D;&#x3D; GridSelectionType.Single &amp;&amp; this.datagrid.selection.currentSingle) {
+            // Tries to find the currently selected item. If it isn&#x27;t found, clears the selection.
+            const current &#x3D; this.datagrid.selection.currentSingle as R;
+            const found &#x3D; this.mapSelectedRecords([current], this.items)[0];
+            if (!found) {
+                this.datagrid.selection.clearSelection();
+            } else {
+                this.datagrid.selection.setSelected(found, true);
+            }
+        } else if (this._selectionType &#x3D;&#x3D;&#x3D; GridSelectionType.Multi) {
+            // Tries to find the currently selected items. If an item isn&#x27;t found, clears the selection for that item.
+            if (this.datagrid.selection.current) {
+                const current &#x3D; [...this.datagrid.selection.current] as R[];
+                this.datagrid.selection.clearSelection();
+                const nextSelection &#x3D; this.mapSelectedRecords(current, this.items).filter(item &#x3D;&gt; item);
+                this.datagrid.selection.updateCurrent(nextSelection, false);
+            }
+        }
+        if (this.datagrid.rows) {
+            this.datagrid.rows.notifyOnChanges();
+        }
+    }
+
+    /**
+     * Given an existing selection that is made up of records that are about to become stale,
+     * and new records to be loaded into the grid, returns the selection mapped to records
+     * from the newly added records, excluding any records that may not be present in the
+     * new selection because they are not present in the new data.
+     */
+    private mapSelectedRecords(currentSelection: R[], newRecords: R[]): R[] {
+        return currentSelection.map((selected, selectedIndex) &#x3D;&gt; {
+            const found &#x3D; newRecords.find(
+                (item, itemIndex) &#x3D;&gt; this.trackBy(itemIndex, item) &#x3D;&#x3D;&#x3D; this.trackBy(selectedIndex, selected)
+            );
+            return found;
+        });
+    }
+
+    private clearSelectionInformation(): void {
+        if (!this.datagrid) {
+            return;
+        }
+        if (this._selectionType &#x3D;&#x3D;&#x3D; GridSelectionType.Single) {
+            this.datagrid.selected &#x3D; undefined;
+            this.datagrid.singleSelected &#x3D; this.singleSelected;
+        } else if (this._selectionType &#x3D;&#x3D;&#x3D; GridSelectionType.Multi) {
+            this.datagrid.singleSelected &#x3D; undefined;
+            this.datagrid.selected &#x3D; this.multiSelection;
+        } else if (this._selectionType &#x3D;&#x3D;&#x3D; GridSelectionType.None) {
+            this.datagrid.selected &#x3D; [];
+            this.datagrid.singleSelected &#x3D; undefined;
+            this.datagrid.selected &#x3D; undefined;
+        }
+    }
+
+    /**
+     * Called when the {@param state} of the Clarity datagrid changes.
+     */
+    gridStateChanged(state: ClrDatagridStateInterface): void {
+        const vcdDgState: GridState&lt;R&gt; &#x3D; {
+            pagination: {
+                pageNumber: state.page ? state.page.current : 1,
+                itemsPerPage: state.page ? state.page.size : DEFAULT_SIZE,
+            },
+        };
+        if (state.filters) {
+            vcdDgState.filters &#x3D; state.filters.map((filter: DatagridFilter&lt;unknown, unknown&gt;) &#x3D;&gt; filter.getValue());
+        }
+        if (state.sort &amp;&amp; typeof state.sort.by &#x3D;&#x3D;&#x3D; &#x27;string&#x27;) {
+            vcdDgState.sortColumn &#x3D; {
+                name: state.sort.by,
+                reverse: state.sort.reverse,
+            };
+        }
+        this.gridRefresh.emit(vcdDgState);
+    }
+
+    /**
+     * Is the given column able to be hidden by the user through the show/hide menu.
+     */
+    isColumnHideable(column: GridColumn&lt;R&gt;): boolean {
+        return column &amp;&amp; column.hideable !&#x3D;&#x3D; GridColumnHideable.Never;
+    }
+
+    /**
+     * Resets the pagination to page 1.
+     */
+    resetToPageOne(): void {
+        this.paginationComponent.currentPage &#x3D; 1;
+    }
+
+    /**
+     * Updates the pagination data and makes the callback.
+     */
+    paginationCallbackWrapper(paginationData: ClrDatagridPagination): LazyString {
+        return this.paginationCallback(paginationData.firstItem + 1, paginationData.lastItem + 1, this.totalItems);
+    }
+
+    /**
+     * The number of rows in a single page.
+     */
+    private getPageSize(): number {
+        if (typeof this.pagination.pageSize &#x3D;&#x3D;&#x3D; &#x27;number&#x27;) {
+            return this.pagination.pageSize;
+        }
+        if (this.pagination.pageSize &#x3D;&#x3D;&#x3D; &#x27;Magic&#x27;) {
+            return this.calculatePageSize();
+        }
+        return DEFAULT_SIZE;
+    }
+
+    /**
+     * Available page size options in the dropdown
+     */
+    private getPageSizeOptions(): number[] {
+        let options &#x3D; this.pagination.pageSizeOptions.map(size &#x3D;&gt; size);
+        if (options.indexOf(this.pageSize) &#x3D;&#x3D;&#x3D; -1) {
+            options.push(this.pageSize);
+            options &#x3D; options.sort((a, b) &#x3D;&gt; a - b);
+        }
+        return options;
+    }
+
+    /**
+     *  Calculates the pageSize from the available space in the datagrid body
+     */
+    private calculatePageSize(): number {
+        const grid &#x3D; this.node.nativeElement;
+        const gridHeight &#x3D; grid.parentNode.clientHeight;
+
+        const headerHeight &#x3D; grid.querySelector(&#x27;.datagrid-header&#x27;).clientHeight;
+        const footerHeight &#x3D; grid.querySelector(&#x27;clr-dg-footer&#x27;).clientHeight;
+        const rowHeight &#x3D; this.pagination.rowHeight || ROW_HEIGHT;
+
+        // Substracting the height of the header, actionbar and footer
+        let availableHeight &#x3D; (this.height || gridHeight) - headerHeight - footerHeight;
+        if (!this.height) {
+            const header &#x3D; grid.querySelector(&#x27;.vcd-header&#x27;);
+            availableHeight -&#x3D; header ? header.clientHeight : 0;
+        }
+        if (this.shouldShowActionBar()) {
+            availableHeight -&#x3D; ROW_HEIGHT;
+        }
+
+        // Calculate the pageSize by dividing the available height by the row height.
+        const pageSize &#x3D; Math.floor(availableHeight / rowHeight);
+
+        // If the calculated pageSize is less than the default, set the pageSize to the default one.
+        return Math.max(DEFAULT_SIZE, pageSize);
+    }
+
+    /**
+     * Updates the pagination information by recalculating pageSize if needed.
+     */
+    private updatePagination(): void {
+        if (this.viewInitted) {
+            this.pageSize &#x3D; this.getPageSize();
+            this.pageSizeOptions &#x3D; this.getPageSizeOptions();
+        }
+    }
+
+    /**
+     * Defines the {@property columnsConfig} by adding extra property required for differentiating different kinds
+     * of renderers which is required in the HTML template.
+     */
+    public getColumnsConfig(columns): ColumnConfigInternal&lt;R, unknown&gt;[] {
+        return columns.map(column &#x3D;&gt; {
+            const columnConfig: ColumnConfigInternal&lt;R, unknown&gt; &#x3D; {
+                ...column,
+            };
+
+            if (column.renderer instanceof Function) {
+                columnConfig.fieldRenderer &#x3D; column.renderer as FunctionRenderer&lt;R&gt;;
+            } else if ((column.renderer as ColumnRendererSpec&lt;R, unknown&gt;).config) {
+                columnConfig.fieldColumnRendererSpec &#x3D; column.renderer as ColumnRendererSpec&lt;R, unknown&gt;;
+            } else {
+                columnConfig.fieldName &#x3D; column.renderer as string;
+            }
+
+            // Add query filed required for the column filtering. This is then used in DatagridFilter.queryField
+            if (column.queryFieldName &amp;&amp; column.filter) {
+                column.filter.config.queryField &#x3D; column.queryFieldName;
+            }
+
+            return columnConfig;
+        });
+    }
+
+    ngOnInit(): void {
+        this.isLoading &#x3D; true;
+        this.clearSelectionInformation();
+    }
+
+    ngAfterViewInit(): void {
+        this.viewInitted &#x3D; true;
+        if (this.pagination.pageSize &#x3D;&#x3D;&#x3D; &#x27;Magic&#x27;) {
+            this.updatePagination();
+            // We need to update the page size in ngAfterViewInit because when it is set
+            // to magically calculate, we need to know that the rest of the page has been rendered.
+            // Yet, this causes a ExpressionChangedAfterItHasBeenCheckedError because we are changing
+            // pageSize in this method. So we need to detectChanges to avoid an error or
+            // calling a setTimeout.
+            this.changeDetectorRef.detectChanges();
+        }
+    }
+}
+</code></pre>
+    </div>
+</div>
+
+
+                   
+
+
+
+
+                   </div><div class="search-results">
+    <div class="has-results">
+        <h1 class="search-results-title"><span class='search-results-count'></span> result-matching "<span class='search-query'></span>"</h1>
+        <ul class="search-results-list"></ul>
+    </div>
+    <div class="no-results">
+        <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+    </div>
+</div>
+</div>
+               <!-- END CONTENT -->
+           </div>
+       </div>
+
+       <script>
+            var COMPODOC_CURRENT_PAGE_DEPTH = 1;
+            var COMPODOC_CURRENT_PAGE_CONTEXT = 'interface';
+            var COMPODOC_CURRENT_PAGE_URL = 'GridState.html';
+            var MAX_SEARCH_RESULTS = 15;
+       </script>
+
+       <script src="../js/libs/custom-elements.min.js"></script>
+       <script src="../js/libs/lit-html.js"></script>
+       <!-- Required to polyfill modern browsers as code is ES5 for IE... -->
+       <script src="../js/libs/custom-elements-es5-adapter.js" charset="utf-8" defer></script>
+       <script src="../js/menu-wc.js" defer></script>
+
+       <script src="../js/libs/bootstrap-native.js"></script>
+
+       <script src="../js/libs/es6-shim.min.js"></script>
+       <script src="../js/libs/EventDispatcher.js"></script>
+       <script src="../js/libs/promise.min.js"></script>
+       <script src="../js/libs/zepto.min.js"></script>
+
+       <script src="../js/compodoc.js"></script>
+
+       <script src="../js/tabs.js"></script>
+       <script src="../js/menu.js"></script>
+       <script src="../js/libs/clipboard.min.js"></script>
+       <script src="../js/libs/prism.js"></script>
+       <script src="../js/sourceCode.js"></script>
+          <script src="../js/search/search.js"></script>
+          <script src="../js/search/lunr.min.js"></script>
+          <script src="../js/search/search-lunr.js"></script>
+          <script src="../js/search/search_index.js"></script>
+       <script src="../js/lazy-load-graphs.js"></script>
+
+
+    </body>
+</html>

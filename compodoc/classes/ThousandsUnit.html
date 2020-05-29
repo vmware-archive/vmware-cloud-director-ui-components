@@ -1,0 +1,1139 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>vmware-cloud-director-ui-components documentation</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
+	      <link rel="stylesheet" href="../styles/style.css">
+    </head>
+    <body>
+
+        <div class="navbar navbar-default navbar-fixed-top visible-xs">
+            <a href="../" class="navbar-brand">vmware-cloud-director-ui-components documentation</a>
+            <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
+        </div>
+
+        <div class="xs-menu menu" id="mobile-menu">
+                <div id="book-search-input" role="search"><input type="text" placeholder="Type to search"></div>            <compodoc-menu></compodoc-menu>
+        </div>
+
+        <div class="container-fluid main">
+           <div class="row main">
+               <div class="hidden-xs menu">
+                   <compodoc-menu mode="normal"></compodoc-menu>
+               </div>
+               <!-- START CONTENT -->
+               <div class="content class">
+                   <div class="content-data">
+
+
+
+
+
+
+
+
+
+
+
+<ol class="breadcrumb">
+  <li>Classes</li>
+  <li>ThousandsUnit</li>
+</ol>
+
+<ul class="nav nav-tabs" role="tablist">
+        <li class="active">
+            <a href="#info" role="tab" id="info-tab" data-toggle="tab" data-link="info">Info</a>
+        </li>
+        <li >
+            <a href="#source" role="tab" id="source-tab" data-toggle="tab" data-link="source">Source</a>
+        </li>
+</ul>
+
+<div class="tab-content">
+    <div class="tab-pane fade active in" id="c-info">
+        <p class="comment">
+            <h3>File</h3>
+        </p>
+        <p class="comment">
+            <code>projects/components/src/utils/unit/unit.ts</code>
+        </p>
+
+            <p class="comment">
+                <h3>Description</h3>
+            </p>
+            <p class="comment">
+                <p>Finds the bestUnit by trying groups of thousands</p>
+
+            </p>
+
+            <p class="comment">
+                <h3>Extends</h3>
+            </p>
+            <p class="comment">
+                        <code><a href="../classes/Unit.html" target="_self" >Unit</a></code>
+            </p>
+
+
+
+            <section>
+    <h3 id="index">Index</h3>
+    <table class="table table-sm table-bordered index-table">
+        <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Properties</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                    <span class="modifier">Private</span>
+                                    <span class="modifier">Readonly</span>
+                                <a href="#_multiplier">_multiplier</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                    <span class="modifier">Readonly</span>
+                                <a href="#_unitName">_unitName</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Methods</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#findBestUnit">findBestUnit</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Abstract</span>
+                                <a href="#getAllUnitTypes">getAllUnitTypes</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Abstract</span>
+                                <a href="#findBestUnit">findBestUnit</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Public</span>
+                                <a href="#getBaseValue">getBaseValue</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Public</span>
+                                <a href="#getMultiplier">getMultiplier</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Public</span>
+                                <a href="#getOutputValue">getOutputValue</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Public</span>
+                                <a href="#getUnitName">getUnitName</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Abstract</span>
+                                <a href="#getUnitNameTranslationKey">getUnitNameTranslationKey</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Abstract</span>
+                                <a href="#getValueWithUnitTranslationKey">getValueWithUnitTranslationKey</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+
+
+
+
+        </tbody>
+    </table>
+</section>
+
+
+            <section>
+    
+        <h3 id="inputs">
+            Properties
+        </h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="_multiplier"></a>
+                        <span class="name">
+                            <b>
+                                <span class="modifier">Private</span>
+                                <span class="modifier">Readonly</span>
+                            _multiplier</b>
+                            <a href="#_multiplier"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+
+                        </td>
+                    </tr>
+                            <tr>
+                                <td class="col-md-4">
+                                    <div class="io-line">Inherited from         <code><a href="../classes/Unit.html" target="_self" >Unit</a></code>
+</div>
+                                </td>
+                            </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in         <code><a href="../classes/Unit.html#source" target="_self" >Unit:11</a></code>
+</div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="_unitName"></a>
+                        <span class="name">
+                            <b>
+                                <span class="modifier">Private</span>
+                                <span class="modifier">Readonly</span>
+                            _unitName</b>
+                            <a href="#_unitName"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                        </td>
+                    </tr>
+                            <tr>
+                                <td class="col-md-4">
+                                    <div class="io-line">Inherited from         <code><a href="../classes/Unit.html" target="_self" >Unit</a></code>
+</div>
+                                </td>
+                            </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in         <code><a href="../classes/Unit.html#source" target="_self" >Unit:12</a></code>
+</div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+</section>
+
+            <section>
+    
+    <h3 id="methods">
+        Methods
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="findBestUnit"></a>
+                    <span class="name">
+                        <b>
+                            findBestUnit
+                        </b>
+                        <a href="#findBestUnit"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>findBestUnit(value: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank">number</a>, availableUnits: ThousandsUnit[])</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="89"
+                            class="link-to-prism">projects/components/src/utils/unit/unit.ts:89</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Calculates the best unit out of available units to display in UI cell for a given input Unit
+and value</p>
+<p>Best unit is a Unit whose converted value is less than 1000</p>
+</div>
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Type</td>
+                                    <td>Optional</td>
+                                    <td>Default value</td>
+                                    <td>Description</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>value</td>
+                                    <td>
+                                                <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+                                    <td>
+                                    </td>
+
+                                    <td>
+                                        <ul>
+<li>Value of input Unit</li>
+</ul>
+
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>availableUnits</td>
+                                    <td>
+                                            <code>ThousandsUnit[]</code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+                                    <td>
+                                        <code>this.getAllUnitTypes()</code>
+                                    </td>
+
+                                    <td>
+                                        <ul>
+<li>Array of available Units to display in UI cell
+availableUnits array should be pre-sorted ascending by multiplier</li>
+</ul>
+
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="../classes/Unit.html" target="_self" >Unit</a></code>
+
+                    </div>
+                    <div class="io-description">
+                        
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="getAllUnitTypes"></a>
+                    <span class="name">
+                        <b>
+                            <span class="modifier">Abstract</span>
+                            getAllUnitTypes
+                        </b>
+                        <a href="#getAllUnitTypes"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                    <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>getAllUnitTypes()</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="105"
+                            class="link-to-prism">projects/components/src/utils/unit/unit.ts:105</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Returns : </b>    <code>ThousandsUnit[]</code>
+
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="findBestUnit"></a>
+                    <span class="name">
+                        <b>
+                            <span class="modifier">Abstract</span>
+                            findBestUnit
+                        </b>
+                        <a href="#findBestUnit"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                    <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>findBestUnit(value: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank">number</a>, availableUnits: <a href="../classes/Unit.html">Unit[]</a>)</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Inherited from         <code><a href="../classes/Unit.html" target="_self" >Unit</a></code>
+</div>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-line">Defined in         <code><a href="../classes/Unit.html#source" target="_self" >Unit:71</a></code>
+</div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Returns the best unit out of available units for given value of current unit</p>
+<p>Best unit is a Unit whose converted value is less than 1000</p>
+</div>
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Type</td>
+                                    <td>Optional</td>
+                                    <td>Description</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>value</td>
+                                    <td>
+                                                <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                    <td>
+                                        <ul>
+<li>Value of this unit</li>
+</ul>
+
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>availableUnits</td>
+                                    <td>
+                                                <code><a href="../classes/Unit.html" target="_self" >Unit[]</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                    <td>
+                                        <ul>
+<li>List of available Units out of which best unit is calculated</li>
+</ul>
+
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="../classes/Unit.html" target="_self" >Unit</a></code>
+
+                    </div>
+                    <div class="io-description">
+                        
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="getBaseValue"></a>
+                    <span class="name">
+                        <b>
+                            <span class="modifier">Public</span>
+                            getBaseValue
+                        </b>
+                        <a href="#getBaseValue"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                    <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>getBaseValue(value: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank">number</a>)</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Inherited from         <code><a href="../classes/Unit.html" target="_self" >Unit</a></code>
+</div>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-line">Defined in         <code><a href="../classes/Unit.html#source" target="_self" >Unit:45</a></code>
+</div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Returns the value in base unit for this unit</p>
+</div>
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Type</td>
+                                    <td>Optional</td>
+                                    <td>Description</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>value</td>
+                                    <td>
+                                                <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                    <td>
+                                        <ul>
+<li>Value of this unit</li>
+</ul>
+
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+
+                    </div>
+                    <div class="io-description">
+                        
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="getMultiplier"></a>
+                    <span class="name">
+                        <b>
+                            <span class="modifier">Public</span>
+                            getMultiplier
+                        </b>
+                        <a href="#getMultiplier"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                    <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>getMultiplier()</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Inherited from         <code><a href="../classes/Unit.html" target="_self" >Unit</a></code>
+</div>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-line">Defined in         <code><a href="../classes/Unit.html#source" target="_self" >Unit:24</a></code>
+</div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="getOutputValue"></a>
+                    <span class="name">
+                        <b>
+                            <span class="modifier">Public</span>
+                            getOutputValue
+                        </b>
+                        <a href="#getOutputValue"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                    <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>getOutputValue(value, outputUnit: <a href="../classes/Unit.html">Unit</a>)</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Inherited from         <code><a href="../classes/Unit.html" target="_self" >Unit</a></code>
+</div>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-line">Defined in         <code><a href="../classes/Unit.html#source" target="_self" >Unit:37</a></code>
+</div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Returns the value in outputUnit for this unit</p>
+</div>
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Type</td>
+                                    <td>Optional</td>
+                                    <td>Description</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>value</td>
+                                    <td>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                    <td>
+                                        <ul>
+<li>Value of this unit</li>
+</ul>
+
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>outputUnit</td>
+                                    <td>
+                                                <code><a href="../classes/Unit.html" target="_self" >Unit</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                    <td>
+                                        <ul>
+<li>Unit to which value is converted</li>
+</ul>
+
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+
+                    </div>
+                    <div class="io-description">
+                        
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="getUnitName"></a>
+                    <span class="name">
+                        <b>
+                            <span class="modifier">Public</span>
+                            getUnitName
+                        </b>
+                        <a href="#getUnitName"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                    <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>getUnitName()</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Inherited from         <code><a href="../classes/Unit.html" target="_self" >Unit</a></code>
+</div>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-line">Defined in         <code><a href="../classes/Unit.html#source" target="_self" >Unit:28</a></code>
+</div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="getUnitNameTranslationKey"></a>
+                    <span class="name">
+                        <b>
+                            <span class="modifier">Abstract</span>
+                            getUnitNameTranslationKey
+                        </b>
+                        <a href="#getUnitNameTranslationKey"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                    <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>getUnitNameTranslationKey()</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Inherited from         <code><a href="../classes/Unit.html" target="_self" >Unit</a></code>
+</div>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-line">Defined in         <code><a href="../classes/Unit.html#source" target="_self" >Unit:61</a></code>
+</div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Translation key to be used when displaying unitName</p>
+<p>Ex: MB, B, GHz, MHz, %</p>
+</div>
+
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="getValueWithUnitTranslationKey"></a>
+                    <span class="name">
+                        <b>
+                            <span class="modifier">Abstract</span>
+                            getValueWithUnitTranslationKey
+                        </b>
+                        <a href="#getValueWithUnitTranslationKey"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                    <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>getValueWithUnitTranslationKey()</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Inherited from         <code><a href="../classes/Unit.html" target="_self" >Unit</a></code>
+</div>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-line">Defined in         <code><a href="../classes/Unit.html#source" target="_self" >Unit:54</a></code>
+</div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Translation key to be used when displaying value with unit</p>
+<p>Ex: 25 MB, 100 %, 2 GHz</p>
+</div>
+
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</section>
+
+
+
+
+
+    </div>
+
+
+    <div class="tab-pane fade  tab-source-code" id="c-source">
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">export abstract class Unit {
+    private readonly _multiplier: number;
+    private readonly _unitName: string;
+
+    /**
+     * @param multiplier - Value that is used to convert this to base unit
+     * @param unitName - Name of the Unit. Also used to construct translation
+     * keys for each type of Unit.
+     */
+    constructor(private multiplier: number, private unitName: string) {
+        this._multiplier &#x3D; multiplier;
+        this._unitName &#x3D; unitName;
+    }
+
+    public getMultiplier(): number {
+        return this._multiplier;
+    }
+
+    public getUnitName(): string {
+        return this._unitName;
+    }
+
+    /**
+     * Returns the value in outputUnit for this unit
+     * @param value - Value of this unit
+     * @param outputUnit - Unit to which value is converted
+     */
+    public getOutputValue(value, outputUnit: Unit): number {
+        return this.getBaseValue(value) / outputUnit.multiplier;
+    }
+
+    /**
+     * Returns the value in base unit for this unit
+     * @param value - Value of this unit
+     */
+    public getBaseValue(value: number): number {
+        return value * this.multiplier;
+    }
+
+    /**
+     * Translation key to be used when displaying value with unit
+     *
+     * Ex: 25 MB, 100 %, 2 GHz
+     */
+    abstract getValueWithUnitTranslationKey(): string;
+
+    /**
+     * Translation key to be used when displaying unitName
+     *
+     * Ex: MB, B, GHz, MHz, %
+     */
+    abstract getUnitNameTranslationKey(): string;
+
+    /**
+     * Returns the best unit out of available units for given value of current unit
+     *
+     * Best unit is a Unit whose converted value is less than 1000
+     *
+     * @param value - Value of this unit
+     * @param availableUnits - List of available Units out of which best unit is calculated
+     */
+    abstract findBestUnit(value: number, availableUnits: Unit[]): Unit;
+}
+
+/**
+ * Finds the bestUnit by trying groups of thousands
+ */
+export abstract class ThousandsUnit extends Unit {
+    /**
+     * Calculates the best unit out of available units to display in UI cell for a given input Unit
+     * and value
+     *
+     * Best unit is a Unit whose converted value is less than 1000
+     *
+     * @param value - Value of input Unit
+     * @param availableUnits - Array of available Units to display in UI cell
+     * availableUnits array should be pre-sorted ascending by multiplier
+     *
+     */
+    findBestUnit(value: number, availableUnits: ThousandsUnit[] &#x3D; this.getAllUnitTypes()): Unit {
+        if (value &gt;&#x3D; 1000) {
+            const baseValue &#x3D; this.getBaseValue(value);
+            let outputNumber &#x3D; baseValue;
+            const unitTypes &#x3D; availableUnits;
+            let i &#x3D; 0;
+            while (outputNumber &gt;&#x3D; 1000 &amp;&amp; i &lt; unitTypes.length) {
+                outputNumber &#x3D; baseValue / unitTypes[i].getMultiplier();
+                i++;
+            }
+            return unitTypes[i - 1];
+        } else {
+            return this;
+        }
+    }
+
+    abstract getAllUnitTypes(): ThousandsUnit[];
+}
+
+export class Hertz extends ThousandsUnit {
+    static valueWithUnitTranslationKeyPrefix &#x3D; &#x27;vcd.cc.cpu.speed.unit.&#x27;;
+    static unitNameTranslationKeyPrefix &#x3D; &#x27;vcd.cc.units.hertz.&#x27;;
+    static Hz &#x3D; new Hertz(1, &#x27;Hz&#x27;);
+    static Khz &#x3D; new Hertz(1e3, &#x27;KHz&#x27;);
+    static Mhz &#x3D; new Hertz(1e6, &#x27;MHz&#x27;);
+    static Ghz &#x3D; new Hertz(1e9, &#x27;GHz&#x27;);
+    static Thz &#x3D; new Hertz(1e12, &#x27;THz&#x27;);
+    static types &#x3D; [Hertz.Hz, Hertz.Khz, Hertz.Mhz, Hertz.Ghz];
+
+    getAllUnitTypes(): Hertz[] {
+        return Hertz.types;
+    }
+
+    getValueWithUnitTranslationKey(): string {
+        return Hertz.valueWithUnitTranslationKeyPrefix + this.getUnitName();
+    }
+
+    getUnitNameTranslationKey(): string {
+        return Hertz.unitNameTranslationKeyPrefix + this.getUnitName();
+    }
+}
+
+export class Bytes extends ThousandsUnit {
+    static valueWithUnitTranslationKeyPrefix &#x3D; &#x27;vcd.cc.filesize.unit.&#x27;;
+    static unitNameTranslationKeyPrefix &#x3D; &#x27;vcd.cc.units.bytes.&#x27;;
+    static B &#x3D; new Bytes(1, &#x27;B&#x27;);
+    static KB &#x3D; new Bytes(1024, &#x27;KB&#x27;);
+    static MB &#x3D; new Bytes(1024 ** 2, &#x27;MB&#x27;);
+    static GB &#x3D; new Bytes(1024 ** 3, &#x27;GB&#x27;);
+    static TB &#x3D; new Bytes(1024 ** 4, &#x27;TB&#x27;);
+    static types &#x3D; [Bytes.B, Bytes.KB, Bytes.MB, Bytes.GB];
+
+    getAllUnitTypes(): Bytes[] {
+        return Bytes.types;
+    }
+
+    getValueWithUnitTranslationKey(): string {
+        return Bytes.valueWithUnitTranslationKeyPrefix + this.getUnitName();
+    }
+
+    getUnitNameTranslationKey(): string {
+        return Bytes.unitNameTranslationKeyPrefix + this.getUnitName();
+    }
+}
+
+/**
+ * Percent is handled differently compared to other Units.
+ * Can be represented in two different formats -
+ * {@link ZERO_TO_100} - ex: 50 %
+ * {@link ZERO_TO_1} - ex: 0.5 %
+ * In both formats single unitName - &quot;%&quot; is used represent the value
+ */
+export class Percent extends Unit {
+    static valueWithUnitTranslationKey &#x3D; &#x27;vcd.cc.display.percent&#x27;;
+    static unitTranslationKey &#x3D; &#x27;vcd.cc.units.percent&#x27;;
+
+    /**
+     * Percent always has unitName as &quot;%&quot;
+     */
+    constructor(multiplier: number) {
+        super(multiplier, &#x27;%&#x27;);
+    }
+    static ZERO_TO_1 &#x3D; new Percent(1);
+    static ZERO_TO_100 &#x3D; new Percent(0.01);
+
+    getValueWithUnitTranslationKey(): string {
+        return Percent.valueWithUnitTranslationKey;
+    }
+
+    getUnitNameTranslationKey(): string {
+        return Percent.unitTranslationKey;
+    }
+
+    /**
+     * Percent is always best represented in ZERO_TO_100 format
+     * and so returns {@link ZERO_TO_100}
+     *
+     * Ex: 50 % is the display format for ZERO_TO_100 for value - 50
+     */
+    findBestUnit(value: number, unitList: Unit[]): Unit {
+        return Percent.ZERO_TO_100;
+    }
+}
+</code></pre>
+    </div>
+</div>
+
+
+
+                   
+
+
+
+
+                   </div><div class="search-results">
+    <div class="has-results">
+        <h1 class="search-results-title"><span class='search-results-count'></span> result-matching "<span class='search-query'></span>"</h1>
+        <ul class="search-results-list"></ul>
+    </div>
+    <div class="no-results">
+        <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+    </div>
+</div>
+</div>
+               <!-- END CONTENT -->
+           </div>
+       </div>
+
+       <script>
+            var COMPODOC_CURRENT_PAGE_DEPTH = 1;
+            var COMPODOC_CURRENT_PAGE_CONTEXT = 'class';
+            var COMPODOC_CURRENT_PAGE_URL = 'ThousandsUnit.html';
+            var MAX_SEARCH_RESULTS = 15;
+       </script>
+
+       <script src="../js/libs/custom-elements.min.js"></script>
+       <script src="../js/libs/lit-html.js"></script>
+       <!-- Required to polyfill modern browsers as code is ES5 for IE... -->
+       <script src="../js/libs/custom-elements-es5-adapter.js" charset="utf-8" defer></script>
+       <script src="../js/menu-wc.js" defer></script>
+
+       <script src="../js/libs/bootstrap-native.js"></script>
+
+       <script src="../js/libs/es6-shim.min.js"></script>
+       <script src="../js/libs/EventDispatcher.js"></script>
+       <script src="../js/libs/promise.min.js"></script>
+       <script src="../js/libs/zepto.min.js"></script>
+
+       <script src="../js/compodoc.js"></script>
+
+       <script src="../js/tabs.js"></script>
+       <script src="../js/menu.js"></script>
+       <script src="../js/libs/clipboard.min.js"></script>
+       <script src="../js/libs/prism.js"></script>
+       <script src="../js/sourceCode.js"></script>
+          <script src="../js/search/search.js"></script>
+          <script src="../js/search/lunr.min.js"></script>
+          <script src="../js/search/search-lunr.js"></script>
+          <script src="../js/search/search_index.js"></script>
+       <script src="../js/lazy-load-graphs.js"></script>
+
+
+    </body>
+</html>

@@ -1,0 +1,158 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>vmware-cloud-director-ui-components documentation</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="icon" type="image/x-icon" href="./images/favicon.ico">
+	      <link rel="stylesheet" href="./styles/style.css">
+    </head>
+    <body>
+
+        <div class="navbar navbar-default navbar-fixed-top visible-xs">
+            <a href="./" class="navbar-brand">vmware-cloud-director-ui-components documentation</a>
+            <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
+        </div>
+
+        <div class="xs-menu menu" id="mobile-menu">
+                <div id="book-search-input" role="search"><input type="text" placeholder="Type to search"></div>            <compodoc-menu></compodoc-menu>
+        </div>
+
+        <div class="container-fluid main">
+           <div class="row main">
+               <div class="hidden-xs menu">
+                   <compodoc-menu mode="normal"></compodoc-menu>
+               </div>
+               <!-- START CONTENT -->
+               <div class="content getting-started">
+                   <div class="content-data">
+
+<h1 id="contributing-to-vcd-ui-common">Contributing to vcd-ui-common</h1>
+<p>The vcd-ui-common project team welcomes contributions from the community. Before you start working with vcd-ui-common, please
+read our <a href="https://cla.vmware.com/dco">Developer Certificate of Origin</a>. All contributions to this repository must be
+signed as described on that page. Your signature certifies that you wrote the patch or have the right to pass it on
+as an open-source patch.</p>
+<h2 id="contribution-flow">Contribution Flow</h2>
+<p>This is a rough outline of what a contributor&#39;s workflow looks like:</p>
+<ul>
+<li>Create a topic branch from where you want to base your work</li>
+<li>Make commits of logical units</li>
+<li>Make sure your commit messages are in the proper format (see below)</li>
+<li>Push your changes to a topic branch in your fork of the repository</li>
+<li>Submit a pull request</li>
+</ul>
+<h2 id="contribution-requirements">Contribution Requirements</h2>
+<ul>
+<li><p>Public/exported members must be documented using <a href="https://github.com/microsoft/tsdoc">tsdoc</a></p>
+</li>
+<li><p>Every commit must contain unit tests, striving for full coverage. If full coverage cannot be achieved, the Pull
+Request should explain why tests could not be written.</p>
+</li>
+<li><p>Descriptive Pull Requests:</p>
+<ul>
+<li>Include list of steps for manual testing</li>
+<li>Explain alternatives that were considered</li>
+<li>For bug fixes, explain what was causing the issue, don&#39;t repeat the text from the issue</li>
+</ul>
+</li>
+</ul>
+<h1 id="merge-vs-fast-forward">Merge vs fast-forward</h1>
+<p>PRs with single commits should use --fast-forward. Otherwise, pull requests should be merge commits.</p>
+<h3 id="staying-in-sync-with-upstream">Staying In Sync With Upstream</h3>
+<p>When your branch gets out of sync with the vmware/master branch, use the following to update:</p>
+<div><pre class="line-numbers"><code class="language-shell">git checkout my-new-feature
+git fetch -a
+git pull --rebase upstream master
+git push --force-with-lease origin my-new-feature</code></pre></div><h3 id="updating-pull-requests">Updating pull requests</h3>
+<p>If your PR fails to pass CI or needs changes based on code review, you&#39;ll most likely want to squash these changes into
+existing commits.</p>
+<p>If your pull request contains a single commit or your changes are related to the most recent commit, you can simply
+amend the commit.</p>
+<div><pre class="line-numbers"><code class="language-shell">git add .
+git commit --amend
+git push --force-with-lease origin my-new-feature</code></pre></div><p>If you need to squash changes into an earlier commit, you can use:</p>
+<div><pre class="line-numbers"><code class="language-shell">git add .
+git commit --fixup &lt;commit&gt;
+git rebase -i --autosquash master
+git push --force-with-lease origin my-new-feature</code></pre></div><p>Be sure to add a comment to the PR indicating your new changes are ready to review, as GitHub does not generate a
+notification when you git push.</p>
+<h3 id="code-style">Code Style</h3>
+<h3 id="formatting-commit-messages">Formatting Commit Messages</h3>
+<p>We follow the conventions on <a href="http://chris.beams.io/posts/git-commit/">How to Write a Git Commit Message</a>.</p>
+<p>Be sure to include any related GitHub issue references in the commit message. See
+<a href="https://guides.github.com/features/mastering-markdown/#GitHub-flavored-markdown">GFM syntax</a> for referencing issues
+and commits.</p>
+<h2 id="reporting-bugs-and-creating-issues">Reporting Bugs and Creating Issues</h2>
+<p>When opening a new issue, try to roughly follow the commit message format conventions above.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                   
+
+
+
+
+                   </div><div class="search-results">
+    <div class="has-results">
+        <h1 class="search-results-title"><span class='search-results-count'></span> result-matching "<span class='search-query'></span>"</h1>
+        <ul class="search-results-list"></ul>
+    </div>
+    <div class="no-results">
+        <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+    </div>
+</div>
+</div>
+               <!-- END CONTENT -->
+           </div>
+       </div>
+
+       <script>
+            var COMPODOC_CURRENT_PAGE_DEPTH = 0;
+            var COMPODOC_CURRENT_PAGE_CONTEXT = 'getting-started';
+            var COMPODOC_CURRENT_PAGE_URL = 'contributing.html';
+            var MAX_SEARCH_RESULTS = 15;
+       </script>
+
+       <script src="./js/libs/custom-elements.min.js"></script>
+       <script src="./js/libs/lit-html.js"></script>
+       <!-- Required to polyfill modern browsers as code is ES5 for IE... -->
+       <script src="./js/libs/custom-elements-es5-adapter.js" charset="utf-8" defer></script>
+       <script src="./js/menu-wc.js" defer></script>
+
+       <script src="./js/libs/bootstrap-native.js"></script>
+
+       <script src="./js/libs/es6-shim.min.js"></script>
+       <script src="./js/libs/EventDispatcher.js"></script>
+       <script src="./js/libs/promise.min.js"></script>
+       <script src="./js/libs/zepto.min.js"></script>
+
+       <script src="./js/compodoc.js"></script>
+
+       <script src="./js/tabs.js"></script>
+       <script src="./js/menu.js"></script>
+       <script src="./js/libs/clipboard.min.js"></script>
+       <script src="./js/libs/prism.js"></script>
+       <script src="./js/sourceCode.js"></script>
+          <script src="./js/search/search.js"></script>
+          <script src="./js/search/lunr.min.js"></script>
+          <script src="./js/search/search-lunr.js"></script>
+          <script src="./js/search/search_index.js"></script>
+       <script src="./js/lazy-load-graphs.js"></script>
+
+
+    </body>
+</html>

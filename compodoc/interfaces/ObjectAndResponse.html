@@ -1,0 +1,325 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>vmware-cloud-director-ui-components documentation</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
+	      <link rel="stylesheet" href="../styles/style.css">
+    </head>
+    <body>
+
+        <div class="navbar navbar-default navbar-fixed-top visible-xs">
+            <a href="../" class="navbar-brand">vmware-cloud-director-ui-components documentation</a>
+            <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
+        </div>
+
+        <div class="xs-menu menu" id="mobile-menu">
+                <div id="book-search-input" role="search"><input type="text" placeholder="Type to search"></div>            <compodoc-menu></compodoc-menu>
+        </div>
+
+        <div class="container-fluid main">
+           <div class="row main">
+               <div class="hidden-xs menu">
+                   <compodoc-menu mode="normal"></compodoc-menu>
+               </div>
+               <!-- START CONTENT -->
+               <div class="content interface">
+                   <div class="content-data">
+
+
+
+
+
+
+
+
+
+
+
+
+<ol class="breadcrumb">
+  <li>Interfaces</li>
+  <li>ObjectAndResponse</li>
+</ol>
+
+<ul class="nav nav-tabs" role="tablist">
+        <li class="active">
+            <a href="#info" role="tab" id="info-tab" data-toggle="tab" data-link="info">Info</a>
+        </li>
+        <li >
+            <a href="#source" role="tab" id="source-tab" data-toggle="tab" data-link="source">Source</a>
+        </li>
+</ul>
+
+<div class="tab-content">
+    <div class="tab-pane fade active in" id="c-info">
+        <p class="comment">
+            <h3>File</h3>
+        </p>
+        <p class="comment">
+            <code>projects/components/src/common/activity-reporter/activity-promise-resolver.ts</code>
+        </p>
+
+            <p class="comment">
+                <h3>Description</h3>
+            </p>
+            <p class="comment">
+                <p>A combination of some object and the response that gave that object.</p>
+
+            </p>
+
+
+        <section>
+            <h3 id="index">Index</h3>
+            <table class="table table-sm table-bordered index-table">
+                <tbody>
+                    <tr>
+                        <td class="col-md-4">
+                            <h6><b>Properties</b></h6>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <ul class="index-list">
+                                <li>
+                                            <span class="modifier">Optional</span>
+                                        <a href="#object">object</a>
+                                </li>
+                                <li>
+                                        <a href="#response">response</a>
+                                </li>
+                            </ul>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+
+
+            <section>
+                <h3 id="inputs">Properties</h3>
+                    <table class="table table-sm table-bordered">
+                        <tbody>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <a name="object"></a>
+                                        <span class="name"><b>object</b><a href="#object"><span class="icon ion-ios-link"></span></a></span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <code>object:     <code>T</code>
+</code>
+                                    </td>
+                                </tr>
+
+
+                                    <tr>
+                                        <td class="col-md-4">
+                                            <i>Type : </i>    <code>T</code>
+
+                                        </td>
+                                    </tr>
+
+                                    <tr>
+                                        <td class="col-md-4">
+                                            <i>Optional</i>
+                                        </td>
+                                    </tr>
+
+
+
+
+                            <tr>
+                                <td class="col-md-4">
+                                    <div class="io-description"><p>The data that was returned from a given activity, if any.</p>
+</div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <table class="table table-sm table-bordered">
+                        <tbody>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <a name="response"></a>
+                                        <span class="name"><b>response</b><a href="#response"><span class="icon ion-ios-link"></span></a></span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <code>response:         <code><a href="../interfaces/ActivityResponse.html" target="_self" >ActivityResponse</a></code>
+</code>
+                                    </td>
+                                </tr>
+
+
+                                    <tr>
+                                        <td class="col-md-4">
+                                            <i>Type : </i>        <code><a href="../interfaces/ActivityResponse.html" target="_self" >ActivityResponse</a></code>
+
+                                        </td>
+                                    </tr>
+
+
+
+
+
+                            <tr>
+                                <td class="col-md-4">
+                                    <div class="io-description"><p>The response that an activity returned.</p>
+</div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+            </section>
+    </div>
+
+
+    <div class="tab-pane fade  tab-source-code" id="c-source">
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">export interface ActivityResponse {
+    /**
+     * The error message, if any, from the activity.
+     *
+     * A response without an error is assumed to have succeeded.
+     */
+    error?: string;
+    /**
+     * The response message, if any, from the activity.
+     */
+    success?: string;
+}
+
+/**
+ * A combination of some object and the response that gave that object.
+ */
+export interface ObjectAndResponse&lt;T&gt; {
+    /**
+     * The data that was returned from a given activity, if any.
+     */
+    object?: T;
+    /**
+     * The response that an activity returned.
+     */
+    response: ActivityResponse;
+}
+
+/**
+ * A class that understands how to take a promise and turn it into some response message for display.
+ * A client of this library will override {@link ActivityPromiseResolver} to process their specific type of promise.
+ * This override will know how to generate a {@link ObjectAndResponse} from the type of promise it processes.
+ *
+ * @param T The type that is returned from a promise that this resolver processes.
+ */
+export class ActivityPromiseResolver&lt;T&gt; {
+    /**
+     * Takes a Promise and turns it to some activity status
+     * @param activityResolutionPromise The activity that this resolver will generate a response from. It generates
+     * either a sucesss or a failure condition.
+     * @param successMessage The success message this method should return if the activity succeeds. If undefined is passed,
+     * a succeeded promise will return an empty response parameter which is assumed to mean success.
+     */
+    resolveActivity(activityResolutionPromise: Promise&lt;T&gt;, successMessage?: string): Promise&lt;ObjectAndResponse&lt;T&gt;&gt; {
+        return activityResolutionPromise
+            .then(result &#x3D;&gt; {
+                return {
+                    object: result,
+                    response: { ...result, success: successMessage || result },
+                };
+            })
+            .catch(error &#x3D;&gt; {
+                return { response: { error } };
+            });
+    }
+
+    /**
+     * Takes a Promise of many items and turns it to some activity status
+     * @param activityResolutionPromise The activity that this resolver will generate a response from. It generates
+     * either a sucesss or a failure condition. There are many entities contained in this response.
+     * @param successMessage The success message this method should return if the activity succeeds. If undefined is passed,
+     * a succeeded promise will return an empty response parameter which is assumed to mean success.
+     */
+    resolveActivities(
+        activityResolutionPromises: Promise&lt;T[]&gt;,
+        successMessage?: string
+    ): Promise&lt;(ObjectAndResponse&lt;T&gt;)[]&gt; {
+        return activityResolutionPromises
+            .then(result &#x3D;&gt; {
+                return [
+                    {
+                        object: result[0],
+                        response: { ...result, success: successMessage },
+                    },
+                ];
+            })
+            .catch(error &#x3D;&gt; {
+                return [{ response: { error } }];
+            });
+    }
+}
+</code></pre>
+    </div>
+</div>
+
+
+                   
+
+
+
+
+                   </div><div class="search-results">
+    <div class="has-results">
+        <h1 class="search-results-title"><span class='search-results-count'></span> result-matching "<span class='search-query'></span>"</h1>
+        <ul class="search-results-list"></ul>
+    </div>
+    <div class="no-results">
+        <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+    </div>
+</div>
+</div>
+               <!-- END CONTENT -->
+           </div>
+       </div>
+
+       <script>
+            var COMPODOC_CURRENT_PAGE_DEPTH = 1;
+            var COMPODOC_CURRENT_PAGE_CONTEXT = 'interface';
+            var COMPODOC_CURRENT_PAGE_URL = 'ObjectAndResponse.html';
+            var MAX_SEARCH_RESULTS = 15;
+       </script>
+
+       <script src="../js/libs/custom-elements.min.js"></script>
+       <script src="../js/libs/lit-html.js"></script>
+       <!-- Required to polyfill modern browsers as code is ES5 for IE... -->
+       <script src="../js/libs/custom-elements-es5-adapter.js" charset="utf-8" defer></script>
+       <script src="../js/menu-wc.js" defer></script>
+
+       <script src="../js/libs/bootstrap-native.js"></script>
+
+       <script src="../js/libs/es6-shim.min.js"></script>
+       <script src="../js/libs/EventDispatcher.js"></script>
+       <script src="../js/libs/promise.min.js"></script>
+       <script src="../js/libs/zepto.min.js"></script>
+
+       <script src="../js/compodoc.js"></script>
+
+       <script src="../js/tabs.js"></script>
+       <script src="../js/menu.js"></script>
+       <script src="../js/libs/clipboard.min.js"></script>
+       <script src="../js/libs/prism.js"></script>
+       <script src="../js/sourceCode.js"></script>
+          <script src="../js/search/search.js"></script>
+          <script src="../js/search/lunr.min.js"></script>
+          <script src="../js/search/search-lunr.js"></script>
+          <script src="../js/search/search_index.js"></script>
+       <script src="../js/lazy-load-graphs.js"></script>
+
+
+    </body>
+</html>

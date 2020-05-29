@@ -1,0 +1,459 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>vmware-cloud-director-ui-components documentation</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
+	      <link rel="stylesheet" href="../styles/style.css">
+    </head>
+    <body>
+
+        <div class="navbar navbar-default navbar-fixed-top visible-xs">
+            <a href="../" class="navbar-brand">vmware-cloud-director-ui-components documentation</a>
+            <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
+        </div>
+
+        <div class="xs-menu menu" id="mobile-menu">
+                <div id="book-search-input" role="search"><input type="text" placeholder="Type to search"></div>            <compodoc-menu></compodoc-menu>
+        </div>
+
+        <div class="container-fluid main">
+           <div class="row main">
+               <div class="hidden-xs menu">
+                   <compodoc-menu mode="normal"></compodoc-menu>
+               </div>
+               <!-- START CONTENT -->
+               <div class="content class">
+                   <div class="content-data">
+
+
+
+
+
+
+
+
+
+
+
+<ol class="breadcrumb">
+  <li>Classes</li>
+  <li>ActivityPromiseResolver</li>
+</ol>
+
+<ul class="nav nav-tabs" role="tablist">
+        <li class="active">
+            <a href="#info" role="tab" id="info-tab" data-toggle="tab" data-link="info">Info</a>
+        </li>
+        <li >
+            <a href="#source" role="tab" id="source-tab" data-toggle="tab" data-link="source">Source</a>
+        </li>
+</ul>
+
+<div class="tab-content">
+    <div class="tab-pane fade active in" id="c-info">
+        <p class="comment">
+            <h3>File</h3>
+        </p>
+        <p class="comment">
+            <code>projects/components/src/common/activity-reporter/activity-promise-resolver.ts</code>
+        </p>
+
+            <p class="comment">
+                <h3>Description</h3>
+            </p>
+            <p class="comment">
+                <p>A class that understands how to take a promise and turn it into some response message for display.
+A client of this library will override <a href="../classes/ActivityPromiseResolver.html">ActivityPromiseResolver</a> to process their specific type of promise.
+This override will know how to generate a <a href="../interfaces/ObjectAndResponse.html">ObjectAndResponse</a> from the type of promise it processes.</p>
+
+            </p>
+
+
+
+            <p class="comment">
+                <h3>Example</h3>
+            </p>
+            <div class="io-description">
+            </div>
+
+            <section>
+    <h3 id="index">Index</h3>
+    <table class="table table-sm table-bordered index-table">
+        <tbody>
+
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Methods</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#resolveActivities">resolveActivities</a>
+                            </li>
+                            <li>
+                                <a href="#resolveActivity">resolveActivity</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+
+
+
+
+        </tbody>
+    </table>
+</section>
+
+
+
+            <section>
+    
+    <h3 id="methods">
+        Methods
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="resolveActivities"></a>
+                    <span class="name">
+                        <b>
+                            resolveActivities
+                        </b>
+                        <a href="#resolveActivities"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>resolveActivities(activityResolutionPromises: Promise<T[]>, successMessage?: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="71"
+                            class="link-to-prism">projects/components/src/common/activity-reporter/activity-promise-resolver.ts:71</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Takes a Promise of many items and turns it to some activity status</p>
+</div>
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Type</td>
+                                    <td>Optional</td>
+                                    <td>Description</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>activityResolutionPromises</td>
+                                    <td>
+                                            <code>Promise&lt;T[]&gt;</code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                    <td>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>successMessage</td>
+                                    <td>
+                                                <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                    </td>
+
+                                    <td>
+                                        Yes
+                                    </td>
+
+
+                                    <td>
+                                        <p>The success message this method should return if the activity succeeds. If undefined is passed,
+a succeeded promise will return an empty response parameter which is assumed to mean success.</p>
+
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>    <code>Promise&lt;[]&gt;</code>
+
+                    </div>
+                    <div class="io-description">
+                        
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="resolveActivity"></a>
+                    <span class="name">
+                        <b>
+                            resolveActivity
+                        </b>
+                        <a href="#resolveActivity"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>resolveActivity(activityResolutionPromise: Promise<T>, successMessage?: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="51"
+                            class="link-to-prism">projects/components/src/common/activity-reporter/activity-promise-resolver.ts:51</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Takes a Promise and turns it to some activity status</p>
+</div>
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Type</td>
+                                    <td>Optional</td>
+                                    <td>Description</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>activityResolutionPromise</td>
+                                    <td>
+                                            <code>Promise&lt;T&gt;</code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                    <td>
+                                        <p>The activity that this resolver will generate a response from. It generates
+either a sucesss or a failure condition.</p>
+
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>successMessage</td>
+                                    <td>
+                                                <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                    </td>
+
+                                    <td>
+                                        Yes
+                                    </td>
+
+
+                                    <td>
+                                        <p>The success message this method should return if the activity succeeds. If undefined is passed,
+a succeeded promise will return an empty response parameter which is assumed to mean success.</p>
+
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="../interfaces/ObjectAndResponse.html" target="_self" >Promise&lt;ObjectAndResponse&lt;T&gt;&gt;</a></code>
+
+                    </div>
+                    <div class="io-description">
+                        
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</section>
+
+
+
+
+
+    </div>
+
+
+    <div class="tab-pane fade  tab-source-code" id="c-source">
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">export interface ActivityResponse {
+    /**
+     * The error message, if any, from the activity.
+     *
+     * A response without an error is assumed to have succeeded.
+     */
+    error?: string;
+    /**
+     * The response message, if any, from the activity.
+     */
+    success?: string;
+}
+
+/**
+ * A combination of some object and the response that gave that object.
+ */
+export interface ObjectAndResponse&lt;T&gt; {
+    /**
+     * The data that was returned from a given activity, if any.
+     */
+    object?: T;
+    /**
+     * The response that an activity returned.
+     */
+    response: ActivityResponse;
+}
+
+/**
+ * A class that understands how to take a promise and turn it into some response message for display.
+ * A client of this library will override {@link ActivityPromiseResolver} to process their specific type of promise.
+ * This override will know how to generate a {@link ObjectAndResponse} from the type of promise it processes.
+ *
+ * @param T The type that is returned from a promise that this resolver processes.
+ */
+export class ActivityPromiseResolver&lt;T&gt; {
+    /**
+     * Takes a Promise and turns it to some activity status
+     * @param activityResolutionPromise The activity that this resolver will generate a response from. It generates
+     * either a sucesss or a failure condition.
+     * @param successMessage The success message this method should return if the activity succeeds. If undefined is passed,
+     * a succeeded promise will return an empty response parameter which is assumed to mean success.
+     */
+    resolveActivity(activityResolutionPromise: Promise&lt;T&gt;, successMessage?: string): Promise&lt;ObjectAndResponse&lt;T&gt;&gt; {
+        return activityResolutionPromise
+            .then(result &#x3D;&gt; {
+                return {
+                    object: result,
+                    response: { ...result, success: successMessage || result },
+                };
+            })
+            .catch(error &#x3D;&gt; {
+                return { response: { error } };
+            });
+    }
+
+    /**
+     * Takes a Promise of many items and turns it to some activity status
+     * @param activityResolutionPromise The activity that this resolver will generate a response from. It generates
+     * either a sucesss or a failure condition. There are many entities contained in this response.
+     * @param successMessage The success message this method should return if the activity succeeds. If undefined is passed,
+     * a succeeded promise will return an empty response parameter which is assumed to mean success.
+     */
+    resolveActivities(
+        activityResolutionPromises: Promise&lt;T[]&gt;,
+        successMessage?: string
+    ): Promise&lt;(ObjectAndResponse&lt;T&gt;)[]&gt; {
+        return activityResolutionPromises
+            .then(result &#x3D;&gt; {
+                return [
+                    {
+                        object: result[0],
+                        response: { ...result, success: successMessage },
+                    },
+                ];
+            })
+            .catch(error &#x3D;&gt; {
+                return [{ response: { error } }];
+            });
+    }
+}
+</code></pre>
+    </div>
+</div>
+
+
+
+                   
+
+
+
+
+                   </div><div class="search-results">
+    <div class="has-results">
+        <h1 class="search-results-title"><span class='search-results-count'></span> result-matching "<span class='search-query'></span>"</h1>
+        <ul class="search-results-list"></ul>
+    </div>
+    <div class="no-results">
+        <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+    </div>
+</div>
+</div>
+               <!-- END CONTENT -->
+           </div>
+       </div>
+
+       <script>
+            var COMPODOC_CURRENT_PAGE_DEPTH = 1;
+            var COMPODOC_CURRENT_PAGE_CONTEXT = 'class';
+            var COMPODOC_CURRENT_PAGE_URL = 'ActivityPromiseResolver.html';
+            var MAX_SEARCH_RESULTS = 15;
+       </script>
+
+       <script src="../js/libs/custom-elements.min.js"></script>
+       <script src="../js/libs/lit-html.js"></script>
+       <!-- Required to polyfill modern browsers as code is ES5 for IE... -->
+       <script src="../js/libs/custom-elements-es5-adapter.js" charset="utf-8" defer></script>
+       <script src="../js/menu-wc.js" defer></script>
+
+       <script src="../js/libs/bootstrap-native.js"></script>
+
+       <script src="../js/libs/es6-shim.min.js"></script>
+       <script src="../js/libs/EventDispatcher.js"></script>
+       <script src="../js/libs/promise.min.js"></script>
+       <script src="../js/libs/zepto.min.js"></script>
+
+       <script src="../js/compodoc.js"></script>
+
+       <script src="../js/tabs.js"></script>
+       <script src="../js/menu.js"></script>
+       <script src="../js/libs/clipboard.min.js"></script>
+       <script src="../js/libs/prism.js"></script>
+       <script src="../js/sourceCode.js"></script>
+          <script src="../js/search/search.js"></script>
+          <script src="../js/search/lunr.min.js"></script>
+          <script src="../js/search/search-lunr.js"></script>
+          <script src="../js/search/search_index.js"></script>
+       <script src="../js/lazy-load-graphs.js"></script>
+
+
+    </body>
+</html>

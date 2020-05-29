@@ -1,0 +1,1235 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>vmware-cloud-director-ui-components documentation</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
+	      <link rel="stylesheet" href="../styles/style.css">
+    </head>
+    <body>
+
+        <div class="navbar navbar-default navbar-fixed-top visible-xs">
+            <a href="../" class="navbar-brand">vmware-cloud-director-ui-components documentation</a>
+            <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
+        </div>
+
+        <div class="xs-menu menu" id="mobile-menu">
+                <div id="book-search-input" role="search"><input type="text" placeholder="Type to search"></div>            <compodoc-menu></compodoc-menu>
+        </div>
+
+        <div class="container-fluid main">
+           <div class="row main">
+               <div class="hidden-xs menu">
+                   <compodoc-menu mode="normal"></compodoc-menu>
+               </div>
+               <!-- START CONTENT -->
+               <div class="content class">
+                   <div class="content-data">
+
+
+
+
+
+
+
+
+
+
+
+<ol class="breadcrumb">
+  <li>Classes</li>
+  <li>ShowClippedTextDirectiveTestHelper</li>
+</ol>
+
+<ul class="nav nav-tabs" role="tablist">
+        <li class="active">
+            <a href="#info" role="tab" id="info-tab" data-toggle="tab" data-link="info">Info</a>
+        </li>
+        <li >
+            <a href="#source" role="tab" id="source-tab" data-toggle="tab" data-link="source">Source</a>
+        </li>
+</ul>
+
+<div class="tab-content">
+    <div class="tab-pane fade active in" id="c-info">
+        <p class="comment">
+            <h3>File</h3>
+        </p>
+        <p class="comment">
+            <code>projects/components/src/lib/directives/show-clipped-text.directive.test-helper.ts</code>
+        </p>
+
+            <p class="comment">
+                <h3>Description</h3>
+            </p>
+            <p class="comment">
+                <p>Used to remove DOM specific code from the jasmine tests while testing this directive</p>
+
+            </p>
+
+
+
+
+            <section>
+    <h3 id="index">Index</h3>
+    <table class="table table-sm table-bordered index-table">
+        <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Properties</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                    <span class="modifier">Public</span>
+                                <a href="#componentInstance">componentInstance</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Public</span>
+                                <a href="#hideDelay">hideDelay</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#host">host</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#secondHost">secondHost</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Methods</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                    <span class="modifier">Public</span>
+                                <a href="#destroy">destroy</a>
+                            </li>
+                            <li>
+                                <a href="#moveMouseOffHost">moveMouseOffHost</a>
+                            </li>
+                            <li>
+                                <a href="#moveMouseOffTooltip">moveMouseOffTooltip</a>
+                            </li>
+                            <li>
+                                <a href="#moveMouseOverHost">moveMouseOverHost</a>
+                            </li>
+                            <li>
+                                <a href="#moveMouseOverSecondHost">moveMouseOverSecondHost</a>
+                            </li>
+                            <li>
+                                <a href="#moveMouseOverTooltip">moveMouseOverTooltip</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+
+
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <h6><b>Accessors</b></h6>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <ul class="index-list">
+                                <li>
+                                    <a href="#width">width</a>
+                                </li>
+                                <li>
+                                    <a href="#hostPosition">hostPosition</a>
+                                </li>
+                                <li>
+                                    <a href="#disabled">disabled</a>
+                                </li>
+                                <li>
+                                    <a href="#hostText">hostText</a>
+                                </li>
+                                <li>
+                                    <a href="#tooltipSize">tooltipSize</a>
+                                </li>
+                                <li>
+                                    <a href="#isTooltipVisible">isTooltipVisible</a>
+                                </li>
+                                <li>
+                                    <a href="#tooltipText">tooltipText</a>
+                                </li>
+                                <li>
+                                    <a href="#tooltipPosition">tooltipPosition</a>
+                                </li>
+                                <li>
+                                    <a href="#tooltipCount">tooltipCount</a>
+                                </li>
+                                <li>
+                                    <a href="#tooltipVisibility">tooltipVisibility</a>
+                                </li>
+                                <li>
+                                    <a href="#tooltipContent">tooltipContent</a>
+                                </li>
+                                <li>
+                                    <a href="#tooltip">tooltip</a>
+                                </li>
+                            </ul>
+                        </td>
+                    </tr>
+        </tbody>
+    </table>
+</section>
+
+            <section>
+    <h3 id="constructor">Constructor</h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+<code>constructor(fixture: <a href="../components/ShowClippedTextDirectiveTestHostComponent.html">ComponentFixture<ShowClippedTextDirectiveTestHostComponent></a>)</code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="13" class="link-to-prism">projects/components/src/lib/directives/show-clipped-text.directive.test-helper.ts:13</a></div>
+                            </td>
+                        </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                            <div>
+                                    <b>Parameters :</b>
+                                    <table class="params">
+                                        <thead>
+                                            <tr>
+                                                <td>Name</td>
+                                                    <td>Type</td>
+                                                <td>Optional</td>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                                <tr>
+                                                        <td>fixture</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="../components/ShowClippedTextDirectiveTestHostComponent.html" target="_self" >ComponentFixture&lt;ShowClippedTextDirectiveTestHostComponent&gt;</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                        </tbody>
+                                    </table>
+                            </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+</section>
+
+            <section>
+    
+        <h3 id="inputs">
+            Properties
+        </h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="componentInstance"></a>
+                        <span class="name">
+                            <b>
+                                <span class="modifier">Public</span>
+                            componentInstance</b>
+                            <a href="#componentInstance"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Type : </i>    <code>this.fixture.componentInstance</code>
+
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Default value : </i><code>this.fixture.componentInstance</code>
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="16" class="link-to-prism">projects/components/src/lib/directives/show-clipped-text.directive.test-helper.ts:16</a></div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="hideDelay"></a>
+                        <span class="name">
+                            <b>
+                                <span class="modifier">Public</span>
+                            hideDelay</b>
+                            <a href="#hideDelay"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Type : </i>    <code>this.componentInstance.directive.mouseoutDelay</code>
+
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Default value : </i><code>this.componentInstance.directive.mouseoutDelay</code>
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="18" class="link-to-prism">projects/components/src/lib/directives/show-clipped-text.directive.test-helper.ts:18</a></div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="host"></a>
+                        <span class="name">
+                            <b>
+                                <span class="modifier">Private</span>
+                            host</b>
+                            <a href="#host"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Type : </i>    <code>HTMLElement</code>
+
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Default value : </i><code>this.componentInstance.div.nativeElement</code>
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="20" class="link-to-prism">projects/components/src/lib/directives/show-clipped-text.directive.test-helper.ts:20</a></div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="secondHost"></a>
+                        <span class="name">
+                            <b>
+                                <span class="modifier">Private</span>
+                            secondHost</b>
+                            <a href="#secondHost"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Type : </i>    <code>HTMLElement</code>
+
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Default value : </i><code>this.componentInstance.div2.nativeElement</code>
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="22" class="link-to-prism">projects/components/src/lib/directives/show-clipped-text.directive.test-helper.ts:22</a></div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+</section>
+
+            <section>
+    
+    <h3 id="methods">
+        Methods
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="destroy"></a>
+                    <span class="name">
+                        <b>
+                            <span class="modifier">Public</span>
+                            destroy
+                        </b>
+                        <a href="#destroy"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                    <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>destroy()</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="106"
+                            class="link-to-prism">projects/components/src/lib/directives/show-clipped-text.directive.test-helper.ts:106</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="moveMouseOffHost"></a>
+                    <span class="name">
+                        <b>
+                            moveMouseOffHost
+                        </b>
+                        <a href="#moveMouseOffHost"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>moveMouseOffHost()</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="70"
+                            class="link-to-prism">projects/components/src/lib/directives/show-clipped-text.directive.test-helper.ts:70</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="moveMouseOffTooltip"></a>
+                    <span class="name">
+                        <b>
+                            moveMouseOffTooltip
+                        </b>
+                        <a href="#moveMouseOffTooltip"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>moveMouseOffTooltip()</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="74"
+                            class="link-to-prism">projects/components/src/lib/directives/show-clipped-text.directive.test-helper.ts:74</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="moveMouseOverHost"></a>
+                    <span class="name">
+                        <b>
+                            moveMouseOverHost
+                        </b>
+                        <a href="#moveMouseOverHost"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>moveMouseOverHost()</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="58"
+                            class="link-to-prism">projects/components/src/lib/directives/show-clipped-text.directive.test-helper.ts:58</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="moveMouseOverSecondHost"></a>
+                    <span class="name">
+                        <b>
+                            moveMouseOverSecondHost
+                        </b>
+                        <a href="#moveMouseOverSecondHost"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>moveMouseOverSecondHost()</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="62"
+                            class="link-to-prism">projects/components/src/lib/directives/show-clipped-text.directive.test-helper.ts:62</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="moveMouseOverTooltip"></a>
+                    <span class="name">
+                        <b>
+                            moveMouseOverTooltip
+                        </b>
+                        <a href="#moveMouseOverTooltip"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>moveMouseOverTooltip()</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="66"
+                            class="link-to-prism">projects/components/src/lib/directives/show-clipped-text.directive.test-helper.ts:66</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</section>
+
+
+
+
+
+            <section>
+    <h3 id="accessors">
+        Accessors
+    </h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="width"></a>
+                        <span class="name"><b>width</b><a href="#width"><span class="icon ion-ios-link"></span></a></span>
+                    </td>
+                </tr>
+
+
+                <tr>
+                    <td class="col-md-4">
+                        <span class="accessor"><b>set</b><code>width(width: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code></span>
+                    </td>
+                </tr>
+                            <tr>
+                                <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="24" class="link-to-prism">projects/components/src/lib/directives/show-clipped-text.directive.test-helper.ts:24</a></div>
+                                </td>
+                            </tr>
+                    <tr>
+                        <td class="col-md-4">
+
+                                <div class="io-description">
+                                        <b>Parameters :</b>
+                                        <table class="params">
+                                            <thead>
+                                                <tr>
+                                                    <td>Name</td>
+                                                        <td>Type</td>
+                                                    <td>Optional</td>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                    <tr>
+                                                            <td>width</td>
+                                                    
+                                                            <td>
+                                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                                            </td>
+                                                    
+                                                        <td>
+                                                                No
+                                                        </td>
+                                                        
+                                                    </tr>
+                                            </tbody>
+                                        </table>
+                                </div>
+                                <div>
+                                </div>
+                                <div class="io-description">
+                                    <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                                </div>
+                        </td>
+                    </tr>
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="hostPosition"></a>
+                        <span class="name"><b>hostPosition</b><a href="#hostPosition"><span class="icon ion-ios-link"></span></a></span>
+                    </td>
+                </tr>
+
+
+                <tr>
+                    <td class="col-md-4">
+                        <span class="accessor"><b>set</b><code>hostPosition(quadrant)</code></span>
+                    </td>
+                </tr>
+                            <tr>
+                                <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="28" class="link-to-prism">projects/components/src/lib/directives/show-clipped-text.directive.test-helper.ts:28</a></div>
+                                </td>
+                            </tr>
+                    <tr>
+                        <td class="col-md-4">
+
+                                <div class="io-description">
+                                        <b>Parameters :</b>
+                                        <table class="params">
+                                            <thead>
+                                                <tr>
+                                                    <td>Name</td>
+                                                    <td>Optional</td>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                    <tr>
+                                                            <td>quadrant</td>
+                                                    
+                                                    
+                                                        <td>
+                                                                No
+                                                        </td>
+                                                        
+                                                    </tr>
+                                            </tbody>
+                                        </table>
+                                </div>
+                                <div>
+                                </div>
+                                <div class="io-description">
+                                    <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                                </div>
+                        </td>
+                    </tr>
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="disabled"></a>
+                        <span class="name"><b>disabled</b><a href="#disabled"><span class="icon ion-ios-link"></span></a></span>
+                    </td>
+                </tr>
+
+
+                <tr>
+                    <td class="col-md-4">
+                        <span class="accessor"><b>set</b><code>disabled(disabled: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank">boolean</a>)</code></span>
+                    </td>
+                </tr>
+                            <tr>
+                                <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="44" class="link-to-prism">projects/components/src/lib/directives/show-clipped-text.directive.test-helper.ts:44</a></div>
+                                </td>
+                            </tr>
+                    <tr>
+                        <td class="col-md-4">
+
+                                <div class="io-description">
+                                        <b>Parameters :</b>
+                                        <table class="params">
+                                            <thead>
+                                                <tr>
+                                                    <td>Name</td>
+                                                        <td>Type</td>
+                                                    <td>Optional</td>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                    <tr>
+                                                            <td>disabled</td>
+                                                    
+                                                            <td>
+                                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank" >boolean</a></code>
+                                                            </td>
+                                                    
+                                                        <td>
+                                                                No
+                                                        </td>
+                                                        
+                                                    </tr>
+                                            </tbody>
+                                        </table>
+                                </div>
+                                <div>
+                                </div>
+                                <div class="io-description">
+                                    <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                                </div>
+                        </td>
+                    </tr>
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="hostText"></a>
+                        <span class="name"><b>hostText</b><a href="#hostText"><span class="icon ion-ios-link"></span></a></span>
+                    </td>
+                </tr>
+
+
+                <tr>
+                    <td class="col-md-4">
+                        <span class="accessor"><b>set</b><code>hostText(text: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code></span>
+                    </td>
+                </tr>
+                            <tr>
+                                <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="49" class="link-to-prism">projects/components/src/lib/directives/show-clipped-text.directive.test-helper.ts:49</a></div>
+                                </td>
+                            </tr>
+                    <tr>
+                        <td class="col-md-4">
+
+                                <div class="io-description">
+                                        <b>Parameters :</b>
+                                        <table class="params">
+                                            <thead>
+                                                <tr>
+                                                    <td>Name</td>
+                                                        <td>Type</td>
+                                                    <td>Optional</td>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                    <tr>
+                                                            <td>text</td>
+                                                    
+                                                            <td>
+                                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                                            </td>
+                                                    
+                                                        <td>
+                                                                No
+                                                        </td>
+                                                        
+                                                    </tr>
+                                            </tbody>
+                                        </table>
+                                </div>
+                                <div>
+                                </div>
+                                <div class="io-description">
+                                    <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                                </div>
+                        </td>
+                    </tr>
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="tooltipSize"></a>
+                        <span class="name"><b>tooltipSize</b><a href="#tooltipSize"><span class="icon ion-ios-link"></span></a></span>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <span class="accessor"><b>get</b><code>tooltipSize()</code></span>
+                    </td>
+                </tr>
+                            <tr>
+                                <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="54" class="link-to-prism">projects/components/src/lib/directives/show-clipped-text.directive.test-helper.ts:54</a></div>
+                                </td>
+                            </tr>
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="isTooltipVisible"></a>
+                        <span class="name"><b>isTooltipVisible</b><a href="#isTooltipVisible"><span class="icon ion-ios-link"></span></a></span>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <span class="accessor"><b>get</b><code>isTooltipVisible()</code></span>
+                    </td>
+                </tr>
+                            <tr>
+                                <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="78" class="link-to-prism">projects/components/src/lib/directives/show-clipped-text.directive.test-helper.ts:78</a></div>
+                                </td>
+                            </tr>
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="tooltipText"></a>
+                        <span class="name"><b>tooltipText</b><a href="#tooltipText"><span class="icon ion-ios-link"></span></a></span>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <span class="accessor"><b>get</b><code>tooltipText()</code></span>
+                    </td>
+                </tr>
+                            <tr>
+                                <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="82" class="link-to-prism">projects/components/src/lib/directives/show-clipped-text.directive.test-helper.ts:82</a></div>
+                                </td>
+                            </tr>
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="tooltipPosition"></a>
+                        <span class="name"><b>tooltipPosition</b><a href="#tooltipPosition"><span class="icon ion-ios-link"></span></a></span>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <span class="accessor"><b>get</b><code>tooltipPosition()</code></span>
+                    </td>
+                </tr>
+                            <tr>
+                                <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="86" class="link-to-prism">projects/components/src/lib/directives/show-clipped-text.directive.test-helper.ts:86</a></div>
+                                </td>
+                            </tr>
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="tooltipCount"></a>
+                        <span class="name"><b>tooltipCount</b><a href="#tooltipCount"><span class="icon ion-ios-link"></span></a></span>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <span class="accessor"><b>get</b><code>tooltipCount()</code></span>
+                    </td>
+                </tr>
+                            <tr>
+                                <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="98" class="link-to-prism">projects/components/src/lib/directives/show-clipped-text.directive.test-helper.ts:98</a></div>
+                                </td>
+                            </tr>
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="tooltipVisibility"></a>
+                        <span class="name"><b>tooltipVisibility</b><a href="#tooltipVisibility"><span class="icon ion-ios-link"></span></a></span>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <span class="accessor"><b>get</b><code>tooltipVisibility()</code></span>
+                    </td>
+                </tr>
+                            <tr>
+                                <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="102" class="link-to-prism">projects/components/src/lib/directives/show-clipped-text.directive.test-helper.ts:102</a></div>
+                                </td>
+                            </tr>
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="tooltipContent"></a>
+                        <span class="name"><b>tooltipContent</b><a href="#tooltipContent"><span class="icon ion-ios-link"></span></a></span>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <span class="accessor"><b>get</b><code>tooltipContent()</code></span>
+                    </td>
+                </tr>
+                            <tr>
+                                <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="110" class="link-to-prism">projects/components/src/lib/directives/show-clipped-text.directive.test-helper.ts:110</a></div>
+                                </td>
+                            </tr>
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="tooltip"></a>
+                        <span class="name"><b>tooltip</b><a href="#tooltip"><span class="icon ion-ios-link"></span></a></span>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <span class="accessor"><b>get</b><code>tooltip()</code></span>
+                    </td>
+                </tr>
+                            <tr>
+                                <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="114" class="link-to-prism">projects/components/src/lib/directives/show-clipped-text.directive.test-helper.ts:114</a></div>
+                                </td>
+                            </tr>
+
+            </tbody>
+        </table>
+</section>
+    </div>
+
+
+    <div class="tab-pane fade  tab-source-code" id="c-source">
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Component, ElementRef, ViewChild } from &#x27;@angular/core&#x27;;
+import { ComponentFixture } from &#x27;@angular/core/testing&#x27;;
+import { ShowClippedTextDirective, TooltipPosition } from &#x27;./show-clipped-text.directive&#x27;;
+
+/**
+ * Used to remove DOM specific code from the jasmine tests while testing this directive
+ */
+export class ShowClippedTextDirectiveTestHelper {
+    constructor(private fixture: ComponentFixture&lt;ShowClippedTextDirectiveTestHostComponent&gt;) {}
+
+    public componentInstance &#x3D; this.fixture.componentInstance;
+
+    public hideDelay &#x3D; this.componentInstance.directive.mouseoutDelay;
+
+    private host: HTMLElement &#x3D; this.componentInstance.div.nativeElement;
+
+    private secondHost: HTMLElement &#x3D; this.componentInstance.div2.nativeElement;
+
+    set width(width: string) {
+        this.host.style.width &#x3D; width;
+    }
+
+    set hostPosition(quadrant: TooltipPosition) {
+        this.host.style.position &#x3D; &#x27;absolute&#x27;;
+        const defaults &#x3D; { top: &#x27;&#x27;, left: &#x27;&#x27;, bottom: &#x27;&#x27;, right: &#x27;&#x27; };
+        if (quadrant &#x3D;&#x3D;&#x3D; TooltipPosition.tl) {
+            Object.assign(defaults, { top: &#x27;0&#x27;, left: &#x27;0&#x27; });
+        } else if (quadrant &#x3D;&#x3D;&#x3D; TooltipPosition.tr) {
+            Object.assign(defaults, { top: &#x27;0&#x27;, right: &#x27;0&#x27; });
+        } else if (quadrant &#x3D;&#x3D;&#x3D; TooltipPosition.bl) {
+            Object.assign(defaults, { bottom: &#x27;0&#x27;, left: &#x27;0&#x27; });
+        } else if (quadrant &#x3D;&#x3D;&#x3D; TooltipPosition.br) {
+            Object.assign(defaults, { bottom: &#x27;0&#x27;, right: &#x27;0&#x27; });
+        }
+
+        Object.assign(this.host.style, defaults);
+    }
+
+    set disabled(disabled: boolean) {
+        this.componentInstance.disabled &#x3D; disabled;
+        this.fixture.detectChanges();
+    }
+
+    set hostText(text: string) {
+        this.componentInstance.text &#x3D; text;
+        this.fixture.detectChanges();
+    }
+
+    get tooltipSize(): number {
+        return this.tooltipContent.offsetWidth;
+    }
+
+    moveMouseOverHost(): void {
+        this.host.dispatchEvent(new MouseEvent(&#x27;mouseenter&#x27;));
+    }
+
+    moveMouseOverSecondHost(): void {
+        this.secondHost.dispatchEvent(new MouseEvent(&#x27;mouseenter&#x27;));
+    }
+
+    moveMouseOverTooltip(): void {
+        this.tooltip.dispatchEvent(new MouseEvent(&#x27;mouseenter&#x27;));
+    }
+
+    moveMouseOffHost(): void {
+        this.host.dispatchEvent(new MouseEvent(&#x27;mouseleave&#x27;));
+    }
+
+    moveMouseOffTooltip(): void {
+        this.tooltip.dispatchEvent(new MouseEvent(&#x27;mouseleave&#x27;));
+    }
+
+    get isTooltipVisible(): boolean {
+        return !!this.tooltip &amp;&amp; (this.tooltip.style.opacity &#x3D;&#x3D;&#x3D; &#x27;1&#x27; || this.tooltip.style.opacity &#x3D;&#x3D;&#x3D; &#x27;&#x27;);
+    }
+
+    get tooltipText(): string {
+        return this.tooltipContent.innerText;
+    }
+
+    get tooltipPosition(): TooltipPosition {
+        const classes &#x3D; this.tooltipContent.classList;
+        for (const className of Array.from(classes)) {
+            for (const key of Object.keys(TooltipPosition)) {
+                if (TooltipPosition[key] &#x3D;&#x3D;&#x3D; className) {
+                    return TooltipPosition[key] as TooltipPosition;
+                }
+            }
+        }
+        return null;
+    }
+
+    public get tooltipCount(): number {
+        return document.querySelectorAll(&#x27;.tooltip.vcd-show-clipped-text&#x27;).length;
+    }
+
+    public get tooltipVisibility(): string {
+        return this.tooltipContent.style.visibility;
+    }
+
+    public destroy(): void {
+        this.fixture.destroy();
+    }
+
+    private get tooltipContent(): HTMLElement {
+        return this.tooltip.querySelector(&#x27;.tooltip-content&#x27;);
+    }
+
+    private get tooltip(): HTMLElement {
+        return document.querySelector(&#x27;.tooltip.vcd-show-clipped-text&#x27;);
+    }
+}
+
+@Component({
+    template: &#x60;
+        &lt;div [vcdShowClippedText]&#x3D;&quot;{ disabled: disabled }&quot; style&#x3D;&quot;width: 20px&quot; #div&gt;{{ text }}&lt;/div&gt;
+        &lt;div [vcdShowClippedText]&#x3D;&quot;{ disabled: disabled }&quot; style&#x3D;&quot;width: 20px&quot; #div2&gt;{{ text2 }}&lt;/div&gt;
+    &#x60;,
+})
+export class ShowClippedTextDirectiveTestHostComponent {
+    @ViewChild(ShowClippedTextDirective, { static: false }) directive!: ShowClippedTextDirective;
+    @ViewChild(&#x27;div&#x27;, { static: false }) div!: ElementRef;
+    @ViewChild(&#x27;div2&#x27;, { static: false }) div2!: ElementRef;
+
+    public text &#x3D; &#x27;texting&#x27;;
+    public text2 &#x3D; &#x27;texting too&#x27;;
+    public disabled &#x3D; false;
+}
+</code></pre>
+    </div>
+</div>
+
+
+
+                   
+
+
+
+
+                   </div><div class="search-results">
+    <div class="has-results">
+        <h1 class="search-results-title"><span class='search-results-count'></span> result-matching "<span class='search-query'></span>"</h1>
+        <ul class="search-results-list"></ul>
+    </div>
+    <div class="no-results">
+        <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+    </div>
+</div>
+</div>
+               <!-- END CONTENT -->
+           </div>
+       </div>
+
+       <script>
+            var COMPODOC_CURRENT_PAGE_DEPTH = 1;
+            var COMPODOC_CURRENT_PAGE_CONTEXT = 'class';
+            var COMPODOC_CURRENT_PAGE_URL = 'ShowClippedTextDirectiveTestHelper.html';
+            var MAX_SEARCH_RESULTS = 15;
+       </script>
+
+       <script src="../js/libs/custom-elements.min.js"></script>
+       <script src="../js/libs/lit-html.js"></script>
+       <!-- Required to polyfill modern browsers as code is ES5 for IE... -->
+       <script src="../js/libs/custom-elements-es5-adapter.js" charset="utf-8" defer></script>
+       <script src="../js/menu-wc.js" defer></script>
+
+       <script src="../js/libs/bootstrap-native.js"></script>
+
+       <script src="../js/libs/es6-shim.min.js"></script>
+       <script src="../js/libs/EventDispatcher.js"></script>
+       <script src="../js/libs/promise.min.js"></script>
+       <script src="../js/libs/zepto.min.js"></script>
+
+       <script src="../js/compodoc.js"></script>
+
+       <script src="../js/tabs.js"></script>
+       <script src="../js/menu.js"></script>
+       <script src="../js/libs/clipboard.min.js"></script>
+       <script src="../js/libs/prism.js"></script>
+       <script src="../js/sourceCode.js"></script>
+          <script src="../js/search/search.js"></script>
+          <script src="../js/search/lunr.min.js"></script>
+          <script src="../js/search/search-lunr.js"></script>
+          <script src="../js/search/search_index.js"></script>
+       <script src="../js/lazy-load-graphs.js"></script>
+
+
+    </body>
+</html>
