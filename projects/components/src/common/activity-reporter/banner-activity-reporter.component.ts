@@ -5,6 +5,7 @@
 
 import { Component, Inject, Input } from '@angular/core';
 import { TranslationService } from '@vcd/i18n';
+import { LazyString } from '@vcd/i18n';
 import { ActivityPromiseResolver } from './activity-promise-resolver';
 import { ActivityReporter } from './activity-reporter';
 
@@ -24,7 +25,7 @@ export class BannerActivityReporterComponent extends ActivityReporter {
      * The translated message that is displayed to the user while loading.
      */
     @Input()
-    loadingMessage = this.translationService.translateAsync('vcd.cc.loading');
+    loadingMessage: LazyString = this.translationService.translateAsync('vcd.cc.loading');
 
     constructor(
         private translationService: TranslationService,

@@ -62,7 +62,7 @@ export const sbInfo: StackBlitzInfo = {
         AppRoutingModule,
         ClarityModule,
         BrowserAnimationsModule,
-        NgLiveDocsModule.forRoot([docJson1, docJson2], sbInfo),
+        NgLiveDocsModule.forRoot([docJson1, docJson2], sbInfo, 'compodoc'),
         VcdComponentsModule,
         FormsModule,
         DatagridExamplesModule,

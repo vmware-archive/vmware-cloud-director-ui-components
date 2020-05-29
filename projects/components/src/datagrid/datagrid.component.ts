@@ -117,13 +117,6 @@ export enum ActivityIndicatorType {
 }
 
 /**
- * Representation an entity that has a href property.
- */
-interface HasHref {
-    href?: string;
-}
-
-/**
  * The information about pagionation that will be exposed.
  */
 export interface PagionationInformation {
@@ -209,6 +202,13 @@ export interface GridState<R> {
      * The pagination information that the datagrid should show.
      */
     pagination?: PagionationInformation;
+}
+
+/**
+ * A function that can be used to render the pagination data in the grid.
+ */
+export interface PaginationCallback {
+    (firstItem: number, lastItem: number, totalItems: number): string | Observable<string>;
 }
 
 /**
@@ -382,7 +382,7 @@ export class DatagridComponent<R> implements OnInit, AfterViewInit {
     /**
      * Emitted whenever {@link #columns} input is updated
      */
-    @Output() columnsUpdated = new EventEmitter();
+    @Output() columnsUpdated = new EventEmitter<void>();
 
     /**
      * Columns are updated using set columns, addColumn and removeColumn methods. This cache helps in preserving changes
@@ -449,7 +449,7 @@ export class DatagridComponent<R> implements OnInit, AfterViewInit {
      * When there is no data, show this message.
      */
     @Input()
-    emptyGridPlaceholder;
+    emptyGridPlaceholder: string;
 
     private _pagination: PaginationConfiguration = {
         pageSize: 'Magic',
@@ -521,6 +521,23 @@ export class DatagridComponent<R> implements OnInit, AfterViewInit {
     private viewInitted = false;
 
     /**
+     * Gives the correct string to display for the pagination.
+     *
+     * @param firstItem the index of the first item displayed.
+     * @param lastItem the index of the last item displayed.
+     * @param totalItems the total number of items that could be displayed.
+     */
+    @Input() paginationCallback: PaginationCallback = (firstItem: number, lastItem: number, totalItems: number) => {
+        return this.translationService.translateAsync('vcd.cc.grid.default.pagination', [
+            {
+                firstItem,
+                lastItem,
+                totalItems,
+            },
+        ]);
+    };
+
+    /**
      * To add or replace a column of this datagrid columns. Exposed for columns modifiers(eg: directives) that listen to
      * {@link columnsUpdated} event and want to modify the columns set by components using this datagrid.
      */
@@ -565,26 +582,9 @@ export class DatagridComponent<R> implements OnInit, AfterViewInit {
      *
      * If the record has a href, defaults to that. Else, defaults to index.
      */
-    @Input() trackBy: TrackByFunction<R & { href?: string }> = (index: number, record): string => {
-        return record.href || String(index);
+    @Input() trackBy: TrackByFunction<R> = (index: number, record): string => {
+        return (record as any).href || String(index);
     };
-
-    /**
-     * Gives the correct string to display for the pagination.
-     *
-     * @param firstItem the index of the first item displayed.
-     * @param lastItem the index of the last item displayed.
-     * @param totalItems the total number of items that could be displayed.
-     */
-    @Input() paginationCallback(firstItem: number, lastItem: number, totalItems: number): string | Observable<string> {
-        return this.translationService.translateAsync('vcd.cc.grid.default.pagination', [
-            {
-                firstItem,
-                lastItem,
-                totalItems,
-            },
-        ]);
-    }
 
     /**
      * Says if the action bar has contents to show.

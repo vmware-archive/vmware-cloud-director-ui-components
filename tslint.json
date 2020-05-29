@@ -11,6 +11,7 @@
     "deprecation": {
       "severity": "warning"
     },
+    "callable-types": false,
     "comment-format": [true, "check-space"],
     "component-class-suffix": true,
     "contextual-lifecycle": true,
