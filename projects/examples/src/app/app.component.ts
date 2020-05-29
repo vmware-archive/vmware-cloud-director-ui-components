@@ -6,6 +6,7 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { Documentation, DocumentationEntry } from '@vmw/ng-live-docs';
+import { HomeComponent } from './home/home.component';
 
 interface SideNavEntries {
     title: string;
@@ -34,6 +35,10 @@ export class AppComponent {
          * 'loadChildren' of undefined https://stackoverflow.com/questions/44233195/dynamically-adding-routes-in-angular
          * TODO: https://jira.eng.vmware.com/browse/VDUCC-72
          */
-        router.resetConfig(Documentation.getRoutes());
+        router.resetConfig([
+            { path: '', redirectTo: 'home', pathMatch: 'full' },
+            { path: 'home', component: HomeComponent },
+            ...Documentation.getRoutes(),
+        ]);
     }
 }
