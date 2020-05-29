@@ -21,14 +21,14 @@ describe('I18nModule', () => {
                 providers: [
                     {
                         provide: LOCALE_ID,
-                        useValue: 'en',
+                        useValue: 'de',
                     },
                 ],
                 declarations: [TestClassComponent],
             }).compileComponents();
 
             (TestBed.get(TranslationService) as TranslationService).registerTranslations({
-                en: {
+                de: {
                     'vcd.cc.cancel': 'cancel',
                 },
             });
@@ -49,7 +49,7 @@ describe('I18nModule', () => {
                 providers: [
                     {
                         provide: LOCALE_ID,
-                        useValue: 'en',
+                        useValue: 'de',
                     },
                     {
                         provide: route,
@@ -60,7 +60,7 @@ describe('I18nModule', () => {
             }).compileComponents();
 
             const service = TestBed.get(TranslationService) as MessageFormatTranslationService;
-            const observable = new BehaviorSubject({ en: { 'vcd.cc.cancel': 'cancel' } });
+            const observable = new BehaviorSubject({ de: { 'vcd.cc.cancel': 'cancel' } });
             spyOn((service as any).translationLoader, 'getCombinedTranslation').and.returnValue(observable);
             service.registerTranslations();
 

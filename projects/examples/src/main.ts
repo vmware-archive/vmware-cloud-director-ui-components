@@ -16,7 +16,7 @@ if (environment.production) {
 platformBrowserDynamic([
     {
         provide: LOCALE_ID,
-        useValue: 'en',
+        useValue: navigator.language,
     },
 ])
     .bootstrapModule(AppModule)
