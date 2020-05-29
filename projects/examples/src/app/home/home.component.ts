@@ -13,7 +13,7 @@ import { Component, OnInit } from '@angular/core';
 export class HomeComponent implements OnInit {
     ghReadMeUrl =
         'https://github.com/vmware/vmware-cloud-director-ui-components/blob/master/projects/components/README.md#Components';
-    vcdUrl = 'https://www.vmware.com/products/cloud-director.htm';
+    vcdUrl = 'https://www.vmware.com/products/cloud-director.html';
     constructor() {}
 
     ngOnInit(): void {}
