@@ -30,6 +30,7 @@ import { FormInputComponentsExamplesModule } from '../components/form-input/form
 import { LoadingIndicatorExamplesModule } from '../components/loading/loading-indicator.examples.module';
 import { SubscriptionTrackerExamplesModule } from '../components/subscription/subscription-tracker.examples.module';
 import { ShowClippedTextExamplesModule } from './components/show-clipped-text/show-clipped-text-examples.module';
+import { HomeComponent } from './home/home.component';
 
 registerLocaleData(localeFr, 'fr');
 registerLocaleData(localeEs, 'es');
@@ -53,7 +54,7 @@ export const sbInfo: StackBlitzInfo = {
 };
 
 @NgModule({
-    declarations: [AppComponent],
+    declarations: [AppComponent, HomeComponent],
     imports: [
         HttpClientModule,
         I18nModule.forChild(ASSET_URL, true),
@@ -73,6 +74,7 @@ export const sbInfo: StackBlitzInfo = {
         ActivityReporterExamplesModule,
         FormInputComponentsExamplesModule,
     ],
+    entryComponents: [HomeComponent],
     providers: [
         {
             provide: ASSET_URL,
