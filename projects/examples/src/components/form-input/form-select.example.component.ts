@@ -9,6 +9,7 @@ import { SelectOption } from '../../../../components/src/common/interfaces/selec
 import { FormSelectComponent } from '../../../../components/src/form';
 
 @Component({
+    selector: 'vcd-form-select-example-component',
     templateUrl: './form-select.example.component.html',
 })
 export class FormSelectExampleComponent {

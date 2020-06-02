@@ -11,6 +11,7 @@ import {
 } from '../../../../components/src/form/form-checkbox/form-checkbox.component';
 
 @Component({
+    selector: 'vcd-form-checkbox-example-component',
     templateUrl: `./form-checkbox.example.component.html`,
 })
 export class FormCheckboxExampleComponent {
