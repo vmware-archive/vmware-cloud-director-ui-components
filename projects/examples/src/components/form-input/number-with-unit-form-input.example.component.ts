@@ -8,6 +8,7 @@ import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { Bytes, Hertz, Unit } from '@vcd/ui-components';
 
 @Component({
+    selector: 'vcd-number-with-unit-form-example-component',
     templateUrl: './number-with-unit-form-input.example.component.html',
 })
 export class NumberWithUnitFormInputExampleComponent {

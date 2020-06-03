@@ -7,6 +7,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
+    selector: 'vcd-form-input-example-component',
     templateUrl: './form-input.example.component.html',
 })
 export class FormInputExampleComponent {

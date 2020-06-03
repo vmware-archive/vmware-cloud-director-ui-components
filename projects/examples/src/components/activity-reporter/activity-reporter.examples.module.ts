@@ -4,7 +4,7 @@
  */
 
 import { NgModule } from '@angular/core';
-import { BannerActivityReporterComponent } from '@vcd/ui-components';
+import { BannerActivityReporterComponent, SpinnerActivityReporterComponent } from '@vcd/ui-components';
 import { Documentation } from '@vmw/ng-live-docs';
 import { BannerActivityReporterExampleComponent } from './banner-activity-reporter.example.component';
 import { BannerActivityReporterExampleModule } from './banner-activity-reporter.example.module';
@@ -13,18 +13,26 @@ import { SpinnerActivityReporterExampleModule } from './spinner-activity-reporte
 
 Documentation.registerDocumentationEntry({
     component: BannerActivityReporterComponent,
-    displayName: 'Activity Reporter',
-    urlSegment: 'activityReporter',
+    displayName: 'Banner Activity Reporter',
+    urlSegment: 'bannerActivityReporter',
+    examples: [
+        {
+            component: BannerActivityReporterExampleComponent,
+            forComponent: null,
+            title: 'Show/Hide the banner activity reporter',
+        },
+    ],
+});
+
+Documentation.registerDocumentationEntry({
+    component: SpinnerActivityReporterComponent,
+    displayName: 'Spinner Activity Reporter',
+    urlSegment: 'spinnerActivityReporter',
     examples: [
         {
             component: SpinnerActivityReporterExampleComponent,
             forComponent: null,
             title: 'Show/Hide the spinner activity reporter',
-        },
-        {
-            component: BannerActivityReporterExampleComponent,
-            forComponent: null,
-            title: 'Show/Hide the banner activity reporter',
         },
     ],
 });
