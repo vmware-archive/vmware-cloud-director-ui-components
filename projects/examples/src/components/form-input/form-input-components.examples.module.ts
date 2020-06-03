@@ -4,9 +4,13 @@
  */
 
 import { NgModule } from '@angular/core';
-import { FormInputComponent, FormSelectComponent, NumberWithUnitFormInputComponent } from '@vcd/ui-components';
+import {
+    FormCheckboxComponent,
+    FormInputComponent,
+    FormSelectComponent,
+    NumberWithUnitFormInputComponent,
+} from '@vcd/ui-components';
 import { Documentation } from '@vmw/ng-live-docs';
-import { FormCheckboxComponent } from '../../../../components/src/form/form-checkbox/form-checkbox.component';
 import { FormCheckboxExampleComponent } from './form-checkbox.example.component';
 import { FormCheckboxExampleModule } from './form-checkbox.example.module';
 import { FormInputExampleComponent } from './form-input.example.component';

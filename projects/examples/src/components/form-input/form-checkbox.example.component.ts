@@ -5,10 +5,7 @@
 
 import { Component, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import {
-    CheckBoxStyling,
-    FormCheckboxComponent,
-} from '../../../../components/src/form/form-checkbox/form-checkbox.component';
+import { CheckBoxStyling, FormCheckboxComponent } from '@vcd/ui-components';
 
 @Component({
     selector: 'vcd-form-checkbox-example-component',

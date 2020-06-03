@@ -5,8 +5,7 @@
 
 import { Component, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { SelectOption } from '../../../../components/src/common/interfaces/select-option';
-import { FormSelectComponent } from '../../../../components/src/form';
+import { FormSelectComponent, SelectOption } from '@vcd/ui-components';
 
 @Component({
     selector: 'vcd-form-select-example-component',
