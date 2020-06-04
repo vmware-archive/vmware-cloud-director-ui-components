@@ -15,9 +15,9 @@ import { TranslationService } from './service/translation-service';
 
 let singletonService: TranslationService = null;
 
-export function genericSingletonFactory(details: { locale: string }): TranslationService {
+export function genericSingletonFactory(locale: string): TranslationService {
     if (singletonService === null) {
-        singletonService = new MessageFormatTranslationService(details.locale, 'en');
+        singletonService = new MessageFormatTranslationService(locale, 'en');
     }
     return singletonService;
 }

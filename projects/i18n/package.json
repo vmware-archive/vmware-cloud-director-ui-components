@@ -1,6 +1,6 @@
 {
   "name": "@vcd/i18n",
-  "version": "0.0.6",
+  "version": "0.0.7",
   "peerDependencies": {
     "@angular/common": ">6.0.0",
     "@angular/core": ">6.0.0"
