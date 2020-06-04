@@ -218,6 +218,41 @@
           }
         }
       }
+    },
+    "route-analyzer": {
+      "projectType": "library",
+      "root": "projects/route-analyzer",
+      "sourceRoot": "projects/route-analyzer/src",
+      "prefix": "vcd",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-ng-packagr:build",
+          "options": {
+            "tsConfig": "projects/route-analyzer/tsconfig.lib.json",
+            "project": "projects/route-analyzer/ng-package.json"
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "projects/route-analyzer/src/test.ts",
+            "tsConfig": "projects/route-analyzer/tsconfig.spec.json",
+            "karmaConfig": "projects/route-analyzer/karma.conf.js"
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "projects/route-analyzer/tsconfig.lib.json",
+              "projects/route-analyzer/tsconfig.spec.json"
+            ],
+            "exclude": [
+              "**/node_modules/**"
+            ]
+          }
+        }
+      }
     }
   },
   "defaultProject": "examples"

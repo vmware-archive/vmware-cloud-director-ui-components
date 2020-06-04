@@ -2,7 +2,7 @@
 
 ## Repo Structure
 
-This [monorepo](https://angular.io/guide/file-structure#multiple-projects) contains three separate but related projects:
+This [monorepo](https://angular.io/guide/file-structure#multiple-projects) contains four separate but related projects:
 
 ### Component Library (./projects/components) `@vcd/ui-components`
 
@@ -20,6 +20,12 @@ The application that showcases `@vcd/ui-components` using `@vmw/ng-live-docs`.
 
 Run `npm start` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if
 you change any of the source files. This is where you'll see changes made in [components](./projects/components)
+
+### Route Analyzer (./projects/route-analyzer) `@vcd/route-analyzer`
+
+Route Analyzer statically analyzes angular source code and generates a json file with all the available routes,
+including the ones from lazy loaded modules. See its [README](projects/route-analyzer/README.md)
+for further details
 
 ## Peer Dependencies
 
