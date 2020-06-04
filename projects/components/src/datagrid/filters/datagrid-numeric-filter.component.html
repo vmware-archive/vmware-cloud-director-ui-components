@@ -1,6 +1,7 @@
 <div [formGroup]="formGroup" class="clr-row">
     <div class="clr-col-6">
         <vcd-number-with-unit-form-input
+            #from
             *ngIf="unit"
             [label]="'vcd.cc.numeric.filter.from' | translate"
             [formControlName]="'from'"
@@ -23,6 +24,7 @@
 
     <div class="clr-col-6">
         <vcd-number-with-unit-form-input
+            #to
             *ngIf="unit"
             [label]="'vcd.cc.numeric.filter.to' | translate"
             [formControlName]="'to'"

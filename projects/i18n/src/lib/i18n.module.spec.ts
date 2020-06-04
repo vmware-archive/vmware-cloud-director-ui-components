@@ -27,7 +27,7 @@ describe('I18nModule', () => {
                 declarations: [TestClassComponent],
             }).compileComponents();
 
-            (TestBed.get(TranslationService) as TranslationService).registerTranslations({
+            (TestBed.inject(TranslationService) as TranslationService).registerTranslations({
                 de: {
                     'vcd.cc.cancel': 'cancel',
                 },
@@ -59,7 +59,7 @@ describe('I18nModule', () => {
                 declarations: [TestClassComponent],
             }).compileComponents();
 
-            const service = TestBed.get(TranslationService) as MessageFormatTranslationService;
+            const service = TestBed.inject(TranslationService) as MessageFormatTranslationService;
             const observable = new BehaviorSubject({ de: { 'vcd.cc.cancel': 'cancel' } });
             spyOn((service as any).translationLoader, 'getCombinedTranslation').and.returnValue(observable);
             service.registerTranslations();

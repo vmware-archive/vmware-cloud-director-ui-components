@@ -67,7 +67,7 @@ const idGenerator = new IdGenerator('vcd-multiselect-filter-id');
 })
 export class DatagridMultiSelectFilterComponent extends DatagridFilter<string[], DatagridMultiSelectFilterConfig>
     implements OnDestroy {
-    constructor(@Host() private filterContainer: ClrDatagridFilter) {
+    constructor(private filterContainer: ClrDatagridFilter) {
         super(filterContainer);
     }
 

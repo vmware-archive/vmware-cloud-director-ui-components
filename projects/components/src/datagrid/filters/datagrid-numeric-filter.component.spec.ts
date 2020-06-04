@@ -133,14 +133,9 @@ describe('Datagrid numeric filter', () => {
             ): void {
                 const [fromValInGb, toValInGb] = [1, 10];
                 const [fromValInMb, toValInMb] = [1024, 10240];
-                const numberWithUnitInputs = this.finder.findWidgets({
-                    woConstructor: NumberWithUnitFormInputWidgetObject,
-                });
-                const numberWithUnitInputFrom = numberWithUnitInputs[0];
-                const numberWithUnitInputTo = numberWithUnitInputs[1];
                 this.filter.setValue([fromValInGb, toValInGb]);
-                numberWithUnitInputFrom.selectUnit(Bytes.GB);
-                numberWithUnitInputTo.selectUnit(Bytes.GB);
+                (this.filter as DatagridNumericFilterComponent).fromInput.selectedUnit = Bytes.GB.getMultiplier();
+                (this.filter as DatagridNumericFilterComponent).toInput.selectedUnit = Bytes.GB.getMultiplier();
                 expect(this.filter.getValue()).toEqual(
                     `(${queryFieldName}=ge=${fromValInMb};${queryFieldName}=le=${toValInMb})`
                 );

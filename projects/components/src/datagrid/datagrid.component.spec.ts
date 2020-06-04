@@ -83,18 +83,14 @@ describe('DatagridComponent', () => {
                 expect(this.clrGridWidget.getColumnHeader(0)).toEqual(this.finder.hostComponent.columns[0].displayName);
             });
 
-            // TODO: uncomment when we upgrade to Clarity 3. Due to a bug in Clarity, there
-            // is some debug pollution in the datagrid columns.
-            /*it('displays the correct headers even when columns are reloaded', function(this: HasFinderAndGrid): void {
-                this.finder.hostComponent.columns = [
-                    { displayName: 'One More', renderer: 'name' },
-                ];
+            it('displays the correct headers even when columns are reloaded', function(this: HasFinderAndGrid): void {
+                this.finder.hostComponent.columns = [{ displayName: 'One More', renderer: 'name' }];
                 this.finder.detectChanges();
                 expect(this.clrGridWidget.columnHeaders).toEqual(
                     this.finder.hostComponent.columns.map(col => col.displayName)
                 );
                 expect(this.clrGridWidget.getColumnHeader(0)).toEqual(this.finder.hostComponent.columns[0].displayName);
-            });*/
+            });
 
             it('displays rows based on the grid data received', function(this: HasFinderAndGrid): void {
                 expect(this.clrGridWidget.rowCount).toBe(mockData.length);
@@ -107,7 +103,7 @@ describe('DatagridComponent', () => {
             });
 
             it('sets no default CSS classnames for the rows', function(this: HasFinderAndGrid): void {
-                expect(this.clrGridWidget.getRowsCssClass(0)).toEqual(['datagrid-row', 'datagrid-selected']);
+                expect(this.clrGridWidget.getRowsCssClass(0)).toEqual(['datagrid-row', 'ng-star-inserted']);
             });
 
             it('sets CSS classnames on rows', function(this: HasFinderAndGrid): void {
@@ -267,7 +263,7 @@ describe('DatagridComponent', () => {
                             pageSizeOptions: [10],
                         };
                         this.finder.detectChanges();
-                        expect(this.clrGridWidget.getPaginationDescription()).toEqual('1 - 51 of 150 items');
+                        expect(this.clrGridWidget.getPaginationDescription()).toEqual('1 - 52 of 150 items');
                     });
 
                     it('shows a minimum of 15 rows', function(this: HasFinderAndGrid): void {
@@ -301,7 +297,7 @@ describe('DatagridComponent', () => {
                             pageSizeOptions: [10],
                         };
                         this.finder.detectChanges();
-                        expect(this.clrGridWidget.getPaginationDescription()).toEqual('1 - 24 of 150 items');
+                        expect(this.clrGridWidget.getPaginationDescription()).toEqual('1 - 25 of 150 items');
                     });
 
                     it('lets the user set rows per page', function(this: HasFinderAndGrid): void {
@@ -315,11 +311,6 @@ describe('DatagridComponent', () => {
 
                     it('creates a smaller page when buttons are present', function(this: HasFinderAndGrid): void {
                         this.finder.hostComponent.parentHeight = '2000px';
-                        this.finder.detectChanges();
-                        this.finder.hostComponent.pagination = {
-                            pageSize: 'Magic',
-                            pageSizeOptions: [10],
-                        };
                         this.finder.hostComponent.buttonConfig = {
                             globalButtons: [
                                 {
@@ -337,7 +328,24 @@ describe('DatagridComponent', () => {
                             },
                         };
                         this.finder.detectChanges();
-                        expect(this.clrGridWidget.getPaginationDescription()).toEqual('1 - 50 of 150 items');
+                        this.finder.hostComponent.pagination = {
+                            pageSize: 'Magic',
+                            pageSizeOptions: [10],
+                        };
+                        this.finder.detectChanges();
+                        expect(this.clrGridWidget.getPaginationDescription()).toEqual('1 - 51 of 150 items');
+                    });
+
+                    it('creates a smaller page size when a header is present', function(this: HasFinderAndGrid): void {
+                        this.finder.hostComponent.parentHeight = '1990px';
+                        this.finder.hostComponent.header = 'Some Header';
+                        this.finder.detectChanges();
+                        this.finder.hostComponent.pagination = {
+                            pageSize: 'Magic',
+                            pageSizeOptions: [10],
+                        };
+                        this.finder.detectChanges();
+                        expect(this.clrGridWidget.getPaginationDescription()).toEqual('1 - 51 of 150 items');
                     });
                 });
 
@@ -1082,7 +1090,7 @@ export class HostWithDatagridComponent {
         totalItems: 150,
     };
 
-    @ViewChild(DatagridComponent, { static: false }) grid!: MockRecordDatagridComponent;
+    @ViewChild(DatagridComponent) grid!: MockRecordDatagridComponent;
 
     /** Will be set in tests */
     columns: GridColumn<MockRecord>[] = [];

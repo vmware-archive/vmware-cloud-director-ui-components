@@ -4,7 +4,7 @@
  */
 
 import { HttpClient } from '@angular/common/http';
-import { LOCALE_ID, ModuleWithProviders, Optional } from '@angular/core';
+import { Injectable, LOCALE_ID, ModuleWithProviders, Optional } from '@angular/core';
 import { Inject, InjectionToken, NgModule } from '@angular/core';
 import { TranslationLoader } from './loader/translation-loader';
 import { FormatDateTimePipe } from './pipe/format-date-time-pipe';
@@ -25,6 +25,7 @@ export function genericSingletonFactory(locale: string): TranslationService {
 /**
  * An implementation of {@link TranslationService} that can inject all of its dependencies.
  */
+@Injectable()
 export class InjectedTranslationService extends MessageFormatTranslationService {
     constructor(@Inject(LOCALE_ID) locale: string, @Inject(TranslationLoader) @Optional() loader: TranslationLoader) {
         super(locale, 'en', loader, false);
@@ -34,6 +35,7 @@ export class InjectedTranslationService extends MessageFormatTranslationService 
  * An implementation of {@link TranslationService} that can inject all of its dependencies
  * and has combined set to true.
  */
+@Injectable()
 export class CombinedInjectedTranslationService extends MessageFormatTranslationService {
     constructor(@Inject(LOCALE_ID) locale: string, @Inject(TranslationLoader) @Optional() loader: TranslationLoader) {
         super(locale, 'en', loader, true);
@@ -53,7 +55,7 @@ export class I18nModule {
     /**
      * Creates a {@link I18nModule} using the global translation service.
      */
-    static forRoot(): ModuleWithProviders {
+    static forRoot(): ModuleWithProviders<I18nModule> {
         return {
             ngModule: I18nModule,
             providers: [
@@ -71,7 +73,10 @@ export class I18nModule {
      * @param extensionRoute the route translations are located at.
      * @param combined if the translations are in one file or many different files.
      */
-    static forChild(extensionRoute?: string | InjectionToken<string>, combined?: boolean): ModuleWithProviders {
+    static forChild(
+        extensionRoute?: string | InjectionToken<string>,
+        combined?: boolean
+    ): ModuleWithProviders<I18nModule> {
         return {
             ngModule: I18nModule,
             providers: !extensionRoute

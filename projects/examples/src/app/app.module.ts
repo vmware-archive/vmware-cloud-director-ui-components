@@ -45,8 +45,8 @@ export function moduleFinder(componentName: string): string {
  * the doc jsons are given as null to the NgLiveDocsModule.
  * NOTE: The following two has to be exported otherwise the AoT compiler won't see it.
  */
-export const docJson1: CompodocSchema = componentsDocumentationJson;
-export const docJson2: CompodocSchema = examplesDocumentationJson;
+export const docJson1: CompodocSchema = (componentsDocumentationJson as unknown) as CompodocSchema;
+export const docJson2: CompodocSchema = (examplesDocumentationJson as unknown) as CompodocSchema;
 export const sbInfo: StackBlitzInfo = {
     templateId: 'vcd-ui-cc-starter-template',
     projectName: 'VMware Cloud Director UI Components',

@@ -3,9 +3,10 @@
  * SPDX-License-Identifier: BSD-2-Clause
  */
 
-import { Component, Host, Input, OnDestroy, OnInit } from '@angular/core';
+import { Component, Host, Input, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { ClrDatagridFilter } from '@clr/angular';
+import { NumberWithUnitFormInputComponent } from '../../form';
 import { FilterBuilder } from '../../utils/filter-builder';
 import { Unit } from '../../utils/unit/unit';
 import { DatagridFilter, FilterComponentRendererSpec, FilterConfig, FilterRendererSpec } from './datagrid-filter';
@@ -37,6 +38,9 @@ export class DatagridNumericFilterComponent
     extends DatagridFilter<DatagridNumericFilterValue, DatagridNumericFilterConfig>
     implements OnInit, OnDestroy {
     maxNumberLength = Number.MAX_SAFE_INTEGER.toString().length;
+
+    @ViewChild('from') fromInput: NumberWithUnitFormInputComponent;
+    @ViewChild('to') toInput: NumberWithUnitFormInputComponent;
 
     /**
      * Options for the select input of units
@@ -73,7 +77,7 @@ export class DatagridNumericFilterComponent
         });
     }
 
-    constructor(@Host() private filterContainer: ClrDatagridFilter) {
+    constructor(private filterContainer: ClrDatagridFilter) {
         super(filterContainer);
     }
 

@@ -16,7 +16,7 @@ import { VcdErrorBannerModule } from './error-banner.module';
 })
 class TestErrorComponent {
     message: string;
-    @ViewChild('banner', { static: false }) errorBanner: ErrorBannerComponent;
+    @ViewChild('banner') errorBanner: ErrorBannerComponent;
 }
 
 interface HasFinderAndError {

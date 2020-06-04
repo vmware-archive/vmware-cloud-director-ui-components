@@ -1,8 +1,9 @@
 {
     "name": "@vcd/ui-components",
-    "version": "0.0.19",
+    "version": "0.0.20",
     "peerDependencies": {
-        "@angular/common": "^8.2.14",
-        "@angular/core": "^8.2.14"
+        "@angular/common": ">6.0.0",
+        "@angular/core": ">6.0.0",
+        "@vcd/i18n": "0.0.8"
     }
 }
