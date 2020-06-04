@@ -6,6 +6,7 @@
 import { GridSelectionType } from './../../../datagrid/datagrid.component';
 
 import { DebugElement, Type } from '@angular/core';
+import { By } from '@angular/platform-browser';
 import { ClrDatagrid } from '@clr/angular';
 import { DatagridFilter } from '../../../datagrid/filters/datagrid-filter';
 import { ShowClippedTextDirective } from '../../../lib/directives/show-clipped-text.directive';
@@ -307,6 +308,6 @@ export class ClrDatagridWidgetObject extends WidgetObject<ClrDatagrid> {
      */
     getFilter<V, C>(ctor: Type<DatagridFilter<V, C>>): DatagridFilter<V, C> {
         this.openFilter();
-        return this.findElement(ctor).componentInstance;
+        return this.root.parent.parent.parent.query(By.directive(ctor)).componentInstance;
     }
 }

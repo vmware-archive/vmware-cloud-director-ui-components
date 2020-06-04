@@ -19,6 +19,7 @@
     "strictInjectionParameters": true,
     "enableResourceInlining": true,
     "emitDecoratorMetadata": true,
+    "enableIvy": false
   },
   "exclude": [
     "src/test.ts",

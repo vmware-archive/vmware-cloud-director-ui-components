@@ -17,7 +17,7 @@ import { VcdLoadingIndicatorModule } from './loading-indicator.module';
 class TestErrorComponent {
     loadingVal = false;
     size = 'md';
-    @ViewChild('loading', { static: false }) loadingIndicator: LoadingIndicatorComponent;
+    @ViewChild('loading') loadingIndicator: LoadingIndicatorComponent;
 }
 
 interface HasFinderAndLoading {

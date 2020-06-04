@@ -69,11 +69,11 @@ export interface DataExportRequestEvent {
 export class DataExporterComponent implements OnInit, OnDestroy {
     constructor(private csvExporterService: CsvExporterService, private translationService: TranslationService) {}
 
-    @ViewChild(ClrDropdown, { static: false }) set columnDropdown(columnDropdown: ClrDropdown) {
+    @ViewChild(ClrDropdown) set columnDropdown(columnDropdown: ClrDropdown) {
         if (!columnDropdown) {
             return;
         }
-        this.subscriptionTracker.subscribe(columnDropdown.ifOpenService.openChange, opened => {
+        this.subscriptionTracker.subscribe(columnDropdown.toggleService.openChange, opened => {
             this.isDropdownOpen = opened;
         });
     }

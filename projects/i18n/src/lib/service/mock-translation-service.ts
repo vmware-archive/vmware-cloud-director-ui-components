@@ -3,9 +3,11 @@
  * SPDX-License-Identifier: BSD-2-Clause
  */
 
+import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { TranslationService, TranslationSet } from './translation-service';
 
+@Injectable()
 class MockTranslationService extends TranslationService {
     preferredLocale: string;
 

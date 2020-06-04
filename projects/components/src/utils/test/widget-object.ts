@@ -6,7 +6,6 @@
 import { DebugElement, Type } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { FindableWidget } from './widget-object';
 
 /**
  * An implementation of the page object pattern, but applied to widgets, since they can be reused on multiple pages.
@@ -161,7 +160,10 @@ export class WidgetFinder<H = unknown> {
      * Finds widgets within a fixture
      * @return A Potentially empty list of widgets matching the given specs
      */
-    public findWidgets<C, T extends FindableWidget<C>>(params: FindParams<T> | T): InstanceType<T>[] {
+    public findWidgets<C, T extends FindableWidget<C>>(
+        params: FindParams<T> | T,
+        parent?: DebugElement
+    ): InstanceType<T>[] {
         const defaults = { ancestor: this.fixture.debugElement, className: '' };
         const { woConstructor, ancestor, className } = isFindParamsObject(params)
             ? { ...defaults, ...params }
@@ -171,7 +173,7 @@ export class WidgetFinder<H = unknown> {
         if (className) {
             query += `.${className}`;
         }
-        const componentRoots = ancestor.queryAll(By.css(query));
+        const componentRoots = (parent ? parent : ancestor).queryAll(By.css(query));
         const widgets = componentRoots.map(
             // Typescript is not able to infer it correctly as the subclass but we know for sure
             root => new woConstructor(this.fixture, root, root.componentInstance) as InstanceType<T>

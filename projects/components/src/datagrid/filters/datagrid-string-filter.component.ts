@@ -35,7 +35,7 @@ export class DatagridStringFilterComponent extends DatagridFilter<string, Datagr
         });
     }
 
-    constructor(@Host() private filterContainer: ClrDatagridFilter) {
+    constructor(private filterContainer: ClrDatagridFilter) {
         super(filterContainer);
     }
 

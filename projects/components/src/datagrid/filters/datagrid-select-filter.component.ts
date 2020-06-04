@@ -66,7 +66,7 @@ export class DatagridSelectFilterComponent extends DatagridFilter<string | numbe
         });
     }
 
-    constructor(@Host() private filterContainer: ClrDatagridFilter, private fb: FormBuilder) {
+    constructor(private filterContainer: ClrDatagridFilter, private fb: FormBuilder) {
         super(filterContainer);
         this.formGroup = this.fb.group({
             filterSelect: '',

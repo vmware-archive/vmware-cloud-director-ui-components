@@ -92,7 +92,7 @@ describe('VcdExportTableComponent', () => {
         it('customizes the file to be downloaded', function(this: TestHostFinder, done): void {
             const exporter = this.finder.find(DataExporterWidgetObject);
             exporter.component.fileName = 'my-export.csv';
-            const downloadService = TestBed.get(CsvExporterService) as CsvExporterService;
+            const downloadService = TestBed.inject(CsvExporterService) as CsvExporterService;
             const spy = spyOn(downloadService, 'downloadCsvFile');
             spyOn(this.finder.hostComponent, 'onExportRequest').and.callFake(async (e: DataExportRequestEvent) => {
                 await e.exportData(TestData.exportData);
@@ -107,7 +107,7 @@ describe('VcdExportTableComponent', () => {
         describe('updateProgress', () => {
             it('displays a looping progress bar when set to -1', function(this: TestHostFinder): void {
                 const exporter = this.finder.find(DataExporterWidgetObject);
-                const downloadService = TestBed.get(CsvExporterService) as CsvExporterService;
+                const downloadService = TestBed.inject(CsvExporterService) as CsvExporterService;
                 spyOn(downloadService, 'downloadCsvFile');
 
                 spyOn(this.finder.hostComponent, 'onExportRequest').and.callFake((e: DataExportRequestEvent) => {
@@ -120,7 +120,7 @@ describe('VcdExportTableComponent', () => {
 
             it('updates the progress bar when passed values', function(this: TestHostFinder): void {
                 const exporter = this.finder.find(DataExporterWidgetObject);
-                const downloadService = TestBed.get(CsvExporterService) as CsvExporterService;
+                const downloadService = TestBed.inject(CsvExporterService) as CsvExporterService;
                 spyOn(downloadService, 'downloadCsvFile');
                 spyOn(this.finder.hostComponent, 'onExportRequest').and.callFake((e: DataExportRequestEvent) => {
                     e.updateProgress(0);
@@ -135,7 +135,7 @@ describe('VcdExportTableComponent', () => {
         describe('exportData', () => {
             it('dismisses the dialog and calls the service to create a client side download', function(this: TestHostFinder, done): void {
                 const exporter = this.finder.find(DataExporterWidgetObject);
-                const downloadService = TestBed.get(CsvExporterService) as CsvExporterService;
+                const downloadService = TestBed.inject(CsvExporterService) as CsvExporterService;
                 spyOn(downloadService, 'downloadCsvFile');
                 spyOn(this.finder.hostComponent, 'onExportRequest').and.callFake(async (e: DataExportRequestEvent) => {
                     await e.exportData(TestData.exportData);
@@ -159,7 +159,7 @@ describe('VcdExportTableComponent', () => {
 
             it('does not download a file if the dialog has been closed', function(this: TestHostFinder, done): void {
                 const exporter = this.finder.find(DataExporterWidgetObject);
-                const downloadService = TestBed.get(CsvExporterService) as CsvExporterService;
+                const downloadService = TestBed.inject(CsvExporterService) as CsvExporterService;
                 spyOn(downloadService, 'downloadCsvFile');
                 spyOn(this.finder.hostComponent, 'onExportRequest').and.callFake(async (e: DataExportRequestEvent) => {
                     exporter.clickCancel();
@@ -175,7 +175,7 @@ describe('VcdExportTableComponent', () => {
 
             it('uses field name if there is no matching displayName for a field', function(this: TestHostFinder, done): void {
                 const exporter = this.finder.find(DataExporterWidgetObject);
-                const downloadService = TestBed.get(CsvExporterService) as CsvExporterService;
+                const downloadService = TestBed.inject(CsvExporterService) as CsvExporterService;
                 spyOn(downloadService, 'downloadCsvFile');
                 spyOn(this.finder.hostComponent, 'onExportRequest').and.callFake(async (e: DataExportRequestEvent) => {
                     await e.exportData(TestData.exportDataWrongField);
@@ -192,7 +192,7 @@ describe('VcdExportTableComponent', () => {
 
             it('allows the user to not sanitize injection', function(this: TestHostFinder, done): void {
                 const exporter = this.finder.find(DataExporterWidgetObject);
-                const downloadService = TestBed.get(CsvExporterService) as CsvExporterService;
+                const downloadService = TestBed.inject(CsvExporterService) as CsvExporterService;
                 spyOn(downloadService, 'downloadCsvFile');
                 spyOn(this.finder.hostComponent, 'onExportRequest').and.callFake(async (e: DataExportRequestEvent) => {
                     await e.exportData(InjectionData.exportData);
@@ -214,7 +214,7 @@ describe('VcdExportTableComponent', () => {
 
             it('allows the user to export raw column names', function(this: TestHostFinder, done): void {
                 const exporter = this.finder.find(DataExporterWidgetObject);
-                const downloadService = TestBed.get(CsvExporterService) as CsvExporterService;
+                const downloadService = TestBed.inject(CsvExporterService) as CsvExporterService;
                 spyOn(downloadService, 'downloadCsvFile');
                 spyOn(this.finder.hostComponent, 'onExportRequest').and.callFake(async (e: DataExportRequestEvent) => {
                     await e.exportData(TestData.exportData);

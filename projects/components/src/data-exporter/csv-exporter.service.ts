@@ -87,9 +87,6 @@ function encodeValue(cellValue: unknown, shouldSanitize: boolean): string {
     // Double quotes are doubled
     let result = innerValue.replace(/"/g, '""');
 
-    // TODO: See https://jira.eng.vmware.com/browse/VDUCC-59
-    // result = escapeAgainstCsvInjection(result);
-
     // Add quotes around the whole thing if it contains new lines
     if (result.search(/[",\n]/g) >= 0) {
         result = `"${result}"`;
