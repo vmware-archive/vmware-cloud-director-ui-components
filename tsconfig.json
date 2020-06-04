@@ -24,6 +24,12 @@
       ],
       "@vcd/i18n": [
         "dist/i18n"
+      ],
+      "route-analyzer": [
+        "dist/route-analyzer"
+      ],
+      "route-analyzer/*": [
+        "dist/route-analyzer/*"
       ]
     },
     "resolveJsonModule": true,
