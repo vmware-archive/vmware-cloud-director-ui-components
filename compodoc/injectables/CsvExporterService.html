@@ -470,9 +470,6 @@ function encodeValue(cellValue: unknown, shouldSanitize: boolean): string {
     // Double quotes are doubled
     let result &#x3D; innerValue.replace(/&quot;/g, &#x27;&quot;&quot;&#x27;);
 
-    // TODO: See https://jira.eng.vmware.com/browse/VDUCC-59
-    // result &#x3D; escapeAgainstCsvInjection(result);
-
     // Add quotes around the whole thing if it contains new lines
     if (result.search(/[&quot;,\n]/g) &gt;&#x3D; 0) {
         result &#x3D; &#x60;&quot;${result}&quot;&#x60;;

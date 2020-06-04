@@ -494,10 +494,6 @@ export interface DetailRowConfig&lt;R&gt; {
 /**
  * The current state of various features of the grid like filtering, sorting, pagination. This object is emitted as
  * part of the event {@link DatagridComponent.gridRefresh}. The handler then used this object to construct a query.
- * TODO: This interface is going to defined as part of working on the following tasks:
- *  https://jira.eng.vmware.com/browse/VDUCC-14
- *  https://jira.eng.vmware.com/browse/VDUCC-15
- *  https://jira.eng.vmware.com/browse/VDUCC-20
  */
 export interface GridState&lt;R&gt; {
     /**
@@ -816,17 +812,15 @@ export class DatagridComponent&lt;R&gt; implements OnInit, AfterViewInit {
     @Output()
     gridRefresh: EventEmitter&lt;GridState&lt;R&gt;&gt; &#x3D; new EventEmitter&lt;GridState&lt;R&gt;&gt;();
 
-    @ViewChild(ClrDatagridFilter, { static: false }) numericFilter: ClrDatagridFilter;
-
     @ViewChild(ClrDatagrid, { static: true }) datagrid: ClrDatagrid;
     /**
      * The pagination display within the datagrid.
      */
-    @ViewChild(ClrDatagridPagination, { static: false }) paginationComponent: ClrDatagridPagination;
+    @ViewChild(ClrDatagridPagination) paginationComponent: ClrDatagridPagination;
     /**
      * The activity reporter that all activites are displayed on
      */
-    @ViewChild(&#x27;actionReporter&#x27;, { static: false }) actionReporter: ActivityReporter;
+    @ViewChild(&#x27;actionReporter&#x27;) actionReporter: ActivityReporter;
 
     private viewInitted &#x3D; false;
 
@@ -1154,15 +1148,15 @@ export class DatagridComponent&lt;R&gt; implements OnInit, AfterViewInit {
         const grid &#x3D; this.node.nativeElement;
         const gridHeight &#x3D; grid.parentNode.clientHeight;
 
-        const headerHeight &#x3D; grid.querySelector(&#x27;.datagrid-header&#x27;).clientHeight;
-        const footerHeight &#x3D; grid.querySelector(&#x27;clr-dg-footer&#x27;).clientHeight;
+        const headerHeight &#x3D; grid.querySelector(&#x27;.datagrid-header&#x27;).offsetHeight;
+        const footerHeight &#x3D; grid.querySelector(&#x27;clr-dg-footer&#x27;).offsetHeight;
         const rowHeight &#x3D; this.pagination.rowHeight || ROW_HEIGHT;
 
         // Substracting the height of the header, actionbar and footer
         let availableHeight &#x3D; (this.height || gridHeight) - headerHeight - footerHeight;
         if (!this.height) {
             const header &#x3D; grid.querySelector(&#x27;.vcd-header&#x27;);
-            availableHeight -&#x3D; header ? header.clientHeight : 0;
+            availableHeight -&#x3D; header ? header.offsetHeight : 0;
         }
         if (this.shouldShowActionBar()) {
             availableHeight -&#x3D; ROW_HEIGHT;

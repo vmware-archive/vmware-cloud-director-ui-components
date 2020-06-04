@@ -142,7 +142,7 @@ H is the host component&#39;s type</p>
                 </tr>
                         <tr>
                             <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="150" class="link-to-prism">projects/components/src/utils/test/widget-object.ts:150</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="149" class="link-to-prism">projects/components/src/utils/test/widget-object.ts:149</a></div>
                             </td>
                         </tr>
 
@@ -211,7 +211,7 @@ H is the host component&#39;s type</p>
                     </tr>
                         <tr>
                             <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="145" class="link-to-prism">projects/components/src/utils/test/widget-object.ts:145</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="144" class="link-to-prism">projects/components/src/utils/test/widget-object.ts:144</a></div>
                             </td>
                         </tr>
 
@@ -245,7 +245,7 @@ H is the host component&#39;s type</p>
                     </tr>
                         <tr>
                             <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="150" class="link-to-prism">projects/components/src/utils/test/widget-object.ts:150</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="149" class="link-to-prism">projects/components/src/utils/test/widget-object.ts:149</a></div>
                             </td>
                         </tr>
 
@@ -289,8 +289,8 @@ H is the host component&#39;s type</p>
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="198"
-                            class="link-to-prism">projects/components/src/utils/test/widget-object.ts:198</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="200"
+                            class="link-to-prism">projects/components/src/utils/test/widget-object.ts:200</a></div>
                 </td>
             </tr>
 
@@ -330,8 +330,8 @@ H is the host component&#39;s type</p>
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="186"
-                            class="link-to-prism">projects/components/src/utils/test/widget-object.ts:186</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="188"
+                            class="link-to-prism">projects/components/src/utils/test/widget-object.ts:188</a></div>
                 </td>
             </tr>
 
@@ -406,15 +406,15 @@ H is the host component&#39;s type</p>
             <tr>
                 <td class="col-md-4">
                     <span class="modifier-icon icon ion-ios-reset"></span>
-                    <code>findWidgets(params: <a href="../interfaces/FindParams.html">FindParams<T> | T</a>)</code>
+                    <code>findWidgets(params: <a href="../interfaces/FindParams.html">FindParams<T> | T</a>, parent?: <a href="https://angular.io/api/core/DebugElement" target="_blank">DebugElement</a>)</code>
                 </td>
             </tr>
 
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="164"
-                            class="link-to-prism">projects/components/src/utils/test/widget-object.ts:164</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="163"
+                            class="link-to-prism">projects/components/src/utils/test/widget-object.ts:163</a></div>
                 </td>
             </tr>
 
@@ -456,6 +456,18 @@ H is the host component&#39;s type</p>
 
 
                                 </tr>
+                                <tr>
+                                    <td>parent</td>
+                                    <td>
+                                                <code><a href="https://angular.io/api/core/DebugElement" target="_blank" >DebugElement</a></code>
+                                    </td>
+
+                                    <td>
+                                        Yes
+                                    </td>
+
+
+                                </tr>
                             </tbody>
                         </table>
                     </div>
@@ -486,7 +498,6 @@ H is the host component&#39;s type</p>
         <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { DebugElement, Type } from &#x27;@angular/core&#x27;;
 import { ComponentFixture, TestBed } from &#x27;@angular/core/testing&#x27;;
 import { By } from &#x27;@angular/platform-browser&#x27;;
-import { FindableWidget } from &#x27;./widget-object&#x27;;
 
 /**
  * An implementation of the page object pattern, but applied to widgets, since they can be reused on multiple pages.
@@ -641,7 +652,10 @@ export class WidgetFinder&lt;H &#x3D; unknown&gt; {
      * Finds widgets within a fixture
      * @return A Potentially empty list of widgets matching the given specs
      */
-    public findWidgets&lt;C, T extends FindableWidget&lt;C&gt;&gt;(params: FindParams&lt;T&gt; | T): InstanceType&lt;T&gt;[] {
+    public findWidgets&lt;C, T extends FindableWidget&lt;C&gt;&gt;(
+        params: FindParams&lt;T&gt; | T,
+        parent?: DebugElement
+    ): InstanceType&lt;T&gt;[] {
         const defaults &#x3D; { ancestor: this.fixture.debugElement, className: &#x27;&#x27; };
         const { woConstructor, ancestor, className } &#x3D; isFindParamsObject(params)
             ? { ...defaults, ...params }
@@ -651,7 +665,7 @@ export class WidgetFinder&lt;H &#x3D; unknown&gt; {
         if (className) {
             query +&#x3D; &#x60;.${className}&#x60;;
         }
-        const componentRoots &#x3D; ancestor.queryAll(By.css(query));
+        const componentRoots &#x3D; (parent ? parent : ancestor).queryAll(By.css(query));
         const widgets &#x3D; componentRoots.map(
             // Typescript is not able to infer it correctly as the subclass but we know for sure
             root &#x3D;&gt; new woConstructor(this.fixture, root, root.componentInstance) as InstanceType&lt;T&gt;

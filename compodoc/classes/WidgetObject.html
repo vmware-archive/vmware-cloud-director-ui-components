@@ -165,7 +165,7 @@ assert code on its own.</li>
                 </tr>
                         <tr>
                             <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="28" class="link-to-prism">projects/components/src/utils/test/widget-object.ts:28</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="27" class="link-to-prism">projects/components/src/utils/test/widget-object.ts:27</a></div>
                             </td>
                         </tr>
 
@@ -275,7 +275,7 @@ component but there are times when we must check the DOM.</p>
                     </tr>
                         <tr>
                             <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="43" class="link-to-prism">projects/components/src/utils/test/widget-object.ts:43</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="42" class="link-to-prism">projects/components/src/utils/test/widget-object.ts:42</a></div>
                             </td>
                         </tr>
 
@@ -318,8 +318,8 @@ component but there are times when we must check the DOM.</p>
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="74"
-                            class="link-to-prism">projects/components/src/utils/test/widget-object.ts:74</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="73"
+                            class="link-to-prism">projects/components/src/utils/test/widget-object.ts:73</a></div>
                 </td>
             </tr>
 
@@ -418,8 +418,8 @@ receive the click event</p>
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="46"
-                            class="link-to-prism">projects/components/src/utils/test/widget-object.ts:46</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="45"
+                            class="link-to-prism">projects/components/src/utils/test/widget-object.ts:45</a></div>
                 </td>
             </tr>
 
@@ -459,8 +459,8 @@ receive the click event</p>
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="55"
-                            class="link-to-prism">projects/components/src/utils/test/widget-object.ts:55</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="54"
+                            class="link-to-prism">projects/components/src/utils/test/widget-object.ts:54</a></div>
                 </td>
             </tr>
 
@@ -560,8 +560,8 @@ receive the click event</p>
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="63"
-                            class="link-to-prism">projects/components/src/utils/test/widget-object.ts:63</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="62"
+                            class="link-to-prism">projects/components/src/utils/test/widget-object.ts:62</a></div>
                 </td>
             </tr>
 
@@ -652,8 +652,8 @@ receive the click event</p>
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="99"
-                            class="link-to-prism">projects/components/src/utils/test/widget-object.ts:99</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="98"
+                            class="link-to-prism">projects/components/src/utils/test/widget-object.ts:98</a></div>
                 </td>
             </tr>
 
@@ -724,8 +724,8 @@ receive the click event</p>
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="87"
-                            class="link-to-prism">projects/components/src/utils/test/widget-object.ts:87</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="86"
+                            class="link-to-prism">projects/components/src/utils/test/widget-object.ts:86</a></div>
                 </td>
             </tr>
 
@@ -826,8 +826,8 @@ If the element cannot be found, gives empty string.</p>
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="95"
-                            class="link-to-prism">projects/components/src/utils/test/widget-object.ts:95</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="94"
+                            class="link-to-prism">projects/components/src/utils/test/widget-object.ts:94</a></div>
                 </td>
             </tr>
 
@@ -889,7 +889,6 @@ If the element cannot be found, gives empty string.</p>
         <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { DebugElement, Type } from &#x27;@angular/core&#x27;;
 import { ComponentFixture, TestBed } from &#x27;@angular/core/testing&#x27;;
 import { By } from &#x27;@angular/platform-browser&#x27;;
-import { FindableWidget } from &#x27;./widget-object&#x27;;
 
 /**
  * An implementation of the page object pattern, but applied to widgets, since they can be reused on multiple pages.
@@ -1044,7 +1043,10 @@ export class WidgetFinder&lt;H &#x3D; unknown&gt; {
      * Finds widgets within a fixture
      * @return A Potentially empty list of widgets matching the given specs
      */
-    public findWidgets&lt;C, T extends FindableWidget&lt;C&gt;&gt;(params: FindParams&lt;T&gt; | T): InstanceType&lt;T&gt;[] {
+    public findWidgets&lt;C, T extends FindableWidget&lt;C&gt;&gt;(
+        params: FindParams&lt;T&gt; | T,
+        parent?: DebugElement
+    ): InstanceType&lt;T&gt;[] {
         const defaults &#x3D; { ancestor: this.fixture.debugElement, className: &#x27;&#x27; };
         const { woConstructor, ancestor, className } &#x3D; isFindParamsObject(params)
             ? { ...defaults, ...params }
@@ -1054,7 +1056,7 @@ export class WidgetFinder&lt;H &#x3D; unknown&gt; {
         if (className) {
             query +&#x3D; &#x60;.${className}&#x60;;
         }
-        const componentRoots &#x3D; ancestor.queryAll(By.css(query));
+        const componentRoots &#x3D; (parent ? parent : ancestor).queryAll(By.css(query));
         const widgets &#x3D; componentRoots.map(
             // Typescript is not able to infer it correctly as the subclass but we know for sure
             root &#x3D;&gt; new woConstructor(this.fixture, root, root.componentInstance) as InstanceType&lt;T&gt;

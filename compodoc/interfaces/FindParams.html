@@ -231,7 +231,6 @@ fixture tree</p>
         <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { DebugElement, Type } from &#x27;@angular/core&#x27;;
 import { ComponentFixture, TestBed } from &#x27;@angular/core/testing&#x27;;
 import { By } from &#x27;@angular/platform-browser&#x27;;
-import { FindableWidget } from &#x27;./widget-object&#x27;;
 
 /**
  * An implementation of the page object pattern, but applied to widgets, since they can be reused on multiple pages.
@@ -386,7 +385,10 @@ export class WidgetFinder&lt;H &#x3D; unknown&gt; {
      * Finds widgets within a fixture
      * @return A Potentially empty list of widgets matching the given specs
      */
-    public findWidgets&lt;C, T extends FindableWidget&lt;C&gt;&gt;(params: FindParams&lt;T&gt; | T): InstanceType&lt;T&gt;[] {
+    public findWidgets&lt;C, T extends FindableWidget&lt;C&gt;&gt;(
+        params: FindParams&lt;T&gt; | T,
+        parent?: DebugElement
+    ): InstanceType&lt;T&gt;[] {
         const defaults &#x3D; { ancestor: this.fixture.debugElement, className: &#x27;&#x27; };
         const { woConstructor, ancestor, className } &#x3D; isFindParamsObject(params)
             ? { ...defaults, ...params }
@@ -396,7 +398,7 @@ export class WidgetFinder&lt;H &#x3D; unknown&gt; {
         if (className) {
             query +&#x3D; &#x60;.${className}&#x60;;
         }
-        const componentRoots &#x3D; ancestor.queryAll(By.css(query));
+        const componentRoots &#x3D; (parent ? parent : ancestor).queryAll(By.css(query));
         const widgets &#x3D; componentRoots.map(
             // Typescript is not able to infer it correctly as the subclass but we know for sure
             root &#x3D;&gt; new woConstructor(this.fixture, root, root.componentInstance) as InstanceType&lt;T&gt;

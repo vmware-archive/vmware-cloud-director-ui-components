@@ -183,9 +183,10 @@
 
 
     <div class="tab-pane fade  tab-source-code" id="c-source">
-        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Component, Host, Input, OnDestroy, OnInit } from &#x27;@angular/core&#x27;;
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Component, Host, Input, OnDestroy, OnInit, ViewChild } from &#x27;@angular/core&#x27;;
 import { FormBuilder, FormControl, FormGroup } from &#x27;@angular/forms&#x27;;
 import { ClrDatagridFilter } from &#x27;@clr/angular&#x27;;
+import { NumberWithUnitFormInputComponent } from &#x27;../../form&#x27;;
 import { FilterBuilder } from &#x27;../../utils/filter-builder&#x27;;
 import { Unit } from &#x27;../../utils/unit/unit&#x27;;
 import { DatagridFilter, FilterComponentRendererSpec, FilterConfig, FilterRendererSpec } from &#x27;./datagrid-filter&#x27;;
@@ -217,6 +218,9 @@ export class DatagridNumericFilterComponent
     extends DatagridFilter&lt;DatagridNumericFilterValue, DatagridNumericFilterConfig&gt;
     implements OnInit, OnDestroy {
     maxNumberLength &#x3D; Number.MAX_SAFE_INTEGER.toString().length;
+
+    @ViewChild(&#x27;from&#x27;) fromInput: NumberWithUnitFormInputComponent;
+    @ViewChild(&#x27;to&#x27;) toInput: NumberWithUnitFormInputComponent;
 
     /**
      * Options for the select input of units
@@ -253,7 +257,7 @@ export class DatagridNumericFilterComponent
         });
     }
 
-    constructor(@Host() private filterContainer: ClrDatagridFilter) {
+    constructor(private filterContainer: ClrDatagridFilter) {
         super(filterContainer);
     }
 

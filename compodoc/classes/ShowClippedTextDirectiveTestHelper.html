@@ -1164,9 +1164,9 @@ export class ShowClippedTextDirectiveTestHelper {
     &#x60;,
 })
 export class ShowClippedTextDirectiveTestHostComponent {
-    @ViewChild(ShowClippedTextDirective, { static: false }) directive!: ShowClippedTextDirective;
-    @ViewChild(&#x27;div&#x27;, { static: false }) div!: ElementRef;
-    @ViewChild(&#x27;div2&#x27;, { static: false }) div2!: ElementRef;
+    @ViewChild(ShowClippedTextDirective) directive!: ShowClippedTextDirective;
+    @ViewChild(&#x27;div&#x27;) div!: ElementRef;
+    @ViewChild(&#x27;div2&#x27;) div2!: ElementRef;
 
     public text &#x3D; &#x27;texting&#x27;;
     public text2 &#x3D; &#x27;texting too&#x27;;
