@@ -354,6 +354,18 @@ describe('DatagridComponent', () => {
                     });
                 });
 
+                describe('pageSizeOptions', () => {
+                    it('allows the user to input undefined', function(this: HasFinderAndGrid): void {
+                        this.finder.hostComponent.pagination = {
+                            ...this.finder.hostComponent.pagination,
+                            shouldShowPageSizeSelector: true,
+                            pageSizeOptions: undefined,
+                        };
+                        this.finder.detectChanges();
+                        expect(this.clrGridWidget.getPaginationSizeSelectorText()).toEqual('Total Items5');
+                    });
+                });
+
                 describe('shouldShowPageSizeSelector', () => {
                     it('hides the dropdown when set to false', function(this: HasFinderAndGrid): void {
                         this.finder.hostComponent.pagination = {
@@ -761,6 +773,36 @@ describe('DatagridComponent', () => {
                         position: ContextualButtonPosition.TOP,
                     };
                     this.finder.detectChanges();
+                });
+
+                it('allows the user to not set featured', function(this: HasFinderAndGrid): void {
+                    this.finder.hostComponent.buttonConfig.contextualButtonConfig = {
+                        buttons: [
+                            {
+                                label: 'Add',
+                                isActive: (row: MockRecord[]) => true,
+                                handler: () => {},
+                                class: 'a',
+                                icon: 'play',
+                            },
+                            {
+                                label: 'Remove',
+                                isActive: () => false,
+                                handler: () => {},
+                                class: 'b',
+                                icon: 'pause',
+                            },
+                            {
+                                label: 'Other',
+                                isActive: (row: MockRecord[]) => row.length && row[0].name === 'Person 1',
+                                handler: () => {},
+                                class: 'c',
+                                icon: 'pause',
+                            },
+                        ],
+                        position: ContextualButtonPosition.TOP,
+                    };
+                    expect(this.finder.hostComponent.grid.featuredButtons.size).toEqual(3);
                 });
 
                 it('throws an error if a featured button cannot be found', function(this: HasFinderAndGrid): void {
