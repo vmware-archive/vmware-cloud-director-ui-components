@@ -137,7 +137,7 @@ export interface PaginationConfiguration {
     /**
      * Available page size options in the dropdown
      */
-    pageSizeOptions: number[];
+    pageSizeOptions?: number[];
 
     /**
      * Number of items to be displayed on one page. As a result, the server will return a set of pages with the defined
@@ -355,6 +355,9 @@ export class DatagridComponent<R> implements OnInit, AfterViewInit {
      */
     @Input() set pagination(pagination: PaginationConfiguration) {
         this._pagination = { ...pagination };
+        if (this._pagination.pageSizeOptions === undefined) {
+            this._pagination.pageSizeOptions = [];
+        }
         if (this._pagination.shouldShowPageSizeSelector === undefined) {
             this._pagination.shouldShowPageSizeSelector = false;
         }
@@ -851,7 +854,7 @@ export class DatagridComponent<R> implements OnInit, AfterViewInit {
         if (typeof this.pagination.pageSize === 'number') {
             return this.pagination.pageSize;
         }
-        if (this.pagination.pageSize === 'Magic') {
+        if (this.pagination.pageSize === 'Magic' && this.viewInitted) {
             return this.calculatePageSize();
         }
         return DEFAULT_SIZE;
@@ -901,10 +904,8 @@ export class DatagridComponent<R> implements OnInit, AfterViewInit {
      * Updates the pagination information by recalculating pageSize if needed.
      */
     private updatePagination(): void {
-        if (this.viewInitted) {
-            this.pageSize = this.getPageSize();
-            this.pageSizeOptions = this.getPageSizeOptions();
-        }
+        this.pageSize = this.getPageSize();
+        this.pageSizeOptions = this.getPageSizeOptions();
     }
 
     /**

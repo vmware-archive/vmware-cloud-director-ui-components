@@ -255,6 +255,11 @@ describe('DatagridComponent', () => {
 
             describe('@Input() pagination', () => {
                 describe('pageSize', () => {
+                    it('can set the page size before AfterViewInit', function(this: HasFinderAndGrid): void {
+                        this.finder.detectChanges();
+                        expect(this.clrGridWidget.getPaginationDescription()).toEqual('1 - 5 of 150 items');
+                    });
+
                     it('finds the most rows that can fit in the set height with magic pagination', function(this: HasFinderAndGrid): void {
                         this.finder.hostComponent.parentHeight = '2000px';
                         this.finder.detectChanges();
@@ -372,7 +377,7 @@ describe('DatagridComponent', () => {
 
             describe('@Input() paginationCallback', () => {
                 it('displays pagination callback information on page one', function(this: HasFinderAndGrid): void {
-                    expect(this.clrGridWidget.getPaginationDescription()).toEqual('1 - 15 of 150 items');
+                    expect(this.clrGridWidget.getPaginationDescription()).toEqual('1 - 5 of 150 items');
                 });
             });
 
@@ -582,7 +587,7 @@ describe('DatagridComponent', () => {
                         name: 'a',
                         reverse: false,
                     },
-                    pagination: { pageNumber: 1, itemsPerPage: 15 },
+                    pagination: { pageNumber: 1, itemsPerPage: 5 },
                 });
                 this.clrGridWidget.sortColumn(0);
                 expect(refreshMethod).toHaveBeenCalledWith({
@@ -590,7 +595,7 @@ describe('DatagridComponent', () => {
                         name: 'a',
                         reverse: true,
                     },
-                    pagination: { pageNumber: 1, itemsPerPage: 15 },
+                    pagination: { pageNumber: 1, itemsPerPage: 5 },
                 });
             });
 
@@ -606,7 +611,7 @@ describe('DatagridComponent', () => {
                 expect(refreshMethod).toHaveBeenCalledWith({
                     pagination: {
                         pageNumber: 2,
-                        itemsPerPage: 15,
+                        itemsPerPage: 5,
                     },
                 });
             });
@@ -616,7 +621,7 @@ describe('DatagridComponent', () => {
                 this.clrGridWidget.nextPage();
                 this.clrGridWidget.sortColumn(0);
                 expect(refreshMethod).toHaveBeenCalledWith({
-                    pagination: { pageNumber: 1, itemsPerPage: 15 },
+                    pagination: { pageNumber: 1, itemsPerPage: 5 },
                     sortColumn: { name: 'a', reverse: false },
                 });
             });
