@@ -133,15 +133,29 @@ export class ClrDatagridWidgetObject extends WidgetObject<ClrDatagrid> {
     /**
      * Returns the native element contents within all the detail pane open.
      */
-    getAllDetailContents(): string[] {
+    getAllDetailRowContents(): string[] {
         return this.findElements('clr-dg-row-detail').map(detail => detail.nativeElement);
     }
 
     /**
-     * Clicks the given details button.
+     * Returns the native element contents within all the detail pane open.
      */
-    clickDetailsButton(row: number): void {
-        this.detailsButtons[row].nativeElement.click();
+    getAllDetailPaneContents(): string[] {
+        return this.findElements('.datagrid-detail-pane-content').map(detail => detail.nativeElement);
+    }
+
+    /**
+     * Clicks the given detail row button.
+     */
+    clickDetailRowButton(row: number): void {
+        this.detailRowButtons[row].nativeElement.click();
+    }
+
+    /**
+     * Clicks the given detail pane button.
+     */
+    clickDetailPaneButton(row: number): void {
+        this.detailPaneButtons[row].nativeElement.click();
     }
 
     /**
@@ -290,8 +304,12 @@ export class ClrDatagridWidgetObject extends WidgetObject<ClrDatagrid> {
         return this.findElements(COLUMN_CSS_SELECTOR);
     }
 
-    private get detailsButtons(): DebugElement[] {
+    private get detailRowButtons(): DebugElement[] {
         return this.findElements('.datagrid-expandable-caret-button');
+    }
+
+    private get detailPaneButtons(): DebugElement[] {
+        return this.findElements('.datagrid-detail-caret-button');
     }
 
     private openFilter(): void {

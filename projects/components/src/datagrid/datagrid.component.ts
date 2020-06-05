@@ -182,6 +182,30 @@ export interface DetailRowConfig<R> {
 }
 
 /**
+ * The configuration object that is passed to the detail pane component.
+ */
+export interface DetailPaneConfig<R> {
+    /**
+     * The record that this detail pane should render.
+     */
+    record: R;
+}
+
+/**
+ * The configuration objet used to create the detail pane on the datagrid.
+ */
+export interface DetailPane<R> {
+    /**
+     * The header that goes on top of this detail pane.
+     */
+    header: string;
+    /**
+     * The contents that go within this detail pane.
+     */
+    component: ComponentRendererConstructor<DetailPaneConfig<R>>;
+}
+
+/**
  * The current state of various features of the grid like filtering, sorting, pagination. This object is emitted as
  * part of the event {@link DatagridComponent.gridRefresh}. The handler then used this object to construct a query.
  */
@@ -410,6 +434,13 @@ export class DatagridComponent<R> implements OnInit, AfterViewInit {
      * @param R The type of record that this detail component will display.
      */
     @Input() detailComponent: ComponentRendererConstructor<DetailRowConfig<R>>;
+
+    /**
+     * A detail pane that will be displayed when a user selects to expand a row.
+     *
+     * @param R The type of record that this detail pane will display.
+     */
+    @Input() detailPane: DetailPane<R>;
     private _selectionType: GridSelectionType = GridSelectionType.None;
 
     /**
@@ -693,10 +724,17 @@ export class DatagridComponent<R> implements OnInit, AfterViewInit {
      * Gives the render spec to create the detail row for the row with the given record, at the given index, and
      * in a datagrid with the given count of total items.
      */
-    getDetailRenderSpec(record: R, index: number, count: number): ComponentRendererSpec<DetailRowConfig<R>> {
+    getDetailRowRenderSpec(record: R, index: number, count: number): ComponentRendererSpec<DetailRowConfig<R>> {
         return {
             type: this.detailComponent,
             config: { record, index, count },
+        };
+    }
+
+    getDetailPaneRenderSpec(record: R): ComponentRendererSpec<DetailPaneConfig<R>> {
+        return {
+            type: this.detailPane.component,
+            config: { record },
         };
     }
 

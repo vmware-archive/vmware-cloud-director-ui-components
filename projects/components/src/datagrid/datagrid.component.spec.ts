@@ -55,7 +55,7 @@ describe('DatagridComponent', () => {
                 },
                 ActivityPromiseResolver,
             ],
-            declarations: [HostWithDatagridComponent, DatagridDetailsComponent],
+            declarations: [HostWithDatagridComponent, DatagridDetailsComponent, DatagridDetailsPaneComponent],
         }).compileComponents();
 
         this.finder = new WidgetFinder(HostWithDatagridComponent);
@@ -518,12 +518,31 @@ describe('DatagridComponent', () => {
                         renderer: 'name',
                     },
                 ];
+                this.finder.hostComponent.detailPane = undefined;
                 this.finder.detectChanges();
             });
 
             it('opens one detail pane when you click the button', function(this: HasFinderAndGrid): void {
-                this.clrGridWidget.clickDetailsButton(0);
-                expect(this.clrGridWidget.getAllDetailContents().length).toEqual(1);
+                this.clrGridWidget.clickDetailRowButton(0);
+                expect(this.clrGridWidget.getAllDetailRowContents().length).toEqual(1);
+            });
+        });
+
+        describe('@Input() detailPane', () => {
+            beforeEach(function(this: HasFinderAndGrid): void {
+                this.finder.hostComponent.columns = [
+                    {
+                        displayName: 'Column',
+                        renderer: 'name',
+                    },
+                ];
+                this.finder.detectChanges();
+            });
+
+            it('opens one detail pane when you click the button', function(this: HasFinderAndGrid): void {
+                this.clrGridWidget.clickDetailPaneButton(0);
+                this.finder.detectChanges();
+                expect(this.clrGridWidget.getAllDetailPaneContents().length).toEqual(1);
             });
         });
 
@@ -1079,6 +1098,7 @@ describe('DatagridComponent', () => {
                 [trackBy]="trackBy"
                 [detailComponent]="details"
                 [emptyGridPlaceholder]="placeholder"
+                [detailPane]="detailPane"
             >
             </vcd-datagrid>
         </div>
@@ -1119,6 +1139,11 @@ export class HostWithDatagridComponent {
 
     details = DatagridDetailsComponent;
 
+    detailPane = {
+        header: 'Pane!',
+        component: DatagridDetailsPaneComponent,
+    };
+
     paginationText = 'Total Items';
 
     placeholder = 'Placeholder';
@@ -1154,4 +1179,13 @@ export class HostWithDatagridComponent {
 })
 class DatagridDetailsComponent {
     constructor(public loadingListener: LoadingListener) {}
+}
+
+@Component({
+    template: `
+        DETAILS
+    `,
+})
+class DatagridDetailsPaneComponent {
+    constructor() {}
 }

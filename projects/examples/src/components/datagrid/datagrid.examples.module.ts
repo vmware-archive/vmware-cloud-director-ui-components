@@ -12,6 +12,8 @@ import { DatagridCliptextExampleComponent } from './datagrid-cliptext.example.co
 import { DatagridCliptextExampleModule } from './datagrid-cliptext.example.module';
 import { DatagridCssClassesExampleComponent } from './datagrid-css-classes.example.component';
 import { DatagridCssClassesExampleModule } from './datagrid-css-classes.example.module';
+import { DatagridDetailPaneExampleComponent } from './datagrid-detail-pane.example.component';
+import { DatagridDetailPaneExampleModule } from './datagrid-detail-pane.example.module';
 import { DatagridDetailRowExampleComponent } from './datagrid-detail-row.example.component';
 import { DatagridDetailRowExampleModule } from './datagrid-detail-row.example.module';
 import { DatagridFilterExampleComponent } from './datagrid-filter.example.component';
@@ -117,6 +119,11 @@ Documentation.registerDocumentationEntry({
             forComponent: null,
             title: 'Shows the loading icon + placeholder capabilities',
         },
+        {
+            component: DatagridDetailPaneExampleComponent,
+            forComponent: null,
+            title: 'A Clarity 3 Detail Pane Example',
+        },
     ],
 });
 /**
@@ -139,6 +146,7 @@ Documentation.registerDocumentationEntry({
         DatagridActivityReporterExampleModule,
         DatagridRowIconExampleModule,
         DatagridLoadingPlaceholderExampleModule,
+        DatagridDetailPaneExampleModule,
     ],
 })
 export class DatagridExamplesModule {}
