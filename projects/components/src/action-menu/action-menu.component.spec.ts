@@ -136,29 +136,36 @@ describe('ActionMenuComponent', () => {
     describe('getContextualActions', () => {
         beforeEach(() => {
             testHostComponent.actionDisplayConfig = ACTION_DISPLAY_CONFIG;
-        });
-        it('returns only actions that are both available and contextual', () => {
-            testHostComponent.actions = CONTEXTUAL_ACTIONS.concat(CONTEXTUAL_FEATURED_ACTIONS);
-            fixture.detectChanges();
-            const availableContextualActions = testHostComponent.actionMenuComp.getContextualActions([]);
-            expect(CONTEXTUAL_ACTIONS.length).toEqual(2);
-            expect(availableContextualActions.length).toEqual(1);
-            availableContextualActions.forEach(action => {
-                expect(action.actionType).toEqual(ActionType.CONTEXTUAL);
+            jasmine.addMatchers({
+                toBeContextualOrContextualFeaturedAction: () => ({
+                    compare: actual => {
+                        return actual === ActionType.CONTEXTUAL || actual === ActionType.CONTEXTUAL_FEATURED
+                            ? {
+                                  pass: true,
+                                  message: '',
+                              }
+                            : {
+                                  pass: false,
+                                  message: `${actual} is not either contextual or contextual_featured`,
+                              };
+                    },
+                }),
             });
         });
-        it(
-            'featured actions that are not added to contextual_featured bucket gets added to the beginning of this ' +
-                'list',
-            () => {
-                testHostComponent.actions = CONTEXTUAL_ACTIONS.concat(
-                    CONTEXTUAL_FEATURED_ACTIONS_MORE_THAN_FEATURED_COUNT
-                );
-                fixture.detectChanges();
-                const availableContextualActions = testHostComponent.actionMenuComp.getContextualActions([]);
-                expect(availableContextualActions[0].textKey).toEqual('contextual.featured.4');
-            }
-        );
+        it('returns only actions that are both available, contextual and contextual_featured', () => {
+            testHostComponent.actions = CONTEXTUAL_ACTIONS.concat(CONTEXTUAL_FEATURED_ACTIONS).concat(
+                STATIC_FEATURED_ACTIONS
+            );
+            fixture.detectChanges();
+            const availableActions = testHostComponent.actionMenuComp.getContextualActions([]);
+            const availableContextualActions = testHostComponent.actionMenuComp.getAvailableActions(
+                CONTEXTUAL_ACTIONS.concat(CONTEXTUAL_FEATURED_ACTIONS)
+            );
+            expect(availableActions.length).toEqual(availableContextualActions.length);
+            availableActions.forEach(action => {
+                (expect(action.actionType) as any).toBeContextualOrContextualFeaturedAction();
+            });
+        });
     });
     describe('runActionHandler', () => {
         it('calls the action handler by passing both the selectedEntities and handlerData as its arguments', () => {
@@ -199,13 +206,12 @@ describe('ActionMenuComponent', () => {
     describe('shouldShowContextualActions', () => {
         it('returns true only if there are selected entities', () => {
             expect(testHostComponent.actionMenuComp.shouldShowContextualActions).toBeFalsy();
-            const selectedEntities = [
+            testHostComponent.actionMenuComp.selectedEntities = [
                 {
                     value: 'foo',
                     paused: false,
                 },
             ];
-            testHostComponent.actionMenuComp.selectedEntities = selectedEntities;
             expect(testHostComponent.actionMenuComp.shouldShowContextualActions).toBeTruthy();
         });
     });
@@ -305,18 +311,6 @@ const CONTEXTUAL_FEATURED_ACTIONS: any[] = [
     },
     {
         textKey: 'contextual.featured.3',
-        handler: (rec: any[]) => {
-            return Promise.resolve(JSON.stringify(rec[0]));
-        },
-        availability: () => true,
-        actionType: ActionType.CONTEXTUAL_FEATURED,
-    },
-];
-
-const CONTEXTUAL_FEATURED_ACTIONS_MORE_THAN_FEATURED_COUNT: any[] = [
-    ...CONTEXTUAL_FEATURED_ACTIONS,
-    {
-        textKey: 'contextual.featured.4',
         handler: (rec: any[]) => {
             return Promise.resolve(JSON.stringify(rec[0]));
         },

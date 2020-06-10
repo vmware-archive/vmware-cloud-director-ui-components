@@ -20,6 +20,7 @@ import { ClrDatagrid, ClrDatagridFilter, ClrDatagridPagination, ClrDatagridState
 import { LazyString, TranslationService } from '@vcd/i18n';
 import { Observable } from 'rxjs';
 import { ActivityReporter } from '../common/activity-reporter';
+import { TextIcon } from '../common/interfaces/action-item.interface';
 import { TooltipSize } from '../lib/directives/show-clipped-text.directive';
 import { DatagridFilter } from './filters/datagrid-filter';
 import { ComponentRendererConstructor, ComponentRendererSpec } from './interfaces/component-renderer.interface';
@@ -32,7 +33,6 @@ import {
     GridColumn,
     GridColumnHideable,
     InactiveButtonDisplayMode,
-    TextIcon,
 } from './interfaces/datagrid-column.interface';
 import { ContextualButton } from './interfaces/datagrid-column.interface';
 

@@ -6,7 +6,8 @@
 /**
  * Whether something shows up in the column toggler
  */
-import { CliptextConfig, TooltipSize } from '../../lib/directives/show-clipped-text.directive';
+import { TextIcon } from '../../common/interfaces/action-item.interface';
+import { CliptextConfig } from '../../lib/directives/show-clipped-text.directive';
 import { FilterConfig, FilterRendererSpec } from '../filters/datagrid-filter';
 import { ComponentRendererConstructor, ComponentRendererSpec } from './component-renderer.interface';
 
@@ -114,15 +115,6 @@ export interface ContextualButton<R> extends Button<R> {
 export enum ContextualButtonPosition {
     TOP = 'TOP',
     ROW = 'ROW',
-}
-
-/**
- * An enum that describes the possible ways to display the button title.
- */
-export enum TextIcon {
-    ICON = 1 << 0,
-    TEXT = 1 << 1,
-    ICON_AND_TEXT = TextIcon.ICON | TextIcon.TEXT,
 }
 
 /**

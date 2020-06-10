@@ -80,6 +80,10 @@ export interface ActionItem<R = unknown, T = unknown> {
      * The Clarity icon of the contextual button that is displayed if the button is featured.
      */
     icon?: string;
+    /**
+     * List of actions that will be grouped under this action
+     */
+    children?: ActionItem<R, T>[];
 }
 
 /**
@@ -95,7 +99,7 @@ export interface ActionDisplayConfig {
          *
          * Used when you want to set a limit on the number of featured buttons shown.
          *
-         * If featuredCount is not set, it will default zero.
+         * If featuredCount is not set, it will default to all featured actions.
          */
         featuredCount?: number;
         /**

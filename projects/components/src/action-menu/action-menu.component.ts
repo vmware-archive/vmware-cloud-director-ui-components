@@ -18,7 +18,7 @@ export class ActionMenuComponent<R, T> {
     @Input() entityUrn: string;
 
     /**
-     * Content of the action menu dropdown trigger button. Used when {@link #contextualActionConfig} styling is
+     * Content of the action menu dropdown trigger button. Used when {@link #actionDisplayConfig} styling is
      * {@link ActionStyling.DROPDOWN}
      */
     @Input() btnText: string = null;
@@ -127,9 +127,16 @@ export class ActionMenuComponent<R, T> {
         return this.getAvailableActions(staticActions);
     }
 
-    private getAvailableContextualFeaturedActions(selection: R[]): ActionItem<R, T>[] {
-        const featuredActions = this.actions.filter(action => action.actionType === ActionType.CONTEXTUAL_FEATURED);
-        return this.getAvailableActions(featuredActions, selection);
+    private getFlattenedActionList(actions: ActionItem<R, T>[], actionType: ActionType): ActionItem<R, T>[] {
+        let featuredActions: ActionItem<R, T>[] = [];
+        actions.forEach(action => {
+            if (action.children && action.children.length) {
+                featuredActions = featuredActions.concat(this.getFlattenedActionList(action.children, actionType));
+            } else if (action.actionType === actionType) {
+                featuredActions.push(action);
+            }
+        });
+        return featuredActions;
     }
 
     /**
@@ -138,12 +145,11 @@ export class ActionMenuComponent<R, T> {
      * @param selection The selected entities based on which the actions availability is calculated
      */
     getContextualFeaturedActions(selection: R[]): ActionItem<R, T>[] {
+        const flattenedFeaturedActionList = this.getFlattenedActionList(this.actions, ActionType.CONTEXTUAL_FEATURED);
+        const availableFeaturedActions = this.getAvailableActions(flattenedFeaturedActionList, selection);
         return this.actionDisplayConfig.contextual.featuredCount
-            ? this.getAvailableContextualFeaturedActions(selection).slice(
-                  0,
-                  this.actionDisplayConfig.contextual.featuredCount
-              )
-            : this.getAvailableContextualFeaturedActions(selection);
+            ? availableFeaturedActions.slice(0, this.actionDisplayConfig.contextual.featuredCount)
+            : availableFeaturedActions;
     }
 
     /**
@@ -151,17 +157,10 @@ export class ActionMenuComponent<R, T> {
      * @param selection The selected entities based on which the actions availability is calculated
      */
     getContextualActions(selection?: R[]): ActionItem<R, T>[] {
-        let contextualFeaturedActions: ActionItem<R, T>[] = [];
-        if (
-            this.getAvailableContextualFeaturedActions(selection).length >
-            this.getContextualFeaturedActions(selection).length
-        ) {
-            contextualFeaturedActions = this.getAvailableContextualFeaturedActions(selection).slice(
-                this.actionDisplayConfig.contextual.featuredCount
-            );
-        }
-        const contextualActions = this.actions.filter(action => action.actionType === ActionType.CONTEXTUAL);
-        return contextualFeaturedActions.concat(this.getAvailableActions(contextualActions, selection));
+        const contextualActions = this.actions.filter(
+            action => action.actionType !== ActionType.STATIC_FEATURED && action.actionType !== ActionType.STATIC
+        );
+        return this.getAvailableActions(contextualActions, selection);
     }
 
     /**
