@@ -8,19 +8,19 @@
  */
 export enum ActionType {
     /**
-     * Global actions that are displayed always irrespective of the context. These get shown as the first set of actions
+     * Global actions that are displayed always irrespective of the context. These display as the first set of actions
      */
     STATIC_FEATURED = 'STATIC_FEATURED',
     /**
-     * Actions that are visible when an entity is selected. These get shown up in the main menu section
+     * Actions that are visible when an entity is selected. These display in the main menu section
      */
     CONTEXTUAL_FEATURED = 'CONTEXTUAL_FEATURED',
     /**
-     * Actions that are visible when an entity is selected. These get shown up in a sub menu
+     * Actions that are visible when an entity is selected. These display in a sub menu
      */
     CONTEXTUAL = 'CONTEXTUAL',
     /**
-     * Actions that are not context dependent. These get shown up after the above 3 buckets of actions
+     * Actions that are not context dependent. These display after the above 3 buckets of actions
      */
     STATIC = 'STATIC',
 }
@@ -35,7 +35,7 @@ export type ActionHandlerType<R, T> = (selectedEntities?: R[], handlerData?: T) 
  * T is the type of custom data passed to action handler
  * R is the type of selected entity on which the action will be performed
  */
-export interface ActionItem<R = unknown, T = unknown> {
+export interface ActionItem<R, T> {
     /**
      * The i18n key for the text of the button
      */
@@ -43,7 +43,7 @@ export interface ActionItem<R = unknown, T = unknown> {
     /**
      * The css class the button should have.
      *
-     * @unique among all added buttons
+     * Must be unique among all added actions within an action list
      */
     class?: string;
     /**

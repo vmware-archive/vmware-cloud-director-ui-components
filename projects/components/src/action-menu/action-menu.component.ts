@@ -8,6 +8,8 @@ import { ActionDisplayConfig, ActionItem, ActionStyling, ActionType, TextIcon } 
 
 /**
  * Renders actions in screens containing grids, cards and details container
+ * R is the type of selected entity on which the action will be performed
+ * T is the type of custom data passed to action handler
  */
 @Component({
     selector: 'vcd-action-menu',
@@ -26,13 +28,13 @@ export class ActionMenuComponent<R, T> {
     /**
      * Used for disabling the menu bar or menu dropdown
      */
-    @Input() disabled = false;
+    @Input() disabled: boolean;
 
     /**
      * A switch to hide static actions. For example, Used when we want to display only contextual actions per row or
      * card
      */
-    @Input() showStaticActions = true;
+    @Input() showStaticActions: boolean = true;
 
     /**
      * List of selected entities required for contextual actions
@@ -49,21 +51,17 @@ export class ActionMenuComponent<R, T> {
      */
     private _actions: ActionItem<R, T>[] = [];
     @Input() set actions(actions: ActionItem<R, T>[]) {
-        this._actions.length = 0;
-        actions.forEach(action => {
+        this._actions = actions.map(action => {
             if (!action.actionType) {
                 action.actionType = ActionType.CONTEXTUAL;
             }
-            this._actions.push(action);
+            return action;
         });
     }
     get actions(): ActionItem<R, T>[] {
         return this._actions;
     }
 
-    /**
-     * Display configuration of static and contextual actions
-     */
     private _actionDisplayConfig: ActionDisplayConfig = {
         contextual: {
             featuredCount: 0,
@@ -72,16 +70,19 @@ export class ActionMenuComponent<R, T> {
         },
         staticActionStyling: ActionStyling.INLINE,
     };
+    /**
+     * Display configuration of static and contextual actions
+     * If null or undefined is passed, default config {@link _actionDisplayConfig} is used
+     */
     @Input() set actionDisplayConfig(config: ActionDisplayConfig) {
-        if (!config) {
-            return;
-        }
+        config = !config ? this._actionDisplayConfig : config;
         Object.keys(config).forEach(key => {
             this._actionDisplayConfig[key] = config[key] || this._actionDisplayConfig[key];
         });
-        this.shouldShowIcon = (TextIcon.ICON & this.actionDisplayConfig.contextual.buttonContents) === TextIcon.ICON;
-        this.shouldShowText = (TextIcon.TEXT & this.actionDisplayConfig.contextual.buttonContents) === TextIcon.TEXT;
-        this.shouldShowTooltip = this.actionDisplayConfig.contextual.buttonContents === TextIcon.ICON;
+        const buttonContents = this.actionDisplayConfig.contextual.buttonContents;
+        this.shouldShowIcon = (TextIcon.ICON & buttonContents) === TextIcon.ICON;
+        this.shouldShowText = (TextIcon.TEXT & buttonContents) === TextIcon.TEXT;
+        this.shouldShowTooltip = buttonContents === TextIcon.ICON;
     }
     get actionDisplayConfig(): ActionDisplayConfig {
         return this._actionDisplayConfig;
@@ -168,14 +169,7 @@ export class ActionMenuComponent<R, T> {
      * {@link ActionItem.handlerData} as arguments
      */
     runActionHandler(action: ActionItem<R, T>): void {
-        const actionHandlerData = [];
-        if (!!(this.selectedEntities && this.selectedEntities.length)) {
-            actionHandlerData.push(this.selectedEntities);
-        }
-        if (action.handlerData) {
-            actionHandlerData.push(action.handlerData);
-        }
-        action.handler(...actionHandlerData);
+        action.handler(this.selectedEntities, action.handlerData);
     }
 
     /**

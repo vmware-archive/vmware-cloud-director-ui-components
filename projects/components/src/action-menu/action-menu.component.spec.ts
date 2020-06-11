@@ -34,7 +34,7 @@ describe('ActionMenuComponent', () => {
 
     describe('set actions', () => {
         it('marks the actions with no actionType as ActionType.CONTEXTUAL', () => {
-            testHostComponent.actions = ACTIONS_WITH_NO_ACTION_TYPES;
+            testHostComponent.actions = getNewArray(ACTIONS_WITH_NO_ACTION_TYPES);
             fixture.detectChanges();
             testHostComponent.actionMenuComp.actions.forEach(action => {
                 expect(action.actionType).toEqual(ActionType.CONTEXTUAL);
@@ -50,7 +50,7 @@ describe('ActionMenuComponent', () => {
             expect(actionDisplayConfig.staticActionStyling).toEqual(ActionStyling.INLINE);
         });
         it('sets display config options to given values when a input is given', () => {
-            testHostComponent.actionDisplayConfig = ACTION_DISPLAY_CONFIG;
+            testHostComponent.actionDisplayConfig = getNewObj(ACTION_DISPLAY_CONFIG);
             fixture.detectChanges();
             const actionDisplayConfig = testHostComponent.actionMenuComp.actionDisplayConfig;
             expect(actionDisplayConfig.contextual.featuredCount).toEqual(2);
@@ -62,7 +62,7 @@ describe('ActionMenuComponent', () => {
             'sets shouldShowIcon to true, shouldShowText to false and shouldShowTooltip to true when buttonContents ' +
                 'is set to icon',
             () => {
-                testHostComponent.actionDisplayConfig = ACTION_DISPLAY_CONFIG;
+                testHostComponent.actionDisplayConfig = getNewObj(ACTION_DISPLAY_CONFIG);
                 fixture.detectChanges();
                 expect(testHostComponent.actionMenuComp.shouldShowIcon).toBeTruthy();
                 expect(testHostComponent.actionMenuComp.shouldShowText).toBeFalsy();
@@ -71,14 +71,16 @@ describe('ActionMenuComponent', () => {
         );
     });
     it('get staticActions returns only the actions that are marked as static', () => {
-        testHostComponent.actions = STATIC_ACTIONS.concat(CONTEXTUAL_FEATURED_ACTIONS);
+        testHostComponent.actions = getNewArray(STATIC_ACTIONS).concat(getNewArray(CONTEXTUAL_FEATURED_ACTIONS));
         fixture.detectChanges();
         testHostComponent.actionMenuComp.staticActions.forEach(action => {
             expect(action.actionType).toEqual(ActionType.STATIC);
         });
     });
     it('get staticFeaturedActions returns only the actions that are marked as static_featured', () => {
-        testHostComponent.actions = STATIC_FEATURED_ACTIONS.concat(CONTEXTUAL_FEATURED_ACTIONS);
+        testHostComponent.actions = getNewArray(STATIC_FEATURED_ACTIONS).concat(
+            getNewArray(CONTEXTUAL_FEATURED_ACTIONS)
+        );
         fixture.detectChanges();
         testHostComponent.actionMenuComp.staticFeaturedActions.forEach(action => {
             expect(action.actionType).toEqual(ActionType.STATIC_FEATURED);
@@ -86,10 +88,12 @@ describe('ActionMenuComponent', () => {
     });
     describe('getContextualFeaturedActions', () => {
         beforeEach(() => {
-            testHostComponent.actions = CONTEXTUAL_FEATURED_ACTIONS.concat(STATIC_FEATURED_ACTIONS);
+            testHostComponent.actions = getNewArray(CONTEXTUAL_FEATURED_ACTIONS).concat(
+                getNewArray(STATIC_FEATURED_ACTIONS)
+            );
         });
         it('returns only actions that are both available and also marked as contextual_featured', () => {
-            testHostComponent.actionDisplayConfig = ACTION_DISPLAY_CONFIG;
+            testHostComponent.actionDisplayConfig = getNewObj(ACTION_DISPLAY_CONFIG);
             fixture.detectChanges();
             const availableContextualFeaturedActions = testHostComponent.actionMenuComp.getContextualFeaturedActions(
                 []
@@ -135,7 +139,7 @@ describe('ActionMenuComponent', () => {
     });
     describe('getContextualActions', () => {
         beforeEach(() => {
-            testHostComponent.actionDisplayConfig = ACTION_DISPLAY_CONFIG;
+            testHostComponent.actionDisplayConfig = getNewObj(ACTION_DISPLAY_CONFIG);
             jasmine.addMatchers({
                 toBeContextualOrContextualFeaturedAction: () => ({
                     compare: actual => {
@@ -153,13 +157,13 @@ describe('ActionMenuComponent', () => {
             });
         });
         it('returns only actions that are both available, contextual and contextual_featured', () => {
-            testHostComponent.actions = CONTEXTUAL_ACTIONS.concat(CONTEXTUAL_FEATURED_ACTIONS).concat(
-                STATIC_FEATURED_ACTIONS
-            );
+            testHostComponent.actions = getNewArray(CONTEXTUAL_ACTIONS)
+                .concat(getNewArray(CONTEXTUAL_FEATURED_ACTIONS))
+                .concat(getNewArray(STATIC_FEATURED_ACTIONS));
             fixture.detectChanges();
             const availableActions = testHostComponent.actionMenuComp.getContextualActions([]);
             const availableContextualActions = testHostComponent.actionMenuComp.getAvailableActions(
-                CONTEXTUAL_ACTIONS.concat(CONTEXTUAL_FEATURED_ACTIONS)
+                getNewArray(CONTEXTUAL_ACTIONS).concat(getNewArray(CONTEXTUAL_FEATURED_ACTIONS))
             );
             expect(availableActions.length).toEqual(availableContextualActions.length);
             availableActions.forEach(action => {
@@ -218,7 +222,7 @@ describe('ActionMenuComponent', () => {
     describe('getFlattenedActionList', () => {
         it('returns nested featured actions by adding them to a flattened list', () => {
             const flatList = (testHostComponent.actionMenuComp as any).getFlattenedActionList(
-                NESTED_ACTIONS,
+                getNewArray(NESTED_ACTIONS),
                 ActionType.CONTEXTUAL_FEATURED
             );
             expect(flatList.length).toEqual(4);
@@ -253,6 +257,9 @@ class TestHostComponent<R extends Record> {
 
     actions: ActionItem<R, HandlerData>[] = [];
 }
+
+const getNewArray = (arr: Array<any>) => [...arr];
+const getNewObj = (obj: object) => ({ ...obj });
 
 const ACTION_DISPLAY_CONFIG = {
     contextual: {
