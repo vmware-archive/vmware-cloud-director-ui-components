@@ -514,6 +514,12 @@ customElements.define('compodoc-menu', class extends HTMLElement {
                                 <a href="interfaces/DatagridStringFilterConfig.html" data-type="entity-link">DatagridStringFilterConfig</a>
                             </li>
                             <li class="link">
+                                <a href="interfaces/DetailPane.html" data-type="entity-link">DetailPane</a>
+                            </li>
+                            <li class="link">
+                                <a href="interfaces/DetailPaneConfig.html" data-type="entity-link">DetailPaneConfig</a>
+                            </li>
+                            <li class="link">
                                 <a href="interfaces/DetailRowConfig.html" data-type="entity-link">DetailRowConfig</a>
                             </li>
                             <li class="link">

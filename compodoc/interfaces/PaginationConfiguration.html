@@ -89,6 +89,7 @@
                                         <a href="#pageSize">pageSize</a>
                                 </li>
                                 <li>
+                                            <span class="modifier">Optional</span>
                                         <a href="#pageSizeOptions">pageSizeOptions</a>
                                 </li>
                                 <li>
@@ -174,6 +175,11 @@ number of items per page(They can be smaller than the number here in case of las
                                         </td>
                                     </tr>
 
+                                    <tr>
+                                        <td class="col-md-4">
+                                            <i>Optional</i>
+                                        </td>
+                                    </tr>
 
 
 
@@ -447,7 +453,7 @@ export interface PaginationConfiguration {
     /**
      * Available page size options in the dropdown
      */
-    pageSizeOptions: number[];
+    pageSizeOptions?: number[];
 
     /**
      * Number of items to be displayed on one page. As a result, the server will return a set of pages with the defined
@@ -489,6 +495,30 @@ export interface DetailRowConfig&lt;R&gt; {
      * The total number of rows in the datagrid.
      */
     count: number;
+}
+
+/**
+ * The configuration object that is passed to the detail pane component.
+ */
+export interface DetailPaneConfig&lt;R&gt; {
+    /**
+     * The record that this detail pane should render.
+     */
+    record: R;
+}
+
+/**
+ * The configuration objet used to create the detail pane on the datagrid.
+ */
+export interface DetailPane&lt;R&gt; {
+    /**
+     * The header that goes on top of this detail pane.
+     */
+    header: string;
+    /**
+     * The contents that go within this detail pane.
+     */
+    component: ComponentRendererConstructor&lt;DetailPaneConfig&lt;R&gt;&gt;;
 }
 
 /**
@@ -641,6 +671,9 @@ export class DatagridComponent&lt;R&gt; implements OnInit, AfterViewInit {
      */
     @Input() set pagination(pagination: PaginationConfiguration) {
         this._pagination &#x3D; { ...pagination };
+        if (this._pagination.pageSizeOptions &#x3D;&#x3D;&#x3D; undefined) {
+            this._pagination.pageSizeOptions &#x3D; [];
+        }
         if (this._pagination.shouldShowPageSizeSelector &#x3D;&#x3D;&#x3D; undefined) {
             this._pagination.shouldShowPageSizeSelector &#x3D; false;
         }
@@ -720,6 +753,13 @@ export class DatagridComponent&lt;R&gt; implements OnInit, AfterViewInit {
      * @param R The type of record that this detail component will display.
      */
     @Input() detailComponent: ComponentRendererConstructor&lt;DetailRowConfig&lt;R&gt;&gt;;
+
+    /**
+     * A detail pane that will be displayed when a user selects to expand a row.
+     *
+     * @param R The type of record that this detail pane will display.
+     */
+    @Input() detailPane: DetailPane&lt;R&gt;;
     private _selectionType: GridSelectionType &#x3D; GridSelectionType.None;
 
     /**
@@ -1003,10 +1043,17 @@ export class DatagridComponent&lt;R&gt; implements OnInit, AfterViewInit {
      * Gives the render spec to create the detail row for the row with the given record, at the given index, and
      * in a datagrid with the given count of total items.
      */
-    getDetailRenderSpec(record: R, index: number, count: number): ComponentRendererSpec&lt;DetailRowConfig&lt;R&gt;&gt; {
+    getDetailRowRenderSpec(record: R, index: number, count: number): ComponentRendererSpec&lt;DetailRowConfig&lt;R&gt;&gt; {
         return {
             type: this.detailComponent,
             config: { record, index, count },
+        };
+    }
+
+    getDetailPaneRenderSpec(record: R): ComponentRendererSpec&lt;DetailPaneConfig&lt;R&gt;&gt; {
+        return {
+            type: this.detailPane.component,
+            config: { record },
         };
     }
 
@@ -1123,7 +1170,7 @@ export class DatagridComponent&lt;R&gt; implements OnInit, AfterViewInit {
         if (typeof this.pagination.pageSize &#x3D;&#x3D;&#x3D; &#x27;number&#x27;) {
             return this.pagination.pageSize;
         }
-        if (this.pagination.pageSize &#x3D;&#x3D;&#x3D; &#x27;Magic&#x27;) {
+        if (this.pagination.pageSize &#x3D;&#x3D;&#x3D; &#x27;Magic&#x27; &amp;&amp; this.viewInitted) {
             return this.calculatePageSize();
         }
         return DEFAULT_SIZE;
@@ -1173,10 +1220,8 @@ export class DatagridComponent&lt;R&gt; implements OnInit, AfterViewInit {
      * Updates the pagination information by recalculating pageSize if needed.
      */
     private updatePagination(): void {
-        if (this.viewInitted) {
-            this.pageSize &#x3D; this.getPageSize();
-            this.pageSizeOptions &#x3D; this.getPageSizeOptions();
-        }
+        this.pageSize &#x3D; this.getPageSize();
+        this.pageSizeOptions &#x3D; this.getPageSizeOptions();
     }
 
     /**
