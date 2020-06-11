@@ -55,7 +55,7 @@ describe('DatagridComponent', () => {
                 },
                 ActivityPromiseResolver,
             ],
-            declarations: [HostWithDatagridComponent, DatagridDetailsComponent],
+            declarations: [HostWithDatagridComponent, DatagridDetailsComponent, DatagridDetailsPaneComponent],
         }).compileComponents();
 
         this.finder = new WidgetFinder(HostWithDatagridComponent);
@@ -255,6 +255,11 @@ describe('DatagridComponent', () => {
 
             describe('@Input() pagination', () => {
                 describe('pageSize', () => {
+                    it('can set the page size before AfterViewInit', function(this: HasFinderAndGrid): void {
+                        this.finder.detectChanges();
+                        expect(this.clrGridWidget.getPaginationDescription()).toEqual('1 - 5 of 150 items');
+                    });
+
                     it('finds the most rows that can fit in the set height with magic pagination', function(this: HasFinderAndGrid): void {
                         this.finder.hostComponent.parentHeight = '2000px';
                         this.finder.detectChanges();
@@ -349,6 +354,18 @@ describe('DatagridComponent', () => {
                     });
                 });
 
+                describe('pageSizeOptions', () => {
+                    it('allows the user to input undefined', function(this: HasFinderAndGrid): void {
+                        this.finder.hostComponent.pagination = {
+                            ...this.finder.hostComponent.pagination,
+                            shouldShowPageSizeSelector: true,
+                            pageSizeOptions: undefined,
+                        };
+                        this.finder.detectChanges();
+                        expect(this.clrGridWidget.getPaginationSizeSelectorText()).toEqual('Total Items5');
+                    });
+                });
+
                 describe('shouldShowPageSizeSelector', () => {
                     it('hides the dropdown when set to false', function(this: HasFinderAndGrid): void {
                         this.finder.hostComponent.pagination = {
@@ -372,7 +389,7 @@ describe('DatagridComponent', () => {
 
             describe('@Input() paginationCallback', () => {
                 it('displays pagination callback information on page one', function(this: HasFinderAndGrid): void {
-                    expect(this.clrGridWidget.getPaginationDescription()).toEqual('1 - 15 of 150 items');
+                    expect(this.clrGridWidget.getPaginationDescription()).toEqual('1 - 5 of 150 items');
                 });
             });
 
@@ -518,12 +535,31 @@ describe('DatagridComponent', () => {
                         renderer: 'name',
                     },
                 ];
+                this.finder.hostComponent.detailPane = undefined;
                 this.finder.detectChanges();
             });
 
             it('opens one detail pane when you click the button', function(this: HasFinderAndGrid): void {
-                this.clrGridWidget.clickDetailsButton(0);
-                expect(this.clrGridWidget.getAllDetailContents().length).toEqual(1);
+                this.clrGridWidget.clickDetailRowButton(0);
+                expect(this.clrGridWidget.getAllDetailRowContents().length).toEqual(1);
+            });
+        });
+
+        describe('@Input() detailPane', () => {
+            beforeEach(function(this: HasFinderAndGrid): void {
+                this.finder.hostComponent.columns = [
+                    {
+                        displayName: 'Column',
+                        renderer: 'name',
+                    },
+                ];
+                this.finder.detectChanges();
+            });
+
+            it('opens one detail pane when you click the button', function(this: HasFinderAndGrid): void {
+                this.clrGridWidget.clickDetailPaneButton(0);
+                this.finder.detectChanges();
+                expect(this.clrGridWidget.getAllDetailPaneContents().length).toEqual(1);
             });
         });
 
@@ -563,7 +599,7 @@ describe('DatagridComponent', () => {
                         name: 'a',
                         reverse: false,
                     },
-                    pagination: { pageNumber: 1, itemsPerPage: 15 },
+                    pagination: { pageNumber: 1, itemsPerPage: 5 },
                 });
                 this.clrGridWidget.sortColumn(0);
                 expect(refreshMethod).toHaveBeenCalledWith({
@@ -571,7 +607,7 @@ describe('DatagridComponent', () => {
                         name: 'a',
                         reverse: true,
                     },
-                    pagination: { pageNumber: 1, itemsPerPage: 15 },
+                    pagination: { pageNumber: 1, itemsPerPage: 5 },
                 });
             });
 
@@ -587,7 +623,7 @@ describe('DatagridComponent', () => {
                 expect(refreshMethod).toHaveBeenCalledWith({
                     pagination: {
                         pageNumber: 2,
-                        itemsPerPage: 15,
+                        itemsPerPage: 5,
                     },
                 });
             });
@@ -597,7 +633,7 @@ describe('DatagridComponent', () => {
                 this.clrGridWidget.nextPage();
                 this.clrGridWidget.sortColumn(0);
                 expect(refreshMethod).toHaveBeenCalledWith({
-                    pagination: { pageNumber: 1, itemsPerPage: 15 },
+                    pagination: { pageNumber: 1, itemsPerPage: 5 },
                     sortColumn: { name: 'a', reverse: false },
                 });
             });
@@ -737,6 +773,36 @@ describe('DatagridComponent', () => {
                         position: ContextualButtonPosition.TOP,
                     };
                     this.finder.detectChanges();
+                });
+
+                it('allows the user to not set featured', function(this: HasFinderAndGrid): void {
+                    this.finder.hostComponent.buttonConfig.contextualButtonConfig = {
+                        buttons: [
+                            {
+                                label: 'Add',
+                                isActive: (row: MockRecord[]) => true,
+                                handler: () => {},
+                                class: 'a',
+                                icon: 'play',
+                            },
+                            {
+                                label: 'Remove',
+                                isActive: () => false,
+                                handler: () => {},
+                                class: 'b',
+                                icon: 'pause',
+                            },
+                            {
+                                label: 'Other',
+                                isActive: (row: MockRecord[]) => row.length && row[0].name === 'Person 1',
+                                handler: () => {},
+                                class: 'c',
+                                icon: 'pause',
+                            },
+                        ],
+                        position: ContextualButtonPosition.TOP,
+                    };
+                    expect(this.finder.hostComponent.grid.featuredButtons.size).toEqual(3);
                 });
 
                 it('throws an error if a featured button cannot be found', function(this: HasFinderAndGrid): void {
@@ -1079,6 +1145,7 @@ describe('DatagridComponent', () => {
                 [trackBy]="trackBy"
                 [detailComponent]="details"
                 [emptyGridPlaceholder]="placeholder"
+                [detailPane]="detailPane"
             >
             </vcd-datagrid>
         </div>
@@ -1119,6 +1186,11 @@ export class HostWithDatagridComponent {
 
     details = DatagridDetailsComponent;
 
+    detailPane = {
+        header: 'Pane!',
+        component: DatagridDetailsPaneComponent,
+    };
+
     paginationText = 'Total Items';
 
     placeholder = 'Placeholder';
@@ -1154,4 +1226,13 @@ export class HostWithDatagridComponent {
 })
 class DatagridDetailsComponent {
     constructor(public loadingListener: LoadingListener) {}
+}
+
+@Component({
+    template: `
+        DETAILS
+    `,
+})
+class DatagridDetailsPaneComponent {
+    constructor() {}
 }
