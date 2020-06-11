@@ -215,6 +215,18 @@ describe('ActionMenuComponent', () => {
             expect(testHostComponent.actionMenuComp.shouldShowContextualActions).toBeTruthy();
         });
     });
+    describe('getFlattenedActionList', () => {
+        it('returns nested featured actions by adding them to a flattened list', () => {
+            const flatList = (testHostComponent.actionMenuComp as any).getFlattenedActionList(
+                NESTED_ACTIONS,
+                ActionType.CONTEXTUAL_FEATURED
+            );
+            expect(flatList.length).toEqual(4);
+            flatList.forEach(action => {
+                expect(action.actionType).toEqual(ActionType.CONTEXTUAL_FEATURED);
+            });
+        });
+    });
 });
 
 interface Record {
@@ -315,6 +327,34 @@ const CONTEXTUAL_FEATURED_ACTIONS: any[] = [
             return Promise.resolve(JSON.stringify(rec[0]));
         },
         availability: () => true,
+        actionType: ActionType.CONTEXTUAL_FEATURED,
+    },
+];
+
+const NESTED_ACTIONS: any[] = [
+    {
+        textKey: 'action.featured.1',
+        actionType: ActionType.CONTEXTUAL_FEATURED,
+    },
+    {
+        textKey: 'action.static_featured',
+        actionType: ActionType.STATIC_FEATURED,
+    },
+    {
+        textKey: 'action.with.children',
+        children: [
+            {
+                textKey: 'action.featured.2',
+                actionType: ActionType.CONTEXTUAL_FEATURED,
+            },
+            {
+                textKey: 'action.featured.3',
+                actionType: ActionType.CONTEXTUAL_FEATURED,
+            },
+        ],
+    },
+    {
+        textKey: 'action.featured.4',
         actionType: ActionType.CONTEXTUAL_FEATURED,
     },
 ];
