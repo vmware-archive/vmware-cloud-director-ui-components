@@ -9,6 +9,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { LoadingListener } from '@clr/angular';
 import { MockTranslationService, TranslationService } from '@vcd/i18n';
 import { ActivityPromiseResolver } from '../common/activity-reporter/activity-promise-resolver';
+import { TextIcon } from '../common/interfaces/action-item.interface';
 import { TooltipSize } from '../lib/directives/show-clipped-text.directive';
 import { ClrDatagridWidgetObject } from '../utils/test/datagrid/datagrid.wo';
 import { VcdDatagridWidgetObject } from '../utils/test/datagrid/vcd-datagrid.wo';
@@ -24,7 +25,6 @@ import {
     GridColumn,
     GridColumnHideable,
     InactiveButtonDisplayMode,
-    TextIcon,
 } from './interfaces/datagrid-column.interface';
 import { mockData, MockRecord } from './mock-data';
 import { BoldTextRendererComponent } from './renderers/bold-text-renderer.component';

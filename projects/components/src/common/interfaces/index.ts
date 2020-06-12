@@ -4,3 +4,4 @@
  */
 
 export * from './select-option';
+export * from './action-item.interface';
