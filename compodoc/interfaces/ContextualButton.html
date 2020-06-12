@@ -221,7 +221,8 @@
 
 
     <div class="tab-pane fade  tab-source-code" id="c-source">
-        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { CliptextConfig, TooltipSize } from &#x27;../../lib/directives/show-clipped-text.directive&#x27;;
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { TextIcon } from &#x27;../../common/interfaces/action-item.interface&#x27;;
+import { CliptextConfig } from &#x27;../../lib/directives/show-clipped-text.directive&#x27;;
 import { FilterConfig, FilterRendererSpec } from &#x27;../filters/datagrid-filter&#x27;;
 import { ComponentRendererConstructor, ComponentRendererSpec } from &#x27;./component-renderer.interface&#x27;;
 
@@ -329,15 +330,6 @@ export interface ContextualButton&lt;R&gt; extends Button&lt;R&gt; {
 export enum ContextualButtonPosition {
     TOP &#x3D; &#x27;TOP&#x27;,
     ROW &#x3D; &#x27;ROW&#x27;,
-}
-
-/**
- * An enum that describes the possible ways to display the button title.
- */
-export enum TextIcon {
-    ICON &#x3D; 1 &lt;&lt; 0,
-    TEXT &#x3D; 1 &lt;&lt; 1,
-    ICON_AND_TEXT &#x3D; TextIcon.ICON | TextIcon.TEXT,
 }
 
 /**
