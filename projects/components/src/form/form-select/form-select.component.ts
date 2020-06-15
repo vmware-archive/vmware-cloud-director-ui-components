@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: BSD-2-Clause
  */
 
-import { Component, ElementRef, Input, Optional, Self, ViewChild } from '@angular/core';
+import { Component, Input, Optional, Self } from '@angular/core';
 import { NgControl } from '@angular/forms';
 import { SelectOption } from '../../common/interfaces/select-option';
 import { BaseFormControl } from '../base-form-control';
@@ -30,6 +30,9 @@ export class FormSelectComponent extends BaseFormControl {
         if (!this.options) {
             return undefined;
         }
-        return this.options.find(option => option.value === this.formControl.value);
+        // option.value is string | number. Also, formControl.value is string when the dropdown value is manually chosen
+        // from the view. It can also be a number when the formControl's value is set from outside to be number. So,
+        // we convert both to strings before doing a strict equality.
+        return this.options.find(option => option.value.toString() === this.formControl.value.toString());
     }
 }

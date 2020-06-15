@@ -42,11 +42,19 @@ describe('FormSelectComponent', () => {
         selectInput = finder.find({ woConstructor: VcdFormSelectWidgetObject });
     });
 
-    describe('selectedOption', () => {
-        it('returns the option whose value matches with form control value', () => {
+    describe('selectedOption returns the option whose value', () => {
+        it('matches with form control value', () => {
             expect(hostComponent.selectInputComponent.selectedOption.value).toEqual(
                 hostComponent.selectInputComponent.formControl.value
             );
+        });
+        it('is of number type, when the select formControl is set with same number value', () => {
+            selectInput.component.formControl.setValue(4);
+            expect(hostComponent.selectInputComponent.selectedOption).toEqual(optionWithValueAsNumber);
+        });
+        it('is of number type, when it is selected', () => {
+            selectInput.select(hostComponent.options.length - 1);
+            expect(hostComponent.selectInputComponent.selectedOption).toEqual(optionWithValueAsNumber);
         });
     });
 
@@ -94,8 +102,7 @@ class TestHostComponent {
             value: 'two',
         },
         {
-            display: 'option3',
-            value: 'three',
+            ...optionWithValueAsNumber,
         },
     ];
 
@@ -105,3 +112,8 @@ class TestHostComponent {
         });
     }
 }
+
+const optionWithValueAsNumber: SelectOption = {
+    display: 'option4',
+    value: 4,
+};
