@@ -50,11 +50,11 @@ describe('FormSelectComponent', () => {
         });
         it('is of number type, when the select formControl is set with same number value', () => {
             selectInput.component.formControl.setValue(4);
-            expect(hostComponent.selectInputComponent.selectedOption).toEqual(optionWithValueAsNumber);
+            expect(hostComponent.selectInputComponent.selectedOption).toEqual(getOptionWithValueAsNumber());
         });
         it('is of number type, when it is selected', () => {
             selectInput.select(hostComponent.options.length - 1);
-            expect(hostComponent.selectInputComponent.selectedOption).toEqual(optionWithValueAsNumber);
+            expect(hostComponent.selectInputComponent.selectedOption).toEqual(getOptionWithValueAsNumber());
         });
     });
 
@@ -102,7 +102,7 @@ class TestHostComponent {
             value: 'two',
         },
         {
-            ...optionWithValueAsNumber,
+            ...getOptionWithValueAsNumber(),
         },
     ];
 
@@ -113,7 +113,6 @@ class TestHostComponent {
     }
 }
 
-const optionWithValueAsNumber: SelectOption = {
-    display: 'option4',
-    value: 4,
-};
+function getOptionWithValueAsNumber(): SelectOption {
+    return { display: 'option4', value: 4 };
+}
