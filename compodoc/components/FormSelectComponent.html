@@ -1106,7 +1106,7 @@
 
 
     <div class="tab-pane fade  tab-source-code" id="c-source">
-        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Component, ElementRef, Input, Optional, Self, ViewChild } from &#x27;@angular/core&#x27;;
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Component, Input, Optional, Self } from &#x27;@angular/core&#x27;;
 import { NgControl } from &#x27;@angular/forms&#x27;;
 import { SelectOption } from &#x27;../../common/interfaces/select-option&#x27;;
 import { BaseFormControl } from &#x27;../base-form-control&#x27;;
@@ -1133,7 +1133,8 @@ export class FormSelectComponent extends BaseFormControl {
         if (!this.options) {
             return undefined;
         }
-        return this.options.find(option &#x3D;&gt; option.value &#x3D;&#x3D;&#x3D; this.formControl.value);
+        // option.value and formControl.value can be of type number or string
+        return this.options.find(option &#x3D;&gt; option.value.toString() &#x3D;&#x3D;&#x3D; this.formControl.value.toString());
     }
 }
 </code></pre>
