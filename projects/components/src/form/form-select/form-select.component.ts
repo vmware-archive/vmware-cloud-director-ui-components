@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: BSD-2-Clause
  */
 
-import { Component, ElementRef, Input, Optional, Self, ViewChild } from '@angular/core';
+import { Component, Input, Optional, Self } from '@angular/core';
 import { NgControl } from '@angular/forms';
 import { SelectOption } from '../../common/interfaces/select-option';
 import { BaseFormControl } from '../base-form-control';
@@ -30,6 +30,7 @@ export class FormSelectComponent extends BaseFormControl {
         if (!this.options) {
             return undefined;
         }
-        return this.options.find(option => option.value === this.formControl.value);
+        // option.value and formControl.value can be of type number or string
+        return this.options.find(option => option.value.toString() === this.formControl.value.toString());
     }
 }
