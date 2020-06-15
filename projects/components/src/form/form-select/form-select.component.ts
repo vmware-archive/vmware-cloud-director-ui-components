@@ -30,9 +30,7 @@ export class FormSelectComponent extends BaseFormControl {
         if (!this.options) {
             return undefined;
         }
-        // option.value is string | number. Also, formControl.value is string when the dropdown value is manually chosen
-        // from the view. It can also be a number when the formControl's value is set from outside to be number. So,
-        // we convert both to strings before doing a strict equality.
+        // option.value and formControl.value can be of type number or string
         return this.options.find(option => option.value.toString() === this.formControl.value.toString());
     }
 }
