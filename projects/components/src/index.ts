@@ -19,6 +19,7 @@ export * from './common/activity-reporter/index';
 export * from './data-exporter/index';
 export * from './lib/directives/index';
 export * from './datagrid/index';
+export * from './spotlight-search/index';
 export * from './utils/index';
 export * from './form/index';
 export * from './action-menu/index';

@@ -28,6 +28,7 @@ import { DatagridExamplesModule } from '../components/datagrid/datagrid.examples
 import { ErrorBannerExamplesModule } from '../components/error/error-banner.examples.module';
 import { FormInputComponentsExamplesModule } from '../components/form-input/form-input-components.examples.module';
 import { LoadingIndicatorExamplesModule } from '../components/loading/loading-indicator.examples.module';
+import { SpotlightSearchExamplesModule } from '../components/spotlight-search/spotlight-search.examples.module';
 import { SubscriptionTrackerExamplesModule } from '../components/subscription/subscription-tracker.examples.module';
 import { ShowClippedTextExamplesModule } from './components/show-clipped-text/show-clipped-text-examples.module';
 import { HomeComponent } from './home/home.component';
@@ -73,6 +74,7 @@ export const sbInfo: StackBlitzInfo = {
         ErrorBannerExamplesModule,
         ActivityReporterExamplesModule,
         FormInputComponentsExamplesModule,
+        SpotlightSearchExamplesModule,
     ],
     entryComponents: [HomeComponent],
     providers: [

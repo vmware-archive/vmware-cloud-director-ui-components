@@ -77,6 +77,21 @@ export abstract class WidgetObject<T> {
     }
 
     /**
+     * Sends a keyboard event defined by the key to an element and detects changes so the DOM is immediately updated.
+     * The keyboard event consists of keydow
+     * @param key the key, for example Enter, Escape, ArrowUp etc.
+     * @param cssSelector Pass this in if you want trigger the event on a specific element.
+     *        If not passed in, the event will be triggered on the entire node
+     * @param parent the parent element for which to search for the {@param cssSelector} within. Defaults to root if not provided.
+     */
+    protected sendKeyboardEvent(key: string, cssSelector?: string, parent: DebugElement = this.root): void {
+        const nativeElement: HTMLBaseElement = parent.query(By.css(cssSelector)).nativeElement;
+        nativeElement.dispatchEvent(new KeyboardEvent('keydown', { key, bubbles: true }));
+        nativeElement.dispatchEvent(new KeyboardEvent('keyup', { key, bubbles: true }));
+        this.detectChanges();
+    }
+
+    /**
      * Returns text content of this widget
      * If the element cannot be found, gives empty string.
      * @param cssSelector Pass this in if you want to retrieve text for a specific element within this widget.

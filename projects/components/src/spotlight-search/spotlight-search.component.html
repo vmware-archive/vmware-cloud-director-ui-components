@@ -1,0 +1,47 @@
+<clr-modal
+    [(clrModalOpen)]="open"
+    [clrModalStaticBackdrop]="false"
+    (keydown.arrowup)="onArrowKey($event)"
+    (keydown.arrowdown)="onArrowKey($event)"
+    (keydown.enter)="onEnterKey($event)"
+>
+    <div class="modal-body">
+        <div class="search-input-container">
+            <clr-icon shape="search" size="20"></clr-icon>
+            <input
+                #searchInput
+                type="text"
+                class="clr-input"
+                [placeholder]="placeholder || ''"
+                [(ngModel)]="searchCriteria"
+            />
+        </div>
+        <div class="search-result-container">
+            <div *ngFor="let searchSection of searchSections" class="search-result-section">
+                <div
+                    *ngIf="
+                        searchSections.length > 1 &&
+                        (searchSection.isLoading || searchSection.results.length > 0 || showEmptySection)
+                    "
+                    class="search-result-section-title"
+                >
+                    {{ searchSection.section }}
+                </div>
+                <div *ngIf="searchSection.isLoading">
+                    <div class="spinner spinner-inline"></div>
+                    {{ 'vcd.cc.loading' | translate }}
+                </div>
+                <ul *ngIf="!searchSection.isLoading" class="list-unstyled compact">
+                    <li
+                        class="search-result-item"
+                        *ngFor="let item of searchSection.results"
+                        (click)="itemClicked(item)"
+                        [ngClass]="item == selectedItem ? 'selected' : ''"
+                    >
+                        {{ item.displayText }}
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</clr-modal>

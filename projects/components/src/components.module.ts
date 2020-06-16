@@ -11,6 +11,7 @@ import { VcdDataExporterModule } from './data-exporter/data-exporter.module';
 import { VcdDatagridModule } from './datagrid/datagrid.module';
 import { VcdFormModule } from './form/form.module';
 import { ShowClippedTextDirectiveModule } from './lib/directives/show-clipped-text.directive.module';
+import { SpotlightSearchModule } from './spotlight-search/spotlight-search.module';
 
 @NgModule({
     exports: [
@@ -21,6 +22,7 @@ import { ShowClippedTextDirectiveModule } from './lib/directives/show-clipped-te
         VcdLoadingIndicatorModule,
         VcdActivityReporterModule,
         VcdFormModule,
+        SpotlightSearchModule,
     ],
 })
 export class VcdComponentsModule {}
