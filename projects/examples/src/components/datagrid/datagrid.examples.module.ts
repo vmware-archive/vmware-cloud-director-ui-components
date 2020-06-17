@@ -10,6 +10,8 @@ import { DatagridActivityReporterExampleComponent } from './datagrid-activity-re
 import { DatagridActivityReporterExampleModule } from './datagrid-activity-reporter.example.module';
 import { DatagridCliptextExampleComponent } from './datagrid-cliptext.example.component';
 import { DatagridCliptextExampleModule } from './datagrid-cliptext.example.module';
+import { DatagridColumnWidthExampleComponent } from './datagrid-column-width.example.component';
+import { DatagridColumnWidthExampleModule } from './datagrid-column-width.example.module';
 import { DatagridCssClassesExampleComponent } from './datagrid-css-classes.example.component';
 import { DatagridCssClassesExampleModule } from './datagrid-css-classes.example.module';
 import { DatagridDetailPaneExampleComponent } from './datagrid-detail-pane.example.component';
@@ -124,6 +126,11 @@ Documentation.registerDocumentationEntry({
             forComponent: null,
             title: 'A Clarity 3 Detail Pane Example',
         },
+        {
+            component: DatagridColumnWidthExampleComponent,
+            forComponent: null,
+            title: 'Set the width of columns through CSS class names',
+        },
     ],
 });
 /**
@@ -147,6 +154,7 @@ Documentation.registerDocumentationEntry({
         DatagridRowIconExampleModule,
         DatagridLoadingPlaceholderExampleModule,
         DatagridDetailPaneExampleModule,
+        DatagridColumnWidthExampleModule,
     ],
 })
 export class DatagridExamplesModule {}

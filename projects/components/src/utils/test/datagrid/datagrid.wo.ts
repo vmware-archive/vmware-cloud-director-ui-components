@@ -116,6 +116,13 @@ export class ClrDatagridWidgetObject extends WidgetObject<ClrDatagrid> {
         return this.findElements(COLUMN_SELECTOR)[index].classes['datagrid-hidden-column'] !== true;
     }
 
+    /**
+     * Returns the classes of the column with the given index.
+     */
+    getColumnClasses(index: number): string[] {
+        return Object.keys(this.findElements(COLUMN_SELECTOR)[index].classes);
+    }
+
     /*
      * Returns the CSS class of the Clarity datagrid.
      */

@@ -163,7 +163,7 @@ export interface ButtonConfig<R> {
     /**
      * The buttons whose displayability depends on the selected entity.
      */
-    contextualButtonConfig: ContextualButtonConfig<R>;
+    contextualButtonConfig?: ContextualButtonConfig<R>;
     /**
      * The way buttons should be shown when inactive.
      */
@@ -247,6 +247,11 @@ export interface GridColumn<R> {
      * Whether to show the column as sortable. Defaults to true
      */
     sortable?: boolean;
+
+    /**
+     * The class of the column header.
+     */
+    clrDgColumnClassName?: string;
 }
 
 /**
