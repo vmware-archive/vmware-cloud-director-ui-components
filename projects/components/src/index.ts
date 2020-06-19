@@ -21,3 +21,4 @@ export * from './lib/directives/index';
 export * from './datagrid/index';
 export * from './utils/index';
 export * from './form/index';
+export * from './action-menu/index';

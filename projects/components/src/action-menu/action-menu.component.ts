@@ -31,12 +31,6 @@ export class ActionMenuComponent<R, T> {
     @Input() disabled: boolean;
 
     /**
-     * A switch to hide static actions. For example, Used when we want to display only contextual actions per row or
-     * card
-     */
-    @Input() showStaticActions: boolean = true;
-
-    /**
      * List of selected entities required for contextual actions
      */
     @Input() selectedEntities: R[];
@@ -176,7 +170,7 @@ export class ActionMenuComponent<R, T> {
      * To disable a displayed action
      */
     isActionDisabled(action: ActionItem<R, T>): boolean {
-        return typeof action.disabled === 'function' ? action.disabled() : action.disabled;
+        return typeof action.disabled === 'function' ? action.disabled(this.selectedEntities) : action.disabled;
     }
 
     /**
