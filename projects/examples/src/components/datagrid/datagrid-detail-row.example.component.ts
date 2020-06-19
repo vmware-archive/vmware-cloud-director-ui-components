@@ -36,6 +36,15 @@ interface Data {
             [detailComponent]="noLazyDetails"
         >
         </vcd-datagrid>
+        <p>The user can specify <code>[isRowExpanded]</code> to expand the rows by default.</p>
+        <vcd-datagrid
+            [gridData]="gridData"
+            (gridRefresh)="refresh($event)"
+            [columns]="columns"
+            [detailComponent]="noLazyDetails"
+            [isRowExpanded]="true"
+        >
+        </vcd-datagrid>
     `,
 })
 export class DatagridDetailRowExampleComponent {
