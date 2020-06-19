@@ -86,7 +86,7 @@
                         <td class="col-md-4">
                             <ul class="index-list">
                                 <li>
-                                            <a href="#call-declaration-415b5a23872dfa87452ab3e542560ad8">Unamed property</a>
+                                            <a href="#call-declaration-fe59a63f0820df8ec25c264089dda360">Unamed property</a>
                                 </li>
                             </ul>
                         </td>
@@ -105,7 +105,7 @@
                                     <tr>
                                         <td class="col-md-4">
                                             <i>Signature :</i>
-                                            <a name="call-declaration-415b5a23872dfa87452ab3e542560ad8"></a>
+                                            <a name="call-declaration-fe59a63f0820df8ec25c264089dda360"></a>
                                             <code>
                                                 <!--ts.SyntaxKind.CallSignature-->
                                                     [firstItem: number, lastItem: number, totalItems: number]
@@ -565,6 +565,11 @@ export class DatagridComponent&lt;R&gt; implements OnInit, AfterViewInit {
      * @param R The type of record that this detail component will display.
      */
     @Input() detailComponent: ComponentRendererConstructor&lt;DetailRowConfig&lt;R&gt;&gt;;
+
+    /**
+     * Specifies if the row is expanded. The default is false.
+     */
+    @Input() isRowExpanded &#x3D; false;
 
     /**
      * A detail pane that will be displayed when a user selects to expand a row.

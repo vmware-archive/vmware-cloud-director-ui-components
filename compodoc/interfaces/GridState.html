@@ -670,6 +670,11 @@ export class DatagridComponent&lt;R&gt; implements OnInit, AfterViewInit {
     @Input() detailComponent: ComponentRendererConstructor&lt;DetailRowConfig&lt;R&gt;&gt;;
 
     /**
+     * Specifies if the row is expanded. The default is false.
+     */
+    @Input() isRowExpanded &#x3D; false;
+
+    /**
      * A detail pane that will be displayed when a user selects to expand a row.
      *
      * @param R The type of record that this detail pane will display.
