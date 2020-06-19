@@ -1,5 +1,5 @@
 /*!
- * Copyright 2019 VMware, Inc.
+ * Copyright 2019-2020 VMware, Inc.
  * SPDX-License-Identifier: BSD-2-Clause
  */
 
@@ -437,6 +437,11 @@ export class DatagridComponent<R> implements OnInit, AfterViewInit {
      * @param R The type of record that this detail component will display.
      */
     @Input() detailComponent: ComponentRendererConstructor<DetailRowConfig<R>>;
+
+    /**
+     * Specifies if the row is expanded. The default is false.
+     */
+    @Input() isRowExpanded = false;
 
     /**
      * A detail pane that will be displayed when a user selects to expand a row.

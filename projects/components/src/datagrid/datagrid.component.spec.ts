@@ -1,5 +1,5 @@
 /*!
- * Copyright 2019 VMware, Inc.
+ * Copyright 2019-2020 VMware, Inc.
  * SPDX-License-Identifier: BSD-2-Clause
  */
 
@@ -542,6 +542,29 @@ describe('DatagridComponent', () => {
             it('opens one detail pane when you click the button', function(this: HasFinderAndGrid): void {
                 this.clrGridWidget.clickDetailRowButton(0);
                 expect(this.clrGridWidget.getAllDetailRowContents().length).toEqual(1);
+            });
+        });
+
+        describe('@Input() isRowExpanded', () => {
+            beforeEach(function(this: HasFinderAndGrid): void {
+                this.finder.hostComponent.columns = [
+                    {
+                        displayName: 'Column',
+                        renderer: 'name',
+                    },
+                ];
+                this.finder.hostComponent.detailPane = undefined;
+                this.finder.detectChanges();
+            });
+
+            it('does NOT expand row when false', function(this: HasFinderAndGrid): void {
+                expect(this.clrGridWidget.getAllDetailRowContents().length).toEqual(0);
+            });
+
+            it('expands row when true', function(this: HasFinderAndGrid): void {
+                this.finder.hostComponent.isRowExpanded = true;
+                this.finder.detectChanges();
+                expect(this.clrGridWidget.getAllDetailRowContents().length).toEqual(2);
             });
         });
 
@@ -1144,6 +1167,7 @@ describe('DatagridComponent', () => {
                 [indicatorType]="indicatorType"
                 [trackBy]="trackBy"
                 [detailComponent]="details"
+                [isRowExpanded]="isRowExpanded"
                 [emptyGridPlaceholder]="placeholder"
                 [detailPane]="detailPane"
             >
@@ -1185,6 +1209,8 @@ export class HostWithDatagridComponent {
     };
 
     details = DatagridDetailsComponent;
+
+    isRowExpanded = false;
 
     detailPane = {
         header: 'Pane!',

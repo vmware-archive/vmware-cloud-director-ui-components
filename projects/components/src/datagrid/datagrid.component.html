@@ -94,7 +94,7 @@
         </clr-dg-cell>
 
         <ng-container ngProjectAs="clr-dg-row-detail" *ngIf="detailComponent !== undefined">
-            <clr-dg-row-detail *clrIfExpanded>
+            <clr-dg-row-detail *clrIfExpanded="isRowExpanded">
                 <ng-template
                     [vcdComponentRendererOutlet]="{
                         rendererSpec: getDetailRowRenderSpec(restItem, i, count)
