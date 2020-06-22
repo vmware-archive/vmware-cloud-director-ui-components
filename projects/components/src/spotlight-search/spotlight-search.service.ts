@@ -45,22 +45,24 @@ export class SpotlightSearchService {
      * Register a search provider
      * @param provider The search provider {@link SpotlightSearchProvider}
      * @param section The section name (the title or the group name) that this provider will provides results for.
-     * @param order The order of the section in the spotlight search results
+     * @param order The order of the section in the spotlight search results. Less the order, closer to the beginning
+     *        of the list. So 0 means put provider in the beginning of the list, -1 appends the provider at the back.
      */
     public registerProvider(provider: SpotlightSearchProvider, section: string, order: number = -1): string {
         const registrationData = { provider, section, order, id: createId() };
 
-        // Determine the position of the new registration
         let insertIndex = -1;
+        // Determine the position of the new registration
         if (order > -1) {
             insertIndex = this.registrations.findIndex(data => {
-                if (data.order === undefined) {
-                    return true;
-                }
-                if (data.order > order) {
-                    return true;
-                }
+                // If an item has a negative index, this means no order had been provided for that item
+                // which means we have found the insert index
                 if (data.order < 0) {
+                    return true;
+                }
+
+                // If an item has a bigger order than the new one means we have found the insert index
+                if (order < data.order) {
                     return true;
                 }
             });

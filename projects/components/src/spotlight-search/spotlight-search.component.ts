@@ -124,13 +124,14 @@ export class SpotlightSearchComponent {
         this.handleItem(item);
     }
 
-    onArrowKey(event: KeyboardEvent): void {
+    onArrowDown(event: KeyboardEvent): void {
         event.preventDefault();
-        if (event.key === 'ArrowDown') {
-            this.selectNext(true);
-        } else if (event.key === 'ArrowUp') {
-            this.selectNext(false);
-        }
+        this.selectNext(true);
+    }
+
+    onArrowUp(event: KeyboardEvent): void {
+        event.preventDefault();
+        this.selectNext(false);
     }
 
     onEnterKey(event): void {

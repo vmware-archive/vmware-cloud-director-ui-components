@@ -176,6 +176,32 @@ describe('SpotlightSearchComponent', () => {
             expect(this.spotlightSearch.searchResults).toEqual(['copy', 'copy']);
         }));
 
+        it('displays result from the last search', fakeAsync(function(this: Test): void {
+            this.spotlightSearchData.spotlightSearchService.registerProvider(
+                this.spotlightSearchData.asyncProvider,
+                'async section'
+            );
+            this.finder.hostComponent.spotlightOpen = true;
+            this.finder.detectChanges();
+            // Start the first search
+            this.spotlightSearch.searchInputValue = 'copy';
+            tick(500);
+            this.finder.detectChanges();
+            // Start a second search
+            this.spotlightSearch.searchInputValue = 'create';
+            // Advance the clock so that the first search has finished
+            tick(500);
+            this.finder.detectChanges();
+            // There should be just one result form the first provider
+            expect(this.spotlightSearch.searchResults).toEqual(['create']);
+            // There should still be loading indicator from the second search
+            expect(this.spotlightSearch.isLoading).toBeTruthy();
+            // Advance the clock so that the second search has finished also
+            tick(500);
+            this.finder.detectChanges();
+            expect(this.spotlightSearch.searchResults).toEqual(['create', 'create']);
+        }));
+
         it('preserves the search criteria upon reopening', function(this: Test): void {
             // Open
             this.finder.hostComponent.spotlightOpen = true;
@@ -296,6 +322,20 @@ describe('SpotlightSearchComponent', () => {
                 expect(this.spotlightSearch.getSelectedItem(1)).toEqual('copy');
             });
 
+            it('can update the selected item', function(this: Test): void {
+                // Append async provider
+                this.spotlightSearchData.spotlightSearchService.registerProvider(
+                    this.spotlightSearchData.asyncProvider,
+                    'async section'
+                );
+                this.finder.hostComponent.spotlightOpen = true;
+                this.finder.detectChanges();
+                this.spotlightSearch.searchInputValue = 'c';
+                expect(this.spotlightSearch.getSelectedItem(1)).toEqual('copy');
+                this.spotlightSearch.searchInputValue = 'cr';
+                expect(this.spotlightSearch.getSelectedItem(1)).toEqual('create');
+            });
+
             it('does not select any item if the first section returns async result', function(this: Test): void {
                 // Prepend async provider so that the first section will be loading
                 this.spotlightSearchData.spotlightSearchService.registerProvider(
@@ -377,7 +417,7 @@ describe('SpotlightSearchComponent', () => {
                 expect(this.spotlightSearch.getSelectedItem(2)).toEqual('copy');
             });
 
-            it('selects the first item when being at the bottom of the list and down is pressed', function(this: Test): void {
+            it('selects the first item when being at the bottom of the list and arrow down is pressed', function(this: Test): void {
                 this.spotlightSearchData.spotlightSearchService.registerProvider(
                     this.spotlightSearchData.simpleProvider,
                     'new section'
@@ -395,6 +435,17 @@ describe('SpotlightSearchComponent', () => {
                 // Go beyond the length of the list
                 this.spotlightSearch.pressArrowDown();
                 // Test the selection is the first item of the first selection
+                expect(this.spotlightSearch.getSelectedItem(1)).toEqual('copy');
+            });
+
+            it('selects previous item when arrow up is pressed', function(this: Test): void {
+                this.finder.hostComponent.spotlightOpen = true;
+                this.finder.detectChanges();
+                this.spotlightSearch.searchInputValue = 'c';
+                expect(this.spotlightSearch.getSelectedItem(1)).toEqual('copy');
+                this.spotlightSearch.pressArrowDown();
+                expect(this.spotlightSearch.getSelectedItem(1)).toEqual('create');
+                this.spotlightSearch.pressArrowUp();
                 expect(this.spotlightSearch.getSelectedItem(1)).toEqual('copy');
             });
 
