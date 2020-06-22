@@ -32,7 +32,7 @@
 
 <h1 id="vmware-cloud-director-ui-common-components">VMware Cloud Director UI Common Components</h1>
 <h2 id="repo-structure">Repo Structure</h2>
-<p>This <a href="https://angular.io/guide/file-structure#multiple-projects">monorepo</a> contains three separate but related projects:</p>
+<p>This <a href="https://angular.io/guide/file-structure#multiple-projects">monorepo</a> contains four separate but related projects:</p>
 <h3 id="component-library-projectscomponents-vcdui-components">Component Library (./projects/components) <code>@vcd/ui-components</code></h3>
 <p>Reusable components for vcd-ui and its plugin developers. See its <a href="projects/components/README.md">README</a>
 for further details</p>
@@ -43,6 +43,10 @@ for further details</p>
 <p>The application that showcases <code>@vcd/ui-components</code> using <code>@vmw/ng-live-docs</code>.</p>
 <p>Run <code>npm start</code> for a dev server. Navigate to <code>http://localhost:4200/</code>. The app will automatically reload if
 you change any of the source files. This is where you&#39;ll see changes made in <a href="./projects/components">components</a></p>
+<h3 id="route-analyzer-projectsroute-analyzer-vcdroute-analyzer">Route Analyzer (./projects/route-analyzer) <code>@vcd/route-analyzer</code></h3>
+<p>Route Analyzer statically analyzes angular source code and generates a json file with all the available routes,
+including the ones from lazy loaded modules. See its <a href="projects/route-analyzer/README.md">README</a>
+for further details</p>
 <h2 id="peer-dependencies">Peer Dependencies</h2>
 <p>The component library depends on <a href="https://clarity.design/">Clarity</a> and <a href="https://angular.io/">Angular</a>
 which must must be installed from your application&#39;s <code>package.json</code>. See <a href="package.json">package.json</a> for version
