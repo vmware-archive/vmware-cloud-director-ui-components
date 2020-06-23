@@ -33,7 +33,6 @@ export class SpotlightSearchExampleComponent implements OnInit, OnDestroy {
     ) {
         this.formGroup = this.fb.group({
             ['placeholder']: [''],
-            ['showEmptySection']: [false],
         });
 
         // Register LazyLoadedActionsSearchProvider and ensure they go first in the list
@@ -49,6 +48,8 @@ export class SpotlightSearchExampleComponent implements OnInit, OnDestroy {
     ngOnInit(): void {
         mousetrap.bind(this.kbdShortcut, () => {
             this.spotlightOpen = true;
+            // Since this happens outside angular zone we need to notify angular manually
+            // otherwise the user should wait for any operation that will trigger angular change detection (angular zone event)
             this.changeDetectorRef.detectChanges();
             return false;
         });

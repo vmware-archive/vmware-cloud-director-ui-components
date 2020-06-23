@@ -272,8 +272,6 @@ describe('SpotlightSearchComponent', () => {
         });
 
         it('can hide the section title when there is no result', function(this: Test): void {
-            // Configure
-            this.finder.hostComponent.showEmptySection = false;
             // Register one more provider
             this.spotlightSearchData.spotlightSearchService.registerProvider(
                 this.spotlightSearchData.simpleProvider,
@@ -287,24 +285,6 @@ describe('SpotlightSearchComponent', () => {
             //
             expect(this.spotlightSearch.searchResults.length).toBe(0);
             expect(this.spotlightSearch.sectionTitles.length).toEqual(0);
-        });
-
-        it('can show section title even if there is no result', function(this: Test): void {
-            // Configure
-            this.finder.hostComponent.showEmptySection = true;
-            // Register one more provider
-            this.spotlightSearchData.spotlightSearchService.registerProvider(
-                this.spotlightSearchData.simpleProvider,
-                'new section'
-            );
-            // Open
-            this.finder.hostComponent.spotlightOpen = true;
-            this.finder.detectChanges();
-            // Set search
-            this.spotlightSearch.searchInputValue = 'no match';
-            //
-            expect(this.spotlightSearch.searchResults.length).toBe(0);
-            expect(this.spotlightSearch.sectionTitles).toEqual(['section', 'new section']);
         });
     });
 
@@ -523,15 +503,10 @@ describe('SpotlightSearchComponent', () => {
 
 @Component({
     template: `
-        <vcd-spotlight-search
-            [(open)]="spotlightOpen"
-            [placeholder]="placeholder"
-            [showEmptySection]="showEmptySection"
-        ></vcd-spotlight-search>
+        <vcd-spotlight-search [(open)]="spotlightOpen" [placeholder]="placeholder"></vcd-spotlight-search>
     `,
 })
 export class HostSpotlightSearchComponent {
-    public showEmptySection: boolean;
     public placeholder: string;
     public spotlightOpen = false;
 }
@@ -552,9 +527,7 @@ export class SpotlightSearchWidgetObject extends WidgetObject<SpotlightSearchCom
     }
 
     public set searchInputValue(val: string) {
-        this.searchInputElement.value = val;
-        this.searchInputElement.dispatchEvent(new Event('input'));
-        this.detectChanges();
+        this.setInputValue(val, '.search-input-container input');
     }
 
     public get seacrhPlaceholder(): string {

@@ -22,18 +22,6 @@ Press <code>`{{ kbdShortcut }}`</code> or click
         description="The text to be shown in the spotlight search input field when it is empty"
     >
     </vcd-form-input>
-
-    <vcd-form-checkbox
-        label="Show empty sections"
-        styling="toggle-switch"
-        [formControlName]="'showEmptySection'"
-        [description]="'Show the section even if the corresponding search has not found any results'"
-    >
-    </vcd-form-checkbox>
 </form>
 
-<vcd-spotlight-search
-    [(open)]="spotlightOpen"
-    [placeholder]="formGroup.value.placeholder"
-    [showEmptySection]="formGroup.value.showEmptySection"
-></vcd-spotlight-search>
+<vcd-spotlight-search [(open)]="spotlightOpen" [placeholder]="formGroup.value.placeholder"></vcd-spotlight-search>

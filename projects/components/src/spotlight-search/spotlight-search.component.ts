@@ -65,14 +65,6 @@ export class SpotlightSearchComponent {
     @Input() public placeholder: string;
 
     /**
-     * Show the section even if the corresponding search has not found any results.
-     * If `true` the section will shown even if it is empty otherwise it will be hidden.
-     * Applicable only if the spotlight search is configured with more than one section.
-     * If there is just one section then no section title is available at all.
-     */
-    @Input() public showEmptySection = false;
-
-    /**
      * This property alongside with `openChange` provide two-way binding [(open)] for controlling the visibility state
      * of the spotlight component
      */
@@ -259,7 +251,7 @@ export class SpotlightSearchComponent {
             setTimeout(() => {
                 this.searchInput.nativeElement.focus();
                 this.searchInput.nativeElement.select();
-            }, 10);
+            }, 0);
         }
 
         this._open = open;
@@ -270,5 +262,11 @@ export class SpotlightSearchComponent {
     private handleItem(item: SpotlightSearchResult): void {
         item.handler();
         this.open = false;
+    }
+
+    showSectionTitle(searchSection: SearchSection): boolean {
+        // In order to show a section title there should be more than one sections
+        // and the current section should either be loading data or have results
+        return this.searchSections.length > 1 && (searchSection.isLoading || searchSection.results.length > 0);
     }
 }

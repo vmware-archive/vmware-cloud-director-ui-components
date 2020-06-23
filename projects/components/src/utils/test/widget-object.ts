@@ -92,6 +92,20 @@ export abstract class WidgetObject<T> {
     }
 
     /**
+     * Sets the value of an input element or textarea element
+     * @param value the value that the element should display
+     * @param cssSelector Pass this in if you want trigger the event on a specific element.
+     *        If not passed in, the event will be triggered on the entire node
+     * @param parent the parent element for which to search for the {@param cssSelector} within. Defaults to root if not provided.
+     */
+    protected setInputValue(value: string | number, cssSelector?: string, parent: DebugElement = this.root): void {
+        const nativeElement: HTMLInputElement | HTMLTextAreaElement = parent.query(By.css(cssSelector)).nativeElement;
+        nativeElement.value = String(value);
+        nativeElement.dispatchEvent(new Event('input'));
+        this.detectChanges();
+    }
+
+    /**
      * Returns text content of this widget
      * If the element cannot be found, gives empty string.
      * @param cssSelector Pass this in if you want to retrieve text for a specific element within this widget.
