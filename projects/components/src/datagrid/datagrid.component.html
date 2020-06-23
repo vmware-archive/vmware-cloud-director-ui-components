@@ -126,7 +126,7 @@
             [clrDgPageSize]="this.pageSize"
             [clrDgPageInputDisabled]="!this.pagination.shouldShowPageNumberInput"
         >
-            <div>{{ paginationCallbackWrapper(paginationData) | lazyString }}</div>
+            <div>{{ getPaginationTranslation(paginationData) | lazyString }}</div>
             <clr-dg-page-size
                 [clrPageSizeOptions]="this.pageSizeOptions"
                 *ngIf="this.pagination.shouldShowPageSizeSelector"

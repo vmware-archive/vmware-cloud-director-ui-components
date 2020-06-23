@@ -4,17 +4,24 @@
  */
 
 import { Component, HostBinding, ViewChild } from '@angular/core';
-import { TestBed } from '@angular/core/testing';
+import { fakeAsync, TestBed, tick } from '@angular/core/testing';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { LoadingListener } from '@clr/angular';
 import { MockTranslationService, TranslationService } from '@vcd/i18n';
+import { Observable } from 'rxjs';
+import { first, last } from 'rxjs/operators';
 import { ActivityPromiseResolver } from '../common/activity-reporter/activity-promise-resolver';
 import { TextIcon } from '../common/interfaces/action-item.interface';
 import { TooltipSize } from '../lib/directives/show-clipped-text.directive';
 import { ClrDatagridWidgetObject } from '../utils/test/datagrid/datagrid.wo';
 import { VcdDatagridWidgetObject } from '../utils/test/datagrid/vcd-datagrid.wo';
 import { WidgetFinder } from '../utils/test/widget-object';
-import { ActivityIndicatorType, GridSelectionType, PaginationConfiguration } from './datagrid.component';
+import {
+    ActivityIndicatorType,
+    DEFAULT_PAGINATION_TRANSLATION_KEY,
+    GridSelectionType,
+    PaginationConfiguration,
+} from './datagrid.component';
 import { DatagridComponent, GridDataFetchResult, GridState } from './datagrid.component';
 import { VcdDatagridModule } from './datagrid.module';
 import { DatagridStringFilter, WildCardPosition } from './filters/datagrid-string-filter.component';
@@ -61,6 +68,7 @@ describe('DatagridComponent', () => {
         this.finder = new WidgetFinder(HostWithDatagridComponent);
         this.vcdDatagrid = this.finder.find(GridWithBoldRenderer);
         this.clrGridWidget = this.vcdDatagrid.clrDatagrid;
+        this.component = this.finder.find(VcdDatagridWidgetObject).component as DatagridComponent<MockRecord>;
     });
 
     describe('Grid', () => {
@@ -254,10 +262,18 @@ describe('DatagridComponent', () => {
             });
 
             describe('@Input() pagination', () => {
+                let translationService: TranslationService;
+                beforeEach(() => {
+                    translationService = TestBed.inject(TranslationService);
+                });
                 describe('pageSize', () => {
                     it('can set the page size before AfterViewInit', function(this: HasFinderAndGrid): void {
                         this.finder.detectChanges();
-                        expect(this.clrGridWidget.getPaginationDescription()).toEqual('1 - 5 of 150 items');
+                        expect(this.clrGridWidget.getPaginationDescription()).toEqual(
+                            translationService.translate(DEFAULT_PAGINATION_TRANSLATION_KEY, [
+                                { firstItem: 1, lastItem: 5, totalItems: 150 },
+                            ])
+                        );
                     });
 
                     it('finds the most rows that can fit in the set height with magic pagination', function(this: HasFinderAndGrid): void {
@@ -268,7 +284,11 @@ describe('DatagridComponent', () => {
                             pageSizeOptions: [10],
                         };
                         this.finder.detectChanges();
-                        expect(this.clrGridWidget.getPaginationDescription()).toEqual('1 - 52 of 150 items');
+                        expect(this.clrGridWidget.getPaginationDescription()).toEqual(
+                            translationService.translate(DEFAULT_PAGINATION_TRANSLATION_KEY, [
+                                { firstItem: 1, lastItem: 52, totalItems: 150 },
+                            ])
+                        );
                     });
 
                     it('shows a minimum of 15 rows', function(this: HasFinderAndGrid): void {
@@ -279,7 +299,11 @@ describe('DatagridComponent', () => {
                             pageSizeOptions: [10],
                         };
                         this.finder.detectChanges();
-                        expect(this.clrGridWidget.getPaginationDescription()).toEqual('1 - 15 of 150 items');
+                        expect(this.clrGridWidget.getPaginationDescription()).toEqual(
+                            translationService.translate(DEFAULT_PAGINATION_TRANSLATION_KEY, [
+                                { firstItem: 1, lastItem: 15, totalItems: 150 },
+                            ])
+                        );
                     });
 
                     it('allows the user to set a custom row height with magic pagination ', function(this: HasFinderAndGrid): void {
@@ -291,7 +315,11 @@ describe('DatagridComponent', () => {
                             rowHeight: 100,
                         };
                         this.finder.detectChanges();
-                        expect(this.clrGridWidget.getPaginationDescription()).toEqual('1 - 19 of 150 items');
+                        expect(this.clrGridWidget.getPaginationDescription()).toEqual(
+                            translationService.translate(DEFAULT_PAGINATION_TRANSLATION_KEY, [
+                                { firstItem: 1, lastItem: 19, totalItems: 150 },
+                            ])
+                        );
                     });
 
                     it('uses grid height when height is set to calculate page size ', function(this: HasFinderAndGrid): void {
@@ -302,7 +330,11 @@ describe('DatagridComponent', () => {
                             pageSizeOptions: [10],
                         };
                         this.finder.detectChanges();
-                        expect(this.clrGridWidget.getPaginationDescription()).toEqual('1 - 25 of 150 items');
+                        expect(this.clrGridWidget.getPaginationDescription()).toEqual(
+                            translationService.translate(DEFAULT_PAGINATION_TRANSLATION_KEY, [
+                                { firstItem: 1, lastItem: 25, totalItems: 150 },
+                            ])
+                        );
                     });
 
                     it('lets the user set rows per page', function(this: HasFinderAndGrid): void {
@@ -311,7 +343,11 @@ describe('DatagridComponent', () => {
                             pageSizeOptions: [10],
                         };
                         this.finder.detectChanges();
-                        expect(this.clrGridWidget.getPaginationDescription()).toEqual('1 - 100 of 150 items');
+                        expect(this.clrGridWidget.getPaginationDescription()).toEqual(
+                            translationService.translate(DEFAULT_PAGINATION_TRANSLATION_KEY, [
+                                { firstItem: 1, lastItem: 100, totalItems: 150 },
+                            ])
+                        );
                     });
 
                     it('creates a smaller page when buttons are present', function(this: HasFinderAndGrid): void {
@@ -338,7 +374,11 @@ describe('DatagridComponent', () => {
                             pageSizeOptions: [10],
                         };
                         this.finder.detectChanges();
-                        expect(this.clrGridWidget.getPaginationDescription()).toEqual('1 - 51 of 150 items');
+                        expect(this.clrGridWidget.getPaginationDescription()).toEqual(
+                            translationService.translate(DEFAULT_PAGINATION_TRANSLATION_KEY, [
+                                { firstItem: 1, lastItem: 51, totalItems: 150 },
+                            ])
+                        );
                     });
 
                     it('creates a smaller page size when a header is present', function(this: HasFinderAndGrid): void {
@@ -350,7 +390,11 @@ describe('DatagridComponent', () => {
                             pageSizeOptions: [10],
                         };
                         this.finder.detectChanges();
-                        expect(this.clrGridWidget.getPaginationDescription()).toEqual('1 - 51 of 150 items');
+                        expect(this.clrGridWidget.getPaginationDescription()).toEqual(
+                            translationService.translate(DEFAULT_PAGINATION_TRANSLATION_KEY, [
+                                { firstItem: 1, lastItem: 51, totalItems: 150 },
+                            ])
+                        );
                     });
                 });
 
@@ -384,12 +428,6 @@ describe('DatagridComponent', () => {
                         this.finder.detectChanges();
                         expect(this.clrGridWidget.getPaginationSizeSelectorText()).toEqual('Total Items52050100');
                     });
-                });
-            });
-
-            describe('@Input() paginationCallback', () => {
-                it('displays pagination callback information on page one', function(this: HasFinderAndGrid): void {
-                    expect(this.clrGridWidget.getPaginationDescription()).toEqual('1 - 5 of 150 items');
                 });
             });
 
@@ -1102,6 +1140,24 @@ describe('DatagridComponent', () => {
                 }
             );
         });
+
+        describe('getPaginationTranslation', () => {
+            it('returns translated string', async function(this: HasFinderAndGrid): Promise<void> {
+                const translatedString = await (this.component.getPaginationTranslation({
+                    firstItem: 1,
+                    lastItem: 10,
+                    totalItems: 100,
+                } as any) as Observable<string>)
+                    .pipe(first())
+                    .toPromise();
+
+                expect(translatedString).toBe(
+                    TestBed.inject(TranslationService).translate(DEFAULT_PAGINATION_TRANSLATION_KEY, [
+                        { firstItem: 2, lastItem: 11, totalItems: 100 },
+                    ])
+                );
+            });
+        });
     });
 
     describe('Column Renderers', () => {
@@ -1158,7 +1214,6 @@ describe('DatagridComponent', () => {
                 [clrDatarowCssClassGetter]="clrDatarowCssClassGetter"
                 [selectionType]="selectionType"
                 (selectionChanged)="selectionChanged($event)"
-                [paginationCallback]="paginationCallback"
                 [paginationDropdownText]="paginationText"
                 [pagination]="pagination"
                 [buttonConfig]="buttonConfig"
@@ -1229,10 +1284,6 @@ export class HostWithDatagridComponent {
     trackBy = (index, record: MockRecord) => record.name;
 
     selectionChanged(selection: MockRecord[]): void {}
-
-    paginationCallback(first: number, last: number, total: number): string {
-        return `${first} - ${last} of ${total} items`;
-    }
 
     clrDatarowCssClassGetter(a: MockRecord, index: number): string {
         return '';
