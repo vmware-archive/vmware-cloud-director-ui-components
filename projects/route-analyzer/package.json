@@ -1,6 +1,6 @@
 {
   "name": "@vcd/route-analyzer",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "bin": "cli.js",
   "dependencies": {
     "@wessberg/ts-evaluator": "0.0.25",
