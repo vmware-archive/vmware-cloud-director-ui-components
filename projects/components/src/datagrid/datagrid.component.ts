@@ -57,6 +57,11 @@ const MAX_HEADER_HEIGHT = 40;
 const ROW_HEIGHT = 37;
 
 /**
+ * Key used for translation of pagination when a translation key is not given as input from the caller
+ */
+export const DEFAULT_PAGINATION_TRANSLATION_KEY = 'vcd.cc.grid.default.pagination';
+
+/**
  * Different types of row selection on the grid
  */
 export enum GridSelectionType {
@@ -554,21 +559,9 @@ export class DatagridComponent<R> implements OnInit, AfterViewInit {
     private viewInitted = false;
 
     /**
-     * Gives the correct string to display for the pagination.
-     *
-     * @param firstItem the index of the first item displayed.
-     * @param lastItem the index of the last item displayed.
-     * @param totalItems the total number of items that could be displayed.
+     * Used for translating pagination information displayed in the grid
      */
-    @Input() paginationCallback: PaginationCallback = (firstItem: number, lastItem: number, totalItems: number) => {
-        return this.translationService.translateAsync('vcd.cc.grid.default.pagination', [
-            {
-                firstItem,
-                lastItem,
-                totalItems,
-            },
-        ]);
-    };
+    @Input() paginationTranslationKey: string = DEFAULT_PAGINATION_TRANSLATION_KEY;
 
     /**
      * To add or replace a column of this datagrid columns. Exposed for columns modifiers(eg: directives) that listen to
@@ -846,10 +839,16 @@ export class DatagridComponent<R> implements OnInit, AfterViewInit {
     }
 
     /**
-     * Updates the pagination data and makes the callback.
+     * Gives the correct string to display for the pagination.
      */
-    paginationCallbackWrapper(paginationData: ClrDatagridPagination): LazyString {
-        return this.paginationCallback(paginationData.firstItem + 1, paginationData.lastItem + 1, this.totalItems);
+    getPaginationTranslation(paginationData: ClrDatagridPagination): LazyString {
+        return this.translationService.translateAsync(this.paginationTranslationKey, [
+            {
+                firstItem: paginationData.firstItem + 1,
+                lastItem: paginationData.lastItem + 1,
+                totalItems: paginationData.totalItems,
+            },
+        ]);
     }
 
     /**
