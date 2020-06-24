@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: BSD-2-Clause
  */
 
-import { Component, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { CheckBoxStyling, FormCheckboxComponent } from '@vcd/ui-components';
 
@@ -11,7 +11,7 @@ import { CheckBoxStyling, FormCheckboxComponent } from '@vcd/ui-components';
     selector: 'vcd-form-checkbox-example-component',
     templateUrl: `./form-checkbox.example.component.html`,
 })
-export class FormCheckboxExampleComponent {
+export class FormCheckboxExampleComponent implements OnInit {
     formGroup: FormGroup;
 
     styling = CheckBoxStyling;
@@ -23,6 +23,12 @@ export class FormCheckboxExampleComponent {
         this.formGroup = this.fb.group({
             checkboxInput: [true],
             toggleInput: [false],
+        });
+    }
+
+    ngOnInit(): void {
+        this.formGroup.get('checkboxInput').valueChanges.subscribe(value => {
+            value ? this.formGroup.controls.toggleInput.enable() : this.formGroup.controls.toggleInput.disable();
         });
     }
 }

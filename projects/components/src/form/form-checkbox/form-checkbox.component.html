@@ -9,7 +9,7 @@
                     [ngClass]="{ 'clr-checkbox': isCheckbox, 'clr-toggle': !isCheckbox }"
                     [formControl]="formControl"
                 />
-                <label class="clr-control-label right-label" (click)="rightSideLabelClicked()">
+                <label class="clr-control-label right-label" [for]="id">
                     <clr-icon *ngIf="iconShape" [attr.shape]="iconShape"></clr-icon>
                     {{ text }}
                 </label>

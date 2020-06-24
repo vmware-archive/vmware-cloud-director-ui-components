@@ -70,15 +70,6 @@ describe('FormCheckboxComponent', () => {
             expect(checkboxInput.value).toEqual(false);
         });
     });
-
-    describe('rightSideLabelClicked', () => {
-        it('when called, toggles the checkbox', () => {
-            expect(checkboxInput.value).toEqual(true);
-            hostComponent.checkboxComponent.rightSideLabelClicked();
-            finder.detectChanges();
-            expect(checkboxInput.value).toEqual(false);
-        });
-    });
 });
 
 @Component({

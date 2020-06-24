@@ -55,8 +55,4 @@ export class FormCheckboxComponent extends BaseFormControl {
     constructor(@Self() @Optional() controlDirective: NgControl) {
         super(controlDirective);
     }
-
-    rightSideLabelClicked(): void {
-        this.formControl.setValue(!this.formControl.value);
-    }
 }
