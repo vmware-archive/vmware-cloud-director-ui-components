@@ -7,8 +7,7 @@ import MessageFormat from 'messageformat';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { TranslationLoader } from '../loader/translation-loader';
-import { FormatDateOptions } from './basic-translation-service';
-import { TranslationService, TranslationSet } from './translation-service';
+import { FormatDateOptions, TRANSLATION_MAPPING, TranslationService, TranslationSet } from './translation-service';
 
 /**
  * Translation service to implement ICU MessageFormat.
@@ -21,6 +20,8 @@ export class MessageFormatTranslationService extends TranslationService {
         private combinedTranslations?: boolean
     ) {
         super();
+        this.preferredLocale = TRANSLATION_MAPPING[this.preferredLocale] || this.preferredLocale;
+        this.fallbackLocale = TRANSLATION_MAPPING[this.fallbackLocale] || this.fallbackLocale;
     }
     private translationSet: BehaviorSubject<TranslationSet> = new BehaviorSubject({});
     /**

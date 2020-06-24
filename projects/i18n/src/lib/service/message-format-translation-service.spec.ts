@@ -165,4 +165,15 @@ describe('MessageFormatTranslationService', () => {
             })
         ).toEqual('May, 12 AM');
     });
+
+    it('converts pt to pt-BR for locale', () => {
+        const translationService = new MessageFormatTranslationService('pt', 'en');
+        translationService.registerTranslations({
+            'pt-BR': {
+                hello: 'translation',
+            },
+        });
+
+        expect(translationService.translate('hello')).toEqual('translation');
+    });
 });
