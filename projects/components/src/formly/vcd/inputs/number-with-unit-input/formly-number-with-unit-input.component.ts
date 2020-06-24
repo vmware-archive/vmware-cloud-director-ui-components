@@ -5,7 +5,7 @@
 
 import { Component } from '@angular/core';
 import { FieldType } from '@ngx-formly/core';
-import { UNLIMITED } from '../../../../form';
+import { UNLIMITED } from '../../../../form/number-with-unit-input/number-with-unit-form-input.component';
 
 @Component({
     selector: 'vcd-formly-number-with-unit-input',

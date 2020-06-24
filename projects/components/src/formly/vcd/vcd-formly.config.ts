@@ -5,8 +5,8 @@
 
 import { ConfigOption, FormlyFieldConfig, FormlyTemplateOptions } from '@ngx-formly/core';
 import { Observable } from 'rxjs';
-import { SelectOption } from '../../common/interfaces';
-import { Unit } from '../../utils';
+import { SelectOption } from '../../common/interfaces/select-option';
+import { Unit } from '../../utils/unit/unit';
 import { FormlyInputComponent } from './inputs/input/formly-input.component';
 import { FormlyNumberWithUnitInputComponent } from './inputs/number-with-unit-input/formly-number-with-unit-input.component';
 import { FormlySelectComponent } from './inputs/select/formly-select.component';

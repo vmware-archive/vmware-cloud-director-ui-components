@@ -6,7 +6,7 @@
 import { Component } from '@angular/core';
 import { FieldType } from '@ngx-formly/core';
 import { Observable, of } from 'rxjs';
-import { SelectOption } from '../../../../common/interfaces';
+import { SelectOption } from '../../../../common/interfaces/select-option';
 
 @Component({
     selector: 'vcd-formly-select',

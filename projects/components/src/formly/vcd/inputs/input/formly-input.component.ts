@@ -5,7 +5,6 @@
 
 import { Component } from '@angular/core';
 import { FieldType } from '@ngx-formly/core';
-import { FormlyAttributeEvent } from '@ngx-formly/core/lib/components/formly.field.config';
 
 @Component({
     selector: 'vcd-formly-input',
@@ -67,7 +66,7 @@ export class FormlyInputComponent extends FieldType {
      */
     onEnterClicked(): any {
         if (this.to.onEnterClicked) {
-            return (this.to.onEnterClicked as FormlyAttributeEvent)(this.field);
+            return this.to.onEnterClicked(this.field);
         }
     }
     /**
@@ -75,7 +74,7 @@ export class FormlyInputComponent extends FieldType {
      */
     onEscapeClicked(): any {
         if (this.to.onEscapeClicked) {
-            return (this.to.onEscapeClicked as FormlyAttributeEvent)(this.field);
+            return this.to.onEscapeClicked(this.field);
         }
     }
 }

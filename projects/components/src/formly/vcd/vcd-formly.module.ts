@@ -15,11 +15,7 @@ import { FormlyNumberWithUnitInputComponent } from './inputs/number-with-unit-in
 import { FormlySelectComponent } from './inputs/select/formly-select.component';
 import { VCD_FORMLY_CONFIG } from './vcd-formly.config';
 
-export const VCD_FORMLY_INPUT_COMPONENTS = [
-    FormlyInputComponent,
-    FormlySelectComponent,
-    FormlyNumberWithUnitInputComponent,
-];
+const VCD_FORMLY_INPUT_COMPONENTS = [FormlyInputComponent, FormlySelectComponent, FormlyNumberWithUnitInputComponent];
 
 @NgModule({
     declarations: [...VCD_FORMLY_INPUT_COMPONENTS],
