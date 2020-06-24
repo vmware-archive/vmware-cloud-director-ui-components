@@ -86,7 +86,7 @@
                         <td class="col-md-4">
                             <ul class="index-list">
                                 <li>
-                                            <a href="#call-declaration-fe59a63f0820df8ec25c264089dda360">Unamed property</a>
+                                            <a href="#call-declaration-434458c63ad70f5a3d3bd2d1317b28c9">Unamed property</a>
                                 </li>
                             </ul>
                         </td>
@@ -105,7 +105,7 @@
                                     <tr>
                                         <td class="col-md-4">
                                             <i>Signature :</i>
-                                            <a name="call-declaration-fe59a63f0820df8ec25c264089dda360"></a>
+                                            <a name="call-declaration-434458c63ad70f5a3d3bd2d1317b28c9"></a>
                                             <code>
                                                 <!--ts.SyntaxKind.CallSignature-->
                                                     [firstItem: number, lastItem: number, totalItems: number]
@@ -183,6 +183,11 @@ const MAX_HEADER_HEIGHT &#x3D; 40;
  * The default clr-dr-row element clientHeight in pixels.
  */
 const ROW_HEIGHT &#x3D; 37;
+
+/**
+ * Key used for translation of pagination when a translation key is not given as input from the caller
+ */
+export const DEFAULT_PAGINATION_TRANSLATION_KEY &#x3D; &#x27;vcd.cc.grid.default.pagination&#x27;;
 
 /**
  * Different types of row selection on the grid
@@ -682,21 +687,9 @@ export class DatagridComponent&lt;R&gt; implements OnInit, AfterViewInit {
     private viewInitted &#x3D; false;
 
     /**
-     * Gives the correct string to display for the pagination.
-     *
-     * @param firstItem the index of the first item displayed.
-     * @param lastItem the index of the last item displayed.
-     * @param totalItems the total number of items that could be displayed.
+     * Used for translating pagination information displayed in the grid
      */
-    @Input() paginationCallback: PaginationCallback &#x3D; (firstItem: number, lastItem: number, totalItems: number) &#x3D;&gt; {
-        return this.translationService.translateAsync(&#x27;vcd.cc.grid.default.pagination&#x27;, [
-            {
-                firstItem,
-                lastItem,
-                totalItems,
-            },
-        ]);
-    };
+    @Input() paginationTranslationKey: string &#x3D; DEFAULT_PAGINATION_TRANSLATION_KEY;
 
     /**
      * To add or replace a column of this datagrid columns. Exposed for columns modifiers(eg: directives) that listen to
@@ -974,10 +967,16 @@ export class DatagridComponent&lt;R&gt; implements OnInit, AfterViewInit {
     }
 
     /**
-     * Updates the pagination data and makes the callback.
+     * Gives the correct string to display for the pagination.
      */
-    paginationCallbackWrapper(paginationData: ClrDatagridPagination): LazyString {
-        return this.paginationCallback(paginationData.firstItem + 1, paginationData.lastItem + 1, this.totalItems);
+    getPaginationTranslation(paginationData: ClrDatagridPagination): LazyString {
+        return this.translationService.translateAsync(this.paginationTranslationKey, [
+            {
+                firstItem: paginationData.firstItem + 1,
+                lastItem: paginationData.lastItem + 1,
+                totalItems: paginationData.totalItems,
+            },
+        ]);
     }
 
     /**
