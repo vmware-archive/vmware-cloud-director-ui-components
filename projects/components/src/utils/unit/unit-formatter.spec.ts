@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: BSD-2-Clause
  */
 
-import { BasicTranslationService } from '@vcd/i18n';
+import { MessageFormatTranslationService } from '@vcd/i18n';
 import { Bytes, Hertz, Percent } from './unit';
 import { UnitFormatter } from './unit-formatter';
 
@@ -27,7 +27,7 @@ describe('UnitFormatter', () => {
     };
 
     beforeEach(() => {
-        const translationService = new BasicTranslationService('en', 'en');
+        const translationService = new MessageFormatTranslationService('en', 'en');
         translationService.registerTranslations(translationSet);
         unitFormatter = new UnitFormatter(translationService);
     });

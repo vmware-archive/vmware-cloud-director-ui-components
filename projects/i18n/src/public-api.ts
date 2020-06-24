@@ -6,7 +6,6 @@
 export * from './lib/i18n.module';
 export * from './lib/service/translation-service';
 export * from './lib/pipe/translation-pipe';
-export * from './lib/service/basic-translation-service';
 export * from './lib/pipe/format-date-time-pipe';
 export * from './lib/pipe/lazy-string.pipe';
 export * from './lib/service/message-format-translation-service';
