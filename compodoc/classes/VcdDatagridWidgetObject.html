@@ -139,6 +139,14 @@
                                     <span class="modifier">Protected</span>
                                 <a href="#getTexts">getTexts</a>
                             </li>
+                            <li>
+                                    <span class="modifier">Protected</span>
+                                <a href="#sendKeyboardEvent">sendKeyboardEvent</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Protected</span>
+                                <a href="#setInputValue">setInputValue</a>
+                            </li>
                         </ul>
                     </td>
                 </tr>
@@ -647,7 +655,7 @@ receive the click event</p>
             </tr>
             <tr>
                 <td class="col-md-4">
-                        <div class="io-line">Defined in         <code><a href="../classes/WidgetObject.html#source" target="_self" >WidgetObject:98</a></code>
+                        <div class="io-line">Defined in         <code><a href="../classes/WidgetObject.html#source" target="_self" >WidgetObject:127</a></code>
 </div>
                 </td>
             </tr>
@@ -725,7 +733,7 @@ receive the click event</p>
             </tr>
             <tr>
                 <td class="col-md-4">
-                        <div class="io-line">Defined in         <code><a href="../classes/WidgetObject.html#source" target="_self" >WidgetObject:86</a></code>
+                        <div class="io-line">Defined in         <code><a href="../classes/WidgetObject.html#source" target="_self" >WidgetObject:115</a></code>
 </div>
                 </td>
             </tr>
@@ -833,7 +841,7 @@ If the element cannot be found, gives empty string.</p>
             </tr>
             <tr>
                 <td class="col-md-4">
-                        <div class="io-line">Defined in         <code><a href="../classes/WidgetObject.html#source" target="_self" >WidgetObject:94</a></code>
+                        <div class="io-line">Defined in         <code><a href="../classes/WidgetObject.html#source" target="_self" >WidgetObject:123</a></code>
 </div>
                 </td>
             </tr>
@@ -874,6 +882,259 @@ If the element cannot be found, gives empty string.</p>
                     </div>
                     <div class="io-description">
                         <b>Returns : </b>    <code>string[]</code>
+
+                    </div>
+                    <div class="io-description">
+                        
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="sendKeyboardEvent"></a>
+                    <span class="name">
+                        <b>
+                            <span class="modifier">Protected</span>
+                            sendKeyboardEvent
+                        </b>
+                        <a href="#sendKeyboardEvent"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                    <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>sendKeyboardEvent(key: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>, cssSelector?: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>, parent: <a href="https://angular.io/api/core/DebugElement" target="_blank">DebugElement</a>)</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Inherited from         <code><a href="../classes/WidgetObject.html" target="_self" >WidgetObject</a></code>
+</div>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-line">Defined in         <code><a href="../classes/WidgetObject.html#source" target="_self" >WidgetObject:87</a></code>
+</div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Sends a keyboard event defined by the key to an element and detects changes so the DOM is immediately updated.
+The keyboard event consists of keydow</p>
+</div>
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Type</td>
+                                    <td>Optional</td>
+                                    <td>Default value</td>
+                                    <td>Description</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>key</td>
+                                    <td>
+                                                <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+                                    <td>
+                                    </td>
+
+                                    <td>
+                                        <p>the key, for example Enter, Escape, ArrowUp etc.</p>
+
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>cssSelector</td>
+                                    <td>
+                                                <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                    </td>
+
+                                    <td>
+                                        Yes
+                                    </td>
+
+                                    <td>
+                                    </td>
+
+                                    <td>
+                                        <p>Pass this in if you want trigger the event on a specific element.
+If not passed in, the event will be triggered on the entire node</p>
+
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>parent</td>
+                                    <td>
+                                                <code><a href="https://angular.io/api/core/DebugElement" target="_blank" >DebugElement</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+                                    <td>
+                                        <code>this.root</code>
+                                    </td>
+
+                                    <td>
+                                        <p>the parent element for which to search for the {</p>
+
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                    </div>
+                    <div class="io-description">
+                        
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="setInputValue"></a>
+                    <span class="name">
+                        <b>
+                            <span class="modifier">Protected</span>
+                            setInputValue
+                        </b>
+                        <a href="#setInputValue"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                    <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>setInputValue(value: string | number, cssSelector?: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>, parent: <a href="https://angular.io/api/core/DebugElement" target="_blank">DebugElement</a>)</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Inherited from         <code><a href="../classes/WidgetObject.html" target="_self" >WidgetObject</a></code>
+</div>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-line">Defined in         <code><a href="../classes/WidgetObject.html#source" target="_self" >WidgetObject:101</a></code>
+</div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Sets the value of an input element or textarea element</p>
+</div>
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Type</td>
+                                    <td>Optional</td>
+                                    <td>Default value</td>
+                                    <td>Description</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>value</td>
+                                    <td>
+                                            <code>string | number</code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+                                    <td>
+                                    </td>
+
+                                    <td>
+                                        <p>the value that the element should display</p>
+
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>cssSelector</td>
+                                    <td>
+                                                <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                    </td>
+
+                                    <td>
+                                        Yes
+                                    </td>
+
+                                    <td>
+                                    </td>
+
+                                    <td>
+                                        <p>Pass this in if you want trigger the event on a specific element.
+If not passed in, the event will be triggered on the entire node</p>
+
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>parent</td>
+                                    <td>
+                                                <code><a href="https://angular.io/api/core/DebugElement" target="_blank" >DebugElement</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+                                    <td>
+                                        <code>this.root</code>
+                                    </td>
+
+                                    <td>
+                                        <p>the parent element for which to search for the {</p>
+
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
 
                     </div>
                     <div class="io-description">

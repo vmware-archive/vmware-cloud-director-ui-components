@@ -142,6 +142,14 @@ assert code on its own.</li>
                                     <span class="modifier">Protected</span>
                                 <a href="#getTexts">getTexts</a>
                             </li>
+                            <li>
+                                    <span class="modifier">Protected</span>
+                                <a href="#sendKeyboardEvent">sendKeyboardEvent</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Protected</span>
+                                <a href="#setInputValue">setInputValue</a>
+                            </li>
                         </ul>
                     </td>
                 </tr>
@@ -652,8 +660,8 @@ receive the click event</p>
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="98"
-                            class="link-to-prism">projects/components/src/utils/test/widget-object.ts:98</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="127"
+                            class="link-to-prism">projects/components/src/utils/test/widget-object.ts:127</a></div>
                 </td>
             </tr>
 
@@ -724,8 +732,8 @@ receive the click event</p>
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="86"
-                            class="link-to-prism">projects/components/src/utils/test/widget-object.ts:86</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="115"
+                            class="link-to-prism">projects/components/src/utils/test/widget-object.ts:115</a></div>
                 </td>
             </tr>
 
@@ -826,8 +834,8 @@ If the element cannot be found, gives empty string.</p>
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="94"
-                            class="link-to-prism">projects/components/src/utils/test/widget-object.ts:94</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="123"
+                            class="link-to-prism">projects/components/src/utils/test/widget-object.ts:123</a></div>
                 </td>
             </tr>
 
@@ -867,6 +875,247 @@ If the element cannot be found, gives empty string.</p>
                     </div>
                     <div class="io-description">
                         <b>Returns : </b>    <code>string[]</code>
+
+                    </div>
+                    <div class="io-description">
+                        
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="sendKeyboardEvent"></a>
+                    <span class="name">
+                        <b>
+                            <span class="modifier">Protected</span>
+                            sendKeyboardEvent
+                        </b>
+                        <a href="#sendKeyboardEvent"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                    <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>sendKeyboardEvent(key: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>, cssSelector?: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>, parent: <a href="https://angular.io/api/core/DebugElement" target="_blank">DebugElement</a>)</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="87"
+                            class="link-to-prism">projects/components/src/utils/test/widget-object.ts:87</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Sends a keyboard event defined by the key to an element and detects changes so the DOM is immediately updated.
+The keyboard event consists of keydow</p>
+</div>
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Type</td>
+                                    <td>Optional</td>
+                                    <td>Default value</td>
+                                    <td>Description</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>key</td>
+                                    <td>
+                                                <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+                                    <td>
+                                    </td>
+
+                                    <td>
+                                        <p>the key, for example Enter, Escape, ArrowUp etc.</p>
+
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>cssSelector</td>
+                                    <td>
+                                                <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                    </td>
+
+                                    <td>
+                                        Yes
+                                    </td>
+
+                                    <td>
+                                    </td>
+
+                                    <td>
+                                        <p>Pass this in if you want trigger the event on a specific element.
+If not passed in, the event will be triggered on the entire node</p>
+
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>parent</td>
+                                    <td>
+                                                <code><a href="https://angular.io/api/core/DebugElement" target="_blank" >DebugElement</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+                                    <td>
+                                        <code>this.root</code>
+                                    </td>
+
+                                    <td>
+                                        <p>the parent element for which to search for the {</p>
+
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                    </div>
+                    <div class="io-description">
+                        
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="setInputValue"></a>
+                    <span class="name">
+                        <b>
+                            <span class="modifier">Protected</span>
+                            setInputValue
+                        </b>
+                        <a href="#setInputValue"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                    <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>setInputValue(value: string | number, cssSelector?: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>, parent: <a href="https://angular.io/api/core/DebugElement" target="_blank">DebugElement</a>)</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="101"
+                            class="link-to-prism">projects/components/src/utils/test/widget-object.ts:101</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Sets the value of an input element or textarea element</p>
+</div>
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Type</td>
+                                    <td>Optional</td>
+                                    <td>Default value</td>
+                                    <td>Description</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>value</td>
+                                    <td>
+                                            <code>string | number</code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+                                    <td>
+                                    </td>
+
+                                    <td>
+                                        <p>the value that the element should display</p>
+
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>cssSelector</td>
+                                    <td>
+                                                <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                    </td>
+
+                                    <td>
+                                        Yes
+                                    </td>
+
+                                    <td>
+                                    </td>
+
+                                    <td>
+                                        <p>Pass this in if you want trigger the event on a specific element.
+If not passed in, the event will be triggered on the entire node</p>
+
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>parent</td>
+                                    <td>
+                                                <code><a href="https://angular.io/api/core/DebugElement" target="_blank" >DebugElement</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+                                    <td>
+                                        <code>this.root</code>
+                                    </td>
+
+                                    <td>
+                                        <p>the parent element for which to search for the {</p>
+
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
 
                     </div>
                     <div class="io-description">
@@ -956,6 +1205,35 @@ export abstract class WidgetObject&lt;T&gt; {
     protected click(cssSelector?: string, parent: DebugElement &#x3D; this.root): void {
         const nativeElement: HTMLBaseElement &#x3D; parent.query(By.css(cssSelector)).nativeElement;
         nativeElement.click();
+        this.detectChanges();
+    }
+
+    /**
+     * Sends a keyboard event defined by the key to an element and detects changes so the DOM is immediately updated.
+     * The keyboard event consists of keydow
+     * @param key the key, for example Enter, Escape, ArrowUp etc.
+     * @param cssSelector Pass this in if you want trigger the event on a specific element.
+     *        If not passed in, the event will be triggered on the entire node
+     * @param parent the parent element for which to search for the {@param cssSelector} within. Defaults to root if not provided.
+     */
+    protected sendKeyboardEvent(key: string, cssSelector?: string, parent: DebugElement &#x3D; this.root): void {
+        const nativeElement: HTMLBaseElement &#x3D; parent.query(By.css(cssSelector)).nativeElement;
+        nativeElement.dispatchEvent(new KeyboardEvent(&#x27;keydown&#x27;, { key, bubbles: true }));
+        nativeElement.dispatchEvent(new KeyboardEvent(&#x27;keyup&#x27;, { key, bubbles: true }));
+        this.detectChanges();
+    }
+
+    /**
+     * Sets the value of an input element or textarea element
+     * @param value the value that the element should display
+     * @param cssSelector Pass this in if you want trigger the event on a specific element.
+     *        If not passed in, the event will be triggered on the entire node
+     * @param parent the parent element for which to search for the {@param cssSelector} within. Defaults to root if not provided.
+     */
+    protected setInputValue(value: string | number, cssSelector?: string, parent: DebugElement &#x3D; this.root): void {
+        const nativeElement: HTMLInputElement | HTMLTextAreaElement &#x3D; parent.query(By.css(cssSelector)).nativeElement;
+        nativeElement.value &#x3D; String(value);
+        nativeElement.dispatchEvent(new Event(&#x27;input&#x27;));
         this.detectChanges();
     }
 

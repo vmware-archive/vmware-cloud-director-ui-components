@@ -142,7 +142,7 @@ H is the host component&#39;s type</p>
                 </tr>
                         <tr>
                             <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="149" class="link-to-prism">projects/components/src/utils/test/widget-object.ts:149</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="178" class="link-to-prism">projects/components/src/utils/test/widget-object.ts:178</a></div>
                             </td>
                         </tr>
 
@@ -211,7 +211,7 @@ H is the host component&#39;s type</p>
                     </tr>
                         <tr>
                             <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="144" class="link-to-prism">projects/components/src/utils/test/widget-object.ts:144</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="173" class="link-to-prism">projects/components/src/utils/test/widget-object.ts:173</a></div>
                             </td>
                         </tr>
 
@@ -245,7 +245,7 @@ H is the host component&#39;s type</p>
                     </tr>
                         <tr>
                             <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="149" class="link-to-prism">projects/components/src/utils/test/widget-object.ts:149</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="178" class="link-to-prism">projects/components/src/utils/test/widget-object.ts:178</a></div>
                             </td>
                         </tr>
 
@@ -289,8 +289,8 @@ H is the host component&#39;s type</p>
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="200"
-                            class="link-to-prism">projects/components/src/utils/test/widget-object.ts:200</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="229"
+                            class="link-to-prism">projects/components/src/utils/test/widget-object.ts:229</a></div>
                 </td>
             </tr>
 
@@ -330,8 +330,8 @@ H is the host component&#39;s type</p>
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="188"
-                            class="link-to-prism">projects/components/src/utils/test/widget-object.ts:188</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="217"
+                            class="link-to-prism">projects/components/src/utils/test/widget-object.ts:217</a></div>
                 </td>
             </tr>
 
@@ -413,8 +413,8 @@ H is the host component&#39;s type</p>
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="163"
-                            class="link-to-prism">projects/components/src/utils/test/widget-object.ts:163</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="192"
+                            class="link-to-prism">projects/components/src/utils/test/widget-object.ts:192</a></div>
                 </td>
             </tr>
 
@@ -565,6 +565,35 @@ export abstract class WidgetObject&lt;T&gt; {
     protected click(cssSelector?: string, parent: DebugElement &#x3D; this.root): void {
         const nativeElement: HTMLBaseElement &#x3D; parent.query(By.css(cssSelector)).nativeElement;
         nativeElement.click();
+        this.detectChanges();
+    }
+
+    /**
+     * Sends a keyboard event defined by the key to an element and detects changes so the DOM is immediately updated.
+     * The keyboard event consists of keydow
+     * @param key the key, for example Enter, Escape, ArrowUp etc.
+     * @param cssSelector Pass this in if you want trigger the event on a specific element.
+     *        If not passed in, the event will be triggered on the entire node
+     * @param parent the parent element for which to search for the {@param cssSelector} within. Defaults to root if not provided.
+     */
+    protected sendKeyboardEvent(key: string, cssSelector?: string, parent: DebugElement &#x3D; this.root): void {
+        const nativeElement: HTMLBaseElement &#x3D; parent.query(By.css(cssSelector)).nativeElement;
+        nativeElement.dispatchEvent(new KeyboardEvent(&#x27;keydown&#x27;, { key, bubbles: true }));
+        nativeElement.dispatchEvent(new KeyboardEvent(&#x27;keyup&#x27;, { key, bubbles: true }));
+        this.detectChanges();
+    }
+
+    /**
+     * Sets the value of an input element or textarea element
+     * @param value the value that the element should display
+     * @param cssSelector Pass this in if you want trigger the event on a specific element.
+     *        If not passed in, the event will be triggered on the entire node
+     * @param parent the parent element for which to search for the {@param cssSelector} within. Defaults to root if not provided.
+     */
+    protected setInputValue(value: string | number, cssSelector?: string, parent: DebugElement &#x3D; this.root): void {
+        const nativeElement: HTMLInputElement | HTMLTextAreaElement &#x3D; parent.query(By.css(cssSelector)).nativeElement;
+        nativeElement.value &#x3D; String(value);
+        nativeElement.dispatchEvent(new Event(&#x27;input&#x27;));
         this.detectChanges();
     }
 
