@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: BSD-2-Clause
  */
 
-import { Component, HostBinding, ViewChild } from '@angular/core';
+import { Component, EventEmitter, HostBinding, ViewChild } from '@angular/core';
 import { fakeAsync, TestBed, tick } from '@angular/core/testing';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { LoadingListener } from '@clr/angular';
@@ -177,6 +177,26 @@ describe('DatagridComponent', () => {
                 });
             });
 
+            describe('@Input() columns.clrDgColumnClassName', () => {
+                beforeEach(function(this: HasFinderAndGrid): void {
+                    this.finder.hostComponent.gridData = {
+                        items: mockData,
+                        totalItems: 2,
+                    };
+                    this.finder.detectChanges();
+                });
+
+                it('sets the width of the column to the given height', function(this: HasFinderAndGrid): void {
+                    this.finder.hostComponent.columns = [
+                        { displayName: 'Name', renderer: 'name', clrDgColumnClassName: 'some-class' },
+                        { displayName: 'Name', renderer: 'name' },
+                    ];
+                    this.finder.detectChanges();
+                    expect(this.clrGridWidget.getColumnClasses(0)).toContain('some-class');
+                    expect(this.clrGridWidget.getColumnClasses(1)).not.toContain('some-class');
+                });
+            });
+
             describe('@Input() selectionType', () => {
                 it('has multi selection capabilities when set to multi selection', function(this: HasFinderAndGrid): void {
                     this.finder.hostComponent.selectionType = GridSelectionType.Multi;
@@ -214,6 +234,28 @@ describe('DatagridComponent', () => {
                     expect(this.finder.hostComponent.getSelection()).toEqual([mockData[0]]);
                     this.clrGridWidget.selectRow(1);
                     expect(this.finder.hostComponent.getSelection()).toEqual([mockData[1]]);
+                });
+            });
+
+            describe('@Output() selectionChanged', () => {
+                it('emits multiple rows when set to multi selection', function(this: HasFinderAndGrid): void {
+                    this.finder.hostComponent.selectionType = GridSelectionType.Multi;
+                    this.finder.detectChanges();
+                    spyOn(this.finder.hostComponent, 'selectionChanged');
+                    this.clrGridWidget.selectRow(0);
+                    expect(this.finder.hostComponent.selectionChanged).toHaveBeenCalledWith([mockData[0]]);
+                    this.clrGridWidget.selectRow(1);
+                    expect(this.finder.hostComponent.selectionChanged).toHaveBeenCalledWith(mockData);
+                });
+
+                it('emits only one row when set to single selection', function(this: HasFinderAndGrid): void {
+                    this.finder.hostComponent.selectionType = GridSelectionType.Single;
+                    this.finder.detectChanges();
+                    spyOn(this.finder.hostComponent, 'selectionChanged');
+                    this.clrGridWidget.selectRow(0);
+                    expect(this.finder.hostComponent.selectionChanged).toHaveBeenCalledWith([mockData[0]]);
+                    this.clrGridWidget.selectRow(1);
+                    expect(this.finder.hostComponent.selectionChanged).toHaveBeenCalledWith([mockData[1]]);
                 });
             });
 
@@ -747,6 +789,14 @@ describe('DatagridComponent', () => {
                     this.finder.hostComponent.buttonConfig.inactiveDisplayMode = InactiveButtonDisplayMode.Hide;
                     this.finder.detectChanges();
                     expect(this.clrGridWidget.getTopPositionedButtons()).toEqual(['Add']);
+                });
+
+                it('allows an optional contextualButtonConfig', function(this: HasFinderAndGrid): void {
+                    this.finder.hostComponent.buttonConfig = {
+                        globalButtons: [],
+                    };
+                    this.finder.detectChanges();
+                    expect(this.finder.hostComponent.grid._buttonConfig.contextualButtonConfig.buttons).toEqual([]);
                 });
 
                 it('can have different configuration for all buttons and a single button', function(this: HasFinderAndGrid): void {

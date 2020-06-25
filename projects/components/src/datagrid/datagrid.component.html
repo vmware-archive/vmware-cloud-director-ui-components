@@ -7,12 +7,14 @@
     [clrDgLoading]="isLoading"
     [ngClass]="[this.clrDatagridCssClass, this.height ? 'set-height' : 'fill-parent-grid']"
     (clrDgRefresh)="gridStateChanged($event)"
+    (clrDgSelectedChange)="selectionChanged.emit($event)"
+    (clrDgSingleSelectedChange)="selectionChanged.emit([$event])"
 >
     <clr-dg-placeholder>{{ emptyGridPlaceholder }}</clr-dg-placeholder>
     <clr-dg-action-bar *ngIf="shouldShowActionBar()">
         <div class="btn-group" *ngFor="let button of buttonConfig.globalButtons">
             <button
-                class="btn"
+                class="btn btn-link"
                 [ngClass]="button.class"
                 *ngIf="isButtonShown(button)"
                 (click)="runButtonHandler(button, [])"
@@ -22,12 +24,12 @@
             </button>
         </div>
 
-        <ng-container *ngIf="shouldDisplayButtonsOnTop()">
+        <div class="feature-bar" *ngIf="shouldDisplayButtonsOnTop()">
             <ng-container *ngTemplateOutlet="featuredBar; context: { $implicit: datagridSelection }"></ng-container>
             <ng-container *ngIf="this.getFeaturedButtons().length === 0">
                 <ng-container *ngTemplateOutlet="dropdown"></ng-container>
             </ng-container>
-        </ng-container>
+        </div>
     </clr-dg-action-bar>
 
     <clr-dg-column *ngIf="shouldDisplayButtonsOnRow()" [ngClass]="'buttons-' + this.getMaxFeaturedButtonsOnRow()">
@@ -37,6 +39,8 @@
         *ngFor="let column of columnsConfig"
         [clrDgSortBy]="column.sortable !== false && column.queryFieldName"
         (clrDgSortOrderChange)="resetToPageOne()"
+        class="data-column"
+        [ngClass]="column.clrDgColumnClassName"
     >
         <ng-container *ngIf="isColumnHideable(column); else notHideable">
             <ng-container *clrDgHideableColumn="{ hidden: column.hideable === GridColumnHideable.Hidden }">{{
@@ -143,9 +147,9 @@
     let-buttonClass="buttonClass"
     let-iconClass="iconClass"
 >
-    <div class="btn-group" [ngClass]="groupClass">
+    <div [ngClass]="groupClass">
         <button
-            class="btn btn-icon"
+            class="btn btn-icon btn-link"
             *ngFor="let button of this.getFeaturedButtons(selection)"
             (click)="runButtonHandler(button, selection)"
             [disabled]="isButtonDisabled(button, button.isActive(selection))"
@@ -171,13 +175,13 @@
 
 <ng-template #dropdown let-buttonClass="buttonClass" let-iconClass="iconClass">
     <clr-dropdown class="btn-group-overflow open" *ngIf="hasContextualButtons()" [ngClass]="buttonClass">
-        <button class="btn dropdown-toggle dropdown-small" clrDropdownTrigger [ngClass]="buttonClass">
+        <button class="btn dropdown-toggle dropdown-small btn-link" clrDropdownTrigger [ngClass]="buttonClass">
             <clr-icon shape="ellipsis-horizontal" [ngClass]="iconClass"></clr-icon>
         </button>
         <clr-dropdown-menu class="dropdown-menu" *clrIfOpen>
             <button
                 *ngFor="let button of buttonConfig.contextualButtonConfig.buttons"
-                class="btn"
+                class="btn btn-link"
                 [ngClass]="button.class"
                 [disabled]="!button.isActive(this.datagridSelection)"
                 (click)="runButtonHandler(button, this.datagridSelection)"
