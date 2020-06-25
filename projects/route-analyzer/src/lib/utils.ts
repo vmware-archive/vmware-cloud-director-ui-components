@@ -85,7 +85,9 @@ export function evaluateNode(
     typeChecker: ts.TypeChecker,
     throwOnFailure: boolean = true
 ): any {
-    const val: EvaluateResult = evaluate({ node, typeChecker });
+    // The evaluation should use the same typescript version as the analyzer
+    // otherwise the evaluation may not succeed.
+    const val: EvaluateResult = evaluate({ node, typeChecker, typescript: ts });
     if (val.success) {
         return val.value as object;
     }
