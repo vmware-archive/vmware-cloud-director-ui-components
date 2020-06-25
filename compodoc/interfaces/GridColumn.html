@@ -99,6 +99,10 @@ The value of the property &quot;someRecord.property&quot; is rendered in cells c
                                         <a href="#cliptextConfig">cliptextConfig</a>
                                 </li>
                                 <li>
+                                            <span class="modifier">Optional</span>
+                                        <a href="#clrDgColumnClassName">clrDgColumnClassName</a>
+                                </li>
+                                <li>
                                         <a href="#displayName">displayName</a>
                                 </li>
                                 <li>
@@ -172,6 +176,46 @@ The value of the property &quot;someRecord.property&quot; is rendered in cells c
                                     <div class="io-description"><p>The configuration for the cliptext in the datagrid.
 Defaults to size: &#39;lg&#39;, mouseoutDelay: undefined.
 If null, will disable cliptext</p>
+</div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <table class="table table-sm table-bordered">
+                        <tbody>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <a name="clrDgColumnClassName"></a>
+                                        <span class="name"><b>clrDgColumnClassName</b><a href="#clrDgColumnClassName"><span class="icon ion-ios-link"></span></a></span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <code>clrDgColumnClassName:         <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+</code>
+                                    </td>
+                                </tr>
+
+
+                                    <tr>
+                                        <td class="col-md-4">
+                                            <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                                        </td>
+                                    </tr>
+
+                                    <tr>
+                                        <td class="col-md-4">
+                                            <i>Optional</i>
+                                        </td>
+                                    </tr>
+
+
+
+
+                            <tr>
+                                <td class="col-md-4">
+                                    <div class="io-description"><p>The class of the column header.</p>
 </div>
                                 </td>
                             </tr>
@@ -618,7 +662,7 @@ export interface ButtonConfig&lt;R&gt; {
     /**
      * The buttons whose displayability depends on the selected entity.
      */
-    contextualButtonConfig: ContextualButtonConfig&lt;R&gt;;
+    contextualButtonConfig?: ContextualButtonConfig&lt;R&gt;;
     /**
      * The way buttons should be shown when inactive.
      */
@@ -702,6 +746,11 @@ export interface GridColumn&lt;R&gt; {
      * Whether to show the column as sortable. Defaults to true
      */
     sortable?: boolean;
+
+    /**
+     * The class of the column header.
+     */
+    clrDgColumnClassName?: string;
 }
 
 /**

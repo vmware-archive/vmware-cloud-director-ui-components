@@ -545,6 +545,12 @@ export class DatagridComponent&lt;R&gt; implements OnInit, AfterViewInit {
      */
     @Input() set buttonConfig(config: ButtonConfig&lt;R&gt;) {
         this._buttonConfig &#x3D; config;
+        this._buttonConfig.contextualButtonConfig &#x3D; this._buttonConfig.contextualButtonConfig
+            ? this._buttonConfig.contextualButtonConfig
+            : {
+                  buttons: [],
+                  position: ContextualButtonPosition.TOP,
+              };
         this._buttonConfig.contextualButtonConfig.buttonContents &#x3D;
             this._buttonConfig.contextualButtonConfig.buttonContents || TextIcon.ICON;
         this._buttonConfig.inactiveDisplayMode &#x3D;
@@ -637,6 +643,11 @@ export class DatagridComponent&lt;R&gt; implements OnInit, AfterViewInit {
         }
         return [];
     }
+
+    /**
+     * An output that emits when the selection changes on the grid.
+     */
+    @Output() selectionChanged &#x3D; new EventEmitter&lt;R[]&gt;();
 
     /**
      * Emitted whenever {@link #columns} input is updated
@@ -753,7 +764,7 @@ export class DatagridComponent&lt;R&gt; implements OnInit, AfterViewInit {
     /**
      * List of items used for displaying rows on the grid
      */
-    items: R[];
+    items: R[] &#x3D; [];
 
     /**
      * The value of the single selection.
@@ -788,6 +799,8 @@ export class DatagridComponent&lt;R&gt; implements OnInit, AfterViewInit {
     @ViewChild(&#x27;actionReporter&#x27;) actionReporter: ActivityReporter;
 
     private viewInitted &#x3D; false;
+
+    private widthSetTimes &#x3D; 0;
 
     /**
      * Used for translating pagination information displayed in the grid

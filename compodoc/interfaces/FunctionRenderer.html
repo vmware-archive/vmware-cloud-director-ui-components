@@ -87,7 +87,7 @@ properties.</p>
                         <td class="col-md-4">
                             <ul class="index-list">
                                 <li>
-                                            <a href="#call-declaration-d6e8c874e897d46fdd0bc6db7241ff7b">Unamed property</a>
+                                            <a href="#call-declaration-b61b90d82841fbc73f1d9c75c51fb3a9">Unamed property</a>
                                 </li>
                             </ul>
                         </td>
@@ -106,7 +106,7 @@ properties.</p>
                                     <tr>
                                         <td class="col-md-4">
                                             <i>Signature :</i>
-                                            <a name="call-declaration-d6e8c874e897d46fdd0bc6db7241ff7b"></a>
+                                            <a name="call-declaration-b61b90d82841fbc73f1d9c75c51fb3a9"></a>
                                             <code>
                                                 <!--ts.SyntaxKind.CallSignature-->
                                                     [record: T]
@@ -289,7 +289,7 @@ export interface ButtonConfig&lt;R&gt; {
     /**
      * The buttons whose displayability depends on the selected entity.
      */
-    contextualButtonConfig: ContextualButtonConfig&lt;R&gt;;
+    contextualButtonConfig?: ContextualButtonConfig&lt;R&gt;;
     /**
      * The way buttons should be shown when inactive.
      */
@@ -373,6 +373,11 @@ export interface GridColumn&lt;R&gt; {
      * Whether to show the column as sortable. Defaults to true
      */
     sortable?: boolean;
+
+    /**
+     * The class of the column header.
+     */
+    clrDgColumnClassName?: string;
 }
 
 /**

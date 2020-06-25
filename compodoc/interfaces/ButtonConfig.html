@@ -86,6 +86,7 @@
                         <td class="col-md-4">
                             <ul class="index-list">
                                 <li>
+                                            <span class="modifier">Optional</span>
                                         <a href="#contextualButtonConfig">contextualButtonConfig</a>
                                 </li>
                                 <li>
@@ -129,6 +130,11 @@
                                         </td>
                                     </tr>
 
+                                    <tr>
+                                        <td class="col-md-4">
+                                            <i>Optional</i>
+                                        </td>
+                                    </tr>
 
 
 
@@ -378,7 +384,7 @@ export interface ButtonConfig&lt;R&gt; {
     /**
      * The buttons whose displayability depends on the selected entity.
      */
-    contextualButtonConfig: ContextualButtonConfig&lt;R&gt;;
+    contextualButtonConfig?: ContextualButtonConfig&lt;R&gt;;
     /**
      * The way buttons should be shown when inactive.
      */
@@ -462,6 +468,11 @@ export interface GridColumn&lt;R&gt; {
      * Whether to show the column as sortable. Defaults to true
      */
     sortable?: boolean;
+
+    /**
+     * The class of the column header.
+     */
+    clrDgColumnClassName?: string;
 }
 
 /**
