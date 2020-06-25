@@ -50,6 +50,7 @@
     "karma-coverage": "2.0.2",
     "lit-html": "1.1.2",
     "messageformat": "1.0.2",
+    "mousetrap": "1.6.5",
     "prismjs": "1.17.1",
     "properties": "1.2.1",
     "rbradford-compodoc": "1.1.11",
