@@ -1,0 +1,122 @@
+<div class="inline-actions-container" *ngIf="shouldDisplayActions(actionStyling.INLINE)">
+    <ng-container *ngIf="shouldDisplayStaticFeaturedActions(actionStyling.INLINE)">
+        <ng-container *ngFor="let action of staticFeaturedActions">
+            <ng-template *ngTemplateOutlet="actionButton; context: { $implicit: action }"></ng-template>
+        </ng-container>
+    </ng-container>
+
+    <ng-container *ngIf="shouldDisplayContextualActions(actionStyling.INLINE)">
+        <ng-container *ngFor="let action of getContextualFeaturedActions(selectedEntities)">
+            <ng-template *ngTemplateOutlet="actionButton; context: { $implicit: action }"></ng-template>
+        </ng-container>
+
+        <ng-template
+            *ngTemplateOutlet="actionsDropdown; context: { $implicit: getContextualActions(selectedEntities) }"
+        ></ng-template>
+    </ng-container>
+
+    <div
+        class="empty-flex-item"
+        *ngIf="
+            shouldDisplayStaticFeaturedActions(actionStyling.INLINE) && shouldDisplayStaticActions(actionStyling.INLINE)
+        "
+    ></div>
+
+    <ng-container *ngIf="shouldDisplayStaticActions(actionStyling.INLINE)">
+        <ng-container *ngFor="let action of staticActions">
+            <ng-template *ngTemplateOutlet="actionButton; context: { $implicit: action }"></ng-template>
+        </ng-container>
+    </ng-container>
+</div>
+
+<div class="dropdown-actions-container" *ngIf="shouldDisplayActions(actionStyling.DROPDOWN)">
+    <ng-container
+        *ngIf="
+            shouldDisplayStaticActions(actionStyling.DROPDOWN) ||
+            shouldDisplayStaticFeaturedActions(actionStyling.DROPDOWN)
+        "
+    >
+        <ng-template
+            *ngTemplateOutlet="
+                dropDownActionsContainerTemplate;
+                context: { featuredActions: staticFeaturedActions, otherActions: staticActions }
+            "
+        ></ng-template>
+    </ng-container>
+
+    <ng-container *ngIf="shouldDisplayContextualActions(actionStyling.DROPDOWN)">
+        <ng-template
+            *ngTemplateOutlet="
+                dropDownActionsContainerTemplate;
+                context: {
+                    featuredActions: getContextualFeaturedActions(selectedEntities),
+                    otherActions: getContextualActions(selectedEntities)
+                }
+            "
+        ></ng-template>
+    </ng-container>
+</div>
+
+<ng-template #dropDownActionsContainerTemplate let-featuredActions="featuredActions" let-otherActions="otherActions">
+    <div class="featured-actions-dropdown">
+        <ng-template *ngTemplateOutlet="actionsDropdown; context: { $implicit: featuredActions }"></ng-template>
+    </div>
+
+    <div class="dropdown-divider" role="separator" aria-hidden="true"></div>
+
+    <div class="other-actions-dropdown">
+        <ng-template *ngTemplateOutlet="actionsDropdown; context: { $implicit: otherActions }"></ng-template>
+    </div>
+</ng-template>
+
+<ng-template #actionsDropdown let-actions let-dropdownName="dropdownName" let-dropdownPosition="dropdownPosition">
+    <clr-dropdown>
+        <button class="btn btn-link" clrDropdownTrigger *ngIf="!dropdownName">
+            <clr-icon shape="ellipsis-horizontal"></clr-icon>
+        </button>
+        <button class="btn expandable" clrDropdownTrigger *ngIf="dropdownName">
+            {{ dropdownName | translate }}
+        </button>
+        <clr-dropdown-menu [clrPosition]="dropdownPosition || 'bottom-left'" *clrIfOpen>
+            <label class="dropdown-header" aria-hidden="true">{{
+                (dropdownName ? dropdownName : 'vcd.cc.action.menu.contextual.actions') | translate
+            }}</label>
+            <ng-container *ngFor="let action of actions">
+                <ng-container *ngIf="action.children && action.children.length">
+                    <div class="dropdown-divider" role="separator" aria-hidden="true"></div>
+                    <ng-template
+                        *ngTemplateOutlet="
+                            actionsDropdown;
+                            context: {
+                                $implicit: getAvailableActions(action.children, selectedEntities),
+                                dropdownName: action.textKey,
+                                dropdownPosition: 'right-top'
+                            }
+                        "
+                    ></ng-template>
+                </ng-container>
+                <ng-container *ngIf="!action.children">
+                    <button
+                        class="dropdown-action-button"
+                        clrDropdownItem
+                        (click)="runActionHandler(action)"
+                        [disabled]="isActionDisabled(action)"
+                    >
+                        {{ action.textKey | translate }}
+                    </button>
+                </ng-container>
+            </ng-container>
+        </clr-dropdown-menu>
+    </clr-dropdown>
+</ng-template>
+
+<ng-template #actionButton let-action>
+    <button
+        class="btn btn-link action-button"
+        [ngClass]="action.class"
+        (click)="runActionHandler(action)"
+        [disabled]="isActionDisabled(action)"
+    >
+        {{ action.textKey | translate }}
+    </button>
+</ng-template>

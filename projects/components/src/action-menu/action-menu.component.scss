@@ -1,0 +1,25 @@
+.inline-actions-container {
+    display: flex;
+    flex-direction: row;
+
+    & > .empty-flex-item {
+        flex: 1 1 auto;
+    }
+
+    & > .static-actions {
+        margin-right: 0;
+    }
+
+    & ::ng-deep button.btn.action-button {
+        margin-right: 15px;
+
+        &:last-child {
+            margin-right: 0;
+        }
+    }
+}
+
+.dropdown-actions-container {
+    display: flex;
+    flex-direction: row;
+}

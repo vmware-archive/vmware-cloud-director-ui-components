@@ -9,6 +9,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { ClarityModule } from '@clr/angular';
 import { I18nModule } from '@vcd/i18n';
+import { VcdActionMenuModule } from '../action-menu';
 import { VcdActivityReporterModule } from '../common/activity-reporter/activity-reporter.module';
 import { PipesModule } from '../common/pipes/pipes.module';
 import { VcdFormModule } from '../form/form.module';
@@ -44,6 +45,7 @@ const filters = [
         I18nModule,
         VcdActivityReporterModule,
         VcdFormModule,
+        VcdActionMenuModule,
     ],
     declarations: [DatagridComponent, ...directives, ...renderers, ...pipes, ...filters],
     providers: [],
