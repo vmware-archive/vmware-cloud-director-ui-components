@@ -11,16 +11,18 @@ import {
     EventEmitter,
     HostBinding,
     Input,
+    OnDestroy,
     OnInit,
     Output,
     TrackByFunction,
     ViewChild,
 } from '@angular/core';
-import { ClrDatagrid, ClrDatagridFilter, ClrDatagridPagination, ClrDatagridStateInterface } from '@clr/angular';
+import { ClrDatagrid, ClrDatagridPagination, ClrDatagridStateInterface } from '@clr/angular';
 import { LazyString, TranslationService } from '@vcd/i18n';
 import { Observable } from 'rxjs';
 import { ActivityReporter } from '../common/activity-reporter';
 import { TextIcon } from '../common/interfaces/action-item.interface';
+import { SubscriptionTracker } from '../common/subscription';
 import { TooltipSize } from '../lib/directives/show-clipped-text.directive';
 import { DatagridFilter } from './filters/datagrid-filter';
 import { ComponentRendererConstructor, ComponentRendererSpec } from './interfaces/component-renderer.interface';
@@ -266,7 +268,7 @@ interface ColumnConfigInternal<R, T> extends GridColumn<R> {
     templateUrl: './datagrid.component.html',
     styleUrls: ['./datagrid.component.scss'],
 })
-export class DatagridComponent<R> implements OnInit, AfterViewInit {
+export class DatagridComponent<R> implements OnInit, AfterViewInit, OnDestroy {
     /**
      * Sets the configuration of columns on the grid and updates the {@link columnsConfig} array. Also pushes
      * notifications for listeners to make changes to the _columns array
@@ -575,6 +577,8 @@ export class DatagridComponent<R> implements OnInit, AfterViewInit {
      * Used for translating pagination information displayed in the grid
      */
     @Input() paginationTranslationKey: string = DEFAULT_PAGINATION_TRANSLATION_KEY;
+
+    private subTracker = new SubscriptionTracker(this);
 
     /**
      * To add or replace a column of this datagrid columns. Exposed for columns modifiers(eg: directives) that listen to
@@ -968,5 +972,13 @@ export class DatagridComponent<R> implements OnInit, AfterViewInit {
             // calling a setTimeout.
             this.changeDetectorRef.detectChanges();
         }
+
+        this.datagrid.items.change.subscribe(() => {
+            if (this.datagrid.items.displayed.length > 0) {
+                (this.datagrid as any).organizer.resize();
+            }
+        });
     }
+
+    ngOnDestroy(): void {}
 }
