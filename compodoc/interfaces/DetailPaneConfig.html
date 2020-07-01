@@ -147,16 +147,18 @@
     EventEmitter,
     HostBinding,
     Input,
+    OnDestroy,
     OnInit,
     Output,
     TrackByFunction,
     ViewChild,
 } from &#x27;@angular/core&#x27;;
-import { ClrDatagrid, ClrDatagridFilter, ClrDatagridPagination, ClrDatagridStateInterface } from &#x27;@clr/angular&#x27;;
+import { ClrDatagrid, ClrDatagridPagination, ClrDatagridStateInterface } from &#x27;@clr/angular&#x27;;
 import { LazyString, TranslationService } from &#x27;@vcd/i18n&#x27;;
 import { Observable } from &#x27;rxjs&#x27;;
 import { ActivityReporter } from &#x27;../common/activity-reporter&#x27;;
 import { TextIcon } from &#x27;../common/interfaces/action-item.interface&#x27;;
+import { SubscriptionTracker } from &#x27;../common/subscription&#x27;;
 import { TooltipSize } from &#x27;../lib/directives/show-clipped-text.directive&#x27;;
 import { DatagridFilter } from &#x27;./filters/datagrid-filter&#x27;;
 import { ComponentRendererConstructor, ComponentRendererSpec } from &#x27;./interfaces/component-renderer.interface&#x27;;
@@ -402,7 +404,7 @@ interface ColumnConfigInternal&lt;R, T&gt; extends GridColumn&lt;R&gt; {
     templateUrl: &#x27;./datagrid.component.html&#x27;,
     styleUrls: [&#x27;./datagrid.component.scss&#x27;],
 })
-export class DatagridComponent&lt;R&gt; implements OnInit, AfterViewInit {
+export class DatagridComponent&lt;R&gt; implements OnInit, AfterViewInit, OnDestroy {
     /**
      * Sets the configuration of columns on the grid and updates the {@link columnsConfig} array. Also pushes
      * notifications for listeners to make changes to the _columns array
@@ -711,6 +713,8 @@ export class DatagridComponent&lt;R&gt; implements OnInit, AfterViewInit {
      * Used for translating pagination information displayed in the grid
      */
     @Input() paginationTranslationKey: string &#x3D; DEFAULT_PAGINATION_TRANSLATION_KEY;
+
+    private subTracker &#x3D; new SubscriptionTracker(this);
 
     /**
      * To add or replace a column of this datagrid columns. Exposed for columns modifiers(eg: directives) that listen to
@@ -1104,7 +1108,15 @@ export class DatagridComponent&lt;R&gt; implements OnInit, AfterViewInit {
             // calling a setTimeout.
             this.changeDetectorRef.detectChanges();
         }
+
+        this.datagrid.items.change.subscribe(() &#x3D;&gt; {
+            if (this.datagrid.items.displayed.length &gt; 0) {
+                (this.datagrid as any).organizer.resize();
+            }
+        });
     }
+
+    ngOnDestroy(): void {}
 }
 </code></pre>
     </div>
