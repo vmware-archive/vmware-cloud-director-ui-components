@@ -59,6 +59,12 @@ the extremely long folder name.
 
 Publishing happens through the CI/CD pipeline. See [package.json](.github/workflows/ci-cd.yml)
 
+## Versioning
+
+For all official releases, versioning should be semantic as per [NPM's documentation](https://docs.npmjs.com/about-semantic-versioning).
+
+For all development, nightly builds, the version should be created using `npm version prerelease --preid=dev`.
+
 ### Steps for publishing an @next release:
 
 -   Update version number in projects/<lib-name>/package.json

@@ -1,8 +1,7 @@
-::ng-deep {
+:host ::ng-deep {
     .modal-header {
         display: none;
     }
-
     .modal-backdrop {
         background: transparent;
     }
