@@ -65,6 +65,9 @@ information.</p>
 the extremely long folder name.</p>
 <h2 id="publishing">Publishing</h2>
 <p>Publishing happens through the CI/CD pipeline. See <a href=".github/workflows/ci-cd.yml">package.json</a></p>
+<h2 id="versioning">Versioning</h2>
+<p>For all official releases, versioning should be semantic as per <a href="https://docs.npmjs.com/about-semantic-versioning">NPM&#39;s documentation</a>.</p>
+<p>For all development, nightly builds, the version should be created using <code>npm version prerelease --preid=dev</code>.</p>
 <h3 id="steps-for-publishing-an-next-release">Steps for publishing an @next release:</h3>
 <ul>
 <li>Update version number in projects/<lib-name>/package.json</li>
