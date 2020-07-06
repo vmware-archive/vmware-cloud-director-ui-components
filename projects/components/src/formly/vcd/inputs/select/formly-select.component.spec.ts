@@ -50,7 +50,7 @@ describe('FormlySelectComponent', () => {
         expect(selectOptions).toEqual(SELECT_TEMPLATE_OPTIONS.options as SelectOption[]);
     });
     it('templateOptions.options can also take an observable of SelectOption[]', async () => {
-        const templateOptionsWithSelectOptionsAsObservable = CommonUtil.getNewObj(SELECT_TEMPLATE_OPTIONS);
+        const templateOptionsWithSelectOptionsAsObservable = { ...SELECT_TEMPLATE_OPTIONS };
         templateOptionsWithSelectOptionsAsObservable.options = of(SELECT_TEMPLATE_OPTIONS.options as SelectOption[]);
         testHostComponent.fields[0].templateOptions = templateOptionsWithSelectOptionsAsObservable;
         finder.detectChanges();
@@ -74,7 +74,7 @@ export class TestHostComponent {
         {
             key: 'formlyInput3',
             type: VCD_FORMLY_INPUT_TYPES.select,
-            templateOptions: CommonUtil.getNewObj(SELECT_TEMPLATE_OPTIONS),
+            templateOptions: { ...SELECT_TEMPLATE_OPTIONS },
         },
     ];
 }

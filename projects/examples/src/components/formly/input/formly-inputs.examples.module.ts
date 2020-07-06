@@ -8,13 +8,17 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { FormlyModule } from '@ngx-formly/core';
 import { VcdFormlyModule } from '@vcd/ui-components';
 import { Documentation } from '@vmw/ng-live-docs';
+import { FormlyInputExampleWrapperComponent } from './formly-input-example-wrapper.component';
+import { FormlyInputFeaturesExampleComponent } from './formly-input-features.example.component';
 import { FormlyInputsExampleComponent } from './formly-inputs.example.component';
 
 /**
- * Formly library's FieldType wrappers around the vcd form inputs. Used for rendering the vcd forms using JS objects.
+ * This has two sections of examples, **Features of vcd formly inputs** and **List of available Vcd formly inputs** sections.
+ * **Features of vcd formly inputs section:** Shows applying different features of VcdFormInput using FormlyFieldConfig
+ * **List of available vcd formly inputs section:** Displays all VCD form components that are available to be used with
+ * NgxFormly(https://formly.dev/).
  */
 @Component({
-    selector: 'vcd-formly-inputs',
     template: ``,
 })
 export class FormlyInputsComponent {
@@ -32,9 +36,14 @@ Documentation.registerDocumentationEntry({
     urlSegment: 'vcdFormlyInputs',
     examples: [
         {
+            component: FormlyInputFeaturesExampleComponent,
+            forComponent: null,
+            title: 'Features of vcd formly inputs',
+        },
+        {
             component: FormlyInputsExampleComponent,
             forComponent: null,
-            title: 'Vcd Formly Inputs',
+            title: 'List of available Vcd Formly Inputs',
         },
     ],
 });
@@ -43,9 +52,29 @@ Documentation.registerDocumentationEntry({
  * A module that imports all error banner examples.
  */
 @NgModule({
-    declarations: [FormlyInputsComponent, FormlyInputsExampleComponent],
-    imports: [VcdFormlyModule, ReactiveFormsModule, FormlyModule],
-    exports: [FormlyInputsExampleComponent],
-    entryComponents: [FormlyInputsExampleComponent],
+    declarations: [
+        FormlyInputsComponent,
+        FormlyInputsExampleComponent,
+        FormlyInputFeaturesExampleComponent,
+        FormlyInputExampleWrapperComponent,
+    ],
+    imports: [
+        VcdFormlyModule.forRoot({
+            wrappers: [
+                {
+                    name: 'vcd-formly-input-example-wrapper',
+                    component: FormlyInputExampleWrapperComponent,
+                },
+            ],
+        }),
+        ReactiveFormsModule,
+        FormlyModule,
+    ],
+    exports: [FormlyInputsExampleComponent, FormlyInputFeaturesExampleComponent],
+    entryComponents: [
+        FormlyInputsExampleComponent,
+        FormlyInputFeaturesExampleComponent,
+        FormlyInputExampleWrapperComponent,
+    ],
 })
 export class FormlyInputComponentsExamplesModule {}

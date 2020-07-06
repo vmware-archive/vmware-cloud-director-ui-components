@@ -20,11 +20,11 @@ export class VcdFormlyInputWidgetObject extends WidgetObject<FormlyInputComponen
 describe('vcd-formly-input', () => {
     let testHostComponent: TestHostComponent;
     let finder: WidgetFinder<TestHostComponent>;
-    let vcdFormlyInputWidgetObject: VcdFormlyInputWidgetObject;
     let vcdFormlyInputComponent: FormlyInputComponent;
     let templateOptions: VcdFormlyTemplateOptions;
 
     beforeEach(async () => {
+        let vcdFormlyInputWidgetObject: VcdFormlyInputWidgetObject;
         await TestBed.configureTestingModule({
             imports: [FormlyModule.forRoot(), VcdFormlyModule],
             declarations: [TestHostComponent],
@@ -44,12 +44,12 @@ describe('vcd-formly-input', () => {
         vcdFormlyInputComponent = vcdFormlyInputWidgetObject.component;
     });
     beforeEach(() => {
-        templateOptions = CommonUtil.getNewObj(VCD_FORM_INPUT_TEMPLATE_OPTIONS);
+        templateOptions = { ...VCD_FORM_INPUT_TEMPLATE_OPTIONS };
         testHostComponent.fields[0].templateOptions = templateOptions;
         finder.detectChanges();
     });
     it('getters return the values set on VcdFormlyFieldConfig.templateOptions object', () => {
-        const templateOptionsWithMinMax = CommonUtil.getNewObj(templateOptions);
+        const templateOptionsWithMinMax = { ...templateOptions };
         templateOptionsWithMinMax.min = 1;
         templateOptionsWithMinMax.max = 10;
         testHostComponent.fields[0].templateOptions = templateOptionsWithMinMax;
@@ -111,3 +111,7 @@ const VCD_FORM_INPUT_TEMPLATE_OPTIONS = {
     },
     hint: 'blah',
 };
+
+function getCopyOfObj<T extends { [key: string]: any }>(obj: T): T {
+    return { ...obj };
+}

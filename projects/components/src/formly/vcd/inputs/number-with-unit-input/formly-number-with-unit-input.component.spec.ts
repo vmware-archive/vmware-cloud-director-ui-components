@@ -43,7 +43,7 @@ describe('FormlyNumberWithUnitInputComponent', () => {
         formlyNumberWithUnitInputComponent = vcdFormlyNumberWithUnitInputWidgetObject.component;
     });
     it('getters return the values set on VcdFormlyFieldConfig.templateOptions object', () => {
-        const templateOptionsWithUnlimited = CommonUtil.getNewObj(VCD_NUMBER_WITH_UNIT_INPUT_TEMPLATE_OPTIONS);
+        const templateOptionsWithUnlimited = { ...VCD_NUMBER_WITH_UNIT_INPUT_TEMPLATE_OPTIONS };
         templateOptionsWithUnlimited.showUnlimitedOption = false;
         templateOptionsWithUnlimited.unlimitedValue = 1000;
         testHostComponent.fields[0].templateOptions = templateOptionsWithUnlimited;
@@ -76,7 +76,7 @@ export class TestHostComponent {
         {
             key: 'formlyInput4',
             type: VCD_FORMLY_INPUT_TYPES.number_with_unit_input,
-            templateOptions: CommonUtil.getNewObj(VCD_NUMBER_WITH_UNIT_INPUT_TEMPLATE_OPTIONS),
+            templateOptions: { ...VCD_NUMBER_WITH_UNIT_INPUT_TEMPLATE_OPTIONS },
         },
     ];
 }

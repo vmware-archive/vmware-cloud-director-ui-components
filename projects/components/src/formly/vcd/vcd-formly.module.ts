@@ -4,12 +4,12 @@
  */
 
 import { CommonModule } from '@angular/common';
-import { NgModule } from '@angular/core';
+import { ModuleWithProviders, NgModule } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
-import { FormlyModule } from '@ngx-formly/core';
+import { ConfigOption, FORMLY_CONFIG, FormlyModule } from '@ngx-formly/core';
 import { FormlySelectModule } from '@ngx-formly/core/select';
 import { I18nModule } from '@vcd/i18n';
-import { VcdFormModule } from '../../form';
+import { VcdFormModule } from '../../form/form.module';
 import { FormlyInputComponent } from './inputs/input/formly-input.component';
 import { FormlyNumberWithUnitInputComponent } from './inputs/number-with-unit-input/formly-number-with-unit-input.component';
 import { FormlySelectComponent } from './inputs/select/formly-select.component';
@@ -29,4 +29,15 @@ const VCD_FORMLY_INPUT_COMPONENTS = [FormlyInputComponent, FormlySelectComponent
     ],
     exports: [],
 })
-export class VcdFormlyModule {}
+export class VcdFormlyModule {
+    /**
+     * Used for passing configuration in addition to default {@link VCD_FORMLY_CONFIG}
+     * @param configOption Additional Formly configuration
+     */
+    static forRoot(configOption: ConfigOption): ModuleWithProviders {
+        return {
+            ngModule: VcdFormlyModule,
+            providers: [{ provide: FORMLY_CONFIG, useValue: configOption, multi: true }],
+        };
+    }
+}

@@ -64,9 +64,6 @@ export enum VCD_FORMLY_INPUT_TYPES {
     number_with_unit_input = 'number_with_unit_input',
 }
 
-/**
- * For configuring the FormlyModule with Vcd specific Formly components and wrappers
- */
 export const VCD_FORMLY_CONFIG: ConfigOption = {
     types: [
         {
