@@ -95,9 +95,7 @@ describe('ActionMenuComponent', () => {
         it('returns only actions that are both available and also marked as contextual_featured', () => {
             testHostComponent.actionDisplayConfig = getNewObj(ACTION_DISPLAY_CONFIG);
             fixture.detectChanges();
-            const availableContextualFeaturedActions = testHostComponent.actionMenuComp.getContextualFeaturedActions(
-                []
-            );
+            const availableContextualFeaturedActions = testHostComponent.actionMenuComp.contextualFeaturedActions;
             expect(CONTEXTUAL_FEATURED_ACTIONS.length).toEqual(3);
             expect(availableContextualFeaturedActions.length).toEqual(2);
             availableContextualFeaturedActions.forEach(action => {
@@ -112,9 +110,7 @@ describe('ActionMenuComponent', () => {
             ACTION_DISPLAY_CONFIG_WITH_ONE_FEATURED.contextual.featuredCount = 1;
             testHostComponent.actionDisplayConfig = ACTION_DISPLAY_CONFIG_WITH_ONE_FEATURED;
             fixture.detectChanges();
-            const availableContextualFeaturedActions = testHostComponent.actionMenuComp.getContextualFeaturedActions(
-                []
-            );
+            const availableContextualFeaturedActions = testHostComponent.actionMenuComp.contextualFeaturedActions;
             expect(CONTEXTUAL_FEATURED_ACTIONS.length).toEqual(3);
             expect(availableContextualFeaturedActions.length).toEqual(1);
         });
@@ -161,7 +157,7 @@ describe('ActionMenuComponent', () => {
                 .concat(getNewArray(CONTEXTUAL_FEATURED_ACTIONS))
                 .concat(getNewArray(STATIC_FEATURED_ACTIONS));
             fixture.detectChanges();
-            const availableActions = testHostComponent.actionMenuComp.getContextualActions([]);
+            const availableActions = testHostComponent.actionMenuComp.contextualActions;
             const availableContextualActions = testHostComponent.actionMenuComp.getAvailableActions(
                 getNewArray(CONTEXTUAL_ACTIONS).concat(getNewArray(CONTEXTUAL_FEATURED_ACTIONS))
             );
@@ -205,18 +201,6 @@ describe('ActionMenuComponent', () => {
             // @ts-ignore
             action.disabled = false;
             expect(testHostComponent.actionMenuComp.isActionDisabled(action)).toBeFalsy();
-        });
-    });
-    describe('shouldShowContextualActions', () => {
-        it('returns true only if there are selected entities', () => {
-            expect(testHostComponent.actionMenuComp.shouldShowContextualActions).toBeFalsy();
-            testHostComponent.actionMenuComp.selectedEntities = [
-                {
-                    value: 'foo',
-                    paused: false,
-                },
-            ];
-            expect(testHostComponent.actionMenuComp.shouldShowContextualActions).toBeTruthy();
         });
     });
     describe('getFlattenedActionList', () => {
