@@ -37,7 +37,7 @@ export type ActionHandlerType<R, T> = (selectedEntities?: R[], handlerData?: T) 
  */
 export interface ActionItem<R, T> {
     /**
-     * The i18n key for the text of the button
+     * The i18n key or a translated string for contents of a action button
      */
     textKey?: string;
     /**
@@ -84,6 +84,11 @@ export interface ActionItem<R, T> {
      * List of actions that will be grouped under this action
      */
     children?: ActionItem<R, T>[];
+
+    /**
+     * To mark if the {@link #ActionItem.textKey} does not require translation
+     */
+    isNotTranslatable?: boolean;
 }
 
 /**
