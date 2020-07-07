@@ -33,12 +33,27 @@ type HandlerData = Record[] | Blah;
 /**
  * Shows linked buttons on the top of the datagrid.
  * Has examples of both buttons that are global and contextual.
+ *
+ * Enable the delete button to hide it and disable the delete button to show it in disable mode. This is because the
+ * inactive display mode of a button can be set as following:
+ * Hidden - availability is false and disabled is false
+ * Shown as Disabled - availability is false and disabled is true
+ * Please refer to the delete action object configuration in the actions object list configuration.
  */
 @Component({
     selector: 'vcd-datagrid-link-example',
     template: `
-        <button (click)="changeButtonLocation()" class="btn btn-primary">Change Link Location</button><br />
-        <button (click)="toggleDisabledState()" class="btn btn-primary">Change Disabled</button><br />
+        <button (click)="changeActionLocation()" class="btn btn-primary">
+            Display contextual actions {{ contextualActionPosition === 'ROW' ? 'on top' : 'in row' }}
+        </button>
+        <button
+            *ngIf="contextualActionPosition === 'ROW'"
+            (click)="changeContextualActionStyling()"
+            class="btn btn-primary"
+        >
+            Display contextual actions {{ actionDisplayConfig.contextual.styling === 'INLINE' ? 'dropdown' : 'inline' }}
+        </button>
+        <br />
         <vcd-datagrid
             [gridData]="gridData"
             (gridRefresh)="refresh($event)"
@@ -64,8 +79,6 @@ export class DatagridLinkExampleComponent<R extends Record> {
         },
     ];
 
-    disabledState = true;
-
     actions: ActionItem<R, HandlerData>[] = [
         {
             textKey: 'Add',
@@ -75,6 +88,7 @@ export class DatagridLinkExampleComponent<R extends Record> {
             availability: () => true,
             class: 'add',
             actionType: ActionType.STATIC_FEATURED,
+            isNotTranslatable: true,
         },
         {
             textKey: 'Custom handler data',
@@ -86,28 +100,18 @@ export class DatagridLinkExampleComponent<R extends Record> {
             class: 'b',
             icon: 'pause',
             actionType: ActionType.STATIC,
-        },
-        {
-            textKey: 'Delete All',
-            handler: () => {
-                console.log('Deleting stuff!');
-            },
-            availability: () => false,
-            class: 'delete',
-            disabled: () => this.disabledState,
-            actionType: ActionType.STATIC,
+            isNotTranslatable: true,
         },
         {
             textKey: 'Contextual action',
             handler: () => {
-                const rec = this.dg.datagridSelection;
-                console.log('Contextual action output ' + rec[0].value);
+                console.log('Contextual action output');
             },
-            availability: (rec: R[]) => rec[0].value === 'a' && rec.length === 1,
+            availability: (rec: R[]) => rec.length === 1,
+            isNotTranslatable: true,
         },
         {
             textKey: 'Power Actions',
-            availability: () => true,
             children: [
                 {
                     textKey: 'Start',
@@ -117,6 +121,7 @@ export class DatagridLinkExampleComponent<R extends Record> {
                     },
                     availability: (rec: R[]) => rec.length === 1 && rec[0].paused,
                     actionType: ActionType.CONTEXTUAL_FEATURED,
+                    isNotTranslatable: true,
                 },
                 {
                     textKey: 'Stop',
@@ -126,8 +131,27 @@ export class DatagridLinkExampleComponent<R extends Record> {
                     },
                     availability: (rec: R[]) => rec.length === 1 && !rec[0].paused,
                     actionType: ActionType.CONTEXTUAL_FEATURED,
+                    isNotTranslatable: true,
                 },
             ],
+            isNotTranslatable: true,
+        },
+        {
+            textKey: 'Grouped actions',
+            children: [
+                {
+                    textKey: 'Contextual featured',
+                    actionType: ActionType.CONTEXTUAL_FEATURED,
+                    handler: () => null,
+                    isNotTranslatable: true,
+                },
+                {
+                    textKey: 'Contextual 2',
+                    handler: () => null,
+                    isNotTranslatable: true,
+                },
+            ],
+            isNotTranslatable: true,
         },
     ];
 
@@ -144,11 +168,7 @@ export class DatagridLinkExampleComponent<R extends Record> {
 
     selectionType = GridSelectionType.Single;
 
-    toggleDisabledState(): void {
-        this.disabledState = !this.disabledState;
-    }
-
-    changeButtonLocation(): void {
+    changeActionLocation(): void {
         if (this.contextualActionPosition === ContextualActionPosition.TOP) {
             this.contextualActionPosition = ContextualActionPosition.ROW;
             this.selectionType = GridSelectionType.None;
@@ -165,10 +185,21 @@ export class DatagridLinkExampleComponent<R extends Record> {
                 { value: 'b', paused: true },
                 { value: 'a', paused: true },
                 { value: 'b', paused: false },
-                // { value: 'a', paused: false },
-                // { value: 'b', paused: true },
             ],
             totalItems: 2,
+        };
+    }
+
+    changeContextualActionStyling(): void {
+        this.actionDisplayConfig = {
+            ...this.actionDisplayConfig,
+            contextual: {
+                ...this.actionDisplayConfig.contextual,
+                styling:
+                    this.actionDisplayConfig.contextual.styling === ActionStyling.DROPDOWN
+                        ? ActionStyling.INLINE
+                        : ActionStyling.DROPDOWN,
+            },
         };
     }
 }

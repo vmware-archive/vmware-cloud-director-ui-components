@@ -26,6 +26,7 @@ import {
     ActionDisplayConfig,
     ActionHandlerType,
     ActionItem,
+    ActionStyling,
     ActionType,
 } from '../common/interfaces/action-item.interface';
 import { SubscriptionTracker } from '../common/subscription';
@@ -345,7 +346,7 @@ export class DatagridComponent<R> implements OnInit, AfterViewInit, OnDestroy {
     /**
      * To display static and contextual actions in a action bar on top of a grid
      */
-    get shouldShowActionBar(): boolean {
+    get shouldShowActionBarOnTop(): boolean {
         return (
             this.actions.length &&
             (this.hasStaticActions || (this.hasContextualActions && this.shouldDisplayContextualActionsOnTop))
@@ -588,10 +589,6 @@ export class DatagridComponent<R> implements OnInit, AfterViewInit, OnDestroy {
 
     private viewInitted = false;
 
-    private widthSetTimes = 0;
-
-    @ViewChild(ActionMenuComponent, { static: true }) actionMenu: ActionMenuComponent<unknown, R>;
-
     /**
      * Used for translating pagination information displayed in the grid
      */
@@ -652,12 +649,14 @@ export class DatagridComponent<R> implements OnInit, AfterViewInit, OnDestroy {
      * Returns the maximum number of featured buttons next to a single row.
      */
     getMaxFeaturedButtonsOnRow(): number {
-        if (!this.actionMenu) {
-            return;
-        }
         let max = 0;
+        // To reuse the logic of ActionMenuComponent.getContextualFeaturedActions method in the forEach cb below
+        const actionMenuComponent = new ActionMenuComponent();
+        actionMenuComponent.actions = this.actions;
         this.items.forEach(item => {
-            max = Math.max(this.actionMenu.getContextualFeaturedActions([item]).length, max);
+            actionMenuComponent.selectedEntities = [item];
+            const contextualFeaturedActions = actionMenuComponent.contextualFeaturedActions;
+            max = Math.max(contextualFeaturedActions.length + 1, max);
         });
         return max;
     }
@@ -834,7 +833,7 @@ export class DatagridComponent<R> implements OnInit, AfterViewInit, OnDestroy {
             const header = grid.querySelector('.vcd-header');
             availableHeight -= header ? header.offsetHeight : 0;
         }
-        if (this.shouldShowActionBar) {
+        if (this.shouldShowActionBarOnTop) {
             availableHeight -= ROW_HEIGHT;
         }
 

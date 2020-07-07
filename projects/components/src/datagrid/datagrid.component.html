@@ -11,7 +11,7 @@
     (clrDgSingleSelectedChange)="selectionChanged.emit([$event])"
 >
     <clr-dg-placeholder>{{ emptyGridPlaceholder }}</clr-dg-placeholder>
-    <clr-dg-action-bar *ngIf="shouldShowActionBar">
+    <clr-dg-action-bar *ngIf="shouldShowActionBarOnTop">
         <vcd-action-menu
             [actions]="actions"
             [selectedEntities]="datagridSelection"
@@ -24,7 +24,7 @@
         *ngIf="shouldDisplayContextualActionsInRow"
         [ngClass]="'buttons-' + this.getMaxFeaturedButtonsOnRow()"
     >
-        Actions
+        {{ 'vcd.cc.datagrid.actions' | translate }}
     </clr-dg-column>
     <clr-dg-column
         *ngFor="let column of columnsConfig"

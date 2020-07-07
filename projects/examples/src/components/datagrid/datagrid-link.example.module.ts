@@ -7,12 +7,12 @@ import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import { ClarityModule } from '@clr/angular';
-import { VcdComponentsModule } from '@vcd/ui-components';
+import { VcdActionMenuModule, VcdComponentsModule } from '@vcd/ui-components';
 import { DatagridLinkExampleComponent } from './datagrid-link.example.component';
 
 @NgModule({
     declarations: [DatagridLinkExampleComponent],
-    imports: [CommonModule, ClarityModule, ReactiveFormsModule, VcdComponentsModule],
+    imports: [CommonModule, ClarityModule, ReactiveFormsModule, VcdComponentsModule, VcdActionMenuModule],
     exports: [DatagridLinkExampleComponent],
     entryComponents: [DatagridLinkExampleComponent],
 })
