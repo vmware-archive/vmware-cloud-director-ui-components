@@ -185,21 +185,20 @@ export class NumberWithUnitFormInputComponent extends BaseFormControl implements
             });
         } else {
             this.formGroup = this.fb.group({
-                limited: [this.bestValue, validatorUnlimited],
+                limited: [this.bestValue === UNLIMITED ? 0 : this.bestValue, validatorUnlimited],
                 comboUnitOptions: this.bestUnit.getMultiplier(),
-                unlimited: false,
+                unlimited: this.bestValue === UNLIMITED,
             });
             this.tracker.subscribe(this.formGroup.get('unlimited').valueChanges, value => {
                 const input = this.formGroup.get('limited');
-                const comboUnitOptions = this.formGroup.get('comboUnitOptions');
-                if (value) {
-                    input.disable();
-                    comboUnitOptions.disable();
-                } else {
-                    input.enable();
-                    comboUnitOptions.enable();
+                // If checkbox is limited and value is UNLIMITED, or if checkbox is unlimited and input value is empty,
+                // set input value to 0.
+                if ((value === false && input.value === UNLIMITED) || (value === true && !input.value)) {
+                    input.setValue(0);
                 }
-                this.onChange(this.value());
+                const inputValue = this.value();
+                this.onChange(inputValue);
+                this.updateUiDisabledState(inputValue);
             });
         }
         this.tracker.subscribe(this.formGroup.get('comboUnitOptions').valueChanges, () => {
@@ -208,6 +207,10 @@ export class NumberWithUnitFormInputComponent extends BaseFormControl implements
         this.tracker.subscribe(this.formGroup.get('limited').valueChanges, () => {
             this.onChange(this.value());
         });
+        // Disable the limit and unit options if unlimited is been checked.
+        if (this.formGroup.get('unlimited') && this.formGroup.get('unlimited').value === true) {
+            this.disabled = true;
+        }
 
         if (this.disabled) {
             this.formGroup.get('comboUnitOptions').disable();
@@ -220,17 +223,19 @@ export class NumberWithUnitFormInputComponent extends BaseFormControl implements
             this.initialValue = value;
             return;
         }
+        const input = this.formGroup.get('limited');
+        const comboUnitOptions = this.formGroup.get('comboUnitOptions');
         if (value === null) {
             if (this.showUnlimitedOption) {
                 // Set Unlimited checkbox to false because the form control was reset
                 this.formGroup.get('unlimited').setValue(false);
             }
-            this.formGroup.get('limited').setValue(null);
+            input.setValue(null);
             return;
         }
         this.computeBestUnitAndValue(value);
-        this.formGroup.get('limited').setValue(this.bestValue);
-        this.formGroup.get('comboUnitOptions').setValue(this.bestUnit.getMultiplier());
+
+        this.updateUiDisabledState(value);
     }
 
     private computeBestUnitAndValue(value: number): void {
@@ -258,6 +263,20 @@ export class NumberWithUnitFormInputComponent extends BaseFormControl implements
             return selectedUnit.getOutputValue(value, this.inputValueUnit);
         }
         return value;
+    }
+
+    private updateUiDisabledState(value: number): void {
+        const input = this.formGroup.get('limited');
+        const comboUnitOptions = this.formGroup.get('comboUnitOptions');
+        if (value === UNLIMITED) {
+            input.disable();
+            comboUnitOptions.disable();
+        } else {
+            input.enable();
+            comboUnitOptions.enable();
+            input.setValue(this.bestValue);
+            comboUnitOptions.setValue(this.bestUnit.getMultiplier());
+        }
     }
 
     get displayValue(): string {
