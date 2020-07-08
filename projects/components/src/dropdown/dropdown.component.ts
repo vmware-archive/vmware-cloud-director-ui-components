@@ -4,6 +4,8 @@
  */
 
 import { Component, Input, TrackByFunction } from '@angular/core';
+import { TextIcon } from '../common/interfaces';
+import { CliptextConfig, TooltipSize } from '../lib/directives';
 
 /**
  * Object representing an item of the dropdown
@@ -37,6 +39,7 @@ interface DropdownItem<T extends DropdownItem<T>> {
 @Component({
     selector: 'vcd-dropdown',
     templateUrl: 'dropdown.component.html',
+    styleUrls: ['./dropdown.component.scss'],
 })
 export class DropdownComponent<T extends DropdownItem<T>> {
     /**
@@ -45,9 +48,14 @@ export class DropdownComponent<T extends DropdownItem<T>> {
     @Input() items: T[];
 
     /**
-     * Content of the button that opens the root dropdown when clicked
+     * Text Content of the button that opens the root dropdown when clicked
      */
     @Input() dropdownTriggerBtnTxt: string;
+
+    /**
+     * Icon shown in the button that opens the root dropdown when clicked
+     */
+    @Input() dropdownTriggerBtnIcon: string = 'ellipsis-horizontal';
 
     /**
      * The {@link ngForTrackBy} method used for rendering of a dropdown actions or for rendering nested drop downs
@@ -56,14 +64,14 @@ export class DropdownComponent<T extends DropdownItem<T>> {
     @Input() trackByFunction: TrackByFunction<T>;
 
     /**
-     * The position the root dropdown. Refer to {@link clrPosition} for it's values
+     * The position the root dropdown with respect to root dropdown trigger button. Refer to {@link clrPosition} for it's values
      */
-    @Input() dropdownPosition: string = 'right-top';
+    @Input() dropdownPosition: string;
 
     /**
      * The position of all the nested dropdowns {@link clrPosition}. Default is 'bottom-left'
      */
-    @Input() nestedDropdownPosition: string;
+    @Input() nestedDropdownPosition: string = 'right-top';
 
     /**
      * Dropdown item click handler
@@ -75,18 +83,40 @@ export class DropdownComponent<T extends DropdownItem<T>> {
      */
     @Input() isItemDisabledCb: (item: T) => boolean;
 
+    private _dropdownItemContents: TextIcon = TextIcon.TEXT;
+    /**
+     * Decides what goes into the action buttons
+     * @param textIcon An enum that describes the possible ways to display the button title
+     */
+    @Input() set dropdownItemContents(textIcon: TextIcon) {
+        this.shouldShowIcon = (TextIcon.ICON & textIcon) === TextIcon.ICON;
+        this.shouldShowText = (TextIcon.TEXT & textIcon) === TextIcon.TEXT;
+        this.shouldShowTooltip = textIcon === TextIcon.ICON;
+    }
+    get dropdownItemContents(): TextIcon {
+        return this._dropdownItemContents;
+    }
+
+    @Input() isNestedDropdown = false;
+
     /**
      * If a icon should be displayed inside contextual buttons
      */
-    @Input() shouldShowIcon: boolean;
+    shouldShowIcon: boolean = (TextIcon.ICON & this.dropdownItemContents) === TextIcon.ICON;
 
     /**
      * If a text should be displayed inside contextual buttons
      */
-    @Input() shouldShowText: boolean;
+    shouldShowText: boolean = (TextIcon.TEXT & this.dropdownItemContents) === TextIcon.TEXT;
 
     /**
      * If the contextual buttons with icons should have a tooltip
      */
-    @Input() shouldShowTooltip: boolean;
+    shouldShowTooltip: boolean = this.dropdownItemContents === TextIcon.ICON;
+
+    clipTextConfig: CliptextConfig = {
+        mouseoutDelay: 0,
+        size: TooltipSize.md,
+        disabled: false,
+    };
 }

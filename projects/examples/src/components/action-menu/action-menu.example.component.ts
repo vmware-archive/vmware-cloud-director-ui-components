@@ -29,6 +29,7 @@ interface HandlerData {
                 [actions]="staticActions"
                 [actionDisplayConfig]="actionDisplayConfig"
                 [selectedEntities]="selectedEntities"
+                [dropdownTriggerBtnText]="'Actions'"
             >
             </vcd-action-menu>
         </div>
@@ -45,6 +46,7 @@ interface HandlerData {
                 [actions]="contextualActions"
                 [actionDisplayConfig]="actionDisplayConfig"
                 [selectedEntities]="selectedEntities"
+                [dropdownTriggerBtnText]="'Actions'"
             >
             </vcd-action-menu>
         </div>
@@ -107,7 +109,7 @@ export class ActionMenuExampleComponent<R extends Record, T extends HandlerData>
             ],
         },
         {
-            textKey: 'Grouped actions',
+            textKey: 'Grouped actions asbvsc,b scjhb sbsjbdvjsbva,v',
             children: [
                 {
                     textKey: 'Contextual featured',

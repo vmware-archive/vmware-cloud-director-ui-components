@@ -40,6 +40,7 @@ export class ActionMenuComponent<R, T> {
             }
             return action;
         });
+        console.log(this.actions);
     }
     get actions(): ActionItem<R, T>[] {
         return this.getDeepCopy(this._actions);
@@ -51,10 +52,9 @@ export class ActionMenuComponent<R, T> {
      * If null or undefined is passed, default config {@link _actionDisplayConfig} is used
      */
     @Input() set actionDisplayConfig(config: ActionDisplayConfig) {
-        config = !config ? this._actionDisplayConfig : config;
-        Object.keys(config).forEach(key => {
-            this._actionDisplayConfig[key] = config[key] || this._actionDisplayConfig[key];
-        });
+        Object.keys(config || {}).forEach(
+            key => (this._actionDisplayConfig[key] = config[key] ? config[key] : this.actionDisplayConfig[key])
+        );
         const buttonContents = this.actionDisplayConfig.contextual.buttonContents;
         this.shouldShowIcon = (TextIcon.ICON & buttonContents) === TextIcon.ICON;
         this.shouldShowText = (TextIcon.TEXT & buttonContents) === TextIcon.TEXT;
@@ -65,10 +65,16 @@ export class ActionMenuComponent<R, T> {
     }
 
     /**
-     * Content of the action menu dropdown trigger button. Used when {@link #actionDisplayConfig} styling is
+     * Text Content of the action menu dropdown trigger button. Used when {@link #actionDisplayConfig} styling is
      * {@link ActionStyling.DROPDOWN}
      */
-    @Input() btnText: string = null;
+    @Input() dropdownTriggerBtnText: string = null;
+
+    /**
+     * Icon of the action menu dropdown trigger button. Used when {@link #actionDisplayConfig} styling is
+     * {@link ActionStyling.DROPDOWN}
+     */
+    @Input() dropdownTriggerBtnIcon: string = null;
 
     /**
      * Used for disabling the menu bar or menu dropdown
@@ -94,17 +100,17 @@ export class ActionMenuComponent<R, T> {
     /**
      * If a icon should be displayed inside contextual buttons
      */
-    shouldShowIcon: boolean;
+    shouldShowIcon: boolean = (TextIcon.ICON & this.actionDisplayConfig.contextual.buttonContents) === TextIcon.ICON;
 
     /**
      * If a text should be displayed inside contextual buttons
      */
-    shouldShowText: boolean;
+    shouldShowText: boolean = (TextIcon.TEXT & this.actionDisplayConfig.contextual.buttonContents) === TextIcon.TEXT;
 
     /**
      * If the contextual buttons with icons should have a tooltip
      */
-    shouldShowTooltip: boolean;
+    shouldShowTooltip: boolean = this.actionDisplayConfig.contextual.buttonContents === TextIcon.ICON;
 
     /**
      * Used in the html template
@@ -164,7 +170,7 @@ export class ActionMenuComponent<R, T> {
     get contextualDropdownActions(): ActionItem<R, T>[] | object {
         return this.contextualFeaturedActions.concat([
             {
-                textKey: 'Non featured',
+                textKey: 'vcd.cc.action.menu.nonFeatured.actions',
                 children: this.contextualActions,
             },
         ]);

@@ -106,16 +106,16 @@ export interface ActionDisplayConfig {
          *
          * If featuredCount is not set, it will default to all featured actions.
          */
-        featuredCount?: number;
+        featuredCount: number;
         /**
          * How the featured actions should be displayed
          */
-        styling?: ActionStyling;
+        styling: ActionStyling;
         /**
          * If the title should be the button label, icon, or both
          * Defaults to ICON if unset.
          */
-        buttonContents?: TextIcon;
+        buttonContents: TextIcon;
     };
 
     /**

@@ -1,6 +1,7 @@
 .inline-actions-container {
     display: flex;
     flex-direction: row;
+    margin-top: 10px;
 
     & > .static-actions-separator {
         flex: 1 1 auto;
@@ -10,7 +11,9 @@
         margin-right: 0;
     }
 
-    & ::ng-deep button.btn.action-button {
+    & ::ng-deep button.btn.inline-action-button {
+        margin-top: 0;
+
         margin-right: 15px;
 
         &:last-child {

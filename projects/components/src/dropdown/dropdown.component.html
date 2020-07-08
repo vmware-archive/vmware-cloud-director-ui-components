@@ -1,24 +1,32 @@
-<clr-dropdown>
-    <button class="btn btn-link" clrDropdownTrigger>
-        <span *ngIf="dropdownTriggerBtnTxt">{{ dropdownTriggerBtnTxt }}</span>
-        <clr-icon *ngIf="!dropdownTriggerBtnTxt" shape="ellipsis-horizontal"></clr-icon>
+<clr-dropdown class="nested-dropdown">
+    <button
+        [ngClass]="{ 'btn btn-sm btn-link': dropdownTriggerBtnTxt }"
+        clrDropdownTrigger
+        [vcdShowClippedText]="clipTextConfig"
+    >
+        <ng-container *ngIf="dropdownTriggerBtnTxt">
+            {{ dropdownTriggerBtnTxt | translate }}
+            <clr-icon *ngIf="!isNestedDropdown" shape="caret down"></clr-icon>
+        </ng-container>
+        <clr-icon *ngIf="!dropdownTriggerBtnTxt" [attr.shape]="dropdownTriggerBtnIcon"></clr-icon>
     </button>
 
-    <clr-dropdown-menu clrPosition="{{ dropdownPosition }}" *clrIfOpen>
+    <clr-dropdown-menu
+        class="nested-dropdown-menu"
+        clrPosition="{{ isNestedDropdown ? nestedDropdownPosition : dropdownPosition }}"
+        *clrIfOpen
+    >
         <ng-container *ngFor="let action of items; trackBy: trackByFunction">
             <ng-container *ngIf="action.children && action.children.length">
-                <div class="dropdown-divider" role="separator" aria-hidden="true"></div>
                 <vcd-dropdown
                     [items]="action.children"
                     [dropdownTriggerBtnTxt]="action.textKey"
-                    [dropdownPosition]="nestedDropdownPosition"
                     [nestedDropdownPosition]="nestedDropdownPosition"
+                    [isNestedDropdown]="true"
                     [onItemClickedCb]="onItemClickedCb"
                     [isItemDisabledCb]="isItemDisabledCb"
                     [trackByFunction]="trackByFunction"
-                    [shouldShowIcon]="shouldShowIcon"
-                    [shouldShowText]="shouldShowText"
-                    [shouldShowTooltip]="shouldShowTooltip"
+                    [dropdownItemContents]="dropdownItemContents"
                 ></vcd-dropdown>
             </ng-container>
 
@@ -30,9 +38,9 @@
                     (click)="onItemClickedCb(action)"
                     [disabled]="isItemDisabledCb(action)"
                 >
-                    <span *ngIf="shouldShowText">{{
+                    <ng-container *ngIf="shouldShowText">{{
                         action.isNotTranslatable ? action.textKey : (action.textKey | translate)
-                    }}</span>
+                    }}</ng-container>
 
                     <a *ngIf="shouldShowIcon" role="tooltip" aria-haspopup="true" class="tooltip tooltip-sm">
                         <clr-icon size="1em" [attr.shape]="action.icon"></clr-icon>
