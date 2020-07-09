@@ -1,7 +1,9 @@
 {
     "en": {
         "data-exporter.title": "Data Exporter!!",
-        "app.title": "VCD UI Common Components"
+        "app.title": "VCD UI Common Components",
+        "required": "Required",
+        "maxLengthError": "Input is too long"
     },
     "de": {
         "select.all": "Wählen Sie Alle",

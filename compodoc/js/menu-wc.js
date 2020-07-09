@@ -315,6 +315,32 @@ customElements.define('compodoc-menu', class extends HTMLElement {
                                     </li>
                             </li>
                             <li class="link">
+                                <a href="modules/VcdFormlyModule.html" data-type="entity-link">VcdFormlyModule</a>
+                                    <li class="chapter inner">
+                                        <div class="simple menu-toggler" data-toggle="collapse" ${ isNormalMode ?
+                                            'data-target="#components-links-module-VcdFormlyModule-b608568184c802e79bf26296b2f10b11"' : 'data-target="#xs-components-links-module-VcdFormlyModule-b608568184c802e79bf26296b2f10b11"' }>
+                                            <span class="icon ion-md-cog"></span>
+                                            <span>Components</span>
+                                            <span class="icon ion-ios-arrow-down"></span>
+                                        </div>
+                                        <ul class="links collapse" ${ isNormalMode ? 'id="components-links-module-VcdFormlyModule-b608568184c802e79bf26296b2f10b11"' :
+                                            'id="xs-components-links-module-VcdFormlyModule-b608568184c802e79bf26296b2f10b11"' }>
+                                            <li class="link">
+                                                <a href="components/FormlyInputComponent.html"
+                                                    data-type="entity-link" data-context="sub-entity" data-context-id="modules">FormlyInputComponent</a>
+                                            </li>
+                                            <li class="link">
+                                                <a href="components/FormlyNumberWithUnitInputComponent.html"
+                                                    data-type="entity-link" data-context="sub-entity" data-context-id="modules">FormlyNumberWithUnitInputComponent</a>
+                                            </li>
+                                            <li class="link">
+                                                <a href="components/FormlySelectComponent.html"
+                                                    data-type="entity-link" data-context="sub-entity" data-context-id="modules">FormlySelectComponent</a>
+                                            </li>
+                                        </ul>
+                                    </li>
+                            </li>
+                            <li class="link">
                                 <a href="modules/VcdFormModule.html" data-type="entity-link">VcdFormModule</a>
                                     <li class="chapter inner">
                                         <div class="simple menu-toggler" data-toggle="collapse" ${ isNormalMode ?
@@ -656,6 +682,12 @@ customElements.define('compodoc-menu', class extends HTMLElement {
                             </li>
                             <li class="link">
                                 <a href="interfaces/SpotlightSearchResult.html" data-type="entity-link">SpotlightSearchResult</a>
+                            </li>
+                            <li class="link">
+                                <a href="interfaces/VcdFormlyFieldConfig.html" data-type="entity-link">VcdFormlyFieldConfig</a>
+                            </li>
+                            <li class="link">
+                                <a href="interfaces/VcdFormlyTemplateOptions.html" data-type="entity-link">VcdFormlyTemplateOptions</a>
                             </li>
                         </ul>
                     </li>

@@ -53,6 +53,9 @@ MIT
 @clr/ui
 MIT
 
+@ngx-formly/core
+MIT
+
 @stackblitz/sdk
 MIT
 MIT License

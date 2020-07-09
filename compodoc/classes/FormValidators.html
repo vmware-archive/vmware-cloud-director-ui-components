@@ -238,6 +238,7 @@ Accepts a translation key to display proper error messaging</p>
                                     <td>Name</td>
                                     <td>Type</td>
                                     <td>Optional</td>
+                                    <td>Default value</td>
                                 </tr>
                             </thead>
                             <tbody>
@@ -251,6 +252,8 @@ Accepts a translation key to display proper error messaging</p>
                                         No
                                     </td>
 
+                                    <td>
+                                    </td>
 
                                 </tr>
                                 <tr>
@@ -263,6 +266,8 @@ Accepts a translation key to display proper error messaging</p>
                                         No
                                     </td>
 
+                                    <td>
+                                    </td>
 
                                 </tr>
                                 <tr>
@@ -275,6 +280,9 @@ Accepts a translation key to display proper error messaging</p>
                                         No
                                     </td>
 
+                                    <td>
+                                        <code>&#x27;vcd.cc.warning.numRange&#x27;</code>
+                                    </td>
 
                                 </tr>
                             </tbody>
@@ -329,7 +337,7 @@ export class FormValidators {
      * Also checks that the value is numeric
      * Accepts a translation key to display proper error messaging
      */
-    static isNumberInRange(min: number, max: number, translationKey: string): ValidatorFn {
+    static isNumberInRange(min: number, max: number, translationKey &#x3D; &#x27;vcd.cc.warning.numRange&#x27;): ValidatorFn {
         const res &#x3D; FormValidators.createNullSafeValidator((control: any) &#x3D;&gt; {
             const isNumber &#x3D; !isNaN(parseFloat(control.value)) &amp;&amp; isFinite(control.value);
             return control.value &gt;&#x3D; min &amp;&amp; control.value &lt;&#x3D; max &amp;&amp; isNumber ? null : { [translationKey]: true };
