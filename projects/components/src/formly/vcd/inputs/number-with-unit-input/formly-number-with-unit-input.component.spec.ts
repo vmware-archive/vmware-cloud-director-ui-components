@@ -9,7 +9,7 @@ import { FormlyForm, FormlyModule } from '@ngx-formly/core';
 import { MockTranslationService, TranslationService } from '@vcd/i18n';
 import { UNLIMITED } from '../../../../form/number-with-unit-input/number-with-unit-form-input.component';
 import { Bytes, CommonUtil, WidgetFinder, WidgetObject } from '../../../../utils';
-import { VCD_FORMLY_INPUT_TYPES, VcdFormlyFieldConfig, VcdFormlyTemplateOptions } from '../../vcd-formly.config';
+import { VcdFormlyFieldConfig, VcdFormlyInputTypes, VcdFormlyTemplateOptions } from '../../vcd-formly.config';
 import { VcdFormlyModule } from '../../vcd-formly.module';
 import { FormlyNumberWithUnitInputComponent } from './formly-number-with-unit-input.component';
 
@@ -75,7 +75,7 @@ export class TestHostComponent {
     fields: VcdFormlyFieldConfig[] = [
         {
             key: 'formlyInput4',
-            type: VCD_FORMLY_INPUT_TYPES.number_with_unit_input,
+            type: VcdFormlyInputTypes.number_with_unit_input,
             templateOptions: { ...VCD_NUMBER_WITH_UNIT_INPUT_TEMPLATE_OPTIONS },
         },
     ];

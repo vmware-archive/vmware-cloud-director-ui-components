@@ -33,9 +33,9 @@ export interface VcdFormlyTemplateOptions extends FormlyTemplateOptions {
  */
 export interface VcdFormlyFieldConfig extends FormlyFieldConfig {
     /**
-     * {@link VCD_FORMLY_INPUT_TYPES}
+     * {@link VcdFormlyInputTypes}
      */
-    type?: VCD_FORMLY_INPUT_TYPES;
+    type?: VcdFormlyInputTypes;
     /**
      * {@link VcdFormlyTemplateOptions}
      */
@@ -49,7 +49,7 @@ export interface VcdFormlyFieldConfig extends FormlyFieldConfig {
 /**
  * Different of Vcd form inputs that are configurable through Formly
  */
-export enum VCD_FORMLY_INPUT_TYPES {
+export enum VcdFormlyInputTypes {
     /**
      * Used for identifying {@link FormlyInputComponent} type
      */
@@ -67,15 +67,15 @@ export enum VCD_FORMLY_INPUT_TYPES {
 export const VCD_FORMLY_CONFIG: ConfigOption = {
     types: [
         {
-            name: VCD_FORMLY_INPUT_TYPES.input,
+            name: VcdFormlyInputTypes.input,
             component: FormlyInputComponent,
         },
         {
-            name: VCD_FORMLY_INPUT_TYPES.select,
+            name: VcdFormlyInputTypes.select,
             component: FormlySelectComponent,
         },
         {
-            name: VCD_FORMLY_INPUT_TYPES.number_with_unit_input,
+            name: VcdFormlyInputTypes.number_with_unit_input,
             component: FormlyNumberWithUnitInputComponent,
         },
     ],

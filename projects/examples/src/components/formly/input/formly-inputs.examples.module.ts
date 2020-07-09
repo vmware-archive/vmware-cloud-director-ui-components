@@ -13,10 +13,11 @@ import { FormlyInputFeaturesExampleComponent } from './formly-input-features.exa
 import { FormlyInputsExampleComponent } from './formly-inputs.example.component';
 
 /**
- * This has two sections of examples, **Features of vcd formly inputs** and **List of available Vcd formly inputs** sections.
- * **Features of vcd formly inputs section:** Shows applying different features of VcdFormInput using FormlyFieldConfig
- * **List of available vcd formly inputs section:** Displays all VCD form components that are available to be used with
- * NgxFormly(https://formly.dev/).
+ * Our VcdFormlyModule has all the form inputs that can be configured using JS objects instead of HTML. It is built
+ * using NgxFormly(https://formly.dev/)
+ * The examples tab has two sections:
+ * 1. **Features of vcd formly inputs section:** Shows different available features of Vcd formly inputs
+ * 2. **List of available vcd formly inputs section:** Displays available Vcd formly inputs
  */
 @Component({
     template: ``,

@@ -5,9 +5,9 @@
 
 import { Component } from '@angular/core';
 import { FormlyFormOptions } from '@ngx-formly/core';
-import { Bytes, Unit, VCD_FORMLY_INPUT_TYPES, VcdFormlyFieldConfig } from '@vcd/ui-components';
+import { Bytes, Unit, VcdFormlyFieldConfig, VcdFormlyInputTypes } from '@vcd/ui-components';
 
-enum UI_FIELDS {
+enum UiFields {
     vcdFormlyInput = 'vcdFormlyInput',
     vcdFormlySelect = 'vcdFormlySelect',
     vcdNumberWithUnitInput = 'vcdNumberWithUnitInput',
@@ -22,9 +22,9 @@ enum UI_FIELDS {
 })
 export class FormlyInputsExampleComponent {
     model: any = {
-        [UI_FIELDS.vcdFormlyInput]: null,
-        [UI_FIELDS.vcdFormlySelect]: null,
-        [UI_FIELDS.vcdNumberWithUnitInput]: null,
+        [UiFields.vcdFormlyInput]: null,
+        [UiFields.vcdFormlySelect]: null,
+        [UiFields.vcdNumberWithUnitInput]: null,
     };
 
     options: FormlyFormOptions = {
@@ -40,15 +40,15 @@ export class FormlyInputsExampleComponent {
 
     fields: VcdFormlyFieldConfig[] = [
         {
-            key: UI_FIELDS.vcdFormlyInput,
-            type: VCD_FORMLY_INPUT_TYPES.input,
+            key: UiFields.vcdFormlyInput,
+            type: VcdFormlyInputTypes.input,
             templateOptions: {
                 label: 'Input',
             },
         },
         {
-            key: UI_FIELDS.vcdFormlySelect,
-            type: VCD_FORMLY_INPUT_TYPES.select,
+            key: UiFields.vcdFormlySelect,
+            type: VcdFormlyInputTypes.select,
             templateOptions: {
                 label: 'Select input',
                 options: [],
@@ -58,8 +58,8 @@ export class FormlyInputsExampleComponent {
             },
         },
         {
-            key: UI_FIELDS.vcdNumberWithUnitInput,
-            type: VCD_FORMLY_INPUT_TYPES.number_with_unit_input,
+            key: UiFields.vcdNumberWithUnitInput,
+            type: VcdFormlyInputTypes.number_with_unit_input,
             templateOptions: {
                 label: 'Number with unit input',
                 inputValueUnit: (Bytes.MB as unknown) as Unit,

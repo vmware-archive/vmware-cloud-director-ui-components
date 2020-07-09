@@ -11,7 +11,7 @@ import { of } from 'rxjs';
 import { SelectOption } from '../../../../common/interfaces';
 import { CommonUtil } from '../../../../utils';
 import { WidgetFinder, WidgetObject } from '../../../../utils/test';
-import { VCD_FORMLY_INPUT_TYPES, VcdFormlyFieldConfig, VcdFormlyTemplateOptions } from '../../vcd-formly.config';
+import { VcdFormlyFieldConfig, VcdFormlyInputTypes, VcdFormlyTemplateOptions } from '../../vcd-formly.config';
 import { VcdFormlyModule } from '../../vcd-formly.module';
 import { FormlySelectComponent } from './formly-select.component';
 
@@ -73,7 +73,7 @@ export class TestHostComponent {
     fields: VcdFormlyFieldConfig[] = [
         {
             key: 'formlyInput3',
-            type: VCD_FORMLY_INPUT_TYPES.select,
+            type: VcdFormlyInputTypes.select,
             templateOptions: { ...SELECT_TEMPLATE_OPTIONS },
         },
     ];

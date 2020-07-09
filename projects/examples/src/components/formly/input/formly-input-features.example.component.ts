@@ -6,9 +6,9 @@
 import { Component } from '@angular/core';
 import { FormControl, ValidationErrors } from '@angular/forms';
 import { FormlyFieldConfig, FormlyFormOptions } from '@ngx-formly/core';
-import { VCD_FORMLY_INPUT_TYPES, VcdFormlyFieldConfig, VcdFormlyTemplateOptions } from '@vcd/ui-components';
+import { VcdFormlyFieldConfig, VcdFormlyInputTypes, VcdFormlyTemplateOptions } from '@vcd/ui-components';
 
-enum UI_FIELDS {
+enum UiFields {
     basic = 'basic',
     basicWithWrapper = 'basicWithWrapper',
     initialValue = 'initialValue',
@@ -33,13 +33,13 @@ enum UI_FIELDS {
     `,
 })
 export class FormlyInputFeaturesExampleComponent {
-    model: any = {
-        [UI_FIELDS.basic]: null,
-        [UI_FIELDS.basicWithWrapper]: null,
-        [UI_FIELDS.initialValue]: 'This is the initial value',
-        [UI_FIELDS.builtInValidator]: null,
-        [UI_FIELDS.customValidator]: null,
-        [UI_FIELDS.dynamicTemplateOption]: null,
+    model: unknown = {
+        [UiFields.basic]: null,
+        [UiFields.basicWithWrapper]: null,
+        [UiFields.initialValue]: 'This is the initial value',
+        [UiFields.builtInValidator]: null,
+        [UiFields.customValidator]: null,
+        [UiFields.dynamicTemplateOption]: null,
     };
 
     options: FormlyFormOptions = {
@@ -50,21 +50,21 @@ export class FormlyInputFeaturesExampleComponent {
 
     fields: VcdFormlyFieldConfig[] = [
         {
-            key: UI_FIELDS.basic,
-            type: VCD_FORMLY_INPUT_TYPES.input,
+            key: UiFields.basic,
+            type: VcdFormlyInputTypes.input,
             templateOptions: {
                 label: 'Basic input without wrapper',
-                placeholder: 'Place holder',
+                placeholder: 'Placeholder',
                 description: 'This input does not have any wrapping component around it like other inputs below',
             },
         },
         {
-            key: UI_FIELDS.basicWithWrapper,
+            key: UiFields.basicWithWrapper,
             wrappers: ['vcd-formly-input-example-wrapper'],
-            type: VCD_FORMLY_INPUT_TYPES.input,
+            type: VcdFormlyInputTypes.input,
             templateOptions: {
                 label: 'Input',
-                placeholder: 'Place holder',
+                placeholder: 'Placeholder',
                 cardTitle: 'Basic input with wrapper component',
                 description:
                     'Basic input with wrapper around it. This input along with all the inputs below has a wrapper component set using' +
@@ -73,9 +73,9 @@ export class FormlyInputFeaturesExampleComponent {
             },
         },
         {
-            key: UI_FIELDS.initialValue,
+            key: UiFields.initialValue,
             wrappers: ['vcd-formly-input-example-wrapper'],
-            type: VCD_FORMLY_INPUT_TYPES.input,
+            type: VcdFormlyInputTypes.input,
             templateOptions: {
                 label: 'Input',
                 cardTitle: 'Initial value',
@@ -83,9 +83,9 @@ export class FormlyInputFeaturesExampleComponent {
             },
         },
         {
-            key: UI_FIELDS.builtInValidator,
+            key: UiFields.builtInValidator,
             wrappers: ['vcd-formly-input-example-wrapper'],
-            type: VCD_FORMLY_INPUT_TYPES.input,
+            type: VcdFormlyInputTypes.input,
             templateOptions: {
                 ...TEMPLATE_OPTIONS,
                 label: 'Required input',
@@ -96,9 +96,9 @@ export class FormlyInputFeaturesExampleComponent {
             },
         },
         {
-            key: UI_FIELDS.customValidator,
+            key: UiFields.customValidator,
             wrappers: ['vcd-formly-input-example-wrapper'],
-            type: VCD_FORMLY_INPUT_TYPES.input,
+            type: VcdFormlyInputTypes.input,
             templateOptions: {
                 ...TEMPLATE_OPTIONS,
                 cardTitle: 'Custom validator',
@@ -110,9 +110,9 @@ export class FormlyInputFeaturesExampleComponent {
             },
         },
         {
-            key: UI_FIELDS.dynamicTemplateOption,
+            key: UiFields.dynamicTemplateOption,
             wrappers: ['vcd-formly-input-example-wrapper'],
-            type: VCD_FORMLY_INPUT_TYPES.input,
+            type: VcdFormlyInputTypes.input,
             templateOptions: {
                 ...TEMPLATE_OPTIONS,
                 cardTitle: 'Dynamic template option',
@@ -138,7 +138,7 @@ export class FormlyInputFeaturesExampleComponent {
 
 const TEMPLATE_OPTIONS: VcdFormlyTemplateOptions = {
     label: 'Input',
-    placeholder: 'Place holder',
+    placeholder: 'Placeholder',
     onEnterClicked: (field: FormlyFieldConfig) => {
         console.log('Enter clicked: ', field.formControl.value);
     },

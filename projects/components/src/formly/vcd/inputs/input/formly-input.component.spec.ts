@@ -9,7 +9,7 @@ import { FormlyFieldConfig, FormlyForm, FormlyModule } from '@ngx-formly/core';
 import { MockTranslationService, TranslationService } from '@vcd/i18n';
 import { CommonUtil } from '../../../../utils/index';
 import { WidgetFinder, WidgetObject } from '../../../../utils/test/index';
-import { VCD_FORMLY_INPUT_TYPES, VcdFormlyFieldConfig, VcdFormlyTemplateOptions } from '../../vcd-formly.config';
+import { VcdFormlyFieldConfig, VcdFormlyInputTypes, VcdFormlyTemplateOptions } from '../../vcd-formly.config';
 import { VcdFormlyModule } from '../../vcd-formly.module';
 import { FormlyInputComponent } from './formly-input.component';
 
@@ -93,7 +93,7 @@ export class TestHostComponent {
     fields: VcdFormlyFieldConfig[] = [
         {
             key: 'formlyInput',
-            type: VCD_FORMLY_INPUT_TYPES.input,
+            type: VcdFormlyInputTypes.input,
         },
     ];
 }
@@ -111,7 +111,3 @@ const VCD_FORM_INPUT_TEMPLATE_OPTIONS = {
     },
     hint: 'blah',
 };
-
-function getCopyOfObj<T extends { [key: string]: any }>(obj: T): T {
-    return { ...obj };
-}
