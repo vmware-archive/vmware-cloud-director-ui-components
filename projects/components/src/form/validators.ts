@@ -29,7 +29,7 @@ export class FormValidators {
      * Also checks that the value is numeric
      * Accepts a translation key to display proper error messaging
      */
-    static isNumberInRange(min: number, max: number, translationKey: string): ValidatorFn {
+    static isNumberInRange(min: number, max: number, translationKey = 'vcd.cc.warning.numRange'): ValidatorFn {
         const res = FormValidators.createNullSafeValidator((control: any) => {
             const isNumber = !isNaN(parseFloat(control.value)) && isFinite(control.value);
             return control.value >= min && control.value <= max && isNumber ? null : { [translationKey]: true };
