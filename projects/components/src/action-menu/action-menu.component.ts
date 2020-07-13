@@ -40,7 +40,6 @@ export class ActionMenuComponent<R, T> {
             }
             return action;
         });
-        console.log(this.actions);
     }
     get actions(): ActionItem<R, T>[] {
         return this.getDeepCopy(this._actions);
@@ -172,6 +171,7 @@ export class ActionMenuComponent<R, T> {
             {
                 textKey: 'vcd.cc.action.menu.nonFeatured.actions',
                 children: this.contextualActions,
+                isNotTranslatable: false,
             },
         ]);
     }

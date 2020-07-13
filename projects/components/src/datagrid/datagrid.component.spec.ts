@@ -3,35 +3,42 @@
  * SPDX-License-Identifier: BSD-2-Clause
  */
 
-import { Component, EventEmitter, HostBinding, ViewChild } from '@angular/core';
-import { fakeAsync, TestBed, tick } from '@angular/core/testing';
+import { Component, HostBinding, ViewChild } from '@angular/core';
+import { TestBed } from '@angular/core/testing';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { LoadingListener } from '@clr/angular';
 import { MockTranslationService, TranslationService } from '@vcd/i18n';
 import { Observable } from 'rxjs';
-import { first, last } from 'rxjs/operators';
+import { first } from 'rxjs/operators';
 import { ActivityPromiseResolver } from '../common/activity-reporter/activity-promise-resolver';
-import { TextIcon } from '../common/interfaces/action-item.interface';
+import {
+    ActionDisplayConfig,
+    ActionItem,
+    ActionStyling,
+    ActionType,
+    TextIcon,
+} from '../common/interfaces/action-item.interface';
 import { TooltipSize } from '../lib/directives/show-clipped-text.directive';
 import { ClrDatagridWidgetObject } from '../utils/test/datagrid/datagrid.wo';
 import { VcdDatagridWidgetObject } from '../utils/test/datagrid/vcd-datagrid.wo';
 import { WidgetFinder } from '../utils/test/widget-object';
 import {
     ActivityIndicatorType,
+    ContextualActionPosition,
+    DatagridComponent,
     DEFAULT_PAGINATION_TRANSLATION_KEY,
+    GridDataFetchResult,
     GridSelectionType,
+    GridState,
     PaginationConfiguration,
 } from './datagrid.component';
-import { DatagridComponent, GridDataFetchResult, GridState } from './datagrid.component';
 import { VcdDatagridModule } from './datagrid.module';
 import { DatagridStringFilter, WildCardPosition } from './filters/datagrid-string-filter.component';
 import {
-    ButtonConfig,
     ColumnComponentRendererSpec,
     ContextualButtonPosition,
     GridColumn,
     GridColumnHideable,
-    InactiveButtonDisplayMode,
 } from './interfaces/datagrid-column.interface';
 import { mockData, MockRecord } from './mock-data';
 import { BoldTextRendererComponent } from './renderers/bold-text-renderer.component';
@@ -392,24 +399,17 @@ describe('DatagridComponent', () => {
                         );
                     });
 
-                    it('creates a smaller page when buttons are present', function(this: HasFinderAndGrid): void {
+                    it('creates a smaller page when action buttons are present', function(this: HasFinderAndGrid): void {
                         this.finder.hostComponent.parentHeight = '2000px';
-                        this.finder.hostComponent.buttonConfig = {
-                            globalButtons: [
-                                {
-                                    label: 'Add',
-                                    isActive: () => true,
-                                    handler: () => {},
-                                    class: 'button',
-                                },
-                            ],
-                            contextualButtonConfig: {
-                                buttons: [],
-                                featured: [],
-                                featuredCount: 0,
-                                position: ContextualButtonPosition.ROW,
+                        this.finder.hostComponent.actions = [
+                            {
+                                textKey: 'Add',
+                                availability: () => true,
+                                handler: () => null,
+                                actionType: ActionType.STATIC_FEATURED,
                             },
-                        };
+                        ];
+                        this.finder.hostComponent.contextualActionPosition = ContextualActionPosition.ROW;
                         this.finder.detectChanges();
                         this.finder.hostComponent.pagination = {
                             pageSize: 'Magic',
@@ -971,7 +971,9 @@ describe('DatagridComponent', () => {
                 (selectionChanged)="selectionChanged($event)"
                 [paginationDropdownText]="paginationText"
                 [pagination]="pagination"
-                [buttonConfig]="buttonConfig"
+                [actions]="actions"
+                [actionDisplayConfig]="actionDisplayConfig"
+                [contextualActionPosition]="contextualActionPosition"
                 [height]="height"
                 [header]="header"
                 [indicatorType]="indicatorType"
@@ -1008,15 +1010,18 @@ export class HostWithDatagridComponent {
 
     indicatorType?: ActivityIndicatorType;
 
-    buttonConfig: ButtonConfig<MockRecord> = {
-        globalButtons: [],
-        contextualButtonConfig: {
-            featured: [],
+    actions: ActionItem<MockRecord, unknown>[] = [];
+
+    actionDisplayConfig: ActionDisplayConfig = {
+        contextual: {
             featuredCount: 0,
-            buttons: [],
-            position: ContextualButtonPosition.TOP,
+            styling: ActionStyling.INLINE,
+            buttonContents: TextIcon.TEXT,
         },
+        staticActionStyling: ActionStyling.INLINE,
     };
+
+    contextualActionPosition: ContextualActionPosition = ContextualActionPosition.TOP;
 
     details = DatagridDetailsComponent;
 

@@ -5,7 +5,7 @@
         [vcdShowClippedText]="clipTextConfig"
     >
         <ng-container *ngIf="dropdownTriggerBtnTxt">
-            {{ dropdownTriggerBtnTxt | translate }}
+            {{ dropdownTriggerBtnTxt }}
             <clr-icon *ngIf="!isNestedDropdown" shape="caret down"></clr-icon>
         </ng-container>
         <clr-icon *ngIf="!dropdownTriggerBtnTxt" [attr.shape]="dropdownTriggerBtnIcon"></clr-icon>
@@ -20,7 +20,7 @@
             <ng-container *ngIf="action.children && action.children.length">
                 <vcd-dropdown
                     [items]="action.children"
-                    [dropdownTriggerBtnTxt]="action.textKey"
+                    [dropdownTriggerBtnTxt]="action.isNotTranslatable ? action.textKey : (action.textKey | translate)"
                     [nestedDropdownPosition]="nestedDropdownPosition"
                     [isNestedDropdown]="true"
                     [onItemClickedCb]="onItemClickedCb"
@@ -44,7 +44,7 @@
 
                     <a *ngIf="shouldShowIcon" role="tooltip" aria-haspopup="true" class="tooltip tooltip-sm">
                         <clr-icon size="1em" [attr.shape]="action.icon"></clr-icon>
-                        <span class="tooltip-content" *ngIf="shouldShowTooltip">{{ action.textKey }}</span>
+                        <span class="tooltip-content" *ngIf="shouldShowTooltip">{{ action.textKey | translate }}</span>
                     </a>
                 </button>
             </ng-container>

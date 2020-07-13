@@ -85,6 +85,7 @@ export class ActionMenuExampleComponent<R extends Record, T extends HandlerData>
         },
         {
             textKey: 'Power Actions',
+            isNotTranslatable: true,
             children: [
                 {
                     textKey: 'Start',
@@ -110,6 +111,7 @@ export class ActionMenuExampleComponent<R extends Record, T extends HandlerData>
         },
         {
             textKey: 'Grouped actions asbvsc,b scjhb sbsjbdvjsbva,v',
+            isNotTranslatable: true,
             children: [
                 {
                     textKey: 'Contextual featured',
