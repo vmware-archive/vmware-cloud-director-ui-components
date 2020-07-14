@@ -13,6 +13,7 @@ import { first } from 'rxjs/operators';
 import { ActivityPromiseResolver } from '../common/activity-reporter/activity-promise-resolver';
 import {
     ActionDisplayConfig,
+    ActionHandlerType,
     ActionItem,
     ActionStyling,
     ActionType,
@@ -34,12 +35,7 @@ import {
 } from './datagrid.component';
 import { VcdDatagridModule } from './datagrid.module';
 import { DatagridStringFilter, WildCardPosition } from './filters/datagrid-string-filter.component';
-import {
-    ColumnComponentRendererSpec,
-    ContextualButtonPosition,
-    GridColumn,
-    GridColumnHideable,
-} from './interfaces/datagrid-column.interface';
+import { ColumnComponentRendererSpec, GridColumn, GridColumnHideable } from './interfaces/datagrid-column.interface';
 import { mockData, MockRecord } from './mock-data';
 import { BoldTextRendererComponent } from './renderers/bold-text-renderer.component';
 import { WithGridBoldRenderer } from './renderers/bold-text-renderer.wo';
@@ -740,6 +736,68 @@ describe('DatagridComponent', () => {
                     pagination: { pageNumber: 1, itemsPerPage: 5 },
                     sortColumn: { name: 'a', reverse: false },
                 });
+            });
+        });
+
+        describe('@Input() actions', () => {
+            it(
+                'adds the logic of calling datagrids actionReporter.monitorGet method to action handler' +
+                    ' when the handler returns a promise',
+                function(this: HasFinderAndGrid): void {
+                    const actionHandlerWithoutPromise: ActionHandlerType<any, any> = () => null;
+                    const actionHandlerThatReturnsPromise: ActionHandlerType<any, any> = () => new Promise(() => null);
+                    this.finder.hostComponent.indicatorType = ActivityIndicatorType.BANNER;
+                    this.finder.hostComponent.actions = [
+                        {
+                            textKey: 'ActionThatDoesNotReturnPromise',
+                            handler: actionHandlerWithoutPromise,
+                            availability: () => true,
+                        },
+                        {
+                            textKey: 'ActionThatReturnsPromise',
+                            handler: actionHandlerThatReturnsPromise,
+                            availability: () => true,
+                        },
+                    ];
+                    this.finder.detectChanges();
+                    const monitorGetSpy = spyOn(this.component.actionReporter, 'monitorGet').and.callFake(() => null);
+                    this.component.actions[0].handler();
+                    expect(monitorGetSpy).not.toHaveBeenCalled();
+                    this.component.actions[1].handler();
+                    expect(monitorGetSpy).toHaveBeenCalled();
+                }
+            );
+        });
+
+        describe('shouldShowActionBarOnTop', () => {
+            it('returns true when there are static actions', function(this: HasFinderAndGrid): void {
+                this.finder.hostComponent.actions = [
+                    {
+                        textKey: 'static.action',
+                        handler: () => null,
+                        availability: () => true,
+                        actionType: ActionType.STATIC,
+                    },
+                ];
+                this.finder.detectChanges();
+                expect(this.component.shouldShowActionBarOnTop).toBeTruthy();
+            });
+            it('returns true when there are contextual actions to be displayed on top', function(this: HasFinderAndGrid): void {
+                this.finder.hostComponent.selectionType = GridSelectionType.Single;
+                this.finder.hostComponent.contextualActionPosition = ContextualActionPosition.TOP;
+                this.finder.hostComponent.actions = [
+                    {
+                        textKey: 'contextual.action',
+                        handler: () => null,
+                        availability: () => true,
+                        actionType: ActionType.CONTEXTUAL,
+                    },
+                ];
+                this.finder.detectChanges();
+                // This is because contextual actions requires entities to be selected
+                this.clrGridWidget.selectRow(0);
+                this.finder.detectChanges();
+                expect(this.component.shouldShowActionBarOnTop).toBeTruthy();
             });
         });
 
