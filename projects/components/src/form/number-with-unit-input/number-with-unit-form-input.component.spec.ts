@@ -27,12 +27,23 @@ const [MIN, MAX] = [1000, 10000];
             [min]="${MIN}"
             [max]="${MAX}"
             [description]="'sizingPolicies.form.cpuLimit.description' | translate"
+            class="initially-null"
+        >
+        </vcd-number-with-unit-form-input>
+        <vcd-number-with-unit-form-input
+            [formControl]="cpuLimitInitiallyUnlimited"
+            [label]="'cpu.limit' | translate"
+            [unitOptions]="hertzOptions"
+            [inputValueUnit]="formControlValueUnit"
+            [description]="'sizingPolicies.form.cpuLimit.description' | translate"
+            class="initially-unlimited"
         >
         </vcd-number-with-unit-form-input>
     `,
 })
 export class TestHostComponent {
     cpuLimit = new FormControl(null);
+    cpuLimitInitiallyUnlimited = new FormControl(UNLIMITED);
 
     public hertzOptions: Unit[] = [Hertz.Mhz, Hertz.Ghz];
     public formControlValueUnit: Unit = Hertz.Mhz;
@@ -66,7 +77,10 @@ describe('VcdNumberWithUnitFormInputComponent', () => {
         }).compileComponents();
         finder = new WidgetFinder(TestHostComponent);
         finder.detectChanges();
-        numberWithUnitInput = finder.find({ woConstructor: NumberWithUnitFormInputWidgetObject });
+        numberWithUnitInput = finder.find({
+            woConstructor: NumberWithUnitFormInputWidgetObject,
+            className: 'initially-null',
+        });
     }));
 
     afterEach(() => {
@@ -142,6 +156,22 @@ describe('VcdNumberWithUnitFormInputComponent', () => {
             numberWithUnitInput.unlimitedFormControl.setValue(true);
             numberWithUnitInput.detectChanges();
             expect(numberWithUnitInput.formControl.value).toEqual(UNLIMITED);
+        });
+
+        it('disables text input when initialized to unlimited', () => {
+            const numberWithUnitInputInitializedUnlimited = finder.find({
+                woConstructor: NumberWithUnitFormInputWidgetObject,
+                className: 'initially-unlimited',
+            });
+            expect(numberWithUnitInputInitializedUnlimited.valueFormControl.enabled).toEqual(false);
+            expect(numberWithUnitInputInitializedUnlimited.unitFormControl.enabled).toEqual(false);
+        });
+
+        it('disables text input when set to unlimited programmatically', () => {
+            numberWithUnitInput.formControl.setValue(UNLIMITED);
+            numberWithUnitInput.detectChanges();
+            expect(numberWithUnitInput.valueFormControl.enabled).toEqual(false);
+            expect(numberWithUnitInput.unitFormControl.enabled).toEqual(false);
         });
     });
 
