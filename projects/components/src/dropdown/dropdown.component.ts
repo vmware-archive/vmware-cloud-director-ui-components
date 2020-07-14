@@ -20,10 +20,6 @@ interface DropdownItem<T extends DropdownItem<T>> {
      */
     children?: T[];
     /**
-     * Condition whether or not the item is available.
-     */
-    availability?: (data?: any) => boolean;
-    /**
      * The Clarity icon of the contextual button that is displayed if the button is featured.
      */
     icon?: string;
@@ -43,9 +39,28 @@ interface DropdownItem<T extends DropdownItem<T>> {
 })
 export class DropdownComponent<T extends DropdownItem<T>> {
     /**
-     * Nested list of dropdown objects
+     * If a icon should be displayed inside contextual buttons
      */
-    @Input() items: T[];
+    shouldShowIcon: boolean = (TextIcon.ICON & this.dropdownItemContents) === TextIcon.ICON;
+
+    /**
+     * If a text should be displayed inside contextual buttons
+     */
+    shouldShowText: boolean = (TextIcon.TEXT & this.dropdownItemContents) === TextIcon.TEXT;
+
+    /**
+     * If the contextual buttons with icons should have a tooltip
+     */
+    shouldShowTooltip: boolean = this.dropdownItemContents === TextIcon.ICON;
+
+    /**
+     * Default configuration for vcdShowClippedText directive
+     */
+    clipTextConfig: CliptextConfig = {
+        mouseoutDelay: 0,
+        size: TooltipSize.md,
+        disabled: false,
+    };
 
     /**
      * Text Content of the button that opens the root dropdown when clicked
@@ -83,6 +98,11 @@ export class DropdownComponent<T extends DropdownItem<T>> {
      */
     @Input() isItemDisabledCb: (item: T) => boolean;
 
+    /**
+     * Used for displaying different button contents in the root dropdown trigger button vs nested dropdown trigger button
+     */
+    @Input() isNestedDropdown = false;
+
     private _dropdownItemContents: TextIcon = TextIcon.TEXT;
     /**
      * Decides what goes into the action buttons
@@ -97,26 +117,48 @@ export class DropdownComponent<T extends DropdownItem<T>> {
         return this._dropdownItemContents;
     }
 
-    @Input() isNestedDropdown = false;
-
+    private _items: T[];
     /**
-     * If a icon should be displayed inside contextual buttons
+     * Nested list of dropdown objects
      */
-    shouldShowIcon: boolean = (TextIcon.ICON & this.dropdownItemContents) === TextIcon.ICON;
+    @Input() set items(items: T[]) {
+        this._items = this.flattenNestedItemsWithSingleChild(items);
+    }
+    get items(): T[] {
+        return this._items;
+    }
 
-    /**
-     * If a text should be displayed inside contextual buttons
-     */
-    shouldShowText: boolean = (TextIcon.TEXT & this.dropdownItemContents) === TextIcon.TEXT;
+    private flattenNestedItemsWithSingleChild(items: T[]): T[] {
+        items.forEach(item => {
+            // Flatten out the dropdowns with single children at each level of dropdown
+            const flattenedListOfSingleChildren = this.getFlattenedListOfSingleChildren(items);
+            if (flattenedListOfSingleChildren && flattenedListOfSingleChildren.length) {
+                // Add them to the beginning of the current level of dropdown
+                items.unshift(...flattenedListOfSingleChildren);
+            }
+            if (item.children) {
+                // Repeat the same for other nested levels
+                this.flattenNestedItemsWithSingleChild(item.children);
+            }
+        });
+        return items;
+    }
 
-    /**
-     * If the contextual buttons with icons should have a tooltip
-     */
-    shouldShowTooltip: boolean = this.dropdownItemContents === TextIcon.ICON;
-
-    clipTextConfig: CliptextConfig = {
-        mouseoutDelay: 0,
-        size: TooltipSize.md,
-        disabled: false,
-    };
+    private getFlattenedListOfSingleChildren(items: T[]): T[] {
+        const singleChildItemIndices: number[] = [];
+        items.forEach((item, index) => {
+            // Collect the indices of single child items
+            if (item.children && item.children.length === 1) {
+                singleChildItemIndices.push(index);
+            }
+        });
+        const singleChildren: T[] = [];
+        singleChildItemIndices.forEach(singleChildItemIndex => {
+            // Delete them from the original list and add them to a separate list
+            const singleChildItem = items.splice(singleChildItemIndex, 1).pop();
+            singleChildren.push(singleChildItem.children[0]);
+        });
+        // Return the deleted items for they have to be preserved by adding them to the beginning of the list
+        return singleChildren;
+    }
 }

@@ -121,6 +121,10 @@ describe('ActionMenuComponent', () => {
             expect(CONTEXTUAL_FEATURED_ACTIONS.length).toEqual(3);
             expect(availableContextualFeaturedActions.length).toEqual(1);
         });
+        it('returns empty array if there are no selectedEntities', function(this: HasFinderAndActionMenu): void {
+            this.actionMenu.selectedEntities = null;
+            expect(this.actionMenu.contextualFeaturedActions.length).toEqual(0);
+        });
     });
     describe('getAvailableActions', () => {
         it('returns actions that are either available or disabled', function(this: HasFinderAndActionMenu): void {
@@ -136,8 +140,39 @@ describe('ActionMenuComponent', () => {
                     handler: () => {},
                     availability: () => true,
                 },
+                {
+                    textKey: 'action.3',
+                    handler: () => {},
+                    availability: () => false,
+                },
             ]);
             expect(availableActions.length).toEqual(2);
+        });
+        it('returns nested actions that are either available or disabled', function(this: HasFinderAndActionMenu): void {
+            const availableActions = this.actionMenu.getAvailableActions([
+                {
+                    textKey: 'action',
+                    children: [
+                        {
+                            textKey: 'action.1',
+                            handler: () => {},
+                            availability: () => false,
+                            disabled: () => true,
+                        },
+                        {
+                            textKey: 'action.2',
+                            handler: () => {},
+                            availability: () => true,
+                        },
+                        {
+                            textKey: 'action.3',
+                            handler: () => {},
+                            availability: () => false,
+                        },
+                    ],
+                },
+            ]);
+            expect(availableActions[0].children.length).toEqual(2);
         });
     });
     describe('getContextualActions', () => {
@@ -158,6 +193,10 @@ describe('ActionMenuComponent', () => {
                     },
                 }),
             });
+        });
+        it('returns empty array if there are no selectedEntities', function(this: HasFinderAndActionMenu): void {
+            this.actionMenu.selectedEntities = null;
+            expect(this.actionMenu.contextualActions.length).toEqual(0);
         });
         it('returns only actions that are available and either contextual or' + ' contextual_featured', function(
             this: HasFinderAndActionMenu

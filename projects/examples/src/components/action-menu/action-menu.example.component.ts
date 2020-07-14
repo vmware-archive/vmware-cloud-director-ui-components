@@ -110,7 +110,7 @@ export class ActionMenuExampleComponent<R extends Record, T extends HandlerData>
             ],
         },
         {
-            textKey: 'Grouped actions asbvsc,b scjhb sbsjbdvjsbva,v',
+            textKey: 'Grouped actions',
             isNotTranslatable: true,
             children: [
                 {
@@ -123,6 +123,18 @@ export class ActionMenuExampleComponent<R extends Record, T extends HandlerData>
                     textKey: 'Contextual 2',
                     handler: () => console.log('Contextual action 2'),
                     isNotTranslatable: true,
+                },
+                {
+                    textKey: 'Grouped actions with single child',
+                    isNotTranslatable: true,
+                    children: [
+                        {
+                            textKey: 'Single child',
+                            handler: () => null,
+                            availability: () => true,
+                            isNotTranslatable: true,
+                        },
+                    ],
                 },
             ],
         },

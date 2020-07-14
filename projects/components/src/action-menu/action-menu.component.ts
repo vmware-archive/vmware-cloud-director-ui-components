@@ -155,7 +155,7 @@ export class ActionMenuComponent<R, T> {
 
     /**
      * List containing all the static actions. It has static featured actions in the beginning of the list followed by
-     * non-featured static actions as children of grouped action called 'vcd.cc.action.menu.nonFeatured.actions'
+     * non-featured static actions as children of grouped action called 'vcd.cc.action.menu.all.actions'
      */
     get staticDropdownActions(): ActionItem<R, T>[] | object {
         return this.staticFeaturedActions.concat([{ textKey: 'Non featured', children: this.staticActions }]);
@@ -164,12 +164,12 @@ export class ActionMenuComponent<R, T> {
     /**
      * List containing all the contextual actions. It has contextual featured actions in the beginning of the list
      * followed by non-featured contextual actions as children of grouped action called
-     * 'vcd.cc.action.menu.nonFeatured.actions'
+     * 'vcd.cc.action.menu.all.actions'
      */
     get contextualDropdownActions(): ActionItem<R, T>[] | object {
         return this.contextualFeaturedActions.concat([
             {
-                textKey: 'vcd.cc.action.menu.nonFeatured.actions',
+                textKey: 'vcd.cc.action.menu.all.actions',
                 children: this.contextualActions,
                 isNotTranslatable: false,
             },

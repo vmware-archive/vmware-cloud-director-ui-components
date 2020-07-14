@@ -18,6 +18,7 @@
     >
         <ng-container *ngFor="let action of items; trackBy: trackByFunction">
             <ng-container *ngIf="action.children && action.children.length">
+                <div class="dropdown-divider" role="separator"></div>
                 <vcd-dropdown
                     [items]="action.children"
                     [dropdownTriggerBtnTxt]="action.isNotTranslatable ? action.textKey : (action.textKey | translate)"
@@ -30,7 +31,7 @@
                 ></vcd-dropdown>
             </ng-container>
 
-            <ng-container *ngIf="!action.children && (!action.availability || action.availability)">
+            <ng-container *ngIf="!action.children">
                 <button
                     class="btn btn-link"
                     [ngClass]="{ 'btn-icon': shouldShowIcon }"
