@@ -111,7 +111,7 @@ export class DatagridLinkExampleComponent<R extends Record> {
             isNotTranslatable: true,
         },
         {
-            textKey: 'Power Actions',
+            textKey: 'power.actions',
             children: [
                 {
                     textKey: 'Start',
@@ -137,7 +137,7 @@ export class DatagridLinkExampleComponent<R extends Record> {
             isNotTranslatable: true,
         },
         {
-            textKey: 'Grouped actions',
+            textKey: 'grouped.actions',
             children: [
                 {
                     textKey: 'Contextual featured',

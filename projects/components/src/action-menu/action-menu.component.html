@@ -20,15 +20,11 @@
             [dropdownTriggerBtnTxt]="dropdownTriggerBtnText"
             [dropdownTriggerBtnIcon]="dropdownTriggerBtnIcon"
             [dropdownItemContents]="actionDisplayConfig.contextual.buttonContents"
+            [isDropdownDisabled]="disabled"
         ></vcd-dropdown>
     </ng-container>
 
-    <div
-        class="static-actions-separator"
-        *ngIf="
-            shouldDisplayStaticFeaturedActions(actionStyling.INLINE) && shouldDisplayStaticActions(actionStyling.INLINE)
-        "
-    ></div>
+    <div class="static-actions-separator" *ngIf="shouldDisplayStaticAndStaticFeaturedActionsInline"></div>
 
     <ng-container *ngIf="shouldDisplayStaticActions(actionStyling.INLINE)">
         <ng-container *ngFor="let action of staticActions; trackBy: actionsTrackBy">
@@ -38,9 +34,7 @@
 </div>
 
 <vcd-dropdown
-    *ngIf="
-        shouldDisplayStaticActions(actionStyling.DROPDOWN) || shouldDisplayStaticFeaturedActions(actionStyling.DROPDOWN)
-    "
+    *ngIf="shouldDisplayStaticAndStaticFeaturedActionsDropdown"
     [items]="staticDropdownActions"
     [trackByFunction]="actionsTrackBy"
     [dropdownPosition]="dropdownPosition"
@@ -50,6 +44,7 @@
     [dropdownTriggerBtnTxt]="dropdownTriggerBtnText"
     [dropdownTriggerBtnIcon]="dropdownTriggerBtnIcon"
     [dropdownItemContents]="actionDisplayConfig.contextual.buttonContents"
+    [isDropdownDisabled]="disabled"
 ></vcd-dropdown>
 
 <vcd-dropdown
@@ -63,11 +58,12 @@
     [dropdownTriggerBtnTxt]="dropdownTriggerBtnText"
     [dropdownTriggerBtnIcon]="dropdownTriggerBtnIcon"
     [dropdownItemContents]="actionDisplayConfig.contextual.buttonContents"
+    [isDropdownDisabled]="disabled"
 ></vcd-dropdown>
 
 <ng-template #actionButton let-action>
     <button
-        class="btn btn-outline-primary inline-action-button"
+        class="btn btn-sm btn-link"
         [ngClass]="action.class"
         (click)="runActionHandler(action)"
         [disabled]="isActionDisabled(action)"

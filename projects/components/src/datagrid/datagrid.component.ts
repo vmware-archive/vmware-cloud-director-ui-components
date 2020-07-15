@@ -14,8 +14,10 @@ import {
     OnDestroy,
     OnInit,
     Output,
+    QueryList,
     TrackByFunction,
     ViewChild,
+    ViewChildren,
 } from '@angular/core';
 import { ClrDatagrid, ClrDatagridPagination, ClrDatagridStateInterface } from '@clr/angular';
 import { LazyString, TranslationService } from '@vcd/i18n';
@@ -597,6 +599,30 @@ export class DatagridComponent<R> implements OnInit, AfterViewInit, OnDestroy {
     private subTracker = new SubscriptionTracker(this);
 
     /**
+     * Used for calculating the width of actions column
+     */
+    maxFeaturedActionsOnRow = 0;
+
+    /**
+     * The {@link maxFeaturedActionsOnRow} value depends in the contextual featured actions config which belongs to the
+     * {@link ActionMenuComponent} being used in the rows. So, we wait for action menus in rows to be initialized and then calculate
+     * the value
+     */
+    @ViewChildren('actionMenuInRow') set actionMenusInRow(actionMenus: QueryList<ActionMenuComponent<R, unknown>>) {
+        if (!actionMenus || !actionMenus.length) {
+            this.maxFeaturedActionsOnRow = 0;
+            return;
+        }
+        let max = 0;
+        actionMenus.forEach(actionMenu => {
+            const contextualFeaturedActions = actionMenu.contextualFeaturedActions;
+            max = Math.max(contextualFeaturedActions.length + 1, max);
+        });
+        this.maxFeaturedActionsOnRow = max;
+        this.changeDetectorRef.detectChanges();
+    }
+
+    /**
      * To add or replace a column of this datagrid columns. Exposed for columns modifiers(eg: directives) that listen to
      * {@link columnsUpdated} event and want to modify the columns set by components using this datagrid.
      */
@@ -644,22 +670,6 @@ export class DatagridComponent<R> implements OnInit, AfterViewInit, OnDestroy {
     @Input() trackBy: TrackByFunction<R> = (index: number, record): string => {
         return (record as any).href || String(index);
     };
-
-    /**
-     * Returns the maximum number of featured buttons next to a single row.
-     */
-    getMaxFeaturedButtonsOnRow(): number {
-        let max = 0;
-        // To reuse the logic of ActionMenuComponent.getContextualFeaturedActions method in the forEach cb below
-        const actionMenuComponent = new ActionMenuComponent();
-        actionMenuComponent.actions = this.actions;
-        this.items.forEach(item => {
-            actionMenuComponent.selectedEntities = [item];
-            const contextualFeaturedActions = actionMenuComponent.contextualFeaturedActions;
-            max = Math.max(contextualFeaturedActions.length + 1, max);
-        });
-        return max;
-    }
 
     /**
      * Gives the render spec to create the detail row for the row with the given record, at the given index, and

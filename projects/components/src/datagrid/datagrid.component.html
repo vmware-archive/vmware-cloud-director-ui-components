@@ -16,15 +16,12 @@
             [actions]="actions"
             [selectedEntities]="datagridSelection"
             [actionDisplayConfig]="actionDisplayConfig"
-            [dropdownTriggerBtnText]="'Actions'"
+            [dropdownTriggerBtnText]="'vcd.cc.action.menu.actions'"
         >
         </vcd-action-menu>
     </clr-dg-action-bar>
 
-    <clr-dg-column
-        *ngIf="shouldDisplayContextualActionsInRow"
-        [ngClass]="'buttons-' + this.getMaxFeaturedButtonsOnRow()"
-    >
+    <clr-dg-column *ngIf="shouldDisplayContextualActionsInRow" [ngClass]="'buttons-' + maxFeaturedActionsOnRow">
         {{ 'vcd.cc.datagrid.actions' | translate }}
     </clr-dg-column>
     <clr-dg-column
@@ -57,9 +54,10 @@
         <clr-dg-cell
             *ngIf="shouldDisplayContextualActionsInRow"
             class="action-button-cell"
-            [ngClass]="'buttons-' + this.getMaxFeaturedButtonsOnRow()"
+            [ngClass]="'buttons-' + maxFeaturedActionsOnRow"
         >
             <vcd-action-menu
+                #actionMenuInRow
                 [actions]="contextualActions"
                 [selectedEntities]="[restItem]"
                 [actionDisplayConfig]="actionDisplayConfig"

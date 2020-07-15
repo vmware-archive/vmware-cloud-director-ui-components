@@ -29,7 +29,7 @@ interface HandlerData {
                 [actions]="staticActions"
                 [actionDisplayConfig]="actionDisplayConfig"
                 [selectedEntities]="selectedEntities"
-                [dropdownTriggerBtnText]="'Actions'"
+                [dropdownTriggerBtnText]="'vcd.cc.action.menu.actions'"
             >
             </vcd-action-menu>
         </div>
@@ -41,12 +41,16 @@ interface HandlerData {
                 Display contextual actions
                 {{ actionDisplayConfig.contextual.styling === 'INLINE' ? 'dropdown' : 'inline' }}
             </button>
+            <button (click)="toggleDropdownDisable()" class="btn btn-primary">
+                {{ isDropdownDisabled ? 'Enable dropdown' : 'Disable dropdown' }}
+            </button>
             <br />
             <vcd-action-menu
                 [actions]="contextualActions"
                 [actionDisplayConfig]="actionDisplayConfig"
                 [selectedEntities]="selectedEntities"
-                [dropdownTriggerBtnText]="'Actions'"
+                [dropdownTriggerBtnText]="'vcd.cc.action.menu.actions'"
+                [disabled]="isDropdownDisabled"
             >
             </vcd-action-menu>
         </div>
@@ -84,7 +88,7 @@ export class ActionMenuExampleComponent<R extends Record, T extends HandlerData>
             isNotTranslatable: true,
         },
         {
-            textKey: 'Power Actions',
+            textKey: 'power.actions',
             isNotTranslatable: true,
             children: [
                 {
@@ -110,7 +114,7 @@ export class ActionMenuExampleComponent<R extends Record, T extends HandlerData>
             ],
         },
         {
-            textKey: 'Grouped actions',
+            textKey: 'grouped.actions',
             isNotTranslatable: true,
             children: [
                 {
@@ -125,7 +129,7 @@ export class ActionMenuExampleComponent<R extends Record, T extends HandlerData>
                     isNotTranslatable: true,
                 },
                 {
-                    textKey: 'Grouped actions with single child',
+                    textKey: 'grouped.actions.with.single.child',
                     isNotTranslatable: true,
                     children: [
                         {
@@ -139,6 +143,8 @@ export class ActionMenuExampleComponent<R extends Record, T extends HandlerData>
             ],
         },
     ];
+
+    isDropdownDisabled: boolean = false;
 
     get staticActions(): ActionItem<R, T>[] {
         return this.actions.filter(
@@ -184,5 +190,9 @@ export class ActionMenuExampleComponent<R extends Record, T extends HandlerData>
                     ? ActionStyling.DROPDOWN
                     : ActionStyling.INLINE,
         };
+    }
+
+    toggleDropdownDisable(): void {
+        this.isDropdownDisabled = !this.isDropdownDisabled;
     }
 }

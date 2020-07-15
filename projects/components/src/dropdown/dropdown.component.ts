@@ -65,7 +65,7 @@ export class DropdownComponent<T extends DropdownItem<T>> {
     /**
      * Text Content of the button that opens the root dropdown when clicked
      */
-    @Input() dropdownTriggerBtnTxt: string;
+    @Input() dropdownTriggerBtnTxt: string = 'vcd.cc.action.menu.actions';
 
     /**
      * Icon shown in the button that opens the root dropdown when clicked
@@ -103,6 +103,8 @@ export class DropdownComponent<T extends DropdownItem<T>> {
      */
     @Input() isNestedDropdown = false;
 
+    @Input() isDropdownDisabled: boolean;
+
     private _dropdownItemContents: TextIcon = TextIcon.TEXT;
     /**
      * Decides what goes into the action buttons
@@ -131,11 +133,7 @@ export class DropdownComponent<T extends DropdownItem<T>> {
     private flattenNestedItemsWithSingleChild(items: T[]): T[] {
         items.forEach(item => {
             // Flatten out the dropdowns with single children at each level of dropdown
-            const flattenedListOfSingleChildren = this.getFlattenedListOfSingleChildren(items);
-            if (flattenedListOfSingleChildren && flattenedListOfSingleChildren.length) {
-                // Add them to the beginning of the current level of dropdown
-                items.unshift(...flattenedListOfSingleChildren);
-            }
+            this.flattenItemsWithSingleChild(items);
             if (item.children) {
                 // Repeat the same for other nested levels
                 this.flattenNestedItemsWithSingleChild(item.children);
@@ -144,7 +142,7 @@ export class DropdownComponent<T extends DropdownItem<T>> {
         return items;
     }
 
-    private getFlattenedListOfSingleChildren(items: T[]): T[] {
+    private flattenItemsWithSingleChild(items: T[]): void {
         const singleChildItemIndices: number[] = [];
         items.forEach((item, index) => {
             // Collect the indices of single child items
@@ -152,13 +150,10 @@ export class DropdownComponent<T extends DropdownItem<T>> {
                 singleChildItemIndices.push(index);
             }
         });
-        const singleChildren: T[] = [];
         singleChildItemIndices.forEach(singleChildItemIndex => {
-            // Delete them from the original list and add them to a separate list
+            // Delete them from the original list and add their children to the beginning of the current list
             const singleChildItem = items.splice(singleChildItemIndex, 1).pop();
-            singleChildren.push(singleChildItem.children[0]);
+            items.unshift(singleChildItem.children[0]);
         });
-        // Return the deleted items for they have to be preserved by adding them to the beginning of the list
-        return singleChildren;
     }
 }

@@ -3,7 +3,10 @@
         "data-exporter.title": "Data Exporter!!",
         "app.title": "VCD UI Common Components",
         "required": "Required",
-        "maxLengthError": "Input is too long"
+        "maxLengthError": "Input is too long",
+        "power.actions": "Power Actions",
+        "grouped.actions": "Grouped Actions",
+        "grouped.actions.with.single.child": "Grouped actions with single child"
     },
     "de": {
         "select.all": "Wählen Sie Alle",

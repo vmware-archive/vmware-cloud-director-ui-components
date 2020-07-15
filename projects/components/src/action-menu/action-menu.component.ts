@@ -158,7 +158,9 @@ export class ActionMenuComponent<R, T> {
      * non-featured static actions as children of grouped action called 'vcd.cc.action.menu.all.actions'
      */
     get staticDropdownActions(): ActionItem<R, T>[] | object {
-        return this.staticFeaturedActions.concat([{ textKey: 'Non featured', children: this.staticActions }]);
+        return this.staticFeaturedActions.concat([
+            { textKey: 'vcd.cc.action.menu.all.actions', children: this.staticActions },
+        ]);
     }
 
     /**
@@ -171,7 +173,6 @@ export class ActionMenuComponent<R, T> {
             {
                 textKey: 'vcd.cc.action.menu.all.actions',
                 children: this.contextualActions,
-                isNotTranslatable: false,
             },
         ]);
     }
@@ -300,6 +301,26 @@ export class ActionMenuComponent<R, T> {
             this.selectedEntities.length &&
             this.contextualActions.length &&
             this.actionDisplayConfig.contextual.styling === style
+        );
+    }
+
+    /**
+     * To show or hide {@link ActionType.STATIC_FEATURED} and {@link ActionType.STATIC} actions in a dropdown
+     */
+    get shouldDisplayStaticAndStaticFeaturedActionsDropdown(): boolean {
+        return (
+            this.shouldDisplayStaticActions(this.actionStyling.DROPDOWN) ||
+            this.shouldDisplayStaticFeaturedActions(this.actionStyling.DROPDOWN)
+        );
+    }
+
+    /**
+     * To show or hide {@link ActionType.STATIC_FEATURED} and {@link ActionType.STATIC} actions in a inline action bar
+     */
+    get shouldDisplayStaticAndStaticFeaturedActionsInline(): boolean {
+        return (
+            this.shouldDisplayStaticActions(this.actionStyling.INLINE) &&
+            this.shouldDisplayStaticFeaturedActions(this.actionStyling.INLINE)
         );
     }
 }
