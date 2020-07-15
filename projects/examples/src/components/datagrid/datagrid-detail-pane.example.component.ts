@@ -30,7 +30,7 @@ export class DatagridDetailPaneExampleComponent {
     };
 
     pane = {
-        header: 'Pane!',
+        header: (record: Data) => record.value,
         component: DatagridDetailPaneSubComponent,
     };
 
