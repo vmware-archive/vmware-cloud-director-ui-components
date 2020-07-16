@@ -178,7 +178,7 @@ export class ActionMenuComponent<R, T> {
     }
 
     /**
-     * Copies the given actions array by cloning even it's nested actions
+     * Without the deep copy, the changes made to any of the action children in one of the methods are persisting in other methods
      */
     private getDeepCopy(actions: ActionItem<R, T>[]): ActionItem<R, T>[] {
         return actions.map(action => {
@@ -259,7 +259,6 @@ export class ActionMenuComponent<R, T> {
         return item.textKey;
     };
 
-    // Following methods are used to avoid logic inside the HTML template
     /**
      * To show or hide the container elements containing inline and also dropdown actions
      */

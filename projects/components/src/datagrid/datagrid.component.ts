@@ -356,10 +356,8 @@ export class DatagridComponent<R> implements OnInit, AfterViewInit, OnDestroy {
     }
 
     private get hasStaticActions(): boolean {
-        return (
-            this.actions.filter(
-                action => action.actionType === ActionType.STATIC_FEATURED || action.actionType === ActionType.STATIC
-            ).length > 0
+        return this.actions.some(
+            action => action.actionType === ActionType.STATIC_FEATURED || action.actionType === ActionType.STATIC
         );
     }
 
@@ -457,8 +455,14 @@ export class DatagridComponent<R> implements OnInit, AfterViewInit, OnDestroy {
         return this.contextualActionPosition && this.contextualActionPosition === ContextualActionPosition.ROW;
     }
 
+    /**
+     * How to display the static and contextual actions.
+     */
     @Input() actionDisplayConfig: ActionDisplayConfig = DEFAULT_ACTION_DISPLAY_CONFIG;
 
+    /**
+     * Whether to display contextual actions inside the row or on top of the grid
+     */
     @Input() contextualActionPosition: ContextualActionPosition = ContextualActionPosition.TOP;
 
     /**

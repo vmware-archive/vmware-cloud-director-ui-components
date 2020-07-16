@@ -7,6 +7,7 @@ import { Component, ViewChild } from '@angular/core';
 import {
     ActionDisplayConfig,
     ActionItem,
+    ActionStyling,
     ActionType,
     ContextualActionPosition,
     DatagridComponent,
@@ -16,7 +17,6 @@ import {
     GridState,
     TextIcon,
 } from '@vcd/ui-components';
-import { ActionStyling } from '../../../../components/src/common/interfaces';
 
 interface Record {
     value: string;
@@ -36,8 +36,8 @@ type HandlerData = Record[] | Blah;
  *
  * Enable the delete button to hide it and disable the delete button to show it in disable mode. This is because the
  * inactive display mode of a button can be set as following:
- * Hidden - availability is false and disabled is false
- * Shown as Disabled - availability is false and disabled is true
+ *  - Hidden - availability is false and disabled is false
+ *  - Shown as Disabled - availability is false and disabled is true
  * Please refer to the delete action object configuration in the actions object list configuration.
  */
 @Component({

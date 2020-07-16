@@ -13,7 +13,7 @@ import { ActionMenuExampleModule } from './action-menu.example.module';
 Documentation.registerDocumentationEntry({
     component: ActionMenuComponent,
     displayName: 'Action menu',
-    urlSegment: 'ActionMenu',
+    urlSegment: 'action-menu',
     examples: [
         {
             component: ActionMenuExampleComponent,
