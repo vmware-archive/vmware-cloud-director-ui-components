@@ -152,6 +152,13 @@ export class ClrDatagridWidgetObject extends WidgetObject<ClrDatagrid> {
     }
 
     /**
+     * Returns the header of the detail pane.
+     */
+    getDetailPaneHeader(): string {
+        return this.getText('.datagrid-detail-header-title');
+    }
+
+    /**
      * Clicks the given detail row button.
      */
     clickDetailRowButton(row: number): void {

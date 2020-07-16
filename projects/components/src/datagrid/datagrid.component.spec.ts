@@ -663,6 +663,7 @@ describe('DatagridComponent', () => {
                 this.clrGridWidget.clickDetailPaneButton(0);
                 this.finder.detectChanges();
                 expect(this.clrGridWidget.getAllDetailPaneContents().length).toEqual(1);
+                expect(this.clrGridWidget.getDetailPaneHeader()).toEqual('Person 1');
             });
         });
 
@@ -1318,7 +1319,7 @@ export class HostWithDatagridComponent {
     isRowExpanded = false;
 
     detailPane = {
-        header: 'Pane!',
+        header: (record: MockRecord) => record.name,
         component: DatagridDetailsPaneComponent,
     };
 

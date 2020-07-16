@@ -205,7 +205,7 @@ export interface DetailPane<R> {
     /**
      * The header that goes on top of this detail pane.
      */
-    header: string;
+    header: (record: R) => string;
     /**
      * The contents that go within this detail pane.
      */
