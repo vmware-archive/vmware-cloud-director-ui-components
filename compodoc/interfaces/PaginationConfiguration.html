@@ -521,7 +521,7 @@ export interface DetailPane&lt;R&gt; {
     /**
      * The header that goes on top of this detail pane.
      */
-    header: string;
+    header: (record: R) &#x3D;&gt; string;
     /**
      * The contents that go within this detail pane.
      */
