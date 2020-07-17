@@ -88,7 +88,7 @@ export class DatagridLinkExampleComponent<R extends Record> {
             availability: () => true,
             class: 'add',
             actionType: ActionType.STATIC_FEATURED,
-            isNotTranslatable: true,
+            isTranslatable: false,
         },
         {
             textKey: 'Custom handler data',
@@ -100,7 +100,7 @@ export class DatagridLinkExampleComponent<R extends Record> {
             class: 'b',
             icon: 'pause',
             actionType: ActionType.STATIC,
-            isNotTranslatable: true,
+            isTranslatable: false,
         },
         {
             textKey: 'Contextual action',
@@ -108,7 +108,7 @@ export class DatagridLinkExampleComponent<R extends Record> {
                 console.log('Contextual action output');
             },
             availability: (rec: R[]) => rec.length === 1,
-            isNotTranslatable: true,
+            isTranslatable: false,
         },
         {
             textKey: 'power.actions',
@@ -121,7 +121,7 @@ export class DatagridLinkExampleComponent<R extends Record> {
                     },
                     availability: (rec: R[]) => rec.length === 1 && rec[0].paused,
                     actionType: ActionType.CONTEXTUAL_FEATURED,
-                    isNotTranslatable: true,
+                    isTranslatable: false,
                 },
                 {
                     textKey: 'Stop',
@@ -131,10 +131,9 @@ export class DatagridLinkExampleComponent<R extends Record> {
                     },
                     availability: (rec: R[]) => rec.length === 1 && !rec[0].paused,
                     actionType: ActionType.CONTEXTUAL_FEATURED,
-                    isNotTranslatable: true,
+                    isTranslatable: false,
                 },
             ],
-            isNotTranslatable: true,
         },
         {
             textKey: 'grouped.actions',
@@ -143,15 +142,15 @@ export class DatagridLinkExampleComponent<R extends Record> {
                     textKey: 'Contextual featured',
                     actionType: ActionType.CONTEXTUAL_FEATURED,
                     handler: () => null,
-                    isNotTranslatable: true,
+                    isTranslatable: false,
                 },
                 {
                     textKey: 'Contextual 2',
                     handler: () => null,
-                    isNotTranslatable: true,
+                    isTranslatable: false,
                 },
             ],
-            isNotTranslatable: true,
+            isTranslatable: true,
         },
     ];
 

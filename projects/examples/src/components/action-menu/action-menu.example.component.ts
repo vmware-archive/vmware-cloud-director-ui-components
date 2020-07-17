@@ -63,7 +63,7 @@ export class ActionMenuExampleComponent<R extends Record, T extends HandlerData>
             handler: () => console.log('Static Featured 1'),
             availability: () => true,
             actionType: ActionType.STATIC_FEATURED,
-            isNotTranslatable: true,
+            isTranslatable: false,
         },
         {
             textKey: 'Static 1',
@@ -71,7 +71,7 @@ export class ActionMenuExampleComponent<R extends Record, T extends HandlerData>
             handlerData: { foo: 'foo', bar: 'bar' } as T,
             availability: () => true,
             actionType: ActionType.STATIC,
-            isNotTranslatable: true,
+            isTranslatable: false,
         },
         {
             textKey: 'Static 2',
@@ -79,17 +79,16 @@ export class ActionMenuExampleComponent<R extends Record, T extends HandlerData>
             availability: () => false,
             disabled: () => true,
             actionType: ActionType.STATIC,
-            isNotTranslatable: true,
+            isTranslatable: false,
         },
         {
             textKey: 'Contextual 1',
             availability: (rec: R[]) => rec.length === 1,
             handler: () => console.log('Contextual 1'),
-            isNotTranslatable: true,
+            isTranslatable: false,
         },
         {
             textKey: 'power.actions',
-            isNotTranslatable: true,
             children: [
                 {
                     textKey: 'Start',
@@ -99,7 +98,7 @@ export class ActionMenuExampleComponent<R extends Record, T extends HandlerData>
                     },
                     availability: (rec: R[]) => rec.length === 1 && rec[0].paused,
                     actionType: ActionType.CONTEXTUAL_FEATURED,
-                    isNotTranslatable: true,
+                    isTranslatable: false,
                 },
                 {
                     textKey: 'Stop',
@@ -109,34 +108,32 @@ export class ActionMenuExampleComponent<R extends Record, T extends HandlerData>
                     },
                     availability: (rec: R[]) => rec.length === 1 && !rec[0].paused,
                     actionType: ActionType.CONTEXTUAL_FEATURED,
-                    isNotTranslatable: true,
+                    isTranslatable: false,
                 },
             ],
         },
         {
             textKey: 'grouped.actions',
-            isNotTranslatable: true,
             children: [
                 {
                     textKey: 'Contextual featured',
                     actionType: ActionType.CONTEXTUAL_FEATURED,
                     handler: () => console.log('Contextual featured'),
-                    isNotTranslatable: true,
+                    isTranslatable: false,
                 },
                 {
                     textKey: 'Contextual 2',
                     handler: () => console.log('Contextual action 2'),
-                    isNotTranslatable: true,
+                    isTranslatable: false,
                 },
                 {
                     textKey: 'grouped.actions.with.single.child',
-                    isNotTranslatable: true,
                     children: [
                         {
                             textKey: 'Single child',
                             handler: () => null,
                             availability: () => true,
-                            isNotTranslatable: true,
+                            isTranslatable: false,
                         },
                     ],
                 },

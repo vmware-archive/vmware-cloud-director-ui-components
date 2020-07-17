@@ -52,7 +52,7 @@ export class ActionMenuComponent<R, T> {
      */
     @Input() set actionDisplayConfig(config: ActionDisplayConfig) {
         Object.keys(config || {}).forEach(
-            key => (this._actionDisplayConfig[key] = config[key] ? config[key] : this.actionDisplayConfig[key])
+            key => (this._actionDisplayConfig[key] = config[key] ? config[key] : DEFAULT_ACTION_DISPLAY_CONFIG[key])
         );
         const buttonContents = this.actionDisplayConfig.contextual.buttonContents;
         this.shouldShowIcon = (TextIcon.ICON & buttonContents) === TextIcon.ICON;

@@ -63,13 +63,13 @@
 
 <ng-template #actionButton let-action>
     <button
-        class="btn btn-sm btn-link"
+        class="btn btn-link"
         [ngClass]="action.class"
         (click)="runActionHandler(action)"
         [disabled]="isActionDisabled(action)"
     >
         <ng-container *ngIf="shouldShowText">{{
-            action.isNotTranslatable ? action.textKey : (action.textKey | translate)
+            action.isTranslatable === false ? action.textKey : (action.textKey | translate)
         }}</ng-container>
 
         <a *ngIf="shouldShowIcon" role="tooltip" aria-haspopup="true" class="tooltip tooltip-sm">

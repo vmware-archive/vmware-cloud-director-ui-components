@@ -24,9 +24,9 @@ interface DropdownItem<T extends DropdownItem<T>> {
      */
     icon?: string;
     /**
-     * To mark if the {@link #ActionItem.textKey} does not require translation
+     * To mark if the {@link #ActionItem.textKey} has to be translated or not
      */
-    isNotTranslatable?: boolean;
+    isTranslatable?: boolean;
 }
 
 /**
