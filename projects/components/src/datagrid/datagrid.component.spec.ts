@@ -3,36 +3,39 @@
  * SPDX-License-Identifier: BSD-2-Clause
  */
 
-import { Component, EventEmitter, HostBinding, ViewChild } from '@angular/core';
-import { fakeAsync, TestBed, tick } from '@angular/core/testing';
+import { Component, HostBinding, ViewChild } from '@angular/core';
+import { TestBed } from '@angular/core/testing';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { LoadingListener } from '@clr/angular';
 import { MockTranslationService, TranslationService } from '@vcd/i18n';
 import { Observable } from 'rxjs';
-import { first, last } from 'rxjs/operators';
+import { first } from 'rxjs/operators';
 import { ActivityPromiseResolver } from '../common/activity-reporter/activity-promise-resolver';
-import { TextIcon } from '../common/interfaces/action-item.interface';
+import {
+    ActionDisplayConfig,
+    ActionHandlerType,
+    ActionItem,
+    ActionStyling,
+    ActionType,
+    TextIcon,
+} from '../common/interfaces/action-item.interface';
 import { TooltipSize } from '../lib/directives/show-clipped-text.directive';
 import { ClrDatagridWidgetObject } from '../utils/test/datagrid/datagrid.wo';
 import { VcdDatagridWidgetObject } from '../utils/test/datagrid/vcd-datagrid.wo';
 import { WidgetFinder } from '../utils/test/widget-object';
 import {
     ActivityIndicatorType,
+    ContextualActionPosition,
+    DatagridComponent,
     DEFAULT_PAGINATION_TRANSLATION_KEY,
+    GridDataFetchResult,
     GridSelectionType,
+    GridState,
     PaginationConfiguration,
 } from './datagrid.component';
-import { DatagridComponent, GridDataFetchResult, GridState } from './datagrid.component';
 import { VcdDatagridModule } from './datagrid.module';
 import { DatagridStringFilter, WildCardPosition } from './filters/datagrid-string-filter.component';
-import {
-    ButtonConfig,
-    ColumnComponentRendererSpec,
-    ContextualButtonPosition,
-    GridColumn,
-    GridColumnHideable,
-    InactiveButtonDisplayMode,
-} from './interfaces/datagrid-column.interface';
+import { ColumnComponentRendererSpec, GridColumn, GridColumnHideable } from './interfaces/datagrid-column.interface';
 import { mockData, MockRecord } from './mock-data';
 import { BoldTextRendererComponent } from './renderers/bold-text-renderer.component';
 import { WithGridBoldRenderer } from './renderers/bold-text-renderer.wo';
@@ -392,24 +395,17 @@ describe('DatagridComponent', () => {
                         );
                     });
 
-                    it('creates a smaller page when buttons are present', function(this: HasFinderAndGrid): void {
+                    it('creates a smaller page when action buttons are present', function(this: HasFinderAndGrid): void {
                         this.finder.hostComponent.parentHeight = '2000px';
-                        this.finder.hostComponent.buttonConfig = {
-                            globalButtons: [
-                                {
-                                    label: 'Add',
-                                    isActive: () => true,
-                                    handler: () => {},
-                                    class: 'button',
-                                },
-                            ],
-                            contextualButtonConfig: {
-                                buttons: [],
-                                featured: [],
-                                featuredCount: 0,
-                                position: ContextualButtonPosition.ROW,
+                        this.finder.hostComponent.actions = [
+                            {
+                                textKey: 'Add',
+                                availability: () => true,
+                                handler: () => null,
+                                actionType: ActionType.STATIC_FEATURED,
                             },
-                        };
+                        ];
+                        this.finder.hostComponent.contextualActionPosition = ContextualActionPosition.ROW;
                         this.finder.detectChanges();
                         this.finder.hostComponent.pagination = {
                             pageSize: 'Magic',
@@ -743,299 +739,65 @@ describe('DatagridComponent', () => {
             });
         });
 
-        describe('@Input() buttonConfig', () => {
-            describe('active buttons', () => {
-                beforeEach(function(this: HasFinderAndGrid): void {
-                    this.finder.hostComponent.columns = [
-                        {
-                            displayName: 'Column',
-                            renderer: 'name',
-                        },
-                    ];
-                    this.finder.hostComponent.buttonConfig.globalButtons = [
-                        {
-                            label: 'Add',
-                            isActive: () => true,
-                            handler: () => {},
-                            class: 'button',
-                        },
-                        {
-                            label: 'Remove',
-                            isActive: () => false,
-                            handler: () => {},
-                            class: 'button',
-                        },
-                        {
-                            label: 'Change',
-                            isActive: () => false,
-                            handler: () => {},
-                            class: 'button',
-                        },
-                    ];
-                    this.finder.detectChanges();
-                });
-
-                it('defaults to disabling buttons', function(this: HasFinderAndGrid): void {
-                    expect(this.clrGridWidget.getTopPositionedButtons()).toEqual(['Add', 'Remove', 'Change']);
-                });
-
-                it('can be configured to hide or disable on a per button basis', function(this: HasFinderAndGrid): void {
-                    this.finder.hostComponent.buttonConfig.globalButtons[1].inactiveDisplayMode =
-                        InactiveButtonDisplayMode.Hide;
-                    this.finder.detectChanges();
-                    expect(this.clrGridWidget.getTopPositionedButtons()).toEqual(['Add', 'Change']);
-                });
-
-                it('can be configured to hide or disable for all buttons', function(this: HasFinderAndGrid): void {
-                    this.finder.hostComponent.buttonConfig.inactiveDisplayMode = InactiveButtonDisplayMode.Hide;
-                    this.finder.detectChanges();
-                    expect(this.clrGridWidget.getTopPositionedButtons()).toEqual(['Add']);
-                });
-
-                it('allows an optional contextualButtonConfig', function(this: HasFinderAndGrid): void {
-                    this.finder.hostComponent.buttonConfig = {
-                        globalButtons: [],
-                    };
-                    this.finder.detectChanges();
-                    expect(this.finder.hostComponent.grid._buttonConfig.contextualButtonConfig.buttons).toEqual([]);
-                });
-
-                it('can have different configuration for all buttons and a single button', function(this: HasFinderAndGrid): void {
-                    this.finder.hostComponent.buttonConfig.inactiveDisplayMode = InactiveButtonDisplayMode.Hide;
-                    this.finder.hostComponent.buttonConfig.globalButtons[1].inactiveDisplayMode =
-                        InactiveButtonDisplayMode.Disable;
-                    this.finder.detectChanges();
-                    expect(this.clrGridWidget.getTopPositionedButtons()).toEqual(['Add', 'Remove']);
-                });
-            });
-
-            describe('globalButtons', () => {
-                beforeEach(function(this: HasFinderAndGrid): void {
-                    this.finder.hostComponent.buttonConfig.globalButtons = [
-                        {
-                            label: 'Add',
-                            isActive: () => true,
-                            handler: () => {},
-                            class: 'add',
-                        },
-                        {
-                            label: 'Remove',
-                            isActive: () => false,
-                            handler: () => {},
-                            class: 'remove',
-                        },
-                        {
-                            label: 'Change',
-                            isActive: () => false,
-                            handler: () => {},
-                            class: 'change',
-                        },
-                    ];
-                    this.finder.detectChanges();
-                });
-
-                it('shows buttons where shouldDisplay is true or inactiveDisplayMode is disable', function(this: HasFinderAndGrid): void {
-                    expect(this.clrGridWidget.getTopPositionedButtons()).toEqual(['Add', 'Remove', 'Change']);
-                });
-
-                it('the button handler is called when the button is pressed', function(this: HasFinderAndGrid): void {
-                    const spy = spyOn(this.finder.hostComponent.buttonConfig.globalButtons[0], 'handler');
-                    expect(this.clrGridWidget.getTopButtonText('add')).toEqual('Add');
-                    expect(this.clrGridWidget.isTopButtonEnabled('add')).toBeTruthy();
-                    this.clrGridWidget.pressTopButton('add');
-                    expect(spy).toHaveBeenCalledTimes(1);
-                });
-            });
-
-            describe('contextualButtonConfig', () => {
-                beforeEach(function(this: HasFinderAndGrid): void {
-                    this.finder.hostComponent.selectionType = GridSelectionType.Single;
-                    this.finder.hostComponent.columns = [
-                        {
-                            displayName: 'Column',
-                            renderer: 'name',
-                        },
-                    ];
-                    this.finder.hostComponent.buttonConfig.contextualButtonConfig = {
-                        buttons: [
-                            {
-                                label: 'Add',
-                                isActive: (row: MockRecord[]) => true,
-                                handler: () => {},
-                                class: 'a',
-                                icon: 'play',
-                            },
-                            {
-                                label: 'Remove',
-                                isActive: () => false,
-                                handler: () => {},
-                                class: 'b',
-                                icon: 'pause',
-                            },
-                            {
-                                label: 'Other',
-                                isActive: (row: MockRecord[]) => row.length && row[0].name === 'Person 1',
-                                handler: () => {},
-                                class: 'c',
-                                icon: 'pause',
-                            },
-                        ],
-                        featuredCount: 2,
-                        featured: ['a', 'c', 'b'],
-                        position: ContextualButtonPosition.TOP,
-                    };
-                    this.finder.detectChanges();
-                });
-
-                it('allows the user to not set featured', function(this: HasFinderAndGrid): void {
-                    this.finder.hostComponent.buttonConfig.contextualButtonConfig = {
-                        buttons: [
-                            {
-                                label: 'Add',
-                                isActive: (row: MockRecord[]) => true,
-                                handler: () => {},
-                                class: 'a',
-                                icon: 'play',
-                            },
-                            {
-                                label: 'Remove',
-                                isActive: () => false,
-                                handler: () => {},
-                                class: 'b',
-                                icon: 'pause',
-                            },
-                            {
-                                label: 'Other',
-                                isActive: (row: MockRecord[]) => row.length && row[0].name === 'Person 1',
-                                handler: () => {},
-                                class: 'c',
-                                icon: 'pause',
-                            },
-                        ],
-                        position: ContextualButtonPosition.TOP,
-                    };
-                    expect(this.finder.hostComponent.grid.featuredButtons.size).toEqual(3);
-                });
-
-                it('throws an error if a featured button cannot be found', function(this: HasFinderAndGrid): void {
-                    const config = Object.assign({}, this.finder.hostComponent.buttonConfig);
-                    config.contextualButtonConfig.featured = ['z'];
-                    this.finder.hostComponent.buttonConfig = config;
-                    expect(() => this.finder.detectChanges()).toThrowError('Featured button was not found');
-                });
-
-                describe('buttonContents', () => {
-                    it('shows icon when set to only show icon', function(this: HasFinderAndGrid): void {
-                        this.finder.hostComponent.buttonConfig.contextualButtonConfig.buttonContents = TextIcon.ICON;
-                        this.finder.detectChanges();
-                        expect(this.vcdDatagrid.component.shouldShowIcon()).toBeTruthy();
-                        expect(this.vcdDatagrid.component.shouldShowText()).toBeFalsy();
-                        expect(this.vcdDatagrid.component.shouldShowTooltip()).toBeTruthy();
-                    });
-
-                    it('shows label when set to only show label', function(this: HasFinderAndGrid): void {
-                        this.finder.hostComponent.buttonConfig.contextualButtonConfig.buttonContents = TextIcon.TEXT;
-                        this.finder.detectChanges();
-                        expect(this.vcdDatagrid.component.shouldShowIcon()).toBeFalsy();
-                        expect(this.vcdDatagrid.component.shouldShowText()).toBeTruthy();
-                        expect(this.vcdDatagrid.component.shouldShowTooltip()).toBeFalsy();
-                    });
-
-                    it('shows icon and label when set to only show both', function(this: HasFinderAndGrid): void {
-                        this.finder.hostComponent.buttonConfig.contextualButtonConfig.buttonContents =
-                            TextIcon.ICON_AND_TEXT;
-                        this.finder.detectChanges();
-                        expect(this.vcdDatagrid.component.shouldShowIcon()).toBeTruthy();
-                        expect(this.vcdDatagrid.component.shouldShowText()).toBeTruthy();
-                        expect(this.vcdDatagrid.component.shouldShowTooltip()).toBeFalsy();
-                    });
-                });
-
-                describe('getFeaturedButtons()', () => {
-                    it('shows only the given number of featured buttons', function(this: HasFinderAndGrid): void {
-                        expect(
-                            this.finder.hostComponent.grid.getFeaturedButtons(mockData).map(button => button.label)
-                        ).toEqual(['Add', 'Remove']);
-                    });
-
-                    it('shows all the featured buttons when featuredCount is greater than length', function(this: HasFinderAndGrid): void {
-                        this.finder.hostComponent.buttonConfig.contextualButtonConfig.featuredCount = 4;
-                        expect(
-                            this.finder.hostComponent.grid.getFeaturedButtons(mockData).map(button => button.label)
-                        ).toEqual(['Add', 'Remove', 'Other']);
-                    });
-                });
-
-                describe('top position', () => {
-                    it('shows no buttons with nothing selected', function(this: HasFinderAndGrid): void {
-                        expect(this.clrGridWidget.getTopPositionedButtons()).toEqual([]);
-                    });
-
-                    it('responds when the user presses a contextual button', function(this: HasFinderAndGrid): void {
-                        const spy = jasmine.createSpy('clickHandler');
-                        this.finder.hostComponent.buttonConfig.contextualButtonConfig.buttons[0].handler = spy;
-                        this.clrGridWidget.selectRow(0);
-                        this.clrGridWidget.pressTopButton('a');
-                        expect(spy).toHaveBeenCalledWith([mockData[0]]);
-                    });
-                });
-
-                describe('row position', () => {
-                    beforeEach(function(this: HasFinderAndGrid): void {
-                        this.finder.hostComponent.buttonConfig.contextualButtonConfig.position =
-                            ContextualButtonPosition.ROW;
-                        this.finder.detectChanges();
-                    });
-
-                    it('responds when the user presses a contextual button', function(this: HasFinderAndGrid): void {
-                        const spy = jasmine.createSpy('clickHandler');
-                        this.finder.hostComponent.buttonConfig.contextualButtonConfig.buttons[0].handler = spy;
-                        this.finder.detectChanges();
-                        this.clrGridWidget.pressRowButton('a', 0);
-                        expect(spy).toHaveBeenCalledWith([mockData[0]]);
-                        expect(this.clrGridWidget.getRowButtonText('a', 0)).toEqual('Add');
-                        expect(this.clrGridWidget.isRowButtonEnabled('a', 0)).toBeTruthy();
-                    });
-
-                    it('adds CSS to set the width based on the maximum number of buttons', function(this: HasFinderAndGrid): void {
-                        expect(this.clrGridWidget.getRowButtonContainerClass(0)).toContain('buttons-2');
-                    });
-                });
-            });
-
-            describe('@Input() indicatorType', () => {
-                let resolvePromise;
-
-                beforeEach(function(this: HasFinderAndGrid): void {
-                    this.finder.hostComponent.buttonConfig.globalButtons = [
-                        {
-                            label: 'Add',
-                            isActive: () => true,
-                            handler: () =>
-                                new Promise(resolve => {
-                                    resolvePromise = resolve;
-                                }),
-                            class: 'button',
-                        },
-                    ];
-                    this.finder.detectChanges();
-                });
-
-                it('is able to show the spinner indicator', function(this: HasFinderAndGrid): void {
-                    this.finder.hostComponent.indicatorType = ActivityIndicatorType.SPINNER;
-                    this.finder.detectChanges();
-                    const spy = spyOn(this.finder.hostComponent.grid.actionReporter, 'monitorGet');
-                    this.clrGridWidget.pressTopButton('button');
-                    expect(spy).toHaveBeenCalledTimes(1);
-                });
-
-                it('is able to show the banner indicator', function(this: HasFinderAndGrid): void {
+        describe('@Input() actions', () => {
+            it(
+                'adds the logic of calling datagrids actionReporter.monitorGet method to action handler' +
+                    ' when the handler returns a promise',
+                function(this: HasFinderAndGrid): void {
+                    const actionHandlerWithoutPromise: ActionHandlerType<any, any> = () => null;
+                    const actionHandlerThatReturnsPromise: ActionHandlerType<any, any> = () => new Promise(() => null);
                     this.finder.hostComponent.indicatorType = ActivityIndicatorType.BANNER;
+                    this.finder.hostComponent.actions = [
+                        {
+                            textKey: 'ActionThatDoesNotReturnPromise',
+                            handler: actionHandlerWithoutPromise,
+                            availability: () => true,
+                        },
+                        {
+                            textKey: 'ActionThatReturnsPromise',
+                            handler: actionHandlerThatReturnsPromise,
+                            availability: () => true,
+                        },
+                    ];
                     this.finder.detectChanges();
-                    const spy = spyOn(this.finder.hostComponent.grid.actionReporter, 'monitorGet');
-                    this.clrGridWidget.pressTopButton('button');
-                    expect(spy).toHaveBeenCalledTimes(1);
-                });
+                    const monitorGetSpy = spyOn(this.component.actionReporter, 'monitorGet').and.callFake(() => null);
+                    this.component.actions[0].handler();
+                    expect(monitorGetSpy).not.toHaveBeenCalled();
+                    this.component.actions[1].handler();
+                    expect(monitorGetSpy).toHaveBeenCalled();
+                }
+            );
+        });
+
+        describe('shouldShowActionBarOnTop', () => {
+            it('returns true when there are static actions', function(this: HasFinderAndGrid): void {
+                this.finder.hostComponent.actions = [
+                    {
+                        textKey: 'static.action',
+                        handler: () => null,
+                        availability: () => true,
+                        actionType: ActionType.STATIC,
+                    },
+                ];
+                this.finder.detectChanges();
+                expect(this.component.shouldShowActionBarOnTop).toBeTruthy();
+            });
+            it('returns true when there are contextual actions to be displayed on top', function(this: HasFinderAndGrid): void {
+                this.finder.hostComponent.selectionType = GridSelectionType.Single;
+                this.finder.hostComponent.contextualActionPosition = ContextualActionPosition.TOP;
+                this.finder.hostComponent.actions = [
+                    {
+                        textKey: 'contextual.action',
+                        handler: () => null,
+                        availability: () => true,
+                        actionType: ActionType.CONTEXTUAL,
+                    },
+                ];
+                this.finder.detectChanges();
+                // This is because contextual actions requires entities to be selected
+                this.clrGridWidget.selectRow(0);
+                this.finder.detectChanges();
+                expect(this.component.shouldShowActionBarOnTop).toBeTruthy();
             });
         });
 
@@ -1267,7 +1029,9 @@ describe('DatagridComponent', () => {
                 (selectionChanged)="selectionChanged($event)"
                 [paginationDropdownText]="paginationText"
                 [pagination]="pagination"
-                [buttonConfig]="buttonConfig"
+                [actions]="actions"
+                [actionDisplayConfig]="actionDisplayConfig"
+                [contextualActionPosition]="contextualActionPosition"
                 [height]="height"
                 [header]="header"
                 [indicatorType]="indicatorType"
@@ -1304,15 +1068,18 @@ export class HostWithDatagridComponent {
 
     indicatorType?: ActivityIndicatorType;
 
-    buttonConfig: ButtonConfig<MockRecord> = {
-        globalButtons: [],
-        contextualButtonConfig: {
-            featured: [],
+    actions: ActionItem<MockRecord, unknown>[] = [];
+
+    actionDisplayConfig: ActionDisplayConfig = {
+        contextual: {
             featuredCount: 0,
-            buttons: [],
-            position: ContextualButtonPosition.TOP,
+            styling: ActionStyling.INLINE,
+            buttonContents: TextIcon.TEXT,
         },
+        staticActionStyling: ActionStyling.INLINE,
     };
+
+    contextualActionPosition: ContextualActionPosition = ContextualActionPosition.TOP;
 
     details = DatagridDetailsComponent;
 

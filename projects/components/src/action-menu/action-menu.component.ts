@@ -3,13 +3,25 @@
  * SPDX-License-Identifier: BSD-2-Clause
  */
 
-import { Component, Input } from '@angular/core';
+import { Component, Input, TrackByFunction } from '@angular/core';
 import { ActionDisplayConfig, ActionItem, ActionStyling, ActionType, TextIcon } from '../common/interfaces';
 
 /**
- * Renders actions in screens containing grids, cards and details container
+ * Value used for the display configuration of action buttons if no input is provided by the caller
+ */
+export const DEFAULT_ACTION_DISPLAY_CONFIG: ActionDisplayConfig = {
+    contextual: {
+        featuredCount: 0,
+        styling: ActionStyling.INLINE,
+        buttonContents: TextIcon.TEXT,
+    },
+    staticActionStyling: ActionStyling.INLINE,
+};
+
+/**
+ * Renders actions in screens containing grids, cards and details container screens
  * R is the type of selected entity on which the action will be performed
- * T is the type of custom data passed to action handler
+ * T is the type of custom data passed to action handler methods
  */
 @Component({
     selector: 'vcd-action-menu',
@@ -17,33 +29,10 @@ import { ActionDisplayConfig, ActionItem, ActionStyling, ActionType, TextIcon } 
     styleUrls: ['./action-menu.component.scss'],
 })
 export class ActionMenuComponent<R, T> {
-    @Input() entityUrn: string;
-
-    /**
-     * Content of the action menu dropdown trigger button. Used when {@link #actionDisplayConfig} styling is
-     * {@link ActionStyling.DROPDOWN}
-     */
-    @Input() btnText: string = null;
-
-    /**
-     * Used for disabling the menu bar or menu dropdown
-     */
-    @Input() disabled: boolean;
-
-    /**
-     * List of selected entities required for contextual actions
-     */
-    @Input() selectedEntities: R[];
-
-    /**
-     * How the static actions get displayed
-     */
-    @Input() staticActionStyling: ActionStyling = ActionStyling.INLINE;
-
-    /**
-     * List of actions that will be given by the calling component
-     */
     private _actions: ActionItem<R, T>[] = [];
+    /**
+     * List of actions containing both static and contextual that are given by the calling component
+     */
     @Input() set actions(actions: ActionItem<R, T>[]) {
         this._actions = actions.map(action => {
             if (!action.actionType) {
@@ -53,26 +42,18 @@ export class ActionMenuComponent<R, T> {
         });
     }
     get actions(): ActionItem<R, T>[] {
-        return this._actions;
+        return this.getDeepCopy(this._actions);
     }
 
-    private _actionDisplayConfig: ActionDisplayConfig = {
-        contextual: {
-            featuredCount: 0,
-            styling: ActionStyling.INLINE,
-            buttonContents: TextIcon.TEXT,
-        },
-        staticActionStyling: ActionStyling.INLINE,
-    };
+    private _actionDisplayConfig: ActionDisplayConfig = DEFAULT_ACTION_DISPLAY_CONFIG;
     /**
-     * Display configuration of static and contextual actions
+     * Display configuration of both static and contextual actions
      * If null or undefined is passed, default config {@link _actionDisplayConfig} is used
      */
     @Input() set actionDisplayConfig(config: ActionDisplayConfig) {
-        config = !config ? this._actionDisplayConfig : config;
-        Object.keys(config).forEach(key => {
-            this._actionDisplayConfig[key] = config[key] || this._actionDisplayConfig[key];
-        });
+        Object.keys(config || {}).forEach(
+            key => (this._actionDisplayConfig[key] = config[key] ? config[key] : DEFAULT_ACTION_DISPLAY_CONFIG[key])
+        );
         const buttonContents = this.actionDisplayConfig.contextual.buttonContents;
         this.shouldShowIcon = (TextIcon.ICON & buttonContents) === TextIcon.ICON;
         this.shouldShowText = (TextIcon.TEXT & buttonContents) === TextIcon.TEXT;
@@ -83,27 +64,77 @@ export class ActionMenuComponent<R, T> {
     }
 
     /**
+     * Text Content of the action menu dropdown trigger button. Used when {@link #actionDisplayConfig} styling is
+     * {@link ActionStyling.DROPDOWN}
+     */
+    @Input() dropdownTriggerBtnText: string = null;
+
+    /**
+     * Icon of the action menu dropdown trigger button. Used when {@link #actionDisplayConfig} styling is
+     * {@link ActionStyling.DROPDOWN}
+     */
+    @Input() dropdownTriggerBtnIcon: string = null;
+
+    /**
+     * Used for disabling the menu bar or menu dropdown
+     */
+    @Input() disabled: boolean;
+
+    /**
+     * The list of entities selected on which contextualActions are performed
+     */
+    @Input() selectedEntities: R[];
+
+    /**
+     * The direction with respect to the root dropdown trigger button in which the root drop down should open
+     * {@link DropdownComponent.dropdownPosition}
+     */
+    @Input() dropdownPosition: string;
+
+    /**
+     * The direction in which the nested drop downs open. {@link DropdownComponent.nestedDropdownPosition}
+     */
+    @Input() nestedDropdownPosition = 'right-top';
+
+    /**
      * If a icon should be displayed inside contextual buttons
      */
-    shouldShowIcon: boolean;
+    shouldShowIcon: boolean = (TextIcon.ICON & this.actionDisplayConfig.contextual.buttonContents) === TextIcon.ICON;
 
     /**
      * If a text should be displayed inside contextual buttons
      */
-    shouldShowText: boolean;
+    shouldShowText: boolean = (TextIcon.TEXT & this.actionDisplayConfig.contextual.buttonContents) === TextIcon.TEXT;
 
     /**
      * If the contextual buttons with icons should have a tooltip
      */
-    shouldShowTooltip: boolean;
+    shouldShowTooltip: boolean = this.actionDisplayConfig.contextual.buttonContents === TextIcon.ICON;
 
     /**
-     * Returns actions that are either available or disabled
+     * Used in the html template
      */
-    getAvailableActions(actions: ActionItem<R, T>[], selection?: R[]): ActionItem<R, T>[] {
-        return actions.filter(
-            action => !action.availability || action.availability(selection) || this.isActionDisabled(action)
-        );
+    actionStyling = ActionStyling;
+
+    /**
+     * Returns the actions to be shown
+     */
+    getAvailableActions(actions: ActionItem<R, T>[]): ActionItem<R, T>[] {
+        return actions.filter(action => {
+            const isActionAvailable = this.isActionAvailable(action);
+            if (isActionAvailable && action.children && action.children.length) {
+                action.children = this.getAvailableActions(action.children);
+            }
+            return isActionAvailable;
+        });
+    }
+
+    /**
+     * An action whose availability is false but has the disabled state set to true is still shown on the screen in
+     * disabled mode
+     */
+    private isActionAvailable(action: ActionItem<R, T>): boolean {
+        return !action.availability || action.availability(this.selectedEntities) || this.isActionDisabled(action);
     }
 
     /**
@@ -118,10 +149,64 @@ export class ActionMenuComponent<R, T> {
      * List of only the actions that are marked as {@link ActionType.STATIC_FEATURED}
      */
     get staticFeaturedActions(): ActionItem<R, T>[] {
-        const staticActions = this.actions.filter(action => action.actionType === ActionType.STATIC_FEATURED);
-        return this.getAvailableActions(staticActions);
+        const staticFeaturedActions = this.actions.filter(action => action.actionType === ActionType.STATIC_FEATURED);
+        return this.getAvailableActions(staticFeaturedActions);
     }
 
+    /**
+     * List containing all the static actions. It has static featured actions in the beginning of the list followed by
+     * non-featured static actions as children of grouped action called 'vcd.cc.action.menu.all.actions'
+     */
+    get staticDropdownActions(): ActionItem<R, T>[] | object {
+        return this.staticFeaturedActions.concat([
+            { textKey: 'vcd.cc.action.menu.all.actions', children: this.staticActions },
+        ]);
+    }
+
+    /**
+     * List containing all the contextual actions. It has contextual featured actions in the beginning of the list
+     * followed by non-featured contextual actions as children of grouped action called
+     * 'vcd.cc.action.menu.all.actions'
+     */
+    get contextualDropdownActions(): ActionItem<R, T>[] | object {
+        return this.contextualFeaturedActions.concat([
+            {
+                textKey: 'vcd.cc.action.menu.all.actions',
+                children: this.contextualActions,
+            },
+        ]);
+    }
+
+    /**
+     * Without the deep copy, the changes made to any of the action children in one of the methods are persisting in other methods
+     */
+    private getDeepCopy(actions: ActionItem<R, T>[]): ActionItem<R, T>[] {
+        return actions.map(action => {
+            if (action.children && action.children.length) {
+                action.children = this.getDeepCopy(action.children);
+            }
+            return { ...action };
+        });
+    }
+
+    /**
+     * Actions that depend on selected entities and belong to main menu list. The returned list length is less than the
+     * configured featured count in {@link actionDisplayConfig}
+     */
+    get contextualFeaturedActions(): ActionItem<R, T>[] {
+        if (!this.selectedEntities || this.selectedEntities.length === 0) {
+            return [];
+        }
+        const flattenedFeaturedActionList = this.getFlattenedActionList(this.actions, ActionType.CONTEXTUAL_FEATURED);
+        const availableFeaturedActions = this.getAvailableActions(flattenedFeaturedActionList);
+        return this.actionDisplayConfig.contextual.featuredCount
+            ? availableFeaturedActions.slice(0, this.actionDisplayConfig.contextual.featuredCount)
+            : availableFeaturedActions;
+    }
+
+    /**
+     * Extracts the nested actions that are marked as featured and returns them as part of a flat list
+     */
     private getFlattenedActionList(actions: ActionItem<R, T>[], actionType: ActionType): ActionItem<R, T>[] {
         let featuredActions: ActionItem<R, T>[] = [];
         actions.forEach(action => {
@@ -135,27 +220,18 @@ export class ActionMenuComponent<R, T> {
     }
 
     /**
-     * Actions that depend on selected entities and belong to main menu list. The returned list length is less than the
-     * configured featured count in {@link actionDisplayConfig}
-     * @param selection The selected entities based on which the actions availability is calculated
-     */
-    getContextualFeaturedActions(selection: R[]): ActionItem<R, T>[] {
-        const flattenedFeaturedActionList = this.getFlattenedActionList(this.actions, ActionType.CONTEXTUAL_FEATURED);
-        const availableFeaturedActions = this.getAvailableActions(flattenedFeaturedActionList, selection);
-        return this.actionDisplayConfig.contextual.featuredCount
-            ? availableFeaturedActions.slice(0, this.actionDisplayConfig.contextual.featuredCount)
-            : availableFeaturedActions;
-    }
-
-    /**
      * Actions that depend on selected entities but belong to sub menu
-     * @param selection The selected entities based on which the actions availability is calculated
      */
-    getContextualActions(selection?: R[]): ActionItem<R, T>[] {
+    get contextualActions(): ActionItem<R, T>[] {
+        if (!this.selectedEntities || this.selectedEntities.length === 0) {
+            return [];
+        }
         const contextualActions = this.actions.filter(
-            action => action.actionType !== ActionType.STATIC_FEATURED && action.actionType !== ActionType.STATIC
+            action =>
+                !action.actionType ||
+                (action.actionType !== ActionType.STATIC_FEATURED && action.actionType !== ActionType.STATIC)
         );
-        return this.getAvailableActions(contextualActions, selection);
+        return this.getAvailableActions(contextualActions);
     }
 
     /**
@@ -163,7 +239,9 @@ export class ActionMenuComponent<R, T> {
      * {@link ActionItem.handlerData} as arguments
      */
     runActionHandler(action: ActionItem<R, T>): void {
-        action.handler(this.selectedEntities, action.handlerData);
+        if (action.handler) {
+            action.handler(this.selectedEntities, action.handlerData);
+        }
     }
 
     /**
@@ -174,9 +252,74 @@ export class ActionMenuComponent<R, T> {
     }
 
     /**
-     * To show/hide the contextual actions bucket
+     * Used as {@link ngForTrackBy} input value when iterating over action lists {@link DropdownComponent.trackByFunction}
+     * Without this method as input for ngForTrackBy, the dropdown gets rendered off screen
      */
-    get shouldShowContextualActions(): boolean {
-        return !!(this.selectedEntities && this.selectedEntities.length);
+    actionsTrackBy: TrackByFunction<ActionItem<R, T>> = (index: number, item: ActionItem<R, T>): string => {
+        return item.textKey;
+    };
+
+    /**
+     * To show or hide the container elements containing inline and also dropdown actions
+     */
+    shouldDisplayActions(style: ActionStyling): boolean {
+        return (
+            this.shouldDisplayStaticFeaturedActions(style) ||
+            this.shouldDisplayStaticActions(style) ||
+            this.shouldDisplayContextualActions(style)
+        );
+    }
+
+    /**
+     * To show or hide {@link ActionType.STATIC_FEATURED} actions in inline actions container
+     */
+    shouldDisplayStaticFeaturedActions(style: ActionStyling): boolean {
+        return (
+            this.staticFeaturedActions &&
+            this.staticFeaturedActions.length &&
+            this.actionDisplayConfig.staticActionStyling === style
+        );
+    }
+
+    /**
+     * To show or hide {@link ActionType.STATIC} actions in inline or dropdown action containers
+     */
+    shouldDisplayStaticActions(style: ActionStyling): boolean {
+        return (
+            this.staticActions && this.staticActions.length && this.actionDisplayConfig.staticActionStyling === style
+        );
+    }
+
+    /**
+     * To show or hide {@link ActionType.CONTEXTUAL} and {@link ActionType.CONTEXTUAL_FEATURED} actions in inline or
+     * dropdown action containers
+     */
+    shouldDisplayContextualActions(style: ActionStyling): boolean {
+        return (
+            this.selectedEntities &&
+            this.selectedEntities.length &&
+            this.contextualActions.length &&
+            this.actionDisplayConfig.contextual.styling === style
+        );
+    }
+
+    /**
+     * To show or hide {@link ActionType.STATIC_FEATURED} and {@link ActionType.STATIC} actions in a dropdown
+     */
+    get shouldDisplayStaticAndStaticFeaturedActionsDropdown(): boolean {
+        return (
+            this.shouldDisplayStaticActions(this.actionStyling.DROPDOWN) ||
+            this.shouldDisplayStaticFeaturedActions(this.actionStyling.DROPDOWN)
+        );
+    }
+
+    /**
+     * To show or hide {@link ActionType.STATIC_FEATURED} and {@link ActionType.STATIC} actions in a inline action bar
+     */
+    get shouldDisplayStaticAndStaticFeaturedActionsInline(): boolean {
+        return (
+            this.shouldDisplayStaticActions(this.actionStyling.INLINE) &&
+            this.shouldDisplayStaticFeaturedActions(this.actionStyling.INLINE)
+        );
     }
 }

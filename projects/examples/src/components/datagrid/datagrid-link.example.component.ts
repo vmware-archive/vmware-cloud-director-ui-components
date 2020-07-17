@@ -3,136 +3,202 @@
  * SPDX-License-Identifier: BSD-2-Clause
  */
 
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import {
-    ButtonConfig,
-    ContextualButtonPosition,
+    ActionDisplayConfig,
+    ActionItem,
+    ActionStyling,
+    ActionType,
+    ContextualActionPosition,
+    DatagridComponent,
     GridColumn,
     GridDataFetchResult,
     GridSelectionType,
     GridState,
-    InactiveButtonDisplayMode,
     TextIcon,
 } from '@vcd/ui-components';
 
-interface Data {
+interface Record {
     value: string;
     paused: boolean;
 }
 
+interface Blah {
+    foo: string;
+    bar: string;
+}
+
+type HandlerData = Record[] | Blah;
+
 /**
  * Shows linked buttons on the top of the datagrid.
  * Has examples of both buttons that are global and contextual.
+ *
+ * Enable the delete button to hide it and disable the delete button to show it in disable mode. This is because the
+ * inactive display mode of a button can be set as following:
+ *  - Hidden - availability is false and disabled is false
+ *  - Shown as Disabled - availability is false and disabled is true
+ * Please refer to the delete action object configuration in the actions object list configuration.
  */
 @Component({
     selector: 'vcd-datagrid-link-example',
     template: `
-        <button (click)="this.changeButtonLocation()" class="btn btn-primary">Change Link Location</button><br />
+        <button (click)="changeActionLocation()" class="btn btn-primary">
+            Display contextual actions {{ contextualActionPosition === 'ROW' ? 'on top' : 'in row' }}
+        </button>
+        <button
+            *ngIf="contextualActionPosition === 'ROW'"
+            (click)="changeContextualActionStyling()"
+            class="btn btn-primary"
+        >
+            Display contextual actions {{ actionDisplayConfig.contextual.styling === 'INLINE' ? 'dropdown' : 'inline' }}
+        </button>
+        <br />
         <vcd-datagrid
             [gridData]="gridData"
             (gridRefresh)="refresh($event)"
             [columns]="columns"
-            [buttonConfig]="buttonConfig"
+            [actions]="actions"
+            [actionDisplayConfig]="actionDisplayConfig"
+            [contextualActionPosition]="contextualActionPosition"
             [selectionType]="selectionType"
         ></vcd-datagrid>
     `,
 })
-export class DatagridLinkExampleComponent {
-    gridData: GridDataFetchResult<Data> = {
+export class DatagridLinkExampleComponent<R extends Record> {
+    @ViewChild(DatagridComponent, { static: true }) dg: DatagridComponent<R>;
+
+    gridData: GridDataFetchResult<Record> = {
         items: [],
     };
 
-    columns: GridColumn<Data>[] = [
+    columns: GridColumn<R>[] = [
         {
             displayName: 'Some Value',
             renderer: 'value',
         },
     ];
 
-    buttonConfig: ButtonConfig<Data> = {
-        globalButtons: [
-            {
-                label: 'Add',
-                handler: () => {
-                    console.log('Adding stuff!');
-                },
-                isActive: () => true,
-                class: 'add',
+    actions: ActionItem<R, HandlerData>[] = [
+        {
+            textKey: 'Add',
+            handler: () => {
+                console.log('Adding stuff!');
             },
-            {
-                label: 'Delete All',
-                handler: () => {
-                    console.log('Deleting stuff!');
-                },
-                isActive: () => false,
-                class: 'delete',
+            availability: () => true,
+            class: 'add',
+            actionType: ActionType.STATIC_FEATURED,
+            isTranslatable: false,
+        },
+        {
+            textKey: 'Custom handler data',
+            handler: (rec: R[], data: Blah) => {
+                console.log('Custom handler data ' + JSON.stringify(data));
             },
-        ],
-        contextualButtonConfig: {
-            buttons: [
+            handlerData: { foo: 'foo', bar: 'bar' },
+            availability: () => true,
+            class: 'b',
+            icon: 'pause',
+            actionType: ActionType.STATIC,
+            isTranslatable: false,
+        },
+        {
+            textKey: 'Contextual action',
+            handler: () => {
+                console.log('Contextual action output');
+            },
+            availability: (rec: R[]) => rec.length === 1,
+            isTranslatable: false,
+        },
+        {
+            textKey: 'power.actions',
+            children: [
                 {
-                    label: 'Start',
-                    handler: (rec: Data[]) => {
+                    textKey: 'Start',
+                    handler: (rec: R[]) => {
                         console.log('Starting ' + rec[0].value);
                         rec[0].paused = false;
                     },
-                    isActive: (rec: Data[]) => rec.length === 1 && rec[0].paused,
-                    class: 'a',
-                    icon: 'play',
-                    inactiveDisplayMode: InactiveButtonDisplayMode.Hide,
+                    availability: (rec: R[]) => rec.length === 1 && rec[0].paused,
+                    actionType: ActionType.CONTEXTUAL_FEATURED,
+                    isTranslatable: false,
                 },
                 {
-                    label: 'Stop',
-                    handler: (rec: Data[]) => {
-                        console.log('Stopping ' + rec[0].value);
+                    textKey: 'Stop',
+                    handler: (rec: R[]) => {
+                        console.log('Stopping ' + (rec as R[])[0].value);
                         rec[0].paused = true;
                     },
-                    isActive: (rec: Data[]) => rec.length === 1 && !rec[0].paused,
-                    class: 'b',
-                    icon: 'pause',
-                    inactiveDisplayMode: InactiveButtonDisplayMode.Hide,
-                },
-                {
-                    label: 'Anythign',
-                    handler: (rec: Data[]) => {
-                        console.log('Adding ' + rec[0].value);
-                    },
-                    isActive: (rec: Data[]) => rec.length === 1 && rec[0].value === 'a',
-                    class: 'c',
-                    icon: 'warn',
+                    availability: (rec: R[]) => rec.length === 1 && !rec[0].paused,
+                    actionType: ActionType.CONTEXTUAL_FEATURED,
+                    isTranslatable: false,
                 },
             ],
+        },
+        {
+            textKey: 'grouped.actions',
+            children: [
+                {
+                    textKey: 'Contextual featured',
+                    actionType: ActionType.CONTEXTUAL_FEATURED,
+                    handler: () => null,
+                    isTranslatable: false,
+                },
+                {
+                    textKey: 'Contextual 2',
+                    handler: () => null,
+                    isTranslatable: false,
+                },
+            ],
+            isTranslatable: true,
+        },
+    ];
+
+    actionDisplayConfig: ActionDisplayConfig = {
+        contextual: {
             featuredCount: 3,
-            featured: ['a', 'b', 'c'],
-            position: ContextualButtonPosition.TOP,
+            styling: ActionStyling.INLINE,
             buttonContents: TextIcon.TEXT,
         },
-        inactiveDisplayMode: InactiveButtonDisplayMode.Disable,
+        staticActionStyling: ActionStyling.INLINE,
     };
+
+    contextualActionPosition: ContextualActionPosition = ContextualActionPosition.TOP;
 
     selectionType = GridSelectionType.Single;
 
-    changeButtonLocation(): void {
-        if (this.buttonConfig.contextualButtonConfig.position === ContextualButtonPosition.TOP) {
-            this.buttonConfig.contextualButtonConfig.position = ContextualButtonPosition.ROW;
+    changeActionLocation(): void {
+        if (this.contextualActionPosition === ContextualActionPosition.TOP) {
+            this.contextualActionPosition = ContextualActionPosition.ROW;
             this.selectionType = GridSelectionType.None;
         } else {
-            this.buttonConfig.contextualButtonConfig.position = ContextualButtonPosition.TOP;
+            this.contextualActionPosition = ContextualActionPosition.TOP;
             this.selectionType = GridSelectionType.Single;
         }
     }
 
-    refresh(eventData: GridState<Data>): void {
+    refresh(eventData: GridState<R>): void {
         this.gridData = {
             items: [
                 { value: 'a', paused: false },
                 { value: 'b', paused: true },
                 { value: 'a', paused: true },
-                { value: 'b', paused: true },
-                { value: 'a', paused: false },
-                { value: 'b', paused: true },
+                { value: 'b', paused: false },
             ],
             totalItems: 2,
+        };
+    }
+
+    changeContextualActionStyling(): void {
+        this.actionDisplayConfig = {
+            ...this.actionDisplayConfig,
+            contextual: {
+                ...this.actionDisplayConfig.contextual,
+                styling:
+                    this.actionDisplayConfig.contextual.styling === ActionStyling.DROPDOWN
+                        ? ActionStyling.INLINE
+                        : ActionStyling.DROPDOWN,
+            },
         };
     }
 }

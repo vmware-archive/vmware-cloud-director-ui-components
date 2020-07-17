@@ -14,29 +14,41 @@ import {
     OnDestroy,
     OnInit,
     Output,
+    QueryList,
     TrackByFunction,
     ViewChild,
+    ViewChildren,
 } from '@angular/core';
 import { ClrDatagrid, ClrDatagridPagination, ClrDatagridStateInterface } from '@clr/angular';
 import { LazyString, TranslationService } from '@vcd/i18n';
 import { Observable } from 'rxjs';
+import { ActionMenuComponent, DEFAULT_ACTION_DISPLAY_CONFIG } from '../action-menu/action-menu.component';
 import { ActivityReporter } from '../common/activity-reporter';
-import { TextIcon } from '../common/interfaces/action-item.interface';
+import {
+    ActionDisplayConfig,
+    ActionHandlerType,
+    ActionItem,
+    ActionStyling,
+    ActionType,
+} from '../common/interfaces/action-item.interface';
 import { SubscriptionTracker } from '../common/subscription';
 import { TooltipSize } from '../lib/directives/show-clipped-text.directive';
 import { DatagridFilter } from './filters/datagrid-filter';
 import { ComponentRendererConstructor, ComponentRendererSpec } from './interfaces/component-renderer.interface';
 import {
-    Button,
-    ButtonConfig,
     ColumnRendererSpec,
-    ContextualButtonPosition,
     FunctionRenderer,
     GridColumn,
     GridColumnHideable,
-    InactiveButtonDisplayMode,
 } from './interfaces/datagrid-column.interface';
-import { ContextualButton } from './interfaces/datagrid-column.interface';
+
+/**
+ * An enum that describes where the contextual buttons should display.
+ */
+export enum ContextualActionPosition {
+    TOP = 'TOP',
+    ROW = 'ROW',
+}
 
 /**
  * The default number of items on a single page.
@@ -310,51 +322,56 @@ export class DatagridComponent<R> implements OnInit, AfterViewInit, OnDestroy {
     }
 
     /**
-     * Sets the button configuration on the datagrid.
-     *
-     * {@link ButtonConfig.inactiveDisplayMode} defualts to Disabled.
+     * Actions to be displayed on a grid or in a row
      */
-    @Input() set buttonConfig(config: ButtonConfig<R>) {
-        this._buttonConfig = config;
-        this._buttonConfig.contextualButtonConfig = this._buttonConfig.contextualButtonConfig
-            ? this._buttonConfig.contextualButtonConfig
-            : {
-                  buttons: [],
-                  position: ContextualButtonPosition.TOP,
-              };
-        this._buttonConfig.contextualButtonConfig.buttonContents =
-            this._buttonConfig.contextualButtonConfig.buttonContents || TextIcon.ICON;
-        this._buttonConfig.inactiveDisplayMode =
-            this._buttonConfig.inactiveDisplayMode || InactiveButtonDisplayMode.Disable;
-        if (this._buttonConfig.contextualButtonConfig.featured) {
-            this.featuredButtons = new Map(
-                this._buttonConfig.contextualButtonConfig.featured.map(featuredButtonClass => [
-                    featuredButtonClass,
-                    this._buttonConfig.contextualButtonConfig.buttons.find(
-                        button => button.class === featuredButtonClass
-                    ),
-                ])
-            );
-            this.featuredButtons.forEach(featured => {
-                if (!featured) {
-                    throw new Error('Featured button was not found');
+    private _actions: ActionItem<R, unknown>[] = [];
+
+    /**
+     * List of actions given by the caller
+     */
+    @Input() set actions(actions: ActionItem<R, unknown>[]) {
+        this._actions = actions.map(action => {
+            const actionHandler: ActionHandlerType<R, unknown> = action.handler;
+            action.handler = (selectedEntities, handlerData) => {
+                const actionHandlerResponse = actionHandler(selectedEntities, handlerData);
+                if (actionHandlerResponse && this.actionReporter) {
+                    this.actionReporter.monitorGet(actionHandlerResponse);
                 }
-            });
-        } else {
-            this.featuredButtons = new Map(
-                this._buttonConfig.contextualButtonConfig.buttons.map(featuredButton => [
-                    featuredButton.class,
-                    featuredButton,
-                ])
-            );
-        }
+            };
+            return action;
+        });
+    }
+    get actions(): ActionItem<R, unknown>[] {
+        return this._actions;
     }
 
     /**
-     * Gives the button config of the datagrid.
+     * To display static and contextual actions in a action bar on top of a grid
      */
-    get buttonConfig(): ButtonConfig<R> {
-        return this._buttonConfig;
+    get shouldShowActionBarOnTop(): boolean {
+        return (
+            this.actions.length &&
+            (this.hasStaticActions || (this.hasContextualActions && this.shouldDisplayContextualActionsOnTop))
+        );
+    }
+
+    private get hasStaticActions(): boolean {
+        return this.actions.some(
+            action => action.actionType === ActionType.STATIC_FEATURED || action.actionType === ActionType.STATIC
+        );
+    }
+
+    private get hasContextualActions(): boolean {
+        return this.contextualActions.length > 0;
+    }
+
+    /**
+     * Filters contextual actions from the list of actions to be displayed in a grid row
+     */
+    get contextualActions(): ActionItem<R, unknown>[] {
+        return this.actions.filter(
+            action => action.actionType !== ActionType.STATIC_FEATURED && action.actionType !== ActionType.STATIC
+        );
     }
 
     constructor(
@@ -421,6 +438,34 @@ export class DatagridComponent<R> implements OnInit, AfterViewInit, OnDestroy {
     @Output() selectionChanged = new EventEmitter<R[]>();
 
     /**
+     * If the contextual buttons should display on the top of a grid.
+     */
+    get shouldDisplayContextualActionsOnTop(): boolean {
+        return (
+            this.contextualActionPosition &&
+            this.contextualActionPosition === ContextualActionPosition.TOP &&
+            this.datagridSelection.length !== 0
+        );
+    }
+
+    /**
+     * If the contextual buttons should display in a row.
+     */
+    get shouldDisplayContextualActionsInRow(): boolean {
+        return this.contextualActionPosition && this.contextualActionPosition === ContextualActionPosition.ROW;
+    }
+
+    /**
+     * How to display the static and contextual actions.
+     */
+    @Input() actionDisplayConfig: ActionDisplayConfig = DEFAULT_ACTION_DISPLAY_CONFIG;
+
+    /**
+     * Whether to display contextual actions inside the row or on top of the grid
+     */
+    @Input() contextualActionPosition: ContextualActionPosition = ContextualActionPosition.TOP;
+
+    /**
      * Emitted whenever {@link #columns} input is updated
      */
     @Output() columnsUpdated = new EventEmitter<void>();
@@ -443,11 +488,9 @@ export class DatagridComponent<R> implements OnInit, AfterViewInit, OnDestroy {
     @Input()
     indicatorType: ActivityIndicatorType;
 
-    ContextualButtonPosition = ContextualButtonPosition;
     GridColumnHideable = GridColumnHideable;
     TooltipSize = TooltipSize;
     ActivityIndicatorType = ActivityIndicatorType;
-    TextIcon = TextIcon;
 
     /**
      * The component that sound be rendered for this detail row.
@@ -478,25 +521,6 @@ export class DatagridComponent<R> implements OnInit, AfterViewInit, OnDestroy {
      * The text placed next to the pagination number dropdown.
      */
     @Input() paginationDropdownText = '';
-
-    /**
-     * The stored button config where inactiveDisplayMode is always non-undefined.
-     */
-    _buttonConfig: ButtonConfig<R> = {
-        globalButtons: [],
-        contextualButtonConfig: {
-            buttons: [],
-            featured: [],
-            position: ContextualButtonPosition.TOP,
-            featuredCount: 0,
-        },
-        inactiveDisplayMode: InactiveButtonDisplayMode.Disable,
-    };
-
-    /**
-     * The cache of button ID to button config that contains only the featured buttons.
-     */
-    featuredButtons: Map<string, ContextualButton<R>> = new Map();
 
     /**
      * When there is no data, show this message.
@@ -571,14 +595,36 @@ export class DatagridComponent<R> implements OnInit, AfterViewInit, OnDestroy {
 
     private viewInitted = false;
 
-    private widthSetTimes = 0;
-
     /**
      * Used for translating pagination information displayed in the grid
      */
     @Input() paginationTranslationKey: string = DEFAULT_PAGINATION_TRANSLATION_KEY;
 
     private subTracker = new SubscriptionTracker(this);
+
+    /**
+     * Used for calculating the width of actions column
+     */
+    maxFeaturedActionsOnRow = 0;
+
+    /**
+     * The {@link maxFeaturedActionsOnRow} value depends in the contextual featured actions config which belongs to the
+     * {@link ActionMenuComponent} being used in the rows. So, we wait for action menus in rows to be initialized and then calculate
+     * the value
+     */
+    @ViewChildren('actionMenuInRow') set actionMenusInRow(actionMenus: QueryList<ActionMenuComponent<R, unknown>>) {
+        if (!actionMenus || !actionMenus.length) {
+            this.maxFeaturedActionsOnRow = 0;
+            return;
+        }
+        let max = 0;
+        actionMenus.forEach(actionMenu => {
+            const contextualFeaturedActions = actionMenu.contextualFeaturedActions;
+            max = Math.max(contextualFeaturedActions.length + 1, max);
+        });
+        this.maxFeaturedActionsOnRow = max;
+        this.changeDetectorRef.detectChanges();
+    }
 
     /**
      * To add or replace a column of this datagrid columns. Exposed for columns modifiers(eg: directives) that listen to
@@ -628,115 +674,6 @@ export class DatagridComponent<R> implements OnInit, AfterViewInit, OnDestroy {
     @Input() trackBy: TrackByFunction<R> = (index: number, record): string => {
         return (record as any).href || String(index);
     };
-
-    /**
-     * Says if the action bar has contents to show.
-     */
-    shouldShowActionBar(): boolean {
-        return (
-            this.buttonConfig.globalButtons.length !== 0 ||
-            this.buttonConfig.contextualButtonConfig.buttons.length !== 0
-        );
-    }
-
-    /**
-     * If the button icon should be displayed.
-     */
-    shouldShowIcon(): boolean {
-        return (TextIcon.ICON & this.buttonConfig.contextualButtonConfig.buttonContents) === TextIcon.ICON;
-    }
-
-    /**
-     * If the text should be displayed on the button.
-     */
-    shouldShowText(): boolean {
-        return (TextIcon.TEXT & this.buttonConfig.contextualButtonConfig.buttonContents) === TextIcon.TEXT;
-    }
-
-    /**
-     * If the buttons icon should have a tooltip.
-     */
-    shouldShowTooltip(): boolean {
-        return this.buttonConfig.contextualButtonConfig.buttonContents === TextIcon.ICON;
-    }
-
-    /**
-     * Returns the buttons that should be featured given the {@link datagridSelection} or the given {@param record}.
-     *
-     * @throws Error if a featured button cannot be found.
-     */
-    getFeaturedButtons(records?: R[]): ContextualButton<R>[] {
-        return this._buttonConfig.contextualButtonConfig.buttons
-            .filter(button => this.isButtonShown(button, records) && this.featuredButtons.get(button.class))
-            .slice(0, this._buttonConfig.contextualButtonConfig.featuredCount || this.featuredButtons.size);
-    }
-
-    /**
-     * Returns the maximum number of featured buttons next to a single row.
-     */
-    getMaxFeaturedButtonsOnRow(): number {
-        let max = 0;
-        this.items.forEach(item => {
-            max = Math.max(this.getFeaturedButtons([item]).length, max);
-        });
-        return max;
-    }
-
-    /**
-     * Says if the given button should appear on the datagrid.
-     */
-    isButtonShown(button: Button<R>, records?: R[]): boolean {
-        const selection = records ? records : this.datagridSelection;
-        return button.isActive(selection) || this.getDisplayMode(button) === InactiveButtonDisplayMode.Disable;
-    }
-
-    /**
-     * Says if the given button should be marked as disabled.
-     */
-    isButtonDisabled(button: Button<R>, active: boolean): boolean {
-        return !active && this.getDisplayMode(button) === InactiveButtonDisplayMode.Disable;
-    }
-
-    /**
-     * Gives the display mode of a button.
-     */
-    getDisplayMode(button: Button<R>): InactiveButtonDisplayMode {
-        return button.inactiveDisplayMode || this._buttonConfig.inactiveDisplayMode;
-    }
-
-    /**
-     * Says if the contextual buttons should display on the top.
-     */
-    shouldDisplayButtonsOnTop(): boolean {
-        return (
-            this._buttonConfig.contextualButtonConfig.position === ContextualButtonPosition.TOP &&
-            this.datagridSelection.length !== 0
-        );
-    }
-
-    /**
-     * Says if the contextual buttons should display on the row.
-     */
-    shouldDisplayButtonsOnRow(): boolean {
-        return this._buttonConfig.contextualButtonConfig.position === ContextualButtonPosition.ROW;
-    }
-
-    /**
-     * Says if there are contextual buttons to display.
-     */
-    hasContextualButtons(): boolean {
-        return this._buttonConfig.contextualButtonConfig.buttons.length !== 0;
-    }
-
-    /**
-     * Runs the handler function for the given button with the given selection.
-     */
-    runButtonHandler(button: Button<R>, selection?: R[]): void {
-        const response = button.handler(selection);
-        if (response && this.actionReporter) {
-            this.actionReporter.monitorGet(response);
-        }
-    }
 
     /**
      * Gives the render spec to create the detail row for the row with the given record, at the given index, and
@@ -910,7 +847,7 @@ export class DatagridComponent<R> implements OnInit, AfterViewInit, OnDestroy {
             const header = grid.querySelector('.vcd-header');
             availableHeight -= header ? header.offsetHeight : 0;
         }
-        if (this.shouldShowActionBar()) {
+        if (this.shouldShowActionBarOnTop) {
             availableHeight -= ROW_HEIGHT;
         }
 

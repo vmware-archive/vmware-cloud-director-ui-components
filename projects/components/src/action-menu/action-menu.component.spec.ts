@@ -3,18 +3,25 @@
  * SPDX-License-Identifier: BSD-2-Clause
  */
 
-import { Component, ViewChild } from '@angular/core';
+import { ChangeDetectionStrategy, Component, ViewChild } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { MockTranslationService, TranslationService } from '@vcd/i18n';
 import { ActionDisplayConfig, ActionItem, ActionStyling, ActionType, TextIcon } from '../common/interfaces';
+import { WidgetFinder, WidgetObject } from '../utils/test';
 import { ActionMenuComponent } from './action-menu.component';
 import { VcdActionMenuModule } from './action-menu.module';
 
-describe('ActionMenuComponent', () => {
-    let fixture: ComponentFixture<TestHostComponent<Record>>;
-    let testHostComponent: TestHostComponent<Record>;
+interface HasFinderAndActionMenu {
+    finder: WidgetFinder<TestHostComponent<Record>>;
+    actionMenu: ActionMenuComponent<Record, HandlerData>;
+}
 
-    beforeEach(async () => {
+export class ActionMenuWidgetObject<R, T> extends WidgetObject<ActionMenuComponent<R, T>> {
+    static tagName = 'vcd-action-menu';
+}
+
+describe('ActionMenuComponent', () => {
+    beforeEach(async function(this: HasFinderAndActionMenu): Promise<void> {
         await TestBed.configureTestingModule({
             imports: [VcdActionMenuModule],
             providers: [
@@ -26,33 +33,27 @@ describe('ActionMenuComponent', () => {
             declarations: [TestHostComponent],
         }).compileComponents();
 
-        fixture = TestBed.createComponent(TestHostComponent);
-        testHostComponent = fixture.componentInstance;
-
-        fixture.detectChanges();
+        this.finder = new WidgetFinder(TestHostComponent);
+        this.finder.detectChanges();
+        this.actionMenu = this.finder.find({
+            woConstructor: ActionMenuWidgetObject,
+        }).component as ActionMenuComponent<Record, HandlerData>;
     });
 
     describe('set actions', () => {
-        it('marks the actions with no actionType as ActionType.CONTEXTUAL', () => {
-            testHostComponent.actions = getNewArray(ACTIONS_WITH_NO_ACTION_TYPES);
-            fixture.detectChanges();
-            testHostComponent.actionMenuComp.actions.forEach(action => {
+        it('marks the actions with no actionType as ActionType.CONTEXTUAL', function(this: HasFinderAndActionMenu): void {
+            this.actionMenu.actions = [...ACTIONS_WITH_NO_ACTION_TYPES];
+            this.finder.detectChanges();
+            this.actionMenu.actions.forEach(action => {
                 expect(action.actionType).toEqual(ActionType.CONTEXTUAL);
             });
         });
     });
     describe('set actionDisplayConfig', () => {
-        it('sets display config options to default values when no input is given', () => {
-            const actionDisplayConfig = testHostComponent.actionMenuComp.actionDisplayConfig;
-            expect(actionDisplayConfig.contextual.featuredCount).toEqual(0);
-            expect(actionDisplayConfig.contextual.styling).toEqual(ActionStyling.INLINE);
-            expect(actionDisplayConfig.contextual.buttonContents).toEqual(TextIcon.TEXT);
-            expect(actionDisplayConfig.staticActionStyling).toEqual(ActionStyling.INLINE);
-        });
-        it('sets display config options to given values when a input is given', () => {
-            testHostComponent.actionDisplayConfig = getNewObj(ACTION_DISPLAY_CONFIG);
-            fixture.detectChanges();
-            const actionDisplayConfig = testHostComponent.actionMenuComp.actionDisplayConfig;
+        it('sets display config options to given values when a input is given', function(this: HasFinderAndActionMenu): void {
+            this.actionMenu.actionDisplayConfig = { ...ACTION_DISPLAY_CONFIG };
+            this.finder.detectChanges();
+            const actionDisplayConfig = this.actionMenu.actionDisplayConfig;
             expect(actionDisplayConfig.contextual.featuredCount).toEqual(2);
             expect(actionDisplayConfig.contextual.styling).toEqual(ActionStyling.DROPDOWN);
             expect(actionDisplayConfig.contextual.buttonContents).toEqual(TextIcon.ICON);
@@ -61,67 +62,73 @@ describe('ActionMenuComponent', () => {
         it(
             'sets shouldShowIcon to true, shouldShowText to false and shouldShowTooltip to true when buttonContents ' +
                 'is set to icon',
-            () => {
-                testHostComponent.actionDisplayConfig = getNewObj(ACTION_DISPLAY_CONFIG);
-                fixture.detectChanges();
-                expect(testHostComponent.actionMenuComp.shouldShowIcon).toBeTruthy();
-                expect(testHostComponent.actionMenuComp.shouldShowText).toBeFalsy();
-                expect(testHostComponent.actionMenuComp.shouldShowTooltip).toBeTruthy();
+            function(this: HasFinderAndActionMenu): void {
+                this.actionMenu.actionDisplayConfig = { ...ACTION_DISPLAY_CONFIG };
+                this.finder.detectChanges();
+                expect(this.actionMenu.shouldShowIcon).toBeTruthy();
+                expect(this.actionMenu.shouldShowText).toBeFalsy();
+                expect(this.actionMenu.shouldShowTooltip).toBeTruthy();
             }
         );
     });
-    it('get staticActions returns only the actions that are marked as static', () => {
-        testHostComponent.actions = getNewArray(STATIC_ACTIONS).concat(getNewArray(CONTEXTUAL_FEATURED_ACTIONS));
-        fixture.detectChanges();
-        testHostComponent.actionMenuComp.staticActions.forEach(action => {
+    it('get staticActions returns only the actions that are marked as static', function(this: HasFinderAndActionMenu): void {
+        this.actionMenu.actions = [...STATIC_ACTIONS].concat([...CONTEXTUAL_FEATURED_ACTIONS]);
+        this.finder.detectChanges();
+        this.actionMenu.staticActions.forEach(action => {
             expect(action.actionType).toEqual(ActionType.STATIC);
         });
     });
-    it('get staticFeaturedActions returns only the actions that are marked as static_featured', () => {
-        testHostComponent.actions = getNewArray(STATIC_FEATURED_ACTIONS).concat(
-            getNewArray(CONTEXTUAL_FEATURED_ACTIONS)
-        );
-        fixture.detectChanges();
-        testHostComponent.actionMenuComp.staticFeaturedActions.forEach(action => {
+    it('get staticFeaturedActions returns only the actions that are marked as' + ' static_featured', function(
+        this: HasFinderAndActionMenu
+    ): void {
+        this.actionMenu.actions = [...STATIC_FEATURED_ACTIONS].concat([...CONTEXTUAL_FEATURED_ACTIONS]);
+        this.finder.detectChanges();
+        this.actionMenu.staticFeaturedActions.forEach(action => {
             expect(action.actionType).toEqual(ActionType.STATIC_FEATURED);
         });
     });
     describe('getContextualFeaturedActions', () => {
-        beforeEach(() => {
-            testHostComponent.actions = getNewArray(CONTEXTUAL_FEATURED_ACTIONS).concat(
-                getNewArray(STATIC_FEATURED_ACTIONS)
-            );
+        beforeEach(function(this: HasFinderAndActionMenu): void {
+            this.actionMenu.actions = [...CONTEXTUAL_FEATURED_ACTIONS].concat([...STATIC_FEATURED_ACTIONS]);
+            this.actionMenu.selectedEntities = [
+                {
+                    value: 'foo',
+                    paused: false,
+                },
+            ];
         });
-        it('returns only actions that are both available and also marked as contextual_featured', () => {
-            testHostComponent.actionDisplayConfig = getNewObj(ACTION_DISPLAY_CONFIG);
-            fixture.detectChanges();
-            const availableContextualFeaturedActions = testHostComponent.actionMenuComp.getContextualFeaturedActions(
-                []
-            );
+        it('returns only actions that are both available and also marked as' + ' contextual_featured', function(
+            this: HasFinderAndActionMenu
+        ): void {
+            this.actionMenu.actionDisplayConfig = { ...ACTION_DISPLAY_CONFIG };
+            this.finder.detectChanges();
+            const availableContextualFeaturedActions = this.actionMenu.contextualFeaturedActions;
             expect(CONTEXTUAL_FEATURED_ACTIONS.length).toEqual(3);
             expect(availableContextualFeaturedActions.length).toEqual(2);
             availableContextualFeaturedActions.forEach(action => {
                 expect(action.actionType).toEqual(ActionType.CONTEXTUAL_FEATURED);
             });
         });
-        it('does not return an action list with more items than featuredCount', () => {
+        it('does not return an action list with more items than featuredCount', function(this: HasFinderAndActionMenu): void {
             const ACTION_DISPLAY_CONFIG_WITH_ONE_FEATURED = {
                 contextual: { ...ACTION_DISPLAY_CONFIG.contextual },
                 staticActionStyling: ACTION_DISPLAY_CONFIG.staticActionStyling,
             };
             ACTION_DISPLAY_CONFIG_WITH_ONE_FEATURED.contextual.featuredCount = 1;
-            testHostComponent.actionDisplayConfig = ACTION_DISPLAY_CONFIG_WITH_ONE_FEATURED;
-            fixture.detectChanges();
-            const availableContextualFeaturedActions = testHostComponent.actionMenuComp.getContextualFeaturedActions(
-                []
-            );
+            this.actionMenu.actionDisplayConfig = ACTION_DISPLAY_CONFIG_WITH_ONE_FEATURED;
+            this.finder.detectChanges();
+            const availableContextualFeaturedActions = this.actionMenu.contextualFeaturedActions;
             expect(CONTEXTUAL_FEATURED_ACTIONS.length).toEqual(3);
             expect(availableContextualFeaturedActions.length).toEqual(1);
         });
+        it('returns empty array if there are no selectedEntities', function(this: HasFinderAndActionMenu): void {
+            this.actionMenu.selectedEntities = null;
+            expect(this.actionMenu.contextualFeaturedActions.length).toEqual(0);
+        });
     });
     describe('getAvailableActions', () => {
-        it('returns actions that are either available or disabled', () => {
-            const availableActions = testHostComponent.actionMenuComp.getAvailableActions([
+        it('returns actions that are either available or disabled', function(this: HasFinderAndActionMenu): void {
+            const availableActions = this.actionMenu.getAvailableActions([
                 {
                     textKey: 'action.1',
                     handler: () => {},
@@ -133,13 +140,44 @@ describe('ActionMenuComponent', () => {
                     handler: () => {},
                     availability: () => true,
                 },
+                {
+                    textKey: 'action.3',
+                    handler: () => {},
+                    availability: () => false,
+                },
             ]);
             expect(availableActions.length).toEqual(2);
         });
+        it('returns nested actions that are either available or disabled', function(this: HasFinderAndActionMenu): void {
+            const availableActions = this.actionMenu.getAvailableActions([
+                {
+                    textKey: 'action',
+                    children: [
+                        {
+                            textKey: 'action.1',
+                            handler: () => {},
+                            availability: () => false,
+                            disabled: () => true,
+                        },
+                        {
+                            textKey: 'action.2',
+                            handler: () => {},
+                            availability: () => true,
+                        },
+                        {
+                            textKey: 'action.3',
+                            handler: () => {},
+                            availability: () => false,
+                        },
+                    ],
+                },
+            ]);
+            expect(availableActions[0].children.length).toEqual(2);
+        });
     });
     describe('getContextualActions', () => {
-        beforeEach(() => {
-            testHostComponent.actionDisplayConfig = getNewObj(ACTION_DISPLAY_CONFIG);
+        beforeEach(function(this: HasFinderAndActionMenu): void {
+            this.actionMenu.actionDisplayConfig = { ...ACTION_DISPLAY_CONFIG };
             jasmine.addMatchers({
                 toBeContextualOrContextualFeaturedAction: () => ({
                     compare: actual => {
@@ -156,14 +194,26 @@ describe('ActionMenuComponent', () => {
                 }),
             });
         });
-        it('returns only actions that are both available, contextual and contextual_featured', () => {
-            testHostComponent.actions = getNewArray(CONTEXTUAL_ACTIONS)
-                .concat(getNewArray(CONTEXTUAL_FEATURED_ACTIONS))
-                .concat(getNewArray(STATIC_FEATURED_ACTIONS));
-            fixture.detectChanges();
-            const availableActions = testHostComponent.actionMenuComp.getContextualActions([]);
-            const availableContextualActions = testHostComponent.actionMenuComp.getAvailableActions(
-                getNewArray(CONTEXTUAL_ACTIONS).concat(getNewArray(CONTEXTUAL_FEATURED_ACTIONS))
+        it('returns empty array if there are no selectedEntities', function(this: HasFinderAndActionMenu): void {
+            this.actionMenu.selectedEntities = null;
+            expect(this.actionMenu.contextualActions.length).toEqual(0);
+        });
+        it('returns only actions that are available and either contextual or' + ' contextual_featured', function(
+            this: HasFinderAndActionMenu
+        ): void {
+            this.actionMenu.selectedEntities = [
+                {
+                    value: 'foo',
+                    paused: false,
+                },
+            ];
+            this.actionMenu.actions = [...CONTEXTUAL_ACTIONS]
+                .concat([...CONTEXTUAL_FEATURED_ACTIONS])
+                .concat([...STATIC_FEATURED_ACTIONS]);
+            this.finder.detectChanges();
+            const availableActions = this.actionMenu.contextualActions;
+            const availableContextualActions = this.actionMenu.getAvailableActions(
+                [...CONTEXTUAL_ACTIONS].concat([...CONTEXTUAL_FEATURED_ACTIONS])
             );
             expect(availableActions.length).toEqual(availableContextualActions.length);
             availableActions.forEach(action => {
@@ -172,57 +222,50 @@ describe('ActionMenuComponent', () => {
         });
     });
     describe('runActionHandler', () => {
-        it('calls the action handler by passing both the selectedEntities and handlerData as its arguments', () => {
-            const handlerData = { foo: 'foo', bar: 'bar' };
-            const selectedEntities = [
-                {
-                    value: 'foo',
-                    paused: false,
-                },
-            ];
-            const action = {
-                textKey: 'action',
-                handler: (rec: any[], data: Blah) => {
-                    return Promise.resolve(JSON.stringify(data));
-                },
-                handlerData,
-                availability: () => true,
-            };
-            testHostComponent.actionMenuComp.selectedEntities = selectedEntities;
-            const spy = spyOn(action, 'handler').and.returnValue(null);
-            testHostComponent.actionMenuComp.runActionHandler(action);
-            expect(spy).toHaveBeenCalledWith(selectedEntities, handlerData);
-        });
+        it(
+            'calls the action handler by passing both the selectedEntities and handlerData as its' + ' arguments',
+            function(this: HasFinderAndActionMenu): void {
+                const handlerData = { foo: 'foo', bar: 'bar' };
+                const selectedEntities = [
+                    {
+                        value: 'foo',
+                        paused: false,
+                    },
+                ];
+                const action = {
+                    textKey: 'action',
+                    handler: (rec: any[], data: Blah) => {
+                        return Promise.resolve(JSON.stringify(data));
+                    },
+                    handlerData,
+                    availability: () => true,
+                };
+                this.actionMenu.selectedEntities = selectedEntities;
+                const spy = spyOn(action, 'handler').and.returnValue(null);
+                this.actionMenu.runActionHandler(action);
+                expect(spy).toHaveBeenCalledWith(selectedEntities, handlerData);
+            }
+        );
     });
     describe('isActionDisabled', () => {
-        it('returns the output of disabled, if its a function or just disabled if its a boolean', () => {
+        it('returns the output of disabled, if its a function or just disabled if its a ' + 'boolean', function(
+            this: HasFinderAndActionMenu
+        ): void {
             const action = {
                 textKey: 'action',
                 handler: () => {},
                 disabled: () => true,
             };
-            expect(testHostComponent.actionMenuComp.isActionDisabled(action)).toBeTruthy();
+            expect(this.actionMenu.isActionDisabled(action)).toBeTruthy();
             // @ts-ignore
             action.disabled = false;
-            expect(testHostComponent.actionMenuComp.isActionDisabled(action)).toBeFalsy();
-        });
-    });
-    describe('shouldShowContextualActions', () => {
-        it('returns true only if there are selected entities', () => {
-            expect(testHostComponent.actionMenuComp.shouldShowContextualActions).toBeFalsy();
-            testHostComponent.actionMenuComp.selectedEntities = [
-                {
-                    value: 'foo',
-                    paused: false,
-                },
-            ];
-            expect(testHostComponent.actionMenuComp.shouldShowContextualActions).toBeTruthy();
+            expect(this.actionMenu.isActionDisabled(action)).toBeFalsy();
         });
     });
     describe('getFlattenedActionList', () => {
-        it('returns nested featured actions by adding them to a flattened list', () => {
-            const flatList = (testHostComponent.actionMenuComp as any).getFlattenedActionList(
-                getNewArray(NESTED_ACTIONS),
+        it('returns nested featured actions by adding them to a flattened list', function(this: HasFinderAndActionMenu): void {
+            const flatList = (this.actionMenu as any).getFlattenedActionList(
+                [...NESTED_ACTIONS],
                 ActionType.CONTEXTUAL_FEATURED
             );
             expect(flatList.length).toEqual(4);
@@ -247,19 +290,10 @@ type HandlerData = Record[] | Blah;
 
 @Component({
     template: `
-        <vcd-action-menu [actions]="actions" [actionDisplayConfig]="actionDisplayConfig"> </vcd-action-menu>
+        <vcd-action-menu> </vcd-action-menu>
     `,
 })
-class TestHostComponent<R extends Record> {
-    @ViewChild(ActionMenuComponent, { static: true }) actionMenuComp: ActionMenuComponent<R, HandlerData>;
-
-    actionDisplayConfig: ActionDisplayConfig;
-
-    actions: ActionItem<R, HandlerData>[] = [];
-}
-
-const getNewArray = (arr: Array<any>) => [...arr];
-const getNewObj = (obj: object) => ({ ...obj });
+class TestHostComponent<R extends Record> {}
 
 const ACTION_DISPLAY_CONFIG = {
     contextual: {

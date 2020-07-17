@@ -37,7 +37,7 @@ export type ActionHandlerType<R, T> = (selectedEntities?: R[], handlerData?: T) 
  */
 export interface ActionItem<R, T> {
     /**
-     * The i18n key for the text of the button
+     * The i18n key or a translated string for contents of a action button
      */
     textKey?: string;
     /**
@@ -84,6 +84,10 @@ export interface ActionItem<R, T> {
      * List of actions that will be grouped under this action
      */
     children?: ActionItem<R, T>[];
+    /**
+     * To mark if the {@link #ActionItem.textKey} has to be translated or not
+     */
+    isTranslatable?: boolean;
 }
 
 /**
@@ -101,16 +105,16 @@ export interface ActionDisplayConfig {
          *
          * If featuredCount is not set, it will default to all featured actions.
          */
-        featuredCount?: number;
+        featuredCount: number;
         /**
          * How the featured actions should be displayed
          */
-        styling?: ActionStyling;
+        styling: ActionStyling;
         /**
          * If the title should be the button label, icon, or both
          * Defaults to ICON if unset.
          */
-        buttonContents?: TextIcon;
+        buttonContents: TextIcon;
     };
 
     /**
