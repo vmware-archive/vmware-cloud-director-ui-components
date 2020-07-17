@@ -57,6 +57,24 @@ customElements.define('compodoc-menu', class extends HTMLElement {
                         </a>
                         <ul class="links collapse " ${ isNormalMode ? 'id="modules-links"' : 'id="xs-modules-links"' }>
                             <li class="link">
+                                <a href="modules/DropdownModule.html" data-type="entity-link">DropdownModule</a>
+                                    <li class="chapter inner">
+                                        <div class="simple menu-toggler" data-toggle="collapse" ${ isNormalMode ?
+                                            'data-target="#components-links-module-DropdownModule-a4bd8fdb1c51c976eba0183041bb10ee"' : 'data-target="#xs-components-links-module-DropdownModule-a4bd8fdb1c51c976eba0183041bb10ee"' }>
+                                            <span class="icon ion-md-cog"></span>
+                                            <span>Components</span>
+                                            <span class="icon ion-ios-arrow-down"></span>
+                                        </div>
+                                        <ul class="links collapse" ${ isNormalMode ? 'id="components-links-module-DropdownModule-a4bd8fdb1c51c976eba0183041bb10ee"' :
+                                            'id="xs-components-links-module-DropdownModule-a4bd8fdb1c51c976eba0183041bb10ee"' }>
+                                            <li class="link">
+                                                <a href="components/DropdownComponent.html"
+                                                    data-type="entity-link" data-context="sub-entity" data-context-id="modules">DropdownComponent</a>
+                                            </li>
+                                        </ul>
+                                    </li>
+                            </li>
+                            <li class="link">
                                 <a href="modules/PipesModule.html" data-type="entity-link">PipesModule</a>
                                     <li class="chapter inner">
                                         <div class="simple menu-toggler" data-toggle="collapse" ${ isNormalMode ?
@@ -171,13 +189,13 @@ customElements.define('compodoc-menu', class extends HTMLElement {
                                 <a href="modules/VcdActionMenuModule.html" data-type="entity-link">VcdActionMenuModule</a>
                                     <li class="chapter inner">
                                         <div class="simple menu-toggler" data-toggle="collapse" ${ isNormalMode ?
-                                            'data-target="#components-links-module-VcdActionMenuModule-6f369d7991fecb7231f6752a539e0f43"' : 'data-target="#xs-components-links-module-VcdActionMenuModule-6f369d7991fecb7231f6752a539e0f43"' }>
+                                            'data-target="#components-links-module-VcdActionMenuModule-7e09de0afa1c146114fb0ee6f8bb1aa6"' : 'data-target="#xs-components-links-module-VcdActionMenuModule-7e09de0afa1c146114fb0ee6f8bb1aa6"' }>
                                             <span class="icon ion-md-cog"></span>
                                             <span>Components</span>
                                             <span class="icon ion-ios-arrow-down"></span>
                                         </div>
-                                        <ul class="links collapse" ${ isNormalMode ? 'id="components-links-module-VcdActionMenuModule-6f369d7991fecb7231f6752a539e0f43"' :
-                                            'id="xs-components-links-module-VcdActionMenuModule-6f369d7991fecb7231f6752a539e0f43"' }>
+                                        <ul class="links collapse" ${ isNormalMode ? 'id="components-links-module-VcdActionMenuModule-7e09de0afa1c146114fb0ee6f8bb1aa6"' :
+                                            'id="xs-components-links-module-VcdActionMenuModule-7e09de0afa1c146114fb0ee6f8bb1aa6"' }>
                                             <li class="link">
                                                 <a href="components/ActionMenuComponent.html"
                                                     data-type="entity-link" data-context="sub-entity" data-context-id="modules">ActionMenuComponent</a>
@@ -232,13 +250,13 @@ customElements.define('compodoc-menu', class extends HTMLElement {
                                 <a href="modules/VcdDatagridModule.html" data-type="entity-link">VcdDatagridModule</a>
                                     <li class="chapter inner">
                                         <div class="simple menu-toggler" data-toggle="collapse" ${ isNormalMode ?
-                                            'data-target="#components-links-module-VcdDatagridModule-2e80c15480eddf69d10f8d8dcde54e6f"' : 'data-target="#xs-components-links-module-VcdDatagridModule-2e80c15480eddf69d10f8d8dcde54e6f"' }>
+                                            'data-target="#components-links-module-VcdDatagridModule-130ccce3d0a78b7079a815230732d64e"' : 'data-target="#xs-components-links-module-VcdDatagridModule-130ccce3d0a78b7079a815230732d64e"' }>
                                             <span class="icon ion-md-cog"></span>
                                             <span>Components</span>
                                             <span class="icon ion-ios-arrow-down"></span>
                                         </div>
-                                        <ul class="links collapse" ${ isNormalMode ? 'id="components-links-module-VcdDatagridModule-2e80c15480eddf69d10f8d8dcde54e6f"' :
-                                            'id="xs-components-links-module-VcdDatagridModule-2e80c15480eddf69d10f8d8dcde54e6f"' }>
+                                        <ul class="links collapse" ${ isNormalMode ? 'id="components-links-module-VcdDatagridModule-130ccce3d0a78b7079a815230732d64e"' :
+                                            'id="xs-components-links-module-VcdDatagridModule-130ccce3d0a78b7079a815230732d64e"' }>
                                             <li class="link">
                                                 <a href="components/BoldTextRendererComponent.html"
                                                     data-type="entity-link" data-context="sub-entity" data-context-id="modules">BoldTextRendererComponent</a>
@@ -267,13 +285,13 @@ customElements.define('compodoc-menu', class extends HTMLElement {
                                     </li>
                                 <li class="chapter inner">
                                     <div class="simple menu-toggler" data-toggle="collapse" ${ isNormalMode ?
-                                        'data-target="#directives-links-module-VcdDatagridModule-2e80c15480eddf69d10f8d8dcde54e6f"' : 'data-target="#xs-directives-links-module-VcdDatagridModule-2e80c15480eddf69d10f8d8dcde54e6f"' }>
+                                        'data-target="#directives-links-module-VcdDatagridModule-130ccce3d0a78b7079a815230732d64e"' : 'data-target="#xs-directives-links-module-VcdDatagridModule-130ccce3d0a78b7079a815230732d64e"' }>
                                         <span class="icon ion-md-code-working"></span>
                                         <span>Directives</span>
                                         <span class="icon ion-ios-arrow-down"></span>
                                     </div>
-                                    <ul class="links collapse" ${ isNormalMode ? 'id="directives-links-module-VcdDatagridModule-2e80c15480eddf69d10f8d8dcde54e6f"' :
-                                        'id="xs-directives-links-module-VcdDatagridModule-2e80c15480eddf69d10f8d8dcde54e6f"' }>
+                                    <ul class="links collapse" ${ isNormalMode ? 'id="directives-links-module-VcdDatagridModule-130ccce3d0a78b7079a815230732d64e"' :
+                                        'id="xs-directives-links-module-VcdDatagridModule-130ccce3d0a78b7079a815230732d64e"' }>
                                         <li class="link">
                                             <a href="directives/ComponentRendererOutletDirective.html"
                                                 data-type="entity-link" data-context="sub-entity" data-context-id="modules">ComponentRendererOutletDirective</a>
@@ -282,13 +300,13 @@ customElements.define('compodoc-menu', class extends HTMLElement {
                                 </li>
                                     <li class="chapter inner">
                                         <div class="simple menu-toggler" data-toggle="collapse" ${ isNormalMode ?
-                                            'data-target="#pipes-links-module-VcdDatagridModule-2e80c15480eddf69d10f8d8dcde54e6f"' : 'data-target="#xs-pipes-links-module-VcdDatagridModule-2e80c15480eddf69d10f8d8dcde54e6f"' }>
+                                            'data-target="#pipes-links-module-VcdDatagridModule-130ccce3d0a78b7079a815230732d64e"' : 'data-target="#xs-pipes-links-module-VcdDatagridModule-130ccce3d0a78b7079a815230732d64e"' }>
                                             <span class="icon ion-md-add"></span>
                                             <span>Pipes</span>
                                             <span class="icon ion-ios-arrow-down"></span>
                                         </div>
-                                        <ul class="links collapse" ${ isNormalMode ? 'id="pipes-links-module-VcdDatagridModule-2e80c15480eddf69d10f8d8dcde54e6f"' :
-                                            'id="xs-pipes-links-module-VcdDatagridModule-2e80c15480eddf69d10f8d8dcde54e6f"' }>
+                                        <ul class="links collapse" ${ isNormalMode ? 'id="pipes-links-module-VcdDatagridModule-130ccce3d0a78b7079a815230732d64e"' :
+                                            'id="xs-pipes-links-module-VcdDatagridModule-130ccce3d0a78b7079a815230732d64e"' }>
                                             <li class="link">
                                                 <a href="pipes/FunctionRendererPipe.html"
                                                     data-type="entity-link" data-context="sub-entity" data-context-id="modules">FunctionRendererPipe</a>
@@ -604,6 +622,9 @@ customElements.define('compodoc-menu', class extends HTMLElement {
                             </li>
                             <li class="link">
                                 <a href="interfaces/DetailRowConfig.html" data-type="entity-link">DetailRowConfig</a>
+                            </li>
+                            <li class="link">
+                                <a href="interfaces/DropdownItem.html" data-type="entity-link">DropdownItem</a>
                             </li>
                             <li class="link">
                                 <a href="interfaces/ExportColumn.html" data-type="entity-link">ExportColumn</a>

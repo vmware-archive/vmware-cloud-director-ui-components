@@ -154,7 +154,8 @@ In the component view, different properties required for the grid are wired as I
                     <td class="col-md-4">
                         <ul class="index-list">
                             <li>
-                                <a href="#_buttonConfig">_buttonConfig</a>
+                                    <span class="modifier">Private</span>
+                                <a href="#_actions">_actions</a>
                             </li>
                             <li>
                                     <span class="modifier">Private</span>
@@ -182,13 +183,7 @@ In the component view, different properties required for the grid are wired as I
                                 <a href="#columnsConfig">columnsConfig</a>
                             </li>
                             <li>
-                                <a href="#ContextualButtonPosition">ContextualButtonPosition</a>
-                            </li>
-                            <li>
                                 <a href="#datagrid">datagrid</a>
-                            </li>
-                            <li>
-                                <a href="#featuredButtons">featuredButtons</a>
                             </li>
                             <li>
                                 <a href="#GridColumnHideable">GridColumnHideable</a>
@@ -198,6 +193,9 @@ In the component view, different properties required for the grid are wired as I
                             </li>
                             <li>
                                 <a href="#items">items</a>
+                            </li>
+                            <li>
+                                <a href="#maxFeaturedActionsOnRow">maxFeaturedActionsOnRow</a>
                             </li>
                             <li>
                                 <a href="#multiSelection">multiSelection</a>
@@ -219,9 +217,6 @@ In the component view, different properties required for the grid are wired as I
                                 <a href="#subTracker">subTracker</a>
                             </li>
                             <li>
-                                <a href="#TextIcon">TextIcon</a>
-                            </li>
-                            <li>
                                 <a href="#TooltipSize">TooltipSize</a>
                             </li>
                             <li>
@@ -231,10 +226,6 @@ In the component view, different properties required for the grid are wired as I
                             <li>
                                     <span class="modifier">Private</span>
                                 <a href="#viewInitted">viewInitted</a>
-                            </li>
-                            <li>
-                                    <span class="modifier">Private</span>
-                                <a href="#widthSetTimes">widthSetTimes</a>
                             </li>
                         </ul>
                     </td>
@@ -275,15 +266,6 @@ In the component view, different properties required for the grid are wired as I
                                 <a href="#getDetailRowRenderSpec">getDetailRowRenderSpec</a>
                             </li>
                             <li>
-                                <a href="#getDisplayMode">getDisplayMode</a>
-                            </li>
-                            <li>
-                                <a href="#getFeaturedButtons">getFeaturedButtons</a>
-                            </li>
-                            <li>
-                                <a href="#getMaxFeaturedButtonsOnRow">getMaxFeaturedButtonsOnRow</a>
-                            </li>
-                            <li>
                                     <span class="modifier">Private</span>
                                 <a href="#getPageSize">getPageSize</a>
                             </li>
@@ -296,15 +278,6 @@ In the component view, different properties required for the grid are wired as I
                             </li>
                             <li>
                                 <a href="#gridStateChanged">gridStateChanged</a>
-                            </li>
-                            <li>
-                                <a href="#hasContextualButtons">hasContextualButtons</a>
-                            </li>
-                            <li>
-                                <a href="#isButtonDisabled">isButtonDisabled</a>
-                            </li>
-                            <li>
-                                <a href="#isButtonShown">isButtonShown</a>
                             </li>
                             <li>
                                 <a href="#isColumnHideable">isColumnHideable</a>
@@ -328,27 +301,6 @@ In the component view, different properties required for the grid are wired as I
                             </li>
                             <li>
                                 <a href="#resetToPageOne">resetToPageOne</a>
-                            </li>
-                            <li>
-                                <a href="#runButtonHandler">runButtonHandler</a>
-                            </li>
-                            <li>
-                                <a href="#shouldDisplayButtonsOnRow">shouldDisplayButtonsOnRow</a>
-                            </li>
-                            <li>
-                                <a href="#shouldDisplayButtonsOnTop">shouldDisplayButtonsOnTop</a>
-                            </li>
-                            <li>
-                                <a href="#shouldShowActionBar">shouldShowActionBar</a>
-                            </li>
-                            <li>
-                                <a href="#shouldShowIcon">shouldShowIcon</a>
-                            </li>
-                            <li>
-                                <a href="#shouldShowText">shouldShowText</a>
-                            </li>
-                            <li>
-                                <a href="#shouldShowTooltip">shouldShowTooltip</a>
                             </li>
                             <li>
                                     <span class="modifier">Private</span>
@@ -375,7 +327,10 @@ In the component view, different properties required for the grid are wired as I
                     <td class="col-md-4">
                         <ul class="index-list">
                             <li>
-                                <a href="#buttonConfig">buttonConfig</a>
+                                <a href="#actionDisplayConfig">actionDisplayConfig</a>
+                            </li>
+                            <li>
+                                <a href="#actions">actions</a>
                             </li>
                             <li>
                                 <a href="#clrDatagridCssClass">clrDatagridCssClass</a>
@@ -385,6 +340,9 @@ In the component view, different properties required for the grid are wired as I
                             </li>
                             <li>
                                 <a href="#columns">columns</a>
+                            </li>
+                            <li>
+                                <a href="#contextualActionPosition">contextualActionPosition</a>
                             </li>
                             <li>
                                 <a href="#detailComponent">detailComponent</a>
@@ -484,7 +442,19 @@ In the component view, different properties required for the grid are wired as I
                                     <a href="#selectionType">selectionType</a>
                                 </li>
                                 <li>
-                                    <a href="#buttonConfig">buttonConfig</a>
+                                    <a href="#actions">actions</a>
+                                </li>
+                                <li>
+                                    <a href="#shouldShowActionBarOnTop">shouldShowActionBarOnTop</a>
+                                </li>
+                                <li>
+                                    <a href="#hasStaticActions">hasStaticActions</a>
+                                </li>
+                                <li>
+                                    <a href="#hasContextualActions">hasContextualActions</a>
+                                </li>
+                                <li>
+                                    <a href="#contextualActions">contextualActions</a>
                                 </li>
                                 <li>
                                     <a href="#pagination">pagination</a>
@@ -494,6 +464,15 @@ In the component view, different properties required for the grid are wired as I
                                 </li>
                                 <li>
                                     <a href="#datagridSelection">datagridSelection</a>
+                                </li>
+                                <li>
+                                    <a href="#shouldDisplayContextualActionsOnTop">shouldDisplayContextualActionsOnTop</a>
+                                </li>
+                                <li>
+                                    <a href="#shouldDisplayContextualActionsInRow">shouldDisplayContextualActionsInRow</a>
+                                </li>
+                                <li>
+                                    <a href="#actionMenusInRow">actionMenusInRow</a>
                                 </li>
                             </ul>
                         </td>
@@ -513,7 +492,7 @@ In the component view, different properties required for the grid are wired as I
                 </tr>
                         <tr>
                             <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="358" class="link-to-prism">projects/components/src/datagrid/datagrid.component.ts:358</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="375" class="link-to-prism">projects/components/src/datagrid/datagrid.component.ts:375</a></div>
                             </td>
                         </tr>
 
@@ -581,25 +560,56 @@ In the component view, different properties required for the grid are wired as I
             <tbody>
                 <tr>
                     <td class="col-md-4">
-                        <a name="buttonConfig"></a>
-                        <b>buttonConfig</b>
+                        <a name="actionDisplayConfig"></a>
+                        <b>actionDisplayConfig</b>
                     </td>
                 </tr>
                 <tr>
                     <td class="col-md-4">
-                        <i>Type : </i>    <code>ButtonConfig&lt;R&gt;</code>
+                        <i>Type : </i>        <code><a href="../interfaces/ActionDisplayConfig.html" target="_self" >ActionDisplayConfig</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>DEFAULT_ACTION_DISPLAY_CONFIG</code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-2" colspan="2">
+                                    <div class="io-line">Defined in <a href="" data-line="461" class="link-to-prism">projects/components/src/datagrid/datagrid.component.ts:461</a></div>
+                            </td>
+                        </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <div class="io-description"><p>How to display the static and contextual actions.</p>
+</div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="actions"></a>
+                        <b>actions</b>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="../interfaces/ActionItem.html" target="_self" >ActionItem&lt;R, unknown&gt;[]</a></code>
 
                     </td>
                 </tr>
                         <tr>
                             <td class="col-md-2" colspan="2">
-                                    <div class="io-line">Defined in <a href="" data-line="317" class="link-to-prism">projects/components/src/datagrid/datagrid.component.ts:317</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="332" class="link-to-prism">projects/components/src/datagrid/datagrid.component.ts:332</a></div>
                             </td>
                         </tr>
                 <tr>
                     <td class="col-md-4">
-                        <div class="io-description"><p>Sets the button configuration on the datagrid.</p>
-<p><a href="ButtonConfig.inactiveDisplayMode">ButtonConfig.inactiveDisplayMode</a> defualts to Disabled.</p>
+                        <div class="io-description"><p>List of actions given by the caller</p>
 </div>
                     </td>
                 </tr>
@@ -626,7 +636,7 @@ In the component view, different properties required for the grid are wired as I
                 </tr>
                         <tr>
                             <td class="col-md-2" colspan="2">
-                                    <div class="io-line">Defined in <a href="" data-line="475" class="link-to-prism">projects/components/src/datagrid/datagrid.component.ts:475</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="518" class="link-to-prism">projects/components/src/datagrid/datagrid.component.ts:518</a></div>
                             </td>
                         </tr>
                 <tr>
@@ -653,7 +663,7 @@ In the component view, different properties required for the grid are wired as I
                 </tr>
                         <tr>
                             <td class="col-md-2" colspan="2">
-                                    <div class="io-line">Defined in <a href="" data-line="762" class="link-to-prism">projects/components/src/datagrid/datagrid.component.ts:762</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="699" class="link-to-prism">projects/components/src/datagrid/datagrid.component.ts:699</a></div>
                             </td>
                         </tr>
                 <tr>
@@ -680,13 +690,45 @@ In the component view, different properties required for the grid are wired as I
                 </tr>
                         <tr>
                             <td class="col-md-2" colspan="2">
-                                    <div class="io-line">Defined in <a href="" data-line="277" class="link-to-prism">projects/components/src/datagrid/datagrid.component.ts:277</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="289" class="link-to-prism">projects/components/src/datagrid/datagrid.component.ts:289</a></div>
                             </td>
                         </tr>
                 <tr>
                     <td class="col-md-4">
                         <div class="io-description"><p>Sets the configuration of columns on the grid and updates the <a href="columnsConfig">columnsConfig</a> array. Also pushes
 notifications for listeners to make changes to the _columns array</p>
+</div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="contextualActionPosition"></a>
+                        <b>contextualActionPosition</b>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="../miscellaneous/enumerations.html#ContextualActionPosition" target="_self" >ContextualActionPosition</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>ContextualActionPosition.TOP</code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-2" colspan="2">
+                                    <div class="io-line">Defined in <a href="" data-line="466" class="link-to-prism">projects/components/src/datagrid/datagrid.component.ts:466</a></div>
+                            </td>
+                        </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <div class="io-description"><p>Whether to display contextual actions inside the row or on top of the grid</p>
 </div>
                     </td>
                 </tr>
@@ -708,7 +750,7 @@ notifications for listeners to make changes to the _columns array</p>
                 </tr>
                         <tr>
                             <td class="col-md-2" colspan="2">
-                                    <div class="io-line">Defined in <a href="" data-line="457" class="link-to-prism">projects/components/src/datagrid/datagrid.component.ts:457</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="500" class="link-to-prism">projects/components/src/datagrid/datagrid.component.ts:500</a></div>
                             </td>
                         </tr>
                 <tr>
@@ -735,7 +777,7 @@ notifications for listeners to make changes to the _columns array</p>
                 </tr>
                         <tr>
                             <td class="col-md-2" colspan="2">
-                                    <div class="io-line">Defined in <a href="" data-line="469" class="link-to-prism">projects/components/src/datagrid/datagrid.component.ts:469</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="512" class="link-to-prism">projects/components/src/datagrid/datagrid.component.ts:512</a></div>
                             </td>
                         </tr>
                 <tr>
@@ -762,7 +804,7 @@ notifications for listeners to make changes to the _columns array</p>
                 </tr>
                         <tr>
                             <td class="col-md-2" colspan="2">
-                                    <div class="io-line">Defined in <a href="" data-line="505" class="link-to-prism">projects/components/src/datagrid/datagrid.component.ts:505</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="529" class="link-to-prism">projects/components/src/datagrid/datagrid.component.ts:529</a></div>
                             </td>
                         </tr>
                 <tr>
@@ -789,7 +831,7 @@ notifications for listeners to make changes to the _columns array</p>
                 </tr>
                         <tr>
                             <td class="col-md-2" colspan="2">
-                                    <div class="io-line">Defined in <a href="" data-line="289" class="link-to-prism">projects/components/src/datagrid/datagrid.component.ts:289</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="301" class="link-to-prism">projects/components/src/datagrid/datagrid.component.ts:301</a></div>
                             </td>
                         </tr>
                 <tr>
@@ -816,7 +858,7 @@ notifications for listeners to make changes to the _columns array</p>
                 </tr>
                         <tr>
                             <td class="col-md-2" colspan="2">
-                                    <div class="io-line">Defined in <a href="" data-line="438" class="link-to-prism">projects/components/src/datagrid/datagrid.component.ts:438</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="483" class="link-to-prism">projects/components/src/datagrid/datagrid.component.ts:483</a></div>
                             </td>
                         </tr>
                 <tr>
@@ -843,7 +885,7 @@ notifications for listeners to make changes to the _columns array</p>
                 </tr>
                         <tr>
                             <td class="col-md-2" colspan="2">
-                                    <div class="io-line">Defined in <a href="" data-line="390" class="link-to-prism">projects/components/src/datagrid/datagrid.component.ts:390</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="407" class="link-to-prism">projects/components/src/datagrid/datagrid.component.ts:407</a></div>
                             </td>
                         </tr>
                 <tr>
@@ -870,7 +912,7 @@ notifications for listeners to make changes to the _columns array</p>
                 </tr>
                         <tr>
                             <td class="col-md-2" colspan="2">
-                                    <div class="io-line">Defined in <a href="" data-line="444" class="link-to-prism">projects/components/src/datagrid/datagrid.component.ts:444</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="489" class="link-to-prism">projects/components/src/datagrid/datagrid.component.ts:489</a></div>
                             </td>
                         </tr>
                 <tr>
@@ -902,7 +944,7 @@ notifications for listeners to make changes to the _columns array</p>
                 </tr>
                         <tr>
                             <td class="col-md-2" colspan="2">
-                                    <div class="io-line">Defined in <a href="" data-line="462" class="link-to-prism">projects/components/src/datagrid/datagrid.component.ts:462</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="505" class="link-to-prism">projects/components/src/datagrid/datagrid.component.ts:505</a></div>
                             </td>
                         </tr>
                 <tr>
@@ -929,7 +971,7 @@ notifications for listeners to make changes to the _columns array</p>
                 </tr>
                         <tr>
                             <td class="col-md-2" colspan="2">
-                                    <div class="io-line">Defined in <a href="" data-line="369" class="link-to-prism">projects/components/src/datagrid/datagrid.component.ts:369</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="386" class="link-to-prism">projects/components/src/datagrid/datagrid.component.ts:386</a></div>
                             </td>
                         </tr>
                 <tr>
@@ -961,7 +1003,7 @@ notifications for listeners to make changes to the _columns array</p>
                 </tr>
                         <tr>
                             <td class="col-md-2" colspan="2">
-                                    <div class="io-line">Defined in <a href="" data-line="480" class="link-to-prism">projects/components/src/datagrid/datagrid.component.ts:480</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="523" class="link-to-prism">projects/components/src/datagrid/datagrid.component.ts:523</a></div>
                             </td>
                         </tr>
                 <tr>
@@ -993,7 +1035,7 @@ notifications for listeners to make changes to the _columns array</p>
                 </tr>
                         <tr>
                             <td class="col-md-2" colspan="2">
-                                    <div class="io-line">Defined in <a href="" data-line="579" class="link-to-prism">projects/components/src/datagrid/datagrid.component.ts:579</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="601" class="link-to-prism">projects/components/src/datagrid/datagrid.component.ts:601</a></div>
                             </td>
                         </tr>
                 <tr>
@@ -1020,7 +1062,7 @@ notifications for listeners to make changes to the _columns array</p>
                 </tr>
                         <tr>
                             <td class="col-md-2" colspan="2">
-                                    <div class="io-line">Defined in <a href="" data-line="307" class="link-to-prism">projects/components/src/datagrid/datagrid.component.ts:307</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="319" class="link-to-prism">projects/components/src/datagrid/datagrid.component.ts:319</a></div>
                             </td>
                         </tr>
                 <tr>
@@ -1054,7 +1096,7 @@ notifications for listeners to make changes to the _columns array</p>
                 </tr>
                         <tr>
                             <td class="col-md-2" colspan="2">
-                                    <div class="io-line">Defined in <a href="" data-line="628" class="link-to-prism">projects/components/src/datagrid/datagrid.component.ts:628</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="674" class="link-to-prism">projects/components/src/datagrid/datagrid.component.ts:674</a></div>
                             </td>
                         </tr>
                 <tr>
@@ -1085,7 +1127,7 @@ notifications for listeners to make changes to the _columns array</p>
                 </tr>
                         <tr>
                             <td class="col-md-2" colspan="2">
-                                    <div class="io-line">Defined in <a href="" data-line="426" class="link-to-prism">projects/components/src/datagrid/datagrid.component.ts:426</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="471" class="link-to-prism">projects/components/src/datagrid/datagrid.component.ts:471</a></div>
                             </td>
                         </tr>
                 <tr>
@@ -1112,7 +1154,7 @@ notifications for listeners to make changes to the _columns array</p>
                 </tr>
                         <tr>
                             <td class="col-md-2" colspan="2">
-                                    <div class="io-line">Defined in <a href="" data-line="560" class="link-to-prism">projects/components/src/datagrid/datagrid.component.ts:560</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="584" class="link-to-prism">projects/components/src/datagrid/datagrid.component.ts:584</a></div>
                             </td>
                         </tr>
                 <tr>
@@ -1140,7 +1182,7 @@ notifications for listeners to make changes to the _columns array</p>
                 </tr>
                         <tr>
                             <td class="col-md-2" colspan="2">
-                                    <div class="io-line">Defined in <a href="" data-line="421" class="link-to-prism">projects/components/src/datagrid/datagrid.component.ts:421</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="438" class="link-to-prism">projects/components/src/datagrid/datagrid.component.ts:438</a></div>
                             </td>
                         </tr>
                 <tr>
@@ -1173,7 +1215,7 @@ notifications for listeners to make changes to the _columns array</p>
                     </tr>
                         <tr>
                             <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="401" class="link-to-prism">projects/components/src/datagrid/datagrid.component.ts:401</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="418" class="link-to-prism">projects/components/src/datagrid/datagrid.component.ts:418</a></div>
                             </td>
                         </tr>
 
@@ -1212,8 +1254,8 @@ notifications for listeners to make changes to the _columns array</p>
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="587"
-                            class="link-to-prism">projects/components/src/datagrid/datagrid.component.ts:587</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="633"
+                            class="link-to-prism">projects/components/src/datagrid/datagrid.component.ts:633</a></div>
                 </td>
             </tr>
 
@@ -1287,8 +1329,8 @@ notifications for listeners to make changes to the _columns array</p>
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="899"
-                            class="link-to-prism">projects/components/src/datagrid/datagrid.component.ts:899</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="836"
+                            class="link-to-prism">projects/components/src/datagrid/datagrid.component.ts:836</a></div>
                 </td>
             </tr>
 
@@ -1330,8 +1372,8 @@ notifications for listeners to make changes to the _columns array</p>
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="805"
-                            class="link-to-prism">projects/components/src/datagrid/datagrid.component.ts:805</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="742"
+                            class="link-to-prism">projects/components/src/datagrid/datagrid.component.ts:742</a></div>
                 </td>
             </tr>
 
@@ -1371,8 +1413,8 @@ notifications for listeners to make changes to the _columns array</p>
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="615"
-                            class="link-to-prism">projects/components/src/datagrid/datagrid.component.ts:615</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="661"
+                            class="link-to-prism">projects/components/src/datagrid/datagrid.component.ts:661</a></div>
                 </td>
             </tr>
 
@@ -1443,8 +1485,8 @@ notifications for listeners to make changes to the _columns array</p>
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="936"
-                            class="link-to-prism">projects/components/src/datagrid/datagrid.component.ts:936</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="873"
+                            class="link-to-prism">projects/components/src/datagrid/datagrid.component.ts:873</a></div>
                 </td>
             </tr>
 
@@ -1512,8 +1554,8 @@ of renderers which is required in the HTML template.</p>
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="752"
-                            class="link-to-prism">projects/components/src/datagrid/datagrid.component.ts:752</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="689"
+                            class="link-to-prism">projects/components/src/datagrid/datagrid.component.ts:689</a></div>
                 </td>
             </tr>
 
@@ -1582,8 +1624,8 @@ of renderers which is required in the HTML template.</p>
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="745"
-                            class="link-to-prism">projects/components/src/datagrid/datagrid.component.ts:745</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="682"
+                            class="link-to-prism">projects/components/src/datagrid/datagrid.component.ts:682</a></div>
                 </td>
             </tr>
 
@@ -1661,191 +1703,6 @@ in a datagrid with the given count of total items.</p>
         <tbody>
             <tr>
                 <td class="col-md-4">
-                    <a name="getDisplayMode"></a>
-                    <span class="name">
-                        <b>
-                            getDisplayMode
-                        </b>
-                        <a href="#getDisplayMode"><span class="icon ion-ios-link"></span></a>
-                    </span>
-                </td>
-            </tr>
-            <tr>
-                <td class="col-md-4">
-<code>getDisplayMode(button: <a href="../interfaces/Button.html">Button<R></a>)</code>
-                </td>
-            </tr>
-
-
-            <tr>
-                <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="703"
-                            class="link-to-prism">projects/components/src/datagrid/datagrid.component.ts:703</a></div>
-                </td>
-            </tr>
-
-
-            <tr>
-                <td class="col-md-4">
-                    <div class="io-description"><p>Gives the display mode of a button.</p>
-</div>
-
-                    <div class="io-description">
-                        <b>Parameters :</b>
-                        <table class="params">
-                            <thead>
-                                <tr>
-                                    <td>Name</td>
-                                    <td>Type</td>
-                                    <td>Optional</td>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td>button</td>
-                                    <td>
-                                                <code><a href="../interfaces/Button.html" target="_self" >Button&lt;R&gt;</a></code>
-                                    </td>
-
-                                    <td>
-                                        No
-                                    </td>
-
-
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                    <div>
-                    </div>
-                    <div class="io-description">
-                        <b>Returns : </b>        <code><a href="../interfaces/Button.html" target="_self" >InactiveButtonDisplayMode</a></code>
-
-                    </div>
-                    <div class="io-description">
-                        
-                    </div>
-                </td>
-            </tr>
-        </tbody>
-    </table>
-    <table class="table table-sm table-bordered">
-        <tbody>
-            <tr>
-                <td class="col-md-4">
-                    <a name="getFeaturedButtons"></a>
-                    <span class="name">
-                        <b>
-                            getFeaturedButtons
-                        </b>
-                        <a href="#getFeaturedButtons"><span class="icon ion-ios-link"></span></a>
-                    </span>
-                </td>
-            </tr>
-            <tr>
-                <td class="col-md-4">
-<code>getFeaturedButtons(records?: R[])</code>
-                </td>
-            </tr>
-
-
-            <tr>
-                <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="668"
-                            class="link-to-prism">projects/components/src/datagrid/datagrid.component.ts:668</a></div>
-                </td>
-            </tr>
-
-
-            <tr>
-                <td class="col-md-4">
-                    <div class="io-description"><p>Returns the buttons that should be featured given the <a href="datagridSelection">datagridSelection</a> or the given {@param record}.</p>
-</div>
-
-                    <div class="io-description">
-                        <b>Parameters :</b>
-                        <table class="params">
-                            <thead>
-                                <tr>
-                                    <td>Name</td>
-                                    <td>Type</td>
-                                    <td>Optional</td>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td>records</td>
-                                    <td>
-                                            <code>R[]</code>
-                                    </td>
-
-                                    <td>
-                                        Yes
-                                    </td>
-
-
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                    <div>
-                    </div>
-                    <div class="io-description">
-                        <b>Returns : </b>    <code>ContextualButton[]</code>
-
-                    </div>
-                    <div class="io-description">
-                        
-                    </div>
-                </td>
-            </tr>
-        </tbody>
-    </table>
-    <table class="table table-sm table-bordered">
-        <tbody>
-            <tr>
-                <td class="col-md-4">
-                    <a name="getMaxFeaturedButtonsOnRow"></a>
-                    <span class="name">
-                        <b>
-                            getMaxFeaturedButtonsOnRow
-                        </b>
-                        <a href="#getMaxFeaturedButtonsOnRow"><span class="icon ion-ios-link"></span></a>
-                    </span>
-                </td>
-            </tr>
-            <tr>
-                <td class="col-md-4">
-<code>getMaxFeaturedButtonsOnRow()</code>
-                </td>
-            </tr>
-
-
-            <tr>
-                <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="677"
-                            class="link-to-prism">projects/components/src/datagrid/datagrid.component.ts:677</a></div>
-                </td>
-            </tr>
-
-
-            <tr>
-                <td class="col-md-4">
-                    <div class="io-description"><p>Returns the maximum number of featured buttons next to a single row.</p>
-</div>
-
-                    <div class="io-description">
-                        <b>Returns : </b>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
-
-                    </div>
-                </td>
-            </tr>
-        </tbody>
-    </table>
-    <table class="table table-sm table-bordered">
-        <tbody>
-            <tr>
-                <td class="col-md-4">
                     <a name="getPageSize"></a>
                     <span class="name">
                         <b>
@@ -1866,8 +1723,8 @@ in a datagrid with the given count of total items.</p>
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="874"
-                            class="link-to-prism">projects/components/src/datagrid/datagrid.component.ts:874</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="811"
+                            class="link-to-prism">projects/components/src/datagrid/datagrid.component.ts:811</a></div>
                 </td>
             </tr>
 
@@ -1909,8 +1766,8 @@ in a datagrid with the given count of total items.</p>
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="887"
-                            class="link-to-prism">projects/components/src/datagrid/datagrid.component.ts:887</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="824"
+                            class="link-to-prism">projects/components/src/datagrid/datagrid.component.ts:824</a></div>
                 </td>
             </tr>
 
@@ -1950,8 +1807,8 @@ in a datagrid with the given count of total items.</p>
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="861"
-                            class="link-to-prism">projects/components/src/datagrid/datagrid.component.ts:861</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="798"
+                            class="link-to-prism">projects/components/src/datagrid/datagrid.component.ts:798</a></div>
                 </td>
             </tr>
 
@@ -2022,8 +1879,8 @@ in a datagrid with the given count of total items.</p>
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="825"
-                            class="link-to-prism">projects/components/src/datagrid/datagrid.component.ts:825</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="762"
+                            class="link-to-prism">projects/components/src/datagrid/datagrid.component.ts:762</a></div>
                 </td>
             </tr>
 
@@ -2076,215 +1933,6 @@ in a datagrid with the given count of total items.</p>
         <tbody>
             <tr>
                 <td class="col-md-4">
-                    <a name="hasContextualButtons"></a>
-                    <span class="name">
-                        <b>
-                            hasContextualButtons
-                        </b>
-                        <a href="#hasContextualButtons"><span class="icon ion-ios-link"></span></a>
-                    </span>
-                </td>
-            </tr>
-            <tr>
-                <td class="col-md-4">
-<code>hasContextualButtons()</code>
-                </td>
-            </tr>
-
-
-            <tr>
-                <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="727"
-                            class="link-to-prism">projects/components/src/datagrid/datagrid.component.ts:727</a></div>
-                </td>
-            </tr>
-
-
-            <tr>
-                <td class="col-md-4">
-                    <div class="io-description"><p>Says if there are contextual buttons to display.</p>
-</div>
-
-                    <div class="io-description">
-                        <b>Returns : </b>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank" >boolean</a></code>
-
-                    </div>
-                </td>
-            </tr>
-        </tbody>
-    </table>
-    <table class="table table-sm table-bordered">
-        <tbody>
-            <tr>
-                <td class="col-md-4">
-                    <a name="isButtonDisabled"></a>
-                    <span class="name">
-                        <b>
-                            isButtonDisabled
-                        </b>
-                        <a href="#isButtonDisabled"><span class="icon ion-ios-link"></span></a>
-                    </span>
-                </td>
-            </tr>
-            <tr>
-                <td class="col-md-4">
-<code>isButtonDisabled(button: <a href="../interfaces/Button.html">Button<R></a>, active: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank">boolean</a>)</code>
-                </td>
-            </tr>
-
-
-            <tr>
-                <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="696"
-                            class="link-to-prism">projects/components/src/datagrid/datagrid.component.ts:696</a></div>
-                </td>
-            </tr>
-
-
-            <tr>
-                <td class="col-md-4">
-                    <div class="io-description"><p>Says if the given button should be marked as disabled.</p>
-</div>
-
-                    <div class="io-description">
-                        <b>Parameters :</b>
-                        <table class="params">
-                            <thead>
-                                <tr>
-                                    <td>Name</td>
-                                    <td>Type</td>
-                                    <td>Optional</td>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td>button</td>
-                                    <td>
-                                                <code><a href="../interfaces/Button.html" target="_self" >Button&lt;R&gt;</a></code>
-                                    </td>
-
-                                    <td>
-                                        No
-                                    </td>
-
-
-                                </tr>
-                                <tr>
-                                    <td>active</td>
-                                    <td>
-                                                <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank" >boolean</a></code>
-                                    </td>
-
-                                    <td>
-                                        No
-                                    </td>
-
-
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                    <div>
-                    </div>
-                    <div class="io-description">
-                        <b>Returns : </b>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank" >boolean</a></code>
-
-                    </div>
-                    <div class="io-description">
-                        
-                    </div>
-                </td>
-            </tr>
-        </tbody>
-    </table>
-    <table class="table table-sm table-bordered">
-        <tbody>
-            <tr>
-                <td class="col-md-4">
-                    <a name="isButtonShown"></a>
-                    <span class="name">
-                        <b>
-                            isButtonShown
-                        </b>
-                        <a href="#isButtonShown"><span class="icon ion-ios-link"></span></a>
-                    </span>
-                </td>
-            </tr>
-            <tr>
-                <td class="col-md-4">
-<code>isButtonShown(button: <a href="../interfaces/Button.html">Button<R></a>, records?: R[])</code>
-                </td>
-            </tr>
-
-
-            <tr>
-                <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="688"
-                            class="link-to-prism">projects/components/src/datagrid/datagrid.component.ts:688</a></div>
-                </td>
-            </tr>
-
-
-            <tr>
-                <td class="col-md-4">
-                    <div class="io-description"><p>Says if the given button should appear on the datagrid.</p>
-</div>
-
-                    <div class="io-description">
-                        <b>Parameters :</b>
-                        <table class="params">
-                            <thead>
-                                <tr>
-                                    <td>Name</td>
-                                    <td>Type</td>
-                                    <td>Optional</td>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td>button</td>
-                                    <td>
-                                                <code><a href="../interfaces/Button.html" target="_self" >Button&lt;R&gt;</a></code>
-                                    </td>
-
-                                    <td>
-                                        No
-                                    </td>
-
-
-                                </tr>
-                                <tr>
-                                    <td>records</td>
-                                    <td>
-                                            <code>R[]</code>
-                                    </td>
-
-                                    <td>
-                                        Yes
-                                    </td>
-
-
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                    <div>
-                    </div>
-                    <div class="io-description">
-                        <b>Returns : </b>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank" >boolean</a></code>
-
-                    </div>
-                    <div class="io-description">
-                        
-                    </div>
-                </td>
-            </tr>
-        </tbody>
-    </table>
-    <table class="table table-sm table-bordered">
-        <tbody>
-            <tr>
-                <td class="col-md-4">
                     <a name="isColumnHideable"></a>
                     <span class="name">
                         <b>
@@ -2303,8 +1951,8 @@ in a datagrid with the given count of total items.</p>
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="847"
-                            class="link-to-prism">projects/components/src/datagrid/datagrid.component.ts:847</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="784"
+                            class="link-to-prism">projects/components/src/datagrid/datagrid.component.ts:784</a></div>
                 </td>
             </tr>
 
@@ -2377,8 +2025,8 @@ in a datagrid with the given count of total items.</p>
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="796"
-                            class="link-to-prism">projects/components/src/datagrid/datagrid.component.ts:796</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="733"
+                            class="link-to-prism">projects/components/src/datagrid/datagrid.component.ts:733</a></div>
                 </td>
             </tr>
 
@@ -2464,8 +2112,8 @@ new selection because they are not present in the new data.</p>
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="964"
-                            class="link-to-prism">projects/components/src/datagrid/datagrid.component.ts:964</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="901"
+                            class="link-to-prism">projects/components/src/datagrid/datagrid.component.ts:901</a></div>
                 </td>
             </tr>
 
@@ -2503,8 +2151,8 @@ new selection because they are not present in the new data.</p>
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="983"
-                            class="link-to-prism">projects/components/src/datagrid/datagrid.component.ts:983</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="920"
+                            class="link-to-prism">projects/components/src/datagrid/datagrid.component.ts:920</a></div>
                 </td>
             </tr>
 
@@ -2542,8 +2190,8 @@ new selection because they are not present in the new data.</p>
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="959"
-                            class="link-to-prism">projects/components/src/datagrid/datagrid.component.ts:959</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="896"
+                            class="link-to-prism">projects/components/src/datagrid/datagrid.component.ts:896</a></div>
                 </td>
             </tr>
 
@@ -2583,8 +2231,8 @@ new selection because they are not present in the new data.</p>
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="604"
-                            class="link-to-prism">projects/components/src/datagrid/datagrid.component.ts:604</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="650"
+                            class="link-to-prism">projects/components/src/datagrid/datagrid.component.ts:650</a></div>
                 </td>
             </tr>
 
@@ -2656,8 +2304,8 @@ new selection because they are not present in the new data.</p>
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="854"
-                            class="link-to-prism">projects/components/src/datagrid/datagrid.component.ts:854</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="791"
+                            class="link-to-prism">projects/components/src/datagrid/datagrid.component.ts:791</a></div>
                 </td>
             </tr>
 
@@ -2669,336 +2317,6 @@ new selection because they are not present in the new data.</p>
 
                     <div class="io-description">
                         <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
-
-                    </div>
-                </td>
-            </tr>
-        </tbody>
-    </table>
-    <table class="table table-sm table-bordered">
-        <tbody>
-            <tr>
-                <td class="col-md-4">
-                    <a name="runButtonHandler"></a>
-                    <span class="name">
-                        <b>
-                            runButtonHandler
-                        </b>
-                        <a href="#runButtonHandler"><span class="icon ion-ios-link"></span></a>
-                    </span>
-                </td>
-            </tr>
-            <tr>
-                <td class="col-md-4">
-<code>runButtonHandler(button: <a href="../interfaces/Button.html">Button<R></a>, selection?: R[])</code>
-                </td>
-            </tr>
-
-
-            <tr>
-                <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="734"
-                            class="link-to-prism">projects/components/src/datagrid/datagrid.component.ts:734</a></div>
-                </td>
-            </tr>
-
-
-            <tr>
-                <td class="col-md-4">
-                    <div class="io-description"><p>Runs the handler function for the given button with the given selection.</p>
-</div>
-
-                    <div class="io-description">
-                        <b>Parameters :</b>
-                        <table class="params">
-                            <thead>
-                                <tr>
-                                    <td>Name</td>
-                                    <td>Type</td>
-                                    <td>Optional</td>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td>button</td>
-                                    <td>
-                                                <code><a href="../interfaces/Button.html" target="_self" >Button&lt;R&gt;</a></code>
-                                    </td>
-
-                                    <td>
-                                        No
-                                    </td>
-
-
-                                </tr>
-                                <tr>
-                                    <td>selection</td>
-                                    <td>
-                                            <code>R[]</code>
-                                    </td>
-
-                                    <td>
-                                        Yes
-                                    </td>
-
-
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                    <div>
-                    </div>
-                    <div class="io-description">
-                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
-
-                    </div>
-                    <div class="io-description">
-                        
-                    </div>
-                </td>
-            </tr>
-        </tbody>
-    </table>
-    <table class="table table-sm table-bordered">
-        <tbody>
-            <tr>
-                <td class="col-md-4">
-                    <a name="shouldDisplayButtonsOnRow"></a>
-                    <span class="name">
-                        <b>
-                            shouldDisplayButtonsOnRow
-                        </b>
-                        <a href="#shouldDisplayButtonsOnRow"><span class="icon ion-ios-link"></span></a>
-                    </span>
-                </td>
-            </tr>
-            <tr>
-                <td class="col-md-4">
-<code>shouldDisplayButtonsOnRow()</code>
-                </td>
-            </tr>
-
-
-            <tr>
-                <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="720"
-                            class="link-to-prism">projects/components/src/datagrid/datagrid.component.ts:720</a></div>
-                </td>
-            </tr>
-
-
-            <tr>
-                <td class="col-md-4">
-                    <div class="io-description"><p>Says if the contextual buttons should display on the row.</p>
-</div>
-
-                    <div class="io-description">
-                        <b>Returns : </b>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank" >boolean</a></code>
-
-                    </div>
-                </td>
-            </tr>
-        </tbody>
-    </table>
-    <table class="table table-sm table-bordered">
-        <tbody>
-            <tr>
-                <td class="col-md-4">
-                    <a name="shouldDisplayButtonsOnTop"></a>
-                    <span class="name">
-                        <b>
-                            shouldDisplayButtonsOnTop
-                        </b>
-                        <a href="#shouldDisplayButtonsOnTop"><span class="icon ion-ios-link"></span></a>
-                    </span>
-                </td>
-            </tr>
-            <tr>
-                <td class="col-md-4">
-<code>shouldDisplayButtonsOnTop()</code>
-                </td>
-            </tr>
-
-
-            <tr>
-                <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="710"
-                            class="link-to-prism">projects/components/src/datagrid/datagrid.component.ts:710</a></div>
-                </td>
-            </tr>
-
-
-            <tr>
-                <td class="col-md-4">
-                    <div class="io-description"><p>Says if the contextual buttons should display on the top.</p>
-</div>
-
-                    <div class="io-description">
-                        <b>Returns : </b>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank" >boolean</a></code>
-
-                    </div>
-                </td>
-            </tr>
-        </tbody>
-    </table>
-    <table class="table table-sm table-bordered">
-        <tbody>
-            <tr>
-                <td class="col-md-4">
-                    <a name="shouldShowActionBar"></a>
-                    <span class="name">
-                        <b>
-                            shouldShowActionBar
-                        </b>
-                        <a href="#shouldShowActionBar"><span class="icon ion-ios-link"></span></a>
-                    </span>
-                </td>
-            </tr>
-            <tr>
-                <td class="col-md-4">
-<code>shouldShowActionBar()</code>
-                </td>
-            </tr>
-
-
-            <tr>
-                <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="635"
-                            class="link-to-prism">projects/components/src/datagrid/datagrid.component.ts:635</a></div>
-                </td>
-            </tr>
-
-
-            <tr>
-                <td class="col-md-4">
-                    <div class="io-description"><p>Says if the action bar has contents to show.</p>
-</div>
-
-                    <div class="io-description">
-                        <b>Returns : </b>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank" >boolean</a></code>
-
-                    </div>
-                </td>
-            </tr>
-        </tbody>
-    </table>
-    <table class="table table-sm table-bordered">
-        <tbody>
-            <tr>
-                <td class="col-md-4">
-                    <a name="shouldShowIcon"></a>
-                    <span class="name">
-                        <b>
-                            shouldShowIcon
-                        </b>
-                        <a href="#shouldShowIcon"><span class="icon ion-ios-link"></span></a>
-                    </span>
-                </td>
-            </tr>
-            <tr>
-                <td class="col-md-4">
-<code>shouldShowIcon()</code>
-                </td>
-            </tr>
-
-
-            <tr>
-                <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="645"
-                            class="link-to-prism">projects/components/src/datagrid/datagrid.component.ts:645</a></div>
-                </td>
-            </tr>
-
-
-            <tr>
-                <td class="col-md-4">
-                    <div class="io-description"><p>If the button icon should be displayed.</p>
-</div>
-
-                    <div class="io-description">
-                        <b>Returns : </b>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank" >boolean</a></code>
-
-                    </div>
-                </td>
-            </tr>
-        </tbody>
-    </table>
-    <table class="table table-sm table-bordered">
-        <tbody>
-            <tr>
-                <td class="col-md-4">
-                    <a name="shouldShowText"></a>
-                    <span class="name">
-                        <b>
-                            shouldShowText
-                        </b>
-                        <a href="#shouldShowText"><span class="icon ion-ios-link"></span></a>
-                    </span>
-                </td>
-            </tr>
-            <tr>
-                <td class="col-md-4">
-<code>shouldShowText()</code>
-                </td>
-            </tr>
-
-
-            <tr>
-                <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="652"
-                            class="link-to-prism">projects/components/src/datagrid/datagrid.component.ts:652</a></div>
-                </td>
-            </tr>
-
-
-            <tr>
-                <td class="col-md-4">
-                    <div class="io-description"><p>If the text should be displayed on the button.</p>
-</div>
-
-                    <div class="io-description">
-                        <b>Returns : </b>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank" >boolean</a></code>
-
-                    </div>
-                </td>
-            </tr>
-        </tbody>
-    </table>
-    <table class="table table-sm table-bordered">
-        <tbody>
-            <tr>
-                <td class="col-md-4">
-                    <a name="shouldShowTooltip"></a>
-                    <span class="name">
-                        <b>
-                            shouldShowTooltip
-                        </b>
-                        <a href="#shouldShowTooltip"><span class="icon ion-ios-link"></span></a>
-                    </span>
-                </td>
-            </tr>
-            <tr>
-                <td class="col-md-4">
-<code>shouldShowTooltip()</code>
-                </td>
-            </tr>
-
-
-            <tr>
-                <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="659"
-                            class="link-to-prism">projects/components/src/datagrid/datagrid.component.ts:659</a></div>
-                </td>
-            </tr>
-
-
-            <tr>
-                <td class="col-md-4">
-                    <div class="io-description"><p>If the buttons icon should have a tooltip.</p>
-</div>
-
-                    <div class="io-description">
-                        <b>Returns : </b>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank" >boolean</a></code>
 
                     </div>
                 </td>
@@ -3029,8 +2347,8 @@ new selection because they are not present in the new data.</p>
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="619"
-                            class="link-to-prism">projects/components/src/datagrid/datagrid.component.ts:619</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="665"
+                            class="link-to-prism">projects/components/src/datagrid/datagrid.component.ts:665</a></div>
                 </td>
             </tr>
 
@@ -3070,8 +2388,8 @@ new selection because they are not present in the new data.</p>
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="927"
-                            class="link-to-prism">projects/components/src/datagrid/datagrid.component.ts:927</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="864"
+                            class="link-to-prism">projects/components/src/datagrid/datagrid.component.ts:864</a></div>
                 </td>
             </tr>
 
@@ -3113,8 +2431,8 @@ new selection because they are not present in the new data.</p>
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="766"
-                            class="link-to-prism">projects/components/src/datagrid/datagrid.component.ts:766</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="703"
+                            class="link-to-prism">projects/components/src/datagrid/datagrid.component.ts:703</a></div>
                 </td>
             </tr>
 
@@ -3140,43 +2458,35 @@ new selection because they are not present in the new data.</p>
             <tbody>
                 <tr>
                     <td class="col-md-4">
-                        <a name="_buttonConfig"></a>
+                        <a name="_actions"></a>
                         <span class="name">
                             <b>
-                            _buttonConfig</b>
-                            <a href="#_buttonConfig"><span class="icon ion-ios-link"></span></a>
+                                <span class="modifier">Private</span>
+                            _actions</b>
+                            <a href="#_actions"><span class="icon ion-ios-link"></span></a>
                         </span>
                     </td>
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                            <i>Type : </i>    <code>ButtonConfig&lt;R&gt;</code>
+                            <i>Type : </i>        <code><a href="../interfaces/ActionItem.html" target="_self" >ActionItem&lt;R, unknown&gt;[]</a></code>
 
                         </td>
                     </tr>
                     <tr>
                         <td class="col-md-4">
-                            <i>Default value : </i><code>{
-        globalButtons: [],
-        contextualButtonConfig: {
-            buttons: [],
-            featured: [],
-            position: ContextualButtonPosition.TOP,
-            featuredCount: 0,
-        },
-        inactiveDisplayMode: InactiveButtonDisplayMode.Disable,
-    }</code>
+                            <i>Default value : </i><code>[]</code>
                         </td>
                     </tr>
                         <tr>
                             <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="485" class="link-to-prism">projects/components/src/datagrid/datagrid.component.ts:485</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="327" class="link-to-prism">projects/components/src/datagrid/datagrid.component.ts:327</a></div>
                             </td>
                         </tr>
 
                 <tr>
                     <td class="col-md-4">
-                        <div class="io-description"><p>The stored button config where inactiveDisplayMode is always non-undefined.</p>
+                        <div class="io-description"><p>Actions to be displayed on a grid or in a row</p>
 </div>
                     </td>
                 </tr>
@@ -3204,7 +2514,7 @@ new selection because they are not present in the new data.</p>
                     </tr>
                         <tr>
                             <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="433" class="link-to-prism">projects/components/src/datagrid/datagrid.component.ts:433</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="478" class="link-to-prism">projects/components/src/datagrid/datagrid.component.ts:478</a></div>
                             </td>
                         </tr>
 
@@ -3240,7 +2550,7 @@ with changes made by another method</p>
                     </tr>
                         <tr>
                             <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="522" class="link-to-prism">projects/components/src/datagrid/datagrid.component.ts:522</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="546" class="link-to-prism">projects/components/src/datagrid/datagrid.component.ts:546</a></div>
                             </td>
                         </tr>
 
@@ -3276,7 +2586,7 @@ with changes made by another method</p>
                     </tr>
                         <tr>
                             <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="507" class="link-to-prism">projects/components/src/datagrid/datagrid.component.ts:507</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="531" class="link-to-prism">projects/components/src/datagrid/datagrid.component.ts:531</a></div>
                             </td>
                         </tr>
 
@@ -3309,7 +2619,7 @@ with changes made by another method</p>
                     </tr>
                         <tr>
                             <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="470" class="link-to-prism">projects/components/src/datagrid/datagrid.component.ts:470</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="513" class="link-to-prism">projects/components/src/datagrid/datagrid.component.ts:513</a></div>
                             </td>
                         </tr>
 
@@ -3345,7 +2655,7 @@ with changes made by another method</p>
                     </tr>
                         <tr>
                             <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="570" class="link-to-prism">projects/components/src/datagrid/datagrid.component.ts:570</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="594" class="link-to-prism">projects/components/src/datagrid/datagrid.component.ts:594</a></div>
                             </td>
                         </tr>
 
@@ -3383,7 +2693,7 @@ with changes made by another method</p>
                     </tr>
                         <tr>
                             <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="449" class="link-to-prism">projects/components/src/datagrid/datagrid.component.ts:449</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="493" class="link-to-prism">projects/components/src/datagrid/datagrid.component.ts:493</a></div>
                             </td>
                         </tr>
 
@@ -3410,7 +2720,7 @@ with changes made by another method</p>
                     </tr>
                         <tr>
                             <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="533" class="link-to-prism">projects/components/src/datagrid/datagrid.component.ts:533</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="557" class="link-to-prism">projects/components/src/datagrid/datagrid.component.ts:557</a></div>
                             </td>
                         </tr>
 
@@ -3421,38 +2731,6 @@ with changes made by another method</p>
 </div>
                     </td>
                 </tr>
-
-            </tbody>
-        </table>
-        <table class="table table-sm table-bordered">
-            <tbody>
-                <tr>
-                    <td class="col-md-4">
-                        <a name="ContextualButtonPosition"></a>
-                        <span class="name">
-                            <b>
-                            ContextualButtonPosition</b>
-                            <a href="#ContextualButtonPosition"><span class="icon ion-ios-link"></span></a>
-                        </span>
-                    </td>
-                </tr>
-                    <tr>
-                        <td class="col-md-4">
-                            <i>Type : </i>        <code><a href="../miscellaneous/enumerations.html#ContextualButtonPosition" target="_self" >ContextualButtonPosition</a></code>
-
-                        </td>
-                    </tr>
-                    <tr>
-                        <td class="col-md-4">
-                            <i>Default value : </i><code>ContextualButtonPosition</code>
-                        </td>
-                    </tr>
-                        <tr>
-                            <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="446" class="link-to-prism">projects/components/src/datagrid/datagrid.component.ts:446</a></div>
-                            </td>
-                        </tr>
-
 
             </tbody>
         </table>
@@ -3485,48 +2763,10 @@ with changes made by another method</p>
                     </tr>
                         <tr>
                             <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="562" class="link-to-prism">projects/components/src/datagrid/datagrid.component.ts:562</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="586" class="link-to-prism">projects/components/src/datagrid/datagrid.component.ts:586</a></div>
                             </td>
                         </tr>
 
-
-            </tbody>
-        </table>
-        <table class="table table-sm table-bordered">
-            <tbody>
-                <tr>
-                    <td class="col-md-4">
-                        <a name="featuredButtons"></a>
-                        <span class="name">
-                            <b>
-                            featuredButtons</b>
-                            <a href="#featuredButtons"><span class="icon ion-ios-link"></span></a>
-                        </span>
-                    </td>
-                </tr>
-                    <tr>
-                        <td class="col-md-4">
-                            <i>Type : </i>    <code>Map&lt;string | ContextualButton&lt;R&gt;&gt;</code>
-
-                        </td>
-                    </tr>
-                    <tr>
-                        <td class="col-md-4">
-                            <i>Default value : </i><code>new Map()</code>
-                        </td>
-                    </tr>
-                        <tr>
-                            <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="499" class="link-to-prism">projects/components/src/datagrid/datagrid.component.ts:499</a></div>
-                            </td>
-                        </tr>
-
-                <tr>
-                    <td class="col-md-4">
-                        <div class="io-description"><p>The cache of button ID to button config that contains only the featured buttons.</p>
-</div>
-                    </td>
-                </tr>
 
             </tbody>
         </table>
@@ -3555,7 +2795,7 @@ with changes made by another method</p>
                     </tr>
                         <tr>
                             <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="447" class="link-to-prism">projects/components/src/datagrid/datagrid.component.ts:447</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="491" class="link-to-prism">projects/components/src/datagrid/datagrid.component.ts:491</a></div>
                             </td>
                         </tr>
 
@@ -3587,7 +2827,7 @@ with changes made by another method</p>
                     </tr>
                         <tr>
                             <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="527" class="link-to-prism">projects/components/src/datagrid/datagrid.component.ts:527</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="551" class="link-to-prism">projects/components/src/datagrid/datagrid.component.ts:551</a></div>
                             </td>
                         </tr>
 
@@ -3625,13 +2865,51 @@ with changes made by another method</p>
                     </tr>
                         <tr>
                             <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="538" class="link-to-prism">projects/components/src/datagrid/datagrid.component.ts:538</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="562" class="link-to-prism">projects/components/src/datagrid/datagrid.component.ts:562</a></div>
                             </td>
                         </tr>
 
                 <tr>
                     <td class="col-md-4">
                         <div class="io-description"><p>List of items used for displaying rows on the grid</p>
+</div>
+                    </td>
+                </tr>
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="maxFeaturedActionsOnRow"></a>
+                        <span class="name">
+                            <b>
+                            maxFeaturedActionsOnRow</b>
+                            <a href="#maxFeaturedActionsOnRow"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Default value : </i><code>0</code>
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="608" class="link-to-prism">projects/components/src/datagrid/datagrid.component.ts:608</a></div>
+                            </td>
+                        </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <div class="io-description"><p>Used for calculating the width of actions column</p>
 </div>
                     </td>
                 </tr>
@@ -3663,7 +2941,7 @@ with changes made by another method</p>
                     </tr>
                         <tr>
                             <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="548" class="link-to-prism">projects/components/src/datagrid/datagrid.component.ts:548</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="572" class="link-to-prism">projects/components/src/datagrid/datagrid.component.ts:572</a></div>
                             </td>
                         </tr>
 
@@ -3701,7 +2979,7 @@ with changes made by another method</p>
                     </tr>
                         <tr>
                             <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="515" class="link-to-prism">projects/components/src/datagrid/datagrid.component.ts:515</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="539" class="link-to-prism">projects/components/src/datagrid/datagrid.component.ts:539</a></div>
                             </td>
                         </tr>
 
@@ -3739,7 +3017,7 @@ with changes made by another method</p>
                     </tr>
                         <tr>
                             <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="520" class="link-to-prism">projects/components/src/datagrid/datagrid.component.ts:520</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="544" class="link-to-prism">projects/components/src/datagrid/datagrid.component.ts:544</a></div>
                             </td>
                         </tr>
 
@@ -3781,7 +3059,7 @@ with changes made by another method</p>
                     </tr>
                         <tr>
                             <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="566" class="link-to-prism">projects/components/src/datagrid/datagrid.component.ts:566</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="590" class="link-to-prism">projects/components/src/datagrid/datagrid.component.ts:590</a></div>
                             </td>
                         </tr>
 
@@ -3819,7 +3097,7 @@ with changes made by another method</p>
                     </tr>
                         <tr>
                             <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="543" class="link-to-prism">projects/components/src/datagrid/datagrid.component.ts:543</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="567" class="link-to-prism">projects/components/src/datagrid/datagrid.component.ts:567</a></div>
                             </td>
                         </tr>
 
@@ -3858,39 +3136,7 @@ with changes made by another method</p>
                     </tr>
                         <tr>
                             <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="581" class="link-to-prism">projects/components/src/datagrid/datagrid.component.ts:581</a></div>
-                            </td>
-                        </tr>
-
-
-            </tbody>
-        </table>
-        <table class="table table-sm table-bordered">
-            <tbody>
-                <tr>
-                    <td class="col-md-4">
-                        <a name="TextIcon"></a>
-                        <span class="name">
-                            <b>
-                            TextIcon</b>
-                            <a href="#TextIcon"><span class="icon ion-ios-link"></span></a>
-                        </span>
-                    </td>
-                </tr>
-                    <tr>
-                        <td class="col-md-4">
-                            <i>Type : </i>        <code><a href="../miscellaneous/enumerations.html#TextIcon" target="_self" >TextIcon</a></code>
-
-                        </td>
-                    </tr>
-                    <tr>
-                        <td class="col-md-4">
-                            <i>Default value : </i><code>TextIcon</code>
-                        </td>
-                    </tr>
-                        <tr>
-                            <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="450" class="link-to-prism">projects/components/src/datagrid/datagrid.component.ts:450</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="603" class="link-to-prism">projects/components/src/datagrid/datagrid.component.ts:603</a></div>
                             </td>
                         </tr>
 
@@ -3922,7 +3168,7 @@ with changes made by another method</p>
                     </tr>
                         <tr>
                             <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="448" class="link-to-prism">projects/components/src/datagrid/datagrid.component.ts:448</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="492" class="link-to-prism">projects/components/src/datagrid/datagrid.component.ts:492</a></div>
                             </td>
                         </tr>
 
@@ -3950,7 +3196,7 @@ with changes made by another method</p>
                     </tr>
                         <tr>
                             <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="553" class="link-to-prism">projects/components/src/datagrid/datagrid.component.ts:553</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="577" class="link-to-prism">projects/components/src/datagrid/datagrid.component.ts:577</a></div>
                             </td>
                         </tr>
 
@@ -3989,40 +3235,7 @@ with changes made by another method</p>
                     </tr>
                         <tr>
                             <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="572" class="link-to-prism">projects/components/src/datagrid/datagrid.component.ts:572</a></div>
-                            </td>
-                        </tr>
-
-
-            </tbody>
-        </table>
-        <table class="table table-sm table-bordered">
-            <tbody>
-                <tr>
-                    <td class="col-md-4">
-                        <a name="widthSetTimes"></a>
-                        <span class="name">
-                            <b>
-                                <span class="modifier">Private</span>
-                            widthSetTimes</b>
-                            <a href="#widthSetTimes"><span class="icon ion-ios-link"></span></a>
-                        </span>
-                    </td>
-                </tr>
-                    <tr>
-                        <td class="col-md-4">
-                            <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
-
-                        </td>
-                    </tr>
-                    <tr>
-                        <td class="col-md-4">
-                            <i>Default value : </i><code>0</code>
-                        </td>
-                    </tr>
-                        <tr>
-                            <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="574" class="link-to-prism">projects/components/src/datagrid/datagrid.component.ts:574</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="596" class="link-to-prism">projects/components/src/datagrid/datagrid.component.ts:596</a></div>
                             </td>
                         </tr>
 
@@ -4051,7 +3264,7 @@ with changes made by another method</p>
                 </tr>
                             <tr>
                                 <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="282" class="link-to-prism">projects/components/src/datagrid/datagrid.component.ts:282</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="294" class="link-to-prism">projects/components/src/datagrid/datagrid.component.ts:294</a></div>
                                 </td>
                             </tr>
 
@@ -4062,7 +3275,7 @@ with changes made by another method</p>
                 </tr>
                             <tr>
                                 <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="277" class="link-to-prism">projects/components/src/datagrid/datagrid.component.ts:277</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="289" class="link-to-prism">projects/components/src/datagrid/datagrid.component.ts:289</a></div>
                                 </td>
                             </tr>
                     <tr>
@@ -4124,7 +3337,7 @@ notifications for listeners to make changes to the _columns array</p>
                 </tr>
                             <tr>
                                 <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="289" class="link-to-prism">projects/components/src/datagrid/datagrid.component.ts:289</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="301" class="link-to-prism">projects/components/src/datagrid/datagrid.component.ts:301</a></div>
                                 </td>
                             </tr>
                     <tr>
@@ -4181,7 +3394,7 @@ notifications for listeners to make changes to the _columns array</p>
                 </tr>
                             <tr>
                                 <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="307" class="link-to-prism">projects/components/src/datagrid/datagrid.component.ts:307</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="319" class="link-to-prism">projects/components/src/datagrid/datagrid.component.ts:319</a></div>
                                 </td>
                             </tr>
                     <tr>
@@ -4225,47 +3438,35 @@ notifications for listeners to make changes to the _columns array</p>
             <tbody>
                 <tr>
                     <td class="col-md-4">
-                        <a name="buttonConfig"></a>
-                        <span class="name"><b>buttonConfig</b><a href="#buttonConfig"><span class="icon ion-ios-link"></span></a></span>
+                        <a name="actions"></a>
+                        <span class="name"><b>actions</b><a href="#actions"><span class="icon ion-ios-link"></span></a></span>
                     </td>
                 </tr>
 
                 <tr>
                     <td class="col-md-4">
-                        <span class="accessor"><b>get</b><code>buttonConfig()</code></span>
+                        <span class="accessor"><b>get</b><code>actions()</code></span>
                     </td>
                 </tr>
                             <tr>
                                 <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="356" class="link-to-prism">projects/components/src/datagrid/datagrid.component.ts:356</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="344" class="link-to-prism">projects/components/src/datagrid/datagrid.component.ts:344</a></div>
                                 </td>
                             </tr>
-                    <tr>
-                        <td class="col-md-4">
-                                <div class="io-description"><p>Gives the button config of the datagrid.</p>
-</div>
-
-                                <div class="io-description">
-                                    <b>Returns : </b>    <code>ButtonConfig&lt;R&gt;</code>
-
-                                </div>
-                        </td>
-                    </tr>
 
                 <tr>
                     <td class="col-md-4">
-                        <span class="accessor"><b>set</b><code>buttonConfig(config)</code></span>
+                        <span class="accessor"><b>set</b><code>actions(actions: [])</code></span>
                     </td>
                 </tr>
                             <tr>
                                 <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="317" class="link-to-prism">projects/components/src/datagrid/datagrid.component.ts:317</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="332" class="link-to-prism">projects/components/src/datagrid/datagrid.component.ts:332</a></div>
                                 </td>
                             </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-description"><p>Sets the button configuration on the datagrid.</p>
-<p><a href="ButtonConfig.inactiveDisplayMode">ButtonConfig.inactiveDisplayMode</a> defualts to Disabled.</p>
+                                <div class="io-description"><p>List of actions given by the caller</p>
 </div>
 
                                 <div class="io-description">
@@ -4274,13 +3475,17 @@ notifications for listeners to make changes to the _columns array</p>
                                             <thead>
                                                 <tr>
                                                     <td>Name</td>
+                                                        <td>Type</td>
                                                     <td>Optional</td>
                                                 </tr>
                                             </thead>
                                             <tbody>
                                                     <tr>
-                                                            <td>config</td>
+                                                            <td>actions</td>
                                                     
+                                                            <td>
+                                                                        <code>[]</code>
+                                                            </td>
                                                     
                                                         <td>
                                                                 No
@@ -4304,6 +3509,116 @@ notifications for listeners to make changes to the _columns array</p>
             <tbody>
                 <tr>
                     <td class="col-md-4">
+                        <a name="shouldShowActionBarOnTop"></a>
+                        <span class="name"><b>shouldShowActionBarOnTop</b><a href="#shouldShowActionBarOnTop"><span class="icon ion-ios-link"></span></a></span>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <span class="accessor"><b>get</b><code>shouldShowActionBarOnTop()</code></span>
+                    </td>
+                </tr>
+                            <tr>
+                                <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="351" class="link-to-prism">projects/components/src/datagrid/datagrid.component.ts:351</a></div>
+                                </td>
+                            </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-description"><p>To display static and contextual actions in a action bar on top of a grid</p>
+</div>
+
+                                <div class="io-description">
+                                    <b>Returns : </b>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank" >boolean</a></code>
+
+                                </div>
+                        </td>
+                    </tr>
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="hasStaticActions"></a>
+                        <span class="name"><b>hasStaticActions</b><a href="#hasStaticActions"><span class="icon ion-ios-link"></span></a></span>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <span class="accessor"><b>get</b><code>hasStaticActions()</code></span>
+                    </td>
+                </tr>
+                            <tr>
+                                <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="358" class="link-to-prism">projects/components/src/datagrid/datagrid.component.ts:358</a></div>
+                                </td>
+                            </tr>
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="hasContextualActions"></a>
+                        <span class="name"><b>hasContextualActions</b><a href="#hasContextualActions"><span class="icon ion-ios-link"></span></a></span>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <span class="accessor"><b>get</b><code>hasContextualActions()</code></span>
+                    </td>
+                </tr>
+                            <tr>
+                                <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="364" class="link-to-prism">projects/components/src/datagrid/datagrid.component.ts:364</a></div>
+                                </td>
+                            </tr>
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="contextualActions"></a>
+                        <span class="name"><b>contextualActions</b><a href="#contextualActions"><span class="icon ion-ios-link"></span></a></span>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <span class="accessor"><b>get</b><code>contextualActions()</code></span>
+                    </td>
+                </tr>
+                            <tr>
+                                <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="371" class="link-to-prism">projects/components/src/datagrid/datagrid.component.ts:371</a></div>
+                                </td>
+                            </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-description"><p>Filters contextual actions from the list of actions to be displayed in a grid row</p>
+</div>
+
+                                <div class="io-description">
+                                    <b>Returns : </b>        <code><a href="../interfaces/ActionItem.html" target="_self" >ActionItem[]</a></code>
+
+                                </div>
+                        </td>
+                    </tr>
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
                         <a name="pagination"></a>
                         <span class="name"><b>pagination</b><a href="#pagination"><span class="icon ion-ios-link"></span></a></span>
                     </td>
@@ -4316,7 +3631,7 @@ notifications for listeners to make changes to the _columns array</p>
                 </tr>
                             <tr>
                                 <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="383" class="link-to-prism">projects/components/src/datagrid/datagrid.component.ts:383</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="400" class="link-to-prism">projects/components/src/datagrid/datagrid.component.ts:400</a></div>
                                 </td>
                             </tr>
 
@@ -4327,7 +3642,7 @@ notifications for listeners to make changes to the _columns array</p>
                 </tr>
                             <tr>
                                 <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="369" class="link-to-prism">projects/components/src/datagrid/datagrid.component.ts:369</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="386" class="link-to-prism">projects/components/src/datagrid/datagrid.component.ts:386</a></div>
                                 </td>
                             </tr>
                     <tr>
@@ -4383,7 +3698,7 @@ notifications for listeners to make changes to the _columns array</p>
                 </tr>
                             <tr>
                                 <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="397" class="link-to-prism">projects/components/src/datagrid/datagrid.component.ts:397</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="414" class="link-to-prism">projects/components/src/datagrid/datagrid.component.ts:414</a></div>
                                 </td>
                             </tr>
 
@@ -4394,7 +3709,7 @@ notifications for listeners to make changes to the _columns array</p>
                 </tr>
                             <tr>
                                 <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="390" class="link-to-prism">projects/components/src/datagrid/datagrid.component.ts:390</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="407" class="link-to-prism">projects/components/src/datagrid/datagrid.component.ts:407</a></div>
                                 </td>
                             </tr>
                     <tr>
@@ -4454,7 +3769,7 @@ notifications for listeners to make changes to the _columns array</p>
                 </tr>
                             <tr>
                                 <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="408" class="link-to-prism">projects/components/src/datagrid/datagrid.component.ts:408</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="425" class="link-to-prism">projects/components/src/datagrid/datagrid.component.ts:425</a></div>
                                 </td>
                             </tr>
                     <tr>
@@ -4469,6 +3784,131 @@ notifications for listeners to make changes to the _columns array</p>
                         </td>
                     </tr>
 
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="shouldDisplayContextualActionsOnTop"></a>
+                        <span class="name"><b>shouldDisplayContextualActionsOnTop</b><a href="#shouldDisplayContextualActionsOnTop"><span class="icon ion-ios-link"></span></a></span>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <span class="accessor"><b>get</b><code>shouldDisplayContextualActionsOnTop()</code></span>
+                    </td>
+                </tr>
+                            <tr>
+                                <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="443" class="link-to-prism">projects/components/src/datagrid/datagrid.component.ts:443</a></div>
+                                </td>
+                            </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-description"><p>If the contextual buttons should display on the top of a grid.</p>
+</div>
+
+                                <div class="io-description">
+                                    <b>Returns : </b>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank" >boolean</a></code>
+
+                                </div>
+                        </td>
+                    </tr>
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="shouldDisplayContextualActionsInRow"></a>
+                        <span class="name"><b>shouldDisplayContextualActionsInRow</b><a href="#shouldDisplayContextualActionsInRow"><span class="icon ion-ios-link"></span></a></span>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <span class="accessor"><b>get</b><code>shouldDisplayContextualActionsInRow()</code></span>
+                    </td>
+                </tr>
+                            <tr>
+                                <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="454" class="link-to-prism">projects/components/src/datagrid/datagrid.component.ts:454</a></div>
+                                </td>
+                            </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-description"><p>If the contextual buttons should display in a row.</p>
+</div>
+
+                                <div class="io-description">
+                                    <b>Returns : </b>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank" >boolean</a></code>
+
+                                </div>
+                        </td>
+                    </tr>
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="actionMenusInRow"></a>
+                        <span class="name"><b>actionMenusInRow</b><a href="#actionMenusInRow"><span class="icon ion-ios-link"></span></a></span>
+                    </td>
+                </tr>
+
+
+                <tr>
+                    <td class="col-md-4">
+                        <span class="accessor"><b>set</b><code>actionMenusInRow(actionMenus)</code></span>
+                    </td>
+                </tr>
+                            <tr>
+                                <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="615" class="link-to-prism">projects/components/src/datagrid/datagrid.component.ts:615</a></div>
+                                </td>
+                            </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-description"><p>The <a href="maxFeaturedActionsOnRow">maxFeaturedActionsOnRow</a> value depends in the contextual featured actions config which belongs to the
+<a href="../components/ActionMenuComponent.html">ActionMenuComponent</a> being used in the rows. So, we wait for action menus in rows to be initialized and then calculate
+the value</p>
+</div>
+
+                                <div class="io-description">
+                                        <b>Parameters :</b>
+                                        <table class="params">
+                                            <thead>
+                                                <tr>
+                                                    <td>Name</td>
+                                                    <td>Optional</td>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                    <tr>
+                                                            <td>actionMenus</td>
+                                                    
+                                                    
+                                                        <td>
+                                                                No
+                                                        </td>
+                                                        
+                                                    </tr>
+                                            </tbody>
+                                        </table>
+                                </div>
+                                <div>
+                                </div>
+                                <div class="io-description">
+                                    <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                                </div>
+                        </td>
+                    </tr>
             </tbody>
         </table>
 </section>
@@ -4487,29 +3927,41 @@ notifications for listeners to make changes to the _columns array</p>
     OnDestroy,
     OnInit,
     Output,
+    QueryList,
     TrackByFunction,
     ViewChild,
+    ViewChildren,
 } from &#x27;@angular/core&#x27;;
 import { ClrDatagrid, ClrDatagridPagination, ClrDatagridStateInterface } from &#x27;@clr/angular&#x27;;
 import { LazyString, TranslationService } from &#x27;@vcd/i18n&#x27;;
 import { Observable } from &#x27;rxjs&#x27;;
+import { ActionMenuComponent, DEFAULT_ACTION_DISPLAY_CONFIG } from &#x27;../action-menu/action-menu.component&#x27;;
 import { ActivityReporter } from &#x27;../common/activity-reporter&#x27;;
-import { TextIcon } from &#x27;../common/interfaces/action-item.interface&#x27;;
+import {
+    ActionDisplayConfig,
+    ActionHandlerType,
+    ActionItem,
+    ActionStyling,
+    ActionType,
+} from &#x27;../common/interfaces/action-item.interface&#x27;;
 import { SubscriptionTracker } from &#x27;../common/subscription&#x27;;
 import { TooltipSize } from &#x27;../lib/directives/show-clipped-text.directive&#x27;;
 import { DatagridFilter } from &#x27;./filters/datagrid-filter&#x27;;
 import { ComponentRendererConstructor, ComponentRendererSpec } from &#x27;./interfaces/component-renderer.interface&#x27;;
 import {
-    Button,
-    ButtonConfig,
     ColumnRendererSpec,
-    ContextualButtonPosition,
     FunctionRenderer,
     GridColumn,
     GridColumnHideable,
-    InactiveButtonDisplayMode,
 } from &#x27;./interfaces/datagrid-column.interface&#x27;;
-import { ContextualButton } from &#x27;./interfaces/datagrid-column.interface&#x27;;
+
+/**
+ * An enum that describes where the contextual buttons should display.
+ */
+export enum ContextualActionPosition {
+    TOP &#x3D; &#x27;TOP&#x27;,
+    ROW &#x3D; &#x27;ROW&#x27;,
+}
 
 /**
  * The default number of items on a single page.
@@ -4783,51 +4235,56 @@ export class DatagridComponent&lt;R&gt; implements OnInit, AfterViewInit, OnDest
     }
 
     /**
-     * Sets the button configuration on the datagrid.
-     *
-     * {@link ButtonConfig.inactiveDisplayMode} defualts to Disabled.
+     * Actions to be displayed on a grid or in a row
      */
-    @Input() set buttonConfig(config: ButtonConfig&lt;R&gt;) {
-        this._buttonConfig &#x3D; config;
-        this._buttonConfig.contextualButtonConfig &#x3D; this._buttonConfig.contextualButtonConfig
-            ? this._buttonConfig.contextualButtonConfig
-            : {
-                  buttons: [],
-                  position: ContextualButtonPosition.TOP,
-              };
-        this._buttonConfig.contextualButtonConfig.buttonContents &#x3D;
-            this._buttonConfig.contextualButtonConfig.buttonContents || TextIcon.ICON;
-        this._buttonConfig.inactiveDisplayMode &#x3D;
-            this._buttonConfig.inactiveDisplayMode || InactiveButtonDisplayMode.Disable;
-        if (this._buttonConfig.contextualButtonConfig.featured) {
-            this.featuredButtons &#x3D; new Map(
-                this._buttonConfig.contextualButtonConfig.featured.map(featuredButtonClass &#x3D;&gt; [
-                    featuredButtonClass,
-                    this._buttonConfig.contextualButtonConfig.buttons.find(
-                        button &#x3D;&gt; button.class &#x3D;&#x3D;&#x3D; featuredButtonClass
-                    ),
-                ])
-            );
-            this.featuredButtons.forEach(featured &#x3D;&gt; {
-                if (!featured) {
-                    throw new Error(&#x27;Featured button was not found&#x27;);
+    private _actions: ActionItem&lt;R, unknown&gt;[] &#x3D; [];
+
+    /**
+     * List of actions given by the caller
+     */
+    @Input() set actions(actions: ActionItem&lt;R, unknown&gt;[]) {
+        this._actions &#x3D; actions.map(action &#x3D;&gt; {
+            const actionHandler: ActionHandlerType&lt;R, unknown&gt; &#x3D; action.handler;
+            action.handler &#x3D; (selectedEntities, handlerData) &#x3D;&gt; {
+                const actionHandlerResponse &#x3D; actionHandler(selectedEntities, handlerData);
+                if (actionHandlerResponse &amp;&amp; this.actionReporter) {
+                    this.actionReporter.monitorGet(actionHandlerResponse);
                 }
-            });
-        } else {
-            this.featuredButtons &#x3D; new Map(
-                this._buttonConfig.contextualButtonConfig.buttons.map(featuredButton &#x3D;&gt; [
-                    featuredButton.class,
-                    featuredButton,
-                ])
-            );
-        }
+            };
+            return action;
+        });
+    }
+    get actions(): ActionItem&lt;R, unknown&gt;[] {
+        return this._actions;
     }
 
     /**
-     * Gives the button config of the datagrid.
+     * To display static and contextual actions in a action bar on top of a grid
      */
-    get buttonConfig(): ButtonConfig&lt;R&gt; {
-        return this._buttonConfig;
+    get shouldShowActionBarOnTop(): boolean {
+        return (
+            this.actions.length &amp;&amp;
+            (this.hasStaticActions || (this.hasContextualActions &amp;&amp; this.shouldDisplayContextualActionsOnTop))
+        );
+    }
+
+    private get hasStaticActions(): boolean {
+        return this.actions.some(
+            action &#x3D;&gt; action.actionType &#x3D;&#x3D;&#x3D; ActionType.STATIC_FEATURED || action.actionType &#x3D;&#x3D;&#x3D; ActionType.STATIC
+        );
+    }
+
+    private get hasContextualActions(): boolean {
+        return this.contextualActions.length &gt; 0;
+    }
+
+    /**
+     * Filters contextual actions from the list of actions to be displayed in a grid row
+     */
+    get contextualActions(): ActionItem&lt;R, unknown&gt;[] {
+        return this.actions.filter(
+            action &#x3D;&gt; action.actionType !&#x3D;&#x3D; ActionType.STATIC_FEATURED &amp;&amp; action.actionType !&#x3D;&#x3D; ActionType.STATIC
+        );
     }
 
     constructor(
@@ -4894,6 +4351,34 @@ export class DatagridComponent&lt;R&gt; implements OnInit, AfterViewInit, OnDest
     @Output() selectionChanged &#x3D; new EventEmitter&lt;R[]&gt;();
 
     /**
+     * If the contextual buttons should display on the top of a grid.
+     */
+    get shouldDisplayContextualActionsOnTop(): boolean {
+        return (
+            this.contextualActionPosition &amp;&amp;
+            this.contextualActionPosition &#x3D;&#x3D;&#x3D; ContextualActionPosition.TOP &amp;&amp;
+            this.datagridSelection.length !&#x3D;&#x3D; 0
+        );
+    }
+
+    /**
+     * If the contextual buttons should display in a row.
+     */
+    get shouldDisplayContextualActionsInRow(): boolean {
+        return this.contextualActionPosition &amp;&amp; this.contextualActionPosition &#x3D;&#x3D;&#x3D; ContextualActionPosition.ROW;
+    }
+
+    /**
+     * How to display the static and contextual actions.
+     */
+    @Input() actionDisplayConfig: ActionDisplayConfig &#x3D; DEFAULT_ACTION_DISPLAY_CONFIG;
+
+    /**
+     * Whether to display contextual actions inside the row or on top of the grid
+     */
+    @Input() contextualActionPosition: ContextualActionPosition &#x3D; ContextualActionPosition.TOP;
+
+    /**
      * Emitted whenever {@link #columns} input is updated
      */
     @Output() columnsUpdated &#x3D; new EventEmitter&lt;void&gt;();
@@ -4916,11 +4401,9 @@ export class DatagridComponent&lt;R&gt; implements OnInit, AfterViewInit, OnDest
     @Input()
     indicatorType: ActivityIndicatorType;
 
-    ContextualButtonPosition &#x3D; ContextualButtonPosition;
     GridColumnHideable &#x3D; GridColumnHideable;
     TooltipSize &#x3D; TooltipSize;
     ActivityIndicatorType &#x3D; ActivityIndicatorType;
-    TextIcon &#x3D; TextIcon;
 
     /**
      * The component that sound be rendered for this detail row.
@@ -4951,25 +4434,6 @@ export class DatagridComponent&lt;R&gt; implements OnInit, AfterViewInit, OnDest
      * The text placed next to the pagination number dropdown.
      */
     @Input() paginationDropdownText &#x3D; &#x27;&#x27;;
-
-    /**
-     * The stored button config where inactiveDisplayMode is always non-undefined.
-     */
-    _buttonConfig: ButtonConfig&lt;R&gt; &#x3D; {
-        globalButtons: [],
-        contextualButtonConfig: {
-            buttons: [],
-            featured: [],
-            position: ContextualButtonPosition.TOP,
-            featuredCount: 0,
-        },
-        inactiveDisplayMode: InactiveButtonDisplayMode.Disable,
-    };
-
-    /**
-     * The cache of button ID to button config that contains only the featured buttons.
-     */
-    featuredButtons: Map&lt;string, ContextualButton&lt;R&gt;&gt; &#x3D; new Map();
 
     /**
      * When there is no data, show this message.
@@ -5044,14 +4508,36 @@ export class DatagridComponent&lt;R&gt; implements OnInit, AfterViewInit, OnDest
 
     private viewInitted &#x3D; false;
 
-    private widthSetTimes &#x3D; 0;
-
     /**
      * Used for translating pagination information displayed in the grid
      */
     @Input() paginationTranslationKey: string &#x3D; DEFAULT_PAGINATION_TRANSLATION_KEY;
 
     private subTracker &#x3D; new SubscriptionTracker(this);
+
+    /**
+     * Used for calculating the width of actions column
+     */
+    maxFeaturedActionsOnRow &#x3D; 0;
+
+    /**
+     * The {@link maxFeaturedActionsOnRow} value depends in the contextual featured actions config which belongs to the
+     * {@link ActionMenuComponent} being used in the rows. So, we wait for action menus in rows to be initialized and then calculate
+     * the value
+     */
+    @ViewChildren(&#x27;actionMenuInRow&#x27;) set actionMenusInRow(actionMenus: QueryList&lt;ActionMenuComponent&lt;R, unknown&gt;&gt;) {
+        if (!actionMenus || !actionMenus.length) {
+            this.maxFeaturedActionsOnRow &#x3D; 0;
+            return;
+        }
+        let max &#x3D; 0;
+        actionMenus.forEach(actionMenu &#x3D;&gt; {
+            const contextualFeaturedActions &#x3D; actionMenu.contextualFeaturedActions;
+            max &#x3D; Math.max(contextualFeaturedActions.length + 1, max);
+        });
+        this.maxFeaturedActionsOnRow &#x3D; max;
+        this.changeDetectorRef.detectChanges();
+    }
 
     /**
      * To add or replace a column of this datagrid columns. Exposed for columns modifiers(eg: directives) that listen to
@@ -5101,115 +4587,6 @@ export class DatagridComponent&lt;R&gt; implements OnInit, AfterViewInit, OnDest
     @Input() trackBy: TrackByFunction&lt;R&gt; &#x3D; (index: number, record): string &#x3D;&gt; {
         return (record as any).href || String(index);
     };
-
-    /**
-     * Says if the action bar has contents to show.
-     */
-    shouldShowActionBar(): boolean {
-        return (
-            this.buttonConfig.globalButtons.length !&#x3D;&#x3D; 0 ||
-            this.buttonConfig.contextualButtonConfig.buttons.length !&#x3D;&#x3D; 0
-        );
-    }
-
-    /**
-     * If the button icon should be displayed.
-     */
-    shouldShowIcon(): boolean {
-        return (TextIcon.ICON &amp; this.buttonConfig.contextualButtonConfig.buttonContents) &#x3D;&#x3D;&#x3D; TextIcon.ICON;
-    }
-
-    /**
-     * If the text should be displayed on the button.
-     */
-    shouldShowText(): boolean {
-        return (TextIcon.TEXT &amp; this.buttonConfig.contextualButtonConfig.buttonContents) &#x3D;&#x3D;&#x3D; TextIcon.TEXT;
-    }
-
-    /**
-     * If the buttons icon should have a tooltip.
-     */
-    shouldShowTooltip(): boolean {
-        return this.buttonConfig.contextualButtonConfig.buttonContents &#x3D;&#x3D;&#x3D; TextIcon.ICON;
-    }
-
-    /**
-     * Returns the buttons that should be featured given the {@link datagridSelection} or the given {@param record}.
-     *
-     * @throws Error if a featured button cannot be found.
-     */
-    getFeaturedButtons(records?: R[]): ContextualButton&lt;R&gt;[] {
-        return this._buttonConfig.contextualButtonConfig.buttons
-            .filter(button &#x3D;&gt; this.isButtonShown(button, records) &amp;&amp; this.featuredButtons.get(button.class))
-            .slice(0, this._buttonConfig.contextualButtonConfig.featuredCount || this.featuredButtons.size);
-    }
-
-    /**
-     * Returns the maximum number of featured buttons next to a single row.
-     */
-    getMaxFeaturedButtonsOnRow(): number {
-        let max &#x3D; 0;
-        this.items.forEach(item &#x3D;&gt; {
-            max &#x3D; Math.max(this.getFeaturedButtons([item]).length, max);
-        });
-        return max;
-    }
-
-    /**
-     * Says if the given button should appear on the datagrid.
-     */
-    isButtonShown(button: Button&lt;R&gt;, records?: R[]): boolean {
-        const selection &#x3D; records ? records : this.datagridSelection;
-        return button.isActive(selection) || this.getDisplayMode(button) &#x3D;&#x3D;&#x3D; InactiveButtonDisplayMode.Disable;
-    }
-
-    /**
-     * Says if the given button should be marked as disabled.
-     */
-    isButtonDisabled(button: Button&lt;R&gt;, active: boolean): boolean {
-        return !active &amp;&amp; this.getDisplayMode(button) &#x3D;&#x3D;&#x3D; InactiveButtonDisplayMode.Disable;
-    }
-
-    /**
-     * Gives the display mode of a button.
-     */
-    getDisplayMode(button: Button&lt;R&gt;): InactiveButtonDisplayMode {
-        return button.inactiveDisplayMode || this._buttonConfig.inactiveDisplayMode;
-    }
-
-    /**
-     * Says if the contextual buttons should display on the top.
-     */
-    shouldDisplayButtonsOnTop(): boolean {
-        return (
-            this._buttonConfig.contextualButtonConfig.position &#x3D;&#x3D;&#x3D; ContextualButtonPosition.TOP &amp;&amp;
-            this.datagridSelection.length !&#x3D;&#x3D; 0
-        );
-    }
-
-    /**
-     * Says if the contextual buttons should display on the row.
-     */
-    shouldDisplayButtonsOnRow(): boolean {
-        return this._buttonConfig.contextualButtonConfig.position &#x3D;&#x3D;&#x3D; ContextualButtonPosition.ROW;
-    }
-
-    /**
-     * Says if there are contextual buttons to display.
-     */
-    hasContextualButtons(): boolean {
-        return this._buttonConfig.contextualButtonConfig.buttons.length !&#x3D;&#x3D; 0;
-    }
-
-    /**
-     * Runs the handler function for the given button with the given selection.
-     */
-    runButtonHandler(button: Button&lt;R&gt;, selection?: R[]): void {
-        const response &#x3D; button.handler(selection);
-        if (response &amp;&amp; this.actionReporter) {
-            this.actionReporter.monitorGet(response);
-        }
-    }
 
     /**
      * Gives the render spec to create the detail row for the row with the given record, at the given index, and
@@ -5383,7 +4760,7 @@ export class DatagridComponent&lt;R&gt; implements OnInit, AfterViewInit, OnDest
             const header &#x3D; grid.querySelector(&#x27;.vcd-header&#x27;);
             availableHeight -&#x3D; header ? header.offsetHeight : 0;
         }
-        if (this.shouldShowActionBar()) {
+        if (this.shouldShowActionBarOnTop) {
             availableHeight -&#x3D; ROW_HEIGHT;
         }
 
@@ -5472,29 +4849,18 @@ export class DatagridComponent&lt;R&gt; implements OnInit, AfterViewInit, OnDest
     (clrDgSingleSelectedChange)&#x3D;&quot;selectionChanged.emit([$event])&quot;
 &gt;
     &lt;clr-dg-placeholder&gt;{{ emptyGridPlaceholder }}&lt;/clr-dg-placeholder&gt;
-    &lt;clr-dg-action-bar *ngIf&#x3D;&quot;shouldShowActionBar()&quot;&gt;
-        &lt;div class&#x3D;&quot;btn-group&quot; *ngFor&#x3D;&quot;let button of buttonConfig.globalButtons&quot;&gt;
-            &lt;button
-                class&#x3D;&quot;btn btn-link&quot;
-                [ngClass]&#x3D;&quot;button.class&quot;
-                *ngIf&#x3D;&quot;isButtonShown(button)&quot;
-                (click)&#x3D;&quot;runButtonHandler(button, [])&quot;
-                [disabled]&#x3D;&quot;isButtonDisabled(button, button.isActive())&quot;
-            &gt;
-                &lt;ng-container&gt;{{ button.label }}&lt;/ng-container&gt;
-            &lt;/button&gt;
-        &lt;/div&gt;
-
-        &lt;div class&#x3D;&quot;feature-bar&quot; *ngIf&#x3D;&quot;shouldDisplayButtonsOnTop()&quot;&gt;
-            &lt;ng-container *ngTemplateOutlet&#x3D;&quot;featuredBar; context: { $implicit: datagridSelection }&quot;&gt;&lt;/ng-container&gt;
-            &lt;ng-container *ngIf&#x3D;&quot;this.getFeaturedButtons().length &#x3D;&#x3D;&#x3D; 0&quot;&gt;
-                &lt;ng-container *ngTemplateOutlet&#x3D;&quot;dropdown&quot;&gt;&lt;/ng-container&gt;
-            &lt;/ng-container&gt;
-        &lt;/div&gt;
+    &lt;clr-dg-action-bar *ngIf&#x3D;&quot;shouldShowActionBarOnTop&quot;&gt;
+        &lt;vcd-action-menu
+            [actions]&#x3D;&quot;actions&quot;
+            [selectedEntities]&#x3D;&quot;datagridSelection&quot;
+            [actionDisplayConfig]&#x3D;&quot;actionDisplayConfig&quot;
+            [dropdownTriggerBtnText]&#x3D;&quot;&#x27;vcd.cc.action.menu.actions&#x27;&quot;
+        &gt;
+        &lt;/vcd-action-menu&gt;
     &lt;/clr-dg-action-bar&gt;
 
-    &lt;clr-dg-column *ngIf&#x3D;&quot;shouldDisplayButtonsOnRow()&quot; [ngClass]&#x3D;&quot;&#x27;buttons-&#x27; + this.getMaxFeaturedButtonsOnRow()&quot;&gt;
-        Actions
+    &lt;clr-dg-column *ngIf&#x3D;&quot;shouldDisplayContextualActionsInRow&quot; [ngClass]&#x3D;&quot;&#x27;buttons-&#x27; + maxFeaturedActionsOnRow&quot;&gt;
+        {{ &#x27;vcd.cc.datagrid.actions&#x27; | translate }}
     &lt;/clr-dg-column&gt;
     &lt;clr-dg-column
         *ngFor&#x3D;&quot;let column of columnsConfig&quot;
@@ -5524,21 +4890,18 @@ export class DatagridComponent&lt;R&gt; implements OnInit, AfterViewInit, OnDest
         [clrDgItem]&#x3D;&quot;restItem&quot;
     &gt;
         &lt;clr-dg-cell
-            *ngIf&#x3D;&quot;shouldDisplayButtonsOnRow()&quot;
+            *ngIf&#x3D;&quot;shouldDisplayContextualActionsInRow&quot;
             class&#x3D;&quot;action-button-cell&quot;
-            [ngClass]&#x3D;&quot;&#x27;buttons-&#x27; + this.getMaxFeaturedButtonsOnRow()&quot;
+            [ngClass]&#x3D;&quot;&#x27;buttons-&#x27; + maxFeaturedActionsOnRow&quot;
         &gt;
-            &lt;ng-container
-                *ngTemplateOutlet&#x3D;&quot;
-                    featuredBar;
-                    context: {
-                        $implicit: [restItem],
-                        groupClass: &#x27;action-button-group&#x27;,
-                        buttonClass: &#x27;action-button&#x27;,
-                        iconClass: &#x27;action-icon&#x27;
-                    }
-                &quot;
-            &gt;&lt;/ng-container&gt;
+            &lt;vcd-action-menu
+                #actionMenuInRow
+                [actions]&#x3D;&quot;contextualActions&quot;
+                [selectedEntities]&#x3D;&quot;[restItem]&quot;
+                [actionDisplayConfig]&#x3D;&quot;actionDisplayConfig&quot;
+                [dropdownTriggerBtnIcon]&#x3D;&quot;&#x27;ellipsis-vertical&#x27;&quot;
+            &gt;
+            &lt;/vcd-action-menu&gt;
         &lt;/clr-dg-cell&gt;
 
         &lt;clr-dg-cell [vcdShowClippedText]&#x3D;&quot;column.cliptextConfig&quot; *ngFor&#x3D;&quot;let column of columnsConfig&quot;&gt;
@@ -5600,58 +4963,6 @@ export class DatagridComponent&lt;R&gt; implements OnInit, AfterViewInit, OnDest
         &lt;/clr-dg-pagination&gt;
     &lt;/clr-dg-footer&gt;
 &lt;/clr-datagrid&gt;
-
-&lt;ng-template
-    #featuredBar
-    let-selection
-    let-groupClass&#x3D;&quot;groupClass&quot;
-    let-buttonClass&#x3D;&quot;buttonClass&quot;
-    let-iconClass&#x3D;&quot;iconClass&quot;
-&gt;
-    &lt;div [ngClass]&#x3D;&quot;groupClass&quot;&gt;
-        &lt;button
-            class&#x3D;&quot;btn btn-icon btn-link&quot;
-            *ngFor&#x3D;&quot;let button of this.getFeaturedButtons(selection)&quot;
-            (click)&#x3D;&quot;runButtonHandler(button, selection)&quot;
-            [disabled]&#x3D;&quot;isButtonDisabled(button, button.isActive(selection))&quot;
-            [ngClass]&#x3D;&quot;!buttonClass ? [button.class] : [button.class, buttonClass]&quot;
-        &gt;
-            &lt;a role&#x3D;&quot;tooltip&quot; aria-haspopup&#x3D;&quot;true&quot; class&#x3D;&quot;tooltip tooltip-sm&quot; *ngIf&#x3D;&quot;shouldShowIcon()&quot;&gt;
-                &lt;clr-icon size&#x3D;&quot;1em&quot; [attr.shape]&#x3D;&quot;button.icon&quot; [ngClass]&#x3D;&quot;iconClass&quot;&gt;&lt;/clr-icon&gt;
-                &lt;span class&#x3D;&quot;tooltip-content&quot; *ngIf&#x3D;&quot;shouldShowTooltip()&quot;&gt;{{ button.label }}&lt;/span&gt;
-            &lt;/a&gt;
-            &lt;ng-container *ngIf&#x3D;&quot;shouldShowText()&quot;&gt;{{ button.label }}&lt;/ng-container&gt;
-        &lt;/button&gt;
-        &lt;ng-container
-            *ngIf&#x3D;&quot;
-                this.getFeaturedButtons(selection).length !&#x3D;&#x3D; this.buttonConfig.contextualButtonConfig.buttons.length
-            &quot;
-        &gt;
-            &lt;ng-container
-                *ngTemplateOutlet&#x3D;&quot;dropdown; context: { buttonClass: buttonClass, iconClass: iconClass }&quot;
-            &gt;&lt;/ng-container&gt;
-        &lt;/ng-container&gt;
-    &lt;/div&gt;
-&lt;/ng-template&gt;
-
-&lt;ng-template #dropdown let-buttonClass&#x3D;&quot;buttonClass&quot; let-iconClass&#x3D;&quot;iconClass&quot;&gt;
-    &lt;clr-dropdown class&#x3D;&quot;btn-group-overflow open&quot; *ngIf&#x3D;&quot;hasContextualButtons()&quot; [ngClass]&#x3D;&quot;buttonClass&quot;&gt;
-        &lt;button class&#x3D;&quot;btn dropdown-toggle dropdown-small btn-link&quot; clrDropdownTrigger [ngClass]&#x3D;&quot;buttonClass&quot;&gt;
-            &lt;clr-icon shape&#x3D;&quot;ellipsis-horizontal&quot; [ngClass]&#x3D;&quot;iconClass&quot;&gt;&lt;/clr-icon&gt;
-        &lt;/button&gt;
-        &lt;clr-dropdown-menu class&#x3D;&quot;dropdown-menu&quot; *clrIfOpen&gt;
-            &lt;button
-                *ngFor&#x3D;&quot;let button of buttonConfig.contextualButtonConfig.buttons&quot;
-                class&#x3D;&quot;btn btn-link&quot;
-                [ngClass]&#x3D;&quot;button.class&quot;
-                [disabled]&#x3D;&quot;!button.isActive(this.datagridSelection)&quot;
-                (click)&#x3D;&quot;runButtonHandler(button, this.datagridSelection)&quot;
-            &gt;
-                {{ button.label }}
-            &lt;/button&gt;
-        &lt;/clr-dropdown-menu&gt;
-    &lt;/clr-dropdown&gt;
-&lt;/ng-template&gt;
 </code></pre>
     </div>
 
@@ -5766,8 +5077,8 @@ $supported-buttons: (0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 1
 <script src="../js/libs/htmlparser.js"></script>
 <script src="../js/libs/deep-iterator.js"></script>
 <script>
-        var COMPONENT_TEMPLATE = '<div><h3 *ngIf="this.header" class="vcd-header">{{ header }}</h3><vcd-spinner-activity-reporter #actionReporter *ngIf="ActivityIndicatorType.SPINNER === indicatorType"></vcd-spinner-activity-reporter><vcd-banner-activity-reporter #actionReporter *ngIf="ActivityIndicatorType.BANNER === indicatorType"></vcd-banner-activity-reporter><clr-datagrid    [clrDgLoading]="isLoading"    [ngClass]="[this.clrDatagridCssClass, this.height ? \'set-height\' : \'fill-parent-grid\']"    (clrDgRefresh)="gridStateChanged($event)"    (clrDgSelectedChange)="selectionChanged.emit($event)"    (clrDgSingleSelectedChange)="selectionChanged.emit([$event])">    <clr-dg-placeholder>{{ emptyGridPlaceholder }}</clr-dg-placeholder>    <clr-dg-action-bar *ngIf="shouldShowActionBar()">        <div class="btn-group" *ngFor="let button of buttonConfig.globalButtons">            <button                class="btn btn-link"                [ngClass]="button.class"                *ngIf="isButtonShown(button)"                (click)="runButtonHandler(button, [])"                [disabled]="isButtonDisabled(button, button.isActive())"            >                <ng-container>{{ button.label }}</ng-container>            </button>        </div>        <div class="feature-bar" *ngIf="shouldDisplayButtonsOnTop()">            <ng-container *ngTemplateOutlet="featuredBar; context: { $implicit: datagridSelection }"></ng-container>            <ng-container *ngIf="this.getFeaturedButtons().length === 0">                <ng-container *ngTemplateOutlet="dropdown"></ng-container>            </ng-container>        </div>    </clr-dg-action-bar>    <clr-dg-column *ngIf="shouldDisplayButtonsOnRow()" [ngClass]="\'buttons-\' + this.getMaxFeaturedButtonsOnRow()">        Actions    </clr-dg-column>    <clr-dg-column        *ngFor="let column of columnsConfig"        [clrDgSortBy]="column.sortable !== false && column.queryFieldName"        (clrDgSortOrderChange)="resetToPageOne()"        class="data-column"        [ngClass]="column.clrDgColumnClassName"    >        <ng-container *ngIf="isColumnHideable(column); else notHideable">            <ng-container *clrDgHideableColumn="{ hidden: column.hideable === GridColumnHideable.Hidden }">{{                column.displayName            }}</ng-container>        </ng-container>        <ng-template #notHideable>{{ column.displayName }}</ng-template>        <clr-dg-filter *ngIf="column.queryFieldName && column.filter">            <ng-template [vcdComponentRendererOutlet]="{ rendererSpec: column.filter }"> </ng-template>        </clr-dg-filter>    </clr-dg-column>    <!--The trackBy in the ngFor is to inform Angular on how to track changes to clrDgRow.        Whereas the trackBy in ngForTrackBy is to inform Clarity on how to track changes to it\'s        items. -->    <clr-dg-row        *ngFor="let restItem of items; let i = index; let count = count; trackBy: trackBy"        [ngForTrackBy]="trackBy"        [ngClass]="this.clrDatarowCssClassGetter(restItem, i)"        [clrDgItem]="restItem"    >        <clr-dg-cell            *ngIf="shouldDisplayButtonsOnRow()"            class="action-button-cell"            [ngClass]="\'buttons-\' + this.getMaxFeaturedButtonsOnRow()"        >            <ng-container                *ngTemplateOutlet="                    featuredBar;                    context: {                        $implicit: [restItem],                        groupClass: \'action-button-group\',                        buttonClass: \'action-button\',                        iconClass: \'action-icon\'                    }                "            ></ng-container>        </clr-dg-cell>        <clr-dg-cell [vcdShowClippedText]="column.cliptextConfig" *ngFor="let column of columnsConfig">            <!-- Default renderer -->            <ng-container *ngIf="column.fieldName">{{ restItem | nestedProperty: column.fieldName }}</ng-container>            <!-- Renderer is a function -->            <ng-container *ngIf="column.fieldRenderer">{{                restItem | functionRenderer: column.fieldRenderer            }}</ng-container>            <!-- Renderer is a componentRenderer -->            <ng-template                *ngIf="column.fieldColumnRendererSpec"                [vcdComponentRendererOutlet]="{ rendererSpec: column.fieldColumnRendererSpec, context: restItem }"            >            </ng-template>        </clr-dg-cell>        <ng-container ngProjectAs="clr-dg-row-detail" *ngIf="detailComponent !== undefined">            <clr-dg-row-detail *clrIfExpanded="isRowExpanded">                <ng-template                    [vcdComponentRendererOutlet]="{                        rendererSpec: getDetailRowRenderSpec(restItem, i, count)                    }"                >                </ng-template>            </clr-dg-row-detail>        </ng-container>    </clr-dg-row>    <ng-container ngProjectAs="clr-dg-detail" *ngIf="detailPane">        <clr-dg-detail *clrIfDetail="let restItem">            <clr-dg-detail-header>{{ detailPane.header(restItem) }}</clr-dg-detail-header>            <clr-dg-detail-body>                <ng-template                    [vcdComponentRendererOutlet]="{                        rendererSpec: getDetailPaneRenderSpec(restItem)                    }"                >                </ng-template>            </clr-dg-detail-body>        </clr-dg-detail>    </ng-container>    <clr-dg-footer>        <clr-dg-pagination            #paginationData            [clrDgTotalItems]="totalItems"            [clrDgPageSize]="this.pageSize"            [clrDgPageInputDisabled]="!this.pagination.shouldShowPageNumberInput"        >            <div>{{ getPaginationTranslation(paginationData) | lazyString }}</div>            <clr-dg-page-size                [clrPageSizeOptions]="this.pageSizeOptions"                *ngIf="this.pagination.shouldShowPageSizeSelector"                >{{ paginationDropdownText }}</clr-dg-page-size            >        </clr-dg-pagination>    </clr-dg-footer></clr-datagrid><ng-template    #featuredBar    let-selection    let-groupClass="groupClass"    let-buttonClass="buttonClass"    let-iconClass="iconClass">    <div [ngClass]="groupClass">        <button            class="btn btn-icon btn-link"            *ngFor="let button of this.getFeaturedButtons(selection)"            (click)="runButtonHandler(button, selection)"            [disabled]="isButtonDisabled(button, button.isActive(selection))"            [ngClass]="!buttonClass ? [button.class] : [button.class, buttonClass]"        >            <a role="tooltip" aria-haspopup="true" class="tooltip tooltip-sm" *ngIf="shouldShowIcon()">                <clr-icon size="1em" [attr.shape]="button.icon" [ngClass]="iconClass"></clr-icon>                <span class="tooltip-content" *ngIf="shouldShowTooltip()">{{ button.label }}</span>            </a>            <ng-container *ngIf="shouldShowText()">{{ button.label }}</ng-container>        </button>        <ng-container            *ngIf="                this.getFeaturedButtons(selection).length !== this.buttonConfig.contextualButtonConfig.buttons.length            "        >            <ng-container                *ngTemplateOutlet="dropdown; context: { buttonClass: buttonClass, iconClass: iconClass }"            ></ng-container>        </ng-container>    </div></ng-template><ng-template #dropdown let-buttonClass="buttonClass" let-iconClass="iconClass">    <clr-dropdown class="btn-group-overflow open" *ngIf="hasContextualButtons()" [ngClass]="buttonClass">        <button class="btn dropdown-toggle dropdown-small btn-link" clrDropdownTrigger [ngClass]="buttonClass">            <clr-icon shape="ellipsis-horizontal" [ngClass]="iconClass"></clr-icon>        </button>        <clr-dropdown-menu class="dropdown-menu" *clrIfOpen>            <button                *ngFor="let button of buttonConfig.contextualButtonConfig.buttons"                class="btn btn-link"                [ngClass]="button.class"                [disabled]="!button.isActive(this.datagridSelection)"                (click)="runButtonHandler(button, this.datagridSelection)"            >                {{ button.label }}            </button>        </clr-dropdown-menu>    </clr-dropdown></ng-template></div>'
-    var COMPONENTS = [{'name': 'ActionMenuComponent', 'selector': 'vcd-action-menu'},{'name': 'BannerActivityReporterComponent', 'selector': 'vcd-banner-activity-reporter'},{'name': 'BoldTextRendererComponent', 'selector': 'vcd-bold-text-renderer'},{'name': 'DataExporterComponent', 'selector': 'vcd-data-exporter'},{'name': 'DatagridComponent', 'selector': 'vcd-datagrid'},{'name': 'DatagridMultiSelectFilterComponent', 'selector': 'vcd-dg-multiselect-filter'},{'name': 'DatagridNumericFilterComponent', 'selector': 'vcd-dg-numeric-filter'},{'name': 'DatagridSelectFilterComponent', 'selector': 'vcd-dg-select-filter'},{'name': 'DatagridStringFilterComponent', 'selector': 'vcd-dg-string-filter'},{'name': 'ErrorBannerComponent', 'selector': 'vcd-error-banner'},{'name': 'FilterTestHostComponent', 'selector': ''},{'name': 'FormCheckboxComponent', 'selector': 'vcd-form-checkbox'},{'name': 'FormInputComponent', 'selector': 'vcd-form-input'},{'name': 'FormlyInputComponent', 'selector': 'vcd-formly-input'},{'name': 'FormlyNumberWithUnitInputComponent', 'selector': 'vcd-formly-number-with-unit-input'},{'name': 'FormlySelectComponent', 'selector': 'vcd-formly-select'},{'name': 'FormSelectComponent', 'selector': 'vcd-form-select'},{'name': 'LoadingIndicatorComponent', 'selector': 'vcd-loading-indicator'},{'name': 'NumberWithUnitFormInputComponent', 'selector': 'vcd-number-with-unit-form-input'},{'name': 'ShowClippedTextDirectiveTestHostComponent', 'selector': ''},{'name': 'SpinnerActivityReporterComponent', 'selector': 'vcd-spinner-activity-reporter'},{'name': 'SpotlightSearchComponent', 'selector': 'vcd-spotlight-search'}];
+        var COMPONENT_TEMPLATE = '<div><h3 *ngIf="this.header" class="vcd-header">{{ header }}</h3><vcd-spinner-activity-reporter #actionReporter *ngIf="ActivityIndicatorType.SPINNER === indicatorType"></vcd-spinner-activity-reporter><vcd-banner-activity-reporter #actionReporter *ngIf="ActivityIndicatorType.BANNER === indicatorType"></vcd-banner-activity-reporter><clr-datagrid    [clrDgLoading]="isLoading"    [ngClass]="[this.clrDatagridCssClass, this.height ? \'set-height\' : \'fill-parent-grid\']"    (clrDgRefresh)="gridStateChanged($event)"    (clrDgSelectedChange)="selectionChanged.emit($event)"    (clrDgSingleSelectedChange)="selectionChanged.emit([$event])">    <clr-dg-placeholder>{{ emptyGridPlaceholder }}</clr-dg-placeholder>    <clr-dg-action-bar *ngIf="shouldShowActionBarOnTop">        <vcd-action-menu            [actions]="actions"            [selectedEntities]="datagridSelection"            [actionDisplayConfig]="actionDisplayConfig"            [dropdownTriggerBtnText]="\'vcd.cc.action.menu.actions\'"        >        </vcd-action-menu>    </clr-dg-action-bar>    <clr-dg-column *ngIf="shouldDisplayContextualActionsInRow" [ngClass]="\'buttons-\' + maxFeaturedActionsOnRow">        {{ \'vcd.cc.datagrid.actions\' | translate }}    </clr-dg-column>    <clr-dg-column        *ngFor="let column of columnsConfig"        [clrDgSortBy]="column.sortable !== false && column.queryFieldName"        (clrDgSortOrderChange)="resetToPageOne()"        class="data-column"        [ngClass]="column.clrDgColumnClassName"    >        <ng-container *ngIf="isColumnHideable(column); else notHideable">            <ng-container *clrDgHideableColumn="{ hidden: column.hideable === GridColumnHideable.Hidden }">{{                column.displayName            }}</ng-container>        </ng-container>        <ng-template #notHideable>{{ column.displayName }}</ng-template>        <clr-dg-filter *ngIf="column.queryFieldName && column.filter">            <ng-template [vcdComponentRendererOutlet]="{ rendererSpec: column.filter }"> </ng-template>        </clr-dg-filter>    </clr-dg-column>    <!--The trackBy in the ngFor is to inform Angular on how to track changes to clrDgRow.        Whereas the trackBy in ngForTrackBy is to inform Clarity on how to track changes to it\'s        items. -->    <clr-dg-row        *ngFor="let restItem of items; let i = index; let count = count; trackBy: trackBy"        [ngForTrackBy]="trackBy"        [ngClass]="this.clrDatarowCssClassGetter(restItem, i)"        [clrDgItem]="restItem"    >        <clr-dg-cell            *ngIf="shouldDisplayContextualActionsInRow"            class="action-button-cell"            [ngClass]="\'buttons-\' + maxFeaturedActionsOnRow"        >            <vcd-action-menu                #actionMenuInRow                [actions]="contextualActions"                [selectedEntities]="[restItem]"                [actionDisplayConfig]="actionDisplayConfig"                [dropdownTriggerBtnIcon]="\'ellipsis-vertical\'"            >            </vcd-action-menu>        </clr-dg-cell>        <clr-dg-cell [vcdShowClippedText]="column.cliptextConfig" *ngFor="let column of columnsConfig">            <!-- Default renderer -->            <ng-container *ngIf="column.fieldName">{{ restItem | nestedProperty: column.fieldName }}</ng-container>            <!-- Renderer is a function -->            <ng-container *ngIf="column.fieldRenderer">{{                restItem | functionRenderer: column.fieldRenderer            }}</ng-container>            <!-- Renderer is a componentRenderer -->            <ng-template                *ngIf="column.fieldColumnRendererSpec"                [vcdComponentRendererOutlet]="{ rendererSpec: column.fieldColumnRendererSpec, context: restItem }"            >            </ng-template>        </clr-dg-cell>        <ng-container ngProjectAs="clr-dg-row-detail" *ngIf="detailComponent !== undefined">            <clr-dg-row-detail *clrIfExpanded="isRowExpanded">                <ng-template                    [vcdComponentRendererOutlet]="{                        rendererSpec: getDetailRowRenderSpec(restItem, i, count)                    }"                >                </ng-template>            </clr-dg-row-detail>        </ng-container>    </clr-dg-row>    <ng-container ngProjectAs="clr-dg-detail" *ngIf="detailPane">        <clr-dg-detail *clrIfDetail="let restItem">            <clr-dg-detail-header>{{ detailPane.header(restItem) }}</clr-dg-detail-header>            <clr-dg-detail-body>                <ng-template                    [vcdComponentRendererOutlet]="{                        rendererSpec: getDetailPaneRenderSpec(restItem)                    }"                >                </ng-template>            </clr-dg-detail-body>        </clr-dg-detail>    </ng-container>    <clr-dg-footer>        <clr-dg-pagination            #paginationData            [clrDgTotalItems]="totalItems"            [clrDgPageSize]="this.pageSize"            [clrDgPageInputDisabled]="!this.pagination.shouldShowPageNumberInput"        >            <div>{{ getPaginationTranslation(paginationData) | lazyString }}</div>            <clr-dg-page-size                [clrPageSizeOptions]="this.pageSizeOptions"                *ngIf="this.pagination.shouldShowPageSizeSelector"                >{{ paginationDropdownText }}</clr-dg-page-size            >        </clr-dg-pagination>    </clr-dg-footer></clr-datagrid></div>'
+    var COMPONENTS = [{'name': 'ActionMenuComponent', 'selector': 'vcd-action-menu'},{'name': 'BannerActivityReporterComponent', 'selector': 'vcd-banner-activity-reporter'},{'name': 'BoldTextRendererComponent', 'selector': 'vcd-bold-text-renderer'},{'name': 'DataExporterComponent', 'selector': 'vcd-data-exporter'},{'name': 'DatagridComponent', 'selector': 'vcd-datagrid'},{'name': 'DatagridMultiSelectFilterComponent', 'selector': 'vcd-dg-multiselect-filter'},{'name': 'DatagridNumericFilterComponent', 'selector': 'vcd-dg-numeric-filter'},{'name': 'DatagridSelectFilterComponent', 'selector': 'vcd-dg-select-filter'},{'name': 'DatagridStringFilterComponent', 'selector': 'vcd-dg-string-filter'},{'name': 'DropdownComponent', 'selector': 'vcd-dropdown'},{'name': 'ErrorBannerComponent', 'selector': 'vcd-error-banner'},{'name': 'FilterTestHostComponent', 'selector': ''},{'name': 'FormCheckboxComponent', 'selector': 'vcd-form-checkbox'},{'name': 'FormInputComponent', 'selector': 'vcd-form-input'},{'name': 'FormlyInputComponent', 'selector': 'vcd-formly-input'},{'name': 'FormlyNumberWithUnitInputComponent', 'selector': 'vcd-formly-number-with-unit-input'},{'name': 'FormlySelectComponent', 'selector': 'vcd-formly-select'},{'name': 'FormSelectComponent', 'selector': 'vcd-form-select'},{'name': 'LoadingIndicatorComponent', 'selector': 'vcd-loading-indicator'},{'name': 'NumberWithUnitFormInputComponent', 'selector': 'vcd-number-with-unit-form-input'},{'name': 'ShowClippedTextDirectiveTestHostComponent', 'selector': ''},{'name': 'SpinnerActivityReporterComponent', 'selector': 'vcd-spinner-activity-reporter'},{'name': 'SpotlightSearchComponent', 'selector': 'vcd-spotlight-search'}];
     var DIRECTIVES = [{'name': 'ComponentRendererOutletDirective', 'selector': '[vcdComponentRendererOutlet]'},{'name': 'MinMaxValidator', 'selector': 'vcd-number-with-unit-form-input[min],vcd-number-with-unit-form-input[max]'},{'name': 'ShowClippedTextDirective', 'selector': '[vcdShowClippedText]'}];
     var ACTUAL_COMPONENT = {'name': 'DatagridComponent'};
 </script>

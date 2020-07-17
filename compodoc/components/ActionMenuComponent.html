@@ -68,9 +68,9 @@
         <h3>Description</h3>
     </p>
     <p class="comment">
-        <p>Renders actions in screens containing grids, cards and details container
+        <p>Renders actions in screens containing grids, cards and details container screens
 R is the type of selected entity on which the action will be performed
-T is the type of custom data passed to action handler</p>
+T is the type of custom data passed to action handler methods</p>
 
     </p>
 
@@ -141,6 +141,12 @@ T is the type of custom data passed to action handler</p>
                                 <a href="#_actions">_actions</a>
                             </li>
                             <li>
+                                <a href="#actionsTrackBy">actionsTrackBy</a>
+                            </li>
+                            <li>
+                                <a href="#actionStyling">actionStyling</a>
+                            </li>
+                            <li>
                                 <a href="#shouldShowIcon">shouldShowIcon</a>
                             </li>
                             <li>
@@ -165,20 +171,34 @@ T is the type of custom data passed to action handler</p>
                                 <a href="#getAvailableActions">getAvailableActions</a>
                             </li>
                             <li>
-                                <a href="#getContextualActions">getContextualActions</a>
-                            </li>
-                            <li>
-                                <a href="#getContextualFeaturedActions">getContextualFeaturedActions</a>
+                                    <span class="modifier">Private</span>
+                                <a href="#getDeepCopy">getDeepCopy</a>
                             </li>
                             <li>
                                     <span class="modifier">Private</span>
                                 <a href="#getFlattenedActionList">getFlattenedActionList</a>
                             </li>
                             <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#isActionAvailable">isActionAvailable</a>
+                            </li>
+                            <li>
                                 <a href="#isActionDisabled">isActionDisabled</a>
                             </li>
                             <li>
                                 <a href="#runActionHandler">runActionHandler</a>
+                            </li>
+                            <li>
+                                <a href="#shouldDisplayActions">shouldDisplayActions</a>
+                            </li>
+                            <li>
+                                <a href="#shouldDisplayContextualActions">shouldDisplayContextualActions</a>
+                            </li>
+                            <li>
+                                <a href="#shouldDisplayStaticActions">shouldDisplayStaticActions</a>
+                            </li>
+                            <li>
+                                <a href="#shouldDisplayStaticFeaturedActions">shouldDisplayStaticFeaturedActions</a>
                             </li>
                         </ul>
                     </td>
@@ -199,19 +219,22 @@ T is the type of custom data passed to action handler</p>
                                 <a href="#actions">actions</a>
                             </li>
                             <li>
-                                <a href="#btnText">btnText</a>
-                            </li>
-                            <li>
                                 <a href="#disabled">disabled</a>
                             </li>
                             <li>
-                                <a href="#entityUrn">entityUrn</a>
+                                <a href="#dropdownPosition">dropdownPosition</a>
+                            </li>
+                            <li>
+                                <a href="#dropdownTriggerBtnIcon">dropdownTriggerBtnIcon</a>
+                            </li>
+                            <li>
+                                <a href="#dropdownTriggerBtnText">dropdownTriggerBtnText</a>
+                            </li>
+                            <li>
+                                <a href="#nestedDropdownPosition">nestedDropdownPosition</a>
                             </li>
                             <li>
                                 <a href="#selectedEntities">selectedEntities</a>
-                            </li>
-                            <li>
-                                <a href="#staticActionStyling">staticActionStyling</a>
                             </li>
                         </ul>
                     </td>
@@ -241,7 +264,22 @@ T is the type of custom data passed to action handler</p>
                                     <a href="#staticFeaturedActions">staticFeaturedActions</a>
                                 </li>
                                 <li>
-                                    <a href="#shouldShowContextualActions">shouldShowContextualActions</a>
+                                    <a href="#staticDropdownActions">staticDropdownActions</a>
+                                </li>
+                                <li>
+                                    <a href="#contextualDropdownActions">contextualDropdownActions</a>
+                                </li>
+                                <li>
+                                    <a href="#contextualFeaturedActions">contextualFeaturedActions</a>
+                                </li>
+                                <li>
+                                    <a href="#contextualActions">contextualActions</a>
+                                </li>
+                                <li>
+                                    <a href="#shouldDisplayStaticAndStaticFeaturedActionsDropdown">shouldDisplayStaticAndStaticFeaturedActionsDropdown</a>
+                                </li>
+                                <li>
+                                    <a href="#shouldDisplayStaticAndStaticFeaturedActionsInline">shouldDisplayStaticAndStaticFeaturedActionsInline</a>
                                 </li>
                             </ul>
                         </td>
@@ -269,12 +307,12 @@ T is the type of custom data passed to action handler</p>
                 </tr>
                         <tr>
                             <td class="col-md-2" colspan="2">
-                                    <div class="io-line">Defined in <a href="" data-line="71" class="link-to-prism">projects/components/src/action-menu/action-menu.component.ts:71</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="53" class="link-to-prism">projects/components/src/action-menu/action-menu.component.ts:53</a></div>
                             </td>
                         </tr>
                 <tr>
                     <td class="col-md-4">
-                        <div class="io-description"><p>Display configuration of static and contextual actions
+                        <div class="io-description"><p>Display configuration of both static and contextual actions
 If null or undefined is passed, default config <a href="_actionDisplayConfig">_actionDisplayConfig</a> is used</p>
 </div>
                     </td>
@@ -297,39 +335,12 @@ If null or undefined is passed, default config <a href="_actionDisplayConfig">_a
                 </tr>
                         <tr>
                             <td class="col-md-2" colspan="2">
-                                    <div class="io-line">Defined in <a href="" data-line="47" class="link-to-prism">projects/components/src/action-menu/action-menu.component.ts:47</a></div>
-                            </td>
-                        </tr>
-            </tbody>
-        </table>
-        <table class="table table-sm table-bordered">
-            <tbody>
-                <tr>
-                    <td class="col-md-4">
-                        <a name="btnText"></a>
-                        <b>btnText</b>
-                    </td>
-                </tr>
-                <tr>
-                    <td class="col-md-4">
-                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
-
-                    </td>
-                </tr>
-                <tr>
-                    <td class="col-md-4">
-                        <i>Default value : </i><code>null</code>
-                    </td>
-                </tr>
-                        <tr>
-                            <td class="col-md-2" colspan="2">
-                                    <div class="io-line">Defined in <a href="" data-line="26" class="link-to-prism">projects/components/src/action-menu/action-menu.component.ts:26</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="36" class="link-to-prism">projects/components/src/action-menu/action-menu.component.ts:36</a></div>
                             </td>
                         </tr>
                 <tr>
                     <td class="col-md-4">
-                        <div class="io-description"><p>Content of the action menu dropdown trigger button. Used when <a href="#actionDisplayConfig">#actionDisplayConfig</a> styling is
-<a href="ActionStyling.DROPDOWN">ActionStyling.DROPDOWN</a></p>
+                        <div class="io-description"><p>List of actions containing both static and contextual that are given by the calling component</p>
 </div>
                     </td>
                 </tr>
@@ -351,7 +362,7 @@ If null or undefined is passed, default config <a href="_actionDisplayConfig">_a
                 </tr>
                         <tr>
                             <td class="col-md-2" colspan="2">
-                                    <div class="io-line">Defined in <a href="" data-line="31" class="link-to-prism">projects/components/src/action-menu/action-menu.component.ts:31</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="81" class="link-to-prism">projects/components/src/action-menu/action-menu.component.ts:81</a></div>
                             </td>
                         </tr>
                 <tr>
@@ -366,8 +377,8 @@ If null or undefined is passed, default config <a href="_actionDisplayConfig">_a
             <tbody>
                 <tr>
                     <td class="col-md-4">
-                        <a name="entityUrn"></a>
-                        <b>entityUrn</b>
+                        <a name="dropdownPosition"></a>
+                        <b>dropdownPosition</b>
                     </td>
                 </tr>
                 <tr>
@@ -378,9 +389,114 @@ If null or undefined is passed, default config <a href="_actionDisplayConfig">_a
                 </tr>
                         <tr>
                             <td class="col-md-2" colspan="2">
-                                    <div class="io-line">Defined in <a href="" data-line="20" class="link-to-prism">projects/components/src/action-menu/action-menu.component.ts:20</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="92" class="link-to-prism">projects/components/src/action-menu/action-menu.component.ts:92</a></div>
                             </td>
                         </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <div class="io-description"><p>The direction with respect to the root dropdown trigger button in which the root drop down should open
+<a href="DropdownComponent.dropdownPosition">DropdownComponent.dropdownPosition</a></p>
+</div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="dropdownTriggerBtnIcon"></a>
+                        <b>dropdownTriggerBtnIcon</b>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>null</code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-2" colspan="2">
+                                    <div class="io-line">Defined in <a href="" data-line="76" class="link-to-prism">projects/components/src/action-menu/action-menu.component.ts:76</a></div>
+                            </td>
+                        </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <div class="io-description"><p>Icon of the action menu dropdown trigger button. Used when <a href="#actionDisplayConfig">#actionDisplayConfig</a> styling is
+<a href="ActionStyling.DROPDOWN">ActionStyling.DROPDOWN</a></p>
+</div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="dropdownTriggerBtnText"></a>
+                        <b>dropdownTriggerBtnText</b>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>null</code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-2" colspan="2">
+                                    <div class="io-line">Defined in <a href="" data-line="70" class="link-to-prism">projects/components/src/action-menu/action-menu.component.ts:70</a></div>
+                            </td>
+                        </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <div class="io-description"><p>Text Content of the action menu dropdown trigger button. Used when <a href="#actionDisplayConfig">#actionDisplayConfig</a> styling is
+<a href="ActionStyling.DROPDOWN">ActionStyling.DROPDOWN</a></p>
+</div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="nestedDropdownPosition"></a>
+                        <b>nestedDropdownPosition</b>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>&#x27;right-top&#x27;</code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-2" colspan="2">
+                                    <div class="io-line">Defined in <a href="" data-line="97" class="link-to-prism">projects/components/src/action-menu/action-menu.component.ts:97</a></div>
+                            </td>
+                        </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <div class="io-description"><p>The direction in which the nested drop downs open. <a href="DropdownComponent.nestedDropdownPosition">DropdownComponent.nestedDropdownPosition</a></p>
+</div>
+                    </td>
+                </tr>
             </tbody>
         </table>
         <table class="table table-sm table-bordered">
@@ -399,44 +515,12 @@ If null or undefined is passed, default config <a href="_actionDisplayConfig">_a
                 </tr>
                         <tr>
                             <td class="col-md-2" colspan="2">
-                                    <div class="io-line">Defined in <a href="" data-line="36" class="link-to-prism">projects/components/src/action-menu/action-menu.component.ts:36</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="86" class="link-to-prism">projects/components/src/action-menu/action-menu.component.ts:86</a></div>
                             </td>
                         </tr>
                 <tr>
                     <td class="col-md-4">
-                        <div class="io-description"><p>List of selected entities required for contextual actions</p>
-</div>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
-        <table class="table table-sm table-bordered">
-            <tbody>
-                <tr>
-                    <td class="col-md-4">
-                        <a name="staticActionStyling"></a>
-                        <b>staticActionStyling</b>
-                    </td>
-                </tr>
-                <tr>
-                    <td class="col-md-4">
-                        <i>Type : </i>        <code><a href="../miscellaneous/enumerations.html#ActionStyling" target="_self" >ActionStyling</a></code>
-
-                    </td>
-                </tr>
-                <tr>
-                    <td class="col-md-4">
-                        <i>Default value : </i><code>ActionStyling.INLINE</code>
-                    </td>
-                </tr>
-                        <tr>
-                            <td class="col-md-2" colspan="2">
-                                    <div class="io-line">Defined in <a href="" data-line="41" class="link-to-prism">projects/components/src/action-menu/action-menu.component.ts:41</a></div>
-                            </td>
-                        </tr>
-                <tr>
-                    <td class="col-md-4">
-                        <div class="io-description"><p>How the static actions get displayed</p>
+                        <div class="io-description"><p>The list of entities selected on which contextualActions are performed</p>
 </div>
                     </td>
                 </tr>
@@ -466,22 +550,22 @@ If null or undefined is passed, default config <a href="_actionDisplayConfig">_a
             </tr>
             <tr>
                 <td class="col-md-4">
-<code>getAvailableActions(actions: <a href="../interfaces/ActionItem.html">ActionItem<R, T>[]</a>, selection?: R[])</code>
+<code>getAvailableActions(actions: <a href="../interfaces/ActionItem.html">ActionItem<R, T>[]</a>)</code>
                 </td>
             </tr>
 
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="103"
-                            class="link-to-prism">projects/components/src/action-menu/action-menu.component.ts:103</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="122"
+                            class="link-to-prism">projects/components/src/action-menu/action-menu.component.ts:122</a></div>
                 </td>
             </tr>
 
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-description"><p>Returns actions that are either available or disabled</p>
+                    <div class="io-description"><p>Returns the actions to be shown</p>
 </div>
 
                     <div class="io-description">
@@ -507,18 +591,6 @@ If null or undefined is passed, default config <a href="_actionDisplayConfig">_a
 
 
                                 </tr>
-                                <tr>
-                                    <td>selection</td>
-                                    <td>
-                                            <code>R[]</code>
-                                    </td>
-
-                                    <td>
-                                        Yes
-                                    </td>
-
-
-                                </tr>
                             </tbody>
                         </table>
                     </div>
@@ -539,33 +611,35 @@ If null or undefined is passed, default config <a href="_actionDisplayConfig">_a
         <tbody>
             <tr>
                 <td class="col-md-4">
-                    <a name="getContextualActions"></a>
+                    <a name="getDeepCopy"></a>
                     <span class="name">
                         <b>
-                            getContextualActions
+                            <span class="modifier">Private</span>
+                            getDeepCopy
                         </b>
-                        <a href="#getContextualActions"><span class="icon ion-ios-link"></span></a>
+                        <a href="#getDeepCopy"><span class="icon ion-ios-link"></span></a>
                     </span>
                 </td>
             </tr>
             <tr>
                 <td class="col-md-4">
-<code>getContextualActions(selection?: R[])</code>
+                    <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>getDeepCopy(actions: <a href="../interfaces/ActionItem.html">ActionItem<R, T>[]</a>)</code>
                 </td>
             </tr>
 
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="154"
-                            class="link-to-prism">projects/components/src/action-menu/action-menu.component.ts:154</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="183"
+                            class="link-to-prism">projects/components/src/action-menu/action-menu.component.ts:183</a></div>
                 </td>
             </tr>
 
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-description"><p>Actions that depend on selected entities but belong to sub menu</p>
+                    <div class="io-description"><p>Without the deep copy, the changes made to any of the action children in one of the methods are persisting in other methods</p>
 </div>
 
                     <div class="io-description">
@@ -576,92 +650,13 @@ If null or undefined is passed, default config <a href="_actionDisplayConfig">_a
                                     <td>Name</td>
                                     <td>Type</td>
                                     <td>Optional</td>
-                                    <td>Description</td>
                                 </tr>
                             </thead>
                             <tbody>
                                 <tr>
-                                    <td>selection</td>
+                                    <td>actions</td>
                                     <td>
-                                            <code>R[]</code>
-                                    </td>
-
-                                    <td>
-                                        Yes
-                                    </td>
-
-
-                                    <td>
-                                        <p>The selected entities based on which the actions availability is calculated</p>
-
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                    <div>
-                    </div>
-                    <div class="io-description">
-                        <b>Returns : </b>        <code><a href="../interfaces/ActionItem.html" target="_self" >ActionItem[]</a></code>
-
-                    </div>
-                    <div class="io-description">
-                        
-                    </div>
-                </td>
-            </tr>
-        </tbody>
-    </table>
-    <table class="table table-sm table-bordered">
-        <tbody>
-            <tr>
-                <td class="col-md-4">
-                    <a name="getContextualFeaturedActions"></a>
-                    <span class="name">
-                        <b>
-                            getContextualFeaturedActions
-                        </b>
-                        <a href="#getContextualFeaturedActions"><span class="icon ion-ios-link"></span></a>
-                    </span>
-                </td>
-            </tr>
-            <tr>
-                <td class="col-md-4">
-<code>getContextualFeaturedActions(selection: R[])</code>
-                </td>
-            </tr>
-
-
-            <tr>
-                <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="142"
-                            class="link-to-prism">projects/components/src/action-menu/action-menu.component.ts:142</a></div>
-                </td>
-            </tr>
-
-
-            <tr>
-                <td class="col-md-4">
-                    <div class="io-description"><p>Actions that depend on selected entities and belong to main menu list. The returned list length is less than the
-configured featured count in <a href="actionDisplayConfig">actionDisplayConfig</a></p>
-</div>
-
-                    <div class="io-description">
-                        <b>Parameters :</b>
-                        <table class="params">
-                            <thead>
-                                <tr>
-                                    <td>Name</td>
-                                    <td>Type</td>
-                                    <td>Optional</td>
-                                    <td>Description</td>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td>selection</td>
-                                    <td>
-                                            <code>R[]</code>
+                                                <code><a href="../interfaces/ActionItem.html" target="_self" >ActionItem&lt;R, T&gt;[]</a></code>
                                     </td>
 
                                     <td>
@@ -669,10 +664,6 @@ configured featured count in <a href="actionDisplayConfig">actionDisplayConfig</
                                     </td>
 
 
-                                    <td>
-                                        <p>The selected entities based on which the actions availability is calculated</p>
-
-                                    </td>
                                 </tr>
                             </tbody>
                         </table>
@@ -714,14 +705,16 @@ configured featured count in <a href="actionDisplayConfig">actionDisplayConfig</
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="125"
-                            class="link-to-prism">projects/components/src/action-menu/action-menu.component.ts:125</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="210"
+                            class="link-to-prism">projects/components/src/action-menu/action-menu.component.ts:210</a></div>
                 </td>
             </tr>
 
 
             <tr>
                 <td class="col-md-4">
+                    <div class="io-description"><p>Extracts the nested actions that are marked as featured and returns them as part of a flat list</p>
+</div>
 
                     <div class="io-description">
                         <b>Parameters :</b>
@@ -778,6 +771,81 @@ configured featured count in <a href="actionDisplayConfig">actionDisplayConfig</
         <tbody>
             <tr>
                 <td class="col-md-4">
+                    <a name="isActionAvailable"></a>
+                    <span class="name">
+                        <b>
+                            <span class="modifier">Private</span>
+                            isActionAvailable
+                        </b>
+                        <a href="#isActionAvailable"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                    <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>isActionAvailable(action: <a href="../interfaces/ActionItem.html">ActionItem<R | T></a>)</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="136"
+                            class="link-to-prism">projects/components/src/action-menu/action-menu.component.ts:136</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>An action whose availability is false but has the disabled state set to true is still shown on the screen in
+disabled mode</p>
+</div>
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Type</td>
+                                    <td>Optional</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>action</td>
+                                    <td>
+                                                <code><a href="../interfaces/ActionItem.html" target="_self" >ActionItem&lt;R | T&gt;</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank" >boolean</a></code>
+
+                    </div>
+                    <div class="io-description">
+                        
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
                     <a name="isActionDisabled"></a>
                     <span class="name">
                         <b>
@@ -796,8 +864,8 @@ configured featured count in <a href="actionDisplayConfig">actionDisplayConfig</
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="172"
-                            class="link-to-prism">projects/components/src/action-menu/action-menu.component.ts:172</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="250"
+                            class="link-to-prism">projects/components/src/action-menu/action-menu.component.ts:250</a></div>
                 </td>
             </tr>
 
@@ -868,8 +936,8 @@ configured featured count in <a href="actionDisplayConfig">actionDisplayConfig</
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="165"
-                            class="link-to-prism">projects/components/src/action-menu/action-menu.component.ts:165</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="241"
+                            class="link-to-prism">projects/components/src/action-menu/action-menu.component.ts:241</a></div>
                 </td>
             </tr>
 
@@ -919,6 +987,295 @@ configured featured count in <a href="actionDisplayConfig">actionDisplayConfig</
             </tr>
         </tbody>
     </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="shouldDisplayActions"></a>
+                    <span class="name">
+                        <b>
+                            shouldDisplayActions
+                        </b>
+                        <a href="#shouldDisplayActions"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>shouldDisplayActions(style: <a href="../undefineds/ActionStyling.html">ActionStyling</a>)</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="265"
+                            class="link-to-prism">projects/components/src/action-menu/action-menu.component.ts:265</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>To show or hide the container elements containing inline and also dropdown actions</p>
+</div>
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Type</td>
+                                    <td>Optional</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>style</td>
+                                    <td>
+                                                <code><a href="../miscellaneous/enumerations.html#ActionStyling" target="_self" >ActionStyling</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank" >boolean</a></code>
+
+                    </div>
+                    <div class="io-description">
+                        
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="shouldDisplayContextualActions"></a>
+                    <span class="name">
+                        <b>
+                            shouldDisplayContextualActions
+                        </b>
+                        <a href="#shouldDisplayContextualActions"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>shouldDisplayContextualActions(style: <a href="../undefineds/ActionStyling.html">ActionStyling</a>)</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="297"
+                            class="link-to-prism">projects/components/src/action-menu/action-menu.component.ts:297</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>To show or hide <a href="ActionType.CONTEXTUAL">ActionType.CONTEXTUAL</a> and <a href="ActionType.CONTEXTUAL_FEATURED">ActionType.CONTEXTUAL_FEATURED</a> actions in inline or
+dropdown action containers</p>
+</div>
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Type</td>
+                                    <td>Optional</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>style</td>
+                                    <td>
+                                                <code><a href="../miscellaneous/enumerations.html#ActionStyling" target="_self" >ActionStyling</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank" >boolean</a></code>
+
+                    </div>
+                    <div class="io-description">
+                        
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="shouldDisplayStaticActions"></a>
+                    <span class="name">
+                        <b>
+                            shouldDisplayStaticActions
+                        </b>
+                        <a href="#shouldDisplayStaticActions"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>shouldDisplayStaticActions(style: <a href="../undefineds/ActionStyling.html">ActionStyling</a>)</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="287"
+                            class="link-to-prism">projects/components/src/action-menu/action-menu.component.ts:287</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>To show or hide <a href="ActionType.STATIC">ActionType.STATIC</a> actions in inline or dropdown action containers</p>
+</div>
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Type</td>
+                                    <td>Optional</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>style</td>
+                                    <td>
+                                                <code><a href="../miscellaneous/enumerations.html#ActionStyling" target="_self" >ActionStyling</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank" >boolean</a></code>
+
+                    </div>
+                    <div class="io-description">
+                        
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="shouldDisplayStaticFeaturedActions"></a>
+                    <span class="name">
+                        <b>
+                            shouldDisplayStaticFeaturedActions
+                        </b>
+                        <a href="#shouldDisplayStaticFeaturedActions"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>shouldDisplayStaticFeaturedActions(style: <a href="../undefineds/ActionStyling.html">ActionStyling</a>)</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="276"
+                            class="link-to-prism">projects/components/src/action-menu/action-menu.component.ts:276</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>To show or hide <a href="ActionType.STATIC_FEATURED">ActionType.STATIC_FEATURED</a> actions in inline actions container</p>
+</div>
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Type</td>
+                                    <td>Optional</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>style</td>
+                                    <td>
+                                                <code><a href="../miscellaneous/enumerations.html#ActionStyling" target="_self" >ActionStyling</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank" >boolean</a></code>
+
+                    </div>
+                    <div class="io-description">
+                        
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
 </section>
     <section>
     
@@ -946,19 +1303,12 @@ configured featured count in <a href="actionDisplayConfig">actionDisplayConfig</
                     </tr>
                     <tr>
                         <td class="col-md-4">
-                            <i>Default value : </i><code>{
-        contextual: {
-            featuredCount: 0,
-            styling: ActionStyling.INLINE,
-            buttonContents: TextIcon.TEXT,
-        },
-        staticActionStyling: ActionStyling.INLINE,
-    }</code>
+                            <i>Default value : </i><code>DEFAULT_ACTION_DISPLAY_CONFIG</code>
                         </td>
                     </tr>
                         <tr>
                             <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="59" class="link-to-prism">projects/components/src/action-menu/action-menu.component.ts:59</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="48" class="link-to-prism">projects/components/src/action-menu/action-menu.component.ts:48</a></div>
                             </td>
                         </tr>
 
@@ -991,13 +1341,84 @@ configured featured count in <a href="actionDisplayConfig">actionDisplayConfig</
                     </tr>
                         <tr>
                             <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="46" class="link-to-prism">projects/components/src/action-menu/action-menu.component.ts:46</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="32" class="link-to-prism">projects/components/src/action-menu/action-menu.component.ts:32</a></div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="actionsTrackBy"></a>
+                        <span class="name">
+                            <b>
+                            actionsTrackBy</b>
+                            <a href="#actionsTrackBy"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Type : </i>        <code><a href="../interfaces/ActionItem.html" target="_self" >TrackByFunction&lt;ActionItem&lt;R, T&gt;&gt;</a></code>
+
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Default value : </i><code>() &#x3D;&gt; {...}</code>
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="258" class="link-to-prism">projects/components/src/action-menu/action-menu.component.ts:258</a></div>
                             </td>
                         </tr>
 
                 <tr>
                     <td class="col-md-4">
-                        <div class="io-description"><p>List of actions that will be given by the calling component</p>
+                        <div class="io-description"><p>Used as <a href="ngForTrackBy">ngForTrackBy</a> input value when iterating over action lists <a href="DropdownComponent.trackByFunction">DropdownComponent.trackByFunction</a>
+Without this method as input for ngForTrackBy, the dropdown gets rendered off screen</p>
+</div>
+                    </td>
+                </tr>
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="actionStyling"></a>
+                        <span class="name">
+                            <b>
+                            actionStyling</b>
+                            <a href="#actionStyling"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Type : </i>        <code><a href="../miscellaneous/enumerations.html#ActionStyling" target="_self" >ActionStyling</a></code>
+
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Default value : </i><code>ActionStyling</code>
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="117" class="link-to-prism">projects/components/src/action-menu/action-menu.component.ts:117</a></div>
+                            </td>
+                        </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <div class="io-description"><p>Used in the html template</p>
 </div>
                     </td>
                 </tr>
@@ -1022,9 +1443,14 @@ configured featured count in <a href="actionDisplayConfig">actionDisplayConfig</
 
                         </td>
                     </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Default value : </i><code>(TextIcon.ICON &amp; this.actionDisplayConfig.contextual.buttonContents) &#x3D;&#x3D;&#x3D; TextIcon.ICON</code>
+                        </td>
+                    </tr>
                         <tr>
                             <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="88" class="link-to-prism">projects/components/src/action-menu/action-menu.component.ts:88</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="102" class="link-to-prism">projects/components/src/action-menu/action-menu.component.ts:102</a></div>
                             </td>
                         </tr>
 
@@ -1055,9 +1481,14 @@ configured featured count in <a href="actionDisplayConfig">actionDisplayConfig</
 
                         </td>
                     </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Default value : </i><code>(TextIcon.TEXT &amp; this.actionDisplayConfig.contextual.buttonContents) &#x3D;&#x3D;&#x3D; TextIcon.TEXT</code>
+                        </td>
+                    </tr>
                         <tr>
                             <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="93" class="link-to-prism">projects/components/src/action-menu/action-menu.component.ts:93</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="107" class="link-to-prism">projects/components/src/action-menu/action-menu.component.ts:107</a></div>
                             </td>
                         </tr>
 
@@ -1088,9 +1519,14 @@ configured featured count in <a href="actionDisplayConfig">actionDisplayConfig</
 
                         </td>
                     </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Default value : </i><code>this.actionDisplayConfig.contextual.buttonContents &#x3D;&#x3D;&#x3D; TextIcon.ICON</code>
+                        </td>
+                    </tr>
                         <tr>
                             <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="98" class="link-to-prism">projects/components/src/action-menu/action-menu.component.ts:98</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="112" class="link-to-prism">projects/components/src/action-menu/action-menu.component.ts:112</a></div>
                             </td>
                         </tr>
 
@@ -1125,7 +1561,7 @@ configured featured count in <a href="actionDisplayConfig">actionDisplayConfig</
                 </tr>
                             <tr>
                                 <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="55" class="link-to-prism">projects/components/src/action-menu/action-menu.component.ts:55</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="44" class="link-to-prism">projects/components/src/action-menu/action-menu.component.ts:44</a></div>
                                 </td>
                             </tr>
 
@@ -1136,11 +1572,13 @@ configured featured count in <a href="actionDisplayConfig">actionDisplayConfig</
                 </tr>
                             <tr>
                                 <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="47" class="link-to-prism">projects/components/src/action-menu/action-menu.component.ts:47</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="36" class="link-to-prism">projects/components/src/action-menu/action-menu.component.ts:36</a></div>
                                 </td>
                             </tr>
                     <tr>
                         <td class="col-md-4">
+                                <div class="io-description"><p>List of actions containing both static and contextual that are given by the calling component</p>
+</div>
 
                                 <div class="io-description">
                                         <b>Parameters :</b>
@@ -1194,7 +1632,7 @@ configured featured count in <a href="actionDisplayConfig">actionDisplayConfig</
                 </tr>
                             <tr>
                                 <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="81" class="link-to-prism">projects/components/src/action-menu/action-menu.component.ts:81</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="62" class="link-to-prism">projects/components/src/action-menu/action-menu.component.ts:62</a></div>
                                 </td>
                             </tr>
 
@@ -1205,12 +1643,12 @@ configured featured count in <a href="actionDisplayConfig">actionDisplayConfig</
                 </tr>
                             <tr>
                                 <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="71" class="link-to-prism">projects/components/src/action-menu/action-menu.component.ts:71</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="53" class="link-to-prism">projects/components/src/action-menu/action-menu.component.ts:53</a></div>
                                 </td>
                             </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-description"><p>Display configuration of static and contextual actions
+                                <div class="io-description"><p>Display configuration of both static and contextual actions
 If null or undefined is passed, default config <a href="_actionDisplayConfig">_actionDisplayConfig</a> is used</p>
 </div>
 
@@ -1262,7 +1700,7 @@ If null or undefined is passed, default config <a href="_actionDisplayConfig">_a
                 </tr>
                             <tr>
                                 <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="112" class="link-to-prism">projects/components/src/action-menu/action-menu.component.ts:112</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="143" class="link-to-prism">projects/components/src/action-menu/action-menu.component.ts:143</a></div>
                                 </td>
                             </tr>
                     <tr>
@@ -1295,7 +1733,7 @@ If null or undefined is passed, default config <a href="_actionDisplayConfig">_a
                 </tr>
                             <tr>
                                 <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="120" class="link-to-prism">projects/components/src/action-menu/action-menu.component.ts:120</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="151" class="link-to-prism">projects/components/src/action-menu/action-menu.component.ts:151</a></div>
                                 </td>
                             </tr>
                     <tr>
@@ -1316,24 +1754,193 @@ If null or undefined is passed, default config <a href="_actionDisplayConfig">_a
             <tbody>
                 <tr>
                     <td class="col-md-4">
-                        <a name="shouldShowContextualActions"></a>
-                        <span class="name"><b>shouldShowContextualActions</b><a href="#shouldShowContextualActions"><span class="icon ion-ios-link"></span></a></span>
+                        <a name="staticDropdownActions"></a>
+                        <span class="name"><b>staticDropdownActions</b><a href="#staticDropdownActions"><span class="icon ion-ios-link"></span></a></span>
                     </td>
                 </tr>
 
                 <tr>
                     <td class="col-md-4">
-                        <span class="accessor"><b>get</b><code>shouldShowContextualActions()</code></span>
+                        <span class="accessor"><b>get</b><code>staticDropdownActions()</code></span>
                     </td>
                 </tr>
                             <tr>
                                 <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="179" class="link-to-prism">projects/components/src/action-menu/action-menu.component.ts:179</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="160" class="link-to-prism">projects/components/src/action-menu/action-menu.component.ts:160</a></div>
                                 </td>
                             </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-description"><p>To show/hide the contextual actions bucket</p>
+                                <div class="io-description"><p>List containing all the static actions. It has static featured actions in the beginning of the list followed by
+non-featured static actions as children of grouped action called &#39;vcd.cc.action.menu.all.actions&#39;</p>
+</div>
+
+                                <div class="io-description">
+                                    <b>Returns : </b>    <code>[] | object</code>
+
+                                </div>
+                        </td>
+                    </tr>
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="contextualDropdownActions"></a>
+                        <span class="name"><b>contextualDropdownActions</b><a href="#contextualDropdownActions"><span class="icon ion-ios-link"></span></a></span>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <span class="accessor"><b>get</b><code>contextualDropdownActions()</code></span>
+                    </td>
+                </tr>
+                            <tr>
+                                <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="171" class="link-to-prism">projects/components/src/action-menu/action-menu.component.ts:171</a></div>
+                                </td>
+                            </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-description"><p>List containing all the contextual actions. It has contextual featured actions in the beginning of the list
+followed by non-featured contextual actions as children of grouped action called
+&#39;vcd.cc.action.menu.all.actions&#39;</p>
+</div>
+
+                                <div class="io-description">
+                                    <b>Returns : </b>    <code>[] | object</code>
+
+                                </div>
+                        </td>
+                    </tr>
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="contextualFeaturedActions"></a>
+                        <span class="name"><b>contextualFeaturedActions</b><a href="#contextualFeaturedActions"><span class="icon ion-ios-link"></span></a></span>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <span class="accessor"><b>get</b><code>contextualFeaturedActions()</code></span>
+                    </td>
+                </tr>
+                            <tr>
+                                <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="196" class="link-to-prism">projects/components/src/action-menu/action-menu.component.ts:196</a></div>
+                                </td>
+                            </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-description"><p>Actions that depend on selected entities and belong to main menu list. The returned list length is less than the
+configured featured count in <a href="actionDisplayConfig">actionDisplayConfig</a></p>
+</div>
+
+                                <div class="io-description">
+                                    <b>Returns : </b>        <code><a href="../interfaces/ActionItem.html" target="_self" >ActionItem[]</a></code>
+
+                                </div>
+                        </td>
+                    </tr>
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="contextualActions"></a>
+                        <span class="name"><b>contextualActions</b><a href="#contextualActions"><span class="icon ion-ios-link"></span></a></span>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <span class="accessor"><b>get</b><code>contextualActions()</code></span>
+                    </td>
+                </tr>
+                            <tr>
+                                <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="225" class="link-to-prism">projects/components/src/action-menu/action-menu.component.ts:225</a></div>
+                                </td>
+                            </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-description"><p>Actions that depend on selected entities but belong to sub menu</p>
+</div>
+
+                                <div class="io-description">
+                                    <b>Returns : </b>        <code><a href="../interfaces/ActionItem.html" target="_self" >ActionItem[]</a></code>
+
+                                </div>
+                        </td>
+                    </tr>
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="shouldDisplayStaticAndStaticFeaturedActionsDropdown"></a>
+                        <span class="name"><b>shouldDisplayStaticAndStaticFeaturedActionsDropdown</b><a href="#shouldDisplayStaticAndStaticFeaturedActionsDropdown"><span class="icon ion-ios-link"></span></a></span>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <span class="accessor"><b>get</b><code>shouldDisplayStaticAndStaticFeaturedActionsDropdown()</code></span>
+                    </td>
+                </tr>
+                            <tr>
+                                <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="309" class="link-to-prism">projects/components/src/action-menu/action-menu.component.ts:309</a></div>
+                                </td>
+                            </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-description"><p>To show or hide <a href="ActionType.STATIC_FEATURED">ActionType.STATIC_FEATURED</a> and <a href="ActionType.STATIC">ActionType.STATIC</a> actions in a dropdown</p>
+</div>
+
+                                <div class="io-description">
+                                    <b>Returns : </b>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank" >boolean</a></code>
+
+                                </div>
+                        </td>
+                    </tr>
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="shouldDisplayStaticAndStaticFeaturedActionsInline"></a>
+                        <span class="name"><b>shouldDisplayStaticAndStaticFeaturedActionsInline</b><a href="#shouldDisplayStaticAndStaticFeaturedActionsInline"><span class="icon ion-ios-link"></span></a></span>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <span class="accessor"><b>get</b><code>shouldDisplayStaticAndStaticFeaturedActionsInline()</code></span>
+                    </td>
+                </tr>
+                            <tr>
+                                <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="319" class="link-to-prism">projects/components/src/action-menu/action-menu.component.ts:319</a></div>
+                                </td>
+                            </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-description"><p>To show or hide <a href="ActionType.STATIC_FEATURED">ActionType.STATIC_FEATURED</a> and <a href="ActionType.STATIC">ActionType.STATIC</a> actions in a inline action bar</p>
 </div>
 
                                 <div class="io-description">
@@ -1350,13 +1957,25 @@ If null or undefined is passed, default config <a href="_actionDisplayConfig">_a
 
 
     <div class="tab-pane fade  tab-source-code" id="c-source">
-        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Component, Input } from &#x27;@angular/core&#x27;;
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Component, Input, TrackByFunction } from &#x27;@angular/core&#x27;;
 import { ActionDisplayConfig, ActionItem, ActionStyling, ActionType, TextIcon } from &#x27;../common/interfaces&#x27;;
 
 /**
- * Renders actions in screens containing grids, cards and details container
+ * Value used for the display configuration of action buttons if no input is provided by the caller
+ */
+export const DEFAULT_ACTION_DISPLAY_CONFIG: ActionDisplayConfig &#x3D; {
+    contextual: {
+        featuredCount: 0,
+        styling: ActionStyling.INLINE,
+        buttonContents: TextIcon.TEXT,
+    },
+    staticActionStyling: ActionStyling.INLINE,
+};
+
+/**
+ * Renders actions in screens containing grids, cards and details container screens
  * R is the type of selected entity on which the action will be performed
- * T is the type of custom data passed to action handler
+ * T is the type of custom data passed to action handler methods
  */
 @Component({
     selector: &#x27;vcd-action-menu&#x27;,
@@ -1364,33 +1983,10 @@ import { ActionDisplayConfig, ActionItem, ActionStyling, ActionType, TextIcon } 
     styleUrls: [&#x27;./action-menu.component.scss&#x27;],
 })
 export class ActionMenuComponent&lt;R, T&gt; {
-    @Input() entityUrn: string;
-
-    /**
-     * Content of the action menu dropdown trigger button. Used when {@link #actionDisplayConfig} styling is
-     * {@link ActionStyling.DROPDOWN}
-     */
-    @Input() btnText: string &#x3D; null;
-
-    /**
-     * Used for disabling the menu bar or menu dropdown
-     */
-    @Input() disabled: boolean;
-
-    /**
-     * List of selected entities required for contextual actions
-     */
-    @Input() selectedEntities: R[];
-
-    /**
-     * How the static actions get displayed
-     */
-    @Input() staticActionStyling: ActionStyling &#x3D; ActionStyling.INLINE;
-
-    /**
-     * List of actions that will be given by the calling component
-     */
     private _actions: ActionItem&lt;R, T&gt;[] &#x3D; [];
+    /**
+     * List of actions containing both static and contextual that are given by the calling component
+     */
     @Input() set actions(actions: ActionItem&lt;R, T&gt;[]) {
         this._actions &#x3D; actions.map(action &#x3D;&gt; {
             if (!action.actionType) {
@@ -1400,26 +1996,18 @@ export class ActionMenuComponent&lt;R, T&gt; {
         });
     }
     get actions(): ActionItem&lt;R, T&gt;[] {
-        return this._actions;
+        return this.getDeepCopy(this._actions);
     }
 
-    private _actionDisplayConfig: ActionDisplayConfig &#x3D; {
-        contextual: {
-            featuredCount: 0,
-            styling: ActionStyling.INLINE,
-            buttonContents: TextIcon.TEXT,
-        },
-        staticActionStyling: ActionStyling.INLINE,
-    };
+    private _actionDisplayConfig: ActionDisplayConfig &#x3D; DEFAULT_ACTION_DISPLAY_CONFIG;
     /**
-     * Display configuration of static and contextual actions
+     * Display configuration of both static and contextual actions
      * If null or undefined is passed, default config {@link _actionDisplayConfig} is used
      */
     @Input() set actionDisplayConfig(config: ActionDisplayConfig) {
-        config &#x3D; !config ? this._actionDisplayConfig : config;
-        Object.keys(config).forEach(key &#x3D;&gt; {
-            this._actionDisplayConfig[key] &#x3D; config[key] || this._actionDisplayConfig[key];
-        });
+        Object.keys(config || {}).forEach(
+            key &#x3D;&gt; (this._actionDisplayConfig[key] &#x3D; config[key] ? config[key] : DEFAULT_ACTION_DISPLAY_CONFIG[key])
+        );
         const buttonContents &#x3D; this.actionDisplayConfig.contextual.buttonContents;
         this.shouldShowIcon &#x3D; (TextIcon.ICON &amp; buttonContents) &#x3D;&#x3D;&#x3D; TextIcon.ICON;
         this.shouldShowText &#x3D; (TextIcon.TEXT &amp; buttonContents) &#x3D;&#x3D;&#x3D; TextIcon.TEXT;
@@ -1430,27 +2018,77 @@ export class ActionMenuComponent&lt;R, T&gt; {
     }
 
     /**
+     * Text Content of the action menu dropdown trigger button. Used when {@link #actionDisplayConfig} styling is
+     * {@link ActionStyling.DROPDOWN}
+     */
+    @Input() dropdownTriggerBtnText: string &#x3D; null;
+
+    /**
+     * Icon of the action menu dropdown trigger button. Used when {@link #actionDisplayConfig} styling is
+     * {@link ActionStyling.DROPDOWN}
+     */
+    @Input() dropdownTriggerBtnIcon: string &#x3D; null;
+
+    /**
+     * Used for disabling the menu bar or menu dropdown
+     */
+    @Input() disabled: boolean;
+
+    /**
+     * The list of entities selected on which contextualActions are performed
+     */
+    @Input() selectedEntities: R[];
+
+    /**
+     * The direction with respect to the root dropdown trigger button in which the root drop down should open
+     * {@link DropdownComponent.dropdownPosition}
+     */
+    @Input() dropdownPosition: string;
+
+    /**
+     * The direction in which the nested drop downs open. {@link DropdownComponent.nestedDropdownPosition}
+     */
+    @Input() nestedDropdownPosition &#x3D; &#x27;right-top&#x27;;
+
+    /**
      * If a icon should be displayed inside contextual buttons
      */
-    shouldShowIcon: boolean;
+    shouldShowIcon: boolean &#x3D; (TextIcon.ICON &amp; this.actionDisplayConfig.contextual.buttonContents) &#x3D;&#x3D;&#x3D; TextIcon.ICON;
 
     /**
      * If a text should be displayed inside contextual buttons
      */
-    shouldShowText: boolean;
+    shouldShowText: boolean &#x3D; (TextIcon.TEXT &amp; this.actionDisplayConfig.contextual.buttonContents) &#x3D;&#x3D;&#x3D; TextIcon.TEXT;
 
     /**
      * If the contextual buttons with icons should have a tooltip
      */
-    shouldShowTooltip: boolean;
+    shouldShowTooltip: boolean &#x3D; this.actionDisplayConfig.contextual.buttonContents &#x3D;&#x3D;&#x3D; TextIcon.ICON;
 
     /**
-     * Returns actions that are either available or disabled
+     * Used in the html template
      */
-    getAvailableActions(actions: ActionItem&lt;R, T&gt;[], selection?: R[]): ActionItem&lt;R, T&gt;[] {
-        return actions.filter(
-            action &#x3D;&gt; !action.availability || action.availability(selection) || this.isActionDisabled(action)
-        );
+    actionStyling &#x3D; ActionStyling;
+
+    /**
+     * Returns the actions to be shown
+     */
+    getAvailableActions(actions: ActionItem&lt;R, T&gt;[]): ActionItem&lt;R, T&gt;[] {
+        return actions.filter(action &#x3D;&gt; {
+            const isActionAvailable &#x3D; this.isActionAvailable(action);
+            if (isActionAvailable &amp;&amp; action.children &amp;&amp; action.children.length) {
+                action.children &#x3D; this.getAvailableActions(action.children);
+            }
+            return isActionAvailable;
+        });
+    }
+
+    /**
+     * An action whose availability is false but has the disabled state set to true is still shown on the screen in
+     * disabled mode
+     */
+    private isActionAvailable(action: ActionItem&lt;R, T&gt;): boolean {
+        return !action.availability || action.availability(this.selectedEntities) || this.isActionDisabled(action);
     }
 
     /**
@@ -1465,10 +2103,64 @@ export class ActionMenuComponent&lt;R, T&gt; {
      * List of only the actions that are marked as {@link ActionType.STATIC_FEATURED}
      */
     get staticFeaturedActions(): ActionItem&lt;R, T&gt;[] {
-        const staticActions &#x3D; this.actions.filter(action &#x3D;&gt; action.actionType &#x3D;&#x3D;&#x3D; ActionType.STATIC_FEATURED);
-        return this.getAvailableActions(staticActions);
+        const staticFeaturedActions &#x3D; this.actions.filter(action &#x3D;&gt; action.actionType &#x3D;&#x3D;&#x3D; ActionType.STATIC_FEATURED);
+        return this.getAvailableActions(staticFeaturedActions);
     }
 
+    /**
+     * List containing all the static actions. It has static featured actions in the beginning of the list followed by
+     * non-featured static actions as children of grouped action called &#x27;vcd.cc.action.menu.all.actions&#x27;
+     */
+    get staticDropdownActions(): ActionItem&lt;R, T&gt;[] | object {
+        return this.staticFeaturedActions.concat([
+            { textKey: &#x27;vcd.cc.action.menu.all.actions&#x27;, children: this.staticActions },
+        ]);
+    }
+
+    /**
+     * List containing all the contextual actions. It has contextual featured actions in the beginning of the list
+     * followed by non-featured contextual actions as children of grouped action called
+     * &#x27;vcd.cc.action.menu.all.actions&#x27;
+     */
+    get contextualDropdownActions(): ActionItem&lt;R, T&gt;[] | object {
+        return this.contextualFeaturedActions.concat([
+            {
+                textKey: &#x27;vcd.cc.action.menu.all.actions&#x27;,
+                children: this.contextualActions,
+            },
+        ]);
+    }
+
+    /**
+     * Without the deep copy, the changes made to any of the action children in one of the methods are persisting in other methods
+     */
+    private getDeepCopy(actions: ActionItem&lt;R, T&gt;[]): ActionItem&lt;R, T&gt;[] {
+        return actions.map(action &#x3D;&gt; {
+            if (action.children &amp;&amp; action.children.length) {
+                action.children &#x3D; this.getDeepCopy(action.children);
+            }
+            return { ...action };
+        });
+    }
+
+    /**
+     * Actions that depend on selected entities and belong to main menu list. The returned list length is less than the
+     * configured featured count in {@link actionDisplayConfig}
+     */
+    get contextualFeaturedActions(): ActionItem&lt;R, T&gt;[] {
+        if (!this.selectedEntities || this.selectedEntities.length &#x3D;&#x3D;&#x3D; 0) {
+            return [];
+        }
+        const flattenedFeaturedActionList &#x3D; this.getFlattenedActionList(this.actions, ActionType.CONTEXTUAL_FEATURED);
+        const availableFeaturedActions &#x3D; this.getAvailableActions(flattenedFeaturedActionList);
+        return this.actionDisplayConfig.contextual.featuredCount
+            ? availableFeaturedActions.slice(0, this.actionDisplayConfig.contextual.featuredCount)
+            : availableFeaturedActions;
+    }
+
+    /**
+     * Extracts the nested actions that are marked as featured and returns them as part of a flat list
+     */
     private getFlattenedActionList(actions: ActionItem&lt;R, T&gt;[], actionType: ActionType): ActionItem&lt;R, T&gt;[] {
         let featuredActions: ActionItem&lt;R, T&gt;[] &#x3D; [];
         actions.forEach(action &#x3D;&gt; {
@@ -1482,27 +2174,18 @@ export class ActionMenuComponent&lt;R, T&gt; {
     }
 
     /**
-     * Actions that depend on selected entities and belong to main menu list. The returned list length is less than the
-     * configured featured count in {@link actionDisplayConfig}
-     * @param selection The selected entities based on which the actions availability is calculated
-     */
-    getContextualFeaturedActions(selection: R[]): ActionItem&lt;R, T&gt;[] {
-        const flattenedFeaturedActionList &#x3D; this.getFlattenedActionList(this.actions, ActionType.CONTEXTUAL_FEATURED);
-        const availableFeaturedActions &#x3D; this.getAvailableActions(flattenedFeaturedActionList, selection);
-        return this.actionDisplayConfig.contextual.featuredCount
-            ? availableFeaturedActions.slice(0, this.actionDisplayConfig.contextual.featuredCount)
-            : availableFeaturedActions;
-    }
-
-    /**
      * Actions that depend on selected entities but belong to sub menu
-     * @param selection The selected entities based on which the actions availability is calculated
      */
-    getContextualActions(selection?: R[]): ActionItem&lt;R, T&gt;[] {
+    get contextualActions(): ActionItem&lt;R, T&gt;[] {
+        if (!this.selectedEntities || this.selectedEntities.length &#x3D;&#x3D;&#x3D; 0) {
+            return [];
+        }
         const contextualActions &#x3D; this.actions.filter(
-            action &#x3D;&gt; action.actionType !&#x3D;&#x3D; ActionType.STATIC_FEATURED &amp;&amp; action.actionType !&#x3D;&#x3D; ActionType.STATIC
+            action &#x3D;&gt;
+                !action.actionType ||
+                (action.actionType !&#x3D;&#x3D; ActionType.STATIC_FEATURED &amp;&amp; action.actionType !&#x3D;&#x3D; ActionType.STATIC)
         );
-        return this.getAvailableActions(contextualActions, selection);
+        return this.getAvailableActions(contextualActions);
     }
 
     /**
@@ -1510,7 +2193,9 @@ export class ActionMenuComponent&lt;R, T&gt; {
      * {@link ActionItem.handlerData} as arguments
      */
     runActionHandler(action: ActionItem&lt;R, T&gt;): void {
-        action.handler(this.selectedEntities, action.handlerData);
+        if (action.handler) {
+            action.handler(this.selectedEntities, action.handlerData);
+        }
     }
 
     /**
@@ -1521,24 +2206,192 @@ export class ActionMenuComponent&lt;R, T&gt; {
     }
 
     /**
-     * To show/hide the contextual actions bucket
+     * Used as {@link ngForTrackBy} input value when iterating over action lists {@link DropdownComponent.trackByFunction}
+     * Without this method as input for ngForTrackBy, the dropdown gets rendered off screen
      */
-    get shouldShowContextualActions(): boolean {
-        return !!(this.selectedEntities &amp;&amp; this.selectedEntities.length);
+    actionsTrackBy: TrackByFunction&lt;ActionItem&lt;R, T&gt;&gt; &#x3D; (index: number, item: ActionItem&lt;R, T&gt;): string &#x3D;&gt; {
+        return item.textKey;
+    };
+
+    /**
+     * To show or hide the container elements containing inline and also dropdown actions
+     */
+    shouldDisplayActions(style: ActionStyling): boolean {
+        return (
+            this.shouldDisplayStaticFeaturedActions(style) ||
+            this.shouldDisplayStaticActions(style) ||
+            this.shouldDisplayContextualActions(style)
+        );
+    }
+
+    /**
+     * To show or hide {@link ActionType.STATIC_FEATURED} actions in inline actions container
+     */
+    shouldDisplayStaticFeaturedActions(style: ActionStyling): boolean {
+        return (
+            this.staticFeaturedActions &amp;&amp;
+            this.staticFeaturedActions.length &amp;&amp;
+            this.actionDisplayConfig.staticActionStyling &#x3D;&#x3D;&#x3D; style
+        );
+    }
+
+    /**
+     * To show or hide {@link ActionType.STATIC} actions in inline or dropdown action containers
+     */
+    shouldDisplayStaticActions(style: ActionStyling): boolean {
+        return (
+            this.staticActions &amp;&amp; this.staticActions.length &amp;&amp; this.actionDisplayConfig.staticActionStyling &#x3D;&#x3D;&#x3D; style
+        );
+    }
+
+    /**
+     * To show or hide {@link ActionType.CONTEXTUAL} and {@link ActionType.CONTEXTUAL_FEATURED} actions in inline or
+     * dropdown action containers
+     */
+    shouldDisplayContextualActions(style: ActionStyling): boolean {
+        return (
+            this.selectedEntities &amp;&amp;
+            this.selectedEntities.length &amp;&amp;
+            this.contextualActions.length &amp;&amp;
+            this.actionDisplayConfig.contextual.styling &#x3D;&#x3D;&#x3D; style
+        );
+    }
+
+    /**
+     * To show or hide {@link ActionType.STATIC_FEATURED} and {@link ActionType.STATIC} actions in a dropdown
+     */
+    get shouldDisplayStaticAndStaticFeaturedActionsDropdown(): boolean {
+        return (
+            this.shouldDisplayStaticActions(this.actionStyling.DROPDOWN) ||
+            this.shouldDisplayStaticFeaturedActions(this.actionStyling.DROPDOWN)
+        );
+    }
+
+    /**
+     * To show or hide {@link ActionType.STATIC_FEATURED} and {@link ActionType.STATIC} actions in a inline action bar
+     */
+    get shouldDisplayStaticAndStaticFeaturedActionsInline(): boolean {
+        return (
+            this.shouldDisplayStaticActions(this.actionStyling.INLINE) &amp;&amp;
+            this.shouldDisplayStaticFeaturedActions(this.actionStyling.INLINE)
+        );
     }
 }
 </code></pre>
     </div>
 
     <div class="tab-pane fade " id="c-templateData">
-        <pre class="line-numbers"><code class="language-html"></code></pre>
+        <pre class="line-numbers"><code class="language-html">&lt;div class&#x3D;&quot;inline-actions-container&quot; *ngIf&#x3D;&quot;shouldDisplayActions(actionStyling.INLINE)&quot;&gt;
+    &lt;ng-container *ngIf&#x3D;&quot;shouldDisplayStaticFeaturedActions(actionStyling.INLINE)&quot;&gt;
+        &lt;ng-container *ngFor&#x3D;&quot;let action of staticFeaturedActions; trackBy: actionsTrackBy&quot;&gt;
+            &lt;ng-template *ngTemplateOutlet&#x3D;&quot;actionButton; context: { $implicit: action }&quot;&gt;&lt;/ng-template&gt;
+        &lt;/ng-container&gt;
+    &lt;/ng-container&gt;
+
+    &lt;ng-container *ngIf&#x3D;&quot;shouldDisplayContextualActions(actionStyling.INLINE)&quot;&gt;
+        &lt;ng-container *ngFor&#x3D;&quot;let action of contextualFeaturedActions; trackBy: actionsTrackBy&quot;&gt;
+            &lt;ng-template *ngTemplateOutlet&#x3D;&quot;actionButton; context: { $implicit: action }&quot;&gt;&lt;/ng-template&gt;
+        &lt;/ng-container&gt;
+
+        &lt;vcd-dropdown
+            [items]&#x3D;&quot;contextualActions&quot;
+            [trackByFunction]&#x3D;&quot;actionsTrackBy&quot;
+            [dropdownPosition]&#x3D;&quot;dropdownPosition&quot;
+            [nestedDropdownPosition]&#x3D;&quot;nestedDropdownPosition&quot;
+            [onItemClickedCb]&#x3D;&quot;runActionHandler.bind(this)&quot;
+            [isItemDisabledCb]&#x3D;&quot;isActionDisabled.bind(this)&quot;
+            [dropdownTriggerBtnTxt]&#x3D;&quot;dropdownTriggerBtnText&quot;
+            [dropdownTriggerBtnIcon]&#x3D;&quot;dropdownTriggerBtnIcon&quot;
+            [dropdownItemContents]&#x3D;&quot;actionDisplayConfig.contextual.buttonContents&quot;
+            [isDropdownDisabled]&#x3D;&quot;disabled&quot;
+        &gt;&lt;/vcd-dropdown&gt;
+    &lt;/ng-container&gt;
+
+    &lt;div class&#x3D;&quot;static-actions-separator&quot; *ngIf&#x3D;&quot;shouldDisplayStaticAndStaticFeaturedActionsInline&quot;&gt;&lt;/div&gt;
+
+    &lt;ng-container *ngIf&#x3D;&quot;shouldDisplayStaticActions(actionStyling.INLINE)&quot;&gt;
+        &lt;ng-container *ngFor&#x3D;&quot;let action of staticActions; trackBy: actionsTrackBy&quot;&gt;
+            &lt;ng-template *ngTemplateOutlet&#x3D;&quot;actionButton; context: { $implicit: action }&quot;&gt;&lt;/ng-template&gt;
+        &lt;/ng-container&gt;
+    &lt;/ng-container&gt;
+&lt;/div&gt;
+
+&lt;vcd-dropdown
+    *ngIf&#x3D;&quot;shouldDisplayStaticAndStaticFeaturedActionsDropdown&quot;
+    [items]&#x3D;&quot;staticDropdownActions&quot;
+    [trackByFunction]&#x3D;&quot;actionsTrackBy&quot;
+    [dropdownPosition]&#x3D;&quot;dropdownPosition&quot;
+    [nestedDropdownPosition]&#x3D;&quot;nestedDropdownPosition&quot;
+    [onItemClickedCb]&#x3D;&quot;runActionHandler.bind(this)&quot;
+    [isItemDisabledCb]&#x3D;&quot;isActionDisabled.bind(this)&quot;
+    [dropdownTriggerBtnTxt]&#x3D;&quot;dropdownTriggerBtnText&quot;
+    [dropdownTriggerBtnIcon]&#x3D;&quot;dropdownTriggerBtnIcon&quot;
+    [dropdownItemContents]&#x3D;&quot;actionDisplayConfig.contextual.buttonContents&quot;
+    [isDropdownDisabled]&#x3D;&quot;disabled&quot;
+&gt;&lt;/vcd-dropdown&gt;
+
+&lt;vcd-dropdown
+    *ngIf&#x3D;&quot;shouldDisplayContextualActions(actionStyling.DROPDOWN)&quot;
+    [items]&#x3D;&quot;contextualDropdownActions&quot;
+    [trackByFunction]&#x3D;&quot;actionsTrackBy&quot;
+    [dropdownPosition]&#x3D;&quot;dropdownPosition&quot;
+    [nestedDropdownPosition]&#x3D;&quot;nestedDropdownPosition&quot;
+    [onItemClickedCb]&#x3D;&quot;runActionHandler.bind(this)&quot;
+    [isItemDisabledCb]&#x3D;&quot;isActionDisabled.bind(this)&quot;
+    [dropdownTriggerBtnTxt]&#x3D;&quot;dropdownTriggerBtnText&quot;
+    [dropdownTriggerBtnIcon]&#x3D;&quot;dropdownTriggerBtnIcon&quot;
+    [dropdownItemContents]&#x3D;&quot;actionDisplayConfig.contextual.buttonContents&quot;
+    [isDropdownDisabled]&#x3D;&quot;disabled&quot;
+&gt;&lt;/vcd-dropdown&gt;
+
+&lt;ng-template #actionButton let-action&gt;
+    &lt;button
+        class&#x3D;&quot;btn btn-link&quot;
+        [ngClass]&#x3D;&quot;action.class&quot;
+        (click)&#x3D;&quot;runActionHandler(action)&quot;
+        [disabled]&#x3D;&quot;isActionDisabled(action)&quot;
+    &gt;
+        &lt;ng-container *ngIf&#x3D;&quot;shouldShowText&quot;&gt;{{
+            action.isTranslatable &#x3D;&#x3D;&#x3D; false ? action.textKey : (action.textKey | translate)
+        }}&lt;/ng-container&gt;
+
+        &lt;a *ngIf&#x3D;&quot;shouldShowIcon&quot; role&#x3D;&quot;tooltip&quot; aria-haspopup&#x3D;&quot;true&quot; class&#x3D;&quot;tooltip tooltip-sm&quot;&gt;
+            &lt;clr-icon size&#x3D;&quot;1em&quot; [attr.shape]&#x3D;&quot;action.icon&quot;&gt;&lt;/clr-icon&gt;
+            &lt;span class&#x3D;&quot;tooltip-content&quot; *ngIf&#x3D;&quot;shouldShowTooltip&quot;&gt;{{ action.textKey }}&lt;/span&gt;
+        &lt;/a&gt;
+    &lt;/button&gt;
+&lt;/ng-template&gt;
+</code></pre>
     </div>
 
     <div class="tab-pane fade " id="c-styleData">
                 <p class="comment">
                     <code>./action-menu.component.scss</code>
                 </p>
-                <pre class="line-numbers"><code class="language-scss"></code></pre>
+                <pre class="line-numbers"><code class="language-scss">.inline-actions-container {
+    display: flex;
+    flex-direction: row;
+    margin-top: 10px;
+
+    &amp; &gt; .static-actions-separator {
+        flex: 1 1 auto;
+    }
+
+    &amp; &gt; .static-actions {
+        margin-right: 0;
+    }
+
+    &amp; ::ng-deep button.btn.inline-action-button {
+        margin-top: 0;
+
+        margin-right: 15px;
+
+        &amp;:last-child {
+            margin-right: 0;
+        }
+    }
+}
+</code></pre>
     </div>
 
     <div class="tab-pane fade " id="c-tree">
@@ -1566,8 +2419,8 @@ export class ActionMenuComponent&lt;R, T&gt; {
 <script src="../js/libs/htmlparser.js"></script>
 <script src="../js/libs/deep-iterator.js"></script>
 <script>
-        var COMPONENT_TEMPLATE = '<div></div>'
-    var COMPONENTS = [{'name': 'ActionMenuComponent', 'selector': 'vcd-action-menu'},{'name': 'BannerActivityReporterComponent', 'selector': 'vcd-banner-activity-reporter'},{'name': 'BoldTextRendererComponent', 'selector': 'vcd-bold-text-renderer'},{'name': 'DataExporterComponent', 'selector': 'vcd-data-exporter'},{'name': 'DatagridComponent', 'selector': 'vcd-datagrid'},{'name': 'DatagridMultiSelectFilterComponent', 'selector': 'vcd-dg-multiselect-filter'},{'name': 'DatagridNumericFilterComponent', 'selector': 'vcd-dg-numeric-filter'},{'name': 'DatagridSelectFilterComponent', 'selector': 'vcd-dg-select-filter'},{'name': 'DatagridStringFilterComponent', 'selector': 'vcd-dg-string-filter'},{'name': 'ErrorBannerComponent', 'selector': 'vcd-error-banner'},{'name': 'FilterTestHostComponent', 'selector': ''},{'name': 'FormCheckboxComponent', 'selector': 'vcd-form-checkbox'},{'name': 'FormInputComponent', 'selector': 'vcd-form-input'},{'name': 'FormlyInputComponent', 'selector': 'vcd-formly-input'},{'name': 'FormlyNumberWithUnitInputComponent', 'selector': 'vcd-formly-number-with-unit-input'},{'name': 'FormlySelectComponent', 'selector': 'vcd-formly-select'},{'name': 'FormSelectComponent', 'selector': 'vcd-form-select'},{'name': 'LoadingIndicatorComponent', 'selector': 'vcd-loading-indicator'},{'name': 'NumberWithUnitFormInputComponent', 'selector': 'vcd-number-with-unit-form-input'},{'name': 'ShowClippedTextDirectiveTestHostComponent', 'selector': ''},{'name': 'SpinnerActivityReporterComponent', 'selector': 'vcd-spinner-activity-reporter'},{'name': 'SpotlightSearchComponent', 'selector': 'vcd-spotlight-search'}];
+        var COMPONENT_TEMPLATE = '<div><div class="inline-actions-container" *ngIf="shouldDisplayActions(actionStyling.INLINE)">    <ng-container *ngIf="shouldDisplayStaticFeaturedActions(actionStyling.INLINE)">        <ng-container *ngFor="let action of staticFeaturedActions; trackBy: actionsTrackBy">            <ng-template *ngTemplateOutlet="actionButton; context: { $implicit: action }"></ng-template>        </ng-container>    </ng-container>    <ng-container *ngIf="shouldDisplayContextualActions(actionStyling.INLINE)">        <ng-container *ngFor="let action of contextualFeaturedActions; trackBy: actionsTrackBy">            <ng-template *ngTemplateOutlet="actionButton; context: { $implicit: action }"></ng-template>        </ng-container>        <vcd-dropdown            [items]="contextualActions"            [trackByFunction]="actionsTrackBy"            [dropdownPosition]="dropdownPosition"            [nestedDropdownPosition]="nestedDropdownPosition"            [onItemClickedCb]="runActionHandler.bind(this)"            [isItemDisabledCb]="isActionDisabled.bind(this)"            [dropdownTriggerBtnTxt]="dropdownTriggerBtnText"            [dropdownTriggerBtnIcon]="dropdownTriggerBtnIcon"            [dropdownItemContents]="actionDisplayConfig.contextual.buttonContents"            [isDropdownDisabled]="disabled"        ></vcd-dropdown>    </ng-container>    <div class="static-actions-separator" *ngIf="shouldDisplayStaticAndStaticFeaturedActionsInline"></div>    <ng-container *ngIf="shouldDisplayStaticActions(actionStyling.INLINE)">        <ng-container *ngFor="let action of staticActions; trackBy: actionsTrackBy">            <ng-template *ngTemplateOutlet="actionButton; context: { $implicit: action }"></ng-template>        </ng-container>    </ng-container></div><vcd-dropdown    *ngIf="shouldDisplayStaticAndStaticFeaturedActionsDropdown"    [items]="staticDropdownActions"    [trackByFunction]="actionsTrackBy"    [dropdownPosition]="dropdownPosition"    [nestedDropdownPosition]="nestedDropdownPosition"    [onItemClickedCb]="runActionHandler.bind(this)"    [isItemDisabledCb]="isActionDisabled.bind(this)"    [dropdownTriggerBtnTxt]="dropdownTriggerBtnText"    [dropdownTriggerBtnIcon]="dropdownTriggerBtnIcon"    [dropdownItemContents]="actionDisplayConfig.contextual.buttonContents"    [isDropdownDisabled]="disabled"></vcd-dropdown><vcd-dropdown    *ngIf="shouldDisplayContextualActions(actionStyling.DROPDOWN)"    [items]="contextualDropdownActions"    [trackByFunction]="actionsTrackBy"    [dropdownPosition]="dropdownPosition"    [nestedDropdownPosition]="nestedDropdownPosition"    [onItemClickedCb]="runActionHandler.bind(this)"    [isItemDisabledCb]="isActionDisabled.bind(this)"    [dropdownTriggerBtnTxt]="dropdownTriggerBtnText"    [dropdownTriggerBtnIcon]="dropdownTriggerBtnIcon"    [dropdownItemContents]="actionDisplayConfig.contextual.buttonContents"    [isDropdownDisabled]="disabled"></vcd-dropdown><ng-template #actionButton let-action>    <button        class="btn btn-link"        [ngClass]="action.class"        (click)="runActionHandler(action)"        [disabled]="isActionDisabled(action)"    >        <ng-container *ngIf="shouldShowText">{{            action.isTranslatable === false ? action.textKey : (action.textKey | translate)        }}</ng-container>        <a *ngIf="shouldShowIcon" role="tooltip" aria-haspopup="true" class="tooltip tooltip-sm">            <clr-icon size="1em" [attr.shape]="action.icon"></clr-icon>            <span class="tooltip-content" *ngIf="shouldShowTooltip">{{ action.textKey }}</span>        </a>    </button></ng-template></div>'
+    var COMPONENTS = [{'name': 'ActionMenuComponent', 'selector': 'vcd-action-menu'},{'name': 'BannerActivityReporterComponent', 'selector': 'vcd-banner-activity-reporter'},{'name': 'BoldTextRendererComponent', 'selector': 'vcd-bold-text-renderer'},{'name': 'DataExporterComponent', 'selector': 'vcd-data-exporter'},{'name': 'DatagridComponent', 'selector': 'vcd-datagrid'},{'name': 'DatagridMultiSelectFilterComponent', 'selector': 'vcd-dg-multiselect-filter'},{'name': 'DatagridNumericFilterComponent', 'selector': 'vcd-dg-numeric-filter'},{'name': 'DatagridSelectFilterComponent', 'selector': 'vcd-dg-select-filter'},{'name': 'DatagridStringFilterComponent', 'selector': 'vcd-dg-string-filter'},{'name': 'DropdownComponent', 'selector': 'vcd-dropdown'},{'name': 'ErrorBannerComponent', 'selector': 'vcd-error-banner'},{'name': 'FilterTestHostComponent', 'selector': ''},{'name': 'FormCheckboxComponent', 'selector': 'vcd-form-checkbox'},{'name': 'FormInputComponent', 'selector': 'vcd-form-input'},{'name': 'FormlyInputComponent', 'selector': 'vcd-formly-input'},{'name': 'FormlyNumberWithUnitInputComponent', 'selector': 'vcd-formly-number-with-unit-input'},{'name': 'FormlySelectComponent', 'selector': 'vcd-formly-select'},{'name': 'FormSelectComponent', 'selector': 'vcd-form-select'},{'name': 'LoadingIndicatorComponent', 'selector': 'vcd-loading-indicator'},{'name': 'NumberWithUnitFormInputComponent', 'selector': 'vcd-number-with-unit-form-input'},{'name': 'ShowClippedTextDirectiveTestHostComponent', 'selector': ''},{'name': 'SpinnerActivityReporterComponent', 'selector': 'vcd-spinner-activity-reporter'},{'name': 'SpotlightSearchComponent', 'selector': 'vcd-spotlight-search'}];
     var DIRECTIVES = [{'name': 'ComponentRendererOutletDirective', 'selector': '[vcdComponentRendererOutlet]'},{'name': 'MinMaxValidator', 'selector': 'vcd-number-with-unit-form-input[min],vcd-number-with-unit-form-input[max]'},{'name': 'ShowClippedTextDirective', 'selector': '[vcdShowClippedText]'}];
     var ACTUAL_COMPONENT = {'name': 'ActionMenuComponent'};
 </script>
