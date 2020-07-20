@@ -40,11 +40,13 @@ Documentation.registerDocumentationEntry({
             component: FormlyInputFeaturesExampleComponent,
             forComponent: null,
             title: 'Features of vcd formly inputs',
+            urlSegment: 'formly-input-features',
         },
         {
             component: FormlyInputsExampleComponent,
             forComponent: null,
             title: 'List of available Vcd Formly Inputs',
+            urlSegment: 'formly-inputs',
         },
     ],
 });

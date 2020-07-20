@@ -29,6 +29,7 @@ Documentation.registerDocumentationEntry({
             component: FormInputExampleComponent,
             forComponent: null,
             title: 'String, Number and Date form inputs',
+            urlSegment: 'form-input',
         },
     ],
 });
@@ -42,6 +43,7 @@ Documentation.registerDocumentationEntry({
             component: FormSelectExampleComponent,
             forComponent: null,
             title: 'Select form input',
+            urlSegment: 'form-select',
         },
     ],
 });
@@ -55,6 +57,7 @@ Documentation.registerDocumentationEntry({
             component: FormCheckboxExampleComponent,
             forComponent: null,
             title: 'Checkbox form input',
+            urlSegment: 'form-checkbox',
         },
     ],
 });
@@ -68,6 +71,7 @@ Documentation.registerDocumentationEntry({
             component: NumberWithUnitFormInputExampleComponent,
             forComponent: null,
             title: 'Number with unit form input',
+            urlSegment: 'number-with-unit-form-input',
         },
     ],
 });

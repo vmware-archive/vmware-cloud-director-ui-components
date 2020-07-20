@@ -20,6 +20,7 @@ Documentation.registerDocumentationEntry({
             component: BannerActivityReporterExampleComponent,
             forComponent: null,
             title: 'Show/Hide the banner activity reporter',
+            urlSegment: 'banner-activity-reporter',
         },
     ],
 });
@@ -33,6 +34,7 @@ Documentation.registerDocumentationEntry({
             component: SpinnerActivityReporterExampleComponent,
             forComponent: null,
             title: 'Show/Hide the spinner activity reporter',
+            urlSegment: 'spinner-activity-reporter',
         },
     ],
 });
