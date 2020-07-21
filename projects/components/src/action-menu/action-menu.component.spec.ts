@@ -7,6 +7,7 @@ import { ChangeDetectionStrategy, Component, ViewChild } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { MockTranslationService, TranslationService } from '@vcd/i18n';
 import { ActionDisplayConfig, ActionItem, ActionStyling, ActionType, TextIcon } from '../common/interfaces';
+import { SpotlightSearchService } from '../spotlight-search';
 import { WidgetFinder, WidgetObject } from '../utils/test';
 import { ActionMenuComponent } from './action-menu.component';
 import { VcdActionMenuModule } from './action-menu.module';

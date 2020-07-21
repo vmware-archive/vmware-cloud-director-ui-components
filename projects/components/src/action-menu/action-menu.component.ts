@@ -3,8 +3,9 @@
  * SPDX-License-Identifier: BSD-2-Clause
  */
 
-import { Component, Input, TrackByFunction } from '@angular/core';
+import { Component, Injector, Input, OnDestroy, OnInit, Optional, Self, TrackByFunction } from '@angular/core';
 import { ActionDisplayConfig, ActionItem, ActionStyling, ActionType, TextIcon } from '../common/interfaces';
+import { ActionSearchProvider } from './action-search.provider';
 
 /**
  * Value used for the display configuration of action buttons if no input is provided by the caller
@@ -19,7 +20,8 @@ export const DEFAULT_ACTION_DISPLAY_CONFIG: ActionDisplayConfig = {
 };
 
 /**
- * Renders actions in screens containing grids, cards and details container screens
+ * Renders actions in screens containing grids, cards and details container screens. Uses {@link ActionSearchProvider} to register by
+ * default with the {@link SpotlightSearchComponent}
  * R is the type of selected entity on which the action will be performed
  * T is the type of custom data passed to action handler methods
  */
@@ -27,8 +29,9 @@ export const DEFAULT_ACTION_DISPLAY_CONFIG: ActionDisplayConfig = {
     selector: 'vcd-action-menu',
     templateUrl: './action-menu.component.html',
     styleUrls: ['./action-menu.component.scss'],
+    providers: [ActionSearchProvider],
 })
-export class ActionMenuComponent<R, T> {
+export class ActionMenuComponent<R, T> implements OnDestroy {
     private _actions: ActionItem<R, T>[] = [];
     /**
      * List of actions containing both static and contextual that are given by the calling component
@@ -43,6 +46,9 @@ export class ActionMenuComponent<R, T> {
             }
             return action;
         });
+        if (this.isActionSearchProvider) {
+            this.updateActionSearchProvider();
+        }
     }
     get actions(): ActionItem<R, T>[] {
         return getDeepCopyOfActionItems(this._actions);
@@ -83,10 +89,19 @@ export class ActionMenuComponent<R, T> {
      */
     @Input() disabled: boolean;
 
+    private _selectedEntities: R[];
     /**
      * The list of entities selected on which contextualActions are performed
      */
-    @Input() selectedEntities: R[];
+    @Input() set selectedEntities(val: R[]) {
+        this._selectedEntities = val;
+        if (this.isActionSearchProvider) {
+            this.updateActionSearchProvider();
+        }
+    }
+    get selectedEntities(): R[] {
+        return this._selectedEntities;
+    }
 
     /**
      * The direction with respect to the root dropdown trigger button in which the root drop down should open
@@ -98,6 +113,38 @@ export class ActionMenuComponent<R, T> {
      * The direction in which the nested drop downs open. {@link DropdownComponent.nestedDropdownPosition}
      */
     @Input() nestedDropdownPosition = 'right-top';
+
+    private _isActionSearchProvider = false;
+    /**
+     * This component is NOT registered by default with with the {@link SpotlightSearchService} to register its actions to show up on the
+     * {@link SpotlightSearchComponent}. However, in the VCD app, some components like the entity details container want to register their
+     * actions with the quick search feature. This switch is used for initializing the {@link #actionSearchProvider} and registering it
+     */
+    @Input() set isActionSearchProvider(val: boolean) {
+        this._isActionSearchProvider = val;
+        if (this.isActionSearchProvider) {
+            this.actionSearchProvider = this.injector.get(ActionSearchProvider);
+            this.updateActionSearchProvider();
+            this.actionSearchProvider.register();
+        }
+    }
+    get isActionSearchProvider(): boolean {
+        return this._isActionSearchProvider;
+    }
+
+    private _actionProviderName: string;
+    /**
+     * Is displayed on the quick search modal as Actions: <actionProviderName>
+     */
+    @Input() set actionProviderName(val: string) {
+        this._actionProviderName = val;
+        if (this.isActionSearchProvider) {
+            this.updateActionSearchProvider();
+        }
+    }
+    get actionProviderName(): string {
+        return this._actionProviderName;
+    }
 
     /**
      * If a icon should be displayed inside contextual buttons
@@ -119,6 +166,18 @@ export class ActionMenuComponent<R, T> {
      */
     actionStyling = ActionStyling;
 
+    private actionSearchProvider: ActionSearchProvider<R, T>;
+
+    constructor(private injector: Injector) {}
+
+    ngOnDestroy(): void {
+        // If the component is set to be a provider of actions for the quick search component, it is un-registered with
+        // SpotlightSearchService when this component is destroyed
+        if (this.isActionSearchProvider) {
+            this.actionSearchProvider.unregister();
+        }
+    }
+
     /**
      * Returns the actions to be shown
      */
@@ -138,6 +197,15 @@ export class ActionMenuComponent<R, T> {
      */
     private isActionAvailable(action: ActionItem<R, T>): boolean {
         return !action.availability || action.availability(this.selectedEntities) || this.isActionDisabled(action);
+    }
+
+    /**
+     * Update action search provider with inputs required for displaying enabled actions on the quick search component
+     */
+    private updateActionSearchProvider(): void {
+        this.actionSearchProvider.actionProviderName = this.actionProviderName;
+        this.actionSearchProvider.actions = this.actions;
+        this.actionSearchProvider.selectedEntities = this.selectedEntities;
     }
 
     /**
@@ -240,7 +308,7 @@ export class ActionMenuComponent<R, T> {
     }
 
     /**
-     * To disable a displayed action
+     * To check if an action is disabled
      */
     isActionDisabled(action: ActionItem<R, T>): boolean {
         return typeof action.disabled === 'function' ? action.disabled(this.selectedEntities) : action.disabled;

@@ -3,8 +3,9 @@
  * SPDX-License-Identifier: BSD-2-Clause
  */
 
-import { Component } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { ActionDisplayConfig, ActionItem, ActionStyling, ActionType, TextIcon } from '@vcd/ui-components';
+import mousetrap from 'mousetrap';
 
 interface Record {
     value: string;
@@ -17,7 +18,7 @@ interface HandlerData {
 }
 
 @Component({
-    selector: 'vcd-datagrid-link-example',
+    selector: 'vcd-action-menu-example',
     template: `
         <div>
             <button (click)="changeStaticActionStyling()" class="btn btn-primary">
@@ -44,19 +45,30 @@ interface HandlerData {
             <button (click)="toggleDropdownDisable()" class="btn btn-primary">
                 {{ isDropdownDisabled ? 'Enable dropdown' : 'Disable dropdown' }}
             </button>
-            <br />
+            <br /><br />
+            <p>Press 'mod+.' on the keyboard to open quick search and search for contextual actions</p>
             <vcd-action-menu
                 [actions]="contextualActions"
                 [actionDisplayConfig]="actionDisplayConfig"
                 [selectedEntities]="selectedEntities"
                 [dropdownTriggerBtnText]="'vcd.cc.action.menu.actions'"
                 [disabled]="isDropdownDisabled"
+                [actionProviderName]="'Contextual actions'"
+                [isActionSearchProvider]="true"
             >
             </vcd-action-menu>
         </div>
+
+        <vcd-spotlight-search
+            [(open)]="spotlightOpen"
+            [placeholder]="'Search contextual actions'"
+        ></vcd-spotlight-search>
     `,
 })
-export class ActionMenuExampleComponent<R extends Record, T extends HandlerData> {
+export class ActionMenuExampleComponent<R extends Record, T extends HandlerData> implements OnInit {
+    kbdShortcut = 'mod+.';
+    spotlightOpen: boolean;
+
     actions: ActionItem<R, T>[] = [
         {
             textKey: 'Static Featured 1',
@@ -143,6 +155,8 @@ export class ActionMenuExampleComponent<R extends Record, T extends HandlerData>
 
     isDropdownDisabled: boolean = false;
 
+    constructor(private changeDetectorRef: ChangeDetectorRef) {}
+
     get staticActions(): ActionItem<R, T>[] {
         return this.actions.filter(
             action => action.actionType === ActionType.STATIC || action.actionType === ActionType.STATIC_FEATURED
@@ -191,5 +205,15 @@ export class ActionMenuExampleComponent<R extends Record, T extends HandlerData>
 
     toggleDropdownDisable(): void {
         this.isDropdownDisabled = !this.isDropdownDisabled;
+    }
+
+    ngOnInit(): void {
+        mousetrap.bind(this.kbdShortcut, () => {
+            this.spotlightOpen = true;
+            // Since this happens outside angular zone we need to notify angular manually
+            // otherwise the user should wait for any operation that will trigger angular change detection (angular zone event)
+            this.changeDetectorRef.detectChanges();
+            return false;
+        });
     }
 }
