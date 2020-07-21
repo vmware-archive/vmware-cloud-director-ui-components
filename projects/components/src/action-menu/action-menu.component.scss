@@ -1,23 +1,15 @@
 .inline-actions-container {
     display: flex;
     flex-direction: row;
-    margin-top: 10px;
 
     & > .static-actions-separator {
         flex: 1 1 auto;
     }
 
-    & > .static-actions {
-        margin-right: 0;
-    }
-
-    & ::ng-deep button.btn.inline-action-button {
-        margin-top: 0;
-
-        margin-right: 15px;
-
-        &:last-child {
-            margin-right: 0;
+    & .inline-action-dropdown {
+        & ::ng-deep .nested-dropdown > .first-dropdown-toggle {
+            // Without this, Clarity styles from .dropdown-toggle are making the margin-top as 0 px
+            margin-top: 0.3rem;
         }
     }
 }

@@ -1,6 +1,6 @@
 <clr-dropdown class="nested-dropdown">
     <button
-        [ngClass]="{ 'btn btn-link': dropdownTriggerBtnTxt }"
+        [ngClass]="{ 'btn btn-link': dropdownTriggerBtnTxt, 'first-dropdown-toggle': !isNestedDropdown }"
         clrDropdownTrigger
         [vcdShowClippedText]="clipTextConfig"
         [disabled]="isDropdownDisabled"
