@@ -3,8 +3,8 @@
  * SPDX-License-Identifier: BSD-2-Clause
  */
 
-import { Inject, LOCALE_ID, Pipe, PipeTransform } from '@angular/core';
 import { DatePipe, DecimalPipe } from '@angular/common';
+import { Inject, LOCALE_ID, Pipe, PipeTransform } from '@angular/core';
 
 const OBJECT_PROPERTY_SEPARATOR = '.';
 const DATE_OBJECT_CLASS = '[object Date]';

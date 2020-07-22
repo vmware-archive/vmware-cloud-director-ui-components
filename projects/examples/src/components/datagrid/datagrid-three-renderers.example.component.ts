@@ -4,14 +4,38 @@
  */
 
 import { Component } from '@angular/core';
-import {
-    BoldTextRendererComponent,
-    GridColumn,
-    GridDataFetchResult,
-    GridState,
-    ColumnComponentRendererSpec,
-} from '@vcd/ui-components';
-import { mockData, MockRecord } from './mock-data';
+import { BoldTextRenderer, GridColumn, GridDataFetchResult, GridState } from '@vcd/ui-components';
+
+export interface MockRecord {
+    name: string;
+    city: string;
+    state: string;
+    details: {
+        gender: string;
+    };
+    age: number;
+}
+
+export const mockData: MockRecord[] = [
+    {
+        name: 'Person 1',
+        city: 'Palo Alto',
+        state: 'CA',
+        details: {
+            gender: 'Male',
+        },
+        age: 30,
+    },
+    {
+        name: 'Person 2',
+        city: 'Boston',
+        state: 'MA',
+        details: {
+            gender: 'Female',
+        },
+        age: 60,
+    },
+];
 
 @Component({
     template: `
@@ -27,12 +51,7 @@ export class DatagridThreeRenderersExampleComponent {
     columns: GridColumn<MockRecord>[] = [
         {
             displayName: 'Component Renderer',
-            renderer: ColumnComponentRendererSpec({
-                type: BoldTextRendererComponent,
-                config: record => ({
-                    text: '',
-                }),
-            }),
+            renderer: BoldTextRenderer(rec => rec.name),
         },
         {
             displayName: 'Function Renderer',

@@ -1,0 +1,30 @@
+<form [formGroup]="formGroup" class="clr-form-horizontal">
+    <vcd-number-with-unit-form-input
+        [formControlName]="'memory'"
+        [label]="'Memory'"
+        [unitOptions]="memoryOptions"
+        [inputValueUnit]="memoryFormControlValueUnit"
+        [hint]="
+            'Enter desired size of memory and chose memory units to see the memory getting converted and being ' +
+            'displayed in MB below. Checking the unlimited checkbox disables the input and sets input as -1'
+        "
+        [hintPosition]="'top-right'"
+    >
+    </vcd-number-with-unit-form-input>
+    <div>
+        <strong>Selected Memory:</strong>
+        {{ formGroup.get('memory').value + ' ' + memoryFormControlValueUnit.getUnitName() }}
+    </div>
+
+    <vcd-number-with-unit-form-input
+        [formControlName]="'cpuLimit'"
+        [label]="'Cpu speed'"
+        [unitOptions]="hertzOptions"
+        [inputValueUnit]="cpuSpeedFormControlValueUnit"
+    >
+    </vcd-number-with-unit-form-input>
+    <div>
+        <strong>Selected Cpu speed:</strong>
+        {{ formGroup.get('cpuLimit').value + ' ' + cpuSpeedFormControlValueUnit.getUnitName() }}
+    </div>
+</form>

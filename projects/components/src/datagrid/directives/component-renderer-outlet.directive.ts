@@ -31,6 +31,11 @@ export class ComponentRendererOutletDirective<R, T> {
 
     constructor(private viewContainerRef: ViewContainerRef, private cfr: ComponentFactoryResolver) {}
 
+    /**
+     * Sets the component that this outlet should render. Where rendererSpec is the
+     * {@link ComponentRendererSpec} that details how to render the component and context
+     * is any information that the component needs to render.
+     */
     @Input()
     set vcdComponentRendererOutlet(renderer: { rendererSpec: ComponentRendererSpec<T>; context?: R }) {
         if (this.componentType !== renderer.rendererSpec.type) {

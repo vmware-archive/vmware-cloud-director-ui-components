@@ -2,36 +2,34 @@
 
 ## Repo Structure
 
-This [monorepo](https://angular.io/guide/file-structure#multiple-projects) contains three separate but related projects:
+This [monorepo](https://angular.io/guide/file-structure#multiple-projects) contains four separate but related projects:
 
 ### Component Library (./projects/components) `@vcd/ui-components`
 
 Reusable components for vcd-ui and its plugin developers. See its [README](projects/components/README.md)
 for further details
 
-### Documentation Library (./projects/doc-lib) `@vmw/vcd-ui-doc`
+### Internalization Library (./projects/i18n) `@vcd/i18n`
 
-Reusable components that allow showcasing a component by displaying
-
--   Runnable examples
--   Source Code
--   API / Description
--   Live / editable examples
-
-See [README](projects/components/README.md)
+Translation code for vcd-ui and its plugin developers. See its [README](projects/i18n/README.md)
 for further details
 
 ### Examples App (./projects/examples)
 
-The application that showcases `@vcd/ui-components` using `@vcd/ui-doc-lib`.
+The application that showcases `@vcd/ui-components` using `@vmw/ng-live-docs`.
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if
-you change any of the source files. This is where you'll see changes made in [components](./projects/components) and
-[doc-lib](./projects/doc-lib)
+Run `npm start` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if
+you change any of the source files. This is where you'll see changes made in [components](./projects/components)
+
+### Route Analyzer (./projects/route-analyzer) `@vcd/route-analyzer`
+
+Route Analyzer statically analyzes angular source code and generates a json file with all the available routes,
+including the ones from lazy loaded modules. See its [README](projects/route-analyzer/README.md)
+for further details
 
 ## Peer Dependencies
 
-The component and doc-lib libraries depend on [Clarity](https://clarity.design/) and [Angular](https://angular.io/)
+The component library depends on [Clarity](https://clarity.design/) and [Angular](https://angular.io/)
 which must must be installed from your application's `package.json`. See [package.json](package.json) for version
 information.
 
@@ -42,12 +40,11 @@ Run `ng generate component component-name` to generate a new component. You can 
 
 ## Build
 
-Run `ng build components` or `ng build doc-lib`. The build artifacts will be stored in the `dist/` directory. Use the
-`--prod` flag for a production build.
+Run `npm run build:components`, or `npm run build:i18n`. The build artifacts will be stored in the `dist/` directory.
 
 ## Running unit tests
 
-Run `ng test components` or `ng test doc-lib` to execute the unit tests via [Karma](https://karma-runner.github.io).
+Run `npm run test:components`, or `npm run test:i18n` to execute the unit tests via [Karma](https://karma-runner.github.io).
 
 ## Running end-to-end tests (Examples App)
 
@@ -60,7 +57,31 @@ the extremely long folder name.
 
 ## Publishing
 
-Publishing happens through the CI/CD pipeline. See [package.json](.travis.yml)
+Publishing happens through the CI/CD pipeline. See [package.json](.github/workflows/ci-cd.yml)
+
+## Versioning
+
+For all official releases, versioning should be semantic as per [NPM's documentation](https://docs.npmjs.com/about-semantic-versioning).
+
+For all development, nightly builds, the version should be created using `npm version prerelease --preid=dev`.
+
+### Steps for publishing an @next release:
+
+-   Update version number in projects/<lib-name>/package.json
+-   Push the changes to a remote topic branch and create a pull request into vmware/vmware-cloud-director-ui-components/master
+-   Upon approval of the PR, merge that PR into master
+
+Following the above steps makes the CI-CD pipeline to execute publishing job to npm with @next tag(npm publish --tag next)
+
+### Steps for publishing an @latest release:
+
+-   Update version number in projects/<lib-name>/package.json
+-   Push the changes to a remote topic branch and create a pull request into vmware/vmware-cloud-director-ui-components/master
+-   Upon approval of the PR, Push the changes to remote repo using Git tag using following commands:
+    -   Add a Git tag to the HEAD commit that has to be published as latest: `git tag -fa <lib-name>-v[0-999].[0-999].[0-999]`
+    -   Push to the remote repo(vmware/vmware-cloud-director-ui-components): `git push git@github.com:vmware/vmware-cloud-director-ui-components.git refs/tags/<lib-name>-v[0-999].[0-999].[0-999]`
+
+Following the above steps makes the CI-CD pipeline to execute publishing job to npm with @latest tag(npm publish)
 
 ## Angular CLI
 

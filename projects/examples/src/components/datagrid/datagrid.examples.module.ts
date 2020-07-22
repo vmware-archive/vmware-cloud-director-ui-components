@@ -4,30 +4,42 @@
  */
 
 import { NgModule } from '@angular/core';
-import { DatagridShowHideExampleComponent } from './datagrid-show-hide.example.component';
 import { DatagridComponent } from '@vcd/ui-components';
-import { Documentation } from '@vcd/ui-doc-lib';
+import { Documentation } from '@vmw/ng-live-docs';
+import { DatagridActivityReporterExampleComponent } from './datagrid-activity-reporter.example.component';
+import { DatagridActivityReporterExampleModule } from './datagrid-activity-reporter.example.module';
+import { DatagridCliptextExampleComponent } from './datagrid-cliptext.example.component';
+import { DatagridCliptextExampleModule } from './datagrid-cliptext.example.module';
+import { DatagridColumnWidthExampleComponent } from './datagrid-column-width.example.component';
+import { DatagridColumnWidthExampleModule } from './datagrid-column-width.example.module';
 import { DatagridCssClassesExampleComponent } from './datagrid-css-classes.example.component';
-import { DatagridThreeRenderersExampleComponent } from './datagrid-three-renderers.example.component';
-import { DatagridThreeRenderersExampleModule } from './datagrid-three-renderers.example.module';
 import { DatagridCssClassesExampleModule } from './datagrid-css-classes.example.module';
-import { DatagridShowHideExampleModule } from './datagrid-show-hide.example.module';
+import { DatagridDetailPaneExampleComponent } from './datagrid-detail-pane.example.component';
+import { DatagridDetailPaneExampleModule } from './datagrid-detail-pane.example.module';
 import { DatagridDetailRowExampleComponent } from './datagrid-detail-row.example.component';
 import { DatagridDetailRowExampleModule } from './datagrid-detail-row.example.module';
-import { DatagridSortExampleModule } from './datagrid-sort.example.module';
-import { DatagridSortExampleComponent } from './datagrid-sort.example.component';
-import { DatagridRowSelectExampleComponent } from './datagrid-row-select.example.component';
-import { DatagridRowSelectExampleModule } from './datagrid-row-select.example.module';
-import { DatagridPaginationExampleComponent } from './datagrid-pagination-example.component';
-import { DatagridPagionationExampleModule } from './datagrid-pagination-example.module';
-import { DatagridLinkExampleModule } from './datagrid-link.example.module';
-import { DatagridLinkExampleComponent } from './datagrid-link.example.component';
-import { DatagridHeightExampleModule } from './datagrid-height.example.module';
-import { DatagridHeightExampleComponent } from './datagrid-height.example.component';
+import { DatagridFilterExampleComponent } from './datagrid-filter.example.component';
+import { DatagridFilterExampleModule } from './datagrid-filter.example.module';
 import { DatagridHeaderExampleComponent } from './datagrid-header.example.component';
 import { DatagridHeaderExampleModule } from './datagrid-header.example.module';
-import { DatagridFilterExampleModule } from './datagrid-filter.example.module';
-import { DatagridFilterExampleComponent } from './datagrid-filter.example.component';
+import { DatagridHeightExampleComponent } from './datagrid-height.example.component';
+import { DatagridHeightExampleModule } from './datagrid-height.example.module';
+import { DatagridLinkExampleComponent } from './datagrid-link.example.component';
+import { DatagridLinkExampleModule } from './datagrid-link.example.module';
+import { DatagridLoadingPlaceholderExampleComponent } from './datagrid-loading-placeholder.example.component';
+import { DatagridLoadingPlaceholderExampleModule } from './datagrid-loading-placeholder.example.module';
+import { DatagridPaginationExampleComponent } from './datagrid-pagination-example.component';
+import { DatagridPagionationExampleModule } from './datagrid-pagination-example.module';
+import { DatagridRowIconExampleComponent } from './datagrid-row-icon.example.component';
+import { DatagridRowIconExampleModule } from './datagrid-row-icon.example.module';
+import { DatagridRowSelectExampleComponent } from './datagrid-row-select.example.component';
+import { DatagridRowSelectExampleModule } from './datagrid-row-select.example.module';
+import { DatagridShowHideExampleComponent } from './datagrid-show-hide.example.component';
+import { DatagridShowHideExampleModule } from './datagrid-show-hide.example.module';
+import { DatagridSortExampleComponent } from './datagrid-sort.example.component';
+import { DatagridSortExampleModule } from './datagrid-sort.example.module';
+import { DatagridThreeRenderersExampleComponent } from './datagrid-three-renderers.example.component';
+import { DatagridThreeRenderersExampleModule } from './datagrid-three-renderers.example.module';
 
 Documentation.registerDocumentationEntry({
     component: DatagridComponent,
@@ -42,7 +54,7 @@ Documentation.registerDocumentationEntry({
         {
             component: DatagridCssClassesExampleComponent,
             forComponent: null,
-            title: 'Component that holds an example of the css classes per row capability',
+            title: 'Custom CSS classes per row capability',
         },
         {
             component: DatagridShowHideExampleComponent,
@@ -57,17 +69,17 @@ Documentation.registerDocumentationEntry({
         {
             component: DatagridSortExampleComponent,
             forComponent: null,
-            title: 'Shows the sorting capability of the datagrid',
+            title: 'Datagrid sorting',
         },
         {
             component: DatagridRowSelectExampleComponent,
             forComponent: null,
-            title: 'Select datagrid row example',
+            title: 'Selectable datagrid rows',
         },
         {
             component: DatagridPaginationExampleComponent,
             forComponent: null,
-            title: 'Pagination functionality and text customization example',
+            title: 'Pagination functionality and text customization',
         },
         {
             component: DatagridHeightExampleComponent,
@@ -77,7 +89,7 @@ Documentation.registerDocumentationEntry({
         {
             component: DatagridHeaderExampleComponent,
             forComponent: null,
-            title: 'Setting the header on the datagrid.',
+            title: 'A header above the datagrid.',
         },
         {
             component: DatagridLinkExampleComponent,
@@ -88,6 +100,36 @@ Documentation.registerDocumentationEntry({
             component: DatagridFilterExampleComponent,
             forComponent: null,
             title: 'Data grid filters',
+        },
+        {
+            component: DatagridCliptextExampleComponent,
+            forComponent: null,
+            title: 'Cliptext in the datagrid cells',
+        },
+        {
+            component: DatagridActivityReporterExampleComponent,
+            forComponent: null,
+            title: 'Activity reporter + buttons example',
+        },
+        {
+            component: DatagridRowIconExampleComponent,
+            forComponent: null,
+            title: 'Data row icon that reloads the row',
+        },
+        {
+            component: DatagridLoadingPlaceholderExampleComponent,
+            forComponent: null,
+            title: 'Shows the loading icon + placeholder capabilities',
+        },
+        {
+            component: DatagridDetailPaneExampleComponent,
+            forComponent: null,
+            title: 'A Clarity 3 Detail Pane Example',
+        },
+        {
+            component: DatagridColumnWidthExampleComponent,
+            forComponent: null,
+            title: 'Set the width of columns through CSS class names',
         },
     ],
 });
@@ -107,6 +149,12 @@ Documentation.registerDocumentationEntry({
         DatagridHeightExampleModule,
         DatagridHeaderExampleModule,
         DatagridFilterExampleModule,
+        DatagridCliptextExampleModule,
+        DatagridActivityReporterExampleModule,
+        DatagridRowIconExampleModule,
+        DatagridLoadingPlaceholderExampleModule,
+        DatagridDetailPaneExampleModule,
+        DatagridColumnWidthExampleModule,
     ],
 })
 export class DatagridExamplesModule {}

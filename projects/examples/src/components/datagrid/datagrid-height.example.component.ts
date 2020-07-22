@@ -4,7 +4,7 @@
  */
 
 import { Component } from '@angular/core';
-import { GridDataFetchResult, GridColumn, GridState, PaginationConfiguration } from '@vcd/ui-components';
+import { GridColumn, GridDataFetchResult, GridState, PaginationConfiguration } from '@vcd/ui-components';
 
 interface Data {
     value: string;
@@ -25,6 +25,8 @@ export class DatagridHeightExampleComponent {
     pagination: PaginationConfiguration = {
         pageSize: 'Magic',
         pageSizeOptions: [10],
+        rowHeight: 20,
+        shouldShowPageSizeSelector: true,
     };
 
     gridData: GridDataFetchResult<Data> = {
@@ -39,8 +41,9 @@ export class DatagridHeightExampleComponent {
     ];
 
     refresh(eventData: GridState<Data>): void {
+        const arr = [];
         this.gridData = {
-            items: [{ value: 'a' }, { value: 'b' }],
+            items: [{ value: 'a' }],
             totalItems: 2,
         };
     }

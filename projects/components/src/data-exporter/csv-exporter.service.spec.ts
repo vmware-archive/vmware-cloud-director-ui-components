@@ -7,29 +7,44 @@ import { TestBed } from '@angular/core/testing';
 import { CsvExporterService } from './csv-exporter.service';
 
 describe('CsvExporterService', () => {
+    describe('hasPotentialInjection', () => {
+        it('doesnt detect injection on a row without formulas', () => {
+            const service: CsvExporterService = TestBed.inject(CsvExporterService);
+            expect(service.hasPotentialInjection([['a+', 'b'], [1, 2]])).toBeFalsy();
+        });
+
+        it('does detect injection on a row with formulas', () => {
+            const service: CsvExporterService = TestBed.inject(CsvExporterService);
+            expect(service.hasPotentialInjection([['+', 'b'], [1, 2]])).toBeTruthy();
+            expect(service.hasPotentialInjection([['-', 'b'], [1, 2]])).toBeTruthy();
+            expect(service.hasPotentialInjection([['=', 'b'], [1, 2]])).toBeTruthy();
+            expect(service.hasPotentialInjection([['@', 'b'], [1, 2]])).toBeTruthy();
+        });
+    });
+
     describe('createCsv', () => {
         it('creates a csv out of 2D array of cell values', () => {
-            const service: CsvExporterService = TestBed.get(CsvExporterService);
+            const service: CsvExporterService = TestBed.inject(CsvExporterService);
             expect(service.createCsv([['a', 'b'], [1, 2]])).toEqual('a,b\n1,2');
         });
 
         it('encodes new lines by wrapping with double quotes', () => {
-            const service: CsvExporterService = TestBed.get(CsvExporterService);
+            const service: CsvExporterService = TestBed.inject(CsvExporterService);
             expect(service.createCsv([['a', 'b'], ['1\n1', 2]])).toEqual('a,b\n"1\n1",2');
         });
 
         it('encodes commas by wrapping with double quotes', () => {
-            const service: CsvExporterService = TestBed.get(CsvExporterService);
+            const service: CsvExporterService = TestBed.inject(CsvExporterService);
             expect(service.createCsv([['a', 'b'], ['1,1', 2]])).toEqual('a,b\n"1,1",2');
         });
 
         it('encodes double quotes with ""', () => {
-            const service: CsvExporterService = TestBed.get(CsvExporterService);
+            const service: CsvExporterService = TestBed.inject(CsvExporterService);
             expect(service.createCsv([['a', 'b'], ['1"2', 2]])).toEqual('a,b\n"1""2",2');
         });
 
         it('encodes dates with locale strings', () => {
-            const service: CsvExporterService = TestBed.get(CsvExporterService);
+            const service: CsvExporterService = TestBed.inject(CsvExporterService);
             const date = new Date(0);
             const localeString = date.toLocaleString();
             expect(service.createCsv([['a', 'b'], [date, 2]])).toEqual(`a,b
@@ -37,8 +52,18 @@ describe('CsvExporterService', () => {
         });
 
         it('prints null and undefined as an empty string', () => {
-            const service: CsvExporterService = TestBed.get(CsvExporterService);
+            const service: CsvExporterService = TestBed.inject(CsvExporterService);
             expect(service.createCsv([['a', 'b'], [null, undefined]])).toEqual('a,b\n,');
+        });
+
+        it('adds a tab character if the value begins with any special characters', () => {
+            const service: CsvExporterService = TestBed.inject(CsvExporterService);
+            expect(service.createCsv([['+', '-', '@', '='], [null, undefined]], true)).toEqual('\t+,\t-,\t@,\t=\n,');
+        });
+
+        it('does not add a tab character if the value contains but does not begin with with any special characters', () => {
+            const service: CsvExporterService = TestBed.inject(CsvExporterService);
+            expect(service.createCsv([['a+', 'a-', 'a@', 'a='], [null, undefined]], true)).toEqual('a+,a-,a@,a=\n,');
         });
     });
 
@@ -61,7 +86,7 @@ describe('CsvExporterService', () => {
         });
 
         it('uses navigator.msSaveBlob if available', () => {
-            const service: CsvExporterService = TestBed.get(CsvExporterService);
+            const service: CsvExporterService = TestBed.inject(CsvExporterService);
             const rows = [['a', 'b'], ['1"2', 2], [3, 4]];
             const csvString = service.createCsv(rows);
 
@@ -87,7 +112,7 @@ describe('CsvExporterService', () => {
             }
         });
         it('creates and clicks an invisible link', () => {
-            const service: CsvExporterService = TestBed.get(CsvExporterService);
+            const service: CsvExporterService = TestBed.inject(CsvExporterService);
             const rows = [['a', 'b'], ['1"2', 2], [3, 4]];
             const csvString = service.createCsv(rows);
             spyOn(document.body, 'appendChild');

@@ -3,18 +3,18 @@
  * SPDX-License-Identifier: BSD-2-Clause
  */
 
-import { ClrDatagridFilterInterface } from '@clr/angular/data/datagrid/interfaces/filter.interface';
+import { Input, OnDestroy, OnInit } from '@angular/core';
+import { FormGroup } from '@angular/forms';
 import { ClrDatagridFilter } from '@clr/angular';
-import { Observable, Subject } from 'rxjs';
+import { ClrDatagridFilterInterface } from '@clr/angular/data/datagrid/interfaces/filter.interface';
+import { Subject } from 'rxjs';
+import { debounceTime } from 'rxjs/operators';
+import { SubscriptionTracker } from '../../common/subscription';
 import {
     ComponentRenderer,
     ComponentRendererConstructor,
     ComponentRendererSpec,
 } from '../interfaces/component-renderer.interface';
-import { Input } from '@angular/core';
-import { FormGroup } from '@angular/forms';
-import { debounceTime } from 'rxjs/operators';
-import { SubscriptionTrackerMixin } from '../../common/subscription';
 
 /**
  * Number of milliseconds delayed before emitting the filter has changed observable
@@ -50,26 +50,27 @@ export interface FilterRendererSpec<C> extends ComponentRendererSpec<C> {
 /**
  * Extended by filter components used in {@link DatagridComponent}. Those components can only be used inside a
  * clr-dg-filter component and are dynamically rendered by {@link ComponentRendererOutletDirective} using
- * {@link GridColumn.filterRendererSpec}
+ * {@link GridColumn.filter}
  * V is the type of filter input value that is passed into setValue method
  * C extends FilterConfig<V> is configuration of a filter that contains queryField and a value of type V
  */
-export abstract class DatagridFilter<V, C extends FilterConfig<V>> extends SubscriptionTrackerMixin(Object)
-    implements ClrDatagridFilterInterface<unknown>, ComponentRenderer<C> {
-    formGroup: FormGroup;
+export abstract class DatagridFilter<V, C extends FilterConfig<V>>
+    implements OnInit, OnDestroy, ClrDatagridFilterInterface<V>, ComponentRenderer<C> {
+    formGroup = this.createFormGroup();
+    private subscriptionTracker = new SubscriptionTracker(this);
 
     protected constructor(filterContainer: ClrDatagridFilter) {
-        super();
         filterContainer.setFilter(this);
     }
 
     /**
-     * Contains configuration needed for a filter UI widget and also it's value.
+     * Sets the configuration needed for a filter UI widget and also it's value.
      * Assigned from {@link ComponentRendererOutletDirective#assignValue} after the filter component is created.
      * Used by the getValue method in sub classes to format the FIQL string output.
      */
-    private _config: C;
+    protected _config: C;
     @Input() set config(val: C) {
+        this.onBeforeSetConfig(val);
         this._config = val;
         if (this._config.value) {
             this.setValue(this._config.value);
@@ -85,6 +86,31 @@ export abstract class DatagridFilter<V, C extends FilterConfig<V>> extends Subsc
      */
     changes = new Subject<null>();
 
+    ngOnInit(): void {
+        const obs = this.getDebounceTimeMs()
+            ? this.formGroup.valueChanges.pipe(debounceTime(this.getDebounceTimeMs()))
+            : this.formGroup.valueChanges;
+        this.subscriptionTracker.subscribe(obs, () => this.changes.next());
+    }
+
+    /**
+     * To override the default delay time for emission of changes
+     */
+    protected getDebounceTimeMs(): number {
+        return DEBOUNCE_TIME_FOR_GRID_FILTER_CHANGES;
+    }
+
+    /**
+     * Called inside setter of {@link DatagridFilter#config} and Defined in the derived classes to perform some logic before
+     * assigning the UI widget configuration and setting a value
+     */
+    protected onBeforeSetConfig(config: C): void {}
+
+    /**
+     * To initialize the {@link formGroup} from sub classes
+     */
+    abstract createFormGroup(): FormGroup;
+
     /**
      * Used for assigning a value to a filter from outside
      */
@@ -99,6 +125,11 @@ export abstract class DatagridFilter<V, C extends FilterConfig<V>> extends Subsc
      * Return true if the filter is currently activated (e.g. a value is provided)
      */
     abstract isActive(): boolean;
+
+    /**
+     * @inheritdoc
+     */
+    abstract ngOnDestroy(): void;
 
     /**
      * Required by Clarity but ignored since we don't support client side filtering
@@ -120,15 +151,6 @@ export abstract class DatagridFilter<V, C extends FilterConfig<V>> extends Subsc
             }
             throw Error('Query field is not specified');
         }
-    }
-
-    /**
-     * Delay the emission of changes by {@link DEBOUNCE_TIME_FOR_GRID_FILTER_CHANGES} milliseconds to avoid firing of
-     * {@link ClrDatagridFilterInterface.changes} too often
-     * @param changesObs Changes coming from filter components
-     */
-    debounceChanges(changesObs: Observable<unknown>): void {
-        this.subscribe(changesObs.pipe(debounceTime(DEBOUNCE_TIME_FOR_GRID_FILTER_CHANGES)), () => this.changes.next());
     }
 }
 

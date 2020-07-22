@@ -3,15 +3,15 @@
  * SPDX-License-Identifier: BSD-2-Clause
  */
 
-import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { VcdComponentsModule } from '@vcd/ui-components';
 import { ShowClippedTextSizingExampleComponent } from './show-clipped-text-sizing-example.component';
-import { ComponentsModule } from '@vcd/ui-components';
 
 @NgModule({
     declarations: [ShowClippedTextSizingExampleComponent],
-    imports: [CommonModule, FormsModule, ComponentsModule],
+    imports: [CommonModule, FormsModule, VcdComponentsModule],
     exports: [ShowClippedTextSizingExampleComponent],
     entryComponents: [ShowClippedTextSizingExampleComponent],
 })

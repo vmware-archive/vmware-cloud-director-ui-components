@@ -3,16 +3,17 @@
  * SPDX-License-Identifier: BSD-2-Clause
  */
 
-import { Component, Host, OnInit } from '@angular/core';
-import { DatagridFilter, FilterConfig } from './datagrid-filter';
+import { Component, Host, OnDestroy } from '@angular/core';
+import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { ClrDatagridFilter } from '@clr/angular';
 import { FilterBuilder } from '../../utils/filter-builder';
-import { FormBuilder } from '@angular/forms';
-import { debounce, debounceTime } from 'rxjs/operators';
+import { DatagridFilter, FilterComponentRendererSpec, FilterConfig, FilterRendererSpec } from './datagrid-filter';
 
 export enum WildCardPosition {
-    START = 'START',
-    END = 'END',
+    NONE = 0,
+    START = 1,
+    END = 2,
+    WRAP = WildCardPosition.START | WildCardPosition.END,
 }
 
 /**
@@ -27,19 +28,15 @@ export interface DatagridStringFilterConfig extends FilterConfig<string> {
     templateUrl: 'datagrid-string-filter.component.html',
 })
 export class DatagridStringFilterComponent extends DatagridFilter<string, DatagridStringFilterConfig>
-    implements OnInit {
-    constructor(@Host() private filterContainer: ClrDatagridFilter, private fb: FormBuilder) {
-        super(filterContainer);
-        this.formGroup = this.fb.group({
-            filterText: '',
+    implements OnDestroy {
+    createFormGroup(): FormGroup {
+        return new FormGroup({
+            filterText: new FormControl(''),
         });
     }
 
-    /**
-     * Changes in the formgroup are emitted for updating the clr grid state
-     */
-    ngOnInit(): void {
-        this.debounceChanges(this.formGroup.valueChanges);
+    constructor(private filterContainer: ClrDatagridFilter) {
+        super(filterContainer);
     }
 
     setValue(value: string): void {
@@ -52,7 +49,7 @@ export class DatagridStringFilterComponent extends DatagridFilter<string, Datagr
         const filterBuilder = new FilterBuilder().is(this.queryField);
         let value = this.formGroup.get('filterText').value;
         if (this.config && this.config.wildCardPosition) {
-            value = this.config.wildCardPosition === WildCardPosition.START ? '*' + value : value + '*';
+            value = this.addWildCard(value, this.config.wildCardPosition);
         }
         return filterBuilder.equalTo(value).getString();
     }
@@ -60,4 +57,39 @@ export class DatagridStringFilterComponent extends DatagridFilter<string, Datagr
     isActive(): boolean {
         return !!this.formGroup && this.formGroup.get('filterText').value;
     }
+
+    /**
+     * Wraps a string with a `wrapCharacter` in given position;
+     */
+    private addWildCard(input: string, position: WildCardPosition, wildcardCharacter = '*'): string {
+        const start = getWrapCharacter(position, WildCardPosition.START);
+        const end = getWrapCharacter(position, WildCardPosition.END);
+        return `${start}${input}${end}`;
+        /**
+         * @return `wrapCharacter` if the passed in position should show it, an empty string otherwise
+         */
+        function getWrapCharacter(inputPosition: WildCardPosition, checkPosition: WildCardPosition): string {
+            return inputPosition & checkPosition ? wildcardCharacter : '';
+        }
+    }
+
+    ngOnDestroy(): void {}
+}
+
+/**
+ * Creates a {@link FilterRendererSpec} with the given config.
+ * @param wildCardPosition where the * should go in the FIQL string output.
+ * @param value the default value of the filter
+ */
+export function DatagridStringFilter(
+    wildCardPosition?: WildCardPosition,
+    value?: string
+): FilterRendererSpec<DatagridStringFilterConfig> {
+    return FilterComponentRendererSpec({
+        type: DatagridStringFilterComponent,
+        config: {
+            wildCardPosition,
+            value,
+        },
+    });
 }

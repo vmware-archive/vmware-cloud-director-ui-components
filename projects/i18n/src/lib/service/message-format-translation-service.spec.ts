@@ -6,9 +6,9 @@
 /*
  * Copyright 2017 VMware, Inc. All rights reserved. VMware Confidential
  */
-import { MessageFormatTranslationService } from './message-format-translation-service';
-import { TranslationLoader } from '../loader/translation-loader';
 import { BehaviorSubject } from 'rxjs';
+import { TranslationLoader } from '../loader/translation-loader';
+import { MessageFormatTranslationService } from './message-format-translation-service';
 
 describe('MessageFormatTranslationService', () => {
     const translationSet = {
@@ -37,6 +37,7 @@ describe('MessageFormatTranslationService', () => {
                 '{count, plural, =0{VM does not comply with compute policies}' +
                 'one{VM does not comply with compute policy "{0}"}' +
                 'other{VM does not comply with compute policies "{0}" and "{1}"}}',
+            'quoted.param': `'{0}'`,
         },
         fr: {},
     };
@@ -125,6 +126,12 @@ describe('MessageFormatTranslationService', () => {
         );
     });
 
+    it('doesnt treat single quote as an escape character', () => {
+        const translationService = new MessageFormatTranslationService('en', 'en');
+        translationService.registerTranslations(translationSet);
+        expect(translationService.translate('quoted.param', ['name'])).toEqual(`'name'`);
+    });
+
     it('can format dates properly', () => {
         const translationService = new MessageFormatTranslationService('en', 'en');
         const date = new Date('1999/05/05');
@@ -157,5 +164,16 @@ describe('MessageFormatTranslationService', () => {
                 hour: '2-digit',
             })
         ).toEqual('May, 12 AM');
+    });
+
+    it('converts pt to pt-BR for locale', () => {
+        const translationService = new MessageFormatTranslationService('pt', 'en');
+        translationService.registerTranslations({
+            'pt-BR': {
+                hello: 'translation',
+            },
+        });
+
+        expect(translationService.translate('hello')).toEqual('translation');
     });
 });

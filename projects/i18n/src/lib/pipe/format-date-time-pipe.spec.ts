@@ -7,9 +7,9 @@
  * Copyright 2018-2019 VMware, Inc. All rights reserved. VMware Confidential
  */
 
+import { MockTranslationService } from '../service/mock-translation-service';
 import { PlatformUtil } from '../utils/platform-util';
 import { formatDateStringToValidFormatForIE, FormatDateTimePipe } from './format-date-time-pipe';
-import { MockTranslationService } from '../service/mock-translation-service';
 
 describe('FormatDateTimePipe', () => {
     const dateString = '04/26/2018, 4:54:06 PM';

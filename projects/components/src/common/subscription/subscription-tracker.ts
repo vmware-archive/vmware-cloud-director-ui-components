@@ -5,10 +5,10 @@
 
 import { OnDestroy } from '@angular/core';
 import { Observable, PartialObserver, Subscription } from 'rxjs';
-import { toSubscriber } from 'rxjs/util/toSubscriber';
+import { toSubscriber } from 'rxjs/internal-compatibility';
 
 /**
- * An interface that knows how to subscribe and ubsubscribe from observables.
+ * An interface that knows how to subscribe and unsubscribe from observables.
  */
 export interface ISubscriptionTracker {
     /**
@@ -40,7 +40,7 @@ export class SubscriptionTracker implements ISubscriptionTracker {
     private subscriptions: Subscription[] = [];
 
     /**
-     * Constructs this tracker to call {@link unsubscribeAll} when {@link destroyable.ngOnDestroy} is called.
+     * Constructs this tracker to call {@link unsubscribeAll} when {@link OnDestroy.ngOnDestroy} is called.
      */
     constructor(destroyable: OnDestroy) {
         const originalOnDestroy = destroyable.ngOnDestroy;

@@ -1,0 +1,45 @@
+<div class="form-group">
+    <div class="clr-form-control">
+        <label *ngIf="label" class="clr-control-label" [attr.for]="id" [ngClass]="{ 'required-field': showAsterisk }">
+            {{ label }}
+        </label>
+        <div class="clr-control-container" [ngClass]="{ 'clr-error': showErrors }">
+            <div class="clr-input-wrapper">
+                <input
+                    [attr.type]="type"
+                    [id]="id"
+                    class="clr-input"
+                    #textInput
+                    (input)="inputChanged()"
+                    [disabled]="disabled"
+                    [attr.placeholder]="placeholder"
+                    [attr.size]="size"
+                    [min]="min"
+                    [max]="max"
+                    [attr.maxlength]="maxlength"
+                    (blur)="inputChanged()"
+                    (keyup.enter)="enterClicked.emit(true)"
+                    (keyup.escape)="escapeClicked.emit(true)"
+                />
+                <clr-icon *ngIf="showErrors && !hint" class="clr-validate-icon" shape="exclamation-circle"></clr-icon>
+            </div>
+            <span class="clr-subtext" *ngIf="showErrors">
+                <div *ngFor="let key of errorKeys">
+                    <div>{{ key | translate: { controlValue: formControl.value, min: min.toString(), max: max } }}</div>
+                </div>
+            </span>
+            <span class="clr-subtext" *ngIf="!showErrors && description">
+                {{ description }}
+            </span>
+        </div>
+        <ng-content select="aside"></ng-content>
+        <clr-signpost *ngIf="hint">
+            <clr-signpost-content [clrPosition]="hintPosition" *clrIfOpen>
+                <p>{{ hint }}</p>
+            </clr-signpost-content>
+        </clr-signpost>
+    </div>
+</div>
+<div class="clr-subtext">
+    <ng-content select="footer"></ng-content>
+</div>

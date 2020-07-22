@@ -3,11 +3,13 @@
  * SPDX-License-Identifier: BSD-2-Clause
  */
 
-import { Component, Host, OnInit } from '@angular/core';
-import { DatagridFilter, FilterConfig } from './datagrid-filter';
+import { Component, Host, Input, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { ClrDatagridFilter } from '@clr/angular';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { NumberWithUnitFormInputComponent } from '../../form';
 import { FilterBuilder } from '../../utils/filter-builder';
+import { Unit } from '../../utils/unit/unit';
+import { DatagridFilter, FilterComponentRendererSpec, FilterConfig, FilterRendererSpec } from './datagrid-filter';
 
 enum FormFields {
     from = 'from',
@@ -15,32 +17,76 @@ enum FormFields {
 }
 
 /**
+ * The type of value that goes in the {@link DatagridNumericFilterConfig}.
+ */
+export type DatagridNumericFilterValue = [number, number];
+
+/**
  * Numeric filter UI widget has only single configuration. So there are no properties in addition to FilterConfig
  */
-export type DatagridNumericFilterConfig = FilterConfig<[number, number]>;
+export interface DatagridNumericFilterConfig extends FilterConfig<DatagridNumericFilterValue> {
+    unit?: Unit;
+    unitOptions?: Unit[];
+}
 
 @Component({
     selector: 'vcd-dg-numeric-filter',
     templateUrl: 'datagrid-numeric-filter.component.html',
     styleUrls: ['datagrid-numeric-filter.component.scss'],
 })
-export class DatagridNumericFilterComponent extends DatagridFilter<[number, number], DatagridNumericFilterConfig>
-    implements OnInit {
-    formGroup: FormGroup;
+export class DatagridNumericFilterComponent
+    extends DatagridFilter<DatagridNumericFilterValue, DatagridNumericFilterConfig>
+    implements OnInit, OnDestroy {
+    maxNumberLength = Number.MAX_SAFE_INTEGER.toString().length;
 
-    constructor(@Host() private filterContainer: ClrDatagridFilter, private fb: FormBuilder) {
-        super(filterContainer);
-        this.formGroup = this.fb.group({
-            [FormFields.from]: null,
-            [FormFields.to]: null,
+    @ViewChild('from') fromInput: NumberWithUnitFormInputComponent;
+    @ViewChild('to') toInput: NumberWithUnitFormInputComponent;
+
+    /**
+     * Options for the select input of units
+     */
+    private _unitOptions: Unit[];
+    @Input() set unitOptions(val: Unit[]) {
+        this._unitOptions = val;
+        if (!this.unit && this.unitOptions && this.unitOptions.length) {
+            this.unit = this.unitOptions[0];
+        }
+    }
+    get unitOptions(): Unit[] {
+        return this._unitOptions;
+    }
+
+    /**
+     * Base unit to which selected units are converted
+     */
+    private _unit: Unit;
+    @Input() set unit(val: Unit) {
+        if (!val && this.unitOptions && this.unitOptions.length) {
+            this._unit = this.unitOptions[0];
+            return;
+        }
+        this._unit = val;
+    }
+    get unit(): Unit {
+        return this._unit;
+    }
+    createFormGroup(): FormGroup {
+        return new FormGroup({
+            [FormFields.from]: new FormControl(null),
+            [FormFields.to]: new FormControl(null),
         });
     }
 
-    ngOnInit(): void {
-        this.debounceChanges(this.formGroup.valueChanges);
+    constructor(private filterContainer: ClrDatagridFilter) {
+        super(filterContainer);
     }
 
-    setValue(values: [number, number]): void {
+    protected onBeforeSetConfig(config: DatagridNumericFilterConfig): void {
+        this.unitOptions = config.unitOptions;
+        this.unit = config.unit;
+    }
+
+    setValue(values: DatagridNumericFilterValue): void {
         if (!values) {
             return;
         }
@@ -78,4 +124,31 @@ export class DatagridNumericFilterComponent extends DatagridFilter<[number, numb
                 typeof this.formGroup.get(FormFields.to).value === 'number')
         );
     }
+
+    close(): void {
+        this.filterContainer.open = false;
+    }
+
+    ngOnDestroy(): void {}
+}
+
+/**
+ * Creates a {@link FilterRendererSpec} with the given config.
+ * @param value the default value that should go in this numeric filter.
+ * @param unit initial value for unit input to be selected
+ * @param unitOptions Select dropdown options for unit input
+ */
+export function DatagridNumericFilter(
+    value?: DatagridNumericFilterValue,
+    unitOptions?: Unit[],
+    unit?: Unit
+): FilterRendererSpec<DatagridNumericFilterConfig> {
+    return FilterComponentRendererSpec({
+        type: DatagridNumericFilterComponent,
+        config: {
+            value,
+            unit,
+            unitOptions,
+        },
+    });
 }

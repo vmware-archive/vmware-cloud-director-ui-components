@@ -99,4 +99,33 @@ abstract class TranslationService {
     abstract formatDateTime(date: Date, options?: object): string;
 }
 
+/**
+ * Converts from unsupported locale to supported locale.
+ */
+export const TRANSLATION_MAPPING = {
+    pt: 'pt-BR', // Brazilian portuguese is pt, as evidenced in its translation file setting currency to R$
+    'zh-Hans': 'zh-CN', // Hans is simplified Chinese
+    'zh-Hant': 'zh-TW', // Hant is traditional Chinese, used in Taiwan
+};
+
+/**
+ * year - Specifies formatting of the year: "2-digit", "numeric". Default: undefined or "numeric"
+ * month - Specifies formatting of the month: "2-digit", "numeric", "narrow", "short", "long".
+ *         Default: undefined or "numeric"
+ * day - Specifies formatting of the day: "2-digit", "numeric". Default: undefined or "numeric"
+ * hour - Specifies formatting of the hour: "2-digit", "numeric". Default: undefined
+ * minute - Specifies formatting of the minute: "2-digit", "numeric". Default: undefined
+ * second - Specifies formatting of the second: "2-digit", "numeric". Default: undefined
+ * hour12 - Specifies whether to use a 12-hour format for hours. Default: true (for 12-hour format),
+ *          false (for 24-hour format)
+ */
+export interface FormatDateOptions {
+    year?: string;
+    month?: string;
+    day?: string;
+    hour?: string;
+    minute?: string;
+    second?: string;
+    hour12?: boolean;
+}
 export { TranslationService };

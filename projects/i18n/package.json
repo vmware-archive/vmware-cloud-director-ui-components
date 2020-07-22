@@ -1,11 +1,11 @@
 {
   "name": "@vcd/i18n",
-  "version": "0.0.2",
+  "version": "0.0.9",
   "peerDependencies": {
     "@angular/common": ">6.0.0",
     "@angular/core": ">6.0.0"
   },
   "dependencies": {
-    "messageformat": "2.3.0"
+    "messageformat": "1.0.2"
   }
 }

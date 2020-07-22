@@ -1,25 +1,55 @@
 # I18n
 
-This library was generated with [Angular CLI](https://github.com/angular/angular-cli) version 8.2.9.
+The library of translation utilities provided to internationalize VMware Cloud Director. VCD UI plugin developers can
+install this library to translate their app and have a reduced bundle size.
 
-## Code scaffolding
+## To install
 
-Run `ng generate component component-name --project i18n` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module --project i18n`.
+`npm install @vcd/i18n` for the latest stable release or
+`npm install @vcd/i18n@next` for the upcoming release, which could contain APIs that may not be stable
 
-> Note: Don't forget to add `--project i18n` or else it will be added to the default project in your `angular.json` file.
+## Usage
+
+In your App Module, import the `I18nModule.forRoot` or `I18nModule.forChild`. Use `forRoot` if you want to use a translation
+service singleton that does not change depending on route loaded, but use `forChild` if you want a translation service that is
+only loaded for the current non-lazy route.
+
+I.E.:
+
+```
+imports: [
+    ...
+    I18nModule.forRoot(),
+    ...
+]
+```
+
+Then, in the constructor of your App Module, inject the `TranslationService` and call `registerTranslations`. If you wish
+to load translations as imported Typescript files, pass the relevant `TranslationSet`. If you wish to load via HTTP, pass no arguments.
+
+I.E.:
+
+```
+constructor(translationService: TranslationService) {
+    translationService.registerTranslations(TRANSLATIONS);
+}
+```
+
+With the setup done, in any component files, you can now inject the `TranslationService` and use it to translate keys, or you
+can use the `TranslationPipe` in any HTML files to translate strings:
+
+```
+<span class="title">{{ 'app.title' | translate }}</span>
+```
 
 ## Build
 
-Run `ng build i18n` to build the project. The build artifacts will be stored in the `dist/` directory.
+Run `npm run build:i18n` to build the project. The build artifacts will be stored in the `dist/` directory.
 
 ## Publishing
 
-After building your library with `ng build i18n`, go to the dist folder `cd dist/i18n` and run `npm publish`.
+After building your library with `npm run build:i18n`, go to the dist folder `cd dist/i18n` and run `npm publish`.
 
 ## Running unit tests
 
-Run `ng test i18n` to execute the unit tests via [Karma](https://karma-runner.github.io).
-
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
+Run `npm run test:i18n` to execute the unit tests via [Karma](https://karma-runner.github.io).

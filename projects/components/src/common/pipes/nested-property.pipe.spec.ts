@@ -3,13 +3,13 @@
  * SPDX-License-Identifier: BSD-2-Clause
  */
 
-import { NestedPropertyPipe } from './nested-property.pipe';
-import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { Component, LOCALE_ID } from '@angular/core';
-import { PipesModule } from './pipes.module';
-import localeFrData from '@angular/common/locales/fr';
 import { DatePipe, DecimalPipe, registerLocaleData } from '@angular/common';
+import localeFrData from '@angular/common/locales/fr';
+import { Component, LOCALE_ID } from '@angular/core';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { WidgetObject } from '../../utils/test/widget-object';
+import { NestedPropertyPipe } from './nested-property.pipe';
+import { PipesModule } from './pipes.module';
 
 const localeEnUs = 'en_US';
 const localeFr = 'fr';

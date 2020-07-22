@@ -1,0 +1,9 @@
+<div>
+    This is an example that shows that you can set the CSS class on each column to change things like the starting
+    width. Each column has a different class that corresponds to a different width set with a different unit. The only
+    units that are supported are
+    <a href="https://developer.mozilla.org/en-US/docs/Learn/CSS/Building_blocks/Values_and_units#Absolute_length_units"
+        >absolute length units</a
+    >. Relative lengths do not seem well supported by Clarity.
+</div>
+<vcd-datagrid [gridData]="gridData" (gridRefresh)="refresh()" [columns]="columns"></vcd-datagrid>

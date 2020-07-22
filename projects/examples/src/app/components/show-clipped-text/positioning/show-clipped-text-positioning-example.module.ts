@@ -3,14 +3,14 @@
  * SPDX-License-Identifier: BSD-2-Clause
  */
 
-import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { NgModule } from '@angular/core';
+import { VcdComponentsModule } from '@vcd/ui-components';
 import { ShowClippedTextPositioningExampleComponent } from './show-clipped-text-positioning-example.component';
-import { ComponentsModule } from '@vcd/ui-components';
 
 @NgModule({
     declarations: [ShowClippedTextPositioningExampleComponent],
-    imports: [CommonModule, ComponentsModule],
+    imports: [CommonModule, VcdComponentsModule],
     exports: [ShowClippedTextPositioningExampleComponent],
     entryComponents: [ShowClippedTextPositioningExampleComponent],
 })

@@ -1,15 +1,47 @@
 <div [formGroup]="formGroup" class="clr-row">
     <div class="clr-col-6">
-        <label class="clr-control-label"
-            >From:
-            <input class="from-input clr-input" type="number" [formControlName]="'from'" />
-        </label>
+        <vcd-number-with-unit-form-input
+            #from
+            *ngIf="unit"
+            [label]="'vcd.cc.numeric.filter.from' | translate"
+            [formControlName]="'from'"
+            [unitOptions]="unitOptions"
+            [showUnlimitedOption]="false"
+            [min]="0"
+            [inputValueUnit]="unit"
+        >
+        </vcd-number-with-unit-form-input>
+        <vcd-form-input
+            *ngIf="!unit"
+            [type]="'number'"
+            [label]="'vcd.cc.numeric.filter.from' | translate"
+            [formControlName]="'from'"
+            [maxlength]="maxNumberLength"
+            (enterClicked)="close()"
+            (escapeClicked)="close()"
+        ></vcd-form-input>
     </div>
 
     <div class="clr-col-6">
-        <label class="clr-control-label"
-            >To:
-            <input class="to-input clr-input" type="number" [formControlName]="'to'" />
-        </label>
+        <vcd-number-with-unit-form-input
+            #to
+            *ngIf="unit"
+            [label]="'vcd.cc.numeric.filter.to' | translate"
+            [formControlName]="'to'"
+            [unitOptions]="unitOptions"
+            [showUnlimitedOption]="false"
+            [min]="0"
+            [inputValueUnit]="unit"
+        >
+        </vcd-number-with-unit-form-input>
+        <vcd-form-input
+            *ngIf="!unit"
+            [type]="'number'"
+            [label]="'vcd.cc.numeric.filter.to' | translate"
+            [formControlName]="'to'"
+            [maxlength]="maxNumberLength"
+            (enterClicked)="close()"
+            (escapeClicked)="close()"
+        ></vcd-form-input>
     </div>
 </div>

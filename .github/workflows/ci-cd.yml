@@ -1,0 +1,266 @@
+# Trigger the workflow on push to any branch or on pull request into master
+name: vmware-cloud-director-ui-components
+on:
+    push:
+    pull_request:
+        branches:
+            - master
+        types: [opened, reopened, synchronize]
+
+jobs:
+    lint-projects:
+        runs-on: ubuntu-latest
+        name: Linting
+        steps:
+            - uses: actions/checkout@v2
+            - run: |
+                  npm ci
+                  npm run lint i18n
+                  npm run lint components
+                  npm run lint examples
+                  npm run lint route-analyzer
+
+    build-i18n:
+        runs-on: ubuntu-latest
+        name: Build /i18n
+        needs: [lint-projects]
+        steps:
+            - uses: actions/checkout@v2
+            - uses: actions/cache@v1
+              with:
+                  path: ./dist/i18n
+                  key: ${{github.sha}}-i18n
+            - run: |
+                  npm ci
+                  npm run build:i18n
+
+    build-components-lib:
+        runs-on: ubuntu-latest
+        name: Build /components
+        needs: [build-i18n]
+        steps:
+            - uses: actions/checkout@v2
+            - uses: actions/cache@v1
+              with:
+                  path: ./dist/i18n
+                  key: ${{github.sha}}-i18n
+            - uses: actions/cache@v1
+              with:
+                  path: ./dist/components
+                  key: ${{ github.sha }}-components
+            - run: |
+                  npm ci
+                  npm run build:components
+
+    build-app:
+        runs-on: ubuntu-latest
+        name: Build /examples-app
+        needs: [build-components-lib]
+        steps:
+            - uses: actions/checkout@v2
+            - uses: actions/cache@v1
+              with:
+                  path: ./dist/components
+                  key: ${{ github.sha }}-components
+            - uses: actions/cache@v1
+              with:
+                  path: ./dist/i18n
+                  key: ${{github.sha}}-i18n
+            - uses: actions/cache@v1
+              with:
+                  path: ./dist/examples
+                  key: ${{github.sha}}-examples
+            - run: |
+                  npm ci
+                  npm run build-components-doc
+                  npm run build-examples-doc
+                  npm run generate-translations
+                  npm run generate-example-translations
+                  npm run build:examples-prod
+
+    build-route-analyzer:
+        runs-on: ubuntu-latest
+        name: Build /route-analyzer
+        needs: [lint-projects]
+        steps:
+            - uses: actions/checkout@v2
+            - uses: actions/cache@v1
+              with:
+                  path: ./dist/route-analyzer
+                  key: ${{github.sha}}-route-analyzer
+            - run: |
+                  npm ci
+                  npm run build:route-analyzer
+
+    unit-testing:
+        runs-on: ubuntu-latest
+        name: Unit tests
+        needs: [build-i18n]
+        steps:
+            - uses: actions/checkout@v2
+            - uses: actions/cache@v1
+              with:
+                  path: ./dist/i18n
+                  key: ${{github.sha}}-i18n
+            - uses: actions/cache@v1
+              with:
+                  path: ./dist/route-analyzer
+                  key: ${{github.sha}}-route-analyzer
+            - uses: actions/cache@v1
+              with:
+                  path: ./coverage
+                  key: coverage
+            - name: Run unit-tests
+              run: |
+                  npm ci
+                  npm run test:ci:components
+                  npm run test:ci:i18n
+            - name: Upload coverage to Codecov
+              if: success()
+              uses: codecov/codecov-action@v1
+
+    gh-pages-deploy:
+        runs-on: ubuntu-latest
+        name: Deploying to Github pages
+        needs: [build-app, unit-testing]
+        steps:
+            - uses: actions/checkout@v2
+            - uses: actions/cache@v1
+              with:
+                  path: ./dist/examples
+                  key: ${{github.sha}}-examples
+            - run: |
+                  npm ci
+                  npx ng deploy --no-build
+              if: github.event_name == 'push' && github.ref == 'refs/heads/master'
+              env:
+                  GH_TOKEN: ${{ secrets.GH_TOKEN }}
+
+    publish-components:
+        needs: [build-components-lib, unit-testing]
+        runs-on: ubuntu-latest
+        steps:
+            - uses: actions/checkout@v2
+              # Fetch depth is given as input because by default, it does a shallow clone (one without any history) for performance reasons.
+              # But the check-components-package step below uses git diff-tree command to get list of files changed and
+              # it requires a base commit sha in addition to the commit sha that triggered this job.
+              with:
+                  fetch-depth: 2
+            - uses: actions/setup-node@v1
+              with:
+                  node-version: '13'
+                  registry-url: https://registry.npmjs.org/
+            - uses: actions/cache@v1
+              with:
+                  path: ./dist/components
+                  key: ${{ github.sha }}-components
+            - name: Install node_modules
+              run: npm ci
+            - id: check-components-tag
+              uses: ./.github/actions/check-lib-tag
+              with:
+                  lib-name: 'components'
+            - id: check-components-package
+              uses: ./.github/actions/check-lib-package
+              with:
+                  lib-name: 'components'
+            - name: Publish components@next
+              if: steps.check-components-tag.outputs.isLibTag != 'true' && steps.check-components-package.outputs.isLibPackageChanged == 'true' && github.event_name == 'push' && github.ref == 'refs/heads/master'
+              run: |
+                  cd ./dist/components
+                  npm publish --tag next --access public
+              env:
+                  NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}
+            - name: Publish components@latest
+              if: steps.check-components-tag.outputs.isLibTag == 'true'
+              run: |
+                  cd ./dist/components
+                  npm publish
+              env:
+                  NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}
+
+    publish-i18n:
+        needs: [build-i18n, unit-testing]
+        runs-on: ubuntu-latest
+        steps:
+            - uses: actions/checkout@v2
+              # Fetch depth is given as input because by default, it does a shallow clone (one without any history) for performance reasons.
+              # But the check-components-package step below uses git diff-tree command to get list of files changed and
+              # it requires a base commit sha in addition to the commit sha that triggered this job.
+              with:
+                  fetch-depth: 2
+            - uses: actions/setup-node@v1
+              with:
+                  node-version: '13'
+                  registry-url: https://registry.npmjs.org/
+            - uses: actions/cache@v1
+              with:
+                  path: ./dist/i18n
+                  key: ${{github.sha}}-i18n
+            - name: Install node_modules
+              run: npm ci
+            - id: check-i18n-tag
+              uses: ./.github/actions/check-lib-tag
+              with:
+                  lib-name: 'i18n'
+            - id: check-i18n-package
+              uses: ./.github/actions/check-lib-package
+              with:
+                  lib-name: 'i18n'
+            - name: Publish i18n@next
+              if: steps.check-i18n-tag.outputs.isLibTag != 'true' && steps.check-i18n-package.outputs.isLibPackageChanged == 'true' && github.event_name == 'push' && github.ref == 'refs/heads/master'
+              run: |
+                  cd ./dist/i18n
+                  npm publish --tag next --access public
+              env:
+                  NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}
+            - name: Publish i18n@latest
+              if: steps.check-i18n-tag.outputs.isLibTag == 'true'
+              run: |
+                  cd ./dist/i18n
+                  npm publish
+              env:
+                  NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}
+
+    publish-route-analyzer:
+        needs: [build-route-analyzer, unit-testing]
+        runs-on: ubuntu-latest
+        steps:
+            - uses: actions/checkout@v2
+              # Fetch depth is given as input because by default, it does a shallow clone (one without any history) for performance reasons.
+              # But the check-XXX step below uses git diff-tree command to get list of files changed and
+              # it requires a base commit sha in addition to the commit sha that triggered this job.
+              with:
+                  fetch-depth: 2
+            - uses: actions/setup-node@v1
+              with:
+                  node-version: '13'
+                  registry-url: https://registry.npmjs.org/
+            - uses: actions/cache@v1
+              with:
+                  path: ./dist/route-analyzer
+                  key: ${{github.sha}}-route-analyzer
+            - name: Install node_modules
+              run: npm ci
+            - id: check-route-analyzer-tag
+              uses: ./.github/actions/check-lib-tag
+              with:
+                  lib-name: 'route-analyzer'
+            - id: check-route-analyzer-package
+              uses: ./.github/actions/check-lib-package
+              with:
+                  lib-name: 'route-analyzer'
+            - name: Publish route-analyzer@next
+              if: steps.check-route-analyzer-tag.outputs.isLibTag != 'true' && steps.check-route-analyzer-package.outputs.isLibPackageChanged == 'true' && github.event_name == 'push' && github.ref == 'refs/heads/master'
+              run: |
+                  cd ./dist/route-analyzer
+                  npm publish --tag next --access public
+              env:
+                  NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}
+            - name: Publish route-analyzer@latest
+              if: steps.check-route-analyzer-tag.outputs.isLibTag == 'true'
+              run: |
+                  cd ./dist/route-analyzer
+                  npm publish
+              env:
+                  NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}

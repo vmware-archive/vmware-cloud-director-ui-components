@@ -1,51 +1,35 @@
 <h3 *ngIf="this.header" class="vcd-header">{{ header }}</h3>
+<vcd-spinner-activity-reporter #actionReporter *ngIf="ActivityIndicatorType.SPINNER === indicatorType">
+</vcd-spinner-activity-reporter>
+<vcd-banner-activity-reporter #actionReporter *ngIf="ActivityIndicatorType.BANNER === indicatorType">
+</vcd-banner-activity-reporter>
 <clr-datagrid
     [clrDgLoading]="isLoading"
     [ngClass]="[this.clrDatagridCssClass, this.height ? 'set-height' : 'fill-parent-grid']"
     (clrDgRefresh)="gridStateChanged($event)"
+    (clrDgSelectedChange)="selectionChanged.emit($event)"
+    (clrDgSingleSelectedChange)="selectionChanged.emit([$event])"
 >
-    <clr-dg-action-bar *ngIf="shouldShowActionBar()">
-        <div class="btn-group" *ngFor="let button of buttonConfig.globalButtons">
-            <button
-                class="btn"
-                [ngClass]="button.class"
-                *ngIf="isButtonShown(button)"
-                (click)="button.handler()"
-                [disabled]="isButtonDisabled(button, button.isActive())"
-            >
-                <ng-container>{{ button.label }}</ng-container>
-            </button>
-        </div>
-
-        <ng-container *ngIf="shouldDisplayButtonsOnTop()">
-            <div class="btn-group" *ngIf="this.getFeaturedButtons().length !== 0">
-                <button
-                    *ngFor="let button of this.getFeaturedButtons()"
-                    type="button"
-                    class="btn btn-icon"
-                    (click)="button.handler(datagridSelection)"
-                    [disabled]="isButtonDisabled(button, button.isActive(datagridSelection))"
-                >
-                    <a role="tooltip" aria-haspopup="true" class="tooltip tooltip-sm">
-                        <clr-icon [attr.shape]="button.icon"></clr-icon>
-                        <span class="tooltip-content">{{ button.label }}</span>
-                    </a>
-                </button>
-                <ng-container *ngTemplateOutlet="dropdown"></ng-container>
-            </div>
-            <ng-container *ngIf="this.getFeaturedButtons().length === 0">
-                <ng-container *ngTemplateOutlet="dropdown"></ng-container>
-            </ng-container>
-        </ng-container>
+    <clr-dg-placeholder>{{ emptyGridPlaceholder }}</clr-dg-placeholder>
+    <clr-dg-action-bar *ngIf="shouldShowActionBarOnTop">
+        <vcd-action-menu
+            [actions]="actions"
+            [selectedEntities]="datagridSelection"
+            [actionDisplayConfig]="actionDisplayConfig"
+            [dropdownTriggerBtnText]="'vcd.cc.action.menu.actions'"
+        >
+        </vcd-action-menu>
     </clr-dg-action-bar>
 
-    <clr-dg-column *ngIf="shouldDisplayButtonsOnRow()" [ngClass]="'buttons-' + this.getMaxFeaturedButtonsOnRow()">
-        Actions
+    <clr-dg-column *ngIf="shouldDisplayContextualActionsInRow" [ngClass]="'buttons-' + maxFeaturedActionsOnRow">
+        {{ 'vcd.cc.datagrid.actions' | translate }}
     </clr-dg-column>
     <clr-dg-column
         *ngFor="let column of columnsConfig"
-        [clrDgSortBy]="column.sortBy || column.queryFieldName"
+        [clrDgSortBy]="column.sortable !== false && column.queryFieldName"
         (clrDgSortOrderChange)="resetToPageOne()"
+        class="data-column"
+        [ngClass]="column.clrDgColumnClassName"
     >
         <ng-container *ngIf="isColumnHideable(column); else notHideable">
             <ng-container *clrDgHideableColumn="{ hidden: column.hideable === GridColumnHideable.Hidden }">{{
@@ -53,65 +37,36 @@
             }}</ng-container>
         </ng-container>
         <ng-template #notHideable>{{ column.displayName }}</ng-template>
-        <clr-dg-filter *ngIf="column.queryFieldName">
-            <ng-template
-                *ngIf="column.filterRendererSpec; else defaultFilter"
-                [vcdComponentRendererOutlet]="{ rendererSpec: column.filterRendererSpec }"
-            >
-            </ng-template>
-            <ng-template #defaultFilter>
-                <vcd-dg-string-filter [config]="{ queryField: column.queryFieldName }"></vcd-dg-string-filter>
-            </ng-template>
+        <clr-dg-filter *ngIf="column.queryFieldName && column.filter">
+            <ng-template [vcdComponentRendererOutlet]="{ rendererSpec: column.filter }"> </ng-template>
         </clr-dg-filter>
     </clr-dg-column>
 
+    <!--The trackBy in the ngFor is to inform Angular on how to track changes to clrDgRow.
+        Whereas the trackBy in ngForTrackBy is to inform Clarity on how to track changes to it's
+        items. -->
     <clr-dg-row
-        *ngFor="let restItem of items; let i = index"
+        *ngFor="let restItem of items; let i = index; let count = count; trackBy: trackBy"
         [ngForTrackBy]="trackBy"
         [ngClass]="this.clrDatarowCssClassGetter(restItem, i)"
         [clrDgItem]="restItem"
     >
         <clr-dg-cell
-            *ngIf="shouldDisplayButtonsOnRow()"
+            *ngIf="shouldDisplayContextualActionsInRow"
             class="action-button-cell"
-            [ngClass]="'buttons-' + this.getMaxFeaturedButtonsOnRow()"
+            [ngClass]="'buttons-' + maxFeaturedActionsOnRow"
         >
-            <div class="btn-group action-button-group">
-                <button
-                    class="btn btn-icon action-button"
-                    *ngFor="let button of this.getFeaturedButtons(restItem)"
-                    (click)="button.handler([restItem])"
-                    [disabled]="isButtonDisabled(button, button.isActive([restItem]))"
-                >
-                    <a role="tooltip" aria-haspopup="true" class="tooltip tooltip-sm">
-                        <clr-icon size="1em" [attr.shape]="button.icon" class="action-icon"></clr-icon>
-                        <span class="tooltip-content">{{ button.label }}</span>
-                    </a>
-                </button>
-                <clr-dropdown
-                    class="btn-group-overflow open action-button"
-                    *ngIf="buttonConfig.contextualButtonConfig.buttons.length !== 0"
-                >
-                    <button class="btn action-button dropdown-small" clrDropdownTrigger>
-                        <clr-icon shape="ellipsis-horizontal action-icon"></clr-icon>
-                    </button>
-                    <clr-dropdown-menu class="dropdown-menu" *clrIfOpen>
-                        <ng-container *ngFor="let button of buttonConfig.contextualButtonConfig.buttons">
-                            <button
-                                class="btn"
-                                [ngClass]="button.class"
-                                [disabled]="!button.isActive([restItem])"
-                                (click)="button.handler([restItem])"
-                            >
-                                {{ button.label }}
-                            </button>
-                        </ng-container>
-                    </clr-dropdown-menu>
-                </clr-dropdown>
-            </div>
+            <vcd-action-menu
+                #actionMenuInRow
+                [actions]="contextualActions"
+                [selectedEntities]="[restItem]"
+                [actionDisplayConfig]="actionDisplayConfig"
+                [dropdownTriggerBtnIcon]="'ellipsis-vertical'"
+            >
+            </vcd-action-menu>
         </clr-dg-cell>
 
-        <clr-dg-cell *ngFor="let column of columnsConfig">
+        <clr-dg-cell [vcdShowClippedText]="column.cliptextConfig" *ngFor="let column of columnsConfig">
             <!-- Default renderer -->
             <ng-container *ngIf="column.fieldName">{{ restItem | nestedProperty: column.fieldName }}</ng-container>
 
@@ -127,38 +82,46 @@
             >
             </ng-template>
         </clr-dg-cell>
-        <ng-container ngProjectAs="clr-dg-row-detail" *ngIf="detailTemplate !== undefined">
-            <clr-dg-row-detail *clrIfExpanded>
-                <ng-content *ngTemplateOutlet="detailTemplate; context: { record: restItem }"> </ng-content>
+
+        <ng-container ngProjectAs="clr-dg-row-detail" *ngIf="detailComponent !== undefined">
+            <clr-dg-row-detail *clrIfExpanded="isRowExpanded">
+                <ng-template
+                    [vcdComponentRendererOutlet]="{
+                        rendererSpec: getDetailRowRenderSpec(restItem, i, count)
+                    }"
+                >
+                </ng-template>
             </clr-dg-row-detail>
         </ng-container>
     </clr-dg-row>
 
+    <ng-container ngProjectAs="clr-dg-detail" *ngIf="detailPane">
+        <clr-dg-detail *clrIfDetail="let restItem">
+            <clr-dg-detail-header>{{ detailPane.header(restItem) }}</clr-dg-detail-header>
+            <clr-dg-detail-body>
+                <ng-template
+                    [vcdComponentRendererOutlet]="{
+                        rendererSpec: getDetailPaneRenderSpec(restItem)
+                    }"
+                >
+                </ng-template>
+            </clr-dg-detail-body>
+        </clr-dg-detail>
+    </ng-container>
+
     <clr-dg-footer>
-        <clr-dg-pagination #paginationData [clrDgTotalItems]="totalItems" [clrDgPageSize]="this.pageSize">
-            <div>{{ paginationCallbackWrapper(paginationData) }}</div>
-            <clr-dg-page-size [clrPageSizeOptions]="this.pageSizeOptions">{{
-                paginationDropdownText
-            }}</clr-dg-page-size>
+        <clr-dg-pagination
+            #paginationData
+            [clrDgTotalItems]="totalItems"
+            [clrDgPageSize]="this.pageSize"
+            [clrDgPageInputDisabled]="!this.pagination.shouldShowPageNumberInput"
+        >
+            <div>{{ getPaginationTranslation(paginationData) | lazyString }}</div>
+            <clr-dg-page-size
+                [clrPageSizeOptions]="this.pageSizeOptions"
+                *ngIf="this.pagination.shouldShowPageSizeSelector"
+                >{{ paginationDropdownText }}</clr-dg-page-size
+            >
         </clr-dg-pagination>
     </clr-dg-footer>
 </clr-datagrid>
-
-<ng-template #dropdown>
-    <clr-dropdown class="btn-group-overflow open" *ngIf="hasContextualButtons()">
-        <button class="btn dropdown-toggle dropdown-small" clrDropdownTrigger>
-            <clr-icon shape="ellipsis-horizontal"></clr-icon>
-        </button>
-        <clr-dropdown-menu class="dropdown-menu" *clrIfOpen>
-            <button
-                *ngFor="let button of buttonConfig.contextualButtonConfig.buttons"
-                class="btn"
-                [ngClass]="button.class"
-                [disabled]="!button.isActive(this.datagridSelection)"
-                (click)="button.handler(this.datagridSelection)"
-            >
-                {{ button.label }}
-            </button>
-        </clr-dropdown-menu>
-    </clr-dropdown>
-</ng-template>

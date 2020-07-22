@@ -19,6 +19,24 @@ export enum TooltipSize {
 }
 
 /**
+ * The configuration information for the cliptext within the cells of the datagrid.
+ */
+export interface CliptextConfig {
+    /**
+     * The size of the tooltip to be displayed in the cell.
+     */
+    size?: TooltipSize;
+    /**
+     * The time delay from mouse off to hide the cliptext.
+     */
+    mouseoutDelay?: number;
+    /**
+     * If the cliptext should be disabled.
+     */
+    disabled?: boolean;
+}
+
+/**
  * Singleton tooltip created by directive
  */
 const tip = {
@@ -131,6 +149,7 @@ const tip = {
             width: rect.width + 'px',
             height: rect.height + 'px',
             opacity: '1',
+            wordBreak: 'break-all',
         });
         setStyle(tip.content, {
             visibility: 'visible',
@@ -202,45 +221,47 @@ export class ShowClippedTextDirective implements OnDestroy, OnInit {
     /** To destroy the tooltip when no longer needed */
     static instanceCount = 0;
 
-    /** Size of tooltip */
-    @Input('vcdShowClippedText') tooltipSize = TooltipSize.md;
+    @Input('vcdShowClippedText')
+    set config(config: CliptextConfig) {
+        if (config && config.mouseoutDelay) {
+            this.mouseoutDelay = config.mouseoutDelay;
+        }
+        if (config && config.size) {
+            this.tooltipSize = config.size;
+        }
+        const nextDisabled = config !== undefined && config.disabled;
+        if (this.disabled === nextDisabled) {
+            return;
+        }
+        this.disabled = nextDisabled;
+        if (this.disabled) {
+            this.deactivate();
+        } else {
+            this.activate();
+        }
+    }
 
-    // tslint:disable-next-line:no-input-rename
-    @Input('vcdShowClippedTextMouseOutDelay')
     mouseoutDelay = 500;
+    tooltipSize = TooltipSize.md;
+    disabled = false;
 
     /**
      * The HTML element receiving the directive
      */
     public hostElement: HTMLElement = this.host.nativeElement;
 
-    /**
-     * Be notified whenever the host element changes content or its CSS style
-     */
-    private mutationObserver = new MutationObserver(() => {
-        // Make sure isMouseOver is first. It's an optimization to avoid measuring the DOM
-        // Also don't update the tooltip if content changes but the mouse is over a different host
-        if (tip.isMouseOver && this.hostElement === tip.currentHost) {
-            if (this.isOverflowing()) {
-                tip.update();
-            } else {
-                tip.hideTooltip(this.mouseoutDelay);
-            }
-        }
-    });
-
     constructor(private host: ElementRef) {}
 
     ngOnInit(): void {
+        if (!this.disabled) {
+            this.activate();
+        }
+    }
+
+    activate(): void {
         ShowClippedTextDirective.instanceCount++;
         tip.create();
         watchEvents(this.hostElement, this.onMouseIn, this.onMouseOut);
-        this.mutationObserver.observe(this.hostElement, {
-            attributeFilter: ['style'],
-            childList: true,
-            subtree: true,
-            characterData: true,
-        });
 
         // A host must have the following styles to show text ellipsis when overflowing
         setStyle(this.hostElement, {
@@ -251,9 +272,14 @@ export class ShowClippedTextDirective implements OnDestroy, OnInit {
     }
 
     ngOnDestroy(): void {
+        if (!this.disabled) {
+            this.deactivate();
+        }
+    }
+
+    deactivate(): void {
         ShowClippedTextDirective.instanceCount--;
         unwatchEvents(this.hostElement, this.onMouseIn, this.onMouseOut);
-        this.mutationObserver.disconnect();
         if (ShowClippedTextDirective.instanceCount === 0) {
             tip.destroy();
         }
@@ -279,3 +305,14 @@ export class ShowClippedTextDirective implements OnDestroy, OnInit {
         return Math.ceil(this.hostElement.getBoundingClientRect().width) < this.hostElement.scrollWidth;
     }
 }
+
+/**
+ * Used to call {@link tip.onTransitionEnd} from outside this file.
+ * We need to expose {@link tip.onTransitionEnd} because when the window is not focused
+ * (as in a headless chrome environment), the transitionend event is not fired.
+ * As such, from the tests, you need to manually call this method.
+ */
+export const fireTipTransitionEndForTests = (event: Event) => {
+    // Since we're at it, please remove the param from onTransitionEnd since we don't use it
+    tip.onTransitionEnd(event);
+};

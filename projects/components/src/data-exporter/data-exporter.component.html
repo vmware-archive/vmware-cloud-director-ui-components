@@ -1,35 +1,101 @@
-<clr-modal [clrModalOpen]="open" (clrModalOpenChange)="openChange.emit($event)" [clrModalSize]="'sm'" #modal>
-    <h3 class="modal-title">{{ dialogHeader || ('data-exporter.title' | translate) }}</h3>
+<clr-modal [clrModalOpen]="open" (clrModalOpenChange)="openChange.emit($event)" [clrModalSize]="'md'" #modal>
+    <h3 class="modal-title">{{ dialogHeader | lazyString }}</h3>
     <div class="modal-body">
-        <button
-            *ngIf="showSelectAll"
-            class="btn btn-sm btn-link select-all"
-            type="button"
-            (click)="onClickCheckAll()"
-            [disabled]="!isSelectAllEnabled"
-        >
-            {{ selectAllText || ('select.all' | translate) }}
-        </button>
-        <ul class="list-unstyled column-selection" [formGroup]="formGroup">
-            <li *ngFor="let col of columns">
-                <clr-checkbox-wrapper>
-                    <input type="checkbox" clrCheckbox [formControlName]="col.fieldName" />
-                    <label>{{ col.displayName }}</label>
-                </clr-checkbox-wrapper>
-            </li>
-        </ul>
+        <div>
+            <ul class="list-unstyled" [formGroup]="optionsFormGroup">
+                <li>
+                    <div class="flex-row">
+                        <clr-checkbox-wrapper>
+                            <input
+                                class="friendly-names"
+                                type="checkbox"
+                                clrCheckbox
+                                [formControl]="this.friendlyFieldsControl"
+                            />
+                            <label>{{ friendlyNamesCheckboxLabel | lazyString }}</label>
+                        </clr-checkbox-wrapper>
+                        <div class="fill-space"></div>
+                        <clr-signpost>
+                            <clr-icon clrSignpostTrigger shape="info-circle" size="24"></clr-icon>
+                            <clr-signpost-content *clrIfOpen>
+                                <span>{{ friendlyNamesInfoMessage | lazyString }}</span>
+                            </clr-signpost-content>
+                        </clr-signpost>
+                    </div>
+                    <i>{{ friendlyNamesHint | lazyString }}</i>
+                    <div class="flex-row">
+                        <clr-checkbox-wrapper>
+                            <input
+                                class="sanitize-cells"
+                                type="checkbox"
+                                clrCheckbox
+                                [formControl]="this.sanitizeControl"
+                            />
+                            <label>{{ sanitizeCheckboxLabel | lazyString }}</label>
+                        </clr-checkbox-wrapper>
+                        <div class="fill-space"></div>
+                        <clr-signpost>
+                            <clr-icon clrSignpostTrigger shape="info-circle" size="24"></clr-icon>
+                            <clr-signpost-content *clrIfOpen>
+                                <span>{{ sanitizeInfoMessage | lazyString }}</span>
+                            </clr-signpost-content>
+                        </clr-signpost>
+                    </div>
+                    <i>{{ sanitizeCheckboxHint | lazyString }}</i>
+                    <div class="flex-row">
+                        <clr-checkbox-wrapper>
+                            <input
+                                class="export-all"
+                                type="checkbox"
+                                clrCheckbox
+                                [formControl]="this.selectAllControl"
+                            />
+                            <label>{{ exportAllText | lazyString }}</label>
+                        </clr-checkbox-wrapper>
+                        <clr-dropdown *ngIf="!this.selectAllControl.value">
+                            <clr-icon
+                                [attr.shape]="isDropdownOpen ? 'caret up' : 'caret down'"
+                                size="24"
+                                clrDropdownTrigger
+                                class="dropdown-button"
+                            ></clr-icon>
+                            <clr-dropdown-menu clrPosition="bottom" *clrIfOpen="forceDropdownOpen">
+                                <ul class="list-unstyled column-selection" [formGroup]="formGroup">
+                                    <li *ngFor="let col of columns" class="dropdown-item">
+                                        <clr-checkbox-wrapper class="column-checkbox">
+                                            <input type="checkbox" clrCheckbox [formControlName]="col.fieldName" />
+                                            <label>{{
+                                                this.friendlyFieldsControl.value ? col.displayName : col.fieldName
+                                            }}</label>
+                                        </clr-checkbox-wrapper>
+                                    </li>
+                                </ul>
+                            </clr-dropdown-menu>
+                        </clr-dropdown>
+                    </div>
+                </li>
+            </ul>
+            <div [ngStyle]="{ visibility: shouldShowBubbles ? 'visible' : 'hidden' }" class="column-container">
+                <span class="label column-label" *ngFor="let column of selectedColumns">
+                    {{ this.friendlyFieldsControl.value ? column.displayName : column.fieldName }}
+                    <clr-icon shape="close" class="badge badge-info" (click)="selectColumn(column, false)"> </clr-icon>
+                </span>
+            </div>
+        </div>
+        <div class="progress-divider"></div>
+        <ng-container *ngIf="isRequestPending">{{ exportStage | lazyString }}</ng-container>
+        <div class="progress-divider"></div>
         <div class="progress" [ngClass]="{ loop: progress == -1, pending: isRequestPending }">
             <progress max="100" value="{{ progress * 100 }}"></progress>
         </div>
     </div>
-    <hr />
 
     <div class="modal-footer">
         <button type="button" class="btn btn-outline cancel" (click)="open = false">
-            {{ cancelText || ('cancel' | translate) }}
+            {{ cancelText | lazyString }}
         </button>
         <button type="button" class="btn btn-primary export" [disabled]="!isExportEnabled" (click)="onClickExport()">
-            {{ exportText || ('export' | translate) }}
+            {{ exportText | lazyString }}
         </button>
     </div>
 </clr-modal>

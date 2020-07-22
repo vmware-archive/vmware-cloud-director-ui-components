@@ -4,7 +4,7 @@
  */
 
 import { Component } from '@angular/core';
-import { GridDataFetchResult, GridColumn, GridState, PaginationConfiguration } from '@vcd/ui-components';
+import { GridColumn, GridDataFetchResult, GridState, PaginationConfiguration } from '@vcd/ui-components';
 
 interface Data {
     value: string;
@@ -33,6 +33,8 @@ export class DatagridPaginationExampleComponent {
     paginationInfo: PaginationConfiguration = {
         pageSize: 2,
         pageSizeOptions: [2, 20, 50, 100],
+        shouldShowPageNumberInput: true,
+        shouldShowPageSizeSelector: true,
     };
 
     columns: GridColumn<Data>[] = [

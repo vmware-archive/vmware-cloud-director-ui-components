@@ -6,7 +6,6 @@
 import { DebugElement, Type } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { FindableWidget } from './widget-object';
 
 /**
  * An implementation of the page object pattern, but applied to widgets, since they can be reused on multiple pages.
@@ -78,12 +77,44 @@ export abstract class WidgetObject<T> {
     }
 
     /**
+     * Sends a keyboard event defined by the key to an element and detects changes so the DOM is immediately updated.
+     * The keyboard event consists of keydow
+     * @param key the key, for example Enter, Escape, ArrowUp etc.
+     * @param cssSelector Pass this in if you want trigger the event on a specific element.
+     *        If not passed in, the event will be triggered on the entire node
+     * @param parent the parent element for which to search for the {@param cssSelector} within. Defaults to root if not provided.
+     */
+    protected sendKeyboardEvent(key: string, cssSelector?: string, parent: DebugElement = this.root): void {
+        const nativeElement: HTMLBaseElement = parent.query(By.css(cssSelector)).nativeElement;
+        nativeElement.dispatchEvent(new KeyboardEvent('keydown', { key, bubbles: true }));
+        nativeElement.dispatchEvent(new KeyboardEvent('keyup', { key, bubbles: true }));
+        this.detectChanges();
+    }
+
+    /**
+     * Sets the value of an input element or textarea element
+     * @param value the value that the element should display
+     * @param cssSelector Pass this in if you want trigger the event on a specific element.
+     *        If not passed in, the event will be triggered on the entire node
+     * @param parent the parent element for which to search for the {@param cssSelector} within. Defaults to root if not provided.
+     */
+    protected setInputValue(value: string | number, cssSelector?: string, parent: DebugElement = this.root): void {
+        const nativeElement: HTMLInputElement | HTMLTextAreaElement = parent.query(By.css(cssSelector)).nativeElement;
+        nativeElement.value = String(value);
+        nativeElement.dispatchEvent(new Event('input'));
+        this.detectChanges();
+    }
+
+    /**
      * Returns text content of this widget
+     * If the element cannot be found, gives empty string.
      * @param cssSelector Pass this in if you want to retrieve text for a specific element within this widget.
+     * @param parent Where to start the search; defaults to the root of this component
      */
 
-    protected getText(cssSelector: string): string {
-        return this.getNodeText(this.findElement(cssSelector));
+    protected getText(cssSelector: string, parent: DebugElement = this.root): string {
+        const element = this.findElement(cssSelector, parent);
+        return element ? this.getNodeText(element) : '';
     }
 
     /**
@@ -97,7 +128,7 @@ export abstract class WidgetObject<T> {
         // The || '' is because textContent could technically be null when passed in the document
         // element object. We know that cannot be pased in here, so we ignore it for coverage
         // but we still need the line there to make strictNullChecks work
-        return el.nativeElement.textContent || /* istanbul ignore next */ '';
+        return el.nativeElement.textContent.trim() || /* istanbul ignore next */ '';
     }
 }
 
@@ -158,7 +189,10 @@ export class WidgetFinder<H = unknown> {
      * Finds widgets within a fixture
      * @return A Potentially empty list of widgets matching the given specs
      */
-    public findWidgets<C, T extends FindableWidget<C>>(params: FindParams<T> | T): InstanceType<T>[] {
+    public findWidgets<C, T extends FindableWidget<C>>(
+        params: FindParams<T> | T,
+        parent?: DebugElement
+    ): InstanceType<T>[] {
         const defaults = { ancestor: this.fixture.debugElement, className: '' };
         const { woConstructor, ancestor, className } = isFindParamsObject(params)
             ? { ...defaults, ...params }
@@ -168,7 +202,7 @@ export class WidgetFinder<H = unknown> {
         if (className) {
             query += `.${className}`;
         }
-        const componentRoots = ancestor.queryAll(By.css(query));
+        const componentRoots = (parent ? parent : ancestor).queryAll(By.css(query));
         const widgets = componentRoots.map(
             // Typescript is not able to infer it correctly as the subclass but we know for sure
             root => new woConstructor(this.fixture, root, root.componentInstance) as InstanceType<T>

@@ -21,7 +21,13 @@
           "options": {
             "main": "projects/components/src/test.ts",
             "tsConfig": "projects/components/tsconfig.spec.json",
-            "karmaConfig": "projects/components/karma.conf.js"
+            "karmaConfig": "projects/components/karma.conf.js",
+            "styles": ["node_modules/@clr/ui/clr-ui.min.css"],
+            "stylePreprocessorOptions": {
+              "includePaths": [
+                "node_modules"
+              ]
+            }
           }
         },
         "lint": {
@@ -30,41 +36,6 @@
             "tsConfig": [
               "projects/components/tsconfig.lib.json",
               "projects/components/tsconfig.spec.json"
-            ],
-            "exclude": [
-              "**/node_modules/**"
-            ]
-          }
-        }
-      }
-    },
-    "doc-lib": {
-      "projectType": "library",
-      "root": "projects/doc-lib",
-      "sourceRoot": "projects/doc-lib/src",
-      "prefix": "vcd",
-      "architect": {
-        "build": {
-          "builder": "@angular-devkit/build-ng-packagr:build",
-          "options": {
-            "tsConfig": "projects/doc-lib/tsconfig.lib.json",
-            "project": "projects/doc-lib/ng-package.json"
-          }
-        },
-        "test": {
-          "builder": "@angular-devkit/build-angular:karma",
-          "options": {
-            "main": "projects/doc-lib/src/test.ts",
-            "tsConfig": "projects/doc-lib/tsconfig.spec.json",
-            "karmaConfig": "projects/doc-lib/karma.conf.js"
-          }
-        },
-        "lint": {
-          "builder": "@angular-devkit/build-angular:tslint",
-          "options": {
-            "tsConfig": [
-              "projects/doc-lib/tsconfig.lib.json",
-              "projects/doc-lib/tsconfig.spec.json"
             ],
             "exclude": [
               "**/node_modules/**"
@@ -95,7 +66,8 @@
             "aot": false,
             "assets": [
               "projects/examples/src/favicon.ico",
-              "projects/examples/src/assets"
+              "projects/examples/src/assets",
+              "projects/examples/src/compodoc"
             ],
             "styles": [
               "node_modules/@clr/icons/clr-icons.min.css",
@@ -103,7 +75,8 @@
               "projects/examples/src/styles.scss"
             ],
             "scripts": [
-              "node_modules/@webcomponents/custom-elements/custom-elements.min.js",
+              "node_modules/@webcomponents/webcomponentsjs/custom-elements-es5-adapter.js",
+              "node_modules/@webcomponents/webcomponentsjs/webcomponents-bundle.js",
               "node_modules/@clr/icons/clr-icons.min.js"
             ]
           },
@@ -120,7 +93,7 @@
               "sourceMap": false,
               "extractCss": true,
               "namedChunks": false,
-              "aot": false,
+              "aot": true,
               "extractLicenses": true,
               "vendorChunk": false,
               "buildOptimizer": false,
@@ -165,7 +138,8 @@
             "karmaConfig": "projects/examples/karma.conf.js",
             "assets": [
               "projects/examples/src/favicon.ico",
-              "projects/examples/src/assets"
+              "projects/examples/src/assets",
+              "projects/examples/src/compodoc"
             ],
             "styles": [
               "projects/examples/src/styles.scss"
@@ -201,9 +175,11 @@
         "deploy": {
           "builder": "angular-cli-ghpages:deploy",
           "options": {
-              "repo": "https://github.com/vmware/vmware-cloud-director-ui-components",
-              "baseHref": "/vmware-cloud-director-ui-components/",
-              "noSilent": true
+            "repo": "https://github.com/vmware/vmware-cloud-director-ui-components",
+            "baseHref": "/vmware-cloud-director-ui-components/",
+            "noSilent": true,
+            "name": "ps37",
+            "email": "prudhvi.af121@gmail.com"
           }
         }
       }
@@ -235,6 +211,41 @@
             "tsConfig": [
               "projects/i18n/tsconfig.lib.json",
               "projects/i18n/tsconfig.spec.json"
+            ],
+            "exclude": [
+              "**/node_modules/**"
+            ]
+          }
+        }
+      }
+    },
+    "route-analyzer": {
+      "projectType": "library",
+      "root": "projects/route-analyzer",
+      "sourceRoot": "projects/route-analyzer/src",
+      "prefix": "vcd",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-ng-packagr:build",
+          "options": {
+            "tsConfig": "projects/route-analyzer/tsconfig.lib.json",
+            "project": "projects/route-analyzer/ng-package.json"
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "projects/route-analyzer/src/test.ts",
+            "tsConfig": "projects/route-analyzer/tsconfig.spec.json",
+            "karmaConfig": "projects/route-analyzer/karma.conf.js"
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "projects/route-analyzer/tsconfig.lib.json",
+              "projects/route-analyzer/tsconfig.spec.json"
             ],
             "exclude": [
               "**/node_modules/**"

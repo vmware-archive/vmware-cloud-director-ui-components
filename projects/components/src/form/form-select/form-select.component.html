@@ -1,0 +1,30 @@
+<div class="form-group">
+    <div class="clr-form-control">
+        <label *ngIf="label" [attr.for]="id" class="clr-control-label" [ngClass]="{ 'required-field': showAsterisk }">
+            {{ label }}
+        </label>
+        <span *ngIf="isReadOnly && selectedOption" class="readOnly">
+            {{ selectedOption.isTranslatable ? (selectedOption.display | translate) : selectedOption.display }}
+        </span>
+        <div class="clr-control-container" [ngClass]="{ 'clr-error': showErrors }">
+            <div class="clr-select-wrapper" *ngIf="!isReadOnly">
+                <select [id]="id" [formControl]="formControl">
+                    <option *ngFor="let option of options" [value]="option.value">
+                        {{ option.isTranslatable ? (option.display | translate) : option.display }}
+                    </option>
+                </select>
+            </div>
+
+            <ng-content select="aside"></ng-content>
+
+            <span class="clr-subtext" *ngIf="showErrors">
+                <div *ngFor="let key of errorKeys">
+                    <div>{{ key | translate: [formControl.value] }}</div>
+                </div>
+            </span>
+        </div>
+    </div>
+    <span class="clr-subtext">
+        <ng-content select="footer"></ng-content>
+    </span>
+</div>

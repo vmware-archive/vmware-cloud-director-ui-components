@@ -3,14 +3,14 @@
  * SPDX-License-Identifier: BSD-2-Clause
  */
 
-import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { Documentation } from '@vcd/ui-doc-lib';
+import { NgModule } from '@angular/core';
 import { ShowClippedTextDirective } from '@vcd/ui-components';
+import { Documentation } from '@vmw/ng-live-docs';
 import { ShowClippedTextPositioningExampleComponent } from './positioning/show-clipped-text-positioning-example.component';
 import { ShowClippedTextPositioningExampleModule } from './positioning/show-clipped-text-positioning-example.module';
-import { ShowClippedTextSizingExampleModule } from './sizing/show-clipped-text-sizing-example.module';
 import { ShowClippedTextSizingExampleComponent } from './sizing/show-clipped-text-sizing-example.component';
+import { ShowClippedTextSizingExampleModule } from './sizing/show-clipped-text-sizing-example.module';
 
 Documentation.registerDocumentationEntry({
     component: ShowClippedTextDirective,

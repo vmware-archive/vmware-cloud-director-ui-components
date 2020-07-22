@@ -6,6 +6,8 @@
 /**
  * Whether something shows up in the column toggler
  */
+import { TextIcon } from '../../common/interfaces/action-item.interface';
+import { CliptextConfig } from '../../lib/directives/show-clipped-text.directive';
 import { FilterConfig, FilterRendererSpec } from '../filters/datagrid-filter';
 import { ComponentRendererConstructor, ComponentRendererSpec } from './component-renderer.interface';
 
@@ -38,7 +40,9 @@ export enum InactiveButtonDisplayMode {
  * @param record The record for the row being rendered
  * @return The string to be displayed for that cell
  */
-export type FunctionRenderer<T> = (record: T) => string;
+export interface FunctionRenderer<T> {
+    (record: T): string;
+}
 
 /**
  * A generic interface for a button that can be displayed on the grid.
@@ -50,8 +54,10 @@ export interface Button<R> {
     label: string;
     /**
      * The css class the button should have.
+     *
+     * @unique among all added buttons
      */
-    class?: string;
+    class: string;
     /**
      * The way this button should be shown when inactive.
      * Overrides {@link ButtonConfig.inactiveDisplayMode}.
@@ -62,7 +68,7 @@ export interface Button<R> {
      *
      * @param entity the currently selected entities.
      */
-    handler: (rec?: R[]) => void;
+    handler: (rec?: R[]) => Promise<string | undefined> | void;
     /**
      * The function that is called to determine if the button should be displayed.
      *
@@ -75,10 +81,6 @@ export interface Button<R> {
  * A type of button whose displayability does not depend on the selected entity.
  */
 export interface GlobalButton<R> extends Button<R> {
-    /**
-     * The function that is called when the button is pressed.
-     */
-    handler: () => void;
     /**
      * The function that is called to determine if the button should be displayed.
      */
@@ -94,17 +96,13 @@ export interface ContextualButton<R> extends Button<R> {
      *
      * @param entity the currently selected entities.
      */
-    handler: (entity: R[]) => void;
+    handler: (entity: R[]) => Promise<string | undefined> | void;
     /**
      * The function that is called to determine if the button should be displayed.
      *
      * @param entity the currently selected entities.
      */
     isActive: (rec: R[]) => boolean;
-    /**
-     * The ID of this button that is unique among buttons passed to the grid.
-     */
-    id: string;
     /**
      * The Clarity icon of the contextual button that is displayed if the button is featured.
      */
@@ -131,18 +129,27 @@ export interface ContextualButtonConfig<R> {
      * An ordered list of {@link ContextualButton.id}s of buttons that should be in a featured position.
      *
      * Only non-hidden buttons will be shown.
+     *
+     * If featured is not set, all buttons will become featured.
      */
-    featured: string[];
+    featured?: string[];
     /**
      * How many buttons should display on the featured section.
      *
      * Used when you want to set a limit on the number of featured buttons shown.
+     *
+     * If featuredCount is not set, it will default to the total number of buttons.
      */
-    featuredCount: number;
+    featuredCount?: number;
     /**
      * Where the buttons should display on the grid.
      */
     position: ContextualButtonPosition;
+    /**
+     * If the title should be the button label, icon, or both
+     * Defaults to ICON if unset.
+     */
+    buttonContents?: TextIcon;
 }
 
 /**
@@ -156,7 +163,7 @@ export interface ButtonConfig<R> {
     /**
      * The buttons whose displayability depends on the selected entity.
      */
-    contextualButtonConfig: ContextualButtonConfig<R>;
+    contextualButtonConfig?: ContextualButtonConfig<R>;
     /**
      * The way buttons should be shown when inactive.
      */
@@ -227,13 +234,24 @@ export interface GridColumn<R> {
      * TODO: Should this be made to work with top level search on grids across all columns?
      *  The above to-do is going to be worked on as part of https://jira.eng.vmware.com/browse/VDUCC-27 and
      */
-    filterRendererSpec?: FilterRendererSpec<FilterConfig<unknown>>;
+    filter?: FilterRendererSpec<FilterConfig<unknown>>;
 
     /**
-     * To enable only sorting without filtering on the column. This is because, passing in clrDgField turns both filtering
-     * and sorting feature on. And we want filtering to be off on some columns while still having sorting enabled.
+     * The configuration for the cliptext in the datagrid.
+     * Defaults to size: 'lg', mouseoutDelay: undefined.
+     * If null, will disable cliptext
      */
-    sortBy?: string;
+    cliptextConfig?: CliptextConfig;
+
+    /**
+     * Whether to show the column as sortable. Defaults to true
+     */
+    sortable?: boolean;
+
+    /**
+     * The class of the column header.
+     */
+    clrDgColumnClassName?: string;
 }
 
 /**

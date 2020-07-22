@@ -3,12 +3,11 @@
  * SPDX-License-Identifier: BSD-2-Clause
  */
 
-import { enableProdMode } from '@angular/core';
+import { enableProdMode, LOCALE_ID } from '@angular/core';
 import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
 
 import { AppModule } from './app/app.module';
 import { environment } from './environments/environment';
-import { BOOTSTRAP_DETAILS } from '@vcd/i18n';
 
 if (environment.production) {
     enableProdMode();
@@ -16,10 +15,8 @@ if (environment.production) {
 
 platformBrowserDynamic([
     {
-        provide: BOOTSTRAP_DETAILS,
-        useValue: {
-            locale: 'en',
-        },
+        provide: LOCALE_ID,
+        useValue: navigator.language,
     },
 ])
     .bootstrapModule(AppModule)

@@ -6,8 +6,8 @@
 import { NgModule } from '@angular/core';
 import { DataExporterExampleComponent } from './data-exporter.example.component';
 
-import { Documentation } from '@vcd/ui-doc-lib';
 import { DataExporterComponent } from '@vcd/ui-components';
+import { Documentation } from '@vmw/ng-live-docs';
 import { DataExporterExampleModule } from './data-exporter.example.module';
 
 Documentation.registerDocumentationEntry({

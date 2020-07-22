@@ -15,9 +15,19 @@ export class CsvExporterService {
     /**
      * Creates a string that can be used to create a Blob for a CSV
      * @param rows 2D array of data. First row is the names for the fields
+     * @param shouldSanitize If a cell starting with a control character should be edited to prevent
+     * possible code injection
      */
-    public createCsv(rows: any[][]): string {
-        return rows.map(row => processRow(row)).join('\n');
+    public createCsv(rows: any[][], shouldSanitize = false): string {
+        return rows.map(row => processRow(row, shouldSanitize)).join('\n');
+    }
+
+    /**
+     * Whether the CSV that would result from the export is at risk of code injection
+     * @param rows 2D array of data. First row is the names for the fields
+     */
+    public hasPotentialInjection(rows: any[][]): boolean {
+        return rows.some(hasPotentialInjection);
     }
 
     /**
@@ -44,19 +54,32 @@ export class CsvExporterService {
     }
 }
 
+const LEADING_CONTROL_CHAR = /^[-+=@]/;
+
+/**
+ * Whether the given row data is at risk of code injection when exported to CSV.
+ */
+function hasPotentialInjection(row: unknown[]): boolean {
+    return row.some(cell => LEADING_CONTROL_CHAR.test(encodeValue(cell, false)));
+}
+
 /**
  * Returns a string
  * @param row A list of cells to be turned into a CSV string, separated by commas
+ * @param shouldSanitize If a cell starting with a control character should be edited to prevent
+ * possible code injection
  */
-function processRow(row: unknown[]): string {
-    return row.map(cell => encodeValue(cell)).join(',');
+function processRow(row: unknown[], shouldSanitize: boolean): string {
+    return row.map(cell => encodeValue(cell, shouldSanitize)).join(',');
 }
 
 /**
  * Returns a cell's cellValue encoded against spaces, quotes, and CSV injection character
  * @param cellValue Cell cellValue to be encoded
+ * @param shouldSanitize If this cellValue starts with a control should it be
+ * prefixed with the tab character
  */
-function encodeValue(cellValue: unknown): string {
+function encodeValue(cellValue: unknown, shouldSanitize: boolean): string {
     let innerValue = cellValue == null ? '' : cellValue.toString();
     if (cellValue instanceof Date) {
         innerValue = cellValue.toLocaleString();
@@ -64,25 +87,24 @@ function encodeValue(cellValue: unknown): string {
     // Double quotes are doubled
     let result = innerValue.replace(/"/g, '""');
 
-    // TODO: See https://jira.eng.vmware.com/browse/VDUCC-59
-    // result = escapeAgainstCsvInjection(result);
-
     // Add quotes around the whole thing if it contains new lines
     if (result.search(/[",\n]/g) >= 0) {
         result = `"${result}"`;
     }
     // Escape against
+    if (shouldSanitize) {
+        return sanitizeString(result);
+    }
     return result;
 }
 
 /**
- * TODO: See https://jira.eng.vmware.com/browse/VDUCC-59
- * Prepends a single quote to a value if it starts with =,+,=,@ to prevent formulas from being executed
- * @param value Value to be escaped
+ * Prevents CSV injection by prefixing with a tab character if the string contains a
+ * special character.
  */
-// function escapeAgainstCsvInjection(value: string): string {
-//     if (/^[=+\-@|%]/.test(value)) {
-//         return `'${value}'`;
-//     }
-//     return value;
-// }
+function sanitizeString(value: string): string {
+    if (LEADING_CONTROL_CHAR.test(value)) {
+        return '\t' + value;
+    }
+    return value;
+}

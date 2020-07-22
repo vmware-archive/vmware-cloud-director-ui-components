@@ -5,7 +5,7 @@
 
 import { Component, Input } from '@angular/core';
 import { ComponentRenderer } from '../interfaces/component-renderer.interface';
-
+import { ColumnComponentRendererSpec, ColumnRendererSpec } from '../interfaces/datagrid-column.interface';
 /**
  * {@link ComponentRenderer.config} type that the {@link BoldTextRendererComponent} can understand
  */
@@ -31,6 +31,7 @@ export interface BoldTextRendererConfig {
  *     ];
  */
 @Component({
+    selector: 'vcd-bold-text-renderer',
     template: `
         <strong>{{ config.text }}</strong>
     `,
@@ -38,4 +39,20 @@ export interface BoldTextRendererConfig {
 export class BoldTextRendererComponent implements ComponentRenderer<BoldTextRendererConfig> {
     @Input()
     config: BoldTextRendererConfig;
+}
+
+/**
+ * Creates a {@link ColumnRendererSpec} for rendering bold text in a column.
+ */
+export function BoldTextRenderer<R>(
+    textExtractor: (record: R) => string
+): ColumnRendererSpec<R, BoldTextRendererConfig> {
+    return ColumnComponentRendererSpec({
+        type: BoldTextRendererComponent,
+        config(record): BoldTextRendererConfig {
+            return {
+                text: textExtractor(record),
+            };
+        },
+    });
 }

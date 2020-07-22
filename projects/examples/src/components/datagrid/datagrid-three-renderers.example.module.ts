@@ -3,15 +3,15 @@
  * SPDX-License-Identifier: BSD-2-Clause
  */
 
-import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { NgModule } from '@angular/core';
 import { ClarityModule } from '@clr/angular';
-import { ComponentsModule } from '@vcd/ui-components';
+import { VcdComponentsModule } from '@vcd/ui-components';
 import { DatagridThreeRenderersExampleComponent } from './datagrid-three-renderers.example.component';
 
 @NgModule({
     declarations: [DatagridThreeRenderersExampleComponent],
-    imports: [CommonModule, ClarityModule, ComponentsModule],
+    imports: [CommonModule, ClarityModule, VcdComponentsModule],
     exports: [DatagridThreeRenderersExampleComponent],
     entryComponents: [DatagridThreeRenderersExampleComponent],
 })

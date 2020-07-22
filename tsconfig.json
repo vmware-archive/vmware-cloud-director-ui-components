@@ -10,7 +10,7 @@
     "module": "esnext",
     "moduleResolution": "node",
     "importHelpers": true,
-    "target": "es2015",
+    "target": "es5",
     "typeRoots": [
       "node_modules/@types"
     ],
@@ -22,11 +22,14 @@
       "@vcd/ui-components": [
         "dist/components"
       ],
-      "@vcd/ui-doc-lib": [
-        "dist/doc-lib"
-      ],
       "@vcd/i18n": [
         "dist/i18n"
+      ],
+      "route-analyzer": [
+        "dist/route-analyzer"
+      ],
+      "route-analyzer/*": [
+        "dist/route-analyzer/*"
       ]
     },
     "resolveJsonModule": true,

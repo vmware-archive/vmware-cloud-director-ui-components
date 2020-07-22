@@ -3,16 +3,16 @@
  * SPDX-License-Identifier: BSD-2-Clause
  */
 
-import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ClarityModule } from '@clr/angular';
+import { NgModule } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
-import { DatagridModule } from '@vcd/ui-components';
+import { ClarityModule } from '@clr/angular';
+import { VcdComponentsModule } from '@vcd/ui-components';
 import { DatagridHeaderExampleComponent } from './datagrid-header.example.component';
 
 @NgModule({
     declarations: [DatagridHeaderExampleComponent],
-    imports: [CommonModule, ClarityModule, ReactiveFormsModule, DatagridModule],
+    imports: [CommonModule, ClarityModule, ReactiveFormsModule, VcdComponentsModule],
     exports: [DatagridHeaderExampleComponent],
     entryComponents: [DatagridHeaderExampleComponent],
 })
