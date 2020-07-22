@@ -76,7 +76,7 @@
     "@types/jasmine": "3.3.8",
     "@types/jasminewd2": "2.0.3",
     "@types/node": "12.11.1",
-    "codecov": "3.6.5",
+    "codecov": "3.7.1",
     "codelyzer": "5.1.2",
     "directory-tree": "2.2.4",
     "husky": "3.0.9",
