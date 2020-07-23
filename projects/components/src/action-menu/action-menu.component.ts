@@ -34,6 +34,9 @@ export class ActionMenuComponent<R, T> {
      * List of actions containing both static and contextual that are given by the calling component
      */
     @Input() set actions(actions: ActionItem<R, T>[]) {
+        if (!actions) {
+            return;
+        }
         this._actions = actions.map(action => {
             if (!action.actionType) {
                 action.actionType = ActionType.CONTEXTUAL;
@@ -42,7 +45,7 @@ export class ActionMenuComponent<R, T> {
         });
     }
     get actions(): ActionItem<R, T>[] {
-        return this.getDeepCopy(this._actions);
+        return getDeepCopyOfActionItems(this._actions);
     }
 
     private _actionDisplayConfig: ActionDisplayConfig = DEFAULT_ACTION_DISPLAY_CONFIG;
@@ -169,24 +172,16 @@ export class ActionMenuComponent<R, T> {
      * 'vcd.cc.action.menu.all.actions'
      */
     get contextualDropdownActions(): ActionItem<R, T>[] | object {
+        const contextualFeaturedActions = this.contextualFeaturedActions;
+        if (!contextualFeaturedActions?.length) {
+            return this.contextualActions;
+        }
         return this.contextualFeaturedActions.concat([
             {
                 textKey: 'vcd.cc.action.menu.all.actions',
                 children: this.contextualActions,
             },
         ]);
-    }
-
-    /**
-     * Without the deep copy, the changes made to any of the action children in one of the methods are persisting in other methods
-     */
-    private getDeepCopy(actions: ActionItem<R, T>[]): ActionItem<R, T>[] {
-        return actions.map(action => {
-            if (action.children && action.children.length) {
-                action.children = this.getDeepCopy(action.children);
-            }
-            return { ...action };
-        });
     }
 
     /**
@@ -322,4 +317,16 @@ export class ActionMenuComponent<R, T> {
             this.shouldDisplayStaticFeaturedActions(this.actionStyling.INLINE)
         );
     }
+}
+
+/**
+ * Without the deep copy, the changes made to any of the action children in one of the methods will persist in other methods
+ */
+export function getDeepCopyOfActionItems<R, T>(actions: ActionItem<R, T>[]): ActionItem<R, T>[] {
+    return actions.map(action => {
+        if (action.children && action.children.length) {
+            action.children = getDeepCopyOfActionItems(action.children);
+        }
+        return { ...action };
+    });
 }
