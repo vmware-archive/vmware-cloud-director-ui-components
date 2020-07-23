@@ -3,9 +3,18 @@
  * SPDX-License-Identifier: BSD-2-Clause
  */
 
-import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
-import { ActionDisplayConfig, ActionItem, ActionStyling, ActionType, TextIcon } from '@vcd/ui-components';
-import mousetrap from 'mousetrap';
+import { ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
+import { TranslationService } from '@vcd/i18n';
+import {
+    ActionDisplayConfig,
+    ActionItem,
+    ActionSearchProvider,
+    ActionStyling,
+    ActionType,
+    SpotlightSearchService,
+    TextIcon,
+} from '@vcd/ui-components';
+import Mousetrap from 'mousetrap';
 
 interface Record {
     value: string;
@@ -53,8 +62,6 @@ interface HandlerData {
                 [selectedEntities]="selectedEntities"
                 [dropdownTriggerBtnText]="'vcd.cc.action.menu.actions'"
                 [disabled]="isDropdownDisabled"
-                [actionProviderName]="'Contextual actions'"
-                [isActionSearchProvider]="true"
             >
             </vcd-action-menu>
         </div>
@@ -65,7 +72,24 @@ interface HandlerData {
         ></vcd-spotlight-search>
     `,
 })
-export class ActionMenuExampleComponent<R extends Record, T extends HandlerData> implements OnInit {
+export class ActionMenuExampleComponent<R extends Record, T extends HandlerData> implements OnInit, OnDestroy {
+    constructor(
+        private changeDetectorRef: ChangeDetectorRef,
+        private spotlightSearchService: SpotlightSearchService,
+        private translationService: TranslationService
+    ) {}
+
+    get staticActions(): ActionItem<R, T>[] {
+        return this.actions.filter(
+            action => action.actionType === ActionType.STATIC || action.actionType === ActionType.STATIC_FEATURED
+        );
+    }
+
+    get contextualActions(): ActionItem<R, T>[] {
+        return this.actions.filter(
+            action => action.actionType !== ActionType.STATIC && action.actionType !== ActionType.STATIC_FEATURED
+        );
+    }
     kbdShortcut = 'mod+.';
     spotlightOpen: boolean;
 
@@ -155,20 +179,6 @@ export class ActionMenuExampleComponent<R extends Record, T extends HandlerData>
 
     isDropdownDisabled: boolean = false;
 
-    constructor(private changeDetectorRef: ChangeDetectorRef) {}
-
-    get staticActions(): ActionItem<R, T>[] {
-        return this.actions.filter(
-            action => action.actionType === ActionType.STATIC || action.actionType === ActionType.STATIC_FEATURED
-        );
-    }
-
-    get contextualActions(): ActionItem<R, T>[] {
-        return this.actions.filter(
-            action => action.actionType !== ActionType.STATIC && action.actionType !== ActionType.STATIC_FEATURED
-        );
-    }
-
     actionDisplayConfig: ActionDisplayConfig = {
         contextual: {
             featuredCount: 3,
@@ -178,7 +188,11 @@ export class ActionMenuExampleComponent<R extends Record, T extends HandlerData>
         staticActionStyling: ActionStyling.INLINE,
     };
 
-    selectedEntities = [{ value: 'Selected entity', paused: false }];
+    selectedEntities = [{ value: 'Selected entity', paused: false }] as R[];
+
+    private actionProviderName = 'actionMenuExampleComponent';
+
+    private actionSearchProvider = new ActionSearchProvider(this.spotlightSearchService, this.translationService);
 
     changeContextualActionStyling(): void {
         this.actionDisplayConfig = {
@@ -208,12 +222,30 @@ export class ActionMenuExampleComponent<R extends Record, T extends HandlerData>
     }
 
     ngOnInit(): void {
+        const mousetrap = new Mousetrap();
+        const originalStopCallback = mousetrap.stopCallback;
+        mousetrap.stopCallback = (e: ExtendedKeyboardEvent, element: Element, combo: string): boolean => {
+            // If a modifier key is used then do not stop the callback from being called despite of the event origin
+            // i.e. `ctrl+.` on input fields should not stop the callback,
+            // while `.` should stop it and echo `.` in the input
+            if (['command'].some(key => combo.includes(key))) {
+                return false;
+            }
+            return originalStopCallback.call(mousetrap, e, element, combo);
+        };
+
         mousetrap.bind(this.kbdShortcut, () => {
             this.spotlightOpen = true;
-            // Since this happens outside angular zone we need to notify angular manually
-            // otherwise the user should wait for any operation that will trigger angular change detection (angular zone event)
-            this.changeDetectorRef.detectChanges();
             return false;
         });
+        // Register as action search provider
+        this.actionSearchProvider.actions = this.contextualActions;
+        this.actionSearchProvider.selectedEntities = this.selectedEntities;
+        this.actionSearchProvider.actionProviderName = this.actionProviderName;
+        this.actionSearchProvider.register();
+    }
+
+    ngOnDestroy(): void {
+        this.actionSearchProvider.unregister();
     }
 }

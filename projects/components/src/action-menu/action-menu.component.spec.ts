@@ -3,12 +3,11 @@
  * SPDX-License-Identifier: BSD-2-Clause
  */
 
-import { ChangeDetectionStrategy, Component, ViewChild } from '@angular/core';
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { Component } from '@angular/core';
+import { TestBed } from '@angular/core/testing';
 import { MockTranslationService, TranslationService } from '@vcd/i18n';
-import { ActionDisplayConfig, ActionItem, ActionStyling, ActionType, TextIcon } from '../common/interfaces';
-import { SpotlightSearchService } from '../spotlight-search';
-import { WidgetFinder, WidgetObject } from '../utils/test';
+import { ActionStyling, ActionType, TextIcon } from '../common/interfaces/index';
+import { WidgetFinder, WidgetObject } from '../utils/test/index';
 import { ActionMenuComponent } from './action-menu.component';
 import { VcdActionMenuModule } from './action-menu.module';
 
