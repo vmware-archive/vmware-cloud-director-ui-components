@@ -4,8 +4,8 @@
  */
 
 import { Component, Input, TrackByFunction } from '@angular/core';
-import { ActionDisplayConfig, ActionItem, ActionStyling, ActionType, TextIcon } from '../common/interfaces/index';
-import { CommonUtil } from '../utils/index';
+import { ActionDisplayConfig, ActionItem, ActionStyling, ActionType, TextIcon } from '../common/interfaces';
+import { CommonUtil } from '../utils';
 
 /**
  * Value used for the display configuration of action buttons if no input is provided by the caller

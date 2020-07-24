@@ -11,8 +11,9 @@ import {
     ActionSearchProvider,
     ActionStyling,
     ActionType,
+    DEFAULT_ACTION_SEARCH_SECTION_HEADER_PREFIX,
     SpotlightSearchService,
-    TextIcon,
+    TextIcon
 } from '@vcd/ui-components';
 import Mousetrap from 'mousetrap';
 
@@ -73,11 +74,14 @@ interface HandlerData {
     `,
 })
 export class ActionMenuExampleComponent<R extends Record, T extends HandlerData> implements OnInit, OnDestroy {
+
     constructor(
         private changeDetectorRef: ChangeDetectorRef,
         private spotlightSearchService: SpotlightSearchService,
-        private translationService: TranslationService
-    ) {}
+        private translationService: TranslationService,
+        private ts: TranslationService
+    ) {
+    }
 
     get staticActions(): ActionItem<R, T>[] {
         return this.actions.filter(
@@ -90,6 +94,7 @@ export class ActionMenuExampleComponent<R extends Record, T extends HandlerData>
             action => action.actionType !== ActionType.STATIC && action.actionType !== ActionType.STATIC_FEATURED
         );
     }
+    private spotlightSearchRegistrationId: string;
     kbdShortcut = 'mod+.';
     spotlightOpen: boolean;
 
@@ -131,6 +136,7 @@ export class ActionMenuExampleComponent<R extends Record, T extends HandlerData>
                     handler: (rec: R[]) => {
                         console.log('Starting ' + rec[0].value);
                         rec[0].paused = false;
+                        this.selectedEntities = rec;
                     },
                     availability: (rec: R[]) => rec.length === 1 && rec[0].paused,
                     actionType: ActionType.CONTEXTUAL_FEATURED,
@@ -141,6 +147,7 @@ export class ActionMenuExampleComponent<R extends Record, T extends HandlerData>
                     handler: (rec: R[]) => {
                         console.log('Stopping ' + (rec as R[])[0].value);
                         rec[0].paused = true;
+                        this.selectedEntities = rec;
                     },
                     availability: (rec: R[]) => rec.length === 1 && !rec[0].paused,
                     actionType: ActionType.CONTEXTUAL_FEATURED,
@@ -188,11 +195,17 @@ export class ActionMenuExampleComponent<R extends Record, T extends HandlerData>
         staticActionStyling: ActionStyling.INLINE,
     };
 
-    selectedEntities = [{ value: 'Selected entity', paused: false }] as R[];
+    private _selectedEntities: Record[] = [{ value: 'Selected entity', paused: false }] as R[];
+    set selectedEntities(val: Record[]) {
+        this.actionSearchProvider.selectedEntities = val;
+    }
+    get selectedEntities(): Record[] {
+        return this._selectedEntities;
+    }
 
     private actionProviderName = 'actionMenuExampleComponent';
 
-    private actionSearchProvider = new ActionSearchProvider(this.spotlightSearchService, this.translationService);
+    actionSearchProvider = new ActionSearchProvider(this.ts);
 
     changeContextualActionStyling(): void {
         this.actionDisplayConfig = {
@@ -238,14 +251,17 @@ export class ActionMenuExampleComponent<R extends Record, T extends HandlerData>
             this.spotlightOpen = true;
             return false;
         });
-        // Register as action search provider
         this.actionSearchProvider.actions = this.contextualActions;
         this.actionSearchProvider.selectedEntities = this.selectedEntities;
-        this.actionSearchProvider.actionProviderName = this.actionProviderName;
-        this.actionSearchProvider.register();
+        this.spotlightSearchRegistrationId = this.spotlightSearchService.registerProvider(
+            this.actionSearchProvider,
+            this.ts.translate(DEFAULT_ACTION_SEARCH_SECTION_HEADER_PREFIX, [
+                { actionProviderName: this.actionProviderName || '' },
+            ])
+        );
     }
 
     ngOnDestroy(): void {
-        this.actionSearchProvider.unregister();
+        this.spotlightSearchService.unregisterProvider(this.spotlightSearchRegistrationId);
     }
 }

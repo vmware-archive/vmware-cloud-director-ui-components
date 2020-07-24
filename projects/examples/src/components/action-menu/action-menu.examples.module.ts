@@ -25,6 +25,6 @@ Documentation.registerDocumentationEntry({
 });
 
 @NgModule({
-    imports: [ActionMenuExampleModule],
+    imports: [],
 })
 export class ActionMenuExamplesModule {}
