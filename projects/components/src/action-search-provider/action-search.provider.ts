@@ -21,9 +21,6 @@ export class ActionSearchProvider<R, T> implements SpotlightSearchProvider {
         this._actions = actions;
         this.flatListOfAvailableActions = null;
     }
-    get actions(): ActionItem<R, T>[] {
-        return this._actions;
-    }
 
     /**
      * Used in {@link isActionDisabled} to calculate disabled state of actions  and also in action handler
@@ -32,9 +29,6 @@ export class ActionSearchProvider<R, T> implements SpotlightSearchProvider {
     set selectedEntities(entities: R[]) {
         this._selectedEntities = entities;
         this.flatListOfAvailableActions = null;
-    }
-    get selectedEntities(): R[] {
-        return this._selectedEntities;
     }
 
     constructor(private ts: TranslationService) {}
@@ -49,17 +43,19 @@ export class ActionSearchProvider<R, T> implements SpotlightSearchProvider {
         }
 
         if (this.flatListOfAvailableActions == null) {
-            this.flatListOfAvailableActions = this.getFlatListOfAvailableActions(this.actions);
+            this.flatListOfAvailableActions = this.getFlatListOfAvailableActions(this._actions);
         }
 
-        return this.findActions(criteria.toLowerCase()).map(action => ({
-            displayText: action.textKey,
-            handler: () => action.handler(this.selectedEntities, action.handlerData),
-        }));
+        return this.getActions(criteria.toLowerCase());
     }
 
-    private findActions(searchCriteria: string): ActionItem<R, T>[] {
-        return this.flatListOfAvailableActions.filter(action => action.textKey.toLowerCase().includes(searchCriteria));
+    private getActions(searchCriteria: string): SpotlightSearchResult[] {
+        return this.flatListOfAvailableActions
+            .filter(action => action.textKey.toLowerCase().includes(searchCriteria))
+            .map(action => ({
+                displayText: action.textKey,
+                handler: () => action.handler(this._selectedEntities, action.handlerData),
+            }));
     }
 
     private getFlatListOfAvailableActions(actions: ActionItem<R, T>[]): ActionItem<R, T>[] {
@@ -68,20 +64,19 @@ export class ActionSearchProvider<R, T> implements SpotlightSearchProvider {
                 if (currentAction?.children?.length) {
                     flatActionList = flatActionList.concat(this.getFlatListOfAvailableActions(currentAction.children));
                 } else if (this.isActionAvailable(currentAction)) {
-                    const currentActionCopy = { ...currentAction };
-                    currentActionCopy.textKey = currentAction.isTranslatable === false ? currentAction.textKey :
+                    const textKey = currentAction.isTranslatable === false ? currentAction.textKey :
                         this.ts.translate(currentAction.textKey);
-                    flatActionList.push(currentActionCopy);
+                    flatActionList.push({ ...currentAction, textKey });
                 }
                 return flatActionList;
             }, []);
     }
 
     private isActionAvailable(action: ActionItem<R, T>): boolean {
-        return (!action.availability || action.availability(this.selectedEntities)) && !this.isActionDisabled(action);
+        return (!action.availability || action.availability(this._selectedEntities)) && !this.isActionDisabled(action);
     }
 
     private isActionDisabled(action: ActionItem<R, T>): boolean {
-        return CommonUtil.isFunction(action.disabled) ? action.disabled(this.selectedEntities) : action.disabled;
+        return CommonUtil.isFunction(action.disabled) ? action.disabled(this._selectedEntities) : action.disabled;
     }
 }

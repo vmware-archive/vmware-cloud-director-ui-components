@@ -56,7 +56,7 @@ interface HandlerData {
                 {{ isDropdownDisabled ? 'Enable dropdown' : 'Disable dropdown' }}
             </button>
             <br /><br />
-            <p>Press 'mod+.' on the keyboard to open quick search and search for contextual actions</p>
+            <p>Press 'command+.' on Mac OS or 'ctrl+.' on PC to open quick search and search for contextual actions</p>
             <vcd-action-menu
                 [actions]="contextualActions"
                 [actionDisplayConfig]="actionDisplayConfig"
@@ -72,11 +72,11 @@ interface HandlerData {
             [placeholder]="'Search contextual actions'"
         ></vcd-spotlight-search>
     `,
+    styleUrls: ['action-menu.example.component.scss']
 })
 export class ActionMenuExampleComponent<R extends Record, T extends HandlerData> implements OnInit, OnDestroy {
 
     constructor(
-        private changeDetectorRef: ChangeDetectorRef,
         private spotlightSearchService: SpotlightSearchService,
         private translationService: TranslationService,
         private ts: TranslationService
