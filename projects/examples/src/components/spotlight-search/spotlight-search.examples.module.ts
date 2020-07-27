@@ -18,6 +18,7 @@ Documentation.registerDocumentationEntry({
             component: SpotlightSearchExampleComponent,
             forComponent: null,
             title: 'Spotlight search',
+            urlSegment: 'spotlight-search',
         },
     ],
 });
