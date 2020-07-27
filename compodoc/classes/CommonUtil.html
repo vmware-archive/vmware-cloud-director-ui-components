@@ -82,6 +82,10 @@
                         <ul class="index-list">
                             <li>
                                     <span class="modifier">Static</span>
+                                <a href="#isFunction">isFunction</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Static</span>
                                 <a href="#roundTo">roundTo</a>
                             </li>
                         </ul>
@@ -103,6 +107,80 @@
     <h3 id="methods">
         Methods
     </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="isFunction"></a>
+                    <span class="name">
+                        <b>
+                            <span class="modifier">Static</span>
+                            isFunction
+                        </b>
+                        <a href="#isFunction"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                    <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>isFunction(value: <a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank">any</a>)</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="22"
+                            class="link-to-prism">projects/components/src/utils/common-util.ts:22</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Verifies if the passed value is of type Function</p>
+</div>
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Type</td>
+                                    <td>Optional</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>value</td>
+                                    <td>
+                                                <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/function" target="_blank" >function</a></code>
+
+                    </div>
+                    <div class="io-description">
+                        
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
     <table class="table table-sm table-bordered">
         <tbody>
             <tr>
@@ -225,6 +303,13 @@
             value &#x3D; 0;
         }
         return Number(Math.round(Number(value + &#x27;e&#x27; + digits)) + &#x27;e-&#x27; + digits);
+    }
+
+    /**
+     * Verifies if the passed value is of type Function
+     */
+    static isFunction(value: any): value is (...args: unknown[]) &#x3D;&gt; unknown {
+        return typeof value &#x3D;&#x3D;&#x3D; &#x27;function&#x27;;
     }
 }
 </code></pre>

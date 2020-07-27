@@ -463,6 +463,9 @@ customElements.define('compodoc-menu', class extends HTMLElement {
                         </div>
                         <ul class="links collapse " ${ isNormalMode ? 'id="classes-links"' : 'id="xs-classes-links"' }>
                             <li class="link">
+                                <a href="classes/ActionSearchProvider.html" data-type="entity-link">ActionSearchProvider</a>
+                            </li>
+                            <li class="link">
                                 <a href="classes/ActivityPromiseResolver.html" data-type="entity-link">ActivityPromiseResolver</a>
                             </li>
                             <li class="link">
