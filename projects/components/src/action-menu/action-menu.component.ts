@@ -5,6 +5,7 @@
 
 import { Component, Input, TrackByFunction } from '@angular/core';
 import { ActionDisplayConfig, ActionItem, ActionStyling, ActionType, TextIcon } from '../common/interfaces';
+import { CommonUtil } from '../utils';
 
 /**
  * Value used for the display configuration of action buttons if no input is provided by the caller
@@ -243,7 +244,7 @@ export class ActionMenuComponent<R, T> {
      * To disable a displayed action
      */
     isActionDisabled(action: ActionItem<R, T>): boolean {
-        return typeof action.disabled === 'function' ? action.disabled(this.selectedEntities) : action.disabled;
+        return CommonUtil.isFunction(action.disabled) ? action.disabled(this.selectedEntities) : action.disabled;
     }
 
     /**

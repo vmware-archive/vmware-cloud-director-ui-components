@@ -3,8 +3,19 @@
  * SPDX-License-Identifier: BSD-2-Clause
  */
 
-import { Component } from '@angular/core';
-import { ActionDisplayConfig, ActionItem, ActionStyling, ActionType, TextIcon } from '@vcd/ui-components';
+import { ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
+import { TranslationService } from '@vcd/i18n';
+import {
+    ActionDisplayConfig,
+    ActionItem,
+    ActionSearchProvider,
+    ActionStyling,
+    ActionType,
+    DEFAULT_ACTION_SEARCH_SECTION_HEADER_PREFIX,
+    SpotlightSearchService,
+    TextIcon
+} from '@vcd/ui-components';
+import Mousetrap from 'mousetrap';
 
 interface Record {
     value: string;
@@ -17,7 +28,7 @@ interface HandlerData {
 }
 
 @Component({
-    selector: 'vcd-datagrid-link-example',
+    selector: 'vcd-action-menu-example',
     template: `
         <div>
             <button (click)="changeStaticActionStyling()" class="btn btn-primary">
@@ -44,7 +55,8 @@ interface HandlerData {
             <button (click)="toggleDropdownDisable()" class="btn btn-primary">
                 {{ isDropdownDisabled ? 'Enable dropdown' : 'Disable dropdown' }}
             </button>
-            <br />
+            <br /><br />
+            <p>Press 'command+.' on Mac OS or 'ctrl+.' on PC to open quick search and search for contextual actions</p>
             <vcd-action-menu
                 [actions]="contextualActions"
                 [actionDisplayConfig]="actionDisplayConfig"
@@ -54,9 +66,38 @@ interface HandlerData {
             >
             </vcd-action-menu>
         </div>
+
+        <vcd-spotlight-search
+            [(open)]="spotlightOpen"
+            [placeholder]="'Search contextual actions'"
+        ></vcd-spotlight-search>
     `,
+    styleUrls: ['action-menu.example.component.scss']
 })
-export class ActionMenuExampleComponent<R extends Record, T extends HandlerData> {
+export class ActionMenuExampleComponent<R extends Record, T extends HandlerData> implements OnInit, OnDestroy {
+
+    constructor(
+        private spotlightSearchService: SpotlightSearchService,
+        private translationService: TranslationService,
+        private ts: TranslationService
+    ) {
+    }
+
+    get staticActions(): ActionItem<R, T>[] {
+        return this.actions.filter(
+            action => action.actionType === ActionType.STATIC || action.actionType === ActionType.STATIC_FEATURED
+        );
+    }
+
+    get contextualActions(): ActionItem<R, T>[] {
+        return this.actions.filter(
+            action => action.actionType !== ActionType.STATIC && action.actionType !== ActionType.STATIC_FEATURED
+        );
+    }
+    private spotlightSearchRegistrationId: string;
+    kbdShortcut = 'mod+.';
+    spotlightOpen: boolean;
+
     actions: ActionItem<R, T>[] = [
         {
             textKey: 'Static Featured 1',
@@ -95,6 +136,7 @@ export class ActionMenuExampleComponent<R extends Record, T extends HandlerData>
                     handler: (rec: R[]) => {
                         console.log('Starting ' + rec[0].value);
                         rec[0].paused = false;
+                        this.selectedEntities = rec;
                     },
                     availability: (rec: R[]) => rec.length === 1 && rec[0].paused,
                     actionType: ActionType.CONTEXTUAL_FEATURED,
@@ -105,6 +147,7 @@ export class ActionMenuExampleComponent<R extends Record, T extends HandlerData>
                     handler: (rec: R[]) => {
                         console.log('Stopping ' + (rec as R[])[0].value);
                         rec[0].paused = true;
+                        this.selectedEntities = rec;
                     },
                     availability: (rec: R[]) => rec.length === 1 && !rec[0].paused,
                     actionType: ActionType.CONTEXTUAL_FEATURED,
@@ -143,18 +186,6 @@ export class ActionMenuExampleComponent<R extends Record, T extends HandlerData>
 
     isDropdownDisabled: boolean = false;
 
-    get staticActions(): ActionItem<R, T>[] {
-        return this.actions.filter(
-            action => action.actionType === ActionType.STATIC || action.actionType === ActionType.STATIC_FEATURED
-        );
-    }
-
-    get contextualActions(): ActionItem<R, T>[] {
-        return this.actions.filter(
-            action => action.actionType !== ActionType.STATIC && action.actionType !== ActionType.STATIC_FEATURED
-        );
-    }
-
     actionDisplayConfig: ActionDisplayConfig = {
         contextual: {
             featuredCount: 3,
@@ -164,7 +195,17 @@ export class ActionMenuExampleComponent<R extends Record, T extends HandlerData>
         staticActionStyling: ActionStyling.INLINE,
     };
 
-    selectedEntities = [{ value: 'Selected entity', paused: false }];
+    private _selectedEntities: Record[] = [{ value: 'Selected entity', paused: false }] as R[];
+    set selectedEntities(val: Record[]) {
+        this.actionSearchProvider.selectedEntities = val;
+    }
+    get selectedEntities(): Record[] {
+        return this._selectedEntities;
+    }
+
+    private actionProviderName = 'actionMenuExampleComponent';
+
+    actionSearchProvider = new ActionSearchProvider(this.ts);
 
     changeContextualActionStyling(): void {
         this.actionDisplayConfig = {
@@ -191,5 +232,36 @@ export class ActionMenuExampleComponent<R extends Record, T extends HandlerData>
 
     toggleDropdownDisable(): void {
         this.isDropdownDisabled = !this.isDropdownDisabled;
+    }
+
+    ngOnInit(): void {
+        const mousetrap = new Mousetrap();
+        const originalStopCallback = mousetrap.stopCallback;
+        mousetrap.stopCallback = (e: ExtendedKeyboardEvent, element: Element, combo: string): boolean => {
+            // If a modifier key is used then do not stop the callback from being called despite of the event origin
+            // i.e. `ctrl+.` on input fields should not stop the callback,
+            // while `.` should stop it and echo `.` in the input
+            if (['command'].some(key => combo.includes(key))) {
+                return false;
+            }
+            return originalStopCallback.call(mousetrap, e, element, combo);
+        };
+
+        mousetrap.bind(this.kbdShortcut, () => {
+            this.spotlightOpen = true;
+            return false;
+        });
+        this.actionSearchProvider.actions = this.contextualActions;
+        this.actionSearchProvider.selectedEntities = this.selectedEntities;
+        this.spotlightSearchRegistrationId = this.spotlightSearchService.registerProvider(
+            this.actionSearchProvider,
+            this.ts.translate(DEFAULT_ACTION_SEARCH_SECTION_HEADER_PREFIX, [
+                { actionProviderName: this.actionProviderName || '' },
+            ])
+        );
+    }
+
+    ngOnDestroy(): void {
+        this.spotlightSearchService.unregisterProvider(this.spotlightSearchRegistrationId);
     }
 }
