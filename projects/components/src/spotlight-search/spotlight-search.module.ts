@@ -9,12 +9,10 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ClarityModule } from '@clr/angular';
 import { I18nModule } from '@vcd/i18n';
 import { SpotlightSearchComponent } from './spotlight-search.component';
-import { SpotlightSearchService } from './spotlight-search.service';
 
 @NgModule({
     imports: [CommonModule, ClarityModule, FormsModule, ReactiveFormsModule, I18nModule],
     declarations: [SpotlightSearchComponent],
     exports: [SpotlightSearchComponent],
-    providers: [SpotlightSearchService],
 })
 export class SpotlightSearchModule {}

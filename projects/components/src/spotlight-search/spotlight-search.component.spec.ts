@@ -35,6 +35,7 @@ describe('SpotlightSearchComponent', () => {
                     provide: TranslationService,
                     useValue: new MockTranslationService(),
                 },
+                SpotlightSearchService,
             ],
             declarations: [HostSpotlightSearchComponent],
         }).compileComponents();
