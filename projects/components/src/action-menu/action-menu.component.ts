@@ -73,6 +73,8 @@ export class ActionMenuComponent<R, T> {
      */
     @Input() dropdownTriggerBtnText: string = null;
 
+    inlineDropdownTriggerBtnText = 'vcd.cc.action.menu.actions';
+
     /**
      * Icon of the action menu dropdown trigger button. Used when {@link #actionDisplayConfig} styling is
      * {@link ActionStyling.DROPDOWN}

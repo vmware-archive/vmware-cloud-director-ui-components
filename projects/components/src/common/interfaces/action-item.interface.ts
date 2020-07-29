@@ -51,7 +51,7 @@ export interface ActionItem<R, T> {
      * @param records Single item in case of an operation on single record and multiple in case of an operation on batch
      * selection
      */
-    availability?: (records?: R[]) => boolean;
+    availability?: (records?: R[], additionalData?: any) => boolean;
     /**
      * Indicates if an action that is available should be disabled. If true, a non available action is disabled.
      * If false, a non-available action is hidden
@@ -71,7 +71,7 @@ export interface ActionItem<R, T> {
     /**
      * Custom data that will be passed when handler is called
      */
-    handlerData?: T;
+    handlerData?: any;
     /**
      * Used for determining where in the action menu this action gets displayed
      */
