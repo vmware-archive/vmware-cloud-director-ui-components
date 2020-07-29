@@ -65,11 +65,14 @@ export class SpotlightSearchExampleComponent implements OnInit, OnDestroy {
                 return false;
             };
         }
+
+        this.actionsSearchProvider.register();
     }
 
     ngOnDestroy(): void {
         this.resetMousetrap();
         this.spotlightSearchService.unregisterProvider(this.registrationId);
+        this.actionsSearchProvider.unregister();
     }
 }
 
@@ -83,11 +86,9 @@ function buildFilter(criteria: string): (item: SpotlightSearchResult) => boolean
 @Injectable()
 export class ActionsSearchProvider implements SpotlightSearchProvider {
     private actions: SpotlightSearchResult[];
+    private registrationId: string;
 
     constructor(private spotlightSearchService: SpotlightSearchService) {
-        // Auto register upon creation
-        this.spotlightSearchService.registerProvider(this, 'Actions');
-
         // Build actions
         this.actions = actions.map(action => {
             return {
@@ -97,10 +98,25 @@ export class ActionsSearchProvider implements SpotlightSearchProvider {
                 },
             };
         });
+        const otherAction = 'other';
+        this.actions.push({
+            displayText: otherAction,
+            handler: () => {
+                alert(`Action handler for '${otherAction}' is called`);
+            },
+        });
     }
 
     search(criteria: string): SpotlightSearchResult[] {
         return this.actions.filter(buildFilter(criteria));
+    }
+
+    register(): void {
+        this.registrationId = this.spotlightSearchService.registerProvider(this, 'Actions');
+    }
+
+    unregister(): void {
+        this.spotlightSearchService.unregisterProvider(this.registrationId);
     }
 }
 

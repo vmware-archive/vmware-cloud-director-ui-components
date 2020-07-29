@@ -21,6 +21,7 @@ interface Test {
         itemHandler: jasmine.Spy;
         searchHandler: jasmine.Spy;
         simpleProvider: SpotlightSearchProvider;
+        anotherSimpleProvider: SpotlightSearchProvider;
         asyncProvider: SpotlightSearchProvider;
         spotlightSearchService: SpotlightSearchService;
     };
@@ -35,6 +36,7 @@ describe('SpotlightSearchComponent', () => {
                     provide: TranslationService,
                     useValue: new MockTranslationService(),
                 },
+                SpotlightSearchService,
             ],
             declarations: [HostSpotlightSearchComponent],
         }).compileComponents();
@@ -69,6 +71,18 @@ describe('SpotlightSearchComponent', () => {
                 }
             }
 
+            // Another provider that returns an array
+            class AnotherSimpleSearchProvider implements SpotlightSearchProvider {
+                search(criteria: string): SpotlightSearchResult[] {
+                    return ['other', 'another']
+                        .filter(item => item.includes(criteria))
+                        .map(item => ({
+                            displayText: item,
+                            handler: () => itemHandler(item),
+                        }));
+                }
+            }
+
             // Provider that returns a promise
             class AsyncSearchProvider implements SpotlightSearchProvider {
                 search(criteria: string): Promise<SpotlightSearchResult[]> {
@@ -93,6 +107,7 @@ describe('SpotlightSearchComponent', () => {
                 itemHandler,
                 searchHandler,
                 simpleProvider,
+                anotherSimpleProvider: new AnotherSimpleSearchProvider(),
                 asyncProvider,
                 spotlightSearchService,
             };
@@ -302,7 +317,7 @@ describe('SpotlightSearchComponent', () => {
                 expect(this.spotlightSearch.getSelectedItem(1)).toEqual('copy');
             });
 
-            it('can update the selected item', function(this: Test): void {
+            it('can update the selected item with a new one from the same section', function(this: Test): void {
                 // Append async provider
                 this.spotlightSearchData.spotlightSearchService.registerProvider(
                     this.spotlightSearchData.asyncProvider,
@@ -314,6 +329,18 @@ describe('SpotlightSearchComponent', () => {
                 expect(this.spotlightSearch.getSelectedItem(1)).toEqual('copy');
                 this.spotlightSearch.searchInputValue = 'cr';
                 expect(this.spotlightSearch.getSelectedItem(1)).toEqual('create');
+            });
+
+            it('can update the selected item with a new one from a different section', function(this: Test): void {
+                this.spotlightSearchData.spotlightSearchService.registerProvider(
+                    this.spotlightSearchData.anotherSimpleProvider,
+                    'another section'
+                );
+                this.finder.hostComponent.spotlightOpen = true;
+                this.finder.detectChanges();
+                this.spotlightSearch.searchInputValue = 'c';
+                this.spotlightSearch.searchInputValue = 'another';
+                expect(this.spotlightSearch.getSelectedItem(2)).toEqual('another');
             });
 
             it('does not select any item if the first section returns async result', function(this: Test): void {
