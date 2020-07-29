@@ -156,34 +156,19 @@ customElements.define('compodoc-menu', class extends HTMLElement {
                                 <a href="modules/SpotlightSearchModule.html" data-type="entity-link">SpotlightSearchModule</a>
                                     <li class="chapter inner">
                                         <div class="simple menu-toggler" data-toggle="collapse" ${ isNormalMode ?
-                                            'data-target="#components-links-module-SpotlightSearchModule-9e8b99f143b654cbcb1a1436ec3ca29c"' : 'data-target="#xs-components-links-module-SpotlightSearchModule-9e8b99f143b654cbcb1a1436ec3ca29c"' }>
+                                            'data-target="#components-links-module-SpotlightSearchModule-ff504a8ad7e502a0bff355060fc2f3ff"' : 'data-target="#xs-components-links-module-SpotlightSearchModule-ff504a8ad7e502a0bff355060fc2f3ff"' }>
                                             <span class="icon ion-md-cog"></span>
                                             <span>Components</span>
                                             <span class="icon ion-ios-arrow-down"></span>
                                         </div>
-                                        <ul class="links collapse" ${ isNormalMode ? 'id="components-links-module-SpotlightSearchModule-9e8b99f143b654cbcb1a1436ec3ca29c"' :
-                                            'id="xs-components-links-module-SpotlightSearchModule-9e8b99f143b654cbcb1a1436ec3ca29c"' }>
+                                        <ul class="links collapse" ${ isNormalMode ? 'id="components-links-module-SpotlightSearchModule-ff504a8ad7e502a0bff355060fc2f3ff"' :
+                                            'id="xs-components-links-module-SpotlightSearchModule-ff504a8ad7e502a0bff355060fc2f3ff"' }>
                                             <li class="link">
                                                 <a href="components/SpotlightSearchComponent.html"
                                                     data-type="entity-link" data-context="sub-entity" data-context-id="modules">SpotlightSearchComponent</a>
                                             </li>
                                         </ul>
                                     </li>
-                                <li class="chapter inner">
-                                    <div class="simple menu-toggler" data-toggle="collapse" ${ isNormalMode ?
-                                        'data-target="#injectables-links-module-SpotlightSearchModule-9e8b99f143b654cbcb1a1436ec3ca29c"' : 'data-target="#xs-injectables-links-module-SpotlightSearchModule-9e8b99f143b654cbcb1a1436ec3ca29c"' }>
-                                        <span class="icon ion-md-arrow-round-down"></span>
-                                        <span>Injectables</span>
-                                        <span class="icon ion-ios-arrow-down"></span>
-                                    </div>
-                                    <ul class="links collapse" ${ isNormalMode ? 'id="injectables-links-module-SpotlightSearchModule-9e8b99f143b654cbcb1a1436ec3ca29c"' :
-                                        'id="xs-injectables-links-module-SpotlightSearchModule-9e8b99f143b654cbcb1a1436ec3ca29c"' }>
-                                        <li class="link">
-                                            <a href="injectables/SpotlightSearchService.html"
-                                                data-type="entity-link" data-context="sub-entity" data-context-id="modules" }>SpotlightSearchService</a>
-                                        </li>
-                                    </ul>
-                                </li>
                             </li>
                             <li class="link">
                                 <a href="modules/VcdActionMenuModule.html" data-type="entity-link">VcdActionMenuModule</a>
@@ -549,6 +534,9 @@ customElements.define('compodoc-menu', class extends HTMLElement {
                             <ul class="links collapse " ${ isNormalMode ? 'id="injectables-links"' : 'id="xs-injectables-links"' }>
                                 <li class="link">
                                     <a href="injectables/CsvExporterService.html" data-type="entity-link">CsvExporterService</a>
+                                </li>
+                                <li class="link">
+                                    <a href="injectables/SpotlightSearchService.html" data-type="entity-link">SpotlightSearchService</a>
                                 </li>
                             </ul>
                         </li>
