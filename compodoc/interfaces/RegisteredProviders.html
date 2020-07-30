@@ -211,7 +211,9 @@ const createId &#x3D; ((): (() &#x3D;&gt; string) &#x3D;&gt; {
     return () &#x3D;&gt; &#x60;${new Date().getTime()}-${id++}&#x60;;
 })();
 
-@Injectable()
+@Injectable({
+    providedIn: &#x27;root&#x27;,
+})
 export class SpotlightSearchService {
     registrations: InternalRegistrationData[] &#x3D; [];
 
