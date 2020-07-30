@@ -67,6 +67,8 @@ export class ActionMenuComponent<R, T> {
         return this._actionDisplayConfig;
     }
 
+    @Input() calculateActionsAvailability: boolean = true;
+
     /**
      * Text Content of the action menu dropdown trigger button. Used when {@link #actionDisplayConfig} styling is
      * {@link ActionStyling.DROPDOWN}
@@ -140,7 +142,12 @@ export class ActionMenuComponent<R, T> {
      * disabled mode
      */
     private isActionAvailable(action: ActionItem<R, T>): boolean {
-        return !action.availability || action.availability(this.selectedEntities) || this.isActionDisabled(action);
+        return (
+            !this.calculateActionsAvailability ||
+            !action.availability ||
+            action.availability(this.selectedEntities) ||
+            this.isActionDisabled(action)
+        );
     }
 
     /**
