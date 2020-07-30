@@ -37,7 +37,9 @@ const createId = ((): (() => string) => {
     return () => `${new Date().getTime()}-${id++}`;
 })();
 
-@Injectable()
+@Injectable({
+    providedIn: 'root',
+})
 export class SpotlightSearchService {
     registrations: InternalRegistrationData[] = [];
 

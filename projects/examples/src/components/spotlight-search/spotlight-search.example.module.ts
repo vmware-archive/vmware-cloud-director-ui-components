@@ -6,7 +6,7 @@
 import { NgModule } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import { ClarityModule } from '@clr/angular';
-import { SpotlightSearchModule, SpotlightSearchService, VcdFormModule } from '@vcd/ui-components';
+import { SpotlightSearchModule, VcdFormModule } from '@vcd/ui-components';
 import { ActionsSearchProvider, SpotlightSearchExampleComponent } from './spotlight-search-example.component';
 
 /**
@@ -17,6 +17,6 @@ import { ActionsSearchProvider, SpotlightSearchExampleComponent } from './spotli
     declarations: [SpotlightSearchExampleComponent],
     exports: [SpotlightSearchExampleComponent],
     entryComponents: [SpotlightSearchExampleComponent],
-    providers: [ActionsSearchProvider, SpotlightSearchService],
+    providers: [ActionsSearchProvider],
 })
 export class SpotlightSearchExampleModule {}
