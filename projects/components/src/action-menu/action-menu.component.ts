@@ -38,9 +38,18 @@ export class ActionMenuComponent<R, T> {
         if (!actions) {
             return;
         }
+
+        const hasNestedActions = actions.some(action => action.children && action.children.length);
+        const shouldDisplayContextualActionsDropdown = hasNestedActions || actions.some(action => action.actionType
+            && action.actionType === ActionType.CONTEXTUAL_FEATURED);
+
         this._actions = actions.map(action => {
             if (!action.actionType) {
-                action.actionType = ActionType.CONTEXTUAL;
+                if (shouldDisplayContextualActionsDropdown) {
+                    action.actionType = ActionType.CONTEXTUAL;
+                } else {
+                    action.actionType = ActionType.CONTEXTUAL_FEATURED;
+                }
             }
             return action;
         });
@@ -48,6 +57,11 @@ export class ActionMenuComponent<R, T> {
     get actions(): ActionItem<R, T>[] {
         return getDeepCopyOfActionItems(this._actions);
     }
+
+    /**
+     * When there are no nested actions and if none of the contextual actions are marked to be featured, they are shown inline
+     */
+    shouldDisplayContextualActionsDropdown = false;
 
     private _actionDisplayConfig: ActionDisplayConfig = DEFAULT_ACTION_DISPLAY_CONFIG;
     /**

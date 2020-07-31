@@ -48,6 +48,17 @@ describe('ActionMenuComponent', () => {
                 expect(action.actionType).toEqual(ActionType.CONTEXTUAL);
             });
         });
+        it(
+            'when a list with no nested actions and no CONTEXTUAL_FEATURED actions is set, it marks the actions with no actionType' +
+                'as ActionType.CONTEXTUAL_FEATURED',
+            function(this: HasFinderAndActionMenu): void {
+                this.actionMenu.actions = [...FLAT_LIST_OF_ACTIONS_WITH_NO_ACTION_TYPE];
+                this.finder.detectChanges();
+                this.actionMenu.actions.forEach(action => {
+                    expect(action.actionType).toEqual(ActionType.CONTEXTUAL_FEATURED);
+                });
+            }
+        );
     });
     describe('set actionDisplayConfig', () => {
         it('sets display config options to given values when a input is given', function(this: HasFinderAndActionMenu): void {
@@ -315,6 +326,12 @@ const ACTIONS_WITH_NO_ACTION_TYPES = [
         textKey: 'action.2',
         handler: () => {},
         availability: () => true,
+        children: [
+            {
+                textKey: 'children.action.1',
+                handler: () => {},
+            },
+        ],
     },
 ];
 
@@ -410,5 +427,16 @@ const CONTEXTUAL_ACTIONS = [
         textKey: 'contextual.2',
         handler: () => {},
         availability: () => true,
+    },
+];
+
+const FLAT_LIST_OF_ACTIONS_WITH_NO_ACTION_TYPE = [
+    {
+        textKey: 'Contextual 1',
+        handler: () => {},
+    },
+    {
+        textKey: 'Contextual 2',
+        handler: () => {},
     },
 ];
