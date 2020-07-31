@@ -40,8 +40,9 @@ export class ActionMenuComponent<R, T> {
         }
 
         const hasNestedActions = actions.some(action => action.children && action.children.length);
-        const shouldDisplayContextualActionsDropdown = hasNestedActions || actions.some(action => action.actionType
-            && action.actionType === ActionType.CONTEXTUAL_FEATURED);
+        const shouldDisplayContextualActionsDropdown =
+            hasNestedActions ||
+            actions.some(action => action.actionType && action.actionType === ActionType.CONTEXTUAL_FEATURED);
 
         this._actions = actions.map(action => {
             if (!action.actionType) {
@@ -142,6 +143,9 @@ export class ActionMenuComponent<R, T> {
      * Returns the actions to be shown
      */
     getAvailableActions(actions: ActionItem<R, T>[]): ActionItem<R, T>[] {
+        if (!this.calculateActionsAvailability) {
+            return actions;
+        }
         return actions.filter(action => {
             const isActionAvailable = this.isActionAvailable(action);
             if (isActionAvailable && action.children && action.children.length) {
@@ -156,12 +160,7 @@ export class ActionMenuComponent<R, T> {
      * disabled mode
      */
     private isActionAvailable(action: ActionItem<R, T>): boolean {
-        return (
-            !this.calculateActionsAvailability ||
-            !action.availability ||
-            action.availability(this.selectedEntities) ||
-            this.isActionDisabled(action)
-        );
+        return !action.availability || action.availability(this.selectedEntities) || this.isActionDisabled(action);
     }
 
     /**
@@ -213,7 +212,7 @@ export class ActionMenuComponent<R, T> {
      * configured featured count in {@link actionDisplayConfig}
      */
     get contextualFeaturedActions(): ActionItem<R, T>[] {
-        if (!this.selectedEntities || this.selectedEntities.length === 0) {
+        if (this.calculateActionsAvailability && !this.selectedEntities?.length) {
             return [];
         }
         const flattenedFeaturedActionList = this.getFlattenedActionList(this.actions, ActionType.CONTEXTUAL_FEATURED);
@@ -242,7 +241,7 @@ export class ActionMenuComponent<R, T> {
      * Actions that depend on selected entities but belong to sub menu
      */
     get contextualActions(): ActionItem<R, T>[] {
-        if (!this.selectedEntities || this.selectedEntities.length === 0) {
+        if (this.calculateActionsAvailability && !this.selectedEntities?.length) {
             return [];
         }
         const contextualActions = this.actions.filter(
@@ -267,7 +266,7 @@ export class ActionMenuComponent<R, T> {
      * To disable a displayed action
      */
     isActionDisabled(action: ActionItem<R, T>): boolean {
-        return CommonUtil.isFunction(action.disabled) ? action.disabled(this.selectedEntities) : action.disabled;
+        return (CommonUtil.isFunction(action.disabled) ? action.disabled(this.selectedEntities) : action.disabled) as boolean;
     }
 
     /**
@@ -315,8 +314,7 @@ export class ActionMenuComponent<R, T> {
      */
     shouldDisplayContextualActions(style: ActionStyling): boolean {
         return (
-            this.selectedEntities &&
-            this.selectedEntities.length &&
+            (!this.calculateActionsAvailability || this.selectedEntities?.length) &&
             this.contextualActions.length &&
             this.actionDisplayConfig.contextual.styling === style
         );
