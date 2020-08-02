@@ -39,12 +39,13 @@ export class ActionMenuComponent<R, T> {
             return;
         }
 
-        const hasNestedActions = actions.some(action => action.children && action.children.length);
+        const copyOfActions = getDeepCopyOfActionItems(actions);
+        const hasNestedActions = copyOfActions.some(action => action.children && action.children.length);
         const shouldDisplayContextualActionsDropdown =
             hasNestedActions ||
-            actions.some(action => action.actionType && action.actionType === ActionType.CONTEXTUAL_FEATURED);
+            copyOfActions.some(action => action.actionType && action.actionType === ActionType.CONTEXTUAL_FEATURED);
 
-        this._actions = actions.map(action => {
+        this._actions = copyOfActions.map(action => {
             if (!action.actionType) {
                 if (shouldDisplayContextualActionsDropdown) {
                     action.actionType = ActionType.CONTEXTUAL;
