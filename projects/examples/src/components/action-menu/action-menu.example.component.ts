@@ -13,7 +13,7 @@ import {
     ActionType,
     DEFAULT_ACTION_SEARCH_SECTION_HEADER_PREFIX,
     SpotlightSearchService,
-    TextIcon
+    TextIcon,
 } from '@vcd/ui-components';
 import Mousetrap from 'mousetrap';
 
@@ -72,16 +72,14 @@ interface HandlerData {
             [placeholder]="'Search contextual actions'"
         ></vcd-spotlight-search>
     `,
-    styleUrls: ['action-menu.example.component.scss']
+    styleUrls: ['action-menu.example.component.scss'],
 })
 export class ActionMenuExampleComponent<R extends Record, T extends HandlerData> implements OnInit, OnDestroy {
-
     constructor(
         private spotlightSearchService: SpotlightSearchService,
         private translationService: TranslationService,
         private ts: TranslationService
-    ) {
-    }
+    ) {}
 
     get staticActions(): ActionItem<R, T>[] {
         return this.actions.filter(
@@ -141,6 +139,7 @@ export class ActionMenuExampleComponent<R extends Record, T extends HandlerData>
                     availability: (rec: R[]) => rec.length === 1 && rec[0].paused,
                     actionType: ActionType.CONTEXTUAL_FEATURED,
                     isTranslatable: false,
+                    class: 'start',
                 },
                 {
                     textKey: 'Stop',
@@ -152,6 +151,7 @@ export class ActionMenuExampleComponent<R extends Record, T extends HandlerData>
                     availability: (rec: R[]) => rec.length === 1 && !rec[0].paused,
                     actionType: ActionType.CONTEXTUAL_FEATURED,
                     isTranslatable: false,
+                    class: 'stop',
                 },
             ],
         },

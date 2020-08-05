@@ -27,6 +27,10 @@ interface DropdownItem<T extends DropdownItem<T>> {
      * To mark if the {@link #ActionItem.textKey} has to be translated or not
      */
     isTranslatable?: boolean;
+    /**
+     * Css class of the dropdown item. Must be unique among all dropdown items within the dropdown items list
+     */
+    class: string;
 }
 
 /**
