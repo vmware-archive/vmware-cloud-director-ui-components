@@ -12,7 +12,7 @@
 
         <vcd-dropdown
             class="inline-action-dropdown"
-            *ngIf="contextualActions.length && shouldDisplayContextualActionsDropdown"
+            *ngIf="contextualActions.length"
             [items]="contextualActions"
             [trackByFunction]="actionsTrackBy"
             [dropdownPosition]="dropdownPosition"

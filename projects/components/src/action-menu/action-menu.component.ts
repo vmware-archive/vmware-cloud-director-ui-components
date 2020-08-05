@@ -43,7 +43,8 @@ export class ActionMenuComponent<R, T> {
         const hasNestedActions = copyOfActions.some(action => action.children && action.children.length);
         const shouldDisplayContextualActionsDropdown =
             hasNestedActions ||
-            copyOfActions.some(action => action.actionType && action.actionType === ActionType.CONTEXTUAL_FEATURED);
+            this.getFlattenedActionList(copyOfActions, ActionType.CONTEXTUAL_FEATURED)
+                .some(action => action.actionType && action.actionType === ActionType.CONTEXTUAL_FEATURED);
 
         this._actions = copyOfActions.map(action => {
             if (!action.actionType) {
@@ -65,14 +66,16 @@ export class ActionMenuComponent<R, T> {
      */
     shouldDisplayContextualActionsDropdown = false;
 
-    private _actionDisplayConfig: ActionDisplayConfig = DEFAULT_ACTION_DISPLAY_CONFIG;
+    private _actionDisplayConfig: ActionDisplayConfig = getCopyOfActionDisplayConfig(DEFAULT_ACTION_DISPLAY_CONFIG);
     /**
      * Display configuration of both static and contextual actions
      * If null or undefined is passed, default config {@link _actionDisplayConfig} is used
      */
     @Input() set actionDisplayConfig(config: ActionDisplayConfig) {
-        Object.keys(config || {}).forEach(
-            key => (this._actionDisplayConfig[key] = config[key] ? config[key] : DEFAULT_ACTION_DISPLAY_CONFIG[key])
+        const copyOfConfig = getCopyOfActionDisplayConfig(config || {});
+        const copyOfDefaultConfig = getCopyOfActionDisplayConfig(DEFAULT_ACTION_DISPLAY_CONFIG);
+        Object.keys(copyOfConfig).forEach(
+            key => (this._actionDisplayConfig[key] = copyOfConfig[key] ? copyOfConfig[key] : copyOfDefaultConfig[key])
         );
         const buttonContents = this.actionDisplayConfig.contextual.buttonContents;
         this.shouldShowIcon = (TextIcon.ICON & buttonContents) === TextIcon.ICON;
@@ -352,4 +355,15 @@ export function getDeepCopyOfActionItems<R, T>(actions: ActionItem<R, T>[]): Act
         }
         return { ...action };
     });
+}
+
+/**
+ * Without the deep copy, the changes made to action display config object are mutating the original config object and the default config
+ * object
+ */
+export function getCopyOfActionDisplayConfig(displayConfig: ActionDisplayConfig): ActionDisplayConfig {
+    return {
+        contextual: { ...displayConfig.contextual },
+        staticActionStyling: displayConfig.staticActionStyling
+    };
 }
