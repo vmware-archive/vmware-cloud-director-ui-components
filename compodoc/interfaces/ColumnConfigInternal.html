@@ -241,13 +241,16 @@ types.</p>
 import { ClrDatagrid, ClrDatagridPagination, ClrDatagridStateInterface } from &#x27;@clr/angular&#x27;;
 import { LazyString, TranslationService } from &#x27;@vcd/i18n&#x27;;
 import { Observable } from &#x27;rxjs&#x27;;
-import { ActionMenuComponent, DEFAULT_ACTION_DISPLAY_CONFIG } from &#x27;../action-menu/action-menu.component&#x27;;
+import {
+    ActionMenuComponent,
+    DEFAULT_ACTION_DISPLAY_CONFIG,
+    getCopyOfActionDisplayConfig,
+} from &#x27;../action-menu/action-menu.component&#x27;;
 import { ActivityReporter } from &#x27;../common/activity-reporter&#x27;;
 import {
     ActionDisplayConfig,
     ActionHandlerType,
     ActionItem,
-    ActionStyling,
     ActionType,
 } from &#x27;../common/interfaces/action-item.interface&#x27;;
 import { SubscriptionTracker } from &#x27;../common/subscription&#x27;;
@@ -677,7 +680,7 @@ export class DatagridComponent&lt;R&gt; implements OnInit, AfterViewInit, OnDest
     /**
      * How to display the static and contextual actions.
      */
-    @Input() actionDisplayConfig: ActionDisplayConfig &#x3D; DEFAULT_ACTION_DISPLAY_CONFIG;
+    @Input() actionDisplayConfig: ActionDisplayConfig &#x3D; getCopyOfActionDisplayConfig(DEFAULT_ACTION_DISPLAY_CONFIG);
 
     /**
      * Whether to display contextual actions inside the row or on top of the grid

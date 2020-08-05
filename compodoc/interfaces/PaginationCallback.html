@@ -86,7 +86,7 @@
                         <td class="col-md-4">
                             <ul class="index-list">
                                 <li>
-                                            <a href="#call-declaration-a861f5becd95cb5815d2be1dcdf1810d">Unamed property</a>
+                                            <a href="#call-declaration-7414733df8aedbf1e061824525ce0a3f">Unamed property</a>
                                 </li>
                             </ul>
                         </td>
@@ -105,7 +105,7 @@
                                     <tr>
                                         <td class="col-md-4">
                                             <i>Signature :</i>
-                                            <a name="call-declaration-a861f5becd95cb5815d2be1dcdf1810d"></a>
+                                            <a name="call-declaration-7414733df8aedbf1e061824525ce0a3f"></a>
                                             <code>
                                                 <!--ts.SyntaxKind.CallSignature-->
                                                     [firstItem: number, lastItem: number, totalItems: number]
@@ -150,13 +150,16 @@
 import { ClrDatagrid, ClrDatagridPagination, ClrDatagridStateInterface } from &#x27;@clr/angular&#x27;;
 import { LazyString, TranslationService } from &#x27;@vcd/i18n&#x27;;
 import { Observable } from &#x27;rxjs&#x27;;
-import { ActionMenuComponent, DEFAULT_ACTION_DISPLAY_CONFIG } from &#x27;../action-menu/action-menu.component&#x27;;
+import {
+    ActionMenuComponent,
+    DEFAULT_ACTION_DISPLAY_CONFIG,
+    getCopyOfActionDisplayConfig,
+} from &#x27;../action-menu/action-menu.component&#x27;;
 import { ActivityReporter } from &#x27;../common/activity-reporter&#x27;;
 import {
     ActionDisplayConfig,
     ActionHandlerType,
     ActionItem,
-    ActionStyling,
     ActionType,
 } from &#x27;../common/interfaces/action-item.interface&#x27;;
 import { SubscriptionTracker } from &#x27;../common/subscription&#x27;;
@@ -586,7 +589,7 @@ export class DatagridComponent&lt;R&gt; implements OnInit, AfterViewInit, OnDest
     /**
      * How to display the static and contextual actions.
      */
-    @Input() actionDisplayConfig: ActionDisplayConfig &#x3D; DEFAULT_ACTION_DISPLAY_CONFIG;
+    @Input() actionDisplayConfig: ActionDisplayConfig &#x3D; getCopyOfActionDisplayConfig(DEFAULT_ACTION_DISPLAY_CONFIG);
 
     /**
      * Whether to display contextual actions inside the row or on top of the grid
