@@ -8,10 +8,10 @@ import { ActionDisplayConfig, ActionItem, ActionStyling, ActionType, TextIcon } 
 import { CommonUtil } from '../utils';
 
 /**
- * Value used for the display configuration of action buttons if no input is provided by the caller
+ * To add default values to configs if they are not provided by the caller in the input config
  */
-export function getDefaultActionDisplayConfig(): ActionDisplayConfig {
-    return {
+export function getDefaultActionDisplayConfig(cfg: ActionDisplayConfig = {}): ActionDisplayConfig {
+    const defaults =  {
         contextual: {
             featuredCount: 0,
             styling: ActionStyling.INLINE,
@@ -19,6 +19,7 @@ export function getDefaultActionDisplayConfig(): ActionDisplayConfig {
         },
         staticActionStyling: ActionStyling.INLINE,
     };
+    return {...defaults, ...cfg};
 }
 
 /**
@@ -74,13 +75,7 @@ export class ActionMenuComponent<R, T> {
      * If null or undefined is passed, default config {@link _actionDisplayConfig} is used
      */
     @Input() set actionDisplayConfig(config: ActionDisplayConfig) {
-        this._actionDisplayConfig = getDefaultActionDisplayConfig();
-        if (config.contextual) {
-            this._actionDisplayConfig.contextual = { ...config.contextual };
-        }
-        if (config.staticActionStyling) {
-            this._actionDisplayConfig.staticActionStyling = config.staticActionStyling;
-        }
+        this._actionDisplayConfig = getDefaultActionDisplayConfig(config || {});
         const buttonContents = this.actionDisplayConfig.contextual.buttonContents;
         this.shouldShowIcon = (TextIcon.ICON & buttonContents) === TextIcon.ICON;
         this.shouldShowText = (TextIcon.TEXT & buttonContents) === TextIcon.TEXT;

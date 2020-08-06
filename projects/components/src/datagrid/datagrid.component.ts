@@ -24,7 +24,6 @@ import { LazyString, TranslationService } from '@vcd/i18n';
 import { Observable } from 'rxjs';
 import {
     ActionMenuComponent,
-    getDefaultActionDisplayConfig,
 } from '../action-menu/action-menu.component';
 import { ActivityReporter } from '../common/activity-reporter';
 import {
@@ -460,7 +459,7 @@ export class DatagridComponent<R> implements OnInit, AfterViewInit, OnDestroy {
     /**
      * How to display the static and contextual actions.
      */
-    @Input() actionDisplayConfig: ActionDisplayConfig = getDefaultActionDisplayConfig();
+    @Input() actionDisplayConfig: ActionDisplayConfig;
 
     /**
      * Whether to display contextual actions inside the row or on top of the grid

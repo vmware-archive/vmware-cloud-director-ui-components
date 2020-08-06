@@ -82,44 +82,19 @@ describe('ActionMenuComponent', () => {
             }
         );
         it(
-            'does not change the default value of nested actionDisplayConfig.contextual object when the input config is changed to just ' +
-                'have the staticActionStyling',
+            'setting the actionDisplayConfig of an instance of ActionMenuComponent, does not modify the defaults for subsequent ' +
+                'instantiations',
             function(this: HasFinderAndActionMenu): void {
-                const configInputOne = {
-                    contextual: {
-                        featuredCount: 5,
-                        styling: ActionStyling.DROPDOWN,
-                        buttonContents: TextIcon.TEXT,
-                    },
-                };
-                const configInputTwo = {
+                const configInput: ActionDisplayConfig = {
                     staticActionStyling: ActionStyling.DROPDOWN,
                 };
 
-                this.actionMenu.actionDisplayConfig = configInputOne;
-                expect(this.actionMenu.actionDisplayConfig.contextual).toEqual(configInputOne.contextual);
+                const instanceOne = new ActionMenuComponent();
+                instanceOne.actionDisplayConfig = configInput;
+                expect(instanceOne.actionDisplayConfig.staticActionStyling).toEqual(configInput.staticActionStyling);
 
-                this.actionMenu.actionDisplayConfig = configInputTwo;
-                expect(this.actionMenu.actionDisplayConfig.contextual).toEqual(
-                    getDefaultActionDisplayConfig().contextual
-                );
-            }
-        );
-        it(
-            'does not change the input config objects staticActionStyling value to default ' +
-                'getDefaultActionDisplayConfig.staticActionStyling when it is not passed in',
-            function(this: HasFinderAndActionMenu): void {
-                const configInputOne: ActionDisplayConfig = {
-                    contextual: {
-                        featuredCount: 5,
-                        styling: ActionStyling.DROPDOWN,
-                        buttonContents: TextIcon.TEXT,
-                    },
-                };
-
-                this.actionMenu.actionDisplayConfig = configInputOne;
-                expect(configInputOne.staticActionStyling).toBeUndefined();
-                expect(this.actionMenu.actionDisplayConfig.staticActionStyling).toEqual(
+                const instanceTwo = new ActionMenuComponent();
+                expect(instanceTwo.actionDisplayConfig.staticActionStyling).toEqual(
                     getDefaultActionDisplayConfig().staticActionStyling
                 );
             }
