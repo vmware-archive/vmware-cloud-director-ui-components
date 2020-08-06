@@ -6,9 +6,9 @@
 import { Component } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
 import { MockTranslationService, TranslationService } from '@vcd/i18n';
-import { ActionStyling, ActionType, TextIcon } from '../common/interfaces/index';
+import { ActionDisplayConfig, ActionStyling, ActionType, TextIcon } from '../common/interfaces/index';
 import { WidgetFinder, WidgetObject } from '../utils/test/index';
-import { ActionMenuComponent } from './action-menu.component';
+import { ActionMenuComponent, getDefaultActionDisplayConfig } from './action-menu.component';
 import { VcdActionMenuModule } from './action-menu.module';
 
 interface HasFinderAndActionMenu {
@@ -79,6 +79,49 @@ describe('ActionMenuComponent', () => {
                 expect(this.actionMenu.shouldShowIcon).toBeTruthy();
                 expect(this.actionMenu.shouldShowText).toBeFalsy();
                 expect(this.actionMenu.shouldShowTooltip).toBeTruthy();
+            }
+        );
+        it(
+            'does not change the default value of nested actionDisplayConfig.contextual object when the input config is changed to just ' +
+                'have the staticActionStyling',
+            function(this: HasFinderAndActionMenu): void {
+                const configInputOne = {
+                    contextual: {
+                        featuredCount: 5,
+                        styling: ActionStyling.DROPDOWN,
+                        buttonContents: TextIcon.TEXT,
+                    },
+                };
+                const configInputTwo = {
+                    staticActionStyling: ActionStyling.DROPDOWN,
+                };
+
+                this.actionMenu.actionDisplayConfig = configInputOne;
+                expect(this.actionMenu.actionDisplayConfig.contextual).toEqual(configInputOne.contextual);
+
+                this.actionMenu.actionDisplayConfig = configInputTwo;
+                expect(this.actionMenu.actionDisplayConfig.contextual).toEqual(
+                    getDefaultActionDisplayConfig().contextual
+                );
+            }
+        );
+        it(
+            'does not change the input config objects staticActionStyling value to default ' +
+                'getDefaultActionDisplayConfig.staticActionStyling when it is not passed in',
+            function(this: HasFinderAndActionMenu): void {
+                const configInputOne: ActionDisplayConfig = {
+                    contextual: {
+                        featuredCount: 5,
+                        styling: ActionStyling.DROPDOWN,
+                        buttonContents: TextIcon.TEXT,
+                    },
+                };
+
+                this.actionMenu.actionDisplayConfig = configInputOne;
+                expect(configInputOne.staticActionStyling).toBeUndefined();
+                expect(this.actionMenu.actionDisplayConfig.staticActionStyling).toEqual(
+                    getDefaultActionDisplayConfig().staticActionStyling
+                );
             }
         );
     });

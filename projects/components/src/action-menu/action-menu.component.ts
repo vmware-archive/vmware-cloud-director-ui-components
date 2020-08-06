@@ -10,14 +10,16 @@ import { CommonUtil } from '../utils';
 /**
  * Value used for the display configuration of action buttons if no input is provided by the caller
  */
-export const DEFAULT_ACTION_DISPLAY_CONFIG: ActionDisplayConfig = {
-    contextual: {
-        featuredCount: 0,
-        styling: ActionStyling.INLINE,
-        buttonContents: TextIcon.TEXT,
-    },
-    staticActionStyling: ActionStyling.INLINE,
-};
+export function getDefaultActionDisplayConfig(): ActionDisplayConfig {
+    return {
+        contextual: {
+            featuredCount: 0,
+            styling: ActionStyling.INLINE,
+            buttonContents: TextIcon.TEXT,
+        },
+        staticActionStyling: ActionStyling.INLINE,
+    };
+}
 
 /**
  * Renders actions in screens containing grids, cards and details container screens
@@ -66,17 +68,19 @@ export class ActionMenuComponent<R, T> {
      */
     shouldDisplayContextualActionsDropdown = false;
 
-    private _actionDisplayConfig: ActionDisplayConfig = getCopyOfActionDisplayConfig(DEFAULT_ACTION_DISPLAY_CONFIG);
+    private _actionDisplayConfig: ActionDisplayConfig = getDefaultActionDisplayConfig();
     /**
      * Display configuration of both static and contextual actions
      * If null or undefined is passed, default config {@link _actionDisplayConfig} is used
      */
     @Input() set actionDisplayConfig(config: ActionDisplayConfig) {
-        const copyOfConfig = getCopyOfActionDisplayConfig(config || {});
-        const copyOfDefaultConfig = getCopyOfActionDisplayConfig(DEFAULT_ACTION_DISPLAY_CONFIG);
-        Object.keys(copyOfConfig).forEach(
-            key => (this._actionDisplayConfig[key] = copyOfConfig[key] ? copyOfConfig[key] : copyOfDefaultConfig[key])
-        );
+        this._actionDisplayConfig = getDefaultActionDisplayConfig();
+        if (config.contextual) {
+            this._actionDisplayConfig.contextual = { ...config.contextual };
+        }
+        if (config.staticActionStyling) {
+            this._actionDisplayConfig.staticActionStyling = config.staticActionStyling;
+        }
         const buttonContents = this.actionDisplayConfig.contextual.buttonContents;
         this.shouldShowIcon = (TextIcon.ICON & buttonContents) === TextIcon.ICON;
         this.shouldShowText = (TextIcon.TEXT & buttonContents) === TextIcon.TEXT;
@@ -355,15 +359,4 @@ export function getDeepCopyOfActionItems<R, T>(actions: ActionItem<R, T>[]): Act
         }
         return { ...action };
     });
-}
-
-/**
- * Without the deep copy, the changes made to action display config object are mutating the original config object and the default config
- * object
- */
-export function getCopyOfActionDisplayConfig(displayConfig: ActionDisplayConfig): ActionDisplayConfig {
-    return {
-        contextual: { ...displayConfig.contextual },
-        staticActionStyling: displayConfig.staticActionStyling
-    };
 }
