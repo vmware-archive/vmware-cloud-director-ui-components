@@ -29,49 +29,7 @@ interface HandlerData {
 
 @Component({
     selector: 'vcd-action-menu-example',
-    template: `
-        <div>
-            <button (click)="changeStaticActionStyling()" class="btn btn-primary">
-                Display static actions
-                {{ actionDisplayConfig.staticActionStyling === 'INLINE' ? 'dropdown' : 'inline' }}
-            </button>
-            <br />
-            <vcd-action-menu
-                [actions]="staticActions"
-                [actionDisplayConfig]="actionDisplayConfig"
-                [selectedEntities]="selectedEntities"
-                [dropdownTriggerBtnText]="'vcd.cc.action.menu.actions'"
-            >
-            </vcd-action-menu>
-        </div>
-
-        <br />
-
-        <div>
-            <button (click)="changeContextualActionStyling()" class="btn btn-primary">
-                Display contextual actions
-                {{ actionDisplayConfig.contextual.styling === 'INLINE' ? 'dropdown' : 'inline' }}
-            </button>
-            <button (click)="toggleDropdownDisable()" class="btn btn-primary">
-                {{ isDropdownDisabled ? 'Enable dropdown' : 'Disable dropdown' }}
-            </button>
-            <br /><br />
-            <p>Press 'command+.' on Mac OS or 'ctrl+.' on PC to open quick search and search for contextual actions</p>
-            <vcd-action-menu
-                [actions]="contextualActions"
-                [actionDisplayConfig]="actionDisplayConfig"
-                [selectedEntities]="selectedEntities"
-                [dropdownTriggerBtnText]="'vcd.cc.action.menu.actions'"
-                [disabled]="isDropdownDisabled"
-            >
-            </vcd-action-menu>
-        </div>
-
-        <vcd-spotlight-search
-            [(open)]="spotlightOpen"
-            [placeholder]="'Search contextual actions'"
-        ></vcd-spotlight-search>
-    `,
+    templateUrl: 'action-menu.example.component.html',
     styleUrls: ['action-menu.example.component.scss'],
 })
 export class ActionMenuExampleComponent<R extends Record, T extends HandlerData> implements OnInit, OnDestroy {
