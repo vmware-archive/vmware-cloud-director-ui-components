@@ -364,14 +364,14 @@ export abstract class WidgetObject&lt;T&gt; {
  * This is done by creating a static property &#x60;tagName&#x60;on your subclass, not a regular instance, since this
  * interface represents a constructor for a {@link WidgetObject}, not an instance.
  */
-export interface FindableWidget&lt;T&gt; extends Type&lt;WidgetObject&lt;T&gt;&gt; {
+export interface FindableWidget&lt;T&gt; extends Type&lt;T&gt; {
     tagName: string;
 }
 
 /**
  * Arguments for {@link WidgetFinder#findWidgets} and {@link WidgetFinder#find}
  */
-interface FindParams&lt;T&gt; {
+export interface FindParams&lt;T&gt; {
     /**
      * The constructor of the widget to be found
      */
@@ -456,7 +456,7 @@ export class WidgetFinder&lt;H &#x3D; unknown&gt; {
     }
 }
 
-function isFindParamsObject&lt;T&gt;(params: FindParams&lt;T&gt; | T): params is FindParams&lt;T&gt; {
+export function isFindParamsObject&lt;T&gt;(params: FindParams&lt;T&gt; | T): params is FindParams&lt;T&gt; {
     return !!(params as FindParams&lt;T&gt;).woConstructor;
 }
 /**

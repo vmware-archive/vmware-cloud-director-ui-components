@@ -115,6 +115,9 @@
                             <a href="#processRow" title="projects/components/src/data-exporter/csv-exporter.service.ts"><b>processRow</b>&nbsp;&nbsp;&nbsp;(projects/.../csv-exporter.service.ts)</a>
                         </li>
                         <li>
+                            <a href="#promisify" title="projects/components/src/utils/test/cypress-widget-driver.ts"><b>promisify</b>&nbsp;&nbsp;&nbsp;(projects/.../cypress-widget-driver.ts)</a>
+                        </li>
+                        <li>
                             <a href="#sanitizeString" title="projects/components/src/data-exporter/csv-exporter.service.ts"><b>sanitizeString</b>&nbsp;&nbsp;&nbsp;(projects/.../csv-exporter.service.ts)</a>
                         </li>
                         <li>
@@ -1292,7 +1295,7 @@ const gridColumn = {
             </tr>
             <tr>
                 <td class="col-md-4">
-<code>getDefaultActionDisplayConfig()</code>
+<code>getDefaultActionDisplayConfig(cfg)</code>
                 </td>
             </tr>
 
@@ -1301,12 +1304,39 @@ const gridColumn = {
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-description"><p>Value used for the display configuration of action buttons if no input is provided by the caller</p>
+                    <div class="io-description"><p>To add default values to configs if they are not provided by the caller in the input config</p>
 </div>
 
                     <div class="io-description">
+                        <b>Parameters :</b>
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Optional</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>cfg</td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
                         <b>Returns : </b>        <code><a href="../interfaces/ActionDisplayConfig.html" target="_self" >ActionDisplayConfig</a></code>
 
+                    </div>
+                    <div class="io-description">
+                        
                     </div>
                 </td>
             </tr>
@@ -1553,6 +1583,71 @@ const gridColumn = {
                     </div>
                     <div class="io-description">
                         <b>Returns : </b>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank" >boolean</a></code>
+
+                    </div>
+                    <div class="io-description">
+                        
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</section>    <h3>projects/components/src/utils/test/cypress-widget-driver.ts</h3>
+    <section>
+    <h3></h3>    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="promisify"></a>
+                    <span class="name">
+                        <b>
+                            promisify
+                        </b>
+                        <a href="#promisify"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>promisify(chain)</code>
+                </td>
+            </tr>
+
+
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Given some Cypress Chainable, returns a promise that will resolve when that Chainable completes
+and rejects when it fails.</p>
+</div>
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Optional</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>chain</td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>    <code>Promise&lt;T&gt;</code>
 
                     </div>
                     <div class="io-description">

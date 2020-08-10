@@ -236,7 +236,6 @@ import { LazyString, TranslationService } from &#x27;@vcd/i18n&#x27;;
 import { Observable } from &#x27;rxjs&#x27;;
 import {
     ActionMenuComponent,
-    getDefaultActionDisplayConfig,
 } from &#x27;../action-menu/action-menu.component&#x27;;
 import { ActivityReporter } from &#x27;../common/activity-reporter&#x27;;
 import {
@@ -672,7 +671,7 @@ export class DatagridComponent&lt;R&gt; implements OnInit, AfterViewInit, OnDest
     /**
      * How to display the static and contextual actions.
      */
-    @Input() actionDisplayConfig: ActionDisplayConfig &#x3D; getDefaultActionDisplayConfig();
+    @Input() actionDisplayConfig: ActionDisplayConfig;
 
     /**
      * Whether to display contextual actions inside the row or on top of the grid

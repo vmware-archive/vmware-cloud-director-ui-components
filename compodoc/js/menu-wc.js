@@ -457,10 +457,19 @@ customElements.define('compodoc-menu', class extends HTMLElement {
                                 <a href="classes/ActivityReporter.html" data-type="entity-link">ActivityReporter</a>
                             </li>
                             <li class="link">
+                                <a href="classes/AngularWidgetDriver.html" data-type="entity-link">AngularWidgetDriver</a>
+                            </li>
+                            <li class="link">
+                                <a href="classes/AngularWidgetFinder.html" data-type="entity-link">AngularWidgetFinder</a>
+                            </li>
+                            <li class="link">
                                 <a href="classes/BannerActivityReporterWidgetObject.html" data-type="entity-link">BannerActivityReporterWidgetObject</a>
                             </li>
                             <li class="link">
                                 <a href="classes/BaseFormControl.html" data-type="entity-link">BaseFormControl</a>
+                            </li>
+                            <li class="link">
+                                <a href="classes/BaseWidgetObject.html" data-type="entity-link">BaseWidgetObject</a>
                             </li>
                             <li class="link">
                                 <a href="classes/BoldTextRendererWidgetObject.html" data-type="entity-link">BoldTextRendererWidgetObject</a>
@@ -473,6 +482,12 @@ customElements.define('compodoc-menu', class extends HTMLElement {
                             </li>
                             <li class="link">
                                 <a href="classes/CommonUtil.html" data-type="entity-link">CommonUtil</a>
+                            </li>
+                            <li class="link">
+                                <a href="classes/CypressWidgetDriver.html" data-type="entity-link">CypressWidgetDriver</a>
+                            </li>
+                            <li class="link">
+                                <a href="classes/CypressWidgetFinder.html" data-type="entity-link">CypressWidgetFinder</a>
                             </li>
                             <li class="link">
                                 <a href="classes/DataExporterWidgetObject.html" data-type="entity-link">DataExporterWidgetObject</a>
@@ -648,6 +663,9 @@ customElements.define('compodoc-menu', class extends HTMLElement {
                                 <a href="interfaces/GridState.html" data-type="entity-link">GridState</a>
                             </li>
                             <li class="link">
+                                <a href="interfaces/HasAngularFinder.html" data-type="entity-link">HasAngularFinder</a>
+                            </li>
+                            <li class="link">
                                 <a href="interfaces/HasFinder.html" data-type="entity-link">HasFinder</a>
                             </li>
                             <li class="link">
@@ -700,6 +718,9 @@ customElements.define('compodoc-menu', class extends HTMLElement {
                             </li>
                             <li class="link">
                                 <a href="interfaces/VcdFormlyTemplateOptions.html" data-type="entity-link">VcdFormlyTemplateOptions</a>
+                            </li>
+                            <li class="link">
+                                <a href="interfaces/WidgetDriver.html" data-type="entity-link">WidgetDriver</a>
                             </li>
                         </ul>
                     </li>
