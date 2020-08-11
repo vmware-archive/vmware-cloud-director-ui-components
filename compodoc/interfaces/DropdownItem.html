@@ -440,6 +440,11 @@ export class DropdownComponent&lt;T extends DropdownItem&lt;T&gt;&gt; {
         return this._items;
     }
 
+    /**
+     * Css class name added to the dropdown trigger buttons
+     */
+    @Input() dropdownTriggerButtonClassName: string;
+
     private flattenNestedItemsWithSingleChild(items: T[]): T[] {
         items.forEach(item &#x3D;&gt; {
             // Flatten out the dropdowns with single children at each level of dropdown
