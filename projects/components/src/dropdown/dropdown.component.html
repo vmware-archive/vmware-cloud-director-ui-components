@@ -1,6 +1,10 @@
 <clr-dropdown class="nested-dropdown">
     <button
-        [ngClass]="{ 'btn btn-link': dropdownTriggerBtnTxt, 'first-dropdown-toggle': !isNestedDropdown }"
+        [ngClass]="[
+            dropdownTriggerBtnTxt ? 'btn btn-link' : '',
+            !isNestedDropdown ? 'first-dropdown-toggle' : '',
+            dropdownTriggerButtonClassName ? dropdownTriggerButtonClassName : ''
+        ]"
         clrDropdownTrigger
         [vcdShowClippedText]="clipTextConfig"
         [disabled]="isDropdownDisabled"
@@ -24,6 +28,7 @@
                     <vcd-dropdown
                         [items]="action.children"
                         [dropdownTriggerBtnTxt]="action.textKey"
+                        [dropdownTriggerButtonClassName]="action.class"
                         [nestedDropdownPosition]="nestedDropdownPosition"
                         [isNestedDropdown]="true"
                         [onItemClickedCb]="onItemClickedCb"
@@ -35,8 +40,12 @@
 
                 <ng-container *ngIf="!action.children">
                     <button
-                        [className]="[action.class, 'btn', 'btn-link']"
-                        [ngClass]="{ 'btn-icon': shouldShowIcon }"
+                        [ngClass]="[
+                            action.class ? action.class : '',
+                            shouldShowIcon ? 'btn-icon' : '',
+                            'btn',
+                            'btn-link'
+                        ]"
                         clrDropdownItem
                         (click)="onItemClickedCb(action)"
                         [disabled]="isItemDisabledCb(action)"
