@@ -43,15 +43,15 @@ export class ActionMenuComponent<R, T> {
         }
 
         const copyOfActions = getDeepCopyOfActionItems(actions);
-        const hasNestedActions = copyOfActions.some(action => action.children && action.children.length);
-        const shouldDisplayContextualActionsDropdown =
+        const hasNestedActions = copyOfActions.some(action => action.children);
+        const markUnmarkedActionsAsContextual =
             hasNestedActions ||
             this.getFlattenedActionList(copyOfActions, ActionType.CONTEXTUAL_FEATURED)
                 .some(action => action.actionType && action.actionType === ActionType.CONTEXTUAL_FEATURED);
 
         this._actions = copyOfActions.map(action => {
             if (!action.actionType) {
-                if (shouldDisplayContextualActionsDropdown) {
+                if (markUnmarkedActionsAsContextual) {
                     action.actionType = ActionType.CONTEXTUAL;
                 } else {
                     action.actionType = ActionType.CONTEXTUAL_FEATURED;
@@ -59,6 +59,9 @@ export class ActionMenuComponent<R, T> {
             }
             return action;
         });
+
+        this.shouldDisplayContextualActionsDropdown = hasNestedActions ||
+            this._actions.some(action => action.actionType === ActionType.CONTEXTUAL);
     }
     get actions(): ActionItem<R, T>[] {
         return getDeepCopyOfActionItems(this._actions);
