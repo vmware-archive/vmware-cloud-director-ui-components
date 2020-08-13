@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: BSD-2-Clause
  */
 
-import { ChangeDetectorRef, Component, Injectable, OnDestroy, OnInit } from '@angular/core';
+import { Component, Injectable, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import {
     SpotlightSearchProvider,
@@ -11,9 +11,7 @@ import {
     SpotlightSearchResultType,
     SpotlightSearchService,
 } from '@vcd/ui-components';
-import mousetrap from 'mousetrap';
-
-const mousetrapModifierKeys: string[] = ['shift', 'ctrl', 'alt', 'meta', 'mod', 'option', 'command'];
+import Mousetrap from 'mousetrap';
 
 @Component({
     selector: 'vcd-spotlight-example',
@@ -24,16 +22,33 @@ export class SpotlightSearchExampleComponent implements OnInit, OnDestroy {
     kbdShortcut = 'mod+f';
     spotlightOpen: boolean;
     private registrationId: string;
+    private readonly mousetrap: MousetrapInstance;
 
     constructor(
         private fb: FormBuilder,
         private actionsSearchProvider: ActionsSearchProvider,
-        private spotlightSearchService: SpotlightSearchService,
-        private changeDetectorRef: ChangeDetectorRef
+        private spotlightSearchService: SpotlightSearchService
     ) {
+        // Create an instance of mouse trap within the constructor so that any bount shortcut event handler
+        // would be executed within the angular zone
+        this.mousetrap = new Mousetrap();
+        // For this example we'd like mouse trap to always run
+        this.mousetrap.stopCallback = () => {
+            return false;
+        };
+
         this.formGroup = this.fb.group({
             ['placeholder']: [''],
         });
+    }
+
+    ngOnInit(): void {
+        this.mousetrap.bind(this.kbdShortcut, () => {
+            this.spotlightOpen = true;
+            return false;
+        });
+
+        this.actionsSearchProvider.register();
 
         // Register LazyLoadedActionsSearchProvider and ensure they go first in the list
         this.registrationId = this.spotlightSearchService.registerProvider(
@@ -43,34 +58,8 @@ export class SpotlightSearchExampleComponent implements OnInit, OnDestroy {
         );
     }
 
-    private resetMousetrap: () => void = () => {};
-
-    ngOnInit(): void {
-        mousetrap.bind(this.kbdShortcut, () => {
-            this.spotlightOpen = true;
-            // Since this happens outside angular zone we need to notify angular manually
-            // otherwise the user should wait for any operation that will trigger angular change detection (angular zone event)
-            this.changeDetectorRef.detectChanges();
-            return false;
-        });
-
-        const originalStopCallback = mousetrap.prototype.stopCallback;
-        this.resetMousetrap = () => {
-            mousetrap.unbind(this.kbdShortcut);
-            mousetrap.prototype.stopCallback = originalStopCallback;
-        };
-
-        if (mousetrapModifierKeys.some(key => this.kbdShortcut.includes(key))) {
-            mousetrap.prototype.stopCallback = () => {
-                return false;
-            };
-        }
-
-        this.actionsSearchProvider.register();
-    }
-
     ngOnDestroy(): void {
-        this.resetMousetrap();
+        this.mousetrap.reset();
         this.spotlightSearchService.unregisterProvider(this.registrationId);
         this.actionsSearchProvider.unregister();
     }
