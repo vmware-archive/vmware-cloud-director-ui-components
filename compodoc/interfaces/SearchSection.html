@@ -166,6 +166,7 @@
     <div class="tab-pane fade  tab-source-code" id="c-source">
         <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { ChangeDetectorRef, Component, ElementRef, EventEmitter, Input, Output, ViewChild } from &#x27;@angular/core&#x27;;
 import { TranslationService } from &#x27;@vcd/i18n&#x27;;
+import { DomUtil } from &#x27;../utils/dom-util&#x27;;
 import { SpotlightSearchResult, SpotlightSearchResultType } from &#x27;./spotlight-search-result&#x27;;
 import { RegisteredProviders, SpotlightSearchService } from &#x27;./spotlight-search.service&#x27;;
 
@@ -246,6 +247,7 @@ export class SpotlightSearchComponent {
     constructor(
         private searchService: SpotlightSearchService,
         private changeDetectorRef: ChangeDetectorRef,
+        private el: ElementRef,
         public translationService: TranslationService
     ) {}
 
@@ -386,6 +388,12 @@ export class SpotlightSearchComponent {
         // Call the change detector otherwise the selection on the screen may not refreshed quickly enough if the
         // user just presses and holds down the arrow key
         this.changeDetectorRef.detectChanges();
+
+        // Ensure the selected element is visible
+        DomUtil.scrollToElement(this.el, &#x27;.selected&#x27;);
+        if (selectedItemIndex &#x3D;&#x3D;&#x3D; 0) {
+            DomUtil.scrollToElement(this.el, &#x27;.section-index-0 .search-result-section-title&#x27;);
+        }
     }
 
     /**
@@ -424,7 +432,7 @@ export class SpotlightSearchComponent {
     showSectionTitle(searchSection: SearchSection): boolean {
         // In order to show a section title there should be more than one sections
         // and the current section should either be loading data or have results
-        return this.searchSections.length &gt; 1 &amp;&amp; (searchSection.isLoading || searchSection.results.length &gt; 0);
+        return searchSection.section &amp;&amp; (searchSection.isLoading || searchSection.results.length &gt; 0);
     }
 }
 </code></pre>

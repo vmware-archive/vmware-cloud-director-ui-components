@@ -496,6 +496,9 @@ customElements.define('compodoc-menu', class extends HTMLElement {
                                 <a href="classes/DatagridFilter.html" data-type="entity-link">DatagridFilter</a>
                             </li>
                             <li class="link">
+                                <a href="classes/DomUtil.html" data-type="entity-link">DomUtil</a>
+                            </li>
+                            <li class="link">
                                 <a href="classes/FilterBuilder.html" data-type="entity-link">FilterBuilder</a>
                             </li>
                             <li class="link">
