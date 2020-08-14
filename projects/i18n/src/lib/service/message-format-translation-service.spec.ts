@@ -93,14 +93,12 @@ describe('MessageFormatTranslationService', () => {
         );
         const translationService = new MessageFormatTranslationService('en', 'en', loader, true);
         translationService.registerTranslations();
-        await translationService
+        const result = await translationService
             .translateAsync('hi')
             .pipe(take(1))
-            .toPromise()
-            .then(result => {
-                expect(result).toEqual('hello');
-                expect(translationService.translate('hi')).toEqual('hello');
-            });
+            .toPromise();
+        expect(result).toEqual('hello');
+        expect(translationService.translate('hi')).toEqual('hello');
     });
 
     it('translates the string via the translation loader via single language translation', async () => {
@@ -112,14 +110,12 @@ describe('MessageFormatTranslationService', () => {
         );
         const translationService = new MessageFormatTranslationService('en', 'en', loader);
         translationService.registerTranslations();
-        await translationService
+        const result = await translationService
             .translateAsync('hi')
             .pipe(take(1))
-            .toPromise()
-            .then(result => {
-                expect(result).toEqual('hello');
-                expect(translationService.translate('hi')).toEqual('hello');
-            });
+            .toPromise();
+        expect(result).toEqual('hello');
+        expect(translationService.translate('hi')).toEqual('hello');
     });
 
     it('translates via the fallback locale using async translations if the main language is not loaded', async () => {
@@ -136,14 +132,12 @@ describe('MessageFormatTranslationService', () => {
 
         const translationService = new MessageFormatTranslationService('en', 'de', loader);
         translationService.registerTranslations();
-        await translationService
+        const result = await translationService
             .translateAsync('hi')
             .pipe(take(1))
-            .toPromise()
-            .then(result => {
-                expect(result).toEqual('guten tag');
-                expect(translationService.translate('hi')).toEqual('guten tag');
-            });
+            .toPromise();
+        expect(result).toEqual('guten tag');
+        expect(translationService.translate('hi')).toEqual('guten tag');
     });
 
     it('translates the string using the provided multiple object keys', () => {
