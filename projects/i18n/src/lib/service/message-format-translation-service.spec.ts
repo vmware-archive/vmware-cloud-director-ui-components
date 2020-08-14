@@ -7,7 +7,7 @@
  * Copyright 2017 VMware, Inc. All rights reserved. VMware Confidential
  */
 import { BehaviorSubject } from 'rxjs';
-import { delay } from 'rxjs/operators';
+import { delay, take } from 'rxjs/operators';
 import { TranslationLoader } from '../loader/translation-loader';
 import { MessageFormatTranslationService } from './message-format-translation-service';
 
@@ -82,7 +82,7 @@ describe('MessageFormatTranslationService', () => {
         expect(translationService.translate('multiple.params', [{ count: 2, name: 'World' }])).toBe(`many Worlds`);
     });
 
-    it('translates the string via the translation loader via combined translation', done => {
+    it('translates the string via the translation loader via combined translation', async () => {
         const loader = new TranslationLoader(null, '');
         spyOn(loader, 'getCombinedTranslation').and.returnValue(
             new BehaviorSubject({
@@ -93,14 +93,17 @@ describe('MessageFormatTranslationService', () => {
         );
         const translationService = new MessageFormatTranslationService('en', 'en', loader, true);
         translationService.registerTranslations();
-        translationService.translateAsync('hi').subscribe(result => {
-            expect(result).toEqual('hello');
-            expect(translationService.translate('hi')).toEqual('hello');
-            done();
-        });
+        await translationService
+            .translateAsync('hi')
+            .pipe(take(1))
+            .toPromise()
+            .then(result => {
+                expect(result).toEqual('hello');
+                expect(translationService.translate('hi')).toEqual('hello');
+            });
     });
 
-    it('translates the string via the translation loader via single language translation', done => {
+    it('translates the string via the translation loader via single language translation', async () => {
         const loader = new TranslationLoader(null, '');
         spyOn(loader, 'getTranslation').and.returnValue(
             new BehaviorSubject({
@@ -109,14 +112,17 @@ describe('MessageFormatTranslationService', () => {
         );
         const translationService = new MessageFormatTranslationService('en', 'en', loader);
         translationService.registerTranslations();
-        translationService.translateAsync('hi').subscribe(result => {
-            expect(result).toEqual('hello');
-            expect(translationService.translate('hi')).toEqual('hello');
-            done();
-        });
+        await translationService
+            .translateAsync('hi')
+            .pipe(take(1))
+            .toPromise()
+            .then(result => {
+                expect(result).toEqual('hello');
+                expect(translationService.translate('hi')).toEqual('hello');
+            });
     });
 
-    it('translates via the fallback locale using async translations if the main language is not loaded', done => {
+    it('translates via the fallback locale using async translations if the main language is not loaded', async () => {
         const loader = new TranslationLoader(null, '');
         spyOn(loader, 'getTranslation').and.callFake(arg => {
             if (arg === 'de') {
@@ -130,11 +136,14 @@ describe('MessageFormatTranslationService', () => {
 
         const translationService = new MessageFormatTranslationService('en', 'de', loader);
         translationService.registerTranslations();
-        translationService.translateAsync('hi').subscribe(result => {
-            expect(result).toEqual('guten tag');
-            expect(translationService.translate('hi')).toEqual('guten tag');
-            done();
-        });
+        await translationService
+            .translateAsync('hi')
+            .pipe(take(1))
+            .toPromise()
+            .then(result => {
+                expect(result).toEqual('guten tag');
+                expect(translationService.translate('hi')).toEqual('guten tag');
+            });
     });
 
     it('translates the string using the provided multiple object keys', () => {

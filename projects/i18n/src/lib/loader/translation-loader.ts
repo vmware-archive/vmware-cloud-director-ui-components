@@ -4,7 +4,8 @@
  */
 
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { Observable, of } from 'rxjs';
+import { catchError } from 'rxjs/operators';
 import { Translations, TranslationSet } from '../service/translation-service';
 
 /**
@@ -23,17 +24,25 @@ export class TranslationLoader {
      * Returns the translations for the given language that are located at the {@link assetUrl}.
      */
     public getTranslation(language: string): Observable<Translations> {
-        return (this.http.get(
-            `${this.assetUrl}${TranslationLoader.PREFIX}${language}${TranslationLoader.SUFFIX}`
-        ) as any) as Observable<Translations>;
+        const url = `${this.assetUrl}${TranslationLoader.PREFIX}${language}${TranslationLoader.SUFFIX}`;
+        return ((this.http.get(url) as any) as Observable<Translations>).pipe(
+            catchError((error, caught) => {
+                console.log('Could not find translation file located at ' + url);
+                return of({});
+            })
+        );
     }
 
     /**
      * Returns the translations for all languages that are located at the {@link assetUrl}.
      */
     public getCombinedTranslation(): Observable<TranslationSet> {
-        return (this.http.get(`${this.assetUrl}/../i18n${TranslationLoader.SUFFIX}`) as any) as Observable<
-            TranslationSet
-        >;
+        const url = `${this.assetUrl}/../i18n${TranslationLoader.SUFFIX}`;
+        return ((this.http.get(url) as any) as Observable<TranslationSet>).pipe(
+            catchError((error, caught) => {
+                console.log('Could not find translation file located at ' + url);
+                return of({});
+            })
+        );
     }
 }
