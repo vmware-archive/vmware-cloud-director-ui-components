@@ -5,6 +5,7 @@
 
 import { ChangeDetectorRef, Component, ElementRef, EventEmitter, Input, Output, ViewChild } from '@angular/core';
 import { TranslationService } from '@vcd/i18n';
+import { DomUtil } from '../utils/dom-util';
 import { SpotlightSearchResult, SpotlightSearchResultType } from './spotlight-search-result';
 import { RegisteredProviders, SpotlightSearchService } from './spotlight-search.service';
 
@@ -85,6 +86,7 @@ export class SpotlightSearchComponent {
     constructor(
         private searchService: SpotlightSearchService,
         private changeDetectorRef: ChangeDetectorRef,
+        private el: ElementRef,
         public translationService: TranslationService
     ) {}
 
@@ -225,6 +227,12 @@ export class SpotlightSearchComponent {
         // Call the change detector otherwise the selection on the screen may not refreshed quickly enough if the
         // user just presses and holds down the arrow key
         this.changeDetectorRef.detectChanges();
+
+        // Ensure the selected element is visible
+        DomUtil.scrollToElement(this.el, '.selected');
+        if (selectedItemIndex === 0) {
+            DomUtil.scrollToElement(this.el, '.section-index-0 .search-result-section-title');
+        }
     }
 
     /**
@@ -263,6 +271,6 @@ export class SpotlightSearchComponent {
     showSectionTitle(searchSection: SearchSection): boolean {
         // In order to show a section title there should be more than one sections
         // and the current section should either be loading data or have results
-        return this.searchSections.length > 1 && (searchSection.isLoading || searchSection.results.length > 0);
+        return searchSection.section && (searchSection.isLoading || searchSection.results.length > 0);
     }
 }

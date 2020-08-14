@@ -259,7 +259,7 @@ describe('SpotlightSearchComponent', () => {
     });
 
     describe('section', () => {
-        it('does not display section title if there is just one provider', function(this: Test): void {
+        it('displays section title even if there is just one provider', function(this: Test): void {
             // Open
             this.finder.hostComponent.spotlightOpen = true;
             this.finder.detectChanges();
@@ -267,7 +267,7 @@ describe('SpotlightSearchComponent', () => {
             this.spotlightSearch.searchInputValue = 'copy';
             //
             expect(this.spotlightSearch.searchResults.length).toBe(1);
-            expect(this.spotlightSearch.sectionTitles.length).toBe(0);
+            expect(this.spotlightSearch.sectionTitles).toEqual(['section']);
         });
 
         it('displays all section titles when there are results', function(this: Test): void {
@@ -283,6 +283,26 @@ describe('SpotlightSearchComponent', () => {
             this.spotlightSearch.searchInputValue = 'copy';
             //
             expect(this.spotlightSearch.sectionTitles).toEqual(['section', 'new section']);
+        });
+
+        it('does not display section title if it is not provided', function(this: Test): void {
+            // Register a provider with empty section title
+            this.spotlightSearchData.spotlightSearchService.registerProvider(
+                this.spotlightSearchData.simpleProvider,
+                ''
+            );
+            // Register a provider with undefined section title
+            this.spotlightSearchData.spotlightSearchService.registerProvider(
+                this.spotlightSearchData.simpleProvider,
+                undefined
+            );
+            // Open
+            this.finder.hostComponent.spotlightOpen = true;
+            this.finder.detectChanges();
+            // Set search
+            this.spotlightSearch.searchInputValue = 'copy';
+            //
+            expect(this.spotlightSearch.sectionTitles).toEqual(['section']);
         });
 
         it('can hide the section title when there is no result', function(this: Test): void {
