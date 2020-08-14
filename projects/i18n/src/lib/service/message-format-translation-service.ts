@@ -4,8 +4,8 @@
  */
 
 import MessageFormat from 'messageformat';
-import { BehaviorSubject, Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { combineLatest, Observable, of, ReplaySubject } from 'rxjs';
+import { last, map } from 'rxjs/operators';
 import { TranslationLoader } from '../loader/translation-loader';
 import { FormatDateOptions, TRANSLATION_MAPPING, TranslationService, TranslationSet } from './translation-service';
 
@@ -23,38 +23,48 @@ export class MessageFormatTranslationService extends TranslationService {
         this.preferredLocale = TRANSLATION_MAPPING[this.preferredLocale] || this.preferredLocale;
         this.fallbackLocale = TRANSLATION_MAPPING[this.fallbackLocale] || this.fallbackLocale;
     }
-    private translationSet: BehaviorSubject<TranslationSet> = new BehaviorSubject({});
+    private translationSet: TranslationSet = {};
+    private asyncTranslationSet = new ReplaySubject<TranslationSet>(1);
     /**
      * Merge translations into registry.
      * @param set new translations.
      */
     public registerTranslations(set?: TranslationSet): void {
-        const toSet = this.translationSet.value;
         if (set) {
             for (const locale in set) {
                 if (set[locale] !== undefined) {
-                    if (typeof toSet[locale] === 'undefined') {
-                        toSet[locale] = {};
+                    if (typeof this.translationSet[locale] === 'undefined') {
+                        this.translationSet[locale] = {};
                     }
-                    Object.assign(toSet[locale], set[locale]);
+                    Object.assign(this.translationSet[locale], set[locale]);
                 }
             }
-            this.translationSet.next(toSet);
+            this.asyncTranslationSet.next(this.translationSet);
         } else if (this.translationLoader) {
-            let subscribable: Observable<object>;
+            let asyncTranslations: Observable<TranslationSet>;
             if (this.combinedTranslations) {
-                subscribable = this.translationLoader.getCombinedTranslation();
+                asyncTranslations = this.translationLoader.getCombinedTranslation();
             } else {
-                subscribable = this.translationLoader
-                    .getTranslation(this.preferredLocale)
-                    .pipe(map(translations => ({ [this.preferredLocale]: translations })));
+                asyncTranslations = combineLatest([
+                    this.translationLoader.getTranslation(this.preferredLocale),
+                    this.translationLoader.getTranslation(this.fallbackLocale),
+                ]).pipe(
+                    map(([preferredTranslations, fallbackTranslations]) => ({
+                        [this.preferredLocale]: preferredTranslations,
+                        [this.fallbackLocale]: fallbackTranslations,
+                    }))
+                );
             }
-            subscribable.subscribe(translations => {
-                if (typeof toSet[this.preferredLocale] === 'undefined') {
-                    toSet[this.preferredLocale] = {};
+            asyncTranslations.subscribe(translations => {
+                if (typeof this.translationSet[this.preferredLocale] === 'undefined') {
+                    this.translationSet[this.preferredLocale] = {};
                 }
-                Object.assign(toSet[this.preferredLocale], translations[this.preferredLocale]);
-                this.translationSet.next(toSet);
+                if (typeof this.translationSet[this.fallbackLocale] === 'undefined') {
+                    this.translationSet[this.fallbackLocale] = {};
+                }
+                Object.assign(this.translationSet[this.preferredLocale], translations[this.preferredLocale]);
+                Object.assign(this.translationSet[this.fallbackLocale], translations[this.fallbackLocale]);
+                this.asyncTranslationSet.next(translations);
             });
         } else {
             throw new Error('Need to supply translations!');
@@ -75,10 +85,10 @@ export class MessageFormatTranslationService extends TranslationService {
         const paramObject = params ? (params.length ? params[0] : {}) : {};
         if (paramObject !== null && typeof paramObject === 'object') {
             // Use the object of parameters
-            return this.translateHelper(key, paramObject, this.translationSet.value);
+            return this.translateHelper(key, paramObject, this.translationSet);
         } else {
             // Use the array of parameters
-            return this.translateHelper(key, params, this.translationSet.value);
+            return this.translateHelper(key, params, this.translationSet);
         }
     }
 
@@ -96,10 +106,12 @@ export class MessageFormatTranslationService extends TranslationService {
         const paramObject = params ? (params.length ? params[0] : {}) : {};
         if (paramObject !== null && typeof paramObject === 'object') {
             // Use the object of parameters
-            return this.translationSet.pipe(map(translations => this.translateHelper(key, paramObject, translations)));
+            return this.asyncTranslationSet.pipe(
+                map(translations => this.translateHelper(key, paramObject, translations))
+            );
         } else {
             // Use the array of parameters
-            return this.translationSet.pipe(map(translations => this.translateHelper(key, params, translations)));
+            return this.asyncTranslationSet.pipe(map(translations => this.translateHelper(key, params, translations)));
         }
     }
 

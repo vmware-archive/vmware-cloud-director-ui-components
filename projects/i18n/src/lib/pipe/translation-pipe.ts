@@ -4,6 +4,7 @@
  */
 
 import { ChangeDetectorRef, Injectable, Pipe, PipeTransform } from '@angular/core';
+import { take } from 'rxjs/operators';
 import { TranslationService } from '../service/translation-service';
 
 /**
@@ -35,7 +36,7 @@ export class TranslationPipe implements PipeTransform {
             return key;
         }
 
-        if (key === this.lastKey && params === this.lastArgs) {
+        if (key === this.lastKey && JSON.stringify(params) === JSON.stringify(this.lastArgs)) {
             return this.value;
         }
 
@@ -46,9 +47,12 @@ export class TranslationPipe implements PipeTransform {
     }
 
     private updateValue(key: string, ...args: any[]): void {
-        this.translate.translateAsync(key, args).subscribe(result => {
-            this.value = result;
-            this.changeDetector.markForCheck();
-        });
+        this.translate
+            .translateAsync(key, args)
+            .pipe(take(1))
+            .subscribe(result => {
+                this.value = result;
+                this.changeDetector.markForCheck();
+            });
     }
 }
