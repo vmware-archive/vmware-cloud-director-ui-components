@@ -15,6 +15,6 @@ import { DynamicDropdownPositionDirective } from './dynamic-dropdown-position.di
 @NgModule({
     declarations: [DropdownComponent, DynamicDropdownPositionDirective],
     imports: [CommonModule, ReactiveFormsModule, ClarityModule, I18nModule, ShowClippedTextDirectiveModule],
-    exports: [DropdownComponent],
+    exports: [DropdownComponent, DynamicDropdownPositionDirective],
 })
 export class DropdownModule {}
