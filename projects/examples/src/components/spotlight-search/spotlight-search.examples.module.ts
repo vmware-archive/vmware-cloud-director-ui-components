@@ -7,6 +7,7 @@ import { NgModule } from '@angular/core';
 import { SpotlightSearchComponent } from '@vcd/ui-components';
 import { Documentation } from '@vmw/ng-live-docs';
 import { SpotlightSearchExampleComponent } from './spotlight-search-example.component';
+import { SpotlightSearchNoTitleExampleComponent } from './spotlight-search-no-title-example.component';
 import { SpotlightSearchExampleModule } from './spotlight-search.example.module';
 
 Documentation.registerDocumentationEntry({
@@ -17,7 +18,14 @@ Documentation.registerDocumentationEntry({
         {
             component: SpotlightSearchExampleComponent,
             forComponent: null,
-            title: 'Spotlight search',
+            title: 'Async and sync sections',
+            urlSegment: 'async-sync-sections',
+        },
+        {
+            component: SpotlightSearchNoTitleExampleComponent,
+            forComponent: null,
+            title: 'Single section with no title',
+            urlSegment: 'no-title-section',
         },
     ],
 });

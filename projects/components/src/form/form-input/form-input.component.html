@@ -25,7 +25,7 @@
             </div>
             <span class="clr-subtext" *ngIf="showErrors">
                 <div *ngFor="let key of errorKeys">
-                    <div>{{ key | translate: { controlValue: formControl.value, min: min.toString(), max: max } }}</div>
+                    <div>{{ key | translate: formControl.value:min.toString():max }}</div>
                 </div>
             </span>
             <span class="clr-subtext" *ngIf="!showErrors && description">

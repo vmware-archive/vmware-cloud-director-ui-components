@@ -15,6 +15,7 @@ import { FormsModule } from '@angular/forms';
 import { ClarityModule } from '@clr/angular';
 import { I18nModule, TranslationService } from '@vcd/i18n';
 import { ActivityPromiseResolver, VcdComponentsModule } from '@vcd/ui-components';
+import { ActionMenuExampleModule } from '../components/action-menu/action-menu.example.module';
 import { ActionMenuExamplesModule } from '../components/action-menu/action-menu.examples.module';
 import { AppRoutingModule } from './app-routing.module';
 
@@ -81,6 +82,7 @@ export const sbInfo: StackBlitzInfo = {
         FormlyModule.forRoot(),
         FormlyInputComponentsExamplesModule,
         ActionMenuExamplesModule,
+        ActionMenuExampleModule
     ],
     entryComponents: [HomeComponent],
     providers: [

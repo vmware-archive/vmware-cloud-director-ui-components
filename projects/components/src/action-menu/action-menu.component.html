@@ -11,14 +11,15 @@
         </ng-container>
 
         <vcd-dropdown
+            class="inline-action-dropdown"
+            *ngIf="contextualActions.length && shouldDisplayContextualActionsDropdown"
             [items]="contextualActions"
             [trackByFunction]="actionsTrackBy"
             [dropdownPosition]="dropdownPosition"
             [nestedDropdownPosition]="nestedDropdownPosition"
             [onItemClickedCb]="runActionHandler.bind(this)"
             [isItemDisabledCb]="isActionDisabled.bind(this)"
-            [dropdownTriggerBtnTxt]="dropdownTriggerBtnText"
-            [dropdownTriggerBtnIcon]="dropdownTriggerBtnIcon"
+            [dropdownTriggerBtnTxt]="inlineDropdownTriggerBtnText"
             [dropdownItemContents]="actionDisplayConfig.contextual.buttonContents"
             [isDropdownDisabled]="disabled"
         ></vcd-dropdown>

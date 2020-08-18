@@ -5,18 +5,22 @@
 
 import { Component, Input, TrackByFunction } from '@angular/core';
 import { ActionDisplayConfig, ActionItem, ActionStyling, ActionType, TextIcon } from '../common/interfaces';
+import { CommonUtil } from '../utils';
 
 /**
- * Value used for the display configuration of action buttons if no input is provided by the caller
+ * To add default values to configs if they are not provided by the caller in the input config
  */
-export const DEFAULT_ACTION_DISPLAY_CONFIG: ActionDisplayConfig = {
-    contextual: {
-        featuredCount: 0,
-        styling: ActionStyling.INLINE,
-        buttonContents: TextIcon.TEXT,
-    },
-    staticActionStyling: ActionStyling.INLINE,
-};
+export function getDefaultActionDisplayConfig(cfg: ActionDisplayConfig = {}): ActionDisplayConfig {
+    const defaults =  {
+        contextual: {
+            featuredCount: 0,
+            styling: ActionStyling.INLINE,
+            buttonContents: TextIcon.TEXT,
+        },
+        staticActionStyling: ActionStyling.INLINE,
+    };
+    return {...defaults, ...cfg};
+}
 
 /**
  * Renders actions in screens containing grids, cards and details container screens
@@ -34,26 +38,47 @@ export class ActionMenuComponent<R, T> {
      * List of actions containing both static and contextual that are given by the calling component
      */
     @Input() set actions(actions: ActionItem<R, T>[]) {
-        this._actions = actions.map(action => {
+        if (!actions) {
+            return;
+        }
+
+        const copyOfActions = getDeepCopyOfActionItems(actions);
+        const hasNestedActions = copyOfActions.some(action => action.children);
+        const markUnmarkedActionsAsContextual =
+            hasNestedActions ||
+            this.getFlattenedActionList(copyOfActions, ActionType.CONTEXTUAL_FEATURED)
+                .some(action => action.actionType && action.actionType === ActionType.CONTEXTUAL_FEATURED);
+
+        this._actions = copyOfActions.map(action => {
             if (!action.actionType) {
-                action.actionType = ActionType.CONTEXTUAL;
+                if (markUnmarkedActionsAsContextual) {
+                    action.actionType = ActionType.CONTEXTUAL;
+                } else {
+                    action.actionType = ActionType.CONTEXTUAL_FEATURED;
+                }
             }
             return action;
         });
+
+        this.shouldDisplayContextualActionsDropdown = hasNestedActions ||
+            this._actions.some(action => action.actionType === ActionType.CONTEXTUAL);
     }
     get actions(): ActionItem<R, T>[] {
-        return this.getDeepCopy(this._actions);
+        return getDeepCopyOfActionItems(this._actions);
     }
 
-    private _actionDisplayConfig: ActionDisplayConfig = DEFAULT_ACTION_DISPLAY_CONFIG;
+    /**
+     * When there are no nested actions and if none of the contextual actions are marked to be featured, they are shown inline
+     */
+    shouldDisplayContextualActionsDropdown = false;
+
+    private _actionDisplayConfig: ActionDisplayConfig = getDefaultActionDisplayConfig();
     /**
      * Display configuration of both static and contextual actions
      * If null or undefined is passed, default config {@link _actionDisplayConfig} is used
      */
     @Input() set actionDisplayConfig(config: ActionDisplayConfig) {
-        Object.keys(config || {}).forEach(
-            key => (this._actionDisplayConfig[key] = config[key] ? config[key] : DEFAULT_ACTION_DISPLAY_CONFIG[key])
-        );
+        this._actionDisplayConfig = getDefaultActionDisplayConfig(config || {});
         const buttonContents = this.actionDisplayConfig.contextual.buttonContents;
         this.shouldShowIcon = (TextIcon.ICON & buttonContents) === TextIcon.ICON;
         this.shouldShowText = (TextIcon.TEXT & buttonContents) === TextIcon.TEXT;
@@ -63,11 +88,15 @@ export class ActionMenuComponent<R, T> {
         return this._actionDisplayConfig;
     }
 
+    @Input() calculateActionsAvailability: boolean = true;
+
     /**
      * Text Content of the action menu dropdown trigger button. Used when {@link #actionDisplayConfig} styling is
      * {@link ActionStyling.DROPDOWN}
      */
     @Input() dropdownTriggerBtnText: string = null;
+
+    inlineDropdownTriggerBtnText = 'vcd.cc.action.menu.actions';
 
     /**
      * Icon of the action menu dropdown trigger button. Used when {@link #actionDisplayConfig} styling is
@@ -120,6 +149,9 @@ export class ActionMenuComponent<R, T> {
      * Returns the actions to be shown
      */
     getAvailableActions(actions: ActionItem<R, T>[]): ActionItem<R, T>[] {
+        if (!this.calculateActionsAvailability) {
+            return actions;
+        }
         return actions.filter(action => {
             const isActionAvailable = this.isActionAvailable(action);
             if (isActionAvailable && action.children && action.children.length) {
@@ -169,6 +201,10 @@ export class ActionMenuComponent<R, T> {
      * 'vcd.cc.action.menu.all.actions'
      */
     get contextualDropdownActions(): ActionItem<R, T>[] | object {
+        const contextualFeaturedActions = this.contextualFeaturedActions;
+        if (!contextualFeaturedActions?.length) {
+            return this.contextualActions;
+        }
         return this.contextualFeaturedActions.concat([
             {
                 textKey: 'vcd.cc.action.menu.all.actions',
@@ -178,23 +214,11 @@ export class ActionMenuComponent<R, T> {
     }
 
     /**
-     * Without the deep copy, the changes made to any of the action children in one of the methods are persisting in other methods
-     */
-    private getDeepCopy(actions: ActionItem<R, T>[]): ActionItem<R, T>[] {
-        return actions.map(action => {
-            if (action.children && action.children.length) {
-                action.children = this.getDeepCopy(action.children);
-            }
-            return { ...action };
-        });
-    }
-
-    /**
      * Actions that depend on selected entities and belong to main menu list. The returned list length is less than the
      * configured featured count in {@link actionDisplayConfig}
      */
     get contextualFeaturedActions(): ActionItem<R, T>[] {
-        if (!this.selectedEntities || this.selectedEntities.length === 0) {
+        if (this.calculateActionsAvailability && !this.selectedEntities?.length) {
             return [];
         }
         const flattenedFeaturedActionList = this.getFlattenedActionList(this.actions, ActionType.CONTEXTUAL_FEATURED);
@@ -223,7 +247,7 @@ export class ActionMenuComponent<R, T> {
      * Actions that depend on selected entities but belong to sub menu
      */
     get contextualActions(): ActionItem<R, T>[] {
-        if (!this.selectedEntities || this.selectedEntities.length === 0) {
+        if (this.calculateActionsAvailability && !this.selectedEntities?.length) {
             return [];
         }
         const contextualActions = this.actions.filter(
@@ -248,7 +272,7 @@ export class ActionMenuComponent<R, T> {
      * To disable a displayed action
      */
     isActionDisabled(action: ActionItem<R, T>): boolean {
-        return typeof action.disabled === 'function' ? action.disabled(this.selectedEntities) : action.disabled;
+        return (CommonUtil.isFunction(action.disabled) ? action.disabled(this.selectedEntities) : action.disabled) as boolean;
     }
 
     /**
@@ -296,8 +320,7 @@ export class ActionMenuComponent<R, T> {
      */
     shouldDisplayContextualActions(style: ActionStyling): boolean {
         return (
-            this.selectedEntities &&
-            this.selectedEntities.length &&
+            (!this.calculateActionsAvailability || this.selectedEntities?.length) &&
             this.contextualActions.length &&
             this.actionDisplayConfig.contextual.styling === style
         );
@@ -322,4 +345,16 @@ export class ActionMenuComponent<R, T> {
             this.shouldDisplayStaticFeaturedActions(this.actionStyling.INLINE)
         );
     }
+}
+
+/**
+ * Without the deep copy, the changes made to any of the action children in one of the methods will persist in other methods
+ */
+export function getDeepCopyOfActionItems<R, T>(actions: ActionItem<R, T>[]): ActionItem<R, T>[] {
+    return actions.map(action => {
+        if (action.children && action.children.length) {
+            action.children = getDeepCopyOfActionItems(action.children);
+        }
+        return { ...action };
+    });
 }

@@ -5,6 +5,7 @@
 
 import { ChangeDetectorRef, Component, ElementRef, EventEmitter, Input, Output, ViewChild } from '@angular/core';
 import { TranslationService } from '@vcd/i18n';
+import { DomUtil } from '../utils/dom-util';
 import { SpotlightSearchResult, SpotlightSearchResultType } from './spotlight-search-result';
 import { RegisteredProviders, SpotlightSearchService } from './spotlight-search.service';
 
@@ -85,6 +86,7 @@ export class SpotlightSearchComponent {
     constructor(
         private searchService: SpotlightSearchService,
         private changeDetectorRef: ChangeDetectorRef,
+        private el: ElementRef,
         public translationService: TranslationService
     ) {}
 
@@ -137,8 +139,10 @@ export class SpotlightSearchComponent {
     private doSearch(): void {
         // Remember which is the current search. This will help us not to show results from an old search
         const searchId = ++this.searchId;
-        // Upon new search we clear the currently selected item
-        this.selectedItem = null;
+
+        // Mark each sections in loading state. This flag is needed when trying to select the first item
+        // while the search is still in progress
+        this.searchSections.forEach(searchSection => (searchSection.isLoading = true));
 
         // Go through the available search sections, i.e. the registered search providers and request for results
         this.searchSections.forEach(async searchSection => {
@@ -149,7 +153,6 @@ export class SpotlightSearchComponent {
 
                 // Some of the results may be provided later, so mark the section as loading
                 if (results instanceof Promise) {
-                    searchSection.isLoading = true;
                     results = await results;
                 }
                 // Use the closure to verify that the displayed data is going to be really from the latest search
@@ -168,11 +171,6 @@ export class SpotlightSearchComponent {
      * @param ensureFirstSectionIsLoaded if true and if the topmost section is still loading then do not select an item
      */
     private selectFirst(ensureFirstSectionIsLoaded: boolean): void {
-        // Do nothing if there is already a selection
-        if (this.selectedItem) {
-            return;
-        }
-
         for (const section of this.searchSections) {
             // The section is still loading. If it was requested to ensure the loading has completed than abort
             // the attempt to select an item or just skip it and examine the next section.
@@ -229,6 +227,12 @@ export class SpotlightSearchComponent {
         // Call the change detector otherwise the selection on the screen may not refreshed quickly enough if the
         // user just presses and holds down the arrow key
         this.changeDetectorRef.detectChanges();
+
+        // Ensure the selected element is visible
+        DomUtil.scrollToElement(this.el, '.selected');
+        if (selectedItemIndex === 0) {
+            DomUtil.scrollToElement(this.el, '.section-index-0 .search-result-section-title');
+        }
     }
 
     /**
@@ -267,6 +271,6 @@ export class SpotlightSearchComponent {
     showSectionTitle(searchSection: SearchSection): boolean {
         // In order to show a section title there should be more than one sections
         // and the current section should either be loading data or have results
-        return this.searchSections.length > 1 && (searchSection.isLoading || searchSection.results.length > 0);
+        return searchSection.section && (searchSection.isLoading || searchSection.results.length > 0);
     }
 }

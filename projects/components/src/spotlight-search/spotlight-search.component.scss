@@ -32,6 +32,7 @@
 
         .search-result-section-title {
             font-weight: bold;
+            margin-top: 0;
         }
 
         .search-result-item {
@@ -39,6 +40,9 @@
 
             &.selected {
                 background-color: var(--clr-global-selection-color);
+            }
+            &:hover {
+                background-color: var(--clr-global-hover-color);
             }
         }
     }

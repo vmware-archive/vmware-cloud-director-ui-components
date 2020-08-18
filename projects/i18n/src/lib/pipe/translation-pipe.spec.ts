@@ -4,16 +4,19 @@
  */
 
 import { Component } from '@angular/core';
-import { TestBed } from '@angular/core/testing';
+import { fakeAsync, TestBed, tick } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { BehaviorSubject } from 'rxjs';
+import { delay } from 'rxjs/operators';
 import { MockTranslationService } from '../service/mock-translation-service';
 import { TranslationService } from '../service/translation-service';
 import { TranslationPipe } from './translation-pipe';
 
 describe('TranslationPipe', () => {
-    it('should forward to translation service', () => {
+    it('should forward to translation service', fakeAsync(() => {
         const translationService = new MockTranslationService();
+        const observable = new BehaviorSubject('Hi doctor nick!').pipe(delay(100));
+        spyOn(translationService, 'translateAsync').and.returnValue(observable);
         TestBed.configureTestingModule({
             declarations: [TranslationPipeTestComponent, TranslationPipe],
             providers: [
@@ -25,15 +28,11 @@ describe('TranslationPipe', () => {
         }).compileComponents();
         const fixture = TestBed.createComponent(TranslationPipeTestComponent);
         fixture.detectChanges();
-        const observable = new BehaviorSubject('?test.translation');
-        spyOn(translationService, 'translateAsync').and.returnValue(observable);
-        fixture.detectChanges();
-        expect(fixture.debugElement.query(By.css('h1')).nativeElement.textContent).toBe('?test.translation');
-        observable.next('Hi doctor nick!');
+        tick(200);
         fixture.detectChanges();
         expect(fixture.debugElement.query(By.css('h1')).nativeElement.textContent).toBe('Hi doctor nick!');
         expect(translationService.translateAsync).toHaveBeenCalledWith('test.translation', []);
-    });
+    }));
 });
 
 @Component({

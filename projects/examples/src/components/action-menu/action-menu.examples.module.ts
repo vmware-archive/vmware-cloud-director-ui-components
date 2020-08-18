@@ -19,11 +19,12 @@ Documentation.registerDocumentationEntry({
             component: ActionMenuExampleComponent,
             forComponent: null,
             title: 'Action Menu example',
+            urlSegment: 'action-menu',
         },
     ],
 });
 
 @NgModule({
-    imports: [ActionMenuExampleModule],
+    imports: [],
 })
 export class ActionMenuExamplesModule {}

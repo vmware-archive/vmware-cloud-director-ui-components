@@ -27,6 +27,10 @@ interface DropdownItem<T extends DropdownItem<T>> {
      * To mark if the {@link #ActionItem.textKey} has to be translated or not
      */
     isTranslatable?: boolean;
+    /**
+     * Css class of the dropdown item. Must be unique among all dropdown items within the dropdown items list
+     */
+    class: string;
 }
 
 /**
@@ -129,6 +133,11 @@ export class DropdownComponent<T extends DropdownItem<T>> {
     get items(): T[] {
         return this._items;
     }
+
+    /**
+     * Css class name added to the dropdown trigger buttons
+     */
+    @Input() dropdownTriggerButtonClassName: string;
 
     private flattenNestedItemsWithSingleChild(items: T[]): T[] {
         items.forEach(item => {

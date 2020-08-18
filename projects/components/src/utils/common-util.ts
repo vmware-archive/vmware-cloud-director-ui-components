@@ -15,4 +15,11 @@ export class CommonUtil {
         }
         return Number(Math.round(Number(value + 'e' + digits)) + 'e-' + digits);
     }
+
+    /**
+     * Verifies if the passed value is of type Function
+     */
+    static isFunction(value: any): value is (...args: unknown[]) => unknown {
+        return typeof value === 'function';
+    }
 }

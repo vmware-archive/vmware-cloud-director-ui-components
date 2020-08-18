@@ -22,13 +22,14 @@ import {
 import { ClrDatagrid, ClrDatagridPagination, ClrDatagridStateInterface } from '@clr/angular';
 import { LazyString, TranslationService } from '@vcd/i18n';
 import { Observable } from 'rxjs';
-import { ActionMenuComponent, DEFAULT_ACTION_DISPLAY_CONFIG } from '../action-menu/action-menu.component';
+import {
+    ActionMenuComponent,
+} from '../action-menu/action-menu.component';
 import { ActivityReporter } from '../common/activity-reporter';
 import {
     ActionDisplayConfig,
     ActionHandlerType,
     ActionItem,
-    ActionStyling,
     ActionType,
 } from '../common/interfaces/action-item.interface';
 import { SubscriptionTracker } from '../common/subscription';
@@ -458,7 +459,7 @@ export class DatagridComponent<R> implements OnInit, AfterViewInit, OnDestroy {
     /**
      * How to display the static and contextual actions.
      */
-    @Input() actionDisplayConfig: ActionDisplayConfig = DEFAULT_ACTION_DISPLAY_CONFIG;
+    @Input() actionDisplayConfig: ActionDisplayConfig;
 
     /**
      * Whether to display contextual actions inside the row or on top of the grid

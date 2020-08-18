@@ -3,12 +3,12 @@
  * SPDX-License-Identifier: BSD-2-Clause
  */
 
-import { ChangeDetectionStrategy, Component, ViewChild } from '@angular/core';
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { Component } from '@angular/core';
+import { TestBed } from '@angular/core/testing';
 import { MockTranslationService, TranslationService } from '@vcd/i18n';
-import { ActionDisplayConfig, ActionItem, ActionStyling, ActionType, TextIcon } from '../common/interfaces';
-import { WidgetFinder, WidgetObject } from '../utils/test';
-import { ActionMenuComponent } from './action-menu.component';
+import { ActionDisplayConfig, ActionStyling, ActionType, TextIcon } from '../common/interfaces/index';
+import { WidgetFinder, WidgetObject } from '../utils/test/index';
+import { ActionMenuComponent, getDefaultActionDisplayConfig } from './action-menu.component';
 import { VcdActionMenuModule } from './action-menu.module';
 
 interface HasFinderAndActionMenu {
@@ -48,6 +48,17 @@ describe('ActionMenuComponent', () => {
                 expect(action.actionType).toEqual(ActionType.CONTEXTUAL);
             });
         });
+        it(
+            'when a list with no nested actions and no CONTEXTUAL_FEATURED actions is set, it marks the actions with no actionType' +
+                'as ActionType.CONTEXTUAL_FEATURED',
+            function(this: HasFinderAndActionMenu): void {
+                this.actionMenu.actions = [...FLAT_LIST_OF_ACTIONS_WITH_NO_ACTION_TYPE];
+                this.finder.detectChanges();
+                this.actionMenu.actions.forEach(action => {
+                    expect(action.actionType).toEqual(ActionType.CONTEXTUAL_FEATURED);
+                });
+            }
+        );
     });
     describe('set actionDisplayConfig', () => {
         it('sets display config options to given values when a input is given', function(this: HasFinderAndActionMenu): void {
@@ -68,6 +79,24 @@ describe('ActionMenuComponent', () => {
                 expect(this.actionMenu.shouldShowIcon).toBeTruthy();
                 expect(this.actionMenu.shouldShowText).toBeFalsy();
                 expect(this.actionMenu.shouldShowTooltip).toBeTruthy();
+            }
+        );
+        it(
+            'setting the actionDisplayConfig of an instance of ActionMenuComponent, does not modify the defaults for subsequent ' +
+                'instantiations',
+            function(this: HasFinderAndActionMenu): void {
+                const configInput: ActionDisplayConfig = {
+                    staticActionStyling: ActionStyling.DROPDOWN,
+                };
+
+                const instanceOne = new ActionMenuComponent();
+                instanceOne.actionDisplayConfig = configInput;
+                expect(instanceOne.actionDisplayConfig.staticActionStyling).toEqual(configInput.staticActionStyling);
+
+                const instanceTwo = new ActionMenuComponent();
+                expect(instanceTwo.actionDisplayConfig.staticActionStyling).toEqual(
+                    getDefaultActionDisplayConfig().staticActionStyling
+                );
             }
         );
     });
@@ -315,6 +344,12 @@ const ACTIONS_WITH_NO_ACTION_TYPES = [
         textKey: 'action.2',
         handler: () => {},
         availability: () => true,
+        children: [
+            {
+                textKey: 'children.action.1',
+                handler: () => {},
+            },
+        ],
     },
 ];
 
@@ -410,5 +445,16 @@ const CONTEXTUAL_ACTIONS = [
         textKey: 'contextual.2',
         handler: () => {},
         availability: () => true,
+    },
+];
+
+const FLAT_LIST_OF_ACTIONS_WITH_NO_ACTION_TYPE = [
+    {
+        textKey: 'Contextual 1',
+        handler: () => {},
+    },
+    {
+        textKey: 'Contextual 2',
+        handler: () => {},
     },
 ];

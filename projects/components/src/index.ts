@@ -24,3 +24,4 @@ export * from './utils/index';
 export * from './form/index';
 export * from './action-menu/index';
 export * from './formly/vcd/index';
+export * from './action-search-provider/index';
