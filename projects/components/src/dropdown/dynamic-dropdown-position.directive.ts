@@ -11,13 +11,16 @@ import {
     ElementRef,
     HostListener,
     Inject,
-    OnDestroy,
+    Optional,
     Renderer2,
+    SkipSelf,
 } from '@angular/core';
 import { ClrDropdown, ClrDropdownMenu } from '@clr/angular';
 
 const CONTENT_AREA_SELECTOR = '.content-area';
 const NO_SCROLLING_CLASSNAME = 'no-scrolling'; // Set by Clarity when a modal is opened
+// Extra space on the right and left of drop down menus to shift them left or right and prevent any clipping
+const MENU_BUFFER_SPACE = 150;
 
 /**
  * Directive for ClrDropDown which repositions the drop-down menu dynamically based on the available space.
@@ -81,7 +84,8 @@ export class DynamicDropdownPositionDirective implements AfterContentInit {
         private elRef: ElementRef,
         private renderer: Renderer2,
         @Inject(DOCUMENT) private document: Document,
-        private dropDownBtn: ClrDropdown
+        private dropDownBtn: ClrDropdown,
+        @Optional() @SkipSelf() private parentDropdown: DynamicDropdownPositionDirective
     ) {}
 
     ngAfterContentInit(): void {
@@ -96,14 +100,17 @@ export class DynamicDropdownPositionDirective implements AfterContentInit {
         const dropdownTriggerHeight = dropdownTriggerRect.bottom - dropdownTriggerRect.top;
         const dropdownMenuRect = this.dropdownMenuElement.getBoundingClientRect();
         const dropdownMenuHeight = dropdownMenuRect.bottom - dropdownMenuRect.top;
-        const contentAreaRect = this.contentAreaElement.getBoundingClientRect();
 
         // When the dropdown is inside a modal and its being clipped, its position is determined based on the window
         if (this.isInsideModal && dropdownMenuRect.bottom > window.innerHeight) {
             return -(dropdownMenuHeight + dropdownTriggerHeight + 1);
         }
+        if (!this.contentAreaElement) {
+            return 0;
+        }
+        const contentAreaRect = this.contentAreaElement.getBoundingClientRect();
         // When not in a modal, the position is relative to the `.contenat-area` element
-        if (!this.contentAreaElement || dropdownMenuRect.bottom <= contentAreaRect.bottom) {
+        if (dropdownMenuRect.bottom <= contentAreaRect.bottom) {
             // Don't shift to the top if it's not being clipped at the bottom
             return 0;
         }
@@ -117,14 +124,13 @@ export class DynamicDropdownPositionDirective implements AfterContentInit {
             // If the menu can get clipped by moving it to the top, push it down
             return -(dropdownMenuRect.bottom - contentAreaRect.bottom);
         }
-        // Don't shift if none of the conditions are satisfied
+        // Don't shift by default
         return 0;
     }
 
     private get positionLeft(): number {
         const dropdownTriggerRect = this.dropdownTriggerElement.getBoundingClientRect();
         const dropdownMenuRect = this.dropdownMenuElement.getBoundingClientRect();
-        const contentAreaRect = this.contentAreaElement.getBoundingClientRect();
         const triggerBtn = this.elRef.nativeElement.querySelector('[clrdropdowntrigger]');
 
         let triggerComputedStyles = null;
@@ -134,14 +140,28 @@ export class DynamicDropdownPositionDirective implements AfterContentInit {
         if (this.isInsideModal || !this.contentAreaElement) {
             return 0;
         }
+        const contentAreaRect = this.contentAreaElement.getBoundingClientRect();
         // If the dropdown is getting clipped on the left and there is enough place on the right, shift the dropdown to right
-        if (dropdownTriggerRect.right + dropdownMenuRect.width <= contentAreaRect.right) {
+        if (
+            dropdownMenuRect.left + MENU_BUFFER_SPACE <= contentAreaRect.left &&
+            dropdownTriggerRect.right + dropdownMenuRect.width <= contentAreaRect.right
+        ) {
             const marginRight = triggerComputedStyles ? parseInt(triggerComputedStyles.marginRight, 10) : 0;
             return dropdownTriggerRect.width - marginRight;
         }
         // If the dropdown is getting clipped on the right and there is enough place on the left, shift the dropdown to left
-        if (dropdownTriggerRect.left - dropdownMenuRect.width >= contentAreaRect.left) {
+        if (
+            dropdownMenuRect.right + MENU_BUFFER_SPACE >= contentAreaRect.right &&
+            dropdownTriggerRect.left - dropdownMenuRect.width >= contentAreaRect.left
+        ) {
             const marginLeft = triggerComputedStyles ? parseInt(triggerComputedStyles.marginLeft, 10) : 0;
+            // If the dropdown being clipped is at the 2nd level, we want to shift it furthur left such that it would
+            // not over lap and cover the 1st level of dropdown underneath it
+            if (this.parentDropdown) {
+                const parentDropdownMenuRect = this.parentDropdown.dropdownMenuElement.getBoundingClientRect();
+                const parentDropdownWidth = parentDropdownMenuRect.right - parentDropdownMenuRect.left;
+                return -(parentDropdownWidth + dropdownMenuRect.width + marginLeft);
+            }
             return -(dropdownMenuRect.width + marginLeft);
         }
         // if the dropdown is clipped at the bottom and if it is also being clipped at the top and pushed down, shift it to right
