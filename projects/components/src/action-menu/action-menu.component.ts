@@ -196,24 +196,6 @@ export class ActionMenuComponent<R, T> {
     }
 
     /**
-     * List containing all the contextual actions. It has contextual featured actions in the beginning of the list
-     * followed by non-featured contextual actions as children of grouped action called
-     * 'vcd.cc.action.menu.all.actions'
-     */
-    get contextualDropdownActions(): ActionItem<R, T>[] | object {
-        const contextualFeaturedActions = this.contextualFeaturedActions;
-        if (!contextualFeaturedActions?.length) {
-            return this.contextualActions;
-        }
-        return this.contextualFeaturedActions.concat([
-            {
-                textKey: 'vcd.cc.action.menu.all.actions',
-                children: this.contextualActions,
-            },
-        ]);
-    }
-
-    /**
      * Actions that depend on selected entities and belong to main menu list. The returned list length is less than the
      * configured featured count in {@link actionDisplayConfig}
      */

@@ -23,8 +23,8 @@
             *clrIfOpen
         >
             <ng-container *ngFor="let action of items; trackBy: trackByFunction">
+                <div *ngIf="action.addSeparator" class="dropdown-divider" role="separator" aria-hidden="true"></div>
                 <ng-container *ngIf="action.children && action.children.length">
-                    <div class="dropdown-divider" role="separator"></div>
                     <vcd-dropdown
                         [items]="action.children"
                         [dropdownTriggerBtnTxt]="action.textKey"

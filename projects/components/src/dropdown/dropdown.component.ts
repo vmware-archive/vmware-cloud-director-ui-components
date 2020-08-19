@@ -30,7 +30,11 @@ interface DropdownItem<T extends DropdownItem<T>> {
     /**
      * Css class of the dropdown item. Must be unique among all dropdown items within the dropdown items list
      */
-    class: string;
+    class?: string;
+    /**
+     * To add a separator in the dropdown menu above an action item
+     */
+    addSeparator?: boolean;
 }
 
 /**
