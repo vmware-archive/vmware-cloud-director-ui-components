@@ -19,7 +19,7 @@ interface HasFixtureAndDropdownHelper {
     helper: TestHostComponent;
 }
 
-describe('DynamicDropdownPositionDirective', () => {
+fdescribe('DynamicDropdownPositionDirective', () => {
     beforeEach(async function(this: HasFixtureAndDropdownHelper): Promise<void> {
         await TestBed.configureTestingModule({
             imports: [ClarityModule],
@@ -152,22 +152,13 @@ class TestHostComponent {
     }
 
     getDropdownPosition(dropdown: Dropdowns): { top: number; right: number; bottom: number; left: number } {
-        // tslint:disable-next-line:one-variable-per-declaration
-        let top: number, right: number, bottom: number, left: number;
-        switch (dropdown) {
-            case Dropdowns.DEFAULT:
-                ({ top, right, bottom, left } = (this
-                    .defaultDirective as any).dropdownMenuElement.getBoundingClientRect());
-                break;
-            case Dropdowns.BOTTOM_CLIPPED:
-                ({ top, right, bottom, left } = (this
-                    .bottomClippedDirective as any).dropdownMenuElement.getBoundingClientRect());
-                break;
-            case Dropdowns.RIGHT_CLIPPED:
-                ({ top, right, bottom, left } = (this
-                    .rightClippedDirective as any).dropdownMenuElement.getBoundingClientRect());
-                break;
-        }
+        const directives = {
+            [Dropdowns.DEFAULT]: this.defaultDirective,
+            [Dropdowns.BOTTOM_CLIPPED]: this.bottomClippedDirective,
+            [Dropdowns.RIGHT_CLIPPED]: this.rightClippedDirective,
+        };
+        const directive = directives[dropdown] as DynamicDropdownPositionDirective;
+        const { top, right, bottom, left } = (directive as any).dropdownMenuElement.getBoundingClientRect();
         return { top, right, left, bottom };
     }
 
@@ -177,22 +168,13 @@ class TestHostComponent {
     }
 
     getDropdownTriggerPosition(dropdown: Dropdowns): { top: number; right: number; bottom: number; left: number } {
-        // tslint:disable-next-line:one-variable-per-declaration
-        let top: number, right: number, bottom: number, left: number;
-        switch (dropdown) {
-            case Dropdowns.DEFAULT:
-                ({ top, right, bottom, left } = (this
-                    .defaultDirective as any).dropdownTriggerElement.getBoundingClientRect());
-                break;
-            case Dropdowns.BOTTOM_CLIPPED:
-                ({ top, right, bottom, left } = (this
-                    .bottomClippedDirective as any).dropdownTriggerElement.getBoundingClientRect());
-                break;
-            case Dropdowns.RIGHT_CLIPPED:
-                ({ top, right, bottom, left } = (this
-                    .rightClippedDirective as any).dropdownTriggerElement.getBoundingClientRect());
-                break;
-        }
+        const directives = {
+            [Dropdowns.DEFAULT]: this.defaultDirective,
+            [Dropdowns.BOTTOM_CLIPPED]: this.bottomClippedDirective,
+            [Dropdowns.RIGHT_CLIPPED]: this.rightClippedDirective,
+        };
+        const directive = directives[dropdown];
+        const { top, right, bottom, left } = (directive as any).dropdownTriggerElement.getBoundingClientRect();
         return { top, right, left, bottom };
     }
 

@@ -28,8 +28,7 @@ const MENU_BUFFER_SPACE = 150;
  * If there is not enough space to show the whole drop-down menu, then leave the default position which is `bottom` and
  * users have to scroll down to access it.
  *
- * @usageNotes
- *
+ * @example
  * ```
  * <clr-dropdown vcdDropdown>
  *     <button class="btn btn-link vm-power-link" clrDropdownTrigger>
@@ -58,6 +57,8 @@ export class DynamicDropdownPositionDirective implements AfterContentInit {
     private contentAreaElement: HTMLElement;
     private dropdownTriggerElement;
     private dropdownMenuElement;
+    private dropdownTriggerRect;
+    private dropdownMenuRect;
     // Drop downs should be position absolutely to the window when they are in modal
     private isInsideModal = false;
 
@@ -68,15 +69,16 @@ export class DynamicDropdownPositionDirective implements AfterContentInit {
             this.dropdownMenuElement = this.dropdownTriggerElement.querySelector('clr-dropdown-menu');
             if (this.dropdownMenuElement) {
                 // Recalculate the dropdown position on open
+                this.dropdownTriggerRect = this.dropdownTriggerElement.getBoundingClientRect();
+                this.dropdownMenuRect = this.dropdownMenuElement.getBoundingClientRect();
                 this.resetPosition(this.dropdownMenuElement, this.positionTop, this.positionLeft);
             }
             try {
                 // Internal API
                 (dropdown as any).popoverInstance.removeScrollEventListeners();
             } catch (e) {
-                console.warn('Clarity has changed ClrDropdownMenu internal API. Please fix me!');
+                throw new Error('Clarity has changed ClrDropdownMenu internal API. Please fix me!');
             }
-            return;
         }
     }
 
@@ -96,41 +98,37 @@ export class DynamicDropdownPositionDirective implements AfterContentInit {
     }
 
     private get positionTop(): number {
-        const dropdownTriggerRect = this.dropdownTriggerElement.getBoundingClientRect();
-        const dropdownTriggerHeight = dropdownTriggerRect.bottom - dropdownTriggerRect.top;
-        const dropdownMenuRect = this.dropdownMenuElement.getBoundingClientRect();
-        const dropdownMenuHeight = dropdownMenuRect.bottom - dropdownMenuRect.top;
+        const dropdownTriggerHeight = this.dropdownTriggerRect.bottom - this.dropdownTriggerRect.top;
+        const dropdownMenuHeight = this.dropdownMenuRect.bottom - this.dropdownMenuRect.top;
 
-        // When the dropdown is inside a modal and its being clipped, its position is determined based on the window
-        if (this.isInsideModal && dropdownMenuRect.bottom > window.innerHeight) {
+        // When the dropdown is inside a modal and it's being clipped, its position is determined based on the window
+        if (this.isInsideModal && this.dropdownMenuRect.bottom > window.innerHeight) {
             return -(dropdownMenuHeight + dropdownTriggerHeight + 1);
         }
         if (!this.contentAreaElement) {
             return 0;
         }
         const contentAreaRect = this.contentAreaElement.getBoundingClientRect();
-        // When not in a modal, the position is relative to the `.contenat-area` element
-        if (dropdownMenuRect.bottom <= contentAreaRect.bottom) {
+        // When not in a modal, the position is relative to the `.content-area` element
+        if (this.dropdownMenuRect.bottom <= contentAreaRect.bottom) {
             // Don't shift to the top if it's not being clipped at the bottom
             return 0;
         }
-        if (dropdownTriggerRect.top - dropdownMenuRect.height >= contentAreaRect.top) {
+        if (this.dropdownTriggerRect.top - this.dropdownMenuRect.height >= contentAreaRect.top) {
             // If the dropdown trigger is a dropdown item instead of a button, we shift it up by less number of pixels to avoid space
             // between dropdown trigger and the dropdown menu
             const isFirstDropdownTrigger = !!this.dropdownTriggerElement.querySelector('button.first-dropdown-toggle');
             return isFirstDropdownTrigger ? -(dropdownTriggerHeight + dropdownMenuHeight) : -dropdownMenuHeight;
         }
-        if (dropdownTriggerRect.top - dropdownMenuRect.height < contentAreaRect.top) {
+        if (this.dropdownTriggerRect.top - this.dropdownMenuRect.height < contentAreaRect.top) {
             // If the menu can get clipped by moving it to the top, push it down
-            return -(dropdownMenuRect.bottom - contentAreaRect.bottom);
+            return -(this.dropdownMenuRect.bottom - contentAreaRect.bottom);
         }
         // Don't shift by default
         return 0;
     }
 
     private get positionLeft(): number {
-        const dropdownTriggerRect = this.dropdownTriggerElement.getBoundingClientRect();
-        const dropdownMenuRect = this.dropdownMenuElement.getBoundingClientRect();
         const triggerBtn = this.elRef.nativeElement.querySelector('[clrdropdowntrigger]');
 
         let triggerComputedStyles = null;
@@ -143,16 +141,16 @@ export class DynamicDropdownPositionDirective implements AfterContentInit {
         const contentAreaRect = this.contentAreaElement.getBoundingClientRect();
         // If the dropdown is getting clipped on the left and there is enough place on the right, shift the dropdown to right
         if (
-            dropdownMenuRect.left + MENU_BUFFER_SPACE <= contentAreaRect.left &&
-            dropdownTriggerRect.right + dropdownMenuRect.width <= contentAreaRect.right
+            this.dropdownMenuRect.left + MENU_BUFFER_SPACE <= contentAreaRect.left &&
+            this.dropdownTriggerRect.right + this.dropdownMenuRect.width <= contentAreaRect.right
         ) {
             const marginRight = triggerComputedStyles ? parseInt(triggerComputedStyles.marginRight, 10) : 0;
-            return dropdownTriggerRect.width - marginRight;
+            return this.dropdownTriggerRect.width - marginRight;
         }
         // If the dropdown is getting clipped on the right and there is enough place on the left, shift the dropdown to left
         if (
-            dropdownMenuRect.right + MENU_BUFFER_SPACE >= contentAreaRect.right &&
-            dropdownTriggerRect.left - dropdownMenuRect.width >= contentAreaRect.left
+            this.dropdownMenuRect.right + MENU_BUFFER_SPACE >= contentAreaRect.right &&
+            this.dropdownTriggerRect.left - this.dropdownMenuRect.width >= contentAreaRect.left
         ) {
             const marginLeft = triggerComputedStyles ? parseInt(triggerComputedStyles.marginLeft, 10) : 0;
             // If the dropdown being clipped is at the 2nd level, we want to shift it furthur left such that it would
@@ -160,17 +158,17 @@ export class DynamicDropdownPositionDirective implements AfterContentInit {
             if (this.parentDropdown) {
                 const parentDropdownMenuRect = this.parentDropdown.dropdownMenuElement.getBoundingClientRect();
                 const parentDropdownWidth = parentDropdownMenuRect.right - parentDropdownMenuRect.left;
-                return -(parentDropdownWidth + dropdownMenuRect.width + marginLeft);
+                return -(parentDropdownWidth + this.dropdownMenuRect.width + marginLeft);
             }
-            return -(dropdownMenuRect.width + marginLeft);
+            return -(this.dropdownMenuRect.width + marginLeft);
         }
         // if the dropdown is clipped at the bottom and if it is also being clipped at the top and pushed down, shift it to right
         if (
-            dropdownMenuRect.bottom > contentAreaRect.bottom &&
-            dropdownTriggerRect.top - dropdownMenuRect.height < contentAreaRect.top
+            this.dropdownMenuRect.bottom > contentAreaRect.bottom &&
+            this.dropdownTriggerRect.top - this.dropdownMenuRect.height < contentAreaRect.top
         ) {
             const marginRight = triggerComputedStyles ? parseInt(triggerComputedStyles.marginRight, 10) : 0;
-            return dropdownTriggerRect.width - marginRight;
+            return this.dropdownTriggerRect.width - marginRight;
         }
         // Don't shift by default
         return 0;
