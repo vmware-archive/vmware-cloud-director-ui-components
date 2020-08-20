@@ -32,9 +32,9 @@ interface DropdownItem<T extends DropdownItem<T>> {
      */
     class?: string;
     /**
-     * To add a separator in the dropdown menu above an action item
+     * To add separators between groups of dropdown items
      */
-    addSeparator?: boolean;
+    isSeparator?: boolean;
 }
 
 /**
