@@ -1,0 +1,1053 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>vmware-cloud-director-ui-components documentation</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
+	      <link rel="stylesheet" href="../styles/style.css">
+    </head>
+    <body>
+
+        <div class="navbar navbar-default navbar-fixed-top visible-xs">
+            <a href="../" class="navbar-brand">vmware-cloud-director-ui-components documentation</a>
+            <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
+        </div>
+
+        <div class="xs-menu menu" id="mobile-menu">
+                <div id="book-search-input" role="search"><input type="text" placeholder="Type to search"></div>            <compodoc-menu></compodoc-menu>
+        </div>
+
+        <div class="container-fluid main">
+           <div class="row main">
+               <div class="hidden-xs menu">
+                   <compodoc-menu mode="normal"></compodoc-menu>
+               </div>
+               <!-- START CONTENT -->
+               <div class="content directive">
+                   <div class="content-data">
+
+
+
+
+
+
+<ol class="breadcrumb">
+  <li>Directives</li>
+  <li>DynamicDropdownPositionDirective</li>
+</ol>
+
+<ul class="nav nav-tabs" role="tablist">
+        <li class="active">
+            <a href="#info" role="tab" id="info-tab" data-toggle="tab" data-link="info">Info</a>
+        </li>
+        <li >
+            <a href="#source" role="tab" id="source-tab" data-toggle="tab" data-link="source">Source</a>
+        </li>
+</ul>
+
+<div class="tab-content">
+    <div class="tab-pane fade active in" id="c-info">
+        <p class="comment">
+            <h3>File</h3>
+        </p>
+        <p class="comment">
+            <code>projects/components/src/dropdown/dynamic-dropdown-position.directive.ts</code>
+        </p>
+
+            <p class="comment">
+                <h3>Description</h3>
+            </p>
+            <p class="comment">
+                <p>Directive for ClrDropDown which repositions the drop-down menu dynamically based on the available space.</p>
+<p>If there is not enough space to show the whole drop-down menu, then leave the default position which is <code>bottom</code> and
+users have to scroll down to access it.</p>
+
+            </p>
+
+            <p class="comment">
+                <h3>Implements</h3>
+            </p>
+            <p class="comment">
+                            <code><a href="https://angular.io/api/core/AfterContentInit" target="_blank" >AfterContentInit</a></code>
+            </p>
+
+            <p class="comment">
+                <h3>Example</h3>
+            </p>
+            <div class="io-description">
+                        <div>
+                            <pre class="line-numbers"><code class="language-html">```
+ * &lt;clr-dropdown vcdDropdown&gt;
+ *     &lt;button class=&quot;btn btn-link vm-power-link&quot; clrDropdownTrigger&gt;
+ *         {{ 'vm.actions' | translate }}
+ *         &lt;clr-icon shape=&quot;caret down&quot;&gt;&lt;/clr-icon&gt;
+ *         &lt;/button&gt;
+ *     &lt;clr-dropdown-menu *clrIfOpen&gt;
+ *         &lt;label class=&quot;dropdown-header&quot;&gt;Dropdown header&lt;/label&gt;
+ *         &lt;button type=&quot;button&quot; clrDropdownItem&gt;Action 1&lt;/button&gt;
+ *         &lt;button type=&quot;button&quot; clrDropdownItem&gt;Action 2&lt;/button&gt;
+ *         &lt;div class=&quot;dropdown-divider&quot;&gt;&lt;/div&gt;
+ *         &lt;button type=&quot;button&quot; clrDropdownItem&gt;Link 1&lt;/button&gt;
+ *         &lt;button type=&quot;button&quot; clrDropdownItem&gt;Link 2&lt;/button&gt;
+ *     &lt;/clr-dropdown-menu&gt;
+ * &lt;/clr-dropdown&gt;
+ * ```</code></pre>
+                        </div>
+            </div>
+
+        <section>
+            <h3>Metadata</h3>
+            <table class="table table-sm table-hover">
+                <tbody>
+
+                    <tr>
+                        <td class="col-md-3">Selector</td>
+                        <td class="col-md-9"><code>clr-dropdown[vcdDynamicDropdown]</code></td>
+                    </tr>
+
+                </tbody>
+            </table>
+        </section>
+
+            <section>
+    <h3 id="index">Index</h3>
+    <table class="table table-sm table-bordered index-table">
+        <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Properties</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#contentAreaElement">contentAreaElement</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#dropdownMenuElement">dropdownMenuElement</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#dropdownMenuRect">dropdownMenuRect</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#dropdownTriggerElement">dropdownTriggerElement</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#dropdownTriggerRect">dropdownTriggerRect</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#isInsideModal">isInsideModal</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Methods</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#ngAfterContentInit">ngAfterContentInit</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#resetPosition">resetPosition</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+
+
+
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>HostListeners</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#window:resize">window:resize</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+                    <tr>
+                        <td class="col-md-4">
+                            <h6><b>Accessors</b></h6>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <ul class="index-list">
+                                <li>
+                                    <a href="#dropdownMenu">dropdownMenu</a>
+                                </li>
+                                <li>
+                                    <a href="#positionTop">positionTop</a>
+                                </li>
+                                <li>
+                                    <a href="#positionLeft">positionLeft</a>
+                                </li>
+                            </ul>
+                        </td>
+                    </tr>
+        </tbody>
+    </table>
+</section>
+
+            <section>
+    <h3 id="constructor">Constructor</h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+<code>constructor(elRef: <a href="https://angular.io/api/core/ElementRef" target="_blank">ElementRef</a>, renderer: <a href="https://angular.io/api/core/Renderer2" target="_blank">Renderer2</a>, document: Document, dropDownBtn: ClrDropdown, parentDropdown: DynamicDropdownPositionDirective)</code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="84" class="link-to-prism">projects/components/src/dropdown/dynamic-dropdown-position.directive.ts:84</a></div>
+                            </td>
+                        </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                            <div>
+                                    <b>Parameters :</b>
+                                    <table class="params">
+                                        <thead>
+                                            <tr>
+                                                <td>Name</td>
+                                                    <td>Type</td>
+                                                <td>Optional</td>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                                <tr>
+                                                        <td>elRef</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="https://angular.io/api/core/ElementRef" target="_blank" >ElementRef</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>renderer</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="https://angular.io/api/core/Renderer2" target="_blank" >Renderer2</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>document</td>
+                                                  
+                                                        <td>
+                                                                    <code>Document</code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>dropDownBtn</td>
+                                                  
+                                                        <td>
+                                                                    <code>ClrDropdown</code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>parentDropdown</td>
+                                                  
+                                                        <td>
+                                                                    <code>DynamicDropdownPositionDirective</code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                        </tbody>
+                                    </table>
+                            </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+</section>
+
+
+
+
+            <section>
+    <h3>HostListeners</h3>    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="window:resize"></a>
+                    <span class="name">
+                        <b>
+                            window:resize
+                        </b>
+                        <a href="#window:resize"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>window:resize()</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="198"
+                            class="link-to-prism">projects/components/src/dropdown/dynamic-dropdown-position.directive.ts:198</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>On window resize, close the dropdown when it is open, otherwise we need to recalculate again its position
+and reposition it, which may not be a good user experience.</p>
+</div>
+
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</section>
+            <section>
+    
+    <h3 id="methods">
+        Methods
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="ngAfterContentInit"></a>
+                    <span class="name">
+                        <b>
+                            ngAfterContentInit
+                        </b>
+                        <a href="#ngAfterContentInit"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>ngAfterContentInit()</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="94"
+                            class="link-to-prism">projects/components/src/dropdown/dynamic-dropdown-position.directive.ts:94</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="resetPosition"></a>
+                    <span class="name">
+                        <b>
+                            <span class="modifier">Private</span>
+                            resetPosition
+                        </b>
+                        <a href="#resetPosition"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                    <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>resetPosition(element: HTMLElement, top: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank">number</a>, left: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank">number</a>)</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="188"
+                            class="link-to-prism">projects/components/src/dropdown/dynamic-dropdown-position.directive.ts:188</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Reposition the dropdown element by setting top and left position.</p>
+<p>Note: The dropdown is position absolute by setting position, top and left properties AND then is position
+relatively to itself by setting transform: translateX/Y property.</p>
+</div>
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Type</td>
+                                    <td>Optional</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>element</td>
+                                    <td>
+                                            <code>HTMLElement</code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                                <tr>
+                                    <td>top</td>
+                                    <td>
+                                                <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                                <tr>
+                                    <td>left</td>
+                                    <td>
+                                                <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                    </div>
+                    <div class="io-description">
+                        
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</section>
+            <section>
+    
+        <h3 id="inputs">
+            Properties
+        </h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="contentAreaElement"></a>
+                        <span class="name">
+                            <b>
+                                <span class="modifier">Private</span>
+                            contentAreaElement</b>
+                            <a href="#contentAreaElement"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Type : </i>    <code>HTMLElement</code>
+
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="57" class="link-to-prism">projects/components/src/dropdown/dynamic-dropdown-position.directive.ts:57</a></div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="dropdownMenuElement"></a>
+                        <span class="name">
+                            <b>
+                                <span class="modifier">Private</span>
+                            dropdownMenuElement</b>
+                            <a href="#dropdownMenuElement"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Type : </i>    <code>HTMLElement</code>
+
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="59" class="link-to-prism">projects/components/src/dropdown/dynamic-dropdown-position.directive.ts:59</a></div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="dropdownMenuRect"></a>
+                        <span class="name">
+                            <b>
+                                <span class="modifier">Private</span>
+                            dropdownMenuRect</b>
+                            <a href="#dropdownMenuRect"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Type : </i>    <code>DOMRect</code>
+
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="61" class="link-to-prism">projects/components/src/dropdown/dynamic-dropdown-position.directive.ts:61</a></div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="dropdownTriggerElement"></a>
+                        <span class="name">
+                            <b>
+                                <span class="modifier">Private</span>
+                            dropdownTriggerElement</b>
+                            <a href="#dropdownTriggerElement"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Type : </i>    <code>HTMLElement</code>
+
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="58" class="link-to-prism">projects/components/src/dropdown/dynamic-dropdown-position.directive.ts:58</a></div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="dropdownTriggerRect"></a>
+                        <span class="name">
+                            <b>
+                                <span class="modifier">Private</span>
+                            dropdownTriggerRect</b>
+                            <a href="#dropdownTriggerRect"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Type : </i>    <code>DOMRect</code>
+
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="60" class="link-to-prism">projects/components/src/dropdown/dynamic-dropdown-position.directive.ts:60</a></div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="isInsideModal"></a>
+                        <span class="name">
+                            <b>
+                                <span class="modifier">Private</span>
+                            isInsideModal</b>
+                            <a href="#isInsideModal"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank" >boolean</a></code>
+
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Default value : </i><code>false</code>
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="63" class="link-to-prism">projects/components/src/dropdown/dynamic-dropdown-position.directive.ts:63</a></div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+</section>
+
+            <section>
+    <h3 id="accessors">
+        Accessors
+    </h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="dropdownMenu"></a>
+                        <span class="name"><b>dropdownMenu</b><a href="#dropdownMenu"><span class="icon ion-ios-link"></span></a></span>
+                    </td>
+                </tr>
+
+
+                <tr>
+                    <td class="col-md-4">
+                        <span class="accessor"><b>set</b><code>dropdownMenu(dropdown)</code></span>
+                    </td>
+                </tr>
+                            <tr>
+                                <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="66" class="link-to-prism">projects/components/src/dropdown/dynamic-dropdown-position.directive.ts:66</a></div>
+                                </td>
+                            </tr>
+                    <tr>
+                        <td class="col-md-4">
+
+                                <div class="io-description">
+                                        <b>Parameters :</b>
+                                        <table class="params">
+                                            <thead>
+                                                <tr>
+                                                    <td>Name</td>
+                                                    <td>Optional</td>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                    <tr>
+                                                            <td>dropdown</td>
+                                                    
+                                                    
+                                                        <td>
+                                                                No
+                                                        </td>
+                                                        
+                                                    </tr>
+                                            </tbody>
+                                        </table>
+                                </div>
+                                <div>
+                                </div>
+                                <div class="io-description">
+                                    <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                                </div>
+                        </td>
+                    </tr>
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="positionTop"></a>
+                        <span class="name"><b>positionTop</b><a href="#positionTop"><span class="icon ion-ios-link"></span></a></span>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <span class="accessor"><b>get</b><code>positionTop()</code></span>
+                    </td>
+                </tr>
+                            <tr>
+                                <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="101" class="link-to-prism">projects/components/src/dropdown/dynamic-dropdown-position.directive.ts:101</a></div>
+                                </td>
+                            </tr>
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="positionLeft"></a>
+                        <span class="name"><b>positionLeft</b><a href="#positionLeft"><span class="icon ion-ios-link"></span></a></span>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <span class="accessor"><b>get</b><code>positionLeft()</code></span>
+                    </td>
+                </tr>
+                            <tr>
+                                <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="134" class="link-to-prism">projects/components/src/dropdown/dynamic-dropdown-position.directive.ts:134</a></div>
+                                </td>
+                            </tr>
+
+            </tbody>
+        </table>
+</section>
+
+    </div>
+
+
+    <div class="tab-pane fade  tab-source-code" id="c-source">
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { DOCUMENT } from &#x27;@angular/common&#x27;;
+import {
+    AfterContentInit,
+    ContentChild,
+    Directive,
+    ElementRef,
+    HostListener,
+    Inject,
+    Optional,
+    Renderer2,
+    SkipSelf,
+} from &#x27;@angular/core&#x27;;
+import { ClrDropdown, ClrDropdownMenu } from &#x27;@clr/angular&#x27;;
+
+const CONTENT_AREA_SELECTOR &#x3D; &#x27;.content-area&#x27;;
+const NO_SCROLLING_CLASSNAME &#x3D; &#x27;no-scrolling&#x27;; // Set by Clarity when a modal is opened
+// Extra space on the right and left of drop down menus to shift them left or right and prevent any clipping
+const MENU_BUFFER_SPACE &#x3D; 150;
+
+/**
+ * Directive for ClrDropDown which repositions the drop-down menu dynamically based on the available space.
+ *
+ * If there is not enough space to show the whole drop-down menu, then leave the default position which is &#x60;bottom&#x60; and
+ * users have to scroll down to access it.
+ *
+ * @example
+ * &#x60;&#x60;&#x60;
+ * &lt;clr-dropdown vcdDropdown&gt;
+ *     &lt;button class&#x3D;&quot;btn btn-link vm-power-link&quot; clrDropdownTrigger&gt;
+ *         {{ &#x27;vm.actions&#x27; | translate }}
+ *         &lt;clr-icon shape&#x3D;&quot;caret down&quot;&gt;&lt;/clr-icon&gt;
+ *         &lt;/button&gt;
+ *     &lt;clr-dropdown-menu *clrIfOpen&gt;
+ *         &lt;label class&#x3D;&quot;dropdown-header&quot;&gt;Dropdown header&lt;/label&gt;
+ *         &lt;button type&#x3D;&quot;button&quot; clrDropdownItem&gt;Action 1&lt;/button&gt;
+ *         &lt;button type&#x3D;&quot;button&quot; clrDropdownItem&gt;Action 2&lt;/button&gt;
+ *         &lt;div class&#x3D;&quot;dropdown-divider&quot;&gt;&lt;/div&gt;
+ *         &lt;button type&#x3D;&quot;button&quot; clrDropdownItem&gt;Link 1&lt;/button&gt;
+ *         &lt;button type&#x3D;&quot;button&quot; clrDropdownItem&gt;Link 2&lt;/button&gt;
+ *     &lt;/clr-dropdown-menu&gt;
+ * &lt;/clr-dropdown&gt;
+ * &#x60;&#x60;&#x60;
+ */
+/**
+ * This component is marked as dynamic to suppress the &#x27;&quot;strictMetadataEmit&quot;: true&#x27; error being reported on DI of Document
+ */
+/** @dynamic */
+@Directive({
+    selector: &#x27;clr-dropdown[vcdDynamicDropdown]&#x27;,
+})
+export class DynamicDropdownPositionDirective implements AfterContentInit {
+    private contentAreaElement: HTMLElement;
+    private dropdownTriggerElement: HTMLElement;
+    private dropdownMenuElement: HTMLElement;
+    private dropdownTriggerRect: DOMRect;
+    private dropdownMenuRect: DOMRect;
+    // Drop downs should be position absolutely to the window when they are in modal
+    private isInsideModal &#x3D; false;
+
+    @ContentChild(ClrDropdownMenu, { static: false })
+    set dropdownMenu(dropdown: ClrDropdownMenu) {
+        if (dropdown) {
+            this.dropdownTriggerElement &#x3D; this.elRef.nativeElement;
+            this.dropdownMenuElement &#x3D; this.dropdownTriggerElement.querySelector(&#x27;clr-dropdown-menu&#x27;);
+            if (this.dropdownMenuElement) {
+                // Recalculate the dropdown position on open
+                this.dropdownTriggerRect &#x3D; this.dropdownTriggerElement.getBoundingClientRect();
+                this.dropdownMenuRect &#x3D; this.dropdownMenuElement.getBoundingClientRect();
+                this.resetPosition(this.dropdownMenuElement, this.positionTop, this.positionLeft);
+            }
+            try {
+                // Internal API
+                (dropdown as any).popoverInstance.removeScrollEventListeners();
+            } catch (e) {
+                console.error(&#x27;Clarity has changed ClrDropdownMenu internal API. Please fix me!&#x27;);
+                throw new Error(&#x27;Clarity has changed ClrDropdownMenu internal API. Please fix me!&#x27;);
+            }
+        }
+    }
+
+    constructor(
+        private elRef: ElementRef,
+        private renderer: Renderer2,
+        @Inject(DOCUMENT) private document: Document,
+        private dropDownBtn: ClrDropdown,
+        @Optional() @SkipSelf() private parentDropdown: DynamicDropdownPositionDirective
+    ) {}
+
+    ngAfterContentInit(): void {
+        this.isInsideModal &#x3D; this.document.body.classList.contains(NO_SCROLLING_CLASSNAME);
+        if (!this.isInsideModal) {
+            this.contentAreaElement &#x3D; this.document.body.querySelector(CONTENT_AREA_SELECTOR) as HTMLElement;
+        }
+    }
+
+    private get positionTop(): number {
+        const dropdownTriggerRect &#x3D; this.dropdownTriggerRect;
+        const dropdownTriggerHeight &#x3D; dropdownTriggerRect.bottom - dropdownTriggerRect.top;
+        const dropdownMenuRect &#x3D; this.dropdownMenuRect;
+        const dropdownMenuHeight &#x3D; dropdownMenuRect.bottom - dropdownMenuRect.top;
+
+        // When the dropdown is inside a modal and it&#x27;s being clipped, its position is determined based on the window
+        if (this.isInsideModal &amp;&amp; dropdownMenuRect.bottom &gt; window.innerHeight) {
+            return -(dropdownMenuHeight + dropdownTriggerHeight + 1);
+        }
+        if (!this.contentAreaElement) {
+            return 0;
+        }
+        const contentAreaRect &#x3D; this.contentAreaElement.getBoundingClientRect();
+        // When not in a modal, the position is relative to the &#x60;.content-area&#x60; element
+        if (dropdownMenuRect.bottom &lt;&#x3D; contentAreaRect.bottom) {
+            // Don&#x27;t shift to the top if it&#x27;s not being clipped at the bottom
+            return 0;
+        }
+        if (dropdownTriggerRect.top - dropdownMenuRect.height &gt;&#x3D; contentAreaRect.top) {
+            // If the dropdown trigger is a dropdown item instead of a button, we shift it up by less number of pixels to avoid space
+            // between dropdown trigger and the dropdown menu
+            const isFirstDropdownTrigger &#x3D; !!this.dropdownTriggerElement.querySelector(&#x27;button.first-dropdown-toggle&#x27;);
+            return isFirstDropdownTrigger ? -(dropdownTriggerHeight + dropdownMenuHeight) : -dropdownMenuHeight;
+        }
+        if (dropdownTriggerRect.top - dropdownMenuRect.height &lt; contentAreaRect.top) {
+            // If the menu can get clipped by moving it to the top, push it down
+            return -(dropdownMenuRect.bottom - contentAreaRect.bottom);
+        }
+        // Don&#x27;t shift by default
+        return 0;
+    }
+
+    private get positionLeft(): number {
+        const triggerBtn &#x3D; this.elRef.nativeElement.querySelector(&#x27;[clrdropdowntrigger]&#x27;);
+
+        let triggerComputedStyles &#x3D; null;
+        if (triggerBtn) {
+            triggerComputedStyles &#x3D; window.getComputedStyle(triggerBtn);
+        }
+        if (this.isInsideModal || !this.contentAreaElement) {
+            return 0;
+        }
+        const contentAreaRect &#x3D; this.contentAreaElement.getBoundingClientRect();
+        const dropdownMenuRect &#x3D; this.dropdownMenuRect;
+        const dropdownTriggerRect &#x3D; this.dropdownTriggerRect;
+        // If the dropdown is getting clipped on the left and there is enough place on the right, shift the dropdown to right
+        if (
+            dropdownMenuRect.left + MENU_BUFFER_SPACE &lt;&#x3D; contentAreaRect.left &amp;&amp;
+            dropdownTriggerRect.right + dropdownMenuRect.width &lt;&#x3D; contentAreaRect.right
+        ) {
+            const marginRight &#x3D; triggerComputedStyles ? parseInt(triggerComputedStyles.marginRight, 10) : 0;
+            return dropdownTriggerRect.width - marginRight;
+        }
+        // If the dropdown is getting clipped on the right and there is enough place on the left, shift the dropdown to left
+        if (
+            dropdownMenuRect.right + MENU_BUFFER_SPACE &gt;&#x3D; contentAreaRect.right &amp;&amp;
+            dropdownTriggerRect.left - dropdownMenuRect.width &gt;&#x3D; contentAreaRect.left
+        ) {
+            const marginLeft &#x3D; triggerComputedStyles ? parseInt(triggerComputedStyles.marginLeft, 10) : 0;
+            // If the dropdown being clipped is at the 2nd level, we want to shift it furthur left such that it would
+            // not over lap and cover the 1st level of dropdown underneath it
+            if (this.parentDropdown) {
+                const parentDropdownMenuRect &#x3D; this.parentDropdown.dropdownMenuElement.getBoundingClientRect();
+                const parentDropdownWidth &#x3D; parentDropdownMenuRect.right - parentDropdownMenuRect.left;
+                return -(parentDropdownWidth + dropdownMenuRect.width + marginLeft);
+            }
+            return -(dropdownMenuRect.width + marginLeft);
+        }
+        // if the dropdown is clipped at the bottom and if it is also being clipped at the top and pushed down, shift it to right
+        if (
+            dropdownMenuRect.bottom &gt; contentAreaRect.bottom &amp;&amp;
+            dropdownTriggerRect.top - dropdownMenuRect.height &lt; contentAreaRect.top
+        ) {
+            const marginRight &#x3D; triggerComputedStyles ? parseInt(triggerComputedStyles.marginRight, 10) : 0;
+            return dropdownTriggerRect.width - marginRight;
+        }
+        // Don&#x27;t shift by default
+        return 0;
+    }
+
+    /**
+     * Reposition the dropdown element by setting top and left position.
+     *
+     * Note: The dropdown is position absolute by setting position, top and left properties AND then is position
+     * relatively to itself by setting transform: translateX/Y property.
+     */
+    private resetPosition(element: HTMLElement, top: number, left: number): void {
+        this.renderer.setStyle(element, &#x27;top&#x27;, &#x60;${top}px&#x60;);
+        this.renderer.setStyle(element, &#x27;left&#x27;, &#x60;${left}px&#x60;);
+    }
+
+    /**
+     * On window resize, close the dropdown when it is open, otherwise we need to recalculate again its position
+     * and reposition it, which may not be a good user experience.
+     */
+    @HostListener(&#x27;window:resize&#x27;)
+    onWindowResize(): void {
+        this.dropDownBtn.toggleService.open &#x3D; false;
+    }
+}
+</code></pre>
+    </div>
+
+</div>
+
+
+
+
+
+
+
+
+                   
+
+
+
+
+                   </div><div class="search-results">
+    <div class="has-results">
+        <h1 class="search-results-title"><span class='search-results-count'></span> result-matching "<span class='search-query'></span>"</h1>
+        <ul class="search-results-list"></ul>
+    </div>
+    <div class="no-results">
+        <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+    </div>
+</div>
+</div>
+               <!-- END CONTENT -->
+           </div>
+       </div>
+
+       <script>
+            var COMPODOC_CURRENT_PAGE_DEPTH = 1;
+            var COMPODOC_CURRENT_PAGE_CONTEXT = 'directive';
+            var COMPODOC_CURRENT_PAGE_URL = 'DynamicDropdownPositionDirective.html';
+            var MAX_SEARCH_RESULTS = 15;
+       </script>
+
+       <script src="../js/libs/custom-elements.min.js"></script>
+       <script src="../js/libs/lit-html.js"></script>
+       <!-- Required to polyfill modern browsers as code is ES5 for IE... -->
+       <script src="../js/libs/custom-elements-es5-adapter.js" charset="utf-8" defer></script>
+       <script src="../js/menu-wc.js" defer></script>
+
+       <script src="../js/libs/bootstrap-native.js"></script>
+
+       <script src="../js/libs/es6-shim.min.js"></script>
+       <script src="../js/libs/EventDispatcher.js"></script>
+       <script src="../js/libs/promise.min.js"></script>
+       <script src="../js/libs/zepto.min.js"></script>
+
+       <script src="../js/compodoc.js"></script>
+
+       <script src="../js/tabs.js"></script>
+       <script src="../js/menu.js"></script>
+       <script src="../js/libs/clipboard.min.js"></script>
+       <script src="../js/libs/prism.js"></script>
+       <script src="../js/sourceCode.js"></script>
+          <script src="../js/search/search.js"></script>
+          <script src="../js/search/lunr.min.js"></script>
+          <script src="../js/search/search-lunr.js"></script>
+          <script src="../js/search/search_index.js"></script>
+       <script src="../js/lazy-load-graphs.js"></script>
+
+
+    </body>
+</html>

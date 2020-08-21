@@ -60,19 +60,34 @@ customElements.define('compodoc-menu', class extends HTMLElement {
                                 <a href="modules/DropdownModule.html" data-type="entity-link">DropdownModule</a>
                                     <li class="chapter inner">
                                         <div class="simple menu-toggler" data-toggle="collapse" ${ isNormalMode ?
-                                            'data-target="#components-links-module-DropdownModule-a4bd8fdb1c51c976eba0183041bb10ee"' : 'data-target="#xs-components-links-module-DropdownModule-a4bd8fdb1c51c976eba0183041bb10ee"' }>
+                                            'data-target="#components-links-module-DropdownModule-713142b2e66c028d47313d78b9ee0fa1"' : 'data-target="#xs-components-links-module-DropdownModule-713142b2e66c028d47313d78b9ee0fa1"' }>
                                             <span class="icon ion-md-cog"></span>
                                             <span>Components</span>
                                             <span class="icon ion-ios-arrow-down"></span>
                                         </div>
-                                        <ul class="links collapse" ${ isNormalMode ? 'id="components-links-module-DropdownModule-a4bd8fdb1c51c976eba0183041bb10ee"' :
-                                            'id="xs-components-links-module-DropdownModule-a4bd8fdb1c51c976eba0183041bb10ee"' }>
+                                        <ul class="links collapse" ${ isNormalMode ? 'id="components-links-module-DropdownModule-713142b2e66c028d47313d78b9ee0fa1"' :
+                                            'id="xs-components-links-module-DropdownModule-713142b2e66c028d47313d78b9ee0fa1"' }>
                                             <li class="link">
                                                 <a href="components/DropdownComponent.html"
                                                     data-type="entity-link" data-context="sub-entity" data-context-id="modules">DropdownComponent</a>
                                             </li>
                                         </ul>
                                     </li>
+                                <li class="chapter inner">
+                                    <div class="simple menu-toggler" data-toggle="collapse" ${ isNormalMode ?
+                                        'data-target="#directives-links-module-DropdownModule-713142b2e66c028d47313d78b9ee0fa1"' : 'data-target="#xs-directives-links-module-DropdownModule-713142b2e66c028d47313d78b9ee0fa1"' }>
+                                        <span class="icon ion-md-code-working"></span>
+                                        <span>Directives</span>
+                                        <span class="icon ion-ios-arrow-down"></span>
+                                    </div>
+                                    <ul class="links collapse" ${ isNormalMode ? 'id="directives-links-module-DropdownModule-713142b2e66c028d47313d78b9ee0fa1"' :
+                                        'id="xs-directives-links-module-DropdownModule-713142b2e66c028d47313d78b9ee0fa1"' }>
+                                        <li class="link">
+                                            <a href="directives/DynamicDropdownPositionDirective.html"
+                                                data-type="entity-link" data-context="sub-entity" data-context-id="modules">DynamicDropdownPositionDirective</a>
+                                        </li>
+                                    </ul>
+                                </li>
                             </li>
                             <li class="link">
                                 <a href="modules/PipesModule.html" data-type="entity-link">PipesModule</a>
