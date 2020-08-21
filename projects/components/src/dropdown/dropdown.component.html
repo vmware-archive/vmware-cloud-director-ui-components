@@ -23,7 +23,12 @@
             *clrIfOpen
         >
             <ng-container *ngFor="let action of items; let i = index; trackBy: trackByFunction">
-                <div *ngIf="shouldAddSeparator(i)" class="dropdown-divider" role="separator" aria-hidden="true"></div>
+                <div
+                    *ngIf="shouldRenderAsSeparator(i, action)"
+                    class="dropdown-divider"
+                    role="separator"
+                    aria-hidden="true"
+                ></div>
 
                 <ng-container *ngIf="!action.isSeparator && action.children && action.children.length">
                     <vcd-dropdown

@@ -100,9 +100,6 @@ export class ActionMenuExampleComponent<R extends Record, T extends HandlerData>
                     class: 'start',
                 },
                 {
-                    isSeparator: true
-                },
-                {
                     textKey: 'Stop',
                     handler: (rec: R[]) => {
                         console.log('Stopping ' + (rec as R[])[0].value);
@@ -124,12 +121,6 @@ export class ActionMenuExampleComponent<R extends Record, T extends HandlerData>
                     actionType: ActionType.CONTEXTUAL_FEATURED,
                     handler: () => console.log('Contextual featured'),
                     isTranslatable: false,
-                },
-                {
-                    isSeparator: true
-                },
-                {
-                    isSeparator: true
                 },
                 {
                     textKey: 'Contextual 2',
