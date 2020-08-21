@@ -171,9 +171,14 @@ export class DropdownComponent<T extends DropdownItem<T>> {
     }
 
     /**
-     * To check if a dropdown item of separator type should be used to add a separator item in the dropdown
+     * To check if a dropdown item of separator type should be used to add a separator item in the dropdown. This is
+     * required because, we collapse separators when:
+     * 1. **As each item decides its own availability, some groups may become empty
+     * 2. **Separator is the first item in the dropdown list
      */
     shouldAddSeparator(index: number): boolean {
-        return this.items[index].isSeparator && !this.items[index]?.isSeparator;
+        const currentItem = this.items[index];
+        const nextItem = this.items[index + 1];
+        return index > 0 && currentItem.isSeparator && !nextItem?.isSeparator;
     }
 }
