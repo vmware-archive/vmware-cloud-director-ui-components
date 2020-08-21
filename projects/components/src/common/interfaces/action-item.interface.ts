@@ -89,7 +89,7 @@ export interface ActionItem<R, T> {
      */
     isTranslatable?: boolean;
     /**
-     * To add separators between groups of action
+     * To add separators between groups of actions
      */
     isSeparator?: boolean;
 }

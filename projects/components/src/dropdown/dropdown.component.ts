@@ -169,4 +169,11 @@ export class DropdownComponent<T extends DropdownItem<T>> {
             items.unshift(singleChildItem.children[0]);
         });
     }
+
+    /**
+     * To check if a dropdown item of separator type should be used to add a separator item in the dropdown
+     */
+    shouldAddSeparator(index: number): boolean {
+        return this.items[index].isSeparator && !this.items[index]?.isSeparator;
+    }
 }
