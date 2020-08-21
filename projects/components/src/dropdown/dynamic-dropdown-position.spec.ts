@@ -19,7 +19,7 @@ interface HasFixtureAndDropdownHelper {
     helper: TestHostComponent;
 }
 
-fdescribe('DynamicDropdownPositionDirective', () => {
+describe('DynamicDropdownPositionDirective', () => {
     beforeEach(async function(this: HasFixtureAndDropdownHelper): Promise<void> {
         await TestBed.configureTestingModule({
             imports: [ClarityModule],
