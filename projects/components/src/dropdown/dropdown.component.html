@@ -22,9 +22,15 @@
             clrPosition="{{ isNestedDropdown ? nestedDropdownPosition : dropdownPosition }}"
             *clrIfOpen
         >
-            <ng-container *ngFor="let action of items; trackBy: trackByFunction">
-                <ng-container *ngIf="action.children && action.children.length">
-                    <div class="dropdown-divider" role="separator"></div>
+            <ng-container *ngFor="let action of items; let i = index; trackBy: trackByFunction">
+                <div
+                    *ngIf="shouldRenderAsSeparator(i, action)"
+                    class="dropdown-divider"
+                    role="separator"
+                    aria-hidden="true"
+                ></div>
+
+                <ng-container *ngIf="!action.isSeparator && action.children && action.children.length">
                     <vcd-dropdown
                         [items]="action.children"
                         [dropdownTriggerBtnTxt]="action.textKey"
@@ -38,7 +44,7 @@
                     ></vcd-dropdown>
                 </ng-container>
 
-                <ng-container *ngIf="!action.children">
+                <ng-container *ngIf="!action.isSeparator && !action.children">
                     <button
                         [ngClass]="[
                             action.class ? action.class : '',
