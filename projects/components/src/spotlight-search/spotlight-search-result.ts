@@ -13,11 +13,6 @@ export interface SpotlightSearchResult {
     displayText: string;
 
     /**
-     * The keyboard shortcut that can be used to call the handler of this item
-     */
-    kbdShortcut?: string;
-
-    /**
      * Function that is going to be called when this item is to be handled, i.e. when the
      * user clicks on this item or  selects it and presses the Enter key.
      */
