@@ -15,6 +15,16 @@ interface SearchSection extends RegisteredProviders {
 }
 
 /**
+ * This interface describes the event emitted when a result item is activated,
+ * i.e. its event handler has been called.
+ */
+export interface ResultActivatedEvent {
+    itemDisplayText: string;
+    sectionTitle: string;
+    eventSource: 'MouseEvent' | 'KeyboardEvent';
+}
+
+/**
  * The Spotlight Search component is inspired by the Spotlight Search functionality in Mac OSX (cmd+space)
  * and the Search Everywhere in IntelliJ (shift+shift)
  *
@@ -83,6 +93,12 @@ export class SpotlightSearchComponent {
      */
     @Output() openChange: EventEmitter<boolean> = new EventEmitter<boolean>(false);
 
+    /**
+     * Event dispatched when item has been activated, i.e. its event handler is called.
+     * This happens when item is clicked or 'Enter' is pressed when there is a selection.
+     */
+    @Output() resultActivated: EventEmitter<ResultActivatedEvent> = new EventEmitter<ResultActivatedEvent>();
+
     constructor(
         private searchService: SpotlightSearchService,
         private changeDetectorRef: ChangeDetectorRef,
@@ -115,7 +131,7 @@ export class SpotlightSearchComponent {
     selectedItem: SpotlightSearchResult;
 
     itemClicked(item: SpotlightSearchResult): void {
-        this.handleItem(item);
+        this.handleItem(item, true);
     }
 
     onArrowDown(event: KeyboardEvent): void {
@@ -133,7 +149,7 @@ export class SpotlightSearchComponent {
         if (!this.selectedItem) {
             return;
         }
-        this.handleItem(this.selectedItem);
+        this.handleItem(this.selectedItem, false);
     }
 
     private doSearch(): void {
@@ -263,8 +279,16 @@ export class SpotlightSearchComponent {
         this.changeDetectorRef.detectChanges();
     }
 
-    private handleItem(item: SpotlightSearchResult): void {
+    private handleItem(item: SpotlightSearchResult, clicked: boolean): void {
+        const searchSection: SearchSection = this.searchSections.find((section) =>
+            !section.isLoading && section.results.some( (resultItem) => resultItem.displayText === item.displayText));
+        const resultActivatedEvent: ResultActivatedEvent = {
+            itemDisplayText: item.displayText,
+            sectionTitle: searchSection?.section,
+            eventSource: clicked ? 'MouseEvent' : 'KeyboardEvent',
+        };
         item.handler();
+        this.resultActivated.emit(resultActivatedEvent);
         this.open = false;
     }
 

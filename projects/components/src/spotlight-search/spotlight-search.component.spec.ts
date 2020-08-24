@@ -9,7 +9,7 @@ import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { MockTranslationService, TranslationService } from '@vcd/i18n';
 import { WidgetFinder, WidgetObject } from '../utils/test/widget-object';
 import { SpotlightSearchResult, SpotlightSearchResultType } from './spotlight-search-result';
-import { SpotlightSearchComponent } from './spotlight-search.component';
+import { ResultActivatedEvent, SpotlightSearchComponent } from './spotlight-search.component';
 import { SpotlightSearchModule } from './spotlight-search.module';
 import { SpotlightSearchProvider } from './spotlight-search.provider';
 import { SpotlightSearchService } from './spotlight-search.service';
@@ -24,6 +24,7 @@ interface Test {
         anotherSimpleProvider: SpotlightSearchProvider;
         asyncProvider: SpotlightSearchProvider;
         spotlightSearchService: SpotlightSearchService;
+        resultActivated: jasmine.Spy;
     };
 }
 
@@ -109,6 +110,7 @@ describe('SpotlightSearchComponent', () => {
                 anotherSimpleProvider: new AnotherSimpleSearchProvider(),
                 asyncProvider,
                 spotlightSearchService,
+                resultActivated: spyOn(this.finder.hostComponent, 'resultActivated'),
             };
         })();
     });
@@ -531,6 +533,53 @@ describe('SpotlightSearchComponent', () => {
         });
     });
 
+    describe('ResultActivatedEvent', () => {
+        it('is emitted when pressing enter and there is a selection', function(this: Test): void {
+            this.finder.hostComponent.spotlightOpen = true;
+            this.finder.detectChanges();
+            this.spotlightSearch.searchInputValue = 'c';
+            this.spotlightSearch.pressEnter();
+            const event: ResultActivatedEvent = {
+                itemDisplayText: 'copy',
+                sectionTitle: 'section',
+                eventSource: 'KeyboardEvent',
+            };
+            expect(this.spotlightSearchData.resultActivated).toHaveBeenCalledWith(jasmine.objectContaining(event));
+        });
+        it('is not emitted when pressing enter and there is no selection', function(this: Test): void {
+            // Prepend async provider so that there is no auto selection
+            this.spotlightSearchData.spotlightSearchService.registerProvider(
+                this.spotlightSearchData.asyncProvider,
+                'async section',
+                0
+            );
+            this.finder.hostComponent.spotlightOpen = true;
+            this.finder.detectChanges();
+            this.spotlightSearch.searchInputValue = 'c';
+            this.spotlightSearch.pressEnter();
+            expect(this.spotlightSearchData.resultActivated).not.toHaveBeenCalled();
+        });
+
+        it('is emitted when item is clicked', function(this: Test): void {
+            // Prepend async provider so that there is no auto selection
+            this.spotlightSearchData.spotlightSearchService.registerProvider(
+                this.spotlightSearchData.asyncProvider,
+                'async section',
+                0
+            );
+            this.finder.hostComponent.spotlightOpen = true;
+            this.finder.detectChanges();
+            this.spotlightSearch.searchInputValue = 'c';
+            this.spotlightSearch.clickItem(2, 2);
+            const event: ResultActivatedEvent = {
+                itemDisplayText: 'create',
+                sectionTitle: 'section',
+                eventSource: 'MouseEvent',
+            };
+            expect(this.spotlightSearchData.resultActivated).toHaveBeenCalledWith(jasmine.objectContaining(event));
+        });
+    });
+
     describe('search input placeholder', () => {
         it('default to empty', function(this: Test): void {
             this.finder.hostComponent.spotlightOpen = true;
@@ -549,12 +598,18 @@ describe('SpotlightSearchComponent', () => {
 
 @Component({
     template: `
-        <vcd-spotlight-search [(open)]="spotlightOpen" [placeholder]="placeholder"></vcd-spotlight-search>
+        <vcd-spotlight-search
+            [(open)]="spotlightOpen"
+            (resultActivated)="resultActivated($event)"
+            [placeholder]="placeholder"
+        >
+        </vcd-spotlight-search>
     `,
 })
 export class HostSpotlightSearchComponent {
     public placeholder: string;
     public spotlightOpen = false;
+    resultActivated(event: ResultActivatedEvent): void {}
 }
 
 export class SpotlightSearchWidgetObject extends WidgetObject<SpotlightSearchComponent> {
