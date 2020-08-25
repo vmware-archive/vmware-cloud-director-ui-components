@@ -3,11 +3,12 @@
  * SPDX-License-Identifier: BSD-2-Clause
  */
 
-import { Component, HostBinding, ViewChild } from '@angular/core';
+import { Component, HostBinding, TrackByFunction, ViewChild } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { LoadingListener } from '@clr/angular';
 import { MockTranslationService, TranslationService } from '@vcd/i18n';
+import { Mock } from 'protractor/built/driverProviders';
 import { Observable } from 'rxjs';
 import { first } from 'rxjs/operators';
 import { ActivityPromiseResolver } from '../common/activity-reporter/activity-promise-resolver';
@@ -767,6 +768,28 @@ describe('DatagridComponent', () => {
                     expect(monitorGetSpy).toHaveBeenCalled();
                 }
             );
+
+            it('does not change what trackBy is used', function(this: HasFinderAndGrid): void {
+                this.finder.hostComponent.gridData = {
+                    items: mockData,
+                    totalItems: 2,
+                };
+                this.finder.detectChanges();
+
+                this.finder.hostComponent.actions = [
+                    {
+                        textKey: 'static.action',
+                        handler: () => null,
+                        availability: () => true,
+                        actionType: ActionType.STATIC,
+                    },
+                ];
+                this.finder.detectChanges();
+
+                console.log(this.finder.hostComponent.getGridTrackBy().toString());
+
+                expect(this.finder.hostComponent.getGridTrackBy()(0, mockData[0])).toEqual(mockData[0].name);
+            });
         });
 
         describe('shouldShowActionBarOnTop', () => {
@@ -1111,6 +1134,10 @@ export class HostWithDatagridComponent {
 
     getSelection(): MockRecord[] {
         return this.grid.datagridSelection;
+    }
+
+    getGridTrackBy(): TrackByFunction<MockRecord> {
+        return this.grid.datagrid.items.trackBy;
     }
 }
 

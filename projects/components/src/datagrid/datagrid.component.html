@@ -12,13 +12,10 @@
 >
     <clr-dg-placeholder>{{ emptyGridPlaceholder }}</clr-dg-placeholder>
     <clr-dg-action-bar class="top-action-bar" *ngIf="shouldShowActionBarOnTop">
-        <vcd-action-menu
-            [actions]="actions"
-            [selectedEntities]="datagridSelection"
-            [actionDisplayConfig]="actionDisplayConfig"
-            [dropdownTriggerBtnText]="'vcd.cc.action.menu.actions'"
-        >
-        </vcd-action-menu>
+        <!--- We need to instantiate the action bar as its own component to separate its provider chain
+        such that the clr-dg-row doesn't get its trackBy. 
+        This is due to a bug in Clarity: https://github.com/vmware/clarity/issues/3936 -->
+        <ng-container *ngTemplateOutlet="actionBar"> </ng-container>
     </clr-dg-action-bar>
 
     <clr-dg-column *ngIf="shouldDisplayContextualActionsInRow" [ngClass]="'buttons-' + maxFeaturedActionsOnRow">
@@ -125,3 +122,13 @@
         </clr-dg-pagination>
     </clr-dg-footer>
 </clr-datagrid>
+
+<ng-template #actionBar>
+    <vcd-action-menu
+        [actions]="actions"
+        [selectedEntities]="datagridSelection"
+        [actionDisplayConfig]="actionDisplayConfig"
+        [dropdownTriggerBtnText]="'vcd.cc.action.menu.actions'"
+    >
+    </vcd-action-menu>
+</ng-template>
