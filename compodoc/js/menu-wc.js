@@ -717,6 +717,9 @@ customElements.define('compodoc-menu', class extends HTMLElement {
                                 <a href="interfaces/RegisteredProviders.html" data-type="entity-link">RegisteredProviders</a>
                             </li>
                             <li class="link">
+                                <a href="interfaces/ResultActivatedEvent.html" data-type="entity-link">ResultActivatedEvent</a>
+                            </li>
+                            <li class="link">
                                 <a href="interfaces/SearchSection.html" data-type="entity-link">SearchSection</a>
                             </li>
                             <li class="link">
