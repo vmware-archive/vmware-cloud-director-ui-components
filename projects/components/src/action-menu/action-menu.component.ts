@@ -33,7 +33,6 @@ export function getDefaultActionDisplayConfig(cfg: ActionDisplayConfig = {}): Ac
     styleUrls: ['./action-menu.component.scss'],
 })
 export class ActionMenuComponent<R, T> {
-    private _actions: ActionItem<R, T>[] = [];
     /**
      * List of actions containing both static and contextual that are given by the calling component
      */
@@ -41,9 +40,9 @@ export class ActionMenuComponent<R, T> {
         if (!actions) {
             return;
         }
-
+        // Copy is required here because, we modify the action type property of certain actions below
         const copyOfActions = getDeepCopyOfActionItems(actions);
-        const hasNestedActions = copyOfActions.some(action => action.children);
+        const hasNestedActions = copyOfActions.some(action => !!action.children?.length);
         const markUnmarkedActionsAsContextual =
             hasNestedActions ||
             this.getFlattenedActionList(copyOfActions, ActionType.CONTEXTUAL_FEATURED)
@@ -51,20 +50,19 @@ export class ActionMenuComponent<R, T> {
 
         this._actions = copyOfActions.map(action => {
             if (!action.actionType) {
-                if (markUnmarkedActionsAsContextual) {
-                    action.actionType = ActionType.CONTEXTUAL;
-                } else {
-                    action.actionType = ActionType.CONTEXTUAL_FEATURED;
-                }
+                action.actionType = markUnmarkedActionsAsContextual ? ActionType.CONTEXTUAL : ActionType.CONTEXTUAL_FEATURED;
             }
             return action;
         });
 
-        this.shouldDisplayContextualActionsDropdown = hasNestedActions ||
+        this.shouldDisplayContextualActionsDropdownInline = hasNestedActions ||
             this._actions.some(action => action.actionType === ActionType.CONTEXTUAL);
+
+        this.updateActionLists();
     }
+    private _actions: ActionItem<R, T>[] = [];
     get actions(): ActionItem<R, T>[] {
-        return getDeepCopyOfActionItems(this._actions);
+        return this._actions;
     }
 
     /**
@@ -98,7 +96,45 @@ export class ActionMenuComponent<R, T> {
         return this._actionDisplayConfig;
     }
 
-    @Input() calculateActionsAvailability: boolean = true;
+    /**
+     * To show or hide {@link ActionType.STATIC_FEATURED} and {@link ActionType.STATIC} actions in a dropdown
+     */
+    get shouldDisplayStaticAndStaticFeaturedActionsDropdown(): boolean {
+        return (
+            this.shouldDisplayStaticActions(this.actionStyling.DROPDOWN) ||
+            this.shouldDisplayStaticFeaturedActions(this.actionStyling.DROPDOWN)
+        );
+    }
+
+    /**
+     * To show or hide {@link ActionType.STATIC_FEATURED} and {@link ActionType.STATIC} actions in a inline action bar
+     */
+    get shouldDisplayStaticAndStaticFeaturedActionsInline(): boolean {
+        return (
+            this.shouldDisplayStaticActions(this.actionStyling.INLINE) &&
+            this.shouldDisplayStaticFeaturedActions(this.actionStyling.INLINE)
+        );
+    }
+
+    /**
+     * When there are no nested actions and if all of the contextual actions are marked to be featured, there is no need to show
+     * the contextual actions dropdown in the inline actions container
+     */
+    shouldDisplayContextualActionsDropdownInline = false;
+
+    private _actionDisplayConfig: ActionDisplayConfig = getDefaultActionDisplayConfig();
+
+    /**
+     * Used for calculating the available actions. So, updating the property should update available actions in the action lists
+     */
+    @Input() set calculateActionsAvailability(val: boolean) {
+        this._calculateActionsAvailability = val;
+        this.updateActionLists();
+    }
+    private _calculateActionsAvailability = true;
+    get calculateActionsAvailability(): boolean {
+        return this._calculateActionsAvailability;
+    }
 
     /**
      * Text Content of the action menu dropdown trigger button. Used when {@link #actionDisplayConfig} styling is
@@ -106,6 +142,9 @@ export class ActionMenuComponent<R, T> {
      */
     @Input() dropdownTriggerBtnText: string = null;
 
+    /**
+     * Text Content of the action menu dropdown trigger button inside the .inline-actions-container
+     */
     inlineDropdownTriggerBtnText = 'vcd.cc.action.menu.actions';
 
     /**
@@ -120,9 +159,17 @@ export class ActionMenuComponent<R, T> {
     @Input() disabled: boolean;
 
     /**
-     * The list of entities selected on which contextualActions are performed
+     * The list of entities selected on which contextualActions are performed. As they are also used for calculating the
+     * availability of actions, action lists are updated
      */
-    @Input() selectedEntities: R[];
+    @Input() set selectedEntities(val: R[]) {
+        this._selectedEntities = val;
+        this.updateActionLists();
+    }
+    private _selectedEntities: R[];
+    get selectedEntities(): R[] {
+        return this._selectedEntities;
+    }
 
     /**
      * The direction with respect to the root dropdown trigger button in which the root drop down should open
@@ -156,19 +203,56 @@ export class ActionMenuComponent<R, T> {
     actionStyling = ActionStyling;
 
     /**
+     * List of actions that are marked as {@link ActionType.STATIC_FEATURED} only
+     */
+    staticFeaturedActions: ActionItem<R, T>[];
+
+    /**
+     * Actions that depend on selected entities and belong to main menu list. The returned list length is less than or
+     * equal to the configured featured count in {@link actionDisplayConfig}
+     */
+    contextualFeaturedActions: ActionItem<R, T>[];
+
+    /**
+     * All the actions that depend on selected entities
+     */
+    contextualActions: ActionItem<R, T>[];
+
+    /**
+     * List containing all the static actions. It has static featured actions in the beginning of the list followed by
+     * non-featured static actions as children of grouped action called 'vcd.cc.action.menu.all.actions'
+     */
+    staticDropdownActions: ActionItem<R, T>[] | object;
+
+    /**
+     * List of only the actions that are marked as {@link ActionType.STATIC}
+     */
+    staticActions: ActionItem<R, T>[];
+
+    /**
      * Returns the actions to be shown
      */
     getAvailableActions(actions: ActionItem<R, T>[]): ActionItem<R, T>[] {
+        // Copy is required here because, we modify the children property of certain actions below
+        const copyOfActions = getDeepCopyOfActionItems(actions);
         if (!this.calculateActionsAvailability) {
-            return actions;
+            return copyOfActions;
         }
-        return actions.filter(action => {
+        return copyOfActions.filter(action => {
             const isActionAvailable = this.isActionAvailable(action);
-            if (isActionAvailable && action.children && action.children.length) {
+            if (isActionAvailable && !!action.children?.length) {
                 action.children = this.getAvailableActions(action.children);
             }
             return isActionAvailable;
         });
+    }
+
+    private updateActionLists(): void {
+        this.staticActions = this.getStaticActions();
+        this.staticFeaturedActions = this.getStaticFeaturedActions();
+        this.contextualFeaturedActions = this.getContextualFeaturedActions();
+        this.contextualActions = this.getContextualActions();
+        this.staticDropdownActions = this.getStaticDropdownActions();
     }
 
     /**
@@ -179,37 +263,12 @@ export class ActionMenuComponent<R, T> {
         return !action.availability || action.availability(this.selectedEntities) || this.isActionDisabled(action);
     }
 
-    /**
-     * List of only the actions that are marked as {@link ActionType.STATIC}
-     */
-    get staticActions(): ActionItem<R, T>[] {
-        const staticActions = this.actions.filter(action => action.actionType === ActionType.STATIC);
-        return this.getAvailableActions(staticActions);
-    }
-
-    /**
-     * List of only the actions that are marked as {@link ActionType.STATIC_FEATURED}
-     */
-    get staticFeaturedActions(): ActionItem<R, T>[] {
+    private getStaticFeaturedActions(): ActionItem<R, T>[] {
         const staticFeaturedActions = this.actions.filter(action => action.actionType === ActionType.STATIC_FEATURED);
         return this.getAvailableActions(staticFeaturedActions);
     }
 
-    /**
-     * List containing all the static actions. It has static featured actions in the beginning of the list followed by
-     * non-featured static actions as children of grouped action called 'vcd.cc.action.menu.all.actions'
-     */
-    get staticDropdownActions(): ActionItem<R, T>[] | object {
-        return this.staticFeaturedActions.concat([
-            { textKey: 'vcd.cc.action.menu.all.actions', children: this.staticActions },
-        ]);
-    }
-
-    /**
-     * Actions that depend on selected entities and belong to main menu list. The returned list length is less than the
-     * configured featured count in {@link actionDisplayConfig}
-     */
-    get contextualFeaturedActions(): ActionItem<R, T>[] {
+    private getContextualFeaturedActions(): ActionItem<R, T>[] {
         if (this.calculateActionsAvailability && !this.selectedEntities?.length) {
             return [];
         }
@@ -220,25 +279,18 @@ export class ActionMenuComponent<R, T> {
             : availableFeaturedActions;
     }
 
-    /**
-     * Extracts the nested actions that are marked as featured and returns them as part of a flat list
-     */
-    private getFlattenedActionList(actions: ActionItem<R, T>[], actionType: ActionType): ActionItem<R, T>[] {
-        let featuredActions: ActionItem<R, T>[] = [];
-        actions.forEach(action => {
-            if (action.children && action.children.length) {
-                featuredActions = featuredActions.concat(this.getFlattenedActionList(action.children, actionType));
-            } else if (action.actionType === actionType) {
-                featuredActions.push(action);
-            }
-        });
-        return featuredActions;
+    private getStaticActions(): ActionItem<R, T>[] {
+        const staticActions = this.actions.filter(action => action.actionType === ActionType.STATIC);
+        return this.getAvailableActions(staticActions);
     }
 
-    /**
-     * Actions that depend on selected entities but belong to sub menu
-     */
-    get contextualActions(): ActionItem<R, T>[] {
+    private getStaticDropdownActions(): ActionItem<R, T>[] | object {
+        return this.staticFeaturedActions.concat([
+            { textKey: 'vcd.cc.action.menu.all.actions', children: this.staticActions },
+        ]);
+    }
+
+    private getContextualActions(): ActionItem<R, T>[] {
         if (this.calculateActionsAvailability && !this.selectedEntities?.length) {
             return [];
         }
@@ -252,6 +304,21 @@ export class ActionMenuComponent<R, T> {
             availableContextualActions.push(...this._extensionEntityActions);
         }
         return availableContextualActions;
+    }
+
+    /**
+     * Extracts the nested actions that are marked as featured and returns them as part of a flat list
+     */
+    private getFlattenedActionList(actions: ActionItem<R, T>[], actionType: ActionType): ActionItem<R, T>[] {
+        let featuredActions: ActionItem<R, T>[] = [];
+        actions.forEach(action => {
+            if (action.children && action.children.length) {
+                featuredActions = featuredActions.concat(this.getFlattenedActionList(action.children, actionType));
+            } else if (action.actionType === actionType) {
+                featuredActions.push({...action});
+            }
+        });
+        return featuredActions;
     }
 
     /**
@@ -282,11 +349,11 @@ export class ActionMenuComponent<R, T> {
     /**
      * To show or hide the container elements containing inline and also dropdown actions
      */
-    shouldDisplayActions(style: ActionStyling): boolean {
+    get shouldDisplayActionsInline(): boolean {
         return (
-            this.shouldDisplayStaticFeaturedActions(style) ||
-            this.shouldDisplayStaticActions(style) ||
-            this.shouldDisplayContextualActions(style)
+            this.shouldDisplayStaticFeaturedActions(ActionStyling.INLINE) ||
+            this.shouldDisplayStaticActions(ActionStyling.INLINE) ||
+            this.shouldDisplayContextualActions(ActionStyling.INLINE)
         );
     }
 
@@ -319,16 +386,6 @@ export class ActionMenuComponent<R, T> {
             (!this.calculateActionsAvailability || this.selectedEntities?.length) &&
             this.contextualActions.length &&
             this.actionDisplayConfig.contextual.styling === style
-        );
-    }
-
-    /**
-     * To show or hide {@link ActionType.STATIC_FEATURED} and {@link ActionType.STATIC} actions in a dropdown
-     */
-    get shouldDisplayStaticAndStaticFeaturedActionsDropdown(): boolean {
-        return (
-            this.shouldDisplayStaticActions(this.actionStyling.DROPDOWN) ||
-            this.shouldDisplayStaticFeaturedActions(this.actionStyling.DROPDOWN)
         );
     }
 }

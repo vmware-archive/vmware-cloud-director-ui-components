@@ -1,4 +1,4 @@
-<div class="inline-actions-container" *ngIf="shouldDisplayActions(actionStyling.INLINE)">
+<div class="inline-actions-container" *ngIf="shouldDisplayActionsInline">
     <ng-container *ngIf="shouldDisplayStaticFeaturedActions(actionStyling.INLINE)">
         <ng-container *ngFor="let action of staticFeaturedActions; trackBy: actionsTrackBy">
             <ng-template *ngTemplateOutlet="actionButton; context: { $implicit: action }"></ng-template>
@@ -12,7 +12,7 @@
 
         <vcd-dropdown
             class="inline-action-dropdown"
-            *ngIf="contextualActions.length && shouldDisplayContextualActionsDropdown"
+            *ngIf="shouldDisplayContextualActionsDropdownInline"
             [items]="contextualActions"
             [trackByFunction]="actionsTrackBy"
             [dropdownPosition]="dropdownPosition"

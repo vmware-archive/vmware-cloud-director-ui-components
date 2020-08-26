@@ -338,20 +338,31 @@ export class DatagridComponent<R extends B, B = any> implements OnInit, AfterVie
     }
 
     /**
+     * Filters contextual actions from the list of actions to be displayed in a grid row
+     */
+    contextualActions: ActionItem<R, unknown>[];
+
+    private hasStaticActions: boolean;
+
+    /**
      * List of actions given by the caller
      */
     @Input() set actions(actions: ActionItem<R, unknown>[]) {
         this._actions = actions.map((action) => {
-            const actionHandler: ActionHandlerType<R, unknown> = action.handler;
-            action.handler = (selectedEntities, handlerData) => {
+            const actionCopy = { ...action };
+            const actionHandler: ActionHandlerType<R, unknown> = actionCopy.handler;
+            actionCopy.handler = (selectedEntities, handlerData) => {
                 const actionHandlerResponse = actionHandler(selectedEntities, handlerData);
                 if (actionHandlerResponse && this.actionReporter) {
                     this.actionReporter.monitorGet(actionHandlerResponse);
                 }
             };
-            return action;
+            return actionCopy;
         });
+        this.hasStaticActions = this.getHasStaticActions();
+        this.contextualActions = this.getContextualActions();
     }
+    private _actions: ActionItem<R, unknown>[] = [];
     get actions(): ActionItem<R, unknown>[] {
         return this._actions;
     }
@@ -362,26 +373,7 @@ export class DatagridComponent<R extends B, B = any> implements OnInit, AfterVie
     get shouldShowActionBarOnTop(): boolean {
         return (
             this.actions.length &&
-            (this.hasStaticActions || (this.hasContextualActions && this.shouldDisplayContextualActionsOnTop))
-        );
-    }
-
-    private get hasStaticActions(): boolean {
-        return this.actions.some(
-            (action) => action.actionType === ActionType.STATIC_FEATURED || action.actionType === ActionType.STATIC
-        );
-    }
-
-    private get hasContextualActions(): boolean {
-        return this.contextualActions.length > 0;
-    }
-
-    /**
-     * Filters contextual actions from the list of actions to be displayed in a grid row
-     */
-    get contextualActions(): ActionItem<R, unknown>[] {
-        return this.actions.filter(
-            (action) => action.actionType !== ActionType.STATIC_FEATURED && action.actionType !== ActionType.STATIC
+            (this.hasStaticActions || (!!this.contextualActions.length && this.shouldDisplayContextualActionsOnTop))
         );
     }
 
@@ -500,11 +492,6 @@ export class DatagridComponent<R extends B, B = any> implements OnInit, AfterVie
         this.maxFeaturedActionsOnRow = max;
         this.changeDetectorRef.detectChanges();
     }
-
-    /**
-     * Actions to be displayed on a grid or in a row
-     */
-    private _actions: ActionItem<R, unknown>[] = [];
 
     private initialSelection: (B | R)[] = [];
 
@@ -677,6 +664,18 @@ export class DatagridComponent<R extends B, B = any> implements OnInit, AfterVie
         index: number;
     };
     private currentDetailRowRenderSpec: { rendererSpec: ComponentRendererSpec<DetailRowConfig<R>> };
+
+    private getHasStaticActions(): boolean {
+        return this.actions.some(
+            action => action.actionType === ActionType.STATIC_FEATURED || action.actionType === ActionType.STATIC
+        );
+    }
+
+    private getContextualActions(): ActionItem<R, unknown>[] {
+        return this.actions.filter(
+            action => action.actionType !== ActionType.STATIC_FEATURED && action.actionType !== ActionType.STATIC
+        );
+    }
 
     /**
      * To add or replace a column of this datagrid columns. Exposed for columns modifiers(eg: directives) that listen to
