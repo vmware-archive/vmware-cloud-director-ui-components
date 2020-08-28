@@ -25,9 +25,8 @@
         ></vcd-dropdown>
     </ng-container>
 
-    <div class="static-actions-separator" *ngIf="shouldDisplayStaticAndStaticFeaturedActionsInline"></div>
-
     <ng-container *ngIf="shouldDisplayStaticActions(actionStyling.INLINE)">
+        <div class="static-actions-separator"></div>
         <ng-container *ngFor="let action of staticActions; trackBy: actionsTrackBy">
             <ng-template *ngTemplateOutlet="actionButton; context: { $implicit: action }"></ng-template>
         </ng-container>

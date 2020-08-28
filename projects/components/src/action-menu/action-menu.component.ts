@@ -317,16 +317,6 @@ export class ActionMenuComponent<R, T> {
             this.shouldDisplayStaticFeaturedActions(this.actionStyling.DROPDOWN)
         );
     }
-
-    /**
-     * To show or hide {@link ActionType.STATIC_FEATURED} and {@link ActionType.STATIC} actions in a inline action bar
-     */
-    get shouldDisplayStaticAndStaticFeaturedActionsInline(): boolean {
-        return (
-            this.shouldDisplayStaticActions(this.actionStyling.INLINE) &&
-            this.shouldDisplayStaticFeaturedActions(this.actionStyling.INLINE)
-        );
-    }
 }
 
 /**

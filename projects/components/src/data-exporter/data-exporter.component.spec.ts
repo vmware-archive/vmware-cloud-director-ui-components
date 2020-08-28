@@ -15,6 +15,51 @@ import { VcdDataExporterModule } from './data-exporter.module';
 import { DataExporterWidgetObject } from './data-exporter.wo';
 
 type TestHostFinder = HasFinder<TestHostComponent>;
+type TestExporterColumnsWithoutDisplayNameFinder = HasFinder<TestExporterColumnsWithoutDisplayNameComponent>;
+
+describe('DataExporterColumnsWithoutDisplayName', () => {
+    beforeEach(async () => {
+        await TestBed.configureTestingModule({
+            imports: [VcdDataExporterModule, NoopAnimationsModule],
+            providers: [
+                {
+                    provide: TranslationService,
+                    useValue: new MockTranslationService(),
+                },
+            ],
+            declarations: [TestExporterColumnsWithoutDisplayNameComponent],
+        }).compileComponents();
+    });
+
+    beforeEach(function(this: HasFinder): void {
+        this.finder = new WidgetFinder(TestExporterColumnsWithoutDisplayNameComponent);
+        this.finder.detectChanges();
+    });
+
+    it('uses field name if there is no displayName', function(this: TestExporterColumnsWithoutDisplayNameFinder, done): void {
+        const exporter = this.finder.find(DataExporterWidgetObject);
+        const downloadService = TestBed.inject(CsvExporterService) as CsvExporterService;
+        spyOn(downloadService, 'downloadCsvFile');
+        spyOn(this.finder.hostComponent, 'onExportRequest').and.callFake(async (e: DataExportRequestEvent) => {
+            await e.exportData(TestData.exportDataWithoutDisplayName);
+            this.finder.detectChanges();
+            const exportData: unknown[][] = [
+                TestData.exportColumnsWithoutDisplayName.map(col => col.fieldName),
+                ...TestData.exportDataWithoutDisplayName.map(row => Object.values(row)),
+            ];
+            const csvString = downloadService.createCsv(exportData);
+            expect(downloadService.downloadCsvFile).toHaveBeenCalledWith(
+                csvString,
+                exporter.component.fileName
+            );
+            this.finder.detectChanges();
+            expect(this.finder.hostComponent.dataExporterOpen).toBe(false);
+            done();
+        });
+
+        exporter.clickExport();
+    });
+});
 
 describe('VcdExportTableComponent', () => {
     beforeEach(async () => {
@@ -251,7 +296,9 @@ const TestData = {
     /** The progress calls that to updateProgress will be called with the following values */
     progressStates: [-1, 0.5, 1],
     exportColumns: [{ fieldName: 'name', displayName: 'Name' }, { fieldName: 'desc', displayName: 'Description' }],
+    exportColumnsWithoutDisplayName: [{fieldName: 'col1'}, {fieldName: 'col2'}],
     exportData: [{ name: 'Jaak', desc: 'Tis what tis' }, { name: 'Jill', desc: 'Still tis what tis' }],
+    exportDataWithoutDisplayName: [{col1: 'hi', col2: 'alice'}, {col1: 'Hi', col2: 'Bob'}],
     exportDataWrongField: [{ noexist: 'Jack' }, { noexist: 'Jill' }],
 };
 
@@ -277,6 +324,25 @@ class TestHostComponent {
     dataExporterOpen = true;
 
     exportColumns: ExportColumn[] = TestData.exportColumns;
+
+    // Will be mocked in tests
+    onExportRequest(request: DataExportRequestEvent): void {}
+}
+
+@Component({
+    template: `
+        <vcd-data-exporter
+            *ngIf="dataExporterOpen"
+            [(open)]="dataExporterOpen"
+            [columns]="exportColumns"
+            (dataExportRequest)="onExportRequest($event)"
+        ></vcd-data-exporter>
+    `,
+})
+class TestExporterColumnsWithoutDisplayNameComponent {
+    dataExporterOpen = true;
+
+    exportColumns: ExportColumn[] = TestData.exportColumnsWithoutDisplayName;
 
     // Will be mocked in tests
     onExportRequest(request: DataExportRequestEvent): void {}
