@@ -15,9 +15,9 @@ import { CsvExporterService } from './csv-exporter.service';
  */
 export interface ExportColumn {
     /**
-     * Displayed in the list of columns
+     * Displayed in the list of columns. If there is no displayName, the default value is fieldName
      */
-    displayName: string;
+    displayName?: string;
     /**
      * The name of the field in the JSON that is returned and converted to a viewable format
      */
@@ -349,7 +349,7 @@ export class DataExporterComponent implements OnInit, OnDestroy {
     private getDisplayNameForField(fieldName: string): string {
         for (const column of this.columns) {
             if (column.fieldName === fieldName) {
-                return column.displayName;
+                return column.displayName || column.fieldName;
             }
         }
         return fieldName;
