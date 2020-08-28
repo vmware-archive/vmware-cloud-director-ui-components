@@ -280,9 +280,6 @@ T is the type of custom data passed to action handler methods</p>
                                 <li>
                                     <a href="#shouldDisplayStaticAndStaticFeaturedActionsDropdown">shouldDisplayStaticAndStaticFeaturedActionsDropdown</a>
                                 </li>
-                                <li>
-                                    <a href="#shouldDisplayStaticAndStaticFeaturedActionsInline">shouldDisplayStaticAndStaticFeaturedActionsInline</a>
-                                </li>
                             </ul>
                         </td>
                     </tr>
@@ -1908,39 +1905,6 @@ configured featured count in <a href="actionDisplayConfig">actionDisplayConfig</
 
             </tbody>
         </table>
-        <table class="table table-sm table-bordered">
-            <tbody>
-                <tr>
-                    <td class="col-md-4">
-                        <a name="shouldDisplayStaticAndStaticFeaturedActionsInline"></a>
-                        <span class="name"><b>shouldDisplayStaticAndStaticFeaturedActionsInline</b><a href="#shouldDisplayStaticAndStaticFeaturedActionsInline"><span class="icon ion-ios-link"></span></a></span>
-                    </td>
-                </tr>
-
-                <tr>
-                    <td class="col-md-4">
-                        <span class="accessor"><b>get</b><code>shouldDisplayStaticAndStaticFeaturedActionsInline()</code></span>
-                    </td>
-                </tr>
-                            <tr>
-                                <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="324" class="link-to-prism">projects/components/src/action-menu/action-menu.component.ts:324</a></div>
-                                </td>
-                            </tr>
-                    <tr>
-                        <td class="col-md-4">
-                                <div class="io-description"><p>To show or hide <a href="ActionType.STATIC_FEATURED">ActionType.STATIC_FEATURED</a> and <a href="ActionType.STATIC">ActionType.STATIC</a> actions in a inline action bar</p>
-</div>
-
-                                <div class="io-description">
-                                    <b>Returns : </b>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank" >boolean</a></code>
-
-                                </div>
-                        </td>
-                    </tr>
-
-            </tbody>
-        </table>
 </section>
 </div>
 
@@ -2260,16 +2224,6 @@ export class ActionMenuComponent&lt;R, T&gt; {
             this.shouldDisplayStaticFeaturedActions(this.actionStyling.DROPDOWN)
         );
     }
-
-    /**
-     * To show or hide {@link ActionType.STATIC_FEATURED} and {@link ActionType.STATIC} actions in a inline action bar
-     */
-    get shouldDisplayStaticAndStaticFeaturedActionsInline(): boolean {
-        return (
-            this.shouldDisplayStaticActions(this.actionStyling.INLINE) &amp;&amp;
-            this.shouldDisplayStaticFeaturedActions(this.actionStyling.INLINE)
-        );
-    }
 }
 
 /**
@@ -2314,9 +2268,8 @@ export function getDeepCopyOfActionItems&lt;R, T&gt;(actions: ActionItem&lt;R, T
         &gt;&lt;/vcd-dropdown&gt;
     &lt;/ng-container&gt;
 
-    &lt;div class&#x3D;&quot;static-actions-separator&quot; *ngIf&#x3D;&quot;shouldDisplayStaticAndStaticFeaturedActionsInline&quot;&gt;&lt;/div&gt;
-
     &lt;ng-container *ngIf&#x3D;&quot;shouldDisplayStaticActions(actionStyling.INLINE)&quot;&gt;
+        &lt;div class&#x3D;&quot;static-actions-separator&quot;&gt;&lt;/div&gt;
         &lt;ng-container *ngFor&#x3D;&quot;let action of staticActions; trackBy: actionsTrackBy&quot;&gt;
             &lt;ng-template *ngTemplateOutlet&#x3D;&quot;actionButton; context: { $implicit: action }&quot;&gt;&lt;/ng-template&gt;
         &lt;/ng-container&gt;
@@ -2418,7 +2371,7 @@ export function getDeepCopyOfActionItems&lt;R, T&gt;(actions: ActionItem&lt;R, T
 <script src="../js/libs/htmlparser.js"></script>
 <script src="../js/libs/deep-iterator.js"></script>
 <script>
-        var COMPONENT_TEMPLATE = '<div><div class="inline-actions-container" *ngIf="shouldDisplayActions(actionStyling.INLINE)">    <ng-container *ngIf="shouldDisplayStaticFeaturedActions(actionStyling.INLINE)">        <ng-container *ngFor="let action of staticFeaturedActions; trackBy: actionsTrackBy">            <ng-template *ngTemplateOutlet="actionButton; context: { $implicit: action }"></ng-template>        </ng-container>    </ng-container>    <ng-container *ngIf="shouldDisplayContextualActions(actionStyling.INLINE)">        <ng-container *ngFor="let action of contextualFeaturedActions; trackBy: actionsTrackBy">            <ng-template *ngTemplateOutlet="actionButton; context: { $implicit: action }"></ng-template>        </ng-container>        <vcd-dropdown            class="inline-action-dropdown"            *ngIf="contextualActions.length && shouldDisplayContextualActionsDropdown"            [items]="contextualActions"            [trackByFunction]="actionsTrackBy"            [dropdownPosition]="dropdownPosition"            [nestedDropdownPosition]="nestedDropdownPosition"            [onItemClickedCb]="runActionHandler.bind(this)"            [isItemDisabledCb]="isActionDisabled.bind(this)"            [dropdownTriggerBtnTxt]="inlineDropdownTriggerBtnText"            [dropdownItemContents]="actionDisplayConfig.contextual.buttonContents"            [isDropdownDisabled]="disabled"        ></vcd-dropdown>    </ng-container>    <div class="static-actions-separator" *ngIf="shouldDisplayStaticAndStaticFeaturedActionsInline"></div>    <ng-container *ngIf="shouldDisplayStaticActions(actionStyling.INLINE)">        <ng-container *ngFor="let action of staticActions; trackBy: actionsTrackBy">            <ng-template *ngTemplateOutlet="actionButton; context: { $implicit: action }"></ng-template>        </ng-container>    </ng-container></div><vcd-dropdown    *ngIf="shouldDisplayStaticAndStaticFeaturedActionsDropdown"    [items]="staticDropdownActions"    [trackByFunction]="actionsTrackBy"    [dropdownPosition]="dropdownPosition"    [nestedDropdownPosition]="nestedDropdownPosition"    [onItemClickedCb]="runActionHandler.bind(this)"    [isItemDisabledCb]="isActionDisabled.bind(this)"    [dropdownTriggerBtnTxt]="dropdownTriggerBtnText"    [dropdownTriggerBtnIcon]="dropdownTriggerBtnIcon"    [dropdownItemContents]="actionDisplayConfig.contextual.buttonContents"    [isDropdownDisabled]="disabled"></vcd-dropdown><vcd-dropdown    *ngIf="shouldDisplayContextualActions(actionStyling.DROPDOWN)"    [items]="contextualActions"    [trackByFunction]="actionsTrackBy"    [dropdownPosition]="dropdownPosition"    [nestedDropdownPosition]="nestedDropdownPosition"    [onItemClickedCb]="runActionHandler.bind(this)"    [isItemDisabledCb]="isActionDisabled.bind(this)"    [dropdownTriggerBtnTxt]="dropdownTriggerBtnText"    [dropdownTriggerBtnIcon]="dropdownTriggerBtnIcon"    [dropdownItemContents]="actionDisplayConfig.contextual.buttonContents"    [isDropdownDisabled]="disabled"></vcd-dropdown><ng-template #actionButton let-action>    <button        class="btn btn-link"        [ngClass]="action.class"        (click)="runActionHandler(action)"        [disabled]="isActionDisabled(action)"    >        <ng-container *ngIf="shouldShowText">{{            action.isTranslatable === false ? action.textKey : (action.textKey | translate)        }}</ng-container>        <a *ngIf="shouldShowIcon" role="tooltip" aria-haspopup="true" class="tooltip tooltip-sm">            <clr-icon size="1em" [attr.shape]="action.icon"></clr-icon>            <span class="tooltip-content" *ngIf="shouldShowTooltip">{{ action.textKey }}</span>        </a>    </button></ng-template></div>'
+        var COMPONENT_TEMPLATE = '<div><div class="inline-actions-container" *ngIf="shouldDisplayActions(actionStyling.INLINE)">    <ng-container *ngIf="shouldDisplayStaticFeaturedActions(actionStyling.INLINE)">        <ng-container *ngFor="let action of staticFeaturedActions; trackBy: actionsTrackBy">            <ng-template *ngTemplateOutlet="actionButton; context: { $implicit: action }"></ng-template>        </ng-container>    </ng-container>    <ng-container *ngIf="shouldDisplayContextualActions(actionStyling.INLINE)">        <ng-container *ngFor="let action of contextualFeaturedActions; trackBy: actionsTrackBy">            <ng-template *ngTemplateOutlet="actionButton; context: { $implicit: action }"></ng-template>        </ng-container>        <vcd-dropdown            class="inline-action-dropdown"            *ngIf="contextualActions.length && shouldDisplayContextualActionsDropdown"            [items]="contextualActions"            [trackByFunction]="actionsTrackBy"            [dropdownPosition]="dropdownPosition"            [nestedDropdownPosition]="nestedDropdownPosition"            [onItemClickedCb]="runActionHandler.bind(this)"            [isItemDisabledCb]="isActionDisabled.bind(this)"            [dropdownTriggerBtnTxt]="inlineDropdownTriggerBtnText"            [dropdownItemContents]="actionDisplayConfig.contextual.buttonContents"            [isDropdownDisabled]="disabled"        ></vcd-dropdown>    </ng-container>    <ng-container *ngIf="shouldDisplayStaticActions(actionStyling.INLINE)">        <div class="static-actions-separator"></div>        <ng-container *ngFor="let action of staticActions; trackBy: actionsTrackBy">            <ng-template *ngTemplateOutlet="actionButton; context: { $implicit: action }"></ng-template>        </ng-container>    </ng-container></div><vcd-dropdown    *ngIf="shouldDisplayStaticAndStaticFeaturedActionsDropdown"    [items]="staticDropdownActions"    [trackByFunction]="actionsTrackBy"    [dropdownPosition]="dropdownPosition"    [nestedDropdownPosition]="nestedDropdownPosition"    [onItemClickedCb]="runActionHandler.bind(this)"    [isItemDisabledCb]="isActionDisabled.bind(this)"    [dropdownTriggerBtnTxt]="dropdownTriggerBtnText"    [dropdownTriggerBtnIcon]="dropdownTriggerBtnIcon"    [dropdownItemContents]="actionDisplayConfig.contextual.buttonContents"    [isDropdownDisabled]="disabled"></vcd-dropdown><vcd-dropdown    *ngIf="shouldDisplayContextualActions(actionStyling.DROPDOWN)"    [items]="contextualActions"    [trackByFunction]="actionsTrackBy"    [dropdownPosition]="dropdownPosition"    [nestedDropdownPosition]="nestedDropdownPosition"    [onItemClickedCb]="runActionHandler.bind(this)"    [isItemDisabledCb]="isActionDisabled.bind(this)"    [dropdownTriggerBtnTxt]="dropdownTriggerBtnText"    [dropdownTriggerBtnIcon]="dropdownTriggerBtnIcon"    [dropdownItemContents]="actionDisplayConfig.contextual.buttonContents"    [isDropdownDisabled]="disabled"></vcd-dropdown><ng-template #actionButton let-action>    <button        class="btn btn-link"        [ngClass]="action.class"        (click)="runActionHandler(action)"        [disabled]="isActionDisabled(action)"    >        <ng-container *ngIf="shouldShowText">{{            action.isTranslatable === false ? action.textKey : (action.textKey | translate)        }}</ng-container>        <a *ngIf="shouldShowIcon" role="tooltip" aria-haspopup="true" class="tooltip tooltip-sm">            <clr-icon size="1em" [attr.shape]="action.icon"></clr-icon>            <span class="tooltip-content" *ngIf="shouldShowTooltip">{{ action.textKey }}</span>        </a>    </button></ng-template></div>'
     var COMPONENTS = [{'name': 'ActionMenuComponent', 'selector': 'vcd-action-menu'},{'name': 'BannerActivityReporterComponent', 'selector': 'vcd-banner-activity-reporter'},{'name': 'BoldTextRendererComponent', 'selector': 'vcd-bold-text-renderer'},{'name': 'DataExporterComponent', 'selector': 'vcd-data-exporter'},{'name': 'DatagridComponent', 'selector': 'vcd-datagrid'},{'name': 'DatagridMultiSelectFilterComponent', 'selector': 'vcd-dg-multiselect-filter'},{'name': 'DatagridNumericFilterComponent', 'selector': 'vcd-dg-numeric-filter'},{'name': 'DatagridSelectFilterComponent', 'selector': 'vcd-dg-select-filter'},{'name': 'DatagridStringFilterComponent', 'selector': 'vcd-dg-string-filter'},{'name': 'DropdownComponent', 'selector': 'vcd-dropdown'},{'name': 'ErrorBannerComponent', 'selector': 'vcd-error-banner'},{'name': 'FilterTestHostComponent', 'selector': ''},{'name': 'FormCheckboxComponent', 'selector': 'vcd-form-checkbox'},{'name': 'FormInputComponent', 'selector': 'vcd-form-input'},{'name': 'FormlyInputComponent', 'selector': 'vcd-formly-input'},{'name': 'FormlyNumberWithUnitInputComponent', 'selector': 'vcd-formly-number-with-unit-input'},{'name': 'FormlySelectComponent', 'selector': 'vcd-formly-select'},{'name': 'FormSelectComponent', 'selector': 'vcd-form-select'},{'name': 'LoadingIndicatorComponent', 'selector': 'vcd-loading-indicator'},{'name': 'NumberWithUnitFormInputComponent', 'selector': 'vcd-number-with-unit-form-input'},{'name': 'ShowClippedTextDirectiveTestHostComponent', 'selector': ''},{'name': 'SpinnerActivityReporterComponent', 'selector': 'vcd-spinner-activity-reporter'},{'name': 'SpotlightSearchComponent', 'selector': 'vcd-spotlight-search'}];
     var DIRECTIVES = [{'name': 'ComponentRendererOutletDirective', 'selector': '[vcdComponentRendererOutlet]'},{'name': 'DynamicDropdownPositionDirective', 'selector': 'clr-dropdown[vcdDynamicDropdown]'},{'name': 'MinMaxValidator', 'selector': 'vcd-number-with-unit-form-input[min],vcd-number-with-unit-form-input[max]'},{'name': 'ShowClippedTextDirective', 'selector': '[vcdShowClippedText]'}];
     var ACTUAL_COMPONENT = {'name': 'ActionMenuComponent'};

@@ -466,6 +466,8 @@ function encodeValue(cellValue: unknown, shouldSanitize: boolean): string {
     let innerValue &#x3D; cellValue &#x3D;&#x3D; null ? &#x27;&#x27; : cellValue.toString();
     if (cellValue instanceof Date) {
         innerValue &#x3D; cellValue.toLocaleString();
+    } else if (cellValue &amp;&amp; typeof cellValue &#x3D;&#x3D;&#x3D; &#x27;object&#x27;) {
+        innerValue &#x3D; JSON.stringify(cellValue);
     }
     // Double quotes are doubled
     let result &#x3D; innerValue.replace(/&quot;/g, &#x27;&quot;&quot;&#x27;);
