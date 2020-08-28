@@ -35,6 +35,10 @@ interface DropdownItem<T extends DropdownItem<T>> {
      * To add separators between groups of dropdown items
      */
     isSeparator?: boolean;
+    /**
+     * This is the busy state for the menu item. Used by extension actions of plugins
+     */
+    busy?: boolean;
 }
 
 /**
