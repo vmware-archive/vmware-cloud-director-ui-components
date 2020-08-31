@@ -1,18 +1,12 @@
 Press <kbd>Command</kbd>+<kbd>f</kbd> on MacOS / <kbd>Ctrl</kbd>+<kbd>f</kbd> on PC or click
-<a href="javascript: void(0);" (click)="spotlightOpen = true">here</a> to open the Spotlight Search.
-<p>
-    There are two sections. One does the search asynchronously while the other synchronously.
-</p>
+<a href="javascript: void(0);" (click)="spotlightOpen = true">here</a> to open the Quick Search.
+<p>There are two sections. One does the search asynchronously while the other synchronously.</p>
 <p>
     Use the keyboard arrow keys to move through the search result. You can do this even while the results are still
     loading.
 </p>
-<p>
-    Press 'Enter' to invoke the selected action. You can also use the mouse to click on an item
-</p>
-<p>
-    Use the form below to configure the Spotlight Search
-</p>
+<p>Press 'Enter' to invoke the selected action. You can also use the mouse to click on an item</p>
+<p>Use the form below to configure the Quick Search</p>
 
 <form [formGroup]="formGroup" class="clr-form-horizontal">
     <vcd-form-input
@@ -24,4 +18,4 @@ Press <kbd>Command</kbd>+<kbd>f</kbd> on MacOS / <kbd>Ctrl</kbd>+<kbd>f</kbd> on
     </vcd-form-input>
 </form>
 
-<vcd-spotlight-search [(open)]="spotlightOpen" [placeholder]="formGroup.value.placeholder"></vcd-spotlight-search>
+<vcd-quick-search [(open)]="spotlightOpen" [placeholder]="formGroup.value.placeholder"></vcd-quick-search>

@@ -8,8 +8,8 @@ import {
     AbstractControl,
     FormBuilder,
     FormGroup,
-    NG_VALIDATORS,
     NgControl,
+    NG_VALIDATORS,
     ValidationErrors,
     Validator,
     ValidatorFn,
@@ -80,7 +80,7 @@ export class NumberWithUnitFormInputComponent extends BaseFormControl implements
     set unitOptions(unitOptions: Unit[]) {
         this._unitOptions = unitOptions;
 
-        this.unitOptions.forEach(unitOption => {
+        this.unitOptions.forEach((unitOption) => {
             const comboOption: SelectOption = {
                 display: unitOption.getUnitName(),
                 value: unitOption.getMultiplier(),
@@ -189,7 +189,7 @@ export class NumberWithUnitFormInputComponent extends BaseFormControl implements
                 comboUnitOptions: this.bestUnit.getMultiplier(),
                 unlimited: this.bestValue === UNLIMITED,
             });
-            this.tracker.subscribe(this.formGroup.get('unlimited').valueChanges, value => {
+            this.tracker.subscribe(this.formGroup.get('unlimited').valueChanges, (value) => {
                 const input = this.formGroup.get('limited');
                 // If checkbox is limited and value is UNLIMITED, or if checkbox is unlimited and input value is empty,
                 // set input value to 0.
@@ -257,7 +257,7 @@ export class NumberWithUnitFormInputComponent extends BaseFormControl implements
         if (value && this.unitOptions) {
             const selectedComboUnit = this.comboOptions.find(
                 // tslint:disable-next-line:triple-equals
-                co => co.value == this.formGroup.get('comboUnitOptions').value
+                (co) => co.value == this.formGroup.get('comboUnitOptions').value
             );
             const selectedUnit = this.comboOptionUnitMap.get(selectedComboUnit);
             return selectedUnit.getOutputValue(value, this.inputValueUnit);
@@ -298,7 +298,7 @@ export class NumberWithUnitFormInputComponent extends BaseFormControl implements
                 // is set programmatically
                 const displayComboUnit = this.comboOptions.find(
                     // tslint:disable-next-line:triple-equals
-                    co => co.value == this.formGroup.get('comboUnitOptions').value
+                    (co) => co.value == this.formGroup.get('comboUnitOptions').value
                 );
                 const displayUnit = this.comboOptionUnitMap.get(displayComboUnit);
                 return this.unitFormattter.bestFormat(value, displayUnit, this.unitOptions);

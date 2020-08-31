@@ -255,5 +255,8 @@
       }
     }
   },
-  "defaultProject": "examples"
+  "defaultProject": "examples",
+  "cli": {
+    "analytics": false
+  }
 }

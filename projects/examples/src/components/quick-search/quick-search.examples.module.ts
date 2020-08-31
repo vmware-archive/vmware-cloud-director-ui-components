@@ -4,25 +4,25 @@
  */
 
 import { NgModule } from '@angular/core';
-import { SpotlightSearchComponent } from '@vcd/ui-components';
+import { QuickSearchComponent } from '@vcd/ui-components';
 import { Documentation } from '@vmw/ng-live-docs';
-import { SpotlightSearchExampleComponent } from './spotlight-search-example.component';
-import { SpotlightSearchNoTitleExampleComponent } from './spotlight-search-no-title-example.component';
-import { SpotlightSearchExampleModule } from './spotlight-search.example.module';
+import { QuickSearchNoTitleExampleComponent } from './quick-search-no-title.example.component';
+import { QuickSearchSyncAsyncExampleComponent } from './quick-search-sync-async.example.component';
+import { QuickSearchSyncAsyncExampleModule } from './quick-search-sync-async.example.module';
 
 Documentation.registerDocumentationEntry({
-    component: SpotlightSearchComponent,
-    displayName: 'Spotlight Search',
+    component: QuickSearchComponent,
+    displayName: 'Quick Search',
     urlSegment: 'spotlightSearch',
     examples: [
         {
-            component: SpotlightSearchExampleComponent,
+            component: QuickSearchSyncAsyncExampleComponent,
             forComponent: null,
             title: 'Async and sync sections',
             urlSegment: 'async-sync-sections',
         },
         {
-            component: SpotlightSearchNoTitleExampleComponent,
+            component: QuickSearchNoTitleExampleComponent,
             forComponent: null,
             title: 'Single section with no title',
             urlSegment: 'no-title-section',
@@ -34,6 +34,6 @@ Documentation.registerDocumentationEntry({
  * A module that imports all activity reporter examples.
  */
 @NgModule({
-    imports: [SpotlightSearchExampleModule],
+    imports: [QuickSearchSyncAsyncExampleModule],
 })
-export class SpotlightSearchExamplesModule {}
+export class QuickSearchExamplesModule {}

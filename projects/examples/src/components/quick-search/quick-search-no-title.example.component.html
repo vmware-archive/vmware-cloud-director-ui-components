@@ -1,0 +1,10 @@
+Press <kbd>Command</kbd>+<kbd>f</kbd> on MacOS / <kbd>Ctrl</kbd>+<kbd>f</kbd> on PC or click
+<a href="javascript: void(0);" (click)="quickSearchOpen = true">here</a> to open Quick Search.
+<p>There is just one section with no title. That's why no section title is displayed at all.</p>
+<p>
+    Use the keyboard arrow keys to move through the search result. You can do this even while the results are still
+    loading.
+</p>
+<p>Press 'Enter' to invoke the selected action. You can also use the mouse to click on an item</p>
+
+<vcd-quick-search [(open)]="quickSearchOpen" [placeholder]="'Search ...'"></vcd-quick-search>
