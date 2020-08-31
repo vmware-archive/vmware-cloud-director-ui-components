@@ -15,6 +15,7 @@ import Mousetrap from 'mousetrap';
 
 @Component({
     selector: 'vcd-spotlight-example',
+    styleUrls: ['./spotlight-search-example.component.scss'],
     templateUrl: './spotlight-search-example.component.html',
 })
 export class SpotlightSearchExampleComponent implements OnInit, OnDestroy {

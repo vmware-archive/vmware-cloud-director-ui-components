@@ -17,6 +17,7 @@
             />
         </div>
         <div class="search-result-container">
+            <ng-content *ngIf="!searchCriteria" select=".no-search"></ng-content>
             <section
                 *ngFor="let searchSection of searchSections; let i = index"
                 class="search-result-section section-index-{{ i }}"

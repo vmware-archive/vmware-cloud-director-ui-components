@@ -24,4 +24,8 @@ Press <kbd>Command</kbd>+<kbd>f</kbd> on MacOS / <kbd>Ctrl</kbd>+<kbd>f</kbd> on
     </vcd-form-input>
 </form>
 
-<vcd-spotlight-search [(open)]="spotlightOpen" [placeholder]="formGroup.value.placeholder"></vcd-spotlight-search>
+<vcd-spotlight-search [(open)]="spotlightOpen" [placeholder]="formGroup.value.placeholder">
+    <div class="no-search">
+        This content is visible only if no search has taken place, i.e. when the search field is empty.
+    </div>
+</vcd-spotlight-search>

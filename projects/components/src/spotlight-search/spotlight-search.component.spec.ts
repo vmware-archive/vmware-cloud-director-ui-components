@@ -594,6 +594,30 @@ describe('SpotlightSearchComponent', () => {
             expect(this.spotlightSearch.seacrhPlaceholder).toBe('Search...');
         });
     });
+
+    describe('projecting ".no-search" content', () => {
+        it('shows projected content after opening', function(this: Test): void {
+            this.finder.hostComponent.spotlightOpen = true;
+            this.finder.detectChanges();
+            expect(this.spotlightSearch.searchResultContainerText).toEqual('No search content');
+        });
+
+        it('does not show projected content when searching', function(this: Test): void {
+            this.finder.hostComponent.spotlightOpen = true;
+            this.finder.detectChanges();
+            this.spotlightSearch.searchInputValue = ' ';
+            expect(this.spotlightSearch.searchResultContainerText).not.toContain('No search content');
+        });
+
+        it('shows projected content when the search is cleared', function(this: Test): void {
+            this.finder.hostComponent.spotlightOpen = true;
+            this.finder.detectChanges();
+            this.spotlightSearch.searchInputValue = 'c';
+            expect(this.spotlightSearch.searchResultContainerText).not.toContain('No search content');
+            this.spotlightSearch.searchInputValue = '';
+            expect(this.spotlightSearch.searchResultContainerText).toEqual('No search content');
+        });
+    });
 });
 
 @Component({
@@ -603,6 +627,9 @@ describe('SpotlightSearchComponent', () => {
             (resultActivated)="resultActivated($event)"
             [placeholder]="placeholder"
         >
+            <div class="no-search">No search content</div>
+            <div>Unavailable</div>
+            content
         </vcd-spotlight-search>
     `,
 })
@@ -653,6 +680,10 @@ export class SpotlightSearchWidgetObject extends WidgetObject<SpotlightSearchCom
 
     public pressArrowDown(): void {
         this.sendKeyboardEvent('ArrowDown', '.search-input-container input');
+    }
+
+    public get searchResultContainerText(): string {
+        return this.getText('.search-result-container');
     }
 
     public get searchResults(): string[] {
