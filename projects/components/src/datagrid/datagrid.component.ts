@@ -20,11 +20,10 @@ import {
     ViewChildren,
 } from '@angular/core';
 import { ClrDatagrid, ClrDatagridPagination, ClrDatagridStateInterface } from '@clr/angular';
+import { SelectionType } from '@clr/angular/data/datagrid/enums/selection-type';
 import { LazyString, TranslationService } from '@vcd/i18n';
 import { Observable } from 'rxjs';
-import {
-    ActionMenuComponent,
-} from '../action-menu/action-menu.component';
+import { ActionMenuComponent } from '../action-menu/action-menu.component';
 import { ActivityReporter } from '../common/activity-reporter';
 import {
     ActionDisplayConfig,
@@ -281,7 +280,7 @@ interface ColumnConfigInternal<R, T> extends GridColumn<R> {
     templateUrl: './datagrid.component.html',
     styleUrls: ['./datagrid.component.scss'],
 })
-export class DatagridComponent<R> implements OnInit, AfterViewInit, OnDestroy {
+export class DatagridComponent<R extends B, B = any> implements OnInit, AfterViewInit, OnDestroy {
     /**
      * Sets the configuration of columns on the grid and updates the {@link columnsConfig} array. Also pushes
      * notifications for listeners to make changes to the _columns array
@@ -321,11 +320,6 @@ export class DatagridComponent<R> implements OnInit, AfterViewInit, OnDestroy {
         this._selectionType = selectionType;
         this.clearSelectionInformation();
     }
-
-    /**
-     * Actions to be displayed on a grid or in a row
-     */
-    private _actions: ActionItem<R, unknown>[] = [];
 
     /**
      * List of actions given by the caller
@@ -423,20 +417,36 @@ export class DatagridComponent<R> implements OnInit, AfterViewInit, OnDestroy {
     /**
      * Returns the items selected in the VCD datagrid.
      */
-    get datagridSelection(): R[] {
+    @Input()
+    get datagridSelection(): B[] {
         if (this.datagrid.selection.currentSingle) {
             return [this.datagrid.selection.currentSingle];
         }
-        if (this.datagrid.selection.current) {
+        if (this.datagrid.selection.current && this.datagrid.selection.current.length) {
             return this.datagrid.selection.current;
         }
         return [];
     }
 
     /**
-     * An output that emits when the selection changes on the grid.
+     * Sets the items selected in the VCD datagrid.
      */
-    @Output() selectionChanged = new EventEmitter<R[]>();
+    set datagridSelection(selection: B[]) {
+        if (!this.viewInitted) {
+            this.initialSelection = selection;
+            return;
+        }
+
+        if (this._selectionType === GridSelectionType.Single) {
+            if (selection) {
+                this.datagrid.selection.currentSingle = selection[0];
+            } else {
+                this.datagrid.selection.currentSingle = null;
+            }
+        } else if (this._selectionType === GridSelectionType.Multi) {
+            this.datagrid.selection.current = selection;
+        }
+    }
 
     /**
      * If the contextual buttons should display on the top of a grid.
@@ -455,6 +465,43 @@ export class DatagridComponent<R> implements OnInit, AfterViewInit, OnDestroy {
     get shouldDisplayContextualActionsInRow(): boolean {
         return this.contextualActionPosition && this.contextualActionPosition === ContextualActionPosition.ROW;
     }
+
+    /**
+     * The {@link #maxFeaturedActionsOnRow} value depends in the contextual featured actions config which belongs to the
+     * {@link ActionMenuComponent} being used in the rows. So, we wait for action menus in rows to be initialized and then calculate
+     * the value
+     */
+    @ViewChildren('actionMenuInRow') set actionMenusInRow(actionMenus: QueryList<ActionMenuComponent<R, unknown>>) {
+        if (!actionMenus || !actionMenus.length) {
+            this.maxFeaturedActionsOnRow = 0;
+            return;
+        }
+        let max = 0;
+        actionMenus.forEach(actionMenu => {
+            const contextualFeaturedActions = actionMenu.contextualFeaturedActions;
+            max = Math.max(contextualFeaturedActions.length + 1, max);
+        });
+        this.maxFeaturedActionsOnRow = max;
+        this.changeDetectorRef.detectChanges();
+    }
+
+    /**
+     * Actions to be displayed on a grid or in a row
+     */
+    private _actions: ActionItem<R, unknown>[] = [];
+
+    private initialSelection: (B | R)[] = [];
+
+    /**
+     * An output that emits when the selection changes on the grid.
+     */
+    @Output() datagridSelectionChange = new EventEmitter<(B | R)[]>();
+    /**
+     * An output that emits when the selection changes on the grid.
+     *
+     * @deprecated
+     */
+    @Output() selectionChanged = this.datagridSelectionChange;
 
     /**
      * How to display the static and contextual actions.
@@ -563,16 +610,6 @@ export class DatagridComponent<R> implements OnInit, AfterViewInit, OnDestroy {
     items: R[] = [];
 
     /**
-     * The value of the single selection.
-     */
-    singleSelected: R = undefined;
-
-    /**
-     * The value of the multi selection.
-     */
-    multiSelection: R[] = [];
-
-    /**
      * The total number of items that could be displayed in the grid.
      */
     totalItems?: number;
@@ -609,23 +646,11 @@ export class DatagridComponent<R> implements OnInit, AfterViewInit, OnDestroy {
     maxFeaturedActionsOnRow = 0;
 
     /**
-     * The {@link maxFeaturedActionsOnRow} value depends in the contextual featured actions config which belongs to the
-     * {@link ActionMenuComponent} being used in the rows. So, we wait for action menus in rows to be initialized and then calculate
-     * the value
+     * If selection should be preserved when the item is not loaded to the grid.
+     *
+     * Defaults to false;
      */
-    @ViewChildren('actionMenuInRow') set actionMenusInRow(actionMenus: QueryList<ActionMenuComponent<R, unknown>>) {
-        if (!actionMenus || !actionMenus.length) {
-            this.maxFeaturedActionsOnRow = 0;
-            return;
-        }
-        let max = 0;
-        actionMenus.forEach(actionMenu => {
-            const contextualFeaturedActions = actionMenu.contextualFeaturedActions;
-            max = Math.max(contextualFeaturedActions.length + 1, max);
-        });
-        this.maxFeaturedActionsOnRow = max;
-        this.changeDetectorRef.detectChanges();
-    }
+    @Input() preserveSelection = false;
 
     /**
      * To add or replace a column of this datagrid columns. Exposed for columns modifiers(eg: directives) that listen to
@@ -672,8 +697,8 @@ export class DatagridComponent<R> implements OnInit, AfterViewInit, OnDestroy {
      *
      * If the record has a href, defaults to that. Else, defaults to index.
      */
-    @Input() trackBy: TrackByFunction<R> = (index: number, record): string => {
-        return (record as any).href || String(index);
+    @Input() trackBy: TrackByFunction<B> = (index: number, record): string => {
+        return (record as any).href;
     };
 
     /**
@@ -702,22 +727,24 @@ export class DatagridComponent<R> implements OnInit, AfterViewInit, OnDestroy {
     }
 
     private updateSelectedItems(): void {
-        if (this._selectionType === GridSelectionType.Single && this.datagrid.selection.currentSingle) {
-            // Tries to find the currently selected item. If it isn't found, clears the selection.
-            const current = this.datagrid.selection.currentSingle as R;
-            const found = this.mapSelectedRecords([current], this.items)[0];
-            if (!found) {
-                this.datagrid.selection.clearSelection();
-            } else {
-                this.datagrid.selection.setSelected(found, true);
-            }
-        } else if (this._selectionType === GridSelectionType.Multi) {
-            // Tries to find the currently selected items. If an item isn't found, clears the selection for that item.
-            if (this.datagrid.selection.current) {
-                const current = [...this.datagrid.selection.current] as R[];
-                this.datagrid.selection.clearSelection();
-                const nextSelection = this.mapSelectedRecords(current, this.items).filter(item => item);
-                this.datagrid.selection.updateCurrent(nextSelection, false);
+        if (!this.preserveSelection) {
+            if (this._selectionType === GridSelectionType.Single && this.datagrid.selection.currentSingle) {
+                // Tries to find the currently selected item. If it isn't found, clears the selection.
+                const current = this.datagrid.selection.currentSingle as R;
+                const found = this.mapSelectedRecords([current], this.items)[0];
+                if (!found) {
+                    this.datagrid.selection.clearSelection();
+                } else {
+                    this.datagrid.selection.setSelected(found, true);
+                }
+            } else if (this._selectionType === GridSelectionType.Multi) {
+                // Tries to find the currently selected items. If an item isn't found, clears the selection for that item.
+                if (this.datagrid.selection.current && this.datagrid.selection.current.length) {
+                    const current = [...this.datagrid.selection.current] as R[];
+                    this.datagrid.selection.clearSelection();
+                    const nextSelection = this.mapSelectedRecords(current, this.items).filter(item => item);
+                    this.datagrid.selection.updateCurrent(nextSelection, false);
+                }
             }
         }
         if (this.datagrid.rows) {
@@ -746,10 +773,10 @@ export class DatagridComponent<R> implements OnInit, AfterViewInit, OnDestroy {
         }
         if (this._selectionType === GridSelectionType.Single) {
             this.datagrid.selected = undefined;
-            this.datagrid.singleSelected = this.singleSelected;
+            this.datagrid.singleSelected = null;
         } else if (this._selectionType === GridSelectionType.Multi) {
             this.datagrid.singleSelected = undefined;
-            this.datagrid.selected = this.multiSelection;
+            this.datagrid.selected = [];
         } else if (this._selectionType === GridSelectionType.None) {
             this.datagrid.selected = [];
             this.datagrid.singleSelected = undefined;
@@ -901,6 +928,7 @@ export class DatagridComponent<R> implements OnInit, AfterViewInit, OnDestroy {
 
     ngAfterViewInit(): void {
         this.viewInitted = true;
+        this.datagridSelection = this.initialSelection;
         if (this.pagination.pageSize === 'Magic') {
             this.updatePagination();
             // We need to update the page size in ngAfterViewInit because when it is set
