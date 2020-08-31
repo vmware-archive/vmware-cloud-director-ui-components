@@ -5,17 +5,18 @@
 
 import { Directive, EventEmitter, Host, Input, OnDestroy, Output } from '@angular/core';
 import { MessageFormatTranslationService, TranslationService, TranslationSet } from '@vcd/i18n';
+import {
+    _EntityActionExtensionComponent,
+    EntityActionExtensionComponent,
+    EntityActionExtensionMenuEntry,
+    EntityActionExtensionMenuItem,
+    EntityActionExtensionSubmenu,
+} from '@vcd/sdk/common';
 import { combineLatest, Observable, Subscription } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { ActionItem } from '../../common/interfaces';
 import { SubscriptionTracker } from '../../common/subscription';
 import { ActionMenuComponent } from '../action-menu.component';
-import {
-    EntityActionExtensionComponent,
-    EntityActionExtensionMenuEntry,
-    EntityActionExtensionMenuItem,
-    EntityActionExtensionSubmenu,
-} from './entity-action-extension.component';
 
 /**
  * Provided by the calling component of {@link EntityActionExtensionComponentsDirective} as input
@@ -25,7 +26,7 @@ export interface EntityActionComponentContainer {
      * Every component referenced by an entity action extension point must inherit from this. Used for retrieving the extension action item
      * contents
      */
-    componentInstance: EntityActionExtensionComponent;
+    componentInstance: _EntityActionExtensionComponent;
     /**
      * Translation set to be used for translation of action item texts when displayed
      */
@@ -33,14 +34,14 @@ export interface EntityActionComponentContainer {
 }
 
 /**
- * This is an emitted event for a clicked menu item.
+ * Event emitted when a plugin action is clicked.
  */
 export interface EntityActionExtensionMenuItemClickEvent {
     /**
      * Every component referenced by an entity action extension point must inherit from this. used for performing action when a extension
      * action item is clicked
      */
-    component: EntityActionExtensionComponent;
+    component: _EntityActionExtensionComponent;
     /**
      * The Identifier of the entity that the action is being called for
      */
@@ -71,7 +72,7 @@ export class EntityActionExtensionComponentsDirective implements OnDestroy {
     private _entityActionExtensionContainers: EntityActionComponentContainer[];
 
     /**
-     * This is the URN of the entity the menu is being rendered from (e.g. the VM or vApp)
+     * The URN of the entity the menu is being rendered from (e.g. the VM or vApp)
      */
     @Input()
     set entityUrn(urn: string) {
@@ -81,7 +82,7 @@ export class EntityActionExtensionComponentsDirective implements OnDestroy {
     private _entityUrn: string;
 
     /**
-     * This is emitted if a menu item is clicked.
+     * Emitted if a menu item is clicked.
      */
     @Output()
     menuItemClick = new EventEmitter<EntityActionExtensionMenuItemClickEvent>();
@@ -90,7 +91,7 @@ export class EntityActionExtensionComponentsDirective implements OnDestroy {
     private subscription: Subscription;
 
     /**
-     * This is the model the view of {@link ActionMenuComponent} renders from. These are added to the end of contextual
+     * Model from which the view of {@link ActionMenuComponent} renders. These are added to the end of contextual
      * actions of action menu component
      */
     extensionActionItems: ActionItem<unknown, unknown>[] = [];

@@ -93,7 +93,7 @@ export interface ActionItem<R, T> {
      */
     isSeparator?: boolean;
     /**
-     * This is the busy state for the menu item. Used by extension actions of plugins
+     * Busy state for the menu item. Used by extension actions of plugins
      */
     busy?: boolean;
 }

@@ -58,7 +58,8 @@
     "rxjs": "6.5.5",
     "tsickle": "0.38.1",
     "tslib": "1.10.0",
-    "zone.js": "0.10.2"
+    "zone.js": "0.10.2",
+    "@vcd/sdk": "0.12.0"
   },
   "husky": {
     "hooks": {
