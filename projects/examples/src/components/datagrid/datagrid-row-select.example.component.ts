@@ -4,7 +4,13 @@
  */
 
 import { Component } from '@angular/core';
-import { GridColumn, GridDataFetchResult, GridSelectionType, GridState } from '@vcd/ui-components';
+import {
+    GridColumn,
+    GridDataFetchResult,
+    GridSelectionType,
+    GridState,
+    PaginationConfiguration,
+} from '@vcd/ui-components';
 
 interface Data {
     href: string;
@@ -21,13 +27,15 @@ interface Data {
         <button class="btn btn-primary" (click)="selectionType = GridSelectionType.Single">Single Select</button>
         <button class="btn btn-primary" (click)="selectionType = GridSelectionType.Multi">Multi Select Select</button>
         <button class="btn btn-primary" (click)="selectionType = GridSelectionType.None">No Select Select</button>
-        <button class="btn btn-primary" (click)="this.newData()">New Data</button>
         <vcd-datagrid
             [gridData]="gridData"
             (gridRefresh)="refresh($event)"
             [columns]="columns"
             [selectionType]="selectionType"
-            (selectionChanged)="selectionChanged($event)"
+            (datagridSelectionChange)="selectionChanged($event)"
+            [(datagridSelection)]="selectedItems"
+            [pagination]="paginationInfo"
+            [preserveSelection]="true"
         ></vcd-datagrid>
     `,
 })
@@ -46,21 +54,23 @@ export class DatagridRowSelectExampleComponent {
         },
     ];
 
+    selectedItems = [{ href: 'c' }];
+
+    paginationInfo: PaginationConfiguration = {
+        pageSize: 2,
+    };
+
     selectionChanged(selected: Data[]): void {
         console.log(selected);
     }
 
     refresh(eventData: GridState<Data>): void {
         this.gridData = {
-            items: [{ href: 'a', data: 5 }, { href: 'b', data: 5 }, { href: 'c', data: 5 }],
-            totalItems: 2,
-        };
-    }
-
-    newData(): void {
-        this.gridData = {
-            items: [{ href: 'a', data: 6 }, { href: 'b', data: 6 }, { href: 'd', data: 6 }],
-            totalItems: 2,
+            items: [{ href: 'a', data: 5 }, { href: 'b', data: 5 }, { href: 'c', data: 5 }].slice(
+                (eventData.pagination.pageNumber - 1) * eventData.pagination.itemsPerPage,
+                eventData.pagination.pageNumber * eventData.pagination.itemsPerPage
+            ),
+            totalItems: 3,
         };
     }
 }
