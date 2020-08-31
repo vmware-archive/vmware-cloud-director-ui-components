@@ -10,7 +10,7 @@ describe('MockTranslationService', () => {
 
     it('uses the perferred local set', () => {
         service.preferredLocale = 'en';
-        expect(service.activeLocale).toEqual('en');
+        expect(service.getActiveLocale()).toEqual('en');
     });
 
     it('formats dates using the default formatter', () => {
