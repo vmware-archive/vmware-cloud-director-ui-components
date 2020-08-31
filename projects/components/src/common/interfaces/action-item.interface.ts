@@ -92,6 +92,10 @@ export interface ActionItem<R, T> {
      * To add separators between groups of actions
      */
     isSeparator?: boolean;
+    /**
+     * Busy state for the menu item. Used by extension actions of plugins
+     */
+    busy?: boolean;
 }
 
 /**

@@ -10,7 +10,7 @@
         [disabled]="isDropdownDisabled"
     >
         <ng-container *ngIf="dropdownTriggerBtnTxt">
-            {{ dropdownTriggerBtnTxt | translate }}
+            {{ dropdownTriggerBtnTxt }}
             <clr-icon *ngIf="!isNestedDropdown" shape="caret down"></clr-icon>
         </ng-container>
         <clr-icon *ngIf="!dropdownTriggerBtnTxt" [attr.shape]="dropdownTriggerBtnIcon"></clr-icon>
@@ -33,7 +33,9 @@
                 <ng-container *ngIf="!action.isSeparator && action.children && action.children.length">
                     <vcd-dropdown
                         [items]="action.children"
-                        [dropdownTriggerBtnTxt]="action.textKey"
+                        [dropdownTriggerBtnTxt]="
+                            action.isTranslatable === false ? action.textKey : (action.textKey | translate)
+                        "
                         [dropdownTriggerButtonClassName]="action.class"
                         [nestedDropdownPosition]="nestedDropdownPosition"
                         [isNestedDropdown]="true"

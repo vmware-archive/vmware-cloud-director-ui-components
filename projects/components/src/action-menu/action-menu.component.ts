@@ -68,6 +68,16 @@ export class ActionMenuComponent<R, T> {
     }
 
     /**
+     * Used by the {@link EntityActionExtensionComponentsDirective} to provide the extension actions from plugins after
+     * they are created asynchronously
+     * @param val List of extension actions
+     */
+    set extensionEntityActions(val: ActionItem<unknown, unknown>[]) {
+        this._extensionEntityActions = val;
+    }
+    private _extensionEntityActions: ActionItem<unknown, unknown>[];
+
+    /**
      * When there are no nested actions and if none of the contextual actions are marked to be featured, they are shown inline
      */
     shouldDisplayContextualActionsDropdown = false;
@@ -237,7 +247,11 @@ export class ActionMenuComponent<R, T> {
                 !action.actionType ||
                 (action.actionType !== ActionType.STATIC_FEATURED && action.actionType !== ActionType.STATIC)
         );
-        return this.getAvailableActions(contextualActions);
+        const availableContextualActions = this.getAvailableActions(contextualActions);
+        if (this._extensionEntityActions) {
+            availableContextualActions.push(...this._extensionEntityActions);
+        }
+        return availableContextualActions;
     }
 
     /**
