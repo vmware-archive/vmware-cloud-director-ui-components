@@ -12,7 +12,7 @@ import {
     ActionStyling,
     ActionType,
     DEFAULT_ACTION_SEARCH_SECTION_HEADER_PREFIX,
-    SpotlightSearchService,
+    QuickSearchService,
     TextIcon,
 } from '@vcd/ui-components';
 import Mousetrap from 'mousetrap';
@@ -34,20 +34,20 @@ interface HandlerData {
 })
 export class ActionMenuExampleComponent<R extends Record, T extends HandlerData> implements OnInit, OnDestroy {
     constructor(
-        private spotlightSearchService: SpotlightSearchService,
+        private spotlightSearchService: QuickSearchService,
         private translationService: TranslationService,
         private ts: TranslationService
     ) {}
 
     get staticActions(): ActionItem<R, T>[] {
         return this.actions.filter(
-            action => action.actionType === ActionType.STATIC || action.actionType === ActionType.STATIC_FEATURED
+            (action) => action.actionType === ActionType.STATIC || action.actionType === ActionType.STATIC_FEATURED
         );
     }
 
     get contextualActions(): ActionItem<R, T>[] {
         return this.actions.filter(
-            action => action.actionType !== ActionType.STATIC && action.actionType !== ActionType.STATIC_FEATURED
+            (action) => action.actionType !== ActionType.STATIC && action.actionType !== ActionType.STATIC_FEATURED
         );
     }
     private spotlightSearchRegistrationId: string;
@@ -199,7 +199,7 @@ export class ActionMenuExampleComponent<R extends Record, T extends HandlerData>
             // If a modifier key is used then do not stop the callback from being called despite of the event origin
             // i.e. `ctrl+.` on input fields should not stop the callback,
             // while `.` should stop it and echo `.` in the input
-            if (['command'].some(key => combo.includes(key))) {
+            if (['command'].some((key) => combo.includes(key))) {
                 return false;
             }
             return originalStopCallback.call(mousetrap, e, element, combo);
@@ -211,15 +211,12 @@ export class ActionMenuExampleComponent<R extends Record, T extends HandlerData>
         });
         this.actionSearchProvider.actions = this.contextualActions;
         this.actionSearchProvider.selectedEntities = this.selectedEntities;
-        this.spotlightSearchRegistrationId = this.spotlightSearchService.registerProvider(
-            this.actionSearchProvider,
-            this.ts.translate(DEFAULT_ACTION_SEARCH_SECTION_HEADER_PREFIX, [
-                { actionProviderName: this.actionProviderName || '' },
-            ])
-        );
+        this.actionSearchProvider.sectionName = this.ts.translate(DEFAULT_ACTION_SEARCH_SECTION_HEADER_PREFIX, [
+            { actionProviderName: this.actionProviderName || '' },
+        ]);
+
+        this.spotlightSearchService.registerProvider(this.actionSearchProvider);
     }
 
-    ngOnDestroy(): void {
-        this.spotlightSearchService.unregisterProvider(this.spotlightSearchRegistrationId);
-    }
+    ngOnDestroy(): void {}
 }

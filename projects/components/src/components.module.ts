@@ -13,7 +13,7 @@ import { VcdDatagridModule } from './datagrid/datagrid.module';
 import { DropdownModule } from './dropdown/dropdown.module';
 import { VcdFormModule } from './form/form.module';
 import { ShowClippedTextDirectiveModule } from './lib/directives/show-clipped-text.directive.module';
-import { SpotlightSearchModule } from './spotlight-search/spotlight-search.module';
+import { QuickSearchModule } from './quick-search/quick-search.module';
 
 @NgModule({
     exports: [
@@ -24,7 +24,7 @@ import { SpotlightSearchModule } from './spotlight-search/spotlight-search.modul
         VcdLoadingIndicatorModule,
         VcdActivityReporterModule,
         VcdFormModule,
-        SpotlightSearchModule,
+        QuickSearchModule,
         VcdActionMenuModule,
         DropdownModule,
     ],

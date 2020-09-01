@@ -6,11 +6,11 @@
 import { Directive, EventEmitter, Host, Input, OnDestroy, Output } from '@angular/core';
 import { MessageFormatTranslationService, TranslationService, TranslationSet } from '@vcd/i18n';
 import {
-    _EntityActionExtensionComponent,
     EntityActionExtensionComponent,
     EntityActionExtensionMenuEntry,
     EntityActionExtensionMenuItem,
     EntityActionExtensionSubmenu,
+    _EntityActionExtensionComponent,
 } from '@vcd/sdk/common';
 import { combineLatest, Observable, Subscription } from 'rxjs';
 import { map } from 'rxjs/operators';
@@ -112,13 +112,13 @@ export class EntityActionExtensionComponentsDirective implements OnDestroy {
         if (this.subscription) {
             this.subTracker.unsubscribe(this.subscription);
         }
-        const actionItemsObservables = this._entityActionExtensionContainers.map(component =>
+        const actionItemsObservables = this._entityActionExtensionContainers.map((component) =>
             this.getExtensionActionItemObservable(component)
         );
 
         const combinedObservableOfActionItems = combineLatest(actionItemsObservables);
 
-        this.subscription = this.subTracker.subscribe(combinedObservableOfActionItems, actionItems => {
+        this.subscription = this.subTracker.subscribe(combinedObservableOfActionItems, (actionItems) => {
             this.extensionActionItems = actionItems;
             this.actionMenu.extensionEntityActions = this.extensionActionItems;
         });
@@ -136,7 +136,7 @@ export class EntityActionExtensionComponentsDirective implements OnDestroy {
                     };
                     return {
                         textKey: this.translate(subMenu.text, component.translations),
-                        children: subMenu.children.map(menuItem => this.getExtensionActionItem(menuItem, component)),
+                        children: subMenu.children.map((menuItem) => this.getExtensionActionItem(menuItem, component)),
                         isTranslatable: false,
                     };
                 }

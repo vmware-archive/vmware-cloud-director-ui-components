@@ -3,32 +3,30 @@
  * SPDX-License-Identifier: BSD-2-Clause
  */
 
-import { Component, Injectable, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import {
-    SpotlightSearchProvider,
-    SpotlightSearchResult,
-    SpotlightSearchResultType,
-    SpotlightSearchService,
+    QuickSearchProvider,
+    QuickSearchRegistrarService,
+    QuickSearchResult,
+    QuickSearchResultType,
 } from '@vcd/ui-components';
 import Mousetrap from 'mousetrap';
 
 @Component({
-    selector: 'vcd-spotlight-example',
-    templateUrl: './spotlight-search-example.component.html',
+    selector: 'vcd-quick-search-sync-async-example',
+    templateUrl: './quick-search-sync-async.example.component.html',
+    providers: [QuickSearchRegistrarService],
 })
-export class SpotlightSearchExampleComponent implements OnInit, OnDestroy {
+export class QuickSearchSyncAsyncExampleComponent implements OnInit, OnDestroy {
     formGroup: FormGroup;
     kbdShortcut = 'mod+f';
     spotlightOpen: boolean;
-    private registrationId: string;
-    private readonly mousetrap: MousetrapInstance;
+    private lazyLoadedProvider = new LazyLoadedActionsSearchProvider();
+    private actionsSearchProvider = new ActionsSearchProvider();
 
-    constructor(
-        private fb: FormBuilder,
-        private actionsSearchProvider: ActionsSearchProvider,
-        private spotlightSearchService: SpotlightSearchService
-    ) {
+    private readonly mousetrap: MousetrapInstance;
+    constructor(private fb: FormBuilder, private searchRegistrar: QuickSearchRegistrarService) {
         // Create an instance of mouse trap within the constructor so that any bount shortcut event handler
         // would be executed within the angular zone
         this.mousetrap = new Mousetrap();
@@ -47,39 +45,35 @@ export class SpotlightSearchExampleComponent implements OnInit, OnDestroy {
             this.spotlightOpen = true;
             return false;
         });
-
-        this.actionsSearchProvider.register();
+        this.searchRegistrar.register(this.actionsSearchProvider);
 
         // Register LazyLoadedActionsSearchProvider and ensure they go first in the list
-        this.registrationId = this.spotlightSearchService.registerProvider(
-            new LazyLoadedActionsSearchProvider(),
-            'Lazy Loaded Actions',
-            0
-        );
+        this.lazyLoadedProvider.order = 0;
+        this.searchRegistrar.register(this.lazyLoadedProvider);
     }
 
     ngOnDestroy(): void {
         this.mousetrap.reset();
-        this.spotlightSearchService.unregisterProvider(this.registrationId);
-        this.actionsSearchProvider.unregister();
     }
 }
 
 const actions: string[] = ['copy', 'paste', 'move', 'dummy'];
 
-function buildFilter(criteria: string): (item: SpotlightSearchResult) => boolean {
+function buildFilter(criteria: string): (item: QuickSearchResult) => boolean {
     criteria = criteria ? criteria.toLowerCase() : '';
-    return (item: SpotlightSearchResult) => criteria && item.displayText.toLowerCase().includes(criteria);
+    return (item: QuickSearchResult) => criteria && item.displayText.toLowerCase().includes(criteria);
 }
 
-@Injectable()
-export class ActionsSearchProvider implements SpotlightSearchProvider {
-    private actions: SpotlightSearchResult[];
-    private registrationId: string;
+export class ActionsSearchProvider implements QuickSearchProvider {
+    sectionName = 'Actions';
 
-    constructor(private spotlightSearchService: SpotlightSearchService) {
+    order = -1;
+
+    private actions: QuickSearchResult[];
+
+    constructor() {
         // Build actions
-        this.actions = actions.map(action => {
+        this.actions = actions.map((action) => {
             return {
                 displayText: action,
                 handler: () => {
@@ -96,21 +90,17 @@ export class ActionsSearchProvider implements SpotlightSearchProvider {
         });
     }
 
-    search(criteria: string): SpotlightSearchResult[] {
+    search(criteria: string): QuickSearchResult[] {
         return this.actions.filter(buildFilter(criteria));
-    }
-
-    register(): void {
-        this.registrationId = this.spotlightSearchService.registerProvider(this, 'Actions');
-    }
-
-    unregister(): void {
-        this.spotlightSearchService.unregisterProvider(this.registrationId);
     }
 }
 
-export class LazyLoadedActionsSearchProvider implements SpotlightSearchProvider {
-    private actions: SpotlightSearchResult[] = actions.map(action => {
+export class LazyLoadedActionsSearchProvider implements QuickSearchProvider {
+    sectionName = 'Lazy Loaded Actions';
+
+    order = -1;
+
+    private actions: QuickSearchResult[] = actions.map((action) => {
         return {
             displayText: `Lazy loaded ${action}`,
             handler: () => {
@@ -119,8 +109,8 @@ export class LazyLoadedActionsSearchProvider implements SpotlightSearchProvider 
         };
     });
 
-    search(criteria: string): SpotlightSearchResultType {
-        return new Promise(resolve => {
+    search(criteria: string): QuickSearchResultType {
+        return new Promise((resolve) => {
             setTimeout(() => resolve(this.actions.filter(buildFilter(criteria))), 2000);
         });
     }

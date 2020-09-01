@@ -6,7 +6,7 @@
 /**
  * The interface a spotlight search result item should implement
  */
-export interface SpotlightSearchResult {
+export interface QuickSearchResult {
     /**
      * The text that will be displayed in the spotlight search component
      */
@@ -22,4 +22,4 @@ export interface SpotlightSearchResult {
 /**
  * The type of the spotlight search result which can be a promise
  */
-export type SpotlightSearchResultType = SpotlightSearchResult[] | Promise<SpotlightSearchResult[]>;
+export type QuickSearchResultType = QuickSearchResult[] | Promise<QuickSearchResult[]>;
