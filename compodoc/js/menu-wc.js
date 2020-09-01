@@ -150,6 +150,24 @@ customElements.define('compodoc-menu', class extends HTMLElement {
                                     </li>
                             </li>
                             <li class="link">
+                                <a href="modules/QuickSearchModule.html" data-type="entity-link">QuickSearchModule</a>
+                                    <li class="chapter inner">
+                                        <div class="simple menu-toggler" data-toggle="collapse" ${ isNormalMode ?
+                                            'data-target="#components-links-module-QuickSearchModule-10fd0bc2b57922922ec8b8ab6c21b700"' : 'data-target="#xs-components-links-module-QuickSearchModule-10fd0bc2b57922922ec8b8ab6c21b700"' }>
+                                            <span class="icon ion-md-cog"></span>
+                                            <span>Components</span>
+                                            <span class="icon ion-ios-arrow-down"></span>
+                                        </div>
+                                        <ul class="links collapse" ${ isNormalMode ? 'id="components-links-module-QuickSearchModule-10fd0bc2b57922922ec8b8ab6c21b700"' :
+                                            'id="xs-components-links-module-QuickSearchModule-10fd0bc2b57922922ec8b8ab6c21b700"' }>
+                                            <li class="link">
+                                                <a href="components/QuickSearchComponent.html"
+                                                    data-type="entity-link" data-context="sub-entity" data-context-id="modules">QuickSearchComponent</a>
+                                            </li>
+                                        </ul>
+                                    </li>
+                            </li>
+                            <li class="link">
                                 <a href="modules/ShowClippedTextDirectiveModule.html" data-type="entity-link">ShowClippedTextDirectiveModule</a>
                                 <li class="chapter inner">
                                     <div class="simple menu-toggler" data-toggle="collapse" ${ isNormalMode ?
@@ -166,24 +184,6 @@ customElements.define('compodoc-menu', class extends HTMLElement {
                                         </li>
                                     </ul>
                                 </li>
-                            </li>
-                            <li class="link">
-                                <a href="modules/SpotlightSearchModule.html" data-type="entity-link">SpotlightSearchModule</a>
-                                    <li class="chapter inner">
-                                        <div class="simple menu-toggler" data-toggle="collapse" ${ isNormalMode ?
-                                            'data-target="#components-links-module-SpotlightSearchModule-ff504a8ad7e502a0bff355060fc2f3ff"' : 'data-target="#xs-components-links-module-SpotlightSearchModule-ff504a8ad7e502a0bff355060fc2f3ff"' }>
-                                            <span class="icon ion-md-cog"></span>
-                                            <span>Components</span>
-                                            <span class="icon ion-ios-arrow-down"></span>
-                                        </div>
-                                        <ul class="links collapse" ${ isNormalMode ? 'id="components-links-module-SpotlightSearchModule-ff504a8ad7e502a0bff355060fc2f3ff"' :
-                                            'id="xs-components-links-module-SpotlightSearchModule-ff504a8ad7e502a0bff355060fc2f3ff"' }>
-                                            <li class="link">
-                                                <a href="components/SpotlightSearchComponent.html"
-                                                    data-type="entity-link" data-context="sub-entity" data-context-id="modules">SpotlightSearchComponent</a>
-                                            </li>
-                                        </ul>
-                                    </li>
                             </li>
                             <li class="link">
                                 <a href="modules/VcdActionMenuModule.html" data-type="entity-link">VcdActionMenuModule</a>
@@ -351,13 +351,13 @@ customElements.define('compodoc-menu', class extends HTMLElement {
                                 <a href="modules/VcdFormlyModule.html" data-type="entity-link">VcdFormlyModule</a>
                                     <li class="chapter inner">
                                         <div class="simple menu-toggler" data-toggle="collapse" ${ isNormalMode ?
-                                            'data-target="#components-links-module-VcdFormlyModule-b608568184c802e79bf26296b2f10b11"' : 'data-target="#xs-components-links-module-VcdFormlyModule-b608568184c802e79bf26296b2f10b11"' }>
+                                            'data-target="#components-links-module-VcdFormlyModule-7051bd449414167f73c3b8f7a1d89131"' : 'data-target="#xs-components-links-module-VcdFormlyModule-7051bd449414167f73c3b8f7a1d89131"' }>
                                             <span class="icon ion-md-cog"></span>
                                             <span>Components</span>
                                             <span class="icon ion-ios-arrow-down"></span>
                                         </div>
-                                        <ul class="links collapse" ${ isNormalMode ? 'id="components-links-module-VcdFormlyModule-b608568184c802e79bf26296b2f10b11"' :
-                                            'id="xs-components-links-module-VcdFormlyModule-b608568184c802e79bf26296b2f10b11"' }>
+                                        <ul class="links collapse" ${ isNormalMode ? 'id="components-links-module-VcdFormlyModule-7051bd449414167f73c3b8f7a1d89131"' :
+                                            'id="xs-components-links-module-VcdFormlyModule-7051bd449414167f73c3b8f7a1d89131"' }>
                                             <li class="link">
                                                 <a href="components/FormlyInputComponent.html"
                                                     data-type="entity-link" data-context="sub-entity" data-context-id="modules">FormlyInputComponent</a>
@@ -547,6 +547,9 @@ customElements.define('compodoc-menu', class extends HTMLElement {
                                 <a href="classes/Percent.html" data-type="entity-link">Percent</a>
                             </li>
                             <li class="link">
+                                <a href="classes/QuickSearchProviderDefaults.html" data-type="entity-link">QuickSearchProviderDefaults</a>
+                            </li>
+                            <li class="link">
                                 <a href="classes/ShowClippedTextDirectiveTestHelper.html" data-type="entity-link">ShowClippedTextDirectiveTestHelper</a>
                             </li>
                             <li class="link">
@@ -584,7 +587,10 @@ customElements.define('compodoc-menu', class extends HTMLElement {
                                     <a href="injectables/CsvExporterService.html" data-type="entity-link">CsvExporterService</a>
                                 </li>
                                 <li class="link">
-                                    <a href="injectables/SpotlightSearchService.html" data-type="entity-link">SpotlightSearchService</a>
+                                    <a href="injectables/QuickSearchRegistrarService.html" data-type="entity-link">QuickSearchRegistrarService</a>
+                                </li>
+                                <li class="link">
+                                    <a href="injectables/QuickSearchService.html" data-type="entity-link">QuickSearchService</a>
                                 </li>
                             </ul>
                         </li>
@@ -708,9 +714,6 @@ customElements.define('compodoc-menu', class extends HTMLElement {
                                 <a href="interfaces/HasFinder.html" data-type="entity-link">HasFinder</a>
                             </li>
                             <li class="link">
-                                <a href="interfaces/InternalRegistrationData.html" data-type="entity-link">InternalRegistrationData</a>
-                            </li>
-                            <li class="link">
                                 <a href="interfaces/ISubscriptionTracker.html" data-type="entity-link">ISubscriptionTracker</a>
                             </li>
                             <li class="link">
@@ -735,7 +738,10 @@ customElements.define('compodoc-menu', class extends HTMLElement {
                                 <a href="interfaces/PagionationInformation.html" data-type="entity-link">PagionationInformation</a>
                             </li>
                             <li class="link">
-                                <a href="interfaces/RegisteredProviders.html" data-type="entity-link">RegisteredProviders</a>
+                                <a href="interfaces/QuickSearchProvider.html" data-type="entity-link">QuickSearchProvider</a>
+                            </li>
+                            <li class="link">
+                                <a href="interfaces/QuickSearchResult.html" data-type="entity-link">QuickSearchResult</a>
                             </li>
                             <li class="link">
                                 <a href="interfaces/ResultActivatedEvent.html" data-type="entity-link">ResultActivatedEvent</a>
@@ -748,12 +754,6 @@ customElements.define('compodoc-menu', class extends HTMLElement {
                             </li>
                             <li class="link">
                                 <a href="interfaces/SortedColumn.html" data-type="entity-link">SortedColumn</a>
-                            </li>
-                            <li class="link">
-                                <a href="interfaces/SpotlightSearchProvider.html" data-type="entity-link">SpotlightSearchProvider</a>
-                            </li>
-                            <li class="link">
-                                <a href="interfaces/SpotlightSearchResult.html" data-type="entity-link">SpotlightSearchResult</a>
                             </li>
                             <li class="link">
                                 <a href="interfaces/VcdFormlyFieldConfig.html" data-type="entity-link">VcdFormlyFieldConfig</a>

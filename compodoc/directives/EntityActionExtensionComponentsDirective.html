@@ -1065,11 +1065,11 @@ actions of action menu component</p>
         <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Directive, EventEmitter, Host, Input, OnDestroy, Output } from &#x27;@angular/core&#x27;;
 import { MessageFormatTranslationService, TranslationService, TranslationSet } from &#x27;@vcd/i18n&#x27;;
 import {
-    _EntityActionExtensionComponent,
     EntityActionExtensionComponent,
     EntityActionExtensionMenuEntry,
     EntityActionExtensionMenuItem,
     EntityActionExtensionSubmenu,
+    _EntityActionExtensionComponent,
 } from &#x27;@vcd/sdk/common&#x27;;
 import { combineLatest, Observable, Subscription } from &#x27;rxjs&#x27;;
 import { map } from &#x27;rxjs/operators&#x27;;
@@ -1171,13 +1171,13 @@ export class EntityActionExtensionComponentsDirective implements OnDestroy {
         if (this.subscription) {
             this.subTracker.unsubscribe(this.subscription);
         }
-        const actionItemsObservables &#x3D; this._entityActionExtensionContainers.map(component &#x3D;&gt;
+        const actionItemsObservables &#x3D; this._entityActionExtensionContainers.map((component) &#x3D;&gt;
             this.getExtensionActionItemObservable(component)
         );
 
         const combinedObservableOfActionItems &#x3D; combineLatest(actionItemsObservables);
 
-        this.subscription &#x3D; this.subTracker.subscribe(combinedObservableOfActionItems, actionItems &#x3D;&gt; {
+        this.subscription &#x3D; this.subTracker.subscribe(combinedObservableOfActionItems, (actionItems) &#x3D;&gt; {
             this.extensionActionItems &#x3D; actionItems;
             this.actionMenu.extensionEntityActions &#x3D; this.extensionActionItems;
         });
@@ -1195,7 +1195,7 @@ export class EntityActionExtensionComponentsDirective implements OnDestroy {
                     };
                     return {
                         textKey: this.translate(subMenu.text, component.translations),
-                        children: subMenu.children.map(menuItem &#x3D;&gt; this.getExtensionActionItem(menuItem, component)),
+                        children: subMenu.children.map((menuItem) &#x3D;&gt; this.getExtensionActionItem(menuItem, component)),
                         isTranslatable: false,
                     };
                 }

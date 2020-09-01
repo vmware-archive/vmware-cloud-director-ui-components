@@ -2356,8 +2356,8 @@ import {
     AbstractControl,
     FormBuilder,
     FormGroup,
-    NG_VALIDATORS,
     NgControl,
+    NG_VALIDATORS,
     ValidationErrors,
     Validator,
     ValidatorFn,
@@ -2428,7 +2428,7 @@ export class NumberWithUnitFormInputComponent extends BaseFormControl implements
     set unitOptions(unitOptions: Unit[]) {
         this._unitOptions &#x3D; unitOptions;
 
-        this.unitOptions.forEach(unitOption &#x3D;&gt; {
+        this.unitOptions.forEach((unitOption) &#x3D;&gt; {
             const comboOption: SelectOption &#x3D; {
                 display: unitOption.getUnitName(),
                 value: unitOption.getMultiplier(),
@@ -2537,7 +2537,7 @@ export class NumberWithUnitFormInputComponent extends BaseFormControl implements
                 comboUnitOptions: this.bestUnit.getMultiplier(),
                 unlimited: this.bestValue &#x3D;&#x3D;&#x3D; UNLIMITED,
             });
-            this.tracker.subscribe(this.formGroup.get(&#x27;unlimited&#x27;).valueChanges, value &#x3D;&gt; {
+            this.tracker.subscribe(this.formGroup.get(&#x27;unlimited&#x27;).valueChanges, (value) &#x3D;&gt; {
                 const input &#x3D; this.formGroup.get(&#x27;limited&#x27;);
                 // If checkbox is limited and value is UNLIMITED, or if checkbox is unlimited and input value is empty,
                 // set input value to 0.
@@ -2605,7 +2605,7 @@ export class NumberWithUnitFormInputComponent extends BaseFormControl implements
         if (value &amp;&amp; this.unitOptions) {
             const selectedComboUnit &#x3D; this.comboOptions.find(
                 // tslint:disable-next-line:triple-equals
-                co &#x3D;&gt; co.value &#x3D;&#x3D; this.formGroup.get(&#x27;comboUnitOptions&#x27;).value
+                (co) &#x3D;&gt; co.value &#x3D;&#x3D; this.formGroup.get(&#x27;comboUnitOptions&#x27;).value
             );
             const selectedUnit &#x3D; this.comboOptionUnitMap.get(selectedComboUnit);
             return selectedUnit.getOutputValue(value, this.inputValueUnit);
@@ -2646,7 +2646,7 @@ export class NumberWithUnitFormInputComponent extends BaseFormControl implements
                 // is set programmatically
                 const displayComboUnit &#x3D; this.comboOptions.find(
                     // tslint:disable-next-line:triple-equals
-                    co &#x3D;&gt; co.value &#x3D;&#x3D; this.formGroup.get(&#x27;comboUnitOptions&#x27;).value
+                    (co) &#x3D;&gt; co.value &#x3D;&#x3D; this.formGroup.get(&#x27;comboUnitOptions&#x27;).value
                 );
                 const displayUnit &#x3D; this.comboOptionUnitMap.get(displayComboUnit);
                 return this.unitFormattter.bestFormat(value, displayUnit, this.unitOptions);
@@ -2809,7 +2809,7 @@ export class NumberWithUnitFormInputComponent extends BaseFormControl implements
 <script src="../js/libs/deep-iterator.js"></script>
 <script>
         var COMPONENT_TEMPLATE = '<div><div class="form-group" *ngIf="isReadOnly">    <label>{{ label }}</label>    <span class="readonly-text">{{ this.displayValue }}</span></div><form [formGroup]="formGroup" *ngIf="!isReadOnly" class="input-number-with-unit">    <vcd-form-input        formControlName="limited"        [placeholder]="placeholder"        type="number"        [size]="size"        [min]="min"        [max]="max"        [maxlength]="maxlength"        [showAsterisk]="showAsterisk"        [label]="label"        [description]="description"        [errorLabels]="errorLabels"    >        <aside [ngSwitch]="unitOptions?.length">            <ng-container *ngSwitchCase="0">                <!-- Do not display unit -->            </ng-container>            <ng-container *ngSwitchCase="1">                <div class="single-option">                    {{ unitOptions[0].getUnitNameTranslationKey() | translate }}                </div>            </ng-container>            <vcd-form-select                class="combo-options"                *ngSwitchDefault                #unitDropdown                [options]="comboOptions"                formControlName="comboUnitOptions"            >            </vcd-form-select>            <clr-signpost *ngIf="hint">                <clr-signpost-content [clrPosition]="hintPosition" *clrIfOpen>                    <p>{{ hint }}</p>                </clr-signpost-content>            </clr-signpost>        </aside>        <footer *ngIf="showUnlimitedOption">            <vcd-form-checkbox [text]="\'vcd.cc.unlimited\' | translate" formControlName="unlimited"> </vcd-form-checkbox>        </footer>    </vcd-form-input></form></div>'
-    var COMPONENTS = [{'name': 'ActionMenuComponent', 'selector': 'vcd-action-menu'},{'name': 'BannerActivityReporterComponent', 'selector': 'vcd-banner-activity-reporter'},{'name': 'BoldTextRendererComponent', 'selector': 'vcd-bold-text-renderer'},{'name': 'DataExporterComponent', 'selector': 'vcd-data-exporter'},{'name': 'DatagridComponent', 'selector': 'vcd-datagrid'},{'name': 'DatagridMultiSelectFilterComponent', 'selector': 'vcd-dg-multiselect-filter'},{'name': 'DatagridNumericFilterComponent', 'selector': 'vcd-dg-numeric-filter'},{'name': 'DatagridSelectFilterComponent', 'selector': 'vcd-dg-select-filter'},{'name': 'DatagridStringFilterComponent', 'selector': 'vcd-dg-string-filter'},{'name': 'DropdownComponent', 'selector': 'vcd-dropdown'},{'name': 'ErrorBannerComponent', 'selector': 'vcd-error-banner'},{'name': 'FilterTestHostComponent', 'selector': ''},{'name': 'FormCheckboxComponent', 'selector': 'vcd-form-checkbox'},{'name': 'FormInputComponent', 'selector': 'vcd-form-input'},{'name': 'FormlyInputComponent', 'selector': 'vcd-formly-input'},{'name': 'FormlyNumberWithUnitInputComponent', 'selector': 'vcd-formly-number-with-unit-input'},{'name': 'FormlySelectComponent', 'selector': 'vcd-formly-select'},{'name': 'FormSelectComponent', 'selector': 'vcd-form-select'},{'name': 'LoadingIndicatorComponent', 'selector': 'vcd-loading-indicator'},{'name': 'NumberWithUnitFormInputComponent', 'selector': 'vcd-number-with-unit-form-input'},{'name': 'ShowClippedTextDirectiveTestHostComponent', 'selector': ''},{'name': 'SpinnerActivityReporterComponent', 'selector': 'vcd-spinner-activity-reporter'},{'name': 'SpotlightSearchComponent', 'selector': 'vcd-spotlight-search'}];
+    var COMPONENTS = [{'name': 'ActionMenuComponent', 'selector': 'vcd-action-menu'},{'name': 'BannerActivityReporterComponent', 'selector': 'vcd-banner-activity-reporter'},{'name': 'BoldTextRendererComponent', 'selector': 'vcd-bold-text-renderer'},{'name': 'DataExporterComponent', 'selector': 'vcd-data-exporter'},{'name': 'DatagridComponent', 'selector': 'vcd-datagrid'},{'name': 'DatagridMultiSelectFilterComponent', 'selector': 'vcd-dg-multiselect-filter'},{'name': 'DatagridNumericFilterComponent', 'selector': 'vcd-dg-numeric-filter'},{'name': 'DatagridSelectFilterComponent', 'selector': 'vcd-dg-select-filter'},{'name': 'DatagridStringFilterComponent', 'selector': 'vcd-dg-string-filter'},{'name': 'DropdownComponent', 'selector': 'vcd-dropdown'},{'name': 'ErrorBannerComponent', 'selector': 'vcd-error-banner'},{'name': 'FilterTestHostComponent', 'selector': ''},{'name': 'FormCheckboxComponent', 'selector': 'vcd-form-checkbox'},{'name': 'FormInputComponent', 'selector': 'vcd-form-input'},{'name': 'FormlyInputComponent', 'selector': 'vcd-formly-input'},{'name': 'FormlyNumberWithUnitInputComponent', 'selector': 'vcd-formly-number-with-unit-input'},{'name': 'FormlySelectComponent', 'selector': 'vcd-formly-select'},{'name': 'FormSelectComponent', 'selector': 'vcd-form-select'},{'name': 'LoadingIndicatorComponent', 'selector': 'vcd-loading-indicator'},{'name': 'NumberWithUnitFormInputComponent', 'selector': 'vcd-number-with-unit-form-input'},{'name': 'QuickSearchComponent', 'selector': 'vcd-quick-search'},{'name': 'ShowClippedTextDirectiveTestHostComponent', 'selector': ''},{'name': 'SpinnerActivityReporterComponent', 'selector': 'vcd-spinner-activity-reporter'}];
     var DIRECTIVES = [{'name': 'ComponentRendererOutletDirective', 'selector': '[vcdComponentRendererOutlet]'},{'name': 'DynamicDropdownPositionDirective', 'selector': 'clr-dropdown[vcdDynamicDropdown]'},{'name': 'EntityActionExtensionComponentsDirective', 'selector': 'vcd-action-menu[vcdEntityActionExtensionContainers]'},{'name': 'MinMaxValidator', 'selector': 'vcd-number-with-unit-form-input[min],vcd-number-with-unit-form-input[max]'},{'name': 'ShowClippedTextDirective', 'selector': '[vcdShowClippedText]'}];
     var ACTUAL_COMPONENT = {'name': 'NumberWithUnitFormInputComponent'};
 </script>

@@ -278,8 +278,8 @@ import {
     AbstractControl,
     FormBuilder,
     FormGroup,
-    NG_VALIDATORS,
     NgControl,
+    NG_VALIDATORS,
     ValidationErrors,
     Validator,
     ValidatorFn,
@@ -350,7 +350,7 @@ export class NumberWithUnitFormInputComponent extends BaseFormControl implements
     set unitOptions(unitOptions: Unit[]) {
         this._unitOptions &#x3D; unitOptions;
 
-        this.unitOptions.forEach(unitOption &#x3D;&gt; {
+        this.unitOptions.forEach((unitOption) &#x3D;&gt; {
             const comboOption: SelectOption &#x3D; {
                 display: unitOption.getUnitName(),
                 value: unitOption.getMultiplier(),
@@ -459,7 +459,7 @@ export class NumberWithUnitFormInputComponent extends BaseFormControl implements
                 comboUnitOptions: this.bestUnit.getMultiplier(),
                 unlimited: this.bestValue &#x3D;&#x3D;&#x3D; UNLIMITED,
             });
-            this.tracker.subscribe(this.formGroup.get(&#x27;unlimited&#x27;).valueChanges, value &#x3D;&gt; {
+            this.tracker.subscribe(this.formGroup.get(&#x27;unlimited&#x27;).valueChanges, (value) &#x3D;&gt; {
                 const input &#x3D; this.formGroup.get(&#x27;limited&#x27;);
                 // If checkbox is limited and value is UNLIMITED, or if checkbox is unlimited and input value is empty,
                 // set input value to 0.
@@ -527,7 +527,7 @@ export class NumberWithUnitFormInputComponent extends BaseFormControl implements
         if (value &amp;&amp; this.unitOptions) {
             const selectedComboUnit &#x3D; this.comboOptions.find(
                 // tslint:disable-next-line:triple-equals
-                co &#x3D;&gt; co.value &#x3D;&#x3D; this.formGroup.get(&#x27;comboUnitOptions&#x27;).value
+                (co) &#x3D;&gt; co.value &#x3D;&#x3D; this.formGroup.get(&#x27;comboUnitOptions&#x27;).value
             );
             const selectedUnit &#x3D; this.comboOptionUnitMap.get(selectedComboUnit);
             return selectedUnit.getOutputValue(value, this.inputValueUnit);
@@ -568,7 +568,7 @@ export class NumberWithUnitFormInputComponent extends BaseFormControl implements
                 // is set programmatically
                 const displayComboUnit &#x3D; this.comboOptions.find(
                     // tslint:disable-next-line:triple-equals
-                    co &#x3D;&gt; co.value &#x3D;&#x3D; this.formGroup.get(&#x27;comboUnitOptions&#x27;).value
+                    (co) &#x3D;&gt; co.value &#x3D;&#x3D; this.formGroup.get(&#x27;comboUnitOptions&#x27;).value
                 );
                 const displayUnit &#x3D; this.comboOptionUnitMap.get(displayComboUnit);
                 return this.unitFormattter.bestFormat(value, displayUnit, this.unitOptions);

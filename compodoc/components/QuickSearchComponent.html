@@ -1,0 +1,2087 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>vmware-cloud-director-ui-components documentation</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
+	      <link rel="stylesheet" href="../styles/style.css">
+    </head>
+    <body>
+
+        <div class="navbar navbar-default navbar-fixed-top visible-xs">
+            <a href="../" class="navbar-brand">vmware-cloud-director-ui-components documentation</a>
+            <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
+        </div>
+
+        <div class="xs-menu menu" id="mobile-menu">
+                <div id="book-search-input" role="search"><input type="text" placeholder="Type to search"></div>            <compodoc-menu></compodoc-menu>
+        </div>
+
+        <div class="container-fluid main">
+           <div class="row main">
+               <div class="hidden-xs menu">
+                   <compodoc-menu mode="normal"></compodoc-menu>
+               </div>
+               <!-- START CONTENT -->
+               <div class="content component">
+                   <div class="content-data">
+
+
+
+
+<ol class="breadcrumb">
+  <li>Components</li>
+  <li>QuickSearchComponent</li>
+</ol>
+
+<ul class="nav nav-tabs" role="tablist">
+        <li class="active">
+            <a href="#info" role="tab" id="info-tab" data-toggle="tab" data-link="info">Info</a>
+        </li>
+        <li >
+            <a href="#source" role="tab" id="source-tab" data-toggle="tab" data-link="source">Source</a>
+        </li>
+        <li >
+            <a href="#templateData" role="tab" id="templateData-tab" data-toggle="tab" data-link="template">Template</a>
+        </li>
+        <li >
+            <a href="#styleData" role="tab" id="styleData-tab" data-toggle="tab" data-link="style">Styles</a>
+        </li>
+        <li >
+            <a href="#tree" role="tab" id="tree-tab" data-toggle="tab" data-link="dom-tree">DOM Tree</a>
+        </li>
+</ul>
+
+<div class="tab-content">
+    <div class="tab-pane fade active in" id="c-info"><p class="comment">
+    <h3>File</h3>
+</p>
+<p class="comment">
+    <code>projects/components/src/quick-search/quick-search.component.ts</code>
+</p>
+
+    <p class="comment">
+        <h3>Description</h3>
+    </p>
+    <p class="comment">
+        <p>The Quick Search component is inspired by the Spotlight Search in Mac OSX (cmd+space)
+and the Search Everywhere in IntelliJ (shift+shift)</p>
+<p>This VCD Quick Search does not provide any search by itself. It is not also a single component
+but rather a group of objects that work together in order to allow the developer to build a might search experience
+for the end user.</p>
+<p>Basically the VCD Quick Search consists of:</p>
+<ul>
+     <li>QuickSearchComponent - the visual component that you should include in your template</li>
+     <li><a href="../injectables/QuickSearchService.html">QuickSearchService</a><a href="/compodoc/injectables/QuickSearchService.html">QuickSearchService</a>
+     - the service that you should register your own providers with</li>
+     <li><a href="../interfaces/QuickSearchProvider.html">QuickSearchProvider</a><a href="/compodoc/interfaces/QuickSearchProvider.html">QuickSearchProvider</a>
+     - the interface your search provider should implement.
+     It can return either an array of <a href="../interfaces/QuickSearchResult.html">QuickSearchResult</a> or a promise for lazy loading of results</li>
+</ul>
+
+<p>QuickSearchComponent:</p>
+<div><pre class="line-numbers"><code class="language-none">&lt;vcd-quick-search
+    [(open)]=&quot;quickSearchOpen&quot;
+    [placeholder]=&quot;&#39;Search ...&#39;&quot;
+&gt;&lt;/vcd-quick-search&gt;</code></pre></div><p><a href="../injectables/QuickSearchService.html">QuickSearchService</a>:</p>
+<p>This service works along with the component in order to provide search results displayed. Those results are grouped
+in sections based on the registered provider <a href="../interfaces/QuickSearchProvider.html">QuickSearchProvider</a>.</p>
+<p>You can provide order of the search providers, hence the order of the displayed sections</p>
+<p>If there is just one search provider no section title is displayed.</p>
+<p>In case of multiple search providers the Quick Search can be configured to hide the entire section if it contains no data.</p>
+<p>For a complete end-to-end running example please take a look at the <code>Examples</code> tab of the live-docs</p>
+
+    </p>
+
+
+
+
+<section>
+    <h3>Metadata</h3>
+    <table class="table table-sm table-hover">
+        <tbody>
+
+
+
+
+
+
+
+
+
+
+
+            <tr>
+                <td class="col-md-3">selector</td>
+                <td class="col-md-9"><code>vcd-quick-search</code></td>
+            </tr>
+
+            <tr>
+                <td class="col-md-3">styleUrls</td>
+                <td class="col-md-9"><code>./quick-search.component.scss</code></td>
+            </tr>
+
+
+
+            <tr>
+                <td class="col-md-3">templateUrl</td>
+                <td class="col-md-9"><code>./quick-search.component.html</code></td>
+            </tr>
+
+
+
+
+
+
+
+
+        </tbody>
+    </table>
+</section>
+
+    <section>
+    <h3 id="index">Index</h3>
+    <table class="table table-sm table-bordered index-table">
+        <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Properties</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#_open">_open</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#_searchCriteria">_searchCriteria</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#searchId">searchId</a>
+                            </li>
+                            <li>
+                                <a href="#searchInput">searchInput</a>
+                            </li>
+                            <li>
+                                <a href="#searchSections">searchSections</a>
+                            </li>
+                            <li>
+                                <a href="#selectedItem">selectedItem</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Public</span>
+                                <a href="#translationService">translationService</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Methods</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#doSearch">doSearch</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#handleItem">handleItem</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#handleOpen">handleOpen</a>
+                            </li>
+                            <li>
+                                <a href="#itemClicked">itemClicked</a>
+                            </li>
+                            <li>
+                                <a href="#onArrowDown">onArrowDown</a>
+                            </li>
+                            <li>
+                                <a href="#onArrowUp">onArrowUp</a>
+                            </li>
+                            <li>
+                                <a href="#onEnterKey">onEnterKey</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#selectFirst">selectFirst</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#selectNext">selectNext</a>
+                            </li>
+                            <li>
+                                <a href="#showSectionTitle">showSectionTitle</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Inputs</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#open">open</a>
+                            </li>
+                            <li>
+                                <a href="#placeholder">placeholder</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Outputs</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#openChange">openChange</a>
+                            </li>
+                            <li>
+                                <a href="#resultActivated">resultActivated</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <h6><b>Accessors</b></h6>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <ul class="index-list">
+                                <li>
+                                    <a href="#open">open</a>
+                                </li>
+                                <li>
+                                    <a href="#searchCriteria">searchCriteria</a>
+                                </li>
+                            </ul>
+                        </td>
+                    </tr>
+        </tbody>
+    </table>
+</section>
+
+    <section>
+    <h3 id="constructor">Constructor</h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+<code>constructor(searchService: <a href="../injectables/QuickSearchService.html">QuickSearchService</a>, changeDetectorRef: <a href="https://angular.io/api/core/ChangeDetectorRef" target="_blank">ChangeDetectorRef</a>, el: <a href="https://angular.io/api/core/ElementRef" target="_blank">ElementRef</a>, translationService: TranslationService)</code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="102" class="link-to-prism">projects/components/src/quick-search/quick-search.component.ts:102</a></div>
+                            </td>
+                        </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                            <div>
+                                    <b>Parameters :</b>
+                                    <table class="params">
+                                        <thead>
+                                            <tr>
+                                                <td>Name</td>
+                                                    <td>Type</td>
+                                                <td>Optional</td>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                                <tr>
+                                                        <td>searchService</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="../injectables/QuickSearchService.html" target="_self" >QuickSearchService</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>changeDetectorRef</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="https://angular.io/api/core/ChangeDetectorRef" target="_blank" >ChangeDetectorRef</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>el</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="https://angular.io/api/core/ElementRef" target="_blank" >ElementRef</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>translationService</td>
+                                                  
+                                                        <td>
+                                                                    <code>TranslationService</code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                        </tbody>
+                                    </table>
+                            </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+</section>
+
+    <section>
+    <h3 id="inputs">Inputs</h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="open"></a>
+                        <b>open</b>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank" >boolean</a></code>
+
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-2" colspan="2">
+                                    <div class="io-line">Defined in <a href="" data-line="85" class="link-to-prism">projects/components/src/quick-search/quick-search.component.ts:85</a></div>
+                            </td>
+                        </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <div class="io-description"><p>This property alongside with <code>openChange</code> provide two-way binding [(open)] for controlling the visibility state
+of the spotlight component</p>
+</div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="placeholder"></a>
+                        <b>placeholder</b>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-2" colspan="2">
+                                    <div class="io-line">Defined in <a href="" data-line="78" class="link-to-prism">projects/components/src/quick-search/quick-search.component.ts:78</a></div>
+                            </td>
+                        </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <div class="io-description"><p>Placeholder for the search input. Default is empty string;</p>
+</div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+</section>
+    <section>
+    <h3 id="outputs">Outputs</h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="openChange"></a>
+                        <b>openChange</b>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>EventEmitter&lt;boolean&gt;</code>
+
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-2" colspan="2">
+                                    <div class="io-line">Defined in <a href="" data-line="96" class="link-to-prism">projects/components/src/quick-search/quick-search.component.ts:96</a></div>
+                            </td>
+                        </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <div class="io-description"><p>This method along with <code>open</code> property provide two-way binding [(open)] for controlling the visibility state
+of the spotlight component</p>
+</div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="resultActivated"></a>
+                        <b>resultActivated</b>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="../interfaces/ResultActivatedEvent.html" target="_self" >EventEmitter&lt;ResultActivatedEvent&gt;</a></code>
+
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-2" colspan="2">
+                                    <div class="io-line">Defined in <a href="" data-line="102" class="link-to-prism">projects/components/src/quick-search/quick-search.component.ts:102</a></div>
+                            </td>
+                        </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <div class="io-description"><p>Event dispatched when item has been activated, i.e. its event handler is called.
+This happens when item is clicked or &#39;Enter&#39; is pressed when there is a selection.</p>
+</div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+</section>
+
+
+    <section>
+    
+    <h3 id="methods">
+        Methods
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="doSearch"></a>
+                    <span class="name">
+                        <b>
+                            <span class="modifier">Private</span>
+                            doSearch
+                        </b>
+                        <a href="#doSearch"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                    <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>doSearch()</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="157"
+                            class="link-to-prism">projects/components/src/quick-search/quick-search.component.ts:157</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="handleItem"></a>
+                    <span class="name">
+                        <b>
+                            <span class="modifier">Private</span>
+                            handleItem
+                        </b>
+                        <a href="#handleItem"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                    <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>handleItem(item: <a href="../interfaces/QuickSearchResult.html">QuickSearchResult</a>, clicked: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank">boolean</a>)</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="284"
+                            class="link-to-prism">projects/components/src/quick-search/quick-search.component.ts:284</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Type</td>
+                                    <td>Optional</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>item</td>
+                                    <td>
+                                                <code><a href="../interfaces/QuickSearchResult.html" target="_self" >QuickSearchResult</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                                <tr>
+                                    <td>clicked</td>
+                                    <td>
+                                                <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank" >boolean</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                    </div>
+                    <div class="io-description">
+                        
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="handleOpen"></a>
+                    <span class="name">
+                        <b>
+                            <span class="modifier">Private</span>
+                            handleOpen
+                        </b>
+                        <a href="#handleOpen"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                    <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>handleOpen(open: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank">boolean</a>)</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="260"
+                            class="link-to-prism">projects/components/src/quick-search/quick-search.component.ts:260</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Handle showing / hiding of the Quick Search.</p>
+</div>
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Type</td>
+                                    <td>Optional</td>
+                                    <td>Description</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>open</td>
+                                    <td>
+                                                <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank" >boolean</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                    <td>
+                                        <p>true when opening, false when closing</p>
+
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                    </div>
+                    <div class="io-description">
+                        
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="itemClicked"></a>
+                    <span class="name">
+                        <b>
+                            itemClicked
+                        </b>
+                        <a href="#itemClicked"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>itemClicked(item: <a href="../interfaces/QuickSearchResult.html">QuickSearchResult</a>)</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="135"
+                            class="link-to-prism">projects/components/src/quick-search/quick-search.component.ts:135</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Type</td>
+                                    <td>Optional</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>item</td>
+                                    <td>
+                                                <code><a href="../interfaces/QuickSearchResult.html" target="_self" >QuickSearchResult</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                    </div>
+                    <div class="io-description">
+                        
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="onArrowDown"></a>
+                    <span class="name">
+                        <b>
+                            onArrowDown
+                        </b>
+                        <a href="#onArrowDown"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>onArrowDown(event: KeyboardEvent)</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="139"
+                            class="link-to-prism">projects/components/src/quick-search/quick-search.component.ts:139</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Type</td>
+                                    <td>Optional</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>event</td>
+                                    <td>
+                                            <code>KeyboardEvent</code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                    </div>
+                    <div class="io-description">
+                        
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="onArrowUp"></a>
+                    <span class="name">
+                        <b>
+                            onArrowUp
+                        </b>
+                        <a href="#onArrowUp"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>onArrowUp(event: KeyboardEvent)</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="144"
+                            class="link-to-prism">projects/components/src/quick-search/quick-search.component.ts:144</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Type</td>
+                                    <td>Optional</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>event</td>
+                                    <td>
+                                            <code>KeyboardEvent</code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                    </div>
+                    <div class="io-description">
+                        
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="onEnterKey"></a>
+                    <span class="name">
+                        <b>
+                            onEnterKey
+                        </b>
+                        <a href="#onEnterKey"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>onEnterKey(event)</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="149"
+                            class="link-to-prism">projects/components/src/quick-search/quick-search.component.ts:149</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Optional</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>event</td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                    </div>
+                    <div class="io-description">
+                        
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="selectFirst"></a>
+                    <span class="name">
+                        <b>
+                            <span class="modifier">Private</span>
+                            selectFirst
+                        </b>
+                        <a href="#selectFirst"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                    <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>selectFirst(ensureFirstSectionIsLoaded: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank">boolean</a>)</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="191"
+                            class="link-to-prism">projects/components/src/quick-search/quick-search.component.ts:191</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Try to select the first item in the compound search result.</p>
+</div>
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Type</td>
+                                    <td>Optional</td>
+                                    <td>Description</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>ensureFirstSectionIsLoaded</td>
+                                    <td>
+                                                <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank" >boolean</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                    <td>
+                                        <p>if true and if the topmost section is still loading then do not select an item</p>
+
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                    </div>
+                    <div class="io-description">
+                        
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="selectNext"></a>
+                    <span class="name">
+                        <b>
+                            <span class="modifier">Private</span>
+                            selectNext
+                        </b>
+                        <a href="#selectNext"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                    <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>selectNext(down: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank">boolean</a>)</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="209"
+                            class="link-to-prism">projects/components/src/quick-search/quick-search.component.ts:209</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Type</td>
+                                    <td>Optional</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>down</td>
+                                    <td>
+                                                <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank" >boolean</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                    </div>
+                    <div class="io-description">
+                        
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="showSectionTitle"></a>
+                    <span class="name">
+                        <b>
+                            showSectionTitle
+                        </b>
+                        <a href="#showSectionTitle"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>showSectionTitle(searchSection: <a href="../interfaces/SearchSection.html">SearchSection</a>)</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="299"
+                            class="link-to-prism">projects/components/src/quick-search/quick-search.component.ts:299</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Type</td>
+                                    <td>Optional</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>searchSection</td>
+                                    <td>
+                                                <code><a href="../interfaces/SearchSection.html" target="_self" >SearchSection</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank" >boolean</a></code>
+
+                    </div>
+                    <div class="io-description">
+                        
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</section>
+    <section>
+    
+        <h3 id="inputs">
+            Properties
+        </h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="_open"></a>
+                        <span class="name">
+                            <b>
+                                <span class="modifier">Private</span>
+                            _open</b>
+                            <a href="#_open"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank" >boolean</a></code>
+
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Default value : </i><code>false</code>
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="121" class="link-to-prism">projects/components/src/quick-search/quick-search.component.ts:121</a></div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="_searchCriteria"></a>
+                        <span class="name">
+                            <b>
+                                <span class="modifier">Private</span>
+                            _searchCriteria</b>
+                            <a href="#_searchCriteria"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="119" class="link-to-prism">projects/components/src/quick-search/quick-search.component.ts:119</a></div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="searchId"></a>
+                        <span class="name">
+                            <b>
+                                <span class="modifier">Private</span>
+                            searchId</b>
+                            <a href="#searchId"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Default value : </i><code>0</code>
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="125" class="link-to-prism">projects/components/src/quick-search/quick-search.component.ts:125</a></div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="searchInput"></a>
+                        <span class="name">
+                            <b>
+                            searchInput</b>
+                            <a href="#searchInput"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Type : </i>        <code><a href="https://angular.io/api/core/ElementRef" target="_blank" >ElementRef</a></code>
+
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <b>Decorators : </b>
+                            <br />
+                            <code>
+                                @ViewChild(&#x27;searchInput&#x27;, {static: false, read: ElementRef})<br />
+                            </code>
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="123" class="link-to-prism">projects/components/src/quick-search/quick-search.component.ts:123</a></div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="searchSections"></a>
+                        <span class="name">
+                            <b>
+                            searchSections</b>
+                            <a href="#searchSections"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Type : </i>        <code><a href="../interfaces/SearchSection.html" target="_self" >SearchSection[]</a></code>
+
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Default value : </i><code>[]</code>
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="131" class="link-to-prism">projects/components/src/quick-search/quick-search.component.ts:131</a></div>
+                            </td>
+                        </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <div class="io-description"><p>The search sections are provided by the <a href="../injectables/QuickSearchService.html">QuickSearchService</a> upon opening the Quick Search.
+This insures that new sections based on the current context of the application may appear.</p>
+</div>
+                    </td>
+                </tr>
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="selectedItem"></a>
+                        <span class="name">
+                            <b>
+                            selectedItem</b>
+                            <a href="#selectedItem"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Type : </i>        <code><a href="../interfaces/QuickSearchResult.html" target="_self" >QuickSearchResult</a></code>
+
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="133" class="link-to-prism">projects/components/src/quick-search/quick-search.component.ts:133</a></div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="translationService"></a>
+                        <span class="name">
+                            <b>
+                                <span class="modifier">Public</span>
+                            translationService</b>
+                            <a href="#translationService"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Type : </i>    <code>TranslationService</code>
+
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="108" class="link-to-prism">projects/components/src/quick-search/quick-search.component.ts:108</a></div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+</section>
+
+    <section>
+    <h3 id="accessors">
+        Accessors
+    </h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="open"></a>
+                        <span class="name"><b>open</b><a href="#open"><span class="icon ion-ios-link"></span></a></span>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <span class="accessor"><b>get</b><code>open()</code></span>
+                    </td>
+                </tr>
+                            <tr>
+                                <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="88" class="link-to-prism">projects/components/src/quick-search/quick-search.component.ts:88</a></div>
+                                </td>
+                            </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <span class="accessor"><b>set</b><code>open(open: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank">boolean</a>)</code></span>
+                    </td>
+                </tr>
+                            <tr>
+                                <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="85" class="link-to-prism">projects/components/src/quick-search/quick-search.component.ts:85</a></div>
+                                </td>
+                            </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-description"><p>This property alongside with <code>openChange</code> provide two-way binding [(open)] for controlling the visibility state
+of the spotlight component</p>
+</div>
+
+                                <div class="io-description">
+                                        <b>Parameters :</b>
+                                        <table class="params">
+                                            <thead>
+                                                <tr>
+                                                    <td>Name</td>
+                                                        <td>Type</td>
+                                                    <td>Optional</td>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                    <tr>
+                                                            <td>open</td>
+                                                    
+                                                            <td>
+                                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank" >boolean</a></code>
+                                                            </td>
+                                                    
+                                                        <td>
+                                                                No
+                                                        </td>
+                                                        
+                                                    </tr>
+                                            </tbody>
+                                        </table>
+                                </div>
+                                <div>
+                                </div>
+                                <div class="io-description">
+                                    <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                                </div>
+                        </td>
+                    </tr>
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="searchCriteria"></a>
+                        <span class="name"><b>searchCriteria</b><a href="#searchCriteria"><span class="icon ion-ios-link"></span></a></span>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <span class="accessor"><b>get</b><code>searchCriteria()</code></span>
+                    </td>
+                </tr>
+                            <tr>
+                                <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="111" class="link-to-prism">projects/components/src/quick-search/quick-search.component.ts:111</a></div>
+                                </td>
+                            </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <span class="accessor"><b>set</b><code>searchCriteria(value: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code></span>
+                    </td>
+                </tr>
+                            <tr>
+                                <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="115" class="link-to-prism">projects/components/src/quick-search/quick-search.component.ts:115</a></div>
+                                </td>
+                            </tr>
+                    <tr>
+                        <td class="col-md-4">
+
+                                <div class="io-description">
+                                        <b>Parameters :</b>
+                                        <table class="params">
+                                            <thead>
+                                                <tr>
+                                                    <td>Name</td>
+                                                        <td>Type</td>
+                                                    <td>Optional</td>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                    <tr>
+                                                            <td>value</td>
+                                                    
+                                                            <td>
+                                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                                            </td>
+                                                    
+                                                        <td>
+                                                                No
+                                                        </td>
+                                                        
+                                                    </tr>
+                                            </tbody>
+                                        </table>
+                                </div>
+                                <div>
+                                </div>
+                                <div class="io-description">
+                                    <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                                </div>
+                        </td>
+                    </tr>
+            </tbody>
+        </table>
+</section>
+</div>
+
+
+    <div class="tab-pane fade  tab-source-code" id="c-source">
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { ChangeDetectorRef, Component, ElementRef, EventEmitter, Input, Output, ViewChild } from &#x27;@angular/core&#x27;;
+import { TranslationService } from &#x27;@vcd/i18n&#x27;;
+import { DomUtil } from &#x27;../utils/dom-util&#x27;;
+import { QuickSearchResult, QuickSearchResultType } from &#x27;./quick-search-result&#x27;;
+import { QuickSearchProvider } from &#x27;./quick-search.provider&#x27;;
+import { QuickSearchService } from &#x27;./quick-search.service&#x27;;
+
+interface SearchSection {
+    provider: QuickSearchProvider;
+    results: QuickSearchResult[];
+    isLoading: boolean;
+}
+
+/**
+ * This interface describes the event emitted when a result item is activated,
+ * i.e. its event handler has been called.
+ */
+export interface ResultActivatedEvent {
+    itemDisplayText: string;
+    sectionTitle: string;
+    eventSource: &#x27;MouseEvent&#x27; | &#x27;KeyboardEvent&#x27;;
+}
+
+/**
+ * The Quick Search component is inspired by the Spotlight Search in Mac OSX (cmd+space)
+ * and the Search Everywhere in IntelliJ (shift+shift)
+ *
+ * This VCD Quick Search does not provide any search by itself. It is not also a single component
+ * but rather a group of objects that work together in order to allow the developer to build a might search experience
+ * for the end user.
+ *
+ * Basically the VCD Quick Search consists of:
+ * &lt;ul&gt;
+ *     &lt;li&gt;QuickSearchComponent - the visual component that you should include in your template&lt;/li&gt;
+ *     &lt;li&gt;{@link QuickSearchService}&lt;a href&#x3D;&quot;/compodoc/injectables/QuickSearchService.html&quot;&gt;QuickSearchService&lt;/a&gt;
+ *     - the service that you should register your own providers with&lt;/li&gt;
+ *     &lt;li&gt;{@link QuickSearchProvider}&lt;a href&#x3D;&quot;/compodoc/interfaces/QuickSearchProvider.html&quot;&gt;QuickSearchProvider&lt;/a&gt;
+ *     - the interface your search provider should implement.
+ *     It can return either an array of {@link QuickSearchResult} or a promise for lazy loading of results&lt;/li&gt;
+ * &lt;/ul&gt;
+ *
+ * QuickSearchComponent:
+ *
+ *    &lt;vcd-quick-search
+ *        [(open)]&#x3D;&quot;quickSearchOpen&quot;
+ *        [placeholder]&#x3D;&quot;&#x27;Search ...&#x27;&quot;
+ *    &gt;&lt;/vcd-quick-search&gt;
+ *
+ *
+ * {@link QuickSearchService}:
+ *
+ * This service works along with the component in order to provide search results displayed. Those results are grouped
+ * in sections based on the registered provider {@link QuickSearchProvider}.
+ *
+ * You can provide order of the search providers, hence the order of the displayed sections
+ *
+ * If there is just one search provider no section title is displayed.
+ *
+ * In case of multiple search providers the Quick Search can be configured to hide the entire section if it contains no data.
+ *
+ *
+ * For a complete end-to-end running example please take a look at the &#x60;Examples&#x60; tab of the live-docs
+ */
+@Component({
+    selector: &#x27;vcd-quick-search&#x27;,
+    templateUrl: &#x27;./quick-search.component.html&#x27;,
+    styleUrls: [&#x27;./quick-search.component.scss&#x27;],
+})
+export class QuickSearchComponent {
+    /**
+     * Placeholder for the search input. Default is empty string;
+     */
+    @Input() public placeholder: string;
+
+    /**
+     * This property alongside with &#x60;openChange&#x60; provide two-way binding [(open)] for controlling the visibility state
+     * of the spotlight component
+     */
+    @Input()
+    public set open(open: boolean) {
+        this.handleOpen(open);
+    }
+    public get open(): boolean {
+        return this._open;
+    }
+
+    /**
+     * This method along with &#x60;open&#x60; property provide two-way binding [(open)] for controlling the visibility state
+     * of the spotlight component
+     */
+    @Output() openChange: EventEmitter&lt;boolean&gt; &#x3D; new EventEmitter&lt;boolean&gt;(false);
+
+    /**
+     * Event dispatched when item has been activated, i.e. its event handler is called.
+     * This happens when item is clicked or &#x27;Enter&#x27; is pressed when there is a selection.
+     */
+    @Output() resultActivated: EventEmitter&lt;ResultActivatedEvent&gt; &#x3D; new EventEmitter&lt;ResultActivatedEvent&gt;();
+
+    constructor(
+        private searchService: QuickSearchService,
+        private changeDetectorRef: ChangeDetectorRef,
+        private el: ElementRef,
+        public translationService: TranslationService
+    ) {}
+
+    get searchCriteria(): string {
+        return this._searchCriteria;
+    }
+
+    set searchCriteria(value: string) {
+        this._searchCriteria &#x3D; value;
+        this.doSearch();
+    }
+    private _searchCriteria: string;
+
+    private _open &#x3D; false;
+
+    @ViewChild(&#x27;searchInput&#x27;, { static: false, read: ElementRef }) searchInput: ElementRef;
+
+    private searchId &#x3D; 0;
+
+    /**
+     * The search sections are provided by the {@link QuickSearchService} upon opening the Quick Search.
+     * This insures that new sections based on the current context of the application may appear.
+     */
+    searchSections: SearchSection[] &#x3D; [];
+
+    selectedItem: QuickSearchResult;
+
+    itemClicked(item: QuickSearchResult): void {
+        this.handleItem(item, true);
+    }
+
+    onArrowDown(event: KeyboardEvent): void {
+        event.preventDefault();
+        this.selectNext(true);
+    }
+
+    onArrowUp(event: KeyboardEvent): void {
+        event.preventDefault();
+        this.selectNext(false);
+    }
+
+    onEnterKey(event): void {
+        event.preventDefault();
+        if (!this.selectedItem) {
+            return;
+        }
+        this.handleItem(this.selectedItem, false);
+    }
+
+    private doSearch(): void {
+        // Remember which is the current search. This will help us not to show results from an old search
+        const searchId &#x3D; ++this.searchId;
+
+        // Mark each sections in loading state. This flag is needed when trying to select the first item
+        // while the search is still in progress
+        this.searchSections.forEach((searchSection) &#x3D;&gt; (searchSection.isLoading &#x3D; true));
+
+        // Go through the available search sections, i.e. the registered search providers and request for results
+        this.searchSections.forEach(async (searchSection) &#x3D;&gt; {
+            let results: QuickSearchResultType &#x3D; [];
+            // Only request for data if the search is not empty
+            if (!!this.searchCriteria) {
+                results &#x3D; searchSection.provider.search(this.searchCriteria);
+
+                // Some of the results may be provided later, so mark the section as loading
+                if (results instanceof Promise) {
+                    results &#x3D; await results;
+                }
+                // Use the closure to verify that the displayed data is going to be really from the latest search
+                if (searchId !&#x3D;&#x3D; this.searchId) {
+                    return;
+                }
+            }
+            searchSection.results &#x3D; results;
+            searchSection.isLoading &#x3D; false;
+            this.selectFirst(true);
+        });
+    }
+
+    /**
+     * Try to select the first item in the compound search result.
+     * @param ensureFirstSectionIsLoaded if true and if the topmost section is still loading then do not select an item
+     */
+    private selectFirst(ensureFirstSectionIsLoaded: boolean): void {
+        for (const section of this.searchSections) {
+            // The section is still loading. If it was requested to ensure the loading has completed than abort
+            // the attempt to select an item or just skip it and examine the next section.
+            if (section.isLoading) {
+                if (ensureFirstSectionIsLoaded) {
+                    return;
+                }
+                continue;
+            }
+            this.selectedItem &#x3D; section.results[0];
+            if (this.selectedItem) {
+                break;
+            }
+        }
+        this.changeDetectorRef.detectChanges();
+    }
+
+    private selectNext(down: boolean): void {
+        // If there is no selection then just select the first available item
+        if (!this.selectedItem) {
+            this.selectFirst(false);
+            return;
+        }
+
+        // Get all the items form all the sections in a single flat array
+        const allResults &#x3D; this.searchSections.reduce((acc, v) &#x3D;&gt; [...acc, ...(v.results || [])], []);
+
+        let selectedItemIndex &#x3D; allResults.indexOf(this.selectedItem);
+
+        // There is a selected item but it is not one of the available ones, so just select the first from the list
+        if (selectedItemIndex &lt; 0) {
+            this.selectedItem &#x3D; null;
+            this.selectFirst(false);
+            return;
+        }
+
+        // Determine the index of the next selection
+        if (down) {
+            if (selectedItemIndex &#x3D;&#x3D;&#x3D; allResults.length - 1) {
+                selectedItemIndex &#x3D; 0;
+            } else {
+                selectedItemIndex++;
+            }
+        } else {
+            if (selectedItemIndex &#x3D;&#x3D;&#x3D; 0) {
+                selectedItemIndex &#x3D; allResults.length - 1;
+            } else {
+                selectedItemIndex--;
+            }
+        }
+
+        this.selectedItem &#x3D; allResults[selectedItemIndex];
+
+        // Call the change detector otherwise the selection on the screen may not refreshed quickly enough if the
+        // user just presses and holds down the arrow key
+        this.changeDetectorRef.detectChanges();
+
+        // Ensure the selected element is visible
+        DomUtil.scrollToElement(this.el, &#x27;.selected&#x27;);
+        if (selectedItemIndex &#x3D;&#x3D;&#x3D; 0) {
+            DomUtil.scrollToElement(this.el, &#x27;.section-index-0 .search-result-section-title&#x27;);
+        }
+    }
+
+    /**
+     * Handle showing / hiding of the Quick Search.
+     * @param open true when opening, false when closing
+     */
+    private handleOpen(open: boolean): void {
+        // Don&#x27;t do anything if the state has not been changed or if the developer has not explicitly specified the state.
+        // This may happen if the template is used with uninitialized variable.
+        if (open &#x3D;&#x3D;&#x3D; this._open || typeof open !&#x3D;&#x3D; &#x27;boolean&#x27;) {
+            return;
+        }
+
+        if (open) {
+            this.searchSections &#x3D; this.searchService
+                .getRegisteredProviders()
+                .map((provider) &#x3D;&gt; ({ provider, results: [], isLoading: true }));
+            this.doSearch();
+
+            setTimeout(() &#x3D;&gt; {
+                this.searchInput.nativeElement.focus();
+                this.searchInput.nativeElement.select();
+            }, 0);
+        }
+
+        this._open &#x3D; open;
+        this.openChange.emit(this._open);
+        this.changeDetectorRef.detectChanges();
+    }
+
+    private handleItem(item: QuickSearchResult, clicked: boolean): void {
+        const searchSection: SearchSection &#x3D; this.searchSections.find(
+            (section) &#x3D;&gt;
+                !section.isLoading &amp;&amp; section.results.some((resultItem) &#x3D;&gt; resultItem.displayText &#x3D;&#x3D;&#x3D; item.displayText)
+        );
+        const resultActivatedEvent: ResultActivatedEvent &#x3D; {
+            itemDisplayText: item.displayText,
+            sectionTitle: searchSection.provider.sectionName,
+            eventSource: clicked ? &#x27;MouseEvent&#x27; : &#x27;KeyboardEvent&#x27;,
+        };
+        item.handler();
+        this.resultActivated.emit(resultActivatedEvent);
+        this.open &#x3D; false;
+    }
+
+    showSectionTitle(searchSection: SearchSection): boolean {
+        // In order to show a section title there should be more than one sections
+        // and the current section should either be loading data or have results
+        return !!searchSection.provider.sectionName &amp;&amp; (searchSection.isLoading || searchSection.results.length &gt; 0);
+    }
+}
+</code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="c-templateData">
+        <pre class="line-numbers"><code class="language-html">&lt;clr-modal
+    [(clrModalOpen)]&#x3D;&quot;open&quot;
+    [clrModalStaticBackdrop]&#x3D;&quot;false&quot;
+    (keydown.arrowup)&#x3D;&quot;onArrowUp($event)&quot;
+    (keydown.arrowdown)&#x3D;&quot;onArrowDown($event)&quot;
+    (keydown.enter)&#x3D;&quot;onEnterKey($event)&quot;
+&gt;
+    &lt;div class&#x3D;&quot;modal-body&quot;&gt;
+        &lt;div class&#x3D;&quot;search-input-container&quot;&gt;
+            &lt;clr-icon shape&#x3D;&quot;search&quot; size&#x3D;&quot;20&quot;&gt;&lt;/clr-icon&gt;
+            &lt;input
+                #searchInput
+                type&#x3D;&quot;text&quot;
+                class&#x3D;&quot;clr-input&quot;
+                [placeholder]&#x3D;&quot;placeholder || &#x27;&#x27;&quot;
+                [(ngModel)]&#x3D;&quot;searchCriteria&quot;
+            /&gt;
+        &lt;/div&gt;
+        &lt;div class&#x3D;&quot;search-result-container&quot;&gt;
+            &lt;section
+                *ngFor&#x3D;&quot;let searchSection of searchSections; let i &#x3D; index&quot;
+                class&#x3D;&quot;search-result-section section-index-{{ i }}&quot;
+            &gt;
+                &lt;h5 *ngIf&#x3D;&quot;showSectionTitle(searchSection)&quot; class&#x3D;&quot;search-result-section-title&quot;&gt;
+                    {{ searchSection.provider.sectionName }}
+                &lt;/h5&gt;
+                &lt;div *ngIf&#x3D;&quot;searchSection.isLoading&quot;&gt;
+                    &lt;div class&#x3D;&quot;spinner spinner-inline&quot;&gt;&lt;/div&gt;
+                    {{ &#x27;vcd.cc.loading&#x27; | translate }}
+                &lt;/div&gt;
+                &lt;ul *ngIf&#x3D;&quot;!searchSection.isLoading&quot; class&#x3D;&quot;list-unstyled compact&quot;&gt;
+                    &lt;li
+                        class&#x3D;&quot;search-result-item&quot;
+                        role&#x3D;&quot;button&quot;
+                        *ngFor&#x3D;&quot;let item of searchSection.results&quot;
+                        (click)&#x3D;&quot;itemClicked(item)&quot;
+                        [ngClass]&#x3D;&quot;item &#x3D;&#x3D; selectedItem ? &#x27;selected&#x27; : &#x27;&#x27;&quot;
+                    &gt;
+                        {{ item.displayText }}
+                    &lt;/li&gt;
+                &lt;/ul&gt;
+            &lt;/section&gt;
+        &lt;/div&gt;
+    &lt;/div&gt;
+&lt;/clr-modal&gt;
+</code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="c-styleData">
+                <p class="comment">
+                    <code>./quick-search.component.scss</code>
+                </p>
+                <pre class="line-numbers"><code class="language-scss">:host ::ng-deep {
+    .modal-header {
+        display: none;
+    }
+    .modal-backdrop {
+        background: transparent;
+    }
+}
+
+.modal-body {
+    display: flex;
+    flex-direction: column;
+    height: 500px;
+
+    .search-input-container {
+        display: flex;
+
+        clr-icon {
+            margin-top: 2px;
+            margin-right: 4px;
+        }
+
+        .clr-input {
+            flex-grow: 1;
+        }
+    }
+
+    .search-result-container {
+        margin-top: 8px;
+        flex: 1;
+        overflow: auto;
+
+        .search-result-section-title {
+            font-weight: bold;
+            margin-top: 0;
+        }
+
+        .search-result-item {
+            padding-left: 8px;
+
+            &amp;.selected {
+                background-color: var(--clr-global-selection-color);
+            }
+            &amp;:hover {
+                background-color: var(--clr-global-hover-color);
+            }
+        }
+    }
+}
+</code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="c-tree">
+        <div id="tree-container"></div>
+        <div class="tree-legend">
+            <div class="title">
+                <b>Legend</b>
+            </div>
+            <div>
+                <div class="color htmlelement"></div><span>Html element</span>
+            </div>
+            <div>
+                <div class="color component"></div><span>Component</span>
+            </div>
+            <div>
+                <div class="color directive"></div><span>Html element with directive</span>
+            </div>
+        </div>
+    </div>
+
+    
+</div>
+
+<script src="../js/libs/vis.min.js"></script>
+<script src="../js/libs/htmlparser.js"></script>
+<script src="../js/libs/deep-iterator.js"></script>
+<script>
+        var COMPONENT_TEMPLATE = '<div><clr-modal    [(clrModalOpen)]="open"    [clrModalStaticBackdrop]="false"    (keydown.arrowup)="onArrowUp($event)"    (keydown.arrowdown)="onArrowDown($event)"    (keydown.enter)="onEnterKey($event)">    <div class="modal-body">        <div class="search-input-container">            <clr-icon shape="search" size="20"></clr-icon>            <input                #searchInput                type="text"                class="clr-input"                [placeholder]="placeholder || \'\'"                [(ngModel)]="searchCriteria"            />        </div>        <div class="search-result-container">            <section                *ngFor="let searchSection of searchSections; let i = index"                class="search-result-section section-index-{{ i }}"            >                <h5 *ngIf="showSectionTitle(searchSection)" class="search-result-section-title">                    {{ searchSection.provider.sectionName }}                </h5>                <div *ngIf="searchSection.isLoading">                    <div class="spinner spinner-inline"></div>                    {{ \'vcd.cc.loading\' | translate }}                </div>                <ul *ngIf="!searchSection.isLoading" class="list-unstyled compact">                    <li                        class="search-result-item"                        role="button"                        *ngFor="let item of searchSection.results"                        (click)="itemClicked(item)"                        [ngClass]="item == selectedItem ? \'selected\' : \'\'"                    >                        {{ item.displayText }}                    </li>                </ul>            </section>        </div>    </div></clr-modal></div>'
+    var COMPONENTS = [{'name': 'ActionMenuComponent', 'selector': 'vcd-action-menu'},{'name': 'BannerActivityReporterComponent', 'selector': 'vcd-banner-activity-reporter'},{'name': 'BoldTextRendererComponent', 'selector': 'vcd-bold-text-renderer'},{'name': 'DataExporterComponent', 'selector': 'vcd-data-exporter'},{'name': 'DatagridComponent', 'selector': 'vcd-datagrid'},{'name': 'DatagridMultiSelectFilterComponent', 'selector': 'vcd-dg-multiselect-filter'},{'name': 'DatagridNumericFilterComponent', 'selector': 'vcd-dg-numeric-filter'},{'name': 'DatagridSelectFilterComponent', 'selector': 'vcd-dg-select-filter'},{'name': 'DatagridStringFilterComponent', 'selector': 'vcd-dg-string-filter'},{'name': 'DropdownComponent', 'selector': 'vcd-dropdown'},{'name': 'ErrorBannerComponent', 'selector': 'vcd-error-banner'},{'name': 'FilterTestHostComponent', 'selector': ''},{'name': 'FormCheckboxComponent', 'selector': 'vcd-form-checkbox'},{'name': 'FormInputComponent', 'selector': 'vcd-form-input'},{'name': 'FormlyInputComponent', 'selector': 'vcd-formly-input'},{'name': 'FormlyNumberWithUnitInputComponent', 'selector': 'vcd-formly-number-with-unit-input'},{'name': 'FormlySelectComponent', 'selector': 'vcd-formly-select'},{'name': 'FormSelectComponent', 'selector': 'vcd-form-select'},{'name': 'LoadingIndicatorComponent', 'selector': 'vcd-loading-indicator'},{'name': 'NumberWithUnitFormInputComponent', 'selector': 'vcd-number-with-unit-form-input'},{'name': 'QuickSearchComponent', 'selector': 'vcd-quick-search'},{'name': 'ShowClippedTextDirectiveTestHostComponent', 'selector': ''},{'name': 'SpinnerActivityReporterComponent', 'selector': 'vcd-spinner-activity-reporter'}];
+    var DIRECTIVES = [{'name': 'ComponentRendererOutletDirective', 'selector': '[vcdComponentRendererOutlet]'},{'name': 'DynamicDropdownPositionDirective', 'selector': 'clr-dropdown[vcdDynamicDropdown]'},{'name': 'EntityActionExtensionComponentsDirective', 'selector': 'vcd-action-menu[vcdEntityActionExtensionContainers]'},{'name': 'MinMaxValidator', 'selector': 'vcd-number-with-unit-form-input[min],vcd-number-with-unit-form-input[max]'},{'name': 'ShowClippedTextDirective', 'selector': '[vcdShowClippedText]'}];
+    var ACTUAL_COMPONENT = {'name': 'QuickSearchComponent'};
+</script>
+<script src="../js/tree.js"></script>
+
+
+
+
+
+
+
+
+
+
+                   
+
+
+
+
+                   </div><div class="search-results">
+    <div class="has-results">
+        <h1 class="search-results-title"><span class='search-results-count'></span> result-matching "<span class='search-query'></span>"</h1>
+        <ul class="search-results-list"></ul>
+    </div>
+    <div class="no-results">
+        <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+    </div>
+</div>
+</div>
+               <!-- END CONTENT -->
+           </div>
+       </div>
+
+       <script>
+            var COMPODOC_CURRENT_PAGE_DEPTH = 1;
+            var COMPODOC_CURRENT_PAGE_CONTEXT = 'component';
+            var COMPODOC_CURRENT_PAGE_URL = 'QuickSearchComponent.html';
+            var MAX_SEARCH_RESULTS = 15;
+       </script>
+
+       <script src="../js/libs/custom-elements.min.js"></script>
+       <script src="../js/libs/lit-html.js"></script>
+       <!-- Required to polyfill modern browsers as code is ES5 for IE... -->
+       <script src="../js/libs/custom-elements-es5-adapter.js" charset="utf-8" defer></script>
+       <script src="../js/menu-wc.js" defer></script>
+
+       <script src="../js/libs/bootstrap-native.js"></script>
+
+       <script src="../js/libs/es6-shim.min.js"></script>
+       <script src="../js/libs/EventDispatcher.js"></script>
+       <script src="../js/libs/promise.min.js"></script>
+       <script src="../js/libs/zepto.min.js"></script>
+
+       <script src="../js/compodoc.js"></script>
+
+       <script src="../js/tabs.js"></script>
+       <script src="../js/menu.js"></script>
+       <script src="../js/libs/clipboard.min.js"></script>
+       <script src="../js/libs/prism.js"></script>
+       <script src="../js/sourceCode.js"></script>
+          <script src="../js/search/search.js"></script>
+          <script src="../js/search/lunr.min.js"></script>
+          <script src="../js/search/search-lunr.js"></script>
+          <script src="../js/search/search_index.js"></script>
+       <script src="../js/lazy-load-graphs.js"></script>
+
+
+    </body>
+</html>
