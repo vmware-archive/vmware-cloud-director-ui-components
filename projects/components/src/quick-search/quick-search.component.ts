@@ -6,13 +6,13 @@
 import { ChangeDetectorRef, Component, ElementRef, EventEmitter, Input, Output, ViewChild } from '@angular/core';
 import { TranslationService } from '@vcd/i18n';
 import { DomUtil } from '../utils/dom-util';
-import { QuickSearchResult, QuickSearchResultType } from './quick-search-result';
+import { QuickSearchResultItem, QuickSearchResults, QuickSearchResultsType } from './quick-search-result';
 import { QuickSearchProvider } from './quick-search.provider';
 import { QuickSearchService } from './quick-search.service';
 
 interface SearchSection {
     provider: QuickSearchProvider;
-    results: QuickSearchResult[];
+    result: QuickSearchResults;
     isLoading: boolean;
 }
 
@@ -24,6 +24,22 @@ export interface ResultActivatedEvent {
     itemDisplayText: string;
     sectionTitle: string;
     eventSource: 'MouseEvent' | 'KeyboardEvent';
+}
+
+/**
+ * This interface describes partial search result, i.e. result that do not contain all the items that match the
+ * search criteria {@see QuickSearchComponent#hasPartialResult}
+ */
+interface PartialResult {
+    /**
+     * The number of the last item of the result
+     */
+    lastItem: number;
+
+    /**
+     * Total number of items in the result
+     */
+    totalItems: number;
 }
 
 /**
@@ -41,7 +57,7 @@ export interface ResultActivatedEvent {
  *     - the service that you should register your own providers with</li>
  *     <li>{@link QuickSearchProvider}<a href="/compodoc/interfaces/QuickSearchProvider.html">QuickSearchProvider</a>
  *     - the interface your search provider should implement.
- *     It can return either an array of {@link QuickSearchResult} or a promise for lazy loading of results</li>
+ *     It can return either an array of {@link QuickSearchResults} or a promise for lazy loading of results</li>
  * </ul>
  *
  * QuickSearchComponent:
@@ -79,7 +95,7 @@ export class QuickSearchComponent {
 
     /**
      * This property alongside with `openChange` provide two-way binding [(open)] for controlling the visibility state
-     * of the spotlight component
+     * of the quick search component
      */
     @Input()
     public set open(open: boolean) {
@@ -91,7 +107,7 @@ export class QuickSearchComponent {
 
     /**
      * This method along with `open` property provide two-way binding [(open)] for controlling the visibility state
-     * of the spotlight component
+     * of the quick search component
      */
     @Output() openChange: EventEmitter<boolean> = new EventEmitter<boolean>(false);
 
@@ -130,9 +146,9 @@ export class QuickSearchComponent {
      */
     searchSections: SearchSection[] = [];
 
-    selectedItem: QuickSearchResult;
+    selectedItem: QuickSearchResultItem;
 
-    itemClicked(item: QuickSearchResult): void {
+    itemClicked(item: QuickSearchResultItem): void {
         this.handleItem(item, true);
     }
 
@@ -164,21 +180,23 @@ export class QuickSearchComponent {
 
         // Go through the available search sections, i.e. the registered search providers and request for results
         this.searchSections.forEach(async (searchSection) => {
-            let results: QuickSearchResultType = [];
+            let searchResult: QuickSearchResults;
             // Only request for data if the search is not empty
             if (!!this.searchCriteria) {
-                results = searchSection.provider.search(this.searchCriteria);
+                const result = searchSection.provider.search(this.searchCriteria);
 
                 // Some of the results may be provided later, so mark the section as loading
-                if (results instanceof Promise) {
-                    results = await results;
+                if (result instanceof Promise) {
+                    searchResult = await result;
+                } else {
+                    searchResult = result;
                 }
                 // Use the closure to verify that the displayed data is going to be really from the latest search
                 if (searchId !== this.searchId) {
                     return;
                 }
             }
-            searchSection.results = results;
+            searchSection.result = searchResult;
             searchSection.isLoading = false;
             this.selectFirst(true);
         });
@@ -198,7 +216,7 @@ export class QuickSearchComponent {
                 }
                 continue;
             }
-            this.selectedItem = section.results[0];
+            this.selectedItem = section.result?.items[0];
             if (this.selectedItem) {
                 break;
             }
@@ -214,7 +232,7 @@ export class QuickSearchComponent {
         }
 
         // Get all the items form all the sections in a single flat array
-        const allResults = this.searchSections.reduce((acc, v) => [...acc, ...(v.results || [])], []);
+        const allResults = this.searchSections.reduce((acc, v) => [...acc, ...(v.result?.items || [])], []);
 
         let selectedItemIndex = allResults.indexOf(this.selectedItem);
 
@@ -267,7 +285,7 @@ export class QuickSearchComponent {
         if (open) {
             this.searchSections = this.searchService
                 .getRegisteredProviders()
-                .map((provider) => ({ provider, results: [], isLoading: true }));
+                .map((provider) => ({ provider, result: null, isLoading: true }));
             this.doSearch();
 
             setTimeout(() => {
@@ -281,10 +299,11 @@ export class QuickSearchComponent {
         this.changeDetectorRef.detectChanges();
     }
 
-    private handleItem(item: QuickSearchResult, clicked: boolean): void {
+    private handleItem(item: QuickSearchResultItem, clicked: boolean): void {
         const searchSection: SearchSection = this.searchSections.find(
             (section) =>
-                !section.isLoading && section.results.some((resultItem) => resultItem.displayText === item.displayText)
+                !section.isLoading &&
+                section.result?.items.some((resultItem) => resultItem.displayText === item.displayText)
         );
         const resultActivatedEvent: ResultActivatedEvent = {
             itemDisplayText: item.displayText,
@@ -299,6 +318,29 @@ export class QuickSearchComponent {
     showSectionTitle(searchSection: SearchSection): boolean {
         // In order to show a section title there should be more than one sections
         // and the current section should either be loading data or have results
-        return !!searchSection.provider.sectionName && (searchSection.isLoading || searchSection.results.length > 0);
+        return (
+            !!searchSection.provider.sectionName && (searchSection.isLoading || searchSection.result?.items.length > 0)
+        );
+    }
+
+    /**
+     * Determines if the result in this section is partial (i.e. there are more items matching the criteria which are
+     * in the current list) or it is full (the current list contains all the items matching the criteria)
+     * If the result is partial then {@link PartialResult} object is returned. If the result contains all the items
+     * then null is returned
+     * @param searchSection the section which result items is to be checked
+     */
+    hasPartialResult(searchSection: SearchSection): PartialResult {
+        if (
+            searchSection.result?.total &&
+            searchSection.result?.items?.length &&
+            searchSection.result.items.length < searchSection.result.total
+        ) {
+            return {
+                lastItem: searchSection.result.items.length,
+                totalItems: searchSection.result.total,
+            };
+        }
+        return null;
     }
 }

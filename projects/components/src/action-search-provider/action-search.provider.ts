@@ -5,7 +5,12 @@
 
 import { TranslationService } from '@vcd/i18n';
 import { ActionItem } from '../common/interfaces';
-import { QuickSearchProvider, QuickSearchProviderDefaults, QuickSearchResult } from '../quick-search';
+import {
+    QuickSearchProvider,
+    QuickSearchProviderDefaults,
+    QuickSearchResultItem,
+    QuickSearchResults,
+} from '../quick-search';
 import { CommonUtil } from '../utils';
 
 export const DEFAULT_ACTION_SEARCH_SECTION_HEADER_PREFIX = 'vcd.cc.action.provider.section.title';
@@ -39,21 +44,21 @@ export class ActionSearchProvider<R, T> extends QuickSearchProviderDefaults impl
      * Searches through nested actions and finds all the actions that match with entered search text on the
      * {@link QuickSearchComponent}
      */
-    search(criteria: string): QuickSearchResult[] {
+    search(criteria: string): QuickSearchResults {
         if (!criteria) {
-            return [];
+            return { items: [] };
         }
 
         if (this.flatListOfAvailableActions == null) {
             this.flatListOfAvailableActions = this.getFlatListOfAvailableActions(this._actions);
         }
 
-        return this.getActions(criteria.toLowerCase());
+        return { items: this.getActions(criteria.toLowerCase()) };
     }
 
-    private getActions(searchCriteria: string): QuickSearchResult[] {
+    private getActions(searchCriteria: string): QuickSearchResultItem[] {
         return this.flatListOfAvailableActions
-            .filter((action) => action.textKey.toLowerCase().includes(searchCriteria))
+            .filter((action) => action.textKey?.toLowerCase().includes(searchCriteria))
             .map((action) => ({
                 displayText: action.textKey,
                 handler: () => action.handler(this._selectedEntities, action.handlerData),

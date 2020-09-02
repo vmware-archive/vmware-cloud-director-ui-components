@@ -41,20 +41,20 @@ const getMockActionsList = (): ActionItem<MockRecord, any>[] => [
 ];
 
 describe('ActionSearchProvider', () => {
-    beforeEach(function(this: HasActionSearchProvider): void {
+    beforeEach(function (this: HasActionSearchProvider): void {
         this.actionSearchProvider = new ActionSearchProvider(new MockTranslationService());
     });
     describe('actions', () => {
-        it('when set, the search method will give the action that matches with the search' + ' text', function(
+        it('when set, the search method will give the action that matches with the search' + ' text', function (
             this: HasActionSearchProvider
         ): void {
-            const searchResultList = this.actionSearchProvider.search('sta');
-            expect(searchResultList).toEqual([]);
+            const searchResults = this.actionSearchProvider.search('sta');
+            expect(searchResults.items).toEqual([]);
             this.actionSearchProvider.actions = getMockActionsList();
-            const searchResultList2 = this.actionSearchProvider.search('sta');
-            expect(searchResultList2[0].displayText).toEqual('Start');
-            const searchResultList1 = this.actionSearchProvider.search('sto');
-            expect(searchResultList1[0].displayText).toEqual('Stop');
+            const searchResults2 = this.actionSearchProvider.search('sta');
+            expect(searchResults2.items[0].displayText).toEqual('Start');
+            const searchResults1 = this.actionSearchProvider.search('sto');
+            expect(searchResults1.items[0].displayText).toEqual('Stop');
         });
     });
 
@@ -62,19 +62,19 @@ describe('ActionSearchProvider', () => {
         it(
             'when set with an entity that will yield ActionItem.availability as false, the search method does not return the ActionItem' +
                 ' as it is unavailable',
-            function(this: HasActionSearchProvider): void {
+            function (this: HasActionSearchProvider): void {
                 this.actionSearchProvider.actions = getMockActionsList();
 
-                let searchResultList = this.actionSearchProvider.search('sto');
-                expect(searchResultList[0].displayText).toEqual('Stop');
+                let searchResults = this.actionSearchProvider.search('sto');
+                expect(searchResults.items[0].displayText).toEqual('Stop');
 
                 this.actionSearchProvider.selectedEntities = [
                     {
                         stopped: true,
                     },
                 ];
-                searchResultList = this.actionSearchProvider.search('sto');
-                expect(searchResultList).toEqual([]);
+                searchResults = this.actionSearchProvider.search('sto');
+                expect(searchResults.items).toEqual([]);
             }
         );
     });

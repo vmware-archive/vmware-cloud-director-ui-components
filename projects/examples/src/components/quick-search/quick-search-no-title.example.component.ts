@@ -7,8 +7,8 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import {
     QuickSearchProvider,
     QuickSearchRegistrarService,
-    QuickSearchResult,
-    QuickSearchResultType,
+    QuickSearchResultItem,
+    QuickSearchResultsType,
 } from '@vcd/ui-components';
 import Mousetrap from 'mousetrap';
 
@@ -47,7 +47,7 @@ export class ActionsSearchProvider implements QuickSearchProvider {
 
     sectionName: '';
 
-    private actions: QuickSearchResult[];
+    private actions: QuickSearchResultItem[];
 
     constructor() {
         // Build actions
@@ -62,8 +62,9 @@ export class ActionsSearchProvider implements QuickSearchProvider {
         });
     }
 
-    search(criteria: string): QuickSearchResultType {
+    search(criteria: string): QuickSearchResultsType {
         criteria = criteria ? criteria.toLowerCase() : '';
-        return this.actions.filter((action) => action.displayText.toLowerCase().includes(criteria));
+        const items = this.actions.filter((action) => action.displayText.toLowerCase().includes(criteria));
+        return { items };
     }
 }

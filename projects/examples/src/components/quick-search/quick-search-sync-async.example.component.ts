@@ -7,9 +7,10 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import {
     QuickSearchProvider,
+    QuickSearchProviderDefaults,
     QuickSearchRegistrarService,
-    QuickSearchResult,
-    QuickSearchResultType,
+    QuickSearchResultItem,
+    QuickSearchResultsType,
 } from '@vcd/ui-components';
 import Mousetrap from 'mousetrap';
 
@@ -46,6 +47,7 @@ export class QuickSearchSyncAsyncExampleComponent implements OnInit, OnDestroy {
             return false;
         });
         this.searchRegistrar.register(this.actionsSearchProvider);
+        this.searchRegistrar.register(new PagedActionsSearchProvider());
 
         // Register LazyLoadedActionsSearchProvider and ensure they go first in the list
         this.lazyLoadedProvider.order = 0;
@@ -59,9 +61,9 @@ export class QuickSearchSyncAsyncExampleComponent implements OnInit, OnDestroy {
 
 const actions: string[] = ['copy', 'paste', 'move', 'dummy'];
 
-function buildFilter(criteria: string): (item: QuickSearchResult) => boolean {
+function buildFilter(criteria: string): (item: QuickSearchResultItem) => boolean {
     criteria = criteria ? criteria.toLowerCase() : '';
-    return (item: QuickSearchResult) => criteria && item.displayText.toLowerCase().includes(criteria);
+    return (item: QuickSearchResultItem) => criteria && item.displayText.toLowerCase().includes(criteria);
 }
 
 export class ActionsSearchProvider implements QuickSearchProvider {
@@ -69,7 +71,7 @@ export class ActionsSearchProvider implements QuickSearchProvider {
 
     order = -1;
 
-    private actions: QuickSearchResult[];
+    private actions: QuickSearchResultItem[];
 
     constructor() {
         // Build actions
@@ -90,8 +92,11 @@ export class ActionsSearchProvider implements QuickSearchProvider {
         });
     }
 
-    search(criteria: string): QuickSearchResult[] {
-        return this.actions.filter(buildFilter(criteria));
+    search(criteria: string): QuickSearchResultsType {
+        const items = this.actions.filter(buildFilter(criteria));
+        return {
+            items,
+        };
     }
 }
 
@@ -100,7 +105,7 @@ export class LazyLoadedActionsSearchProvider implements QuickSearchProvider {
 
     order = -1;
 
-    private actions: QuickSearchResult[] = actions.map((action) => {
+    private actions: QuickSearchResultItem[] = actions.map((action) => {
         return {
             displayText: `Lazy loaded ${action}`,
             handler: () => {
@@ -109,9 +114,41 @@ export class LazyLoadedActionsSearchProvider implements QuickSearchProvider {
         };
     });
 
-    search(criteria: string): QuickSearchResultType {
+    search(criteria: string): QuickSearchResultsType {
         return new Promise((resolve) => {
-            setTimeout(() => resolve(this.actions.filter(buildFilter(criteria))), 2000);
+            setTimeout(() => resolve({ items: this.actions.filter(buildFilter(criteria)) }), 2000);
         });
+    }
+}
+
+export class PagedActionsSearchProvider extends QuickSearchProviderDefaults {
+    sectionName = 'Section with lots of actions';
+
+    private actions: QuickSearchResultItem[];
+
+    constructor() {
+        super();
+        // Build actions
+        this.actions = [...Array(200)].map((_, i) => {
+            const action = `Action - ${i + 1}`;
+            return {
+                displayText: action,
+                handler: () => {
+                    alert(`Action handler for '${action}' is called`);
+                },
+            };
+        });
+    }
+
+    search(criteria: string): QuickSearchResultsType {
+        criteria = criteria ? criteria.toLowerCase() : '';
+        const items = this.actions.filter((action) => action.displayText.toLowerCase().includes(criteria));
+        const pageSize = 5;
+        return {
+            items: items.slice(0, pageSize),
+            page: 1,
+            pageSize,
+            total: items.length,
+        };
     }
 }

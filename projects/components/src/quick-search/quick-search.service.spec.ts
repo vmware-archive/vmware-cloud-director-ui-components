@@ -3,14 +3,14 @@
  * SPDX-License-Identifier: BSD-2-Clause
  */
 
-import { QuickSearchResultType } from './quick-search-result';
+import { QuickSearchResultsType } from './quick-search-result';
 import { QuickSearchProvider } from './quick-search.provider';
 import { QuickSearchService } from './quick-search.service';
 
 class SimpleSearchProvider implements QuickSearchProvider {
     constructor(public sectionName: string = '', public order: number = -1) {}
-    search(criteria: string): QuickSearchResultType {
-        return [];
+    search(criteria: string): QuickSearchResultsType {
+        return { items: [] };
     }
 }
 

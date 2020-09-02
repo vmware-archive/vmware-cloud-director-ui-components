@@ -13,7 +13,7 @@ import { QuickSearchSyncAsyncExampleModule } from './quick-search-sync-async.exa
 Documentation.registerDocumentationEntry({
     component: QuickSearchComponent,
     displayName: 'Quick Search',
-    urlSegment: 'spotlightSearch',
+    urlSegment: 'quickSearch',
     examples: [
         {
             component: QuickSearchSyncAsyncExampleComponent,
