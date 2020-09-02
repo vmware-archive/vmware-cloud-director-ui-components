@@ -4,11 +4,36 @@
  */
 
 /**
- * The interface a spotlight search result item should implement
+ * The interface of a quick search result
  */
-export interface QuickSearchResult {
+export interface QuickSearchResults {
     /**
-     * The text that will be displayed in the spotlight search component
+     * Item list returned by the search
+     */
+    items: QuickSearchResultItem[];
+
+    /**
+     * The current page returned by the search
+     */
+    page?: number;
+
+    /**
+     * The current page size returned by the search
+     */
+    pageSize?: number;
+
+    /**
+     * Total number of items
+     */
+    total?: number;
+}
+
+/**
+ * The interface a quick search result item should implement
+ */
+export interface QuickSearchResultItem {
+    /**
+     * The text that will be displayed in the quick search component
      */
     displayText: string;
 
@@ -20,6 +45,6 @@ export interface QuickSearchResult {
 }
 
 /**
- * The type of the spotlight search result which can be a promise
+ * The type of the quick search result which can be a promise
  */
-export type QuickSearchResultType = QuickSearchResult[] | Promise<QuickSearchResult[]>;
+export type QuickSearchResultsType = QuickSearchResults | Promise<QuickSearchResults>;

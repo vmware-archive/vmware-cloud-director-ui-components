@@ -8,7 +8,7 @@ import { fakeAsync, TestBed, tick } from '@angular/core/testing';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { MockTranslationService, TranslationService } from '@vcd/i18n';
 import { WidgetFinder, WidgetObject } from '../utils/test/widget-object';
-import { QuickSearchResultType } from './quick-search-result';
+import { QuickSearchResultItem, QuickSearchResults, QuickSearchResultsType } from './quick-search-result';
 import { QuickSearchComponent, ResultActivatedEvent } from './quick-search.component';
 import { QuickSearchModule } from './quick-search.module';
 import { QuickSearchProvider, QuickSearchProviderDefaults } from './quick-search.provider';
@@ -26,8 +26,8 @@ interface Test {
     };
 }
 
-class TestProviderBase extends QuickSearchProviderDefaults {
-    searchHandler(criteria: string): QuickSearchResultType {
+abstract class TestProviderBase extends QuickSearchProviderDefaults {
+    searchHandler(criteria: string): QuickSearchResultItem[] {
         return ['copy', 'create']
             .filter((item) => item.includes(criteria))
             .map((item) => ({
@@ -41,31 +41,47 @@ class TestProviderBase extends QuickSearchProviderDefaults {
 }
 // Provider that returns an array
 class SimpleSearchProvider extends TestProviderBase implements QuickSearchProvider {
-    search(criteria: string): QuickSearchResultType {
-        return this.searchHandler(criteria);
+    search(criteria: string): QuickSearchResultsType {
+        const items = this.searchHandler(criteria);
+        return { items };
     }
 }
 
 // Another provider that returns an array
 class AnotherSimpleSearchProvider extends TestProviderBase implements QuickSearchProvider {
-    search(criteria: string): QuickSearchResultType {
-        return ['other', 'another']
+    search(criteria: string): QuickSearchResultsType {
+        const items = ['other', 'another']
             .filter((item) => item.includes(criteria))
             .map((item) => ({
                 displayText: item,
                 handler: () => this.itemHandler(item),
             }));
+        return { items };
     }
 }
 
 // Provider that returns a promise
 class AsyncSearchProvider extends TestProviderBase implements QuickSearchProvider {
-    search(criteria: string): QuickSearchResultType {
+    search(criteria: string): QuickSearchResultsType {
         return new Promise((resolve) => {
             setTimeout(() => {
-                resolve(this.searchHandler(criteria));
+                const items = this.searchHandler(criteria);
+                resolve({ items });
             }, 1000);
         });
+    }
+}
+
+// Provider that can simulate partial search result, by setting the total number if items
+class PartialSearchProvider extends TestProviderBase {
+    constructor(private total: number) {
+        super();
+        this.sectionName = 'Partial';
+    }
+
+    search(criteria: string): QuickSearchResultsType {
+        const items = this.searchHandler(criteria);
+        return { items, total: this.total };
     }
 }
 
@@ -241,6 +257,65 @@ describe('QuickSearchComponent', () => {
             // Test that the search handler is called 2 more times, 1 more for the old handler and 1 more for the new handler
             expect(searchHandlerSpy).toHaveBeenCalledTimes(3);
             expect(searchHandlerSpy).toHaveBeenCalledWith('copy');
+        });
+
+        describe('partial search result', () => {
+            it('does not display partial information if total is less than the number of items', function (this: Test): void {
+                const partialSearchProvider = new PartialSearchProvider(1);
+                this.quickSearchData.spotlightSearchService.registerProvider(partialSearchProvider);
+                this.finder.hostComponent.spotlightOpen = true;
+                this.finder.detectChanges();
+                this.quickSearch.searchInputValue = 'c';
+                expect(this.quickSearch.sectionTitles).toEqual(['section', partialSearchProvider.sectionName]);
+                expect(this.quickSearch.searchResultAlerts).toEqual([]);
+            });
+
+            it('does not display partial information if total is equal to the number of items', function (this: Test): void {
+                const partialSearchProvider = new PartialSearchProvider(2);
+                this.quickSearchData.spotlightSearchService.registerProvider(partialSearchProvider);
+                this.finder.hostComponent.spotlightOpen = true;
+                this.finder.detectChanges();
+                this.quickSearch.searchInputValue = 'c';
+                expect(this.quickSearch.sectionTitles).toEqual(['section', partialSearchProvider.sectionName]);
+                expect(this.quickSearch.searchResultAlerts).toEqual([]);
+            });
+
+            it('does not display partial information if total is undefined', function (this: Test): void {
+                const partialSearchProvider = new PartialSearchProvider(undefined);
+                this.quickSearchData.spotlightSearchService.registerProvider(partialSearchProvider);
+                this.finder.hostComponent.spotlightOpen = true;
+                this.finder.detectChanges();
+                this.quickSearch.searchInputValue = 'c';
+                expect(this.quickSearch.sectionTitles).toEqual(['section', partialSearchProvider.sectionName]);
+                expect(this.quickSearch.searchResultAlerts).toEqual([]);
+            });
+
+            describe('when total count is bigger than the number of items', () => {
+                it('displays number of items and total count in the section header', function (this: Test): void {
+                    const partialSearchProvider = new PartialSearchProvider(3);
+                    this.quickSearchData.spotlightSearchService.registerProvider(partialSearchProvider);
+                    this.finder.hostComponent.spotlightOpen = true;
+                    this.finder.detectChanges();
+                    this.quickSearch.searchInputValue = 'c';
+                    const partial = TestBed.inject(
+                        TranslationService
+                    ).translate('vcd.cc.quickSearch.partialResultNotation', [{ lastItem: 2, totalItems: 3 }]);
+                    expect(this.quickSearch.sectionTitles[1]).toContain(partialSearchProvider.sectionName);
+                    expect(this.quickSearch.sectionTitles[1]).toContain(partial);
+                });
+
+                it('displays warning message to refine the search', function (this: Test): void {
+                    const partialSearchProvider = new PartialSearchProvider(3);
+                    this.quickSearchData.spotlightSearchService.registerProvider(partialSearchProvider);
+                    this.finder.hostComponent.spotlightOpen = true;
+                    this.finder.detectChanges();
+                    this.quickSearch.searchInputValue = 'c';
+                    const warning = TestBed.inject(TranslationService).translate('vcd.cc.quickSearch.refineQuery', [
+                        { max: 2 },
+                    ]);
+                    expect(this.quickSearch.searchResultAlerts).toEqual([warning]);
+                });
+            });
         });
     });
 
@@ -611,6 +686,10 @@ export class QuickSearchWidgetObject extends WidgetObject<QuickSearchComponent> 
 
     public get searchResults(): string[] {
         return this.getTexts('.search-result-item');
+    }
+
+    public get searchResultAlerts(): string[] {
+        return this.getTexts('clr-alert-item');
     }
 
     public get sectionTitles(): string[] {

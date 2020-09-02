@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: BSD-2-Clause
  */
 
-import { QuickSearchResultType } from './quick-search-result';
+import { QuickSearchResultsType } from './quick-search-result';
 
 /**
  * The interface a search providers should implement in order to register itself with the {@link QuickSearchService}
@@ -15,7 +15,7 @@ export interface QuickSearchProvider {
     sectionName: string;
 
     /**
-     * The order of the section in the spotlight search results. The lower the order, the closer to the beginning of the list.
+     * The order of the section in the quick search results. The lower the order, the closer to the beginning of the list.
      * -1 means append
      */
     order: number;
@@ -24,10 +24,11 @@ export interface QuickSearchProvider {
      * Returns an array or a promise of array of items that comply with the search criteria.
      * @param criteria The search string provided by the user when typing in the Quick Search Component
      */
-    search(criteria: string): QuickSearchResultType;
+    search(criteria: string): QuickSearchResultsType;
 }
 
-export abstract class QuickSearchProviderDefaults {
+export abstract class QuickSearchProviderDefaults implements QuickSearchProvider {
     sectionName = '';
     order = -1;
+    abstract search(criteria: string): QuickSearchResultsType;
 }
