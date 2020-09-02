@@ -48,16 +48,32 @@ describe('DataExporterColumnsWithoutDisplayName', () => {
                 ...TestData.exportDataWithoutDisplayName.map(row => Object.values(row)),
             ];
             const csvString = downloadService.createCsv(exportData);
-            expect(downloadService.downloadCsvFile).toHaveBeenCalledWith(
-                csvString,
-                exporter.component.fileName
-            );
+            expect(downloadService.downloadCsvFile).toHaveBeenCalledWith(csvString, exporter.component.fileName);
             this.finder.detectChanges();
             expect(this.finder.hostComponent.dataExporterOpen).toBe(false);
             done();
         });
 
         exporter.clickExport();
+    });
+
+    it('displays field name when there is no display name', function(this: TestExporterColumnsWithoutDisplayNameFinder, done): void {
+        const exporter = this.finder.find(DataExporterWidgetObject);
+        let dropdownMenu = document.querySelector('clr-dropdown-menu');
+        expect(dropdownMenu).toBeNull();
+        exporter.component.selectAllControl.setValue(false);
+        this.finder.detectChanges();
+        dropdownMenu = document.querySelector('clr-dropdown-menu');
+        const selections = dropdownMenu.querySelectorAll('li');
+        expect(selections.length).toEqual(2);
+        expect(selections[0].querySelector('label').innerText.trim()).toEqual('col1');
+        expect(selections[1].querySelector('label').innerText.trim()).toEqual('col2');
+
+        const columnLabels = document.querySelector('.column-container').querySelectorAll('span');
+        expect(columnLabels.length).toEqual(2);
+        expect(columnLabels[0].textContent.trim()).toEqual('col1');
+        expect(columnLabels[1].textContent.trim()).toEqual('col2');
+        done();
     });
 });
 
@@ -296,9 +312,9 @@ const TestData = {
     /** The progress calls that to updateProgress will be called with the following values */
     progressStates: [-1, 0.5, 1],
     exportColumns: [{ fieldName: 'name', displayName: 'Name' }, { fieldName: 'desc', displayName: 'Description' }],
-    exportColumnsWithoutDisplayName: [{fieldName: 'col1'}, {fieldName: 'col2'}],
+    exportColumnsWithoutDisplayName: [{ fieldName: 'col1' }, { fieldName: 'col2' }],
     exportData: [{ name: 'Jaak', desc: 'Tis what tis' }, { name: 'Jill', desc: 'Still tis what tis' }],
-    exportDataWithoutDisplayName: [{col1: 'hi', col2: 'alice'}, {col1: 'Hi', col2: 'Bob'}],
+    exportDataWithoutDisplayName: [{ col1: 'hi', col2: 'alice' }, { col1: 'Hi', col2: 'Bob' }],
     exportDataWrongField: [{ noexist: 'Jack' }, { noexist: 'Jill' }],
 };
 
@@ -332,6 +348,7 @@ class TestHostComponent {
 @Component({
     template: `
         <vcd-data-exporter
+            id="dataExporterWithoutDisplayName"
             *ngIf="dataExporterOpen"
             [(open)]="dataExporterOpen"
             [columns]="exportColumns"
