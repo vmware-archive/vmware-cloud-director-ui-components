@@ -291,10 +291,21 @@ export class DataExporterComponent implements OnInit, OnDestroy {
         });
     }
 
+    _columns: ExportColumn[] &#x3D; [];
+
     /**
-     * List of columns that can be exported, user may deselect some before sending the download request
+     * List of columns that can be exported, user may deselect some before sending the download request.
+     * Display name defaults to field name if there is no displayName
      */
-    @Input() columns: ExportColumn[] &#x3D; [];
+    @Input()
+    set columns(cols: ExportColumn[]) {
+        this._columns &#x3D; cols;
+        this.updateFieldNameMap(cols);
+    }
+
+    get columns(): ExportColumn[] {
+        return this._columns;
+    }
 
     /**
      * The name of the file to be downloaded
@@ -435,6 +446,8 @@ export class DataExporterComponent implements OnInit, OnDestroy {
     }
     private _progress &#x3D; 0;
 
+    private fieldNameMap &#x3D; new Map&lt;string, ExportColumn&gt;();
+
     formGroup: FormGroup;
 
     exportStage: LazyString;
@@ -560,12 +573,19 @@ export class DataExporterComponent implements OnInit, OnDestroy {
     }
 
     private getDisplayNameForField(fieldName: string): string {
-        for (const column of this.columns) {
-            if (column.fieldName &#x3D;&#x3D;&#x3D; fieldName) {
-                return column.displayName || column.fieldName;
-            }
+        if (this.fieldNameMap.has(fieldName)) {
+            const exportColumn &#x3D; this.fieldNameMap.get(fieldName);
+            return exportColumn.displayName || exportColumn.fieldName;
+        } else {
+            return fieldName;
         }
-        return fieldName;
+    }
+
+    private updateFieldNameMap(cols: ExportColumn[]): void {
+        this.fieldNameMap.clear();
+        cols.forEach((column: ExportColumn) &#x3D;&gt; {
+            this.fieldNameMap.set(column.fieldName, column);
+        });
     }
 }
 </code></pre>
