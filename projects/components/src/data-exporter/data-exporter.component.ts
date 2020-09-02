@@ -73,7 +73,7 @@ export class DataExporterComponent implements OnInit, OnDestroy {
         if (!columnDropdown) {
             return;
         }
-        this.subscriptionTracker.subscribe(columnDropdown.toggleService.openChange, opened => {
+        this.subscriptionTracker.subscribe(columnDropdown.toggleService.openChange, (opened) => {
             this.isDropdownOpen = opened;
         });
     }
@@ -292,7 +292,7 @@ export class DataExporterComponent implements OnInit, OnDestroy {
      * Gives a list of all the columns that are selected.
      */
     get selectedColumns(): ExportColumn[] {
-        return this.columns.filter(col => this.formGroup.controls[col.fieldName].value);
+        return this.columns.filter((col) => this.formGroup.controls[col.fieldName].value);
     }
 
     /**
@@ -308,7 +308,7 @@ export class DataExporterComponent implements OnInit, OnDestroy {
             return previousValue;
         }, {});
         this.formGroup = new FormGroup(controls);
-        this.subscriptionTracker.subscribe(this.selectAllControl.valueChanges, change => {
+        this.subscriptionTracker.subscribe(this.selectAllControl.valueChanges, (change) => {
             if (change) {
                 for (const column of this.columns) {
                     this.formGroup.controls[column.fieldName].setValue(true);
@@ -329,18 +329,18 @@ export class DataExporterComponent implements OnInit, OnDestroy {
 
         const rows = [
             // First row is the display names
-            Object.keys(records[0]).map(fieldName =>
+            Object.keys(records[0]).map((fieldName) =>
                 this.friendlyFieldsControl.value ? this.getDisplayNameForField(fieldName) : fieldName
             ),
             // Then the data
-            ...records.map(rec => Object.keys(rec).map(key => rec[key])),
+            ...records.map((rec) => Object.keys(rec).map((key) => rec[key])),
         ];
         return this.downloadData(rows, this.sanitizeControl.value);
     }
 
     downloadData(data: any[][], shouldSanitize: boolean = false): Promise<string> {
         this.exportStage = this.writingMessage;
-        return new Promise(resolve => {
+        return new Promise((resolve) => {
             // We need to setTimeout because we changed how the message should be displayed
             // but we need to interrupt the current task to get the message to display
             // We tried to use window.requestAnimationFrame, but this didn't work so we had to use
@@ -362,16 +362,17 @@ export class DataExporterComponent implements OnInit, OnDestroy {
     private getDisplayNameForField(fieldName: string): string {
         if (this.fieldNameMap.has(fieldName)) {
             const exportColumn = this.fieldNameMap.get(fieldName);
-            return exportColumn.displayName || exportColumn.fieldName;
+            return this.getDisplayNameForColumn(exportColumn);
         } else {
             return fieldName;
         }
     }
 
+    getDisplayNameForColumn(col: ExportColumn): string {
+        return col.displayName || col.fieldName;
+    }
+
     private updateFieldNameMap(cols: ExportColumn[]): void {
-        this.fieldNameMap.clear();
-        cols.forEach((column: ExportColumn) => {
-            this.fieldNameMap.set(column.fieldName, column);
-        });
+        this.fieldNameMap = new Map(cols.map((col) => [col.fieldName, col]));
     }
 }
