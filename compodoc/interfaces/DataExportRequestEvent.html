@@ -286,7 +286,7 @@ export class DataExporterComponent implements OnInit, OnDestroy {
         if (!columnDropdown) {
             return;
         }
-        this.subscriptionTracker.subscribe(columnDropdown.toggleService.openChange, opened &#x3D;&gt; {
+        this.subscriptionTracker.subscribe(columnDropdown.toggleService.openChange, (opened) &#x3D;&gt; {
             this.isDropdownOpen &#x3D; opened;
         });
     }
@@ -505,7 +505,7 @@ export class DataExporterComponent implements OnInit, OnDestroy {
      * Gives a list of all the columns that are selected.
      */
     get selectedColumns(): ExportColumn[] {
-        return this.columns.filter(col &#x3D;&gt; this.formGroup.controls[col.fieldName].value);
+        return this.columns.filter((col) &#x3D;&gt; this.formGroup.controls[col.fieldName].value);
     }
 
     /**
@@ -521,7 +521,7 @@ export class DataExporterComponent implements OnInit, OnDestroy {
             return previousValue;
         }, {});
         this.formGroup &#x3D; new FormGroup(controls);
-        this.subscriptionTracker.subscribe(this.selectAllControl.valueChanges, change &#x3D;&gt; {
+        this.subscriptionTracker.subscribe(this.selectAllControl.valueChanges, (change) &#x3D;&gt; {
             if (change) {
                 for (const column of this.columns) {
                     this.formGroup.controls[column.fieldName].setValue(true);
@@ -542,18 +542,18 @@ export class DataExporterComponent implements OnInit, OnDestroy {
 
         const rows &#x3D; [
             // First row is the display names
-            Object.keys(records[0]).map(fieldName &#x3D;&gt;
+            Object.keys(records[0]).map((fieldName) &#x3D;&gt;
                 this.friendlyFieldsControl.value ? this.getDisplayNameForField(fieldName) : fieldName
             ),
             // Then the data
-            ...records.map(rec &#x3D;&gt; Object.keys(rec).map(key &#x3D;&gt; rec[key])),
+            ...records.map((rec) &#x3D;&gt; Object.keys(rec).map((key) &#x3D;&gt; rec[key])),
         ];
         return this.downloadData(rows, this.sanitizeControl.value);
     }
 
     downloadData(data: any[][], shouldSanitize: boolean &#x3D; false): Promise&lt;string&gt; {
         this.exportStage &#x3D; this.writingMessage;
-        return new Promise(resolve &#x3D;&gt; {
+        return new Promise((resolve) &#x3D;&gt; {
             // We need to setTimeout because we changed how the message should be displayed
             // but we need to interrupt the current task to get the message to display
             // We tried to use window.requestAnimationFrame, but this didn&#x27;t work so we had to use
@@ -575,17 +575,18 @@ export class DataExporterComponent implements OnInit, OnDestroy {
     private getDisplayNameForField(fieldName: string): string {
         if (this.fieldNameMap.has(fieldName)) {
             const exportColumn &#x3D; this.fieldNameMap.get(fieldName);
-            return exportColumn.displayName || exportColumn.fieldName;
+            return this.getDisplayNameForColumn(exportColumn);
         } else {
             return fieldName;
         }
     }
 
+    getDisplayNameForColumn(col: ExportColumn): string {
+        return col.displayName || col.fieldName;
+    }
+
     private updateFieldNameMap(cols: ExportColumn[]): void {
-        this.fieldNameMap.clear();
-        cols.forEach((column: ExportColumn) &#x3D;&gt; {
-            this.fieldNameMap.set(column.fieldName, column);
-        });
+        this.fieldNameMap &#x3D; new Map(cols.map((col) &#x3D;&gt; [col.fieldName, col]));
     }
 }
 </code></pre>
