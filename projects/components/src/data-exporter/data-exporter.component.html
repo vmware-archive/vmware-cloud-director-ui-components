@@ -66,7 +66,7 @@
                                             <input type="checkbox" clrCheckbox [formControlName]="col.fieldName" />
                                             <label>{{
                                                 this.friendlyFieldsControl.value
-                                                    ? col.displayName || col.fieldName
+                                                    ? getDisplayNameForColumn(col)
                                                     : col.fieldName
                                             }}</label>
                                         </clr-checkbox-wrapper>
@@ -79,7 +79,7 @@
             </ul>
             <div [ngStyle]="{ visibility: shouldShowBubbles ? 'visible' : 'hidden' }" class="column-container">
                 <span class="label column-label" *ngFor="let column of selectedColumns">
-                    {{ this.friendlyFieldsControl.value ? column.displayName || column.fieldName : column.fieldName }}
+                    {{ this.friendlyFieldsControl.value ? getDisplayNameForColumn(column) : column.fieldName }}
                     <clr-icon shape="close" class="badge badge-info" (click)="selectColumn(column, false)"> </clr-icon>
                 </span>
             </div>
