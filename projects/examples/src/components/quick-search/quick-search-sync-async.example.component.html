@@ -16,6 +16,21 @@ Press <kbd>Command</kbd>+<kbd>f</kbd> on MacOS / <kbd>Ctrl</kbd>+<kbd>f</kbd> on
         description="The text to be shown in the quick search input field when it is empty"
     >
     </vcd-form-input>
+    <vcd-form-checkbox
+        [label]="'Display info at the top'"
+        [styling]="styling.TOGGLESWITCH"
+        [formControlName]="'topSection'"
+    >
+    </vcd-form-checkbox>
+    <vcd-form-checkbox
+        [label]="'Display info at the bottom'"
+        [styling]="styling.TOGGLESWITCH"
+        [formControlName]="'bottomSection'"
+    >
+    </vcd-form-checkbox>
 </form>
 
-<vcd-quick-search [(open)]="spotlightOpen" [placeholder]="formGroup.value.placeholder"></vcd-quick-search>
+<vcd-quick-search [(open)]="spotlightOpen" [placeholder]="formGroup.value.placeholder">
+    <div class="top-of-results info" *ngIf="formGroup.controls['topSection'].value">Top of results</div>
+    <div class="bottom-of-results info" *ngIf="formGroup.controls['bottomSection'].value">Bottom of results</div>
+</vcd-quick-search>

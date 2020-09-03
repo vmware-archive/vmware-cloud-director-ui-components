@@ -3,10 +3,14 @@
  * SPDX-License-Identifier: BSD-2-Clause
  */
 
+import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { fakeAsync, TestBed, tick } from '@angular/core/testing';
+import { ReactiveFormsModule } from '@angular/forms';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { ClarityModule } from '@clr/angular';
 import { MockTranslationService, TranslationService } from '@vcd/i18n';
+import { VcdFormModule } from '@vcd/ui-components';
 import { WidgetFinder, WidgetObject } from '../utils/test/widget-object';
 import { QuickSearchResultItem, QuickSearchResults, QuickSearchResultsType } from './quick-search-result';
 import { QuickSearchComponent, ResultActivatedEvent } from './quick-search.component';
@@ -91,7 +95,7 @@ describe('QuickSearchComponent', () => {
      */
     beforeEach(async function (this: Test): Promise<void> {
         await TestBed.configureTestingModule({
-            imports: [QuickSearchModule, NoopAnimationsModule],
+            imports: [CommonModule, ClarityModule, QuickSearchModule, NoopAnimationsModule],
             providers: [
                 {
                     provide: TranslationService,
@@ -623,6 +627,27 @@ describe('QuickSearchComponent', () => {
             expect(this.quickSearch.seacrhPlaceholder).toBe('Search...');
         });
     });
+
+    describe('projecting content', () => {
+        beforeEach(function (this: Test): void {
+            this.finder.hostComponent.spotlightOpen = true;
+            this.finder.detectChanges();
+        });
+
+        it('can projected content at the top of the results', function (this: Test): void {
+            expect(this.quickSearch.topOfResultsText).toEqual('');
+            this.finder.hostComponent.isTopOfResultsShown = true;
+            this.finder.detectChanges();
+            expect(this.quickSearch.topOfResultsText).toEqual('Top of results');
+        });
+
+        it('can projected content at the bottom of the results', function (this: Test): void {
+            expect(this.quickSearch.bottomOfResultsText).toEqual('');
+            this.finder.hostComponent.isBottomOfResultsShown = true;
+            this.finder.detectChanges();
+            expect(this.quickSearch.bottomOfResultsText).toEqual('Bottom of results');
+        });
+    });
 });
 
 @Component({
@@ -632,12 +657,16 @@ describe('QuickSearchComponent', () => {
             (resultActivated)="resultActivated($event)"
             [placeholder]="placeholder"
         >
+            <div class="top-of-results" *ngIf="isTopOfResultsShown">Top of results</div>
+            <div class="bottom-of-results" *ngIf="isBottomOfResultsShown">Bottom of results</div>
         </vcd-quick-search>
     `,
 })
 export class HostSpotlightSearchComponent {
     public placeholder: string;
     public spotlightOpen = false;
+    public isTopOfResultsShown = false;
+    public isBottomOfResultsShown = false;
     resultActivated(event: ResultActivatedEvent): void {}
 }
 
@@ -706,6 +735,14 @@ export class QuickSearchWidgetObject extends WidgetObject<QuickSearchComponent> 
 
     public clickItem(itemIndex, sectionIndex): void {
         this.click(`.search-result-section:nth-child(${sectionIndex}) .search-result-item:nth-child(${itemIndex})`);
+    }
+
+    public get topOfResultsText(): string {
+        return this.getText('.top-of-results');
+    }
+
+    public get bottomOfResultsText(): string {
+        return this.getText('.bottom-of-results');
     }
 
     public get isLoading(): boolean {

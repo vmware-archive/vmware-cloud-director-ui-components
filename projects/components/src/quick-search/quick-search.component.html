@@ -16,6 +16,7 @@
                 [(ngModel)]="searchCriteria"
             />
         </div>
+        <ng-content select=".top-of-results"></ng-content>
         <div class="search-result-container">
             <section
                 *ngFor="let searchSection of searchSections; let i = index"
@@ -59,5 +60,6 @@
                 </ul>
             </section>
         </div>
+        <ng-content select=".bottom-of-results"></ng-content>
     </div>
 </clr-modal>

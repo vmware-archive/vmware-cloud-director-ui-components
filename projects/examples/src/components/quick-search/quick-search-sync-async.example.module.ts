@@ -3,6 +3,7 @@
  * SPDX-License-Identifier: BSD-2-Clause
  */
 
+import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import { ClarityModule } from '@clr/angular';
@@ -17,7 +18,7 @@ import {
  * A module that imports all activity reporter examples.
  */
 @NgModule({
-    imports: [ClarityModule, QuickSearchModule, VcdFormModule, ReactiveFormsModule],
+    imports: [CommonModule, ClarityModule, QuickSearchModule, VcdFormModule, ReactiveFormsModule],
     declarations: [QuickSearchNoTitleExampleComponent, QuickSearchSyncAsyncExampleComponent],
     exports: [QuickSearchSyncAsyncExampleComponent],
     entryComponents: [QuickSearchSyncAsyncExampleComponent],
