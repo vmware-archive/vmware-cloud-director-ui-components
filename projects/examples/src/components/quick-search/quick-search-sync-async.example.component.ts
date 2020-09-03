@@ -72,7 +72,7 @@ function buildFilter(criteria: string): (item: QuickSearchResultItem) => boolean
     return (item: QuickSearchResultItem) => criteria && item.displayText.toLowerCase().includes(criteria);
 }
 
-export class ActionsSearchProvider implements QuickSearchProvider {
+export class ActionsSearchProvider extends QuickSearchProviderDefaults {
     sectionName = 'Actions';
 
     order = -1;
@@ -80,6 +80,8 @@ export class ActionsSearchProvider implements QuickSearchProvider {
     private actions: QuickSearchResultItem[];
 
     constructor() {
+        super();
+
         // Build actions
         this.actions = actions.map((action) => {
             return {
@@ -106,7 +108,7 @@ export class ActionsSearchProvider implements QuickSearchProvider {
     }
 }
 
-export class LazyLoadedActionsSearchProvider implements QuickSearchProvider {
+export class LazyLoadedActionsSearchProvider extends QuickSearchProviderDefaults {
     sectionName = 'Lazy Loaded Actions';
 
     order = -1;

@@ -44,7 +44,7 @@ abstract class TestProviderBase extends QuickSearchProviderDefaults {
     }
 }
 // Provider that returns an array
-class SimpleSearchProvider extends TestProviderBase implements QuickSearchProvider {
+class SimpleSearchProvider extends TestProviderBase {
     search(criteria: string): QuickSearchResultsType {
         const items = this.searchHandler(criteria);
         return { items };
@@ -52,7 +52,7 @@ class SimpleSearchProvider extends TestProviderBase implements QuickSearchProvid
 }
 
 // Another provider that returns an array
-class AnotherSimpleSearchProvider extends TestProviderBase implements QuickSearchProvider {
+class AnotherSimpleSearchProvider extends TestProviderBase {
     search(criteria: string): QuickSearchResultsType {
         const items = ['other', 'another']
             .filter((item) => item.includes(criteria))
@@ -65,7 +65,7 @@ class AnotherSimpleSearchProvider extends TestProviderBase implements QuickSearc
 }
 
 // Provider that returns a promise
-class AsyncSearchProvider extends TestProviderBase implements QuickSearchProvider {
+class AsyncSearchProvider extends TestProviderBase {
     search(criteria: string): QuickSearchResultsType {
         return new Promise((resolve) => {
             setTimeout(() => {
