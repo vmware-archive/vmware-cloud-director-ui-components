@@ -65,6 +65,12 @@
 
 
 
+            <p class="comment">
+                <h3>Implements</h3>
+            </p>
+            <p class="comment">
+                            <code><a href="../interfaces/QuickSearchProvider.html" target="_self" >QuickSearchProvider</a></code>
+            </p>
 
 
             <section>
@@ -89,6 +95,21 @@
                     </td>
                 </tr>
 
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Methods</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                    <span class="modifier">Abstract</span>
+                                <a href="#search">search</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
 
 
 
@@ -170,7 +191,84 @@
         </table>
 </section>
 
+            <section>
+    
+    <h3 id="methods">
+        Methods
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="search"></a>
+                    <span class="name">
+                        <b>
+                            <span class="modifier">Abstract</span>
+                            search
+                        </b>
+                        <a href="#search"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                    <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>search(criteria: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
+                </td>
+            </tr>
 
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="33"
+                            class="link-to-prism">projects/components/src/quick-search/quick-search.provider.ts:33</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Type</td>
+                                    <td>Optional</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>criteria</td>
+                                    <td>
+                                                <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="../interfaces/QuickSearchResults.html" target="_self" >QuickSearchResultsType</a></code>
+
+                    </div>
+                    <div class="io-description">
+                        
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</section>
 
 
 
@@ -180,7 +278,7 @@
 
 
     <div class="tab-pane fade  tab-source-code" id="c-source">
-        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { QuickSearchResultType } from &#x27;./quick-search-result&#x27;;
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { QuickSearchResultsType } from &#x27;./quick-search-result&#x27;;
 
 /**
  * The interface a search providers should implement in order to register itself with the {@link QuickSearchService}
@@ -192,7 +290,7 @@ export interface QuickSearchProvider {
     sectionName: string;
 
     /**
-     * The order of the section in the spotlight search results. The lower the order, the closer to the beginning of the list.
+     * The order of the section in the quick search results. The lower the order, the closer to the beginning of the list.
      * -1 means append
      */
     order: number;
@@ -201,12 +299,13 @@ export interface QuickSearchProvider {
      * Returns an array or a promise of array of items that comply with the search criteria.
      * @param criteria The search string provided by the user when typing in the Quick Search Component
      */
-    search(criteria: string): QuickSearchResultType;
+    search(criteria: string): QuickSearchResultsType;
 }
 
-export abstract class QuickSearchProviderDefaults {
+export abstract class QuickSearchProviderDefaults implements QuickSearchProvider {
     sectionName &#x3D; &#x27;&#x27;;
     order &#x3D; -1;
+    abstract search(criteria: string): QuickSearchResultsType;
 }
 </code></pre>
     </div>

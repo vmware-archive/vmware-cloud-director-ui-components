@@ -738,10 +738,16 @@ customElements.define('compodoc-menu', class extends HTMLElement {
                                 <a href="interfaces/PagionationInformation.html" data-type="entity-link">PagionationInformation</a>
                             </li>
                             <li class="link">
+                                <a href="interfaces/PartialResult.html" data-type="entity-link">PartialResult</a>
+                            </li>
+                            <li class="link">
                                 <a href="interfaces/QuickSearchProvider.html" data-type="entity-link">QuickSearchProvider</a>
                             </li>
                             <li class="link">
-                                <a href="interfaces/QuickSearchResult.html" data-type="entity-link">QuickSearchResult</a>
+                                <a href="interfaces/QuickSearchResultItem.html" data-type="entity-link">QuickSearchResultItem</a>
+                            </li>
+                            <li class="link">
+                                <a href="interfaces/QuickSearchResults.html" data-type="entity-link">QuickSearchResults</a>
                             </li>
                             <li class="link">
                                 <a href="interfaces/ResultActivatedEvent.html" data-type="entity-link">ResultActivatedEvent</a>
