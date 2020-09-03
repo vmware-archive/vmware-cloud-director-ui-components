@@ -149,7 +149,7 @@ export class PagedActionsSearchProvider extends QuickSearchProviderDefaults {
     search(criteria: string): QuickSearchResultsType {
         criteria = criteria ? criteria.toLowerCase() : '';
         const items = this.actions.filter((action) => action.displayText.toLowerCase().includes(criteria));
-        const pageSize = 5;
+        const pageSize = 15;
         return {
             items: items.slice(0, pageSize),
             page: 1,

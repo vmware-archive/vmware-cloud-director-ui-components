@@ -316,11 +316,7 @@ export class QuickSearchComponent {
     }
 
     showSectionTitle(searchSection: SearchSection): boolean {
-        // In order to show a section title there should be more than one sections
-        // and the current section should either be loading data or have results
-        return (
-            !!searchSection.provider.sectionName && (searchSection.isLoading || searchSection.result?.items.length > 0)
-        );
+        return !!(searchSection.provider.sectionName && this.searchCriteria);
     }
 
     /**

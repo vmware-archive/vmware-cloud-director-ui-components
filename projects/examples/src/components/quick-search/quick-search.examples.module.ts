@@ -6,7 +6,6 @@
 import { NgModule } from '@angular/core';
 import { QuickSearchComponent } from '@vcd/ui-components';
 import { Documentation } from '@vmw/ng-live-docs';
-import { QuickSearchNoTitleExampleComponent } from './quick-search-no-title.example.component';
 import { QuickSearchSyncAsyncExampleComponent } from './quick-search-sync-async.example.component';
 import { QuickSearchSyncAsyncExampleModule } from './quick-search-sync-async.example.module';
 
@@ -21,17 +20,11 @@ Documentation.registerDocumentationEntry({
             title: 'Async and sync sections',
             urlSegment: 'async-sync-sections',
         },
-        {
-            component: QuickSearchNoTitleExampleComponent,
-            forComponent: null,
-            title: 'Single section with no title',
-            urlSegment: 'no-title-section',
-        },
     ],
 });
 
 /**
- * A module that imports all activity reporter examples.
+ * A module that imports all quick search examples.
  */
 @NgModule({
     imports: [QuickSearchSyncAsyncExampleModule],

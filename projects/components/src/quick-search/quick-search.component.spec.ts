@@ -263,6 +263,21 @@ describe('QuickSearchComponent', () => {
             expect(searchHandlerSpy).toHaveBeenCalledWith('copy');
         });
 
+        it('display "No results found" when there are no results', function (this: Test): void {
+            // Register one more provider
+            this.quickSearchData.simpleProvider.sectionName = 'new section';
+            this.quickSearchData.spotlightSearchService.registerProvider(this.quickSearchData.simpleProvider);
+            // Open
+            this.finder.hostComponent.spotlightOpen = true;
+            this.finder.detectChanges();
+            // Set search
+            this.quickSearch.searchInputValue = 'no match';
+            //
+            const noResults = TestBed.inject(TranslationService).translate('vcd.cc.quickSearch.noResults', []);
+            expect(this.quickSearch.searchResults.length).toBe(0);
+            expect(this.quickSearch.noSearchResults).toEqual([noResults, noResults]);
+        });
+
         describe('partial search result', () => {
             it('does not display partial information if total is less than the number of items', function (this: Test): void {
                 const partialSearchProvider = new PartialSearchProvider(1);
@@ -323,7 +338,7 @@ describe('QuickSearchComponent', () => {
         });
     });
 
-    describe('section', () => {
+    describe('section title', () => {
         it('displays section title even if there is just one provider', function (this: Test): void {
             // Open
             this.finder.hostComponent.spotlightOpen = true;
@@ -365,7 +380,7 @@ describe('QuickSearchComponent', () => {
             expect(this.quickSearch.sectionTitles).toEqual(['section']);
         });
 
-        it('can hide the section title when there is no result', function (this: Test): void {
+        it('display section title if there are no results', function (this: Test): void {
             // Register one more provider
             this.quickSearchData.simpleProvider.sectionName = 'new section';
             this.quickSearchData.spotlightSearchService.registerProvider(this.quickSearchData.simpleProvider);
@@ -376,7 +391,7 @@ describe('QuickSearchComponent', () => {
             this.quickSearch.searchInputValue = 'no match';
             //
             expect(this.quickSearch.searchResults.length).toBe(0);
-            expect(this.quickSearch.sectionTitles.length).toEqual(0);
+            expect(this.quickSearch.sectionTitles.length).toEqual(2);
         });
     });
 
@@ -719,6 +734,10 @@ export class QuickSearchWidgetObject extends WidgetObject<QuickSearchComponent> 
 
     public get searchResultAlerts(): string[] {
         return this.getTexts('clr-alert-item');
+    }
+
+    public get noSearchResults(): string[] {
+        return this.getTexts('.no-results');
     }
 
     public get sectionTitles(): string[] {

@@ -42,6 +42,9 @@
                     >
                         {{ item.displayText }}
                     </li>
+                    <li class="no-results" *ngIf="searchSection.result?.items?.length === 0">
+                        {{ 'vcd.cc.quickSearch.noResults' | translate }}
+                    </li>
                     <li>
                         <clr-alert
                             *ngIf="hasPartialResult(searchSection)"
