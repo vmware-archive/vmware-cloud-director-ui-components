@@ -174,6 +174,8 @@ export class QuickSearchComponent {
         // Remember which is the current search. This will help us not to show results from an old search
         const searchId = ++this.searchId;
 
+        this.selectedItem = null;
+
         // Mark each sections in loading state. This flag is needed when trying to select the first item
         // while the search is still in progress
         this.searchSections.forEach((searchSection) => (searchSection.isLoading = true));
@@ -198,7 +200,9 @@ export class QuickSearchComponent {
             }
             searchSection.result = searchResult;
             searchSection.isLoading = false;
-            this.selectFirst(true);
+            if (!this.selectedItem) {
+                this.selectFirst(true);
+            }
         });
     }
 

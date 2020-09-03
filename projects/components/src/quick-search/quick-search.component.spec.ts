@@ -6,16 +6,14 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { fakeAsync, TestBed, tick } from '@angular/core/testing';
-import { ReactiveFormsModule } from '@angular/forms';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { ClarityModule } from '@clr/angular';
 import { MockTranslationService, TranslationService } from '@vcd/i18n';
-import { VcdFormModule } from '@vcd/ui-components';
 import { WidgetFinder, WidgetObject } from '../utils/test/widget-object';
-import { QuickSearchResultItem, QuickSearchResults, QuickSearchResultsType } from './quick-search-result';
+import { QuickSearchResultItem, QuickSearchResultsType } from './quick-search-result';
 import { QuickSearchComponent, ResultActivatedEvent } from './quick-search.component';
 import { QuickSearchModule } from './quick-search.module';
-import { QuickSearchProvider, QuickSearchProviderDefaults } from './quick-search.provider';
+import { QuickSearchProviderDefaults } from './quick-search.provider';
 import { QuickSearchService } from './quick-search.service';
 
 interface Test {
@@ -447,6 +445,19 @@ describe('QuickSearchComponent', () => {
                 this.quickSearch.searchInputValue = 'c';
                 tick(1000);
                 expect(this.quickSearch.getSelectedItem(1)).toEqual('copy');
+            }));
+
+            it('does not change manual selection', fakeAsync(function (this: Test): void {
+                Object.assign(this.quickSearchData.asyncProvider, { order: 0, sectionName: 'async section' });
+                this.quickSearchData.spotlightSearchService.registerProvider(this.quickSearchData.asyncProvider);
+                this.finder.hostComponent.spotlightOpen = true;
+                this.finder.detectChanges();
+                this.quickSearch.searchInputValue = 'copy';
+                // Pressing arrow up selects the first available result, in this case it is the from from the simple provider
+                this.quickSearch.pressArrowUp();
+                tick(1000);
+                this.finder.detectChanges();
+                expect(this.quickSearch.getSelectedItem(2)).toEqual('copy');
             }));
         });
 
