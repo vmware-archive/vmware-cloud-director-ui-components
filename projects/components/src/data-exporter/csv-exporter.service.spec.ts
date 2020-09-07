@@ -65,6 +65,11 @@ describe('CsvExporterService', () => {
             const service: CsvExporterService = TestBed.inject(CsvExporterService);
             expect(service.createCsv([['a+', 'a-', 'a@', 'a='], [null, undefined]], true)).toEqual('a+,a-,a@,a=\n,');
         });
+
+        it('encodes JavaScript object to JSON string', () => {
+            const service: CsvExporterService = TestBed.inject(CsvExporterService);
+            expect(service.createCsv([['a', 'b', 'c'], [{a: 1, b: 2}, [1, 2], 10]])).toEqual('a,b,c\n"{""a"":1,""b"":2}","[1,2]",10');
+        });
     });
 
     describe('downloadCsvFile - msSaveBlob', () => {

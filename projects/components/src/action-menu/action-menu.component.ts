@@ -68,6 +68,16 @@ export class ActionMenuComponent<R, T> {
     }
 
     /**
+     * Used by the {@link EntityActionExtensionComponentsDirective} to provide the extension actions from plugins after
+     * they are created asynchronously
+     * @param val List of extension actions
+     */
+    set extensionEntityActions(val: ActionItem<unknown, unknown>[]) {
+        this._extensionEntityActions = val;
+    }
+    private _extensionEntityActions: ActionItem<unknown, unknown>[];
+
+    /**
      * When there are no nested actions and if none of the contextual actions are marked to be featured, they are shown inline
      */
     shouldDisplayContextualActionsDropdown = false;
@@ -196,24 +206,6 @@ export class ActionMenuComponent<R, T> {
     }
 
     /**
-     * List containing all the contextual actions. It has contextual featured actions in the beginning of the list
-     * followed by non-featured contextual actions as children of grouped action called
-     * 'vcd.cc.action.menu.all.actions'
-     */
-    get contextualDropdownActions(): ActionItem<R, T>[] | object {
-        const contextualFeaturedActions = this.contextualFeaturedActions;
-        if (!contextualFeaturedActions?.length) {
-            return this.contextualActions;
-        }
-        return this.contextualFeaturedActions.concat([
-            {
-                textKey: 'vcd.cc.action.menu.all.actions',
-                children: this.contextualActions,
-            },
-        ]);
-    }
-
-    /**
      * Actions that depend on selected entities and belong to main menu list. The returned list length is less than the
      * configured featured count in {@link actionDisplayConfig}
      */
@@ -255,7 +247,11 @@ export class ActionMenuComponent<R, T> {
                 !action.actionType ||
                 (action.actionType !== ActionType.STATIC_FEATURED && action.actionType !== ActionType.STATIC)
         );
-        return this.getAvailableActions(contextualActions);
+        const availableContextualActions = this.getAvailableActions(contextualActions);
+        if (this._extensionEntityActions) {
+            availableContextualActions.push(...this._extensionEntityActions);
+        }
+        return availableContextualActions;
     }
 
     /**
@@ -333,16 +329,6 @@ export class ActionMenuComponent<R, T> {
         return (
             this.shouldDisplayStaticActions(this.actionStyling.DROPDOWN) ||
             this.shouldDisplayStaticFeaturedActions(this.actionStyling.DROPDOWN)
-        );
-    }
-
-    /**
-     * To show or hide {@link ActionType.STATIC_FEATURED} and {@link ActionType.STATIC} actions in a inline action bar
-     */
-    get shouldDisplayStaticAndStaticFeaturedActionsInline(): boolean {
-        return (
-            this.shouldDisplayStaticActions(this.actionStyling.INLINE) &&
-            this.shouldDisplayStaticFeaturedActions(this.actionStyling.INLINE)
         );
     }
 }

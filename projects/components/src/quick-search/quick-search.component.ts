@@ -6,60 +6,88 @@
 import { ChangeDetectorRef, Component, ElementRef, EventEmitter, Input, Output, ViewChild } from '@angular/core';
 import { TranslationService } from '@vcd/i18n';
 import { DomUtil } from '../utils/dom-util';
-import { SpotlightSearchResult, SpotlightSearchResultType } from './spotlight-search-result';
-import { RegisteredProviders, SpotlightSearchService } from './spotlight-search.service';
+import { QuickSearchResultItem, QuickSearchResults, QuickSearchResultsType } from './quick-search-result';
+import { QuickSearchProvider } from './quick-search.provider';
+import { QuickSearchService } from './quick-search.service';
 
-interface SearchSection extends RegisteredProviders {
-    results: SpotlightSearchResult[];
+interface SearchSection {
+    provider: QuickSearchProvider;
+    result: QuickSearchResults;
     isLoading: boolean;
 }
 
 /**
- * The Spotlight Search component is inspired by the Spotlight Search functionality in Mac OSX (cmd+space)
+ * This interface describes the event emitted when a result item is activated,
+ * i.e. its event handler has been called.
+ */
+export interface ResultActivatedEvent {
+    itemDisplayText: string;
+    sectionTitle: string;
+    eventSource: 'MouseEvent' | 'KeyboardEvent';
+}
+
+/**
+ * This interface describes partial search result, i.e. result that do not contain all the items that match the
+ * search criteria {@see QuickSearchComponent#hasPartialResult}
+ */
+interface PartialResult {
+    /**
+     * The number of the last item of the result
+     */
+    lastItem: number;
+
+    /**
+     * Total number of items in the result
+     */
+    totalItems: number;
+}
+
+/**
+ * The Quick Search component is inspired by the Spotlight Search in Mac OSX (cmd+space)
  * and the Search Everywhere in IntelliJ (shift+shift)
  *
- * This VCD Spotlight Search does not provide any search by itself. It is not also a single component
+ * This VCD Quick Search does not provide any search by itself. It is not also a single component
  * but rather a group of objects that work together in order to allow the developer to build a might search experience
  * for the end user.
  *
- * Basically the VCD Spotlight Search consists of:
+ * Basically the VCD Quick Search consists of:
  * <ul>
- *     <li>SpotlightSearchComponent - the visual component that you should include in your template</li>
- *     <li>{@link SpotlightSearchService}<a href="/compodoc/injectables/SpotlightSearchService.html">SpotlightSearchService</a>
+ *     <li>QuickSearchComponent - the visual component that you should include in your template</li>
+ *     <li>{@link QuickSearchService}<a href="/compodoc/injectables/QuickSearchService.html">QuickSearchService</a>
  *     - the service that you should register your own providers with</li>
- *     <li>{@link SpotlightSearchProvider}<a href="/compodoc/interfaces/SpotlightSearchProvider.html">SpotlightSearchProvider</a>
+ *     <li>{@link QuickSearchProvider}<a href="/compodoc/interfaces/QuickSearchProvider.html">QuickSearchProvider</a>
  *     - the interface your search provider should implement.
- *     It can return either an array of {@link SpotlightSearchResult} or a promise for lazy loading of results</li>
+ *     It can return either an array of {@link QuickSearchResults} or a promise for lazy loading of results</li>
  * </ul>
  *
- * SpotlightSearchComponent:
+ * QuickSearchComponent:
  *
- *    <vcd-spotlight-search
- *        [(open)]="spotlightOpen"
+ *    <vcd-quick-search
+ *        [(open)]="quickSearchOpen"
  *        [placeholder]="'Search ...'"
- *    ></vcd-spotlight-search>
+ *    ></vcd-quick-search>
  *
  *
- * {@link SpotlightSearchService}:
+ * {@link QuickSearchService}:
  *
- * This service works along with the component in order to provide search results displayed. Those results are gropued
- * in sections based on the registered provider {@link SpotlightSearchProvider}.
+ * This service works along with the component in order to provide search results displayed. Those results are grouped
+ * in sections based on the registered provider {@link QuickSearchProvider}.
  *
  * You can provide order of the search providers, hence the order of the displayed sections
  *
  * If there is just one search provider no section title is displayed.
  *
- * In case of multiple search providers the Spotlight Search can be configured to hide the entire section if it contains no data.
+ * In case of multiple search providers the Quick Search can be configured to hide the entire section if it contains no data.
  *
  *
  * For a complete end-to-end running example please take a look at the `Examples` tab of the live-docs
  */
 @Component({
-    selector: 'vcd-spotlight-search',
-    templateUrl: './spotlight-search.component.html',
-    styleUrls: ['./spotlight-search.component.scss'],
+    selector: 'vcd-quick-search',
+    templateUrl: './quick-search.component.html',
+    styleUrls: ['./quick-search.component.scss'],
 })
-export class SpotlightSearchComponent {
+export class QuickSearchComponent {
     /**
      * Placeholder for the search input. Default is empty string;
      */
@@ -67,7 +95,7 @@ export class SpotlightSearchComponent {
 
     /**
      * This property alongside with `openChange` provide two-way binding [(open)] for controlling the visibility state
-     * of the spotlight component
+     * of the quick search component
      */
     @Input()
     public set open(open: boolean) {
@@ -79,12 +107,18 @@ export class SpotlightSearchComponent {
 
     /**
      * This method along with `open` property provide two-way binding [(open)] for controlling the visibility state
-     * of the spotlight component
+     * of the quick search component
      */
     @Output() openChange: EventEmitter<boolean> = new EventEmitter<boolean>(false);
 
+    /**
+     * Event dispatched when item has been activated, i.e. its event handler is called.
+     * This happens when item is clicked or 'Enter' is pressed when there is a selection.
+     */
+    @Output() resultActivated: EventEmitter<ResultActivatedEvent> = new EventEmitter<ResultActivatedEvent>();
+
     constructor(
-        private searchService: SpotlightSearchService,
+        private searchService: QuickSearchService,
         private changeDetectorRef: ChangeDetectorRef,
         private el: ElementRef,
         public translationService: TranslationService
@@ -107,15 +141,15 @@ export class SpotlightSearchComponent {
     private searchId = 0;
 
     /**
-     * The search sections are provided by the {@link SpotlightSearchService} upon opening the Spotlight Search.
+     * The search sections are provided by the {@link QuickSearchService} upon opening the Quick Search.
      * This insures that new sections based on the current context of the application may appear.
      */
     searchSections: SearchSection[] = [];
 
-    selectedItem: SpotlightSearchResult;
+    selectedItem: QuickSearchResultItem;
 
-    itemClicked(item: SpotlightSearchResult): void {
-        this.handleItem(item);
+    itemClicked(item: QuickSearchResultItem): void {
+        this.handleItem(item, true);
     }
 
     onArrowDown(event: KeyboardEvent): void {
@@ -133,7 +167,7 @@ export class SpotlightSearchComponent {
         if (!this.selectedItem) {
             return;
         }
-        this.handleItem(this.selectedItem);
+        this.handleItem(this.selectedItem, false);
     }
 
     private doSearch(): void {
@@ -142,25 +176,27 @@ export class SpotlightSearchComponent {
 
         // Mark each sections in loading state. This flag is needed when trying to select the first item
         // while the search is still in progress
-        this.searchSections.forEach(searchSection => (searchSection.isLoading = true));
+        this.searchSections.forEach((searchSection) => (searchSection.isLoading = true));
 
         // Go through the available search sections, i.e. the registered search providers and request for results
-        this.searchSections.forEach(async searchSection => {
-            let results: SpotlightSearchResultType = [];
+        this.searchSections.forEach(async (searchSection) => {
+            let searchResult: QuickSearchResults;
             // Only request for data if the search is not empty
             if (!!this.searchCriteria) {
-                results = searchSection.provider.search(this.searchCriteria);
+                const result = searchSection.provider.search(this.searchCriteria);
 
                 // Some of the results may be provided later, so mark the section as loading
-                if (results instanceof Promise) {
-                    results = await results;
+                if (result instanceof Promise) {
+                    searchResult = await result;
+                } else {
+                    searchResult = result;
                 }
                 // Use the closure to verify that the displayed data is going to be really from the latest search
                 if (searchId !== this.searchId) {
                     return;
                 }
             }
-            searchSection.results = results;
+            searchSection.result = searchResult;
             searchSection.isLoading = false;
             this.selectFirst(true);
         });
@@ -180,7 +216,7 @@ export class SpotlightSearchComponent {
                 }
                 continue;
             }
-            this.selectedItem = section.results[0];
+            this.selectedItem = section.result?.items[0];
             if (this.selectedItem) {
                 break;
             }
@@ -196,7 +232,7 @@ export class SpotlightSearchComponent {
         }
 
         // Get all the items form all the sections in a single flat array
-        const allResults = this.searchSections.reduce((acc, v) => [...acc, ...(v.results || [])], []);
+        const allResults = this.searchSections.reduce((acc, v) => [...acc, ...(v.result?.items || [])], []);
 
         let selectedItemIndex = allResults.indexOf(this.selectedItem);
 
@@ -236,7 +272,7 @@ export class SpotlightSearchComponent {
     }
 
     /**
-     * Handle showing / hiding of the Spotlight Search.
+     * Handle showing / hiding of the Quick Search.
      * @param open true when opening, false when closing
      */
     private handleOpen(open: boolean): void {
@@ -249,7 +285,7 @@ export class SpotlightSearchComponent {
         if (open) {
             this.searchSections = this.searchService
                 .getRegisteredProviders()
-                .map(data => ({ ...data, results: [], isLoading: true }));
+                .map((provider) => ({ provider, result: null, isLoading: true }));
             this.doSearch();
 
             setTimeout(() => {
@@ -263,14 +299,48 @@ export class SpotlightSearchComponent {
         this.changeDetectorRef.detectChanges();
     }
 
-    private handleItem(item: SpotlightSearchResult): void {
+    private handleItem(item: QuickSearchResultItem, clicked: boolean): void {
+        const searchSection: SearchSection = this.searchSections.find(
+            (section) =>
+                !section.isLoading &&
+                section.result?.items.some((resultItem) => resultItem.displayText === item.displayText)
+        );
+        const resultActivatedEvent: ResultActivatedEvent = {
+            itemDisplayText: item.displayText,
+            sectionTitle: searchSection.provider.sectionName,
+            eventSource: clicked ? 'MouseEvent' : 'KeyboardEvent',
+        };
         item.handler();
+        this.resultActivated.emit(resultActivatedEvent);
         this.open = false;
     }
 
     showSectionTitle(searchSection: SearchSection): boolean {
         // In order to show a section title there should be more than one sections
         // and the current section should either be loading data or have results
-        return searchSection.section && (searchSection.isLoading || searchSection.results.length > 0);
+        return (
+            !!searchSection.provider.sectionName && (searchSection.isLoading || searchSection.result?.items.length > 0)
+        );
+    }
+
+    /**
+     * Determines if the result in this section is partial (i.e. there are more items matching the criteria which are
+     * in the current list) or it is full (the current list contains all the items matching the criteria)
+     * If the result is partial then {@link PartialResult} object is returned. If the result contains all the items
+     * then null is returned
+     * @param searchSection the section which result items is to be checked
+     */
+    hasPartialResult(searchSection: SearchSection): PartialResult {
+        if (
+            searchSection.result?.total &&
+            searchSection.result?.items?.length &&
+            searchSection.result.items.length < searchSection.result.total
+        ) {
+            return {
+                lastItem: searchSection.result.items.length,
+                totalItems: searchSection.result.total,
+            };
+        }
+        return null;
     }
 }

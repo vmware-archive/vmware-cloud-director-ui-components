@@ -6,7 +6,7 @@
 import { CommonModule } from '@angular/common';
 import { ModuleWithProviders, NgModule } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
-import { ConfigOption, FORMLY_CONFIG, FormlyModule } from '@ngx-formly/core';
+import { ConfigOption, FormlyModule, FORMLY_CONFIG } from '@ngx-formly/core';
 import { FormlySelectModule } from '@ngx-formly/core/select';
 import { I18nModule } from '@vcd/i18n';
 import { VcdFormModule } from '../../form/form.module';

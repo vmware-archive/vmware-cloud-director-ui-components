@@ -19,15 +19,14 @@
             [nestedDropdownPosition]="nestedDropdownPosition"
             [onItemClickedCb]="runActionHandler.bind(this)"
             [isItemDisabledCb]="isActionDisabled.bind(this)"
-            [dropdownTriggerBtnTxt]="inlineDropdownTriggerBtnText"
+            [dropdownTriggerBtnTxt]="inlineDropdownTriggerBtnText | translate"
             [dropdownItemContents]="actionDisplayConfig.contextual.buttonContents"
             [isDropdownDisabled]="disabled"
         ></vcd-dropdown>
     </ng-container>
 
-    <div class="static-actions-separator" *ngIf="shouldDisplayStaticAndStaticFeaturedActionsInline"></div>
-
     <ng-container *ngIf="shouldDisplayStaticActions(actionStyling.INLINE)">
+        <div class="static-actions-separator"></div>
         <ng-container *ngFor="let action of staticActions; trackBy: actionsTrackBy">
             <ng-template *ngTemplateOutlet="actionButton; context: { $implicit: action }"></ng-template>
         </ng-container>
@@ -42,7 +41,7 @@
     [nestedDropdownPosition]="nestedDropdownPosition"
     [onItemClickedCb]="runActionHandler.bind(this)"
     [isItemDisabledCb]="isActionDisabled.bind(this)"
-    [dropdownTriggerBtnTxt]="dropdownTriggerBtnText"
+    [dropdownTriggerBtnTxt]="dropdownTriggerBtnText | translate"
     [dropdownTriggerBtnIcon]="dropdownTriggerBtnIcon"
     [dropdownItemContents]="actionDisplayConfig.contextual.buttonContents"
     [isDropdownDisabled]="disabled"
@@ -50,13 +49,13 @@
 
 <vcd-dropdown
     *ngIf="shouldDisplayContextualActions(actionStyling.DROPDOWN)"
-    [items]="contextualDropdownActions"
+    [items]="contextualActions"
     [trackByFunction]="actionsTrackBy"
     [dropdownPosition]="dropdownPosition"
     [nestedDropdownPosition]="nestedDropdownPosition"
     [onItemClickedCb]="runActionHandler.bind(this)"
     [isItemDisabledCb]="isActionDisabled.bind(this)"
-    [dropdownTriggerBtnTxt]="dropdownTriggerBtnText"
+    [dropdownTriggerBtnTxt]="dropdownTriggerBtnText | translate"
     [dropdownTriggerBtnIcon]="dropdownTriggerBtnIcon"
     [dropdownItemContents]="actionDisplayConfig.contextual.buttonContents"
     [isDropdownDisabled]="disabled"

@@ -17,7 +17,7 @@ class MockTranslationService extends TranslationService {
 
     registerTranslations(set: TranslationSet): void {}
 
-    get activeLocale(): string {
+    getActiveLocale(): string {
         return this.preferredLocale;
     }
 

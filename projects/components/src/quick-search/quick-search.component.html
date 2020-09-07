@@ -22,7 +22,10 @@
                 class="search-result-section section-index-{{ i }}"
             >
                 <h5 *ngIf="showSectionTitle(searchSection)" class="search-result-section-title">
-                    {{ searchSection.section }}
+                    {{ searchSection.provider.sectionName }}
+                    <span *ngIf="hasPartialResult(searchSection); let partial" class="partial-result">
+                        {{ 'vcd.cc.quickSearch.partialResultNotation' | translate: partial }}
+                    </span>
                 </h5>
                 <div *ngIf="searchSection.isLoading">
                     <div class="spinner spinner-inline"></div>
@@ -32,11 +35,26 @@
                     <li
                         class="search-result-item"
                         role="button"
-                        *ngFor="let item of searchSection.results"
+                        *ngFor="let item of searchSection.result?.items"
                         (click)="itemClicked(item)"
                         [ngClass]="item == selectedItem ? 'selected' : ''"
                     >
                         {{ item.displayText }}
+                    </li>
+                    <li>
+                        <clr-alert
+                            *ngIf="hasPartialResult(searchSection)"
+                            [clrAlertType]="'warning'"
+                            [clrAlertSizeSmall]="true"
+                            [clrAlertClosable]="false"
+                        >
+                            <clr-alert-item>
+                                {{
+                                    'vcd.cc.quickSearch.refineQuery'
+                                        | translate: { max: searchSection.result.items.length }
+                                }}
+                            </clr-alert-item>
+                        </clr-alert>
                     </li>
                 </ul>
             </section>

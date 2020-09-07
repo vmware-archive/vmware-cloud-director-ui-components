@@ -14,7 +14,7 @@ interface DropdownItem<T extends DropdownItem<T>> {
     /**
      * The i18n key or a translated string for contents of a action button
      */
-    textKey: string;
+    textKey?: string;
     /**
      * List of items that will be grouped under this item
      */
@@ -30,7 +30,15 @@ interface DropdownItem<T extends DropdownItem<T>> {
     /**
      * Css class of the dropdown item. Must be unique among all dropdown items within the dropdown items list
      */
-    class: string;
+    class?: string;
+    /**
+     * To add separators between groups of dropdown items
+     */
+    isSeparator?: boolean;
+    /**
+     * This is the busy state for the menu item. Used by extension actions of plugins
+     */
+    busy?: boolean;
 }
 
 /**
@@ -164,5 +172,18 @@ export class DropdownComponent<T extends DropdownItem<T>> {
             const singleChildItem = items.splice(singleChildItemIndex, 1).pop();
             items.unshift(singleChildItem.children[0]);
         });
+    }
+
+    /**
+     * To check in the HTML, if a dropdown item of separator type should be used to add a separator item in the dropdown
+     * This is required because,
+     * 1. As each item decides its own availability, some groups may become empty and we collapse separators before them
+     * 2. A separator is not required if it is the first item in the dropdown list
+     * @param index Position of the dropdown item in the dropdown list
+     * @param currentItem The current item in the list that is being iterated over
+     */
+    shouldRenderAsSeparator(index: number, currentItem: DropdownItem<T>): boolean {
+        const nextItem = this.items[index + 1];
+        return index > 0 && currentItem.isSeparator && !!nextItem && !nextItem.isSeparator;
     }
 }

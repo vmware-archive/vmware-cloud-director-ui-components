@@ -88,6 +88,14 @@ export interface ActionItem<R, T> {
      * To mark if the {@link #ActionItem.textKey} has to be translated or not
      */
     isTranslatable?: boolean;
+    /**
+     * To add separators between groups of actions
+     */
+    isSeparator?: boolean;
+    /**
+     * Busy state for the menu item. Used by extension actions of plugins
+     */
+    busy?: boolean;
 }
 
 /**

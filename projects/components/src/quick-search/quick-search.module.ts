@@ -8,11 +8,11 @@ import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ClarityModule } from '@clr/angular';
 import { I18nModule } from '@vcd/i18n';
-import { SpotlightSearchComponent } from './spotlight-search.component';
+import { QuickSearchComponent } from './quick-search.component';
 
 @NgModule({
     imports: [CommonModule, ClarityModule, FormsModule, ReactiveFormsModule, I18nModule],
-    declarations: [SpotlightSearchComponent],
-    exports: [SpotlightSearchComponent],
+    declarations: [QuickSearchComponent],
+    exports: [QuickSearchComponent],
 })
-export class SpotlightSearchModule {}
+export class QuickSearchModule {}

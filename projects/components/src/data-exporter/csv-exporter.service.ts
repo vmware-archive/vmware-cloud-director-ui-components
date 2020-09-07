@@ -83,6 +83,8 @@ function encodeValue(cellValue: unknown, shouldSanitize: boolean): string {
     let innerValue = cellValue == null ? '' : cellValue.toString();
     if (cellValue instanceof Date) {
         innerValue = cellValue.toLocaleString();
+    } else if (cellValue && typeof cellValue === 'object') {
+        innerValue = JSON.stringify(cellValue);
     }
     // Double quotes are doubled
     let result = innerValue.replace(/"/g, '""');
