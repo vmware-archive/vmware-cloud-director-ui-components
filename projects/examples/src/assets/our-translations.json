@@ -6,6 +6,7 @@
         "maxLengthError": "Input is too long",
         "power.actions": "Power Actions",
         "grouped.actions": "Grouped Actions",
+        "grouped.actions2": "Grouped Actions 2",
         "grouped.actions.with.single.child": "Grouped actions with single child"
     },
     "de": {
