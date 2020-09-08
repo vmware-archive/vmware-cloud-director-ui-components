@@ -21,6 +21,7 @@ import { CliptextConfig, TooltipSize } from '../lib/directives';
 
 const NESTED_DROPDOWN_TRIGGER_SELECTOR = 'clr-dropdown clr-dropdown > button';
 const DROPDOWN_ITEM_SELECTOR = 'clr-dropdown-menu > button';
+const NESTED_MENU_HIDE_DELAY = 400;
 
 /**
  * Object representing an item of the dropdown
@@ -170,7 +171,7 @@ export class DropdownComponent<T extends DropdownItem<T>> {
     @ViewChild(ClrDropdown) clrDropdown: ClrDropdown;
 
     /**
-     * List of nested dropdown children that belong to this dropdown. Used to close then when a different child in this menu list is
+     * List of nested dropdown children that belong to this dropdown. Used to close when a different child in this menu list is
      * hovered over
      */
     @ViewChildren(DropdownComponent) vcdDropdownChildren: QueryList<DropdownComponent<T>>;
@@ -228,13 +229,12 @@ export class DropdownComponent<T extends DropdownItem<T>> {
      * dropdown type
      */
     @HostListener('mouseover', ['$event'])
-    onMouseOver(event: unknown): void {
-        const tsEvent = event as Event;
-        tsEvent.stopPropagation();
+    onMouseOver(event: Event): void {
+        event.stopPropagation();
         if (this.hideTimeout) {
             clearTimeout(this.hideTimeout);
         }
-        const target = tsEvent.target as Element;
+        const target = event.target as Element;
         if (target.matches(DROPDOWN_ITEM_SELECTOR)) {
             this.closeOpenVcdDropdownChildren();
         }
@@ -250,12 +250,14 @@ export class DropdownComponent<T extends DropdownItem<T>> {
      * Handles the mouseout events on this dropdown's children that are of {@link #NESTED_DROPDOWN_TRIGGER_SELECTOR} type
      */
     @HostListener('mouseout', ['$event'])
-    onMouseOut(event: unknown): void {
-        const tsEvent = event as Event;
-        tsEvent.stopPropagation();
-        const target = tsEvent.target as Element;
+    onMouseOut(event: Event): void {
+        event.stopPropagation();
+        const target = event.target as Element;
         if (target.matches(NESTED_DROPDOWN_TRIGGER_SELECTOR)) {
-            this.hideTimeout = setTimeout(() => (this.clrDropdown.toggleService.open = false), 400);
+            this.hideTimeout = window.setTimeout(
+                () => (this.clrDropdown.toggleService.open = false),
+                NESTED_MENU_HIDE_DELAY
+            );
         }
     }
 

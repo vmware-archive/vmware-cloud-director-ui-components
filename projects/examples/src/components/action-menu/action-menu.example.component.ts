@@ -165,6 +165,38 @@ export class ActionMenuExampleComponent<R extends Record, T extends HandlerData>
                         },
                     ],
                 },
+                {
+                    textKey: 'grouped.actions3',
+                    children: [
+                        {
+                            textKey: 'Contextual featured',
+                            actionType: ActionType.CONTEXTUAL_FEATURED,
+                            handler: () => console.log('Contextual featured'),
+                            isTranslatable: false,
+                        },
+                        {
+                            textKey: 'Contextual 2',
+                            handler: () => console.log('Contextual action 2'),
+                            isTranslatable: false,
+                        },
+                    ],
+                },
+                {
+                    textKey: 'grouped.actions4',
+                    children: [
+                        {
+                            textKey: 'Contextual featured',
+                            actionType: ActionType.CONTEXTUAL_FEATURED,
+                            handler: () => console.log('Contextual featured'),
+                            isTranslatable: false,
+                        },
+                        {
+                            textKey: 'Contextual 2',
+                            handler: () => console.log('Contextual action 2'),
+                            isTranslatable: false,
+                        },
+                    ],
+                },
             ],
         },
     ];
