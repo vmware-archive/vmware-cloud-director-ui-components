@@ -86,6 +86,9 @@
                         <td class="col-md-4">
                             <ul class="index-list">
                                 <li>
+                                        <a href="#data">data</a>
+                                </li>
+                                <li>
                                         <a href="#order">order</a>
                                 </li>
                                 <li>
@@ -139,8 +142,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="27"
-                            class="link-to-prism">projects/components/src/quick-search/quick-search.provider.ts:27</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="33"
+                            class="link-to-prism">projects/components/src/quick-search/quick-search.provider.ts:33</a></div>
                 </td>
             </tr>
 
@@ -198,6 +201,42 @@
 
             <section>
                 <h3 id="inputs">Properties</h3>
+                    <table class="table table-sm table-bordered">
+                        <tbody>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <a name="data"></a>
+                                        <span class="name"><b>data</b><a href="#data"><span class="icon ion-ios-link"></span></a></span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <code>data:     <code>unknown</code>
+</code>
+                                    </td>
+                                </tr>
+
+
+                                    <tr>
+                                        <td class="col-md-4">
+                                            <i>Type : </i>    <code>unknown</code>
+
+                                        </td>
+                                    </tr>
+
+
+
+
+
+                            <tr>
+                                <td class="col-md-4">
+                                    <div class="io-description"><p>A custom property available throughout all the providers. Not designed for any specific scenario.
+Use it according to the specific needs you may have.</p>
+</div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
                     <table class="table table-sm table-bordered">
                         <tbody>
                                 <tr>
@@ -292,6 +331,12 @@ export interface QuickSearchProvider {
     order: number;
 
     /**
+     * A custom property available throughout all the providers. Not designed for any specific scenario.
+     * Use it according to the specific needs you may have.
+     */
+    data: unknown;
+
+    /**
      * Returns an array or a promise of array of items that comply with the search criteria.
      * @param criteria The search string provided by the user when typing in the Quick Search Component
      */
@@ -301,6 +346,7 @@ export interface QuickSearchProvider {
 export abstract class QuickSearchProviderDefaults implements QuickSearchProvider {
     sectionName &#x3D; &#x27;&#x27;;
     order &#x3D; -1;
+    data: unknown;
     abstract search(criteria: string): QuickSearchResultsType;
 }
 </code></pre>

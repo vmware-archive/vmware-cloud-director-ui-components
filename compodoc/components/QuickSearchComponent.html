@@ -567,8 +567,8 @@ This happens when item is clicked or &#39;Enter&#39; is pressed when there is a 
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="302"
-                            class="link-to-prism">projects/components/src/quick-search/quick-search.component.ts:302</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="306"
+                            class="link-to-prism">projects/components/src/quick-search/quick-search.component.ts:306</a></div>
                 </td>
             </tr>
 
@@ -651,8 +651,8 @@ This happens when item is clicked or &#39;Enter&#39; is pressed when there is a 
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="278"
-                            class="link-to-prism">projects/components/src/quick-search/quick-search.component.ts:278</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="282"
+                            class="link-to-prism">projects/components/src/quick-search/quick-search.component.ts:282</a></div>
                 </td>
             </tr>
 
@@ -1086,8 +1086,8 @@ then null is returned</p>
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="209"
-                            class="link-to-prism">projects/components/src/quick-search/quick-search.component.ts:209</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="213"
+                            class="link-to-prism">projects/components/src/quick-search/quick-search.component.ts:213</a></div>
                 </td>
             </tr>
 
@@ -1165,8 +1165,8 @@ then null is returned</p>
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="227"
-                            class="link-to-prism">projects/components/src/quick-search/quick-search.component.ts:227</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="231"
+                            class="link-to-prism">projects/components/src/quick-search/quick-search.component.ts:231</a></div>
                 </td>
             </tr>
 
@@ -1235,8 +1235,8 @@ then null is returned</p>
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="318"
-                            class="link-to-prism">projects/components/src/quick-search/quick-search.component.ts:318</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="322"
+                            class="link-to-prism">projects/components/src/quick-search/quick-search.component.ts:322</a></div>
                 </td>
             </tr>
 
@@ -1836,6 +1836,8 @@ export class QuickSearchComponent {
         // Remember which is the current search. This will help us not to show results from an old search
         const searchId &#x3D; ++this.searchId;
 
+        this.selectedItem &#x3D; null;
+
         // Mark each sections in loading state. This flag is needed when trying to select the first item
         // while the search is still in progress
         this.searchSections.forEach((searchSection) &#x3D;&gt; (searchSection.isLoading &#x3D; true));
@@ -1860,7 +1862,9 @@ export class QuickSearchComponent {
             }
             searchSection.result &#x3D; searchResult;
             searchSection.isLoading &#x3D; false;
-            this.selectFirst(true);
+            if (!this.selectedItem) {
+                this.selectFirst(true);
+            }
         });
     }
 
@@ -1978,11 +1982,7 @@ export class QuickSearchComponent {
     }
 
     showSectionTitle(searchSection: SearchSection): boolean {
-        // In order to show a section title there should be more than one sections
-        // and the current section should either be loading data or have results
-        return (
-            !!searchSection.provider.sectionName &amp;&amp; (searchSection.isLoading || searchSection.result?.items.length &gt; 0)
-        );
+        return !!(searchSection.provider.sectionName &amp;&amp; this.searchCriteria);
     }
 
     /**
@@ -2028,6 +2028,7 @@ export class QuickSearchComponent {
                 [(ngModel)]&#x3D;&quot;searchCriteria&quot;
             /&gt;
         &lt;/div&gt;
+        &lt;ng-content select&#x3D;&quot;.top-of-results&quot;&gt;&lt;/ng-content&gt;
         &lt;div class&#x3D;&quot;search-result-container&quot;&gt;
             &lt;section
                 *ngFor&#x3D;&quot;let searchSection of searchSections; let i &#x3D; index&quot;
@@ -2053,6 +2054,9 @@ export class QuickSearchComponent {
                     &gt;
                         {{ item.displayText }}
                     &lt;/li&gt;
+                    &lt;li class&#x3D;&quot;no-results&quot; *ngIf&#x3D;&quot;searchSection.result?.items?.length &#x3D;&#x3D;&#x3D; 0&quot;&gt;
+                        {{ &#x27;vcd.cc.quickSearch.noResults&#x27; | translate }}
+                    &lt;/li&gt;
                     &lt;li&gt;
                         &lt;clr-alert
                             *ngIf&#x3D;&quot;hasPartialResult(searchSection)&quot;
@@ -2071,6 +2075,7 @@ export class QuickSearchComponent {
                 &lt;/ul&gt;
             &lt;/section&gt;
         &lt;/div&gt;
+        &lt;ng-content select&#x3D;&quot;.bottom-of-results&quot;&gt;&lt;/ng-content&gt;
     &lt;/div&gt;
 &lt;/clr-modal&gt;
 </code></pre>
@@ -2112,6 +2117,10 @@ export class QuickSearchComponent {
         flex: 1;
         overflow: auto;
 
+        .search-result-section {
+            margin-top: 8px;
+        }
+
         .search-result-section-title {
             font-weight: bold;
             margin-top: 0;
@@ -2119,6 +2128,11 @@ export class QuickSearchComponent {
 
         .partial-result {
             color: var(--clr-color-neutral-500);
+        }
+
+        .no-results {
+            color: var(--clr-color-neutral-500);
+            font-style: italic;
         }
 
         .search-result-item {
@@ -2161,7 +2175,7 @@ export class QuickSearchComponent {
 <script src="../js/libs/htmlparser.js"></script>
 <script src="../js/libs/deep-iterator.js"></script>
 <script>
-        var COMPONENT_TEMPLATE = '<div><clr-modal    [(clrModalOpen)]="open"    [clrModalStaticBackdrop]="false"    (keydown.arrowup)="onArrowUp($event)"    (keydown.arrowdown)="onArrowDown($event)"    (keydown.enter)="onEnterKey($event)">    <div class="modal-body">        <div class="search-input-container">            <clr-icon shape="search" size="20"></clr-icon>            <input                #searchInput                type="text"                class="clr-input"                [placeholder]="placeholder || \'\'"                [(ngModel)]="searchCriteria"            />        </div>        <div class="search-result-container">            <section                *ngFor="let searchSection of searchSections; let i = index"                class="search-result-section section-index-{{ i }}"            >                <h5 *ngIf="showSectionTitle(searchSection)" class="search-result-section-title">                    {{ searchSection.provider.sectionName }}                    <span *ngIf="hasPartialResult(searchSection); let partial" class="partial-result">                        {{ \'vcd.cc.quickSearch.partialResultNotation\' | translate: partial }}                    </span>                </h5>                <div *ngIf="searchSection.isLoading">                    <div class="spinner spinner-inline"></div>                    {{ \'vcd.cc.loading\' | translate }}                </div>                <ul *ngIf="!searchSection.isLoading" class="list-unstyled compact">                    <li                        class="search-result-item"                        role="button"                        *ngFor="let item of searchSection.result?.items"                        (click)="itemClicked(item)"                        [ngClass]="item == selectedItem ? \'selected\' : \'\'"                    >                        {{ item.displayText }}                    </li>                    <li>                        <clr-alert                            *ngIf="hasPartialResult(searchSection)"                            [clrAlertType]="\'warning\'"                            [clrAlertSizeSmall]="true"                            [clrAlertClosable]="false"                        >                            <clr-alert-item>                                {{                                    \'vcd.cc.quickSearch.refineQuery\'                                        | translate: { max: searchSection.result.items.length }                                }}                            </clr-alert-item>                        </clr-alert>                    </li>                </ul>            </section>        </div>    </div></clr-modal></div>'
+        var COMPONENT_TEMPLATE = '<div><clr-modal    [(clrModalOpen)]="open"    [clrModalStaticBackdrop]="false"    (keydown.arrowup)="onArrowUp($event)"    (keydown.arrowdown)="onArrowDown($event)"    (keydown.enter)="onEnterKey($event)">    <div class="modal-body">        <div class="search-input-container">            <clr-icon shape="search" size="20"></clr-icon>            <input                #searchInput                type="text"                class="clr-input"                [placeholder]="placeholder || \'\'"                [(ngModel)]="searchCriteria"            />        </div>        <ng-content select=".top-of-results"></ng-content>        <div class="search-result-container">            <section                *ngFor="let searchSection of searchSections; let i = index"                class="search-result-section section-index-{{ i }}"            >                <h5 *ngIf="showSectionTitle(searchSection)" class="search-result-section-title">                    {{ searchSection.provider.sectionName }}                    <span *ngIf="hasPartialResult(searchSection); let partial" class="partial-result">                        {{ \'vcd.cc.quickSearch.partialResultNotation\' | translate: partial }}                    </span>                </h5>                <div *ngIf="searchSection.isLoading">                    <div class="spinner spinner-inline"></div>                    {{ \'vcd.cc.loading\' | translate }}                </div>                <ul *ngIf="!searchSection.isLoading" class="list-unstyled compact">                    <li                        class="search-result-item"                        role="button"                        *ngFor="let item of searchSection.result?.items"                        (click)="itemClicked(item)"                        [ngClass]="item == selectedItem ? \'selected\' : \'\'"                    >                        {{ item.displayText }}                    </li>                    <li class="no-results" *ngIf="searchSection.result?.items?.length === 0">                        {{ \'vcd.cc.quickSearch.noResults\' | translate }}                    </li>                    <li>                        <clr-alert                            *ngIf="hasPartialResult(searchSection)"                            [clrAlertType]="\'warning\'"                            [clrAlertSizeSmall]="true"                            [clrAlertClosable]="false"                        >                            <clr-alert-item>                                {{                                    \'vcd.cc.quickSearch.refineQuery\'                                        | translate: { max: searchSection.result.items.length }                                }}                            </clr-alert-item>                        </clr-alert>                    </li>                </ul>            </section>        </div>        <ng-content select=".bottom-of-results"></ng-content>    </div></clr-modal></div>'
     var COMPONENTS = [{'name': 'ActionMenuComponent', 'selector': 'vcd-action-menu'},{'name': 'BannerActivityReporterComponent', 'selector': 'vcd-banner-activity-reporter'},{'name': 'BoldTextRendererComponent', 'selector': 'vcd-bold-text-renderer'},{'name': 'DataExporterComponent', 'selector': 'vcd-data-exporter'},{'name': 'DatagridComponent', 'selector': 'vcd-datagrid'},{'name': 'DatagridMultiSelectFilterComponent', 'selector': 'vcd-dg-multiselect-filter'},{'name': 'DatagridNumericFilterComponent', 'selector': 'vcd-dg-numeric-filter'},{'name': 'DatagridSelectFilterComponent', 'selector': 'vcd-dg-select-filter'},{'name': 'DatagridStringFilterComponent', 'selector': 'vcd-dg-string-filter'},{'name': 'DropdownComponent', 'selector': 'vcd-dropdown'},{'name': 'ErrorBannerComponent', 'selector': 'vcd-error-banner'},{'name': 'FilterTestHostComponent', 'selector': ''},{'name': 'FormCheckboxComponent', 'selector': 'vcd-form-checkbox'},{'name': 'FormInputComponent', 'selector': 'vcd-form-input'},{'name': 'FormlyInputComponent', 'selector': 'vcd-formly-input'},{'name': 'FormlyNumberWithUnitInputComponent', 'selector': 'vcd-formly-number-with-unit-input'},{'name': 'FormlySelectComponent', 'selector': 'vcd-formly-select'},{'name': 'FormSelectComponent', 'selector': 'vcd-form-select'},{'name': 'LoadingIndicatorComponent', 'selector': 'vcd-loading-indicator'},{'name': 'NumberWithUnitFormInputComponent', 'selector': 'vcd-number-with-unit-form-input'},{'name': 'QuickSearchComponent', 'selector': 'vcd-quick-search'},{'name': 'ShowClippedTextDirectiveTestHostComponent', 'selector': ''},{'name': 'SpinnerActivityReporterComponent', 'selector': 'vcd-spinner-activity-reporter'}];
     var DIRECTIVES = [{'name': 'ComponentRendererOutletDirective', 'selector': '[vcdComponentRendererOutlet]'},{'name': 'DynamicDropdownPositionDirective', 'selector': 'clr-dropdown[vcdDynamicDropdown]'},{'name': 'EntityActionExtensionComponentsDirective', 'selector': 'vcd-action-menu[vcdEntityActionExtensionContainers]'},{'name': 'MinMaxValidator', 'selector': 'vcd-number-with-unit-form-input[min],vcd-number-with-unit-form-input[max]'},{'name': 'ShowClippedTextDirective', 'selector': '[vcdShowClippedText]'}];
     var ACTUAL_COMPONENT = {'name': 'QuickSearchComponent'};
