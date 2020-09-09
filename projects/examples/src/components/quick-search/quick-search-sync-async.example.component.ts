@@ -6,8 +6,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import {
-    CheckBoxStyling,
-    QuickSearchProvider,
     QuickSearchProviderDefaults,
     QuickSearchRegistrarService,
     QuickSearchResultItem,
@@ -25,7 +23,6 @@ export class QuickSearchSyncAsyncExampleComponent implements OnInit, OnDestroy {
     formGroup: FormGroup;
     kbdShortcut = 'mod+f';
     spotlightOpen: boolean;
-    styling = CheckBoxStyling;
 
     private lazyLoadedProvider = new LazyLoadedActionsSearchProvider();
     private actionsSearchProvider = new ActionsSearchProvider();
@@ -42,8 +39,6 @@ export class QuickSearchSyncAsyncExampleComponent implements OnInit, OnDestroy {
 
         this.formGroup = this.fb.group({
             ['placeholder']: [''],
-            ['topSection']: [false],
-            ['bottomSection']: [true],
         });
     }
 
