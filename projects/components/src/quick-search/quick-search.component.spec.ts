@@ -3,15 +3,17 @@
  * SPDX-License-Identifier: BSD-2-Clause
  */
 
+import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { fakeAsync, TestBed, tick } from '@angular/core/testing';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { ClarityModule } from '@clr/angular';
 import { MockTranslationService, TranslationService } from '@vcd/i18n';
 import { WidgetFinder, WidgetObject } from '../utils/test/widget-object';
-import { QuickSearchResultItem, QuickSearchResults, QuickSearchResultsType } from './quick-search-result';
+import { QuickSearchResultItem, QuickSearchResultsType } from './quick-search-result';
 import { QuickSearchComponent, ResultActivatedEvent } from './quick-search.component';
 import { QuickSearchModule } from './quick-search.module';
-import { QuickSearchProvider, QuickSearchProviderDefaults } from './quick-search.provider';
+import { QuickSearchProviderDefaults } from './quick-search.provider';
 import { QuickSearchService } from './quick-search.service';
 
 interface Test {
@@ -40,7 +42,7 @@ abstract class TestProviderBase extends QuickSearchProviderDefaults {
     }
 }
 // Provider that returns an array
-class SimpleSearchProvider extends TestProviderBase implements QuickSearchProvider {
+class SimpleSearchProvider extends TestProviderBase {
     search(criteria: string): QuickSearchResultsType {
         const items = this.searchHandler(criteria);
         return { items };
@@ -48,7 +50,7 @@ class SimpleSearchProvider extends TestProviderBase implements QuickSearchProvid
 }
 
 // Another provider that returns an array
-class AnotherSimpleSearchProvider extends TestProviderBase implements QuickSearchProvider {
+class AnotherSimpleSearchProvider extends TestProviderBase {
     search(criteria: string): QuickSearchResultsType {
         const items = ['other', 'another']
             .filter((item) => item.includes(criteria))
@@ -61,7 +63,7 @@ class AnotherSimpleSearchProvider extends TestProviderBase implements QuickSearc
 }
 
 // Provider that returns a promise
-class AsyncSearchProvider extends TestProviderBase implements QuickSearchProvider {
+class AsyncSearchProvider extends TestProviderBase {
     search(criteria: string): QuickSearchResultsType {
         return new Promise((resolve) => {
             setTimeout(() => {
@@ -91,7 +93,7 @@ describe('QuickSearchComponent', () => {
      */
     beforeEach(async function (this: Test): Promise<void> {
         await TestBed.configureTestingModule({
-            imports: [QuickSearchModule, NoopAnimationsModule],
+            imports: [CommonModule, ClarityModule, QuickSearchModule, NoopAnimationsModule],
             providers: [
                 {
                     provide: TranslationService,
@@ -259,6 +261,21 @@ describe('QuickSearchComponent', () => {
             expect(searchHandlerSpy).toHaveBeenCalledWith('copy');
         });
 
+        it('display "No results found" when there are no results', function (this: Test): void {
+            // Register one more provider
+            this.quickSearchData.simpleProvider.sectionName = 'new section';
+            this.quickSearchData.spotlightSearchService.registerProvider(this.quickSearchData.simpleProvider);
+            // Open
+            this.finder.hostComponent.spotlightOpen = true;
+            this.finder.detectChanges();
+            // Set search
+            this.quickSearch.searchInputValue = 'no match';
+            //
+            const noResults = TestBed.inject(TranslationService).translate('vcd.cc.quickSearch.noResults', []);
+            expect(this.quickSearch.searchResults.length).toBe(0);
+            expect(this.quickSearch.noSearchResults).toEqual([noResults, noResults]);
+        });
+
         describe('partial search result', () => {
             it('does not display partial information if total is less than the number of items', function (this: Test): void {
                 const partialSearchProvider = new PartialSearchProvider(1);
@@ -319,7 +336,7 @@ describe('QuickSearchComponent', () => {
         });
     });
 
-    describe('section', () => {
+    describe('section title', () => {
         it('displays section title even if there is just one provider', function (this: Test): void {
             // Open
             this.finder.hostComponent.spotlightOpen = true;
@@ -361,7 +378,7 @@ describe('QuickSearchComponent', () => {
             expect(this.quickSearch.sectionTitles).toEqual(['section']);
         });
 
-        it('can hide the section title when there is no result', function (this: Test): void {
+        it('display section title if there are no results', function (this: Test): void {
             // Register one more provider
             this.quickSearchData.simpleProvider.sectionName = 'new section';
             this.quickSearchData.spotlightSearchService.registerProvider(this.quickSearchData.simpleProvider);
@@ -372,7 +389,7 @@ describe('QuickSearchComponent', () => {
             this.quickSearch.searchInputValue = 'no match';
             //
             expect(this.quickSearch.searchResults.length).toBe(0);
-            expect(this.quickSearch.sectionTitles.length).toEqual(0);
+            expect(this.quickSearch.sectionTitles.length).toEqual(2);
         });
     });
 
@@ -428,6 +445,19 @@ describe('QuickSearchComponent', () => {
                 this.quickSearch.searchInputValue = 'c';
                 tick(1000);
                 expect(this.quickSearch.getSelectedItem(1)).toEqual('copy');
+            }));
+
+            it('does not change manual selection', fakeAsync(function (this: Test): void {
+                Object.assign(this.quickSearchData.asyncProvider, { order: 0, sectionName: 'async section' });
+                this.quickSearchData.spotlightSearchService.registerProvider(this.quickSearchData.asyncProvider);
+                this.finder.hostComponent.spotlightOpen = true;
+                this.finder.detectChanges();
+                this.quickSearch.searchInputValue = 'copy';
+                // Pressing arrow up selects the first available result, in this case it is the from from the simple provider
+                this.quickSearch.pressArrowUp();
+                tick(1000);
+                this.finder.detectChanges();
+                expect(this.quickSearch.getSelectedItem(2)).toEqual('copy');
             }));
         });
 
@@ -623,6 +653,27 @@ describe('QuickSearchComponent', () => {
             expect(this.quickSearch.seacrhPlaceholder).toBe('Search...');
         });
     });
+
+    describe('projecting content', () => {
+        beforeEach(function (this: Test): void {
+            this.finder.hostComponent.spotlightOpen = true;
+            this.finder.detectChanges();
+        });
+
+        it('can projected content at the top of the results', function (this: Test): void {
+            expect(this.quickSearch.topOfResultsText).toEqual('');
+            this.finder.hostComponent.isTopOfResultsShown = true;
+            this.finder.detectChanges();
+            expect(this.quickSearch.topOfResultsText).toEqual('Top of results');
+        });
+
+        it('can projected content at the bottom of the results', function (this: Test): void {
+            expect(this.quickSearch.bottomOfResultsText).toEqual('');
+            this.finder.hostComponent.isBottomOfResultsShown = true;
+            this.finder.detectChanges();
+            expect(this.quickSearch.bottomOfResultsText).toEqual('Bottom of results');
+        });
+    });
 });
 
 @Component({
@@ -632,12 +683,16 @@ describe('QuickSearchComponent', () => {
             (resultActivated)="resultActivated($event)"
             [placeholder]="placeholder"
         >
+            <div class="top-of-results" *ngIf="isTopOfResultsShown">Top of results</div>
+            <div class="bottom-of-results" *ngIf="isBottomOfResultsShown">Bottom of results</div>
         </vcd-quick-search>
     `,
 })
 export class HostSpotlightSearchComponent {
     public placeholder: string;
     public spotlightOpen = false;
+    public isTopOfResultsShown = false;
+    public isBottomOfResultsShown = false;
     resultActivated(event: ResultActivatedEvent): void {}
 }
 
@@ -692,6 +747,10 @@ export class QuickSearchWidgetObject extends WidgetObject<QuickSearchComponent> 
         return this.getTexts('clr-alert-item');
     }
 
+    public get noSearchResults(): string[] {
+        return this.getTexts('.no-results');
+    }
+
     public get sectionTitles(): string[] {
         return this.getTexts('.search-result-section-title');
     }
@@ -706,6 +765,14 @@ export class QuickSearchWidgetObject extends WidgetObject<QuickSearchComponent> 
 
     public clickItem(itemIndex, sectionIndex): void {
         this.click(`.search-result-section:nth-child(${sectionIndex}) .search-result-item:nth-child(${itemIndex})`);
+    }
+
+    public get topOfResultsText(): string {
+        return this.getText('.top-of-results');
+    }
+
+    public get bottomOfResultsText(): string {
+        return this.getText('.bottom-of-results');
     }
 
     public get isLoading(): boolean {
