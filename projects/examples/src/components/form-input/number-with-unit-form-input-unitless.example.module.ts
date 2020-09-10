@@ -8,12 +8,12 @@ import { NgModule } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import { I18nModule } from '@vcd/i18n';
 import { VcdFormModule } from '@vcd/ui-components';
-import { NumberWithUnitFormInputExampleComponent } from './number-with-unit-form-input.example.component';
+import { NumberWithUnitFormInputUnitlessExampleComponent } from './number-with-unit-form-input-unitless.example.component';
 
 @NgModule({
-    declarations: [NumberWithUnitFormInputExampleComponent],
+    declarations: [NumberWithUnitFormInputUnitlessExampleComponent],
     imports: [CommonModule, VcdFormModule, ReactiveFormsModule, I18nModule],
-    exports: [NumberWithUnitFormInputExampleComponent],
-    entryComponents: [NumberWithUnitFormInputExampleComponent],
+    exports: [NumberWithUnitFormInputUnitlessExampleComponent],
+    entryComponents: [NumberWithUnitFormInputUnitlessExampleComponent],
 })
-export class NumberWithUnitFormInputExampleModule {}
+export class NumberWithUnitFormInputUnitlessExampleModule {}

@@ -17,6 +17,8 @@ import { FormInputExampleComponent } from './form-input.example.component';
 import { FormInputExampleModule } from './form-input.example.module';
 import { FormSelectExampleComponent } from './form-select.example.component';
 import { FormSelectExampleModule } from './form-select.example.module';
+import { NumberWithUnitFormInputUnitlessExampleComponent } from './number-with-unit-form-input-unitless.example.component';
+import { NumberWithUnitFormInputUnitlessExampleModule } from './number-with-unit-form-input-unitless.example.module';
 import { NumberWithUnitFormInputExampleComponent } from './number-with-unit-form-input.example.component';
 import { NumberWithUnitFormInputExampleModule } from './number-with-unit-form-input.example.module';
 
@@ -73,6 +75,12 @@ Documentation.registerDocumentationEntry({
             title: 'Number with unit form input',
             urlSegment: 'number-with-unit-form-input',
         },
+        {
+            component: NumberWithUnitFormInputUnitlessExampleComponent,
+            forComponent: null,
+            title: 'Unitless',
+            urlSegment: 'number-with-unit-form-input-unitless',
+        },
     ],
 });
 
@@ -85,6 +93,7 @@ Documentation.registerDocumentationEntry({
         FormSelectExampleModule,
         FormCheckboxExampleModule,
         NumberWithUnitFormInputExampleModule,
+        NumberWithUnitFormInputUnitlessExampleModule,
     ],
 })
 export class FormInputComponentsExamplesModule {}

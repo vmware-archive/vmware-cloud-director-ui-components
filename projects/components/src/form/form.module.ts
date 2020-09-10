@@ -12,18 +12,9 @@ import { UnitFormatter } from '../utils/unit/unit-formatter';
 import { FormCheckboxComponent } from './form-checkbox/form-checkbox.component';
 import { FormInputComponent } from './form-input/form-input.component';
 import { FormSelectComponent } from './form-select/form-select.component';
-import {
-    MinMaxValidator,
-    NumberWithUnitFormInputComponent,
-} from './number-with-unit-input/number-with-unit-form-input.component';
+import { NumberWithUnitFormInputComponent } from './number-with-unit-input/number-with-unit-form-input.component';
 
-const declarations = [
-    FormInputComponent,
-    FormSelectComponent,
-    FormCheckboxComponent,
-    NumberWithUnitFormInputComponent,
-    MinMaxValidator,
-];
+const declarations = [FormInputComponent, FormSelectComponent, FormCheckboxComponent, NumberWithUnitFormInputComponent];
 
 @NgModule({
     imports: [ClarityModule, FormsModule, ReactiveFormsModule, CommonModule, I18nModule],

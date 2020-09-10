@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
-    "start": "npm run build:i18n && npm run build-components-doc && npm run generate-example-translations && npm run build-examples-doc && ng serve",
+    "start": "npm run build:i18n && npm run build:components && npm run build-components-doc && npm run generate-example-translations && npm run build-examples-doc && ng serve -- --poll=2000",
     "build:examples": "ng build examples",
     "build:examples-prod": "ng build examples --prod=true --base-href=/vmware-cloud-director-ui-components/",
     "build:examples-aot": "ng build examples --aot=true",
