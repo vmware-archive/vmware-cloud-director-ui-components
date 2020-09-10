@@ -1,0 +1,56 @@
+These examples show how you can use the <code>&lt;vcd-number-with-unit-form-input&gt;</code> component without units or
+with percent.
+<br />
+The "Warn Level" percent example also disables the "unlimited" functionality.
+<p>
+    You can play with the form below to examine validators, min/max values, unlimited values, readonly & disabled state
+    etc.
+</p>
+<form [formGroup]="formGroup" class="clr-form-horizontal">
+    <section>
+        <vcd-form-checkbox
+            [label]="'Readonly'"
+            [styling]="CheckBoxStyling.TOGGLESWITCH"
+            [formControlName]="'readonly'"
+        ></vcd-form-checkbox>
+        <vcd-form-checkbox
+            [label]="'Disabled'"
+            [styling]="CheckBoxStyling.TOGGLESWITCH"
+            [formControlName]="'disabled'"
+        ></vcd-form-checkbox>
+    </section>
+    <section>
+        <vcd-number-with-unit-form-input
+            [formControlName]="'noUnit'"
+            [label]="'Session Limit'"
+            [unitOptions]="[]"
+            [showAsterisk]="true"
+            [unlimitedValue]="noUnitUnlimited"
+            [isReadOnly]="formGroup.controls.readonly.value"
+        >
+        </vcd-number-with-unit-form-input>
+        <div class="value-container" *ngIf="!formGroup.controls.readonly.value">
+            <strong>Value:</strong>
+            {{ formGroup.get('noUnit').value }}
+        </div>
+    </section>
+
+    <section>
+        <vcd-form-checkbox
+            [label]="'Validator shows %'"
+            [styling]="CheckBoxStyling.TOGGLESWITCH"
+            [formControlName]="'validatorShowPercent'"
+        ></vcd-form-checkbox>
+        <vcd-number-with-unit-form-input
+            [formControlName]="'percentUnit'"
+            [label]="'Warn Level'"
+            [unitOptions]="[Percent.ZERO_TO_100]"
+            [max]="maxPercent"
+            [showUnlimitedOption]="false"
+            [isReadOnly]="formGroup.controls.readonly.value"
+        >
+        </vcd-number-with-unit-form-input>
+    </section>
+
+    <section class="form-valid"><strong>Form valid:</strong> {{ formGroup.valid }}</section>
+</form>

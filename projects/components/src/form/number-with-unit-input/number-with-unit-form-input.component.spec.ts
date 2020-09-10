@@ -5,7 +5,7 @@
 
 import { Component } from '@angular/core';
 import { fakeAsync, TestBed } from '@angular/core/testing';
-import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { FormControl, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ClarityModule } from '@clr/angular';
 import { I18nModule, MockTranslationService, TranslationService } from '@vcd/i18n';
@@ -190,13 +190,12 @@ describe('VcdNumberWithUnitFormInputComponent', () => {
     describe('Validation', () => {
         it('@Input min/max are inclusive', () => {
             numberWithUnitInput.formControl.setValue(MIN - 1);
-            expect(numberWithUnitInput.formControl.valid).toBe(false);
-            numberWithUnitInput.formControl.setValue(MIN);
+            expect(finder.hostComponent.cpuLimit.valid).toBe(true);
             expect(numberWithUnitInput.formControl.valid).toBe(true);
-            numberWithUnitInput.formControl.setValue(MAX + 1);
+            finder.hostComponent.cpuLimit.setValidators(Validators.min(MIN));
+            finder.hostComponent.cpuLimit.updateValueAndValidity();
+            expect(finder.hostComponent.cpuLimit.valid).toBe(false);
             expect(numberWithUnitInput.formControl.valid).toBe(false);
-            numberWithUnitInput.formControl.setValue(MAX);
-            expect(numberWithUnitInput.formControl.valid).toBe(true);
         });
     });
 
