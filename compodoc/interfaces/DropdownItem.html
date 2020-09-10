@@ -238,7 +238,7 @@
 
                             <tr>
                                 <td class="col-md-4">
-                                    <div class="io-description"><p>Css class of the dropdown item. Must be unique among all dropdown items within the dropdown items list</p>
+                                    <div class="io-description"><p>CSS class of the dropdown item. Must be unique among all dropdown items within the dropdown items list</p>
 </div>
                                 </td>
                             </tr>
@@ -409,9 +409,25 @@
 
 
     <div class="tab-pane fade  tab-source-code" id="c-source">
-        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Component, Input, TrackByFunction } from &#x27;@angular/core&#x27;;
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import {
+    Component,
+    Host,
+    HostListener,
+    Input,
+    Optional,
+    QueryList,
+    SkipSelf,
+    TrackByFunction,
+    ViewChild,
+    ViewChildren,
+} from &#x27;@angular/core&#x27;;
+import { ClrDropdown } from &#x27;@clr/angular&#x27;;
 import { TextIcon } from &#x27;../common/interfaces&#x27;;
 import { CliptextConfig, TooltipSize } from &#x27;../lib/directives&#x27;;
+
+const NESTED_DROPDOWN_TRIGGER_SELECTOR &#x3D; &#x27;clr-dropdown clr-dropdown &gt; button&#x27;;
+const DROPDOWN_ITEM_SELECTOR &#x3D; &#x27;clr-dropdown-menu &gt; button&#x27;;
+const NESTED_MENU_HIDE_DELAY &#x3D; 400;
 
 /**
  * Object representing an item of the dropdown
@@ -434,7 +450,7 @@ interface DropdownItem&lt;T extends DropdownItem&lt;T&gt;&gt; {
      */
     isTranslatable?: boolean;
     /**
-     * Css class of the dropdown item. Must be unique among all dropdown items within the dropdown items list
+     * CSS class of the dropdown item. Must be unique among all dropdown items within the dropdown items list
      */
     class?: string;
     /**
@@ -456,6 +472,29 @@ interface DropdownItem&lt;T extends DropdownItem&lt;T&gt;&gt; {
     styleUrls: [&#x27;./dropdown.component.scss&#x27;],
 })
 export class DropdownComponent&lt;T extends DropdownItem&lt;T&gt;&gt; {
+    /**
+     * Decides what goes into the action buttons
+     * @param textIcon An enum that describes the possible ways to display the button title
+     */
+    @Input() set dropdownItemContents(textIcon: TextIcon) {
+        this.shouldShowIcon &#x3D; (TextIcon.ICON &amp; textIcon) &#x3D;&#x3D;&#x3D; TextIcon.ICON;
+        this.shouldShowText &#x3D; (TextIcon.TEXT &amp; textIcon) &#x3D;&#x3D;&#x3D; TextIcon.TEXT;
+        this.shouldShowTooltip &#x3D; textIcon &#x3D;&#x3D;&#x3D; TextIcon.ICON;
+    }
+    get dropdownItemContents(): TextIcon {
+        return this._dropdownItemContents;
+    }
+    /**
+     * Nested list of dropdown objects
+     */
+    @Input() set items(items: T[]) {
+        this._items &#x3D; this.flattenNestedItemsWithSingleChild(items);
+    }
+    get items(): T[] {
+        return this._items;
+    }
+
+    constructor(@Optional() @SkipSelf() @Host() private parentVcdDropdown: DropdownComponent&lt;T&gt;) {}
     /**
      * If a icon should be displayed inside contextual buttons
      */
@@ -524,37 +563,29 @@ export class DropdownComponent&lt;T extends DropdownItem&lt;T&gt;&gt; {
     @Input() isDropdownDisabled: boolean;
 
     private _dropdownItemContents: TextIcon &#x3D; TextIcon.TEXT;
-    /**
-     * Decides what goes into the action buttons
-     * @param textIcon An enum that describes the possible ways to display the button title
-     */
-    @Input() set dropdownItemContents(textIcon: TextIcon) {
-        this.shouldShowIcon &#x3D; (TextIcon.ICON &amp; textIcon) &#x3D;&#x3D;&#x3D; TextIcon.ICON;
-        this.shouldShowText &#x3D; (TextIcon.TEXT &amp; textIcon) &#x3D;&#x3D;&#x3D; TextIcon.TEXT;
-        this.shouldShowTooltip &#x3D; textIcon &#x3D;&#x3D;&#x3D; TextIcon.ICON;
-    }
-    get dropdownItemContents(): TextIcon {
-        return this._dropdownItemContents;
-    }
 
     private _items: T[];
-    /**
-     * Nested list of dropdown objects
-     */
-    @Input() set items(items: T[]) {
-        this._items &#x3D; this.flattenNestedItemsWithSingleChild(items);
-    }
-    get items(): T[] {
-        return this._items;
-    }
 
     /**
      * Css class name added to the dropdown trigger buttons
      */
     @Input() dropdownTriggerButtonClassName: string;
 
+    /**
+     * To toggle open an close states when hovered over
+     */
+    @ViewChild(ClrDropdown) clrDropdown: ClrDropdown;
+
+    /**
+     * List of nested dropdown children that belong to this dropdown. Used to close when a different child in this menu list is
+     * hovered over
+     */
+    @ViewChildren(DropdownComponent) vcdDropdownChildren: QueryList&lt;DropdownComponent&lt;T&gt;&gt;;
+
+    private hideTimeout: number;
+
     private flattenNestedItemsWithSingleChild(items: T[]): T[] {
-        items.forEach(item &#x3D;&gt; {
+        items.forEach((item) &#x3D;&gt; {
             // Flatten out the dropdowns with single children at each level of dropdown
             this.flattenItemsWithSingleChild(items);
             if (item.children) {
@@ -573,7 +604,7 @@ export class DropdownComponent&lt;T extends DropdownItem&lt;T&gt;&gt; {
                 singleChildItemIndices.push(index);
             }
         });
-        singleChildItemIndices.forEach(singleChildItemIndex &#x3D;&gt; {
+        singleChildItemIndices.forEach((singleChildItemIndex) &#x3D;&gt; {
             // Delete them from the original list and add their children to the beginning of the current list
             const singleChildItem &#x3D; items.splice(singleChildItemIndex, 1).pop();
             items.unshift(singleChildItem.children[0]);
@@ -591,6 +622,55 @@ export class DropdownComponent&lt;T extends DropdownItem&lt;T&gt;&gt; {
     shouldRenderAsSeparator(index: number, currentItem: DropdownItem&lt;T&gt;): boolean {
         const nextItem &#x3D; this.items[index + 1];
         return index &gt; 0 &amp;&amp; currentItem.isSeparator &amp;&amp; !!nextItem &amp;&amp; !nextItem.isSeparator;
+    }
+
+    /**
+     * Handles the mouseover events on this dropdown&#x27;s children that are of {@link #DROPDOWN_ITEM_SELECTOR} and
+     * {@link #NESTED_DROPDOWN_TRIGGER_SELECTOR} type. When mouse is hovered on a child of type...
+     * - DROPDOWN_ITEM_SELECTOR: Any open children of dropdown type have to be closed. This is because, user will always not mouse out of
+     * a nested dropdown host(&lt;vcd-dropdown&gt;) to trigger the close event. He can move the mouse from nested dropdown&#x27;s item to this
+     * dropdown&#x27;s item directly
+     * - NESTED_DROPDOWN_TRIGGER_SELECTOR: Any open children of parent dropdown have to be closed and this dropdown has to be opened. We ask
+     * the parent to close its children because, the mouse over events are not propagated upwards when hovered over a child of nested
+     * dropdown type
+     */
+    @HostListener(&#x27;mouseover&#x27;, [&#x27;$event&#x27;])
+    onMouseOver(event: Event): void {
+        event.stopPropagation();
+        if (this.hideTimeout) {
+            clearTimeout(this.hideTimeout);
+        }
+        const target &#x3D; event.target as Element;
+        if (target.matches(DROPDOWN_ITEM_SELECTOR)) {
+            this.closeOpenVcdDropdownChildren();
+        }
+        if (target.matches(NESTED_DROPDOWN_TRIGGER_SELECTOR)) {
+            if (this.parentVcdDropdown) {
+                this.parentVcdDropdown.closeOpenVcdDropdownChildren();
+            }
+            this.clrDropdown.toggleService.open &#x3D; true;
+        }
+    }
+
+    /**
+     * Handles the mouseout events on this dropdown&#x27;s children that are of {@link #NESTED_DROPDOWN_TRIGGER_SELECTOR} type
+     */
+    @HostListener(&#x27;mouseout&#x27;, [&#x27;$event&#x27;])
+    onMouseOut(event: Event): void {
+        event.stopPropagation();
+        const target &#x3D; event.target as Element;
+        if (target.matches(NESTED_DROPDOWN_TRIGGER_SELECTOR)) {
+            this.hideTimeout &#x3D; window.setTimeout(
+                () &#x3D;&gt; (this.clrDropdown.toggleService.open &#x3D; false),
+                NESTED_MENU_HIDE_DELAY
+            );
+        }
+    }
+
+    private closeOpenVcdDropdownChildren(): void {
+        this.vcdDropdownChildren
+            .filter((vcdDropdown) &#x3D;&gt; vcdDropdown.clrDropdown.toggleService.open)
+            .forEach((vcdDropdown) &#x3D;&gt; (vcdDropdown.clrDropdown.toggleService.open &#x3D; false));
     }
 }
 </code></pre>
