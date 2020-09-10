@@ -44,7 +44,7 @@ interface DropdownItem<T extends DropdownItem<T>> {
      */
     isTranslatable?: boolean;
     /**
-     * Css class of the dropdown item. Must be unique among all dropdown items within the dropdown items list
+     * CSS class of the dropdown item. Must be unique among all dropdown items within the dropdown items list
      */
     class?: string;
     /**
@@ -263,7 +263,7 @@ export class DropdownComponent<T extends DropdownItem<T>> {
 
     private closeOpenVcdDropdownChildren(): void {
         this.vcdDropdownChildren
-            .filter((vcdDropdown: DropdownComponent<T>) => vcdDropdown.clrDropdown.toggleService.open)
-            .forEach((vcdDropdown: DropdownComponent<T>) => (vcdDropdown.clrDropdown.toggleService.open = false));
+            .filter((vcdDropdown) => vcdDropdown.clrDropdown.toggleService.open)
+            .forEach((vcdDropdown) => (vcdDropdown.clrDropdown.toggleService.open = false));
     }
 }
