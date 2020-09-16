@@ -447,6 +447,22 @@ export class DatagridComponent&lt;R extends B, B &#x3D; any&gt; implements OnIni
             this.changeDetectorRef.detectChanges();
         }
         this.updateSelectedItems();
+
+        /**
+         * This is to patch fix a bug in Clarity where the detail pane does not follow trackBy.
+         * (@link https://github.com/vmware/clarity/issues/4806)
+         * Remove this when we upgrade our version of Clarity.
+         */
+        if (this.datagrid.detailService.state &amp;&amp; this.datagrid.detailService.isOpen) {
+            const row &#x3D; this.datagrid.rows.find((findRow, index) &#x3D;&gt; {
+                return this.trackBy(index, findRow.item) &#x3D;&#x3D;&#x3D; this.trackBy(index, this.datagrid.detailService.state);
+            });
+
+            /**
+             * Reopen updated row or close it
+             */
+            row ? this.datagrid.detailService.open(row.item, row.detailButton) : this.datagrid.detailService.close();
+        }
     }
 
     /**
@@ -461,7 +477,7 @@ export class DatagridComponent&lt;R extends B, B &#x3D; any&gt; implements OnIni
      * List of actions given by the caller
      */
     @Input() set actions(actions: ActionItem&lt;R, unknown&gt;[]) {
-        this._actions &#x3D; actions.map(action &#x3D;&gt; {
+        this._actions &#x3D; actions.map((action) &#x3D;&gt; {
             const actionHandler: ActionHandlerType&lt;R, unknown&gt; &#x3D; action.handler;
             action.handler &#x3D; (selectedEntities, handlerData) &#x3D;&gt; {
                 const actionHandlerResponse &#x3D; actionHandler(selectedEntities, handlerData);
@@ -488,7 +504,7 @@ export class DatagridComponent&lt;R extends B, B &#x3D; any&gt; implements OnIni
 
     private get hasStaticActions(): boolean {
         return this.actions.some(
-            action &#x3D;&gt; action.actionType &#x3D;&#x3D;&#x3D; ActionType.STATIC_FEATURED || action.actionType &#x3D;&#x3D;&#x3D; ActionType.STATIC
+            (action) &#x3D;&gt; action.actionType &#x3D;&#x3D;&#x3D; ActionType.STATIC_FEATURED || action.actionType &#x3D;&#x3D;&#x3D; ActionType.STATIC
         );
     }
 
@@ -501,7 +517,7 @@ export class DatagridComponent&lt;R extends B, B &#x3D; any&gt; implements OnIni
      */
     get contextualActions(): ActionItem&lt;R, unknown&gt;[] {
         return this.actions.filter(
-            action &#x3D;&gt; action.actionType !&#x3D;&#x3D; ActionType.STATIC_FEATURED &amp;&amp; action.actionType !&#x3D;&#x3D; ActionType.STATIC
+            (action) &#x3D;&gt; action.actionType !&#x3D;&#x3D; ActionType.STATIC_FEATURED &amp;&amp; action.actionType !&#x3D;&#x3D; ActionType.STATIC
         );
     }
 
@@ -788,6 +804,16 @@ export class DatagridComponent&lt;R extends B, B &#x3D; any&gt; implements OnIni
      */
     @Input() preserveSelection &#x3D; false;
 
+    private currentPaneSpecRecord: R;
+    private currentPaneSpec: { rendererSpec: ComponentRendererSpec&lt;DetailPaneConfig&lt;R&gt;&gt; };
+
+    private currentDetailRowConfig: {
+        record: R;
+        count: number;
+        index: number;
+    };
+    private currentDetailRowRenderSpec: { rendererSpec: ComponentRendererSpec&lt;DetailRowConfig&lt;R&gt;&gt; };
+
     /**
      * To add or replace a column of this datagrid columns. Exposed for columns modifiers(eg: directives) that listen to
      * {@link columnsUpdated} event and want to modify the columns set by components using this datagrid.
@@ -821,7 +847,7 @@ export class DatagridComponent&lt;R extends B, B &#x3D; any&gt; implements OnIni
     }
 
     private findColumnIndex(col: GridColumn&lt;R&gt;): number {
-        return this.columns.findIndex(column &#x3D;&gt; col.displayName &#x3D;&#x3D;&#x3D; column.displayName);
+        return this.columns.findIndex((column) &#x3D;&gt; col.displayName &#x3D;&#x3D;&#x3D; column.displayName);
     }
 
     private updateColumnsConfig(): void {
@@ -841,18 +867,42 @@ export class DatagridComponent&lt;R extends B, B &#x3D; any&gt; implements OnIni
      * Gives the render spec to create the detail row for the row with the given record, at the given index, and
      * in a datagrid with the given count of total items.
      */
-    getDetailRowRenderSpec(record: R, index: number, count: number): ComponentRendererSpec&lt;DetailRowConfig&lt;R&gt;&gt; {
-        return {
-            type: this.detailComponent,
-            config: { record, index, count },
-        };
+    getDetailRowRenderSpec(
+        record: R,
+        index: number,
+        count: number
+    ): { rendererSpec: ComponentRendererSpec&lt;DetailRowConfig&lt;R&gt;&gt; } {
+        if (
+            !this.currentDetailRowConfig ||
+            this.currentDetailRowConfig.record !&#x3D;&#x3D; record ||
+            this.currentDetailRowConfig.index !&#x3D;&#x3D; index ||
+            this.currentDetailRowConfig.count !&#x3D;&#x3D; count
+        ) {
+            this.currentDetailRowConfig &#x3D; { record, index, count };
+            this.currentDetailRowRenderSpec &#x3D; {
+                rendererSpec: {
+                    type: this.detailComponent,
+                    config: this.currentDetailRowConfig,
+                },
+            };
+        }
+        return this.currentDetailRowRenderSpec;
     }
 
-    getDetailPaneRenderSpec(record: R): ComponentRendererSpec&lt;DetailPaneConfig&lt;R&gt;&gt; {
-        return {
-            type: this.detailPane.component,
-            config: { record },
-        };
+    /**
+     * Gives the render spec to create the detail pane for the row with the given record.
+     */
+    getDetailPaneRenderSpec(record: R): { rendererSpec: ComponentRendererSpec&lt;DetailPaneConfig&lt;R&gt;&gt; } {
+        if (this.currentPaneSpecRecord !&#x3D;&#x3D; record) {
+            this.currentPaneSpecRecord &#x3D; record;
+            this.currentPaneSpec &#x3D; {
+                rendererSpec: {
+                    type: this.detailPane.component,
+                    config: { record },
+                },
+            };
+        }
+        return this.currentPaneSpec;
     }
 
     /**
@@ -986,7 +1036,7 @@ export class DatagridComponent&lt;R extends B, B &#x3D; any&gt; implements OnIni
      * Available page size options in the dropdown
      */
     private getPageSizeOptions(): number[] {
-        let options &#x3D; this.pagination.pageSizeOptions.map(size &#x3D;&gt; size);
+        let options &#x3D; this.pagination.pageSizeOptions.map((size) &#x3D;&gt; size);
         if (options.indexOf(this.pageSize) &#x3D;&#x3D;&#x3D; -1) {
             options.push(this.pageSize);
             options &#x3D; options.sort((a, b) &#x3D;&gt; a - b);
@@ -1035,7 +1085,7 @@ export class DatagridComponent&lt;R extends B, B &#x3D; any&gt; implements OnIni
      * of renderers which is required in the HTML template.
      */
     public getColumnsConfig(columns): ColumnConfigInternal&lt;R, unknown&gt;[] {
-        return columns.map(column &#x3D;&gt; {
+        return columns.map((column) &#x3D;&gt; {
             const columnConfig: ColumnConfigInternal&lt;R, unknown&gt; &#x3D; {
                 ...column,
             };
