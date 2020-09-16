@@ -359,7 +359,9 @@ export class DatagridComponent<R extends B, B = any> implements OnInit, AfterVie
             };
             return actionCopy;
         });
-        this.hasStaticActions = this.getHasStaticActions();
+        this.hasStaticActions = this.actions.some(
+            (action) => action.actionType === ActionType.STATIC_FEATURED || action.actionType === ActionType.STATIC
+        );
         this.contextualActions = this.getContextualActions();
     }
     private _actions: ActionItem<R, unknown>[] = [];
@@ -485,7 +487,7 @@ export class DatagridComponent<R extends B, B = any> implements OnInit, AfterVie
             return;
         }
         let max = 0;
-        actionMenus.forEach(actionMenu => {
+        actionMenus.forEach((actionMenu) => {
             const contextualFeaturedActions = actionMenu.contextualFeaturedActions;
             max = Math.max(contextualFeaturedActions.length + 1, max);
         });
@@ -665,15 +667,9 @@ export class DatagridComponent<R extends B, B = any> implements OnInit, AfterVie
     };
     private currentDetailRowRenderSpec: { rendererSpec: ComponentRendererSpec<DetailRowConfig<R>> };
 
-    private getHasStaticActions(): boolean {
-        return this.actions.some(
-            action => action.actionType === ActionType.STATIC_FEATURED || action.actionType === ActionType.STATIC
-        );
-    }
-
     private getContextualActions(): ActionItem<R, unknown>[] {
         return this.actions.filter(
-            action => action.actionType !== ActionType.STATIC_FEATURED && action.actionType !== ActionType.STATIC
+            (action) => action.actionType !== ActionType.STATIC_FEATURED && action.actionType !== ActionType.STATIC
         );
     }
 
@@ -791,7 +787,7 @@ export class DatagridComponent<R extends B, B = any> implements OnInit, AfterVie
                 if (this.datagrid.selection.current && this.datagrid.selection.current.length) {
                     const current = [...this.datagrid.selection.current] as R[];
                     this.datagrid.selection.clearSelection();
-                    const nextSelection = this.mapSelectedRecords(current, this.items).filter(item => item);
+                    const nextSelection = this.mapSelectedRecords(current, this.items).filter((item) => item);
                     this.datagrid.selection.updateCurrent(nextSelection, false);
                 }
             }
