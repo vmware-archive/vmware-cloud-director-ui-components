@@ -311,6 +311,22 @@ export class DatagridComponent<R extends B, B = any> implements OnInit, AfterVie
             this.changeDetectorRef.detectChanges();
         }
         this.updateSelectedItems();
+
+        /**
+         * This is to patch fix a bug in Clarity where the detail pane does not follow trackBy.
+         * (@link https://github.com/vmware/clarity/issues/4806)
+         * Remove this when we upgrade our version of Clarity.
+         */
+        if (this.datagrid.detailService.state && this.datagrid.detailService.isOpen) {
+            const row = this.datagrid.rows.find((findRow, index) => {
+                return this.trackBy(index, findRow.item) === this.trackBy(index, this.datagrid.detailService.state);
+            });
+
+            /**
+             * Reopen updated row or close it
+             */
+            row ? this.datagrid.detailService.open(row.item, row.detailButton) : this.datagrid.detailService.close();
+        }
     }
 
     /**
@@ -325,7 +341,7 @@ export class DatagridComponent<R extends B, B = any> implements OnInit, AfterVie
      * List of actions given by the caller
      */
     @Input() set actions(actions: ActionItem<R, unknown>[]) {
-        this._actions = actions.map(action => {
+        this._actions = actions.map((action) => {
             const actionHandler: ActionHandlerType<R, unknown> = action.handler;
             action.handler = (selectedEntities, handlerData) => {
                 const actionHandlerResponse = actionHandler(selectedEntities, handlerData);
@@ -352,7 +368,7 @@ export class DatagridComponent<R extends B, B = any> implements OnInit, AfterVie
 
     private get hasStaticActions(): boolean {
         return this.actions.some(
-            action => action.actionType === ActionType.STATIC_FEATURED || action.actionType === ActionType.STATIC
+            (action) => action.actionType === ActionType.STATIC_FEATURED || action.actionType === ActionType.STATIC
         );
     }
 
@@ -365,7 +381,7 @@ export class DatagridComponent<R extends B, B = any> implements OnInit, AfterVie
      */
     get contextualActions(): ActionItem<R, unknown>[] {
         return this.actions.filter(
-            action => action.actionType !== ActionType.STATIC_FEATURED && action.actionType !== ActionType.STATIC
+            (action) => action.actionType !== ActionType.STATIC_FEATURED && action.actionType !== ActionType.STATIC
         );
     }
 
@@ -652,6 +668,16 @@ export class DatagridComponent<R extends B, B = any> implements OnInit, AfterVie
      */
     @Input() preserveSelection = false;
 
+    private currentPaneSpecRecord: R;
+    private currentPaneSpec: { rendererSpec: ComponentRendererSpec<DetailPaneConfig<R>> };
+
+    private currentDetailRowConfig: {
+        record: R;
+        count: number;
+        index: number;
+    };
+    private currentDetailRowRenderSpec: { rendererSpec: ComponentRendererSpec<DetailRowConfig<R>> };
+
     /**
      * To add or replace a column of this datagrid columns. Exposed for columns modifiers(eg: directives) that listen to
      * {@link columnsUpdated} event and want to modify the columns set by components using this datagrid.
@@ -685,7 +711,7 @@ export class DatagridComponent<R extends B, B = any> implements OnInit, AfterVie
     }
 
     private findColumnIndex(col: GridColumn<R>): number {
-        return this.columns.findIndex(column => col.displayName === column.displayName);
+        return this.columns.findIndex((column) => col.displayName === column.displayName);
     }
 
     private updateColumnsConfig(): void {
@@ -705,18 +731,42 @@ export class DatagridComponent<R extends B, B = any> implements OnInit, AfterVie
      * Gives the render spec to create the detail row for the row with the given record, at the given index, and
      * in a datagrid with the given count of total items.
      */
-    getDetailRowRenderSpec(record: R, index: number, count: number): ComponentRendererSpec<DetailRowConfig<R>> {
-        return {
-            type: this.detailComponent,
-            config: { record, index, count },
-        };
+    getDetailRowRenderSpec(
+        record: R,
+        index: number,
+        count: number
+    ): { rendererSpec: ComponentRendererSpec<DetailRowConfig<R>> } {
+        if (
+            !this.currentDetailRowConfig ||
+            this.currentDetailRowConfig.record !== record ||
+            this.currentDetailRowConfig.index !== index ||
+            this.currentDetailRowConfig.count !== count
+        ) {
+            this.currentDetailRowConfig = { record, index, count };
+            this.currentDetailRowRenderSpec = {
+                rendererSpec: {
+                    type: this.detailComponent,
+                    config: this.currentDetailRowConfig,
+                },
+            };
+        }
+        return this.currentDetailRowRenderSpec;
     }
 
-    getDetailPaneRenderSpec(record: R): ComponentRendererSpec<DetailPaneConfig<R>> {
-        return {
-            type: this.detailPane.component,
-            config: { record },
-        };
+    /**
+     * Gives the render spec to create the detail pane for the row with the given record.
+     */
+    getDetailPaneRenderSpec(record: R): { rendererSpec: ComponentRendererSpec<DetailPaneConfig<R>> } {
+        if (this.currentPaneSpecRecord !== record) {
+            this.currentPaneSpecRecord = record;
+            this.currentPaneSpec = {
+                rendererSpec: {
+                    type: this.detailPane.component,
+                    config: { record },
+                },
+            };
+        }
+        return this.currentPaneSpec;
     }
 
     /**
@@ -850,7 +900,7 @@ export class DatagridComponent<R extends B, B = any> implements OnInit, AfterVie
      * Available page size options in the dropdown
      */
     private getPageSizeOptions(): number[] {
-        let options = this.pagination.pageSizeOptions.map(size => size);
+        let options = this.pagination.pageSizeOptions.map((size) => size);
         if (options.indexOf(this.pageSize) === -1) {
             options.push(this.pageSize);
             options = options.sort((a, b) => a - b);
@@ -899,7 +949,7 @@ export class DatagridComponent<R extends B, B = any> implements OnInit, AfterVie
      * of renderers which is required in the HTML template.
      */
     public getColumnsConfig(columns): ColumnConfigInternal<R, unknown>[] {
-        return columns.map(column => {
+        return columns.map((column) => {
             const columnConfig: ColumnConfigInternal<R, unknown> = {
                 ...column,
             };

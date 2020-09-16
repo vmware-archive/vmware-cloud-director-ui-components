@@ -82,12 +82,7 @@
 
         <ng-container ngProjectAs="clr-dg-row-detail" *ngIf="detailComponent !== undefined">
             <clr-dg-row-detail *clrIfExpanded="isRowExpanded">
-                <ng-template
-                    [vcdComponentRendererOutlet]="{
-                        rendererSpec: getDetailRowRenderSpec(restItem, i, count)
-                    }"
-                >
-                </ng-template>
+                <ng-template [vcdComponentRendererOutlet]="getDetailRowRenderSpec(restItem, i, count)"> </ng-template>
             </clr-dg-row-detail>
         </ng-container>
     </clr-dg-row>
@@ -96,12 +91,7 @@
         <clr-dg-detail *clrIfDetail="let restItem">
             <clr-dg-detail-header>{{ detailPane.header(restItem) }}</clr-dg-detail-header>
             <clr-dg-detail-body>
-                <ng-template
-                    [vcdComponentRendererOutlet]="{
-                        rendererSpec: getDetailPaneRenderSpec(restItem)
-                    }"
-                >
-                </ng-template>
+                <ng-template [vcdComponentRendererOutlet]="getDetailPaneRenderSpec(restItem)"> </ng-template>
             </clr-dg-detail-body>
         </clr-dg-detail>
     </ng-container>
