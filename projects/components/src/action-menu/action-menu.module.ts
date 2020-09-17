@@ -10,12 +10,11 @@ import { I18nModule } from '@vcd/i18n';
 import { DropdownModule } from '../dropdown/dropdown.module';
 import { ShowClippedTextDirectiveModule } from '../lib/directives/show-clipped-text.directive.module';
 import { ActionMenuComponent } from './action-menu.component';
-import { EntityActionExtensionComponentsDirective } from './extension-actions/extension-action-menu.directive';
 
 @NgModule({
     imports: [ClarityModule, CommonModule, I18nModule, DropdownModule, ShowClippedTextDirectiveModule],
-    declarations: [ActionMenuComponent, EntityActionExtensionComponentsDirective],
+    declarations: [ActionMenuComponent],
     providers: [],
-    exports: [ActionMenuComponent, EntityActionExtensionComponentsDirective],
+    exports: [ActionMenuComponent],
 })
 export class VcdActionMenuModule {}
