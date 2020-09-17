@@ -1114,7 +1114,9 @@ As such, from the tests, you need to manually call this method.</p>
     },
 
     onMouseLeave(): void {
-        tip.hideTooltip(tip.mouseoutDelay);
+        if (tip.currentDirective) {
+            tip.hideTooltip(tip.mouseoutDelay);
+        }
     },
 
     hideTooltip(delay: number): void {
