@@ -118,21 +118,6 @@ customElements.define('compodoc-menu', class extends HTMLElement {
                                             </li>
                                         </ul>
                                     </li>
-                                <li class="chapter inner">
-                                    <div class="simple menu-toggler" data-toggle="collapse" ${ isNormalMode ?
-                                        'data-target="#directives-links-module-PipesModule-1bbae1460338059214584c74735192ef"' : 'data-target="#xs-directives-links-module-PipesModule-1bbae1460338059214584c74735192ef"' }>
-                                        <span class="icon ion-md-code-working"></span>
-                                        <span>Directives</span>
-                                        <span class="icon ion-ios-arrow-down"></span>
-                                    </div>
-                                    <ul class="links collapse" ${ isNormalMode ? 'id="directives-links-module-PipesModule-1bbae1460338059214584c74735192ef"' :
-                                        'id="xs-directives-links-module-PipesModule-1bbae1460338059214584c74735192ef"' }>
-                                        <li class="link">
-                                            <a href="directives/MinMaxValidator.html"
-                                                data-type="entity-link" data-context="sub-entity" data-context-id="modules">MinMaxValidator</a>
-                                        </li>
-                                    </ul>
-                                </li>
                                     <li class="chapter inner">
                                         <div class="simple menu-toggler" data-toggle="collapse" ${ isNormalMode ?
                                             'data-target="#pipes-links-module-PipesModule-1bbae1460338059214584c74735192ef"' : 'data-target="#xs-pipes-links-module-PipesModule-1bbae1460338059214584c74735192ef"' }>
@@ -377,13 +362,13 @@ customElements.define('compodoc-menu', class extends HTMLElement {
                                 <a href="modules/VcdFormModule.html" data-type="entity-link">VcdFormModule</a>
                                     <li class="chapter inner">
                                         <div class="simple menu-toggler" data-toggle="collapse" ${ isNormalMode ?
-                                            'data-target="#components-links-module-VcdFormModule-91b8fd7b11baae1d39cde2243f6078f3"' : 'data-target="#xs-components-links-module-VcdFormModule-91b8fd7b11baae1d39cde2243f6078f3"' }>
+                                            'data-target="#components-links-module-VcdFormModule-9e65ea7f75c110dd924505cb404edefa"' : 'data-target="#xs-components-links-module-VcdFormModule-9e65ea7f75c110dd924505cb404edefa"' }>
                                             <span class="icon ion-md-cog"></span>
                                             <span>Components</span>
                                             <span class="icon ion-ios-arrow-down"></span>
                                         </div>
-                                        <ul class="links collapse" ${ isNormalMode ? 'id="components-links-module-VcdFormModule-91b8fd7b11baae1d39cde2243f6078f3"' :
-                                            'id="xs-components-links-module-VcdFormModule-91b8fd7b11baae1d39cde2243f6078f3"' }>
+                                        <ul class="links collapse" ${ isNormalMode ? 'id="components-links-module-VcdFormModule-9e65ea7f75c110dd924505cb404edefa"' :
+                                            'id="xs-components-links-module-VcdFormModule-9e65ea7f75c110dd924505cb404edefa"' }>
                                             <li class="link">
                                                 <a href="components/FormCheckboxComponent.html"
                                                     data-type="entity-link" data-context="sub-entity" data-context-id="modules">FormCheckboxComponent</a>
@@ -404,28 +389,13 @@ customElements.define('compodoc-menu', class extends HTMLElement {
                                     </li>
                                 <li class="chapter inner">
                                     <div class="simple menu-toggler" data-toggle="collapse" ${ isNormalMode ?
-                                        'data-target="#directives-links-module-VcdFormModule-91b8fd7b11baae1d39cde2243f6078f3"' : 'data-target="#xs-directives-links-module-VcdFormModule-91b8fd7b11baae1d39cde2243f6078f3"' }>
-                                        <span class="icon ion-md-code-working"></span>
-                                        <span>Directives</span>
-                                        <span class="icon ion-ios-arrow-down"></span>
-                                    </div>
-                                    <ul class="links collapse" ${ isNormalMode ? 'id="directives-links-module-VcdFormModule-91b8fd7b11baae1d39cde2243f6078f3"' :
-                                        'id="xs-directives-links-module-VcdFormModule-91b8fd7b11baae1d39cde2243f6078f3"' }>
-                                        <li class="link">
-                                            <a href="directives/MinMaxValidator.html"
-                                                data-type="entity-link" data-context="sub-entity" data-context-id="modules">MinMaxValidator</a>
-                                        </li>
-                                    </ul>
-                                </li>
-                                <li class="chapter inner">
-                                    <div class="simple menu-toggler" data-toggle="collapse" ${ isNormalMode ?
-                                        'data-target="#injectables-links-module-VcdFormModule-91b8fd7b11baae1d39cde2243f6078f3"' : 'data-target="#xs-injectables-links-module-VcdFormModule-91b8fd7b11baae1d39cde2243f6078f3"' }>
+                                        'data-target="#injectables-links-module-VcdFormModule-9e65ea7f75c110dd924505cb404edefa"' : 'data-target="#xs-injectables-links-module-VcdFormModule-9e65ea7f75c110dd924505cb404edefa"' }>
                                         <span class="icon ion-md-arrow-round-down"></span>
                                         <span>Injectables</span>
                                         <span class="icon ion-ios-arrow-down"></span>
                                     </div>
-                                    <ul class="links collapse" ${ isNormalMode ? 'id="injectables-links-module-VcdFormModule-91b8fd7b11baae1d39cde2243f6078f3"' :
-                                        'id="xs-injectables-links-module-VcdFormModule-91b8fd7b11baae1d39cde2243f6078f3"' }>
+                                    <ul class="links collapse" ${ isNormalMode ? 'id="injectables-links-module-VcdFormModule-9e65ea7f75c110dd924505cb404edefa"' :
+                                        'id="xs-injectables-links-module-VcdFormModule-9e65ea7f75c110dd924505cb404edefa"' }>
                                         <li class="link">
                                             <a href="injectables/UnitFormatter.html"
                                                 data-type="entity-link" data-context="sub-entity" data-context-id="modules" }>UnitFormatter</a>
@@ -539,6 +509,9 @@ customElements.define('compodoc-menu', class extends HTMLElement {
                             </li>
                             <li class="link">
                                 <a href="classes/IdGenerator.html" data-type="entity-link">IdGenerator</a>
+                            </li>
+                            <li class="link">
+                                <a href="classes/NoUnit.html" data-type="entity-link">NoUnit</a>
                             </li>
                             <li class="link">
                                 <a href="classes/NumberWithUnitFormInputWidgetObject.html" data-type="entity-link">NumberWithUnitFormInputWidgetObject</a>
