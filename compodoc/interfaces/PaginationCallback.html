@@ -86,7 +86,7 @@
                         <td class="col-md-4">
                             <ul class="index-list">
                                 <li>
-                                            <a href="#call-declaration-1144db23b8bbfaa3568280d03c162f1a">Unamed property</a>
+                                            <a href="#call-declaration-80a6e32655dc1d459f65424a48e55114">Unamed property</a>
                                 </li>
                             </ul>
                         </td>
@@ -105,7 +105,7 @@
                                     <tr>
                                         <td class="col-md-4">
                                             <i>Signature :</i>
-                                            <a name="call-declaration-1144db23b8bbfaa3568280d03c162f1a"></a>
+                                            <a name="call-declaration-80a6e32655dc1d459f65424a48e55114"></a>
                                             <code>
                                                 <!--ts.SyntaxKind.CallSignature-->
                                                     [firstItem: number, lastItem: number, totalItems: number]
@@ -466,20 +466,33 @@ export class DatagridComponent&lt;R extends B, B &#x3D; any&gt; implements OnIni
     }
 
     /**
+     * Filters contextual actions from the list of actions to be displayed in a grid row
+     */
+    contextualActions: ActionItem&lt;R, unknown&gt;[];
+
+    private hasStaticActions: boolean;
+
+    /**
      * List of actions given by the caller
      */
     @Input() set actions(actions: ActionItem&lt;R, unknown&gt;[]) {
         this._actions &#x3D; actions.map((action) &#x3D;&gt; {
-            const actionHandler: ActionHandlerType&lt;R, unknown&gt; &#x3D; action.handler;
-            action.handler &#x3D; (selectedEntities, handlerData) &#x3D;&gt; {
+            const actionCopy &#x3D; { ...action };
+            const actionHandler: ActionHandlerType&lt;R, unknown&gt; &#x3D; actionCopy.handler;
+            actionCopy.handler &#x3D; (selectedEntities, handlerData) &#x3D;&gt; {
                 const actionHandlerResponse &#x3D; actionHandler(selectedEntities, handlerData);
                 if (actionHandlerResponse &amp;&amp; this.actionReporter) {
                     this.actionReporter.monitorGet(actionHandlerResponse);
                 }
             };
-            return action;
+            return actionCopy;
         });
+        this.hasStaticActions &#x3D; this.actions.some(
+            (action) &#x3D;&gt; action.actionType &#x3D;&#x3D;&#x3D; ActionType.STATIC_FEATURED || action.actionType &#x3D;&#x3D;&#x3D; ActionType.STATIC
+        );
+        this.contextualActions &#x3D; this.getContextualActions();
     }
+    private _actions: ActionItem&lt;R, unknown&gt;[] &#x3D; [];
     get actions(): ActionItem&lt;R, unknown&gt;[] {
         return this._actions;
     }
@@ -490,26 +503,7 @@ export class DatagridComponent&lt;R extends B, B &#x3D; any&gt; implements OnIni
     get shouldShowActionBarOnTop(): boolean {
         return (
             this.actions.length &amp;&amp;
-            (this.hasStaticActions || (this.hasContextualActions &amp;&amp; this.shouldDisplayContextualActionsOnTop))
-        );
-    }
-
-    private get hasStaticActions(): boolean {
-        return this.actions.some(
-            (action) &#x3D;&gt; action.actionType &#x3D;&#x3D;&#x3D; ActionType.STATIC_FEATURED || action.actionType &#x3D;&#x3D;&#x3D; ActionType.STATIC
-        );
-    }
-
-    private get hasContextualActions(): boolean {
-        return this.contextualActions.length &gt; 0;
-    }
-
-    /**
-     * Filters contextual actions from the list of actions to be displayed in a grid row
-     */
-    get contextualActions(): ActionItem&lt;R, unknown&gt;[] {
-        return this.actions.filter(
-            (action) &#x3D;&gt; action.actionType !&#x3D;&#x3D; ActionType.STATIC_FEATURED &amp;&amp; action.actionType !&#x3D;&#x3D; ActionType.STATIC
+            (this.hasStaticActions || (!!this.contextualActions.length &amp;&amp; this.shouldDisplayContextualActionsOnTop))
         );
     }
 
@@ -621,18 +615,13 @@ export class DatagridComponent&lt;R extends B, B &#x3D; any&gt; implements OnIni
             return;
         }
         let max &#x3D; 0;
-        actionMenus.forEach(actionMenu &#x3D;&gt; {
+        actionMenus.forEach((actionMenu) &#x3D;&gt; {
             const contextualFeaturedActions &#x3D; actionMenu.contextualFeaturedActions;
             max &#x3D; Math.max(contextualFeaturedActions.length + 1, max);
         });
         this.maxFeaturedActionsOnRow &#x3D; max;
         this.changeDetectorRef.detectChanges();
     }
-
-    /**
-     * Actions to be displayed on a grid or in a row
-     */
-    private _actions: ActionItem&lt;R, unknown&gt;[] &#x3D; [];
 
     private initialSelection: (B | R)[] &#x3D; [];
 
@@ -806,6 +795,12 @@ export class DatagridComponent&lt;R extends B, B &#x3D; any&gt; implements OnIni
     };
     private currentDetailRowRenderSpec: { rendererSpec: ComponentRendererSpec&lt;DetailRowConfig&lt;R&gt;&gt; };
 
+    private getContextualActions(): ActionItem&lt;R, unknown&gt;[] {
+        return this.actions.filter(
+            (action) &#x3D;&gt; action.actionType !&#x3D;&#x3D; ActionType.STATIC_FEATURED &amp;&amp; action.actionType !&#x3D;&#x3D; ActionType.STATIC
+        );
+    }
+
     /**
      * To add or replace a column of this datagrid columns. Exposed for columns modifiers(eg: directives) that listen to
      * {@link columnsUpdated} event and want to modify the columns set by components using this datagrid.
@@ -920,7 +915,7 @@ export class DatagridComponent&lt;R extends B, B &#x3D; any&gt; implements OnIni
                 if (this.datagrid.selection.current &amp;&amp; this.datagrid.selection.current.length) {
                     const current &#x3D; [...this.datagrid.selection.current] as R[];
                     this.datagrid.selection.clearSelection();
-                    const nextSelection &#x3D; this.mapSelectedRecords(current, this.items).filter(item &#x3D;&gt; item);
+                    const nextSelection &#x3D; this.mapSelectedRecords(current, this.items).filter((item) &#x3D;&gt; item);
                     this.datagrid.selection.updateCurrent(nextSelection, false);
                 }
             }

@@ -174,34 +174,19 @@ customElements.define('compodoc-menu', class extends HTMLElement {
                                 <a href="modules/VcdActionMenuModule.html" data-type="entity-link">VcdActionMenuModule</a>
                                     <li class="chapter inner">
                                         <div class="simple menu-toggler" data-toggle="collapse" ${ isNormalMode ?
-                                            'data-target="#components-links-module-VcdActionMenuModule-db8364378f30fb72880b2cf4c349fc30"' : 'data-target="#xs-components-links-module-VcdActionMenuModule-db8364378f30fb72880b2cf4c349fc30"' }>
+                                            'data-target="#components-links-module-VcdActionMenuModule-7e09de0afa1c146114fb0ee6f8bb1aa6"' : 'data-target="#xs-components-links-module-VcdActionMenuModule-7e09de0afa1c146114fb0ee6f8bb1aa6"' }>
                                             <span class="icon ion-md-cog"></span>
                                             <span>Components</span>
                                             <span class="icon ion-ios-arrow-down"></span>
                                         </div>
-                                        <ul class="links collapse" ${ isNormalMode ? 'id="components-links-module-VcdActionMenuModule-db8364378f30fb72880b2cf4c349fc30"' :
-                                            'id="xs-components-links-module-VcdActionMenuModule-db8364378f30fb72880b2cf4c349fc30"' }>
+                                        <ul class="links collapse" ${ isNormalMode ? 'id="components-links-module-VcdActionMenuModule-7e09de0afa1c146114fb0ee6f8bb1aa6"' :
+                                            'id="xs-components-links-module-VcdActionMenuModule-7e09de0afa1c146114fb0ee6f8bb1aa6"' }>
                                             <li class="link">
                                                 <a href="components/ActionMenuComponent.html"
                                                     data-type="entity-link" data-context="sub-entity" data-context-id="modules">ActionMenuComponent</a>
                                             </li>
                                         </ul>
                                     </li>
-                                <li class="chapter inner">
-                                    <div class="simple menu-toggler" data-toggle="collapse" ${ isNormalMode ?
-                                        'data-target="#directives-links-module-VcdActionMenuModule-db8364378f30fb72880b2cf4c349fc30"' : 'data-target="#xs-directives-links-module-VcdActionMenuModule-db8364378f30fb72880b2cf4c349fc30"' }>
-                                        <span class="icon ion-md-code-working"></span>
-                                        <span>Directives</span>
-                                        <span class="icon ion-ios-arrow-down"></span>
-                                    </div>
-                                    <ul class="links collapse" ${ isNormalMode ? 'id="directives-links-module-VcdActionMenuModule-db8364378f30fb72880b2cf4c349fc30"' :
-                                        'id="xs-directives-links-module-VcdActionMenuModule-db8364378f30fb72880b2cf4c349fc30"' }>
-                                        <li class="link">
-                                            <a href="directives/EntityActionExtensionComponentsDirective.html"
-                                                data-type="entity-link" data-context="sub-entity" data-context-id="modules">EntityActionExtensionComponentsDirective</a>
-                                        </li>
-                                    </ul>
-                                </li>
                             </li>
                             <li class="link">
                                 <a href="modules/VcdActivityReporterModule.html" data-type="entity-link">VcdActivityReporterModule</a>
@@ -643,12 +628,6 @@ customElements.define('compodoc-menu', class extends HTMLElement {
                             </li>
                             <li class="link">
                                 <a href="interfaces/DropdownItem.html" data-type="entity-link">DropdownItem</a>
-                            </li>
-                            <li class="link">
-                                <a href="interfaces/EntityActionComponentContainer.html" data-type="entity-link">EntityActionComponentContainer</a>
-                            </li>
-                            <li class="link">
-                                <a href="interfaces/EntityActionExtensionMenuItemClickEvent.html" data-type="entity-link">EntityActionExtensionMenuItemClickEvent</a>
                             </li>
                             <li class="link">
                                 <a href="interfaces/ExportColumn.html" data-type="entity-link">ExportColumn</a>
