@@ -295,16 +295,16 @@ export class NumberWithUnitFormInputComponent
             return;
         }
 
+        this.computeBestUnitAndValue(value);
         if (this.showUnlimitedOption) {
             if (value !== this.unlimitedValue) {
-                this.computeBestUnitAndValue(value);
                 this.lastRealValue = this.bestValue;
                 input.setValue(this.bestValue);
                 this.selectedUnit = this.bestUnit.getMultiplier();
             }
             this.formGroup.get('unlimited').setValue(value === this.unlimitedValue);
         } else {
-            input.setValue(value);
+            input.setValue(this.bestValue);
         }
 
         this.updateUnlimitedDisabledState();
