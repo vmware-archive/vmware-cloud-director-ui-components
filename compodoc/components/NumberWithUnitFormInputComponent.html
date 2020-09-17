@@ -3253,16 +3253,16 @@ export class NumberWithUnitFormInputComponent
             return;
         }
 
+        this.computeBestUnitAndValue(value);
         if (this.showUnlimitedOption) {
             if (value !&#x3D;&#x3D; this.unlimitedValue) {
-                this.computeBestUnitAndValue(value);
                 this.lastRealValue &#x3D; this.bestValue;
                 input.setValue(this.bestValue);
                 this.selectedUnit &#x3D; this.bestUnit.getMultiplier();
             }
             this.formGroup.get(&#x27;unlimited&#x27;).setValue(value &#x3D;&#x3D;&#x3D; this.unlimitedValue);
         } else {
-            input.setValue(value);
+            input.setValue(this.bestValue);
         }
 
         this.updateUnlimitedDisabledState();
