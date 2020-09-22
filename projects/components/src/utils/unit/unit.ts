@@ -72,27 +72,27 @@ export abstract class Unit {
 }
 
 /**
- * Finds the bestUnit by trying groups of thousands
+ * Finds the bestUnit by trying groups of the comparison number
  */
-export abstract class ThousandsUnit extends Unit {
+abstract class NumberUnit extends Unit {
     /**
      * Calculates the best unit out of available units to display in UI cell for a given input Unit
      * and value
      *
-     * Best unit is a Unit whose converted value is less than 1000
+     * Best unit is a Unit whose converted value is less than the comparison number
      *
      * @param value - Value of input Unit
      * @param availableUnits - Array of available Units to display in UI cell
      * availableUnits array should be pre-sorted ascending by multiplier
      *
      */
-    findBestUnit(value: number, availableUnits: ThousandsUnit[] = this.getAllUnitTypes()): Unit {
-        if (value >= 1000) {
+    findBestUnit(value: number, availableUnits: NumberUnit[] = this.getAllUnitTypes()): Unit {
+        if (value >= this.getUnitMultiplier()) {
             const baseValue = this.getBaseValue(value);
             let outputNumber = baseValue;
             const unitTypes = availableUnits;
             let i = 0;
-            while (outputNumber >= 1000 && i < unitTypes.length) {
+            while (outputNumber >= this.getUnitMultiplier() && i < unitTypes.length) {
                 outputNumber = baseValue / unitTypes[i].getMultiplier();
                 i++;
             }
@@ -102,7 +102,32 @@ export abstract class ThousandsUnit extends Unit {
         }
     }
 
-    abstract getAllUnitTypes(): ThousandsUnit[];
+    abstract getAllUnitTypes(): NumberUnit[];
+
+    /**
+     * Returns the number that you multiply by to get the next order unit.
+     *
+     * @example 1024 would be the multiplier for Byte.
+     */
+    protected abstract getUnitMultiplier(): number;
+}
+
+/**
+ * Finds the bestUnit by trying groups of 1000
+ */
+export abstract class ThousandsUnit extends NumberUnit {
+    getUnitMultiplier(): number {
+        return 1000;
+    }
+}
+
+/**
+ * Finds the bestUnit by trying groups of 1024
+ */
+export abstract class PowerTwoUnit extends NumberUnit {
+    getUnitMultiplier(): number {
+        return 1024;
+    }
 }
 
 export class Hertz extends ThousandsUnit {
@@ -128,7 +153,7 @@ export class Hertz extends ThousandsUnit {
     }
 }
 
-export class Bytes extends ThousandsUnit {
+export class Bytes extends PowerTwoUnit {
     static valueWithUnitTranslationKeyPrefix = 'vcd.cc.filesize.unit.';
     static unitNameTranslationKeyPrefix = 'vcd.cc.units.bytes.';
     static B = new Bytes(1, 'B');
