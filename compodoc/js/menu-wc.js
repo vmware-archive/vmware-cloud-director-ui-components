@@ -499,10 +499,16 @@ customElements.define('compodoc-menu', class extends HTMLElement {
                                 <a href="classes/NoUnit.html" data-type="entity-link">NoUnit</a>
                             </li>
                             <li class="link">
+                                <a href="classes/NumberUnit.html" data-type="entity-link">NumberUnit</a>
+                            </li>
+                            <li class="link">
                                 <a href="classes/NumberWithUnitFormInputWidgetObject.html" data-type="entity-link">NumberWithUnitFormInputWidgetObject</a>
                             </li>
                             <li class="link">
                                 <a href="classes/Percent.html" data-type="entity-link">Percent</a>
+                            </li>
+                            <li class="link">
+                                <a href="classes/PowerTwoUnit.html" data-type="entity-link">PowerTwoUnit</a>
                             </li>
                             <li class="link">
                                 <a href="classes/QuickSearchProviderDefaults.html" data-type="entity-link">QuickSearchProviderDefaults</a>

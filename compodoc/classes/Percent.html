@@ -194,7 +194,7 @@ In both formats single unitName - &quot;%&quot; is used represent the value</p>
                 </tr>
                         <tr>
                             <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="163" class="link-to-prism">projects/components/src/utils/unit/unit.ts:163</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="188" class="link-to-prism">projects/components/src/utils/unit/unit.ts:188</a></div>
                             </td>
                         </tr>
 
@@ -265,7 +265,7 @@ In both formats single unitName - &quot;%&quot; is used represent the value</p>
                     </tr>
                         <tr>
                             <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="163" class="link-to-prism">projects/components/src/utils/unit/unit.ts:163</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="188" class="link-to-prism">projects/components/src/utils/unit/unit.ts:188</a></div>
                             </td>
                         </tr>
 
@@ -298,7 +298,7 @@ In both formats single unitName - &quot;%&quot; is used represent the value</p>
                     </tr>
                         <tr>
                             <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="162" class="link-to-prism">projects/components/src/utils/unit/unit.ts:162</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="187" class="link-to-prism">projects/components/src/utils/unit/unit.ts:187</a></div>
                             </td>
                         </tr>
 
@@ -331,7 +331,7 @@ In both formats single unitName - &quot;%&quot; is used represent the value</p>
                     </tr>
                         <tr>
                             <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="171" class="link-to-prism">projects/components/src/utils/unit/unit.ts:171</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="196" class="link-to-prism">projects/components/src/utils/unit/unit.ts:196</a></div>
                             </td>
                         </tr>
 
@@ -364,7 +364,7 @@ In both formats single unitName - &quot;%&quot; is used represent the value</p>
                     </tr>
                         <tr>
                             <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="172" class="link-to-prism">projects/components/src/utils/unit/unit.ts:172</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="197" class="link-to-prism">projects/components/src/utils/unit/unit.ts:197</a></div>
                             </td>
                         </tr>
 
@@ -472,8 +472,8 @@ In both formats single unitName - &quot;%&quot; is used represent the value</p>
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="188"
-                            class="link-to-prism">projects/components/src/utils/unit/unit.ts:188</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="213"
+                            class="link-to-prism">projects/components/src/utils/unit/unit.ts:213</a></div>
                 </td>
             </tr>
 
@@ -558,8 +558,8 @@ and so returns <a href="ZERO_TO_100">ZERO_TO_100</a></p>
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="178"
-                            class="link-to-prism">projects/components/src/utils/unit/unit.ts:178</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="203"
+                            class="link-to-prism">projects/components/src/utils/unit/unit.ts:203</a></div>
                 </td>
             </tr>
 
@@ -597,8 +597,8 @@ and so returns <a href="ZERO_TO_100">ZERO_TO_100</a></p>
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="174"
-                            class="link-to-prism">projects/components/src/utils/unit/unit.ts:174</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="199"
+                            class="link-to-prism">projects/components/src/utils/unit/unit.ts:199</a></div>
                 </td>
             </tr>
 
@@ -1180,27 +1180,27 @@ and so returns <a href="ZERO_TO_100">ZERO_TO_100</a></p>
 }
 
 /**
- * Finds the bestUnit by trying groups of thousands
+ * Finds the bestUnit by trying groups of the comparison number
  */
-export abstract class ThousandsUnit extends Unit {
+abstract class NumberUnit extends Unit {
     /**
      * Calculates the best unit out of available units to display in UI cell for a given input Unit
      * and value
      *
-     * Best unit is a Unit whose converted value is less than 1000
+     * Best unit is a Unit whose converted value is less than the comparison number
      *
      * @param value - Value of input Unit
      * @param availableUnits - Array of available Units to display in UI cell
      * availableUnits array should be pre-sorted ascending by multiplier
      *
      */
-    findBestUnit(value: number, availableUnits: ThousandsUnit[] &#x3D; this.getAllUnitTypes()): Unit {
-        if (value &gt;&#x3D; 1000) {
+    findBestUnit(value: number, availableUnits: NumberUnit[] &#x3D; this.getAllUnitTypes()): Unit {
+        if (value &gt;&#x3D; this.getUnitMultiplier()) {
             const baseValue &#x3D; this.getBaseValue(value);
             let outputNumber &#x3D; baseValue;
             const unitTypes &#x3D; availableUnits;
             let i &#x3D; 0;
-            while (outputNumber &gt;&#x3D; 1000 &amp;&amp; i &lt; unitTypes.length) {
+            while (outputNumber &gt;&#x3D; this.getUnitMultiplier() &amp;&amp; i &lt; unitTypes.length) {
                 outputNumber &#x3D; baseValue / unitTypes[i].getMultiplier();
                 i++;
             }
@@ -1210,7 +1210,32 @@ export abstract class ThousandsUnit extends Unit {
         }
     }
 
-    abstract getAllUnitTypes(): ThousandsUnit[];
+    abstract getAllUnitTypes(): NumberUnit[];
+
+    /**
+     * Returns the number that you multiply by to get the next order unit.
+     *
+     * @example 1024 would be the multiplier for Byte.
+     */
+    protected abstract getUnitMultiplier(): number;
+}
+
+/**
+ * Finds the bestUnit by trying groups of 1000
+ */
+export abstract class ThousandsUnit extends NumberUnit {
+    getUnitMultiplier(): number {
+        return 1000;
+    }
+}
+
+/**
+ * Finds the bestUnit by trying groups of 1024
+ */
+export abstract class PowerTwoUnit extends NumberUnit {
+    getUnitMultiplier(): number {
+        return 1024;
+    }
 }
 
 export class Hertz extends ThousandsUnit {
@@ -1236,7 +1261,7 @@ export class Hertz extends ThousandsUnit {
     }
 }
 
-export class Bytes extends ThousandsUnit {
+export class Bytes extends PowerTwoUnit {
     static valueWithUnitTranslationKeyPrefix &#x3D; &#x27;vcd.cc.filesize.unit.&#x27;;
     static unitNameTranslationKeyPrefix &#x3D; &#x27;vcd.cc.units.bytes.&#x27;;
     static B &#x3D; new Bytes(1, &#x27;B&#x27;);

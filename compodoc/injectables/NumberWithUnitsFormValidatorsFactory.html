@@ -102,7 +102,7 @@
                 </tr>
                         <tr>
                             <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="457" class="link-to-prism">projects/components/src/form/number-with-unit-input/number-with-unit-form-input.component.ts:457</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="460" class="link-to-prism">projects/components/src/form/number-with-unit-input/number-with-unit-form-input.component.ts:460</a></div>
                             </td>
                         </tr>
 
@@ -169,8 +169,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="460"
-                            class="link-to-prism">projects/components/src/form/number-with-unit-input/number-with-unit-form-input.component.ts:460</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="463"
+                            class="link-to-prism">projects/components/src/form/number-with-unit-input/number-with-unit-form-input.component.ts:463</a></div>
                 </td>
             </tr>
 
@@ -574,16 +574,19 @@ export class NumberWithUnitFormInputComponent
             return;
         }
 
-        this.computeBestUnitAndValue(value);
         if (this.showUnlimitedOption) {
             if (value !&#x3D;&#x3D; this.unlimitedValue) {
+                this.computeBestUnitAndValue(value);
                 this.lastRealValue &#x3D; this.bestValue;
                 input.setValue(this.bestValue);
                 this.selectedUnit &#x3D; this.bestUnit.getMultiplier();
             }
             this.formGroup.get(&#x27;unlimited&#x27;).setValue(value &#x3D;&#x3D;&#x3D; this.unlimitedValue);
         } else {
+            this.computeBestUnitAndValue(value);
+            this.lastRealValue &#x3D; this.bestValue;
             input.setValue(this.bestValue);
+            this.selectedUnit &#x3D; this.bestUnit.getMultiplier();
         }
 
         this.updateUnlimitedDisabledState();

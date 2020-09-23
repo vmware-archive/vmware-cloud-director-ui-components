@@ -194,7 +194,7 @@
                     </tr>
                         <tr>
                             <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="487" class="link-to-prism">projects/components/src/form/number-with-unit-input/number-with-unit-form-input.component.ts:487</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="490" class="link-to-prism">projects/components/src/form/number-with-unit-input/number-with-unit-form-input.component.ts:490</a></div>
                             </td>
                         </tr>
 
@@ -302,8 +302,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="488"
-                            class="link-to-prism">projects/components/src/form/number-with-unit-input/number-with-unit-form-input.component.ts:488</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="491"
+                            class="link-to-prism">projects/components/src/form/number-with-unit-input/number-with-unit-form-input.component.ts:491</a></div>
                 </td>
             </tr>
 
@@ -384,8 +384,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="492"
-                            class="link-to-prism">projects/components/src/form/number-with-unit-input/number-with-unit-form-input.component.ts:492</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="495"
+                            class="link-to-prism">projects/components/src/form/number-with-unit-input/number-with-unit-form-input.component.ts:495</a></div>
                 </td>
             </tr>
 
@@ -423,8 +423,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="496"
-                            class="link-to-prism">projects/components/src/form/number-with-unit-input/number-with-unit-form-input.component.ts:496</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="499"
+                            class="link-to-prism">projects/components/src/form/number-with-unit-input/number-with-unit-form-input.component.ts:499</a></div>
                 </td>
             </tr>
 
@@ -1233,16 +1233,19 @@ export class NumberWithUnitFormInputComponent
             return;
         }
 
-        this.computeBestUnitAndValue(value);
         if (this.showUnlimitedOption) {
             if (value !&#x3D;&#x3D; this.unlimitedValue) {
+                this.computeBestUnitAndValue(value);
                 this.lastRealValue &#x3D; this.bestValue;
                 input.setValue(this.bestValue);
                 this.selectedUnit &#x3D; this.bestUnit.getMultiplier();
             }
             this.formGroup.get(&#x27;unlimited&#x27;).setValue(value &#x3D;&#x3D;&#x3D; this.unlimitedValue);
         } else {
+            this.computeBestUnitAndValue(value);
+            this.lastRealValue &#x3D; this.bestValue;
             input.setValue(this.bestValue);
+            this.selectedUnit &#x3D; this.bestUnit.getMultiplier();
         }
 
         this.updateUnlimitedDisabledState();
