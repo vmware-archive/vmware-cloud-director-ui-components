@@ -1,36 +1,34 @@
-<div class="form-group" *ngIf="isReadOnly">
-    <label>{{ label }}</label>
+<div class="form-group clr-form-control" *ngIf="isReadOnly">
+    <label class="clr-control-label">{{ label }}</label>
     <span class="readonly-text">{{ this.displayValue }}</span>
 </div>
-<form [formGroup]="formGroup" *ngIf="!isReadOnly" class="input-number-with-unit">
+<div *ngIf="!isReadOnly" class="input-number-with-unit">
     <vcd-form-input
-        formControlName="limited"
+        #limitedInput
+        [formControl]="formGroup.controls.limited"
         [placeholder]="placeholder"
         type="number"
         [size]="size"
-        [min]="min"
-        [max]="max"
+        [min]="unitMin"
+        [max]="unitMax"
         [maxlength]="maxlength"
         [showAsterisk]="showAsterisk"
         [label]="label"
         [description]="description"
-        [errorLabels]="errorLabels"
     >
-        <aside [ngSwitch]="unitOptions?.length">
+        <aside [ngSwitch]="unitOptions.length">
             <ng-container *ngSwitchCase="0">
                 <!-- Do not display unit -->
             </ng-container>
             <ng-container *ngSwitchCase="1">
-                <div class="single-option">
-                    {{ unitOptions[0].getUnitNameTranslationKey() | translate }}
-                </div>
+                <div class="single-option">{{ unitOptions[0].getUnitNameTranslationKey() | translate }}</div>
             </ng-container>
             <vcd-form-select
                 class="combo-options"
                 *ngSwitchDefault
                 #unitDropdown
                 [options]="comboOptions"
-                formControlName="comboUnitOptions"
+                [formControl]="formGroup.controls.comboUnitOptions"
             >
             </vcd-form-select>
             <clr-signpost *ngIf="hint">
@@ -39,8 +37,24 @@
                 </clr-signpost-content>
             </clr-signpost>
         </aside>
-        <footer *ngIf="showUnlimitedOption">
-            <vcd-form-checkbox [text]="'vcd.cc.unlimited' | translate" formControlName="unlimited"> </vcd-form-checkbox>
-        </footer>
     </vcd-form-input>
-</form>
+    <div class="clr-form-control errors" *ngIf="showErrors">
+        <label class="clr-control-label"></label>
+        <div class="clr-error">
+            <span class="clr-subtext">
+                <div *ngFor="let error of errors | keyvalue">
+                    <div>{{ error.key | translate: getErrorTranslationParams(error.value) }}</div>
+                </div>
+            </span>
+        </div>
+    </div>
+
+    <footer *ngIf="showUnlimitedOption">
+        <!-- Setting [label] to space ensures the label is created hence the checkbox aligned properly -->
+        <vcd-form-checkbox
+            [label]="' '"
+            [text]="'vcd.cc.unlimited' | translate"
+            [formControl]="formGroup.controls.unlimited"
+        ></vcd-form-checkbox>
+    </footer>
+</div>

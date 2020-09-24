@@ -1,30 +1,64 @@
+These examples show how you can use the <code>&lt;vcd-number-with-unit-form-input&gt;</code> component with different
+type of units.
+<p>
+    The "Memory" example also shows how you can specify the initial display unit in "MB" although the best match is in
+    "GB" while the second example "CPU speed" does not specify <code>[initialValueUnit]</code> so the initial value
+    "1500 MHz" is converted to the best match "1.5 GHz" and later on marked as "unlimited"
+    <br />
+    You can play with the form below to examine validators, min/max values, unlimited values, readonly & disabled state
+    etc.
+</p>
 <form [formGroup]="formGroup" class="clr-form-horizontal">
-    <vcd-number-with-unit-form-input
-        [formControlName]="'memory'"
-        [label]="'Memory'"
-        [unitOptions]="memoryOptions"
-        [inputValueUnit]="memoryFormControlValueUnit"
-        [hint]="
-            'Enter desired size of memory and chose memory units to see the memory getting converted and being ' +
-            'displayed in MB below. Checking the unlimited checkbox disables the input and sets input as -1'
-        "
-        [hintPosition]="'top-right'"
-    >
-    </vcd-number-with-unit-form-input>
-    <div>
-        <strong>Selected Memory:</strong>
-        {{ formGroup.get('memory').value + ' ' + memoryFormControlValueUnit.getUnitName() }}
-    </div>
+    <section>
+        <vcd-form-checkbox
+            [label]="'Readonly'"
+            [styling]="CheckBoxStyling.TOGGLESWITCH"
+            [formControlName]="'readonly'"
+        ></vcd-form-checkbox>
+        <vcd-form-checkbox
+            [label]="'Disabled'"
+            [styling]="CheckBoxStyling.TOGGLESWITCH"
+            [formControlName]="'disabled'"
+        ></vcd-form-checkbox>
+    </section>
+    <section>
+        <vcd-number-with-unit-form-input
+            [formControlName]="'memory'"
+            [label]="'Memory'"
+            [unitOptions]="memoryOptions"
+            [inputValueUnit]="memoryFormControlValueUnit"
+            [hint]="
+                'Enter desired size of memory and choose memory units to see the memory getting converted and being ' +
+                'displayed in MB below. Checking the unlimited checkbox disables the input and sets input as -1'
+            "
+            [hintPosition]="'top-right'"
+            [showAsterisk]="true"
+            [max]="maxMemoryAllowedMB"
+            [initialValueUnit]="Bytes.MB"
+            [isReadOnly]="formGroup.controls.readonly.value"
+        >
+        </vcd-number-with-unit-form-input>
+        <div class="value-container" *ngIf="!formGroup.controls.readonly.value">
+            <strong>Selected Memory:</strong>
+            {{ formGroup.get('memory').value + ' ' + memoryFormControlValueUnit.getUnitName() }}
+        </div>
+    </section>
 
-    <vcd-number-with-unit-form-input
-        [formControlName]="'cpuLimit'"
-        [label]="'Cpu speed'"
-        [unitOptions]="hertzOptions"
-        [inputValueUnit]="cpuSpeedFormControlValueUnit"
-    >
-    </vcd-number-with-unit-form-input>
-    <div>
-        <strong>Selected Cpu speed:</strong>
-        {{ formGroup.get('cpuLimit').value + ' ' + cpuSpeedFormControlValueUnit.getUnitName() }}
-    </div>
+    <section>
+        <vcd-number-with-unit-form-input
+            [formControlName]="'cpuLimit'"
+            [label]="'CPU speed'"
+            [unitOptions]="hertzOptions"
+            [max]="maxCpuAllowedMhz"
+            [inputValueUnit]="cpuSpeedFormControlValueUnit"
+            [isReadOnly]="formGroup.controls.readonly.value"
+        >
+        </vcd-number-with-unit-form-input>
+        <div class="value-container" *ngIf="!formGroup.controls.readonly.value">
+            <strong>Selected Cpu speed:</strong>
+            {{ formGroup.get('cpuLimit').value + ' ' + cpuSpeedFormControlValueUnit.getUnitName() }}
+        </div>
+    </section>
+
+    <section class="form-valid"><strong>Form valid:</strong> {{ formGroup.valid }}</section>
 </form>

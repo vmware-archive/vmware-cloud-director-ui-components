@@ -30,6 +30,10 @@
         flex: 1;
         overflow: auto;
 
+        .search-result-section {
+            margin-top: 8px;
+        }
+
         .search-result-section-title {
             font-weight: bold;
             margin-top: 0;
@@ -39,6 +43,11 @@
             color: var(--clr-color-neutral-500);
         }
 
+        .no-results {
+            color: var(--clr-color-neutral-500);
+            font-style: italic;
+        }
+
         .search-result-item {
             padding-left: 8px;
 
@@ -46,7 +55,7 @@
                 background-color: var(--clr-global-selection-color);
             }
             &:hover {
-                background-color: var(--clr-global-hover-color);
+                background-color: var(--clr-tree-link-hover-color);
             }
         }
     }

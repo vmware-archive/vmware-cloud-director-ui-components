@@ -60,7 +60,7 @@ interface HasFinderAndGrid {
 }
 
 describe('DatagridComponent', () => {
-    beforeEach(async function(this: HasFinderAndGrid): Promise<void> {
+    beforeEach(async function (this: HasFinderAndGrid): Promise<void> {
         await TestBed.configureTestingModule({
             imports: [VcdDatagridModule, BrowserAnimationsModule],
             providers: [
@@ -81,48 +81,48 @@ describe('DatagridComponent', () => {
 
     describe('Grid', () => {
         describe('', () => {
-            beforeEach(function(this: HasFinderAndGrid): void {
+            beforeEach(function (this: HasFinderAndGrid): void {
                 this.finder.hostComponent.columns = [
                     { displayName: 'Name', renderer: 'name' },
                     { displayName: 'City', renderer: 'city' },
                 ];
                 this.finder.detectChanges();
             });
-            it('displays number of columns', function(this: HasFinderAndGrid): void {
+            it('displays number of columns', function (this: HasFinderAndGrid): void {
                 expect(this.clrGridWidget.columnCount).toBe(this.finder.hostComponent.columns.length);
             });
 
-            it('displays columns with headers', function(this: HasFinderAndGrid): void {
+            it('displays columns with headers', function (this: HasFinderAndGrid): void {
                 expect(this.clrGridWidget.columnHeaders).toEqual(
-                    this.finder.hostComponent.columns.map(col => col.displayName)
+                    this.finder.hostComponent.columns.map((col) => col.displayName)
                 );
                 expect(this.clrGridWidget.getColumnHeader(0)).toEqual(this.finder.hostComponent.columns[0].displayName);
             });
 
-            it('displays the correct headers even when columns are reloaded', function(this: HasFinderAndGrid): void {
+            it('displays the correct headers even when columns are reloaded', function (this: HasFinderAndGrid): void {
                 this.finder.hostComponent.columns = [{ displayName: 'One More', renderer: 'name' }];
                 this.finder.detectChanges();
                 expect(this.clrGridWidget.columnHeaders).toEqual(
-                    this.finder.hostComponent.columns.map(col => col.displayName)
+                    this.finder.hostComponent.columns.map((col) => col.displayName)
                 );
                 expect(this.clrGridWidget.getColumnHeader(0)).toEqual(this.finder.hostComponent.columns[0].displayName);
             });
 
-            it('displays rows based on the grid data received', function(this: HasFinderAndGrid): void {
+            it('displays rows based on the grid data received', function (this: HasFinderAndGrid): void {
                 expect(this.clrGridWidget.rowCount).toBe(mockData.length);
             });
 
-            it('gives proper css class for the grid', function(this: HasFinderAndGrid): void {
+            it('gives proper css class for the grid', function (this: HasFinderAndGrid): void {
                 this.finder.hostComponent.clrDatagridCssClass = 'some_class';
                 this.finder.detectChanges();
                 expect(this.clrGridWidget.gridCssClass).toContain('some_class');
             });
 
-            it('sets no default CSS classnames for the rows', function(this: HasFinderAndGrid): void {
+            it('sets no default CSS classnames for the rows', function (this: HasFinderAndGrid): void {
                 expect(this.clrGridWidget.getRowsCssClass(0)).toEqual(['datagrid-row', 'ng-star-inserted']);
             });
 
-            it('sets CSS classnames on rows', function(this: HasFinderAndGrid): void {
+            it('sets CSS classnames on rows', function (this: HasFinderAndGrid): void {
                 const firstCall = ['firstRowA', 'secondRowA'];
                 const secondCall = ['firstRowB', 'secondRowB'];
 
@@ -154,7 +154,7 @@ describe('DatagridComponent', () => {
             });
 
             describe('@Input() columns.disableCliptext', () => {
-                beforeEach(function(this: HasFinderAndGrid): void {
+                beforeEach(function (this: HasFinderAndGrid): void {
                     this.finder.hostComponent.gridData = {
                         items: mockData,
                         totalItems: 2,
@@ -162,13 +162,13 @@ describe('DatagridComponent', () => {
                     this.finder.detectChanges();
                 });
 
-                it('clips text when disableCliptext is unset', function(this: HasFinderAndGrid): void {
+                it('clips text when disableCliptext is unset', function (this: HasFinderAndGrid): void {
                     this.finder.hostComponent.columns = [{ displayName: 'Name', renderer: 'name' }];
                     this.finder.detectChanges();
                     expect(this.clrGridWidget.columnClippedTextDirective(0).disabled).toBeFalsy();
                 });
 
-                it('clips text when disableCliptext is false', function(this: HasFinderAndGrid): void {
+                it('clips text when disableCliptext is false', function (this: HasFinderAndGrid): void {
                     this.finder.hostComponent.columns = [
                         { displayName: 'Name', renderer: 'name', cliptextConfig: { size: TooltipSize.md } },
                     ];
@@ -176,7 +176,7 @@ describe('DatagridComponent', () => {
                     expect(this.clrGridWidget.columnClippedTextDirective(0).disabled).toBeFalsy();
                 });
 
-                it('does not clip text when disableCliptext is true', function(this: HasFinderAndGrid): void {
+                it('does not clip text when disableCliptext is true', function (this: HasFinderAndGrid): void {
                     this.finder.hostComponent.columns = [
                         { displayName: 'Name', renderer: 'name', cliptextConfig: { disabled: true } },
                     ];
@@ -186,7 +186,7 @@ describe('DatagridComponent', () => {
             });
 
             describe('@Input() columns.clrDgColumnClassName', () => {
-                beforeEach(function(this: HasFinderAndGrid): void {
+                beforeEach(function (this: HasFinderAndGrid): void {
                     this.finder.hostComponent.gridData = {
                         items: mockData,
                         totalItems: 2,
@@ -194,7 +194,7 @@ describe('DatagridComponent', () => {
                     this.finder.detectChanges();
                 });
 
-                it('sets the width of the column to the given height', function(this: HasFinderAndGrid): void {
+                it('sets the width of the column to the given height', function (this: HasFinderAndGrid): void {
                     this.finder.hostComponent.columns = [
                         { displayName: 'Name', renderer: 'name', clrDgColumnClassName: 'some-class' },
                         { displayName: 'Name', renderer: 'name' },
@@ -206,19 +206,19 @@ describe('DatagridComponent', () => {
             });
 
             describe('@Input() selectionType', () => {
-                it('has multi selection capabilities when set to multi selection', function(this: HasFinderAndGrid): void {
+                it('has multi selection capabilities when set to multi selection', function (this: HasFinderAndGrid): void {
                     this.finder.hostComponent.selectionType = GridSelectionType.Multi;
                     this.finder.detectChanges();
                     expect(this.clrGridWidget.getSelectionType()).toBe(GridSelectionType.Multi);
                 });
 
-                it('has single selection capabilities when set to single selection', function(this: HasFinderAndGrid): void {
+                it('has single selection capabilities when set to single selection', function (this: HasFinderAndGrid): void {
                     this.finder.hostComponent.selectionType = GridSelectionType.Single;
                     this.finder.detectChanges();
                     expect(this.clrGridWidget.getSelectionType()).toBe(GridSelectionType.Single);
                 });
 
-                it('has none selection capabilities when set to none', function(this: HasFinderAndGrid): void {
+                it('has none selection capabilities when set to none', function (this: HasFinderAndGrid): void {
                     this.finder.hostComponent.selectionType = GridSelectionType.None;
                     this.finder.detectChanges();
                     expect(this.clrGridWidget.getSelectionType()).toBe(GridSelectionType.None);
@@ -235,7 +235,7 @@ describe('DatagridComponent', () => {
                     expect(this.finder.hostComponent.datagridSelection).toEqual(mockData);
                 });
 
-                it('emits only one row when set to single selection', function(this: HasFinderAndGrid): void {
+                it('emits only one row when set to single selection', function (this: HasFinderAndGrid): void {
                     this.finder.hostComponent.selectionType = GridSelectionType.Single;
                     this.finder.detectChanges();
                     this.clrGridWidget.selectRow(0);
@@ -246,7 +246,7 @@ describe('DatagridComponent', () => {
             });
 
             describe('@Output() selectionChanged', () => {
-                it('emits multiple rows when set to multi selection', function(this: HasFinderAndGrid): void {
+                it('emits multiple rows when set to multi selection', function (this: HasFinderAndGrid): void {
                     this.finder.hostComponent.selectionType = GridSelectionType.Multi;
                     this.finder.detectChanges();
                     spyOn(this.finder.hostComponent, 'selectionChanged');
@@ -256,7 +256,7 @@ describe('DatagridComponent', () => {
                     expect(this.finder.hostComponent.selectionChanged).toHaveBeenCalledWith(mockData);
                 });
 
-                it('emits only one row when set to single selection', function(this: HasFinderAndGrid): void {
+                it('emits only one row when set to single selection', function (this: HasFinderAndGrid): void {
                     this.finder.hostComponent.selectionType = GridSelectionType.Single;
                     this.finder.detectChanges();
                     spyOn(this.finder.hostComponent, 'selectionChanged');
@@ -307,7 +307,7 @@ describe('DatagridComponent', () => {
                     });
                 });
 
-                it('keeps selected an item if the item is not removed on refresh', function(this: HasFinderAndGrid): void {
+                it('keeps selected an item if the item is not removed on refresh', function (this: HasFinderAndGrid): void {
                     this.finder.hostComponent.selectionType = GridSelectionType.Single;
                     this.finder.detectChanges();
                     this.clrGridWidget.selectRow(1);
@@ -352,7 +352,7 @@ describe('DatagridComponent', () => {
                     translationService = TestBed.inject(TranslationService);
                 });
                 describe('pageSize', () => {
-                    it('can set the page size before AfterViewInit', function(this: HasFinderAndGrid): void {
+                    it('can set the page size before AfterViewInit', function (this: HasFinderAndGrid): void {
                         this.finder.detectChanges();
                         expect(this.clrGridWidget.getPaginationDescription()).toEqual(
                             translationService.translate(DEFAULT_PAGINATION_TRANSLATION_KEY, [
@@ -361,7 +361,7 @@ describe('DatagridComponent', () => {
                         );
                     });
 
-                    it('finds the most rows that can fit in the set height with magic pagination', function(this: HasFinderAndGrid): void {
+                    it('finds the most rows that can fit in the set height with magic pagination', function (this: HasFinderAndGrid): void {
                         this.finder.hostComponent.parentHeight = '2000px';
                         this.finder.detectChanges();
                         this.finder.hostComponent.pagination = {
@@ -376,7 +376,7 @@ describe('DatagridComponent', () => {
                         );
                     });
 
-                    it('shows a minimum of 15 rows', function(this: HasFinderAndGrid): void {
+                    it('shows a minimum of 15 rows', function (this: HasFinderAndGrid): void {
                         this.finder.hostComponent.parentHeight = '200px';
                         this.finder.detectChanges();
                         this.finder.hostComponent.pagination = {
@@ -391,7 +391,7 @@ describe('DatagridComponent', () => {
                         );
                     });
 
-                    it('allows the user to set a custom row height with magic pagination ', function(this: HasFinderAndGrid): void {
+                    it('allows the user to set a custom row height with magic pagination ', function (this: HasFinderAndGrid): void {
                         this.finder.hostComponent.parentHeight = '2000px';
                         this.finder.detectChanges();
                         this.finder.hostComponent.pagination = {
@@ -407,7 +407,7 @@ describe('DatagridComponent', () => {
                         );
                     });
 
-                    it('uses grid height when height is set to calculate page size ', function(this: HasFinderAndGrid): void {
+                    it('uses grid height when height is set to calculate page size ', function (this: HasFinderAndGrid): void {
                         this.finder.hostComponent.parentHeight = '2000px';
                         this.finder.hostComponent.height = 1000;
                         this.finder.hostComponent.pagination = {
@@ -422,7 +422,7 @@ describe('DatagridComponent', () => {
                         );
                     });
 
-                    it('lets the user set rows per page', function(this: HasFinderAndGrid): void {
+                    it('lets the user set rows per page', function (this: HasFinderAndGrid): void {
                         this.finder.hostComponent.pagination = {
                             pageSize: 100,
                             pageSizeOptions: [10],
@@ -435,7 +435,7 @@ describe('DatagridComponent', () => {
                         );
                     });
 
-                    it('creates a smaller page when action buttons are present', function(this: HasFinderAndGrid): void {
+                    it('creates a smaller page when action buttons are present', function (this: HasFinderAndGrid): void {
                         this.finder.hostComponent.parentHeight = '2000px';
                         this.finder.hostComponent.actions = [
                             {
@@ -459,7 +459,7 @@ describe('DatagridComponent', () => {
                         );
                     });
 
-                    it('creates a smaller page size when a header is present', function(this: HasFinderAndGrid): void {
+                    it('creates a smaller page size when a header is present', function (this: HasFinderAndGrid): void {
                         this.finder.hostComponent.parentHeight = '1990px';
                         this.finder.hostComponent.header = 'Some Header';
                         this.finder.detectChanges();
@@ -477,7 +477,7 @@ describe('DatagridComponent', () => {
                 });
 
                 describe('pageSizeOptions', () => {
-                    it('allows the user to input undefined', function(this: HasFinderAndGrid): void {
+                    it('allows the user to input undefined', function (this: HasFinderAndGrid): void {
                         this.finder.hostComponent.pagination = {
                             ...this.finder.hostComponent.pagination,
                             shouldShowPageSizeSelector: true,
@@ -489,7 +489,7 @@ describe('DatagridComponent', () => {
                 });
 
                 describe('shouldShowPageSizeSelector', () => {
-                    it('hides the dropdown when set to false', function(this: HasFinderAndGrid): void {
+                    it('hides the dropdown when set to false', function (this: HasFinderAndGrid): void {
                         this.finder.hostComponent.pagination = {
                             ...this.finder.hostComponent.pagination,
                             shouldShowPageSizeSelector: false,
@@ -498,7 +498,7 @@ describe('DatagridComponent', () => {
                         expect(this.clrGridWidget.getPaginationSizeSelectorText()).toEqual('');
                     });
 
-                    it('shows the dropdown when set to true', function(this: HasFinderAndGrid): void {
+                    it('shows the dropdown when set to true', function (this: HasFinderAndGrid): void {
                         this.finder.hostComponent.pagination = {
                             ...this.finder.hostComponent.pagination,
                             shouldShowPageSizeSelector: true,
@@ -510,7 +510,7 @@ describe('DatagridComponent', () => {
             });
 
             describe('@Input() paginationDropdownText', () => {
-                it('displays the pagination dropdown information on page one', function(this: HasFinderAndGrid): void {
+                it('displays the pagination dropdown information on page one', function (this: HasFinderAndGrid): void {
                     this.finder.hostComponent.pagination = {
                         ...this.finder.hostComponent.pagination,
                         shouldShowPageSizeSelector: true,
@@ -521,20 +521,20 @@ describe('DatagridComponent', () => {
             });
 
             describe('@Input() height', () => {
-                it('defaults to parent height when height is not set', function(this: HasFinderAndGrid): void {
+                it('defaults to parent height when height is not set', function (this: HasFinderAndGrid): void {
                     this.finder.hostComponent.height = undefined;
                     this.finder.detectChanges();
                     expect(this.clrGridWidget.gridContainerClasses).toContain('fill-parent');
                     expect(this.clrGridWidget.gridHeight).toEqual('unset');
                 });
 
-                it('uses the given height when height is set', function(this: HasFinderAndGrid): void {
+                it('uses the given height when height is set', function (this: HasFinderAndGrid): void {
                     this.finder.hostComponent.height = 200;
                     this.finder.detectChanges();
                     expect(this.clrGridWidget.gridHeight).toEqual('200px');
                 });
 
-                it('allows the height to be dynamically changed', function(this: HasFinderAndGrid): void {
+                it('allows the height to be dynamically changed', function (this: HasFinderAndGrid): void {
                     this.finder.hostComponent.height = 200;
                     this.finder.detectChanges();
                     expect(this.clrGridWidget.gridHeight).toEqual('200px');
@@ -547,13 +547,13 @@ describe('DatagridComponent', () => {
         });
 
         describe('@Input() emptyGridPlaceholder', () => {
-            it('does not show the placeholder while the grid is loading', function(this: HasFinderAndGrid): void {
+            it('does not show the placeholder while the grid is loading', function (this: HasFinderAndGrid): void {
                 this.finder.detectChanges();
                 expect(this.clrGridWidget.loading).toBeTruthy();
                 expect(this.clrGridWidget.placeholder).toEqual('');
             });
 
-            it('shows the placeholder if the grid is empty', function(this: HasFinderAndGrid): void {
+            it('shows the placeholder if the grid is empty', function (this: HasFinderAndGrid): void {
                 this.finder.detectChanges();
                 expect(this.clrGridWidget.loading).toBeTruthy();
                 this.finder.hostComponent.gridData = {
@@ -565,7 +565,7 @@ describe('DatagridComponent', () => {
                 expect(this.clrGridWidget.placeholder).toEqual('Placeholder');
             });
 
-            it('does not show the placeholder if the grid has data', function(this: HasFinderAndGrid): void {
+            it('does not show the placeholder if the grid has data', function (this: HasFinderAndGrid): void {
                 this.finder.detectChanges();
                 expect(this.clrGridWidget.loading).toBeTruthy();
                 this.finder.hostComponent.gridData = {
@@ -578,7 +578,7 @@ describe('DatagridComponent', () => {
             });
         });
 
-        it('displays loading indicators while data is loading', function(this: HasFinderAndGrid): void {
+        it('displays loading indicators while data is loading', function (this: HasFinderAndGrid): void {
             this.finder.detectChanges();
             expect(this.clrGridWidget.loading).toBe(true, 'Initially loading indicator should be true');
             this.finder.hostComponent.gridData = {
@@ -593,13 +593,13 @@ describe('DatagridComponent', () => {
         });
 
         describe('Show/Hide Functionality', () => {
-            beforeEach(function(this: HasFinderAndGrid): void {
+            beforeEach(function (this: HasFinderAndGrid): void {
                 this.finder.hostComponent.columns = [
                     {
                         displayName: 'Component Renderer',
                         renderer: ColumnComponentRendererSpec({
                             type: BoldTextRendererComponent,
-                            config: record => ({
+                            config: (record) => ({
                                 text: record.name,
                             }),
                         }),
@@ -625,26 +625,26 @@ describe('DatagridComponent', () => {
                 ];
                 this.finder.detectChanges();
             });
-            it('shows the columns with hidable value of  "Never"', function(this: HasFinderAndGrid): void {
+            it('shows the columns with hidable value of  "Never"', function (this: HasFinderAndGrid): void {
                 expect(this.clrGridWidget.isColumnDisplayed(0)).toBe(true);
             });
 
-            it('shows the columns with hidable value of  "Shown"', function(this: HasFinderAndGrid): void {
+            it('shows the columns with hidable value of  "Shown"', function (this: HasFinderAndGrid): void {
                 expect(this.clrGridWidget.isColumnDisplayed(1)).toBe(true);
             });
 
-            it('hides the columns with hidable value of  "Hidden"', function(this: HasFinderAndGrid): void {
+            it('hides the columns with hidable value of  "Hidden"', function (this: HasFinderAndGrid): void {
                 expect(this.clrGridWidget.isColumnDisplayed(2)).toBe(false);
                 expect(this.clrGridWidget.hiddenColumnHeaders).toEqual(['Default Renderer']);
             });
 
-            it('shows the columns with hidable value of undefined', function(this: HasFinderAndGrid): void {
+            it('shows the columns with hidable value of undefined', function (this: HasFinderAndGrid): void {
                 expect(this.clrGridWidget.isColumnDisplayed(3)).toBe(true);
             });
         });
 
         describe('@Input() detailComponent', () => {
-            beforeEach(function(this: HasFinderAndGrid): void {
+            beforeEach(function (this: HasFinderAndGrid): void {
                 this.finder.hostComponent.columns = [
                     {
                         displayName: 'Column',
@@ -655,14 +655,14 @@ describe('DatagridComponent', () => {
                 this.finder.detectChanges();
             });
 
-            it('opens one detail pane when you click the button', function(this: HasFinderAndGrid): void {
+            it('opens one detail pane when you click the button', function (this: HasFinderAndGrid): void {
                 this.clrGridWidget.clickDetailRowButton(0);
                 expect(this.clrGridWidget.getAllDetailRowContents().length).toEqual(1);
             });
         });
 
         describe('@Input() isRowExpanded', () => {
-            beforeEach(function(this: HasFinderAndGrid): void {
+            beforeEach(function (this: HasFinderAndGrid): void {
                 this.finder.hostComponent.columns = [
                     {
                         displayName: 'Column',
@@ -673,11 +673,11 @@ describe('DatagridComponent', () => {
                 this.finder.detectChanges();
             });
 
-            it('does NOT expand row when false', function(this: HasFinderAndGrid): void {
+            it('does NOT expand row when false', function (this: HasFinderAndGrid): void {
                 expect(this.clrGridWidget.getAllDetailRowContents().length).toEqual(0);
             });
 
-            it('expands row when true', function(this: HasFinderAndGrid): void {
+            it('expands row when true', function (this: HasFinderAndGrid): void {
                 this.finder.hostComponent.isRowExpanded = true;
                 this.finder.detectChanges();
                 expect(this.clrGridWidget.getAllDetailRowContents().length).toEqual(2);
@@ -685,7 +685,7 @@ describe('DatagridComponent', () => {
         });
 
         describe('@Input() detailPane', () => {
-            beforeEach(function(this: HasFinderAndGrid): void {
+            beforeEach(function (this: HasFinderAndGrid): void {
                 this.finder.hostComponent.columns = [
                     {
                         displayName: 'Column',
@@ -695,16 +695,43 @@ describe('DatagridComponent', () => {
                 this.finder.detectChanges();
             });
 
-            it('opens one detail pane when you click the button', function(this: HasFinderAndGrid): void {
+            it('opens one detail pane when you click the button', function (this: HasFinderAndGrid): void {
                 this.clrGridWidget.clickDetailPaneButton(0);
                 this.finder.detectChanges();
                 expect(this.clrGridWidget.getAllDetailPaneContents().length).toEqual(1);
-                expect(this.clrGridWidget.getDetailPaneHeader()).toEqual('Person 1');
+                expect(this.clrGridWidget.getDetailPaneHeader()).toEqual('Palo Alto');
+            });
+
+            it('gives the same config when called with the same arguments', function (this: HasFinderAndGrid): void {
+                this.clrGridWidget.clickDetailPaneButton(0);
+                this.finder.detectChanges();
+                expect(this.finder.hostComponent.grid.getDetailPaneRenderSpec(mockData[0])).toEqual(
+                    this.finder.hostComponent.grid.getDetailPaneRenderSpec(mockData[0])
+                );
+            });
+
+            it('updates the detail pane when the record changes', function (this: HasFinderAndGrid): void {
+                this.clrGridWidget.clickDetailPaneButton(0);
+                this.finder.detectChanges();
+                expect(this.clrGridWidget.getAllDetailPaneContents().length).toEqual(1);
+                expect(this.clrGridWidget.getDetailPaneHeader()).toEqual('Palo Alto');
+                this.finder.hostComponent.gridData = {
+                    items: [
+                        {
+                            ...mockData[0],
+                            city: 'NEW',
+                        },
+                    ],
+                    totalItems: 2,
+                };
+                this.finder.detectChanges();
+                expect(this.clrGridWidget.getAllDetailPaneContents().length).toEqual(1);
+                expect(this.clrGridWidget.getDetailPaneHeader()).toEqual('NEW');
             });
         });
 
         describe('getRowLoadingListenerInjector()', () => {
-            beforeEach(function(this: HasFinderAndGrid): void {
+            beforeEach(function (this: HasFinderAndGrid): void {
                 this.finder.hostComponent.columns = [
                     {
                         displayName: 'Column',
@@ -716,7 +743,7 @@ describe('DatagridComponent', () => {
         });
 
         describe('@Output() refresh', () => {
-            beforeEach(function(this: HasFinderAndGrid): void {
+            beforeEach(function (this: HasFinderAndGrid): void {
                 this.finder.hostComponent.columns = [
                     {
                         displayName: 'Column',
@@ -731,7 +758,7 @@ describe('DatagridComponent', () => {
                 this.finder.detectChanges();
             });
 
-            it('emits the column information when the column sorted', function(this: HasFinderAndGrid): void {
+            it('emits the column information when the column sorted', function (this: HasFinderAndGrid): void {
                 const refreshMethod = spyOn(this.finder.hostComponent, 'refresh');
                 this.clrGridWidget.sortColumn(0);
                 expect(refreshMethod).toHaveBeenCalledWith({
@@ -751,13 +778,13 @@ describe('DatagridComponent', () => {
                 });
             });
 
-            it('does not sort a column without a queryFieldName', function(this: HasFinderAndGrid): void {
+            it('does not sort a column without a queryFieldName', function (this: HasFinderAndGrid): void {
                 const refreshMethod = spyOn(this.finder.hostComponent, 'refresh');
                 this.clrGridWidget.sortColumn(1);
                 expect(refreshMethod).toHaveBeenCalledTimes(0);
             });
 
-            it('allows the user to change pages', function(this: HasFinderAndGrid): void {
+            it('allows the user to change pages', function (this: HasFinderAndGrid): void {
                 const refreshMethod = spyOn(this.finder.hostComponent, 'refresh');
                 this.clrGridWidget.nextPage();
                 expect(refreshMethod).toHaveBeenCalledWith({
@@ -768,7 +795,7 @@ describe('DatagridComponent', () => {
                 });
             });
 
-            it('goes to page 1 when sorting is clicked', function(this: HasFinderAndGrid): void {
+            it('goes to page 1 when sorting is clicked', function (this: HasFinderAndGrid): void {
                 const refreshMethod = spyOn(this.finder.hostComponent, 'refresh');
                 this.clrGridWidget.nextPage();
                 this.clrGridWidget.sortColumn(0);
@@ -783,7 +810,7 @@ describe('DatagridComponent', () => {
             it(
                 'adds the logic of calling datagrids actionReporter.monitorGet method to action handler' +
                     ' when the handler returns a promise',
-                function(this: HasFinderAndGrid): void {
+                function (this: HasFinderAndGrid): void {
                     const actionHandlerWithoutPromise: ActionHandlerType<any, any> = () => null;
                     const actionHandlerThatReturnsPromise: ActionHandlerType<any, any> = () => new Promise(() => null);
                     this.finder.hostComponent.indicatorType = ActivityIndicatorType.BANNER;
@@ -808,7 +835,7 @@ describe('DatagridComponent', () => {
                 }
             );
 
-            it('does not change what trackBy is used', function(this: HasFinderAndGrid): void {
+            it('does not change what trackBy is used', function (this: HasFinderAndGrid): void {
                 this.finder.hostComponent.gridData = {
                     items: mockData,
                     totalItems: 2,
@@ -832,7 +859,7 @@ describe('DatagridComponent', () => {
         });
 
         describe('shouldShowActionBarOnTop', () => {
-            it('returns true when there are static actions', function(this: HasFinderAndGrid): void {
+            it('returns true when there are static actions', function (this: HasFinderAndGrid): void {
                 this.finder.hostComponent.actions = [
                     {
                         textKey: 'static.action',
@@ -869,7 +896,7 @@ describe('DatagridComponent', () => {
         });
 
         describe('@Input() header', () => {
-            it('shows the header if set and allows it to be changed', function(this: HasFinderAndGrid): void {
+            it('shows the header if set and allows it to be changed', function (this: HasFinderAndGrid): void {
                 this.finder.hostComponent.header = 'Some Header!';
                 this.finder.detectChanges();
                 expect(this.vcdDatagrid.gridHeader).toEqual('Some Header!');
@@ -878,7 +905,7 @@ describe('DatagridComponent', () => {
                 expect(this.vcdDatagrid.gridHeader).toEqual('Some Other Header!');
             });
 
-            it('does not show a header when none is set', function(this: HasFinderAndGrid): void {
+            it('does not show a header when none is set', function (this: HasFinderAndGrid): void {
                 this.finder.hostComponent.header = undefined;
                 this.finder.detectChanges();
                 expect(this.vcdDatagrid.gridHeader).toEqual('');
@@ -886,14 +913,14 @@ describe('DatagridComponent', () => {
         });
 
         describe('GridColumn', () => {
-            it('enables only sorting when queryFieldName is given but no filter is provided', function(this: HasFinderAndGrid): void {
+            it('enables only sorting when queryFieldName is given but no filter is provided', function (this: HasFinderAndGrid): void {
                 this.finder.hostComponent.columns = [{ displayName: 'Name', renderer: 'name', queryFieldName: 'name' }];
                 this.finder.detectChanges();
                 expect(this.clrGridWidget.component.columns.first.sortable).toEqual(true);
                 expect(this.clrGridWidget.component.columns.first.customFilter).toEqual(false);
             });
             // tslint:disable-next-line:max-line-length
-            it('enables only filtering when queryFieldName, filter are provided and sortable is set to false', function(this: HasFinderAndGrid): void {
+            it('enables only filtering when queryFieldName, filter are provided and sortable is set to false', function (this: HasFinderAndGrid): void {
                 this.finder.hostComponent.columns = [
                     {
                         displayName: 'Name',
@@ -908,7 +935,7 @@ describe('DatagridComponent', () => {
                 expect(this.clrGridWidget.component.columns.first.customFilter).toEqual(true);
             });
             // tslint:disable-next-line:max-line-length
-            it('enables both filtering and sorting when queryFieldName, filter are provided and sortable is not set to false', function(this: HasFinderAndGrid): void {
+            it('enables both filtering and sorting when queryFieldName, filter are provided and sortable is not set to false', function (this: HasFinderAndGrid): void {
                 this.finder.hostComponent.columns = [
                     {
                         displayName: 'Name',
@@ -924,7 +951,7 @@ describe('DatagridComponent', () => {
         });
 
         describe('columnsUpdated event', () => {
-            it('is fired when columns is set', function(this: HasFinderAndGrid): void {
+            it('is fired when columns is set', function (this: HasFinderAndGrid): void {
                 this.finder.detectChanges();
                 const spy = spyOn(this.finder.hostComponent.grid.columnsUpdated, 'emit').and.callThrough();
                 this.finder.hostComponent.columns = [
@@ -936,7 +963,7 @@ describe('DatagridComponent', () => {
                 this.finder.detectChanges();
                 expect(spy).toHaveBeenCalled();
             });
-            it('is not fired when addColumn or removeColumn is called', function(this: HasFinderAndGrid): void {
+            it('is not fired when addColumn or removeColumn is called', function (this: HasFinderAndGrid): void {
                 this.finder.detectChanges();
                 const spy = spyOn(this.finder.hostComponent.grid.columnsUpdated, 'emit').and.callThrough();
                 this.finder.hostComponent.grid.addColumn({
@@ -955,7 +982,7 @@ describe('DatagridComponent', () => {
         });
 
         describe('addColumn', () => {
-            beforeEach(function(this: HasFinderAndGrid): void {
+            beforeEach(function (this: HasFinderAndGrid): void {
                 this.finder.hostComponent.columns = [
                     {
                         displayName: 'Column',
@@ -964,7 +991,7 @@ describe('DatagridComponent', () => {
                 ];
                 this.finder.detectChanges();
             });
-            it('adds the passed in column to list of existing grid columns', function(this: HasFinderAndGrid): void {
+            it('adds the passed in column to list of existing grid columns', function (this: HasFinderAndGrid): void {
                 expect(this.finder.hostComponent.grid.columns.length).toBe(1);
                 this.finder.hostComponent.grid.addColumn({
                     displayName: 'Column2',
@@ -976,7 +1003,7 @@ describe('DatagridComponent', () => {
             });
             it(
                 'updates a existing column if a column exists with same display name as the column passed ' + 'in',
-                function(this: HasFinderAndGrid): void {
+                function (this: HasFinderAndGrid): void {
                     expect(this.finder.hostComponent.grid.columns[0].renderer).toBe('name');
                     this.finder.hostComponent.grid.addColumn({
                         displayName: 'Column',
@@ -989,7 +1016,7 @@ describe('DatagridComponent', () => {
         });
 
         describe('removeColumn', () => {
-            beforeEach(function(this: HasFinderAndGrid): void {
+            beforeEach(function (this: HasFinderAndGrid): void {
                 this.finder.hostComponent.columns = [
                     {
                         displayName: 'Column',
@@ -998,7 +1025,7 @@ describe('DatagridComponent', () => {
                 ];
                 this.finder.detectChanges();
             });
-            it('removes the column from list of existing grid columns', function(this: HasFinderAndGrid): void {
+            it('removes the column from list of existing grid columns', function (this: HasFinderAndGrid): void {
                 expect(this.finder.hostComponent.grid.columns.length).toBe(1);
                 this.finder.hostComponent.grid.removeColumn({
                     displayName: 'Column',
@@ -1009,7 +1036,7 @@ describe('DatagridComponent', () => {
             });
             it(
                 'does not do anything if there is no column with same display name as the column passed ' + 'in',
-                function(this: HasFinderAndGrid): void {
+                function (this: HasFinderAndGrid): void {
                     expect(this.finder.hostComponent.grid.columns.length).toBe(1);
                     this.finder.hostComponent.grid.removeColumn({
                         displayName: 'Non-existing-Column',
@@ -1022,7 +1049,7 @@ describe('DatagridComponent', () => {
         });
 
         describe('getPaginationTranslation', () => {
-            it('returns translated string', async function(this: HasFinderAndGrid): Promise<void> {
+            it('returns translated string', async function (this: HasFinderAndGrid): Promise<void> {
                 const translatedString = await (this.component.getPaginationTranslation({
                     firstItem: 1,
                     lastItem: 10,
@@ -1042,7 +1069,7 @@ describe('DatagridComponent', () => {
 
     describe('Column Renderers', () => {
         describe('Default renderer', () => {
-            it('uses property path from  "renderer" property of column config ', function(this: HasFinderAndGrid): void {
+            it('uses property path from  "renderer" property of column config ', function (this: HasFinderAndGrid): void {
                 this.finder.hostComponent.columns = [{ displayName: '', renderer: 'details.gender' }];
                 this.finder.detectChanges();
                 expect(this.clrGridWidget.getCellText(0, 0)).toEqual(mockData[0].details.gender);
@@ -1051,11 +1078,11 @@ describe('DatagridComponent', () => {
         });
 
         describe('Function renderer', () => {
-            it('renders the string returned from the renderer function', function(this: HasFinderAndGrid): void {
+            it('renders the string returned from the renderer function', function (this: HasFinderAndGrid): void {
                 this.finder.hostComponent.columns = [
                     {
                         displayName: 'Function Renderer',
-                        renderer: record => `${record.city}, ${record.state}`,
+                        renderer: (record) => `${record.city}, ${record.state}`,
                     },
                 ];
                 this.finder.detectChanges();
@@ -1064,13 +1091,13 @@ describe('DatagridComponent', () => {
         });
 
         describe('Component renderer', () => {
-            it('renders the passed in component using config from RendererSpec', function(this: HasFinderAndGrid): void {
+            it('renders the passed in component using config from RendererSpec', function (this: HasFinderAndGrid): void {
                 this.finder.hostComponent.columns = [
                     {
                         displayName: 'Component Renderer',
                         renderer: ColumnComponentRendererSpec({
                             type: BoldTextRendererComponent,
-                            config: record => ({
+                            config: (record) => ({
                                 text: record.name,
                             }),
                         }),
@@ -1155,7 +1182,7 @@ export class HostWithDatagridComponent {
     isRowExpanded = false;
 
     detailPane = {
-        header: (record: MockRecord) => record.name,
+        header: (record: MockRecord) => record.city,
         component: DatagridDetailsPaneComponent,
     };
 
@@ -1188,19 +1215,20 @@ export class HostWithDatagridComponent {
 }
 
 @Component({
-    template: `
-        DETAILS
-    `,
+    template: ` DETAILS `,
 })
 class DatagridDetailsComponent {
     constructor(public loadingListener: LoadingListener) {}
 }
 
 @Component({
-    template: `
-        DETAILS
-    `,
+    template: ` <h2 class="config">Count{{ configSetTimes }}</h2> `,
 })
 class DatagridDetailsPaneComponent {
+    configSetTimes = 0;
     constructor() {}
+
+    set config(config: any) {
+        this.configSetTimes++;
+    }
 }

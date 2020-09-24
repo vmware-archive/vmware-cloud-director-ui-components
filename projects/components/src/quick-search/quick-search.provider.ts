@@ -21,6 +21,12 @@ export interface QuickSearchProvider {
     order: number;
 
     /**
+     * A custom property available throughout all the providers. Not designed for any specific scenario.
+     * Use it according to the specific needs you may have.
+     */
+    data: unknown;
+
+    /**
      * Returns an array or a promise of array of items that comply with the search criteria.
      * @param criteria The search string provided by the user when typing in the Quick Search Component
      */
@@ -30,5 +36,6 @@ export interface QuickSearchProvider {
 export abstract class QuickSearchProviderDefaults implements QuickSearchProvider {
     sectionName = '';
     order = -1;
+    data: unknown;
     abstract search(criteria: string): QuickSearchResultsType;
 }

@@ -13,6 +13,34 @@ single-option {
     }
 
     .input-number-with-unit {
+        .clr-subtext:empty {
+            display: none;
+        }
+
+        .clr-form-control.errors {
+            margin-top: 0;
+
+            label {
+                margin: 0;
+            }
+        }
+
+        clr-signpost {
+            button {
+                height: 1.3rem;
+                clr-icon {
+                    vertical-align: baseline;
+                    transform: none;
+                }
+            }
+        }
+
+        vcd-form-input {
+            input {
+                width: 5rem;
+            }
+        }
+
         .clr-control-label {
             + .clr-control-container {
                 width: auto;
@@ -32,6 +60,14 @@ single-option {
             margin-top: -1px !important;
             margin-left: 5px;
             vcd-form-select {
+                .clr-form-control {
+                    margin-top: 0;
+                }
+            }
+        }
+
+        footer {
+            vcd-form-checkbox {
                 .clr-form-control {
                     margin-top: 0;
                 }

@@ -8,16 +8,12 @@ import { NgModule } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import { ClarityModule } from '@clr/angular';
 import { QuickSearchModule, VcdFormModule } from '@vcd/ui-components';
-import {
-    ActionsSearchProvider,
-    QuickSearchSyncAsyncExampleComponent,
-} from './quick-search-sync-async.example.component';
+import { QuickSearchContentProjectionComponent } from './quick-search-content-projection.example.component';
 
 @NgModule({
     imports: [CommonModule, ClarityModule, QuickSearchModule, VcdFormModule, ReactiveFormsModule],
-    declarations: [QuickSearchSyncAsyncExampleComponent],
-    exports: [QuickSearchSyncAsyncExampleComponent],
-    entryComponents: [QuickSearchSyncAsyncExampleComponent],
-    providers: [ActionsSearchProvider],
+    declarations: [QuickSearchContentProjectionComponent],
+    exports: [QuickSearchContentProjectionComponent],
+    entryComponents: [QuickSearchContentProjectionComponent],
 })
-export class QuickSearchSyncAsyncExampleModule {}
+export class QuickSearchContentProjectionExampleModule {}

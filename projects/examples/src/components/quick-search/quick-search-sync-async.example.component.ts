@@ -6,7 +6,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import {
-    QuickSearchProvider,
     QuickSearchProviderDefaults,
     QuickSearchRegistrarService,
     QuickSearchResultItem,
@@ -16,6 +15,7 @@ import Mousetrap from 'mousetrap';
 
 @Component({
     selector: 'vcd-quick-search-sync-async-example',
+    styleUrls: ['./quick-search-sync-async.example.component.scss'],
     templateUrl: './quick-search-sync-async.example.component.html',
     providers: [QuickSearchRegistrarService],
 })
@@ -23,6 +23,7 @@ export class QuickSearchSyncAsyncExampleComponent implements OnInit, OnDestroy {
     formGroup: FormGroup;
     kbdShortcut = 'mod+f';
     spotlightOpen: boolean;
+
     private lazyLoadedProvider = new LazyLoadedActionsSearchProvider();
     private actionsSearchProvider = new ActionsSearchProvider();
 
@@ -66,7 +67,7 @@ function buildFilter(criteria: string): (item: QuickSearchResultItem) => boolean
     return (item: QuickSearchResultItem) => criteria && item.displayText.toLowerCase().includes(criteria);
 }
 
-export class ActionsSearchProvider implements QuickSearchProvider {
+export class ActionsSearchProvider extends QuickSearchProviderDefaults {
     sectionName = 'Actions';
 
     order = -1;
@@ -74,6 +75,8 @@ export class ActionsSearchProvider implements QuickSearchProvider {
     private actions: QuickSearchResultItem[];
 
     constructor() {
+        super();
+
         // Build actions
         this.actions = actions.map((action) => {
             return {
@@ -100,7 +103,7 @@ export class ActionsSearchProvider implements QuickSearchProvider {
     }
 }
 
-export class LazyLoadedActionsSearchProvider implements QuickSearchProvider {
+export class LazyLoadedActionsSearchProvider extends QuickSearchProviderDefaults {
     sectionName = 'Lazy Loaded Actions';
 
     order = -1;
@@ -143,7 +146,7 @@ export class PagedActionsSearchProvider extends QuickSearchProviderDefaults {
     search(criteria: string): QuickSearchResultsType {
         criteria = criteria ? criteria.toLowerCase() : '';
         const items = this.actions.filter((action) => action.displayText.toLowerCase().includes(criteria));
-        const pageSize = 5;
+        const pageSize = 15;
         return {
             items: items.slice(0, pageSize),
             page: 1,

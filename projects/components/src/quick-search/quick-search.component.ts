@@ -174,6 +174,8 @@ export class QuickSearchComponent {
         // Remember which is the current search. This will help us not to show results from an old search
         const searchId = ++this.searchId;
 
+        this.selectedItem = null;
+
         // Mark each sections in loading state. This flag is needed when trying to select the first item
         // while the search is still in progress
         this.searchSections.forEach((searchSection) => (searchSection.isLoading = true));
@@ -198,7 +200,9 @@ export class QuickSearchComponent {
             }
             searchSection.result = searchResult;
             searchSection.isLoading = false;
-            this.selectFirst(true);
+            if (!this.selectedItem) {
+                this.selectFirst(true);
+            }
         });
     }
 
@@ -316,11 +320,7 @@ export class QuickSearchComponent {
     }
 
     showSectionTitle(searchSection: SearchSection): boolean {
-        // In order to show a section title there should be more than one sections
-        // and the current section should either be loading data or have results
-        return (
-            !!searchSection.provider.sectionName && (searchSection.isLoading || searchSection.result?.items.length > 0)
-        );
+        return !!(searchSection.provider.sectionName && this.searchCriteria);
     }
 
     /**

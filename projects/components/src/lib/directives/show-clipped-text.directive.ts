@@ -109,7 +109,9 @@ const tip = {
     },
 
     onMouseLeave(): void {
-        tip.hideTooltip(tip.mouseoutDelay);
+        if (tip.currentDirective) {
+            tip.hideTooltip(tip.mouseoutDelay);
+        }
     },
 
     hideTooltip(delay: number): void {
