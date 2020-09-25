@@ -45,15 +45,15 @@ describe('ActionSearchProvider', () => {
         this.actionSearchProvider = new ActionSearchProvider(new MockTranslationService());
     });
     describe('actions', () => {
-        it('when set, the search method will give the action that matches with the search' + ' text', function (
+        it('when set, the search method will give the action that matches with the search' + ' text', async function (
             this: HasActionSearchProvider
-        ): void {
-            const searchResults = this.actionSearchProvider.search('sta');
+        ): Promise<void> {
+            const searchResults = await this.actionSearchProvider.search('sta');
             expect(searchResults.items).toEqual([]);
             this.actionSearchProvider.actions = getMockActionsList();
-            const searchResults2 = this.actionSearchProvider.search('sta');
+            const searchResults2 = await this.actionSearchProvider.search('sta');
             expect(searchResults2.items[0].displayText).toEqual('Start');
-            const searchResults1 = this.actionSearchProvider.search('sto');
+            const searchResults1 = await this.actionSearchProvider.search('sto');
             expect(searchResults1.items[0].displayText).toEqual('Stop');
         });
     });
@@ -62,10 +62,10 @@ describe('ActionSearchProvider', () => {
         it(
             'when set with an entity that will yield ActionItem.availability as false, the search method does not return the ActionItem' +
                 ' as it is unavailable',
-            function (this: HasActionSearchProvider): void {
+            async function (this: HasActionSearchProvider): Promise<void> {
                 this.actionSearchProvider.actions = getMockActionsList();
 
-                let searchResults = this.actionSearchProvider.search('sto');
+                let searchResults = await this.actionSearchProvider.search('sto');
                 expect(searchResults.items[0].displayText).toEqual('Stop');
 
                 this.actionSearchProvider.selectedEntities = [
@@ -73,7 +73,7 @@ describe('ActionSearchProvider', () => {
                         stopped: true,
                     },
                 ];
-                searchResults = this.actionSearchProvider.search('sto');
+                searchResults = await this.actionSearchProvider.search('sto');
                 expect(searchResults.items).toEqual([]);
             }
         );
