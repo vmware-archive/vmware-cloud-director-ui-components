@@ -7,6 +7,8 @@ import { NgModule } from '@angular/core';
 
 import { ActionMenuComponent } from '@vcd/ui-components';
 import { Documentation } from '@vmw/ng-live-docs';
+import { ActionMenuSearchPauseUnpauseExampleComponent } from './action-menu-search-pause-and-unpause.example.component';
+import { ActionMenuSearchPauseAndUnpauseExampleModule } from './action-menu-search-pause-and-unpause.example.module';
 import { ActionMenuWithSeparatorsExampleComponent } from './action-menu-with-separators.example.component';
 import { ActionMenuWithSeparatorsExampleModule } from './action-menu-with-separators.example.module';
 import { ActionMenuExampleComponent } from './action-menu.example.component';
@@ -28,10 +30,16 @@ Documentation.registerDocumentationEntry({
             title: 'Action Menu with separators',
             urlSegment: 'action-menu-with-separators',
         },
+        {
+            component: ActionMenuSearchPauseUnpauseExampleComponent,
+            forComponent: null,
+            title: 'Action search pause and unpause',
+            urlSegment: 'action-search-pause-unpause',
+        },
     ],
 });
 
 @NgModule({
-    imports: [ActionMenuWithSeparatorsExampleModule],
+    imports: [ActionMenuWithSeparatorsExampleModule, ActionMenuSearchPauseAndUnpauseExampleModule],
 })
 export class ActionMenuExamplesModule {}

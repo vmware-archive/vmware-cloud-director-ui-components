@@ -277,5 +277,7 @@ export class ActionMenuExampleComponent<R extends Record, T extends HandlerData>
         this.spotlightSearchService.registerProvider(this.actionSearchProvider);
     }
 
-    ngOnDestroy(): void {}
+    ngOnDestroy(): void {
+        this.spotlightSearchService.unregisterProvider(this.actionSearchProvider);
+    }
 }
