@@ -78,4 +78,45 @@ describe('ActionSearchProvider', () => {
             }
         );
     });
+
+    describe('pause and unpause', () => {
+        it(
+            'when pause is not called by default, search returns a promise which is resolved without having to' +
+                'call unpause',
+            async function (this: HasActionSearchProvider): Promise<void> {
+                this.actionSearchProvider.actions = getMockActionsList();
+                let searchResultsBeforePausing;
+                searchResultsBeforePausing = await this.actionSearchProvider.search('sta');
+                expect(searchResultsBeforePausing.items[0].displayText).toEqual('Start');
+            }
+        );
+        it(
+            'when pause method is called, search returns a promise which is not resolved until unpause' + 'is called',
+            async function (this: HasActionSearchProvider): Promise<void> {
+                this.actionSearchProvider.actions = getMockActionsList();
+                const unpauseAfter1second = (): void => {
+                    setTimeout(() => {
+                        this.actionSearchProvider.unPause();
+                    }, 1000);
+                };
+                const checkResultsAfter500ms = (): void => {
+                    setTimeout(() => {
+                        expect(searchResultsAfterPausing).toEqual(undefined);
+                    }, 500);
+                };
+
+                const checkResultsAfter1second = (): void => {
+                    setTimeout(() => {
+                        expect(searchResultsAfterPausing.items[0].displayText).toEqual('Start');
+                    }, 1000);
+                };
+
+                this.actionSearchProvider.pause();
+                unpauseAfter1second();
+                checkResultsAfter500ms();
+                checkResultsAfter1second();
+                const searchResultsAfterPausing = await this.actionSearchProvider.search('sta');
+            }
+        );
+    });
 });
