@@ -239,8 +239,10 @@ describe('VcdExportTableComponent', () => {
                 spyOn(this.finder.hostComponent, 'onExportRequest').and.callFake(async (e: DataExportRequestEvent) => {
                     await e.exportData(TestData.exportDataWrongField);
                     this.finder.detectChanges();
+                    // Byte order mark for UTF-8
+                    const BOM = '\ufeff';
                     expect(downloadService.downloadCsvFile).toHaveBeenCalledWith(
-                        'noexist\nJack\nJill',
+                        BOM + 'noexist\nJack\nJill',
                         exporter.component.fileName
                     );
                     done();

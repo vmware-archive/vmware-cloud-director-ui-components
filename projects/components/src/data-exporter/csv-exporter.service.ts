@@ -19,7 +19,8 @@ export class CsvExporterService {
      * possible code injection
      */
     public createCsv(rows: any[][], shouldSanitize = false): string {
-        return rows.map(row => processRow(row, shouldSanitize)).join('\n');
+        // BOM Mark to help Excel open the CSV when it contains UTF-8 characters
+        return '\ufeff' + rows.map((row) => processRow(row, shouldSanitize)).join('\n');
     }
 
     /**
@@ -60,7 +61,7 @@ const LEADING_CONTROL_CHAR = /^[-+=@]/;
  * Whether the given row data is at risk of code injection when exported to CSV.
  */
 function hasPotentialInjection(row: unknown[]): boolean {
-    return row.some(cell => LEADING_CONTROL_CHAR.test(encodeValue(cell, false)));
+    return row.some((cell) => LEADING_CONTROL_CHAR.test(encodeValue(cell, false)));
 }
 
 /**
@@ -70,7 +71,7 @@ function hasPotentialInjection(row: unknown[]): boolean {
  * possible code injection
  */
 function processRow(row: unknown[], shouldSanitize: boolean): string {
-    return row.map(cell => encodeValue(cell, shouldSanitize)).join(',');
+    return row.map((cell) => encodeValue(cell, shouldSanitize)).join(',');
 }
 
 /**

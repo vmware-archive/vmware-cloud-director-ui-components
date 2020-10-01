@@ -10,65 +10,146 @@ describe('CsvExporterService', () => {
     describe('hasPotentialInjection', () => {
         it('doesnt detect injection on a row without formulas', () => {
             const service: CsvExporterService = TestBed.inject(CsvExporterService);
-            expect(service.hasPotentialInjection([['a+', 'b'], [1, 2]])).toBeFalsy();
+            expect(
+                service.hasPotentialInjection([
+                    ['a+', 'b'],
+                    [1, 2],
+                ])
+            ).toBeFalsy();
         });
 
         it('does detect injection on a row with formulas', () => {
             const service: CsvExporterService = TestBed.inject(CsvExporterService);
-            expect(service.hasPotentialInjection([['+', 'b'], [1, 2]])).toBeTruthy();
-            expect(service.hasPotentialInjection([['-', 'b'], [1, 2]])).toBeTruthy();
-            expect(service.hasPotentialInjection([['=', 'b'], [1, 2]])).toBeTruthy();
-            expect(service.hasPotentialInjection([['@', 'b'], [1, 2]])).toBeTruthy();
+            expect(
+                service.hasPotentialInjection([
+                    ['+', 'b'],
+                    [1, 2],
+                ])
+            ).toBeTruthy();
+            expect(
+                service.hasPotentialInjection([
+                    ['-', 'b'],
+                    [1, 2],
+                ])
+            ).toBeTruthy();
+            expect(
+                service.hasPotentialInjection([
+                    ['=', 'b'],
+                    [1, 2],
+                ])
+            ).toBeTruthy();
+            expect(
+                service.hasPotentialInjection([
+                    ['@', 'b'],
+                    [1, 2],
+                ])
+            ).toBeTruthy();
         });
     });
-
+    // Byte order mark for UTF-8
+    const BOM = '\ufeff';
     describe('createCsv', () => {
+        it('adds an UTF-8 BOM mark so it can be opened when non ASCII characters are present', () => {
+            const service: CsvExporterService = TestBed.inject(CsvExporterService);
+            expect(service.createCsv([['a'], [1]])).toEqual(BOM + 'a\n1');
+        });
         it('creates a csv out of 2D array of cell values', () => {
             const service: CsvExporterService = TestBed.inject(CsvExporterService);
-            expect(service.createCsv([['a', 'b'], [1, 2]])).toEqual('a,b\n1,2');
+            expect(
+                service.createCsv([
+                    ['a', 'b'],
+                    [1, 2],
+                ])
+            ).toEqual(BOM + 'a,b\n1,2');
         });
 
         it('encodes new lines by wrapping with double quotes', () => {
             const service: CsvExporterService = TestBed.inject(CsvExporterService);
-            expect(service.createCsv([['a', 'b'], ['1\n1', 2]])).toEqual('a,b\n"1\n1",2');
+            expect(
+                service.createCsv([
+                    ['a', 'b'],
+                    ['1\n1', 2],
+                ])
+            ).toEqual(BOM + 'a,b\n"1\n1",2');
         });
 
         it('encodes commas by wrapping with double quotes', () => {
             const service: CsvExporterService = TestBed.inject(CsvExporterService);
-            expect(service.createCsv([['a', 'b'], ['1,1', 2]])).toEqual('a,b\n"1,1",2');
+            expect(
+                service.createCsv([
+                    ['a', 'b'],
+                    ['1,1', 2],
+                ])
+            ).toEqual(BOM + 'a,b\n"1,1",2');
         });
 
         it('encodes double quotes with ""', () => {
             const service: CsvExporterService = TestBed.inject(CsvExporterService);
-            expect(service.createCsv([['a', 'b'], ['1"2', 2]])).toEqual('a,b\n"1""2",2');
+            expect(
+                service.createCsv([
+                    ['a', 'b'],
+                    ['1"2', 2],
+                ])
+            ).toEqual(BOM + 'a,b\n"1""2",2');
         });
 
         it('encodes dates with locale strings', () => {
             const service: CsvExporterService = TestBed.inject(CsvExporterService);
             const date = new Date(0);
             const localeString = date.toLocaleString();
-            expect(service.createCsv([['a', 'b'], [date, 2]])).toEqual(`a,b
+            expect(
+                service.createCsv([
+                    ['a', 'b'],
+                    [date, 2],
+                ])
+            ).toEqual(`${BOM}a,b
 "${localeString}",2`);
         });
 
         it('prints null and undefined as an empty string', () => {
             const service: CsvExporterService = TestBed.inject(CsvExporterService);
-            expect(service.createCsv([['a', 'b'], [null, undefined]])).toEqual('a,b\n,');
+            expect(
+                service.createCsv([
+                    ['a', 'b'],
+                    [null, undefined],
+                ])
+            ).toEqual(BOM + 'a,b\n,');
         });
 
         it('adds a tab character if the value begins with any special characters', () => {
             const service: CsvExporterService = TestBed.inject(CsvExporterService);
-            expect(service.createCsv([['+', '-', '@', '='], [null, undefined]], true)).toEqual('\t+,\t-,\t@,\t=\n,');
+            expect(
+                service.createCsv(
+                    [
+                        ['+', '-', '@', '='],
+                        [null, undefined],
+                    ],
+                    true
+                )
+            ).toEqual(BOM + '\t+,\t-,\t@,\t=\n,');
         });
 
         it('does not add a tab character if the value contains but does not begin with with any special characters', () => {
             const service: CsvExporterService = TestBed.inject(CsvExporterService);
-            expect(service.createCsv([['a+', 'a-', 'a@', 'a='], [null, undefined]], true)).toEqual('a+,a-,a@,a=\n,');
+            expect(
+                service.createCsv(
+                    [
+                        ['a+', 'a-', 'a@', 'a='],
+                        [null, undefined],
+                    ],
+                    true
+                )
+            ).toEqual(BOM + 'a+,a-,a@,a=\n,');
         });
 
         it('encodes JavaScript object to JSON string', () => {
             const service: CsvExporterService = TestBed.inject(CsvExporterService);
-            expect(service.createCsv([['a', 'b', 'c'], [{a: 1, b: 2}, [1, 2], 10]])).toEqual('a,b,c\n"{""a"":1,""b"":2}","[1,2]",10');
+            expect(
+                service.createCsv([
+                    ['a', 'b', 'c'],
+                    [{ a: 1, b: 2 }, [1, 2], 10],
+                ])
+            ).toEqual(BOM + 'a,b,c\n"{""a"":1,""b"":2}","[1,2]",10');
         });
     });
 
@@ -92,7 +173,11 @@ describe('CsvExporterService', () => {
 
         it('uses navigator.msSaveBlob if available', () => {
             const service: CsvExporterService = TestBed.inject(CsvExporterService);
-            const rows = [['a', 'b'], ['1"2', 2], [3, 4]];
+            const rows = [
+                ['a', 'b'],
+                ['1"2', 2],
+                [3, 4],
+            ];
             const csvString = service.createCsv(rows);
 
             // Don't use spyOn, otherwise it would restore the empty function in its own afterEach()
@@ -118,7 +203,11 @@ describe('CsvExporterService', () => {
         });
         it('creates and clicks an invisible link', () => {
             const service: CsvExporterService = TestBed.inject(CsvExporterService);
-            const rows = [['a', 'b'], ['1"2', 2], [3, 4]];
+            const rows = [
+                ['a', 'b'],
+                ['1"2', 2],
+                [3, 4],
+            ];
             const csvString = service.createCsv(rows);
             spyOn(document.body, 'appendChild');
             spyOn(document.body, 'removeChild');
