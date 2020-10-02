@@ -42,8 +42,8 @@ describe('FormSelectComponent', () => {
         selectInput = finder.find({ woConstructor: VcdFormSelectWidgetObject });
     });
 
-    describe('selectedOption returns the option whose value', () => {
-        it('matches with form control value', () => {
+    describe('selectedOption', () => {
+        it('matches form control value', () => {
             expect(hostComponent.selectInputComponent.selectedOption.value).toEqual(
                 hostComponent.selectInputComponent.formControl.value
             );
@@ -55,6 +55,16 @@ describe('FormSelectComponent', () => {
         it('is of number type, when it is selected', () => {
             selectInput.select(hostComponent.options.length - 1);
             expect(hostComponent.selectInputComponent.selectedOption).toEqual(getOptionWithValueAsNumber());
+        });
+        it('is undefined if the component does not have a value set', () => {
+            selectInput.component.formControl.setValue(null);
+            expect(selectInput.component.selectedOption).toBe(undefined);
+            selectInput.component.formControl.setValue(undefined);
+            expect(selectInput.component.selectedOption).toBe(undefined);
+        });
+        it('allows falsy  values', () => {
+            selectInput.component.formControl.setValue('');
+            expect(selectInput.component.selectedOption.value).toBe('');
         });
     });
 
