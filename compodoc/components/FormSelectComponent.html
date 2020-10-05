@@ -1130,11 +1130,11 @@ export class FormSelectComponent extends BaseFormControl {
     }
 
     get selectedOption(): SelectOption {
-        if (!this.options) {
+        if (!this.options || this.formControl.value &#x3D;&#x3D;&#x3D; null || this.formControl.value &#x3D;&#x3D;&#x3D; undefined) {
             return undefined;
         }
         // option.value and formControl.value can be of type number or string
-        return this.options.find(option &#x3D;&gt; option.value.toString() &#x3D;&#x3D;&#x3D; this.formControl.value.toString());
+        return this.options.find((option) &#x3D;&gt; option.value.toString() &#x3D;&#x3D;&#x3D; this.formControl.value.toString());
     }
 }
 </code></pre>
