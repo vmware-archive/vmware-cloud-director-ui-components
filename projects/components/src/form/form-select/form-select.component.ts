@@ -27,10 +27,10 @@ export class FormSelectComponent extends BaseFormControl {
     }
 
     get selectedOption(): SelectOption {
-        if (!this.options) {
+        if (!this.options || this.formControl.value === null || this.formControl.value === undefined) {
             return undefined;
         }
         // option.value and formControl.value can be of type number or string
-        return this.options.find(option => option.value.toString() === this.formControl.value.toString());
+        return this.options.find((option) => option.value.toString() === this.formControl.value.toString());
     }
 }
