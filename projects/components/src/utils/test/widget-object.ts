@@ -77,17 +77,30 @@ export abstract class WidgetObject<T> {
     }
 
     /**
-     * Sends a keyboard event defined by the key to an element and detects changes so the DOM is immediately updated.
-     * The keyboard event consists of keydow
-     * @param key the key, for example Enter, Escape, ArrowUp etc.
+     * Send a keyboard event of type {@param eventType} with properties {@param eventProperties} on an element
+     * found by the {@param cssSelector} within the provided {@param parent} or the current root element.
+     * Setting the event properties is done with `Object.defineProperty` on the created event. This allows setting
+     * properties like `which` that is deprecated and cannot be set with the native approach of creating keyboard event.
+     * @param eventType The keyboard event type like 'keyup', 'keydown', 'keypress'
+     * @param eventProperties properties of the event like `code`, `key` etc.
      * @param cssSelector Pass this in if you want trigger the event on a specific element.
      *        If not passed in, the event will be triggered on the entire node
      * @param parent the parent element for which to search for the {@param cssSelector} within. Defaults to root if not provided.
      */
-    protected sendKeyboardEvent(key: string, cssSelector?: string, parent: DebugElement = this.root): void {
+    protected sendKeyboardEvent(
+        eventType,
+        eventProperties: { [name: string]: unknown },
+        cssSelector?: string,
+        parent: DebugElement = this.root
+    ): void {
         const nativeElement: HTMLBaseElement = parent.query(By.css(cssSelector)).nativeElement;
-        nativeElement.dispatchEvent(new KeyboardEvent('keydown', { key, bubbles: true }));
-        nativeElement.dispatchEvent(new KeyboardEvent('keyup', { key, bubbles: true }));
+        // Create keyboard event that bubbles up the chain
+        const event = new KeyboardEvent(eventType, { bubbles: true });
+        // Use `Object.defineProperty` in order to be able to set even deprecated, readonly properties like `which`
+        Object.keys(eventProperties).forEach((key) => {
+            Object.defineProperty(event, key, { value: eventProperties[key] });
+        });
+        nativeElement.dispatchEvent(event);
         this.detectChanges();
     }
 
@@ -121,7 +134,7 @@ export abstract class WidgetObject<T> {
      * Same as {@link getText} but return the text for all matching nodes
      */
     protected getTexts(cssSelector: string): string[] {
-        return this.findElements(cssSelector).map(el => this.getNodeText(el));
+        return this.findElements(cssSelector).map((el) => this.getNodeText(el));
     }
 
     protected getNodeText(el: DebugElement): string {
@@ -205,7 +218,7 @@ export class WidgetFinder<H = unknown> {
         const componentRoots = (parent ? parent : ancestor).queryAll(By.css(query));
         const widgets = componentRoots.map(
             // Typescript is not able to infer it correctly as the subclass but we know for sure
-            root => new woConstructor(this.fixture, root, root.componentInstance) as InstanceType<T>
+            (root) => new woConstructor(this.fixture, root, root.componentInstance) as InstanceType<T>
         );
         return widgets;
     }
