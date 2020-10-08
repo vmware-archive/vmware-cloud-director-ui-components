@@ -724,19 +724,19 @@ export class QuickSearchWidgetObject extends WidgetObject<QuickSearchComponent> 
     }
 
     public pressEscape(): void {
-        this.sendKeyboardEvent('escape', '.search-input-container input');
+        this.sendKeyboardEvent('keyup', { key: 'escape' }, '.search-input-container input');
     }
 
     public pressEnter(): void {
-        this.sendKeyboardEvent('enter', '.search-input-container input');
+        this.sendKeyboardEvent('keydown', { key: 'enter' }, '.search-input-container input');
     }
 
     public pressArrowUp(): void {
-        this.sendKeyboardEvent('ArrowUp', '.search-input-container input');
+        this.sendKeyboardEvent('keydown', { key: 'ArrowUp' }, '.search-input-container input');
     }
 
     public pressArrowDown(): void {
-        this.sendKeyboardEvent('ArrowDown', '.search-input-container input');
+        this.sendKeyboardEvent('keydown', { key: 'ArrowDown' }, '.search-input-container input');
     }
 
     public get searchResults(): string[] {
