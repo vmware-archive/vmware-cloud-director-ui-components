@@ -4,6 +4,7 @@
  */
 
 import {
+    AfterViewInit,
     Component,
     Host,
     HostListener,
@@ -15,7 +16,7 @@ import {
     ViewChild,
     ViewChildren,
 } from '@angular/core';
-import { ClrDropdown } from '@clr/angular';
+import { ClrDropdown, ClrDropdownTrigger } from '@clr/angular';
 import { TextIcon } from '../common/interfaces';
 import { CliptextConfig, TooltipSize } from '../lib/directives';
 
@@ -58,14 +59,14 @@ export interface DropdownItem<T extends DropdownItem<T>> {
 }
 
 /**
- * Dumb component used for displaying nested drop downs
+ * Component used for displaying nested drop downs
  */
 @Component({
     selector: 'vcd-dropdown',
     templateUrl: 'dropdown.component.html',
     styleUrls: ['./dropdown.component.scss'],
 })
-export class DropdownComponent<T extends DropdownItem<T>> {
+export class DropdownComponent<T extends DropdownItem<T>> implements AfterViewInit {
     /**
      * Decides what goes into the action buttons
      * @param textIcon An enum that describes the possible ways to display the button title
@@ -89,6 +90,7 @@ export class DropdownComponent<T extends DropdownItem<T>> {
     }
 
     constructor(@Optional() @SkipSelf() @Host() private parentVcdDropdown: DropdownComponent<T>) {}
+
     /**
      * If a icon should be displayed inside contextual buttons
      */
@@ -171,6 +173,12 @@ export class DropdownComponent<T extends DropdownItem<T>> {
     @ViewChild(ClrDropdown) clrDropdown: ClrDropdown;
 
     /**
+     * The button that opens this dropdown when clicked. Used for preventing the clarity frameworks click handler logic
+     * from executing
+     */
+    @ViewChild(ClrDropdownTrigger) clrDropdownTrigger: ClrDropdownTrigger;
+
+    /**
      * List of nested dropdown children that belong to this dropdown. Used to close when a different child in this menu list is
      * hovered over
      */
@@ -203,6 +211,18 @@ export class DropdownComponent<T extends DropdownItem<T>> {
             const singleChildItem = items.splice(singleChildItemIndex, 1).pop();
             items.unshift(singleChildItem.children[0]);
         });
+    }
+
+    /**
+     * Nested menus are toggled using the mouseover and mouseout events instead of mouse clicks. So the claritys
+     * click handler which conflicts with that is prevented from executing
+     */
+    ngAfterViewInit(): void {
+        if (this.parentVcdDropdown) {
+            this.clrDropdownTrigger.onDropdownTriggerClick = (event: Event) => {
+                event.stopPropagation();
+            };
+        }
     }
 
     /**
