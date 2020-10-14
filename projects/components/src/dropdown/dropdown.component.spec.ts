@@ -192,7 +192,7 @@ describe('DropdownComponent', () => {
             ).toEqual(false);
         });
     });
-    describe('open and close drop downs,', () => {
+    describe('toggling,', () => {
         beforeEach(async function (this: HasVcdDropdown): Promise<void> {
             await TestBed.configureTestingModule({
                 imports: [DropdownModule],
@@ -211,24 +211,26 @@ describe('DropdownComponent', () => {
             this.dropdownComponent = this.dropdownWidget.component;
         });
 
-        it('clicking the primary dropdown toggles the primary dropdown menu', function (this: HasVcdDropdown): void {
+        it('toggles the primary dropdown menu when clicked', function (this: HasVcdDropdown): void {
             this.dropdownWidget.clickDropdown(PRIMARY_DROPDOWN_CLASS_NAME);
             expect(this.dropdownWidget.isDropdownOpen(PRIMARY_DROPDOWN_CLASS_NAME)).toEqual(true);
             this.dropdownWidget.clickDropdown(PRIMARY_DROPDOWN_CLASS_NAME);
             expect(this.dropdownWidget.isDropdownOpen(PRIMARY_DROPDOWN_CLASS_NAME)).toEqual(false);
         });
 
-        it('moving the mouse over primary dropdown does not open it', function (this: HasVcdDropdown): void {
+        it('does not open the primary dropdown menu when mouse is moved over', function (this: HasVcdDropdown): void {
             this.dropdownWidget.mouseOver(PRIMARY_DROPDOWN_CLASS_NAME);
             expect(this.dropdownWidget.isDropdownOpen(PRIMARY_DROPDOWN_CLASS_NAME)).toEqual(false);
         });
 
-        it('moving the mouse over nested dropdown opens it', function (this: HasVcdDropdown): void {
+        it('opens the nested dropdown menu when mouse is moved over', function (this: HasVcdDropdown): void {
             this.dropdownWidget.clickDropdown(PRIMARY_DROPDOWN_CLASS_NAME);
             this.dropdownWidget.mouseOver(NESTED_DROPDOWN_CLASS_NAME);
             expect(this.dropdownWidget.isDropdownOpen(NESTED_DROPDOWN_CLASS_NAME)).toEqual(true);
         });
-        it('moving the mouse out of a nested dropdown closes it', async function (this: HasVcdDropdown): Promise<void> {
+        it('closes the nested dropdown when mouse is moved out of the nested dropdown' + 'trigger', async function (
+            this: HasVcdDropdown
+        ): Promise<void> {
             this.dropdownWidget.clickDropdown(PRIMARY_DROPDOWN_CLASS_NAME);
             this.dropdownWidget.mouseOver(NESTED_DROPDOWN_CLASS_NAME);
             expect(this.dropdownWidget.isDropdownOpen(NESTED_DROPDOWN_CLASS_NAME)).toEqual(true);
