@@ -21,12 +21,12 @@ import { CliptextConfig, TooltipSize } from '../lib/directives';
 
 const NESTED_DROPDOWN_TRIGGER_SELECTOR = 'clr-dropdown clr-dropdown > button';
 const DROPDOWN_ITEM_SELECTOR = 'clr-dropdown-menu > button';
-const NESTED_MENU_HIDE_DELAY = 400;
+export const NESTED_MENU_HIDE_DELAY = 400;
 
 /**
  * Object representing an item of the dropdown
  */
-interface DropdownItem<T extends DropdownItem<T>> {
+export interface DropdownItem<T extends DropdownItem<T>> {
     /**
      * The i18n key or a translated string for contents of a action button
      */
