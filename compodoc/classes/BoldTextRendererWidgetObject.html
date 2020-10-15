@@ -652,7 +652,7 @@ receive the click event</p>
             </tr>
             <tr>
                 <td class="col-md-4">
-                        <div class="io-line">Defined in         <code><a href="../classes/WidgetObject.html#source" target="_self" >WidgetObject:127</a></code>
+                        <div class="io-line">Defined in         <code><a href="../classes/WidgetObject.html#source" target="_self" >WidgetObject:140</a></code>
 </div>
                 </td>
             </tr>
@@ -730,7 +730,7 @@ receive the click event</p>
             </tr>
             <tr>
                 <td class="col-md-4">
-                        <div class="io-line">Defined in         <code><a href="../classes/WidgetObject.html#source" target="_self" >WidgetObject:115</a></code>
+                        <div class="io-line">Defined in         <code><a href="../classes/WidgetObject.html#source" target="_self" >WidgetObject:128</a></code>
 </div>
                 </td>
             </tr>
@@ -838,7 +838,7 @@ If the element cannot be found, gives empty string.</p>
             </tr>
             <tr>
                 <td class="col-md-4">
-                        <div class="io-line">Defined in         <code><a href="../classes/WidgetObject.html#source" target="_self" >WidgetObject:123</a></code>
+                        <div class="io-line">Defined in         <code><a href="../classes/WidgetObject.html#source" target="_self" >WidgetObject:136</a></code>
 </div>
                 </td>
             </tr>
@@ -905,7 +905,7 @@ If the element cannot be found, gives empty string.</p>
             <tr>
                 <td class="col-md-4">
                     <span class="modifier-icon icon ion-ios-reset"></span>
-                    <code>sendKeyboardEvent(key: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>, cssSelector?: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>, parent: <a href="https://angular.io/api/core/DebugElement" target="_blank">DebugElement</a>)</code>
+                    <code>sendKeyboardEvent(eventType, eventProperties: literal type, cssSelector?: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>, parent: <a href="https://angular.io/api/core/DebugElement" target="_blank">DebugElement</a>)</code>
                 </td>
             </tr>
 
@@ -918,7 +918,7 @@ If the element cannot be found, gives empty string.</p>
             </tr>
             <tr>
                 <td class="col-md-4">
-                        <div class="io-line">Defined in         <code><a href="../classes/WidgetObject.html#source" target="_self" >WidgetObject:87</a></code>
+                        <div class="io-line">Defined in         <code><a href="../classes/WidgetObject.html#source" target="_self" >WidgetObject:90</a></code>
 </div>
                 </td>
             </tr>
@@ -926,8 +926,10 @@ If the element cannot be found, gives empty string.</p>
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-description"><p>Sends a keyboard event defined by the key to an element and detects changes so the DOM is immediately updated.
-The keyboard event consists of keydow</p>
+                    <div class="io-description"><p>Send a keyboard event of type {@param eventType} with properties {@param eventProperties} on an element
+found by the {@param cssSelector} within the provided {@param parent} or the current root element.
+Setting the event properties is done with <code>Object.defineProperty</code> on the created event. This allows setting
+properties like <code>which</code> that is deprecated and cannot be set with the native approach of creating keyboard event.</p>
 </div>
 
                     <div class="io-description">
@@ -944,9 +946,8 @@ The keyboard event consists of keydow</p>
                             </thead>
                             <tbody>
                                 <tr>
-                                    <td>key</td>
+                                    <td>eventType</td>
                                     <td>
-                                                <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
                                     </td>
 
                                     <td>
@@ -957,7 +958,25 @@ The keyboard event consists of keydow</p>
                                     </td>
 
                                     <td>
-                                        <p>the key, for example Enter, Escape, ArrowUp etc.</p>
+                                        <p>The keyboard event type like &#39;keyup&#39;, &#39;keydown&#39;, &#39;keypress&#39;</p>
+
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>eventProperties</td>
+                                    <td>
+                                            <code>literal type</code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+                                    <td>
+                                    </td>
+
+                                    <td>
+                                        <p>properties of the event like <code>code</code>, <code>key</code> etc.</p>
 
                                     </td>
                                 </tr>
@@ -1045,7 +1064,7 @@ If not passed in, the event will be triggered on the entire node</p>
             </tr>
             <tr>
                 <td class="col-md-4">
-                        <div class="io-line">Defined in         <code><a href="../classes/WidgetObject.html#source" target="_self" >WidgetObject:101</a></code>
+                        <div class="io-line">Defined in         <code><a href="../classes/WidgetObject.html#source" target="_self" >WidgetObject:114</a></code>
 </div>
                 </td>
             </tr>
