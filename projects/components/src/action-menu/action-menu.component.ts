@@ -308,7 +308,7 @@ export class ActionMenuComponent<R, T> {
 
     private getStaticDropdownActions(): ActionItem<R, T>[] | object {
         return this.staticFeaturedActions.concat([
-            { textKey: 'vcd.cc.action.menu.all.actions', children: this.staticActions },
+            { textKey: 'vcd.cc.action.menu.other.actions', children: this.staticActions },
         ]);
     }
 
@@ -321,6 +321,11 @@ export class ActionMenuComponent<R, T> {
                 !action.actionType ||
                 (action.actionType !== ActionType.STATIC_FEATURED && action.actionType !== ActionType.STATIC)
         );
+        // The error logged and not thrown because, there might be a case where the availability of contextual actions might not depend on
+        // selected entities
+        if (this.calculateActionsAvailability && contextualActions.length && !this.selectedEntities?.length) {
+            console.error('There are no selected entities to calculate contextual actions availability!');
+        }
         const availableContextualActions = this.getAvailableActions(contextualActions);
         if (this._extensionEntityActions) {
             availableContextualActions.push(...this._extensionEntityActions);

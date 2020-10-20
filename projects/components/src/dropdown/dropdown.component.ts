@@ -93,6 +93,7 @@ export class DropdownComponent<T extends DropdownItem<T>> implements AfterViewIn
      * @param textIcon An enum that describes the possible ways to display the button title
      */
     @Input() set dropdownItemContents(textIcon: TextIcon) {
+        this._dropdownItemContents = textIcon;
         this.shouldShowIcon = (TextIcon.ICON & textIcon) === TextIcon.ICON;
         this.shouldShowText = (TextIcon.TEXT & textIcon) === TextIcon.TEXT;
         this.shouldShowTooltip = textIcon === TextIcon.ICON;
@@ -171,7 +172,7 @@ export class DropdownComponent<T extends DropdownItem<T>> implements AfterViewIn
     /**
      * Text Content of the button that opens the root dropdown when clicked
      */
-    @Input() dropdownTriggerBtnTxt: string = 'vcd.cc.action.menu.actions';
+    @Input() dropdownTriggerBtnTxt: string = 'vcd.cc.action.menu.other.actions';
 
     /**
      * Icon shown in the button that opens the root dropdown when clicked

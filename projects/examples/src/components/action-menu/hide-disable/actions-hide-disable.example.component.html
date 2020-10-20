@@ -1,0 +1,28 @@
+<div>
+    <p>
+        The visibility and disabled status of actions can be dynamically calculated. In the following example, Although
+        both stop and start actions are added to list of actions, only one of them can be executed at any given point
+        because, for example you cannot stop an already stopped VM. This is made possible by updating the reference to
+        selected entities which are updated whenever any of the actions is clicked. The update will prompt the action
+        menu to recalculate actions availability and disability status.
+    </p>
+    <h4>Visibility of actions</h4>
+    <p>Clicking on stop will make it disappear and will make start to appear and vice versa.</p>
+    <vcd-action-menu
+        [actions]="actions"
+        [actionDisplayConfig]="dropdownActionDisplayConfig"
+        [dropdownTriggerBtnText]="'contextual.actions'"
+        [selectedEntities]="selectedEntities"
+    >
+    </vcd-action-menu>
+
+    <h4>Disabling of actions</h4>
+    <p>Clicking on stop will disable it and enable start and vice versa.</p>
+    <vcd-action-menu
+        [actions]="disabledActions"
+        [actionDisplayConfig]="dropdownActionDisplayConfig"
+        [dropdownTriggerBtnText]="'contextual.actions'"
+        [selectedEntities]="selectedEntitiesForDisabled"
+    >
+    </vcd-action-menu>
+</div>
