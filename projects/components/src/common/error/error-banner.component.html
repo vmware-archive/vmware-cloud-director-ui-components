@@ -3,6 +3,7 @@
     [clrAlertType]="alertType"
     [clrAlertClosable]="alertClosable"
     (clrAlertClosedChange)="onAlertClosedChange($event)"
+    [attr.role]="alertType === 'danger' ? 'alert' : 'status'"
 >
     <div class="alert-item">
         <span class="alert-text">{{ errorMessage }}</span>
