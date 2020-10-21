@@ -1,4 +1,4 @@
-<clr-dropdown vcdDynamicDropdown class="nested-dropdown">
+<clr-dropdown [clrCloseMenuOnItemClick]="false" vcdDynamicDropdown class="nested-dropdown">
     <button
         [ngClass]="[
             dropdownTriggerBtnTxt ? 'btn btn-link' : '',
@@ -32,6 +32,7 @@
 
                 <ng-container *ngIf="!action.isSeparator && action.children && action.children.length">
                     <vcd-dropdown
+                        vcdDropdownFocusHandler
                         [items]="action.children"
                         [dropdownTriggerBtnTxt]="
                             action.isTranslatable === false ? action.textKey : (action.textKey | translate)
