@@ -13,13 +13,13 @@ import { Direction, MenuItem } from './dropdown-focus-handler.directive';
  */
 @Injectable()
 export class DropdownFocusHandlerService implements OnDestroy {
-    private currentFocusedItem: MenuItem;
-    private _unlistenFuncs: ((...argArray: any[]) => any)[] = [];
+    currentFocusedItem: MenuItem;
+    unlistenFuncs: ((...argArray: any[]) => any)[] = [];
 
     constructor(private renderer: Renderer2) {}
 
     ngOnDestroy(): void {
-        this._unlistenFuncs.forEach((unlisten) => unlisten());
+        this.unlistenFuncs.forEach((unlisten) => unlisten());
     }
 
     /**
@@ -66,21 +66,21 @@ export class DropdownFocusHandlerService implements OnDestroy {
      * automatically moves the focus to first item in the menu on the right side
      */
     listenToArrowKeys(menuContainer: HTMLElement): void {
-        this._unlistenFuncs.push(
+        this.unlistenFuncs.push(
             this.renderer.listen(menuContainer, 'keydown.arrowdown', (event: Event) => {
                 this.moveFocus(Direction.DOWN);
                 event.preventDefault();
                 event.stopPropagation();
             })
         );
-        this._unlistenFuncs.push(
+        this.unlistenFuncs.push(
             this.renderer.listen(menuContainer, 'keydown.arrowup', (event: Event) => {
                 this.moveFocus(Direction.UP);
                 event.preventDefault();
                 event.stopPropagation();
             })
         );
-        this._unlistenFuncs.push(
+        this.unlistenFuncs.push(
             this.renderer.listen(menuContainer, 'keydown.arrowleft', (event: Event) => {
                 if (!this.currentFocusedItem.left) {
                     return;

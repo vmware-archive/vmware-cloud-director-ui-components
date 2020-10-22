@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: BSD-2-Clause
  */
 
-import { AfterViewInit, Directive, Host, OnDestroy, Optional, SkipSelf } from '@angular/core';
+import { AfterViewInit, Directive, Host, OnDestroy, Optional, Renderer2, SkipSelf } from '@angular/core';
 import { ClrPopoverToggleService } from '@clr/angular';
 import { Subscription } from 'rxjs';
 import { SubscriptionTracker } from '../common/subscription';
@@ -26,11 +26,20 @@ export enum Direction {
  * Object wrapping the focusable HTML elements of dropdown menu with the neighbors in 4 directions of each menu item.
  */
 export interface MenuItem {
+    /**
+     * The HTML element of this dropdown menu item
+     */
     element: HTMLElement;
+    /**
+     * Neighboring menu items in all the 4 directions
+     */
     up?: MenuItem;
     down?: MenuItem;
     left?: MenuItem;
     right?: MenuItem;
+    /**
+     * Call back to close the menu for which this menu item can be a trigger. called from {@link DropdownFocusHandlerService}
+     */
     closeMenu?: (event: Event) => void;
 }
 
@@ -55,40 +64,81 @@ export class DropdownFocusHandlerDirective<T> implements AfterViewInit, OnDestro
         @Optional() @SkipSelf() private parentVcdDropdown: DropdownComponent<T>,
         @Optional() @SkipSelf() private parentFocusHandler: DropdownFocusHandlerDirective<T>,
         @Host() private hostVcdDropdown: DropdownComponent<T>,
-        private focusHandlerService: DropdownFocusHandlerService
+        private focusHandlerService: DropdownFocusHandlerService,
+        private renderer: Renderer2
     ) {}
 
     /**
      * List of focusable menu items with their neighbors in 4 directions.
      */
     menuItems: MenuItem[];
-
+    /**
+     * The menu item which can toggle this menu. This can be the root dropdown trigger or nested menu trigger
+     */
     private menuTrigger: MenuItem;
+    private dropdownTriggerEl: HTMLElement;
+    private clrDropdownMenuEl: HTMLElement;
     private isRootDropdown = !this.parentVcdDropdown;
     private timeoutId: number;
     private subscriptionTracker = new SubscriptionTracker(this);
+    private unlistenRightArrowKeyPress: (...argArray: any[]) => any;
 
     /**
      * After a dropdown menu is opened, it creates {@link MenuItem} for each of the menu items along with their trigger menu item and links
      * them. It also then moves the focus to first item in the opened menu list.
      */
     ngAfterViewInit(): void {
-        this.subscriptionTracker.subscribe(this.hostVcdDropdown.dropdownMenuUpdated, (updated) => {
-            if (!updated) {
+        this.dropdownTriggerEl = this.hostVcdDropdown._dropdownTriggerEl;
+        this.listenToRightArrowKeyPressOnNestedTrigger();
+
+        this.subscriptionTracker.subscribe(this.hostVcdDropdown.dropdownMenuUpdated, (dropdown) => {
+            if (!dropdown) {
+                this.reset();
                 return;
             }
-            this.createMenuTrigger();
-            this.linkMenuItems();
+            this.clrDropdownMenuEl = dropdown.menu;
+            // We have to wait till the dropdown is opened for getting the menus trigger because, in case of a nested menu, the trigger is
+            // obtained from parent menus menuItems and they are not initialized even if we wait till the ngAfterViewInit hook
+            this.menuTrigger = this.isRootDropdown ? this.rootMenuTrigger : this.nestedMenuTrigger;
             this.registerRootMenuContainer();
+            this.linkMenuItems();
             this.moveFocusToFirstItem();
         });
     }
 
-    ngOnDestroy(): void {}
+    /**
+     * Sometimes when the right arrow key is pressed on a nested menu trigger, the event is propagating to sibling nested menu triggers and
+     * the event handlers attached to the menu triggers by clarity to toggle the menus are being invoked. Because of this, pressing right
+     * arrow on a nested menu is opening other sibling menus as well
+     */
+    private listenToRightArrowKeyPressOnNestedTrigger(): void {
+        if (this.isRootDropdown) {
+            return;
+        }
+        this.unlistenRightArrowKeyPress = this.renderer.listen(
+            this.dropdownTriggerEl,
+            'keydown.arrowright',
+            (event: Event) => event.stopPropagation()
+        );
+    }
+
+    private reset(): void {
+        if (this.isRootDropdown) {
+            this.focusHandlerService.unlistenFuncs.forEach((unlisten) => unlisten());
+        }
+        this.menuTrigger = null;
+        this.menuItems = null;
+    }
+
+    ngOnDestroy(): void {
+        if (this.unlistenRightArrowKeyPress) {
+            this.unlistenRightArrowKeyPress();
+        }
+    }
 
     private registerRootMenuContainer(): void {
         if (this.isRootDropdown) {
-            const rootMenuContainer = this.hostVcdDropdown._clrDropdownMenuEl;
+            const rootMenuContainer = this.clrDropdownMenuEl;
             this.focusHandlerService.listenToArrowKeys(rootMenuContainer);
         }
     }
@@ -108,34 +158,34 @@ export class DropdownFocusHandlerDirective<T> implements AfterViewInit, OnDestro
     }
 
     private linkMenuItems(): void {
-        const menuChildren: Element[] = Array.from(this.hostVcdDropdown._clrDropdownMenuEl.children);
+        const menuChildren: Element[] = Array.from(this.clrDropdownMenuEl.children);
         this.menuItems = menuChildren.map((child) => ({
             element:
                 child.nodeName === BUTTON_NODE_NAME
                     ? (child as HTMLElement)
                     : (child.querySelector('clr-dropdown > button') as HTMLElement),
         }));
-
         this.linkVertical();
-
         this.linkMenuToTrigger();
     }
 
-    private createMenuTrigger(): void {
-        const closeMenu = (event: Event) => {
+    private get rootMenuTrigger(): MenuItem {
+        return {
+            element: this.dropdownTriggerEl,
+            closeMenu: (event: Event) => {
+                this.hostVcdDropdown.clrDropdown.toggleService.open = false;
+            },
+        };
+    }
+
+    private get nestedMenuTrigger(): MenuItem {
+        const menuTrigger = this.parentFocusHandler.menuItems.find((item) => {
+            return Object.is(item.element.innerText, this.dropdownTriggerEl.innerText);
+        });
+        menuTrigger.closeMenu = (event: Event) => {
             this.hostVcdDropdown.clrDropdown.toggleService.open = false;
         };
-        if (this.isRootDropdown) {
-            this.menuTrigger = {
-                element: this.hostVcdDropdown._dropdownTriggerEl,
-                closeMenu,
-            };
-            return;
-        }
-        this.menuTrigger = this.parentFocusHandler.menuItems.find((item) => {
-            return Object.is(item.element.innerText, this.hostVcdDropdown._dropdownTriggerEl.innerText);
-        });
-        this.menuTrigger.closeMenu = closeMenu;
+        return menuTrigger;
     }
 
     private linkMenuToTrigger(): void {

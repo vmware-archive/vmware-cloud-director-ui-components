@@ -11,6 +11,7 @@ import {
     Host,
     HostListener,
     Input,
+    OnDestroy,
     Optional,
     Output,
     Provider,
@@ -109,7 +110,7 @@ export class DropdownComponent<T extends DropdownItem<T>> implements AfterViewIn
         return this._items;
     }
 
-    @Output() dropdownMenuUpdated = new EventEmitter<boolean>();
+    @Output() dropdownMenuUpdated = new EventEmitter<{ menu: HTMLElement }>();
 
     constructor(@Optional() @SkipSelf() private parentVcdDropdown: DropdownComponent<T>) {}
 
@@ -120,7 +121,6 @@ export class DropdownComponent<T extends DropdownItem<T>> implements AfterViewIn
             return;
         }
         // Disable Claritys focus handling logic
-        console.log(`${this._dropdownTriggerEl.innerText}s menu is opened. ${this.clrDropdown.toggleService.open}`);
         this._clrDropdownMenu.items.reset([]);
         this._clrDropdownMenu.items.notifyOnChanges();
     }
@@ -135,10 +135,13 @@ export class DropdownComponent<T extends DropdownItem<T>> implements AfterViewIn
     @ViewChild(ClrDropdownMenu, { read: ElementRef, static: false })
     set clrDropdownMenuEl(val: ElementRef<HTMLElement>) {
         if (!val) {
+            this.dropdownMenuUpdated.emit(null);
             return;
         }
         this._clrDropdownMenuEl = val.nativeElement;
-        this.dropdownMenuUpdated.emit(true);
+        this.dropdownMenuUpdated.emit({
+            menu: this._clrDropdownMenuEl,
+        });
     }
     _clrDropdownMenuEl: HTMLElement;
     /**
