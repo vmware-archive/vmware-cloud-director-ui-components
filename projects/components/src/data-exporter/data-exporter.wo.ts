@@ -3,70 +3,83 @@
  * SPDX-License-Identifier: BSD-2-Clause
  */
 
-import { WidgetObject } from '../utils/test/widget-object';
-import { DataExporterComponent } from './data-exporter.component';
+import { BaseWidgetLocator } from '../utils/test/locator/widget-locator';
 
 /**
  * Testing Object for {@link DataExporterComponent}
  */
-export class DataExporterWidgetObject extends WidgetObject<DataExporterComponent> {
+export class DataExporterWidgetObject<T> extends BaseWidgetLocator<T> {
     static tagName = 'vcd-data-exporter';
-
-    /**
-     * Whether the progress bar is currently showing indefinite progress, that is a looping loading indicator
-     */
-    get isLoopingProgressBar(): boolean {
-        return !!this.findElement('.progress.loop');
-    }
 
     /**
      * The strings for the available column bubbles.
      */
-    get columnBubbles(): string[] {
-        return this.getTexts('.column-label');
+    getColumnBubbles(): T {
+        return this.driver.get('.column-container .column-label').unwrap();
     }
 
     /**
      * The strings for the available column checkboxes.
      */
-    get columnCheckboxes(): string[] {
-        return this.getTexts('.column-checkbox');
+    getColumnCheckboxes(): T {
+        return this.driver.get('li .column-checkbox').unwrap();
     }
 
     /**
-     * Clicks the remove button for a column
+     * Gets the checkbox next to a given column
      * @param index Index of column, 0 based
      */
-    removeColumn(index: number): void {
-        this.click(`.column-label:nth-of-type(${index + 1}) clr-icon`);
+    getColumnCheckbox(index: number): T {
+        return this.driver.get(`.dropdown-item:nth-of-type(${index + 1})  .column-checkbox input`).unwrap();
     }
 
     /**
-     * Clicks the checkbox next to a given column
-     * @param index Index of column, 0 based
+     * Gets the cancel button.
      */
-    clickColumnCheckbox(index: number): void {
-        this.click(`.column-checkbox:nth-of-type(${index + 1}) input`);
+    getCancelButton(): T {
+        return this.driver.get('.cancel').unwrap();
     }
 
     /**
-     * Clicks the cancel button.
+     * Gets the export button.
      */
-    clickCancel(): void {
-        this.click('.cancel');
+    getExportButton(): T {
+        return this.driver.getByText('button', 'export').unwrap();
     }
 
     /**
-     * Clicks the export button.
+     * Gets the arrow to open/close the column dropdown.
      */
-    clickExport(): void {
-        this.click('.export');
+    getColumnDropdown(): T {
+        return this.driver.get('.dropdown-button').unwrap();
     }
 
     /**
-     * Click the arrow to open/close the column dropdown.
+     * Gets the export all switch
      */
-    clickColumnDropdown(): void {
-        this.click('.dropdown-button');
+    getToggleSelectAll(): T {
+        return this.driver.get('.export-all').unwrap();
+    }
+
+    /**
+     * Gets the sanitization switch
+     */
+    getToggleSanitize(): T {
+        return this.driver.get('.sanitize-cells').unwrap();
+    }
+
+    /**
+     * Gets the friendly field names switch
+     */
+    getToggleFriendlyNames(): T {
+        return this.driver.get('.friendly-names').unwrap();
+    }
+
+    /**
+     * Gets the progress bar.
+     */
+    getProgress(): T {
+        // this.driver.getByText('colA', value).parent('clr-dg-row').get('checkbox');
+        return this.driver.get('progress').unwrap();
     }
 }
