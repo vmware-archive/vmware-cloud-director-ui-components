@@ -484,6 +484,9 @@ customElements.define('compodoc-menu', class extends HTMLElement {
                                 <a href="classes/DomUtil.html" data-type="entity-link">DomUtil</a>
                             </li>
                             <li class="link">
+                                <a href="classes/ErrorBannerWidgetObject.html" data-type="entity-link">ErrorBannerWidgetObject</a>
+                            </li>
+                            <li class="link">
                                 <a href="classes/FilterBuilder.html" data-type="entity-link">FilterBuilder</a>
                             </li>
                             <li class="link">

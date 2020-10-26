@@ -657,6 +657,7 @@ export class ErrorBannerComponent {
     [clrAlertType]&#x3D;&quot;alertType&quot;
     [clrAlertClosable]&#x3D;&quot;alertClosable&quot;
     (clrAlertClosedChange)&#x3D;&quot;onAlertClosedChange($event)&quot;
+    [attr.role]&#x3D;&quot;alertType &#x3D;&#x3D;&#x3D; &#x27;danger&#x27; ? &#x27;alert&#x27; : &#x27;status&#x27;&quot;
 &gt;
     &lt;div class&#x3D;&quot;alert-item&quot;&gt;
         &lt;span class&#x3D;&quot;alert-text&quot;&gt;{{ errorMessage }}&lt;/span&gt;
@@ -706,7 +707,7 @@ clr-alert ::ng-deep .alert {
 <script src="../js/libs/htmlparser.js"></script>
 <script src="../js/libs/deep-iterator.js"></script>
 <script>
-        var COMPONENT_TEMPLATE = '<div><clr-alert    [(clrAlertClosed)]="closed"    [clrAlertType]="alertType"    [clrAlertClosable]="alertClosable"    (clrAlertClosedChange)="onAlertClosedChange($event)">    <div class="alert-item">        <span class="alert-text">{{ errorMessage }}</span>    </div></clr-alert></div>'
+        var COMPONENT_TEMPLATE = '<div><clr-alert    [(clrAlertClosed)]="closed"    [clrAlertType]="alertType"    [clrAlertClosable]="alertClosable"    (clrAlertClosedChange)="onAlertClosedChange($event)"    [attr.role]="alertType === \'danger\' ? \'alert\' : \'status\'">    <div class="alert-item">        <span class="alert-text">{{ errorMessage }}</span>    </div></clr-alert></div>'
     var COMPONENTS = [{'name': 'ActionMenuComponent', 'selector': 'vcd-action-menu'},{'name': 'BannerActivityReporterComponent', 'selector': 'vcd-banner-activity-reporter'},{'name': 'BoldTextRendererComponent', 'selector': 'vcd-bold-text-renderer'},{'name': 'DataExporterComponent', 'selector': 'vcd-data-exporter'},{'name': 'DatagridComponent', 'selector': 'vcd-datagrid'},{'name': 'DatagridMultiSelectFilterComponent', 'selector': 'vcd-dg-multiselect-filter'},{'name': 'DatagridNumericFilterComponent', 'selector': 'vcd-dg-numeric-filter'},{'name': 'DatagridSelectFilterComponent', 'selector': 'vcd-dg-select-filter'},{'name': 'DatagridStringFilterComponent', 'selector': 'vcd-dg-string-filter'},{'name': 'DropdownComponent', 'selector': 'vcd-dropdown'},{'name': 'ErrorBannerComponent', 'selector': 'vcd-error-banner'},{'name': 'FilterTestHostComponent', 'selector': ''},{'name': 'FormCheckboxComponent', 'selector': 'vcd-form-checkbox'},{'name': 'FormInputComponent', 'selector': 'vcd-form-input'},{'name': 'FormlyInputComponent', 'selector': 'vcd-formly-input'},{'name': 'FormlyNumberWithUnitInputComponent', 'selector': 'vcd-formly-number-with-unit-input'},{'name': 'FormlySelectComponent', 'selector': 'vcd-formly-select'},{'name': 'FormSelectComponent', 'selector': 'vcd-form-select'},{'name': 'LoadingIndicatorComponent', 'selector': 'vcd-loading-indicator'},{'name': 'NumberWithUnitFormInputComponent', 'selector': 'vcd-number-with-unit-form-input'},{'name': 'QuickSearchComponent', 'selector': 'vcd-quick-search'},{'name': 'ShowClippedTextDirectiveTestHostComponent', 'selector': ''},{'name': 'SpinnerActivityReporterComponent', 'selector': 'vcd-spinner-activity-reporter'}];
     var DIRECTIVES = [{'name': 'ComponentRendererOutletDirective', 'selector': '[vcdComponentRendererOutlet]'},{'name': 'DynamicDropdownPositionDirective', 'selector': 'clr-dropdown[vcdDynamicDropdown]'},{'name': 'ShowClippedTextDirective', 'selector': '[vcdShowClippedText]'}];
     var ACTUAL_COMPONENT = {'name': 'ErrorBannerComponent'};
