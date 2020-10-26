@@ -12,6 +12,14 @@ import { FormInputComponent, getFormattedDateValue } from './form-input.componen
 export class VcdFormInputWidgetObject extends WidgetObject<FormInputComponent> {
     static tagName = `vcd-form-input`;
 
+    private get labelElement(): HTMLElement {
+        return this.findElement('label').nativeElement;
+    }
+
+    private get subtextElement(): HTMLElement {
+        return this.findElement('.clr-subtext').nativeElement;
+    }
+
     private get inputElement(): HTMLInputElement {
         return this.findElement('input').nativeElement;
     }
@@ -25,6 +33,18 @@ export class VcdFormInputWidgetObject extends WidgetObject<FormInputComponent> {
         this.inputElement.dispatchEvent(new Event('input'));
         this.detectChanges();
     }
+
+    getLabelAttributeValue(attribute: string): string {
+        return this.labelElement.getAttribute(attribute);
+    }
+
+    getInputAttributeValue(attribute: string): string {
+        return this.inputElement.getAttribute(attribute);
+    }
+
+    getSubtextAttributeValue(attribute: string): string {
+        return this.subtextElement.getAttribute(attribute);
+    }
 }
 
 describe('FormInputComponent', () => {
@@ -33,6 +53,9 @@ describe('FormInputComponent', () => {
     let stringInput: VcdFormInputWidgetObject;
     let numberInput: VcdFormInputWidgetObject;
     let dateInput: VcdFormInputWidgetObject;
+    let inputWithLabel: VcdFormInputWidgetObject;
+    let inputWithDescription: VcdFormInputWidgetObject;
+    let requiredInput: VcdFormInputWidgetObject;
 
     beforeEach(async () => {
         await configureFormInputTestingModule(TestHostComponent);
@@ -44,6 +67,9 @@ describe('FormInputComponent', () => {
         stringInput = inputWidgetObjects[0];
         numberInput = inputWidgetObjects[1];
         dateInput = inputWidgetObjects[2];
+        inputWithLabel = inputWidgetObjects[3];
+        inputWithDescription = inputWidgetObjects[4];
+        requiredInput = inputWidgetObjects[5];
     });
 
     describe('writeValue, when input is of', () => {
@@ -90,6 +116,35 @@ describe('FormInputComponent', () => {
             });
         });
     });
+
+    describe('ARIA', () => {
+        it('has label "for" attribute set to input id when label is set', () => {
+            expect(inputWithLabel.getLabelAttributeValue('for')).toBe(inputWithLabel.getInputAttributeValue('id'));
+        });
+
+        it('has "aria-required" attribute set to false when "showAsterisk" is "false"', () => {
+            expect(inputWithLabel.getInputAttributeValue('aria-required')).toBe('false');
+        });
+
+        it('has "aria-required" attribute set to true when "showAsterisk" is "true"', () => {
+            expect(requiredInput.getInputAttributeValue('aria-required')).toBe('true');
+        });
+
+        it('has "aria-describedby" attribute value set to "errorsId" when "showErrors" is "true"', () => {
+            requiredInput.enter(''); // Setting empty input to trigger the required validator.
+            expect(requiredInput.getSubtextAttributeValue('id')).toBe(requiredInput.component.errorsId);
+            expect(requiredInput.getInputAttributeValue('aria-describedby')).toBe(requiredInput.component.errorsId);
+        });
+
+        it('has "aria-describedby" attribute value set to "descriptionId" when "showErrors" is "false"', () => {
+            expect(inputWithDescription.getSubtextAttributeValue('id')).toBe(
+                inputWithDescription.component.descriptionId
+            );
+            expect(inputWithDescription.getInputAttributeValue('aria-describedby')).toBe(
+                inputWithDescription.component.descriptionId
+            );
+        });
+    });
 });
 
 @Component({
@@ -98,6 +153,13 @@ describe('FormInputComponent', () => {
             <vcd-form-input #stringInput [type]="'text'" [formControlName]="'stringInput'"> </vcd-form-input>
             <vcd-form-input #numberInput [type]="'number'" [formControlName]="'numberInput'"> </vcd-form-input>
             <vcd-form-input #dateInput [type]="'datetime-local'" [formControlName]="'dateInput'"> </vcd-form-input>
+            <vcd-form-input #inputWithLabel [label]="'Test'" [formControlName]="'inputWithLabel'"></vcd-form-input>
+            <vcd-form-input
+                #inputWithDescription
+                [description]="'Test'"
+                [formControlName]="'inputWithDescription'"
+            ></vcd-form-input>
+            <vcd-form-input #requiredInput [showAsterisk]="true" [formControlName]="'requiredInput'"></vcd-form-input>
         </form>
     `,
 })
@@ -109,6 +171,9 @@ class TestHostComponent {
             stringInput: ['test'],
             numberInput: [[70.9], Validators.required],
             dateInput: [new Date().toISOString()],
+            inputWithLabel: [''],
+            inputWithDescription: [''],
+            requiredInput: ['Test', Validators.required],
         });
     }
 }
