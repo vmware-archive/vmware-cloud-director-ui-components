@@ -18,7 +18,17 @@ export class BaseFormControl implements ControlValueAccessor, CanBeReadOnly {
     /**
      * Auto generated ID for the input field.
      */
-    id: string;
+    readonly id: string = idGenerator.generate();
+
+    /**
+     * Auto generated ID for the description field.
+     */
+    readonly descriptionId: string = `${this.id}-description`;
+
+    /**
+     * Auto generated ID for the error field.
+     */
+    readonly errorsId: string = `${this.id}-errors`;
 
     /**
      * Change callback.
@@ -72,7 +82,6 @@ export class BaseFormControl implements ControlValueAccessor, CanBeReadOnly {
     protected initialValue: number | string | boolean;
 
     constructor(ngControl: NgControl) {
-        this.id = idGenerator.generate();
         if (ngControl) {
             ngControl.valueAccessor = this;
             this.formControlNameDirective = ngControl;
