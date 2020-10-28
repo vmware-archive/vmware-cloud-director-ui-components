@@ -244,6 +244,7 @@ describe('DropdownComponent', () => {
 @Component({
     template: `
         <vcd-dropdown
+            vcdDropdownFocusHandler
             [items]="items"
             [dropdownTriggerBtnTxt]="'Dropdown'"
             [dropdownTriggerButtonClassName]="primaryDropdownClassName"

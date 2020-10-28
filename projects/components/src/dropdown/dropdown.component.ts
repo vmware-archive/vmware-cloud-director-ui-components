@@ -6,23 +6,43 @@
 import {
     AfterViewInit,
     Component,
+    ElementRef,
+    EventEmitter,
     Host,
     HostListener,
     Input,
+    OnDestroy,
     Optional,
+    Output,
+    Provider,
     QueryList,
+    Renderer2,
     SkipSelf,
     TrackByFunction,
     ViewChild,
     ViewChildren,
 } from '@angular/core';
-import { ClrDropdown, ClrDropdownTrigger } from '@clr/angular';
+import { ClrDropdown, ClrDropdownMenu, ClrDropdownTrigger } from '@clr/angular';
 import { TextIcon } from '../common/interfaces';
 import { CliptextConfig, TooltipSize } from '../lib/directives';
+import { DropdownFocusHandlerService } from './dropdown-focus-handler.service';
 
 const NESTED_DROPDOWN_TRIGGER_SELECTOR = 'clr-dropdown clr-dropdown > button';
 const DROPDOWN_ITEM_SELECTOR = 'clr-dropdown-menu > button';
 export const NESTED_MENU_HIDE_DELAY = 400;
+
+export function dropdownFocusHandlerServiceFactory(
+    renderer: Renderer2,
+    existing: DropdownFocusHandlerService
+): DropdownFocusHandlerService {
+    return existing || new DropdownFocusHandlerService(renderer);
+}
+
+export const DROPDOWN_FOCUS_HANDLER_PROVIDER: Provider = {
+    provide: DropdownFocusHandlerService,
+    useFactory: dropdownFocusHandlerServiceFactory,
+    deps: [Renderer2, [new Optional(), new SkipSelf(), DropdownFocusHandlerService]],
+};
 
 /**
  * Object representing an item of the dropdown
@@ -65,6 +85,7 @@ export interface DropdownItem<T extends DropdownItem<T>> {
     selector: 'vcd-dropdown',
     templateUrl: 'dropdown.component.html',
     styleUrls: ['./dropdown.component.scss'],
+    providers: [DROPDOWN_FOCUS_HANDLER_PROVIDER],
 })
 export class DropdownComponent<T extends DropdownItem<T>> implements AfterViewInit {
     /**
@@ -89,8 +110,40 @@ export class DropdownComponent<T extends DropdownItem<T>> implements AfterViewIn
         return this._items;
     }
 
-    constructor(@Optional() @SkipSelf() @Host() private parentVcdDropdown: DropdownComponent<T>) {}
+    @Output() dropdownMenuUpdated = new EventEmitter<{ menu: HTMLElement }>();
 
+    constructor(@Optional() @SkipSelf() private parentVcdDropdown: DropdownComponent<T>) {}
+
+    @ViewChild(ClrDropdownMenu)
+    set clrDropdownMenu(val: ClrDropdownMenu) {
+        this._clrDropdownMenu = val;
+        if (!val) {
+            return;
+        }
+        // Disable Claritys focus handling logic
+        this._clrDropdownMenu.items.reset([]);
+        this._clrDropdownMenu.items.notifyOnChanges();
+    }
+    private _clrDropdownMenu: ClrDropdownMenu;
+
+    @ViewChild(ClrDropdownTrigger, { read: ElementRef, static: true })
+    set dropdownTriggerEl(val: ElementRef<HTMLElement>) {
+        this._dropdownTriggerEl = val ? val.nativeElement : null;
+    }
+    _dropdownTriggerEl: HTMLElement;
+
+    @ViewChild(ClrDropdownMenu, { read: ElementRef, static: false })
+    set clrDropdownMenuEl(val: ElementRef<HTMLElement>) {
+        if (!val) {
+            this.dropdownMenuUpdated.emit(null);
+            return;
+        }
+        this._clrDropdownMenuEl = val.nativeElement;
+        this.dropdownMenuUpdated.emit({
+            menu: this._clrDropdownMenuEl,
+        });
+    }
+    _clrDropdownMenuEl: HTMLElement;
     /**
      * If a icon should be displayed inside contextual buttons
      */
@@ -285,5 +338,16 @@ export class DropdownComponent<T extends DropdownItem<T>> implements AfterViewIn
         this.vcdDropdownChildren
             .filter((vcdDropdown) => vcdDropdown.clrDropdown.toggleService.open)
             .forEach((vcdDropdown) => (vcdDropdown.clrDropdown.toggleService.open = false));
+    }
+
+    /**
+     * When space or enter key is pressed on the focused dropdown menu item, it has to be clicked
+     * @param event Space or Enter key press event
+     */
+    onDropdownItemActivated(event: Event): void {
+        if (!event) {
+            return;
+        }
+        (event.target as HTMLElement).click();
     }
 }
