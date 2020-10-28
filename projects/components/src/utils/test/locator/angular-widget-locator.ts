@@ -6,9 +6,8 @@
 import { DebugElement, Type } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { FindableWidget, FindParams, isFindParamsObject } from '../widget-object';
-import { BaseWidgetLocator } from './widget-locator';
-import { CorrectReturnTypes, FindableLocator, LocatorDriver } from './widget-locator';
+import { BaseWidgetObject, TaggedClass } from './widget-locator';
+import { CorrectReturnTypes, LocatorDriver } from './widget-locator';
 
 /**
  * Knows how to find Angular TestElements in the DOM.
@@ -74,10 +73,10 @@ export class AngularLocatorDriver implements LocatorDriver<TestElement> {
     /**
      * @inheritdoc
      */
-    findWidget<W extends FindableLocator<BaseWidgetLocator<TestElement>>>(
+    findWidget<W extends TaggedClass & Type<BaseWidgetObject<TestElement>>>(
         widget: W
     ): CorrectReturnTypes<InstanceType<W>, TestElement> {
-        return new AngularLocatorFinder(this.testElement.fixture).find(widget, this.rootElement);
+        return new AngularWidgetObjectFinder(this.testElement.fixture).find(widget, this.rootElement);
     }
 }
 
@@ -155,9 +154,9 @@ export type AngularifyReturnTypes<T> = {
 };
 
 /**
- * Knows how to find Angular locators in the DOM.
+ * Knows how to find Angular objects in the DOM.
  */
-export class AngularLocatorFinder<H = unknown> {
+export class AngularWidgetObjectFinder<H = unknown> {
     /**
      * We don't care or could possibly know the type of fixture
      */
@@ -182,12 +181,12 @@ export class AngularLocatorFinder<H = unknown> {
      * Finds a single widget object
      * @throws An error if the widget is not found or if there are multiple instances
      */
-    public find<T extends FindableLocator<BaseWidgetLocator<TestElement>>, G>(
-        locatorConstructor: T,
+    public find<T extends TaggedClass & Type<BaseWidgetObject<TestElement>>, G>(
+        widgetConstructor: T,
         ancestor?: DebugElement,
         className?: string
     ): CorrectReturnTypes<InstanceType<T>, TestElement> {
-        let query = locatorConstructor.tagName;
+        let query = widgetConstructor.tagName;
         if (className) {
             query += `.${className}`;
         }
@@ -196,7 +195,7 @@ export class AngularLocatorFinder<H = unknown> {
         }
 
         const root = (ancestor ? ancestor : this.fixture.debugElement).query(By.css(query));
-        const widget = new locatorConstructor(new AngularLocatorDriver(new TestElement([root], this.fixture), root));
+        const widget = new widgetConstructor(new AngularLocatorDriver(new TestElement([root], this.fixture), root));
         return (widget as any) as CorrectReturnTypes<InstanceType<T>, TestElement>;
     }
 

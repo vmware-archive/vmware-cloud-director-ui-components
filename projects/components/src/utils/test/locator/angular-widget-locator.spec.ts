@@ -5,8 +5,8 @@
 
 import { Component, Input, Type } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { AngularLocatorDriver, AngularLocatorFinder, TestElement } from './angular-widget-locator';
-import { BaseWidgetLocator } from './widget-locator';
+import { AngularLocatorDriver, AngularWidgetObjectFinder, TestElement } from './angular-widget-locator';
+import { BaseWidgetObject } from './widget-locator';
 
 /**
  * This is the reusable component being tested, typically goes in its own file
@@ -29,11 +29,11 @@ class ClickTrackerComponent {
     clickCount = 0;
 }
 
-class HeaderWidgetObject<T> extends BaseWidgetLocator<T> {
+class HeaderWidgetObject<T> extends BaseWidgetObject<T> {
     static tagName = 'h1';
 
     getBoldText(): T {
-        return this.driver.get('b').unwrap();
+        return this.locatorDriver.get('b').unwrap();
     }
 }
 
@@ -43,27 +43,27 @@ class HeaderWidgetObject<T> extends BaseWidgetLocator<T> {
  * This class could be tested mostly through the component instance but we are using the HTML to show the base class's
  * functionality
  */
-class ClickTrackerWidgetObject<T> extends BaseWidgetLocator<T> {
+class ClickTrackerWidgetObject<T> extends BaseWidgetObject<T> {
     static tagName = 'vcd-click-tracker';
 
     get clickCount(): T {
         // If we wanted to use the instance, but we want to show base functionality
         // return this.component.clickCount;
-        return this.driver.get('.click-count').unwrap();
+        return this.locatorDriver.get('.click-count').unwrap();
     }
 
     get headerText(): T {
         // If we wanted to use the instance
         // return this.component.header;
-        return this.driver.get('h1').unwrap();
+        return this.locatorDriver.get('h1').unwrap();
     }
 
     getTrackerElement(): T {
-        return this.driver.get('p').unwrap();
+        return this.locatorDriver.get('p').unwrap();
     }
 
     findHeaderWidget(): HeaderWidgetObject<T> {
-        return this.driver.findWidget(HeaderWidgetObject);
+        return this.locatorDriver.findWidget(HeaderWidgetObject);
     }
 }
 
@@ -76,7 +76,7 @@ class ClickTrackerWidgetObject<T> extends BaseWidgetLocator<T> {
 class HostComponent {}
 
 interface HasAngularFinder {
-    finder: AngularLocatorFinder;
+    finder: AngularWidgetObjectFinder;
 }
 
 /**
@@ -92,12 +92,12 @@ function setup(fixtureRoot: Type<unknown>): void {
         await TestBed.configureTestingModule({
             declarations: [ClickTrackerComponent, fixtureRoot],
         }).compileComponents();
-        this.finder = new AngularLocatorFinder(fixtureRoot);
+        this.finder = new AngularWidgetObjectFinder(fixtureRoot);
         this.finder.detectChanges();
     });
 }
 
-describe('AngularWidgetFinder', () => {
+fdescribe('AngularWidgetFinder', () => {
     describe('when there is a single instance within host', () => {
         setup(HostComponent);
 
@@ -120,7 +120,7 @@ describe('AngularWidgetFinder', () => {
  * For all these tests of base class functionality, you must look at the implementation of the methods being called
  * in the concrete {@link ClickTrackerWidgetObject}
  */
-describe('WidgetObject (through ClickTracerWidgetObject)', () => {
+fdescribe('WidgetObject (through ClickTracerWidgetObject)', () => {
     beforeEach(async function (this: HasClickTracker): Promise<void> {
         await TestBed.configureTestingModule({
             declarations: [ClickTrackerComponent],

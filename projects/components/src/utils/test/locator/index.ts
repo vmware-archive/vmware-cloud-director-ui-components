@@ -3,6 +3,6 @@
  * SPDX-License-Identifier: BSD-2-Clause
  */
 
-export { BaseWidgetLocator } from './widget-locator';
-export { CypressLocatorFinder } from './cypress-widget-locator';
-export { AngularLocatorFinder, TestElement } from './angular-widget-locator';
+export { BaseWidgetObject } from './widget-locator';
+export { CypressWidgetObjectFinder } from './cypress-widget-locator';
+export { AngularWidgetObjectFinder, TestElement } from './angular-widget-locator';

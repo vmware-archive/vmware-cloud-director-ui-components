@@ -8,11 +8,11 @@ import { Type } from '@angular/core';
 /**
  * A class that is able to make queries to the DOM and be instantiated by a widget finder.
  *
- * All widget locators should extend this base class.
+ * All widget objects should extend this base class.
  *
  * @example
  *
- * class LoginWidgetLocator<T> extends BaseWidgetLocator<T> {
+ * class LoginWidgetObject<T> extends BaseWidgetObject<T> {
  *      getUsernameField(): T {
  *          return this.driver.get('.username').unwrap();
  *      }
@@ -26,10 +26,10 @@ import { Type } from '@angular/core';
  *      }
  * }
  */
-export class BaseWidgetLocator<T> {
-    protected driver?: LocatorDriver<T>;
+export class BaseWidgetObject<T> {
+    protected locatorDriver?: LocatorDriver<T>;
     constructor(driver: LocatorDriver<T>) {
-        this.driver = driver;
+        this.locatorDriver = driver;
     }
 }
 
@@ -53,9 +53,9 @@ export interface LocatorDriver<T> {
     parents(cssSelector: string): LocatorDriver<T>;
 
     /**
-     * Returns an instance of the given widget within this widget locator.
+     * Returns an instance of the given widget within this widget object.
      */
-    findWidget<W extends FindableLocator<BaseWidgetLocator<T>>>(widget: W): CorrectReturnTypes<InstanceType<W>, T>;
+    findWidget<W extends TaggedClass & Type<BaseWidgetObject<T>>>(widget: W): CorrectReturnTypes<InstanceType<W>, T>;
 
     /**
      * Unwraps the value from this query and turns it into the resulting object type.
@@ -75,8 +75,8 @@ export type CorrectReturnTypes<T, R> = {
 };
 
 /**
- * A locator that is findable by tagName.
+ * A class with a static tagName.
  */
-export interface FindableLocator<T> extends Type<T> {
+export type TaggedClass = {
     tagName: string;
-}
+};

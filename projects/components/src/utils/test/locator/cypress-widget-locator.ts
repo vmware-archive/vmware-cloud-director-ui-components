@@ -3,13 +3,12 @@
  * SPDX-License-Identifier: BSD-2-Clause
  */
 
+import { Type } from '@angular/core';
 import { IdGenerator } from '../../id-generator/id-generator';
-import { FindableWidget, FindParams, isFindParamsObject } from '../widget-object';
-import { BaseWidgetLocator, CorrectReturnTypes, FindableLocator, LocatorDriver } from './widget-locator';
+import { BaseWidgetObject, CorrectReturnTypes, LocatorDriver, TaggedClass } from './widget-locator';
 
 type Chainable = Cypress.Chainable<JQuery<HTMLElement>>;
 
-// TODO: use alias to find widgets within other widgets
 /**
  * Knows how to find Cypress chainables in the DOM.
  */
@@ -50,10 +49,10 @@ export class CypressLocatorDriver implements LocatorDriver<Chainable> {
     /**
      * @inheritdoc
      */
-    findWidget<W extends FindableLocator<BaseWidgetLocator<Chainable>>>(
+    findWidget<W extends TaggedClass & Type<BaseWidgetObject<Chainable>>>(
         widget: W
     ): CorrectReturnTypes<InstanceType<W>, Chainable> {
-        return new CypressLocatorFinder().find(widget, '@' + this.alias);
+        return new CypressWidgetObjectFinder().find(widget, '@' + this.alias);
     }
 
     /**
@@ -70,27 +69,27 @@ export class CypressLocatorDriver implements LocatorDriver<Chainable> {
 }
 
 /**
- * Knows how to find Cypress locator finders within the DOM.
+ * Knows how to find Cypress widget objects within the DOM.
  */
-export class CypressLocatorFinder {
+export class CypressWidgetObjectFinder {
     private idGenerator = new IdGenerator('cy-id');
     /**
      * Finds a single widget object
      * @throws An error if the widget is not found or if there are multiple instances
      */
-    public find<T extends FindableLocator<BaseWidgetLocator<Chainable>>>(
-        locatorConstructor: T,
+    public find<T extends TaggedClass & Type<BaseWidgetObject<Chainable>>>(
+        widgetConstructor: T,
         ancestor?: string,
         className?: string
     ): CorrectReturnTypes<InstanceType<T>, Chainable> {
-        let tagName = locatorConstructor.tagName;
+        let tagName = widgetConstructor.tagName;
         if (className) {
             tagName += `.${className}`;
         }
         const id = this.idGenerator.generate();
         const search = ancestor ? cy.get(ancestor).find(tagName) : cy.get(tagName);
         const promise = search.as(id);
-        const widget = new locatorConstructor(new CypressLocatorDriver(promise, true, id));
+        const widget = new widgetConstructor(new CypressLocatorDriver(promise, true, id));
         return (widget as any) as CorrectReturnTypes<InstanceType<T>, Chainable>;
     }
 }

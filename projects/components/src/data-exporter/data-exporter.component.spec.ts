@@ -8,20 +8,19 @@ import { fakeAsync, TestBed, tick } from '@angular/core/testing';
 import { Component, ViewChild } from '@angular/core';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { MockTranslationService, TranslationService } from '@vcd/i18n';
-import { AngularLocatorFinder } from '../utils/test/locator/angular-widget-locator';
-import { HasFinder, WidgetFinder } from '../utils/test/widget-object';
+import { AngularWidgetObjectFinder } from '../utils/test/locator/angular-widget-locator';
 import { CsvExporterService } from './csv-exporter.service';
 import { DataExporterComponent, DataExportRequestEvent, ExportColumn } from './data-exporter.component';
 import { VcdDataExporterModule } from './data-exporter.module';
 import { DataExporterWidgetObject } from './data-exporter.wo';
 interface HasFinder2<T> {
-    finder: AngularLocatorFinder<T>;
+    finder: AngularWidgetObjectFinder<T>;
 }
 
 type TestHostFinder = HasFinder2<TestHostComponent>;
 type TestExporterColumnsWithoutDisplayNameFinder = HasFinder2<TestExporterColumnsWithoutDisplayNameComponent>;
 
-describe('DataExporterColumnsWithoutDisplayName', () => {
+fdescribe('DataExporterColumnsWithoutDisplayName', () => {
     beforeEach(async () => {
         await TestBed.configureTestingModule({
             imports: [VcdDataExporterModule, NoopAnimationsModule],
@@ -36,7 +35,7 @@ describe('DataExporterColumnsWithoutDisplayName', () => {
     });
 
     beforeEach(function (this: HasFinder2<TestExporterColumnsWithoutDisplayNameComponent>): void {
-        this.finder = new AngularLocatorFinder(TestExporterColumnsWithoutDisplayNameComponent);
+        this.finder = new AngularWidgetObjectFinder(TestExporterColumnsWithoutDisplayNameComponent);
         this.finder.detectChanges();
     });
 
@@ -79,7 +78,7 @@ describe('DataExporterColumnsWithoutDisplayName', () => {
     });
 });
 
-describe('VcdExportTableComponent', () => {
+fdescribe('VcdExportTableComponent', () => {
     beforeEach(async () => {
         await TestBed.configureTestingModule({
             imports: [VcdDataExporterModule, NoopAnimationsModule],
@@ -94,7 +93,7 @@ describe('VcdExportTableComponent', () => {
     });
 
     beforeEach(function (this: HasFinder2<TestHostComponent>): void {
-        this.finder = new AngularLocatorFinder(TestHostComponent);
+        this.finder = new AngularWidgetObjectFinder(TestHostComponent);
         this.finder.detectChanges();
     });
 
