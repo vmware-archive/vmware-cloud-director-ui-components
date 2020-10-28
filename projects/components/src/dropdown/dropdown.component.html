@@ -57,6 +57,8 @@
                         ]"
                         clrDropdownItem
                         (click)="onItemClickedCb(action)"
+                        (keydown.space)="onDropdownItemActivated($event)"
+                        (keydown.enter)="onDropdownItemActivated($event)"
                         [disabled]="isItemDisabledCb(action)"
                     >
                         <ng-container *ngIf="shouldShowText">{{

@@ -339,4 +339,15 @@ export class DropdownComponent<T extends DropdownItem<T>> implements AfterViewIn
             .filter((vcdDropdown) => vcdDropdown.clrDropdown.toggleService.open)
             .forEach((vcdDropdown) => (vcdDropdown.clrDropdown.toggleService.open = false));
     }
+
+    /**
+     * When space or enter key is pressed on the focused dropdown menu item, it has to be clicked
+     * @param event Space or Enter key press event
+     */
+    onDropdownItemActivated(event: Event): void {
+        if (!event) {
+            return;
+        }
+        (event.target as HTMLElement).click();
+    }
 }

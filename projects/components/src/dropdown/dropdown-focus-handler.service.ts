@@ -14,7 +14,7 @@ import { Direction, MenuItem } from './dropdown-focus-handler.directive';
 @Injectable()
 export class DropdownFocusHandlerService implements OnDestroy {
     currentFocusedItem: MenuItem;
-    unlistenFuncs: ((...argArray: any[]) => any)[] = [];
+    unlistenFuncs: (() => void)[] = [];
 
     constructor(private renderer: Renderer2) {}
 
@@ -69,14 +69,12 @@ export class DropdownFocusHandlerService implements OnDestroy {
         this.unlistenFuncs.push(
             this.renderer.listen(menuContainer, 'keydown.arrowdown', (event: Event) => {
                 this.moveFocus(Direction.DOWN);
-                event.preventDefault();
                 event.stopPropagation();
             })
         );
         this.unlistenFuncs.push(
             this.renderer.listen(menuContainer, 'keydown.arrowup', (event: Event) => {
                 this.moveFocus(Direction.UP);
-                event.preventDefault();
                 event.stopPropagation();
             })
         );
@@ -88,7 +86,6 @@ export class DropdownFocusHandlerService implements OnDestroy {
                 // Close the nested menu before moving focus to left side
                 this.currentFocusedItem.left.closeMenu(event);
                 this.moveFocus(Direction.LEFT);
-                event.preventDefault();
                 event.stopPropagation();
             })
         );

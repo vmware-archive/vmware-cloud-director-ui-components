@@ -160,13 +160,17 @@ export class DropdownFocusHandlerDirective<T> implements AfterViewInit, OnDestro
     private linkMenuItems(): void {
         const menuChildren: Element[] = Array.from(this.clrDropdownMenuEl.children);
         this.menuItems = menuChildren.map((child) => ({
-            element:
-                child.nodeName === BUTTON_NODE_NAME
-                    ? (child as HTMLElement)
-                    : (child.querySelector('clr-dropdown > button') as HTMLElement),
+            element: (child.matches('button') ? child : child.querySelector('clr-dropdown > button')) as HTMLElement,
+            left: this.menuTrigger,
         }));
         this.linkVertical();
-        this.linkMenuToTrigger();
+        // Lint to menu trigger
+        if (this.isRootDropdown) {
+            this.menuTrigger.down = this.menuItems[0];
+        } else {
+            // If there is a parent dropdown, We have to link these menu items to their trigger in the parent dropdown
+            this.menuTrigger.right = this.menuItems[0];
+        }
     }
 
     private get rootMenuTrigger(): MenuItem {
@@ -186,16 +190,6 @@ export class DropdownFocusHandlerDirective<T> implements AfterViewInit, OnDestro
             this.hostVcdDropdown.clrDropdown.toggleService.open = false;
         };
         return menuTrigger;
-    }
-
-    private linkMenuToTrigger(): void {
-        if (this.isRootDropdown) {
-            this.menuTrigger.down = this.menuItems[0];
-            return;
-        }
-        // If there is a parent dropdown, We have to link these menu items to their trigger in the parent dropdown
-        this.menuTrigger.right = this.menuItems[0];
-        this.menuItems.forEach((item) => (item.left = this.menuTrigger));
     }
 
     private linkVertical(): void {
