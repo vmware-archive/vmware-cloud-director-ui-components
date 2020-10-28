@@ -412,23 +412,43 @@
         <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import {
     AfterViewInit,
     Component,
+    ElementRef,
+    EventEmitter,
     Host,
     HostListener,
     Input,
+    OnDestroy,
     Optional,
+    Output,
+    Provider,
     QueryList,
+    Renderer2,
     SkipSelf,
     TrackByFunction,
     ViewChild,
     ViewChildren,
 } from &#x27;@angular/core&#x27;;
-import { ClrDropdown, ClrDropdownTrigger } from &#x27;@clr/angular&#x27;;
+import { ClrDropdown, ClrDropdownMenu, ClrDropdownTrigger } from &#x27;@clr/angular&#x27;;
 import { TextIcon } from &#x27;../common/interfaces&#x27;;
 import { CliptextConfig, TooltipSize } from &#x27;../lib/directives&#x27;;
+import { DropdownFocusHandlerService } from &#x27;./dropdown-focus-handler.service&#x27;;
 
 const NESTED_DROPDOWN_TRIGGER_SELECTOR &#x3D; &#x27;clr-dropdown clr-dropdown &gt; button&#x27;;
 const DROPDOWN_ITEM_SELECTOR &#x3D; &#x27;clr-dropdown-menu &gt; button&#x27;;
 export const NESTED_MENU_HIDE_DELAY &#x3D; 400;
+
+export function dropdownFocusHandlerServiceFactory(
+    renderer: Renderer2,
+    existing: DropdownFocusHandlerService
+): DropdownFocusHandlerService {
+    return existing || new DropdownFocusHandlerService(renderer);
+}
+
+export const DROPDOWN_FOCUS_HANDLER_PROVIDER: Provider &#x3D; {
+    provide: DropdownFocusHandlerService,
+    useFactory: dropdownFocusHandlerServiceFactory,
+    deps: [Renderer2, [new Optional(), new SkipSelf(), DropdownFocusHandlerService]],
+};
 
 /**
  * Object representing an item of the dropdown
@@ -471,6 +491,7 @@ export interface DropdownItem&lt;T extends DropdownItem&lt;T&gt;&gt; {
     selector: &#x27;vcd-dropdown&#x27;,
     templateUrl: &#x27;dropdown.component.html&#x27;,
     styleUrls: [&#x27;./dropdown.component.scss&#x27;],
+    providers: [DROPDOWN_FOCUS_HANDLER_PROVIDER],
 })
 export class DropdownComponent&lt;T extends DropdownItem&lt;T&gt;&gt; implements AfterViewInit {
     /**
@@ -495,8 +516,40 @@ export class DropdownComponent&lt;T extends DropdownItem&lt;T&gt;&gt; implements
         return this._items;
     }
 
-    constructor(@Optional() @SkipSelf() @Host() private parentVcdDropdown: DropdownComponent&lt;T&gt;) {}
+    @Output() dropdownMenuUpdated &#x3D; new EventEmitter&lt;{ menu: HTMLElement }&gt;();
 
+    constructor(@Optional() @SkipSelf() private parentVcdDropdown: DropdownComponent&lt;T&gt;) {}
+
+    @ViewChild(ClrDropdownMenu)
+    set clrDropdownMenu(val: ClrDropdownMenu) {
+        this._clrDropdownMenu &#x3D; val;
+        if (!val) {
+            return;
+        }
+        // Disable Claritys focus handling logic
+        this._clrDropdownMenu.items.reset([]);
+        this._clrDropdownMenu.items.notifyOnChanges();
+    }
+    private _clrDropdownMenu: ClrDropdownMenu;
+
+    @ViewChild(ClrDropdownTrigger, { read: ElementRef, static: true })
+    set dropdownTriggerEl(val: ElementRef&lt;HTMLElement&gt;) {
+        this._dropdownTriggerEl &#x3D; val ? val.nativeElement : null;
+    }
+    _dropdownTriggerEl: HTMLElement;
+
+    @ViewChild(ClrDropdownMenu, { read: ElementRef, static: false })
+    set clrDropdownMenuEl(val: ElementRef&lt;HTMLElement&gt;) {
+        if (!val) {
+            this.dropdownMenuUpdated.emit(null);
+            return;
+        }
+        this._clrDropdownMenuEl &#x3D; val.nativeElement;
+        this.dropdownMenuUpdated.emit({
+            menu: this._clrDropdownMenuEl,
+        });
+    }
+    _clrDropdownMenuEl: HTMLElement;
     /**
      * If a icon should be displayed inside contextual buttons
      */
@@ -691,6 +744,17 @@ export class DropdownComponent&lt;T extends DropdownItem&lt;T&gt;&gt; implements
         this.vcdDropdownChildren
             .filter((vcdDropdown) &#x3D;&gt; vcdDropdown.clrDropdown.toggleService.open)
             .forEach((vcdDropdown) &#x3D;&gt; (vcdDropdown.clrDropdown.toggleService.open &#x3D; false));
+    }
+
+    /**
+     * When space or enter key is pressed on the focused dropdown menu item, it has to be clicked
+     * @param event Space or Enter key press event
+     */
+    onDropdownItemActivated(event: Event): void {
+        if (!event) {
+            return;
+        }
+        (event.target as HTMLElement).click();
     }
 }
 </code></pre>

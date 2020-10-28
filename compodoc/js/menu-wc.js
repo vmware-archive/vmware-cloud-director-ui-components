@@ -60,13 +60,13 @@ customElements.define('compodoc-menu', class extends HTMLElement {
                                 <a href="modules/DropdownModule.html" data-type="entity-link">DropdownModule</a>
                                     <li class="chapter inner">
                                         <div class="simple menu-toggler" data-toggle="collapse" ${ isNormalMode ?
-                                            'data-target="#components-links-module-DropdownModule-713142b2e66c028d47313d78b9ee0fa1"' : 'data-target="#xs-components-links-module-DropdownModule-713142b2e66c028d47313d78b9ee0fa1"' }>
+                                            'data-target="#components-links-module-DropdownModule-ef631890f84cdd33fa7aed4e8104e1bd"' : 'data-target="#xs-components-links-module-DropdownModule-ef631890f84cdd33fa7aed4e8104e1bd"' }>
                                             <span class="icon ion-md-cog"></span>
                                             <span>Components</span>
                                             <span class="icon ion-ios-arrow-down"></span>
                                         </div>
-                                        <ul class="links collapse" ${ isNormalMode ? 'id="components-links-module-DropdownModule-713142b2e66c028d47313d78b9ee0fa1"' :
-                                            'id="xs-components-links-module-DropdownModule-713142b2e66c028d47313d78b9ee0fa1"' }>
+                                        <ul class="links collapse" ${ isNormalMode ? 'id="components-links-module-DropdownModule-ef631890f84cdd33fa7aed4e8104e1bd"' :
+                                            'id="xs-components-links-module-DropdownModule-ef631890f84cdd33fa7aed4e8104e1bd"' }>
                                             <li class="link">
                                                 <a href="components/DropdownComponent.html"
                                                     data-type="entity-link" data-context="sub-entity" data-context-id="modules">DropdownComponent</a>
@@ -75,13 +75,17 @@ customElements.define('compodoc-menu', class extends HTMLElement {
                                     </li>
                                 <li class="chapter inner">
                                     <div class="simple menu-toggler" data-toggle="collapse" ${ isNormalMode ?
-                                        'data-target="#directives-links-module-DropdownModule-713142b2e66c028d47313d78b9ee0fa1"' : 'data-target="#xs-directives-links-module-DropdownModule-713142b2e66c028d47313d78b9ee0fa1"' }>
+                                        'data-target="#directives-links-module-DropdownModule-ef631890f84cdd33fa7aed4e8104e1bd"' : 'data-target="#xs-directives-links-module-DropdownModule-ef631890f84cdd33fa7aed4e8104e1bd"' }>
                                         <span class="icon ion-md-code-working"></span>
                                         <span>Directives</span>
                                         <span class="icon ion-ios-arrow-down"></span>
                                     </div>
-                                    <ul class="links collapse" ${ isNormalMode ? 'id="directives-links-module-DropdownModule-713142b2e66c028d47313d78b9ee0fa1"' :
-                                        'id="xs-directives-links-module-DropdownModule-713142b2e66c028d47313d78b9ee0fa1"' }>
+                                    <ul class="links collapse" ${ isNormalMode ? 'id="directives-links-module-DropdownModule-ef631890f84cdd33fa7aed4e8104e1bd"' :
+                                        'id="xs-directives-links-module-DropdownModule-ef631890f84cdd33fa7aed4e8104e1bd"' }>
+                                        <li class="link">
+                                            <a href="directives/DropdownFocusHandlerDirective.html"
+                                                data-type="entity-link" data-context="sub-entity" data-context-id="modules">DropdownFocusHandlerDirective</a>
+                                        </li>
                                         <li class="link">
                                             <a href="directives/DynamicDropdownPositionDirective.html"
                                                 data-type="entity-link" data-context="sub-entity" data-context-id="modules">DynamicDropdownPositionDirective</a>
@@ -554,6 +558,9 @@ customElements.define('compodoc-menu', class extends HTMLElement {
                                     <a href="injectables/CsvExporterService.html" data-type="entity-link">CsvExporterService</a>
                                 </li>
                                 <li class="link">
+                                    <a href="injectables/DropdownFocusHandlerService.html" data-type="entity-link">DropdownFocusHandlerService</a>
+                                </li>
+                                <li class="link">
                                     <a href="injectables/QuickSearchRegistrarService.html" data-type="entity-link">QuickSearchRegistrarService</a>
                                 </li>
                                 <li class="link">
@@ -676,6 +683,9 @@ customElements.define('compodoc-menu', class extends HTMLElement {
                             </li>
                             <li class="link">
                                 <a href="interfaces/ISubscriptionTracker.html" data-type="entity-link">ISubscriptionTracker</a>
+                            </li>
+                            <li class="link">
+                                <a href="interfaces/MenuItem.html" data-type="entity-link">MenuItem</a>
                             </li>
                             <li class="link">
                                 <a href="interfaces/MockRecord.html" data-type="entity-link">MockRecord</a>
