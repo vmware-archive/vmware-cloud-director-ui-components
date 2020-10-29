@@ -8,10 +8,10 @@ import { ActionDisplayConfig, ActionItem, ActionStyling, ActionType, TextIcon } 
 
 @Component({
     selector: 'vcd-dynamic-availability-example',
-    templateUrl: './actions-hide-disable.example.component.html',
-    styleUrls: ['./actions-hide-disable.example.component.scss'],
+    templateUrl: './action-menu-hide-disable-example.component.html',
+    styleUrls: ['./action-menu-hide-disable-example.component.scss'],
 })
-export class ActionsHideDisableExampleComponent {
+export class ActionMenuHideDisableExampleComponent {
     selectedEntities: any[] = [{ value: 'Selected entity', paused: false }];
     selectedEntitiesForDisabled: any[] = [{ value: 'Selected entity', paused: false }];
 

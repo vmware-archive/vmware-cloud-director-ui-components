@@ -8,10 +8,10 @@ import { ActionDisplayConfig, ActionItem, ActionStyling, ActionType, TextIcon } 
 
 @Component({
     selector: 'vcd-static-and-contextual-actions-example',
-    templateUrl: './static-and-contextual-actions.example.component.html',
-    styleUrls: ['./static-and-contextual-actions.example.component.scss'],
+    templateUrl: './action-menu-static-and-contextual-actions-example.component.html',
+    styleUrls: ['./action-menu-static-and-contextual-actions-example.component.scss'],
 })
-export class StaticAndContextualActionsExampleComponent {
+export class ActionMenuStaticAndContextualActionsExampleComponent {
     actions: ActionItem<any, any>[] = [
         {
             textKey: 'Static 1',

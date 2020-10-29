@@ -29,10 +29,10 @@ interface HandlerData {
 
 @Component({
     selector: 'vcd-action-search-example',
-    templateUrl: 'action-search.example.component.html',
-    styleUrls: ['action-search.example.component.scss'],
+    templateUrl: 'action-menu-search-example.component.html',
+    styleUrls: ['action-menu-search-example.component.scss'],
 })
-export class ActionSearchExampleComponent<R extends Record, T extends HandlerData> implements OnInit, OnDestroy {
+export class ActionMenuSearchExampleComponent<R extends Record, T extends HandlerData> implements OnInit, OnDestroy {
     constructor(private spotlightSearchService: QuickSearchService, private translationService: TranslationService) {}
 
     kbdShortcut = 'mod+.';

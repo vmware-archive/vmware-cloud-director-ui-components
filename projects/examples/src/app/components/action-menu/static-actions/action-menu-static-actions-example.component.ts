@@ -8,9 +8,9 @@ import { ActionItem, ActionType } from '@vcd/ui-components';
 
 @Component({
     selector: 'vcd-static-actions-example',
-    templateUrl: './static-actions.example.component.html',
+    templateUrl: './action-menu-static-actions-example.component.html',
 })
-export class StaticActionsExampleComponent {
+export class ActionMenuStaticActionsExampleComponent {
     actions: ActionItem<any, any>[] = [
         {
             textKey: 'Static 1',

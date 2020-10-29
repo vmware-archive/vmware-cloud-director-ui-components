@@ -8,10 +8,10 @@ import { ActionDisplayConfig, ActionItem, ActionStyling, ActionType, TextIcon } 
 
 @Component({
     selector: 'vcd-contextual-actions-example',
-    templateUrl: './contextual-actions.example.component.html',
-    styleUrls: ['./contextual-actions.example.component.scss'],
+    templateUrl: './action-menu-contextual-actions-example.component.html',
+    styleUrls: ['./action-menu-contextual-actions-example.component.scss'],
 })
-export class ContextualActionsExampleComponent {
+export class ActionMenuContextualActionsExampleComponent {
     actions: ActionItem<any, any>[] = [
         {
             textKey: 'Grouped Actions 1',

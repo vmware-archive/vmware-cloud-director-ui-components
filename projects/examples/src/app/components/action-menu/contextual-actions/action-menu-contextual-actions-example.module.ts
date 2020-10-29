@@ -8,12 +8,12 @@ import { NgModule } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import { ClarityModule } from '@clr/angular';
 import { VcdActionMenuModule } from '@vcd/ui-components';
-import { ActionsHideDisableExampleComponent } from './actions-hide-disable.example.component';
+import { ActionMenuContextualActionsExampleComponent } from './action-menu-contextual-actions-example.component';
 
 @NgModule({
-    declarations: [ActionsHideDisableExampleComponent],
+    declarations: [ActionMenuContextualActionsExampleComponent],
     imports: [CommonModule, ClarityModule, ReactiveFormsModule, VcdActionMenuModule],
-    exports: [ActionsHideDisableExampleComponent],
-    entryComponents: [ActionsHideDisableExampleComponent],
+    exports: [ActionMenuContextualActionsExampleComponent],
+    entryComponents: [ActionMenuContextualActionsExampleComponent],
 })
-export class ActionsHideDisableExampleModule {}
+export class ActionMenuContextualActionsExampleModule {}

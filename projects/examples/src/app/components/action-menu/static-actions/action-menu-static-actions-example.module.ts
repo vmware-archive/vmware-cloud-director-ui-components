@@ -8,12 +8,12 @@ import { NgModule } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import { ClarityModule } from '@clr/angular';
 import { VcdActionMenuModule } from '@vcd/ui-components';
-import { StaticActionsExampleComponent } from './static-actions.example.component';
+import { ActionMenuStaticActionsExampleComponent } from './action-menu-static-actions-example.component';
 
 @NgModule({
-    declarations: [StaticActionsExampleComponent],
+    declarations: [ActionMenuStaticActionsExampleComponent],
     imports: [CommonModule, ClarityModule, ReactiveFormsModule, VcdActionMenuModule],
-    exports: [StaticActionsExampleComponent],
-    entryComponents: [StaticActionsExampleComponent],
+    exports: [ActionMenuStaticActionsExampleComponent],
+    entryComponents: [ActionMenuStaticActionsExampleComponent],
 })
-export class StaticActionsExampleModule {}
+export class ActionMenuStaticActionsExampleModule {}
