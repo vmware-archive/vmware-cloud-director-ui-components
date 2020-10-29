@@ -499,6 +499,7 @@ export class DropdownComponent&lt;T extends DropdownItem&lt;T&gt;&gt; implements
      * @param textIcon An enum that describes the possible ways to display the button title
      */
     @Input() set dropdownItemContents(textIcon: TextIcon) {
+        this._dropdownItemContents &#x3D; textIcon;
         this.shouldShowIcon &#x3D; (TextIcon.ICON &amp; textIcon) &#x3D;&#x3D;&#x3D; TextIcon.ICON;
         this.shouldShowText &#x3D; (TextIcon.TEXT &amp; textIcon) &#x3D;&#x3D;&#x3D; TextIcon.TEXT;
         this.shouldShowTooltip &#x3D; textIcon &#x3D;&#x3D;&#x3D; TextIcon.ICON;
@@ -577,7 +578,7 @@ export class DropdownComponent&lt;T extends DropdownItem&lt;T&gt;&gt; implements
     /**
      * Text Content of the button that opens the root dropdown when clicked
      */
-    @Input() dropdownTriggerBtnTxt: string &#x3D; &#x27;vcd.cc.action.menu.actions&#x27;;
+    @Input() dropdownTriggerBtnTxt: string &#x3D; &#x27;vcd.cc.action.menu.other.actions&#x27;;
 
     /**
      * Icon shown in the button that opens the root dropdown when clicked
