@@ -9,4 +9,4 @@ export * from './activity-reporter/banner-activity-reporter.wo';
 export * from './activity-reporter/spinner-activity-reporter.wo';
 export * from './widget-object';
 
-export * from './locator/index';
+export * from './widget-object/index';

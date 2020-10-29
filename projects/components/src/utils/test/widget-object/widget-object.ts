@@ -7,15 +7,15 @@ import { Type } from '@angular/core';
 
 /**
  * A class that is able to make queries to the DOM and be instantiated by a widget finder.
+ * Widget objects should be used only to find elements in the DOM. You should not attempt to take
+ * actions on these elements in a given widget object.
  *
  * All widget objects should extend this base class.
  *
  * @example
  *
  * class LoginWidgetObject<T> extends BaseWidgetObject<T> {
- *      getUsernameField(): T {
- *          return this.driver.get('.username').unwrap();
- *      }
+ *      getUsernameField = this.locatorForChild('.username');
  *
  *      getOkButton(): T {
  *          return this.driver.getByText('button', 'Ok').unwrap();
@@ -31,6 +31,27 @@ export class BaseWidgetObject<T> {
     constructor(driver: LocatorDriver<T>) {
         this.locatorDriver = driver;
     }
+
+    /**
+     * Returns an element locator that will find a child with the given cssSelector when called.
+     */
+    protected locatorForChild? = (cssSelector: string): (() => T) => {
+        return () => this.locatorDriver.get(cssSelector).unwrap();
+    };
+
+    /**
+     * Returns an element locator that will find a parent with the given cssSelector when called.
+     */
+    protected locatorForParent? = (cssSelector: string): (() => T) => {
+        return () => this.locatorDriver.parents(cssSelector).unwrap();
+    };
+
+    /**
+     * Returns an element locator that will find a child with the given cssSelector and text when called.
+     */
+    protected locatorForText? = (cssSelector: string, text: string): (() => T) => {
+        return () => this.locatorDriver.getByText(cssSelector, text).unwrap();
+    };
 }
 
 /**
@@ -38,24 +59,27 @@ export class BaseWidgetObject<T> {
  */
 export interface LocatorDriver<T> {
     /**
-     * Finds all child elements that match the given {@param cssSelector}.
+     * Finds all child elements that match the given cssSelector.
      */
     get(cssSelector: string): LocatorDriver<T>;
 
     /**
-     * Finds all child elements that match the given {@param cssSelector} and have text that contains the given {@param value}.
+     * Finds all child elements that match the given cssSelector and have text that contains the given value.
      */
     getByText(cssSelector: string, value: string): LocatorDriver<T>;
 
     /**
-     * Finds the closest parent that matches the given {@param cssSelector}.
+     * Finds the closest parent that matches the given cssSelector.
      */
     parents(cssSelector: string): LocatorDriver<T>;
 
     /**
      * Returns an instance of the given widget within this widget object.
      */
-    findWidget<W extends TaggedClass & Type<BaseWidgetObject<T>>>(widget: W): CorrectReturnTypes<InstanceType<W>, T>;
+    findWidget<W extends TaggedClass & Type<BaseWidgetObject<T>>>(
+        widget: W,
+        cssSelector?: string
+    ): CorrectReturnTypes<InstanceType<W>, T>;
 
     /**
      * Unwraps the value from this query and turns it into the resulting object type.

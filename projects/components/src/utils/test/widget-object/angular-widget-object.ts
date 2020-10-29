@@ -4,10 +4,11 @@
  */
 
 import { DebugElement, Type } from '@angular/core';
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { BaseWidgetObject, TaggedClass } from './widget-locator';
-import { CorrectReturnTypes, LocatorDriver } from './widget-locator';
+import { AngularWidgetObjectFinder } from './angular-widget-finder';
+import { BaseWidgetObject, TaggedClass } from './widget-object';
+import { CorrectReturnTypes, LocatorDriver } from './widget-object';
 
 /**
  * Knows how to find Angular TestElements in the DOM.
@@ -74,31 +75,46 @@ export class AngularLocatorDriver implements LocatorDriver<TestElement> {
      * @inheritdoc
      */
     findWidget<W extends TaggedClass & Type<BaseWidgetObject<TestElement>>>(
-        widget: W
+        widget: W,
+        cssSelector?: string
     ): CorrectReturnTypes<InstanceType<W>, TestElement> {
-        return new AngularWidgetObjectFinder(this.testElement.fixture).find(widget, this.rootElement);
+        return new AngularWidgetObjectFinder(this.testElement.fixture).find(widget, this.rootElement, cssSelector);
     }
 }
 
 /**
  * A wrapper around an array of DebugElements that adds convenience methods.
  * Avoid accessing the debug elements at all costs.
+ *
+ * Can be used in a `for ... of ...` loop to inspect all the sub elements within this TestElement.
+ *
+ * @example
+ * for (const el of testElement) {
+ *     expect(el.enabled()).toBeTruthy()
+ * }
  */
-export class TestElement {
+export class TestElement implements Iterable<TestElement> {
     constructor(public elements: DebugElement[], public fixture: ComponentFixture<any>) {}
 
     /**
-     * Gives the text of the elements concatonated with `, `.
+     * Gives the text of the first element.
      */
     text(): string {
-        return this.elements.map((element) => element.nativeElement.textContent.trim()).join(', ');
+        return this.elements[0].nativeElement.textContent.trim();
     }
 
     /**
-     * Gives the value of the elements concatonated with `, `.
+     * Gives the value of the first element.
      */
     value(): string {
-        return this.elements.map((element) => element.nativeElement.value).join(', ');
+        return this.elements[0].nativeElement.value;
+    }
+
+    /**
+     * Says if this element is enabled.
+     */
+    enabled(): boolean {
+        return !this.elements[0].nativeElement.disabled;
     }
 
     /**
@@ -138,71 +154,27 @@ export class TestElement {
     detectChanges(): void {
         this.fixture.detectChanges();
     }
-}
-
-/**
- * An internal type that makes the function return a TestElement.
- */
-type CorrectReturnType<F> = F extends (...args: any[]) => infer R
-    ? (...args: Parameters<F>) => TestElement
-    : TestElement;
-/**
- * Changes the class so that all functions/getters return TestElements.
- */
-export type AngularifyReturnTypes<T> = {
-    [P in keyof T]: CorrectReturnType<T[P]>;
-};
-
-/**
- * Knows how to find Angular objects in the DOM.
- */
-export class AngularWidgetObjectFinder<H = unknown> {
-    /**
-     * We don't care or could possibly know the type of fixture
-     */
-    private fixture: ComponentFixture<H>;
 
     /**
-     * If you need direct access to manipulate the host
+     * Gives the elements contained within this TestElement where each element is its own TestElement
      */
-    public hostComponent: H;
-
-    /**
-     * @param componentConstructor The host component to be created as the root of the tests's fixture
-     */
-    constructor(arg: Type<H> | ComponentFixture<H>) {
-        this.fixture = (arg as ComponentFixture<H>).componentRef
-            ? (arg as ComponentFixture<H>)
-            : TestBed.createComponent(arg as Type<H>);
-        this.hostComponent = this.fixture.componentInstance;
+    toArray(): TestElement[] {
+        return this.elements.map((el) => new TestElement([el], this.fixture));
     }
 
     /**
-     * Finds a single widget object
-     * @throws An error if the widget is not found or if there are multiple instances
+     * Allows a TestElement to be used in a `for ... of ...` loop.
      */
-    public find<T extends TaggedClass & Type<BaseWidgetObject<TestElement>>, G>(
-        widgetConstructor: T,
-        ancestor?: DebugElement,
-        className?: string
-    ): CorrectReturnTypes<InstanceType<T>, TestElement> {
-        let query = widgetConstructor.tagName;
-        if (className) {
-            query += `.${className}`;
-        }
-        if (ancestor) {
-            query = query;
-        }
-
-        const root = (ancestor ? ancestor : this.fixture.debugElement).query(By.css(query));
-        const widget = new widgetConstructor(new AngularLocatorDriver(new TestElement([root], this.fixture), root));
-        return (widget as any) as CorrectReturnTypes<InstanceType<T>, TestElement>;
-    }
-
-    /**
-     * Runs a change detection cycle.
-     */
-    public detectChanges(): void {
-        this.fixture.detectChanges();
+    [Symbol.iterator](): Iterator<TestElement, any, undefined> {
+        let counter = 0;
+        return {
+            next: () => {
+                counter += 1;
+                return {
+                    done: counter === this.elements.length,
+                    value: new TestElement([this.elements[counter]], this.fixture),
+                };
+            },
+        };
     }
 }

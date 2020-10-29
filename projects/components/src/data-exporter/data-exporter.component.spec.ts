@@ -8,7 +8,7 @@ import { fakeAsync, TestBed, tick } from '@angular/core/testing';
 import { Component, ViewChild } from '@angular/core';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { MockTranslationService, TranslationService } from '@vcd/i18n';
-import { AngularWidgetObjectFinder } from '../utils/test/locator/angular-widget-locator';
+import { AngularWidgetObjectFinder } from '../utils/test/widget-object/angular-widget-finder';
 import { CsvExporterService } from './csv-exporter.service';
 import { DataExporterComponent, DataExportRequestEvent, ExportColumn } from './data-exporter.component';
 import { VcdDataExporterModule } from './data-exporter.module';
@@ -20,7 +20,7 @@ interface HasFinder2<T> {
 type TestHostFinder = HasFinder2<TestHostComponent>;
 type TestExporterColumnsWithoutDisplayNameFinder = HasFinder2<TestExporterColumnsWithoutDisplayNameComponent>;
 
-fdescribe('DataExporterColumnsWithoutDisplayName', () => {
+describe('DataExporterColumnsWithoutDisplayName', () => {
     beforeEach(async () => {
         await TestBed.configureTestingModule({
             imports: [VcdDataExporterModule, NoopAnimationsModule],
@@ -61,13 +61,16 @@ fdescribe('DataExporterColumnsWithoutDisplayName', () => {
         exporter.getExportButton().click();
     });
 
-    // TODO: avoid passing large elements to Karma/Jasmine
     it('displays field name when there is no display name', function (this: TestExporterColumnsWithoutDisplayNameFinder): void {
         const exporter = this.finder.find(DataExporterWidgetObject);
         exporter.getToggleSelectAll().click();
         this.finder.detectChanges();
         const dropdownMenuItemTexts = exporter.getColumnBubbles();
-        expect(dropdownMenuItemTexts.text()).toEqual('col1, col2');
+        const expects = ['col1', 'col2'];
+        for (const item of dropdownMenuItemTexts) {
+            expect(item.text()).toEqual(expects.pop());
+        }
+        expect(dropdownMenuItemTexts.text()).toEqual('col1');
 
         exporter.getColumnCheckbox(0).click();
 
@@ -78,7 +81,7 @@ fdescribe('DataExporterColumnsWithoutDisplayName', () => {
     });
 });
 
-fdescribe('VcdExportTableComponent', () => {
+describe('VcdExportTableComponent', () => {
     beforeEach(async () => {
         await TestBed.configureTestingModule({
             imports: [VcdDataExporterModule, NoopAnimationsModule],
@@ -101,13 +104,23 @@ fdescribe('VcdExportTableComponent', () => {
         it('displays them as checkboxes', function (this: TestHostFinder): void {
             const exporter = this.finder.find(DataExporterWidgetObject);
             exporter.getToggleSelectAll().click();
-            expect(exporter.getColumnBubbles().text()).toEqual('Name, Description');
+            expect(
+                exporter
+                    .getColumnBubbles()
+                    .toArray()
+                    .map((it) => it.text())
+            ).toEqual(['Name', 'Description']);
         });
 
         it('hides column checkboxes when clicked', function (this: TestHostFinder): void {
             const exporter = this.finder.find(DataExporterWidgetObject);
             exporter.getToggleSelectAll().click();
-            expect(exporter.getColumnBubbles().text()).toBe('Name, Description');
+            expect(
+                exporter
+                    .getColumnBubbles()
+                    .toArray()
+                    .map((it) => it.text())
+            ).toEqual(['Name', 'Description']);
             exporter.getColumnCheckbox(0).click();
             expect(exporter.getColumnBubbles().text()).toBe('Description');
         });
@@ -126,7 +139,12 @@ fdescribe('VcdExportTableComponent', () => {
             exporter.getColumnCheckbox(0).click();
             expect(exporter.getColumnBubbles().text()).toBe('Description');
             exporter.getColumnCheckbox(0).click();
-            expect(exporter.getColumnBubbles().text()).toBe('Name, Description');
+            expect(
+                exporter
+                    .getColumnBubbles()
+                    .toArray()
+                    .map((it) => it.text())
+            ).toEqual(['Name', 'Description']);
             exporter.getToggleSelectAll().click();
             exporter.getColumnDropdown().click();
             exporter.getToggleSelectAll().click();

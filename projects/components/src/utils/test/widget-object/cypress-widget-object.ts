@@ -4,10 +4,10 @@
  */
 
 import { Type } from '@angular/core';
-import { IdGenerator } from '../../id-generator/id-generator';
-import { BaseWidgetObject, CorrectReturnTypes, LocatorDriver, TaggedClass } from './widget-locator';
+import { CypressWidgetObjectFinder } from './cypress-widget-finder';
+import { BaseWidgetObject, CorrectReturnTypes, LocatorDriver, TaggedClass } from './widget-object';
 
-type Chainable = Cypress.Chainable<JQuery<HTMLElement>>;
+export type Chainable = Cypress.Chainable<JQuery<HTMLElement>>;
 
 /**
  * Knows how to find Cypress chainables in the DOM.
@@ -50,9 +50,10 @@ export class CypressLocatorDriver implements LocatorDriver<Chainable> {
      * @inheritdoc
      */
     findWidget<W extends TaggedClass & Type<BaseWidgetObject<Chainable>>>(
-        widget: W
+        widget: W,
+        cssSelector?: string
     ): CorrectReturnTypes<InstanceType<W>, Chainable> {
-        return new CypressWidgetObjectFinder().find(widget, '@' + this.alias);
+        return new CypressWidgetObjectFinder().find(widget, '@' + this.alias, cssSelector);
     }
 
     /**
@@ -65,31 +66,5 @@ export class CypressLocatorDriver implements LocatorDriver<Chainable> {
         } else {
             return this.chainable;
         }
-    }
-}
-
-/**
- * Knows how to find Cypress widget objects within the DOM.
- */
-export class CypressWidgetObjectFinder {
-    private idGenerator = new IdGenerator('cy-id');
-    /**
-     * Finds a single widget object
-     * @throws An error if the widget is not found or if there are multiple instances
-     */
-    public find<T extends TaggedClass & Type<BaseWidgetObject<Chainable>>>(
-        widgetConstructor: T,
-        ancestor?: string,
-        className?: string
-    ): CorrectReturnTypes<InstanceType<T>, Chainable> {
-        let tagName = widgetConstructor.tagName;
-        if (className) {
-            tagName += `.${className}`;
-        }
-        const id = this.idGenerator.generate();
-        const search = ancestor ? cy.get(ancestor).find(tagName) : cy.get(tagName);
-        const promise = search.as(id);
-        const widget = new widgetConstructor(new CypressLocatorDriver(promise, true, id));
-        return (widget as any) as CorrectReturnTypes<InstanceType<T>, Chainable>;
     }
 }
