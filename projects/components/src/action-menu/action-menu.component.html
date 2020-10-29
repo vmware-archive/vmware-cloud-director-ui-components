@@ -76,8 +76,10 @@
         }}</ng-container>
 
         <a *ngIf="shouldShowIcon" role="tooltip" aria-haspopup="true" class="tooltip tooltip-sm">
-            <clr-icon size="1em" [attr.shape]="action.icon"></clr-icon>
-            <span class="tooltip-content" *ngIf="shouldShowTooltip">{{ action.textKey }}</span>
+            <clr-icon [attr.size]="'1em'" [attr.shape]="action.icon"></clr-icon>
+            <span class="tooltip-content" *ngIf="shouldShowTooltip">{{
+                action.isTranslatable === false ? action.textKey : (action.textKey | translate)
+            }}</span>
         </a>
     </button>
 </ng-template>

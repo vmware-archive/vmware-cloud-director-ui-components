@@ -1,0 +1,62 @@
+<div>
+    <p>
+        Contextual actions depend on entities selected. The display of action list as inline or dropdown is customizable
+        using ActionDisplayConfig.contextual.styling property.
+    </p>
+
+    <h4 class="example-heading">Inline display</h4>
+    <p>
+        When displayed inline, Contextual actions that are marked as featured are shown towards the left outside the
+        dropdown containing all the contextual actions
+    </p>
+    <vcd-action-menu [actions]="actions" [actionDisplayConfig]="inlineActionDisplayConfig" [selectedEntities]="[{}]">
+    </vcd-action-menu>
+
+    <h4 class="example-heading">Dropdown display</h4>
+    <p>
+        When displayed in a dropdown, they are displayed just as the JS object structure of the actions object i.e.,
+        nested objects are displayed as nested menus. However, When there are nested actions with just one child, they
+        are automatically un nested. In the example below, the start action belongs to the nested menu called Power
+        actions. However, as it is the only child, it is un nested
+    </p>
+    <vcd-action-menu
+        [actions]="actions"
+        [actionDisplayConfig]="dropdownActionDisplayConfig"
+        [dropdownTriggerBtnText]="'contextual.actions'"
+        [selectedEntities]="[{}]"
+    >
+    </vcd-action-menu>
+
+    <h4 class="example-heading">Featured count</h4>
+    <p>
+        When displayed inline, The number of contextual featured actions to be shown is customizable using the
+        ActionDisplayConfig.contextual.featuredCount property. In the example below, although there are 2 featured
+        actions, only one is displayed outside the dropdown because, the featured count is set to 1
+    </p>
+    <vcd-action-menu
+        [actions]="actions"
+        [actionDisplayConfig]="featuredCountActionDisplayConfig"
+        [selectedEntities]="[{}]"
+    >
+    </vcd-action-menu>
+
+    <h4 class="example-heading">Button contents</h4>
+    <h6>Just icons</h6>
+    <p>
+        The contents of contextual action buttons can be customized to show icons using
+        ActionDisplayConfig.contextual.buttonContents and ActionItem.icon properties
+    </p>
+    <vcd-action-menu
+        [actions]="actions"
+        [actionDisplayConfig]="buttonContentsActionDisplayConfig"
+        [selectedEntities]="[{}]"
+    >
+    </vcd-action-menu>
+    <h6>Both text and icon</h6>
+    <vcd-action-menu
+        [actions]="actions"
+        [actionDisplayConfig]="buttonContentsActionDisplayConfig2"
+        [selectedEntities]="[{}]"
+    >
+    </vcd-action-menu>
+</div>

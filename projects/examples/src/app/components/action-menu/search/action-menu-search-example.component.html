@@ -1,0 +1,15 @@
+<div>
+    <p>
+        Press 'command+.' on Mac OS or 'ctrl+.' on PC to open quick search and search through all the actions displayed
+        below
+    </p>
+    <vcd-action-menu
+        [actions]="actions"
+        [actionDisplayConfig]="actionDisplayConfig"
+        [selectedEntities]="selectedEntities"
+        [dropdownTriggerBtnText]="'vcd.cc.action.menu.actions'"
+    >
+    </vcd-action-menu>
+</div>
+
+<vcd-quick-search [(open)]="spotlightOpen" [placeholder]="'Search contextual actions'"></vcd-quick-search>

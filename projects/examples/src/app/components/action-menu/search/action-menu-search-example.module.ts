@@ -8,12 +8,12 @@ import { NgModule } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import { ClarityModule } from '@clr/angular';
 import { QuickSearchModule, VcdActionMenuModule } from '@vcd/ui-components';
-import { ActionMenuExampleComponent } from './action-menu.example.component';
+import { ActionMenuSearchExampleComponent } from './action-menu-search-example.component';
 
 @NgModule({
-    declarations: [ActionMenuExampleComponent],
+    declarations: [ActionMenuSearchExampleComponent],
     imports: [CommonModule, ClarityModule, ReactiveFormsModule, VcdActionMenuModule, QuickSearchModule],
-    exports: [ActionMenuExampleComponent],
-    entryComponents: [ActionMenuExampleComponent],
+    exports: [ActionMenuSearchExampleComponent],
+    entryComponents: [ActionMenuSearchExampleComponent],
 })
-export class ActionMenuExampleModule {}
+export class ActionMenuSearchExampleModule {}

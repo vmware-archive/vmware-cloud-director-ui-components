@@ -13,13 +13,15 @@ import { ActionDisplayConfig, ActionItem, ActionStyling, TextIcon } from '@vcd/u
 export class ActionMenuWithSeparatorsExampleComponent {
     actions: ActionItem<any, any>[] = [
         {
-            textKey: 'action.1',
+            textKey: 'Some action',
+            isTranslatable: false,
         },
         {
             isSeparator: true,
         },
         {
-            textKey: 'action.1',
+            textKey: 'Some action',
+            isTranslatable: false,
         },
         {
             isSeparator: true,
@@ -28,7 +30,8 @@ export class ActionMenuWithSeparatorsExampleComponent {
             isSeparator: true,
         },
         {
-            textKey: 'action.1',
+            textKey: 'Some action',
+            isTranslatable: false,
         },
     ];
     actionDisplayConfig: ActionDisplayConfig = {
