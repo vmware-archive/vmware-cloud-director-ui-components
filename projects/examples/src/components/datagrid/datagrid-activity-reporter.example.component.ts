@@ -5,9 +5,9 @@
 
 import { Component } from '@angular/core';
 import {
+    ActionItem,
+    ActionType,
     ActivityIndicatorType,
-    ButtonConfig,
-    ContextualButtonPosition,
     GridColumn,
     GridDataFetchResult,
     GridState,
@@ -18,10 +18,11 @@ interface Data {
 }
 
 /**
- * Shows the activity banner and how it interacts with the buttons.
+ * Shows the activity banner and how it interacts with the actions
  *
- * Press the global button to show the activity reporter, then press either of the buttons
- * to resolve the promise.
+ * If your action handlers return a promise, a banner will be displayed over the grid indicating the loading activity. If the promise fails,
+ * the loading banner will be replaced with an error banner, and if the promise resolves, the loading banner will be replaced with a success
+ * banner if there is a success message otherwise, the loading banner is dismissed.
  */
 @Component({
     selector: 'vcd-datagrid-activity-reporter-example',
@@ -39,41 +40,52 @@ export class DatagridActivityReporterExampleComponent {
         },
     ];
 
-    resolve: () => void;
-    reject: (error: string) => void;
-    started = false;
     indicatorType = ActivityIndicatorType.BANNER;
 
-    buttonConfig: ButtonConfig<Data> = {
-        globalButtons: [
-            {
-                label: 'Start Indicator',
-                isActive: () => true,
-                handler: () => {
-                    return new Promise((resolve, reject) => {
-                        this.started = true;
-                        this.resolve = resolve;
-                        this.reject = reject;
-                    })
-                        .then((): string => {
-                            this.started = false;
-                            return 'good';
-                        })
-                        .catch(error => {
-                            this.started = false;
-                            throw error;
-                        });
-                },
-                class: 'start',
-            },
-        ],
-        contextualButtonConfig: {
-            buttons: [],
-            featured: [],
-            featuredCount: 0,
-            position: ContextualButtonPosition.TOP,
+    private promiseTimeout = 1000;
+    private promiseResolveTimeoutId: number;
+    private promiseRejectTimeoutId: number;
+
+    actions: ActionItem<any, any>[] = [
+        {
+            textKey: 'Start normal activity',
+            isTranslatable: false,
+            availability: () => true,
+            actionType: ActionType.STATIC_FEATURED,
+            handler: () => this.promiseWithSuccess,
         },
-    };
+        {
+            textKey: 'Start activity with error',
+            isTranslatable: false,
+            availability: () => true,
+            actionType: ActionType.STATIC_FEATURED,
+            handler: () => this.promiseWithError,
+        },
+    ];
+
+    get promiseWithSuccess(): Promise<string> {
+        let resolvePromise: (result: string) => void;
+        if (this.promiseResolveTimeoutId) {
+            clearTimeout(this.promiseResolveTimeoutId);
+        }
+        this.promiseResolveTimeoutId = setTimeout(() => {
+            resolvePromise('Success!');
+        }, this.promiseTimeout);
+
+        return new Promise<string>((resolve) => (resolvePromise = resolve));
+    }
+
+    get promiseWithError(): Promise<string> {
+        let rejectPromise: (error: string) => void;
+        if (this.promiseRejectTimeoutId) {
+            clearTimeout(this.promiseRejectTimeoutId);
+        }
+        this.promiseRejectTimeoutId = setTimeout(() => {
+            rejectPromise('Error!');
+        }, this.promiseTimeout);
+
+        return new Promise<string>((resolve, reject) => (rejectPromise = reject));
+    }
 
     refresh(eventData: GridState<Data>): void {
         this.gridData = {
