@@ -5,7 +5,7 @@
 
 import { Component, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import { WidgetFinder, WidgetObject } from '../../utils/test';
+import { WidgetFinder, WidgetObject } from '../../utils/test/widget-object';
 import { configureFormInputTestingModule } from '../base-form-control.spec';
 import { CheckBoxStyling, FormCheckboxComponent } from './form-checkbox.component';
 

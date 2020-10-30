@@ -9,7 +9,7 @@ import { FormControl, FormsModule, ReactiveFormsModule, Validators } from '@angu
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ClarityModule } from '@clr/angular';
 import { I18nModule, MockTranslationService, TranslationService } from '@vcd/i18n';
-import { WidgetFinder } from '../../utils/test';
+import { WidgetFinder } from '../../utils/test/widget-object';
 import { Hertz, Percent, Unit } from '../../utils/unit/unit';
 import { UnitFormatter } from '../../utils/unit/unit-formatter';
 import { VcdFormModule } from '../form.module';

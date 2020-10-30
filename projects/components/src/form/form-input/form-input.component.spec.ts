@@ -5,7 +5,7 @@
 
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { WidgetFinder, WidgetObject } from '../../utils/test';
+import { WidgetFinder, WidgetObject } from '../../utils/test/widget-object';
 import { configureFormInputTestingModule } from '../base-form-control.spec';
 import { FormInputComponent, getFormattedDateValue } from './form-input.component';
 

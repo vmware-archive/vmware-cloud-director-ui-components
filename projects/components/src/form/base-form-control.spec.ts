@@ -7,7 +7,7 @@ import { Component, Type, ViewChild } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
 import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MockTranslationService, TranslationService } from '@vcd/i18n';
-import { WidgetFinder } from '../utils/test';
+import { WidgetFinder } from '../utils/test/widget-object';
 import { FormInputComponent } from './form-input/form-input.component';
 import { VcdFormInputWidgetObject } from './form-input/form-input.component.spec';
 import { VcdFormModule } from './form.module';
@@ -33,9 +33,9 @@ describe('BaseFormControl', () => {
 
     describe('formControl', () => {
         it('returns the form control associated with the VcdFormInputComponent', () => {
-            expect(hostComponent.baseFormInput.formControl).toBe(hostComponent.formGroup.get(
-                'stringInput'
-            ) as FormControl);
+            expect(hostComponent.baseFormInput.formControl).toBe(
+                hostComponent.formGroup.get('stringInput') as FormControl
+            );
         });
     });
 

@@ -6,7 +6,7 @@
 import { Component, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { SelectOption } from '../../common/interfaces/select-option';
-import { WidgetFinder, WidgetObject } from '../../utils/test';
+import { WidgetFinder, WidgetObject } from '../../utils/test/widget-object';
 import { configureFormInputTestingModule } from '../base-form-control.spec';
 import { FormSelectComponent } from './form-select.component';
 

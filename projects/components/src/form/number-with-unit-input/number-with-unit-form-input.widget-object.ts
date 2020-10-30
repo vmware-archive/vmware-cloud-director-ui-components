@@ -4,7 +4,7 @@
  */
 
 import { AbstractControl } from '@angular/forms';
-import { WidgetObject } from '../../utils/test';
+import { WidgetObject } from '../../utils/test/widget-object';
 import { Percent, Unit } from '../../utils/unit/unit';
 import { NumberWithUnitFormInputComponent } from './number-with-unit-form-input.component';
 
@@ -57,7 +57,7 @@ export class NumberWithUnitFormInputWidgetObject extends WidgetObject<NumberWith
         return (
             this.component.unitOptions
                 // tslint:disable-next-line:triple-equals
-                .find(item => item.getMultiplier() == this.selectedUnit)
+                .find((item) => item.getMultiplier() == this.selectedUnit)
                 .getUnitName()
         );
     }

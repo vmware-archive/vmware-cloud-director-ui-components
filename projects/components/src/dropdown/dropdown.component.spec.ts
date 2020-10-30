@@ -7,7 +7,7 @@ import { Component, DebugElement } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { MockTranslationService, TranslationService } from '@vcd/i18n';
-import { WidgetFinder, WidgetObject } from '../utils/test';
+import { WidgetFinder, WidgetObject } from '../utils/test/widget-object';
 import { DropdownComponent, DropdownItem, NESTED_MENU_HIDE_DELAY } from './dropdown.component';
 import { DropdownModule } from './dropdown.module';
 
