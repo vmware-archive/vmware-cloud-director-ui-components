@@ -7,7 +7,7 @@ import { DebugElement, Type } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { AngularLocatorDriver, TestElement } from './angular-widget-object';
-import { BaseWidgetObject, TaggedClass } from './widget-object';
+import { BaseWidgetObject, FindableWidget } from './widget-object';
 import { CorrectReturnTypes } from './widget-object';
 
 /**
@@ -38,17 +38,17 @@ export class AngularWidgetObjectFinder<H = unknown> {
     /**
      * Finds a single widget object
      *
-     * @param widgetConstructor the constructor of the widget to use
-     * @param ancestor the parent to begin the search from
-     * @param cssSelector the cssSelector to post-pend to the tagName for the search
+     * @param widgetConstructor - The constructor of the widget to use
+     * @param ancestor - The parent DebugElement to begin the search from
+     * @param cssSelector - The cssSelector to post-pend to the tagName for the search
      *
      * @throws An error if the widget is not found or if there are multiple instances
      */
-    public find<T extends TaggedClass & Type<BaseWidgetObject<TestElement>>, G>(
-        widgetConstructor: T,
+    public find<W extends BaseWidgetObject<TestElement>, C extends FindableWidget<TestElement, W>>(
+        widgetConstructor: C,
         ancestor?: DebugElement,
         cssSelector?: string
-    ): CorrectReturnTypes<InstanceType<T>, TestElement> {
+    ): CorrectReturnTypes<InstanceType<C>, TestElement> {
         let query = widgetConstructor.tagName;
         if (cssSelector) {
             query += `${cssSelector}`;
@@ -63,7 +63,7 @@ export class AngularWidgetObjectFinder<H = unknown> {
         }
 
         const widget = new widgetConstructor(new AngularLocatorDriver(new TestElement([root], this.fixture), root));
-        return (widget as any) as CorrectReturnTypes<InstanceType<T>, TestElement>;
+        return (widget as any) as CorrectReturnTypes<InstanceType<C>, TestElement>;
     }
 
     /**

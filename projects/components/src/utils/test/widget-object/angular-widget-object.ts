@@ -7,7 +7,7 @@ import { DebugElement, Type } from '@angular/core';
 import { ComponentFixture } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { AngularWidgetObjectFinder } from './angular-widget-finder';
-import { BaseWidgetObject, TaggedClass } from './widget-object';
+import { BaseWidgetObject, FindableWidget } from './widget-object';
 import { CorrectReturnTypes, LocatorDriver } from './widget-object';
 
 /**
@@ -74,10 +74,10 @@ export class AngularLocatorDriver implements LocatorDriver<TestElement> {
     /**
      * @inheritdoc
      */
-    findWidget<W extends TaggedClass & Type<BaseWidgetObject<TestElement>>>(
-        widget: W,
+    findWidget<W extends BaseWidgetObject<TestElement>, C extends FindableWidget<TestElement, W>>(
+        widget: C,
         cssSelector?: string
-    ): CorrectReturnTypes<InstanceType<W>, TestElement> {
+    ): CorrectReturnTypes<InstanceType<C>, TestElement> {
         return new AngularWidgetObjectFinder(this.testElement.fixture).find(widget, this.rootElement, cssSelector);
     }
 }

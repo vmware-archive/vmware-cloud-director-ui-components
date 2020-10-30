@@ -7,6 +7,5 @@ export * from './datagrid/datagrid.wo';
 export * from './datagrid/vcd-datagrid.wo';
 export * from './activity-reporter/banner-activity-reporter.wo';
 export * from './activity-reporter/spinner-activity-reporter.wo';
-export * from './widget-object';
 
 export * from './widget-object/index';

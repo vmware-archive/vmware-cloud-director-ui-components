@@ -3,9 +3,8 @@
  * SPDX-License-Identifier: BSD-2-Clause
  */
 
-import { Type } from '@angular/core';
 import { CypressWidgetObjectFinder } from './cypress-widget-finder';
-import { BaseWidgetObject, CorrectReturnTypes, LocatorDriver, TaggedClass } from './widget-object';
+import { BaseWidgetObject, CorrectReturnTypes, FindableWidget, LocatorDriver } from './widget-object';
 
 export type Chainable = Cypress.Chainable<JQuery<HTMLElement>>;
 
@@ -18,25 +17,26 @@ export class CypressLocatorDriver implements LocatorDriver<Chainable> {
     /**
      * @inheritdoc
      */
-    get(cssSelector: string): CypressLocatorDriver {
+    get(cssSelector: string, options?: unknown): CypressLocatorDriver {
         const root = this.getBase();
-        return new CypressLocatorDriver(root.find(cssSelector), false, this.alias);
+        return new CypressLocatorDriver(root.find(cssSelector, options), false, this.alias);
     }
 
     /**
      * @inheritdoc
      */
-    getByText(cssSelector: string, value: string): CypressLocatorDriver {
+    getByText(cssSelector: string, value: string, options?: unknown): CypressLocatorDriver {
         const root = this.getBase();
-        return new CypressLocatorDriver(root.contains(cssSelector, value, { matchCase: false }), false, this.alias);
+        const queryOptions = { matchCase: false, ...(options ? (options as object) : {}) };
+        return new CypressLocatorDriver(root.contains(cssSelector, value, queryOptions), false, this.alias);
     }
 
     /**
      * @inheritdoc
      */
-    parents(cssSelector: string): CypressLocatorDriver {
+    parents(cssSelector: string, options?: unknown): CypressLocatorDriver {
         const root = this.getBase();
-        return new CypressLocatorDriver(root.parent(cssSelector), false, this.alias);
+        return new CypressLocatorDriver(root.parent(cssSelector, options), false, this.alias);
     }
 
     /**
@@ -49,10 +49,10 @@ export class CypressLocatorDriver implements LocatorDriver<Chainable> {
     /**
      * @inheritdoc
      */
-    findWidget<W extends TaggedClass & Type<BaseWidgetObject<Chainable>>>(
-        widget: W,
+    findWidget<W extends BaseWidgetObject<Chainable>, C extends FindableWidget<Chainable, W>>(
+        widget: C,
         cssSelector?: string
-    ): CorrectReturnTypes<InstanceType<W>, Chainable> {
+    ): CorrectReturnTypes<InstanceType<C>, Chainable> {
         return new CypressWidgetObjectFinder().find(widget, '@' + this.alias, cssSelector);
     }
 

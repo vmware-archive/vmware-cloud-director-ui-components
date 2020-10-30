@@ -47,17 +47,11 @@ class HeaderWidgetObject<T> extends BaseWidgetObject<T> {
 class ClickTrackerWidgetObject<T> extends BaseWidgetObject<T> {
     static tagName = 'vcd-click-tracker';
 
-    get clickCount(): T {
-        return this.locatorDriver.get('.click-count').unwrap();
-    }
+    getClickCount = this.locatorForChild('.click-count');
 
-    get headerText(): T {
-        return this.locatorDriver.get('h1').unwrap();
-    }
+    getHeaderText = this.locatorForChild('h1');
 
-    getTrackerElement(): T {
-        return this.locatorDriver.get('p').unwrap();
-    }
+    getTrackerElement = this.locatorForChild('p');
 
     findHeaderWidget(): HeaderWidgetObject<T> {
         return this.locatorDriver.findWidget(HeaderWidgetObject);
@@ -68,7 +62,7 @@ class ClickTrackerWidgetObject<T> extends BaseWidgetObject<T> {
  * This is the host component that is typically created within the test
  */
 @Component({
-    template: ` <vcd-click-tracker header="First"></vcd-click-tracker> `,
+    template: `<vcd-click-tracker header="First"></vcd-click-tracker> `,
 })
 class HostComponent {}
 
@@ -101,7 +95,7 @@ describe('AngularWidgetFinder', () => {
         describe('find', () => {
             it('returns the first one within the fixture if no classname is specified', function (this: HasAngularFinder): void {
                 const widget = this.finder.find(ClickTrackerWidgetObject);
-                expect(widget.headerText.text()).toEqual('hello');
+                expect(widget.getHeaderText().text()).toEqual('hello');
             });
 
             it('can find widgets within widgets', function (this: HasAngularFinder): void {
@@ -133,30 +127,18 @@ describe('WidgetObject (through ClickTracerWidgetObject)', () => {
         );
     });
 
-    afterEach(function (this: HasClickTracker): void {
-        if (this.fixture) {
-            this.fixture.destroy();
-        }
-    });
-
-    describe('constructor', () => {
-        it('can be called when you create the instance directly', function (this: HasClickTracker): void {
-            expect(this.clickTracker).toBeTruthy();
-        });
-    });
-
     describe('getText', () => {
         it('can find elements within itself passing a css query', async function (this: HasClickTracker): Promise<
             void
         > {
-            expect(this.clickTracker.clickCount.text()).toEqual('0');
+            expect(this.clickTracker.getClickCount().text()).toEqual('0');
         });
     });
 
     describe('click', () => {
         it('calls detectChanges after clicking', async function (this: HasClickTracker): Promise<void> {
             this.clickTracker.getTrackerElement().click();
-            expect(this.clickTracker.clickCount.text()).toEqual('1');
+            expect(this.clickTracker.getClickCount().text()).toEqual('1');
         });
     });
 });

@@ -8,7 +8,7 @@ import { TestBed } from '@angular/core/testing';
 import { FormlyFieldConfig, FormlyForm, FormlyModule } from '@ngx-formly/core';
 import { MockTranslationService, TranslationService } from '@vcd/i18n';
 import { CommonUtil } from '../../../../utils/index';
-import { WidgetFinder, WidgetObject } from '../../../../utils/test/index';
+import { WidgetFinder, WidgetObject } from '../../../../utils/test/widget-object';
 import { VcdFormlyFieldConfig, VcdFormlyInputTypes, VcdFormlyTemplateOptions } from '../../vcd-formly.config';
 import { VcdFormlyModule } from '../../vcd-formly.module';
 import { FormlyInputComponent } from './formly-input.component';

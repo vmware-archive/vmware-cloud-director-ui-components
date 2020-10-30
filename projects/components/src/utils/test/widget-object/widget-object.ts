@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: BSD-2-Clause
  */
 
-import { Type } from '@angular/core';
+type ElementLocator<T> = (options?: unknown) => T;
 
 /**
  * A class that is able to make queries to the DOM and be instantiated by a widget finder.
@@ -35,22 +35,22 @@ export class BaseWidgetObject<T> {
     /**
      * Returns an element locator that will find a child with the given cssSelector when called.
      */
-    protected locatorForChild? = (cssSelector: string): (() => T) => {
-        return () => this.locatorDriver.get(cssSelector).unwrap();
+    protected locatorForChild? = (cssSelector: string): ElementLocator<T> => {
+        return (options?: unknown) => this.locatorDriver.get(cssSelector, options).unwrap();
     };
 
     /**
      * Returns an element locator that will find a parent with the given cssSelector when called.
      */
-    protected locatorForParent? = (cssSelector: string): (() => T) => {
-        return () => this.locatorDriver.parents(cssSelector).unwrap();
+    protected locatorForParent? = (cssSelector: string): ElementLocator<T> => {
+        return (options?: unknown) => this.locatorDriver.parents(cssSelector, options).unwrap();
     };
 
     /**
      * Returns an element locator that will find a child with the given cssSelector and text when called.
      */
-    protected locatorForText? = (cssSelector: string, text: string): (() => T) => {
-        return () => this.locatorDriver.getByText(cssSelector, text).unwrap();
+    protected locatorForText? = (cssSelector: string, text: string): ElementLocator<T> => {
+        return (options?: unknown) => this.locatorDriver.getByText(cssSelector, text, options).unwrap();
     };
 }
 
@@ -61,25 +61,25 @@ export interface LocatorDriver<T> {
     /**
      * Finds all child elements that match the given cssSelector.
      */
-    get(cssSelector: string): LocatorDriver<T>;
+    get(cssSelector: string, options?: unknown): LocatorDriver<T>;
 
     /**
      * Finds all child elements that match the given cssSelector and have text that contains the given value.
      */
-    getByText(cssSelector: string, value: string): LocatorDriver<T>;
+    getByText(cssSelector: string, value: string, options?: unknown): LocatorDriver<T>;
 
     /**
      * Finds the closest parent that matches the given cssSelector.
      */
-    parents(cssSelector: string): LocatorDriver<T>;
+    parents(cssSelector: string, options?: unknown): LocatorDriver<T>;
 
     /**
      * Returns an instance of the given widget within this widget object.
      */
-    findWidget<W extends TaggedClass & Type<BaseWidgetObject<T>>>(
-        widget: W,
+    findWidget<W extends BaseWidgetObject<T>, C extends FindableWidget<T, W>>(
+        widget: C,
         cssSelector?: string
-    ): CorrectReturnTypes<InstanceType<W>, T>;
+    ): CorrectReturnTypes<InstanceType<C>, T>;
 
     /**
      * Unwraps the value from this query and turns it into the resulting object type.
@@ -99,8 +99,10 @@ export type CorrectReturnTypes<T, R> = {
 };
 
 /**
- * A class with a static tagName.
+ * The interface that all WidgetObject classes must satisfy. This means that they must extend BaseWidgetObject and
+ * have a static tagName.
  */
-export type TaggedClass = {
+export interface FindableWidget<T, W extends BaseWidgetObject<T>> {
+    new (driver: LocatorDriver<T>): W;
     tagName: string;
-};
+}
