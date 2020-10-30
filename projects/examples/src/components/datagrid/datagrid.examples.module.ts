@@ -121,7 +121,7 @@ Documentation.registerDocumentationEntry({
         {
             component: DatagridActivityReporterExampleComponent,
             forComponent: null,
-            title: 'Activity reporter + buttons example',
+            title: 'Activity reporter',
             urlSegment: 'datagrid-activity-reporter',
         },
         {
