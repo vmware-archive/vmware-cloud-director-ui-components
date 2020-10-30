@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: BSD-2-Clause
  */
 
-import { CypressWidgetObjectFinder, DataExporterWidgetObject } from '@vcd/ui-components';
+import { DataExporterWidgetObject, findCypressWidget } from '@vcd/ui-components';
 
 context('Window', () => {
     beforeEach(() => {
@@ -13,7 +13,7 @@ context('Window', () => {
 
     it('lets you select many column', async () => {
         // https://on.cypress.io/window
-        const widget = new CypressWidgetObjectFinder().find(DataExporterWidgetObject);
+        const widget = findCypressWidget(DataExporterWidgetObject);
         widget.getToggleSelectAll().click({
             force: true,
         });

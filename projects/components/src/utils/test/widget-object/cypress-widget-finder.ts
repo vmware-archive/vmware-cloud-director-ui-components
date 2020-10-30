@@ -38,3 +38,20 @@ export class CypressWidgetObjectFinder {
         return (widget as any) as CorrectReturnTypes<InstanceType<C>, Chainable>;
     }
 }
+
+/**
+ * Finds a single widget object
+ *
+ * @param widgetConstructor - The constructor of the widget to use
+ * @param ancestor - The CSS query or alias of the parent to begin the search from.
+ *                 this will be passed to `cy.get` and is a global search.
+ * @param cssSelector - The cssSelector to post-pend to the tagName for the search
+ *
+ */
+export function findCypressWidget<W extends BaseWidgetObject<Chainable>, C extends FindableWidget<Chainable, W>>(
+    widgetConstructor: C,
+    ancestor?: string,
+    cssSelector?: string
+): CorrectReturnTypes<InstanceType<C>, Chainable> {
+    return new CypressWidgetObjectFinder().find(widgetConstructor);
+}

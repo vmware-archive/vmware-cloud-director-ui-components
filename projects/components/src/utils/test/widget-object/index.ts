@@ -5,5 +5,5 @@
 
 export { BaseWidgetObject, FindableWidget } from './widget-object';
 export { TestElement } from './angular-widget-object';
-export { CypressWidgetObjectFinder } from './cypress-widget-finder';
+export { CypressWidgetObjectFinder, findCypressWidget } from './cypress-widget-finder';
 export { AngularWidgetObjectFinder } from './angular-widget-finder';
