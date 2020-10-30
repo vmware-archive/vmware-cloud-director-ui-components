@@ -1748,7 +1748,7 @@ If not passed in, the event will be triggered on the entire node</p>
 
     <div class="tab-pane fade  tab-source-code" id="c-source">
         <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { AbstractControl } from &#x27;@angular/forms&#x27;;
-import { WidgetObject } from &#x27;../../utils/test&#x27;;
+import { WidgetObject } from &#x27;../../utils/test/widget-object&#x27;;
 import { Percent, Unit } from &#x27;../../utils/unit/unit&#x27;;
 import { NumberWithUnitFormInputComponent } from &#x27;./number-with-unit-form-input.component&#x27;;
 
@@ -1801,7 +1801,7 @@ export class NumberWithUnitFormInputWidgetObject extends WidgetObject&lt;NumberW
         return (
             this.component.unitOptions
                 // tslint:disable-next-line:triple-equals
-                .find(item &#x3D;&gt; item.getMultiplier() &#x3D;&#x3D; this.selectedUnit)
+                .find((item) &#x3D;&gt; item.getMultiplier() &#x3D;&#x3D; this.selectedUnit)
                 .getUnitName()
         );
     }

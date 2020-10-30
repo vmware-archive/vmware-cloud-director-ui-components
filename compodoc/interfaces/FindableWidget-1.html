@@ -1,0 +1,299 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>vmware-cloud-director-ui-components documentation</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
+	      <link rel="stylesheet" href="../styles/style.css">
+    </head>
+    <body>
+
+        <div class="navbar navbar-default navbar-fixed-top visible-xs">
+            <a href="../" class="navbar-brand">vmware-cloud-director-ui-components documentation</a>
+            <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
+        </div>
+
+        <div class="xs-menu menu" id="mobile-menu">
+                <div id="book-search-input" role="search"><input type="text" placeholder="Type to search"></div>            <compodoc-menu></compodoc-menu>
+        </div>
+
+        <div class="container-fluid main">
+           <div class="row main">
+               <div class="hidden-xs menu">
+                   <compodoc-menu mode="normal"></compodoc-menu>
+               </div>
+               <!-- START CONTENT -->
+               <div class="content interface">
+                   <div class="content-data">
+
+
+
+
+
+
+
+
+
+
+
+
+<ol class="breadcrumb">
+  <li>Interfaces</li>
+  <li>FindableWidget</li>
+</ol>
+
+<ul class="nav nav-tabs" role="tablist">
+        <li class="active">
+            <a href="#info" role="tab" id="info-tab" data-toggle="tab" data-link="info">Info</a>
+        </li>
+        <li >
+            <a href="#source" role="tab" id="source-tab" data-toggle="tab" data-link="source">Source</a>
+        </li>
+</ul>
+
+<div class="tab-content">
+    <div class="tab-pane fade active in" id="c-info">
+        <p class="comment">
+            <h3>File</h3>
+        </p>
+        <p class="comment">
+            <code>projects/components/src/utils/test/widget-object/widget-object.ts</code>
+        </p>
+
+            <p class="comment">
+                <h3>Description</h3>
+            </p>
+            <p class="comment">
+                <p>The interface that all WidgetObject classes must satisfy. This means that they must extend BaseWidgetObject and
+have a static tagName.</p>
+
+            </p>
+
+
+        <section>
+            <h3 id="index">Index</h3>
+            <table class="table table-sm table-bordered index-table">
+                <tbody>
+                    <tr>
+                        <td class="col-md-4">
+                            <h6><b>Properties</b></h6>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <ul class="index-list">
+                                <li>
+                                        <a href="#tagName">tagName</a>
+                                </li>
+                            </ul>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+
+
+            <section>
+                <h3 id="inputs">Properties</h3>
+                    <table class="table table-sm table-bordered">
+                        <tbody>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <a name="tagName"></a>
+                                        <span class="name"><b>tagName</b><a href="#tagName"><span class="icon ion-ios-link"></span></a></span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <code>tagName:         <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+</code>
+                                    </td>
+                                </tr>
+
+
+                                    <tr>
+                                        <td class="col-md-4">
+                                            <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                                        </td>
+                                    </tr>
+
+
+
+
+
+                        </tbody>
+                    </table>
+            </section>
+    </div>
+
+
+    <div class="tab-pane fade  tab-source-code" id="c-source">
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">type ElementLocator&lt;T&gt; &#x3D; (options?: unknown) &#x3D;&gt; T;
+
+/**
+ * A class that is able to make queries to the DOM and be instantiated by a widget finder.
+ * Widget objects should be used only to find elements in the DOM. You should not attempt to take
+ * actions on these elements in a given widget object.
+ *
+ * All widget objects should extend this base class.
+ *
+ * @example
+ *
+ * class LoginWidgetObject&lt;T&gt; extends BaseWidgetObject&lt;T&gt; {
+ *      getUsernameField &#x3D; this.locatorForChild(&#x27;.username&#x27;);
+ *
+ *      getOkButton(): T {
+ *          return this.driver.getByText(&#x27;button&#x27;, &#x27;Ok&#x27;).unwrap();
+ *      }
+ *
+ *      getOkButtonContainer(): T {
+ *          return this.driver.getByText(&#x27;button&#x27;, &#x27;Ok&#x27;).parent(&#x27;.button-container&#x27;).unwrap();
+ *      }
+ * }
+ */
+export class BaseWidgetObject&lt;T&gt; {
+    protected locatorDriver?: LocatorDriver&lt;T&gt;;
+    constructor(driver: LocatorDriver&lt;T&gt;) {
+        this.locatorDriver &#x3D; driver;
+    }
+
+    /**
+     * Returns an element locator that will find a child with the given cssSelector when called.
+     */
+    protected locatorForChild? &#x3D; (cssSelector: string): ElementLocator&lt;T&gt; &#x3D;&gt; {
+        return (options?: unknown) &#x3D;&gt; this.locatorDriver.get(cssSelector, options).unwrap();
+    };
+
+    /**
+     * Returns an element locator that will find a parent with the given cssSelector when called.
+     */
+    protected locatorForParent? &#x3D; (cssSelector: string): ElementLocator&lt;T&gt; &#x3D;&gt; {
+        return (options?: unknown) &#x3D;&gt; this.locatorDriver.parents(cssSelector, options).unwrap();
+    };
+
+    /**
+     * Returns an element locator that will find a child with the given cssSelector and text when called.
+     */
+    protected locatorForText? &#x3D; (cssSelector: string, text: string): ElementLocator&lt;T&gt; &#x3D;&gt; {
+        return (options?: unknown) &#x3D;&gt; this.locatorDriver.getByText(cssSelector, text, options).unwrap();
+    };
+}
+
+/**
+ * Knows how to find elements of a given type T in the DOM.
+ */
+export interface LocatorDriver&lt;T&gt; {
+    /**
+     * Finds all child elements that match the given cssSelector.
+     */
+    get(cssSelector: string, options?: unknown): LocatorDriver&lt;T&gt;;
+
+    /**
+     * Finds all child elements that match the given cssSelector and have text that contains the given value.
+     */
+    getByText(cssSelector: string, value: string, options?: unknown): LocatorDriver&lt;T&gt;;
+
+    /**
+     * Finds the closest parent that matches the given cssSelector.
+     */
+    parents(cssSelector: string, options?: unknown): LocatorDriver&lt;T&gt;;
+
+    /**
+     * Returns an instance of the given widget within this widget object.
+     */
+    findWidget&lt;W extends BaseWidgetObject&lt;T&gt;, C extends FindableWidget&lt;T, W&gt;&gt;(
+        widget: C,
+        cssSelector?: string
+    ): CorrectReturnTypes&lt;InstanceType&lt;C&gt;, T&gt;;
+
+    /**
+     * Unwraps the value from this query and turns it into the resulting object type.
+     */
+    unwrap(): T;
+}
+
+type ConvertGenericOnly&lt;CR, R&gt; &#x3D; unknown extends CR ? R : CorrectReturnTypes&lt;CR, R&gt;;
+
+/**
+ * Changes the class so that all functions/getters return R.
+ */
+export type CorrectReturnTypes&lt;T, R&gt; &#x3D; {
+    [P in keyof T]: T[P] extends (...args: any[]) &#x3D;&gt; infer CR
+        ? (...args: Parameters&lt;T[P]&gt;) &#x3D;&gt; ConvertGenericOnly&lt;CR, R&gt;
+        : ConvertGenericOnly&lt;T[P], R&gt;;
+};
+
+/**
+ * The interface that all WidgetObject classes must satisfy. This means that they must extend BaseWidgetObject and
+ * have a static tagName.
+ */
+export interface FindableWidget&lt;T, W extends BaseWidgetObject&lt;T&gt;&gt; {
+    new (driver: LocatorDriver&lt;T&gt;): W;
+    tagName: string;
+}
+</code></pre>
+    </div>
+</div>
+
+
+                   
+
+
+
+
+                   </div><div class="search-results">
+    <div class="has-results">
+        <h1 class="search-results-title"><span class='search-results-count'></span> result-matching "<span class='search-query'></span>"</h1>
+        <ul class="search-results-list"></ul>
+    </div>
+    <div class="no-results">
+        <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+    </div>
+</div>
+</div>
+               <!-- END CONTENT -->
+           </div>
+       </div>
+
+       <script>
+            var COMPODOC_CURRENT_PAGE_DEPTH = 1;
+            var COMPODOC_CURRENT_PAGE_CONTEXT = 'interface';
+            var COMPODOC_CURRENT_PAGE_URL = 'FindableWidget-1.html';
+            var MAX_SEARCH_RESULTS = 15;
+       </script>
+
+       <script src="../js/libs/custom-elements.min.js"></script>
+       <script src="../js/libs/lit-html.js"></script>
+       <!-- Required to polyfill modern browsers as code is ES5 for IE... -->
+       <script src="../js/libs/custom-elements-es5-adapter.js" charset="utf-8" defer></script>
+       <script src="../js/menu-wc.js" defer></script>
+
+       <script src="../js/libs/bootstrap-native.js"></script>
+
+       <script src="../js/libs/es6-shim.min.js"></script>
+       <script src="../js/libs/EventDispatcher.js"></script>
+       <script src="../js/libs/promise.min.js"></script>
+       <script src="../js/libs/zepto.min.js"></script>
+
+       <script src="../js/compodoc.js"></script>
+
+       <script src="../js/tabs.js"></script>
+       <script src="../js/menu.js"></script>
+       <script src="../js/libs/clipboard.min.js"></script>
+       <script src="../js/libs/prism.js"></script>
+       <script src="../js/sourceCode.js"></script>
+          <script src="../js/search/search.js"></script>
+          <script src="../js/search/lunr.min.js"></script>
+          <script src="../js/search/search-lunr.js"></script>
+          <script src="../js/search/search_index.js"></script>
+       <script src="../js/lazy-load-graphs.js"></script>
+
+
+    </body>
+</html>

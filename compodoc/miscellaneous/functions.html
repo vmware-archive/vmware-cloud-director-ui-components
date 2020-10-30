@@ -94,6 +94,9 @@
                             <a href="#FilterComponentRendererSpec" title="projects/components/src/datagrid/filters/datagrid-filter.ts"><b>FilterComponentRendererSpec</b>&nbsp;&nbsp;&nbsp;(projects/.../datagrid-filter.ts)</a>
                         </li>
                         <li>
+                            <a href="#findCypressWidget" title="projects/components/src/utils/test/widget-object/cypress-widget-finder.ts"><b>findCypressWidget</b>&nbsp;&nbsp;&nbsp;(projects/.../cypress-widget-finder.ts)</a>
+                        </li>
+                        <li>
                             <a href="#getDeepCopyOfActionItems" title="projects/components/src/action-menu/action-menu.component.ts"><b>getDeepCopyOfActionItems</b>&nbsp;&nbsp;&nbsp;(projects/.../action-menu.component.ts)</a>
                         </li>
                         <li>
@@ -116,9 +119,6 @@
                         </li>
                         <li>
                             <a href="#processRow" title="projects/components/src/data-exporter/csv-exporter.service.ts"><b>processRow</b>&nbsp;&nbsp;&nbsp;(projects/.../csv-exporter.service.ts)</a>
-                        </li>
-                        <li>
-                            <a href="#promisify" title="projects/components/src/utils/test/cypress-widget-driver.ts"><b>promisify</b>&nbsp;&nbsp;&nbsp;(projects/.../cypress-widget-driver.ts)</a>
                         </li>
                         <li>
                             <a href="#sanitizeString" title="projects/components/src/data-exporter/csv-exporter.service.ts"><b>sanitizeString</b>&nbsp;&nbsp;&nbsp;(projects/.../csv-exporter.service.ts)</a>
@@ -1290,6 +1290,108 @@ const gridColumn = {
             </tr>
         </tbody>
     </table>
+</section>    <h3>projects/components/src/utils/test/widget-object/cypress-widget-finder.ts</h3>
+    <section>
+    <h3></h3>    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="findCypressWidget"></a>
+                    <span class="name">
+                        <b>
+                            findCypressWidget
+                        </b>
+                        <a href="#findCypressWidget"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>findCypressWidget(widgetConstructor, ancestor?, cssSelector?)</code>
+                </td>
+            </tr>
+
+
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Finds a single widget object</p>
+</div>
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Optional</td>
+                                    <td>Description</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>widgetConstructor</td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                    <td>
+                                        <ul>
+<li>The constructor of the widget to use</li>
+</ul>
+
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>ancestor</td>
+
+                                    <td>
+                                        Yes
+                                    </td>
+
+
+                                    <td>
+                                        <ul>
+<li>The CSS query or alias of the parent to begin the search from.
+this will be passed to <code>cy.get</code> and is a global search.</li>
+</ul>
+
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>cssSelector</td>
+
+                                    <td>
+                                        Yes
+                                    </td>
+
+
+                                    <td>
+                                        <ul>
+<li>The cssSelector to post-pend to the tagName for the search</li>
+</ul>
+
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>    <code>CorrectReturnTypes&lt;InstanceType&lt;C&gt;, Chainable&gt;</code>
+
+                    </div>
+                    <div class="io-description">
+                        
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
 </section>    <h3>projects/components/src/action-menu/action-menu.component.ts</h3>
     <section>
     <h3></h3>    <table class="table table-sm table-bordered">
@@ -1657,71 +1759,6 @@ const gridColumn = {
                     </div>
                     <div class="io-description">
                         <b>Returns : </b>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank" >boolean</a></code>
-
-                    </div>
-                    <div class="io-description">
-                        
-                    </div>
-                </td>
-            </tr>
-        </tbody>
-    </table>
-</section>    <h3>projects/components/src/utils/test/cypress-widget-driver.ts</h3>
-    <section>
-    <h3></h3>    <table class="table table-sm table-bordered">
-        <tbody>
-            <tr>
-                <td class="col-md-4">
-                    <a name="promisify"></a>
-                    <span class="name">
-                        <b>
-                            promisify
-                        </b>
-                        <a href="#promisify"><span class="icon ion-ios-link"></span></a>
-                    </span>
-                </td>
-            </tr>
-            <tr>
-                <td class="col-md-4">
-<code>promisify(chain)</code>
-                </td>
-            </tr>
-
-
-
-
-            <tr>
-                <td class="col-md-4">
-                    <div class="io-description"><p>Given some Cypress Chainable, returns a promise that will resolve when that Chainable completes
-and rejects when it fails.</p>
-</div>
-
-                    <div class="io-description">
-                        <b>Parameters :</b>
-                        <table class="params">
-                            <thead>
-                                <tr>
-                                    <td>Name</td>
-                                    <td>Optional</td>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td>chain</td>
-
-                                    <td>
-                                        No
-                                    </td>
-
-
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                    <div>
-                    </div>
-                    <div class="io-description">
-                        <b>Returns : </b>    <code>Promise&lt;T&gt;</code>
 
                     </div>
                     <div class="io-description">
