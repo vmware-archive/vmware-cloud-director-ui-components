@@ -592,12 +592,6 @@ customElements.define('compodoc-menu', class extends HTMLElement {
                                 <a href="interfaces/BoldTextRendererConfig.html" data-type="entity-link">BoldTextRendererConfig</a>
                             </li>
                             <li class="link">
-                                <a href="interfaces/Button.html" data-type="entity-link">Button</a>
-                            </li>
-                            <li class="link">
-                                <a href="interfaces/ButtonConfig.html" data-type="entity-link">ButtonConfig</a>
-                            </li>
-                            <li class="link">
                                 <a href="interfaces/CanBeReadOnly.html" data-type="entity-link">CanBeReadOnly</a>
                             </li>
                             <li class="link">
@@ -614,12 +608,6 @@ customElements.define('compodoc-menu', class extends HTMLElement {
                             </li>
                             <li class="link">
                                 <a href="interfaces/ComponentRendererSpec.html" data-type="entity-link">ComponentRendererSpec</a>
-                            </li>
-                            <li class="link">
-                                <a href="interfaces/ContextualButton.html" data-type="entity-link">ContextualButton</a>
-                            </li>
-                            <li class="link">
-                                <a href="interfaces/ContextualButtonConfig.html" data-type="entity-link">ContextualButtonConfig</a>
                             </li>
                             <li class="link">
                                 <a href="interfaces/DataExportRequestEvent.html" data-type="entity-link">DataExportRequestEvent</a>
@@ -668,9 +656,6 @@ customElements.define('compodoc-menu', class extends HTMLElement {
                             </li>
                             <li class="link">
                                 <a href="interfaces/FunctionRenderer.html" data-type="entity-link">FunctionRenderer</a>
-                            </li>
-                            <li class="link">
-                                <a href="interfaces/GlobalButton.html" data-type="entity-link">GlobalButton</a>
                             </li>
                             <li class="link">
                                 <a href="interfaces/GridColumn.html" data-type="entity-link">GridColumn</a>
