@@ -27,14 +27,6 @@ export enum GridColumnHideable {
 }
 
 /**
- * The ways buttons should be displayed when they are inactive.
- */
-export enum InactiveButtonDisplayMode {
-    Hide = 'HIDE',
-    Disable = 'Disable',
-}
-
-/**
  * Column renderer as a function. Defined in calling component when the cell value is calculated from different
  * properties.
  * @param record The record for the row being rendered
