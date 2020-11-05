@@ -56,7 +56,7 @@
                         ]"
                         clrDropdownItem
                         (click)="onItemClickedCb(action)"
-                        [disabled]="isItemDisabledCb(action)"
+                        [clrDisabled]="isItemDisabledCb(action)"
                     >
                         <ng-container *ngIf="shouldShowText">{{
                             action.isTranslatable === false ? action.textKey : (action.textKey | translate)
