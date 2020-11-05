@@ -59,7 +59,7 @@
                         (click)="onItemClickedCb(action)"
                         (keydown.space)="onDropdownItemActivated($event)"
                         (keydown.enter)="onDropdownItemActivated($event)"
-                        [disabled]="isItemDisabledCb(action)"
+                        [clrDisabled]="isItemDisabledCb(action)"
                     >
                         <ng-container *ngIf="shouldShowText">{{
                             action.isTranslatable === false ? action.textKey : (action.textKey | translate)
