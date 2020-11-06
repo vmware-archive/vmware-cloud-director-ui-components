@@ -344,10 +344,12 @@ export class ActionMenuComponent<R, T> {
     }
 
     /**
-     * Execute the {@link ActionItem.handler} function by passing it {@link #selectedEntities} and
-     * {@link ActionItem.handlerData} as arguments
+     * Action click handler
      */
     runActionHandler(action: ActionItem<R, T>): void {
+        if (this.isActionDisabled(action)) {
+            return;
+        }
         if (action.handler) {
             action.handler(this.selectedEntities, action.handlerData);
         }

@@ -98,6 +98,7 @@ export class ActionMenuExampleComponent<R extends Record, T extends HandlerData>
                     actionType: ActionType.CONTEXTUAL_FEATURED,
                     isTranslatable: false,
                     class: 'start',
+                    disabled: () => true,
                 },
                 {
                     textKey: 'Stop',
@@ -110,6 +111,7 @@ export class ActionMenuExampleComponent<R extends Record, T extends HandlerData>
                     actionType: ActionType.CONTEXTUAL_FEATURED,
                     isTranslatable: false,
                     class: 'stop',
+                    disabled: () => true,
                 },
             ],
         },
