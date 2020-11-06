@@ -66,6 +66,12 @@ export interface DropdownItem<T extends DropdownItem<T>> {
     styleUrls: ['./dropdown.component.scss'],
 })
 export class DropdownComponent<T extends DropdownItem<T>> {
+    private _onItemClickedCb: (item: T) => void;
+
+    private _dropdownItemContents: TextIcon = TextIcon.TEXT;
+
+    private _items: T[];
+
     /**
      * Decides what goes into the action buttons
      * @param textIcon An enum that describes the possible ways to display the button title
@@ -140,9 +146,16 @@ export class DropdownComponent<T extends DropdownItem<T>> {
     @Input() nestedDropdownPosition: string = 'right-top';
 
     /**
-     * Dropdown item click handler
+     * We use [clrDisabled] instead of [disabled] to show that a dropdown item is disabled. However, it doesn't prevent the item from
+     * getting activated when it is clicked. So, we store the call back here and call it in {@link #onItemClicked} when it is not disabled
+     * @param callBackFunc The call back to be called when a dropdown item id clicked
      */
-    @Input() onItemClickedCb: (item: T) => void;
+    @Input() set onItemClickedCb(callBackFunc: (item: T) => void) {
+        this._onItemClickedCb = callBackFunc;
+    }
+    get onItemClickedCb(): (item: T) => void {
+        return this._onItemClickedCb;
+    }
 
     /**
      * Method to calculate disabled state of an item
@@ -155,10 +168,6 @@ export class DropdownComponent<T extends DropdownItem<T>> {
     @Input() isNestedDropdown = false;
 
     @Input() isDropdownDisabled: boolean;
-
-    private _dropdownItemContents: TextIcon = TextIcon.TEXT;
-
-    private _items: T[];
 
     /**
      * Css class name added to the dropdown trigger buttons
@@ -203,6 +212,16 @@ export class DropdownComponent<T extends DropdownItem<T>> {
             const singleChildItem = items.splice(singleChildItemIndex, 1).pop();
             items.unshift(singleChildItem.children[0]);
         });
+    }
+
+    /**
+     * Dropdown item click handler
+     */
+    onItemClicked(item: T): void {
+        if (this.isItemDisabledCb && this.isItemDisabledCb(item)) {
+            return;
+        }
+        this._onItemClickedCb(item);
     }
 
     /**

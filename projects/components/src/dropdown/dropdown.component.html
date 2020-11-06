@@ -55,7 +55,7 @@
                             'btn-link'
                         ]"
                         clrDropdownItem
-                        (click)="onItemClickedCb(action)"
+                        (click)="onItemClicked(action)"
                         [clrDisabled]="isItemDisabledCb(action)"
                     >
                         <ng-container *ngIf="shouldShowText">{{
