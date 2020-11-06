@@ -22,50 +22,44 @@
             clrPosition="{{ isNestedDropdown ? nestedDropdownPosition : dropdownPosition }}"
             *clrIfOpen
         >
-            <ng-container *ngFor="let action of items; let i = index; trackBy: trackByFunction">
+            <ng-container *ngFor="let item of items; let i = index; trackBy: trackByFunction">
                 <div
-                    *ngIf="shouldRenderAsSeparator(i, action)"
+                    *ngIf="shouldRenderAsSeparator(i, item)"
                     class="dropdown-divider"
                     role="separator"
                     aria-hidden="true"
                 ></div>
 
-                <ng-container *ngIf="!action.isSeparator && action.children && action.children.length">
+                <ng-container *ngIf="!item.isSeparator && item.children && item.children.length">
                     <vcd-dropdown
-                        [items]="action.children"
+                        [items]="item.children"
+                        [selectedEntities]="selectedEntities"
                         [dropdownTriggerBtnTxt]="
-                            action.isTranslatable === false ? action.textKey : (action.textKey | translate)
+                            item.isTranslatable === false ? item.textKey : (item.textKey | translate)
                         "
-                        [dropdownTriggerButtonClassName]="action.class"
+                        [dropdownTriggerButtonClassName]="item.class"
                         [nestedDropdownPosition]="nestedDropdownPosition"
                         [isNestedDropdown]="true"
-                        [onItemClickedCb]="onItemClickedCb"
-                        [isItemDisabledCb]="isItemDisabledCb"
                         [trackByFunction]="trackByFunction"
                         [dropdownItemContents]="dropdownItemContents"
                     ></vcd-dropdown>
                 </ng-container>
 
-                <ng-container *ngIf="!action.isSeparator && !action.children">
+                <ng-container *ngIf="!item.isSeparator && !item.children">
                     <button
-                        [ngClass]="[
-                            action.class ? action.class : '',
-                            shouldShowIcon ? 'btn-icon' : '',
-                            'btn',
-                            'btn-link'
-                        ]"
+                        [ngClass]="[item.class ? item.class : '', shouldShowIcon ? 'btn-icon' : '', 'btn', 'btn-link']"
                         clrDropdownItem
-                        (click)="onItemClicked(action)"
-                        [clrDisabled]="isItemDisabledCb(action)"
+                        (click)="onItemClicked(item)"
+                        [clrDisabled]="isItemDisabled(item)"
                     >
                         <ng-container *ngIf="shouldShowText">{{
-                            action.isTranslatable === false ? action.textKey : (action.textKey | translate)
+                            item.isTranslatable === false ? item.textKey : (item.textKey | translate)
                         }}</ng-container>
 
                         <a *ngIf="shouldShowIcon" role="tooltip" aria-haspopup="true" class="tooltip tooltip-sm">
-                            <clr-icon size="1em" [attr.shape]="action.icon"></clr-icon>
+                            <clr-icon size="1em" [attr.shape]="item.icon"></clr-icon>
                             <span class="tooltip-content" *ngIf="shouldShowTooltip">{{
-                                action.textKey | translate
+                                item.textKey | translate
                             }}</span>
                         </a>
                     </button>
