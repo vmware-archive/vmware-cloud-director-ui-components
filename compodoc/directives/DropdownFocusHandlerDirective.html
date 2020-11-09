@@ -216,7 +216,7 @@ DOM focus between the menu items.</p>
             <tbody>
                 <tr>
                     <td class="col-md-4">
-<code>constructor(parentVcdDropdown: <a href="../components/DropdownComponent.html">DropdownComponent<T></a>, parentFocusHandler: DropdownFocusHandlerDirective<T>, hostVcdDropdown: <a href="../components/DropdownComponent.html">DropdownComponent<T></a>, focusHandlerService: <a href="../injectables/DropdownFocusHandlerService.html">DropdownFocusHandlerService</a>, renderer: <a href="https://angular.io/api/core/Renderer2" target="_blank">Renderer2</a>)</code>
+<code>constructor(parentVcdDropdown: <a href="../components/DropdownComponent.html">DropdownComponent</a>, parentFocusHandler: DropdownFocusHandlerDirective<T>, hostVcdDropdown: <a href="../components/DropdownComponent.html">DropdownComponent</a>, focusHandlerService: <a href="../injectables/DropdownFocusHandlerService.html">DropdownFocusHandlerService</a>, renderer: <a href="https://angular.io/api/core/Renderer2" target="_blank">Renderer2</a>)</code>
                     </td>
                 </tr>
                         <tr>
@@ -242,7 +242,7 @@ DOM focus between the menu items.</p>
                                                         <td>parentVcdDropdown</td>
                                                   
                                                         <td>
-                                                                        <code><a href="../components/DropdownComponent.html" target="_self" >DropdownComponent&lt;T&gt;</a></code>
+                                                                        <code><a href="../components/DropdownComponent.html" target="_self" >DropdownComponent</a></code>
                                                         </td>
                                                   
                                                     <td>
@@ -266,7 +266,7 @@ DOM focus between the menu items.</p>
                                                         <td>hostVcdDropdown</td>
                                                   
                                                         <td>
-                                                                        <code><a href="../components/DropdownComponent.html" target="_self" >DropdownComponent&lt;T&gt;</a></code>
+                                                                        <code><a href="../components/DropdownComponent.html" target="_self" >DropdownComponent</a></code>
                                                         </td>
                                                   
                                                     <td>
@@ -1012,9 +1012,9 @@ export interface MenuItem {
 })
 export class DropdownFocusHandlerDirective&lt;T&gt; implements AfterViewInit, OnDestroy {
     constructor(
-        @Optional() @SkipSelf() private parentVcdDropdown: DropdownComponent&lt;T&gt;,
+        @Optional() @SkipSelf() private parentVcdDropdown: DropdownComponent,
         @Optional() @SkipSelf() private parentFocusHandler: DropdownFocusHandlerDirective&lt;T&gt;,
-        @Host() private hostVcdDropdown: DropdownComponent&lt;T&gt;,
+        @Host() private hostVcdDropdown: DropdownComponent,
         private focusHandlerService: DropdownFocusHandlerService,
         private renderer: Renderer2
     ) {}

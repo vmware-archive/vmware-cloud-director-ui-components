@@ -634,9 +634,6 @@ customElements.define('compodoc-menu', class extends HTMLElement {
                                 <a href="interfaces/DetailRowConfig.html" data-type="entity-link">DetailRowConfig</a>
                             </li>
                             <li class="link">
-                                <a href="interfaces/DropdownItem.html" data-type="entity-link">DropdownItem</a>
-                            </li>
-                            <li class="link">
                                 <a href="interfaces/ExportColumn.html" data-type="entity-link">ExportColumn</a>
                             </li>
                             <li class="link">

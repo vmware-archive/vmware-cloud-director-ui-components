@@ -399,9 +399,9 @@ export interface MenuItem {
 })
 export class DropdownFocusHandlerDirective&lt;T&gt; implements AfterViewInit, OnDestroy {
     constructor(
-        @Optional() @SkipSelf() private parentVcdDropdown: DropdownComponent&lt;T&gt;,
+        @Optional() @SkipSelf() private parentVcdDropdown: DropdownComponent,
         @Optional() @SkipSelf() private parentFocusHandler: DropdownFocusHandlerDirective&lt;T&gt;,
-        @Host() private hostVcdDropdown: DropdownComponent&lt;T&gt;,
+        @Host() private hostVcdDropdown: DropdownComponent,
         private focusHandlerService: DropdownFocusHandlerService,
         private renderer: Renderer2
     ) {}
