@@ -7,20 +7,21 @@ import { Component, DebugElement } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { MockTranslationService, TranslationService } from '@vcd/i18n';
+import { ActionItem } from '../common/interfaces';
 import { WidgetFinder, WidgetObject } from '../utils/test/widget-object';
-import { DropdownComponent, DropdownItem, NESTED_MENU_HIDE_DELAY } from './dropdown.component';
+import { DropdownComponent, NESTED_MENU_HIDE_DELAY } from './dropdown.component';
 import { DropdownModule } from './dropdown.module';
 
 interface HasVcdDropdown {
     finder: WidgetFinder<TestHostComponent>;
-    dropdownComponent: DropdownComponent<any>;
+    dropdownComponent: DropdownComponent;
     dropdownWidget: VcdDropdownWidgetObject;
 }
 
 const PRIMARY_DROPDOWN_CLASS_NAME = 'primary-dropdown';
 const NESTED_DROPDOWN_CLASS_NAME = 'nested-dropdown-1';
 
-class VcdDropdownWidgetObject extends WidgetObject<DropdownComponent<any>> {
+class VcdDropdownWidgetObject extends WidgetObject<DropdownComponent> {
     static tagName = `vcd-dropdown`;
 
     clickDropdown(className): void {
@@ -40,7 +41,7 @@ class VcdDropdownWidgetObject extends WidgetObject<DropdownComponent<any>> {
     }
 
     isDropdownOpen(className: string): boolean {
-        const dropdownComponent = this.findElement(`.${className}`).componentInstance as DropdownComponent<any>;
+        const dropdownComponent = this.findElement(`.${className}`).componentInstance as DropdownComponent;
         return dropdownComponent.clrDropdown.toggleService.open;
     }
 }
@@ -248,13 +249,11 @@ describe('DropdownComponent', () => {
             [items]="items"
             [dropdownTriggerBtnTxt]="'Dropdown'"
             [dropdownTriggerButtonClassName]="primaryDropdownClassName"
-            [onItemClickedCb]="onItemClickedCb"
-            [isItemDisabledCb]="isItemDisabledCb"
         ></vcd-dropdown>
     `,
 })
 export class TestHostComponent {
-    items: DropdownItem<any>[] = [
+    items: ActionItem<any, any>[] = [
         {
             textKey: 'Nested Actions',
             isTranslatable: false,
@@ -273,8 +272,4 @@ export class TestHostComponent {
     ];
 
     primaryDropdownClassName = PRIMARY_DROPDOWN_CLASS_NAME;
-
-    onItemClickedCb = (action) => null;
-
-    isItemDisabledCb = (action) => false;
 }
