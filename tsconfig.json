@@ -1,22 +1,19 @@
 {
   "compileOnSave": false,
-  "exclude": ["node_modules/cypress/**/*"],
   "compilerOptions": {
     "baseUrl": "./",
     "outDir": "./dist/out-tsc",
     "sourceMap": true,
-    "skipLibCheck": true,
-    "inlineSourceMap": false,
     "declaration": false,
     "downlevelIteration": true,
     "experimentalDecorators": true,
-    "allowSyntheticDefaultImports": true,
     "module": "esnext",
     "moduleResolution": "node",
     "importHelpers": true,
     "target": "es5",
-    "types": ["jasmine", "node", "cypress"],
-    "typeRoots": ["node_modules/@types"],
+    "typeRoots": [
+      "node_modules/@types"
+    ],
     "lib": [
       "es2018",
       "dom"
