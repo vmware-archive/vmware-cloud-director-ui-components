@@ -12,6 +12,12 @@ const idGenerator = new IdGenerator('cy-id');
 
 /**
  * Knows how to find Cypress widget objects within the DOM.
+ *
+ * T is the type of data that this will output when you call `unwrap`.
+ * In almost all cases, this should be a `Cypress.Chainable`.
+ * We chose to provide this as a generic because for reasons seen in
+ * [this PR](https://github.com/vmware/vmware-cloud-director-ui-components/pull/248)
+ * we could not load the Cypress types in our library.
  */
 export class CypressWidgetObjectFinder<T> {
     /**
