@@ -3,7 +3,8 @@
  * SPDX-License-Identifier: BSD-2-Clause
  */
 
-import { DataExporterWidgetObject, findCypressWidget } from '@vcd/ui-components';
+import { DataExporterWidgetObject } from '@vcd/ui-components';
+import { findCypressWidget } from '../../../projects/components/src/utils/test/widget-object/find-cypress-widget';
 
 context('Window', () => {
     beforeEach(() => {
