@@ -17,9 +17,10 @@ for further details
 ### Examples App (./projects/examples)
 
 The application that showcases `@vcd/ui-components` using `@vmw/ng-live-docs`.
+Run `npm install` first. Then run `npm run build:i18n` followed by `npm run build:components` to build.
 
 Run `npm start` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if
-you change any of the source files. This is where you'll see changes made in [components](./projects/components)
+you change any of the source files. This is where you'll see changes made in [components](./projects/components).
 
 ### Route Analyzer (./projects/route-analyzer) `@vcd/route-analyzer`
 
@@ -40,7 +41,7 @@ Run `ng generate component component-name` to generate a new component. You can 
 
 ## Build
 
-Run `npm run build:components`, or `npm run build:i18n`. The build artifacts will be stored in the `dist/` directory.
+Run `npm run build:i18n` and `npm run build:components`. The build artifacts will be stored in the `dist/` directory.
 
 ## Running unit tests
 
