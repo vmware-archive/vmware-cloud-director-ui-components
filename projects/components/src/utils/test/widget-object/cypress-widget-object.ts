@@ -42,7 +42,7 @@ export class CypressLocatorDriver<T> implements LocatorDriver<T> {
      */
     parents(cssSelector: string, options?: unknown): CypressLocatorDriver<T> {
         const root = this.getBase();
-        return new CypressLocatorDriver(root.parent(cssSelector, options), false, this.alias);
+        return new CypressLocatorDriver(root.parents(cssSelector, options), false, this.alias);
     }
 
     /**
