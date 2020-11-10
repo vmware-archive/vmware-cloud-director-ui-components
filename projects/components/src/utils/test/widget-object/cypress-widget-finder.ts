@@ -26,7 +26,7 @@ export class CypressWidgetObjectFinder<T> {
      * @param widgetConstructor - The constructor of the widget to use
      * @param ancestor - The CSS query or alias of the parent to begin the search from.
      *                 this will be passed to `cy.get` and is a global search.
-     * @param cssSelector - The cssSelector to post-pend to the tagName for the search
+     * @param cssSelector - The cssSelector to append to the tagName for the search
      *
      */
     public find<W extends BaseWidgetObject<T>, C extends FindableWidget<T, W>>(

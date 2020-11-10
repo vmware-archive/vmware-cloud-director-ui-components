@@ -40,7 +40,7 @@ export class AngularWidgetObjectFinder<H = unknown> {
      *
      * @param widgetConstructor - The constructor of the widget to use
      * @param ancestor - The parent DebugElement to begin the search from
-     * @param cssSelector - The cssSelector to post-pend to the tagName for the search
+     * @param cssSelector - The cssSelector to append to the tagName for the search
      *
      * @throws An error if the widget is not found or if there are multiple instances
      */
