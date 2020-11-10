@@ -68,6 +68,11 @@
             </p>
             <p class="comment">
                 <p>Knows how to find Cypress chainables in the DOM.</p>
+<p>T is the type of data that this will output when you call <code>unwrap</code>.
+In almost all cases, this should be a <code>Cypress.Chainable</code>.
+We chose to provide this as a generic because for reasons seen in
+<a href="https://github.com/vmware/vmware-cloud-director-ui-components/pull/248">this PR</a>
+we could not load the Cypress types in our library.</p>
 
             </p>
 
@@ -130,12 +135,12 @@
             <tbody>
                 <tr>
                     <td class="col-md-4">
-<code>constructor(chainable: <a href="../undefineds/Chainable.html">Chainable</a>, isRoot: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank">boolean</a>, alias: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
+<code>constructor(chainable: T, isRoot: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank">boolean</a>, alias: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
                     </td>
                 </tr>
                         <tr>
                             <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="14" class="link-to-prism">projects/components/src/utils/test/widget-object/cypress-widget-object.ts:14</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="20" class="link-to-prism">projects/components/src/utils/test/widget-object/cypress-widget-object.ts:20</a></div>
                             </td>
                         </tr>
 
@@ -156,7 +161,7 @@
                                                         <td>chainable</td>
                                                   
                                                         <td>
-                                                                        <code><a href="../miscellaneous/typealiases.html#Chainable" target="_self" >Chainable</a></code>
+                                                                    <code>T</code>
                                                         </td>
                                                   
                                                     <td>
@@ -225,8 +230,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="52"
-                            class="link-to-prism">projects/components/src/utils/test/widget-object/cypress-widget-object.ts:52</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="58"
+                            class="link-to-prism">projects/components/src/utils/test/widget-object/cypress-widget-object.ts:58</a></div>
                 </td>
             </tr>
 
@@ -284,7 +289,7 @@
                     <div>
                     </div>
                     <div class="io-description">
-                        <b>Returns : </b>    <code>CorrectReturnTypes&lt;InstanceType&lt;C&gt;, Chainable&gt;</code>
+                        <b>Returns : </b>        <code><a href="../miscellaneous/typealiases.html#CorrectReturnTypes" target="_self" >CorrectReturnTypes&lt;InstanceType&lt;C&gt;, T&gt;</a></code>
 
                     </div>
                     <div class="io-description">
@@ -316,8 +321,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="20"
-                            class="link-to-prism">projects/components/src/utils/test/widget-object/cypress-widget-object.ts:20</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="26"
+                            class="link-to-prism">projects/components/src/utils/test/widget-object/cypress-widget-object.ts:26</a></div>
                 </td>
             </tr>
 
@@ -366,7 +371,7 @@
                     <div>
                     </div>
                     <div class="io-description">
-                        <b>Returns : </b>        <code><a href="../interfaces/LocatorDriver.html" target="_self" >CypressLocatorDriver</a></code>
+                        <b>Returns : </b>        <code><a href="../interfaces/LocatorDriver.html" target="_self" >CypressLocatorDriver&lt;T&gt;</a></code>
 
                     </div>
                     <div class="io-description">
@@ -400,8 +405,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="63"
-                            class="link-to-prism">projects/components/src/utils/test/widget-object/cypress-widget-object.ts:63</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="72"
+                            class="link-to-prism">projects/components/src/utils/test/widget-object/cypress-widget-object.ts:72</a></div>
                 </td>
             </tr>
 
@@ -413,7 +418,7 @@ This is to override the behavior where calls to .find will permanently change th
 </div>
 
                     <div class="io-description">
-                        <b>Returns : </b>        <code><a href="../miscellaneous/typealiases.html#Chainable" target="_self" >Chainable</a></code>
+                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
 
                     </div>
                 </td>
@@ -442,8 +447,8 @@ This is to override the behavior where calls to .find will permanently change th
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="28"
-                            class="link-to-prism">projects/components/src/utils/test/widget-object/cypress-widget-object.ts:28</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="34"
+                            class="link-to-prism">projects/components/src/utils/test/widget-object/cypress-widget-object.ts:34</a></div>
                 </td>
             </tr>
 
@@ -504,7 +509,7 @@ This is to override the behavior where calls to .find will permanently change th
                     <div>
                     </div>
                     <div class="io-description">
-                        <b>Returns : </b>        <code><a href="../interfaces/LocatorDriver.html" target="_self" >CypressLocatorDriver</a></code>
+                        <b>Returns : </b>        <code><a href="../interfaces/LocatorDriver.html" target="_self" >CypressLocatorDriver&lt;T&gt;</a></code>
 
                     </div>
                     <div class="io-description">
@@ -536,8 +541,8 @@ This is to override the behavior where calls to .find will permanently change th
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="37"
-                            class="link-to-prism">projects/components/src/utils/test/widget-object/cypress-widget-object.ts:37</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="43"
+                            class="link-to-prism">projects/components/src/utils/test/widget-object/cypress-widget-object.ts:43</a></div>
                 </td>
             </tr>
 
@@ -586,7 +591,7 @@ This is to override the behavior where calls to .find will permanently change th
                     <div>
                     </div>
                     <div class="io-description">
-                        <b>Returns : </b>        <code><a href="../interfaces/LocatorDriver.html" target="_self" >CypressLocatorDriver</a></code>
+                        <b>Returns : </b>        <code><a href="../interfaces/LocatorDriver.html" target="_self" >CypressLocatorDriver&lt;T&gt;</a></code>
 
                     </div>
                     <div class="io-description">
@@ -618,8 +623,8 @@ This is to override the behavior where calls to .find will permanently change th
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="45"
-                            class="link-to-prism">projects/components/src/utils/test/widget-object/cypress-widget-object.ts:45</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="51"
+                            class="link-to-prism">projects/components/src/utils/test/widget-object/cypress-widget-object.ts:51</a></div>
                 </td>
             </tr>
 
@@ -628,7 +633,7 @@ This is to override the behavior where calls to .find will permanently change th
                 <td class="col-md-4">
 
                     <div class="io-description">
-                        <b>Returns : </b>        <code><a href="../miscellaneous/typealiases.html#Chainable" target="_self" >Chainable</a></code>
+                        <b>Returns : </b>    <code>T</code>
 
                     </div>
                 </td>
@@ -648,18 +653,24 @@ This is to override the behavior where calls to .find will permanently change th
         <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { CypressWidgetObjectFinder } from &#x27;./cypress-widget-finder&#x27;;
 import { BaseWidgetObject, CorrectReturnTypes, FindableWidget, LocatorDriver } from &#x27;./widget-object&#x27;;
 
-export type Chainable &#x3D; Cypress.Chainable&lt;JQuery&lt;HTMLElement&gt;&gt;;
+declare const cy;
 
 /**
  * Knows how to find Cypress chainables in the DOM.
+ *
+ * T is the type of data that this will output when you call &#x60;unwrap&#x60;.
+ * In almost all cases, this should be a &#x60;Cypress.Chainable&#x60;.
+ * We chose to provide this as a generic because for reasons seen in
+ * [this PR](https://github.com/vmware/vmware-cloud-director-ui-components/pull/248)
+ * we could not load the Cypress types in our library.
  */
-export class CypressLocatorDriver implements LocatorDriver&lt;Chainable&gt; {
-    constructor(private chainable: Chainable, private isRoot: boolean, private alias: string) {}
+export class CypressLocatorDriver&lt;T&gt; implements LocatorDriver&lt;T&gt; {
+    constructor(private chainable: T, private isRoot: boolean, private alias: string) {}
 
     /**
      * @inheritdoc
      */
-    get(cssSelector: string, options?: unknown): CypressLocatorDriver {
+    get(cssSelector: string, options?: unknown): CypressLocatorDriver&lt;T&gt; {
         const root &#x3D; this.getBase();
         return new CypressLocatorDriver(root.find(cssSelector, options), false, this.alias);
     }
@@ -667,7 +678,7 @@ export class CypressLocatorDriver implements LocatorDriver&lt;Chainable&gt; {
     /**
      * @inheritdoc
      */
-    getByText(cssSelector: string, value: string, options?: unknown): CypressLocatorDriver {
+    getByText(cssSelector: string, value: string, options?: unknown): CypressLocatorDriver&lt;T&gt; {
         const root &#x3D; this.getBase();
         const queryOptions &#x3D; { matchCase: false, ...(options ? (options as object) : {}) };
         return new CypressLocatorDriver(root.contains(cssSelector, value, queryOptions), false, this.alias);
@@ -676,33 +687,36 @@ export class CypressLocatorDriver implements LocatorDriver&lt;Chainable&gt; {
     /**
      * @inheritdoc
      */
-    parents(cssSelector: string, options?: unknown): CypressLocatorDriver {
+    parents(cssSelector: string, options?: unknown): CypressLocatorDriver&lt;T&gt; {
         const root &#x3D; this.getBase();
-        return new CypressLocatorDriver(root.parent(cssSelector, options), false, this.alias);
+        return new CypressLocatorDriver(root.parents(cssSelector, options), false, this.alias);
     }
 
     /**
      * @inheritdoc
      */
-    unwrap(): Chainable {
+    unwrap(): T {
         return this.chainable;
     }
 
     /**
      * @inheritdoc
      */
-    findWidget&lt;W extends BaseWidgetObject&lt;Chainable&gt;, C extends FindableWidget&lt;Chainable, W&gt;&gt;(
+    findWidget&lt;W extends BaseWidgetObject&lt;T&gt;, C extends FindableWidget&lt;T, W&gt;&gt;(
         widget: C,
         cssSelector?: string
-    ): CorrectReturnTypes&lt;InstanceType&lt;C&gt;, Chainable&gt; {
-        return new CypressWidgetObjectFinder().find(widget, &#x27;@&#x27; + this.alias, cssSelector);
+    ): CorrectReturnTypes&lt;InstanceType&lt;C&gt;, T&gt; {
+        return new CypressWidgetObjectFinder&lt;T&gt;().find(widget, &#x27;@&#x27; + this.alias, cssSelector) as CorrectReturnTypes&lt;
+            InstanceType&lt;C&gt;,
+            T
+        &gt;;
     }
 
     /**
      * Gives the correct base for this current query.
      * This is to override the behavior where calls to .find will permanently change the scope of the query.
      */
-    private getBase(): Chainable {
+    private getBase(): any {
         if (this.isRoot) {
             return cy.get(&#x27;@&#x27; + this.alias);
         } else {

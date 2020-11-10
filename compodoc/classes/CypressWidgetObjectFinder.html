@@ -68,6 +68,11 @@
             </p>
             <p class="comment">
                 <p>Knows how to find Cypress widget objects within the DOM.</p>
+<p>T is the type of data that this will output when you call <code>unwrap</code>.
+In almost all cases, this should be a <code>Cypress.Chainable</code>.
+We chose to provide this as a generic because for reasons seen in
+<a href="https://github.com/vmware/vmware-cloud-director-ui-components/pull/248">this PR</a>
+we could not load the Cypress types in our library.</p>
 
             </p>
 
@@ -134,8 +139,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="25"
-                            class="link-to-prism">projects/components/src/utils/test/widget-object/cypress-widget-finder.ts:25</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="32"
+                            class="link-to-prism">projects/components/src/utils/test/widget-object/cypress-widget-finder.ts:32</a></div>
                 </td>
             </tr>
 
@@ -216,7 +221,7 @@ this will be passed to <code>cy.get</code> and is a global search.</li>
 
                                     <td>
                                         <ul>
-<li>The cssSelector to post-pend to the tagName for the search</li>
+<li>The cssSelector to append to the tagName for the search</li>
 </ul>
 
                                     </td>
@@ -227,7 +232,7 @@ this will be passed to <code>cy.get</code> and is a global search.</li>
                     <div>
                     </div>
                     <div class="io-description">
-                        <b>Returns : </b>    <code>CorrectReturnTypes&lt;InstanceType&lt;C&gt;, Chainable&gt;</code>
+                        <b>Returns : </b>        <code><a href="../miscellaneous/typealiases.html#CorrectReturnTypes" target="_self" >CorrectReturnTypes&lt;InstanceType&lt;C&gt;, T&gt;</a></code>
 
                     </div>
                     <div class="io-description">
@@ -248,29 +253,36 @@ this will be passed to <code>cy.get</code> and is a global search.</li>
 
     <div class="tab-pane fade  tab-source-code" id="c-source">
         <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { IdGenerator } from &#x27;../../id-generator/id-generator&#x27;;
-import { Chainable, CypressLocatorDriver } from &#x27;./cypress-widget-object&#x27;;
+import { CypressLocatorDriver } from &#x27;./cypress-widget-object&#x27;;
 import { BaseWidgetObject, CorrectReturnTypes, FindableWidget } from &#x27;./widget-object&#x27;;
 
+declare const cy;
 const idGenerator &#x3D; new IdGenerator(&#x27;cy-id&#x27;);
 
 /**
  * Knows how to find Cypress widget objects within the DOM.
+ *
+ * T is the type of data that this will output when you call &#x60;unwrap&#x60;.
+ * In almost all cases, this should be a &#x60;Cypress.Chainable&#x60;.
+ * We chose to provide this as a generic because for reasons seen in
+ * [this PR](https://github.com/vmware/vmware-cloud-director-ui-components/pull/248)
+ * we could not load the Cypress types in our library.
  */
-export class CypressWidgetObjectFinder {
+export class CypressWidgetObjectFinder&lt;T&gt; {
     /**
      * Finds a single widget object
      *
      * @param widgetConstructor - The constructor of the widget to use
      * @param ancestor - The CSS query or alias of the parent to begin the search from.
      *                 this will be passed to &#x60;cy.get&#x60; and is a global search.
-     * @param cssSelector - The cssSelector to post-pend to the tagName for the search
+     * @param cssSelector - The cssSelector to append to the tagName for the search
      *
      */
-    public find&lt;W extends BaseWidgetObject&lt;Chainable&gt;, C extends FindableWidget&lt;Chainable, W&gt;&gt;(
+    public find&lt;W extends BaseWidgetObject&lt;T&gt;, C extends FindableWidget&lt;T, W&gt;&gt;(
         widgetConstructor: C,
         ancestor?: string,
         cssSelector?: string
-    ): CorrectReturnTypes&lt;InstanceType&lt;C&gt;, Chainable&gt; {
+    ): CorrectReturnTypes&lt;InstanceType&lt;C&gt;, T&gt; {
         let tagName &#x3D; widgetConstructor.tagName;
         if (cssSelector) {
             tagName +&#x3D; &#x60;${cssSelector}&#x60;;
@@ -279,25 +291,8 @@ export class CypressWidgetObjectFinder {
         const search &#x3D; ancestor ? cy.get(ancestor).find(tagName) : cy.get(tagName);
         const root &#x3D; search.as(id);
         const widget &#x3D; new widgetConstructor(new CypressLocatorDriver(root, true, id));
-        return (widget as any) as CorrectReturnTypes&lt;InstanceType&lt;C&gt;, Chainable&gt;;
+        return (widget as any) as CorrectReturnTypes&lt;InstanceType&lt;C&gt;, T&gt;;
     }
-}
-
-/**
- * Finds a single widget object
- *
- * @param widgetConstructor - The constructor of the widget to use
- * @param ancestor - The CSS query or alias of the parent to begin the search from.
- *                 this will be passed to &#x60;cy.get&#x60; and is a global search.
- * @param cssSelector - The cssSelector to post-pend to the tagName for the search
- *
- */
-export function findCypressWidget&lt;W extends BaseWidgetObject&lt;Chainable&gt;, C extends FindableWidget&lt;Chainable, W&gt;&gt;(
-    widgetConstructor: C,
-    ancestor?: string,
-    cssSelector?: string
-): CorrectReturnTypes&lt;InstanceType&lt;C&gt;, Chainable&gt; {
-    return new CypressWidgetObjectFinder().find(widgetConstructor);
 }
 </code></pre>
     </div>

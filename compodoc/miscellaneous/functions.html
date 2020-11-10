@@ -94,7 +94,7 @@
                             <a href="#FilterComponentRendererSpec" title="projects/components/src/datagrid/filters/datagrid-filter.ts"><b>FilterComponentRendererSpec</b>&nbsp;&nbsp;&nbsp;(projects/.../datagrid-filter.ts)</a>
                         </li>
                         <li>
-                            <a href="#findCypressWidget" title="projects/components/src/utils/test/widget-object/cypress-widget-finder.ts"><b>findCypressWidget</b>&nbsp;&nbsp;&nbsp;(projects/.../cypress-widget-finder.ts)</a>
+                            <a href="#findCypressWidget" title="projects/components/src/utils/test/widget-object/find-cypress-widget.ts"><b>findCypressWidget</b>&nbsp;&nbsp;&nbsp;(projects/.../find-cypress-widget.ts)</a>
                         </li>
                         <li>
                             <a href="#getDeepCopyOfActionItems" title="projects/components/src/action-menu/action-menu.component.ts"><b>getDeepCopyOfActionItems</b>&nbsp;&nbsp;&nbsp;(projects/.../action-menu.component.ts)</a>
@@ -1290,7 +1290,7 @@ const gridColumn = {
             </tr>
         </tbody>
     </table>
-</section>    <h3>projects/components/src/utils/test/widget-object/cypress-widget-finder.ts</h3>
+</section>    <h3>projects/components/src/utils/test/widget-object/find-cypress-widget.ts</h3>
     <section>
     <h3></h3>    <table class="table table-sm table-bordered">
         <tbody>
@@ -1316,7 +1316,8 @@ const gridColumn = {
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-description"><p>Finds a single widget object</p>
+                    <div class="io-description"><p>Finds a single widget object. This is a convenience wrapper around the <code>CypressWidgetFinder</code>
+that should be copied into any application E2E tests that want to use this Widget Finder system.</p>
 </div>
 
                     <div class="io-description">
@@ -1371,7 +1372,7 @@ this will be passed to <code>cy.get</code> and is a global search.</li>
 
                                     <td>
                                         <ul>
-<li>The cssSelector to post-pend to the tagName for the search</li>
+<li>The cssSelector to append to the tagName for the search</li>
 </ul>
 
                                     </td>
@@ -1382,7 +1383,7 @@ this will be passed to <code>cy.get</code> and is a global search.</li>
                     <div>
                     </div>
                     <div class="io-description">
-                        <b>Returns : </b>    <code>CorrectReturnTypes&lt;InstanceType&lt;C&gt;, Chainable&gt;</code>
+                        <b>Returns : </b>        <code><a href="../miscellaneous/typealiases.html#CorrectReturnTypes" target="_self" >CorrectReturnTypes&lt;InstanceType&lt;C&gt;, Cypress.Chainable&gt;</a></code>
 
                     </div>
                     <div class="io-description">
