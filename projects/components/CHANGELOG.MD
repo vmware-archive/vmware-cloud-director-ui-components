@@ -9,8 +9,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [1.0.0-dev.49] - 2020-11-10
 1. BREAKING: Fixes an error in the type clash with Jasmine and Chai in the Widget Object
-2. Replace DropdownItem with ActionMenuItem
-3. Replace [disabled] with [clrDisabled] on action menu buttons
+2. Fix arrow navigation of disabled menu items.
+3. INTERNAL: Replace DropdownItem with ActionMenuItem
 
 
 ## [1.0.0-dev.48] - 2020-10-30
