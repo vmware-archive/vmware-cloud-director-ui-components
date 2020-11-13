@@ -7,6 +7,15 @@ single-option {
     display: block;
 }
 
+aside > * {
+    display: inline-block;
+}
+
+/* Undo the nowrap added by .clr-input-container */
+clr-signpost-content {
+    white-space: normal;
+}
+
 :host ::ng-deep {
     .clr-control-container {
         flex: 0 1 auto;

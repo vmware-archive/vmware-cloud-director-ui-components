@@ -3,3 +3,6 @@
     color: red;
     padding-left: 5px;
 }
+.form-group ::ng-deep aside {
+    display: inline-block;
+}
