@@ -6,6 +6,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
+### Added
+[internal]: Update `ng-live-docs` to 0.0.8 to enable `@vmw/ng-live-docs:add-example` schematic.
 
 ## [1.0.0-dev.49] - 2020-11-10
 1. BREAKING: Fixes an error in the type clash with Jasmine and Chai in the Widget Object
