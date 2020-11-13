@@ -36,6 +36,7 @@ type of units.
             [max]="maxMemoryAllowedMB"
             [initialValueUnit]="Bytes.MB"
             [isReadOnly]="formGroup.controls.readonly.value"
+            [description]="'Description below control'"
         >
         </vcd-number-with-unit-form-input>
         <div class="value-container" *ngIf="!formGroup.controls.readonly.value">
