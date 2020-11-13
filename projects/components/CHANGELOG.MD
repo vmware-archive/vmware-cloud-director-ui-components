@@ -7,9 +7,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.0.0-a11y.3] - 2020-11-13
 ### Added
- - Make input elements responsive so that labels and the input are on separate lines on small screens. Alllows keyboard
+- Make input elements responsive so that labels and the input are on separate lines on small screens. Alllows keyboard
    users zoomed in at 200% to view the label and input instead of it being clipped.
+
+### Fixed
+- Associate label with <select> input in vcd-form-select
 
 ## [1.0.0-a11y.2] - 2020-10-28
 
