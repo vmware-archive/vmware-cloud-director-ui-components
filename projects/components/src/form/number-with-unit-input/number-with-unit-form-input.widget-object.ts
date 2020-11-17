@@ -49,6 +49,10 @@ export class NumberWithUnitFormInputWidgetObject extends WidgetObject<NumberWith
         this.component.inputValueUnit = unit;
     }
 
+    isInputValueFucused(): boolean {
+        return document.activeElement === this.inputElement;
+    }
+
     get selectedUnit(): number {
         return this.component.formGroup.get('comboUnitOptions').value;
     }
@@ -57,7 +61,7 @@ export class NumberWithUnitFormInputWidgetObject extends WidgetObject<NumberWith
         return (
             this.component.unitOptions
                 // tslint:disable-next-line:triple-equals
-                .find(item => item.getMultiplier() == this.selectedUnit)
+                .find((item) => item.getMultiplier() == this.selectedUnit)
                 .getUnitName()
         );
     }
@@ -88,5 +92,9 @@ export class NumberWithUnitFormInputWidgetObject extends WidgetObject<NumberWith
     get singleUnitDisplayText(): string {
         const element = this.getNativeElement('.single-option');
         return element ? element.innerHTML : '';
+    }
+
+    private get inputElement(): HTMLInputElement {
+        return this.getNativeElement('vcd-form-input input') as HTMLInputElement;
     }
 }
