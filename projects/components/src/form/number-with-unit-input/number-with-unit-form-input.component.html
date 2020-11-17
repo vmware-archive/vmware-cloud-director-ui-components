@@ -1,6 +1,6 @@
-<div class="form-group clr-form-control" *ngIf="isReadOnly">
+<div class="clr-form-control vcdResponsiveInput" *ngIf="isReadOnly">
     <label class="clr-control-label">{{ label }}</label>
-    <span class="readonly-text">{{ this.displayValue }}</span>
+    <span class="clr-control-container readonly-text">{{ this.displayValue }}</span>
 </div>
 <div *ngIf="!isReadOnly" class="input-number-with-unit">
     <vcd-form-input
@@ -38,7 +38,7 @@
             </clr-signpost>
         </aside>
     </vcd-form-input>
-    <div class="clr-form-control errors clr-row" *ngIf="showErrors">
+    <div class="clr-form-control errors vcdResponsiveInput" *ngIf="showErrors">
         <!-- Label is here to take up space so that the error aligns with the right side only-->
         <label class="clr-control-label clr-col-12 clr-col-md-2"></label>
         <div class="clr-error clr-col">
