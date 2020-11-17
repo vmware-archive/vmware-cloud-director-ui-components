@@ -5,6 +5,7 @@
 
 import {
     AfterContentChecked,
+    ChangeDetectorRef,
     Component,
     Injectable,
     Input,
@@ -197,7 +198,8 @@ export class NumberWithUnitFormInputComponent
         @Self() @Optional() controlDirective: NgControl,
         private fb: FormBuilder,
         private translationService: TranslationService,
-        private unitFormatter: UnitFormatter
+        private unitFormatter: UnitFormatter,
+        private changeDetector: ChangeDetectorRef
     ) {
         super(controlDirective);
     }
@@ -243,6 +245,12 @@ export class NumberWithUnitFormInputComponent
                     input.setValue(this.lastRealValue);
                 }
                 this.updateUnlimitedDisabledState();
+                if (!unlimitedChecked) {
+                    // Usability requirements imply the focus to be on the input element when 'unlimited checkbox' is
+                    // deselected in order to be easier for the user to modify the value.
+                    this.changeDetector.detectChanges();
+                    this.limitedInput.focus();
+                }
             });
         }
         this.tracker.subscribe(this.formGroup.get('comboUnitOptions').valueChanges, () => {
