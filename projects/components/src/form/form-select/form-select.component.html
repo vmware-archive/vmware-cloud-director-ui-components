@@ -1,16 +1,12 @@
 <div class="form-group">
-    <div class="clr-form-control clr-row">
-        <label
-            *ngIf="label"
-            [attr.for]="id"
-            class="clr-control-label clr-col-12 clr-col-md-2"
-            [ngClass]="{ 'required-field': showAsterisk }"
-            >{{ label }}</label
-        >
+    <div class="clr-form-control vcdResponsiveInput">
+        <label *ngIf="label" [attr.for]="id" class="clr-control-label" [ngClass]="{ 'required-field': showAsterisk }">{{
+            label
+        }}</label>
         <span *ngIf="isReadOnly && selectedOption" class="readOnly">
             {{ selectedOption.isTranslatable ? (selectedOption.display | translate) : selectedOption.display }}
         </span>
-        <div class="clr-control-container clr-col-12 clr-col-md-10" [ngClass]="{ 'clr-error': showErrors }">
+        <div class="clr-control-container" [ngClass]="{ 'clr-error': showErrors }">
             <div class="clr-select-wrapper" *ngIf="!isReadOnly">
                 <select
                     [id]="id"

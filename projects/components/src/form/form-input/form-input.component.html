@@ -1,18 +1,9 @@
 <div class="form-group">
-    <div class="clr-form-control">
+    <div class="clr-form-control vcdResponsiveInput">
         <label *ngIf="label" class="clr-control-label" [for]="id" [ngClass]="{ 'required-field': showAsterisk }">{{
             label
         }}</label>
         <div class="clr-control-container" [ngClass]="{ 'clr-error': showErrors }">
-    <div class="clr-form-control clr-row">
-        <label
-            *ngIf="label"
-            class="clr-control-label clr-col-12 clr-col-md-2"
-            [for]="id"
-            [ngClass]="{ 'required-field': showAsterisk }"
-            >{{ label }}</label
-        >
-        <div class="clr-control-container clr-col-12 clr-col-md-10" [ngClass]="{ 'clr-error': showErrors }">
             <div class="clr-input-wrapper">
                 <input
                     [attr.type]="type"
