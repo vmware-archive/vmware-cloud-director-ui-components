@@ -98,6 +98,14 @@ describe('VcdNumberWithUnitFormInputComponent', () => {
             expect(numberWithUnitInput.valueFormControl.disabled).toBeTruthy('Value field should have been disabled');
             expect(numberWithUnitInput.unitFormControl.disabled).toBeTruthy('Unit field should have been disabled');
         });
+
+        it('sets the focus on the input element when unlimited checkbox is unchecked', () => {
+            numberWithUnitInput.unlimitedFormControl.setValue(true);
+            numberWithUnitInput.detectChanges();
+            expect(numberWithUnitInput.isInputValueFucused()).toBe(false, 'Input element should not be on focus');
+            numberWithUnitInput.unlimitedFormControl.setValue(false);
+            expect(numberWithUnitInput.isInputValueFucused()).toBe(true, 'Input element should be on focus');
+        });
     });
 
     describe('unitOptions', () => {

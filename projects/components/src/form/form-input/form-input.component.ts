@@ -143,6 +143,18 @@ export class FormInputComponent extends BaseFormControl implements AfterViewInit
         }
         this.onChange(value);
     }
+
+    /**
+     * Move the focus to the input element.
+     * Its content is also selected for quick editing.
+     */
+    focus(): void {
+        if (!this.textInput) {
+            return;
+        }
+        this.textInput.nativeElement.focus();
+        this.textInput.nativeElement.select();
+    }
 }
 
 /**
