@@ -17,7 +17,7 @@ import {
     SimpleChanges,
     ViewChild,
 } from '@angular/core';
-import { FormBuilder, FormGroup, NgControl, ValidationErrors, ValidatorFn } from '@angular/forms';
+import { AbstractControl, FormBuilder, FormGroup, NgControl, ValidationErrors, ValidatorFn } from '@angular/forms';
 import { TranslationService } from '@vcd/i18n';
 import { SelectOption } from '../../common/interfaces';
 import { SubscriptionTracker } from '../../common/subscription';
@@ -186,7 +186,7 @@ export class NumberWithUnitFormInputComponent
      * @param value Should be one of the value that you pass in {@link #unitOptions} to select the Unit.
      */
     set selectedUnit(value: number) {
-        this.formGroup.get('comboUnitOptions').setValue(value);
+        this.unitCombo.setValue(value);
     }
 
     @ViewChild('unitDropdown', { static: false }) unitDropdown: FormSelectComponent;
@@ -235,8 +235,8 @@ export class NumberWithUnitFormInputComponent
             if (this.bestValue !== this.unlimitedValue) {
                 this.lastRealValue = this.bestValue;
             }
-            this.tracker.subscribe(this.formGroup.get('unlimited').valueChanges, (unlimitedChecked) => {
-                const input = this.formGroup.get('limited');
+            this.tracker.subscribe(this.unlimitedCheckbox.valueChanges, (unlimitedChecked) => {
+                const input = this.numberInput;
                 if (unlimitedChecked) {
                     // When going to unlimited remember the value of the input before clearing it
                     this.lastRealValue = input.value;
@@ -253,12 +253,12 @@ export class NumberWithUnitFormInputComponent
                 }
             });
         }
-        this.tracker.subscribe(this.formGroup.get('comboUnitOptions').valueChanges, () => {
+        this.tracker.subscribe(this.unitCombo.valueChanges, () => {
             // Mark the input as dirty since if it was not touched no error will be displayed even if there are some
             this.recalculateUnitMinMax();
             this.onChange(this.getValue());
         });
-        this.tracker.subscribe(this.formGroup.get('limited').valueChanges, () => {
+        this.tracker.subscribe(this.numberInput.valueChanges, () => {
             this.onChange(this.getValue());
         });
         this.recalculateUnitMinMax();
@@ -292,11 +292,11 @@ export class NumberWithUnitFormInputComponent
             this.initialValue = value;
             return;
         }
-        const input = this.formGroup.get('limited');
+        const input = this.numberInput;
         if (value === null) {
             if (this.showUnlimitedOption) {
                 // Set Unlimited checkbox to false because the form control was reset
-                this.formGroup.get('unlimited').setValue(false);
+                this.unlimitedCheckbox.setValue(false);
             }
             input.setValue(null);
             this.updateUnlimitedDisabledState();
@@ -310,7 +310,7 @@ export class NumberWithUnitFormInputComponent
                 input.setValue(this.bestValue);
                 this.selectedUnit = this.bestUnit.getMultiplier();
             }
-            this.formGroup.get('unlimited').setValue(value === this.unlimitedValue);
+            this.unlimitedCheckbox.setValue(value === this.unlimitedValue);
         } else {
             this.computeBestUnitAndValue(value);
             this.lastRealValue = this.bestValue;
@@ -330,26 +330,38 @@ export class NumberWithUnitFormInputComponent
         if (!this.showUnlimitedOption || this.disabled) {
             return;
         }
-        this.updateDisabledState(this.formGroup?.get('unlimited')?.value, false);
+        this.updateDisabledState(this.unlimitedCheckbox?.value, false);
     }
 
     updateDisabledState(isDisabled: boolean, updateUnlimitedCheckbox: boolean): void {
         if (this.formGroup) {
             // Do not emit when changing the disable state
             if (isDisabled) {
-                this.formGroup.get('comboUnitOptions').disable({ emitEvent: false });
-                this.formGroup.get('limited').disable({ emitEvent: false });
+                this.unitCombo.disable({ emitEvent: false });
+                this.numberInput.disable({ emitEvent: false });
                 if (updateUnlimitedCheckbox) {
-                    this.formGroup.get('unlimited')?.disable({ emitEvent: false });
+                    this.unlimitedCheckbox?.disable({ emitEvent: false });
                 }
             } else {
-                this.formGroup.get('comboUnitOptions').enable({ emitEvent: false });
-                this.formGroup.get('limited').enable({ emitEvent: false });
+                this.unitCombo.enable({ emitEvent: false });
+                this.numberInput.enable({ emitEvent: false });
                 if (updateUnlimitedCheckbox) {
-                    this.formGroup.get('unlimited')?.enable({ emitEvent: false });
+                    this.unlimitedCheckbox?.enable({ emitEvent: false });
                 }
             }
         }
+    }
+
+    get unlimitedCheckbox(): AbstractControl {
+        return this.formGroup.get('unlimited');
+    }
+
+    get numberInput(): AbstractControl {
+        return this.formGroup.get('limited');
+    }
+
+    get unitCombo(): AbstractControl {
+        return this.formGroup.get('comboUnitOptions');
     }
 
     private computeBestUnitAndValue(value: number): void {
@@ -366,11 +378,11 @@ export class NumberWithUnitFormInputComponent
     }
 
     private getValue(): number {
-        if (this.formGroup.get('unlimited')?.value) {
+        if (this.unlimitedCheckbox?.value) {
             return this.unlimitedValue;
         }
 
-        const value = this.formGroup.get('limited').value;
+        const value = this.numberInput.value;
         if (value && this.unitOptions.length) {
             return this.getSelectedUnit().getOutputValue(value, this.inputValueUnit);
         }
@@ -378,7 +390,7 @@ export class NumberWithUnitFormInputComponent
     }
 
     private getSelectedUnit(): Unit {
-        const value = this.formGroup.get('comboUnitOptions').value;
+        const value = this.unitCombo.value;
         const selectedComboUnit = this.comboOptions.find(
             // tslint:disable-next-line:triple-equals
             (co) => co.value == value
@@ -397,11 +409,11 @@ export class NumberWithUnitFormInputComponent
     }
 
     get displayValue(): string {
-        if (this.formGroup.get('unlimited') && this.formGroup.get('unlimited').value) {
+        if (this.unlimitedCheckbox && this.unlimitedCheckbox.value) {
             return this.translationService.translate('vcd.cc.unlimited');
         }
 
-        const value = this.formGroup.get('limited').value;
+        const value = this.numberInput.value;
         if (value) {
             if (this.unitDropdown) {
                 // Return the value and the selected unit.
@@ -416,7 +428,7 @@ export class NumberWithUnitFormInputComponent
 
                 const displayComboUnit = this.comboOptions.find(
                     // tslint:disable-next-line:triple-equals
-                    (co) => co.value == this.formGroup.get('comboUnitOptions').value
+                    (co) => co.value == this.unitCombo.value
                 );
                 const displayUnit = this.comboOptionUnitMap.get(displayComboUnit);
                 if (displayUnit) {

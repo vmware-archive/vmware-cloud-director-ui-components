@@ -5,7 +5,7 @@
 <div *ngIf="!isReadOnly" class="input-number-with-unit">
     <vcd-form-input
         #limitedInput
-        [formControl]="formGroup.controls.limited"
+        [formControl]="numberInput"
         [placeholder]="placeholder"
         type="number"
         [size]="size"
@@ -28,7 +28,7 @@
                 *ngSwitchDefault
                 #unitDropdown
                 [options]="comboOptions"
-                [formControl]="formGroup.controls.comboUnitOptions"
+                [formControl]="unitCombo"
             >
             </vcd-form-select>
             <clr-signpost *ngIf="hint">
@@ -55,7 +55,7 @@
         <vcd-form-checkbox
             [label]="' '"
             [text]="'vcd.cc.unlimited' | translate"
-            [formControl]="formGroup.controls.unlimited"
+            [formControl]="unlimitedCheckbox"
         ></vcd-form-checkbox>
     </footer>
 </div>
