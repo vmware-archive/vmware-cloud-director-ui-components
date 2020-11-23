@@ -2,11 +2,6 @@
     padding-left: 0;
 }
 
-.input-aside {
-    display: flex;
-    width: 100%;
-}
-
 :host-context(.modal):not(.adjust-aside-left) {
     .form-label {
         flex-grow: 1;

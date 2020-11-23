@@ -15,7 +15,7 @@ import { AfterViewInit, Directive, ElementRef, HostBinding } from '@angular/core
     selector: '.clr-form-control[vcdResponsiveInput]',
 })
 export class ResponsiveInputDirective implements AfterViewInit {
-    @HostBinding('class.clr-row') private clrGridRow = true;
+    @HostBinding('class.clr-row') public clrGridRow = true;
     constructor(private el: ElementRef<HTMLElement>) {}
 
     ngAfterViewInit(): void {
@@ -24,7 +24,7 @@ export class ResponsiveInputDirective implements AfterViewInit {
     }
 
     private applyClasses(className: 'label' | 'container', mdSize: '2' | '10'): void {
-        const el = this.el.nativeElement.querySelector(`.clr-control-${className}`);
+        const el = this.el.nativeElement.querySelector(`:scope > .clr-control-${className}`);
         if (el) {
             el.classList.add('clr-col-12', `clr-col-md-${mdSize}`);
         }

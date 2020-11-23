@@ -6,6 +6,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
+### Added
+- Enabled hints for vcd-form-checkbox
+- Fixed previous bad vcdResponsiveInput commits. Module was incorrectly setup and vcdResponsiveInput had
+  been added as  a class name instead of an attribute (directive)
 
 ## [1.0.0-dev.54]
 ### Changed
