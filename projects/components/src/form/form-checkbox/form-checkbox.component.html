@@ -10,10 +10,18 @@
                     [ngClass]="{ 'clr-checkbox': isCheckbox, 'clr-toggle': !isCheckbox }"
                     [formControl]="formControl"
                 />
-                <label class="clr-control-label right-label" [for]="id">
+                <label class="clr-control-label" [for]="id">
                     <clr-icon *ngIf="iconShape" [attr.shape]="iconShape"></clr-icon>
                     {{ text }}
                 </label>
+                <clr-signpost *ngIf="hint">
+                    <button type="button" class="btn-blank" clrSignpostTrigger>
+                        <clr-icon shape="info-circle" size="24"></clr-icon>
+                    </button>
+                    <clr-signpost-content [clrPosition]="hintPosition" *clrIfOpen>
+                        <p>{{ hint }}</p>
+                    </clr-signpost-content>
+                </clr-signpost>
             </div>
             <span class="clr-subtext" *ngIf="showErrors" [id]="errorsId">
                 <div *ngFor="let key of errorKeys">
