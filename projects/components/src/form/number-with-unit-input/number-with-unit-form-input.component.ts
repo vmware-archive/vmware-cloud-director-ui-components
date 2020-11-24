@@ -24,7 +24,7 @@ import { SubscriptionTracker } from '../../common/subscription';
 import { FormValidators } from '../../form/validators';
 import { Unit } from '../../utils/unit/unit';
 import { UnitFormatter } from '../../utils/unit/unit-formatter';
-import { BaseFormControl } from '../base-form-control';
+import { BaseFormControl, defaultValidatorForControl } from '../base-form-control';
 import { FormInputComponent } from '../form-input/form-input.component';
 import { FormSelectComponent } from '../form-select/form-select.component';
 
@@ -261,6 +261,13 @@ export class NumberWithUnitFormInputComponent
         this.tracker.subscribe(this.numberInput.valueChanges, () => {
             this.onChange(this.getValue());
         });
+
+        defaultValidatorForControl(this.formControl, (control) => this.validateNumber(control));
+
+        // Trigger validation when the numberInput changes since our validation depends on `this.numberInput`
+        this.tracker.subscribe(this.numberInput.statusChanges, (status) => {
+            this.formControl.updateValueAndValidity();
+        });
         this.recalculateUnitMinMax();
         this.updateUnlimitedDisabledState();
         // This code should be here since the formGroup has been created in the ngOnInit. If the disabled()
@@ -278,14 +285,18 @@ export class NumberWithUnitFormInputComponent
         if (!this.limitedInput) {
             return;
         }
+        // Hide errors in number input
         Object.defineProperty(this.limitedInput, 'showErrors', {
-            get: this.limitedInputShowErrors,
+            get: () => null,
         });
     }
 
-    limitedInputShowErrors = () => {
-        return this.showErrors && this.errors ? {} : null;
-    };
+    /**
+     * Delegate the number parsing to the number input
+     */
+    private validateNumber(control: AbstractControl): ValidationErrors {
+        return this.numberInput.errors?.['vcd.cc.bad.input'] ? { 'vcd.cc.bad.input': true } : null;
+    }
 
     writeValue(value: number): void {
         if (!this.formGroup) {

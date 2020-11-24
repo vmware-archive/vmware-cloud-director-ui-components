@@ -14,7 +14,7 @@
         [maxlength]="maxlength"
         [showAsterisk]="showAsterisk"
         [label]="label"
-        [description]="description"
+        [description]="formControl.valid && description"
     >
         <aside [ngSwitch]="unitOptions.length">
             <ng-container *ngSwitchCase="0">
