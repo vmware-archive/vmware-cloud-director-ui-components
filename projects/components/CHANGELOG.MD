@@ -8,6 +8,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 ### Added
 [internal]: Update `ng-live-docs` to 0.0.8 to enable `@vmw/ng-live-docs:add-example` schematic.
+### Changed
+1. BREAKING: Rewrote `VcdDatagridWidget` and `ClrDatagridWidget` with new Widget Object.
+2. Added convenience methods to the `TestElement`.
+3. INTERNAL: Rewrote `datagrid.component` unit tests using new widget object.
+4. INTERNAL: Rewrote helper method about creating datagrid filter unit test with new Widget Object.
+### Removed
+1. BREAKING: Removed `WithGridBoldRenderer`. The functionality of `WithGridBoldRenderer` has been implemented in `ClrDatagridWidget`.
 
 ## [1.0.0-dev.50] - 2020-12-2
 ### Fixed

@@ -163,6 +163,37 @@ export class TestElement implements Iterable<TestElement> {
     }
 
     /**
+     * Send a keyboard event of type {@param eventType} with properties {@param eventProperties} on this element.
+     * Setting the event properties is done with `Object.defineProperty` on the created event. This allows setting
+     * properties like `which` that is deprecated and cannot be set with the native approach of creating keyboard event.
+     * @param eventType The keyboard event type like 'keyup', 'keydown', 'keypress'
+     * @param eventProperties properties of the event like `code`, `key` etc.
+     */
+    sendKeyboardEvent(eventType: string, eventProperties: { [name: string]: unknown }): void {
+        const element = this.elements[0].nativeElement as HTMLElement;
+        const event = new KeyboardEvent(eventType, { bubbles: true });
+        Object.keys(eventProperties).forEach((key) => {
+            Object.defineProperty(event, key, { value: eventProperties[key] });
+        });
+        element.dispatchEvent(event);
+        this.detectChanges();
+    }
+
+    /**
+     * Returns classes of first element as a string array
+     */
+    classes(): string[] {
+        return Object.keys(this.elements[0].classes);
+    }
+
+    /**
+     * Returns the parent of first element
+     */
+    parent(): TestElement {
+        return new TestElement([this.elements[0].parent], this.fixture);
+    }
+
+    /**
      * Allows a TestElement to be used in a `for ... of ...` loop.
      */
     [Symbol.iterator](): Iterator<TestElement, any, undefined> {
