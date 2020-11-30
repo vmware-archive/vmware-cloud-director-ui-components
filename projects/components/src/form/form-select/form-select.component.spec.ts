@@ -19,7 +19,7 @@ export class VcdFormSelectWidgetObject extends WidgetObject<FormSelectComponent>
 
     get clrIcon(): string {
         const clrIconDebugEl = this.findElement('clr-icon');
-        return clrIconDebugEl ? clrIconDebugEl.nativeElement.getAttribute('shape') : undefined;
+        return clrIconDebugEl?.nativeElement.getAttribute('shape') || '';
     }
 
     get value(): string {
