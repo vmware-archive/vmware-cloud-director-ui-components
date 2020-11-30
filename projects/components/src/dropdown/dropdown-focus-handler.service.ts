@@ -23,41 +23,47 @@ export class DropdownFocusHandlerService implements OnDestroy {
     }
 
     /**
-     * Moves the focus to HTML element in the given direction
+     * Moves the focus to HTML element in the given direction and returns true if the focus is moved and false otherwise
      */
-    moveFocus(direction: Direction): void {
+    moveFocus(direction: Direction): boolean {
+        let moved;
         switch (direction) {
             case Direction.DOWN:
-                this.moveFocusTo(this.currentFocusedItem.down);
+                moved = this.moveFocusTo(this.currentFocusedItem.down);
                 break;
             case Direction.LEFT:
-                this.moveFocusTo(this.currentFocusedItem.left);
+                moved = this.moveFocusTo(this.currentFocusedItem.left);
                 break;
             case Direction.UP:
-                this.moveFocusTo(this.currentFocusedItem.up);
+                moved = this.moveFocusTo(this.currentFocusedItem.up);
                 break;
             case Direction.RIGHT:
-                this.moveFocusTo(this.currentFocusedItem.right);
+                moved = this.moveFocusTo(this.currentFocusedItem.right);
                 break;
         }
+        return moved;
     }
 
     /**
-     * Calls the HTML focus method on the HTML element passed
+     * Calls the HTML focus method on the HTML element passed and removed focus on currently focused element.
+     * Returns true if the focus is moved and false otherwise.
      */
-    moveFocusTo(item: MenuItem): void {
+    moveFocusTo(item: MenuItem): boolean {
+        let moved = false;
         if (!item) {
-            return;
+            return moved;
         }
         if (this.currentFocusedItem) {
             // Sometimes, when navigating to a nested menu using right arrow, the nested menu trigger gets focused multiple times
             if (Object.is(this.currentFocusedItem.element, item.element)) {
-                return;
+                return moved;
             }
             this.currentFocusedItem.element.blur();
         }
         item.element.focus();
         this.currentFocusedItem = item;
+        moved = true;
+        return moved;
     }
 
     /**
@@ -66,28 +72,43 @@ export class DropdownFocusHandlerService implements OnDestroy {
      * automatically moves the focus to first item in the menu on the right side
      */
     listenToArrowKeys(menuContainer: HTMLElement): void {
+        // The following listeners return false when the focus is moved for the key pressed, in order to prevent the default behavior of
+        // that key. For example, to prevent scrolling of page underneath the dropdown when up and down arrow keys are pressed.
         this.unlistenFuncs.push(
             this.renderer.listen(menuContainer, 'keydown.arrowdown', (event: Event) => {
-                this.moveFocus(Direction.DOWN);
                 event.stopPropagation();
+                return !this.moveFocus(Direction.DOWN);
             })
         );
         this.unlistenFuncs.push(
             this.renderer.listen(menuContainer, 'keydown.arrowup', (event: Event) => {
-                this.moveFocus(Direction.UP);
                 event.stopPropagation();
+                return !this.moveFocus(Direction.UP);
             })
         );
         this.unlistenFuncs.push(
             this.renderer.listen(menuContainer, 'keydown.arrowleft', (event: Event) => {
                 if (!this.currentFocusedItem.left) {
-                    return;
+                    return true;
                 }
                 // Close the nested menu before moving focus to left side
-                this.currentFocusedItem.left.closeMenu(event);
-                this.moveFocus(Direction.LEFT);
+                this.currentFocusedItem.left.closeMenu();
                 event.stopPropagation();
+                return !this.moveFocus(Direction.LEFT);
             })
         );
+    }
+
+    /**
+     * Whenever escape is pressed on dropdown item, the menu has to be closed and the focus has to be moved to parent menu if any... Just
+     * like when left arrow key is pressed
+     */
+    escapePressed(): void {
+        if (!this.currentFocusedItem.left) {
+            return;
+        }
+        // Close the nested menu before moving focus to left side
+        this.currentFocusedItem.left.closeMenu();
+        this.moveFocus(Direction.LEFT);
     }
 }

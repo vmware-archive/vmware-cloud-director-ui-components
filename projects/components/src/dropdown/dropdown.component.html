@@ -1,4 +1,4 @@
-<clr-dropdown [clrCloseMenuOnItemClick]="false" vcdDynamicDropdown class="nested-dropdown">
+<clr-dropdown vcdDynamicDropdown class="nested-dropdown">
     <button
         [ngClass]="[
             dropdownTriggerBtnTxt ? 'btn btn-link' : '',
@@ -8,6 +8,9 @@
         clrDropdownTrigger
         [vcdShowClippedText]="clipTextConfig"
         [disabled]="isDropdownDisabled"
+        (keydown.enter)="onDropdownTriggerActivated($event)"
+        (keydown.space)="onDropdownTriggerActivated($event)"
+        (keydown.escape)="onDropdownEscPressed($event)"
     >
         <ng-container *ngIf="dropdownTriggerBtnTxt">
             {{ dropdownTriggerBtnTxt }}
@@ -51,8 +54,9 @@
                         [ngClass]="[item.class ? item.class : '', shouldShowIcon ? 'btn-icon' : '', 'btn', 'btn-link']"
                         clrDropdownItem
                         (click)="onItemClicked(item)"
-                        (keydown.space)="onDropdownItemActivated($event)"
                         (keydown.enter)="onDropdownItemActivated($event)"
+                        (keydown.space)="onDropdownItemActivated($event)"
+                        (keydown.escape)="onDropdownEscPressed($event)"
                         [clrDisabled]="isItemDisabled(item)"
                     >
                         <ng-container *ngIf="shouldShowText">{{
