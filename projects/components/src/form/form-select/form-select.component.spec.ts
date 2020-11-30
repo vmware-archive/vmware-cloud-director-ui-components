@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: BSD-2-Clause
  */
 
-import { Component, ViewChild } from '@angular/core';
+import { Component, DebugElement, Type, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { SelectOption } from '../../common/interfaces/select-option';
 import { WidgetFinder, WidgetObject } from '../../utils/test/widget-object';
@@ -15,6 +15,15 @@ export class VcdFormSelectWidgetObject extends WidgetObject<FormSelectComponent>
 
     private get selectElement(): HTMLSelectElement {
         return this.findElement('select').nativeElement;
+    }
+
+    get clrIcon(): HTMLElement {
+        const clrIconDebugEl = this.findElement('clr-icon');
+        return clrIconDebugEl ? clrIconDebugEl.nativeElement : undefined;
+    }
+
+    findElement(selector: string | Type<unknown>, parent: DebugElement = this.root): DebugElement {
+        return super.findElement(selector, parent);
     }
 
     get value(): string {
@@ -81,6 +90,20 @@ describe('FormSelectComponent', () => {
             expect(selectInput.value).toEqual(hostComponent.options[1].value as string);
             hostComponent.formGroup.get('selectInput').setValue(hostComponent.options[2].value);
             expect(selectInput.value).toEqual(hostComponent.options[2].value as string);
+        });
+    });
+
+    describe('validation', () => {
+        it('should not show error icon before user selects value', () => {
+            expect(selectInput.clrIcon).toBeUndefined();
+        });
+        it('shows error icon when a invalid value is selected', () => {
+            selectInput.select(0);
+            expect(selectInput.clrIcon).toBeDefined();
+        });
+        it('does not show error icon when a valid value is selected', () => {
+            selectInput.select(1);
+            expect(selectInput.clrIcon).toBeUndefined();
         });
     });
 });
