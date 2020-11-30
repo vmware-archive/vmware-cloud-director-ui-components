@@ -53,7 +53,7 @@ export class ActivityPromiseResolver<T> {
             .then((result) => {
                 return {
                     object: result,
-                    response: { ...result, success: successMessage || result },
+                    response: { ...result, success: successMessage || result } as ActivityResponse,
                 };
             })
             .catch((error) => {
