@@ -17,13 +17,9 @@ export class VcdFormSelectWidgetObject extends WidgetObject<FormSelectComponent>
         return this.findElement('select').nativeElement;
     }
 
-    get clrIcon(): HTMLElement {
+    get clrIcon(): string {
         const clrIconDebugEl = this.findElement('clr-icon');
-        return clrIconDebugEl ? clrIconDebugEl.nativeElement : undefined;
-    }
-
-    findElement(selector: string | Type<unknown>, parent: DebugElement = this.root): DebugElement {
-        return super.findElement(selector, parent);
+        return clrIconDebugEl ? clrIconDebugEl.nativeElement.getAttribute('shape') : undefined;
     }
 
     get value(): string {
@@ -94,12 +90,12 @@ describe('FormSelectComponent', () => {
     });
 
     describe('validation', () => {
-        it('should not show error icon before user selects value', () => {
+        it('does not show error icon before user selects value', () => {
             expect(selectInput.clrIcon).toBeUndefined();
         });
         it('shows error icon when a invalid value is selected', () => {
             selectInput.select(0);
-            expect(selectInput.clrIcon).toBeDefined();
+            expect(selectInput.clrIcon).toEqual('exclamation-circle');
         });
         it('does not show error icon when a valid value is selected', () => {
             selectInput.select(1);
