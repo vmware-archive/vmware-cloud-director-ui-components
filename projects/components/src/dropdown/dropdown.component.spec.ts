@@ -49,7 +49,7 @@ class VcdDropdownWidgetObject extends WidgetObject<DropdownComponent> {
 describe('DropdownComponent', () => {
     describe('shouldRenderAsSeparator', () => {
         beforeEach(function (this: HasVcdDropdown): void {
-            this.dropdownComponent = new DropdownComponent(null);
+            this.dropdownComponent = new DropdownComponent(null, null);
         });
         it('returns false when separator is the first item in the list', function (this: HasVcdDropdown): void {
             this.dropdownComponent.items = [
@@ -245,6 +245,7 @@ describe('DropdownComponent', () => {
 @Component({
     template: `
         <vcd-dropdown
+            vcdDropdownFocusHandler
             [items]="items"
             [dropdownTriggerBtnTxt]="'Dropdown'"
             [dropdownTriggerButtonClassName]="primaryDropdownClassName"

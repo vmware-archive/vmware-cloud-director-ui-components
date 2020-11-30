@@ -4,35 +4,56 @@
  */
 
 import {
+    AfterViewInit,
     Component,
-    Host,
+    ElementRef,
+    EventEmitter,
     HostListener,
     Input,
     Optional,
+    Output,
+    Provider,
     QueryList,
+    Renderer2,
+    Self,
     SkipSelf,
     TrackByFunction,
     ViewChild,
     ViewChildren,
 } from '@angular/core';
-import { ClrDropdown } from '@clr/angular';
+import { ClrDropdown, ClrDropdownMenu, ClrDropdownTrigger } from '@clr/angular';
 import { ActionItem, TextIcon } from '../common/interfaces';
 import { CliptextConfig, TooltipSize } from '../lib/directives';
 import { CommonUtil } from '../utils';
+import { DropdownFocusHandlerService } from './dropdown-focus-handler.service';
 
 const NESTED_DROPDOWN_TRIGGER_SELECTOR = 'clr-dropdown clr-dropdown > button';
 const DROPDOWN_ITEM_SELECTOR = 'clr-dropdown-menu > button';
 export const NESTED_MENU_HIDE_DELAY = 400;
 
+export function dropdownFocusHandlerServiceFactory(
+    renderer: Renderer2,
+    existing: DropdownFocusHandlerService
+): DropdownFocusHandlerService {
+    return existing || new DropdownFocusHandlerService(renderer);
+}
+
+export const DROPDOWN_FOCUS_HANDLER_PROVIDER: Provider = {
+    provide: DropdownFocusHandlerService,
+    useFactory: dropdownFocusHandlerServiceFactory,
+    deps: [Renderer2, [new Optional(), new SkipSelf(), DropdownFocusHandlerService]],
+};
+
 /**
- * Dumb component used for displaying nested drop downs
+ * Component used for displaying nested drop downs
  */
 @Component({
     selector: 'vcd-dropdown',
     templateUrl: 'dropdown.component.html',
     styleUrls: ['./dropdown.component.scss'],
+    providers: [DROPDOWN_FOCUS_HANDLER_PROVIDER],
 })
-export class DropdownComponent {
+export class DropdownComponent implements AfterViewInit {
     private _dropdownItemContents: TextIcon = TextIcon.TEXT;
 
     private _items: ActionItem<unknown, unknown>[];
@@ -42,6 +63,7 @@ export class DropdownComponent {
      * @param textIcon An enum that describes the possible ways to display the button title
      */
     @Input() set dropdownItemContents(textIcon: TextIcon) {
+        this._dropdownItemContents = textIcon;
         this.shouldShowIcon = (TextIcon.ICON & textIcon) === TextIcon.ICON;
         this.shouldShowText = (TextIcon.TEXT & textIcon) === TextIcon.TEXT;
         this.shouldShowTooltip = textIcon === TextIcon.ICON;
@@ -59,7 +81,43 @@ export class DropdownComponent {
         return this._items;
     }
 
-    constructor(@Optional() @SkipSelf() @Host() private parentVcdDropdown: DropdownComponent) {}
+    @Output() dropdownMenuUpdated = new EventEmitter<{ menu: HTMLElement }>();
+
+    constructor(
+        @Optional() @SkipSelf() private parentVcdDropdown: DropdownComponent,
+        private focusHandler: DropdownFocusHandlerService
+    ) {}
+
+    @ViewChild(ClrDropdownMenu)
+    set clrDropdownMenu(val: ClrDropdownMenu) {
+        this._clrDropdownMenu = val;
+        if (!val) {
+            return;
+        }
+        // Disable Claritys focus handling logic
+        this._clrDropdownMenu.items.reset([]);
+        this._clrDropdownMenu.items.notifyOnChanges();
+    }
+    private _clrDropdownMenu: ClrDropdownMenu;
+
+    @ViewChild(ClrDropdownTrigger, { read: ElementRef, static: true })
+    set dropdownTriggerEl(val: ElementRef<HTMLElement>) {
+        this._dropdownTriggerEl = val ? val.nativeElement : null;
+    }
+    _dropdownTriggerEl: HTMLElement;
+
+    @ViewChild(ClrDropdownMenu, { read: ElementRef, static: false })
+    set clrDropdownMenuEl(val: ElementRef<HTMLElement>) {
+        if (!val) {
+            this.dropdownMenuUpdated.emit(null);
+            return;
+        }
+        this._clrDropdownMenuEl = val.nativeElement;
+        this.dropdownMenuUpdated.emit({
+            menu: this._clrDropdownMenuEl,
+        });
+    }
+    _clrDropdownMenuEl: HTMLElement;
     /**
      * If a icon should be displayed inside contextual buttons
      */
@@ -87,7 +145,7 @@ export class DropdownComponent {
     /**
      * Text Content of the button that opens the root dropdown when clicked
      */
-    @Input() dropdownTriggerBtnTxt: string = 'vcd.cc.action.menu.actions';
+    @Input() dropdownTriggerBtnTxt: string = 'vcd.cc.action.menu.other.actions';
 
     /**
      * Icon shown in the button that opens the root dropdown when clicked
@@ -129,9 +187,15 @@ export class DropdownComponent {
     @Input() dropdownTriggerButtonClassName: string;
 
     /**
-     * To toggle open an close states when hovered over
+     * To toggle open and close states when hovered over
      */
     @ViewChild(ClrDropdown) clrDropdown: ClrDropdown;
+
+    /**
+     * The button that opens this dropdown when clicked. Used for preventing the clarity frameworks click handler logic
+     * from executing
+     */
+    @ViewChild(ClrDropdownTrigger) clrDropdownTrigger: ClrDropdownTrigger;
 
     /**
      * List of nested dropdown children that belong to this dropdown. Used to close when a different child in this menu list is
@@ -166,6 +230,18 @@ export class DropdownComponent {
             const singleChildItem = items.splice(singleChildItemIndex, 1).pop();
             items.unshift(singleChildItem.children[0]);
         });
+    }
+
+    /**
+     * Nested menus are toggled using the mouseover and mouseout events instead of mouse clicks. So the claritys
+     * click handler which conflicts with that is prevented from executing
+     */
+    ngAfterViewInit(): void {
+        if (this.parentVcdDropdown) {
+            this.clrDropdownTrigger.onDropdownTriggerClick = (event: Event) => {
+                event.stopPropagation();
+            };
+        }
     }
 
     /**
@@ -231,6 +307,35 @@ export class DropdownComponent {
     }
 
     /**
+     * When space or enter key is pressed on the focused dropdown menu item, it has to be clicked
+     * @param event Space or Enter key press event
+     */
+    onDropdownItemActivated(event: Event): void {
+        event.stopPropagation();
+        event.target.dispatchEvent(new Event('click'));
+    }
+
+    /**
+     * When space or enter is pressed on a nested trigger, the nested menu has to be opened. So, we trigger a mouseover event which opens
+     * the nested menu
+     * @param event Space or Enter key press event
+     */
+    onDropdownTriggerActivated(event: Event): void {
+        // For the root dropdown, it is already being handled by Clarity
+        if (!this.parentVcdDropdown) {
+            return;
+        }
+        event.stopPropagation();
+        event.target.dispatchEvent(
+            new MouseEvent('mouseover', {
+                view: window,
+                bubbles: true,
+                cancelable: true,
+            })
+        );
+    }
+
+    /**
      * We use [clrDisabled] instead of [disabled] to show that a dropdown item is disabled. However, it doesn't prevent the item from
      * getting activated when it is clicked. So, we make sure the action is not disabled before clicking it
      */
@@ -248,5 +353,15 @@ export class DropdownComponent {
      */
     isItemDisabled(item: ActionItem<any, any>): boolean {
         return (CommonUtil.isFunction(item.disabled) ? item.disabled(this.selectedEntities) : item.disabled) as boolean;
+    }
+
+    /**
+     * When an esc key is pressed on a dropdown item, the behavior should be same as pressing left arrow key on the item. This is
+     * being handled here instead of inside the {@link DropdownFocusHandlerService} because, the escape event is being absorned by
+     * Claritys focus handling logic before it reaches the service.
+     */
+    onDropdownEscPressed(event: Event): void {
+        event.stopPropagation();
+        this.focusHandler.escapePressed();
     }
 }
