@@ -34,7 +34,7 @@ export class VcdFormlyModule {
      * Used for passing configuration in addition to default {@link VCD_FORMLY_CONFIG}
      * @param configOption Additional Formly configuration
      */
-    static forRoot(configOption: ConfigOption): ModuleWithProviders {
+    static forRoot(configOption: ConfigOption): ModuleWithProviders<VcdFormlyModule> {
         return {
             ngModule: VcdFormlyModule,
             providers: [{ provide: FORMLY_CONFIG, useValue: configOption, multi: true }],
