@@ -312,6 +312,8 @@ export class DropdownComponent implements AfterViewInit {
      */
     onDropdownItemActivated(event: Event): void {
         event.stopPropagation();
+        // We need to dispatch a click event instead of just calling the click handler because, Clarity listens to a
+        // click event to close the menu after an item is activated
         event.target.dispatchEvent(new Event('click'));
     }
 
