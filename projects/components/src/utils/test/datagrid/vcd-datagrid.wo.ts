@@ -28,7 +28,7 @@ export class VcdDatagridWidgetObject<T> extends BaseWidgetObject<T> {
     /**
      * Unwraps the `vcd-datagrid`
      */
-    get component(): T {
+    get vcdDatagrid(): T {
         return this.locatorDriver.unwrap();
     }
 }

@@ -236,7 +236,7 @@ export class ClrDatagridWidgetObject<T> extends BaseWidgetObject<T> {
         return this.locatorDriver.get(Css.COLUMN).get(Css.FILTER).get(Css.FILTER_TOGGLE).unwrap();
     }
 
-    get component(): T {
+    get clrDatagrid(): T {
         return this.locatorDriver.unwrap();
     }
 }
