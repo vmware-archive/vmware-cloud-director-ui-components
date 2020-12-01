@@ -49,21 +49,19 @@ export class DropdownFocusHandlerService implements OnDestroy {
      * Returns true if the focus is moved and false otherwise.
      */
     moveFocusTo(item: MenuItem): boolean {
-        let moved = false;
         if (!item) {
-            return moved;
+            return false;
         }
         if (this.currentFocusedItem) {
             // Sometimes, when navigating to a nested menu using right arrow, the nested menu trigger gets focused multiple times
             if (Object.is(this.currentFocusedItem.element, item.element)) {
-                return moved;
+                return false;
             }
             this.currentFocusedItem.element.blur();
         }
         item.element.focus();
         this.currentFocusedItem = item;
-        moved = true;
-        return moved;
+        return true;
     }
 
     /**
@@ -72,29 +70,31 @@ export class DropdownFocusHandlerService implements OnDestroy {
      * automatically moves the focus to first item in the menu on the right side
      */
     listenToArrowKeys(menuContainer: HTMLElement): void {
-        // The following listeners return false when the focus is moved for the key pressed, in order to prevent the default behavior of
-        // that key. For example, to prevent scrolling of page underneath the dropdown when up and down arrow keys are pressed.
+        // We call event.preventDefault below to prevent scrolling of page underneath the dropdown when arrow keys are pressed
         this.unlistenFuncs.push(
             this.renderer.listen(menuContainer, 'keydown.arrowdown', (event: Event) => {
                 event.stopPropagation();
-                return !this.moveFocus(Direction.DOWN);
+                this.moveFocus(Direction.DOWN);
+                event.preventDefault();
             })
         );
         this.unlistenFuncs.push(
             this.renderer.listen(menuContainer, 'keydown.arrowup', (event: Event) => {
                 event.stopPropagation();
-                return !this.moveFocus(Direction.UP);
+                this.moveFocus(Direction.UP);
+                event.preventDefault();
             })
         );
         this.unlistenFuncs.push(
             this.renderer.listen(menuContainer, 'keydown.arrowleft', (event: Event) => {
                 if (!this.currentFocusedItem.left) {
-                    return true;
+                    return;
                 }
                 // Close the nested menu before moving focus to left side
                 this.currentFocusedItem.left.closeMenu();
                 event.stopPropagation();
-                return !this.moveFocus(Direction.LEFT);
+                this.moveFocus(Direction.LEFT);
+                event.preventDefault();
             })
         );
     }
