@@ -26,38 +26,99 @@ const Css = {
     RADIO_WRAPPER: 'clr-radio-wrapper',
     FILTER: 'clr-dg-filter',
     FILTER_TOGGLE: '.datagrid-filter-toggle',
+    SPINNER: 'clr-spinner',
 };
 
 /**
  * Widget Object for a Clarity DataGrid
  */
 export class ClrDatagridWidgetObject<T> extends BaseWidgetObject<T> {
-    static tagName = `clr-datagrid`;
+    static tagName = 'clr-datagrid';
 
     /**
      * Gives the placeholder present on the datagrid
      */
-    getPlaceHolder = this.locatorForChild(Css.PLACEHOLDER);
+    getPlaceHolder = this.locatorForCssSelectors(Css.PLACEHOLDER);
 
     /**
      * The header of the detail pane
      */
-    getDetailPaneHeader = this.locatorForChild(Css.DETAIL_PANE_HEADER);
+    getDetailPaneHeader = this.locatorForCssSelectors(Css.DETAIL_PANE_HEADER);
 
     /**
      * Gives the pagination description text
      */
-    getPaginationDescription = this.locatorForChild(Css.PAGINATION_DESCRIPTION);
+    getPaginationDescription = this.locatorForCssSelectors(Css.PAGINATION_DESCRIPTION);
 
     /**
      * Gives the text next to the pagination selector
      */
-    getPaginationSizeSelector = this.locatorForChild(Css.PAGE_SIZE);
+    getPaginationSizeSelector = this.locatorForCssSelectors(Css.PAGE_SIZE);
 
     /**
      * Returns the next page button
      */
-    getNextButton = this.locatorForChild(Css.PAGINATION_NEXT);
+    getNextButton = this.locatorForCssSelectors(Css.PAGINATION_NEXT);
+
+    /**
+     * Returns all the rows
+     */
+    getRows = this.locatorForCssSelectors(Css.ROW);
+
+    /**
+     * Returns all the columns
+     */
+    getColumns = this.locatorForCssSelectors(Css.COLUMN);
+
+    /**
+     * Returns an array of headers
+     */
+    getColumnHeaders = this.locatorForCssSelectors(Css.COLUMN_TITLE);
+
+    /**
+     * Returns an array of columns that are hidden
+     */
+    getHiddenColumnHeaders = this.locatorForCssSelectors(Css.HIDDEN_COLUMN);
+
+    /**
+     * Returns the elements within all the detail pane open
+     */
+    getDetailRows = this.locatorForCssSelectors(Css.DETAIL_ROW);
+
+    /**
+     * Returns the elements within all the detail pane open
+     */
+    getDetailPanes = this.locatorForCssSelectors(Css.DETAIL_PANE);
+
+    /**
+     * Returns all the detail buttons
+     */
+    getDetailRowButtons = this.locatorForCssSelectors(Css.DETAIL_ROW_BUTTON);
+
+    /**
+     * Returns all the detail pane buttons
+     */
+    getDetailPaneButtons = this.locatorForCssSelectors(Css.DETAIL_PANE_BUTTON);
+
+    /**
+     * Gives a list of displayed action buttons at the top of the grid
+     */
+    getTopPositionedButtons = this.locatorForCssSelectors(Css.TOP_POSITIONED_BUTTON);
+
+    /**
+     * Find a clr-checkbox-wrapper
+     */
+    getCheckboxWrapper = this.locatorForCssSelectors(Css.CHECKBOX_WRAPPER);
+
+    /**
+     * Find a clr-radio-wrapper
+     */
+    getRadioWrapper = this.locatorForCssSelectors(Css.RADIO_WRAPPER);
+
+    /**
+     * Find a clr-spinner element
+     */
+    getSpinner = this.locatorForCssSelectors(Css.SPINNER);
 
     /**
      * Helper function to retrieve a row
@@ -91,7 +152,7 @@ export class ClrDatagridWidgetObject<T> extends BaseWidgetObject<T> {
      * @param col 0-based index of column
      */
     getCellLink(row: number, col: number): T {
-        return this._getCell(row, col).get(`a`).unwrap();
+        return this._getCell(row, col).get('a').unwrap();
     }
 
     /**
@@ -104,13 +165,6 @@ export class ClrDatagridWidgetObject<T> extends BaseWidgetObject<T> {
     }
 
     /**
-     * Returns all the rows
-     */
-    getRows(): T {
-        return this.locatorDriver.get(Css.ROW).unwrap();
-    }
-
-    /**
      * Return a row by index
      * @param row 0-based index of row
      */
@@ -119,18 +173,12 @@ export class ClrDatagridWidgetObject<T> extends BaseWidgetObject<T> {
     }
 
     /**
-     * Returns all the columns
-     */
-    getColumns(): T {
-        return this.locatorDriver.get(Css.COLUMN).unwrap();
-    }
-
-    /**
      * Return a column by index
      * @param col 0-based index of column
      */
     getColumn(col: number): T {
-        return this.locatorDriver.get(`${Css.COLUMN}:nth-of-type(${col + 1})`).unwrap();
+        // return this.locatorDriver.get(`${Css.COLUMN}:nth-of-type(${col + 1})`).unwrap();
+        return this.locatorForCssSelectors(`${Css.COLUMN}:nth-of-type(${col + 1})`)();
     }
 
     /**
@@ -138,7 +186,7 @@ export class ClrDatagridWidgetObject<T> extends BaseWidgetObject<T> {
      * @param row 0-based index of row
      */
     getRowInput(row: number): T {
-        return this._getRow(row).get(`input`).unwrap();
+        return this._getRow(row).get('input').unwrap();
     }
 
     /**
@@ -153,7 +201,8 @@ export class ClrDatagridWidgetObject<T> extends BaseWidgetObject<T> {
      * Returns the button on the top of the grid with the given buttonClass
      */
     getTopButton(btnClass: string): T {
-        return this.locatorDriver.get(`button.${btnClass}`).unwrap();
+        // return this.locatorDriver.get(`button.${btnClass}`).unwrap();
+        return this.locatorForCssSelectors(`button.${btnClass}`)();
     }
 
     /**
@@ -164,60 +213,12 @@ export class ClrDatagridWidgetObject<T> extends BaseWidgetObject<T> {
     }
 
     /**
-     * Returns an array of headers
-     */
-    getColumnHeaders(): T {
-        return this.locatorDriver.get(Css.COLUMN_TITLE).unwrap();
-    }
-
-    /**
      * Returns a header
      * @param col 0-based index of header
      */
     getColumnHeader(col: number): T {
-        return this.locatorDriver.get(`${Css.COLUMN_TITLE}:nth-of-type(${col + 1})`).unwrap();
-    }
-
-    /**
-     * Returns an array of columns that are hidden
-     */
-    getHiddenColumnHeaders(): T {
-        return this.locatorDriver.get(Css.HIDDEN_COLUMN).unwrap();
-    }
-
-    /**
-     * Returns the elements within all the detail pane open
-     */
-    getDetailRows(): T {
-        return this.locatorDriver.get(Css.DETAIL_ROW).unwrap();
-    }
-
-    /**
-     * Returns the elements within all the detail pane open
-     */
-    getDetailPanes(): T {
-        return this.locatorDriver.get(Css.DETAIL_PANE).unwrap();
-    }
-
-    /**
-     * Returns all the detail buttons
-     */
-    getDetailRowButtons(): T {
-        return this.locatorDriver.get(Css.DETAIL_ROW_BUTTON).unwrap();
-    }
-
-    /**
-     * Returns all the detail pane buttons
-     */
-    getDetailPaneButtons(): T {
-        return this.locatorDriver.get(Css.DETAIL_PANE_BUTTON).unwrap();
-    }
-
-    /**
-     * Gives a list of displayed action buttons at the top of the grid
-     */
-    getTopPositionedButtons(): T {
-        return this.locatorDriver.get(Css.TOP_POSITIONED_BUTTON).unwrap();
+        // return this.locatorDriver.get(`${Css.COLUMN_TITLE}:nth-of-type(${col + 1})`).unwrap();
+        return this.locatorForCssSelectors(`${Css.COLUMN_TITLE}:nth-of-type(${col + 1})`)();
     }
 
     /**
@@ -235,24 +236,7 @@ export class ClrDatagridWidgetObject<T> extends BaseWidgetObject<T> {
         return this.locatorDriver.get(Css.COLUMN).get(Css.FILTER).get(Css.FILTER_TOGGLE).unwrap();
     }
 
-    /**
-     * Find a clr-checkbox-wrapper
-     */
-    getCheckboxWrapper(): T {
-        return this.locatorDriver.get(Css.CHECKBOX_WRAPPER).unwrap();
-    }
-
-    /**
-     * Find a clr-radio-wrapper
-     */
-    getRadioWrapper(): T {
-        return this.locatorDriver.get(Css.RADIO_WRAPPER).unwrap();
-    }
-
-    /**
-     * Unwrap the clr-datagrid
-     */
-    unwrap(): T {
+    get component(): T {
         return this.locatorDriver.unwrap();
     }
 }

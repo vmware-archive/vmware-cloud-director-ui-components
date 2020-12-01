@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: BSD-2-Clause
  */
 
-import { DebugElement, Type } from '@angular/core';
+import { DebugElement, Injector, Type } from '@angular/core';
 import { ComponentFixture } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { AngularWidgetObjectFinder } from './angular-widget-finder';
@@ -187,10 +187,25 @@ export class TestElement implements Iterable<TestElement> {
     }
 
     /**
-     * Returns the parent of first element
+     * Returns style property value of the first element
+     * @param key specified CSS property
      */
-    parent(): TestElement {
-        return new TestElement([this.elements[0].parent], this.fixture);
+    getStylePropertyValue(key: string): string {
+        return this.elements[0].nativeElement.style.getPropertyValue(key);
+    }
+
+    /**
+     * Returns componentInstance of the first element
+     */
+    getComponentInstance(): any {
+        return this.elements[0].componentInstance;
+    }
+
+    /**
+     * Returns injector of the first element
+     */
+    getInjector(): Injector {
+        return this.elements[0].injector;
     }
 
     /**

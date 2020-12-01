@@ -7,7 +7,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 ### Added
-[internal]: Update `ng-live-docs` to 0.0.8 to enable `@vmw/ng-live-docs:add-example` schematic.
+1. INTERNAL: Update `ng-live-docs` to 0.0.8 to enable `@vmw/ng-live-docs:add-example` schematic.
 ### Changed
 1. BREAKING: Rewrote `VcdDatagridWidget` and `ClrDatagridWidget` with new Widget Object.
 2. Added convenience methods to the `TestElement`.

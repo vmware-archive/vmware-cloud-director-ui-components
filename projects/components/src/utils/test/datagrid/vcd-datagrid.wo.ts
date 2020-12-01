@@ -15,7 +15,7 @@ export class VcdDatagridWidgetObject<T> extends BaseWidgetObject<T> {
     /**
      * Gives the header above the grid.
      */
-    getHeader = this.locatorForChild('h3');
+    getHeader = this.locatorForCssSelectors('h3');
 
     /**
      * Gives the widget object for this `clr-datagrid`.
@@ -28,7 +28,7 @@ export class VcdDatagridWidgetObject<T> extends BaseWidgetObject<T> {
     /**
      * Unwraps the `vcd-datagrid`
      */
-    unwrap(): T {
+    get component(): T {
         return this.locatorDriver.unwrap();
     }
 }

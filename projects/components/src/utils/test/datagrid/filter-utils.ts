@@ -75,9 +75,9 @@ export function createDatagridFilterTestHelper<V, C>(
     const grid = finder.find(ClrDatagridWidgetObject);
 
     wf.hostComponent.setFilter(filterType, wf, config || ({} as C));
-    grid.unwrap().fixture.detectChanges();
+    grid.component.fixture.detectChanges();
     grid.getFilterToggle().click();
-    return getFilter(grid.unwrap(), filterType);
+    return getFilter(grid.component, filterType);
 }
 
 /**
@@ -94,12 +94,12 @@ export function createDatagridFilterTestHelperWithFinder<V, C>(
     const finder = new AngularWidgetObjectFinder(FilterTestHostComponent);
     const grid = finder.find(ClrDatagridWidgetObject);
     wf.hostComponent.setFilter(filterType, wf, config || ({} as C));
-    grid.unwrap().fixture.detectChanges();
+    grid.component.fixture.detectChanges();
     grid.getFilterToggle().click();
 
     return {
         finder: wf,
-        filter: getFilter(grid.unwrap(), filterType),
+        filter: getFilter(grid.component, filterType),
     };
 }
 
