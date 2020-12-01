@@ -4,12 +4,29 @@
  */
 
 import { Input, Type } from '@angular/core';
-import { ControlValueAccessor, FormControl, NgControl } from '@angular/forms';
+import { AbstractControl, ControlValueAccessor, FormControl, NgControl, ValidatorFn } from '@angular/forms';
 import { IdGenerator } from '../utils/id-generator/id-generator';
 import { CanBeReadOnly } from './interfaces/can-be-read-only.interface';
 
 const idGenerator = new IdGenerator('base-form-control-id');
 
+/**
+ * For a given control, apply the given validator and override its setValidators method so that this default validator will always
+ * be applied
+ * @param control - Control to receive a default validator
+ * @param defaultValidator - Validator that will always be present for the form control
+ */
+export function defaultValidatorForControl(control: AbstractControl, defaultValidator: ValidatorFn): void {
+    // `control.validator` may be null, use filter to prevent passing in a null validator
+    control.setValidators([defaultValidator, control.validator].filter(Boolean));
+
+    const oldSetValidators = control.setValidators;
+    control.setValidators = (validators) => {
+        // Could be array, single value or null
+        const validatorsArray = Array.isArray(validators) ? validators : [validators].filter(Boolean);
+        return oldSetValidators.call(control, [defaultValidator, ...validatorsArray]);
+    };
+}
 /**
  * Wrapper to enforce UX decisions like readonly-ness, label position and error displaying. And also to make
  * the form control backing a form control name directive available to sub classes.

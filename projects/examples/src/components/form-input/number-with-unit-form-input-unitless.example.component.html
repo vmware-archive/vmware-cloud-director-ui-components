@@ -29,7 +29,7 @@ The "Warn Level" percent example also disables the "unlimited" functionality.
             [isReadOnly]="formGroup.controls.readonly.value"
         >
         </vcd-number-with-unit-form-input>
-        <div class="value-container" *ngIf="!formGroup.controls.readonly.value">
+        <div *ngIf="!formGroup.controls.readonly.value">
             <strong>Value:</strong>
             {{ formGroup.get('noUnit').value }}
         </div>
