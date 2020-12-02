@@ -89,28 +89,29 @@ describe('VcdNumberWithUnitFormInputComponent', () => {
 
     describe('showUnlimitedOption', () => {
         it('shows the unlimited checkbox by default', () => {
-            expect(numberWithUnitInput.unlimitedFormControl).toBeTruthy();
+            expect(numberWithUnitInput.isShowingUnlimitedCheckbox).toBe(true);
         });
 
         it('disables the value and unit fields when unlimited checkbox is checked', () => {
-            numberWithUnitInput.unlimitedFormControl.setValue(true);
-            numberWithUnitInput.detectChanges();
-            expect(numberWithUnitInput.valueFormControl.disabled).toBeTruthy('Value field should have been disabled');
-            expect(numberWithUnitInput.unitFormControl.disabled).toBeTruthy('Unit field should have been disabled');
+            // Turn unlimited on
+            numberWithUnitInput.clickUnlimitedCheckbox();
+            expect(numberWithUnitInput.isInputFieldDisabled).toBeTruthy('Value field should have been disabled');
+            expect(numberWithUnitInput.isUnitDropdownDisabled).toBeTruthy('Unit field should have been disabled');
         });
 
         it('sets the focus on the input element when unlimited checkbox is unchecked', () => {
-            numberWithUnitInput.unlimitedFormControl.setValue(true);
-            numberWithUnitInput.detectChanges();
-            expect(numberWithUnitInput.isInputValueFucused()).toBe(false, 'Input element should not be on focus');
-            numberWithUnitInput.unlimitedFormControl.setValue(false);
-            expect(numberWithUnitInput.isInputValueFucused()).toBe(true, 'Input element should be on focus');
+            // Turn unlimited on
+            numberWithUnitInput.clickUnlimitedCheckbox();
+            expect(numberWithUnitInput.isInputValueFocused).toBe(false, 'Input element should not have focus');
+            // Turn it back off
+            numberWithUnitInput.clickUnlimitedCheckbox();
+            expect(numberWithUnitInput.isInputValueFocused).toBe(true, 'Input element should have focus');
         });
     });
 
     describe('unitOptions', () => {
         it('displays unit options', () => {
-            expect(numberWithUnitInput.unitFormControl).toBeTruthy();
+            expect(numberWithUnitInput.isShowingUnitDropdown).toBe(true);
         });
 
         it('selects GHz for a unit', () => {
@@ -127,8 +128,7 @@ describe('VcdNumberWithUnitFormInputComponent', () => {
                 ts.translate(percentUnit.getUnitNameTranslationKey(), [])
             );
             expect(numberWithUnitInput.isUnitDropDownDisplayed).toBe(false);
-            numberWithUnitInput.valueFormControl.setValue(50);
-            numberWithUnitInput.detectChanges();
+            numberWithUnitInput.textInputValue = '50';
             expect(numberWithUnitInput.formControl.value).toEqual(0.5);
         });
 
@@ -137,8 +137,7 @@ describe('VcdNumberWithUnitFormInputComponent', () => {
             numberWithUnitInput.setUnitOptionsToNone();
             expect(numberWithUnitInput.singleUnitDisplayText).toBe('');
             expect(numberWithUnitInput.isUnitDropDownDisplayed).toBe(false);
-            numberWithUnitInput.valueFormControl.setValue(50);
-            numberWithUnitInput.detectChanges();
+            numberWithUnitInput.textInputValue = '50';
             expect(numberWithUnitInput.formControl.value).toEqual(50);
         });
     });
@@ -148,20 +147,19 @@ describe('VcdNumberWithUnitFormInputComponent', () => {
             numberWithUnitInput.setInputValueUnit(Hertz.Mhz);
             numberWithUnitInput.selectUnit(Hertz.Ghz);
             numberWithUnitInput.detectChanges();
-            expect(numberWithUnitInput.unlimitedFormControl.value).toBe(false);
+            expect(numberWithUnitInput.component.unlimitedControlValue).toBe(false);
             expect(numberWithUnitInput.formControl.value).toEqual(null);
         });
 
         it('has a value set in inputValueUnit Unit', () => {
             numberWithUnitInput.setInputValueUnit(Hertz.Mhz);
             numberWithUnitInput.selectUnit(Hertz.Ghz);
-            numberWithUnitInput.valueFormControl.setValue(10);
-            numberWithUnitInput.detectChanges();
+            numberWithUnitInput.textInputValue = '10';
             expect(numberWithUnitInput.formControl.value).toEqual(1000 * 10);
         });
 
         it('has a value of UNLIMITED when unlimited checkbox is checked', () => {
-            numberWithUnitInput.unlimitedFormControl.setValue(true);
+            numberWithUnitInput.clickUnlimitedCheckbox();
             numberWithUnitInput.detectChanges();
             expect(numberWithUnitInput.formControl.value).toEqual(UNLIMITED);
         });
@@ -171,15 +169,15 @@ describe('VcdNumberWithUnitFormInputComponent', () => {
                 woConstructor: NumberWithUnitFormInputWidgetObject,
                 className: 'initially-unlimited',
             });
-            expect(numberWithUnitInputInitializedUnlimited.valueFormControl.enabled).toEqual(false);
-            expect(numberWithUnitInputInitializedUnlimited.unitFormControl.enabled).toEqual(false);
+            expect(numberWithUnitInputInitializedUnlimited.isInputFieldDisabled).toEqual(true);
+            expect(numberWithUnitInputInitializedUnlimited.isUnitDropdownDisabled).toEqual(true);
         });
 
         it('disables text input when set to unlimited programmatically', () => {
             numberWithUnitInput.formControl.setValue(UNLIMITED);
             numberWithUnitInput.detectChanges();
-            expect(numberWithUnitInput.valueFormControl.enabled).toEqual(false);
-            expect(numberWithUnitInput.unitFormControl.enabled).toEqual(false);
+            expect(numberWithUnitInput.isInputFieldDisabled).toEqual(true);
+            expect(numberWithUnitInput.isUnitDropdownDisabled).toEqual(true);
         });
     });
 
@@ -187,8 +185,7 @@ describe('VcdNumberWithUnitFormInputComponent', () => {
         it('is in GHz when input value is greater than 1000 Mhz', () => {
             numberWithUnitInput.setInputValueUnit(Hertz.Mhz);
             numberWithUnitInput.selectUnit(Hertz.Mhz);
-            numberWithUnitInput.valueFormControl.setValue(2000);
-            numberWithUnitInput.detectChanges();
+            numberWithUnitInput.textInputValue = '2000';
             expect(numberWithUnitInput.displayValue).toEqual(
                 ts.translate(Hertz.Ghz.getValueWithUnitTranslationKey(), [2])
             );
@@ -223,8 +220,7 @@ describe('VcdNumberWithUnitFormInputComponent', () => {
         it('sets value in GHz units to FormControl Value for input selected unit is MHz', () => {
             numberWithUnitInput.setInputValueUnit(Hertz.Ghz);
             numberWithUnitInput.selectUnit(Hertz.Mhz);
-            numberWithUnitInput.valueFormControl.setValue(2000);
-            numberWithUnitInput.detectChanges();
+            numberWithUnitInput.textInputValue = '2000';
             expect(numberWithUnitInput.formControl.value).toEqual(2000 / 1000);
         });
 
@@ -232,8 +228,7 @@ describe('VcdNumberWithUnitFormInputComponent', () => {
             numberWithUnitInput.setUnitOptionsToPercent();
             numberWithUnitInput.setInputValueUnit(Percent.ZERO_TO_1);
             numberWithUnitInput.selectUnit(Percent.ZERO_TO_100);
-            numberWithUnitInput.valueFormControl.setValue(98);
-            numberWithUnitInput.detectChanges();
+            numberWithUnitInput.textInputValue = '98';
             expect(numberWithUnitInput.formControl.value).toEqual(98 / 100);
         });
     });
@@ -245,12 +240,12 @@ describe('VcdNumberWithUnitFormInputComponent', () => {
             () => {
                 numberWithUnitInput.formControl.disable();
                 numberWithUnitInput.detectChanges();
-                expect(numberWithUnitInput.valueFormControl.disabled).toBe(true);
-                expect(numberWithUnitInput.unitFormControl.disabled).toBe(true);
+                expect(numberWithUnitInput.isInputFieldDisabled).toBe(true);
+                expect(numberWithUnitInput.isUnitDropdownDisabled).toBe(true);
                 numberWithUnitInput.formControl.enable();
                 numberWithUnitInput.detectChanges();
-                expect(numberWithUnitInput.valueFormControl.enabled).toBe(true);
-                expect(numberWithUnitInput.unitFormControl.enabled).toBe(true);
+                expect(numberWithUnitInput.isInputFieldDisabled).toBe(false);
+                expect(numberWithUnitInput.isUnitDropdownDisabled).toBe(false);
             }
         );
     });

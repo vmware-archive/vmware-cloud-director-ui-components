@@ -4,29 +4,25 @@
  */
 
 import {
-    AfterContentChecked,
     ChangeDetectorRef,
     Component,
+    ElementRef,
     Injectable,
     Input,
     OnChanges,
-    OnDestroy,
     OnInit,
     Optional,
     Self,
     SimpleChanges,
     ViewChild,
 } from '@angular/core';
-import { FormBuilder, FormGroup, NgControl, ValidationErrors, ValidatorFn } from '@angular/forms';
+import { FormBuilder, NgControl, ValidationErrors, ValidatorFn } from '@angular/forms';
 import { TranslationService } from '@vcd/i18n';
 import { SelectOption } from '../../common/interfaces';
-import { SubscriptionTracker } from '../../common/subscription';
 import { FormValidators } from '../../form/validators';
 import { Unit } from '../../utils/unit/unit';
 import { UnitFormatter } from '../../utils/unit/unit-formatter';
-import { BaseFormControl } from '../base-form-control';
-import { FormInputComponent } from '../form-input/form-input.component';
-import { FormSelectComponent } from '../form-select/form-select.component';
+import { BaseFormControl, defaultValidatorForControl } from '../base-form-control';
 
 /**
  * -1 is the number to specify a value of unlimited.
@@ -46,9 +42,7 @@ export const UNLIMITED = -1;
     templateUrl: './number-with-unit-form-input.component.html',
     styleUrls: ['./number-with-unit-form-input.component.scss'],
 })
-export class NumberWithUnitFormInputComponent
-    extends BaseFormControl
-    implements OnChanges, OnInit, OnDestroy, AfterContentChecked {
+export class NumberWithUnitFormInputComponent extends BaseFormControl implements OnChanges, OnInit {
     /**
      * List of available units. Consider the following options for the array:
      * # array with more than one elements
@@ -140,9 +134,25 @@ export class NumberWithUnitFormInputComponent
      */
     @Input() hintPosition = 'top-left';
 
-    public formGroup: FormGroup;
-
     private _unitOptions: Unit[] = [];
+
+    /**
+     * The input field element, where numbers are entered. Null if readonly.
+     */
+    @ViewChild('textInput', { static: false }) textInput: ElementRef;
+
+    private get textInputEl(): HTMLInputElement {
+        return this.textInput?.nativeElement as HTMLInputElement;
+    }
+
+    /** ngModel for the number input */
+    textInputValue: string = null;
+
+    /** ngModel for the unit selector */
+    unitsControlValue: string = null;
+
+    /** ngModel for the unlimited checkbox */
+    unlimitedControlValue = false;
 
     /**
      * A drop down of available units
@@ -158,10 +168,10 @@ export class NumberWithUnitFormInputComponent
      */
     private comboOptionUnitMap: Map<SelectOption, Unit> = new Map();
 
-    // value set to the number input of the formGroup
+    // Value set to the number input of the formGroup
     private bestValue: number = null;
 
-    // unit set to the selected dropdown select of the formGroup
+    // Unit set to the selected dropdown select of the formGroup
     private bestUnit: Unit;
 
     /**
@@ -186,13 +196,8 @@ export class NumberWithUnitFormInputComponent
      * @param value Should be one of the value that you pass in {@link #unitOptions} to select the Unit.
      */
     set selectedUnit(value: number) {
-        this.formGroup.get('comboUnitOptions').setValue(value);
+        this.unitsControlValue = value.toString();
     }
-
-    @ViewChild('unitDropdown', { static: false }) unitDropdown: FormSelectComponent;
-    @ViewChild('limitedInput', { static: false }) limitedInput: FormInputComponent;
-
-    tracker = new SubscriptionTracker(this);
 
     constructor(
         @Self() @Optional() controlDirective: NgControl,
@@ -204,151 +209,107 @@ export class NumberWithUnitFormInputComponent
         super(controlDirective);
     }
 
-    ngOnDestroy(): void {
-        this.tracker.unsubscribeAll();
+    ngOnInit(): void {
+        defaultValidatorForControl(this.formControl, () => this.validateNumber());
+
+        this.recalculateUnitMinMax();
     }
 
-    ngOnInit(): void {
-        // Calculate the best unit and value. Take into account if initial unit is provided.
-        if (this.initialValueUnit) {
-            this.bestUnit = this.initialValueUnit;
-            this.bestValue = this.initialValue
-                ? this.inputValueUnit.getOutputValue(this.initialValue, this.bestUnit)
-                : null;
-        } else {
-            this.computeBestUnitAndValue(this.initialValue as number);
-        }
-
-        // Build the form group based on the best unit and value, considering also if unlimited is enabled
-        if (!this.showUnlimitedOption) {
-            this.formGroup = this.fb.group({
-                limited: [this.bestValue === this.unlimitedValue ? null : this.bestValue],
-                comboUnitOptions: this.bestUnit.getMultiplier(),
-            });
-        } else {
-            this.formGroup = this.fb.group({
-                limited: [this.bestValue === this.unlimitedValue ? null : this.bestValue],
-                comboUnitOptions: [this.bestUnit.getMultiplier()],
-                unlimited: this.bestValue === this.unlimitedValue,
-            });
-            // Remember the value in case the control value is programmatically set to unlimited
-            if (this.bestValue !== this.unlimitedValue) {
-                this.lastRealValue = this.bestValue;
-            }
-            this.tracker.subscribe(this.formGroup.get('unlimited').valueChanges, (unlimitedChecked) => {
-                const input = this.formGroup.get('limited');
-                if (unlimitedChecked) {
-                    // When going to unlimited remember the value of the input before clearing it
-                    this.lastRealValue = input.value;
-                    input.setValue(null);
-                } else {
-                    input.setValue(this.lastRealValue);
-                }
-                this.updateUnlimitedDisabledState();
-                if (!unlimitedChecked) {
-                    // Usability requirements imply the focus to be on the input element when 'unlimited checkbox' is
-                    // deselected in order to be easier for the user to modify the value.
-                    this.changeDetector.detectChanges();
-                    this.limitedInput.focus();
-                }
-            });
-        }
-        this.tracker.subscribe(this.formGroup.get('comboUnitOptions').valueChanges, () => {
-            // Mark the input as dirty since if it was not touched no error will be displayed even if there are some
-            this.recalculateUnitMinMax();
-            this.onChange(this.getValue());
-        });
-        this.tracker.subscribe(this.formGroup.get('limited').valueChanges, () => {
-            this.onChange(this.getValue());
-        });
-        this.recalculateUnitMinMax();
-        this.updateUnlimitedDisabledState();
-        // This code should be here since the formGroup has been created in the ngOnInit. If the disabled()
-        // call has been done in a constructor this component would not have been initialized
-        if (this.disabled) {
-            this.updateDisabledState(true, true);
-        }
+    /**
+     * Fires a change event reading the value from the current state of the UI
+     */
+    fireUiChange(): void {
+        this.onChange(this.getValue());
     }
 
     ngOnChanges(changes: SimpleChanges): void {
         this.recalculateUnitMinMax();
     }
 
-    ngAfterContentChecked(): void {
-        if (!this.limitedInput) {
-            return;
+    onUnlimitedCheckboxChange(unlimitedChecked: boolean): void {
+        this.unlimitedControlValue = unlimitedChecked;
+        this.textInputValue = unlimitedChecked ? '' : this.lastRealValue?.toString() || '';
+
+        if (!unlimitedChecked) {
+            // Usability requirements imply the focus to be on the input element when 'unlimited checkbox' is
+            // deselected in order to be easier for the user to modify the value.
+            this.changeDetector.detectChanges();
+            this.textInputEl.focus();
+            this.textInputEl.select();
+        } else {
+            this.lastRealValue = this.bestValue;
         }
-        Object.defineProperty(this.limitedInput, 'showErrors', {
-            get: this.limitedInputShowErrors,
-        });
+        this.fireUiChange();
     }
 
-    limitedInputShowErrors = () => {
-        return this.showErrors && this.errors ? {} : null;
-    };
+    /**
+     * Called when the unit dropdown changes
+     */
+    onUnitChange(value: string): void {
+        this.unitsControlValue = value;
+        this.recalculateUnitMinMax();
+        this.fireUiChange();
+    }
+
+    /**
+     * Called when user types into the textfield
+     */
+    onTextInputChange(value: string): void {
+        this.textInputValue = value;
+        this.fireUiChange();
+    }
+
+    get shouldDisableNumberAndUnitControls(): true | null {
+        const shouldDisable = this.unlimitedControlValue || this.disabled;
+        return shouldDisable || null;
+    }
+
+    /**
+     * Whether the current value is unlimited
+     */
+    private isUnlimitedValue(value = this.formControl.value): boolean {
+        return value === this.unlimitedValue;
+    }
+
+    /**
+     * Delegate the number parsing to the number input
+     */
+    private validateNumber(): ValidationErrors {
+        if (this.isUnlimitedValue()) {
+            return null;
+        }
+        return this.textInputEl?.validity.badInput ? { 'vcd.cc.bad.input': true } : null;
+    }
 
     writeValue(value: number): void {
-        if (!this.formGroup) {
-            this.initialValue = value;
-            return;
-        }
-        const input = this.formGroup.get('limited');
         if (value === null) {
             if (this.showUnlimitedOption) {
                 // Set Unlimited checkbox to false because the form control was reset
-                this.formGroup.get('unlimited').setValue(false);
+                this.unlimitedControlValue = false;
             }
-            input.setValue(null);
-            this.updateUnlimitedDisabledState();
+            this.textInputValue = '';
             return;
+        }
+
+        if (this.initialValueUnit) {
+            this.bestUnit = this.initialValueUnit;
+            this.bestValue = value ? this.inputValueUnit.getOutputValue(value, this.bestUnit) : null;
+            // So that defaulting the best unit only happens once
+            this.initialValueUnit = null;
+        } else {
+            this.computeBestUnitAndValue(value as number);
         }
 
         if (this.showUnlimitedOption) {
-            if (value !== this.unlimitedValue) {
-                this.computeBestUnitAndValue(value);
-                this.lastRealValue = this.bestValue;
-                input.setValue(this.bestValue);
-                this.selectedUnit = this.bestUnit.getMultiplier();
-            }
-            this.formGroup.get('unlimited').setValue(value === this.unlimitedValue);
-        } else {
-            this.computeBestUnitAndValue(value);
+            this.unlimitedControlValue = this.isUnlimitedValue(value);
+        }
+
+        if (!this.isUnlimitedValue(value)) {
             this.lastRealValue = this.bestValue;
-            input.setValue(this.bestValue);
-            this.selectedUnit = this.bestUnit.getMultiplier();
-        }
-
-        this.updateUnlimitedDisabledState();
-    }
-
-    setDisabledState(isDisabled: boolean): void {
-        this.disabled = isDisabled;
-        this.updateDisabledState(isDisabled, true);
-    }
-
-    private updateUnlimitedDisabledState(): void {
-        if (!this.showUnlimitedOption || this.disabled) {
-            return;
-        }
-        this.updateDisabledState(this.formGroup?.get('unlimited')?.value, false);
-    }
-
-    updateDisabledState(isDisabled: boolean, updateUnlimitedCheckbox: boolean): void {
-        if (this.formGroup) {
-            // Do not emit when changing the disable state
-            if (isDisabled) {
-                this.formGroup.get('comboUnitOptions').disable({ emitEvent: false });
-                this.formGroup.get('limited').disable({ emitEvent: false });
-                if (updateUnlimitedCheckbox) {
-                    this.formGroup.get('unlimited')?.disable({ emitEvent: false });
-                }
-            } else {
-                this.formGroup.get('comboUnitOptions').enable({ emitEvent: false });
-                this.formGroup.get('limited').enable({ emitEvent: false });
-                if (updateUnlimitedCheckbox) {
-                    this.formGroup.get('unlimited')?.enable({ emitEvent: false });
-                }
-            }
+            this.textInputValue = this.bestValue.toString();
+            this.unitsControlValue = this.bestUnit.getMultiplier().toString();
+        } else {
+            this.textInputValue = '';
         }
     }
 
@@ -365,68 +326,92 @@ export class NumberWithUnitFormInputComponent
         }
     }
 
+    /**
+     * Figures out the control value accessor's value based on the UI state
+     */
     private getValue(): number {
-        if (this.formGroup.get('unlimited')?.value) {
+        if (this.unlimitedControlValue) {
             return this.unlimitedValue;
         }
 
-        const value = this.formGroup.get('limited').value;
-        if (value && this.unitOptions.length) {
+        const value = this.textInputValue;
+
+        if (value === '') {
+            return null;
+        }
+
+        if (this.unitOptions.length) {
             return this.getSelectedUnit().getOutputValue(value, this.inputValueUnit);
         }
-        return value;
+        return Number(value);
     }
 
+    /**
+     * Reads the selected unit from the UI
+     */
     private getSelectedUnit(): Unit {
-        const value = this.formGroup.get('comboUnitOptions').value;
-        const selectedComboUnit = this.comboOptions.find(
-            // tslint:disable-next-line:triple-equals
-            (co) => co.value == value
-        );
-        const selectedUnit = this.comboOptionUnitMap.get(selectedComboUnit);
-        return selectedUnit;
+        const value = Number(this.unitsControlValue);
+        const selectedComboUnit = this.getSelectedComboUnit(value);
+        return this.comboOptionUnitMap.get(selectedComboUnit);
+    }
+
+    /**
+     * Returns the SelectOption for the given value
+     * @param value The value which we're trying to match within the component's combo options
+     */
+    private getSelectedComboUnit(value: number): SelectOption {
+        return this.comboOptions.find((co) => Number(co.value) === value);
     }
 
     private recalculateUnitMinMax(): void {
-        if (!this.formGroup) {
+        const selectedUnit = this.getSelectedUnit();
+        if (!this.inputValueUnit || !selectedUnit) {
+            [this.unitMin, this.unitMax] = [this.min, this.max];
             return;
         }
-        const selectedUnit = this.getSelectedUnit();
-        this.unitMin = selectedUnit ? this.inputValueUnit.getOutputValue(this.min, selectedUnit) : this.min;
-        this.unitMax = selectedUnit ? this.inputValueUnit.getOutputValue(this.max, selectedUnit) : this.max;
+        this.unitMin = this.inputValueUnit.getOutputValue(this.min, selectedUnit);
+        this.unitMax = this.inputValueUnit.getOutputValue(this.max, selectedUnit);
     }
 
     get displayValue(): string {
-        if (this.formGroup.get('unlimited') && this.formGroup.get('unlimited').value) {
+        if (this.unlimitedControlValue) {
             return this.translationService.translate('vcd.cc.unlimited');
         }
 
-        const value = this.formGroup.get('limited').value;
-        if (value) {
-            if (this.unitDropdown) {
-                // Return the value and the selected unit.
-                const inputUnit: Unit = this.comboOptionUnitMap.get(this.unitDropdown.selectedOption);
-                return this.unitFormatter.bestFormat(value, inputUnit, this.unitOptions);
-            } else if (this.unitOptions.length === 1) {
-                // Return the value and the predefined unit. For example, 100 %.
-                return this.unitFormatter.bestFormat(value, this.unitOptions[0], this.unitOptions);
-            } else if (this.isReadOnly) {
-                // Return the value with best unit when #limited FormControl.value
-                // is set programmatically
+        const value = Number(this.textInputValue);
 
-                const displayComboUnit = this.comboOptions.find(
-                    // tslint:disable-next-line:triple-equals
-                    (co) => co.value == this.formGroup.get('comboUnitOptions').value
-                );
-                const displayUnit = this.comboOptionUnitMap.get(displayComboUnit);
-                if (displayUnit) {
-                    return this.unitFormatter.bestFormat(value, displayUnit, this.unitOptions);
-                }
-            }
-            // Return only the value when unitOptions was not set.
-            return value.toString();
+        if (!value) {
+            return '';
         }
-        return;
+
+        if (this.unitOptions.length > 1) {
+            // Return the value and the selected unit.
+            const unitValue = Number(this.unitsControlValue);
+
+            const displayComboUnit = this.comboOptions.find(
+                // tslint:disable-next-line:triple-equals
+                (co) => co.value == unitValue
+            );
+            const inputUnit: Unit = this.comboOptionUnitMap.get(displayComboUnit);
+            return this.unitFormatter.bestFormat(value, inputUnit, this.unitOptions);
+        }
+
+        if (this.unitOptions.length === 1) {
+            // Return the value and the predefined unit. For example, 100 %.
+            return this.unitFormatter.bestFormat(value, this.unitOptions[0], this.unitOptions);
+        }
+
+        if (this.isReadOnly) {
+            const displayComboUnit = this.comboOptions.find(
+                (co) => Number(co.value) === Number(this.unitsControlValue)
+            );
+            const displayUnit = this.comboOptionUnitMap.get(displayComboUnit);
+            if (displayUnit) {
+                return this.unitFormatter.bestFormat(value, displayUnit, this.unitOptions);
+            }
+        }
+        // Return only the value when unitOptions was not set.
+        return value.toString();
     }
 
     /**
@@ -442,13 +427,7 @@ export class NumberWithUnitFormInputComponent
      */
     get errors(): ValidationErrors {
         if (this.errorLabels.length) {
-            return this.errorLabels.reduce(
-                (acc, cur) => ({
-                    ...acc,
-                    [cur]: true,
-                }),
-                {}
-            );
+            return this.errorLabels.reduce((acc, cur) => ({ ...acc, [cur]: true }), {});
         }
         return this.formControl.errors;
     }
