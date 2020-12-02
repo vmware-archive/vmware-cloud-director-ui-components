@@ -1,7 +1,7 @@
 ---
 name: 'Feature Request'
 about: 'Proposal for a new feature or enhancement'
-title: '[FEATURE NAME] | impact: (low|medium|high)'
+title: '(impact: low,medium,high) [FEATURE NAME]'
 labels: 'enhancement'
 ---
 

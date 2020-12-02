@@ -1,7 +1,7 @@
 ---
 name: 'Bug Report'
 about: 'Create a report to help us fix or improve an issue'
-title: '[BUG TITLE] | impact: (low|medium|high)'
+title: '(impact: low,medium,high) [BUG TITLE]'
 labels: 'bug'
 ---
 
