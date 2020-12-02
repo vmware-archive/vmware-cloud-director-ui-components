@@ -62,9 +62,8 @@
                 <h3>Description</h3>
             </p>
             <p class="comment">
-                <p>Added on to vcd-dropdown component to vertically link menu items of the dropdown on which this directive is added. It also, then links
-the vertically linked menu items horizontally to their menu trigger. It then uses the <a href="../injectables/DropdownFocusHandlerService.html">DropdownFocusHandlerService</a> to move the
-DOM focus between the menu items.</p>
+                <p>Added on to vcd-dropdown component to link menu items of the dropdown on which this directive is added. each item is linked to its
+neighbors in the 4 directions. It then uses the <a href="../injectables/DropdownFocusHandlerService.html">DropdownFocusHandlerService</a> to move the DOM focus between the menu items.</p>
 
             </p>
 
@@ -76,11 +75,6 @@ DOM focus between the menu items.</p>
                             <code><a href="https://angular.io/api/core/OnDestroy" target="_blank" >OnDestroy</a></code>
             </p>
 
-            <p class="comment">
-                <h3>Example</h3>
-            </p>
-            <div class="io-description">
-            </div>
 
         <section>
             <h3>Metadata</h3>
@@ -108,6 +102,10 @@ DOM focus between the menu items.</p>
                 <tr>
                     <td class="col-md-4">
                         <ul class="index-list">
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#closeVcdDropdown">closeVcdDropdown</a>
+                            </li>
                             <li>
                                     <span class="modifier">Private</span>
                                 <a href="#clrDropdownMenuEl">clrDropdownMenuEl</a>
@@ -151,6 +149,10 @@ DOM focus between the menu items.</p>
                 <tr>
                     <td class="col-md-4">
                         <ul class="index-list">
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#getDropdownItemElement">getDropdownItemElement</a>
+                            </li>
                             <li>
                                     <span class="modifier">Private</span>
                                 <a href="#linkMenuItems">linkMenuItems</a>
@@ -216,12 +218,12 @@ DOM focus between the menu items.</p>
             <tbody>
                 <tr>
                     <td class="col-md-4">
-<code>constructor(parentVcdDropdown: <a href="../components/DropdownComponent.html">DropdownComponent</a>, parentFocusHandler: DropdownFocusHandlerDirective<T>, hostVcdDropdown: <a href="../components/DropdownComponent.html">DropdownComponent</a>, focusHandlerService: <a href="../injectables/DropdownFocusHandlerService.html">DropdownFocusHandlerService</a>, renderer: <a href="https://angular.io/api/core/Renderer2" target="_blank">Renderer2</a>)</code>
+<code>constructor(parentVcdDropdown: <a href="../components/DropdownComponent.html">DropdownComponent</a>, parentFocusHandler: DropdownFocusHandlerDirective, hostVcdDropdown: <a href="../components/DropdownComponent.html">DropdownComponent</a>, focusHandlerService: <a href="../injectables/DropdownFocusHandlerService.html">DropdownFocusHandlerService</a>, renderer: <a href="https://angular.io/api/core/Renderer2" target="_blank">Renderer2</a>)</code>
                     </td>
                 </tr>
                         <tr>
                             <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="62" class="link-to-prism">projects/components/src/dropdown/dropdown-focus-handler.directive.ts:62</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="66" class="link-to-prism">projects/components/src/dropdown/dropdown-focus-handler.directive.ts:66</a></div>
                             </td>
                         </tr>
 
@@ -254,7 +256,7 @@ DOM focus between the menu items.</p>
                                                         <td>parentFocusHandler</td>
                                                   
                                                         <td>
-                                                                    <code>DropdownFocusHandlerDirective&lt;T&gt;</code>
+                                                                    <code>DropdownFocusHandlerDirective</code>
                                                         </td>
                                                   
                                                     <td>
@@ -320,6 +322,78 @@ DOM focus between the menu items.</p>
         <tbody>
             <tr>
                 <td class="col-md-4">
+                    <a name="getDropdownItemElement"></a>
+                    <span class="name">
+                        <b>
+                            <span class="modifier">Private</span>
+                            getDropdownItemElement
+                        </b>
+                        <a href="#getDropdownItemElement"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                    <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>getDropdownItemElement(item: Element)</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="164"
+                            class="link-to-prism">projects/components/src/dropdown/dropdown-focus-handler.directive.ts:164</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Type</td>
+                                    <td>Optional</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>item</td>
+                                    <td>
+                                            <code>Element</code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>    <code>HTMLElement</code>
+
+                    </div>
+                    <div class="io-description">
+                        
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
                     <a name="linkMenuItems"></a>
                     <span class="name">
                         <b>
@@ -340,8 +414,8 @@ DOM focus between the menu items.</p>
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="160"
-                            class="link-to-prism">projects/components/src/dropdown/dropdown-focus-handler.directive.ts:160</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="171"
+                            class="link-to-prism">projects/components/src/dropdown/dropdown-focus-handler.directive.ts:171</a></div>
                 </td>
             </tr>
 
@@ -381,8 +455,8 @@ DOM focus between the menu items.</p>
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="195"
-                            class="link-to-prism">projects/components/src/dropdown/dropdown-focus-handler.directive.ts:195</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="212"
+                            class="link-to-prism">projects/components/src/dropdown/dropdown-focus-handler.directive.ts:212</a></div>
                 </td>
             </tr>
 
@@ -422,8 +496,8 @@ DOM focus between the menu items.</p>
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="114"
-                            class="link-to-prism">projects/components/src/dropdown/dropdown-focus-handler.directive.ts:114</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="118"
+                            class="link-to-prism">projects/components/src/dropdown/dropdown-focus-handler.directive.ts:118</a></div>
                 </td>
             </tr>
 
@@ -467,8 +541,8 @@ arrow on a nested menu is opening other sibling menus as well</p>
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="146"
-                            class="link-to-prism">projects/components/src/dropdown/dropdown-focus-handler.directive.ts:146</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="150"
+                            class="link-to-prism">projects/components/src/dropdown/dropdown-focus-handler.directive.ts:150</a></div>
                 </td>
             </tr>
 
@@ -506,8 +580,8 @@ arrow on a nested menu is opening other sibling menus as well</p>
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="90"
-                            class="link-to-prism">projects/components/src/dropdown/dropdown-focus-handler.directive.ts:90</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="94"
+                            class="link-to-prism">projects/components/src/dropdown/dropdown-focus-handler.directive.ts:94</a></div>
                 </td>
             </tr>
 
@@ -548,8 +622,8 @@ them. It also then moves the focus to first item in the opened menu list.</p>
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="133"
-                            class="link-to-prism">projects/components/src/dropdown/dropdown-focus-handler.directive.ts:133</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="137"
+                            class="link-to-prism">projects/components/src/dropdown/dropdown-focus-handler.directive.ts:137</a></div>
                 </td>
             </tr>
 
@@ -589,8 +663,8 @@ them. It also then moves the focus to first item in the opened menu list.</p>
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="139"
-                            class="link-to-prism">projects/components/src/dropdown/dropdown-focus-handler.directive.ts:139</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="143"
+                            class="link-to-prism">projects/components/src/dropdown/dropdown-focus-handler.directive.ts:143</a></div>
                 </td>
             </tr>
 
@@ -630,8 +704,8 @@ them. It also then moves the focus to first item in the opened menu list.</p>
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="125"
-                            class="link-to-prism">projects/components/src/dropdown/dropdown-focus-handler.directive.ts:125</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="129"
+                            class="link-to-prism">projects/components/src/dropdown/dropdown-focus-handler.directive.ts:129</a></div>
                 </td>
             </tr>
 
@@ -657,6 +731,41 @@ them. It also then moves the focus to first item in the opened menu list.</p>
             <tbody>
                 <tr>
                     <td class="col-md-4">
+                        <a name="closeVcdDropdown"></a>
+                        <span class="name">
+                            <b>
+                                <span class="modifier">Private</span>
+                            closeVcdDropdown</b>
+                            <a href="#closeVcdDropdown"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Type : </i>    <code>() &#x3D;&gt; {
+        this.hostVcdDropdown.clrDropdown.toggleService.open &#x3D; false;
+    }</code>
+
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Default value : </i><code>() &#x3D;&gt; {...}</code>
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="193" class="link-to-prism">projects/components/src/dropdown/dropdown-focus-handler.directive.ts:193</a></div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
                         <a name="clrDropdownMenuEl"></a>
                         <span class="name">
                             <b>
@@ -674,7 +783,7 @@ them. It also then moves the focus to first item in the opened menu list.</p>
                     </tr>
                         <tr>
                             <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="80" class="link-to-prism">projects/components/src/dropdown/dropdown-focus-handler.directive.ts:80</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="84" class="link-to-prism">projects/components/src/dropdown/dropdown-focus-handler.directive.ts:84</a></div>
                             </td>
                         </tr>
 
@@ -702,7 +811,7 @@ them. It also then moves the focus to first item in the opened menu list.</p>
                     </tr>
                         <tr>
                             <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="79" class="link-to-prism">projects/components/src/dropdown/dropdown-focus-handler.directive.ts:79</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="83" class="link-to-prism">projects/components/src/dropdown/dropdown-focus-handler.directive.ts:83</a></div>
                             </td>
                         </tr>
 
@@ -735,7 +844,7 @@ them. It also then moves the focus to first item in the opened menu list.</p>
                     </tr>
                         <tr>
                             <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="81" class="link-to-prism">projects/components/src/dropdown/dropdown-focus-handler.directive.ts:81</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="85" class="link-to-prism">projects/components/src/dropdown/dropdown-focus-handler.directive.ts:85</a></div>
                             </td>
                         </tr>
 
@@ -762,7 +871,7 @@ them. It also then moves the focus to first item in the opened menu list.</p>
                     </tr>
                         <tr>
                             <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="74" class="link-to-prism">projects/components/src/dropdown/dropdown-focus-handler.directive.ts:74</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="78" class="link-to-prism">projects/components/src/dropdown/dropdown-focus-handler.directive.ts:78</a></div>
                             </td>
                         </tr>
 
@@ -796,7 +905,7 @@ them. It also then moves the focus to first item in the opened menu list.</p>
                     </tr>
                         <tr>
                             <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="78" class="link-to-prism">projects/components/src/dropdown/dropdown-focus-handler.directive.ts:78</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="82" class="link-to-prism">projects/components/src/dropdown/dropdown-focus-handler.directive.ts:82</a></div>
                             </td>
                         </tr>
 
@@ -835,7 +944,7 @@ them. It also then moves the focus to first item in the opened menu list.</p>
                     </tr>
                         <tr>
                             <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="83" class="link-to-prism">projects/components/src/dropdown/dropdown-focus-handler.directive.ts:83</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="87" class="link-to-prism">projects/components/src/dropdown/dropdown-focus-handler.directive.ts:87</a></div>
                             </td>
                         </tr>
 
@@ -863,7 +972,7 @@ them. It also then moves the focus to first item in the opened menu list.</p>
                     </tr>
                         <tr>
                             <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="82" class="link-to-prism">projects/components/src/dropdown/dropdown-focus-handler.directive.ts:82</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="86" class="link-to-prism">projects/components/src/dropdown/dropdown-focus-handler.directive.ts:86</a></div>
                             </td>
                         </tr>
 
@@ -891,7 +1000,7 @@ them. It also then moves the focus to first item in the opened menu list.</p>
                     </tr>
                         <tr>
                             <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="84" class="link-to-prism">projects/components/src/dropdown/dropdown-focus-handler.directive.ts:84</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="88" class="link-to-prism">projects/components/src/dropdown/dropdown-focus-handler.directive.ts:88</a></div>
                             </td>
                         </tr>
 
@@ -920,7 +1029,7 @@ them. It also then moves the focus to first item in the opened menu list.</p>
                 </tr>
                             <tr>
                                 <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="176" class="link-to-prism">projects/components/src/dropdown/dropdown-focus-handler.directive.ts:176</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="197" class="link-to-prism">projects/components/src/dropdown/dropdown-focus-handler.directive.ts:197</a></div>
                                 </td>
                             </tr>
 
@@ -942,7 +1051,7 @@ them. It also then moves the focus to first item in the opened menu list.</p>
                 </tr>
                             <tr>
                                 <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="185" class="link-to-prism">projects/components/src/dropdown/dropdown-focus-handler.directive.ts:185</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="204" class="link-to-prism">projects/components/src/dropdown/dropdown-focus-handler.directive.ts:204</a></div>
                                 </td>
                             </tr>
 
@@ -955,13 +1064,26 @@ them. It also then moves the focus to first item in the opened menu list.</p>
 
     <div class="tab-pane fade  tab-source-code" id="c-source">
         <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { AfterViewInit, Directive, Host, OnDestroy, Optional, Renderer2, SkipSelf } from &#x27;@angular/core&#x27;;
-import { ClrPopoverToggleService } from &#x27;@clr/angular&#x27;;
-import { Subscription } from &#x27;rxjs&#x27;;
 import { SubscriptionTracker } from &#x27;../common/subscription&#x27;;
 import { DropdownFocusHandlerService } from &#x27;./dropdown-focus-handler.service&#x27;;
 import { DropdownComponent } from &#x27;./dropdown.component&#x27;;
 
-const BUTTON_NODE_NAME &#x3D; &#x27;BUTTON&#x27;;
+/**
+ * To filter out the non-activatable separator item type when creating linked menu list {@link #linkMenuItems}. Because, we don&#x27;t
+ * want the focus to go to separator item type when navigating using the arrow keys
+ */
+enum ActivatableMenuItemType {
+    /**
+     * Menu item that results in executing of an action when clicked
+     */
+    BUTTON &#x3D; &#x27;button&#x27;,
+    /**
+     * Activating this would open a nested menu
+     */
+    NESTED_VCD_DROPDOWN &#x3D; &#x27;vcd-dropdown&#x27;,
+}
+
+const NESTED_DROPDOWN_TRIGGER &#x3D; &#x27;clr-dropdown &gt; button&#x27;;
 
 /**
  * Arrow keys directions
@@ -991,29 +1113,20 @@ export interface MenuItem {
     /**
      * Call back to close the menu for which this menu item can be a trigger. called from {@link DropdownFocusHandlerService}
      */
-    closeMenu?: (event: Event) &#x3D;&gt; void;
+    closeMenu?: () &#x3D;&gt; void;
 }
 
 /**
- * Added on to vcd-dropdown component to vertically link menu items of the dropdown on which this directive is added. It also, then links
- * the vertically linked menu items horizontally to their menu trigger. It then uses the {@link DropdownFocusHandlerService} to move the
- * DOM focus between the menu items.
- *
- * @Example:
- * &lt;vcd-dropdown
- *        vcdDropdownFocusHandler
- *        [items]&#x3D;&quot;contextualActions&quot;
- *        [onItemClickedCb]&#x3D;&quot;runActionHandler.bind(this)&quot;
- *        [isItemDisabledCb]&#x3D;&quot;isActionDisabled.bind(this)&quot;
- * &gt;&lt;/vcd-dropdown&gt;
+ * Added on to vcd-dropdown component to link menu items of the dropdown on which this directive is added. each item is linked to its
+ * neighbors in the 4 directions. It then uses the {@link DropdownFocusHandlerService} to move the DOM focus between the menu items.
  */
 @Directive({
     selector: &#x27;vcd-dropdown[vcdDropdownFocusHandler]&#x27;,
 })
-export class DropdownFocusHandlerDirective&lt;T&gt; implements AfterViewInit, OnDestroy {
+export class DropdownFocusHandlerDirective implements AfterViewInit, OnDestroy {
     constructor(
         @Optional() @SkipSelf() private parentVcdDropdown: DropdownComponent,
-        @Optional() @SkipSelf() private parentFocusHandler: DropdownFocusHandlerDirective&lt;T&gt;,
+        @Optional() @SkipSelf() private parentFocusHandler: DropdownFocusHandlerDirective,
         @Host() private hostVcdDropdown: DropdownComponent,
         private focusHandlerService: DropdownFocusHandlerService,
         private renderer: Renderer2
@@ -1108,12 +1221,25 @@ export class DropdownFocusHandlerDirective&lt;T&gt; implements AfterViewInit, On
         });
     }
 
+    private getDropdownItemElement(item: Element): HTMLElement {
+        // We only need the underlying button that opens the nested dropdown as that is the activatable/focusable item
+        return (item.matches(ActivatableMenuItemType.BUTTON)
+            ? item
+            : item.querySelector(NESTED_DROPDOWN_TRIGGER)) as HTMLElement;
+    }
+
     private linkMenuItems(): void {
         const menuChildren: Element[] &#x3D; Array.from(this.clrDropdownMenuEl.children);
-        this.menuItems &#x3D; menuChildren.map((child) &#x3D;&gt; ({
-            element: (child.matches(&#x27;button&#x27;) ? child : child.querySelector(&#x27;clr-dropdown &gt; button&#x27;)) as HTMLElement,
-            left: this.menuTrigger,
-        }));
+        this.menuItems &#x3D; menuChildren
+            .filter(
+                (child) &#x3D;&gt;
+                    child.matches(ActivatableMenuItemType.BUTTON) ||
+                    child.matches(ActivatableMenuItemType.NESTED_VCD_DROPDOWN)
+            )
+            .map((child) &#x3D;&gt; ({
+                element: this.getDropdownItemElement(child),
+                left: this.menuTrigger,
+            }));
         this.linkVertical();
         // Lint to menu trigger
         if (this.isRootDropdown) {
@@ -1124,12 +1250,14 @@ export class DropdownFocusHandlerDirective&lt;T&gt; implements AfterViewInit, On
         }
     }
 
+    private closeVcdDropdown &#x3D; () &#x3D;&gt; {
+        this.hostVcdDropdown.clrDropdown.toggleService.open &#x3D; false;
+    };
+
     private get rootMenuTrigger(): MenuItem {
         return {
             element: this.dropdownTriggerEl,
-            closeMenu: (event: Event) &#x3D;&gt; {
-                this.hostVcdDropdown.clrDropdown.toggleService.open &#x3D; false;
-            },
+            closeMenu: this.closeVcdDropdown,
         };
     }
 
@@ -1137,9 +1265,7 @@ export class DropdownFocusHandlerDirective&lt;T&gt; implements AfterViewInit, On
         const menuTrigger &#x3D; this.parentFocusHandler.menuItems.find((item) &#x3D;&gt; {
             return Object.is(item.element.innerText, this.dropdownTriggerEl.innerText);
         });
-        menuTrigger.closeMenu &#x3D; (event: Event) &#x3D;&gt; {
-            this.hostVcdDropdown.clrDropdown.toggleService.open &#x3D; false;
-        };
+        menuTrigger.closeMenu &#x3D; this.closeVcdDropdown;
         return menuTrigger;
     }
 

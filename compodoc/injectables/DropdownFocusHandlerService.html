@@ -102,6 +102,9 @@ focused item on the DOM across all the nested and root menus.</p>
                     <td class="col-md-4">
                         <ul class="index-list">
                             <li>
+                                <a href="#escapePressed">escapePressed</a>
+                            </li>
+                            <li>
                                 <a href="#listenToArrowKeys">listenToArrowKeys</a>
                             </li>
                             <li>
@@ -183,6 +186,48 @@ focused item on the DOM across all the nested and root menus.</p>
         <tbody>
             <tr>
                 <td class="col-md-4">
+                    <a name="escapePressed"></a>
+                    <span class="name">
+                        <b>
+                            escapePressed
+                        </b>
+                        <a href="#escapePressed"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>escapePressed()</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="106"
+                            class="link-to-prism">projects/components/src/dropdown/dropdown-focus-handler.service.ts:106</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Whenever escape is pressed on dropdown item, the menu has to be closed and the focus has to be moved to parent menu if any... Just
+like when left arrow key is pressed</p>
+</div>
+
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
                     <a name="listenToArrowKeys"></a>
                     <span class="name">
                         <b>
@@ -201,8 +246,8 @@ focused item on the DOM across all the nested and root menus.</p>
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="68"
-                            class="link-to-prism">projects/components/src/dropdown/dropdown-focus-handler.service.ts:68</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="72"
+                            class="link-to-prism">projects/components/src/dropdown/dropdown-focus-handler.service.ts:72</a></div>
                 </td>
             </tr>
 
@@ -283,7 +328,7 @@ automatically moves the focus to first item in the menu on the right side</p>
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-description"><p>Moves the focus to HTML element in the given direction</p>
+                    <div class="io-description"><p>Moves the focus to HTML element in the given direction and returns true if the focus is moved and false otherwise</p>
 </div>
 
                     <div class="io-description">
@@ -315,7 +360,7 @@ automatically moves the focus to first item in the menu on the right side</p>
                     <div>
                     </div>
                     <div class="io-description">
-                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+                        <b>Returns : </b>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank" >boolean</a></code>
 
                     </div>
                     <div class="io-description">
@@ -347,15 +392,16 @@ automatically moves the focus to first item in the menu on the right side</p>
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="48"
-                            class="link-to-prism">projects/components/src/dropdown/dropdown-focus-handler.service.ts:48</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="51"
+                            class="link-to-prism">projects/components/src/dropdown/dropdown-focus-handler.service.ts:51</a></div>
                 </td>
             </tr>
 
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-description"><p>Calls the HTML focus method on the HTML element passed</p>
+                    <div class="io-description"><p>Calls the HTML focus method on the HTML element passed and removed focus on currently focused element.
+Returns true if the focus is moved and false otherwise.</p>
 </div>
 
                     <div class="io-description">
@@ -387,7 +433,7 @@ automatically moves the focus to first item in the menu on the right side</p>
                     <div>
                     </div>
                     <div class="io-description">
-                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+                        <b>Returns : </b>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank" >boolean</a></code>
 
                     </div>
                     <div class="io-description">
@@ -527,41 +573,45 @@ export class DropdownFocusHandlerService implements OnDestroy {
     }
 
     /**
-     * Moves the focus to HTML element in the given direction
+     * Moves the focus to HTML element in the given direction and returns true if the focus is moved and false otherwise
      */
-    moveFocus(direction: Direction): void {
+    moveFocus(direction: Direction): boolean {
+        let moved;
         switch (direction) {
             case Direction.DOWN:
-                this.moveFocusTo(this.currentFocusedItem.down);
+                moved &#x3D; this.moveFocusTo(this.currentFocusedItem.down);
                 break;
             case Direction.LEFT:
-                this.moveFocusTo(this.currentFocusedItem.left);
+                moved &#x3D; this.moveFocusTo(this.currentFocusedItem.left);
                 break;
             case Direction.UP:
-                this.moveFocusTo(this.currentFocusedItem.up);
+                moved &#x3D; this.moveFocusTo(this.currentFocusedItem.up);
                 break;
             case Direction.RIGHT:
-                this.moveFocusTo(this.currentFocusedItem.right);
+                moved &#x3D; this.moveFocusTo(this.currentFocusedItem.right);
                 break;
         }
+        return moved;
     }
 
     /**
-     * Calls the HTML focus method on the HTML element passed
+     * Calls the HTML focus method on the HTML element passed and removed focus on currently focused element.
+     * Returns true if the focus is moved and false otherwise.
      */
-    moveFocusTo(item: MenuItem): void {
+    moveFocusTo(item: MenuItem): boolean {
         if (!item) {
-            return;
+            return false;
         }
         if (this.currentFocusedItem) {
             // Sometimes, when navigating to a nested menu using right arrow, the nested menu trigger gets focused multiple times
             if (Object.is(this.currentFocusedItem.element, item.element)) {
-                return;
+                return false;
             }
             this.currentFocusedItem.element.blur();
         }
         item.element.focus();
         this.currentFocusedItem &#x3D; item;
+        return true;
     }
 
     /**
@@ -570,16 +620,19 @@ export class DropdownFocusHandlerService implements OnDestroy {
      * automatically moves the focus to first item in the menu on the right side
      */
     listenToArrowKeys(menuContainer: HTMLElement): void {
+        // We call event.preventDefault below to prevent scrolling of page underneath the dropdown when arrow keys are pressed
         this.unlistenFuncs.push(
             this.renderer.listen(menuContainer, &#x27;keydown.arrowdown&#x27;, (event: Event) &#x3D;&gt; {
-                this.moveFocus(Direction.DOWN);
                 event.stopPropagation();
+                this.moveFocus(Direction.DOWN);
+                event.preventDefault();
             })
         );
         this.unlistenFuncs.push(
             this.renderer.listen(menuContainer, &#x27;keydown.arrowup&#x27;, (event: Event) &#x3D;&gt; {
-                this.moveFocus(Direction.UP);
                 event.stopPropagation();
+                this.moveFocus(Direction.UP);
+                event.preventDefault();
             })
         );
         this.unlistenFuncs.push(
@@ -588,11 +641,25 @@ export class DropdownFocusHandlerService implements OnDestroy {
                     return;
                 }
                 // Close the nested menu before moving focus to left side
-                this.currentFocusedItem.left.closeMenu(event);
-                this.moveFocus(Direction.LEFT);
+                this.currentFocusedItem.left.closeMenu();
                 event.stopPropagation();
+                this.moveFocus(Direction.LEFT);
+                event.preventDefault();
             })
         );
+    }
+
+    /**
+     * Whenever escape is pressed on dropdown item, the menu has to be closed and the focus has to be moved to parent menu if any... Just
+     * like when left arrow key is pressed
+     */
+    escapePressed(): void {
+        if (!this.currentFocusedItem.left) {
+            return;
+        }
+        // Close the nested menu before moving focus to left side
+        this.currentFocusedItem.left.closeMenu();
+        this.moveFocus(Direction.LEFT);
     }
 }
 </code></pre>

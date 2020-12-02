@@ -342,13 +342,26 @@
 
     <div class="tab-pane fade  tab-source-code" id="c-source">
         <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { AfterViewInit, Directive, Host, OnDestroy, Optional, Renderer2, SkipSelf } from &#x27;@angular/core&#x27;;
-import { ClrPopoverToggleService } from &#x27;@clr/angular&#x27;;
-import { Subscription } from &#x27;rxjs&#x27;;
 import { SubscriptionTracker } from &#x27;../common/subscription&#x27;;
 import { DropdownFocusHandlerService } from &#x27;./dropdown-focus-handler.service&#x27;;
 import { DropdownComponent } from &#x27;./dropdown.component&#x27;;
 
-const BUTTON_NODE_NAME &#x3D; &#x27;BUTTON&#x27;;
+/**
+ * To filter out the non-activatable separator item type when creating linked menu list {@link #linkMenuItems}. Because, we don&#x27;t
+ * want the focus to go to separator item type when navigating using the arrow keys
+ */
+enum ActivatableMenuItemType {
+    /**
+     * Menu item that results in executing of an action when clicked
+     */
+    BUTTON &#x3D; &#x27;button&#x27;,
+    /**
+     * Activating this would open a nested menu
+     */
+    NESTED_VCD_DROPDOWN &#x3D; &#x27;vcd-dropdown&#x27;,
+}
+
+const NESTED_DROPDOWN_TRIGGER &#x3D; &#x27;clr-dropdown &gt; button&#x27;;
 
 /**
  * Arrow keys directions
@@ -378,29 +391,20 @@ export interface MenuItem {
     /**
      * Call back to close the menu for which this menu item can be a trigger. called from {@link DropdownFocusHandlerService}
      */
-    closeMenu?: (event: Event) &#x3D;&gt; void;
+    closeMenu?: () &#x3D;&gt; void;
 }
 
 /**
- * Added on to vcd-dropdown component to vertically link menu items of the dropdown on which this directive is added. It also, then links
- * the vertically linked menu items horizontally to their menu trigger. It then uses the {@link DropdownFocusHandlerService} to move the
- * DOM focus between the menu items.
- *
- * @Example:
- * &lt;vcd-dropdown
- *        vcdDropdownFocusHandler
- *        [items]&#x3D;&quot;contextualActions&quot;
- *        [onItemClickedCb]&#x3D;&quot;runActionHandler.bind(this)&quot;
- *        [isItemDisabledCb]&#x3D;&quot;isActionDisabled.bind(this)&quot;
- * &gt;&lt;/vcd-dropdown&gt;
+ * Added on to vcd-dropdown component to link menu items of the dropdown on which this directive is added. each item is linked to its
+ * neighbors in the 4 directions. It then uses the {@link DropdownFocusHandlerService} to move the DOM focus between the menu items.
  */
 @Directive({
     selector: &#x27;vcd-dropdown[vcdDropdownFocusHandler]&#x27;,
 })
-export class DropdownFocusHandlerDirective&lt;T&gt; implements AfterViewInit, OnDestroy {
+export class DropdownFocusHandlerDirective implements AfterViewInit, OnDestroy {
     constructor(
         @Optional() @SkipSelf() private parentVcdDropdown: DropdownComponent,
-        @Optional() @SkipSelf() private parentFocusHandler: DropdownFocusHandlerDirective&lt;T&gt;,
+        @Optional() @SkipSelf() private parentFocusHandler: DropdownFocusHandlerDirective,
         @Host() private hostVcdDropdown: DropdownComponent,
         private focusHandlerService: DropdownFocusHandlerService,
         private renderer: Renderer2
@@ -495,12 +499,25 @@ export class DropdownFocusHandlerDirective&lt;T&gt; implements AfterViewInit, On
         });
     }
 
+    private getDropdownItemElement(item: Element): HTMLElement {
+        // We only need the underlying button that opens the nested dropdown as that is the activatable/focusable item
+        return (item.matches(ActivatableMenuItemType.BUTTON)
+            ? item
+            : item.querySelector(NESTED_DROPDOWN_TRIGGER)) as HTMLElement;
+    }
+
     private linkMenuItems(): void {
         const menuChildren: Element[] &#x3D; Array.from(this.clrDropdownMenuEl.children);
-        this.menuItems &#x3D; menuChildren.map((child) &#x3D;&gt; ({
-            element: (child.matches(&#x27;button&#x27;) ? child : child.querySelector(&#x27;clr-dropdown &gt; button&#x27;)) as HTMLElement,
-            left: this.menuTrigger,
-        }));
+        this.menuItems &#x3D; menuChildren
+            .filter(
+                (child) &#x3D;&gt;
+                    child.matches(ActivatableMenuItemType.BUTTON) ||
+                    child.matches(ActivatableMenuItemType.NESTED_VCD_DROPDOWN)
+            )
+            .map((child) &#x3D;&gt; ({
+                element: this.getDropdownItemElement(child),
+                left: this.menuTrigger,
+            }));
         this.linkVertical();
         // Lint to menu trigger
         if (this.isRootDropdown) {
@@ -511,12 +528,14 @@ export class DropdownFocusHandlerDirective&lt;T&gt; implements AfterViewInit, On
         }
     }
 
+    private closeVcdDropdown &#x3D; () &#x3D;&gt; {
+        this.hostVcdDropdown.clrDropdown.toggleService.open &#x3D; false;
+    };
+
     private get rootMenuTrigger(): MenuItem {
         return {
             element: this.dropdownTriggerEl,
-            closeMenu: (event: Event) &#x3D;&gt; {
-                this.hostVcdDropdown.clrDropdown.toggleService.open &#x3D; false;
-            },
+            closeMenu: this.closeVcdDropdown,
         };
     }
 
@@ -524,9 +543,7 @@ export class DropdownFocusHandlerDirective&lt;T&gt; implements AfterViewInit, On
         const menuTrigger &#x3D; this.parentFocusHandler.menuItems.find((item) &#x3D;&gt; {
             return Object.is(item.element.innerText, this.dropdownTriggerEl.innerText);
         });
-        menuTrigger.closeMenu &#x3D; (event: Event) &#x3D;&gt; {
-            this.hostVcdDropdown.clrDropdown.toggleService.open &#x3D; false;
-        };
+        menuTrigger.closeMenu &#x3D; this.closeVcdDropdown;
         return menuTrigger;
     }
 
