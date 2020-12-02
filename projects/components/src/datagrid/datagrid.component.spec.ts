@@ -22,6 +22,7 @@ import {
 import { ShowClippedTextDirective, TooltipSize } from '../lib/directives/show-clipped-text.directive';
 import { ClrDatagridWidgetObject } from '../utils/test/datagrid/datagrid.wo';
 import { VcdDatagridWidgetObject } from '../utils/test/datagrid/vcd-datagrid.wo';
+import { timeout } from '../utils/test/test-utils';
 import { AngularWidgetObjectFinder } from '../utils/test/widget-object/angular-widget-finder';
 import { TestElement } from '../utils/test/widget-object/angular-widget-object';
 import {
@@ -327,7 +328,7 @@ describe('DatagridComponent', () => {
                     this.finder.detectChanges();
                     spyOn(this.hostComponent, 'selectionChanged');
                     this.clrGridWidget.getSelectionLabelForRow(0).click();
-                    await new Promise((resolve) => setTimeout(() => resolve()));
+                    await timeout(0);
                     expect(this.hostComponent.selectionChanged).toHaveBeenCalledWith([mockData[0]]);
                     this.hostComponent.datagridSelection = [];
                     this.finder.detectChanges();
@@ -366,16 +367,16 @@ describe('DatagridComponent', () => {
                         };
                         this.finder.detectChanges();
                         this.clrGridWidget.getSelectionLabelForRow(0).click();
-                        await new Promise((resolve) => setTimeout(() => resolve()));
+                        await timeout(0);
                         this.clrGridWidget.getSelectionLabelForRow(1).click();
-                        await new Promise((resolve) => setTimeout(() => resolve()));
+                        await timeout(0);
                         expect(this.hostComponent.datagridSelection).toEqual(mockData);
                         this.hostComponent.gridData = {
                             items: [mockData[0]],
                             totalItems: 2,
                         };
                         this.finder.detectChanges();
-                        await new Promise((resolve) => setTimeout(() => resolve()));
+                        await timeout(0);
                         this.finder.detectChanges();
                         expect(this.hostComponent.datagridSelection).toEqual([mockData[0]]);
                     });
@@ -405,7 +406,7 @@ describe('DatagridComponent', () => {
                         totalItems: 2,
                     };
                     this.finder.detectChanges();
-                    await new Promise((resolve) => setTimeout(() => resolve()));
+                    await timeout(0);
                     this.hostComponent.datagridSelection = [{ name: mockData[1].name }];
                     this.finder.detectChanges();
                     expect(this.hostComponent.datagridSelection).toEqual([{ name: mockData[1].name }]);
@@ -414,7 +415,7 @@ describe('DatagridComponent', () => {
                         totalItems: 2,
                     };
                     this.finder.detectChanges();
-                    await new Promise((resolve) => setTimeout(() => resolve()));
+                    await timeout(0);
                     this.finder.detectChanges();
                     console.log(this.hostComponent.datagridSelection);
                     expect(this.hostComponent.datagridSelection).toEqual([mockData[1]]);
