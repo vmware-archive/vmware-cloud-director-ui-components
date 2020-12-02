@@ -15,6 +15,7 @@ import {
     Provider,
     QueryList,
     Renderer2,
+    Self,
     SkipSelf,
     TrackByFunction,
     ViewChild,
@@ -82,7 +83,10 @@ export class DropdownComponent implements AfterViewInit {
 
     @Output() dropdownMenuUpdated = new EventEmitter<{ menu: HTMLElement }>();
 
-    constructor(@Optional() @SkipSelf() private parentVcdDropdown: DropdownComponent) {}
+    constructor(
+        @Optional() @SkipSelf() private parentVcdDropdown: DropdownComponent,
+        private focusHandler: DropdownFocusHandlerService
+    ) {}
 
     @ViewChild(ClrDropdownMenu)
     set clrDropdownMenu(val: ClrDropdownMenu) {
@@ -183,7 +187,7 @@ export class DropdownComponent implements AfterViewInit {
     @Input() dropdownTriggerButtonClassName: string;
 
     /**
-     * To toggle open an close states when hovered over
+     * To toggle open and close states when hovered over
      */
     @ViewChild(ClrDropdown) clrDropdown: ClrDropdown;
 
@@ -307,10 +311,30 @@ export class DropdownComponent implements AfterViewInit {
      * @param event Space or Enter key press event
      */
     onDropdownItemActivated(event: Event): void {
-        if (!event) {
+        event.stopPropagation();
+        // We need to dispatch a click event instead of just calling the click handler because, Clarity listens to a
+        // click event to close the menu after an item is activated
+        event.target.dispatchEvent(new Event('click'));
+    }
+
+    /**
+     * When space or enter is pressed on a nested trigger, the nested menu has to be opened. So, we trigger a mouseover event which opens
+     * the nested menu
+     * @param event Space or Enter key press event
+     */
+    onDropdownTriggerActivated(event: Event): void {
+        // For the root dropdown, it is already being handled by Clarity
+        if (!this.parentVcdDropdown) {
             return;
         }
-        (event.target as HTMLElement).click();
+        event.stopPropagation();
+        event.target.dispatchEvent(
+            new MouseEvent('mouseover', {
+                view: window,
+                bubbles: true,
+                cancelable: true,
+            })
+        );
     }
 
     /**
@@ -331,5 +355,15 @@ export class DropdownComponent implements AfterViewInit {
      */
     isItemDisabled(item: ActionItem<any, any>): boolean {
         return (CommonUtil.isFunction(item.disabled) ? item.disabled(this.selectedEntities) : item.disabled) as boolean;
+    }
+
+    /**
+     * When an esc key is pressed on a dropdown item, the behavior should be same as pressing left arrow key on the item. This is
+     * being handled here instead of inside the {@link DropdownFocusHandlerService} because, the escape event is being absorned by
+     * Claritys focus handling logic before it reaches the service.
+     */
+    onDropdownEscPressed(event: Event): void {
+        event.stopPropagation();
+        this.focusHandler.escapePressed();
     }
 }

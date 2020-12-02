@@ -9,6 +9,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 [internal]: Update `ng-live-docs` to 0.0.8 to enable `@vmw/ng-live-docs:add-example` schematic.
 
+## [1.0.0-dev.50] - 2020-12-2
+### Fixed
+- Underlying page scrolling when navigating the action menu using arrow keys.
+- Space/Enter keys not closing the action menu after a action menu item is activated.
+- Esc key not closing the action menu it is pressed on. 
+- Not being able to navigate using arrow keys on action menu with separators
+
 ## [1.0.0-dev.49] - 2020-11-10
 1. BREAKING: Fixes an error in the type clash with Jasmine and Chai in the Widget Object
 2. Fix arrow navigation of disabled menu items.

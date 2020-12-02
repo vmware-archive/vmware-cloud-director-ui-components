@@ -19,12 +19,18 @@ export class ActionMenuContextualActionsExampleComponent {
                 {
                     textKey: 'Add',
                     isTranslatable: false,
+                    handler: () => {
+                        console.log('Add');
+                    },
                     icon: 'plus',
                 },
                 {
                     textKey: 'Delete featured',
                     actionType: ActionType.CONTEXTUAL_FEATURED,
                     isTranslatable: false,
+                    handler: () => {
+                        console.log('Delete featured');
+                    },
                     icon: 'trash',
                 },
             ],
