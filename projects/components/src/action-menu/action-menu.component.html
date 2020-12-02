@@ -11,6 +11,7 @@
         </ng-container>
 
         <vcd-dropdown
+            vcdDropdownFocusHandler
             class="inline-action-dropdown"
             *ngIf="shouldDisplayContextualActionsDropdownInline"
             [items]="contextualActions"
@@ -33,6 +34,7 @@
 </div>
 
 <vcd-dropdown
+    vcdDropdownFocusHandler
     *ngIf="shouldDisplayStaticAndStaticFeaturedActionsDropdown"
     [items]="staticDropdownActions"
     [trackByFunction]="actionsTrackBy"
@@ -46,6 +48,7 @@
 ></vcd-dropdown>
 
 <vcd-dropdown
+    vcdDropdownFocusHandler
     *ngIf="shouldDisplayContextualActionsDropdown"
     [items]="contextualActions"
     [trackByFunction]="actionsTrackBy"
