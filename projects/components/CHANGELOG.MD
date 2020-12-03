@@ -7,6 +7,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.0.0-a11y.7] - 2020-12-2
+### Fixed
+- Values were not being written at times on `vcd-number-with-unit`. Make sure `writeValue` does not fully run before 
+  `ngOnInit` to make sure `@Input` parameters have been set
+
 ## [1.0.0-a11y.6] - 2020-12-2
 ### Fixed
 - Underlying page scrolling when navigating the action menu using arrow keys.

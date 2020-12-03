@@ -192,6 +192,11 @@ export class NumberWithUnitFormInputComponent extends BaseFormControl implements
     lastRealValue: number = null;
 
     /**
+     * Should this functionality be provided at the base class?
+     */
+    private ngOnInitCalled = false;
+
+    /**
      * Set the unit in the dropdown.
      * @param value Should be one of the value that you pass in {@link #unitOptions} to select the Unit.
      */
@@ -210,7 +215,11 @@ export class NumberWithUnitFormInputComponent extends BaseFormControl implements
     }
 
     ngOnInit(): void {
+        this.ngOnInitCalled = true;
+
         defaultValidatorForControl(this.formControl, () => this.validateNumber());
+
+        this.writeValue(this.initialValue as number);
 
         this.recalculateUnitMinMax();
     }
@@ -282,6 +291,13 @@ export class NumberWithUnitFormInputComponent extends BaseFormControl implements
     }
 
     writeValue(value: number): void {
+        // This gets called before ngOnInit. Store the value and we'll call it
+        // again from ngOnInit so that `@Input` parameters will be set
+        if (!this.ngOnInitCalled) {
+            this.initialValue = value;
+            return;
+        }
+
         if (value === null) {
             if (this.showUnlimitedOption) {
                 // Set Unlimited checkbox to false because the form control was reset
@@ -314,6 +330,10 @@ export class NumberWithUnitFormInputComponent extends BaseFormControl implements
     }
 
     private computeBestUnitAndValue(value: number): void {
+        // Nothing to do when setting to unlimited
+        if (this.isUnlimitedValue(value)) {
+            return;
+        }
         if (this.unitOptions.length === 0) {
             this.bestValue = value;
             this.bestUnit = NoUnit.INSTANCE;
