@@ -16,13 +16,12 @@ import {
 } from '../../../datagrid';
 import { MockRecord } from '../../../datagrid/mock-data';
 import { IdGenerator } from '../../id-generator/id-generator';
-import { WidgetFinder } from '../widget-object';
 import { AngularWidgetObjectFinder } from '../widget-object/angular-widget-finder';
 import { TestElement } from '../widget-object/angular-widget-object';
 import { ClrDatagridWidgetObject } from './datagrid.wo';
 
 function getFilter<V, C>(element: TestElement, filterType: Type<DatagridFilter<V, C>>): DatagridFilter<V, C> {
-    return element.elements[0].parent.parent.parent.query(By.directive(filterType)).componentInstance;
+    return element.parents('body').queryDirective(filterType);
 }
 
 /**
@@ -69,12 +68,10 @@ export function createDatagridFilterTestHelper<V, C>(
     configureTestingModule();
 
     // Add the filter to grid column
-    const wf = new WidgetFinder(FilterTestHostComponent);
-
     const finder = new AngularWidgetObjectFinder(FilterTestHostComponent);
     const grid = finder.find(ClrDatagridWidgetObject);
 
-    wf.hostComponent.setFilter(filterType, wf, config || ({} as C));
+    finder.hostComponent.setFilter(filterType, finder, config || ({} as C));
     grid.clrDatagrid.fixture.detectChanges();
     grid.getFilterToggle().click();
     return getFilter(grid.clrDatagrid, filterType);
@@ -86,19 +83,18 @@ export function createDatagridFilterTestHelper<V, C>(
 export function createDatagridFilterTestHelperWithFinder<V, C>(
     filterType: Type<DatagridFilter<V, C>>,
     config?: C
-): { finder: WidgetFinder; filter: DatagridFilter<V, C> } {
+): { finder: AngularWidgetObjectFinder; filter: DatagridFilter<V, C> } {
     configureTestingModule();
 
     // Add the filter to grid column
-    const wf = new WidgetFinder(FilterTestHostComponent);
     const finder = new AngularWidgetObjectFinder(FilterTestHostComponent);
     const grid = finder.find(ClrDatagridWidgetObject);
-    wf.hostComponent.setFilter(filterType, wf, config || ({} as C));
+    finder.hostComponent.setFilter(filterType, finder, config || ({} as C));
     grid.clrDatagrid.fixture.detectChanges();
     grid.getFilterToggle().click();
 
     return {
-        finder: wf,
+        finder,
         filter: getFilter(grid.clrDatagrid, filterType),
     };
 }
@@ -131,11 +127,7 @@ export class FilterTestHostComponent {
     /**
      * Creates the filterRendererSpec and adds it to the grid column above
      */
-    setFilter<V, C>(
-        filterType: Type<DatagridFilter<V, C>>,
-        finder: WidgetFinder<FilterTestHostComponent>,
-        config: C
-    ): void {
+    setFilter<V, C>(filterType: Type<DatagridFilter<V, C>>, finder: AngularWidgetObjectFinder, config: C): void {
         this.column.filter = FilterComponentRendererSpec({ type: filterType, config });
         finder.detectChanges();
     }

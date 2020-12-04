@@ -176,8 +176,9 @@ export interface FindParams<T> {
 }
 
 /**
- * Finds instances that implement {@link FindableWidget}
- * H is the host component's type
+ * @deprecated Finds instances that implement {@link FindableWidget}
+ * H is the host component's type. This finder is only for old unit tests.
+ * Please use AngularWidgetObjectFinder instead.
  */
 export class WidgetFinder<H = unknown> {
     /**

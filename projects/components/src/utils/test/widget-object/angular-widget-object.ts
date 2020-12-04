@@ -209,6 +209,31 @@ export class TestElement implements Iterable<TestElement> {
     }
 
     /**
+     * Finds the first parent element that matches the CSS selector
+     */
+    private findParents(debugEl: DebugElement, cssSelector: string): DebugElement {
+        if (!debugEl) {
+            return null;
+        }
+        return debugEl.nativeElement.matches(cssSelector) ? debugEl : this.findParents(debugEl.parent, cssSelector);
+    }
+
+    /**
+     * Returns the first parent element that matches css selector
+     */
+    parents(cssSelector: string): TestElement {
+        const result = this.findParents(this.elements[0].parent, cssSelector);
+        return new TestElement(result ? [result] : [], this.fixture);
+    }
+
+    /**
+     * Returns componentInstance after query directive
+     */
+    queryDirective(type: Type<any>): any {
+        return this.elements[0].query(By.directive(type)).componentInstance;
+    }
+
+    /**
      * Allows a TestElement to be used in a `for ... of ...` loop.
      */
     [Symbol.iterator](): Iterator<TestElement, any, undefined> {

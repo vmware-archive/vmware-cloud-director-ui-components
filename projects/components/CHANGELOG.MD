@@ -17,6 +17,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 4. INTERNAL: Rewrote helper method about creating datagrid filter unit test with new Widget Object.
 ### Removed
 1. BREAKING: Removed `WithGridBoldRenderer`. The functionality of `WithGridBoldRenderer` has been implemented in `ClrDatagridWidget`.
+### Deprecated
+1. Marked `WidgetFinder` as deprecated.
 
 ## [1.0.0-dev.50] - 2020-12-2
 ### Fixed
