@@ -128,6 +128,9 @@ expect(el.enabled()).toBeTruthy()
                                 <a href="#blur">blur</a>
                             </li>
                             <li>
+                                <a href="#classes">classes</a>
+                            </li>
+                            <li>
                                 <a href="#clear">clear</a>
                             </li>
                             <li>
@@ -140,7 +143,29 @@ expect(el.enabled()).toBeTruthy()
                                 <a href="#enabled">enabled</a>
                             </li>
                             <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#findParents">findParents</a>
+                            </li>
+                            <li>
+                                <a href="#getComponentInstance">getComponentInstance</a>
+                            </li>
+                            <li>
+                                <a href="#getInjector">getInjector</a>
+                            </li>
+                            <li>
+                                <a href="#getStylePropertyValue">getStylePropertyValue</a>
+                            </li>
+                            <li>
                                 <a href="#length">length</a>
+                            </li>
+                            <li>
+                                <a href="#parents">parents</a>
+                            </li>
+                            <li>
+                                <a href="#queryDirective">queryDirective</a>
+                            </li>
+                            <li>
+                                <a href="#sendKeyboardEvent">sendKeyboardEvent</a>
                             </li>
                             <li>
                                 <a href="#text">text</a>
@@ -340,6 +365,47 @@ expect(el.enabled()).toBeTruthy()
         <tbody>
             <tr>
                 <td class="col-md-4">
+                    <a name="classes"></a>
+                    <span class="name">
+                        <b>
+                            classes
+                        </b>
+                        <a href="#classes"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>classes()</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="185"
+                            class="link-to-prism">projects/components/src/utils/test/widget-object/angular-widget-object.ts:185</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Returns classes of first element as a string array</p>
+</div>
+
+                    <div class="io-description">
+                        <b>Returns : </b>    <code>string[]</code>
+
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
                     <a name="clear"></a>
                     <span class="name">
                         <b>
@@ -504,6 +570,251 @@ expect(el.enabled()).toBeTruthy()
         <tbody>
             <tr>
                 <td class="col-md-4">
+                    <a name="findParents"></a>
+                    <span class="name">
+                        <b>
+                            <span class="modifier">Private</span>
+                            findParents
+                        </b>
+                        <a href="#findParents"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                    <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>findParents(debugEl: <a href="https://angular.io/api/core/DebugElement" target="_blank">DebugElement</a>, cssSelector: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="214"
+                            class="link-to-prism">projects/components/src/utils/test/widget-object/angular-widget-object.ts:214</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Finds the first parent element that matches the CSS selector</p>
+</div>
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Type</td>
+                                    <td>Optional</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>debugEl</td>
+                                    <td>
+                                                <code><a href="https://angular.io/api/core/DebugElement" target="_blank" >DebugElement</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                                <tr>
+                                    <td>cssSelector</td>
+                                    <td>
+                                                <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://angular.io/api/core/DebugElement" target="_blank" >DebugElement</a></code>
+
+                    </div>
+                    <div class="io-description">
+                        
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="getComponentInstance"></a>
+                    <span class="name">
+                        <b>
+                            getComponentInstance
+                        </b>
+                        <a href="#getComponentInstance"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>getComponentInstance()</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="200"
+                            class="link-to-prism">projects/components/src/utils/test/widget-object/angular-widget-object.ts:200</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Returns componentInstance of the first element</p>
+</div>
+
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="getInjector"></a>
+                    <span class="name">
+                        <b>
+                            getInjector
+                        </b>
+                        <a href="#getInjector"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>getInjector()</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="207"
+                            class="link-to-prism">projects/components/src/utils/test/widget-object/angular-widget-object.ts:207</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Returns injector of the first element</p>
+</div>
+
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://angular.io/api/core/Injector" target="_blank" >Injector</a></code>
+
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="getStylePropertyValue"></a>
+                    <span class="name">
+                        <b>
+                            getStylePropertyValue
+                        </b>
+                        <a href="#getStylePropertyValue"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>getStylePropertyValue(key: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="193"
+                            class="link-to-prism">projects/components/src/utils/test/widget-object/angular-widget-object.ts:193</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Returns style property value of the first element</p>
+</div>
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Type</td>
+                                    <td>Optional</td>
+                                    <td>Description</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>key</td>
+                                    <td>
+                                                <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                    <td>
+                                        <p>specified CSS property</p>
+
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                    </div>
+                    <div class="io-description">
+                        
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
                     <a name="length"></a>
                     <span class="name">
                         <b>
@@ -536,6 +847,245 @@ expect(el.enabled()).toBeTruthy()
                     <div class="io-description">
                         <b>Returns : </b>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
 
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="parents"></a>
+                    <span class="name">
+                        <b>
+                            parents
+                        </b>
+                        <a href="#parents"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>parents(cssSelector: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="224"
+                            class="link-to-prism">projects/components/src/utils/test/widget-object/angular-widget-object.ts:224</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Returns the first parent element that matches css selector</p>
+</div>
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Type</td>
+                                    <td>Optional</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>cssSelector</td>
+                                    <td>
+                                                <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="../classes/TestElement.html" target="_self" >TestElement</a></code>
+
+                    </div>
+                    <div class="io-description">
+                        
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="queryDirective"></a>
+                    <span class="name">
+                        <b>
+                            queryDirective
+                        </b>
+                        <a href="#queryDirective"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>queryDirective(type: Type<any>)</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="232"
+                            class="link-to-prism">projects/components/src/utils/test/widget-object/angular-widget-object.ts:232</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Returns componentInstance after query directive</p>
+</div>
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Type</td>
+                                    <td>Optional</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>type</td>
+                                    <td>
+                                            <code>Type&lt;any&gt;</code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+
+                    </div>
+                    <div class="io-description">
+                        
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="sendKeyboardEvent"></a>
+                    <span class="name">
+                        <b>
+                            sendKeyboardEvent
+                        </b>
+                        <a href="#sendKeyboardEvent"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>sendKeyboardEvent(eventType: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>, eventProperties: literal type)</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="172"
+                            class="link-to-prism">projects/components/src/utils/test/widget-object/angular-widget-object.ts:172</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Send a keyboard event of type {@param eventType} with properties {@param eventProperties} on this element.
+Setting the event properties is done with <code>Object.defineProperty</code> on the created event. This allows setting
+properties like <code>which</code> that is deprecated and cannot be set with the native approach of creating keyboard event.</p>
+</div>
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Type</td>
+                                    <td>Optional</td>
+                                    <td>Description</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>eventType</td>
+                                    <td>
+                                                <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                    <td>
+                                        <p>The keyboard event type like &#39;keyup&#39;, &#39;keydown&#39;, &#39;keypress&#39;</p>
+
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>eventProperties</td>
+                                    <td>
+                                            <code>literal type</code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                    <td>
+                                        <p>properties of the event like <code>code</code>, <code>key</code> etc.</p>
+
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                    </div>
+                    <div class="io-description">
+                        
                     </div>
                 </td>
             </tr>
@@ -686,8 +1236,8 @@ expect(el.enabled()).toBeTruthy()
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="168"
-                            class="link-to-prism">projects/components/src/utils/test/widget-object/angular-widget-object.ts:168</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="239"
+                            class="link-to-prism">projects/components/src/utils/test/widget-object/angular-widget-object.ts:239</a></div>
                 </td>
             </tr>
 
@@ -715,7 +1265,7 @@ expect(el.enabled()).toBeTruthy()
 
 
     <div class="tab-pane fade  tab-source-code" id="c-source">
-        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { DebugElement, Type } from &#x27;@angular/core&#x27;;
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { DebugElement, Injector, Type } from &#x27;@angular/core&#x27;;
 import { ComponentFixture } from &#x27;@angular/core/testing&#x27;;
 import { By } from &#x27;@angular/platform-browser&#x27;;
 import { AngularWidgetObjectFinder } from &#x27;./angular-widget-finder&#x27;;
@@ -872,6 +1422,77 @@ export class TestElement implements Iterable&lt;TestElement&gt; {
      */
     toArray(): TestElement[] {
         return this.elements.map((el) &#x3D;&gt; new TestElement([el], this.fixture));
+    }
+
+    /**
+     * Send a keyboard event of type {@param eventType} with properties {@param eventProperties} on this element.
+     * Setting the event properties is done with &#x60;Object.defineProperty&#x60; on the created event. This allows setting
+     * properties like &#x60;which&#x60; that is deprecated and cannot be set with the native approach of creating keyboard event.
+     * @param eventType The keyboard event type like &#x27;keyup&#x27;, &#x27;keydown&#x27;, &#x27;keypress&#x27;
+     * @param eventProperties properties of the event like &#x60;code&#x60;, &#x60;key&#x60; etc.
+     */
+    sendKeyboardEvent(eventType: string, eventProperties: { [name: string]: unknown }): void {
+        const element &#x3D; this.elements[0].nativeElement as HTMLElement;
+        const event &#x3D; new KeyboardEvent(eventType, { bubbles: true });
+        Object.keys(eventProperties).forEach((key) &#x3D;&gt; {
+            Object.defineProperty(event, key, { value: eventProperties[key] });
+        });
+        element.dispatchEvent(event);
+        this.detectChanges();
+    }
+
+    /**
+     * Returns classes of first element as a string array
+     */
+    classes(): string[] {
+        return Object.keys(this.elements[0].classes);
+    }
+
+    /**
+     * Returns style property value of the first element
+     * @param key specified CSS property
+     */
+    getStylePropertyValue(key: string): string {
+        return this.elements[0].nativeElement.style.getPropertyValue(key);
+    }
+
+    /**
+     * Returns componentInstance of the first element
+     */
+    getComponentInstance(): any {
+        return this.elements[0].componentInstance;
+    }
+
+    /**
+     * Returns injector of the first element
+     */
+    getInjector(): Injector {
+        return this.elements[0].injector;
+    }
+
+    /**
+     * Finds the first parent element that matches the CSS selector
+     */
+    private findParents(debugEl: DebugElement, cssSelector: string): DebugElement {
+        if (!debugEl) {
+            return null;
+        }
+        return debugEl.nativeElement.matches(cssSelector) ? debugEl : this.findParents(debugEl.parent, cssSelector);
+    }
+
+    /**
+     * Returns the first parent element that matches css selector
+     */
+    parents(cssSelector: string): TestElement {
+        const result &#x3D; this.findParents(this.elements[0].parent, cssSelector);
+        return new TestElement(result ? [result] : [], this.fixture);
+    }
+
+    /**
+     * Returns componentInstance after query directive
+     */
+    queryDirective(type: Type&lt;any&gt;): any {
+        return this.elements[0].query(By.directive(type)).componentInstance;
     }
 
     /**

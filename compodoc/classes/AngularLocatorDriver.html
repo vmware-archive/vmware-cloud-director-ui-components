@@ -640,7 +640,7 @@ Checks the given element.</p>
 
 
     <div class="tab-pane fade  tab-source-code" id="c-source">
-        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { DebugElement, Type } from &#x27;@angular/core&#x27;;
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { DebugElement, Injector, Type } from &#x27;@angular/core&#x27;;
 import { ComponentFixture } from &#x27;@angular/core/testing&#x27;;
 import { By } from &#x27;@angular/platform-browser&#x27;;
 import { AngularWidgetObjectFinder } from &#x27;./angular-widget-finder&#x27;;
@@ -797,6 +797,77 @@ export class TestElement implements Iterable&lt;TestElement&gt; {
      */
     toArray(): TestElement[] {
         return this.elements.map((el) &#x3D;&gt; new TestElement([el], this.fixture));
+    }
+
+    /**
+     * Send a keyboard event of type {@param eventType} with properties {@param eventProperties} on this element.
+     * Setting the event properties is done with &#x60;Object.defineProperty&#x60; on the created event. This allows setting
+     * properties like &#x60;which&#x60; that is deprecated and cannot be set with the native approach of creating keyboard event.
+     * @param eventType The keyboard event type like &#x27;keyup&#x27;, &#x27;keydown&#x27;, &#x27;keypress&#x27;
+     * @param eventProperties properties of the event like &#x60;code&#x60;, &#x60;key&#x60; etc.
+     */
+    sendKeyboardEvent(eventType: string, eventProperties: { [name: string]: unknown }): void {
+        const element &#x3D; this.elements[0].nativeElement as HTMLElement;
+        const event &#x3D; new KeyboardEvent(eventType, { bubbles: true });
+        Object.keys(eventProperties).forEach((key) &#x3D;&gt; {
+            Object.defineProperty(event, key, { value: eventProperties[key] });
+        });
+        element.dispatchEvent(event);
+        this.detectChanges();
+    }
+
+    /**
+     * Returns classes of first element as a string array
+     */
+    classes(): string[] {
+        return Object.keys(this.elements[0].classes);
+    }
+
+    /**
+     * Returns style property value of the first element
+     * @param key specified CSS property
+     */
+    getStylePropertyValue(key: string): string {
+        return this.elements[0].nativeElement.style.getPropertyValue(key);
+    }
+
+    /**
+     * Returns componentInstance of the first element
+     */
+    getComponentInstance(): any {
+        return this.elements[0].componentInstance;
+    }
+
+    /**
+     * Returns injector of the first element
+     */
+    getInjector(): Injector {
+        return this.elements[0].injector;
+    }
+
+    /**
+     * Finds the first parent element that matches the CSS selector
+     */
+    private findParents(debugEl: DebugElement, cssSelector: string): DebugElement {
+        if (!debugEl) {
+            return null;
+        }
+        return debugEl.nativeElement.matches(cssSelector) ? debugEl : this.findParents(debugEl.parent, cssSelector);
+    }
+
+    /**
+     * Returns the first parent element that matches css selector
+     */
+    parents(cssSelector: string): TestElement {
+        const result &#x3D; this.findParents(this.elements[0].parent, cssSelector);
+        return new TestElement(result ? [result] : [], this.fixture);
+    }
+
+    /**
+     * Returns componentInstance after query directive
+     */
+    queryDirective(type: Type&lt;any&gt;): any {
+        return this.elements[0].query(By.directive(type)).componentInstance;
     }
 
     /**

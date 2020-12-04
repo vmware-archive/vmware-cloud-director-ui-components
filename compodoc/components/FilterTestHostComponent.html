@@ -89,8 +89,7 @@
 
             <tr>
                 <td class="col-md-3">template</td>
-                <td class="col-md-9"><pre class="line-numbers"><code class="language-html">&lt;vcd-datagrid [gridData]&#x3D;&quot;gridData&quot; [columns]&#x3D;&quot;[column]&quot;&gt;&lt;/vcd-datagrid&gt;
-</code></pre></td>
+                <td class="col-md-9"><pre class="line-numbers"><code class="language-html">&lt;vcd-datagrid [gridData]&#x3D;&quot;gridData&quot; [columns]&#x3D;&quot;[column]&quot;&gt;&lt;/vcd-datagrid&gt;</code></pre></td>
             </tr>
 
 
@@ -179,15 +178,15 @@
             </tr>
             <tr>
                 <td class="col-md-4">
-<code>setFilter(filterType: <a href="../classes/DatagridFilter.html">Type<DatagridFilter<V, C>></a>, finder: <a href="../classes/WidgetFinder.html">WidgetFinder<FilterTestHostComponent></a>, config: C)</code>
+<code>setFilter(filterType: <a href="../classes/DatagridFilter.html">Type<DatagridFilter<V, C>></a>, finder: <a href="../classes/AngularWidgetObjectFinder.html">AngularWidgetObjectFinder</a>, config: C)</code>
                 </td>
             </tr>
 
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="119"
-                            class="link-to-prism">projects/components/src/utils/test/datagrid/filter-utils.ts:119</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="130"
+                            class="link-to-prism">projects/components/src/utils/test/datagrid/filter-utils.ts:130</a></div>
                 </td>
             </tr>
 
@@ -232,7 +231,7 @@
                                 <tr>
                                     <td>finder</td>
                                     <td>
-                                                <code><a href="../classes/WidgetFinder.html" target="_self" >WidgetFinder&lt;FilterTestHostComponent&gt;</a></code>
+                                                <code><a href="../classes/AngularWidgetObjectFinder.html" target="_self" >AngularWidgetObjectFinder</a></code>
                                     </td>
 
                                     <td>
@@ -300,7 +299,7 @@
                     </tr>
                         <tr>
                             <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="110" class="link-to-prism">projects/components/src/utils/test/datagrid/filter-utils.ts:110</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="121" class="link-to-prism">projects/components/src/utils/test/datagrid/filter-utils.ts:121</a></div>
                             </td>
                         </tr>
 
@@ -343,7 +342,7 @@
                     </tr>
                         <tr>
                             <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="102" class="link-to-prism">projects/components/src/utils/test/datagrid/filter-utils.ts:102</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="113" class="link-to-prism">projects/components/src/utils/test/datagrid/filter-utils.ts:113</a></div>
                             </td>
                         </tr>
 
@@ -384,7 +383,7 @@ value given in the column definition below</p>
                     </tr>
                         <tr>
                             <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="112" class="link-to-prism">projects/components/src/utils/test/datagrid/filter-utils.ts:112</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="123" class="link-to-prism">projects/components/src/utils/test/datagrid/filter-utils.ts:123</a></div>
                             </td>
                         </tr>
 
@@ -399,6 +398,7 @@ value given in the column definition below</p>
     <div class="tab-pane fade  tab-source-code" id="c-source">
         <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Component, Type } from &#x27;@angular/core&#x27;;
 import { TestBed } from &#x27;@angular/core/testing&#x27;;
+import { By } from &#x27;@angular/platform-browser&#x27;;
 import { MockTranslationService, TranslationService } from &#x27;@vcd/i18n&#x27;;
 import {
     DatagridFilter,
@@ -409,8 +409,13 @@ import {
 } from &#x27;../../../datagrid&#x27;;
 import { MockRecord } from &#x27;../../../datagrid/mock-data&#x27;;
 import { IdGenerator } from &#x27;../../id-generator/id-generator&#x27;;
-import { WidgetFinder } from &#x27;../widget-object&#x27;;
+import { AngularWidgetObjectFinder } from &#x27;../widget-object/angular-widget-finder&#x27;;
+import { TestElement } from &#x27;../widget-object/angular-widget-object&#x27;;
 import { ClrDatagridWidgetObject } from &#x27;./datagrid.wo&#x27;;
+
+function getFilter&lt;V, C&gt;(element: TestElement, filterType: Type&lt;DatagridFilter&lt;V, C&gt;&gt;): DatagridFilter&lt;V, C&gt; {
+    return element.parents(&#x27;body&#x27;).queryDirective(filterType);
+}
 
 /**
  * Creates a testing module with {@link FilterTestHostComponent} that has only single column for filter testing
@@ -456,11 +461,13 @@ export function createDatagridFilterTestHelper&lt;V, C&gt;(
     configureTestingModule();
 
     // Add the filter to grid column
-    const finder &#x3D; new WidgetFinder(FilterTestHostComponent);
+    const finder &#x3D; new AngularWidgetObjectFinder(FilterTestHostComponent);
     const grid &#x3D; finder.find(ClrDatagridWidgetObject);
-    finder.hostComponent.setFilter(filterType, finder, config || ({} as C));
 
-    return grid.getFilter(filterType);
+    finder.hostComponent.setFilter(filterType, finder, config || ({} as C));
+    grid.clrDatagrid.fixture.detectChanges();
+    grid.getFilterToggle().click();
+    return getFilter(grid.clrDatagrid, filterType);
 }
 
 /**
@@ -469,24 +476,27 @@ export function createDatagridFilterTestHelper&lt;V, C&gt;(
 export function createDatagridFilterTestHelperWithFinder&lt;V, C&gt;(
     filterType: Type&lt;DatagridFilter&lt;V, C&gt;&gt;,
     config?: C
-): { finder: WidgetFinder; filter: DatagridFilter&lt;V, C&gt; } {
+): { finder: AngularWidgetObjectFinder; filter: DatagridFilter&lt;V, C&gt; } {
     configureTestingModule();
 
     // Add the filter to grid column
-    const finder &#x3D; new WidgetFinder(FilterTestHostComponent);
+    const finder &#x3D; new AngularWidgetObjectFinder(FilterTestHostComponent);
     const grid &#x3D; finder.find(ClrDatagridWidgetObject);
     finder.hostComponent.setFilter(filterType, finder, config || ({} as C));
+    grid.clrDatagrid.fixture.detectChanges();
+    grid.getFilterToggle().click();
 
-    return { finder, filter: grid.getFilter(filterType) };
+    return {
+        finder,
+        filter: getFilter(grid.clrDatagrid, filterType),
+    };
 }
 
 /**
  * TestHostComponent that has only single column for filter testing.
  */
 @Component({
-    template: &#x60;
-        &lt;vcd-datagrid [gridData]&#x3D;&quot;gridData&quot; [columns]&#x3D;&quot;[column]&quot;&gt;&lt;/vcd-datagrid&gt;
-    &#x60;,
+    template: &#x60; &lt;vcd-datagrid [gridData]&#x3D;&quot;gridData&quot; [columns]&#x3D;&quot;[column]&quot;&gt;&lt;/vcd-datagrid&gt; &#x60;,
 })
 export class FilterTestHostComponent {
     /**
@@ -510,11 +520,7 @@ export class FilterTestHostComponent {
     /**
      * Creates the filterRendererSpec and adds it to the grid column above
      */
-    setFilter&lt;V, C&gt;(
-        filterType: Type&lt;DatagridFilter&lt;V, C&gt;&gt;,
-        finder: WidgetFinder&lt;FilterTestHostComponent&gt;,
-        config: C
-    ): void {
+    setFilter&lt;V, C&gt;(filterType: Type&lt;DatagridFilter&lt;V, C&gt;&gt;, finder: AngularWidgetObjectFinder, config: C): void {
         this.column.filter &#x3D; FilterComponentRendererSpec({ type: filterType, config });
         finder.detectChanges();
     }

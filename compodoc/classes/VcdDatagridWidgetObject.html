@@ -75,7 +75,7 @@
                 <h3>Extends</h3>
             </p>
             <p class="comment">
-                        <code><a href="../classes/WidgetObject.html" target="_self" >WidgetObject</a></code>
+                        <code><a href="../classes/BaseWidgetObject.html" target="_self" >BaseWidgetObject</a></code>
             </p>
 
 
@@ -93,12 +93,31 @@
                     <td class="col-md-4">
                         <ul class="index-list">
                             <li>
+                                <a href="#getHeader">getHeader</a>
+                            </li>
+                            <li>
                                     <span class="modifier">Static</span>
                                 <a href="#tagName">tagName</a>
                             </li>
                             <li>
-                                    <span class="modifier">Public</span>
-                                <a href="#component">component</a>
+                                    <span class="modifier">Protected</span>
+                                    <span class="modifier">Optional</span>
+                                <a href="#locatorDriver">locatorDriver</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Protected</span>
+                                    <span class="modifier">Optional</span>
+                                <a href="#locatorForAncestors">locatorForAncestors</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Protected</span>
+                                    <span class="modifier">Optional</span>
+                                <a href="#locatorForCssSelectors">locatorForCssSelectors</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Protected</span>
+                                    <span class="modifier">Optional</span>
+                                <a href="#locatorForText">locatorForText</a>
                             </li>
                         </ul>
                     </td>
@@ -113,39 +132,7 @@
                     <td class="col-md-4">
                         <ul class="index-list">
                             <li>
-                                    <span class="modifier">Protected</span>
-                                <a href="#click">click</a>
-                            </li>
-                            <li>
-                                <a href="#detectChanges">detectChanges</a>
-                            </li>
-                            <li>
-                                    <span class="modifier">Protected</span>
-                                <a href="#findElement">findElement</a>
-                            </li>
-                            <li>
-                                    <span class="modifier">Protected</span>
-                                <a href="#findElements">findElements</a>
-                            </li>
-                            <li>
-                                    <span class="modifier">Protected</span>
-                                <a href="#getNodeText">getNodeText</a>
-                            </li>
-                            <li>
-                                    <span class="modifier">Protected</span>
-                                <a href="#getText">getText</a>
-                            </li>
-                            <li>
-                                    <span class="modifier">Protected</span>
-                                <a href="#getTexts">getTexts</a>
-                            </li>
-                            <li>
-                                    <span class="modifier">Protected</span>
-                                <a href="#sendKeyboardEvent">sendKeyboardEvent</a>
-                            </li>
-                            <li>
-                                    <span class="modifier">Protected</span>
-                                <a href="#setInputValue">setInputValue</a>
+                                <a href="#findClrDatagrid">findClrDatagrid</a>
                             </li>
                         </ul>
                     </td>
@@ -164,10 +151,7 @@
                         <td class="col-md-4">
                             <ul class="index-list">
                                 <li>
-                                    <a href="#gridHeader">gridHeader</a>
-                                </li>
-                                <li>
-                                    <a href="#clrDatagrid">clrDatagrid</a>
+                                    <a href="#vcdDatagrid">vcdDatagrid</a>
                                 </li>
                             </ul>
                         </td>
@@ -182,6 +166,44 @@
         <h3 id="inputs">
             Properties
         </h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="getHeader"></a>
+                        <span class="name">
+                            <b>
+                            getHeader</b>
+                            <a href="#getHeader"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Type : </i>        <code><a href="../miscellaneous/variables.html#Css" target="_self" >this.locatorForCssSelectors(&#x27;h3&#x27;)</a></code>
+
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Default value : </i><code>this.locatorForCssSelectors(&#x27;h3&#x27;)</code>
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="18" class="link-to-prism">projects/components/src/utils/test/datagrid/vcd-datagrid.wo.ts:18</a></div>
+                            </td>
+                        </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <div class="io-description"><p>Gives the header above the grid.</p>
+</div>
+                    </td>
+                </tr>
+
+            </tbody>
+        </table>
         <table class="table table-sm table-bordered">
             <tbody>
                 <tr>
@@ -208,7 +230,7 @@
                     </tr>
                         <tr>
                             <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="14" class="link-to-prism">projects/components/src/utils/test/datagrid/vcd-datagrid.wo.ts:14</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="13" class="link-to-prism">projects/components/src/utils/test/datagrid/vcd-datagrid.wo.ts:13</a></div>
                             </td>
                         </tr>
 
@@ -219,42 +241,180 @@
             <tbody>
                 <tr>
                     <td class="col-md-4">
-                        <a name="component"></a>
+                        <a name="locatorDriver"></a>
                         <span class="name">
                             <b>
-                                <span class="modifier">Public</span>
-                            component</b>
-                            <a href="#component"><span class="icon ion-ios-link"></span></a>
+                                <span class="modifier">Protected</span>
+                                <span class="modifier">Optional</span>
+                            locatorDriver</b>
+                            <a href="#locatorDriver"><span class="icon ion-ios-link"></span></a>
                         </span>
                     </td>
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                            <i>Type : </i>    <code>T</code>
+                            <i>Type : </i>        <code><a href="../interfaces/LocatorDriver.html" target="_self" >LocatorDriver&lt;T&gt;</a></code>
 
-                        </td>
-                    </tr>
-                    <tr>
-                        <td class="col-md-4">
-                            <i>Default value : </i><code>fixture.componentInstance</code>
                         </td>
                     </tr>
                             <tr>
                                 <td class="col-md-4">
-                                    <div class="io-line">Inherited from         <code><a href="../classes/WidgetObject.html" target="_self" >WidgetObject</a></code>
+                                    <div class="io-line">Inherited from         <code><a href="../classes/BaseWidgetObject.html" target="_self" >BaseWidgetObject</a></code>
 </div>
                                 </td>
                             </tr>
                         <tr>
                             <td class="col-md-4">
-                                    <div class="io-line">Defined in         <code><a href="../classes/WidgetObject.html#source" target="_self" >WidgetObject:42</a></code>
+                                    <div class="io-line">Defined in         <code><a href="../classes/BaseWidgetObject.html#source" target="_self" >BaseWidgetObject:30</a></code>
+</div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="locatorForAncestors"></a>
+                        <span class="name">
+                            <b>
+                                <span class="modifier">Protected</span>
+                                <span class="modifier">Optional</span>
+                            locatorForAncestors</b>
+                            <a href="#locatorForAncestors"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Type : </i>        <code><a href="../miscellaneous/typealiases.html#ElementLocator" target="_self" >(cssSelector: string): ElementLocator&lt;T&gt; &#x3D;&gt; {
+        return (options?: unknown) &#x3D;&gt; this.locatorDriver.parents(cssSelector, options).unwrap();
+    }</a></code>
+
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Default value : </i><code>() &#x3D;&gt; {...}</code>
+                        </td>
+                    </tr>
+                            <tr>
+                                <td class="col-md-4">
+                                    <div class="io-line">Inherited from         <code><a href="../classes/BaseWidgetObject.html" target="_self" >BaseWidgetObject</a></code>
+</div>
+                                </td>
+                            </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in         <code><a href="../classes/BaseWidgetObject.html#source" target="_self" >BaseWidgetObject:45</a></code>
 </div>
                             </td>
                         </tr>
 
                 <tr>
                     <td class="col-md-4">
-                        <div class="io-description">The component instance being managed. Whenever possible, we should access the component's API.</div>
+                        <div class="io-description"><p>Returns an element locator that will find a parent with the given cssSelector when called.</p>
+</div>
+                    </td>
+                </tr>
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="locatorForCssSelectors"></a>
+                        <span class="name">
+                            <b>
+                                <span class="modifier">Protected</span>
+                                <span class="modifier">Optional</span>
+                            locatorForCssSelectors</b>
+                            <a href="#locatorForCssSelectors"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Type : </i>        <code><a href="../miscellaneous/typealiases.html#ElementLocator" target="_self" >(cssSelector: string): ElementLocator&lt;T&gt; &#x3D;&gt; {
+        return (options?: unknown) &#x3D;&gt; this.locatorDriver.get(cssSelector, options).unwrap();
+    }</a></code>
+
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Default value : </i><code>() &#x3D;&gt; {...}</code>
+                        </td>
+                    </tr>
+                            <tr>
+                                <td class="col-md-4">
+                                    <div class="io-line">Inherited from         <code><a href="../classes/BaseWidgetObject.html" target="_self" >BaseWidgetObject</a></code>
+</div>
+                                </td>
+                            </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in         <code><a href="../classes/BaseWidgetObject.html#source" target="_self" >BaseWidgetObject:38</a></code>
+</div>
+                            </td>
+                        </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <div class="io-description"><p>Returns an element locator that will find a child with the given cssSelector when called.</p>
+</div>
+                    </td>
+                </tr>
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="locatorForText"></a>
+                        <span class="name">
+                            <b>
+                                <span class="modifier">Protected</span>
+                                <span class="modifier">Optional</span>
+                            locatorForText</b>
+                            <a href="#locatorForText"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Type : </i>        <code><a href="../miscellaneous/typealiases.html#ElementLocator" target="_self" >(cssSelector: string, text: string): ElementLocator&lt;T&gt; &#x3D;&gt; {
+        return (options?: unknown) &#x3D;&gt; this.locatorDriver.getByText(cssSelector, text, options).unwrap();
+    }</a></code>
+
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Default value : </i><code>() &#x3D;&gt; {...}</code>
+                        </td>
+                    </tr>
+                            <tr>
+                                <td class="col-md-4">
+                                    <div class="io-line">Inherited from         <code><a href="../classes/BaseWidgetObject.html" target="_self" >BaseWidgetObject</a></code>
+</div>
+                                </td>
+                            </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in         <code><a href="../classes/BaseWidgetObject.html#source" target="_self" >BaseWidgetObject:52</a></code>
+</div>
+                            </td>
+                        </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <div class="io-description"><p>Returns an element locator that will find a child with the given cssSelector and text when called.</p>
+</div>
                     </td>
                 </tr>
 
@@ -271,893 +431,38 @@
         <tbody>
             <tr>
                 <td class="col-md-4">
-                    <a name="click"></a>
+                    <a name="findClrDatagrid"></a>
                     <span class="name">
                         <b>
-                            <span class="modifier">Protected</span>
-                            click
+                            findClrDatagrid
                         </b>
-                        <a href="#click"><span class="icon ion-ios-link"></span></a>
+                        <a href="#findClrDatagrid"><span class="icon ion-ios-link"></span></a>
                     </span>
                 </td>
             </tr>
             <tr>
                 <td class="col-md-4">
-                    <span class="modifier-icon icon ion-ios-reset"></span>
-                    <code>click(cssSelector?: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>, parent: <a href="https://angular.io/api/core/DebugElement" target="_blank">DebugElement</a>)</code>
+<code>findClrDatagrid()</code>
                 </td>
             </tr>
 
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Inherited from         <code><a href="../classes/WidgetObject.html" target="_self" >WidgetObject</a></code>
-</div>
-                </td>
-            </tr>
-            <tr>
-                <td class="col-md-4">
-                        <div class="io-line">Defined in         <code><a href="../classes/WidgetObject.html#source" target="_self" >WidgetObject:73</a></code>
-</div>
+                    <div class="io-line">Defined in <a href="" data-line="23"
+                            class="link-to-prism">projects/components/src/utils/test/datagrid/vcd-datagrid.wo.ts:23</a></div>
                 </td>
             </tr>
 
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-description"><p>Clicks an element and detects changes so the DOM is immediately updated</p>
+                    <div class="io-description"><p>Gives the widget object for this <code>clr-datagrid</code>.</p>
 </div>
 
                     <div class="io-description">
-                        <b>Parameters :</b>
-                        <table class="params">
-                            <thead>
-                                <tr>
-                                    <td>Name</td>
-                                    <td>Type</td>
-                                    <td>Optional</td>
-                                    <td>Default value</td>
-                                    <td>Description</td>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td>cssSelector</td>
-                                    <td>
-                                                <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
-                                    </td>
+                        <b>Returns : </b>    <code>ClrDatagridWidgetObject&lt;T&gt;</code>
 
-                                    <td>
-                                        Yes
-                                    </td>
-
-                                    <td>
-                                    </td>
-
-                                    <td>
-                                        <p>Pass this in if you want to click a specific element. If not passed in, the entire node will
-receive the click event</p>
-
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>parent</td>
-                                    <td>
-                                                <code><a href="https://angular.io/api/core/DebugElement" target="_blank" >DebugElement</a></code>
-                                    </td>
-
-                                    <td>
-                                        No
-                                    </td>
-
-                                    <td>
-                                        <code>this.root</code>
-                                    </td>
-
-                                    <td>
-                                        <p>the parent element for which to search for the {</p>
-
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                    <div>
-                    </div>
-                    <div class="io-description">
-                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
-
-                    </div>
-                    <div class="io-description">
-                        
-                    </div>
-                </td>
-            </tr>
-        </tbody>
-    </table>
-    <table class="table table-sm table-bordered">
-        <tbody>
-            <tr>
-                <td class="col-md-4">
-                    <a name="detectChanges"></a>
-                    <span class="name">
-                        <b>
-                            detectChanges
-                        </b>
-                        <a href="#detectChanges"><span class="icon ion-ios-link"></span></a>
-                    </span>
-                </td>
-            </tr>
-            <tr>
-                <td class="col-md-4">
-<code>detectChanges()</code>
-                </td>
-            </tr>
-
-
-            <tr>
-                <td class="col-md-4">
-                    <div class="io-line">Inherited from         <code><a href="../classes/WidgetObject.html" target="_self" >WidgetObject</a></code>
-</div>
-                </td>
-            </tr>
-            <tr>
-                <td class="col-md-4">
-                        <div class="io-line">Defined in         <code><a href="../classes/WidgetObject.html#source" target="_self" >WidgetObject:45</a></code>
-</div>
-                </td>
-            </tr>
-
-
-            <tr>
-                <td class="col-md-4">
-
-                    <div class="io-description">
-                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
-
-                    </div>
-                </td>
-            </tr>
-        </tbody>
-    </table>
-    <table class="table table-sm table-bordered">
-        <tbody>
-            <tr>
-                <td class="col-md-4">
-                    <a name="findElement"></a>
-                    <span class="name">
-                        <b>
-                            <span class="modifier">Protected</span>
-                            findElement
-                        </b>
-                        <a href="#findElement"><span class="icon ion-ios-link"></span></a>
-                    </span>
-                </td>
-            </tr>
-            <tr>
-                <td class="col-md-4">
-                    <span class="modifier-icon icon ion-ios-reset"></span>
-                    <code>findElement(selector: string | Type<unknown>, parent: <a href="https://angular.io/api/core/DebugElement" target="_blank">DebugElement</a>)</code>
-                </td>
-            </tr>
-
-
-            <tr>
-                <td class="col-md-4">
-                    <div class="io-line">Inherited from         <code><a href="../classes/WidgetObject.html" target="_self" >WidgetObject</a></code>
-</div>
-                </td>
-            </tr>
-            <tr>
-                <td class="col-md-4">
-                        <div class="io-line">Defined in         <code><a href="../classes/WidgetObject.html#source" target="_self" >WidgetObject:54</a></code>
-</div>
-                </td>
-            </tr>
-
-
-            <tr>
-                <td class="col-md-4">
-                    <div class="io-description"><p>Finds first element within this widget matching the given selector</p>
-</div>
-
-                    <div class="io-description">
-                        <b>Parameters :</b>
-                        <table class="params">
-                            <thead>
-                                <tr>
-                                    <td>Name</td>
-                                    <td>Type</td>
-                                    <td>Optional</td>
-                                    <td>Default value</td>
-                                    <td>Description</td>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td>selector</td>
-                                    <td>
-                                            <code>string | Type&lt;unknown&gt;</code>
-                                    </td>
-
-                                    <td>
-                                        No
-                                    </td>
-
-                                    <td>
-                                    </td>
-
-                                    <td>
-                                        <p>What to search for</p>
-
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>parent</td>
-                                    <td>
-                                                <code><a href="https://angular.io/api/core/DebugElement" target="_blank" >DebugElement</a></code>
-                                    </td>
-
-                                    <td>
-                                        No
-                                    </td>
-
-                                    <td>
-                                        <code>this.root</code>
-                                    </td>
-
-                                    <td>
-                                        <p>Where to start the search; defaults to the root of this component</p>
-
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                    <div>
-                    </div>
-                    <div class="io-description">
-                        <b>Returns : </b>        <code><a href="https://angular.io/api/core/DebugElement" target="_blank" >DebugElement</a></code>
-
-                    </div>
-                    <div class="io-description">
-                        
-                    </div>
-                </td>
-            </tr>
-        </tbody>
-    </table>
-    <table class="table table-sm table-bordered">
-        <tbody>
-            <tr>
-                <td class="col-md-4">
-                    <a name="findElements"></a>
-                    <span class="name">
-                        <b>
-                            <span class="modifier">Protected</span>
-                            findElements
-                        </b>
-                        <a href="#findElements"><span class="icon ion-ios-link"></span></a>
-                    </span>
-                </td>
-            </tr>
-            <tr>
-                <td class="col-md-4">
-                    <span class="modifier-icon icon ion-ios-reset"></span>
-                    <code>findElements(selector: string | Type<unknown>, parent: <a href="https://angular.io/api/core/DebugElement" target="_blank">DebugElement</a>)</code>
-                </td>
-            </tr>
-
-
-            <tr>
-                <td class="col-md-4">
-                    <div class="io-line">Inherited from         <code><a href="../classes/WidgetObject.html" target="_self" >WidgetObject</a></code>
-</div>
-                </td>
-            </tr>
-            <tr>
-                <td class="col-md-4">
-                        <div class="io-line">Defined in         <code><a href="../classes/WidgetObject.html#source" target="_self" >WidgetObject:62</a></code>
-</div>
-                </td>
-            </tr>
-
-
-            <tr>
-                <td class="col-md-4">
-                    <div class="io-description"><p>Same as <a href="findElement">findElement</a> but returns all elements</p>
-</div>
-
-                    <div class="io-description">
-                        <b>Parameters :</b>
-                        <table class="params">
-                            <thead>
-                                <tr>
-                                    <td>Name</td>
-                                    <td>Type</td>
-                                    <td>Optional</td>
-                                    <td>Default value</td>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td>selector</td>
-                                    <td>
-                                            <code>string | Type&lt;unknown&gt;</code>
-                                    </td>
-
-                                    <td>
-                                        No
-                                    </td>
-
-                                    <td>
-                                    </td>
-
-                                </tr>
-                                <tr>
-                                    <td>parent</td>
-                                    <td>
-                                                <code><a href="https://angular.io/api/core/DebugElement" target="_blank" >DebugElement</a></code>
-                                    </td>
-
-                                    <td>
-                                        No
-                                    </td>
-
-                                    <td>
-                                        <code>this.root</code>
-                                    </td>
-
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                    <div>
-                    </div>
-                    <div class="io-description">
-                        <b>Returns : </b>    <code>DebugElement[]</code>
-
-                    </div>
-                    <div class="io-description">
-                        
-                    </div>
-                </td>
-            </tr>
-        </tbody>
-    </table>
-    <table class="table table-sm table-bordered">
-        <tbody>
-            <tr>
-                <td class="col-md-4">
-                    <a name="getNodeText"></a>
-                    <span class="name">
-                        <b>
-                            <span class="modifier">Protected</span>
-                            getNodeText
-                        </b>
-                        <a href="#getNodeText"><span class="icon ion-ios-link"></span></a>
-                    </span>
-                </td>
-            </tr>
-            <tr>
-                <td class="col-md-4">
-                    <span class="modifier-icon icon ion-ios-reset"></span>
-                    <code>getNodeText(el: <a href="https://angular.io/api/core/DebugElement" target="_blank">DebugElement</a>)</code>
-                </td>
-            </tr>
-
-
-            <tr>
-                <td class="col-md-4">
-                    <div class="io-line">Inherited from         <code><a href="../classes/WidgetObject.html" target="_self" >WidgetObject</a></code>
-</div>
-                </td>
-            </tr>
-            <tr>
-                <td class="col-md-4">
-                        <div class="io-line">Defined in         <code><a href="../classes/WidgetObject.html#source" target="_self" >WidgetObject:140</a></code>
-</div>
-                </td>
-            </tr>
-
-
-            <tr>
-                <td class="col-md-4">
-
-                    <div class="io-description">
-                        <b>Parameters :</b>
-                        <table class="params">
-                            <thead>
-                                <tr>
-                                    <td>Name</td>
-                                    <td>Type</td>
-                                    <td>Optional</td>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td>el</td>
-                                    <td>
-                                                <code><a href="https://angular.io/api/core/DebugElement" target="_blank" >DebugElement</a></code>
-                                    </td>
-
-                                    <td>
-                                        No
-                                    </td>
-
-
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                    <div>
-                    </div>
-                    <div class="io-description">
-                        <b>Returns : </b>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
-
-                    </div>
-                    <div class="io-description">
-                        
-                    </div>
-                </td>
-            </tr>
-        </tbody>
-    </table>
-    <table class="table table-sm table-bordered">
-        <tbody>
-            <tr>
-                <td class="col-md-4">
-                    <a name="getText"></a>
-                    <span class="name">
-                        <b>
-                            <span class="modifier">Protected</span>
-                            getText
-                        </b>
-                        <a href="#getText"><span class="icon ion-ios-link"></span></a>
-                    </span>
-                </td>
-            </tr>
-            <tr>
-                <td class="col-md-4">
-                    <span class="modifier-icon icon ion-ios-reset"></span>
-                    <code>getText(cssSelector: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>, parent: <a href="https://angular.io/api/core/DebugElement" target="_blank">DebugElement</a>)</code>
-                </td>
-            </tr>
-
-
-            <tr>
-                <td class="col-md-4">
-                    <div class="io-line">Inherited from         <code><a href="../classes/WidgetObject.html" target="_self" >WidgetObject</a></code>
-</div>
-                </td>
-            </tr>
-            <tr>
-                <td class="col-md-4">
-                        <div class="io-line">Defined in         <code><a href="../classes/WidgetObject.html#source" target="_self" >WidgetObject:128</a></code>
-</div>
-                </td>
-            </tr>
-
-
-            <tr>
-                <td class="col-md-4">
-                    <div class="io-description"><p>Returns text content of this widget
-If the element cannot be found, gives empty string.</p>
-</div>
-
-                    <div class="io-description">
-                        <b>Parameters :</b>
-                        <table class="params">
-                            <thead>
-                                <tr>
-                                    <td>Name</td>
-                                    <td>Type</td>
-                                    <td>Optional</td>
-                                    <td>Default value</td>
-                                    <td>Description</td>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td>cssSelector</td>
-                                    <td>
-                                                <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
-                                    </td>
-
-                                    <td>
-                                        No
-                                    </td>
-
-                                    <td>
-                                    </td>
-
-                                    <td>
-                                        <p>Pass this in if you want to retrieve text for a specific element within this widget.</p>
-
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>parent</td>
-                                    <td>
-                                                <code><a href="https://angular.io/api/core/DebugElement" target="_blank" >DebugElement</a></code>
-                                    </td>
-
-                                    <td>
-                                        No
-                                    </td>
-
-                                    <td>
-                                        <code>this.root</code>
-                                    </td>
-
-                                    <td>
-                                        <p>Where to start the search; defaults to the root of this component</p>
-
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                    <div>
-                    </div>
-                    <div class="io-description">
-                        <b>Returns : </b>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
-
-                    </div>
-                    <div class="io-description">
-                        
-                    </div>
-                </td>
-            </tr>
-        </tbody>
-    </table>
-    <table class="table table-sm table-bordered">
-        <tbody>
-            <tr>
-                <td class="col-md-4">
-                    <a name="getTexts"></a>
-                    <span class="name">
-                        <b>
-                            <span class="modifier">Protected</span>
-                            getTexts
-                        </b>
-                        <a href="#getTexts"><span class="icon ion-ios-link"></span></a>
-                    </span>
-                </td>
-            </tr>
-            <tr>
-                <td class="col-md-4">
-                    <span class="modifier-icon icon ion-ios-reset"></span>
-                    <code>getTexts(cssSelector: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
-                </td>
-            </tr>
-
-
-            <tr>
-                <td class="col-md-4">
-                    <div class="io-line">Inherited from         <code><a href="../classes/WidgetObject.html" target="_self" >WidgetObject</a></code>
-</div>
-                </td>
-            </tr>
-            <tr>
-                <td class="col-md-4">
-                        <div class="io-line">Defined in         <code><a href="../classes/WidgetObject.html#source" target="_self" >WidgetObject:136</a></code>
-</div>
-                </td>
-            </tr>
-
-
-            <tr>
-                <td class="col-md-4">
-                    <div class="io-description"><p>Same as <a href="getText">getText</a> but return the text for all matching nodes</p>
-</div>
-
-                    <div class="io-description">
-                        <b>Parameters :</b>
-                        <table class="params">
-                            <thead>
-                                <tr>
-                                    <td>Name</td>
-                                    <td>Type</td>
-                                    <td>Optional</td>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td>cssSelector</td>
-                                    <td>
-                                                <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
-                                    </td>
-
-                                    <td>
-                                        No
-                                    </td>
-
-
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                    <div>
-                    </div>
-                    <div class="io-description">
-                        <b>Returns : </b>    <code>string[]</code>
-
-                    </div>
-                    <div class="io-description">
-                        
-                    </div>
-                </td>
-            </tr>
-        </tbody>
-    </table>
-    <table class="table table-sm table-bordered">
-        <tbody>
-            <tr>
-                <td class="col-md-4">
-                    <a name="sendKeyboardEvent"></a>
-                    <span class="name">
-                        <b>
-                            <span class="modifier">Protected</span>
-                            sendKeyboardEvent
-                        </b>
-                        <a href="#sendKeyboardEvent"><span class="icon ion-ios-link"></span></a>
-                    </span>
-                </td>
-            </tr>
-            <tr>
-                <td class="col-md-4">
-                    <span class="modifier-icon icon ion-ios-reset"></span>
-                    <code>sendKeyboardEvent(eventType, eventProperties: literal type, cssSelector?: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>, parent: <a href="https://angular.io/api/core/DebugElement" target="_blank">DebugElement</a>)</code>
-                </td>
-            </tr>
-
-
-            <tr>
-                <td class="col-md-4">
-                    <div class="io-line">Inherited from         <code><a href="../classes/WidgetObject.html" target="_self" >WidgetObject</a></code>
-</div>
-                </td>
-            </tr>
-            <tr>
-                <td class="col-md-4">
-                        <div class="io-line">Defined in         <code><a href="../classes/WidgetObject.html#source" target="_self" >WidgetObject:90</a></code>
-</div>
-                </td>
-            </tr>
-
-
-            <tr>
-                <td class="col-md-4">
-                    <div class="io-description"><p>Send a keyboard event of type {@param eventType} with properties {@param eventProperties} on an element
-found by the {@param cssSelector} within the provided {@param parent} or the current root element.
-Setting the event properties is done with <code>Object.defineProperty</code> on the created event. This allows setting
-properties like <code>which</code> that is deprecated and cannot be set with the native approach of creating keyboard event.</p>
-</div>
-
-                    <div class="io-description">
-                        <b>Parameters :</b>
-                        <table class="params">
-                            <thead>
-                                <tr>
-                                    <td>Name</td>
-                                    <td>Type</td>
-                                    <td>Optional</td>
-                                    <td>Default value</td>
-                                    <td>Description</td>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td>eventType</td>
-                                    <td>
-                                    </td>
-
-                                    <td>
-                                        No
-                                    </td>
-
-                                    <td>
-                                    </td>
-
-                                    <td>
-                                        <p>The keyboard event type like &#39;keyup&#39;, &#39;keydown&#39;, &#39;keypress&#39;</p>
-
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>eventProperties</td>
-                                    <td>
-                                            <code>literal type</code>
-                                    </td>
-
-                                    <td>
-                                        No
-                                    </td>
-
-                                    <td>
-                                    </td>
-
-                                    <td>
-                                        <p>properties of the event like <code>code</code>, <code>key</code> etc.</p>
-
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>cssSelector</td>
-                                    <td>
-                                                <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
-                                    </td>
-
-                                    <td>
-                                        Yes
-                                    </td>
-
-                                    <td>
-                                    </td>
-
-                                    <td>
-                                        <p>Pass this in if you want trigger the event on a specific element.
-If not passed in, the event will be triggered on the entire node</p>
-
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>parent</td>
-                                    <td>
-                                                <code><a href="https://angular.io/api/core/DebugElement" target="_blank" >DebugElement</a></code>
-                                    </td>
-
-                                    <td>
-                                        No
-                                    </td>
-
-                                    <td>
-                                        <code>this.root</code>
-                                    </td>
-
-                                    <td>
-                                        <p>the parent element for which to search for the {</p>
-
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                    <div>
-                    </div>
-                    <div class="io-description">
-                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
-
-                    </div>
-                    <div class="io-description">
-                        
-                    </div>
-                </td>
-            </tr>
-        </tbody>
-    </table>
-    <table class="table table-sm table-bordered">
-        <tbody>
-            <tr>
-                <td class="col-md-4">
-                    <a name="setInputValue"></a>
-                    <span class="name">
-                        <b>
-                            <span class="modifier">Protected</span>
-                            setInputValue
-                        </b>
-                        <a href="#setInputValue"><span class="icon ion-ios-link"></span></a>
-                    </span>
-                </td>
-            </tr>
-            <tr>
-                <td class="col-md-4">
-                    <span class="modifier-icon icon ion-ios-reset"></span>
-                    <code>setInputValue(value: string | number, cssSelector?: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>, parent: <a href="https://angular.io/api/core/DebugElement" target="_blank">DebugElement</a>)</code>
-                </td>
-            </tr>
-
-
-            <tr>
-                <td class="col-md-4">
-                    <div class="io-line">Inherited from         <code><a href="../classes/WidgetObject.html" target="_self" >WidgetObject</a></code>
-</div>
-                </td>
-            </tr>
-            <tr>
-                <td class="col-md-4">
-                        <div class="io-line">Defined in         <code><a href="../classes/WidgetObject.html#source" target="_self" >WidgetObject:114</a></code>
-</div>
-                </td>
-            </tr>
-
-
-            <tr>
-                <td class="col-md-4">
-                    <div class="io-description"><p>Sets the value of an input element or textarea element</p>
-</div>
-
-                    <div class="io-description">
-                        <b>Parameters :</b>
-                        <table class="params">
-                            <thead>
-                                <tr>
-                                    <td>Name</td>
-                                    <td>Type</td>
-                                    <td>Optional</td>
-                                    <td>Default value</td>
-                                    <td>Description</td>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td>value</td>
-                                    <td>
-                                            <code>string | number</code>
-                                    </td>
-
-                                    <td>
-                                        No
-                                    </td>
-
-                                    <td>
-                                    </td>
-
-                                    <td>
-                                        <p>the value that the element should display</p>
-
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>cssSelector</td>
-                                    <td>
-                                                <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
-                                    </td>
-
-                                    <td>
-                                        Yes
-                                    </td>
-
-                                    <td>
-                                    </td>
-
-                                    <td>
-                                        <p>Pass this in if you want trigger the event on a specific element.
-If not passed in, the event will be triggered on the entire node</p>
-
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>parent</td>
-                                    <td>
-                                                <code><a href="https://angular.io/api/core/DebugElement" target="_blank" >DebugElement</a></code>
-                                    </td>
-
-                                    <td>
-                                        No
-                                    </td>
-
-                                    <td>
-                                        <code>this.root</code>
-                                    </td>
-
-                                    <td>
-                                        <p>the parent element for which to search for the {</p>
-
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                    <div>
-                    </div>
-                    <div class="io-description">
-                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
-
-                    </div>
-                    <div class="io-description">
-                        
                     </div>
                 </td>
             </tr>
@@ -1177,61 +482,28 @@ If not passed in, the event will be triggered on the entire node</p>
             <tbody>
                 <tr>
                     <td class="col-md-4">
-                        <a name="gridHeader"></a>
-                        <span class="name"><b>gridHeader</b><a href="#gridHeader"><span class="icon ion-ios-link"></span></a></span>
+                        <a name="vcdDatagrid"></a>
+                        <span class="name"><b>vcdDatagrid</b><a href="#vcdDatagrid"><span class="icon ion-ios-link"></span></a></span>
                     </td>
                 </tr>
 
                 <tr>
                     <td class="col-md-4">
-                        <span class="accessor"><b>get</b><code>gridHeader()</code></span>
+                        <span class="accessor"><b>get</b><code>vcdDatagrid()</code></span>
                     </td>
                 </tr>
                             <tr>
                                 <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="19" class="link-to-prism">projects/components/src/utils/test/datagrid/vcd-datagrid.wo.ts:19</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="31" class="link-to-prism">projects/components/src/utils/test/datagrid/vcd-datagrid.wo.ts:31</a></div>
                                 </td>
                             </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-description"><p>Gives the header above the grid.</p>
+                                <div class="io-description"><p>Unwraps the <code>vcd-datagrid</code></p>
 </div>
 
                                 <div class="io-description">
-                                    <b>Returns : </b>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
-
-                                </div>
-                        </td>
-                    </tr>
-
-            </tbody>
-        </table>
-        <table class="table table-sm table-bordered">
-            <tbody>
-                <tr>
-                    <td class="col-md-4">
-                        <a name="clrDatagrid"></a>
-                        <span class="name"><b>clrDatagrid</b><a href="#clrDatagrid"><span class="icon ion-ios-link"></span></a></span>
-                    </td>
-                </tr>
-
-                <tr>
-                    <td class="col-md-4">
-                        <span class="accessor"><b>get</b><code>clrDatagrid()</code></span>
-                    </td>
-                </tr>
-                            <tr>
-                                <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="26" class="link-to-prism">projects/components/src/utils/test/datagrid/vcd-datagrid.wo.ts:26</a></div>
-                                </td>
-                            </tr>
-                    <tr>
-                        <td class="col-md-4">
-                                <div class="io-description"><p>Gives the widget object for this clr datagrid.</p>
-</div>
-
-                                <div class="io-description">
-                                    <b>Returns : </b>        <code><a href="../classes/ClrDatagridWidgetObject.html" target="_self" >ClrDatagridWidgetObject</a></code>
+                                    <b>Returns : </b>    <code>T</code>
 
                                 </div>
                         </td>
@@ -1244,29 +516,33 @@ If not passed in, the event will be triggered on the entire node</p>
 
 
     <div class="tab-pane fade  tab-source-code" id="c-source">
-        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { WidgetObject } from &#x27;../widget-object&#x27;;
-import { DatagridComponent } from &#x27;./../../../datagrid/datagrid.component&#x27;;
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { BaseWidgetObject } from &#x27;../widget-object/widget-object&#x27;;
 import { ClrDatagridWidgetObject } from &#x27;./datagrid.wo&#x27;;
 
 /**
  * Widget Object for our VCD DataGrid
  */
-export class VcdDatagridWidgetObject&lt;R&gt; extends WidgetObject&lt;DatagridComponent&lt;R&gt;&gt; {
+export class VcdDatagridWidgetObject&lt;T&gt; extends BaseWidgetObject&lt;T&gt; {
     static tagName &#x3D; &#x60;vcd-datagrid&#x60;;
 
     /**
      * Gives the header above the grid.
      */
-    get gridHeader(): string {
-        return this.getText(&#x27;h3&#x27;);
+    getHeader &#x3D; this.locatorForCssSelectors(&#x27;h3&#x27;);
+
+    /**
+     * Gives the widget object for this &#x60;clr-datagrid&#x60;.
+     */
+    findClrDatagrid(): ClrDatagridWidgetObject&lt;T&gt; {
+        // @ts-ignore
+        return this.locatorDriver.findWidget(ClrDatagridWidgetObject);
     }
 
     /**
-     * Gives the widget object for this clr datagrid.
+     * Unwraps the &#x60;vcd-datagrid&#x60;
      */
-    get clrDatagrid(): ClrDatagridWidgetObject {
-        const constElement &#x3D; this.findElement(ClrDatagridWidgetObject.tagName);
-        return new ClrDatagridWidgetObject(this.fixture, constElement, constElement.componentInstance);
+    get vcdDatagrid(): T {
+        return this.locatorDriver.unwrap();
     }
 }
 </code></pre>

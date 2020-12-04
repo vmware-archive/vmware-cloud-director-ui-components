@@ -166,14 +166,14 @@ export class BaseWidgetObject&lt;T&gt; {
     /**
      * Returns an element locator that will find a child with the given cssSelector when called.
      */
-    protected locatorForChild? &#x3D; (cssSelector: string): ElementLocator&lt;T&gt; &#x3D;&gt; {
+    protected locatorForCssSelectors? &#x3D; (cssSelector: string): ElementLocator&lt;T&gt; &#x3D;&gt; {
         return (options?: unknown) &#x3D;&gt; this.locatorDriver.get(cssSelector, options).unwrap();
     };
 
     /**
      * Returns an element locator that will find a parent with the given cssSelector when called.
      */
-    protected locatorForParent? &#x3D; (cssSelector: string): ElementLocator&lt;T&gt; &#x3D;&gt; {
+    protected locatorForAncestors? &#x3D; (cssSelector: string): ElementLocator&lt;T&gt; &#x3D;&gt; {
         return (options?: unknown) &#x3D;&gt; this.locatorDriver.parents(cssSelector, options).unwrap();
     };
 

@@ -205,7 +205,7 @@
                     </tr>
                         <tr>
                             <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="28" class="link-to-prism">projects/components/src/datagrid/renderers/bold-text-renderer.wo.ts:28</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="13" class="link-to-prism">projects/components/src/datagrid/renderers/bold-text-renderer.wo.ts:13</a></div>
                             </td>
                         </tr>
 
@@ -1186,7 +1186,7 @@ If not passed in, the event will be triggered on the entire node</p>
                 </tr>
                             <tr>
                                 <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="30" class="link-to-prism">projects/components/src/datagrid/renderers/bold-text-renderer.wo.ts:30</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="15" class="link-to-prism">projects/components/src/datagrid/renderers/bold-text-renderer.wo.ts:15</a></div>
                                 </td>
                             </tr>
 
@@ -1197,23 +1197,8 @@ If not passed in, the event will be triggered on the entire node</p>
 
 
     <div class="tab-pane fade  tab-source-code" id="c-source">
-        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Type } from &#x27;@angular/core&#x27;;
-import { VcdDatagridWidgetObject } from &#x27;../../utils/test/datagrid/vcd-datagrid.wo&#x27;;
-import { WidgetObject } from &#x27;../../utils/test/widget-object&#x27;;
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { WidgetObject } from &#x27;../../utils/test/widget-object&#x27;;
 import { BoldTextRendererComponent } from &#x27;./bold-text-renderer.component&#x27;;
-
-/**
- * Mixin that allows {@link ClrDatagridWidgetObject} to read information from {@link BoldTextRendererComponent}
- */
-// tslint:disable-next-line:typedef
-export function WithGridBoldRenderer&lt;TBase extends Type&lt;VcdDatagridWidgetObject&lt;unknown&gt;&gt;&gt;(Base: TBase) {
-    return class extends Base {
-        getBoldText(row: number, column: number): string {
-            const cellElement &#x3D; this.clrDatagrid.getCell(row, column);
-            return this.getNodeText(this.findElement(&#x27;strong&#x27;, cellElement));
-        }
-    };
-}
 
 /**
  * Widget Object for the bold text renderer.

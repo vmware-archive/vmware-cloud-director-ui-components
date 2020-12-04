@@ -63,17 +63,14 @@
             <code>projects/components/src/utils/test/widget-object.ts</code>
         </p>
 
+
+
+
             <p class="comment">
-                <h3>Description</h3>
+                <h3>Example</h3>
             </p>
-            <p class="comment">
-                <p>Finds instances that implement <a href="../interfaces/FindableWidget.html">FindableWidget</a>
-H is the host component&#39;s type</p>
-
-            </p>
-
-
-
+            <div class="io-description">
+            </div>
 
             <section>
     <h3 id="index">Index</h3>
@@ -142,7 +139,7 @@ H is the host component&#39;s type</p>
                 </tr>
                         <tr>
                             <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="191" class="link-to-prism">projects/components/src/utils/test/widget-object.ts:191</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="192" class="link-to-prism">projects/components/src/utils/test/widget-object.ts:192</a></div>
                             </td>
                         </tr>
 
@@ -211,7 +208,7 @@ H is the host component&#39;s type</p>
                     </tr>
                         <tr>
                             <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="186" class="link-to-prism">projects/components/src/utils/test/widget-object.ts:186</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="187" class="link-to-prism">projects/components/src/utils/test/widget-object.ts:187</a></div>
                             </td>
                         </tr>
 
@@ -245,7 +242,7 @@ H is the host component&#39;s type</p>
                     </tr>
                         <tr>
                             <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="191" class="link-to-prism">projects/components/src/utils/test/widget-object.ts:191</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="192" class="link-to-prism">projects/components/src/utils/test/widget-object.ts:192</a></div>
                             </td>
                         </tr>
 
@@ -289,8 +286,8 @@ H is the host component&#39;s type</p>
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="242"
-                            class="link-to-prism">projects/components/src/utils/test/widget-object.ts:242</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="243"
+                            class="link-to-prism">projects/components/src/utils/test/widget-object.ts:243</a></div>
                 </td>
             </tr>
 
@@ -330,8 +327,8 @@ H is the host component&#39;s type</p>
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="230"
-                            class="link-to-prism">projects/components/src/utils/test/widget-object.ts:230</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="231"
+                            class="link-to-prism">projects/components/src/utils/test/widget-object.ts:231</a></div>
                 </td>
             </tr>
 
@@ -413,8 +410,8 @@ H is the host component&#39;s type</p>
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="205"
-                            class="link-to-prism">projects/components/src/utils/test/widget-object.ts:205</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="206"
+                            class="link-to-prism">projects/components/src/utils/test/widget-object.ts:206</a></div>
                 </td>
             </tr>
 
@@ -668,8 +665,9 @@ export interface FindParams&lt;T&gt; {
 }
 
 /**
- * Finds instances that implement {@link FindableWidget}
- * H is the host component&#x27;s type
+ * @deprecated Finds instances that implement {@link FindableWidget}
+ * H is the host component&#x27;s type. This finder is only for old unit tests.
+ * Please use AngularWidgetObjectFinder instead.
  */
 export class WidgetFinder&lt;H &#x3D; unknown&gt; {
     /**
