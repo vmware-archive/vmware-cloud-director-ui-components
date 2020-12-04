@@ -14,17 +14,17 @@ export class DataExporterWidgetObject<T> extends BaseWidgetObject<T> {
     /**
      * The strings for the available column bubbles.
      */
-    getColumnBubbles = this.locatorForChild('.column-container .column-label');
+    getColumnBubbles = this.locatorForCssSelectors('.column-container .column-label');
 
     /**
      * The strings for the available column checkboxes.
      */
-    getColumnCheckboxes = this.locatorForChild('li .column-checkbox');
+    getColumnCheckboxes = this.locatorForCssSelectors('li .column-checkbox');
 
     /**
      * Gets the cancel button.
      */
-    getCancelButton = this.locatorForChild('.cancel');
+    getCancelButton = this.locatorForCssSelectors('.cancel');
 
     /**
      * Gets the export button.
@@ -34,27 +34,27 @@ export class DataExporterWidgetObject<T> extends BaseWidgetObject<T> {
     /**
      * Gets the arrow to open/close the column dropdown.
      */
-    getColumnDropdown = this.locatorForChild('.dropdown-button');
+    getColumnDropdown = this.locatorForCssSelectors('.dropdown-button');
 
     /**
      * Gets the export all switch
      */
-    getToggleSelectAll = this.locatorForChild('.export-all');
+    getToggleSelectAll = this.locatorForCssSelectors('.export-all');
 
     /**
      * Gets the sanitization switch
      */
-    getToggleSanitize = this.locatorForChild('.sanitize-cells');
+    getToggleSanitize = this.locatorForCssSelectors('.sanitize-cells');
 
     /**
      * Gets the friendly field names switch
      */
-    getToggleFriendlyNames = this.locatorForChild('.friendly-names');
+    getToggleFriendlyNames = this.locatorForCssSelectors('.friendly-names');
 
     /**
      * Gets the progress bar.
      */
-    getProgress = this.locatorForChild('progress');
+    getProgress = this.locatorForCssSelectors('progress');
 
     /**
      * Gets the checkbox next to a given column

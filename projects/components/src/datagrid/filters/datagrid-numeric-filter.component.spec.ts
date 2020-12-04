@@ -8,7 +8,7 @@ import {
     createDatagridFilterTestHelperWithFinder,
     FilterTestHostComponent,
 } from '../../utils/test/datagrid/filter-utils';
-import { WidgetFinder } from '../../utils/test/widget-object';
+import { AngularWidgetObjectFinder } from '../../utils/test/widget-object/angular-widget-finder';
 import { Bytes } from '../../utils/unit/unit';
 import { DatagridFilter } from './datagrid-filter';
 import {
@@ -22,7 +22,7 @@ interface HasDgNumericFilter {
 }
 
 interface HasFinderAndFilter {
-    finder: WidgetFinder;
+    finder: AngularWidgetObjectFinder;
     filter: DatagridFilter<[number, number], DatagridNumericFilterConfig>;
 }
 

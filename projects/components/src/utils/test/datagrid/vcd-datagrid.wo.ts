@@ -3,28 +3,32 @@
  * SPDX-License-Identifier: BSD-2-Clause
  */
 
-import { WidgetObject } from '../widget-object';
-import { DatagridComponent } from './../../../datagrid/datagrid.component';
+import { BaseWidgetObject } from '../widget-object/widget-object';
 import { ClrDatagridWidgetObject } from './datagrid.wo';
 
 /**
  * Widget Object for our VCD DataGrid
  */
-export class VcdDatagridWidgetObject<R> extends WidgetObject<DatagridComponent<R>> {
+export class VcdDatagridWidgetObject<T> extends BaseWidgetObject<T> {
     static tagName = `vcd-datagrid`;
 
     /**
      * Gives the header above the grid.
      */
-    get gridHeader(): string {
-        return this.getText('h3');
+    getHeader = this.locatorForCssSelectors('h3');
+
+    /**
+     * Gives the widget object for this `clr-datagrid`.
+     */
+    findClrDatagrid(): ClrDatagridWidgetObject<T> {
+        // @ts-ignore
+        return this.locatorDriver.findWidget(ClrDatagridWidgetObject);
     }
 
     /**
-     * Gives the widget object for this clr datagrid.
+     * Unwraps the `vcd-datagrid`
      */
-    get clrDatagrid(): ClrDatagridWidgetObject {
-        const constElement = this.findElement(ClrDatagridWidgetObject.tagName);
-        return new ClrDatagridWidgetObject(this.fixture, constElement, constElement.componentInstance);
+    get vcdDatagrid(): T {
+        return this.locatorDriver.unwrap();
     }
 }

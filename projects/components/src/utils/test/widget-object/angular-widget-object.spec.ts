@@ -47,11 +47,11 @@ class HeaderWidgetObject<T> extends BaseWidgetObject<T> {
 class ClickTrackerWidgetObject<T> extends BaseWidgetObject<T> {
     static tagName = 'vcd-click-tracker';
 
-    getClickCount = this.locatorForChild('.click-count');
+    getClickCount = this.locatorForCssSelectors('.click-count');
 
-    getHeaderText = this.locatorForChild('h1');
+    getHeaderText = this.locatorForCssSelectors('h1');
 
-    getTrackerElement = this.locatorForChild('p');
+    getTrackerElement = this.locatorForCssSelectors('p');
 
     findHeaderWidget(): HeaderWidgetObject<T> {
         return this.locatorDriver.findWidget(HeaderWidgetObject);
