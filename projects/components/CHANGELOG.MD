@@ -8,24 +8,26 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 - Fixed `vcd-number-with-unit` styling errors where the container grew too much and resulted in poor appearance.
 - Fixed a bug where `vcd-number-with-unit` did not select a default unit.
+### Changed
+- Update `ResponsiveInputDirective` to add Clarity grid classes based on the host element's width.
 
 ## [1.0.0-a11y.7] - 2020-12-2
 ### Fixed
-- Values were not being written at times on `vcd-number-with-unit`. Make sure `writeValue` does not fully run before 
+- Values were not being written at times on `vcd-number-with-unit`. Make sure `writeValue` does not fully run before
   `ngOnInit` to make sure `@Input` parameters have been set
 
 ## [1.0.0-a11y.6] - 2020-12-2
 ### Fixed
 - Underlying page scrolling when navigating the action menu using arrow keys.
 - Space/Enter keys not closing the action menu after a action menu item is activated.
-- Esc key not closing the action menu it is pressed on. 
+- Esc key not closing the action menu it is pressed on.
 - Not being able to navigate using arrow keys on action menu with separators
 
 ## [1.0.0-a11y.5] - 2020-12-2
 
 ### Fixed
 - Display error messages for invalid input on form controls accepting numbers.
-  
+
 ### Added
 - Enabled hints for vcd-form-checkbox
 - Fixed previous bad vcdResponsiveInput commits. Module was incorrectly setup and vcdResponsiveInput had
