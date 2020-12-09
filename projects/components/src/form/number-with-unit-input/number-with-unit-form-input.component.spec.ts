@@ -142,7 +142,7 @@ describe('VcdNumberWithUnitFormInputComponent', () => {
         });
 
         // TODO: write this test
-        it('sets a input unit if none is given', () => {});
+        it('sets a input unit if initial value is null', () => {});
     });
 
     describe('FormControl value', () => {

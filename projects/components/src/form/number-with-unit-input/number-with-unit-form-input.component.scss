@@ -8,7 +8,7 @@ clr-signpost-content {
     }
 }
 
-.clr-input {
+.clr-control-container .clr-input {
     // We need this !important to override styles from clr-control-container
     width: 5rem !important;
     margin-right: 5px;
@@ -34,10 +34,10 @@ input[type='number'] {
     }
 }
 
-.clr-control-container {
+.clr-form-control .clr-control-container {
     // We need these !importants to override styles that come from the col classes.
-    width: auto !important;
-    flex: 0 1 auto !important;
+    width: auto;
+    flex: 0 1 auto;
 }
 
 .single-option {
