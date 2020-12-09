@@ -282,6 +282,13 @@ export class NumberWithUnitFormInputComponent extends BaseFormControl implements
     }
 
     writeValue(value: number): void {
+        // This gets called before ngOnInit. Store the value and we'll call it
+        // again from ngOnInit so that `@Input` parameters will be set
+        if (!this.ngOnInitCalled) {
+            this.initialValue = value;
+            return;
+        }
+
         if (value === null) {
             if (this.showUnlimitedOption) {
                 // Set Unlimited checkbox to false because the form control was reset
@@ -300,16 +307,20 @@ export class NumberWithUnitFormInputComponent extends BaseFormControl implements
             this.computeBestUnitAndValue(value as number);
         }
 
-        if (this.showUnlimitedOption) {
-            this.unlimitedControlValue = this.isUnlimitedValue(value);
-        }
-
         if (!this.isUnlimitedValue(value)) {
-            this.lastRealValue = this.bestValue;
-            this.textInputValue = this.bestValue.toString();
-            this.unitsControlValue = this.bestUnit.getMultiplier().toString();
+            if (this.bestValue) {
+                this.lastRealValue = this.bestValue;
+                this.textInputValue = this.bestValue.toString();
+            }
+            if (this.bestUnit) {
+                this.unitsControlValue = this.bestUnit.getMultiplier().toString();
+            }
         } else {
             this.textInputValue = '';
+        }
+
+        if (this.showUnlimitedOption) {
+            this.unlimitedControlValue = this.isUnlimitedValue(value);
         }
     }
 
