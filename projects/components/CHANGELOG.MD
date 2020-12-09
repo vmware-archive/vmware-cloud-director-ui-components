@@ -6,6 +6,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
+- Fixed `vcd-number-with-unit` styling errors where the container grew too much and resulted in poor appearance.
+- Fixed a bug where `vcd-number-with-unit` did not select a default unit.
 
 ## [1.0.0-a11y.7] - 2020-12-2
 ### Fixed

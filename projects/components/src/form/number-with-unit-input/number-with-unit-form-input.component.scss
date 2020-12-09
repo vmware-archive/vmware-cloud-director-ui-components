@@ -8,8 +8,10 @@ clr-signpost-content {
     }
 }
 
-.clr-input {
-    width: 5rem;
+.clr-control-container .clr-input {
+    // We need this !important to override styles from clr-control-container
+    width: 5rem !important;
+    margin-right: 5px;
 }
 
 // To make the text input and the select align, it still doesn't at some zoom levels.
@@ -30,4 +32,14 @@ input[type='number'] {
     .clr-validate-icon {
         margin-left: 0;
     }
+}
+
+.clr-form-control .clr-control-container {
+    // We need these !importants to override styles that come from the col classes.
+    width: auto;
+    flex: 0 1 auto;
+}
+
+.single-option {
+    flex: 0;
 }

@@ -298,15 +298,6 @@ export class NumberWithUnitFormInputComponent extends BaseFormControl implements
             return;
         }
 
-        if (value === null) {
-            if (this.showUnlimitedOption) {
-                // Set Unlimited checkbox to false because the form control was reset
-                this.unlimitedControlValue = false;
-            }
-            this.textInputValue = '';
-            return;
-        }
-
         if (this.initialValueUnit) {
             this.bestUnit = this.initialValueUnit;
             this.bestValue = value ? this.inputValueUnit.getOutputValue(value, this.bestUnit) : null;
@@ -316,16 +307,29 @@ export class NumberWithUnitFormInputComponent extends BaseFormControl implements
             this.computeBestUnitAndValue(value as number);
         }
 
-        if (this.showUnlimitedOption) {
-            this.unlimitedControlValue = this.isUnlimitedValue(value);
-        }
-
         if (!this.isUnlimitedValue(value)) {
-            this.lastRealValue = this.bestValue;
-            this.textInputValue = this.bestValue.toString();
-            this.unitsControlValue = this.bestUnit.getMultiplier().toString();
+            if (this.bestValue) {
+                this.lastRealValue = this.bestValue;
+                this.textInputValue = this.bestValue.toString();
+            }
+            if (this.bestUnit) {
+                this.unitsControlValue = this.bestUnit.getMultiplier().toString();
+            }
         } else {
             this.textInputValue = '';
+        }
+
+        if (value === null) {
+            if (this.showUnlimitedOption) {
+                // Set Unlimited checkbox to false because the form control was reset
+                this.unlimitedControlValue = false;
+            }
+            this.textInputValue = '';
+            return;
+        }
+
+        if (this.showUnlimitedOption) {
+            this.unlimitedControlValue = this.isUnlimitedValue(value);
         }
     }
 
