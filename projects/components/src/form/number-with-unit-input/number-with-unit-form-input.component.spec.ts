@@ -140,6 +140,9 @@ describe('VcdNumberWithUnitFormInputComponent', () => {
             numberWithUnitInput.textInputValue = '50';
             expect(numberWithUnitInput.formControl.value).toEqual(50);
         });
+
+        // TODO: write this test
+        it('sets a input unit if none is given', () => {});
     });
 
     describe('FormControl value', () => {
