@@ -25,9 +25,10 @@ export class ActionSearchProvider<R, T> extends QuickSearchProviderDefaults impl
         this.flatListOfAvailableActions = null;
     }
 
-    constructor(private ts: TranslationService) {
-        super();
+    constructor(private ts: TranslationService, public shouldDebounceInput = false) {
+        super(shouldDebounceInput);
     }
+
     private flatListOfAvailableActions: ActionItem<R, T>[];
 
     /**

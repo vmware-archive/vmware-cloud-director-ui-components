@@ -18,6 +18,11 @@ import {
     declarations: [QuickSearchSyncAsyncExampleComponent],
     exports: [QuickSearchSyncAsyncExampleComponent],
     entryComponents: [QuickSearchSyncAsyncExampleComponent],
-    providers: [ActionsSearchProvider],
+    providers: [
+        {
+            provide: ActionsSearchProvider,
+            useValue: new ActionsSearchProvider(false),
+        },
+    ],
 })
 export class QuickSearchSyncAsyncExampleModule {}

@@ -116,7 +116,7 @@ export class ActionMenuSearchExampleComponent<R extends Record, T extends Handle
 
     private actionProviderName = 'actionMenuExampleComponent';
 
-    actionSearchProvider = new ActionSearchProvider(this.translationService);
+    actionSearchProvider = new ActionSearchProvider(this.translationService, true);
 
     ngOnInit(): void {
         const mousetrap = new Mousetrap();
