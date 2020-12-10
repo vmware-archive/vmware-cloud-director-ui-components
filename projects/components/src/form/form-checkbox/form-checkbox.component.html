@@ -15,9 +15,6 @@
                     {{ text }}
                 </label>
                 <clr-signpost *ngIf="hint">
-                    <button type="button" class="btn-blank" clrSignpostTrigger>
-                        <clr-icon shape="info-circle" size="24"></clr-icon>
-                    </button>
                     <clr-signpost-content [clrPosition]="hintPosition" *clrIfOpen>
                         <p>{{ hint }}</p>
                     </clr-signpost-content>

@@ -13,6 +13,11 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 export class FormInputExampleComponent {
     formGroup: FormGroup;
 
+    longHint = `Lorem          ipsum dolor sit amet,
+        consectetur adipiscing elit,
+        sed do eiusmod tempor incididunt ut labore
+                et dolore magna aliqua.`;
+
     constructor(private fb: FormBuilder) {
         this.formGroup = this.fb.group({
             ['stringInput']: ['test@vcd.com', [Validators.required, Validators.email, Validators.maxLength(15)]],
