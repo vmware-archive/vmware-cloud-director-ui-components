@@ -6,6 +6,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
+### Fixed
+- Accessibility: Added blank alternative text to all svgs inside clr-icon elements
 
 ## [1.0.0-a11y.7] - 2020-12-8
 ### Fixed 
