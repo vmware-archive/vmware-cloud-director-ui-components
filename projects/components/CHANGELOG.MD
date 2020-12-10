@@ -10,6 +10,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Accessibility: Added blank alternative text to all svgs inside clr-icon elements
 - Label text is not wrapped in `vcd-select-form`
 - Labels is not associated with the 'Access Level' combo box.
+- Fixed the text wrap inside signposts for all form components
+- Fixed number-with-unit asterisk was not showing when the input was required
+
+### Changed
+- Make the signpost trigger on the form-checkbox consistent with the other form components
 
 ## [1.0.0-a11y.7] - 2020-12-8
 ### Fixed

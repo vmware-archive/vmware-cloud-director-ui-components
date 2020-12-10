@@ -49,7 +49,7 @@
                 <clr-icon *ngIf="showErrors" class="clr-validate-icon" shape="exclamation-circle"></clr-icon>
                 <clr-signpost *ngIf="hint">
                     <clr-signpost-content [clrPosition]="hintPosition" *clrIfOpen>
-                        {{ hint }}
+                        <p>{{ hint }}</p>
                     </clr-signpost-content>
                 </clr-signpost>
             </div>

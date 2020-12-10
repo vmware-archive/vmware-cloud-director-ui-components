@@ -26,7 +26,7 @@ export enum CheckBoxStyling {
 @Component({
     selector: 'vcd-form-checkbox',
     templateUrl: './form-checkbox.component.html',
-    styleUrls: ['./form-checkbox.component.scss'],
+    styleUrls: ['../form.scss', './form-checkbox.component.scss'],
 })
 export class FormCheckboxComponent extends BaseFormControl {
     /**

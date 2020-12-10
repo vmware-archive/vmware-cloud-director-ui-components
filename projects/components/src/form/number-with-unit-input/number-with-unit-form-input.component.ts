@@ -40,7 +40,7 @@ export const UNLIMITED = -1;
 @Component({
     selector: 'vcd-number-with-unit-form-input',
     templateUrl: './number-with-unit-form-input.component.html',
-    styleUrls: ['./number-with-unit-form-input.component.scss'],
+    styleUrls: ['../form.scss', './number-with-unit-form-input.component.scss'],
 })
 export class NumberWithUnitFormInputComponent extends BaseFormControl implements OnChanges, OnInit {
     /**

@@ -1,13 +1,3 @@
-clr-signpost-content {
-    // Undo the nowrap added by .clr-input-container
-    white-space: normal;
-    // To make the icon line up nicer
-    ::ng-deep button {
-        margin-top: 0;
-        margin-bottom: 0;
-    }
-}
-
 .clr-control-container .clr-input {
     width: 5rem;
     margin-right: 5px;
