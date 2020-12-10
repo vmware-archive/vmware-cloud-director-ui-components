@@ -9,8 +9,7 @@ clr-signpost-content {
 }
 
 .clr-control-container .clr-input {
-    // We need this !important to override styles from clr-control-container
-    width: 5rem !important;
+    width: 5rem;
     margin-right: 5px;
 }
 
@@ -35,7 +34,6 @@ input[type='number'] {
 }
 
 .clr-form-control .clr-control-container {
-    // We need these !importants to override styles that come from the col classes.
     width: auto;
     flex: 0 1 auto;
 }
