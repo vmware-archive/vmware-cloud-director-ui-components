@@ -6,6 +6,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
+
+## [1.0.0-a11y.9] - 2020-12-10
 ### Fixed
 - Accessibility: Added blank alternative text to all svgs inside clr-icon elements
 - Label text is not wrapped in `vcd-select-form`
@@ -16,7 +18,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Changed
 - Make the signpost trigger on the form-checkbox consistent with the other form components
 
-## [1.0.0-a11y.7] - 2020-12-8
+## [1.0.0-a11y.8] - 2020-12-9
 ### Fixed
 - `vcd-number-with-unit` alignment issues with the unit dropdown
 - Make `vcd-number-with-unit` select a default unit when the initial value is null
