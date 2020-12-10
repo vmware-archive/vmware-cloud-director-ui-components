@@ -1,5 +1,5 @@
 /*!
- * Copyright 2019 VMware, Inc.
+ * Copyright 2020 VMware, Inc.
  * SPDX-License-Identifier: BSD-2-Clause
  */
 
@@ -28,15 +28,17 @@ interface HandlerData {
 }
 
 @Component({
-    selector: 'vcd-action-search-example',
-    templateUrl: 'action-menu-search-example.component.html',
-    styleUrls: ['action-menu-search-example.component.scss'],
+    selector: 'vcd-action-menu-search-debounce-example',
+    templateUrl: './action-menu-search-debounce.example.component.html',
+    styleUrls: ['./action-menu-search-debounce.example.component.scss'],
 })
-export class ActionMenuSearchExampleComponent<R extends Record, T extends HandlerData> implements OnInit, OnDestroy {
+export class ActionMenuSearchDebounceExampleComponent<R extends Record, T extends HandlerData>
+    implements OnInit, OnDestroy {
     constructor(private spotlightSearchService: QuickSearchService, private translationService: TranslationService) {}
 
     kbdShortcut = 'mod+.';
     spotlightOpen: boolean;
+    actionSearchProvider = new ActionSearchProvider(this.translationService, true);
 
     actions: ActionItem<R, T>[] = [
         {
@@ -66,35 +68,6 @@ export class ActionMenuSearchExampleComponent<R extends Record, T extends Handle
             handler: () => console.log('Contextual featured'),
             isTranslatable: false,
         },
-        {
-            textKey: 'power.actions',
-            children: [
-                {
-                    textKey: 'Start',
-                    handler: (rec: R[]) => {
-                        console.log('Starting ' + rec[0].value);
-                        rec[0].paused = false;
-                        this.selectedEntities = rec;
-                    },
-                    availability: (rec: R[]) => rec.length === 1 && rec[0].paused,
-                    actionType: ActionType.CONTEXTUAL_FEATURED,
-                    isTranslatable: false,
-                    class: 'start',
-                },
-                {
-                    textKey: 'Stop',
-                    handler: (rec: R[]) => {
-                        console.log('Stopping ' + (rec as R[])[0].value);
-                        rec[0].paused = true;
-                        this.selectedEntities = rec;
-                    },
-                    availability: (rec: R[]) => rec.length === 1 && !rec[0].paused,
-                    actionType: ActionType.CONTEXTUAL_FEATURED,
-                    isTranslatable: false,
-                    class: 'stop',
-                },
-            ],
-        },
     ];
 
     actionDisplayConfig: ActionDisplayConfig = {
@@ -115,8 +88,6 @@ export class ActionMenuSearchExampleComponent<R extends Record, T extends Handle
     }
 
     private actionProviderName = 'actionMenuExampleComponent';
-
-    actionSearchProvider = new ActionSearchProvider(this.translationService);
 
     ngOnInit(): void {
         const mousetrap = new Mousetrap();

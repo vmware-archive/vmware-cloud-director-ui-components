@@ -43,6 +43,9 @@ abstract class TestProviderBase extends QuickSearchProviderDefaults {
 }
 // Provider that returns an array
 class SimpleSearchProvider extends TestProviderBase {
+    constructor(public shouldDebounceInput: boolean) {
+        super(shouldDebounceInput);
+    }
     search(criteria: string): QuickSearchResultsType {
         const items = this.searchHandler(criteria);
         return { items };
@@ -51,6 +54,9 @@ class SimpleSearchProvider extends TestProviderBase {
 
 // Another provider that returns an array
 class AnotherSimpleSearchProvider extends TestProviderBase {
+    constructor(public shouldDebounceInput: boolean) {
+        super(shouldDebounceInput);
+    }
     search(criteria: string): QuickSearchResultsType {
         const items = ['other', 'another']
             .filter((item) => item.includes(criteria))
@@ -64,6 +70,9 @@ class AnotherSimpleSearchProvider extends TestProviderBase {
 
 // Provider that returns a promise
 class AsyncSearchProvider extends TestProviderBase {
+    constructor(public shouldDebounceInput: boolean) {
+        super(shouldDebounceInput);
+    }
     search(criteria: string): QuickSearchResultsType {
         return new Promise((resolve) => {
             setTimeout(() => {
@@ -76,14 +85,26 @@ class AsyncSearchProvider extends TestProviderBase {
 
 // Provider that can simulate partial search result, by setting the total number if items
 class PartialSearchProvider extends TestProviderBase {
-    constructor(private total: number) {
-        super();
+    constructor(private total: number, public shouldDebounceInput: boolean) {
+        super(shouldDebounceInput);
         this.sectionName = 'Partial';
     }
 
     search(criteria: string): QuickSearchResultsType {
         const items = this.searchHandler(criteria);
         return { items, total: this.total };
+    }
+}
+
+class DebounceSearchProvider extends TestProviderBase {
+    constructor(public shouldDebounceInput: boolean = false) {
+        super(shouldDebounceInput);
+        this.sectionName = 'Debounce';
+    }
+
+    search(criteria: string): QuickSearchResultsType {
+        const items = this.searchHandler(criteria);
+        return { items };
     }
 }
 
@@ -109,9 +130,9 @@ describe('QuickSearchComponent', () => {
 
         this.quickSearchData = (() => {
             // Create the 2 types of providers
-            const simpleProvider = new SimpleSearchProvider();
+            const simpleProvider = new SimpleSearchProvider(false);
             simpleProvider.sectionName = 'section';
-            const asyncProvider = new AsyncSearchProvider();
+            const asyncProvider = new AsyncSearchProvider(false);
 
             // Get a reference to the spotlight search service and register the simple provider
             const spotlightSearchService = TestBed.inject(QuickSearchService);
@@ -120,7 +141,7 @@ describe('QuickSearchComponent', () => {
             // spotlightSearchData that the test will use
             return {
                 simpleProvider,
-                anotherSimpleProvider: new AnotherSimpleSearchProvider(),
+                anotherSimpleProvider: new AnotherSimpleSearchProvider(false),
                 asyncProvider,
                 spotlightSearchService,
                 resultActivated: spyOn(this.finder.hostComponent, 'resultActivated'),
@@ -278,7 +299,7 @@ describe('QuickSearchComponent', () => {
 
         describe('partial search result', () => {
             it('does not display partial information if total is less than the number of items', function (this: Test): void {
-                const partialSearchProvider = new PartialSearchProvider(1);
+                const partialSearchProvider = new PartialSearchProvider(1, false);
                 this.quickSearchData.spotlightSearchService.registerProvider(partialSearchProvider);
                 this.finder.hostComponent.spotlightOpen = true;
                 this.finder.detectChanges();
@@ -288,7 +309,7 @@ describe('QuickSearchComponent', () => {
             });
 
             it('does not display partial information if total is equal to the number of items', function (this: Test): void {
-                const partialSearchProvider = new PartialSearchProvider(2);
+                const partialSearchProvider = new PartialSearchProvider(2, false);
                 this.quickSearchData.spotlightSearchService.registerProvider(partialSearchProvider);
                 this.finder.hostComponent.spotlightOpen = true;
                 this.finder.detectChanges();
@@ -298,7 +319,7 @@ describe('QuickSearchComponent', () => {
             });
 
             it('does not display partial information if total is undefined', function (this: Test): void {
-                const partialSearchProvider = new PartialSearchProvider(undefined);
+                const partialSearchProvider = new PartialSearchProvider(undefined, false);
                 this.quickSearchData.spotlightSearchService.registerProvider(partialSearchProvider);
                 this.finder.hostComponent.spotlightOpen = true;
                 this.finder.detectChanges();
@@ -309,7 +330,7 @@ describe('QuickSearchComponent', () => {
 
             describe('when total count is bigger than the number of items', () => {
                 it('displays number of items and total count in the section header', function (this: Test): void {
-                    const partialSearchProvider = new PartialSearchProvider(3);
+                    const partialSearchProvider = new PartialSearchProvider(3, false);
                     this.quickSearchData.spotlightSearchService.registerProvider(partialSearchProvider);
                     this.finder.hostComponent.spotlightOpen = true;
                     this.finder.detectChanges();
@@ -322,7 +343,7 @@ describe('QuickSearchComponent', () => {
                 });
 
                 it('displays warning message to refine the search', function (this: Test): void {
-                    const partialSearchProvider = new PartialSearchProvider(3);
+                    const partialSearchProvider = new PartialSearchProvider(3, false);
                     this.quickSearchData.spotlightSearchService.registerProvider(partialSearchProvider);
                     this.finder.hostComponent.spotlightOpen = true;
                     this.finder.detectChanges();
@@ -333,6 +354,25 @@ describe('QuickSearchComponent', () => {
                     expect(this.quickSearch.searchResultAlerts).toEqual([warning]);
                 });
             });
+        });
+
+        describe('debounce searching', () => {
+            it('debounces calling the search function by 300ms', fakeAsync(function (this: Test): void {
+                const debounceSearchProvider = new DebounceSearchProvider(true);
+                this.quickSearchData.spotlightSearchService.registerProvider(debounceSearchProvider);
+                this.finder.hostComponent.spotlightOpen = true;
+                this.finder.detectChanges();
+                this.quickSearch.searchInputValue = 'c';
+                expect(this.quickSearch.sectionTitles).toEqual(['section', debounceSearchProvider.sectionName]);
+                tick(100);
+                this.finder.detectChanges();
+                expect(this.quickSearch.isLoading).toBeTruthy();
+                expect(this.quickSearch.searchResults).toEqual(['copy', 'create']);
+                tick(200);
+                this.finder.detectChanges();
+                expect(this.quickSearch.isLoading).toBeFalsy();
+                expect(this.quickSearch.searchResults).toEqual(['copy', 'create', 'copy', 'create']);
+            }));
         });
     });
 
@@ -351,7 +391,7 @@ describe('QuickSearchComponent', () => {
         it('displays all section titles when there are results', function (this: Test): void {
             // Register one more provider
 
-            const simpleSearchProvider = new SimpleSearchProvider();
+            const simpleSearchProvider = new SimpleSearchProvider(false);
             simpleSearchProvider.sectionName = 'new section';
             this.quickSearchData.spotlightSearchService.registerProvider(simpleSearchProvider);
             // Open
@@ -363,9 +403,9 @@ describe('QuickSearchComponent', () => {
         });
 
         it('does not display section title if it is not provided', function (this: Test): void {
-            const providerEmptySectionTitle = new SimpleSearchProvider();
+            const providerEmptySectionTitle = new SimpleSearchProvider(false);
             providerEmptySectionTitle.sectionName = '';
-            const providerUndefinedSectionTitle = new SimpleSearchProvider();
+            const providerUndefinedSectionTitle = new SimpleSearchProvider(false);
             providerUndefinedSectionTitle.sectionName = undefined;
             this.quickSearchData.spotlightSearchService.registerProvider(providerEmptySectionTitle);
             this.quickSearchData.spotlightSearchService.registerProvider(providerUndefinedSectionTitle);
