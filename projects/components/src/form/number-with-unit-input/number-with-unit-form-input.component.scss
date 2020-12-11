@@ -1,77 +1,33 @@
-single-option {
-    margin-left: 4px;
-    margin-top: 12px;
+.clr-control-container .clr-input {
+    width: 5rem;
+    margin-right: 5px;
 }
 
-:host {
-    display: block;
+// To make the text input and the select align, it still doesn't at some zoom levels.
+input[type='number'] {
+    margin-top: 1px;
 }
 
-:host ::ng-deep {
-    .clr-control-container {
-        flex: 0 1 auto;
+.clr-input-wrapper {
+    align-items: center;
+    display: flex;
+}
+
+.clr-error {
+    // When there's an error, the arrow in the dropdown is offset, undo it
+    .clr-select-wrapper::after {
+        right: 0.3rem;
     }
-
-    .input-number-with-unit {
-        .clr-subtext:empty {
-            display: none;
-        }
-
-        .clr-form-control.errors {
-            margin-top: 0;
-
-            label {
-                margin: 0;
-            }
-        }
-
-        clr-signpost {
-            button {
-                height: 1.3rem;
-                clr-icon {
-                    vertical-align: baseline;
-                    transform: none;
-                }
-            }
-        }
-
-        vcd-form-input {
-            input {
-                width: 5rem;
-            }
-        }
-
-        .clr-control-label {
-            + .clr-control-container {
-                width: auto;
-                .clr-input-wrapper {
-                    display: flex;
-                    .clr-input {
-                        margin-right: 0;
-                    }
-                }
-            }
-        }
-
-        aside {
-            display: flex;
-            flex: 0 1 auto;
-            min-width: 50px;
-            margin-top: -1px !important;
-            margin-left: 5px;
-            vcd-form-select {
-                .clr-form-control {
-                    margin-top: 0;
-                }
-            }
-        }
-
-        footer {
-            vcd-form-checkbox {
-                .clr-form-control {
-                    margin-top: 0;
-                }
-            }
-        }
+    .clr-validate-icon {
+        margin-left: 0;
     }
+}
+
+.clr-form-control .clr-control-container {
+    width: auto;
+    flex: 0 1 auto;
+}
+
+.single-option {
+    flex: 0;
 }

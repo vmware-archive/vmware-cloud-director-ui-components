@@ -52,9 +52,10 @@ export class NumberWithUnitFormInputExampleComponent implements AfterViewInit, O
         this.formGroup = fb.group({
             readonly: new FormControl(false),
             disabled: new FormControl(false),
-            cpuLimit: new FormControl(1500, [cpuValidator]),
             memory: new FormControl(1024 * 2, [Validators.required, memoryValidator]),
+            cpuLimit: new FormControl(1500, [cpuValidator]),
         });
+
         this.subscriptionTracker.subscribe(this.formGroup.controls.disabled.valueChanges, (value) => {
             if (value) {
                 this.formGroup.controls.cpuLimit.disable();

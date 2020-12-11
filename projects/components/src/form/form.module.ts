@@ -8,6 +8,8 @@ import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ClarityModule } from '@clr/angular';
 import { I18nModule } from '@vcd/i18n';
+import { AlternativeTextModule } from '../lib/directives/alternative-text/alternative-text.module';
+import { ResponsiveInputDirectiveModule } from '../lib/directives/responsive-input/responsive-input.module';
 import { UnitFormatter } from '../utils/unit/unit-formatter';
 import { FormCheckboxComponent } from './form-checkbox/form-checkbox.component';
 import { FormInputComponent } from './form-input/form-input.component';
@@ -17,9 +19,17 @@ import { NumberWithUnitFormInputComponent } from './number-with-unit-input/numbe
 const declarations = [FormInputComponent, FormSelectComponent, FormCheckboxComponent, NumberWithUnitFormInputComponent];
 
 @NgModule({
-    imports: [ClarityModule, FormsModule, ReactiveFormsModule, CommonModule, I18nModule],
+    imports: [
+        ClarityModule,
+        FormsModule,
+        ReactiveFormsModule,
+        CommonModule,
+        I18nModule,
+        ResponsiveInputDirectiveModule,
+        AlternativeTextModule,
+    ],
     declarations,
     providers: [UnitFormatter],
-    exports: [...declarations],
+    exports: [...declarations, ResponsiveInputDirectiveModule],
 })
 export class VcdFormModule {}

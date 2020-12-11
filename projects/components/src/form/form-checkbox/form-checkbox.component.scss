@@ -1,0 +1,16 @@
+label.clr-control-label {
+    display: inline-block;
+}
+
+.clr-checkbox-wrapper,
+.clr-toggle-wrapper {
+    display: flex;
+    align-items: center;
+}
+
+.btn-blank {
+    background-color: transparent;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+}

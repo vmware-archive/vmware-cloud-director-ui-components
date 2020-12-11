@@ -135,8 +135,9 @@ describe('Datagrid numeric filter', () => {
                     const [fromValInGb, toValInGb] = [1, 10];
                     const [fromValInMb, toValInMb] = [1024, 10240];
                     this.filter.setValue([fromValInGb, toValInGb]);
-                    (this.filter as DatagridNumericFilterComponent).fromInput.selectedUnit = Bytes.GB.getMultiplier();
-                    (this.filter as DatagridNumericFilterComponent).toInput.selectedUnit = Bytes.GB.getMultiplier();
+                    const filter = this.filter as DatagridNumericFilterComponent;
+                    filter.fromInput.onUnitChange(Bytes.GB.getMultiplier().toString());
+                    filter.toInput.onUnitChange(Bytes.GB.getMultiplier().toString());
                     expect(this.filter.getValue()).toEqual(
                         `(${queryFieldName}=ge=${fromValInMb};${queryFieldName}=le=${toValInMb})`
                     );
