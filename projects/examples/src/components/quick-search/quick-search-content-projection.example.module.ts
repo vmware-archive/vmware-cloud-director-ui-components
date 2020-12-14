@@ -8,12 +8,12 @@ import { NgModule } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import { ClarityModule } from '@clr/angular';
 import { QuickSearchModule, VcdFormModule } from '@vcd/ui-components';
-import { QuickSearchContentProjectionComponent } from './quick-search-content-projection.example.component';
+import { QuickSearchContentProjectionExampleComponent } from './quick-search-content-projection.example.component';
 
 @NgModule({
     imports: [CommonModule, ClarityModule, QuickSearchModule, VcdFormModule, ReactiveFormsModule],
-    declarations: [QuickSearchContentProjectionComponent],
-    exports: [QuickSearchContentProjectionComponent],
-    entryComponents: [QuickSearchContentProjectionComponent],
+    declarations: [QuickSearchContentProjectionExampleComponent],
+    exports: [QuickSearchContentProjectionExampleComponent],
+    entryComponents: [QuickSearchContentProjectionExampleComponent],
 })
 export class QuickSearchContentProjectionExampleModule {}
