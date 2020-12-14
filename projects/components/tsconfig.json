@@ -1,0 +1,25 @@
+{
+    "extends": "../../tsconfig.json",
+    "compilerOptions": {
+      "outDir": "../../out-tsc/lib",
+      "target": "es5",
+      "declaration": true,
+      "inlineSources": true,
+      "lib": [
+        "dom",
+        "es2018"
+      ]
+    },
+    "angularCompilerOptions": {
+      "annotateForClosureCompiler": true,
+      "skipTemplateCodegen": true,
+      "strictMetadataEmit": true,
+      "fullTemplateTypeCheck": true,
+      "strictInjectionParameters": true,
+      "enableResourceInlining": true,
+      "emitDecoratorMetadata": true,
+      "enableIvy": false
+    },
+    "exclude": ["**/*/find-cypress-widget.ts"]
+  }
+  
