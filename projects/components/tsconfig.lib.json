@@ -1,7 +1,6 @@
 {
   "extends": "./tsconfig.json",
   "exclude": [
-    "**/*/find-cypress-widget.ts",
     "src/test.ts",
     "**/*.spec.ts"
   ]
