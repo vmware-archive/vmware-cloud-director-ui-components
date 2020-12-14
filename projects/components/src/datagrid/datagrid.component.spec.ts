@@ -8,7 +8,6 @@ import { fakeAsync, TestBed, tick } from '@angular/core/testing';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { LoadingListener } from '@clr/angular';
 import { MockTranslationService, TranslationService } from '@vcd/i18n';
-import { Mock } from 'protractor/built/driverProviders';
 import { Observable } from 'rxjs';
 import { first } from 'rxjs/operators';
 import { ActivityPromiseResolver } from '../common/activity-reporter/activity-promise-resolver';
@@ -248,6 +247,12 @@ describe('DatagridComponent', () => {
                     this.clrGridWidget.getRowInput(1).click();
                     expect(this.hostComponent.datagridSelection).toEqual([mockData[1]]);
                 });
+
+                it('returns an empty array when there is no initial selection', function (this: HasFinderAndGrid): void {
+                    this.hostComponent.selectionType = GridSelectionType.Single;
+                    this.finder.detectChanges();
+                    expect(this.hostComponent.datagridSelection).toEqual([]);
+                });
             });
 
             describe('@Output() selectionChanged', () => {
@@ -269,6 +274,28 @@ describe('DatagridComponent', () => {
                     expect(this.hostComponent.selectionChanged).toHaveBeenCalledWith([mockData[0]]);
                     this.clrGridWidget.getRowInput(1).click();
                     expect(this.hostComponent.selectionChanged).toHaveBeenCalledWith([mockData[1]]);
+                });
+
+                it('emits empty array when single selection is cleared', function (this: HasFinderAndGrid): void {
+                    this.hostComponent.selectionType = GridSelectionType.Single;
+                    this.finder.detectChanges();
+                    spyOn(this.hostComponent, 'selectionChanged');
+                    this.clrGridWidget.getSingleSelectionRadioLabel(0).click();
+                    expect(this.hostComponent.selectionChanged).toHaveBeenCalledWith([mockData[0]]);
+                    this.hostComponent.datagridSelection = [];
+                    this.finder.detectChanges();
+                    expect(this.hostComponent.selectionChanged).toHaveBeenCalledWith([]);
+                });
+
+                it('emits empty array when multiple selection is cleared', function (this: HasFinderAndGrid): void {
+                    this.hostComponent.selectionType = GridSelectionType.Multi;
+                    this.finder.detectChanges();
+                    spyOn(this.hostComponent, 'selectionChanged');
+                    this.clrGridWidget.getSingleSelectionRadioLabel(0).click();
+                    expect(this.hostComponent.selectionChanged).toHaveBeenCalledWith([mockData[0]]);
+                    this.hostComponent.datagridSelection = [];
+                    this.finder.detectChanges();
+                    expect(this.hostComponent.selectionChanged).toHaveBeenCalledWith([]);
                 });
             });
 
@@ -1163,7 +1190,7 @@ describe('DatagridComponent', () => {
                 [clrDatagridCssClass]="clrDatagridCssClass"
                 [clrDatarowCssClassGetter]="clrDatarowCssClassGetter"
                 [selectionType]="selectionType"
-                (selectionChanged)="selectionChanged($event)"
+                (datagridSelectionChange)="selectionChanged($event)"
                 [paginationDropdownText]="paginationText"
                 [pagination]="pagination"
                 [actions]="actions"

@@ -21,7 +21,9 @@ const Css = {
     PAGE_SIZE: 'clr-dg-page-size',
     PAGINATION_NEXT: '.pagination-next',
     TOP_POSITIONED_BUTTON: 'clr-dg-action-bar button',
+    // Do not use this. This is specific to VCD datagrid.
     ROW_BUTTON_CONTAINER: '.action-button-cell',
+    ROW_ACTION_CONTAINER: '.datagrid-select label',
     CHECKBOX_WRAPPER: 'clr-checkbox-wrapper',
     RADIO_WRAPPER: 'clr-radio-wrapper',
     FILTER: 'clr-dg-filter',
@@ -184,6 +186,7 @@ export class ClrDatagridWidgetObject<T> extends BaseWidgetObject<T> {
     /**
      * Returns input element in the given row
      * @param row 0-based index of row
+     * @deprecated It doesn't make sense to grab a random input out of a row.
      */
     getRowInput(row: number): T {
         return this._getRow(row).get('input').unwrap();
@@ -227,6 +230,10 @@ export class ClrDatagridWidgetObject<T> extends BaseWidgetObject<T> {
      */
     getRowButtonContainer(row: number): T {
         return this._getRow(row).get(Css.ROW_BUTTON_CONTAINER).unwrap();
+    }
+
+    getSingleSelectionRadioLabel(row: number): T {
+        return this._getRow(row).get(Css.ROW_ACTION_CONTAINER).unwrap();
     }
 
     /**
