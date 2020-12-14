@@ -20,7 +20,7 @@ import Mousetrap from 'mousetrap';
     templateUrl: './quick-search-content-projection.example.component.html',
     providers: [QuickSearchRegistrarService],
 })
-export class QuickSearchContentProjectionComponent implements OnInit, OnDestroy {
+export class QuickSearchContentProjectionExampleComponent implements OnInit, OnDestroy {
     formGroup: FormGroup;
     kbdShortcut = 'mod+f';
     spotlightOpen: boolean;
