@@ -4,7 +4,7 @@
  */
 
 import { BaseWidgetObject, CorrectReturnTypes, CypressWidgetObjectFinder, FindableWidget } from '@vcd/ui-components';
-import Cypress from 'cypress';
+// import Cypress from 'cypress';
 
 /**
  * Finds a single widget object. This is a convenience wrapper around the `CypressWidgetFinder`

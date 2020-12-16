@@ -82,14 +82,7 @@ export class MessageFormatTranslationService extends TranslationService {
      * @return translated string.
      */
     public translate(key: string, params?: any[]): string {
-        const paramObject = params ? (params.length ? params[0] : {}) : {};
-        if (paramObject !== null && typeof paramObject === 'object') {
-            // Use the object of parameters
-            return this.translateHelper(key, paramObject, this.translationSet);
-        } else {
-            // Use the array of parameters
-            return this.translateHelper(key, params, this.translationSet);
-        }
+        return this.translateHelper(key, this.translationSet, params);
     }
 
     /**
@@ -103,25 +96,19 @@ export class MessageFormatTranslationService extends TranslationService {
      * @return an observable of the translated string.
      */
     public translateAsync(key: string, params?: any[]): Observable<string> {
-        const paramObject = params ? (params.length ? params[0] : {}) : {};
-        if (paramObject !== null && typeof paramObject === 'object') {
-            // Use the object of parameters
-            return this.asyncTranslationSet.pipe(
-                map((translations) => this.translateHelper(key, paramObject, translations))
-            );
-        } else {
-            // Use the array of parameters
-            return this.asyncTranslationSet.pipe(
-                map((translations) => this.translateHelper(key, params, translations))
-            );
-        }
+        return this.asyncTranslationSet.pipe(map((translations) => this.translateHelper(key, translations, params)));
     }
 
-    private translateHelper(key: string, params: any, translations: TranslationSet): string {
+    private translateHelper(key: string, translations: TranslationSet, params?: any[]): string {
+        let paramsToUse: any = params;
+        const paramObject = params ? (params.length ? params[0] : {}) : {};
+        if (paramObject !== null && typeof paramObject === 'object') {
+            paramsToUse = paramObject;
+        }
         if (translations[this.preferredLocale] && translations[this.preferredLocale][key]) {
-            return this.formatString(this.preferredLocale, key, params, translations);
+            return this.formatString(this.preferredLocale, key, paramsToUse, translations);
         } else if (translations[this.fallbackLocale] && translations[this.fallbackLocale][key]) {
-            return this.formatString(this.fallbackLocale, key, params, translations);
+            return this.formatString(this.fallbackLocale, key, paramsToUse, translations);
         }
         return '?' + key;
     }
