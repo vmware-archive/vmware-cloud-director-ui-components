@@ -1,6 +1,6 @@
 <div class="form-group">
-    <div class="clr-form-control" vcdResponsiveInput>
-        <label *ngIf="label" [attr.for]="id" class="clr-control-label" [ngClass]="{ 'required-field': showAsterisk }">{{
+    <div class="clr-form-control" [vcdResponsiveInput]="{ disabled: !isResponsive }">
+        <label *ngIf="label" [for]="id" class="clr-control-label" [ngClass]="{ 'required-field': showAsterisk }">{{
             label
         }}</label>
         <span *ngIf="isReadOnly && selectedOption" class="readOnly">

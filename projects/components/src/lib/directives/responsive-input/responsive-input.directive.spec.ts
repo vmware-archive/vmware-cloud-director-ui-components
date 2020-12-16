@@ -50,6 +50,15 @@ describe('ResponsiveInputDirective', () => {
         this.fixture.componentInstance.showInput = false;
         expect(() => this.fixture.detectChanges()).not.toThrow();
     });
+
+    describe('disabled', () => {
+        it('does not add classes if disabled', function (this: Test): void {
+            this.fixture.componentInstance.disabled = true;
+            this.fixture.detectChanges();
+            const helper = new TestHelper(this.fixture);
+            expect(helper.rootHasClass('clr-row')).toBe(false, 'clr-row was added to the control container');
+        });
+    });
 });
 
 class TestHelper {
@@ -70,7 +79,7 @@ class TestHelper {
 }
 @Component({
     template: `
-        <div class="clr-form-control" vcdResponsiveInput>
+        <div class="clr-form-control" [vcdResponsiveInput]="{ disabled: disabled }">
             <label *ngIf="showLabel" class="clr-control-label">Label</label>
             <div *ngIf="showInput" class="clr-control-container">input here</div>
         </div>
@@ -81,4 +90,6 @@ export class TestHostComponent {
     showLabel = true;
     @Input()
     showInput = true;
+    @Input()
+    disabled = false;
 }
