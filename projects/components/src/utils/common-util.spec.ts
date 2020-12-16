@@ -21,17 +21,24 @@ describe('CommonUtil', () => {
         it(
             'returns a function that returns a promise which resolves with the output of function passed after a buffer amount of' +
                 'milliseconds',
-            async () => {
+            fakeAsync(() => {
                 const bufferedFuncOutput = `output of function passed to createBufferedPromise`;
-                const functionToBeBuffered = () => bufferedFuncOutput;
+                const spiedObject = {
+                    functionToBeBuffered: () => bufferedFuncOutput,
+                };
+                const spy = spyOn(spiedObject, 'functionToBeBuffered').and.callThrough();
                 const bufferTime = 400;
-                const bufferedPromise = CommonUtil.createBufferedPromise(functionToBeBuffered, null, bufferTime);
-                let result;
-                setTimeout(() => expect(result).toBeUndefined(), 399);
-                setTimeout(() => expect(result).toBeDefined(), 401);
-                result = await bufferedPromise();
-                expect(result).toEqual(bufferedFuncOutput);
-            }
+                const bufferedPromise = CommonUtil.createBufferedPromise(
+                    spiedObject.functionToBeBuffered,
+                    null,
+                    bufferTime
+                );
+                bufferedPromise();
+                tick(399);
+                expect(spy).not.toHaveBeenCalled();
+                tick(1);
+                expect(spy).toHaveBeenCalled();
+            })
         );
     });
 });
