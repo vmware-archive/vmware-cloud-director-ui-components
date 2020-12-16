@@ -21,8 +21,6 @@ const Css = {
     PAGE_SIZE: 'clr-dg-page-size',
     PAGINATION_NEXT: '.pagination-next',
     TOP_POSITIONED_BUTTON: 'clr-dg-action-bar button',
-    // Do not use this. This is specific to VCD datagrid.
-    ROW_BUTTON_CONTAINER: '.action-button-cell',
     ROW_ACTION_CONTAINER: '.datagrid-select label',
     CHECKBOX_WRAPPER: 'clr-checkbox-wrapper',
     RADIO_WRAPPER: 'clr-radio-wrapper',
@@ -131,39 +129,14 @@ export class ClrDatagridWidgetObject<T> extends BaseWidgetObject<T> {
     }
 
     /**
-     * Helper function to retrieve a cell
-     * @param row 0-based index of row
-     * @param col 0-based index of column
-     */
-    private _getCell(row: number, col: number): LocatorDriver<T> {
-        return this._getRow(row).get(`${Css.CELL}:nth-of-type(${col + 1})`);
-    }
-
-    /**
      * Retrieves the cell
      * @param row 0-based index of row
      * @param col 0-based index of column
      */
     getCell(row: number, col: number): T {
-        return this._getCell(row, col).unwrap();
-    }
-
-    /**
-     * Gives the linked tag in the given cell
-     * @param row 0-based index of row
-     * @param col 0-based index of column
-     */
-    getCellLink(row: number, col: number): T {
-        return this._getCell(row, col).get('a').unwrap();
-    }
-
-    /**
-     * Gives the `strong` tag in the given cell
-     * @param row 0-based index of row
-     * @param col 0-based index of column
-     */
-    getCellStrong(row: number, col: number): T {
-        return this._getCell(row, col).get('strong').unwrap();
+        return this._getRow(row)
+            .get(`${Css.CELL}:nth-of-type(${col + 1})`)
+            .unwrap();
     }
 
     /**
@@ -179,17 +152,15 @@ export class ClrDatagridWidgetObject<T> extends BaseWidgetObject<T> {
      * @param col 0-based index of column
      */
     getColumn(col: number): T {
-        // return this.locatorDriver.get(`${Css.COLUMN}:nth-of-type(${col + 1})`).unwrap();
         return this.locatorForCssSelectors(`${Css.COLUMN}:nth-of-type(${col + 1})`)();
     }
 
     /**
-     * Returns input element in the given row
+     * Returns datagrid select element in the given row
      * @param row 0-based index of row
-     * @deprecated It doesn't make sense to grab a random input out of a row.
      */
-    getRowInput(row: number): T {
-        return this._getRow(row).get('input').unwrap();
+    getRowSelect(row: number): T {
+        return this._getRow(row).get(Css.ROW_ACTION_CONTAINER).unwrap();
     }
 
     /**
@@ -204,7 +175,6 @@ export class ClrDatagridWidgetObject<T> extends BaseWidgetObject<T> {
      * Returns the button on the top of the grid with the given buttonClass
      */
     getTopButton(btnClass: string): T {
-        // return this.locatorDriver.get(`button.${btnClass}`).unwrap();
         return this.locatorForCssSelectors(`button.${btnClass}`)();
     }
 
@@ -220,16 +190,7 @@ export class ClrDatagridWidgetObject<T> extends BaseWidgetObject<T> {
      * @param col 0-based index of header
      */
     getColumnHeader(col: number): T {
-        // return this.locatorDriver.get(`${Css.COLUMN_TITLE}:nth-of-type(${col + 1})`).unwrap();
         return this.locatorForCssSelectors(`${Css.COLUMN_TITLE}:nth-of-type(${col + 1})`)();
-    }
-
-    /**
-     * Returns a row button
-     * @param row 0-based index
-     */
-    getRowButtonContainer(row: number): T {
-        return this._getRow(row).get(Css.ROW_BUTTON_CONTAINER).unwrap();
     }
 
     getSingleSelectionRadioLabel(row: number): T {
@@ -239,7 +200,7 @@ export class ClrDatagridWidgetObject<T> extends BaseWidgetObject<T> {
     /**
      * Returns filter toggle
      */
-    getFilterToggle(): T {
+    get filterToggle(): T {
         return this.locatorDriver.get(Css.COLUMN).get(Css.FILTER).get(Css.FILTER_TOGGLE).unwrap();
     }
 

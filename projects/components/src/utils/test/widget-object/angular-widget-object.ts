@@ -234,6 +234,14 @@ export class TestElement implements Iterable<TestElement> {
     }
 
     /**
+     * Returns children of the first element that matches css selector
+     */
+    queryElements(cssSelector: string): TestElement {
+        const result = this.elements[0].queryAll(By.css(cssSelector));
+        return new TestElement(result ? result : [], this.fixture);
+    }
+
+    /**
      * Allows a TestElement to be used in a `for ... of ...` loop.
      */
     [Symbol.iterator](): Iterator<TestElement, any, undefined> {
