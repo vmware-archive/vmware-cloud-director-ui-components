@@ -233,18 +233,18 @@ describe('DatagridComponent', () => {
                 it('emits multiple rows when set to multi selection', function (this: HasFinderAndGrid): void {
                     this.hostComponent.selectionType = GridSelectionType.Multi;
                     this.finder.detectChanges();
-                    this.clrGridWidget.getRowSelect(0).click();
+                    this.clrGridWidget.getSelectionLabelForRow(0).click();
                     expect(this.hostComponent.datagridSelection).toEqual([mockData[0]]);
-                    this.clrGridWidget.getRowSelect(1).click();
+                    this.clrGridWidget.getSelectionLabelForRow(1).click();
                     expect(this.hostComponent.datagridSelection).toEqual(mockData);
                 });
 
                 it('emits only one row when set to single selection', function (this: HasFinderAndGrid): void {
                     this.hostComponent.selectionType = GridSelectionType.Single;
                     this.finder.detectChanges();
-                    this.clrGridWidget.getRowSelect(0).click();
+                    this.clrGridWidget.getSelectionLabelForRow(0).click();
                     expect(this.hostComponent.datagridSelection).toEqual([mockData[0]]);
-                    this.clrGridWidget.getRowSelect(1).click();
+                    this.clrGridWidget.getSelectionLabelForRow(1).click();
                     expect(this.hostComponent.datagridSelection).toEqual([mockData[1]]);
                 });
 
@@ -260,9 +260,9 @@ describe('DatagridComponent', () => {
                     this.hostComponent.selectionType = GridSelectionType.Multi;
                     this.finder.detectChanges();
                     spyOn(this.hostComponent, 'selectionChanged');
-                    this.clrGridWidget.getRowSelect(0).click();
+                    this.clrGridWidget.getSelectionLabelForRow(0).click();
                     expect(this.hostComponent.selectionChanged).toHaveBeenCalledWith([mockData[0]]);
-                    this.clrGridWidget.getRowSelect(1).click();
+                    this.clrGridWidget.getSelectionLabelForRow(1).click();
                     expect(this.hostComponent.selectionChanged).toHaveBeenCalledWith(mockData);
                 });
 
@@ -270,9 +270,9 @@ describe('DatagridComponent', () => {
                     this.hostComponent.selectionType = GridSelectionType.Single;
                     this.finder.detectChanges();
                     spyOn(this.hostComponent, 'selectionChanged');
-                    this.clrGridWidget.getRowSelect(0).click();
+                    this.clrGridWidget.getSelectionLabelForRow(0).click();
                     expect(this.hostComponent.selectionChanged).toHaveBeenCalledWith([mockData[0]]);
-                    this.clrGridWidget.getRowSelect(1).click();
+                    this.clrGridWidget.getSelectionLabelForRow(1).click();
                     expect(this.hostComponent.selectionChanged).toHaveBeenCalledWith([mockData[1]]);
                 });
 
@@ -280,7 +280,7 @@ describe('DatagridComponent', () => {
                     this.hostComponent.selectionType = GridSelectionType.Single;
                     this.finder.detectChanges();
                     spyOn(this.hostComponent, 'selectionChanged');
-                    this.clrGridWidget.getSingleSelectionRadioLabel(0).click();
+                    this.clrGridWidget.getSelectionLabelForRow(0).click();
                     expect(this.hostComponent.selectionChanged).toHaveBeenCalledWith([mockData[0]]);
                     this.hostComponent.datagridSelection = [];
                     this.finder.detectChanges();
@@ -291,7 +291,7 @@ describe('DatagridComponent', () => {
                     this.hostComponent.selectionType = GridSelectionType.Multi;
                     this.finder.detectChanges();
                     spyOn(this.hostComponent, 'selectionChanged');
-                    this.clrGridWidget.getSingleSelectionRadioLabel(0).click();
+                    this.clrGridWidget.getSelectionLabelForRow(0).click();
                     expect(this.hostComponent.selectionChanged).toHaveBeenCalledWith([mockData[0]]);
                     this.hostComponent.datagridSelection = [];
                     this.finder.detectChanges();
@@ -309,7 +309,7 @@ describe('DatagridComponent', () => {
                         };
                         this.finder.detectChanges();
                         tick();
-                        this.clrGridWidget.getRowSelect(1).click();
+                        this.clrGridWidget.getSelectionLabelForRow(1).click();
                         tick();
                         const component = this.vcdDatagrid.vcdDatagrid.getComponentInstance() as MockRecordDatagridComponent;
                         expect(component.datagridSelection).toEqual([mockData[1]]);
@@ -329,8 +329,8 @@ describe('DatagridComponent', () => {
                             totalItems: 2,
                         };
                         this.finder.detectChanges();
-                        this.clrGridWidget.getRowSelect(0).click();
-                        this.clrGridWidget.getRowSelect(1).click();
+                        this.clrGridWidget.getSelectionLabelForRow(0).click();
+                        this.clrGridWidget.getSelectionLabelForRow(1).click();
                         expect(this.hostComponent.datagridSelection).toEqual(mockData);
                         this.hostComponent.gridData = {
                             items: [mockData[0]],
@@ -346,7 +346,7 @@ describe('DatagridComponent', () => {
                 it('keeps selected an item if the item is not removed on refresh', function (this: HasFinderAndGrid): void {
                     this.hostComponent.selectionType = GridSelectionType.Single;
                     this.finder.detectChanges();
-                    this.clrGridWidget.getRowSelect(1).click();
+                    this.clrGridWidget.getSelectionLabelForRow(1).click();
                     expect(this.hostComponent.datagridSelection).toEqual([mockData[1]]);
                     this.hostComponent.gridData = {
                         items: [mockData[1]],
@@ -949,7 +949,7 @@ describe('DatagridComponent', () => {
                 ];
                 this.finder.detectChanges();
                 // This is because contextual actions requires entities to be selected
-                this.clrGridWidget.getRowSelect(0).click();
+                this.clrGridWidget.getSelectionLabelForRow(0).click();
                 this.finder.detectChanges();
                 expect(component.shouldShowActionBarOnTop).toBeTruthy();
             });

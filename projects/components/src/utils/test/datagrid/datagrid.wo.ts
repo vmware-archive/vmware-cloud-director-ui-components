@@ -156,14 +156,6 @@ export class ClrDatagridWidgetObject<T> extends BaseWidgetObject<T> {
     }
 
     /**
-     * Returns datagrid select element in the given row
-     * @param row 0-based index of row
-     */
-    getRowSelect(row: number): T {
-        return this._getRow(row).get(Css.ROW_ACTION_CONTAINER).unwrap();
-    }
-
-    /**
      * Returns all the cell elements in the given row
      * @param row 0-based index of row
      */
@@ -193,7 +185,12 @@ export class ClrDatagridWidgetObject<T> extends BaseWidgetObject<T> {
         return this.locatorForCssSelectors(`${Css.COLUMN_TITLE}:nth-of-type(${col + 1})`)();
     }
 
-    getSingleSelectionRadioLabel(row: number): T {
+    /**
+     * Returns label of `.datagrid-select` element in the given row. This function can be used to
+     * perform both single and multiple selection
+     * @param row 0-based index of row
+     */
+    getSelectionLabelForRow(row: number): T {
         return this._getRow(row).get(Css.ROW_ACTION_CONTAINER).unwrap();
     }
 
