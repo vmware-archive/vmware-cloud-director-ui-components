@@ -51,9 +51,7 @@ describe('LazyStringPipe', () => {
 });
 
 @Component({
-    template: `
-        <h1>{{ value | lazyString }}</h1>
-    `,
+    template: ` <h1>{{ value | lazyString }}</h1> `,
     selector: 'lib-lazy-string-test',
 })
 export class LazyStringTestComponent {

@@ -65,7 +65,8 @@ const idGenerator = new IdGenerator('vcd-multiselect-filter-id');
     selector: 'vcd-dg-multiselect-filter',
     templateUrl: './datagrid-multiselect-filter.component.html',
 })
-export class DatagridMultiSelectFilterComponent extends DatagridFilter<string[], DatagridMultiSelectFilterConfig>
+export class DatagridMultiSelectFilterComponent
+    extends DatagridFilter<string[], DatagridMultiSelectFilterConfig>
     implements OnDestroy {
     constructor(private filterContainer: ClrDatagridFilter) {
         super(filterContainer);
@@ -85,15 +86,15 @@ export class DatagridMultiSelectFilterComponent extends DatagridFilter<string[],
      * Value of each option becomes a formControl name inside the formGroup.
      */
     onBeforeSetConfig(config: DatagridMultiSelectFilterConfig): void {
-        this.options = config.options.map(option => ({
+        this.options = config.options.map((option) => ({
             ...option,
             id: idGenerator.generate(),
         }));
         // Remove all the form controls in the form before adding new controls
-        Object.keys(this.formGroup.controls).forEach(control => {
+        Object.keys(this.formGroup.controls).forEach((control) => {
             this.formGroup.removeControl(control);
         });
-        config.options.forEach(option => {
+        config.options.forEach((option) => {
             this.formGroup.addControl(option.value, new FormControl(false));
         });
     }
@@ -103,7 +104,7 @@ export class DatagridMultiSelectFilterComponent extends DatagridFilter<string[],
     }
 
     setValue(values: string[]): void {
-        values.forEach(frmCtrl => {
+        values.forEach((frmCtrl) => {
             const correspondingFormCtrl = this.formGroup.get(frmCtrl);
             if (!correspondingFormCtrl) {
                 throw Error(`A multi select filter option with value '${frmCtrl}' does not exist`);
@@ -114,15 +115,15 @@ export class DatagridMultiSelectFilterComponent extends DatagridFilter<string[],
 
     getValue(): string {
         const selectedFilters = Object.keys(this.formGroup.getRawValue())
-            .filter(formControl => this.formGroup.get(formControl).value)
-            .map(selectedOption => new FilterBuilder().is(this.queryField).equalTo(selectedOption));
+            .filter((formControl) => this.formGroup.get(formControl).value)
+            .map((selectedOption) => new FilterBuilder().is(this.queryField).equalTo(selectedOption));
         return new FilterBuilder().any(...selectedFilters).getString();
     }
 
     isActive(): boolean {
         return (
             this.formGroup &&
-            !!Object.keys(this.formGroup.getRawValue()).filter(frmCtrl => this.formGroup.get(frmCtrl).value).length
+            !!Object.keys(this.formGroup.getRawValue()).filter((frmCtrl) => this.formGroup.get(frmCtrl).value).length
         );
     }
 

@@ -4,9 +4,9 @@
             <div class="clr-select-wrapper">
                 <select [formControlName]="'filterSelect'" class="clr-select">
                     <option [ngValue]="anyChoice.value">{{ anyChoice.display }}</option>
-                    <option *ngFor="let option of config.options" [ngValue]="option.value">{{
-                        option.isTranslatable ? (option.display | translate) : option.display
-                    }}</option>
+                    <option *ngFor="let option of config.options" [ngValue]="option.value">
+                        {{ option.isTranslatable ? (option.display | translate) : option.display }}
+                    </option>
                 </select>
             </div>
         </div>

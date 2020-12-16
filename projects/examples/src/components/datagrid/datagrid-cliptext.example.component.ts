@@ -25,7 +25,7 @@ export class DatagridCliptextExampleComponent {
     columns: GridColumn<Data>[] = [
         {
             displayName: 'Column 1',
-            renderer: BoldTextRenderer(rec => rec.value),
+            renderer: BoldTextRenderer((rec) => rec.value),
         },
         {
             displayName: 'Column 2',

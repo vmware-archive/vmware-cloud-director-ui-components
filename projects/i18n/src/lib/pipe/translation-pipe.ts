@@ -50,7 +50,7 @@ export class TranslationPipe implements PipeTransform {
         this.translate
             .translateAsync(key, args)
             .pipe(take(1))
-            .subscribe(result => {
+            .subscribe((result) => {
                 this.value = result;
                 this.changeDetector.markForCheck();
             });

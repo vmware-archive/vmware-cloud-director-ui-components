@@ -64,7 +64,7 @@ type HandlerData = Record[] | Blah;
             [selectionType]="selectionType"
         ></vcd-datagrid>
     `,
-    styleUrls: ['datagrid-link.example.component.scss']
+    styleUrls: ['datagrid-link.example.component.scss'],
 })
 export class DatagridLinkExampleComponent<R extends Record> {
     @ViewChild(DatagridComponent, { static: true }) dg: DatagridComponent<R>;

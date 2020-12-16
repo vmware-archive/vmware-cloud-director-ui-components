@@ -36,9 +36,7 @@ describe('TranslationPipe', () => {
 });
 
 @Component({
-    template: `
-        <h1>{{ key | translate }}</h1>
-    `,
+    template: ` <h1>{{ key | translate }}</h1> `,
     selector: 'lib-translation-pipe-test',
 })
 export class TranslationPipeTestComponent {

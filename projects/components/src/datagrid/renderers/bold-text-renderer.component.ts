@@ -32,9 +32,7 @@ export interface BoldTextRendererConfig {
  */
 @Component({
     selector: 'vcd-bold-text-renderer',
-    template: `
-        <strong>{{ config.text }}</strong>
-    `,
+    template: ` <strong>{{ config.text }}</strong> `,
 })
 export class BoldTextRendererComponent implements ComponentRenderer<BoldTextRendererConfig> {
     @Input()

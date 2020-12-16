@@ -16,7 +16,7 @@ interface HasDgMultiSelectFilter {
 
 describe('DatagridMultiSelectFilterComponent', () => {
     describe('setValue', () => {
-        beforeEach(function(this: HasDgMultiSelectFilter): void {
+        beforeEach(function (this: HasDgMultiSelectFilter): void {
             this.filter = createDatagridFilterTestHelper(DatagridMultiSelectFilterComponent, {
                 options: [
                     {
@@ -35,7 +35,7 @@ describe('DatagridMultiSelectFilterComponent', () => {
             });
         });
 
-        it('sets the form controls as true that have the same names as values passed', function(this: HasDgMultiSelectFilter): void {
+        it('sets the form controls as true that have the same names as values passed', function (this: HasDgMultiSelectFilter): void {
             this.filter.setValue(['CA', 'NC']);
             expect(this.filter.formGroup.get('CA').value).toEqual(true);
             expect(this.filter.formGroup.get('NC').value).toEqual(true);
@@ -43,7 +43,7 @@ describe('DatagridMultiSelectFilterComponent', () => {
         });
 
         // tslint:disable-next-line:max-line-length
-        it('throws an error if any of the values passed does not match with names of any form controls', function(this: HasDgMultiSelectFilter): void {
+        it('throws an error if any of the values passed does not match with names of any form controls', function (this: HasDgMultiSelectFilter): void {
             expect(() => this.filter.setValue(['CA', 'TX'])).toThrowError(
                 `A multi select filter option with value 'TX' does not exist`
             );
@@ -52,7 +52,7 @@ describe('DatagridMultiSelectFilterComponent', () => {
 
     describe('getValue', () => {
         const queryFieldName = FilterTestHostComponent.filterColumn.queryFieldName;
-        beforeEach(function(this: HasDgMultiSelectFilter): void {
+        beforeEach(function (this: HasDgMultiSelectFilter): void {
             this.filter = createDatagridFilterTestHelper(DatagridMultiSelectFilterComponent, {
                 options: [
                     {
@@ -66,7 +66,7 @@ describe('DatagridMultiSelectFilterComponent', () => {
                 ],
             });
         });
-        it('returns a FIQL with queryFieldName equalTo any of the options selected', function(this: HasDgMultiSelectFilter): void {
+        it('returns a FIQL with queryFieldName equalTo any of the options selected', function (this: HasDgMultiSelectFilter): void {
             this.filter.setValue(['MA', 'NC']);
             expect(this.filter.getValue()).toEqual(`${queryFieldName}==MA,${queryFieldName}==NC`);
         });

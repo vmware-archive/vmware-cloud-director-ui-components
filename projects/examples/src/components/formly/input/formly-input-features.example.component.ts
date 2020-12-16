@@ -123,7 +123,7 @@ export class FormlyInputFeaturesExampleComponent {
             },
             hooks: {
                 onInit: (field?: FormlyFieldConfig) => {
-                    field.formControl.valueChanges.subscribe(val => {
+                    field.formControl.valueChanges.subscribe((val) => {
                         this.options.formState.label = val;
                     });
                 },

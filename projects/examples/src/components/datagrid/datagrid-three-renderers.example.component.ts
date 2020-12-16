@@ -51,7 +51,7 @@ export class DatagridThreeRenderersExampleComponent {
     columns: GridColumn<MockRecord>[] = [
         {
             displayName: 'Component Renderer',
-            renderer: BoldTextRenderer(rec => rec.name),
+            renderer: BoldTextRenderer((rec) => rec.name),
         },
         {
             displayName: 'Function Renderer',
