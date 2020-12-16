@@ -3,9 +3,13 @@
  * SPDX-License-Identifier: BSD-2-Clause
  */
 
-import { AfterViewChecked, Directive, ElementRef, HostBinding } from '@angular/core';
+import { AfterViewChecked, Directive, ElementRef, HostBinding, Input } from '@angular/core';
 
-declare type ColSize = '2' | '4' | '8' | '10';
+type ColSize = '2' | '4' | '8' | '10';
+
+export interface ResponsiveInputOptions {
+    disabled: boolean;
+}
 
 /**
  * Adds Clarity grid classes to form controls based on the host's width so that labels and inputs are on separate
@@ -21,10 +25,29 @@ export class ResponsiveInputDirective implements AfterViewChecked {
 
     private breakPoint = 768;
 
+    /**
+     * The directive will be a no-op if it's disabled. It does not support being changed after rendering.
+     */
+    @Input('vcdResponsiveInput')
+    set options(value: ResponsiveInputOptions) {
+        this._disabled = value.disabled;
+        this.clrGridRow = !this.disabled;
+    }
+
+    public get disabled(): boolean {
+        return this._disabled;
+    }
+
+    private _disabled = false;
+
     @HostBinding('class.clr-row') public clrGridRow = true;
+
     constructor(private el: ElementRef<HTMLElement>) {}
 
     ngAfterViewChecked(): void {
+        if (this._disabled) {
+            return;
+        }
         if (this.elementWidth !== 0) {
             return;
         }

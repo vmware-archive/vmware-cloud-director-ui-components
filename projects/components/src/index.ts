@@ -6,7 +6,6 @@
 export * from './components.module';
 export * from './data-exporter/data-exporter.module';
 export * from './datagrid/datagrid.module';
-export * from './form/form.module';
 export * from './common/activity-reporter/activity-reporter.module';
 export * from './common/error/error-banner.module';
 export * from './common/loading/loading-indicator.module';
