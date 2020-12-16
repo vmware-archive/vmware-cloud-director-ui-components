@@ -466,7 +466,7 @@ export function createDatagridFilterTestHelper&lt;V, C&gt;(
 
     finder.hostComponent.setFilter(filterType, finder, config || ({} as C));
     grid.clrDatagrid.fixture.detectChanges();
-    grid.getFilterToggle().click();
+    grid.filterToggle.click();
     return getFilter(grid.clrDatagrid, filterType);
 }
 
@@ -484,7 +484,7 @@ export function createDatagridFilterTestHelperWithFinder&lt;V, C&gt;(
     const grid &#x3D; finder.find(ClrDatagridWidgetObject);
     finder.hostComponent.setFilter(filterType, finder, config || ({} as C));
     grid.clrDatagrid.fixture.detectChanges();
-    grid.getFilterToggle().click();
+    grid.filterToggle.click();
 
     return {
         finder,

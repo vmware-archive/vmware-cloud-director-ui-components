@@ -123,20 +123,6 @@
                     </td>
                 </tr>
 
-                <tr>
-                    <td class="col-md-4">
-                        <h6><b>Methods</b></h6>
-                    </td>
-                </tr>
-                <tr>
-                    <td class="col-md-4">
-                        <ul class="index-list">
-                            <li>
-                                <a href="#findClrDatagrid">findClrDatagrid</a>
-                            </li>
-                        </ul>
-                    </td>
-                </tr>
 
 
 
@@ -150,6 +136,9 @@
                     <tr>
                         <td class="col-md-4">
                             <ul class="index-list">
+                                <li>
+                                    <a href="#clrDatagrid">clrDatagrid</a>
+                                </li>
                                 <li>
                                     <a href="#vcdDatagrid">vcdDatagrid</a>
                                 </li>
@@ -422,53 +411,7 @@
         </table>
 </section>
 
-            <section>
-    
-    <h3 id="methods">
-        Methods
-    </h3>
-    <table class="table table-sm table-bordered">
-        <tbody>
-            <tr>
-                <td class="col-md-4">
-                    <a name="findClrDatagrid"></a>
-                    <span class="name">
-                        <b>
-                            findClrDatagrid
-                        </b>
-                        <a href="#findClrDatagrid"><span class="icon ion-ios-link"></span></a>
-                    </span>
-                </td>
-            </tr>
-            <tr>
-                <td class="col-md-4">
-<code>findClrDatagrid()</code>
-                </td>
-            </tr>
 
-
-            <tr>
-                <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="23"
-                            class="link-to-prism">projects/components/src/utils/test/datagrid/vcd-datagrid.wo.ts:23</a></div>
-                </td>
-            </tr>
-
-
-            <tr>
-                <td class="col-md-4">
-                    <div class="io-description"><p>Gives the widget object for this <code>clr-datagrid</code>.</p>
-</div>
-
-                    <div class="io-description">
-                        <b>Returns : </b>    <code>ClrDatagridWidgetObject&lt;T&gt;</code>
-
-                    </div>
-                </td>
-            </tr>
-        </tbody>
-    </table>
-</section>
 
 
 
@@ -478,6 +421,39 @@
     <h3 id="accessors">
         Accessors
     </h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="clrDatagrid"></a>
+                        <span class="name"><b>clrDatagrid</b><a href="#clrDatagrid"><span class="icon ion-ios-link"></span></a></span>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <span class="accessor"><b>get</b><code>clrDatagrid()</code></span>
+                    </td>
+                </tr>
+                            <tr>
+                                <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="23" class="link-to-prism">projects/components/src/utils/test/datagrid/vcd-datagrid.wo.ts:23</a></div>
+                                </td>
+                            </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-description"><p>Gives the widget object for this <code>clr-datagrid</code>.</p>
+</div>
+
+                                <div class="io-description">
+                                    <b>Returns : </b>    <code>ClrDatagridWidgetObject&lt;T&gt;</code>
+
+                                </div>
+                        </td>
+                    </tr>
+
+            </tbody>
+        </table>
         <table class="table table-sm table-bordered">
             <tbody>
                 <tr>
@@ -533,7 +509,7 @@ export class VcdDatagridWidgetObject&lt;T&gt; extends BaseWidgetObject&lt;T&gt; 
     /**
      * Gives the widget object for this &#x60;clr-datagrid&#x60;.
      */
-    findClrDatagrid(): ClrDatagridWidgetObject&lt;T&gt; {
+    get clrDatagrid(): ClrDatagridWidgetObject&lt;T&gt; {
         // @ts-ignore
         return this.locatorDriver.findWidget(ClrDatagridWidgetObject);
     }
