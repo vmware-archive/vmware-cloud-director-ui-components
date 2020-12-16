@@ -30,11 +30,6 @@ export interface QuickSearchProvider {
     data: unknown;
 
     /**
-     * Indicates if a provider has to wait for {@link PROVIDER_SEARCH_DEBOUNCE_TIME} milliseconds
-     */
-    shouldDebounceInput: boolean;
-
-    /**
      * Returns an array or a promise of array of items that comply with the search criteria.
      * @param criteria The search string provided by the user when typing in the Quick Search Component
      */
@@ -45,9 +40,11 @@ export abstract class QuickSearchProviderDefaults implements QuickSearchProvider
     sectionName = '';
     order = -1;
     data: unknown;
-    abstract shouldDebounceInput: boolean;
     abstract search(criteria: string): QuickSearchResultsType;
 
+    /**
+     * @param shouldDebounceInput Indicates if a provider has to wait for {@link PROVIDER_SEARCH_DEBOUNCE_TIME} milliseconds
+     */
     constructor(shouldDebounceInput: boolean) {
         if (shouldDebounceInput) {
             // The return type is being ignored because, createBufferedPromise function returns a function that returns a Promise which

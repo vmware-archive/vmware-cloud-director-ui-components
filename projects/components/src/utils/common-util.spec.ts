@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: BSD-2-Clause
  */
 
-import { discardPeriodicTasks, fakeAsync, flush, flushMicrotasks, tick } from '@angular/core/testing';
+import { fakeAsync, tick } from '@angular/core/testing';
 import { CommonUtil } from './common-util';
 
 describe('CommonUtil', () => {
@@ -18,27 +18,22 @@ describe('CommonUtil', () => {
     });
 
     describe('createBufferedPromise', () => {
-        it(
-            'returns a function that returns a promise which resolves with the output of function passed after a buffer amount of' +
-                'milliseconds',
-            fakeAsync(() => {
-                const bufferedFuncOutput = `output of function passed to createBufferedPromise`;
-                const spiedObject = {
-                    functionToBeBuffered: () => bufferedFuncOutput,
-                };
-                const spy = spyOn(spiedObject, 'functionToBeBuffered').and.callThrough();
-                const bufferTime = 400;
-                const bufferedPromise = CommonUtil.createBufferedPromise(
-                    spiedObject.functionToBeBuffered,
-                    null,
-                    bufferTime
-                );
-                bufferedPromise();
-                tick(399);
-                expect(spy).not.toHaveBeenCalled();
-                tick(1);
-                expect(spy).toHaveBeenCalled();
-            })
-        );
+        it('returns a function that when called does not call the passed in function until x ms have elapsed', fakeAsync(() => {
+            const spiedObject = {
+                functionToBeBuffered: () => `output of function passed to createBufferedPromise`,
+            };
+            const spy = spyOn(spiedObject, 'functionToBeBuffered').and.callThrough();
+            const bufferTime = 400;
+            const bufferedPromise = CommonUtil.createBufferedPromise(
+                spiedObject.functionToBeBuffered,
+                null,
+                bufferTime
+            );
+            bufferedPromise();
+            tick(399);
+            expect(spy).not.toHaveBeenCalled();
+            tick(1);
+            expect(spy).toHaveBeenCalled();
+        }));
     });
 });
