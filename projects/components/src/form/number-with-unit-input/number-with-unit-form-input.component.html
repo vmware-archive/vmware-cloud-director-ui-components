@@ -1,10 +1,10 @@
-<div class="clr-form-control" vcdResponsiveInput *ngIf="isReadOnly">
+<div class="clr-form-control" [vcdResponsiveInput]="{ disabled: !isResponsive }" *ngIf="isReadOnly">
     <label class="clr-control-label">{{ label }}</label>
     <span class="clr-control-container readonly-text">{{ displayValue || '-' }}</span>
 </div>
 
 <div *ngIf="!isReadOnly">
-    <div class="clr-form-control" vcdResponsiveInput>
+    <div class="clr-form-control" [vcdResponsiveInput]="{ disabled: !isResponsive }">
         <label *ngIf="label" class="clr-control-label" [for]="id" [ngClass]="{ 'required-field': showAsterisk }">{{
             label
         }}</label>

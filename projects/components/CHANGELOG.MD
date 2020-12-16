@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+
+## [1.0.0-a11y.10] - 2020-12-16
+### Added
+- Ability to disable the responsive input directive on form controls so 
+  they can by used in vertical forms.
+
 ## [1.0.0-a11y.9] - 2020-12-10
 ### Fixed
 - Accessibility: Added blank alternative text to all svgs inside clr-icon elements

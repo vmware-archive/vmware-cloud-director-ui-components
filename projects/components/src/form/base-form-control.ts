@@ -89,6 +89,16 @@ export class BaseFormControl implements ControlValueAccessor, CanBeReadOnly {
     @Input() errorLabels: string[] = [];
 
     /**
+     * If this is true, Clarity responsive classes will be added to the component's elements so that label and input
+     * elements are on separate lines when on small screens or inside small containers.
+     *
+     * Note that if a form control is being used inside a `.clr-form-vertical`, the controls should all have
+     * isResponsive set to false, since that will cause labels to always display on a separate line and adding
+     * the responsive styles would interfere with that
+     */
+    @Input() isResponsive = true;
+
+    /**
      * FormControlName directive
      */
     formControlNameDirective: NgControl;
