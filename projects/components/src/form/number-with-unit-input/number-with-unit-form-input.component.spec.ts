@@ -39,14 +39,44 @@ const [MIN, MAX] = [1000, 10000];
             class="initially-unlimited"
         >
         </vcd-number-with-unit-form-input>
+        <vcd-number-with-unit-form-input
+            [formControl]="cpuLimitInitiallyNull"
+            [label]="'cpu.limit' | translate"
+            [unitOptions]="hertzOptions"
+            [description]="'sizingPolicies.form.cpuLimit.description' | translate"
+            class="initially-null-unit"
+        >
+        </vcd-number-with-unit-form-input>
+        <vcd-number-with-unit-form-input
+            [formControl]="cpuLimitInitiallySet"
+            [label]="'cpu.limit' | translate"
+            [inputValueUnit]="formControlValueUnit"
+            [initialValueUnit]="ghz"
+            [unitOptions]="hertzOptions"
+            [description]="'sizingPolicies.form.cpuLimit.description' | translate"
+            class="initially-set-unit"
+        >
+        </vcd-number-with-unit-form-input>
+        <vcd-number-with-unit-form-input
+            [formControl]="cpuLimitNoUnits"
+            [label]="'cpu.limit' | translate"
+            [unitOptions]="[]"
+            [description]="'sizingPolicies.form.cpuLimit.description' | translate"
+            class="no-given-units"
+        >
+        </vcd-number-with-unit-form-input>
     `,
 })
 export class TestHostComponent {
     cpuLimit = new FormControl(null);
     cpuLimitInitiallyUnlimited = new FormControl(UNLIMITED);
+    cpuLimitInitiallyNull = new FormControl(null);
+    cpuLimitInitiallySet = new FormControl(null);
+    cpuLimitNoUnits = new FormControl(null);
 
     public hertzOptions: Unit[] = [Hertz.Mhz, Hertz.Ghz];
     public formControlValueUnit: Unit = Hertz.Mhz;
+    public ghz: Unit = Hertz.Ghz;
 
     constructor() {}
 }
@@ -141,8 +171,26 @@ describe('VcdNumberWithUnitFormInputComponent', () => {
             expect(numberWithUnitInput.formControl.value).toEqual(50);
         });
 
-        // TODO: write this test
-        it('sets a input unit if initial value is null', () => {});
+        it('sets a input unit if initial value is null', () => {
+            const numberWithUnitInputInitializedNull = finder.find({
+                woConstructor: NumberWithUnitFormInputWidgetObject,
+                className: 'initially-null-unit',
+            });
+            finder.detectChanges();
+            expect(numberWithUnitInputInitializedNull.selectedUnitDisplayValue).toEqual('MHz');
+        });
+
+        it('sets a unit if none are given', () => {
+            const numberWithUnitInputNoUnits = finder.find({
+                woConstructor: NumberWithUnitFormInputWidgetObject,
+                className: 'no-given-units',
+            });
+            finder.detectChanges();
+            expect(numberWithUnitInputNoUnits.singleUnitDisplayText).toEqual('');
+            numberWithUnitInputNoUnits.textInputValue = '50';
+            expect(numberWithUnitInputNoUnits.formControl.value).toEqual(50);
+            expect(numberWithUnitInputNoUnits.displayValue).toEqual('50');
+        });
     });
 
     describe('FormControl value', () => {
@@ -191,6 +239,31 @@ describe('VcdNumberWithUnitFormInputComponent', () => {
             numberWithUnitInput.textInputValue = '2000';
             expect(numberWithUnitInput.displayValue).toEqual(
                 ts.translate(Hertz.Ghz.getValueWithUnitTranslationKey(), [2])
+            );
+        });
+
+        it('will output unlimited', () => {
+            const numberWithUnitInputUnlimited = finder.find({
+                woConstructor: NumberWithUnitFormInputWidgetObject,
+                className: 'initially-unlimited',
+            });
+            expect(numberWithUnitInputUnlimited.displayValue).toEqual(ts.translate('vcd.cc.unlimited'));
+        });
+
+        it('gives a display when the value is unset', () => {
+            numberWithUnitInput.setInputValueUnit(Hertz.Mhz);
+            numberWithUnitInput.selectUnit(Hertz.Mhz);
+            expect(numberWithUnitInput.displayValue).toEqual('');
+        });
+
+        it('gives a display when there is just one unit', () => {
+            numberWithUnitInput.component.unitOptions = [Hertz.Mhz];
+            finder.detectChanges();
+            numberWithUnitInput.setInputValueUnit(Hertz.Mhz);
+            numberWithUnitInput.selectUnit(Hertz.Mhz);
+            numberWithUnitInput.textInputValue = '2000';
+            expect(numberWithUnitInput.displayValue).toEqual(
+                ts.translate(Hertz.Mhz.getValueWithUnitTranslationKey(), [2000])
             );
         });
     });
@@ -251,5 +324,25 @@ describe('VcdNumberWithUnitFormInputComponent', () => {
                 expect(numberWithUnitInput.isUnitDropdownDisabled).toBe(false);
             }
         );
+    });
+
+    describe('set selectedUnit', () => {
+        it('sets the selected unit', () => {
+            numberWithUnitInput.setInputValueUnit(Hertz.Ghz);
+            numberWithUnitInput.component.selectedUnit = Hertz.Mhz.getMultiplier();
+            numberWithUnitInput.textInputValue = '2000';
+            expect(numberWithUnitInput.formControl.value).toEqual(2000 / 1000);
+        });
+    });
+
+    describe('initialValueUnit', () => {
+        it('sets the initally selected unit', () => {
+            const numberWithUnitInputInitializedNull = finder.find({
+                woConstructor: NumberWithUnitFormInputWidgetObject,
+                className: 'initially-set-unit',
+            });
+            finder.detectChanges();
+            expect(numberWithUnitInputInitializedNull.selectedUnitDisplayValue).toEqual('GHz');
+        });
     });
 });
