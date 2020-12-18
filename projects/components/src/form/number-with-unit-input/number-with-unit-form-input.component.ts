@@ -412,15 +412,6 @@ export class NumberWithUnitFormInputComponent extends BaseFormControl implements
             return this.unitFormatter.bestFormat(value, this.unitOptions[0], this.unitOptions);
         }
 
-        if (this.isReadOnly) {
-            const displayComboUnit = this.comboOptions.find(
-                (co) => Number(co.value) === Number(this.unitsControlValue)
-            );
-            const displayUnit = this.comboOptionUnitMap.get(displayComboUnit);
-            if (displayUnit) {
-                return this.unitFormatter.bestFormat(value, displayUnit, this.unitOptions);
-            }
-        }
         // Return only the value when unitOptions was not set.
         return value.toString();
     }
