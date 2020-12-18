@@ -37,6 +37,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
    users zoomed in at 200% to view the label and input instead of it being clipped.
 - Enabled ARIA support for vcd-form-input so that screen readers can read validation errors, its description and whether
   it's required
+- Ability to disable the responsive input directive on form controls so 
+  they can by used in vertical forms.
 
 ## [1.0.0-dev.51] - 2020-12-4
 ### Added
