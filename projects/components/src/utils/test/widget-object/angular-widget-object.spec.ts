@@ -4,7 +4,8 @@
  */
 
 import { Component, Input, Type } from '@angular/core';
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing';
+import { FormsModule } from '@angular/forms';
 import { AngularWidgetObjectFinder } from './angular-widget-finder';
 import { AngularLocatorDriver, TestElement } from './angular-widget-object';
 import { BaseWidgetObject } from './widget-object';
@@ -22,12 +23,17 @@ import { BaseWidgetObject } from './widget-object';
             <p (click)="clickCount = clickCount + 1">
                 Clicks: <span class="click-count">{{ clickCount }}</span>
             </p>
+            <button ng-disabled="{{ true }}">BUTTON</button>
+            <button>BUTTON2</button>
+            <input type="text" id="fname" name="fname" class="name" [(ngModel)]="name" />
         </div>
     `,
 })
 class ClickTrackerComponent {
     @Input() header = 'Click Tracker';
     clickCount = 0;
+
+    name = '';
 }
 
 class HeaderWidgetObject<T> extends BaseWidgetObject<T> {
@@ -53,8 +59,22 @@ class ClickTrackerWidgetObject<T> extends BaseWidgetObject<T> {
 
     getTrackerElement = this.locatorForCssSelectors('p');
 
+    getNameInput = this.locatorForCssSelectors('.name');
+
+    getButton = this.locatorForText('button', 'BUTTON');
+
+    getButtons = this.locatorForCssSelectors('button');
+
+    getTrackerElementUsingParent(): T {
+        return this.locatorDriver.get('span').parents('p').unwrap();
+    }
+
     findHeaderWidget(): HeaderWidgetObject<T> {
         return this.locatorDriver.findWidget(HeaderWidgetObject);
+    }
+
+    getSelf(): T {
+        return this.locatorDriver.unwrap();
     }
 }
 
@@ -81,6 +101,7 @@ interface HasClickTracker {
 function setup(fixtureRoot: Type<unknown>): void {
     beforeEach(async function (this: HasAngularFinder): Promise<void> {
         await TestBed.configureTestingModule({
+            imports: [FormsModule],
             declarations: [ClickTrackerComponent, fixtureRoot],
         }).compileComponents();
         this.finder = new AngularWidgetObjectFinder(fixtureRoot);
@@ -97,23 +118,14 @@ describe('AngularWidgetFinder', () => {
                 const widget = this.finder.find(ClickTrackerWidgetObject);
                 expect(widget.getHeaderText().text()).toEqual('hello');
             });
-
-            it('can find widgets within widgets', function (this: HasAngularFinder): void {
-                expect(this.finder.find(ClickTrackerWidgetObject).findHeaderWidget().getBoldText().text()).toEqual(
-                    'hello'
-                );
-            });
         });
     });
 });
 
-/**
- * For all these tests of base class functionality, you must look at the implementation of the methods being called
- * in the concrete {@link ClickTrackerWidgetObject}
- */
-describe('WidgetObject (through ClickTracerWidgetObject)', () => {
+describe('AngularLocatorDriver', () => {
     beforeEach(async function (this: HasClickTracker): Promise<void> {
         await TestBed.configureTestingModule({
+            imports: [FormsModule],
             declarations: [ClickTrackerComponent],
         }).compileComponents();
 
@@ -127,18 +139,106 @@ describe('WidgetObject (through ClickTracerWidgetObject)', () => {
         );
     });
 
-    describe('getText', () => {
-        it('can find elements within itself passing a css query', async function (this: HasClickTracker): Promise<
-            void
-        > {
+    describe('get', () => {
+        it('can find elements by CSS selector', function (this: HasClickTracker): void {
+            expect(this.clickTracker.getClickCount().text()).toEqual('0');
+        });
+    });
+
+    describe('findWidget', () => {
+        it('can find widgets within widgets', function (this: HasClickTracker): void {
+            expect(this.clickTracker.findHeaderWidget().getBoldText().text()).toEqual('hello');
+        });
+    });
+
+    describe('parents', () => {
+        it('can find a parent by css selector', function (this: HasClickTracker): void {
+            this.clickTracker.getTrackerElementUsingParent().click();
+            expect(this.clickTracker.getClickCount().text()).toEqual('1');
+        });
+    });
+
+    describe('getByText', () => {
+        it('can find an element by text', function (this: HasClickTracker): void {
+            expect(this.clickTracker.getButton().text()).toEqual('BUTTON');
+        });
+    });
+});
+
+/**
+ * For all these tests of base class functionality, you must look at the implementation of the methods being called
+ * in the concrete {@link ClickTrackerWidgetObject}
+ */
+describe('TestElement', () => {
+    beforeEach(async function (this: HasClickTracker): Promise<void> {
+        await TestBed.configureTestingModule({
+            imports: [FormsModule],
+            declarations: [ClickTrackerComponent],
+        }).compileComponents();
+
+        this.fixture = TestBed.createComponent(ClickTrackerComponent);
+        this.fixture.detectChanges();
+        this.clickTracker = new ClickTrackerWidgetObject(
+            new AngularLocatorDriver(
+                new TestElement([this.fixture.debugElement], this.fixture),
+                this.fixture.debugElement
+            )
+        );
+    });
+
+    describe('text', () => {
+        it('can find elements within itself passing a css query', function (this: HasClickTracker): void {
             expect(this.clickTracker.getClickCount().text()).toEqual('0');
         });
     });
 
     describe('click', () => {
-        it('calls detectChanges after clicking', async function (this: HasClickTracker): Promise<void> {
+        it('calls detectChanges after clicking', function (this: HasClickTracker): void {
             this.clickTracker.getTrackerElement().click();
             expect(this.clickTracker.getClickCount().text()).toEqual('1');
+        });
+    });
+
+    describe('value', () => {
+        it('gives the value from an input', fakeAsync(function (this: HasClickTracker): void {
+            this.clickTracker.getSelf().getComponentInstance().name = 'Ryan';
+            this.clickTracker.getSelf().detectChanges();
+            tick();
+            expect(this.clickTracker.getNameInput().value()).toEqual('Ryan');
+        }));
+    });
+
+    describe('clear', () => {
+        it('clears the input', fakeAsync(function (this: HasClickTracker): void {
+            this.clickTracker.getSelf().getComponentInstance().name = 'Ryan';
+            this.clickTracker.getSelf().detectChanges();
+            tick();
+            expect(this.clickTracker.getNameInput().value()).toEqual('Ryan');
+            this.clickTracker.getNameInput().clear();
+            expect(this.clickTracker.getNameInput().value()).toEqual('');
+        }));
+    });
+
+    describe('length', () => {
+        it('says how many elements are in this TestElement', function (this: HasClickTracker): void {
+            expect(this.clickTracker.getButtons().length()).toEqual(2);
+        });
+    });
+
+    describe('toArray', () => {
+        it('turns the TestElement to an array of TestElements', function (this: HasClickTracker): void {
+            expect(
+                this.clickTracker
+                    .getButtons()
+                    .toArray()
+                    .map((el) => el.text())
+            ).toEqual(['BUTTON', 'BUTTON2']);
+        });
+    });
+
+    describe('classes', () => {
+        it('gives the classes of an input', function (this: HasClickTracker): void {
+            expect(this.clickTracker.getNameInput().classes()).toContain('name');
         });
     });
 });
