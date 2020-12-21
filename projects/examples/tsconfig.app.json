@@ -1,18 +1,11 @@
 {
-  "extends": "../../tsconfig.json",
-  "compilerOptions": {
-    "outDir": "../../out-tsc/app",
-    "types": []
-  },
-  // TODO: Removed the 'files' property because files added to the property are being excluded by Compodoc parser
-  //   https://github.com/compodoc/compodoc/issues/831
-  "include": [
-    "src/main.ts",
-    "src/polyfills.ts",
-    "src/**/*.ts"
-  ],
-  "exclude": [
-    "src/test.ts",
-    "src/**/*.spec.ts"
-  ]
+    "extends": "../../tsconfig.json",
+    "compilerOptions": {
+        "outDir": "../../out-tsc/app",
+        "types": []
+    },
+    // TODO: Removed the 'files' property because files added to the property are being excluded by Compodoc parser
+    //   https://github.com/compodoc/compodoc/issues/831
+    "include": ["src/main.ts", "src/polyfills.ts", "src/**/*.ts"],
+    "exclude": ["src/test.ts", "src/**/*.spec.ts"]
 }

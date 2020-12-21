@@ -6,7 +6,7 @@
 import { Component } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
 import { MockTranslationService, TranslationService } from '@vcd/i18n';
-import { ActionDisplayConfig, ActionStyling, ActionType, TextIcon } from '../common/interfaces/index';
+import { ActionDisplayConfig, ActionItem, ActionStyling, ActionType, TextIcon } from '../common/interfaces/index';
 import { WidgetFinder, WidgetObject } from '../utils/test/widget-object';
 import { ActionMenuComponent, getDefaultActionDisplayConfig } from './action-menu.component';
 import { VcdActionMenuModule } from './action-menu.module';
@@ -280,15 +280,21 @@ describe('ActionMenuComponent', () => {
         it('returns the output of disabled, if its a function or just disabled if its a ' + 'boolean', function (
             this: HasFinderAndActionMenu
         ): void {
-            const action = {
+            const action: ActionItem<Record, HandlerData> = {
                 textKey: 'action',
                 handler: () => {},
                 disabled: () => true,
             };
             expect(this.actionMenu.isActionDisabled(action)).toBeTruthy();
-            // @ts-ignore
             action.disabled = false;
             expect(this.actionMenu.isActionDisabled(action)).toBeFalsy();
+
+            const action2 = {
+                textKey: 'action',
+                handler: () => {},
+                disabled: true,
+            };
+            expect(this.actionMenu.isActionDisabled(action2)).toBeTruthy();
         });
     });
     describe('getFlattenedActionList', () => {

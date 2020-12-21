@@ -93,10 +93,7 @@ describe('MessageFormatTranslationService', () => {
         );
         const translationService = new MessageFormatTranslationService('en', 'en', loader, true);
         translationService.registerTranslations();
-        const result = await translationService
-            .translateAsync('hi')
-            .pipe(take(1))
-            .toPromise();
+        const result = await translationService.translateAsync('hi').pipe(take(1)).toPromise();
         expect(result).toEqual('hello');
         expect(translationService.translate('hi')).toEqual('hello');
     });
@@ -110,17 +107,14 @@ describe('MessageFormatTranslationService', () => {
         );
         const translationService = new MessageFormatTranslationService('en', 'en', loader);
         translationService.registerTranslations();
-        const result = await translationService
-            .translateAsync('hi')
-            .pipe(take(1))
-            .toPromise();
+        const result = await translationService.translateAsync('hi').pipe(take(1)).toPromise();
         expect(result).toEqual('hello');
         expect(translationService.translate('hi')).toEqual('hello');
     });
 
     it('translates via the fallback locale using async translations if the main language is not loaded', async () => {
         const loader = new TranslationLoader(null, '');
-        spyOn(loader, 'getTranslation').and.callFake(arg => {
+        spyOn(loader, 'getTranslation').and.callFake((arg) => {
             if (arg === 'de') {
                 return new BehaviorSubject({
                     hi: 'guten tag',
@@ -132,10 +126,7 @@ describe('MessageFormatTranslationService', () => {
 
         const translationService = new MessageFormatTranslationService('en', 'de', loader);
         translationService.registerTranslations();
-        const result = await translationService
-            .translateAsync('hi')
-            .pipe(take(1))
-            .toPromise();
+        const result = await translationService.translateAsync('hi').pipe(take(1)).toPromise();
         expect(result).toEqual('guten tag');
         expect(translationService.translate('hi')).toEqual('guten tag');
     });

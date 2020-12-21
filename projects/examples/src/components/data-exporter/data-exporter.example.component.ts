@@ -25,9 +25,7 @@ import { DataExportRequestEvent, ExportColumn } from '@vcd/ui-components';
             </li>
             <li>they can choose if cells should be checked for code injection and prefixed with the tab character.</li>
         </ol>
-        <button (click)="dataExporterOpen = true">
-            Show Modal
-        </button>
+        <button (click)="dataExporterOpen = true">Show Modal</button>
         <vcd-data-exporter
             *ngIf="dataExporterOpen"
             [(open)]="dataExporterOpen"

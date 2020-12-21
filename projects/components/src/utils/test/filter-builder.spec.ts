@@ -17,10 +17,7 @@ describe('FilterBuilder', () => {
         expect(filter.getString()).toBe('');
     });
     it('clears the filter once the string has been retrieved', () => {
-        filter
-            .is('id')
-            .equalTo(2)
-            .getString();
+        filter.is('id').equalTo(2).getString();
 
         expect(filter.getString()).toBe('');
     });
@@ -62,12 +59,7 @@ describe('FilterBuilder', () => {
     it('chains multiple conditions as optional', () => {
         const query = filter
             .any(
-                filter
-                    .is('id')
-                    .equalTo(2)
-                    .and()
-                    .is('age')
-                    .greaterThan(32),
+                filter.is('id').equalTo(2).and().is('age').greaterThan(32),
                 filter.is('name').equalTo('some-name'),
                 filter.is('age').equalTo(32)
             )
@@ -81,18 +73,8 @@ describe('FilterBuilder', () => {
             .equalTo('blue')
             .and()
             .or(
-                filter
-                    .is('name')
-                    .equalTo('other-name')
-                    .and()
-                    .is('age')
-                    .equalTo(32),
-                filter
-                    .is('name')
-                    .equalTo('some-name')
-                    .and()
-                    .is('age')
-                    .equalTo(33)
+                filter.is('name').equalTo('other-name').and().is('age').equalTo(32),
+                filter.is('name').equalTo('some-name').and().is('age').equalTo(33)
             )
             .getString();
         expect(query).toBe('color==blue;(name==other-name;age==32,name==some-name;age==33)');
@@ -103,18 +85,8 @@ describe('FilterBuilder', () => {
             .equalTo('blue')
             .and()
             .or(
-                new FilterBuilder()
-                    .is('name')
-                    .equalTo('other-name')
-                    .and()
-                    .is('age')
-                    .equalTo(32),
-                new FilterBuilder()
-                    .is('name')
-                    .equalTo('some-name')
-                    .and()
-                    .is('age')
-                    .equalTo(33)
+                new FilterBuilder().is('name').equalTo('other-name').and().is('age').equalTo(32),
+                new FilterBuilder().is('name').equalTo('some-name').and().is('age').equalTo(33)
             )
             .getString();
         expect(query).toBe('color==blue;(name==other-name;age==32,name==some-name;age==33)');
@@ -122,115 +94,59 @@ describe('FilterBuilder', () => {
     describe('Comparision operators', () => {
         describe('EQ', () => {
             it('checks for equality on strings', () => {
-                expect(
-                    filter
-                        .is('name')
-                        .equalTo('some-name')
-                        .getString()
-                ).toBe('name==some-name');
+                expect(filter.is('name').equalTo('some-name').getString()).toBe('name==some-name');
             });
             it('checks for equality on numbers', () => {
-                expect(
-                    filter
-                        .is('age')
-                        .equalTo(32)
-                        .getString()
-                ).toBe('age==32');
+                expect(filter.is('age').equalTo(32).getString()).toBe('age==32');
             });
             it('checks for equality on booleans', () => {
-                expect(
-                    filter
-                        .is('enable')
-                        .equalTo(true)
-                        .getString()
-                ).toBe('enable==true');
+                expect(filter.is('enable').equalTo(true).getString()).toBe('enable==true');
             });
             it('checks for equality when multiple values are passed', () => {
-                expect(
-                    filter
-                        .is('name')
-                        .equalTo('some-name', 'another-name', 'yet-another-name')
-                        .getString()
-                ).toBe('name==some-name,name==another-name,name==yet-another-name');
+                expect(filter.is('name').equalTo('some-name', 'another-name', 'yet-another-name').getString()).toBe(
+                    'name==some-name,name==another-name,name==yet-another-name'
+                );
             });
         });
 
         describe('NEQ', () => {
             it('checks for inequality on strings', () => {
-                expect(
-                    filter
-                        .is('name')
-                        .notEqualTo('some-name')
-                        .getString()
-                ).toBe('name!=some-name');
+                expect(filter.is('name').notEqualTo('some-name').getString()).toBe('name!=some-name');
             });
             it('checks for inequality on numbers', () => {
-                expect(
-                    filter
-                        .is('age')
-                        .notEqualTo(32)
-                        .getString()
-                ).toBe('age!=32');
+                expect(filter.is('age').notEqualTo(32).getString()).toBe('age!=32');
             });
             it('checks for inequality on booleans', () => {
-                expect(
-                    filter
-                        .is('enable')
-                        .notEqualTo(true)
-                        .getString()
-                ).toBe('enable!=true');
+                expect(filter.is('enable').notEqualTo(true).getString()).toBe('enable!=true');
             });
             it('checks for inequality when multiple values are passed', () => {
-                expect(
-                    filter
-                        .is('name')
-                        .notEqualTo('some-name', 'another-name', 'yet-another-name')
-                        .getString()
-                ).toBe('name!=some-name,name!=another-name,name!=yet-another-name');
+                expect(filter.is('name').notEqualTo('some-name', 'another-name', 'yet-another-name').getString()).toBe(
+                    'name!=some-name,name!=another-name,name!=yet-another-name'
+                );
             });
         });
 
         describe('GT', () => {
             it('compares over a single value', () => {
-                expect(
-                    filter
-                        .is('age')
-                        .greaterThan(32)
-                        .getString()
-                ).toBe('age=gt=32');
+                expect(filter.is('age').greaterThan(32).getString()).toBe('age=gt=32');
             });
         });
 
         describe('GE', () => {
             it('compares over a single value', () => {
-                expect(
-                    filter
-                        .is('age')
-                        .greaterThanOrEqualTo(32)
-                        .getString()
-                ).toBe('age=ge=32');
+                expect(filter.is('age').greaterThanOrEqualTo(32).getString()).toBe('age=ge=32');
             });
         });
 
         describe('LT', () => {
             it('compares over a single value', () => {
-                expect(
-                    filter
-                        .is('age')
-                        .lessThan(32)
-                        .getString()
-                ).toBe('age=lt=32');
+                expect(filter.is('age').lessThan(32).getString()).toBe('age=lt=32');
             });
         });
 
         describe('LE', () => {
             it('compares over a single value', () => {
-                expect(
-                    filter
-                        .is('age')
-                        .lessThanOrEqualTo(32)
-                        .getString()
-                ).toBe('age=le=32');
+                expect(filter.is('age').lessThanOrEqualTo(32).getString()).toBe('age=le=32');
             });
         });
     });

@@ -50,13 +50,13 @@ export function getRoutes(program: ts.Program): AppRoute[] {
         .filter(containsRouting) // Get only the files that contain real router usage
         .map(moduleToModuleRouteCalls) // Map the router usage to real router configuration calls
         .filter(hasValue) // Not all the files that contain router usage, contain router configuration call
-        .map(moduleRouteCall => routeCallToRoutes(moduleRouteCall, program.getTypeChecker()));
+        .map((moduleRouteCall) => routeCallToRoutes(moduleRouteCall, program.getTypeChecker()));
 
     const moduleAppRoutes: ModuleAppRoutes[] = fixupLoadChildren(moduleRoutes, moduleFiles);
 
     // Get only the routes into a single array
     const appRoutes: AppRoute[] = moduleAppRoutes
-        .map(moduleRoute => moduleRoute.routes)
+        .map((moduleRoute) => moduleRoute.routes)
         .reduce((acc, val) => acc.concat(val), []);
 
     return appRoutes;
@@ -155,7 +155,7 @@ function routeCallToRoutes(moduleRouteCall: ModuleRouteCall, typeChecker: ts.Typ
 
     function serializeRoute(expr: ts.ObjectLiteralExpression): AppRouteWithLazyLoading {
         const route: AppRouteWithLazyLoading = {};
-        expr.properties.forEach(prop => {
+        expr.properties.forEach((prop) => {
             if (!ts.isPropertyAssignment(prop)) {
                 return;
             }
@@ -227,15 +227,15 @@ function fixupLoadChildren(
 ): ModuleAppRoutes[] {
     // Used for optimization: instead of an array, build a map
     const routesByModule = new Map(
-        moduleRoutesWithLoadChildren.map(moduleRoute => [moduleRoute.module, moduleRoute.routes])
+        moduleRoutesWithLoadChildren.map((moduleRoute) => [moduleRoute.module, moduleRoute.routes])
     );
 
     // These are the lazy loaded modules. Their name is referenced by another route configuration for lazy loading
     const referencedLazyLoadedModules: { [name: string]: boolean } = {};
 
     // Lazy loaded module references are in fact substituted with the actual route configuration
-    const moduleRoutes: ModuleRoutes[] = moduleRoutesWithLoadChildren.map(moduleRoute => {
-        const routes = moduleRoute.routes.map(route => {
+    const moduleRoutes: ModuleRoutes[] = moduleRoutesWithLoadChildren.map((moduleRoute) => {
+        const routes = moduleRoute.routes.map((route) => {
             if (!route.loadChildren) {
                 return route;
             }
@@ -253,11 +253,11 @@ function fixupLoadChildren(
     });
 
     // At the end delete all the modules that were used as reference
-    return moduleRoutes.filter(moduleRoute => !referencedLazyLoadedModules[moduleRoute.module]);
+    return moduleRoutes.filter((moduleRoute) => !referencedLazyLoadedModules[moduleRoute.module]);
 
     function getReferencedModule(loadChildrenModule: string): string {
         const moduleFileName = loadChildrenModule.substring(loadChildrenModule.lastIndexOf('/') + 1);
-        let referencedModule = moduleRoutesWithLoadChildren.find(moduleRoute =>
+        let referencedModule = moduleRoutesWithLoadChildren.find((moduleRoute) =>
             moduleRoute.module.includes(moduleFileName)
         );
 
@@ -265,25 +265,25 @@ function fixupLoadChildren(
         // imports the feature routing module and the feature routing module is the one that
         // contains the RouteModule.forRoot / forChild call
         if (!referencedModule) {
-            const moduleFile = allModuleFiles.find(sourceFile => sourceFile.fileName.includes(moduleFileName));
+            const moduleFile = allModuleFiles.find((sourceFile) => sourceFile.fileName.includes(moduleFileName));
             // In general moduleFile should be found if the naming convention is kept
             if (moduleFile) {
                 // Go through the import statements and get those that contain 'module'
                 const possibleModules = moduleFile.statements
                     .filter(
-                        st =>
+                        (st) =>
                             ts.isImportDeclaration(st) &&
                             ts.isStringLiteral(st.moduleSpecifier) &&
                             st.moduleSpecifier.text.includes('module')
                     )
-                    .map(st => {
+                    .map((st) => {
                         const txt = ((st as ts.ImportDeclaration).moduleSpecifier as ts.StringLiteral).text;
                         return txt.substring(txt.lastIndexOf('/') + 1);
                     });
 
                 // Try to find the referenced module within the possible modules found in the step above
-                referencedModule = moduleRoutesWithLoadChildren.find(moduleRoute =>
-                    possibleModules.find(fileName => moduleRoute.module.includes(fileName))
+                referencedModule = moduleRoutesWithLoadChildren.find((moduleRoute) =>
+                    possibleModules.find((fileName) => moduleRoute.module.includes(fileName))
                 );
             }
         }

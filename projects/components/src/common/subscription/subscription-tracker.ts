@@ -72,7 +72,7 @@ export class SubscriptionTracker implements ISubscriptionTracker {
     }
 
     unsubscribeAll(): void {
-        this.subscriptions.forEach(subscription => subscription.unsubscribe());
+        this.subscriptions.forEach((subscription) => subscription.unsubscribe());
         this.subscriptions = [];
     }
 }

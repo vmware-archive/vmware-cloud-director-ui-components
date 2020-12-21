@@ -176,7 +176,7 @@ export class DatagridFilterExampleComponent {
         // Not assigning new array, as that would result in the options inside filter component losing the reference and thereby
         // not getting any changes
         this.selectFilterOptions.length = 0;
-        selectFilterOptions.forEach(option => this.selectFilterOptions.push(option));
+        selectFilterOptions.forEach((option) => this.selectFilterOptions.push(option));
     }
 
     refresh(eventData: GridState<MockRecord>): void {

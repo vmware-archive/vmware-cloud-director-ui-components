@@ -17,10 +17,10 @@ let outputObject = {};
 
 // Create the translations.ts file
 propertiesFiles
-    .filter(function(f) {
+    .filter(function (f) {
         return f.endsWith('.properties');
     })
-    .forEach(function(propertiesFile) {
+    .forEach(function (propertiesFile) {
         const data = fs.readFileSync(I18N_PROPS_FOLDER + '/' + propertiesFile, 'utf-8');
         const inputObject = properties.parse(data);
 

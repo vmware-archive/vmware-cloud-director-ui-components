@@ -22,7 +22,7 @@
         {{ 'vcd.cc.datagrid.actions' | translate }}
     </clr-dg-column>
     <clr-dg-column
-        *ngFor="let column of columnsConfig"
+        *ngFor="let column of columnsConfig; trackBy: columnTrackBy"
         [clrDgSortBy]="column.sortable !== false && column.queryFieldName"
         (clrDgSortOrderChange)="resetToPageOne()"
         class="data-column"

@@ -32,5 +32,11 @@ export class ActionMenuStaticActionsExampleComponent {
             actionType: ActionType.STATIC_FEATURED,
             isTranslatable: false,
         },
+        {
+            textKey: 'Disabled Action',
+            actionType: ActionType.STATIC_FEATURED,
+            isTranslatable: false,
+            disabled: true,
+        },
     ];
 }

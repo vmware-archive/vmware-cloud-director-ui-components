@@ -12,9 +12,7 @@ import { BehaviorSubject, Observable } from 'rxjs';
  */
 @Component({
     selector: 'vcd-subscription-tracker-example-sub',
-    template: `
-        <h1>This is a Sub Component</h1>
-    `,
+    template: ` <h1>This is a Sub Component</h1> `,
 })
 // Use an empty class as its base class instead of Object to support IE11
 // See https://github.com/microsoft/TypeScript/issues/37601
@@ -25,7 +23,7 @@ export class SubscriptionTrackerExampleSubComponent implements OnInit, OnDestroy
     private subscriptionTracker = new SubscriptionTracker(this);
 
     ngOnInit(): void {
-        this.subscriptionTracker.subscribe(this.observable, value => console.log(value));
+        this.subscriptionTracker.subscribe(this.observable, (value) => console.log(value));
     }
 
     ngOnDestroy(): void {}

@@ -153,6 +153,29 @@ describe('DatagridComponent', () => {
                 );
             });
 
+            describe('@Input() columns', () => {
+                beforeEach(function (this: HasFinderAndGrid): void {
+                    this.hostComponent.gridData = {
+                        items: [],
+                        totalItems: 0,
+                    };
+                    this.finder.detectChanges();
+                });
+
+                it('allows users to update the columns', fakeAsync(function (this: HasFinderAndGrid): void {
+                    this.hostComponent.columns = [...this.hostComponent.columns];
+                    this.finder.detectChanges();
+                    tick();
+                    expect(
+                        this.vcdDatagrid
+                            .findClrDatagrid()
+                            .getColumnHeaders()
+                            .toArray()
+                            .map((el) => el.text())
+                    ).toEqual(['Name', 'City']);
+                }));
+            });
+
             describe('@Input() columns.disableCliptext', () => {
                 beforeEach(function (this: HasFinderAndGrid): void {
                     this.hostComponent.gridData = {

@@ -66,7 +66,11 @@ export class DatagridRowSelectExampleComponent {
 
     refresh(eventData: GridState<Data>): void {
         this.gridData = {
-            items: [{ href: 'a', data: 5 }, { href: 'b', data: 5 }, { href: 'c', data: 5 }].slice(
+            items: [
+                { href: 'a', data: 5 },
+                { href: 'b', data: 5 },
+                { href: 'c', data: 5 },
+            ].slice(
                 (eventData.pagination.pageNumber - 1) * eventData.pagination.itemsPerPage,
                 eventData.pagination.pageNumber * eventData.pagination.itemsPerPage
             ),

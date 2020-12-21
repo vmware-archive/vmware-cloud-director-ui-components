@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.0.0-dev.53] - 2020-12-16
+### Fixed
+- Allows boolean to be set to disable an action item
+
 ## [1.0.0-dev.52] - 2020-12-16
 ### Fixed
 - Fix Quick Search 'Content Projection' live examples opening on Stackblitz

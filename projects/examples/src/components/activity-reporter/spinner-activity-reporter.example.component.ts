@@ -29,7 +29,7 @@ export class SpinnerActivityReporterExampleComponent {
                     this.resolve = resolve;
                 })
             )
-            .then(result => {
+            .then((result) => {
                 this.showSpinner = false;
                 return result;
             });

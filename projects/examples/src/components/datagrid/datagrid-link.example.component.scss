@@ -1,7 +1,7 @@
 vcd-datagrid ::ng-deep .inline-actions-container {
-  & .inline-action-dropdown {
-    & ::ng-deep .nested-dropdown > .first-dropdown-toggle {
-      margin-top: 0 !important;
+    & .inline-action-dropdown {
+        & ::ng-deep .nested-dropdown > .first-dropdown-toggle {
+            margin-top: 0 !important;
+        }
     }
-  }
 }

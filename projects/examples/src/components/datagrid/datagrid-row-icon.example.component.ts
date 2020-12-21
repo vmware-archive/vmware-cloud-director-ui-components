@@ -56,9 +56,7 @@ export interface RowIconRenderConfig {
     selector: 'vcd-row-icon-renderer',
     template: `
         <button (click)="opened = !opened; config.iconShownChanged()"></button>
-        <clr-modal [(clrModalOpen)]="opened" [clrModalSize]="'sm'">
-            Modal!
-        </clr-modal>
+        <clr-modal [(clrModalOpen)]="opened" [clrModalSize]="'sm'"> Modal! </clr-modal>
     `,
 })
 export class RowIconRendererComponent implements ComponentRenderer<RowIconRenderConfig> {
