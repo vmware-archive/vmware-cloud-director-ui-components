@@ -274,7 +274,7 @@ columns: GridColumn<MockRecord>[] = [{
                 </tr>
                         <tr>
                             <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="67" class="link-to-prism">projects/components/src/datagrid/filters/datagrid-select-filter.component.ts:67</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="68" class="link-to-prism">projects/components/src/datagrid/filters/datagrid-select-filter.component.ts:68</a></div>
                             </td>
                         </tr>
 
@@ -385,8 +385,8 @@ columns: GridColumn<MockRecord>[] = [{
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="63"
-                            class="link-to-prism">projects/components/src/datagrid/filters/datagrid-select-filter.component.ts:63</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="64"
+                            class="link-to-prism">projects/components/src/datagrid/filters/datagrid-select-filter.component.ts:64</a></div>
                 </td>
             </tr>
 
@@ -426,8 +426,8 @@ columns: GridColumn<MockRecord>[] = [{
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="76"
-                            class="link-to-prism">projects/components/src/datagrid/filters/datagrid-select-filter.component.ts:76</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="77"
+                            class="link-to-prism">projects/components/src/datagrid/filters/datagrid-select-filter.component.ts:77</a></div>
                 </td>
             </tr>
 
@@ -465,8 +465,8 @@ columns: GridColumn<MockRecord>[] = [{
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="89"
-                            class="link-to-prism">projects/components/src/datagrid/filters/datagrid-select-filter.component.ts:89</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="90"
+                            class="link-to-prism">projects/components/src/datagrid/filters/datagrid-select-filter.component.ts:90</a></div>
                 </td>
             </tr>
 
@@ -504,8 +504,8 @@ columns: GridColumn<MockRecord>[] = [{
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="98"
-                            class="link-to-prism">projects/components/src/datagrid/filters/datagrid-select-filter.component.ts:98</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="99"
+                            class="link-to-prism">projects/components/src/datagrid/filters/datagrid-select-filter.component.ts:99</a></div>
                 </td>
             </tr>
 
@@ -543,8 +543,8 @@ columns: GridColumn<MockRecord>[] = [{
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="102"
-                            class="link-to-prism">projects/components/src/datagrid/filters/datagrid-select-filter.component.ts:102</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="103"
+                            class="link-to-prism">projects/components/src/datagrid/filters/datagrid-select-filter.component.ts:103</a></div>
                 </td>
             </tr>
 
@@ -582,8 +582,8 @@ columns: GridColumn<MockRecord>[] = [{
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="80"
-                            class="link-to-prism">projects/components/src/datagrid/filters/datagrid-select-filter.component.ts:80</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="81"
+                            class="link-to-prism">projects/components/src/datagrid/filters/datagrid-select-filter.component.ts:81</a></div>
                 </td>
             </tr>
 
@@ -1160,7 +1160,7 @@ assigning the UI widget configuration and setting a value</p>
                     </tr>
                         <tr>
                             <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="58" class="link-to-prism">projects/components/src/datagrid/filters/datagrid-select-filter.component.ts:58</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="59" class="link-to-prism">projects/components/src/datagrid/filters/datagrid-select-filter.component.ts:59</a></div>
                             </td>
                         </tr>
 
@@ -1394,7 +1394,8 @@ export interface DatagridSelectFilterConfig extends FilterConfig&lt;string | num
     selector: &#x27;vcd-dg-select-filter&#x27;,
     templateUrl: &#x27;datagrid-select-filter.component.html&#x27;,
 })
-export class DatagridSelectFilterComponent extends DatagridFilter&lt;string | number, DatagridSelectFilterConfig&gt;
+export class DatagridSelectFilterComponent
+    extends DatagridFilter&lt;string | number, DatagridSelectFilterConfig&gt;
     implements OnInit, OnDestroy {
     /**
      * Displayed as the first option with a falsy value. Selecting this option would deactivate the filter
@@ -1422,7 +1423,7 @@ export class DatagridSelectFilterComponent extends DatagridFilter&lt;string | nu
     }
 
     setValue(value: string | number): void {
-        if (!this.config.options.find(option &#x3D;&gt; option.value &#x3D;&#x3D;&#x3D; value)) {
+        if (!this.config.options.find((option) &#x3D;&gt; option.value &#x3D;&#x3D;&#x3D; value)) {
             throw Error(&#x27;The value being set on select filter is not equal to any of the options&#x27;);
         }
         this.formGroup.setValue({
@@ -1476,9 +1477,9 @@ export function DatagridSelectFilter(
             &lt;div class&#x3D;&quot;clr-select-wrapper&quot;&gt;
                 &lt;select [formControlName]&#x3D;&quot;&#x27;filterSelect&#x27;&quot; class&#x3D;&quot;clr-select&quot;&gt;
                     &lt;option [ngValue]&#x3D;&quot;anyChoice.value&quot;&gt;{{ anyChoice.display }}&lt;/option&gt;
-                    &lt;option *ngFor&#x3D;&quot;let option of config.options&quot; [ngValue]&#x3D;&quot;option.value&quot;&gt;{{
-                        option.isTranslatable ? (option.display | translate) : option.display
-                    }}&lt;/option&gt;
+                    &lt;option *ngFor&#x3D;&quot;let option of config.options&quot; [ngValue]&#x3D;&quot;option.value&quot;&gt;
+                        {{ option.isTranslatable ? (option.display | translate) : option.display }}
+                    &lt;/option&gt;
                 &lt;/select&gt;
             &lt;/div&gt;
         &lt;/div&gt;
@@ -1513,7 +1514,7 @@ export function DatagridSelectFilter(
 <script src="../js/libs/htmlparser.js"></script>
 <script src="../js/libs/deep-iterator.js"></script>
 <script>
-        var COMPONENT_TEMPLATE = '<div><form [formGroup]="formGroup">    <div class="clr-form-control">        <div class="clr-control-container">            <div class="clr-select-wrapper">                <select [formControlName]="\'filterSelect\'" class="clr-select">                    <option [ngValue]="anyChoice.value">{{ anyChoice.display }}</option>                    <option *ngFor="let option of config.options" [ngValue]="option.value">{{                        option.isTranslatable ? (option.display | translate) : option.display                    }}</option>                </select>            </div>        </div>    </div></form></div>'
+        var COMPONENT_TEMPLATE = '<div><form [formGroup]="formGroup">    <div class="clr-form-control">        <div class="clr-control-container">            <div class="clr-select-wrapper">                <select [formControlName]="\'filterSelect\'" class="clr-select">                    <option [ngValue]="anyChoice.value">{{ anyChoice.display }}</option>                    <option *ngFor="let option of config.options" [ngValue]="option.value">                        {{ option.isTranslatable ? (option.display | translate) : option.display }}                    </option>                </select>            </div>        </div>    </div></form></div>'
     var COMPONENTS = [{'name': 'ActionMenuComponent', 'selector': 'vcd-action-menu'},{'name': 'BannerActivityReporterComponent', 'selector': 'vcd-banner-activity-reporter'},{'name': 'BoldTextRendererComponent', 'selector': 'vcd-bold-text-renderer'},{'name': 'DataExporterComponent', 'selector': 'vcd-data-exporter'},{'name': 'DatagridComponent', 'selector': 'vcd-datagrid'},{'name': 'DatagridMultiSelectFilterComponent', 'selector': 'vcd-dg-multiselect-filter'},{'name': 'DatagridNumericFilterComponent', 'selector': 'vcd-dg-numeric-filter'},{'name': 'DatagridSelectFilterComponent', 'selector': 'vcd-dg-select-filter'},{'name': 'DatagridStringFilterComponent', 'selector': 'vcd-dg-string-filter'},{'name': 'DropdownComponent', 'selector': 'vcd-dropdown'},{'name': 'ErrorBannerComponent', 'selector': 'vcd-error-banner'},{'name': 'FilterTestHostComponent', 'selector': ''},{'name': 'FormCheckboxComponent', 'selector': 'vcd-form-checkbox'},{'name': 'FormInputComponent', 'selector': 'vcd-form-input'},{'name': 'FormlyInputComponent', 'selector': 'vcd-formly-input'},{'name': 'FormlyNumberWithUnitInputComponent', 'selector': 'vcd-formly-number-with-unit-input'},{'name': 'FormlySelectComponent', 'selector': 'vcd-formly-select'},{'name': 'FormSelectComponent', 'selector': 'vcd-form-select'},{'name': 'LoadingIndicatorComponent', 'selector': 'vcd-loading-indicator'},{'name': 'NumberWithUnitFormInputComponent', 'selector': 'vcd-number-with-unit-form-input'},{'name': 'QuickSearchComponent', 'selector': 'vcd-quick-search'},{'name': 'ShowClippedTextDirectiveTestHostComponent', 'selector': ''},{'name': 'SpinnerActivityReporterComponent', 'selector': 'vcd-spinner-activity-reporter'}];
     var DIRECTIVES = [{'name': 'ComponentRendererOutletDirective', 'selector': '[vcdComponentRendererOutlet]'},{'name': 'DropdownFocusHandlerDirective', 'selector': 'vcd-dropdown[vcdDropdownFocusHandler]'},{'name': 'DynamicDropdownPositionDirective', 'selector': 'clr-dropdown[vcdDynamicDropdown]'},{'name': 'ShowClippedTextDirective', 'selector': '[vcdShowClippedText]'}];
     var ACTUAL_COMPONENT = {'name': 'DatagridSelectFilterComponent'};

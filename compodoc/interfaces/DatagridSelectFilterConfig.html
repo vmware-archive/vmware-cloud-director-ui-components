@@ -237,7 +237,8 @@ export interface DatagridSelectFilterConfig extends FilterConfig&lt;string | num
     selector: &#x27;vcd-dg-select-filter&#x27;,
     templateUrl: &#x27;datagrid-select-filter.component.html&#x27;,
 })
-export class DatagridSelectFilterComponent extends DatagridFilter&lt;string | number, DatagridSelectFilterConfig&gt;
+export class DatagridSelectFilterComponent
+    extends DatagridFilter&lt;string | number, DatagridSelectFilterConfig&gt;
     implements OnInit, OnDestroy {
     /**
      * Displayed as the first option with a falsy value. Selecting this option would deactivate the filter
@@ -265,7 +266,7 @@ export class DatagridSelectFilterComponent extends DatagridFilter&lt;string | nu
     }
 
     setValue(value: string | number): void {
-        if (!this.config.options.find(option &#x3D;&gt; option.value &#x3D;&#x3D;&#x3D; value)) {
+        if (!this.config.options.find((option) &#x3D;&gt; option.value &#x3D;&#x3D;&#x3D; value)) {
             throw Error(&#x27;The value being set on select filter is not equal to any of the options&#x27;);
         }
         this.formGroup.setValue({

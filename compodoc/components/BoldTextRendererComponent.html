@@ -116,8 +116,7 @@ renderer: RendererSpec(
 
             <tr>
                 <td class="col-md-3">template</td>
-                <td class="col-md-9"><pre class="line-numbers"><code class="language-html">&lt;strong&gt;{{ config.text }}&lt;/strong&gt;
-</code></pre></td>
+                <td class="col-md-9"><pre class="line-numbers"><code class="language-html">&lt;strong&gt;{{ config.text }}&lt;/strong&gt;</code></pre></td>
             </tr>
 
 
@@ -179,7 +178,7 @@ renderer: RendererSpec(
                 </tr>
                         <tr>
                             <td class="col-md-2" colspan="2">
-                                    <div class="io-line">Defined in <a href="" data-line="41" class="link-to-prism">projects/components/src/datagrid/renderers/bold-text-renderer.component.ts:41</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="39" class="link-to-prism">projects/components/src/datagrid/renderers/bold-text-renderer.component.ts:39</a></div>
                             </td>
                         </tr>
             </tbody>
@@ -223,9 +222,7 @@ export interface BoldTextRendererConfig {
  */
 @Component({
     selector: &#x27;vcd-bold-text-renderer&#x27;,
-    template: &#x60;
-        &lt;strong&gt;{{ config.text }}&lt;/strong&gt;
-    &#x60;,
+    template: &#x60; &lt;strong&gt;{{ config.text }}&lt;/strong&gt; &#x60;,
 })
 export class BoldTextRendererComponent implements ComponentRenderer&lt;BoldTextRendererConfig&gt; {
     @Input()

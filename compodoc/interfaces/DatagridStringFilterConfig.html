@@ -169,7 +169,8 @@ export interface DatagridStringFilterConfig extends FilterConfig&lt;string&gt; {
     selector: &#x27;vcd-dg-string-filter&#x27;,
     templateUrl: &#x27;datagrid-string-filter.component.html&#x27;,
 })
-export class DatagridStringFilterComponent extends DatagridFilter&lt;string, DatagridStringFilterConfig&gt;
+export class DatagridStringFilterComponent
+    extends DatagridFilter&lt;string, DatagridStringFilterConfig&gt;
     implements OnDestroy {
     createFormGroup(): FormGroup {
         return new FormGroup({

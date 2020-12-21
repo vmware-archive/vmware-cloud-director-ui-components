@@ -201,7 +201,7 @@ a succeeded promise will return an empty response parameter which is assumed to 
                     <div>
                     </div>
                     <div class="io-description">
-                        <b>Returns : </b>    <code>Promise&lt;[]&gt;</code>
+                        <b>Returns : </b>        <code><a href="../interfaces/ObjectAndResponse.html" target="_self" >Promise&lt;ObjectAndResponse[]&gt;</a></code>
 
                     </div>
                     <div class="io-description">
@@ -360,13 +360,13 @@ export class ActivityPromiseResolver&lt;T&gt; {
      */
     resolveActivity(activityResolutionPromise: Promise&lt;T&gt;, successMessage?: string): Promise&lt;ObjectAndResponse&lt;T&gt;&gt; {
         return activityResolutionPromise
-            .then(result &#x3D;&gt; {
+            .then((result) &#x3D;&gt; {
                 return {
                     object: result,
                     response: { ...result, success: successMessage || result },
                 };
             })
-            .catch(error &#x3D;&gt; {
+            .catch((error) &#x3D;&gt; {
                 return { response: { error } };
             });
     }
@@ -381,9 +381,9 @@ export class ActivityPromiseResolver&lt;T&gt; {
     resolveActivities(
         activityResolutionPromises: Promise&lt;T[]&gt;,
         successMessage?: string
-    ): Promise&lt;(ObjectAndResponse&lt;T&gt;)[]&gt; {
+    ): Promise&lt;ObjectAndResponse&lt;T&gt;[]&gt; {
         return activityResolutionPromises
-            .then(result &#x3D;&gt; {
+            .then((result) &#x3D;&gt; {
                 return [
                     {
                         object: result[0],
@@ -391,7 +391,7 @@ export class ActivityPromiseResolver&lt;T&gt; {
                     },
                 ];
             })
-            .catch(error &#x3D;&gt; {
+            .catch((error) &#x3D;&gt; {
                 return [{ response: { error } }];
             });
     }

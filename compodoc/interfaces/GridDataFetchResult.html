@@ -201,6 +201,7 @@
 } from &#x27;@angular/core&#x27;;
 import { ClrDatagrid, ClrDatagridPagination, ClrDatagridStateInterface } from &#x27;@clr/angular&#x27;;
 import { SelectionType } from &#x27;@clr/angular/data/datagrid/enums/selection-type&#x27;;
+import { columnStateFactory } from &#x27;@clr/angular/data/datagrid/providers/column-state.provider&#x27;;
 import { LazyString, TranslationService } from &#x27;@vcd/i18n&#x27;;
 import { Observable } from &#x27;rxjs&#x27;;
 import { ActionMenuComponent } from &#x27;../action-menu/action-menu.component&#x27;;
@@ -903,6 +904,13 @@ export class DatagridComponent&lt;R extends B, B &#x3D; any&gt; implements OnIni
     };
 
     /**
+     * Returns an identifier for the given column at the given index.
+     */
+    columnTrackBy(index: number, column: ColumnConfigInternal&lt;R, unknown&gt;): string {
+        return column.displayName;
+    }
+
+    /**
      * Gives the render spec to create the detail row for the row with the given record, at the given index, and
      * in a datagrid with the given count of total items.
      */
@@ -1168,6 +1176,10 @@ export class DatagridComponent&lt;R extends B, B &#x3D; any&gt; implements OnIni
             if (this.datagrid.items.displayed.length &gt; 0) {
                 (this.datagrid as any).organizer.resize();
             }
+        });
+
+        this.columnsUpdated.subscribe(() &#x3D;&gt; {
+            this.datagrid.columns.reset(this.datagrid.columns.toArray());
         });
     }
 

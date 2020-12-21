@@ -700,7 +700,7 @@ export abstract class ActivityReporter {
         this.startActivity();
         const performer &#x3D; this.promiseResolver as ActivityPromiseResolver&lt;T&gt;;
         const response &#x3D; await performer.resolveActivities(activityResolutionPromises);
-        const returnValue &#x3D; response.map(item &#x3D;&gt; item.object);
+        const returnValue &#x3D; response.map((item) &#x3D;&gt; item.object);
         if (response.length) {
             for (const item of response) {
                 if (item.response.error) {

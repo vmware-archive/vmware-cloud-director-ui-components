@@ -401,7 +401,7 @@ R is the type of selected entity on which the action will be performed</p>
                                 </tr>
                                 <tr>
                                     <td class="col-md-4">
-                                        <code>disabled:         <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/function" target="_blank" >function</a></code>
+                                        <code>disabled:     <code> | boolean</code>
 </code>
                                     </td>
                                 </tr>
@@ -409,7 +409,7 @@ R is the type of selected entity on which the action will be performed</p>
 
                                     <tr>
                                         <td class="col-md-4">
-                                            <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/function" target="_blank" >function</a></code>
+                                            <i>Type : </i>    <code> | boolean</code>
 
                                         </td>
                                     </tr>
@@ -729,7 +729,7 @@ export interface ActionItem&lt;R, T&gt; {
      * Indicates if an action that is available should be disabled. If true, a non available action is disabled.
      * If false, a non-available action is hidden
      */
-    disabled?: (records?: R[]) &#x3D;&gt; boolean | boolean;
+    disabled?: ((records?: R[]) &#x3D;&gt; boolean) | boolean;
     /**
      * The key that will be fired with the action.
      */

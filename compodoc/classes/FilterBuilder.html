@@ -1811,7 +1811,7 @@ export class FilterBuilder {
             const first &#x3D; conditions.shift();
             let partial &#x3D; first.buildPartial();
 
-            conditions.forEach(condition &#x3D;&gt; {
+            conditions.forEach((condition) &#x3D;&gt; {
                 partial +&#x3D; Operators.AND + condition.buildPartial();
             });
 
@@ -1830,7 +1830,7 @@ export class FilterBuilder {
             const first &#x3D; conditions.shift();
             let partial &#x3D; first.buildPartial();
 
-            conditions.forEach(condition &#x3D;&gt; {
+            conditions.forEach((condition) &#x3D;&gt; {
                 partial +&#x3D; Operators.AND + condition.buildPartial();
             });
 
@@ -1865,7 +1865,7 @@ export class FilterBuilder {
             const first &#x3D; conditions.shift();
             let partial &#x3D; first.buildPartial();
 
-            conditions.forEach(condition &#x3D;&gt; {
+            conditions.forEach((condition) &#x3D;&gt; {
                 partial +&#x3D; Operators.OR + condition.buildPartial();
             });
 
@@ -1885,7 +1885,7 @@ export class FilterBuilder {
             let partial &#x3D; first.buildPartial();
             first.clear();
 
-            conditions.forEach(condition &#x3D;&gt; {
+            conditions.forEach((condition) &#x3D;&gt; {
                 partial +&#x3D; Operators.OR + condition.buildPartial();
                 condition.clear();
             });
@@ -1993,7 +1993,7 @@ export class FilterBuilder {
         const name &#x3D; this.result;
         this.result +&#x3D; (operator + value) as string;
         if (moreValues.length) {
-            moreValues.forEach(val &#x3D;&gt; {
+            moreValues.forEach((val) &#x3D;&gt; {
                 this.result +&#x3D; (&#x27;,&#x27; + name + operator + val) as string;
             });
             this.currentOperator &#x3D; Operators.OR;
