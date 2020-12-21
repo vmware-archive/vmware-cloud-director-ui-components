@@ -167,8 +167,7 @@ describe('DatagridComponent', () => {
                     this.finder.detectChanges();
                     tick();
                     expect(
-                        this.vcdDatagrid
-                            .findClrDatagrid()
+                        this.vcdDatagrid.clrDatagrid
                             .getColumnHeaders()
                             .toArray()
                             .map((el) => el.text())
