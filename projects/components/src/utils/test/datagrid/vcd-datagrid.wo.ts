@@ -20,7 +20,7 @@ export class VcdDatagridWidgetObject<T> extends BaseWidgetObject<T> {
     /**
      * Gives the widget object for this `clr-datagrid`.
      */
-    findClrDatagrid(): ClrDatagridWidgetObject<T> {
+    get clrDatagrid(): ClrDatagridWidgetObject<T> {
         // @ts-ignore
         return this.locatorDriver.findWidget(ClrDatagridWidgetObject);
     }

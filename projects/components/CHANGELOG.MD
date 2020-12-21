@@ -6,9 +6,18 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
+
+## [1.0.0-dev.53] - 2020-12-16
+### Fixed
+- Allows boolean to be set to disable an action item
+
+## [1.0.0-dev.52] - 2020-12-16
 ### Fixed
 - Fix Quick Search 'Content Projection' live examples opening on Stackblitz
-- Allows boolean to be set to disable an action item
+### Changed
+1. Enabled `TestElement` to query children elements by css selector
+### Removed
+1. Removed functions in `ClrDatagridWidget` that are specific to VcdDatagrid
 
 ## [1.0.0-dev.51] - 2020-12-4
 ### Added
@@ -27,7 +36,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Fixed
 - Underlying page scrolling when navigating the action menu using arrow keys.
 - Space/Enter keys not closing the action menu after a action menu item is activated.
-- Esc key not closing the action menu it is pressed on. 
+- Esc key not closing the action menu it is pressed on.
 - Not being able to navigate using arrow keys on action menu with separators
 
 ## [1.0.0-dev.49] - 2020-11-10
