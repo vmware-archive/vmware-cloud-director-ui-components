@@ -198,6 +198,10 @@ export class QuickSearchComponent {
                     return;
                 }
             }
+            // This code will get called for each of the key strokes that gets typed during the buffer time. This means if there were 10
+            // characters typed during the de-bouncing time, this code will be called 10 times after the promise is resolved from a provider
+            // search function. However, we don't currently see any problem with that because the following code just re assigns variables
+            // with same values
             searchSection.result = searchResult;
             searchSection.isLoading = false;
             if (!this.selectedItem) {

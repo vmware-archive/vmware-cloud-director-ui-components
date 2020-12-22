@@ -8,8 +8,10 @@ import { QuickSearchProvider } from './quick-search.provider';
 import { QuickSearchService } from './quick-search.service';
 
 class SimpleSearchProvider implements QuickSearchProvider {
-    data: unknown;
     constructor(public sectionName: string = '', public order: number = -1) {}
+    data: unknown;
+
+    shouldDebounceInput: boolean;
     search(criteria: string): QuickSearchResultsType {
         return { items: [] };
     }

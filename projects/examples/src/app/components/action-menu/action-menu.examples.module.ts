@@ -11,6 +11,8 @@ import { ActionMenuContextualActionsExampleComponent } from './contextual-action
 import { ActionMenuContextualActionsExampleModule } from './contextual-actions/action-menu-contextual-actions-example.module';
 import { ActionMenuHideDisableExampleComponent } from './hide-disable/action-menu-hide-disable-example.component';
 import { ActionMenuHideDisableExampleModule } from './hide-disable/action-menu-hide-disable.example.module';
+import { ActionMenuSearchDebounceExampleComponent } from './search-debounce/action-menu-search-debounce.example.component';
+import { ActionMenuSearchDebounceExampleModule } from './search-debounce/action-menu-search-debounce.example.module';
 // tslint:disable-next-line:max-line-length
 import { ActionMenuSearchPauseUnpauseExampleComponent } from './search-pause-unpause/action-menu-search-pause-and-unpause.example.component';
 import { ActionMenuSearchPauseAndUnpauseExampleModule } from './search-pause-unpause/action-menu-search-pause-and-unpause.example.module';
@@ -71,6 +73,12 @@ Documentation.registerDocumentationEntry({
             title: 'Action search pause and unpause',
             urlSegment: 'action-search-pause-unpause',
         },
+        {
+            component: ActionMenuSearchDebounceExampleComponent,
+            forComponent: null,
+            title: 'Debounced Action Search',
+            urlSegment: 'action-menu-search-debounce',
+        },
     ],
 });
 
@@ -83,6 +91,7 @@ Documentation.registerDocumentationEntry({
         ActionMenuStaticAndContextualActionsExampleModule,
         ActionMenuHideDisableExampleModule,
         ActionMenuSearchExampleModule,
+        ActionMenuSearchDebounceExampleModule,
     ],
 })
 export class ActionMenuExamplesModule {}

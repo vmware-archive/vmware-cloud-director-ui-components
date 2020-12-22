@@ -7,6 +7,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.0.0-dev.54]
+### Changed
+- QuickSearchProvider now takes a boolean argument in its constructor to debounce calling the search functionality
+by 300 milliseconds 
+
 ## [1.0.0-dev.53] - 2020-12-16
 ### Fixed
 - Allows boolean to be set to disable an action item

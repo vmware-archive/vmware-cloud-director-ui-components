@@ -1,0 +1,16 @@
+<div>
+    <p>
+        Press 'command+.' on Mac OS or 'ctrl+.' on PC to open quick search and search through all the actions. Notice
+        that there is a spinner displayed initially for 300ms before displaying the action items. This is because the
+        action search provider is created to debounce the search using 2nd argument(boolean) passed to its constructor.
+    </p>
+    <vcd-action-menu
+        [actions]="actions"
+        [actionDisplayConfig]="actionDisplayConfig"
+        [selectedEntities]="selectedEntities"
+        [dropdownTriggerBtnText]="'vcd.cc.action.menu.actions'"
+    >
+    </vcd-action-menu>
+</div>
+
+<vcd-quick-search [(open)]="spotlightOpen" [placeholder]="'Search contextual actions'"></vcd-quick-search>

@@ -60,8 +60,8 @@ export class SimpleSearchProvider extends QuickSearchProviderDefaults {
 
     private actions: QuickSearchResultItem[];
 
-    constructor() {
-        super();
+    constructor(public shouldDebounceInput = false) {
+        super(shouldDebounceInput);
         // Build actions
         this.actions = [...Array(200)].map((_, i) => {
             const action = `Action - ${i + 1}`;
