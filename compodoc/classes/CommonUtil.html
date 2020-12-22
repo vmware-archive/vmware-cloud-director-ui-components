@@ -82,6 +82,10 @@
                         <ul class="index-list">
                             <li>
                                     <span class="modifier">Static</span>
+                                <a href="#createBufferedPromise">createBufferedPromise</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Static</span>
                                 <a href="#isFunction">isFunction</a>
                             </li>
                             <li>
@@ -107,6 +111,144 @@
     <h3 id="methods">
         Methods
     </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="createBufferedPromise"></a>
+                    <span class="name">
+                        <b>
+                            <span class="modifier">Static</span>
+                            createBufferedPromise
+                        </b>
+                        <a href="#createBufferedPromise"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                    <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>createBufferedPromise(fn: T, scope: unknown, buffer: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank">number</a>)</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="38"
+                            class="link-to-prism">projects/components/src/utils/common-util.ts:38</a></div>
+                </td>
+            </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <b>Type parameters :</b>
+                    <ul class="type-parameters">
+                        <li>T</li>
+                    </ul>
+                </td>
+            </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Creates a function that when called, actually calls the function parameter <code>fn</code> after a certain amount of time,
+which is the value of <code>buffer</code> parameter. The created function then resolves the promise it returned and the same
+promise is reused for all the calls that get buffered</p>
+</div>
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Type</td>
+                                    <td>Optional</td>
+                                    <td>Default value</td>
+                                    <td>Description</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>fn</td>
+                                    <td>
+                                            <code>T</code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+                                    <td>
+                                    </td>
+
+                                    <td>
+                                        <ul>
+<li>Function to be debounced</li>
+</ul>
+
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>scope</td>
+                                    <td>
+                                            <code>unknown</code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+                                    <td>
+                                    </td>
+
+                                    <td>
+                                        <ul>
+<li>The function scope of the parameter <code>fn</code></li>
+</ul>
+
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>buffer</td>
+                                    <td>
+                                                <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+                                    <td>
+                                        <code>300</code>
+                                    </td>
+
+                                    <td>
+                                        <ul>
+<li>How long since the last call to the debounced function to wait before calling <code>fn</code></li>
+</ul>
+
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>    <code>Promise&lt;ReturnType&lt;T&gt;&gt;</code>
+
+                    </div>
+                    <div class="io-description">
+                        <p>A function that when called, will delay the calls to the <code>fn</code> that was passed in. That function will return
+the same promise each time a call is made and buffered. This means that callers need to be sure to ignore previous
+calls. This is not</p>
+
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
     <table class="table table-sm table-bordered">
         <tbody>
             <tr>
@@ -310,6 +452,50 @@
      */
     static isFunction(value: any): value is (...args: unknown[]) &#x3D;&gt; unknown {
         return typeof value &#x3D;&#x3D;&#x3D; &#x27;function&#x27;;
+    }
+
+    /**
+     * Creates a function that when called, actually calls the function parameter &#x60;fn&#x60; after a certain amount of time,
+     * which is the value of &#x60;buffer&#x60; parameter. The created function then resolves the promise it returned and the same
+     * promise is reused for all the calls that get buffered
+     *
+     * @param fn - Function to be debounced
+     * @param scope - The function scope of the parameter &#x60;fn&#x60;
+     * @param buffer - How long since the last call to the debounced function to wait before calling &#x60;fn&#x60;
+     * @return A function that when called, will delay the calls to the &#x60;fn&#x60; that was passed in. That function will return
+     * the same promise each time a call is made and buffered. This means that callers need to be sure to ignore previous
+     * calls. This is not
+     */
+    static createBufferedPromise&lt;T extends (...p: any) &#x3D;&gt; any&gt;(
+        fn: T,
+        scope: unknown,
+        buffer &#x3D; 300
+    ): (...args: Parameters&lt;T&gt;) &#x3D;&gt; Promise&lt;ReturnType&lt;T&gt;&gt; {
+        let timerId: any;
+        let pendingPromise: Promise&lt;ReturnType&lt;T&gt;&gt; &#x3D; null;
+        // tslint:disable-next-line:ban-types
+        let resolver: Function;
+        // tslint:disable-next-line:only-arrow-functions
+        return function (): Promise&lt;any&gt; {
+            if (!pendingPromise) {
+                pendingPromise &#x3D; new Promise((resolve) &#x3D;&gt; {
+                    resolver &#x3D; resolve;
+                });
+            }
+            const callArgs &#x3D; Array.from(arguments);
+            if (timerId) {
+                clearTimeout(timerId);
+                timerId &#x3D; null;
+            }
+
+            timerId &#x3D; setTimeout(() &#x3D;&gt; {
+                const retValue &#x3D; fn.apply(scope, callArgs);
+                resolver(retValue);
+                pendingPromise &#x3D; null;
+                timerId &#x3D; null;
+            }, buffer);
+            return pendingPromise;
+        };
     }
 }
 </code></pre>

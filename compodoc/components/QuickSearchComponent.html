@@ -567,8 +567,8 @@ This happens when item is clicked or &#39;Enter&#39; is pressed when there is a 
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="306"
-                            class="link-to-prism">projects/components/src/quick-search/quick-search.component.ts:306</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="310"
+                            class="link-to-prism">projects/components/src/quick-search/quick-search.component.ts:310</a></div>
                 </td>
             </tr>
 
@@ -651,8 +651,8 @@ This happens when item is clicked or &#39;Enter&#39; is pressed when there is a 
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="282"
-                            class="link-to-prism">projects/components/src/quick-search/quick-search.component.ts:282</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="286"
+                            class="link-to-prism">projects/components/src/quick-search/quick-search.component.ts:286</a></div>
                 </td>
             </tr>
 
@@ -728,8 +728,8 @@ This happens when item is clicked or &#39;Enter&#39; is pressed when there is a 
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="333"
-                            class="link-to-prism">projects/components/src/quick-search/quick-search.component.ts:333</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="337"
+                            class="link-to-prism">projects/components/src/quick-search/quick-search.component.ts:337</a></div>
                 </td>
             </tr>
 
@@ -1086,8 +1086,8 @@ then null is returned</p>
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="213"
-                            class="link-to-prism">projects/components/src/quick-search/quick-search.component.ts:213</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="217"
+                            class="link-to-prism">projects/components/src/quick-search/quick-search.component.ts:217</a></div>
                 </td>
             </tr>
 
@@ -1165,8 +1165,8 @@ then null is returned</p>
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="231"
-                            class="link-to-prism">projects/components/src/quick-search/quick-search.component.ts:231</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="235"
+                            class="link-to-prism">projects/components/src/quick-search/quick-search.component.ts:235</a></div>
                 </td>
             </tr>
 
@@ -1235,8 +1235,8 @@ then null is returned</p>
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="322"
-                            class="link-to-prism">projects/components/src/quick-search/quick-search.component.ts:322</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="326"
+                            class="link-to-prism">projects/components/src/quick-search/quick-search.component.ts:326</a></div>
                 </td>
             </tr>
 
@@ -1860,6 +1860,10 @@ export class QuickSearchComponent {
                     return;
                 }
             }
+            // This code will get called for each of the key strokes that gets typed during the buffer time. This means if there were 10
+            // characters typed during the de-bouncing time, this code will be called 10 times after the promise is resolved from a provider
+            // search function. However, we don&#x27;t currently see any problem with that because the following code just re assigns variables
+            // with same values
             searchSection.result &#x3D; searchResult;
             searchSection.isLoading &#x3D; false;
             if (!this.selectedItem) {
