@@ -7,7 +7,7 @@ import MessageFormat from 'messageformat';
 import { combineLatest, Observable, of, ReplaySubject } from 'rxjs';
 import { last, map } from 'rxjs/operators';
 import { TranslationLoader } from '../loader/translation-loader';
-import { FormatDateOptions, TranslationService, TranslationSet, TRANSLATION_MAPPING } from './translation-service';
+import { FormatDateOptions, TRANSLATION_MAPPING, TranslationService, TranslationSet } from './translation-service';
 
 /**
  * Translation service to implement ICU MessageFormat.
@@ -55,7 +55,7 @@ export class MessageFormatTranslationService extends TranslationService {
                     }))
                 );
             }
-            asyncTranslations.subscribe((translations) => {
+            asyncTranslations.subscribe(translations => {
                 if (typeof this.translationSet[this.preferredLocale] === 'undefined') {
                     this.translationSet[this.preferredLocale] = {};
                 }
@@ -96,7 +96,7 @@ export class MessageFormatTranslationService extends TranslationService {
      * @return an observable of the translated string.
      */
     public translateAsync(key: string, params?: any[]): Observable<string> {
-        return this.asyncTranslationSet.pipe(map((translations) => this.translateHelper(key, translations, params)));
+        return this.asyncTranslationSet.pipe(map(translations => this.translateHelper(key, translations, params)));
     }
 
     private translateHelper(key: string, translations: TranslationSet, params?: any[]): string {

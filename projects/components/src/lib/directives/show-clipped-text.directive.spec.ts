@@ -23,11 +23,11 @@ interface Test {
 function timeout(ms = 0): Promise<number> {
     // See https://github.com/microsoft/tslint-microsoft-contrib/issues/355
     // tslint:disable-next-line no-string-based-set-timeout
-    return new Promise((resolve) => window.setTimeout(resolve, ms));
+    return new Promise(resolve => window.setTimeout(resolve, ms));
 }
 
 describe('ShowClippedTextDirective', () => {
-    beforeEach(async function (this: Test): Promise<void> {
+    beforeEach(async function(this: Test): Promise<void> {
         await TestBed.configureTestingModule({
             declarations: [ShowClippedTextDirective, ShowClippedTextDirectiveTestHostComponent],
         }).compileComponents();
@@ -37,23 +37,23 @@ describe('ShowClippedTextDirective', () => {
     });
 
     describe('singletonTooltip', () => {
-        it('creates a single tooltip even when there are multiple directives', function (this: Test): void {
+        it('creates a single tooltip even when there are multiple directives', function(this: Test): void {
             expect(this.clippedTextHelper.tooltipCount).toBe(1);
         });
 
-        it('deletes the singleton tooltip after all instances are removed', function (this: Test): void {
+        it('deletes the singleton tooltip after all instances are removed', function(this: Test): void {
             this.clippedTextHelper.destroy();
             expect(this.clippedTextHelper.tooltipCount).toBe(0);
         });
     });
 
     describe('showing tooltip', () => {
-        it('displays the tooltip if the element is clipped', function (this: Test): void {
+        it('displays the tooltip if the element is clipped', function(this: Test): void {
             const helper = this.clippedTextHelper;
             helper.moveMouseOverHost();
             expect(helper.isTooltipVisible).toBe(true, 'Tooltip should have been visible since element is clipped');
         });
-        it('does not display the tooltip if the element is not clipped', function (this: Test): void {
+        it('does not display the tooltip if the element is not clipped', function(this: Test): void {
             const helper = this.clippedTextHelper;
             helper.width = '1000px';
             helper.moveMouseOverHost();
@@ -65,7 +65,7 @@ describe('ShowClippedTextDirective', () => {
     });
 
     describe('hiding the tooltip', () => {
-        it('hides the tooltip after a timeout', fakeAsync(function (this: Test): void {
+        it('hides the tooltip after a timeout', fakeAsync(function(this: Test): void {
             const helper = this.clippedTextHelper;
             helper.moveMouseOverHost();
             helper.moveMouseOffHost();
@@ -73,7 +73,7 @@ describe('ShowClippedTextDirective', () => {
             expect(helper.isTooltipVisible).toBe(false);
         }));
 
-        it('does not hide the tooltip if the mouse quickly goes to the tooltip', fakeAsync(function (this: Test): void {
+        it('does not hide the tooltip if the mouse quickly goes to the tooltip', fakeAsync(function(this: Test): void {
             const helper = this.clippedTextHelper;
             helper.width = '10px';
             helper.moveMouseOverHost();
@@ -83,7 +83,7 @@ describe('ShowClippedTextDirective', () => {
             expect(helper.isTooltipVisible).toBe(true);
         }));
 
-        it('hides the tooltip if the mouse moves away from the tooltip', fakeAsync(function (this: Test): void {
+        it('hides the tooltip if the mouse moves away from the tooltip', fakeAsync(function(this: Test): void {
             const helper = this.clippedTextHelper;
             helper.disabled = false;
             helper.width = '10px';
@@ -96,7 +96,7 @@ describe('ShowClippedTextDirective', () => {
             expect(helper.isTooltipVisible).toBe(false);
         }));
 
-        it('does not hide tooltip if the mouse quickly returns to host element', fakeAsync(function (this: Test): void {
+        it('does not hide tooltip if the mouse quickly returns to host element', fakeAsync(function(this: Test): void {
             const helper = this.clippedTextHelper;
             helper.width = '10px';
             helper.moveMouseOverHost();
@@ -106,7 +106,7 @@ describe('ShowClippedTextDirective', () => {
             expect(helper.isTooltipVisible).toBe(true);
         }));
 
-        it('changes visibility to hidden after the tooltip fades out', fakeAsync(function (this: Test): void {
+        it('changes visibility to hidden after the tooltip fades out', fakeAsync(function(this: Test): void {
             const helper = this.clippedTextHelper;
             helper.width = '10px';
             helper.moveMouseOverHost();
@@ -121,7 +121,7 @@ describe('ShowClippedTextDirective', () => {
     });
 
     describe('disabling the tooltip', () => {
-        it('wont show a tooltip when disabled', function (this: Test): void {
+        it('wont show a tooltip when disabled', function(this: Test): void {
             const helper = this.clippedTextHelper;
             helper.disabled = true;
             helper.moveMouseOverHost();
@@ -129,7 +129,7 @@ describe('ShowClippedTextDirective', () => {
             helper.disabled = false;
         });
 
-        it('can be modified dynamically', fakeAsync(function (this: Test): void {
+        it('can be modified dynamically', fakeAsync(function(this: Test): void {
             const helper = this.clippedTextHelper;
             helper.disabled = true;
             helper.moveMouseOverHost();
@@ -143,7 +143,7 @@ describe('ShowClippedTextDirective', () => {
     });
 
     describe('@Input vcdShowClippedText (tooltipSize)', () => {
-        it('displays tooltip with the given default size of 200px', fakeAsync(function (this: Test): void {
+        it('displays tooltip with the given default size of 200px', fakeAsync(function(this: Test): void {
             const helper = this.clippedTextHelper;
             helper.hostText = 'Something that is longer than the default width so tooltip reaches its max width';
             helper.width = '10px';
@@ -154,7 +154,7 @@ describe('ShowClippedTextDirective', () => {
     });
 
     describe('Dynamic position', () => {
-        it('displays tooltip on bottom-right when host is in top-left quadrant', function (this: Test): void {
+        it('displays tooltip on bottom-right when host is in top-left quadrant', function(this: Test): void {
             const helper = this.clippedTextHelper;
             helper.width = '10px';
             helper.hostPosition = TooltipPosition.tl;
@@ -162,7 +162,7 @@ describe('ShowClippedTextDirective', () => {
             expect(helper.tooltipPosition).toBe(TooltipPosition.br);
         });
 
-        it('displays tooltip on bottom-left when host is in top-right quadrant', function (this: Test): void {
+        it('displays tooltip on bottom-left when host is in top-right quadrant', function(this: Test): void {
             const helper = this.clippedTextHelper;
             helper.width = '10px';
             helper.hostPosition = TooltipPosition.tr;
@@ -170,7 +170,7 @@ describe('ShowClippedTextDirective', () => {
             expect(helper.tooltipPosition).toBe(TooltipPosition.bl);
         });
 
-        it('displays tooltip on top-right when host is in bottom-left quadrant', function (this: Test): void {
+        it('displays tooltip on top-right when host is in bottom-left quadrant', function(this: Test): void {
             const helper = this.clippedTextHelper;
             helper.width = '10px';
             helper.hostPosition = TooltipPosition.bl;
@@ -178,7 +178,7 @@ describe('ShowClippedTextDirective', () => {
             expect(helper.tooltipPosition).toBe(TooltipPosition.tr);
         });
 
-        it('displays tooltip on top-left when host is in bottom-right quadrant', function (this: Test): void {
+        it('displays tooltip on top-left when host is in bottom-right quadrant', function(this: Test): void {
             const helper = this.clippedTextHelper;
             helper.width = '10px';
             helper.hostPosition = TooltipPosition.br;

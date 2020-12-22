@@ -32,7 +32,7 @@
       true,
       {
         "match":  "Copyright \\d{4}(-\\d{4})? VMware, Inc.\n[ *]*SPDX-License-Identifier: BSD-2-Clause",
-        "default": "Copyright 2020 VMware, Inc.\nSPDX-License-Identifier: BSD-2-Clause"
+        "default": "Copyright 2021 VMware, Inc.\nSPDX-License-Identifier: BSD-2-Clause"
       }
     ],
     "import-blacklist": [
@@ -42,8 +42,8 @@
     "interface-name": false,
     "max-classes-per-file": false,
     "max-line-length": [
-      true,
-      140
+      false,
+      0
     ],
     "member-access": false,
     "member-ordering": [

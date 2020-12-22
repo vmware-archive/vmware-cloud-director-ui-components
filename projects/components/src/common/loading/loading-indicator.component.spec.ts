@@ -10,7 +10,9 @@ import { LoadingIndicatorComponent } from './loading-indicator.component';
 import { VcdLoadingIndicatorModule } from './loading-indicator.module';
 
 @Component({
-    template: ` <vcd-loading-indicator #loading [isLoading]="loadingVal" [size]="size"></vcd-loading-indicator> `,
+    template: `
+        <vcd-loading-indicator #loading [isLoading]="loadingVal" [size]="size"></vcd-loading-indicator>
+    `,
 })
 class TestErrorComponent {
     loadingVal = false;
@@ -23,7 +25,7 @@ interface HasFinderAndLoading {
 }
 
 describe('LoadingIndicatorReporterComponent', () => {
-    beforeEach(async function (this: HasFinderAndLoading): Promise<void> {
+    beforeEach(async function(this: HasFinderAndLoading): Promise<void> {
         await TestBed.configureTestingModule({
             imports: [VcdLoadingIndicatorModule],
             declarations: [TestErrorComponent],
@@ -33,7 +35,7 @@ describe('LoadingIndicatorReporterComponent', () => {
         this.finder.detectChanges();
     });
 
-    it('can display an error when shown', function (this: HasFinderAndLoading): void {
+    it('can display an error when shown', function(this: HasFinderAndLoading): void {
         expect(this.finder.hostComponent.loadingIndicator.isLoading).toBeFalsy();
         this.finder.hostComponent.loadingVal = true;
         this.finder.detectChanges();

@@ -26,10 +26,10 @@ describe('Datagrid string filter', () => {
     });
 
     describe('setValue', () => {
-        beforeEach(function (this: HasDgStringFilter): void {
+        beforeEach(function(this: HasDgStringFilter): void {
             this.filter = createDatagridFilterTestHelper(DatagridStringFilterComponent);
         });
-        it('sets filterText input with the text passed in', function (this: HasDgStringFilter): void {
+        it('sets filterText input with the text passed in', function(this: HasDgStringFilter): void {
             this.filter.setValue('test-input');
             expect(this.filter.formGroup.get('filterText').value).toEqual('test-input');
         });
@@ -37,23 +37,23 @@ describe('Datagrid string filter', () => {
 
     describe('getValue', () => {
         const queryFieldName = FilterTestHostComponent.filterColumn.queryFieldName;
-        beforeEach(function (this: HasDgStringFilter): void {
+        beforeEach(function(this: HasDgStringFilter): void {
             this.filter = createDatagridFilterTestHelper(DatagridStringFilterComponent, {
                 wildCardPosition: WildCardPosition.END,
             });
         });
-        it('throws an error when query field is undefined', function (this: HasDgStringFilter): void {
+        it('throws an error when query field is undefined', function(this: HasDgStringFilter): void {
             this.filter.config = {
                 wildCardPosition: WildCardPosition.END,
             };
             expect(() => this.filter.getValue()).toThrowError('Query field is not specified');
         });
-        it('returns a FIQL string with equalTo operator and * added at the end of filter input', function (this: HasDgStringFilter): void {
+        it('returns a FIQL string with equalTo operator and * added at the end of filter input', function(this: HasDgStringFilter): void {
             this.filter.setValue('test-input');
             expect(this.filter.getValue()).toEqual(`${queryFieldName}==test-input*`);
         });
         // tslint:disable-next-line:max-line-length
-        it('returns a FIQL string with equalTo operator and * added at the beginning of filter input', function (this: HasDgStringFilter): void {
+        it('returns a FIQL string with equalTo operator and * added at the beginning of filter input', function(this: HasDgStringFilter): void {
             this.filter.config = {
                 ...this.filter.config,
                 wildCardPosition: WildCardPosition.START,
@@ -62,7 +62,7 @@ describe('Datagrid string filter', () => {
             expect(this.filter.getValue()).toEqual(`${queryFieldName}==*test-input`);
         });
         // tslint:disable-next-line:max-line-length
-        it('returns a FIQL string with equalTo operator and * added at both the beginning and at the end of a filter input', function (this: HasDgStringFilter): void {
+        it('returns a FIQL string with equalTo operator and * added at both the beginning and at the end of a filter input', function(this: HasDgStringFilter): void {
             this.filter.config = {
                 ...this.filter.config,
                 wildCardPosition: WildCardPosition.WRAP,

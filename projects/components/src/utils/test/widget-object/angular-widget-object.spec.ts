@@ -66,7 +66,10 @@ class ClickTrackerWidgetObject<T> extends BaseWidgetObject<T> {
     getButtons = this.locatorForCssSelectors('button');
 
     getTrackerElementUsingParent(): T {
-        return this.locatorDriver.get('span').parents('p').unwrap();
+        return this.locatorDriver
+            .get('span')
+            .parents('p')
+            .unwrap();
     }
 
     findHeaderWidget(): HeaderWidgetObject<T> {
@@ -82,7 +85,9 @@ class ClickTrackerWidgetObject<T> extends BaseWidgetObject<T> {
  * This is the host component that is typically created within the test
  */
 @Component({
-    template: `<vcd-click-tracker header="First"></vcd-click-tracker> `,
+    template: `
+        <vcd-click-tracker header="First"></vcd-click-tracker>
+    `,
 })
 class HostComponent {}
 
@@ -99,7 +104,7 @@ interface HasClickTracker {
 }
 
 function setup(fixtureRoot: Type<unknown>): void {
-    beforeEach(async function (this: HasAngularFinder): Promise<void> {
+    beforeEach(async function(this: HasAngularFinder): Promise<void> {
         await TestBed.configureTestingModule({
             imports: [FormsModule],
             declarations: [ClickTrackerComponent, fixtureRoot],
@@ -114,7 +119,7 @@ describe('AngularWidgetFinder', () => {
         setup(HostComponent);
 
         describe('find', () => {
-            it('returns the first one within the fixture if no classname is specified', function (this: HasAngularFinder): void {
+            it('returns the first one within the fixture if no classname is specified', function(this: HasAngularFinder): void {
                 const widget = this.finder.find(ClickTrackerWidgetObject);
                 expect(widget.getHeaderText().text()).toEqual('hello');
             });
@@ -123,7 +128,7 @@ describe('AngularWidgetFinder', () => {
 });
 
 describe('AngularLocatorDriver', () => {
-    beforeEach(async function (this: HasClickTracker): Promise<void> {
+    beforeEach(async function(this: HasClickTracker): Promise<void> {
         await TestBed.configureTestingModule({
             imports: [FormsModule],
             declarations: [ClickTrackerComponent],
@@ -140,26 +145,31 @@ describe('AngularLocatorDriver', () => {
     });
 
     describe('get', () => {
-        it('can find elements by CSS selector', function (this: HasClickTracker): void {
+        it('can find elements by CSS selector', function(this: HasClickTracker): void {
             expect(this.clickTracker.getClickCount().text()).toEqual('0');
         });
     });
 
     describe('findWidget', () => {
-        it('can find widgets within widgets', function (this: HasClickTracker): void {
-            expect(this.clickTracker.findHeaderWidget().getBoldText().text()).toEqual('hello');
+        it('can find widgets within widgets', function(this: HasClickTracker): void {
+            expect(
+                this.clickTracker
+                    .findHeaderWidget()
+                    .getBoldText()
+                    .text()
+            ).toEqual('hello');
         });
     });
 
     describe('parents', () => {
-        it('can find a parent by css selector', function (this: HasClickTracker): void {
+        it('can find a parent by css selector', function(this: HasClickTracker): void {
             this.clickTracker.getTrackerElementUsingParent().click();
             expect(this.clickTracker.getClickCount().text()).toEqual('1');
         });
     });
 
     describe('getByText', () => {
-        it('can find an element by text', function (this: HasClickTracker): void {
+        it('can find an element by text', function(this: HasClickTracker): void {
             expect(this.clickTracker.getButton().text()).toEqual('BUTTON');
         });
     });
@@ -170,7 +180,7 @@ describe('AngularLocatorDriver', () => {
  * in the concrete {@link ClickTrackerWidgetObject}
  */
 describe('TestElement', () => {
-    beforeEach(async function (this: HasClickTracker): Promise<void> {
+    beforeEach(async function(this: HasClickTracker): Promise<void> {
         await TestBed.configureTestingModule({
             imports: [FormsModule],
             declarations: [ClickTrackerComponent],
@@ -187,20 +197,20 @@ describe('TestElement', () => {
     });
 
     describe('text', () => {
-        it('can find elements within itself passing a css query', function (this: HasClickTracker): void {
+        it('can find elements within itself passing a css query', function(this: HasClickTracker): void {
             expect(this.clickTracker.getClickCount().text()).toEqual('0');
         });
     });
 
     describe('click', () => {
-        it('calls detectChanges after clicking', function (this: HasClickTracker): void {
+        it('calls detectChanges after clicking', function(this: HasClickTracker): void {
             this.clickTracker.getTrackerElement().click();
             expect(this.clickTracker.getClickCount().text()).toEqual('1');
         });
     });
 
     describe('value', () => {
-        it('gives the value from an input', fakeAsync(function (this: HasClickTracker): void {
+        it('gives the value from an input', fakeAsync(function(this: HasClickTracker): void {
             this.clickTracker.getSelf().getComponentInstance().name = 'Ryan';
             this.clickTracker.getSelf().detectChanges();
             tick();
@@ -209,7 +219,7 @@ describe('TestElement', () => {
     });
 
     describe('clear', () => {
-        it('clears the input', fakeAsync(function (this: HasClickTracker): void {
+        it('clears the input', fakeAsync(function(this: HasClickTracker): void {
             this.clickTracker.getSelf().getComponentInstance().name = 'Ryan';
             this.clickTracker.getSelf().detectChanges();
             tick();
@@ -220,24 +230,24 @@ describe('TestElement', () => {
     });
 
     describe('length', () => {
-        it('says how many elements are in this TestElement', function (this: HasClickTracker): void {
+        it('says how many elements are in this TestElement', function(this: HasClickTracker): void {
             expect(this.clickTracker.getButtons().length()).toEqual(2);
         });
     });
 
     describe('toArray', () => {
-        it('turns the TestElement to an array of TestElements', function (this: HasClickTracker): void {
+        it('turns the TestElement to an array of TestElements', function(this: HasClickTracker): void {
             expect(
                 this.clickTracker
                     .getButtons()
                     .toArray()
-                    .map((el) => el.text())
+                    .map(el => el.text())
             ).toEqual(['BUTTON', 'BUTTON2']);
         });
     });
 
     describe('classes', () => {
-        it('gives the classes of an input', function (this: HasClickTracker): void {
+        it('gives the classes of an input', function(this: HasClickTracker): void {
             expect(this.clickTracker.getNameInput().classes()).toContain('name');
         });
     });

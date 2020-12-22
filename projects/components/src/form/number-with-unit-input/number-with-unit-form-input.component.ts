@@ -192,6 +192,11 @@ export class NumberWithUnitFormInputComponent extends BaseFormControl implements
     lastRealValue: number = null;
 
     /**
+     * Should this functionality be provided at the base class?
+     */
+    private ngOnInitCalled = false;
+
+    /**
      * Set the unit in the dropdown.
      * @param value Should be one of the value that you pass in {@link #unitOptions} to select the Unit.
      */
@@ -210,7 +215,11 @@ export class NumberWithUnitFormInputComponent extends BaseFormControl implements
     }
 
     ngOnInit(): void {
+        this.ngOnInitCalled = true;
+
         defaultValidatorForControl(this.formControl, () => this.validateNumber());
+
+        this.writeValue(this.initialValue as number);
 
         this.recalculateUnitMinMax();
     }

@@ -20,7 +20,7 @@ interface HasFixtureAndDropdownHelper {
 }
 
 describe('DynamicDropdownPositionDirective', () => {
-    beforeEach(async function (this: HasFixtureAndDropdownHelper): Promise<void> {
+    beforeEach(async function(this: HasFixtureAndDropdownHelper): Promise<void> {
         await TestBed.configureTestingModule({
             imports: [ClarityModule],
             declarations: [DynamicDropdownPositionDirective, TestHostComponent],
@@ -30,7 +30,7 @@ describe('DynamicDropdownPositionDirective', () => {
         this.helper = this.fixture.componentInstance;
     });
 
-    it('opens the dropdown towards bottom by default when there is enough space', function (this: HasFixtureAndDropdownHelper): void {
+    it('opens the dropdown towards bottom by default when there is enough space', function(this: HasFixtureAndDropdownHelper): void {
         this.helper.openDropdown(Dropdowns.DEFAULT);
         this.fixture.detectChanges();
         expect(this.helper.isDropdownGoingToBeClippedAtBottom(Dropdowns.DEFAULT)).toBe(false);
@@ -40,7 +40,7 @@ describe('DynamicDropdownPositionDirective', () => {
     it(
         'shifts the dropdown position to top of the dropdown trigger when it is going to get clipped at the ' +
             'bottom',
-        function (this: HasFixtureAndDropdownHelper): void {
+        function(this: HasFixtureAndDropdownHelper): void {
             this.helper.openDropdown(Dropdowns.BOTTOM_CLIPPED);
             this.fixture.detectChanges();
             expect(this.helper.isDropdownGoingToBeClippedAtBottom(Dropdowns.BOTTOM_CLIPPED)).toBe(true);
@@ -49,15 +49,14 @@ describe('DynamicDropdownPositionDirective', () => {
         }
     );
 
-    it(
-        'shifts the dropdown position towards the left when it is going to get clipped on the' + ' right side',
-        function (this: HasFixtureAndDropdownHelper): void {
-            this.helper.openDropdown(Dropdowns.RIGHT_CLIPPED);
-            this.fixture.detectChanges();
-            expect(this.helper.isDropdownGoingToBeClippedOnRight(Dropdowns.RIGHT_CLIPPED)).toBe(true);
-            expect(this.helper.isDropdownOpenToLeft(Dropdowns.RIGHT_CLIPPED)).toBe(true);
-        }
-    );
+    it('shifts the dropdown position towards the left when it is going to get clipped on the' + ' right side', function(
+        this: HasFixtureAndDropdownHelper
+    ): void {
+        this.helper.openDropdown(Dropdowns.RIGHT_CLIPPED);
+        this.fixture.detectChanges();
+        expect(this.helper.isDropdownGoingToBeClippedOnRight(Dropdowns.RIGHT_CLIPPED)).toBe(true);
+        expect(this.helper.isDropdownOpenToLeft(Dropdowns.RIGHT_CLIPPED)).toBe(true);
+    });
 });
 
 @Component({
