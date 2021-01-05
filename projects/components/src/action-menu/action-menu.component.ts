@@ -1,9 +1,9 @@
 /*!
- * Copyright 2020 VMware, Inc.
+ * Copyright 2020-2021 VMware, Inc.
  * SPDX-License-Identifier: BSD-2-Clause
  */
 
-import { Component, Input, TrackByFunction } from '@angular/core';
+import { Component, EventEmitter, Input, Output, TrackByFunction } from '@angular/core';
 import { ActionDisplayConfig, ActionItem, ActionStyling, ActionType, TextIcon } from '../common/interfaces';
 import { CommonUtil } from '../utils';
 
@@ -33,6 +33,12 @@ export function getDefaultActionDisplayConfig(cfg: ActionDisplayConfig = {}): Ac
     styleUrls: ['./action-menu.component.scss'],
 })
 export class ActionMenuComponent<R, T> {
+    /**
+     * Emits when the actions have been updated.
+     * Then one can get the actual actions from {@link staticActions} and {@link contextualActions} property.
+     */
+    @Output() actionsUpdate: EventEmitter<void> = new EventEmitter();
+
     /**
      * List of actions containing both static and contextual that are given by the calling component
      */
@@ -259,6 +265,7 @@ export class ActionMenuComponent<R, T> {
             this.shouldDisplayStaticActions(this.actionStyling.DROPDOWN) ||
             this.shouldDisplayStaticFeaturedActions(this.actionStyling.DROPDOWN);
         this.shouldDisplayContextualActionsDropdown = this.shouldDisplayContextualActions(this.actionStyling.DROPDOWN);
+        this.actionsUpdate.emit();
     }
 
     /**
