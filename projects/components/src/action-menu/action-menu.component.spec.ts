@@ -1,5 +1,5 @@
 /*!
- * Copyright 2020 VMware, Inc.
+ * Copyright 2020-2021 VMware, Inc.
  * SPDX-License-Identifier: BSD-2-Clause
  */
 
@@ -10,6 +10,7 @@ import { ActionDisplayConfig, ActionItem, ActionStyling, ActionType, TextIcon } 
 import { WidgetFinder, WidgetObject } from '../utils/test/widget-object';
 import { ActionMenuComponent, getDefaultActionDisplayConfig } from './action-menu.component';
 import { VcdActionMenuModule } from './action-menu.module';
+import createSpy = jasmine.createSpy;
 
 interface HasFinderAndActionMenu {
     finder: WidgetFinder<TestHostComponent<Record>>;
@@ -307,6 +308,23 @@ describe('ActionMenuComponent', () => {
             flatList.forEach(action => {
                 expect(action.actionType).toEqual(ActionType.CONTEXTUAL_FEATURED);
             });
+        });
+    });
+
+    describe('actionsUpdate', () => {
+        it('emits event when actions input has changed', function (this: HasFinderAndActionMenu): void {
+            const spy = createSpy('actionsUpdate');
+            this.actionMenu.actionsUpdate.subscribe(spy);
+            this.actionMenu.actions = [];
+            this.finder.detectChanges();
+            expect(spy).toHaveBeenCalledTimes(1);
+        });
+        it('emits event when selectedEntities input has changed', function (this: HasFinderAndActionMenu): void {
+            const spy = createSpy('actionsUpdate');
+            this.actionMenu.actionsUpdate.subscribe(spy);
+            this.actionMenu.selectedEntities = [];
+            this.finder.detectChanges();
+            expect(spy).toHaveBeenCalledTimes(1);
         });
     });
 });
