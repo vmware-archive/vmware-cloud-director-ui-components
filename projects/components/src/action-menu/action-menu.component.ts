@@ -101,19 +101,6 @@ export class ActionMenuComponent<R, T> {
     shouldDisplayContextualActionsDropdownInline = false;
 
     /**
-     * This flag is for the parent to say to the action menu that it is already calculating the actions availability and
-     * telling it not to calculate the availability
-     */
-    @Input() set calculateActionsAvailability(val: boolean) {
-        this._calculateActionsAvailability = val;
-        this.updateActionListsAndDisplayFlags();
-    }
-    private _calculateActionsAvailability = true;
-    get calculateActionsAvailability(): boolean {
-        return this._calculateActionsAvailability;
-    }
-
-    /**
      * Text Content of the action menu dropdown trigger button. Used when {@link #actionDisplayConfig} styling is
      * {@link ActionStyling.DROPDOWN}
      */
@@ -143,7 +130,7 @@ export class ActionMenuComponent<R, T> {
         this._selectedEntities = val;
         this.updateActionListsAndDisplayFlags();
     }
-    private _selectedEntities: R[];
+    private _selectedEntities: R[] = [];
     get selectedEntities(): R[] {
         return this._selectedEntities;
     }
@@ -241,9 +228,6 @@ export class ActionMenuComponent<R, T> {
      * Returns the actions to be shown
      */
     getAvailableActions(actions: ActionItem<R, T>[]): ActionItem<R, T>[] {
-        if (!this.calculateActionsAvailability) {
-            return actions;
-        }
         return actions
             .filter((action) => this.isActionAvailable(action))
             .map((action) => {
@@ -291,7 +275,7 @@ export class ActionMenuComponent<R, T> {
     }
 
     private getContextualFeaturedActions(): ActionItem<R, T>[] {
-        if (this.calculateActionsAvailability && !this.selectedEntities?.length) {
+        if (!this.selectedEntities?.length) {
             return [];
         }
         const flattenedFeaturedActionList = this.getFlattenedActionList(this.actions, ActionType.CONTEXTUAL_FEATURED);
@@ -313,7 +297,7 @@ export class ActionMenuComponent<R, T> {
     }
 
     private getContextualActions(): ActionItem<R, T>[] {
-        if (this.calculateActionsAvailability && !this.selectedEntities?.length) {
+        if (!this.selectedEntities?.length) {
             return [];
         }
         const contextualActions = this.actions.filter(
@@ -321,11 +305,6 @@ export class ActionMenuComponent<R, T> {
                 !action.actionType ||
                 (action.actionType !== ActionType.STATIC_FEATURED && action.actionType !== ActionType.STATIC)
         );
-        // The error logged and not thrown because, there might be a case where the availability of contextual actions might not depend on
-        // selected entities
-        if (this.calculateActionsAvailability && contextualActions.length && !this.selectedEntities?.length) {
-            console.error('There are no selected entities to calculate contextual actions availability!');
-        }
         const availableContextualActions = this.getAvailableActions(contextualActions);
         if (this._extensionEntityActions) {
             availableContextualActions.push(...this._extensionEntityActions);
@@ -401,7 +380,7 @@ export class ActionMenuComponent<R, T> {
 
     private shouldDisplayContextualActions(style: ActionStyling): boolean {
         return (
-            (!this.calculateActionsAvailability || this.selectedEntities?.length) &&
+            this.selectedEntities?.length &&
             this.contextualActions.length &&
             this.actionDisplayConfig.contextual.styling === style
         );
