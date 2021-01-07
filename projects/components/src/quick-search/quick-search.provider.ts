@@ -1,5 +1,5 @@
 /*!
- * Copyright 2020 VMware, Inc.
+ * Copyright 2020-2021 VMware, Inc.
  * SPDX-License-Identifier: BSD-2-Clause
  */
 
@@ -30,6 +30,13 @@ export interface QuickSearchProvider {
     data: unknown;
 
     /**
+     * Whether a provider section should be hidden if there are no results.
+     * When `true` the section will not be displayed if it contains no data.
+     * Defaults to `false` and in that case the section is always visible, rendering 'No results found.'
+     */
+    hideWhenEmpty?: boolean;
+
+    /**
      * Returns an array or a promise of array of items that comply with the search criteria.
      * @param criteria The search string provided by the user when typing in the Quick Search Component
      */
@@ -39,6 +46,7 @@ export interface QuickSearchProvider {
 export abstract class QuickSearchProviderDefaults implements QuickSearchProvider {
     sectionName = '';
     order = -1;
+    hideWhenEmpty = false;
     data: unknown;
     abstract search(criteria: string): QuickSearchResultsType;
 

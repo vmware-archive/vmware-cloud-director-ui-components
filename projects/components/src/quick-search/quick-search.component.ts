@@ -1,5 +1,5 @@
 /*!
- * Copyright 2020 VMware, Inc.
+ * Copyright 2020-2021 VMware, Inc.
  * SPDX-License-Identifier: BSD-2-Clause
  */
 
@@ -324,7 +324,35 @@ export class QuickSearchComponent {
     }
 
     showSectionTitle(searchSection: SearchSection): boolean {
-        return !!(searchSection.provider.sectionName && this.searchCriteria);
+        // Do not show when there is no search criteria
+        if (!this.searchCriteria) {
+            return false;
+        }
+
+        // Do not show when there is no section name
+        if (!searchSection.provider.sectionName) {
+            return false;
+        }
+
+        // Show when it is loading
+        if (searchSection.isLoading) {
+            return true;
+        }
+
+        // Do not show when the provider has no results and it is marked with {@link QuickSearchProvider#hideWhenEmpty}
+        if (searchSection.provider.hideWhenEmpty && !searchSection.result?.items?.length) {
+            return false;
+        }
+
+        return true;
+    }
+
+    showNoResults(searchSection: SearchSection): boolean {
+        // Show 'No Results' if the section is empty and the section title is shown
+        if (searchSection.result?.items?.length === 0 && this.showSectionTitle(searchSection)) {
+            return true;
+        }
+        return false;
     }
 
     /**

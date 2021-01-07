@@ -8,6 +8,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 ### Added
 - Add `actionsUpdate` emitter to `ActionMenuComponent`
+- Add `hideWhenEmpty` flag to `QuickSearchProvider` to control section display when there is no data
 
 ## [1.0.0-dev.56]
 ### Changed
