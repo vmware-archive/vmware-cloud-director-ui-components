@@ -4,12 +4,29 @@
  */
 
 import { Input, Type } from '@angular/core';
-import { ControlValueAccessor, FormControl, NgControl } from '@angular/forms';
+import { AbstractControl, ControlValueAccessor, FormControl, NgControl, ValidatorFn } from '@angular/forms';
 import { IdGenerator } from '../utils/id-generator/id-generator';
 import { CanBeReadOnly } from './interfaces/can-be-read-only.interface';
 
 const idGenerator = new IdGenerator('base-form-control-id');
 
+/**
+ * For a given control, apply the given validator and override its setValidators method so that this default validator will always
+ * be applied
+ * @param control - Control to receive a default validator
+ * @param defaultValidator - Validator that will always be present for the form control
+ */
+export function defaultValidatorForControl(control: AbstractControl, defaultValidator: ValidatorFn): void {
+    // `control.validator` may be null, use filter to prevent passing in a null validator
+    control.setValidators([defaultValidator, control.validator].filter(Boolean));
+
+    const oldSetValidators = control.setValidators;
+    control.setValidators = validators => {
+        // Could be array, single value or null
+        const validatorsArray = Array.isArray(validators) ? validators : [validators].filter(Boolean);
+        return oldSetValidators.call(control, [defaultValidator, ...validatorsArray]);
+    };
+}
 /**
  * Wrapper to enforce UX decisions like readonly-ness, label position and error displaying. And also to make
  * the form control backing a form control name directive available to sub classes.
@@ -18,7 +35,17 @@ export class BaseFormControl implements ControlValueAccessor, CanBeReadOnly {
     /**
      * Auto generated ID for the input field.
      */
-    id: string;
+    readonly id: string = idGenerator.generate();
+
+    /**
+     * Auto generated ID for the description field.
+     */
+    readonly descriptionId: string = `${this.id}-description`;
+
+    /**
+     * Auto generated ID for the error field.
+     */
+    readonly errorsId: string = `${this.id}-errors`;
 
     /**
      * Change callback.
@@ -62,6 +89,16 @@ export class BaseFormControl implements ControlValueAccessor, CanBeReadOnly {
     @Input() errorLabels: string[] = [];
 
     /**
+     * If this is true, Clarity responsive classes will be added to the component's elements so that label and input
+     * elements are on separate lines when on small screens or inside small containers.
+     *
+     * Note that if a form control is being used inside a `.clr-form-vertical`, the controls should all have
+     * isResponsive set to false, since that will cause labels to always display on a separate line and adding
+     * the responsive styles would interfere with that
+     */
+    @Input() isResponsive = true;
+
+    /**
      * FormControlName directive
      */
     formControlNameDirective: NgControl;
@@ -72,7 +109,6 @@ export class BaseFormControl implements ControlValueAccessor, CanBeReadOnly {
     protected initialValue: number | string | boolean;
 
     constructor(ngControl: NgControl) {
-        this.id = idGenerator.generate();
         if (ngControl) {
             ngControl.valueAccessor = this;
             this.formControlNameDirective = ngControl;

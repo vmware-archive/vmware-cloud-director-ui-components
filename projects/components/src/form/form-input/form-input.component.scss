@@ -1,16 +1,5 @@
-.form-group >>> aside {
-    margin-top: 6px;
-    margin-bottom: 6px;
-    flex-grow: 1;
-}
-
 .form-group.hide-label {
     padding-left: 0;
-}
-
-.input-aside {
-    display: flex;
-    width: 100%;
 }
 
 :host-context(.modal):not(.adjust-aside-left) {
@@ -24,8 +13,4 @@
 
 .form-group-description {
     margin-bottom: 15px;
-}
-
-clr-signpost p:first-child {
-    margin-top: 0;
 }

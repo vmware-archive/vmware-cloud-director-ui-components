@@ -2,7 +2,6 @@
  * Copyright 2019 VMware, Inc.
  * SPDX-License-Identifier: BSD-2-Clause
  */
-import { NumberWithUnitFormInputWidgetObject } from '../../form/number-with-unit-input/number-with-unit-form-input.widget-object';
 import {
     createDatagridFilterTestHelper,
     createDatagridFilterTestHelperWithFinder,
@@ -129,19 +128,18 @@ describe('Datagrid numeric filter', () => {
                 this.finder = finderAndFilter.finder;
                 this.filter = finderAndFilter.filter;
             });
-            it(
-                'returns a FIQL string with values converted to base unit of MB from selected unit of ' + 'GB',
-                function (this: HasFinderAndFilter): void {
-                    const [fromValInGb, toValInGb] = [1, 10];
-                    const [fromValInMb, toValInMb] = [1024, 10240];
-                    this.filter.setValue([fromValInGb, toValInGb]);
-                    (this.filter as DatagridNumericFilterComponent).fromInput.selectedUnit = Bytes.GB.getMultiplier();
-                    (this.filter as DatagridNumericFilterComponent).toInput.selectedUnit = Bytes.GB.getMultiplier();
-                    expect(this.filter.getValue()).toEqual(
-                        `(${queryFieldName}=ge=${fromValInMb};${queryFieldName}=le=${toValInMb})`
-                    );
-                }
-            );
+            it('returns a FIQL string with values converted to base unit of MB from selected unit of GB', function (this: HasFinderAndFilter): void {
+                const [fromValInGb, toValInGb] = [1, 10];
+                const [fromValInMb, toValInMb] = [1024, 10240];
+                this.filter.setValue([fromValInGb, toValInGb]);
+                const filter = this.filter as DatagridNumericFilterComponent;
+                [filter.fromInput, filter.toInput].forEach((input) =>
+                    input.onUnitChange(Bytes.GB.getMultiplier().toString())
+                );
+                expect(this.filter.getValue()).toEqual(
+                    `(${queryFieldName}=ge=${fromValInMb};${queryFieldName}=le=${toValInMb})`
+                );
+            });
         });
     });
 

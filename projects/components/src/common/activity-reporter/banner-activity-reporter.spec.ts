@@ -13,7 +13,9 @@ import { VcdActivityReporterModule } from './activity-reporter.module';
 import { BannerActivityReporterComponent } from './banner-activity-reporter.component';
 
 @Component({
-    template: ` <vcd-banner-activity-reporter [loadingMessage]="loadingMessage"></vcd-banner-activity-reporter> `,
+    template: `
+        <vcd-banner-activity-reporter [loadingMessage]="loadingMessage"></vcd-banner-activity-reporter>
+    `,
 })
 class TestBannerComponent {
     @ViewChild(BannerActivityReporterComponent, { static: true }) activityReporter: BannerActivityReporterComponent;
@@ -33,7 +35,7 @@ interface HasFinderAndBanner {
 }
 
 describe('BannerActivityReporterComponent', () => {
-    beforeEach(async function (this: HasFinderAndBanner): Promise<void> {
+    beforeEach(async function(this: HasFinderAndBanner): Promise<void> {
         await TestBed.configureTestingModule({
             imports: [VcdActivityReporterModule],
             declarations: [TestBannerComponent],
@@ -49,13 +51,13 @@ describe('BannerActivityReporterComponent', () => {
         this.finder = new WidgetFinder(TestBannerComponent);
         this.banner = this.finder.find(BannerActivityReporterWidgetObject);
         this.promise = new Promise((promiseResolve, promiseReject) => {
-            this.resolve = (stuff) => promiseResolve(stuff);
-            this.reject = (stuff) => promiseReject(stuff);
+            this.resolve = stuff => promiseResolve(stuff);
+            this.reject = stuff => promiseReject(stuff);
         });
         this.finder.detectChanges();
     });
 
-    it('displays a custom message while the promise is pending', function (this: HasFinderAndBanner): Promise<string> {
+    it('displays a custom message while the promise is pending', function(this: HasFinderAndBanner): Promise<string> {
         this.finder.hostComponent.loadingMessage = 'loader';
         const promise = this.banner.component.monitorGet(this.promise);
         this.finder.detectChanges();
@@ -65,7 +67,7 @@ describe('BannerActivityReporterComponent', () => {
         return promise;
     });
 
-    it('removes the activity reporter from the screen after the promise resolves', function (this: HasFinderAndBanner): Promise<
+    it('removes the activity reporter from the screen after the promise resolves', function(this: HasFinderAndBanner): Promise<
         void
     > {
         const promise = this.banner.component.monitorGet(this.promise).then(() => {
@@ -81,9 +83,7 @@ describe('BannerActivityReporterComponent', () => {
         return promise;
     });
 
-    it('displays an error on the screen if the promise is rejected', function (this: HasFinderAndBanner): Promise<
-        void
-    > {
+    it('displays an error on the screen if the promise is rejected', function(this: HasFinderAndBanner): Promise<void> {
         const promise = this.banner.component.monitorGet(this.promise).then(() => {
             expect(this.banner.running).toBeFalsy();
             expect(this.banner.errorText).toEqual('Bad!');
@@ -99,7 +99,7 @@ describe('BannerActivityReporterComponent', () => {
         return promise;
     });
 
-    it('clears all content when reset', function (this: HasFinderAndBanner): Promise<string> {
+    it('clears all content when reset', function(this: HasFinderAndBanner): Promise<string> {
         const promise = this.banner.component.monitorGet(this.promise);
         this.finder.detectChanges();
         expect(this.banner.running).toBeTruthy();
