@@ -42,7 +42,7 @@
                     >
                         {{ item.displayText }}
                     </li>
-                    <li class="no-results" *ngIf="searchSection.result?.items?.length === 0">
+                    <li class="no-results" *ngIf="showNoResults(searchSection)">
                         {{ 'vcd.cc.quickSearch.noResults' | translate }}
                     </li>
                     <li>
