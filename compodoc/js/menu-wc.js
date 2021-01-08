@@ -57,6 +57,24 @@ customElements.define('compodoc-menu', class extends HTMLElement {
                         </a>
                         <ul class="links collapse " ${ isNormalMode ? 'id="modules-links"' : 'id="xs-modules-links"' }>
                             <li class="link">
+                                <a href="modules/AlternativeTextModule.html" data-type="entity-link">AlternativeTextModule</a>
+                                <li class="chapter inner">
+                                    <div class="simple menu-toggler" data-toggle="collapse" ${ isNormalMode ?
+                                        'data-target="#directives-links-module-AlternativeTextModule-dec5b6b59d3e9fafa44e9a5026922453"' : 'data-target="#xs-directives-links-module-AlternativeTextModule-dec5b6b59d3e9fafa44e9a5026922453"' }>
+                                        <span class="icon ion-md-code-working"></span>
+                                        <span>Directives</span>
+                                        <span class="icon ion-ios-arrow-down"></span>
+                                    </div>
+                                    <ul class="links collapse" ${ isNormalMode ? 'id="directives-links-module-AlternativeTextModule-dec5b6b59d3e9fafa44e9a5026922453"' :
+                                        'id="xs-directives-links-module-AlternativeTextModule-dec5b6b59d3e9fafa44e9a5026922453"' }>
+                                        <li class="link">
+                                            <a href="directives/AlternativeTextDirective.html"
+                                                data-type="entity-link" data-context="sub-entity" data-context-id="modules">AlternativeTextDirective</a>
+                                        </li>
+                                    </ul>
+                                </li>
+                            </li>
+                            <li class="link">
                                 <a href="modules/DropdownModule.html" data-type="entity-link">DropdownModule</a>
                                     <li class="chapter inner">
                                         <div class="simple menu-toggler" data-toggle="collapse" ${ isNormalMode ?
@@ -155,6 +173,24 @@ customElements.define('compodoc-menu', class extends HTMLElement {
                                             </li>
                                         </ul>
                                     </li>
+                            </li>
+                            <li class="link">
+                                <a href="modules/ResponsiveInputDirectiveModule.html" data-type="entity-link">ResponsiveInputDirectiveModule</a>
+                                <li class="chapter inner">
+                                    <div class="simple menu-toggler" data-toggle="collapse" ${ isNormalMode ?
+                                        'data-target="#directives-links-module-ResponsiveInputDirectiveModule-edacdd223d1f01689041363abd0c9969"' : 'data-target="#xs-directives-links-module-ResponsiveInputDirectiveModule-edacdd223d1f01689041363abd0c9969"' }>
+                                        <span class="icon ion-md-code-working"></span>
+                                        <span>Directives</span>
+                                        <span class="icon ion-ios-arrow-down"></span>
+                                    </div>
+                                    <ul class="links collapse" ${ isNormalMode ? 'id="directives-links-module-ResponsiveInputDirectiveModule-edacdd223d1f01689041363abd0c9969"' :
+                                        'id="xs-directives-links-module-ResponsiveInputDirectiveModule-edacdd223d1f01689041363abd0c9969"' }>
+                                        <li class="link">
+                                            <a href="directives/ResponsiveInputDirective.html"
+                                                data-type="entity-link" data-context="sub-entity" data-context-id="modules">ResponsiveInputDirective</a>
+                                        </li>
+                                    </ul>
+                                </li>
                             </li>
                             <li class="link">
                                 <a href="modules/ShowClippedTextDirectiveModule.html" data-type="entity-link">ShowClippedTextDirectiveModule</a>
@@ -351,13 +387,13 @@ customElements.define('compodoc-menu', class extends HTMLElement {
                                 <a href="modules/VcdFormModule.html" data-type="entity-link">VcdFormModule</a>
                                     <li class="chapter inner">
                                         <div class="simple menu-toggler" data-toggle="collapse" ${ isNormalMode ?
-                                            'data-target="#components-links-module-VcdFormModule-9e65ea7f75c110dd924505cb404edefa"' : 'data-target="#xs-components-links-module-VcdFormModule-9e65ea7f75c110dd924505cb404edefa"' }>
+                                            'data-target="#components-links-module-VcdFormModule-b0e6f0be81ef242e88e6a06004fbe1aa"' : 'data-target="#xs-components-links-module-VcdFormModule-b0e6f0be81ef242e88e6a06004fbe1aa"' }>
                                             <span class="icon ion-md-cog"></span>
                                             <span>Components</span>
                                             <span class="icon ion-ios-arrow-down"></span>
                                         </div>
-                                        <ul class="links collapse" ${ isNormalMode ? 'id="components-links-module-VcdFormModule-9e65ea7f75c110dd924505cb404edefa"' :
-                                            'id="xs-components-links-module-VcdFormModule-9e65ea7f75c110dd924505cb404edefa"' }>
+                                        <ul class="links collapse" ${ isNormalMode ? 'id="components-links-module-VcdFormModule-b0e6f0be81ef242e88e6a06004fbe1aa"' :
+                                            'id="xs-components-links-module-VcdFormModule-b0e6f0be81ef242e88e6a06004fbe1aa"' }>
                                             <li class="link">
                                                 <a href="components/FormCheckboxComponent.html"
                                                     data-type="entity-link" data-context="sub-entity" data-context-id="modules">FormCheckboxComponent</a>
@@ -378,13 +414,13 @@ customElements.define('compodoc-menu', class extends HTMLElement {
                                     </li>
                                 <li class="chapter inner">
                                     <div class="simple menu-toggler" data-toggle="collapse" ${ isNormalMode ?
-                                        'data-target="#injectables-links-module-VcdFormModule-9e65ea7f75c110dd924505cb404edefa"' : 'data-target="#xs-injectables-links-module-VcdFormModule-9e65ea7f75c110dd924505cb404edefa"' }>
+                                        'data-target="#injectables-links-module-VcdFormModule-b0e6f0be81ef242e88e6a06004fbe1aa"' : 'data-target="#xs-injectables-links-module-VcdFormModule-b0e6f0be81ef242e88e6a06004fbe1aa"' }>
                                         <span class="icon ion-md-arrow-round-down"></span>
                                         <span>Injectables</span>
                                         <span class="icon ion-ios-arrow-down"></span>
                                     </div>
-                                    <ul class="links collapse" ${ isNormalMode ? 'id="injectables-links-module-VcdFormModule-9e65ea7f75c110dd924505cb404edefa"' :
-                                        'id="xs-injectables-links-module-VcdFormModule-9e65ea7f75c110dd924505cb404edefa"' }>
+                                    <ul class="links collapse" ${ isNormalMode ? 'id="injectables-links-module-VcdFormModule-b0e6f0be81ef242e88e6a06004fbe1aa"' :
+                                        'id="xs-injectables-links-module-VcdFormModule-b0e6f0be81ef242e88e6a06004fbe1aa"' }>
                                         <li class="link">
                                             <a href="injectables/UnitFormatter.html"
                                                 data-type="entity-link" data-context="sub-entity" data-context-id="modules" }>UnitFormatter</a>
@@ -707,6 +743,9 @@ customElements.define('compodoc-menu', class extends HTMLElement {
                             </li>
                             <li class="link">
                                 <a href="interfaces/QuickSearchResults.html" data-type="entity-link">QuickSearchResults</a>
+                            </li>
+                            <li class="link">
+                                <a href="interfaces/ResponsiveInputOptions.html" data-type="entity-link">ResponsiveInputOptions</a>
                             </li>
                             <li class="link">
                                 <a href="interfaces/ResultActivatedEvent.html" data-type="entity-link">ResultActivatedEvent</a>

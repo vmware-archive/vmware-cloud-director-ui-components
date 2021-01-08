@@ -476,7 +476,7 @@ calls. This is not</p>
         // tslint:disable-next-line:ban-types
         let resolver: Function;
         // tslint:disable-next-line:only-arrow-functions
-        return function (): Promise&lt;any&gt; {
+        return function(): Promise&lt;any&gt; {
             if (!pendingPromise) {
                 pendingPromise &#x3D; new Promise((resolve) &#x3D;&gt; {
                     resolver &#x3D; resolve;

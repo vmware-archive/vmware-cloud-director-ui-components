@@ -1,0 +1,254 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>vmware-cloud-director-ui-components documentation</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
+	      <link rel="stylesheet" href="../styles/style.css">
+    </head>
+    <body>
+
+        <div class="navbar navbar-default navbar-fixed-top visible-xs">
+            <a href="../" class="navbar-brand">vmware-cloud-director-ui-components documentation</a>
+            <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
+        </div>
+
+        <div class="xs-menu menu" id="mobile-menu">
+                <div id="book-search-input" role="search"><input type="text" placeholder="Type to search"></div>            <compodoc-menu></compodoc-menu>
+        </div>
+
+        <div class="container-fluid main">
+           <div class="row main">
+               <div class="hidden-xs menu">
+                   <compodoc-menu mode="normal"></compodoc-menu>
+               </div>
+               <!-- START CONTENT -->
+               <div class="content interface">
+                   <div class="content-data">
+
+
+
+
+
+
+
+
+
+
+
+
+<ol class="breadcrumb">
+  <li>Interfaces</li>
+  <li>ResponsiveInputOptions</li>
+</ol>
+
+<ul class="nav nav-tabs" role="tablist">
+        <li class="active">
+            <a href="#info" role="tab" id="info-tab" data-toggle="tab" data-link="info">Info</a>
+        </li>
+        <li >
+            <a href="#source" role="tab" id="source-tab" data-toggle="tab" data-link="source">Source</a>
+        </li>
+</ul>
+
+<div class="tab-content">
+    <div class="tab-pane fade active in" id="c-info">
+        <p class="comment">
+            <h3>File</h3>
+        </p>
+        <p class="comment">
+            <code>projects/components/src/lib/directives/responsive-input/responsive-input.directive.ts</code>
+        </p>
+
+
+
+        <section>
+            <h3 id="index">Index</h3>
+            <table class="table table-sm table-bordered index-table">
+                <tbody>
+                    <tr>
+                        <td class="col-md-4">
+                            <h6><b>Properties</b></h6>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <ul class="index-list">
+                                <li>
+                                        <a href="#disabled">disabled</a>
+                                </li>
+                            </ul>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+
+
+            <section>
+                <h3 id="inputs">Properties</h3>
+                    <table class="table table-sm table-bordered">
+                        <tbody>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <a name="disabled"></a>
+                                        <span class="name"><b>disabled</b><a href="#disabled"><span class="icon ion-ios-link"></span></a></span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <code>disabled:         <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank" >boolean</a></code>
+</code>
+                                    </td>
+                                </tr>
+
+
+                                    <tr>
+                                        <td class="col-md-4">
+                                            <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank" >boolean</a></code>
+
+                                        </td>
+                                    </tr>
+
+
+
+
+
+                        </tbody>
+                    </table>
+            </section>
+    </div>
+
+
+    <div class="tab-pane fade  tab-source-code" id="c-source">
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { AfterViewChecked, Directive, ElementRef, HostBinding, Input } from &#x27;@angular/core&#x27;;
+
+type ColSize &#x3D; &#x27;2&#x27; | &#x27;4&#x27; | &#x27;8&#x27; | &#x27;10&#x27;;
+
+export interface ResponsiveInputOptions {
+    disabled: boolean;
+}
+
+/**
+ * Adds Clarity grid classes to form controls based on the host&#x27;s width so that labels and inputs are on separate
+ * lines and to control the label width for large screens.
+ *
+ * Centralizes CSS classes to be used to enforce a common look and feel throughout the application
+ */
+@Directive({
+    selector: &#x27;.clr-form-control[vcdResponsiveInput]&#x27;,
+})
+export class ResponsiveInputDirective implements AfterViewChecked {
+    private elementWidth &#x3D; 0;
+
+    private breakPoint &#x3D; 768;
+
+    /**
+     * The directive will be a no-op if it&#x27;s disabled. It does not support being changed after rendering.
+     */
+    @Input(&#x27;vcdResponsiveInput&#x27;)
+    set options(value: ResponsiveInputOptions) {
+        this._disabled &#x3D; value.disabled;
+        this.clrGridRow &#x3D; !this.disabled;
+    }
+
+    public get disabled(): boolean {
+        return this._disabled;
+    }
+
+    private _disabled &#x3D; false;
+
+    @HostBinding(&#x27;class.clr-row&#x27;) public clrGridRow &#x3D; true;
+
+    constructor(private el: ElementRef&lt;HTMLElement&gt;) {}
+
+    ngAfterViewChecked(): void {
+        if (this._disabled) {
+            return;
+        }
+        if (this.elementWidth !&#x3D;&#x3D; 0) {
+            return;
+        }
+        const newElementWidth &#x3D; this.el.nativeElement.offsetWidth;
+        if (newElementWidth) {
+            this.elementWidth &#x3D; newElementWidth;
+            const [labelWidth, containerWidth]: ColSize[] &#x3D;
+                this.elementWidth &lt; this.breakPoint ? [&#x27;4&#x27;, &#x27;8&#x27;] : [&#x27;2&#x27;, &#x27;10&#x27;];
+            this.applyClasses(&#x27;label&#x27;, labelWidth);
+            this.applyClasses(&#x27;container&#x27;, containerWidth);
+        }
+    }
+
+    private applyClasses(className: &#x27;label&#x27; | &#x27;container&#x27;, mdSize: ColSize): void {
+        const el &#x3D; this.el.nativeElement.querySelector(&#x60;:scope &gt; .clr-control-${className}&#x60;);
+        if (el) {
+            el.classList.remove(&#x27;clr-col-12&#x27;, &#x27;clr-col-md-2&#x27;, &#x27;clr-col-md-4&#x27;, &#x27;clr-col-md-8&#x27;, &#x27;clr-col-md-10&#x27;);
+            el.classList.add(&#x27;clr-col-12&#x27;, &#x60;clr-col-md-${mdSize}&#x60;);
+        }
+    }
+}
+</code></pre>
+    </div>
+</div>
+
+
+                   
+
+
+
+
+                   </div><div class="search-results">
+    <div class="has-results">
+        <h1 class="search-results-title"><span class='search-results-count'></span> result-matching "<span class='search-query'></span>"</h1>
+        <ul class="search-results-list"></ul>
+    </div>
+    <div class="no-results">
+        <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+    </div>
+</div>
+</div>
+               <!-- END CONTENT -->
+           </div>
+       </div>
+
+       <script>
+            var COMPODOC_CURRENT_PAGE_DEPTH = 1;
+            var COMPODOC_CURRENT_PAGE_CONTEXT = 'interface';
+            var COMPODOC_CURRENT_PAGE_URL = 'ResponsiveInputOptions.html';
+            var MAX_SEARCH_RESULTS = 15;
+       </script>
+
+       <script src="../js/libs/custom-elements.min.js"></script>
+       <script src="../js/libs/lit-html.js"></script>
+       <!-- Required to polyfill modern browsers as code is ES5 for IE... -->
+       <script src="../js/libs/custom-elements-es5-adapter.js" charset="utf-8" defer></script>
+       <script src="../js/menu-wc.js" defer></script>
+
+       <script src="../js/libs/bootstrap-native.js"></script>
+
+       <script src="../js/libs/es6-shim.min.js"></script>
+       <script src="../js/libs/EventDispatcher.js"></script>
+       <script src="../js/libs/promise.min.js"></script>
+       <script src="../js/libs/zepto.min.js"></script>
+
+       <script src="../js/compodoc.js"></script>
+
+       <script src="../js/tabs.js"></script>
+       <script src="../js/menu.js"></script>
+       <script src="../js/libs/clipboard.min.js"></script>
+       <script src="../js/libs/prism.js"></script>
+       <script src="../js/sourceCode.js"></script>
+          <script src="../js/search/search.js"></script>
+          <script src="../js/search/lunr.min.js"></script>
+          <script src="../js/search/search-lunr.js"></script>
+          <script src="../js/search/search_index.js"></script>
+       <script src="../js/lazy-load-graphs.js"></script>
+
+
+    </body>
+</html>
