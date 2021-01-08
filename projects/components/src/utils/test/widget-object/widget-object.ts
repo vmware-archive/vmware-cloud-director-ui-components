@@ -35,21 +35,21 @@ export class BaseWidgetObject<T> {
     /**
      * Returns an element locator that will find a child with the given cssSelector when called.
      */
-    protected locatorForCssSelectors? = (cssSelector: string): ElementLocator<T> => {
+    protected locatorForCssSelectors ? = (cssSelector: string): ElementLocator<T> => {
         return (options?: unknown) => this.locatorDriver.get(cssSelector, options).unwrap();
     };
 
     /**
      * Returns an element locator that will find a parent with the given cssSelector when called.
      */
-    protected locatorForAncestors? = (cssSelector: string): ElementLocator<T> => {
+    protected locatorForAncestors ? = (cssSelector: string): ElementLocator<T> => {
         return (options?: unknown) => this.locatorDriver.parents(cssSelector, options).unwrap();
     };
 
     /**
      * Returns an element locator that will find a child with the given cssSelector and text when called.
      */
-    protected locatorForText? = (cssSelector: string, text: string): ElementLocator<T> => {
+    protected locatorForText ? = (cssSelector: string, text: string): ElementLocator<T> => {
         return (options?: unknown) => this.locatorDriver.getByText(cssSelector, text, options).unwrap();
     };
 }

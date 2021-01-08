@@ -19,7 +19,7 @@ describe('DomUtil', () => {
             widgetObject: TestHostWidgetObject;
         }
 
-        beforeEach(async function (this: Test): Promise<void> {
+        beforeEach(async function(this: Test): Promise<void> {
             await TestBed.configureTestingModule({
                 imports: [NoopAnimationsModule],
                 declarations: [TestHostComponent],
@@ -37,7 +37,7 @@ describe('DomUtil', () => {
             expect(DomUtil.scrollToElement.bind(DomUtil, new ElementRef(null), null)).not.toThrow();
         });
 
-        it('scrolls view to element defined by selector', function (this: Test, done): void {
+        it('scrolls view to element defined by selector', function(this: Test, done): void {
             // Last element should be hidden
             expect(this.widgetObject.containerBottom).toBeLessThan(this.widgetObject.lastElementTop);
             DomUtil.scrollToElement(this.widgetObject.containerRef, TestHostComponent.LAST_ELEMENT_CSS);
@@ -48,7 +48,7 @@ describe('DomUtil', () => {
             }, SMOOTH_SCROLLING_TIMEOUT);
         });
 
-        it('scrolls view to the element ref when no selector is provided', function (this: Test, done): void {
+        it('scrolls view to the element ref when no selector is provided', function(this: Test, done): void {
             // Last element should be hidden
             expect(this.widgetObject.containerBottom).toBeLessThan(this.widgetObject.lastElementTop);
             DomUtil.scrollToElement(this.widgetObject.lastElementRef);
@@ -59,7 +59,7 @@ describe('DomUtil', () => {
             }, SMOOTH_SCROLLING_TIMEOUT);
         });
 
-        it('does not scrolls the view if the element is already visible', function (this: Test, done): void {
+        it('does not scrolls the view if the element is already visible', function(this: Test, done): void {
             const top = this.widgetObject.thirdElementTop;
             // Third element should be visible
             expect(this.widgetObject.containerBottom).toBeGreaterThan(top);
@@ -71,7 +71,7 @@ describe('DomUtil', () => {
             }, SMOOTH_SCROLLING_TIMEOUT);
         });
 
-        it('does not scrolls the view if element defined by selector does not exist', function (this: Test, done): void {
+        it('does not scrolls the view if element defined by selector does not exist', function(this: Test, done): void {
             const top = this.widgetObject.thirdElementTop;
             DomUtil.scrollToElement(this.widgetObject.containerRef, '.not-existing');
             setTimeout(() => {

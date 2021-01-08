@@ -14,8 +14,8 @@ import {
     Self,
     ViewChild,
 } from '@angular/core';
-import { NgControl } from '@angular/forms';
-import { BaseFormControl } from '../base-form-control';
+import { AbstractControl, FormControl, NgControl, ValidationErrors } from '@angular/forms';
+import { BaseFormControl, defaultValidatorForControl } from '../base-form-control';
 
 /**
  * A {@link FormControl} that contains an input that supports string, number and datetime-local input types
@@ -122,6 +122,9 @@ export class FormInputComponent extends BaseFormControl implements AfterViewInit
         // The textInput view child element is only defined after this life cycle hook. So, the writeValue is called
         // here.
         this.writeValue(this.initialValue);
+        if (this.type === 'number') {
+            defaultValidatorForControl(this.formControl, () => this.validateNumber());
+        }
     }
 
     inputChanged(): void {
@@ -142,6 +145,25 @@ export class FormInputComponent extends BaseFormControl implements AfterViewInit
             return;
         }
         this.onChange(value);
+    }
+
+    /**
+     * Move the focus to the input element.
+     * Its content is also selected for quick editing.
+     */
+    focus(): void {
+        if (!this.textInput) {
+            return;
+        }
+        this.textInput.nativeElement.focus();
+        this.textInput.nativeElement.select();
+    }
+
+    /**
+     * Default validator that looks at the input's [validity](https://developer.mozilla.org/en-US/docs/Web/API/ValidityState)
+     */
+    validateNumber(): ValidationErrors {
+        return this.textInput?.nativeElement.validity.badInput ? { 'vcd.cc.bad.input': true } : null;
     }
 }
 

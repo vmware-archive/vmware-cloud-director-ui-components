@@ -22,6 +22,7 @@ import { ActionMenuStaticActionsExampleComponent } from './static-actions/action
 import { ActionMenuStaticActionsExampleModule } from './static-actions/action-menu-static-actions-example.module';
 // tslint:disable-next-line:max-line-length
 import { ActionMenuStaticAndContextualActionsExampleComponent } from './static-and-contextual-actions/action-menu-static-and-contextual-actions-example.component';
+// tslint:disable-next-line:max-line-length
 import { ActionMenuStaticAndContextualActionsExampleModule } from './static-and-contextual-actions/action-menu-static-and-contextual-actions-example.module';
 import { ActionMenuWithSeparatorsExampleComponent } from './with-separators/action-menu-with-separators.example.component';
 import { ActionMenuWithSeparatorsExampleModule } from './with-separators/action-menu-with-separators.example.module';

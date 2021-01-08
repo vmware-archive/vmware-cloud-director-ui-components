@@ -10,7 +10,9 @@ import { BoldTextRenderer, BoldTextRendererComponent } from './bold-text-rendere
 import { BoldTextRendererWidgetObject } from './bold-text-renderer.wo';
 
 @Component({
-    template: ` <vcd-bold-text-renderer [config]="config"></vcd-bold-text-renderer> `,
+    template: `
+        <vcd-bold-text-renderer [config]="config"></vcd-bold-text-renderer>
+    `,
 })
 class TestBoldComponent {
     config = { text: 'stuff' };
@@ -23,7 +25,7 @@ interface HasFinderAndBoldText {
 }
 
 describe('BannerActivityReporterComponent', () => {
-    beforeEach(async function (this: HasFinderAndBoldText): Promise<void> {
+    beforeEach(async function(this: HasFinderAndBoldText): Promise<void> {
         await TestBed.configureTestingModule({
             declarations: [BoldTextRendererComponent, TestBoldComponent],
         }).compileComponents();
@@ -41,7 +43,7 @@ describe('BannerActivityReporterComponent', () => {
     });
 
     describe('@Input() config', () => {
-        it('can display bold text', function (this: HasFinderAndBoldText): void {
+        it('can display bold text', function(this: HasFinderAndBoldText): void {
             this.finder.hostComponent.config = { text: 'hello!' };
             this.finder.detectChanges();
             expect(this.boldText.text).toEqual('hello!');

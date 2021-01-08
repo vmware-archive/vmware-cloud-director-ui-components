@@ -29,43 +29,66 @@ export class NumberWithUnitFormInputWidgetObject extends WidgetObject<NumberWith
         return this.getText('.readonly-text');
     }
 
-    get unlimitedFormControl(): AbstractControl {
-        return this.component.formGroup.get('unlimited');
-    }
-
-    get valueFormControl(): AbstractControl {
-        return this.component.formGroup.get('limited');
-    }
-
-    get unitFormControl(): AbstractControl {
-        return this.component.formGroup.get('comboUnitOptions');
-    }
-
-    selectUnit(unit: Unit): void {
-        this.component.selectedUnit = unit.getMultiplier();
-    }
-
     setInputValueUnit(unit: Unit): void {
         this.component.inputValueUnit = unit;
     }
 
-    get selectedUnit(): number {
-        return this.component.formGroup.get('comboUnitOptions').value;
+    selectUnit(unit: Unit): void {
+        this.component.onUnitChange(unit.getMultiplier().toString());
+    }
+
+    get isShowingUnlimitedCheckbox(): boolean {
+        return !!this.unlimitedCheckbox;
+    }
+
+    private get unlimitedCheckbox(): HTMLElement {
+        return this.getNativeElement('.clr-checkbox-wrapper label');
+    }
+
+    clickUnlimitedCheckbox(): void {
+        this.component.onUnlimitedCheckboxChange(!this.component.unlimitedControlValue);
+        this.detectChanges();
+    }
+
+    private get unitDropdown(): HTMLSelectElement {
+        return this.getNativeElement('select') as HTMLSelectElement;
+    }
+
+    set textInputValue(num: string) {
+        this.component.onTextInputChange(num);
+        this.detectChanges();
+    }
+
+    get isShowingUnitDropdown(): boolean {
+        return !!this.unitDropdown;
+    }
+
+    get isUnitDropdownDisabled(): boolean {
+        return this.unitDropdown?.disabled;
+    }
+
+    private get inputElement(): HTMLInputElement {
+        return this.getNativeElement('input[type=number]') as HTMLInputElement;
+    }
+
+    get isInputValueFocused(): boolean {
+        return document.activeElement === this.inputElement;
+    }
+
+    get isInputFieldDisabled(): boolean {
+        return this.inputElement.disabled;
     }
 
     get selectedUnitDisplayValue(): string {
-        return (
-            this.component.unitOptions
-                // tslint:disable-next-line:triple-equals
-                .find((item) => item.getMultiplier() == this.selectedUnit)
-                .getUnitName()
-        );
+        return this.component.unitOptions
+            .find((item) => item.getMultiplier() === Number(this.component.unitsControlValue))
+            .getUnitName();
     }
 
     setUnitOptionsToPercent(): void {
         this.component.unitOptions = [Percent.ZERO_TO_100];
         this.component.inputValueUnit = Percent.ZERO_TO_1;
-        this.unitFormControl.setValue(this.component.unitOptions[0].getMultiplier());
+        this.component.unitsControlValue = this.component.unitOptions[0].getMultiplier().toString();
         this.fixture.detectChanges();
     }
 
@@ -75,7 +98,7 @@ export class NumberWithUnitFormInputWidgetObject extends WidgetObject<NumberWith
     }
 
     getNativeElement(cssSelector: string): HTMLElement {
-        return this.findElement(cssSelector) && this.findElement(cssSelector).nativeElement;
+        return this.findElement(cssSelector)?.nativeElement;
     }
 
     get isUnitDropDownDisplayed(): boolean {
@@ -86,7 +109,6 @@ export class NumberWithUnitFormInputWidgetObject extends WidgetObject<NumberWith
      * Returns an empty string if there is no HTML for single unit
      */
     get singleUnitDisplayText(): string {
-        const element = this.getNativeElement('.single-option');
-        return element ? element.innerHTML : '';
+        return this.getText('.single-option');
     }
 }

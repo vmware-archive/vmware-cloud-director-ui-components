@@ -48,10 +48,10 @@ class VcdDropdownWidgetObject extends WidgetObject<DropdownComponent> {
 
 describe('DropdownComponent', () => {
     describe('shouldRenderAsSeparator', () => {
-        beforeEach(function (this: HasVcdDropdown): void {
+        beforeEach(function(this: HasVcdDropdown): void {
             this.dropdownComponent = new DropdownComponent(null, null);
         });
-        it('returns false when separator is the first item in the list', function (this: HasVcdDropdown): void {
+        it('returns false when separator is the first item in the list', function(this: HasVcdDropdown): void {
             this.dropdownComponent.items = [
                 {
                     isSeparator: true,
@@ -68,55 +68,52 @@ describe('DropdownComponent', () => {
             ];
             expect(this.dropdownComponent.shouldRenderAsSeparator(0, this.dropdownComponent.items[0])).toEqual(false);
         });
-        it(
-            'returns true only when the current item is a separator and the next item is not' + ' a separator',
-            function (this: HasVcdDropdown): void {
-                const separatorItemIndices = {
-                    one: 1,
-                    three: 3,
-                    four: 4,
-                };
-                this.dropdownComponent.items = [
-                    {
-                        textKey: 'action.1',
-                    },
-                    {
-                        isSeparator: true,
-                    },
-                    {
-                        textKey: 'action.1',
-                    },
-                    {
-                        isSeparator: true,
-                    },
-                    {
-                        isSeparator: true,
-                    },
-                    {
-                        textKey: 'action.1',
-                    },
-                ];
-                expect(this.dropdownComponent.shouldRenderAsSeparator(0, this.dropdownComponent.items[0])).toEqual(
-                    false
-                );
-                expect(
-                    this.dropdownComponent.shouldRenderAsSeparator(
-                        separatorItemIndices.one,
-                        this.dropdownComponent.items[separatorItemIndices.one]
-                    )
-                ).toEqual(true);
-                expect(
-                    this.dropdownComponent.shouldRenderAsSeparator(
-                        separatorItemIndices.three,
-                        this.dropdownComponent.items[separatorItemIndices.three]
-                    )
-                ).toEqual(false);
-            }
-        );
+        it('returns true only when the current item is a separator and the next item is not' + ' a separator', function(
+            this: HasVcdDropdown
+        ): void {
+            const separatorItemIndices = {
+                one: 1,
+                three: 3,
+                four: 4,
+            };
+            this.dropdownComponent.items = [
+                {
+                    textKey: 'action.1',
+                },
+                {
+                    isSeparator: true,
+                },
+                {
+                    textKey: 'action.1',
+                },
+                {
+                    isSeparator: true,
+                },
+                {
+                    isSeparator: true,
+                },
+                {
+                    textKey: 'action.1',
+                },
+            ];
+            expect(this.dropdownComponent.shouldRenderAsSeparator(0, this.dropdownComponent.items[0])).toEqual(false);
+            expect(
+                this.dropdownComponent.shouldRenderAsSeparator(
+                    separatorItemIndices.one,
+                    this.dropdownComponent.items[separatorItemIndices.one]
+                )
+            ).toEqual(true);
+            expect(
+                this.dropdownComponent.shouldRenderAsSeparator(
+                    separatorItemIndices.three,
+                    this.dropdownComponent.items[separatorItemIndices.three]
+                )
+            ).toEqual(false);
+        });
         it(
             'irrespective of number of adjacent separators, it returns false for all the separators that do not have a dropdown item ' +
                 'next to them',
-            function (this: HasVcdDropdown): void {
+            function(this: HasVcdDropdown): void {
                 const separatorItemIndices = {
                     one: 1,
                     two: 2,
@@ -169,7 +166,7 @@ describe('DropdownComponent', () => {
                 ).toEqual(true);
             }
         );
-        it('returns false when separator is the last item in the list', function (this: HasVcdDropdown): void {
+        it('returns false when separator is the last item in the list', function(this: HasVcdDropdown): void {
             this.dropdownComponent.items = [
                 {
                     textKey: 'action.1',
@@ -194,7 +191,7 @@ describe('DropdownComponent', () => {
         });
     });
     describe('toggling,', () => {
-        beforeEach(async function (this: HasVcdDropdown): Promise<void> {
+        beforeEach(async function(this: HasVcdDropdown): Promise<void> {
             await TestBed.configureTestingModule({
                 imports: [DropdownModule],
                 providers: [
@@ -212,31 +209,31 @@ describe('DropdownComponent', () => {
             this.dropdownComponent = this.dropdownWidget.component;
         });
 
-        it('toggles the primary dropdown menu when clicked', function (this: HasVcdDropdown): void {
+        it('toggles the primary dropdown menu when clicked', function(this: HasVcdDropdown): void {
             this.dropdownWidget.clickDropdown(PRIMARY_DROPDOWN_CLASS_NAME);
             expect(this.dropdownWidget.isDropdownOpen(PRIMARY_DROPDOWN_CLASS_NAME)).toEqual(true);
             this.dropdownWidget.clickDropdown(PRIMARY_DROPDOWN_CLASS_NAME);
             expect(this.dropdownWidget.isDropdownOpen(PRIMARY_DROPDOWN_CLASS_NAME)).toEqual(false);
         });
 
-        it('does not open the primary dropdown menu when mouse is moved over', function (this: HasVcdDropdown): void {
+        it('does not open the primary dropdown menu when mouse is moved over', function(this: HasVcdDropdown): void {
             this.dropdownWidget.mouseOver(PRIMARY_DROPDOWN_CLASS_NAME);
             expect(this.dropdownWidget.isDropdownOpen(PRIMARY_DROPDOWN_CLASS_NAME)).toEqual(false);
         });
 
-        it('opens the nested dropdown menu when mouse is moved over', function (this: HasVcdDropdown): void {
+        it('opens the nested dropdown menu when mouse is moved over', function(this: HasVcdDropdown): void {
             this.dropdownWidget.clickDropdown(PRIMARY_DROPDOWN_CLASS_NAME);
             this.dropdownWidget.mouseOver(NESTED_DROPDOWN_CLASS_NAME);
             expect(this.dropdownWidget.isDropdownOpen(NESTED_DROPDOWN_CLASS_NAME)).toEqual(true);
         });
-        it('closes the nested dropdown when mouse is moved out of the nested dropdown' + 'trigger', async function (
+        it('closes the nested dropdown when mouse is moved out of the nested dropdown' + 'trigger', async function(
             this: HasVcdDropdown
         ): Promise<void> {
             this.dropdownWidget.clickDropdown(PRIMARY_DROPDOWN_CLASS_NAME);
             this.dropdownWidget.mouseOver(NESTED_DROPDOWN_CLASS_NAME);
             expect(this.dropdownWidget.isDropdownOpen(NESTED_DROPDOWN_CLASS_NAME)).toEqual(true);
             this.dropdownWidget.mouseOut(NESTED_DROPDOWN_CLASS_NAME);
-            await new Promise((resolve) => window.setTimeout(resolve, NESTED_MENU_HIDE_DELAY));
+            await new Promise(resolve => window.setTimeout(resolve, NESTED_MENU_HIDE_DELAY));
             expect(this.dropdownWidget.isDropdownOpen(NESTED_DROPDOWN_CLASS_NAME)).toEqual(false);
         });
     });

@@ -45,7 +45,7 @@ export class CommonUtil {
         // tslint:disable-next-line:ban-types
         let resolver: Function;
         // tslint:disable-next-line:only-arrow-functions
-        return function (): Promise<any> {
+        return function(): Promise<any> {
             if (!pendingPromise) {
                 pendingPromise = new Promise((resolve) => {
                     resolver = resolve;

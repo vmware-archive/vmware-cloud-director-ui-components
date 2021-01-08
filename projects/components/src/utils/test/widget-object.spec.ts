@@ -73,7 +73,7 @@ class HostWithTwoComponent {}
 class HostWithOneComponent {}
 
 function setup(fixtureRoot: Type<unknown>): void {
-    beforeEach(async function (this: HasFinder): Promise<void> {
+    beforeEach(async function(this: HasFinder): Promise<void> {
         await TestBed.configureTestingModule({
             declarations: [ClickTrackerComponent, fixtureRoot],
         }).compileComponents();
@@ -87,7 +87,7 @@ describe('WidgetFinder', () => {
         setup(HostWithTwoComponent);
 
         describe('find', () => {
-            it('finds object by simple CSS classNames', function (this: HasFinder): void {
+            it('finds object by simple CSS classNames', function(this: HasFinder): void {
                 const widget = this.finder.find({
                     woConstructor: ClickTrackerWidgetObject,
                     className: 'second',
@@ -95,7 +95,7 @@ describe('WidgetFinder', () => {
                 expect(widget.headerText).toBe('Second');
             });
 
-            it('throws an error if widget is not found', function (this: HasFinder): void {
+            it('throws an error if widget is not found', function(this: HasFinder): void {
                 expect(() => {
                     this.finder.find({
                         woConstructor: ClickTrackerWidgetObject,
@@ -104,7 +104,7 @@ describe('WidgetFinder', () => {
                 }).toThrow();
             });
 
-            it('throws an error if multiple widgets are found', function (this: HasFinder): void {
+            it('throws an error if multiple widgets are found', function(this: HasFinder): void {
                 expect(() => {
                     this.finder.find(ClickTrackerWidgetObject);
                 }).toThrow();
@@ -112,7 +112,7 @@ describe('WidgetFinder', () => {
         });
 
         describe('findWidgets', () => {
-            it('does not throw an error if no widgets are found', function (this: HasFinder): void {
+            it('does not throw an error if no widgets are found', function(this: HasFinder): void {
                 expect(() => {
                     this.finder.findWidgets({
                         woConstructor: ClickTrackerWidgetObject,
@@ -127,7 +127,7 @@ describe('WidgetFinder', () => {
         setup(HostWithOneComponent);
 
         describe('find', () => {
-            it('returns the first one within the fixture if no classname is specified', function (this: HasFinder): void {
+            it('returns the first one within the fixture if no classname is specified', function(this: HasFinder): void {
                 const widget = this.finder.find(ClickTrackerWidgetObject);
                 expect(widget.headerText).toBe('First');
             });
@@ -148,7 +148,7 @@ interface HasClickTracker {
  * in the concrete {@link ClickTrackerWidgetObject}
  */
 describe('WidgetObject (through ClickTracerWidgetObject)', () => {
-    beforeEach(async function (this: HasClickTracker): Promise<void> {
+    beforeEach(async function(this: HasClickTracker): Promise<void> {
         await TestBed.configureTestingModule({
             declarations: [ClickTrackerComponent],
         }).compileComponents();
@@ -158,26 +158,26 @@ describe('WidgetObject (through ClickTracerWidgetObject)', () => {
         this.clickTracker = new ClickTrackerWidgetObject(this.fixture);
     });
 
-    afterEach(function (this: HasClickTracker): void {
+    afterEach(function(this: HasClickTracker): void {
         if (this.fixture) {
             this.fixture.destroy();
         }
     });
 
     describe('constructor', () => {
-        it('can be called when you create the instance directly', function (this: HasClickTracker): void {
+        it('can be called when you create the instance directly', function(this: HasClickTracker): void {
             expect(this.clickTracker).toBeTruthy();
         });
     });
 
     describe('getText', () => {
-        it('can find elements within itself passing a css query', function (this: HasClickTracker): void {
+        it('can find elements within itself passing a css query', function(this: HasClickTracker): void {
             expect(this.clickTracker.clickCount).toBe(0);
         });
     });
 
     describe('click', () => {
-        it('calls detectChanges after clicking', function (this: HasClickTracker): void {
+        it('calls detectChanges after clicking', function(this: HasClickTracker): void {
             this.clickTracker.clickTrackedElement();
             expect(this.clickTracker.clickCount).toBe(1);
         });
