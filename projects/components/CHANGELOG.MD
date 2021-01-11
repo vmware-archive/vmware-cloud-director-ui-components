@@ -7,7 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
-
+## [1.0.0-dev.56]
+### Changed
+- BREAKING: Removed the calculateActionAvailability input which was acting as a switch to toggle the action availability
+calculation by ActionMenuComponent  
 
 ## [1.0.0-dev.55] - 2020-12-16
 - Merged a11y branch, changes described below
