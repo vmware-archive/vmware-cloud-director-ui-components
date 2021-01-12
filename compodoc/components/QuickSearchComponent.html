@@ -228,6 +228,9 @@ in sections based on the registered provider <a href="../interfaces/QuickSearchP
                                 <a href="#selectNext">selectNext</a>
                             </li>
                             <li>
+                                <a href="#showNoResults">showNoResults</a>
+                            </li>
+                            <li>
                                 <a href="#showSectionTitle">showSectionTitle</a>
                             </li>
                         </ul>
@@ -728,8 +731,8 @@ This happens when item is clicked or &#39;Enter&#39; is pressed when there is a 
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="337"
-                            class="link-to-prism">projects/components/src/quick-search/quick-search.component.ts:337</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="365"
+                            class="link-to-prism">projects/components/src/quick-search/quick-search.component.ts:365</a></div>
                 </td>
             </tr>
 
@@ -1204,6 +1207,76 @@ then null is returned</p>
                     </div>
                     <div class="io-description">
                         <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                    </div>
+                    <div class="io-description">
+                        
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="showNoResults"></a>
+                    <span class="name">
+                        <b>
+                            showNoResults
+                        </b>
+                        <a href="#showNoResults"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>showNoResults(searchSection: <a href="../interfaces/SearchSection.html">SearchSection</a>)</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="350"
+                            class="link-to-prism">projects/components/src/quick-search/quick-search.component.ts:350</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Type</td>
+                                    <td>Optional</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>searchSection</td>
+                                    <td>
+                                                <code><a href="../interfaces/SearchSection.html" target="_self" >SearchSection</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank" >boolean</a></code>
 
                     </div>
                     <div class="io-description">
@@ -1986,7 +2059,35 @@ export class QuickSearchComponent {
     }
 
     showSectionTitle(searchSection: SearchSection): boolean {
-        return !!(searchSection.provider.sectionName &amp;&amp; this.searchCriteria);
+        // Do not show when there is no search criteria
+        if (!this.searchCriteria) {
+            return false;
+        }
+
+        // Do not show when there is no section name
+        if (!searchSection.provider.sectionName) {
+            return false;
+        }
+
+        // Show when it is loading
+        if (searchSection.isLoading) {
+            return true;
+        }
+
+        // Do not show when the provider has no results and it is marked with {@link QuickSearchProvider#hideWhenEmpty}
+        if (searchSection.provider.hideWhenEmpty &amp;&amp; !searchSection.result?.items?.length) {
+            return false;
+        }
+
+        return true;
+    }
+
+    showNoResults(searchSection: SearchSection): boolean {
+        // Show &#x27;No Results&#x27; if the section is empty and the section title is shown
+        if (searchSection.result?.items?.length &#x3D;&#x3D;&#x3D; 0 &amp;&amp; this.showSectionTitle(searchSection)) {
+            return true;
+        }
+        return false;
     }
 
     /**
@@ -2058,7 +2159,7 @@ export class QuickSearchComponent {
                     &gt;
                         {{ item.displayText }}
                     &lt;/li&gt;
-                    &lt;li class&#x3D;&quot;no-results&quot; *ngIf&#x3D;&quot;searchSection.result?.items?.length &#x3D;&#x3D;&#x3D; 0&quot;&gt;
+                    &lt;li class&#x3D;&quot;no-results&quot; *ngIf&#x3D;&quot;showNoResults(searchSection)&quot;&gt;
                         {{ &#x27;vcd.cc.quickSearch.noResults&#x27; | translate }}
                     &lt;/li&gt;
                     &lt;li&gt;
@@ -2179,7 +2280,7 @@ export class QuickSearchComponent {
 <script src="../js/libs/htmlparser.js"></script>
 <script src="../js/libs/deep-iterator.js"></script>
 <script>
-        var COMPONENT_TEMPLATE = '<div><clr-modal    [(clrModalOpen)]="open"    [clrModalStaticBackdrop]="false"    (keydown.arrowup)="onArrowUp($event)"    (keydown.arrowdown)="onArrowDown($event)"    (keydown.enter)="onEnterKey($event)">    <div class="modal-body">        <div class="search-input-container">            <clr-icon shape="search" size="20"></clr-icon>            <input                #searchInput                type="text"                class="clr-input"                [placeholder]="placeholder || \'\'"                [(ngModel)]="searchCriteria"            />        </div>        <ng-content select=".top-of-results"></ng-content>        <div class="search-result-container">            <section                *ngFor="let searchSection of searchSections; let i = index"                class="search-result-section section-index-{{ i }}"            >                <h5 *ngIf="showSectionTitle(searchSection)" class="search-result-section-title">                    {{ searchSection.provider.sectionName }}                    <span *ngIf="hasPartialResult(searchSection); let partial" class="partial-result">                        {{ \'vcd.cc.quickSearch.partialResultNotation\' | translate: partial }}                    </span>                </h5>                <div *ngIf="searchSection.isLoading">                    <div class="spinner spinner-inline"></div>                    {{ \'vcd.cc.loading\' | translate }}                </div>                <ul *ngIf="!searchSection.isLoading" class="list-unstyled compact">                    <li                        class="search-result-item"                        role="button"                        *ngFor="let item of searchSection.result?.items"                        (click)="itemClicked(item)"                        [ngClass]="item == selectedItem ? \'selected\' : \'\'"                    >                        {{ item.displayText }}                    </li>                    <li class="no-results" *ngIf="searchSection.result?.items?.length === 0">                        {{ \'vcd.cc.quickSearch.noResults\' | translate }}                    </li>                    <li>                        <clr-alert                            *ngIf="hasPartialResult(searchSection)"                            [clrAlertType]="\'warning\'"                            [clrAlertSizeSmall]="true"                            [clrAlertClosable]="false"                        >                            <clr-alert-item>                                {{                                    \'vcd.cc.quickSearch.refineQuery\'                                        | translate: { max: searchSection.result.items.length }                                }}                            </clr-alert-item>                        </clr-alert>                    </li>                </ul>            </section>        </div>        <ng-content select=".bottom-of-results"></ng-content>    </div></clr-modal></div>'
+        var COMPONENT_TEMPLATE = '<div><clr-modal    [(clrModalOpen)]="open"    [clrModalStaticBackdrop]="false"    (keydown.arrowup)="onArrowUp($event)"    (keydown.arrowdown)="onArrowDown($event)"    (keydown.enter)="onEnterKey($event)">    <div class="modal-body">        <div class="search-input-container">            <clr-icon shape="search" size="20"></clr-icon>            <input                #searchInput                type="text"                class="clr-input"                [placeholder]="placeholder || \'\'"                [(ngModel)]="searchCriteria"            />        </div>        <ng-content select=".top-of-results"></ng-content>        <div class="search-result-container">            <section                *ngFor="let searchSection of searchSections; let i = index"                class="search-result-section section-index-{{ i }}"            >                <h5 *ngIf="showSectionTitle(searchSection)" class="search-result-section-title">                    {{ searchSection.provider.sectionName }}                    <span *ngIf="hasPartialResult(searchSection); let partial" class="partial-result">                        {{ \'vcd.cc.quickSearch.partialResultNotation\' | translate: partial }}                    </span>                </h5>                <div *ngIf="searchSection.isLoading">                    <div class="spinner spinner-inline"></div>                    {{ \'vcd.cc.loading\' | translate }}                </div>                <ul *ngIf="!searchSection.isLoading" class="list-unstyled compact">                    <li                        class="search-result-item"                        role="button"                        *ngFor="let item of searchSection.result?.items"                        (click)="itemClicked(item)"                        [ngClass]="item == selectedItem ? \'selected\' : \'\'"                    >                        {{ item.displayText }}                    </li>                    <li class="no-results" *ngIf="showNoResults(searchSection)">                        {{ \'vcd.cc.quickSearch.noResults\' | translate }}                    </li>                    <li>                        <clr-alert                            *ngIf="hasPartialResult(searchSection)"                            [clrAlertType]="\'warning\'"                            [clrAlertSizeSmall]="true"                            [clrAlertClosable]="false"                        >                            <clr-alert-item>                                {{                                    \'vcd.cc.quickSearch.refineQuery\'                                        | translate: { max: searchSection.result.items.length }                                }}                            </clr-alert-item>                        </clr-alert>                    </li>                </ul>            </section>        </div>        <ng-content select=".bottom-of-results"></ng-content>    </div></clr-modal></div>'
     var COMPONENTS = [{'name': 'ActionMenuComponent', 'selector': 'vcd-action-menu'},{'name': 'BannerActivityReporterComponent', 'selector': 'vcd-banner-activity-reporter'},{'name': 'BoldTextRendererComponent', 'selector': 'vcd-bold-text-renderer'},{'name': 'DataExporterComponent', 'selector': 'vcd-data-exporter'},{'name': 'DatagridComponent', 'selector': 'vcd-datagrid'},{'name': 'DatagridMultiSelectFilterComponent', 'selector': 'vcd-dg-multiselect-filter'},{'name': 'DatagridNumericFilterComponent', 'selector': 'vcd-dg-numeric-filter'},{'name': 'DatagridSelectFilterComponent', 'selector': 'vcd-dg-select-filter'},{'name': 'DatagridStringFilterComponent', 'selector': 'vcd-dg-string-filter'},{'name': 'DropdownComponent', 'selector': 'vcd-dropdown'},{'name': 'ErrorBannerComponent', 'selector': 'vcd-error-banner'},{'name': 'FilterTestHostComponent', 'selector': ''},{'name': 'FormCheckboxComponent', 'selector': 'vcd-form-checkbox'},{'name': 'FormInputComponent', 'selector': 'vcd-form-input'},{'name': 'FormlyInputComponent', 'selector': 'vcd-formly-input'},{'name': 'FormlyNumberWithUnitInputComponent', 'selector': 'vcd-formly-number-with-unit-input'},{'name': 'FormlySelectComponent', 'selector': 'vcd-formly-select'},{'name': 'FormSelectComponent', 'selector': 'vcd-form-select'},{'name': 'LoadingIndicatorComponent', 'selector': 'vcd-loading-indicator'},{'name': 'NumberWithUnitFormInputComponent', 'selector': 'vcd-number-with-unit-form-input'},{'name': 'QuickSearchComponent', 'selector': 'vcd-quick-search'},{'name': 'ShowClippedTextDirectiveTestHostComponent', 'selector': ''},{'name': 'SpinnerActivityReporterComponent', 'selector': 'vcd-spinner-activity-reporter'}];
     var DIRECTIVES = [{'name': 'AlternativeTextDirective', 'selector': 'clr-icon'},{'name': 'ComponentRendererOutletDirective', 'selector': '[vcdComponentRendererOutlet]'},{'name': 'DropdownFocusHandlerDirective', 'selector': 'vcd-dropdown[vcdDropdownFocusHandler]'},{'name': 'DynamicDropdownPositionDirective', 'selector': 'clr-dropdown[vcdDynamicDropdown]'},{'name': 'ResponsiveInputDirective', 'selector': '.clr-form-control[vcdResponsiveInput]'},{'name': 'ShowClippedTextDirective', 'selector': '[vcdShowClippedText]'}];
     var ACTUAL_COMPONENT = {'name': 'QuickSearchComponent'};
