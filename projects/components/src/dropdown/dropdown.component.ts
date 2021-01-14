@@ -153,12 +153,6 @@ export class DropdownComponent implements AfterViewInit {
     @Input() dropdownTriggerBtnIcon: string = 'ellipsis-horizontal';
 
     /**
-     * The {@link ngForTrackBy} method used for rendering of a dropdown actions or for rendering nested drop downs
-     * NOTE: Without this, nested drop downs don't get rendered on the screen
-     */
-    @Input() trackByFunction: TrackByFunction<ActionItem<unknown, unknown>>;
-
-    /**
      * The position the root dropdown with respect to root dropdown trigger button. Refer to {@link clrPosition} for it's values
      */
     @Input() dropdownPosition: string;
@@ -204,6 +198,12 @@ export class DropdownComponent implements AfterViewInit {
     @ViewChildren(DropdownComponent) vcdDropdownChildren: QueryList<DropdownComponent>;
 
     private hideTimeout: number;
+
+    /**
+     * The {@link ngForTrackBy} method used for rendering of a dropdown actions or for rendering nested drop downs
+     * NOTE: Without this, nested drop downs don't get rendered on the screen
+     */
+    @Input() trackByFunction: TrackByFunction<ActionItem<unknown, unknown>> = (index, item) => item.textKey;
 
     private flattenNestedItemsWithSingleChild(items: ActionItem<unknown, unknown>[]): ActionItem<unknown, unknown>[] {
         items.forEach((item) => {

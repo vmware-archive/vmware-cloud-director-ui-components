@@ -3,55 +3,45 @@
  * SPDX-License-Identifier: BSD-2-Clause
  */
 
-import { Component, DebugElement } from '@angular/core';
+import { Component } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
-import { By } from '@angular/platform-browser';
 import { MockTranslationService, TranslationService } from '@vcd/i18n';
 import { ActionItem } from '../common/interfaces';
-import { WidgetFinder, WidgetObject } from '../utils/test/widget-object';
+import { AngularWidgetObjectFinder } from '../utils/test/widget-object/angular-widget-finder';
+import { TestElement } from '../utils/test/widget-object/angular-widget-object';
+import { BaseWidgetObject } from '../utils/test/widget-object/widget-object';
 import { DropdownComponent, NESTED_MENU_HIDE_DELAY } from './dropdown.component';
 import { DropdownModule } from './dropdown.module';
 
-interface HasVcdDropdown {
-    finder: WidgetFinder<TestHostComponent>;
-    dropdownComponent: DropdownComponent;
-    dropdownWidget: VcdDropdownWidgetObject;
-}
-
-const PRIMARY_DROPDOWN_CLASS_NAME = 'primary-dropdown';
-const NESTED_DROPDOWN_CLASS_NAME = 'nested-dropdown-1';
-
-class VcdDropdownWidgetObject extends WidgetObject<DropdownComponent> {
+export class VcdDropdownWidgetObject<T> extends BaseWidgetObject<T> {
     static tagName = `vcd-dropdown`;
 
-    clickDropdown(className): void {
-        this.click(`.${className}`);
+    getDropdownToggleButton(dropdownToggleBtnClassName: string): T {
+        return this.locatorForCssSelectors(`.${dropdownToggleBtnClassName}`)();
     }
 
-    mouseOver(className: string, parent: DebugElement = this.root): void {
-        const nativeElement: HTMLBaseElement = parent.query(By.css(`.${className}`)).nativeElement;
-        nativeElement.dispatchEvent(new MouseEvent('mouseover', { bubbles: true }));
-        this.detectChanges();
-    }
-
-    mouseOut(className: string, parent: DebugElement = this.root): void {
-        const nativeElement: HTMLBaseElement = parent.query(By.css(`.${className}`)).nativeElement;
-        nativeElement.dispatchEvent(new MouseEvent('mouseout', { bubbles: true }));
-        this.detectChanges();
-    }
-
-    isDropdownOpen(className: string): boolean {
-        const dropdownComponent = this.findElement(`.${className}`).componentInstance as DropdownComponent;
-        return dropdownComponent.clrDropdown.toggleService.open;
+    getDropdown(dropdownToggleBtnClassName: string): T {
+        const dropdownToggle = this.locatorDriver.get(`.${dropdownToggleBtnClassName}`);
+        const toggleParentDropdown = dropdownToggle.parents(VcdDropdownWidgetObject.tagName);
+        return toggleParentDropdown.unwrap();
     }
 }
+
+interface HasVcdDropdown {
+    finder: AngularWidgetObjectFinder<TestHostComponent>;
+    dropdownComponent: DropdownComponent;
+    dropdownWidget: VcdDropdownWidgetObject<TestElement>;
+}
+
+export const PRIMARY_DROPDOWN_TOGGLE_CLASS_NAME = 'first-dropdown-toggle';
+export const NESTED_DROPDOWN_TOGGLE_CLASS_NAME = 'nested-dropdown-toggle';
 
 describe('DropdownComponent', () => {
     describe('shouldRenderAsSeparator', () => {
-        beforeEach(function(this: HasVcdDropdown): void {
+        beforeEach(function (this: HasVcdDropdown): void {
             this.dropdownComponent = new DropdownComponent(null, null);
         });
-        it('returns false when separator is the first item in the list', function(this: HasVcdDropdown): void {
+        it('returns false when separator is the first item in the list', function (this: HasVcdDropdown): void {
             this.dropdownComponent.items = [
                 {
                     isSeparator: true,
@@ -68,52 +58,55 @@ describe('DropdownComponent', () => {
             ];
             expect(this.dropdownComponent.shouldRenderAsSeparator(0, this.dropdownComponent.items[0])).toEqual(false);
         });
-        it('returns true only when the current item is a separator and the next item is not' + ' a separator', function(
-            this: HasVcdDropdown
-        ): void {
-            const separatorItemIndices = {
-                one: 1,
-                three: 3,
-                four: 4,
-            };
-            this.dropdownComponent.items = [
-                {
-                    textKey: 'action.1',
-                },
-                {
-                    isSeparator: true,
-                },
-                {
-                    textKey: 'action.1',
-                },
-                {
-                    isSeparator: true,
-                },
-                {
-                    isSeparator: true,
-                },
-                {
-                    textKey: 'action.1',
-                },
-            ];
-            expect(this.dropdownComponent.shouldRenderAsSeparator(0, this.dropdownComponent.items[0])).toEqual(false);
-            expect(
-                this.dropdownComponent.shouldRenderAsSeparator(
-                    separatorItemIndices.one,
-                    this.dropdownComponent.items[separatorItemIndices.one]
-                )
-            ).toEqual(true);
-            expect(
-                this.dropdownComponent.shouldRenderAsSeparator(
-                    separatorItemIndices.three,
-                    this.dropdownComponent.items[separatorItemIndices.three]
-                )
-            ).toEqual(false);
-        });
+        it(
+            'returns true only when the current item is a separator and the next item is not' + ' a separator',
+            function (this: HasVcdDropdown): void {
+                const separatorItemIndices = {
+                    one: 1,
+                    three: 3,
+                    four: 4,
+                };
+                this.dropdownComponent.items = [
+                    {
+                        textKey: 'action.1',
+                    },
+                    {
+                        isSeparator: true,
+                    },
+                    {
+                        textKey: 'action.1',
+                    },
+                    {
+                        isSeparator: true,
+                    },
+                    {
+                        isSeparator: true,
+                    },
+                    {
+                        textKey: 'action.1',
+                    },
+                ];
+                expect(this.dropdownComponent.shouldRenderAsSeparator(0, this.dropdownComponent.items[0])).toEqual(
+                    false
+                );
+                expect(
+                    this.dropdownComponent.shouldRenderAsSeparator(
+                        separatorItemIndices.one,
+                        this.dropdownComponent.items[separatorItemIndices.one]
+                    )
+                ).toEqual(true);
+                expect(
+                    this.dropdownComponent.shouldRenderAsSeparator(
+                        separatorItemIndices.three,
+                        this.dropdownComponent.items[separatorItemIndices.three]
+                    )
+                ).toEqual(false);
+            }
+        );
         it(
             'irrespective of number of adjacent separators, it returns false for all the separators that do not have a dropdown item ' +
                 'next to them',
-            function(this: HasVcdDropdown): void {
+            function (this: HasVcdDropdown): void {
                 const separatorItemIndices = {
                     one: 1,
                     two: 2,
@@ -166,7 +159,7 @@ describe('DropdownComponent', () => {
                 ).toEqual(true);
             }
         );
-        it('returns false when separator is the last item in the list', function(this: HasVcdDropdown): void {
+        it('returns false when separator is the last item in the list', function (this: HasVcdDropdown): void {
             this.dropdownComponent.items = [
                 {
                     textKey: 'action.1',
@@ -191,7 +184,7 @@ describe('DropdownComponent', () => {
         });
     });
     describe('toggling,', () => {
-        beforeEach(async function(this: HasVcdDropdown): Promise<void> {
+        beforeEach(async function (this: HasVcdDropdown): Promise<void> {
             await TestBed.configureTestingModule({
                 imports: [DropdownModule],
                 providers: [
@@ -203,38 +196,46 @@ describe('DropdownComponent', () => {
                 declarations: [TestHostComponent],
             }).compileComponents();
 
-            this.finder = new WidgetFinder(TestHostComponent);
+            this.finder = new AngularWidgetObjectFinder(TestHostComponent);
             this.finder.detectChanges();
             this.dropdownWidget = this.finder.find(VcdDropdownWidgetObject);
-            this.dropdownComponent = this.dropdownWidget.component;
+            this.dropdownComponent = this.dropdownWidget
+                .getDropdown(PRIMARY_DROPDOWN_TOGGLE_CLASS_NAME)
+                .getComponentInstance();
         });
 
-        it('toggles the primary dropdown menu when clicked', function(this: HasVcdDropdown): void {
-            this.dropdownWidget.clickDropdown(PRIMARY_DROPDOWN_CLASS_NAME);
-            expect(this.dropdownWidget.isDropdownOpen(PRIMARY_DROPDOWN_CLASS_NAME)).toEqual(true);
-            this.dropdownWidget.clickDropdown(PRIMARY_DROPDOWN_CLASS_NAME);
-            expect(this.dropdownWidget.isDropdownOpen(PRIMARY_DROPDOWN_CLASS_NAME)).toEqual(false);
+        it('toggles the primary dropdown menu when clicked', function (this: HasVcdDropdown): void {
+            this.dropdownWidget.getDropdownToggleButton(PRIMARY_DROPDOWN_TOGGLE_CLASS_NAME).click();
+            expect(this.dropdownComponent.clrDropdown.toggleService.open).toBeTruthy();
+            this.dropdownWidget.getDropdownToggleButton(PRIMARY_DROPDOWN_TOGGLE_CLASS_NAME).click();
+            expect(this.dropdownComponent.clrDropdown.toggleService.open).toBeFalsy();
         });
 
-        it('does not open the primary dropdown menu when mouse is moved over', function(this: HasVcdDropdown): void {
-            this.dropdownWidget.mouseOver(PRIMARY_DROPDOWN_CLASS_NAME);
-            expect(this.dropdownWidget.isDropdownOpen(PRIMARY_DROPDOWN_CLASS_NAME)).toEqual(false);
+        it('does not open the primary dropdown menu when mouse is moved over', function (this: HasVcdDropdown): void {
+            this.dropdownWidget.getDropdownToggleButton(PRIMARY_DROPDOWN_TOGGLE_CLASS_NAME).mouseOver();
+            expect(this.dropdownComponent.clrDropdown.toggleService.open).toBeFalsy();
         });
 
-        it('opens the nested dropdown menu when mouse is moved over', function(this: HasVcdDropdown): void {
-            this.dropdownWidget.clickDropdown(PRIMARY_DROPDOWN_CLASS_NAME);
-            this.dropdownWidget.mouseOver(NESTED_DROPDOWN_CLASS_NAME);
-            expect(this.dropdownWidget.isDropdownOpen(NESTED_DROPDOWN_CLASS_NAME)).toEqual(true);
+        it('opens the nested dropdown menu when mouse is moved over', function (this: HasVcdDropdown): void {
+            this.dropdownWidget.getDropdownToggleButton(PRIMARY_DROPDOWN_TOGGLE_CLASS_NAME).click();
+            this.dropdownWidget.getDropdownToggleButton(NESTED_DROPDOWN_TOGGLE_CLASS_NAME).mouseOver();
+            const nestedDropdownComponent = this.dropdownWidget
+                .getDropdown(NESTED_DROPDOWN_TOGGLE_CLASS_NAME)
+                .getComponentInstance() as DropdownComponent;
+            expect(nestedDropdownComponent.clrDropdown.toggleService.open).toBeTruthy();
         });
-        it('closes the nested dropdown when mouse is moved out of the nested dropdown' + 'trigger', async function(
+        it('closes the nested dropdown when mouse is moved out of the nested dropdown' + 'trigger', async function (
             this: HasVcdDropdown
         ): Promise<void> {
-            this.dropdownWidget.clickDropdown(PRIMARY_DROPDOWN_CLASS_NAME);
-            this.dropdownWidget.mouseOver(NESTED_DROPDOWN_CLASS_NAME);
-            expect(this.dropdownWidget.isDropdownOpen(NESTED_DROPDOWN_CLASS_NAME)).toEqual(true);
-            this.dropdownWidget.mouseOut(NESTED_DROPDOWN_CLASS_NAME);
-            await new Promise(resolve => window.setTimeout(resolve, NESTED_MENU_HIDE_DELAY));
-            expect(this.dropdownWidget.isDropdownOpen(NESTED_DROPDOWN_CLASS_NAME)).toEqual(false);
+            this.dropdownWidget.getDropdownToggleButton(PRIMARY_DROPDOWN_TOGGLE_CLASS_NAME).click();
+            this.dropdownWidget.getDropdownToggleButton(NESTED_DROPDOWN_TOGGLE_CLASS_NAME).mouseOver();
+            const nestedDropdownComponent = this.dropdownWidget
+                .getDropdown(NESTED_DROPDOWN_TOGGLE_CLASS_NAME)
+                .getComponentInstance() as DropdownComponent;
+            expect(nestedDropdownComponent.clrDropdown.toggleService.open).toBeTruthy();
+            this.dropdownWidget.getDropdownToggleButton(NESTED_DROPDOWN_TOGGLE_CLASS_NAME).mouseOut();
+            await new Promise((resolve) => window.setTimeout(resolve, NESTED_MENU_HIDE_DELAY));
+            expect(nestedDropdownComponent.clrDropdown.toggleService.open).toBeFalsy();
         });
     });
 });
@@ -254,7 +255,7 @@ export class TestHostComponent {
         {
             textKey: 'Nested Actions',
             isTranslatable: false,
-            class: NESTED_DROPDOWN_CLASS_NAME,
+            class: NESTED_DROPDOWN_TOGGLE_CLASS_NAME,
             children: [
                 {
                     textKey: 'Nested Action 1',
@@ -268,5 +269,5 @@ export class TestHostComponent {
         },
     ];
 
-    primaryDropdownClassName = PRIMARY_DROPDOWN_CLASS_NAME;
+    primaryDropdownClassName = PRIMARY_DROPDOWN_TOGGLE_CLASS_NAME;
 }
