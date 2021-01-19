@@ -1,11 +1,13 @@
 /*!
- * Copyright 2019 VMware, Inc.
+ * Copyright 2019-2021 VMware, Inc.
  * SPDX-License-Identifier: BSD-2-Clause
  */
 
 import { NgModule } from '@angular/core';
 import { DatagridComponent } from '@vcd/ui-components';
 import { Documentation } from '@vmw/ng-live-docs';
+import { DatagridActionMenuTrackingExampleComponent } from './datagrid-action-menu-tracking-example.component';
+import { DatagridActionMenuTrackerExampleModule } from './datagrid-action-menu-tracking.example.module';
 import { DatagridActivityReporterExampleComponent } from './datagrid-activity-reporter.example.component';
 import { DatagridActivityReporterExampleModule } from './datagrid-activity-reporter.example.module';
 import { DatagridCliptextExampleComponent } from './datagrid-cliptext.example.component';
@@ -107,6 +109,12 @@ Documentation.registerDocumentationEntry({
             urlSegment: 'datagrid-link',
         },
         {
+            component: DatagridActionMenuTrackingExampleComponent,
+            forComponent: null,
+            title: 'Action menu availability tracking',
+            urlSegment: 'action-menu-availability-tracking',
+        },
+        {
             component: DatagridFilterExampleComponent,
             forComponent: null,
             title: 'Data grid filters',
@@ -155,6 +163,7 @@ Documentation.registerDocumentationEntry({
  */
 @NgModule({
     imports: [
+        DatagridActionMenuTrackerExampleModule,
         DatagridThreeRenderersExampleModule,
         DatagridCssClassesExampleModule,
         DatagridShowHideExampleModule,

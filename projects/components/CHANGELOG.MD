@@ -9,6 +9,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 - Add `actionsUpdate` emitter to `ActionMenuComponent`
 - Add `hideWhenEmpty` flag to `QuickSearchProvider` to control section display when there is no data
+- Add `mainActionMenu` property to `DatagridComponent`
 
 ### Fixed
 - BREAKING: Fixes the `//@ ts-ignore problem with the Widget Object finder`. Now, you need to supply the type of the widget object as a type parameter to any of the `findWidget` or Widget Finder calls. This is because the type is too complicated for the method to infer.

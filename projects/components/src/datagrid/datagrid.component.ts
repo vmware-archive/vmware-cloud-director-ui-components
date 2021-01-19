@@ -1,5 +1,5 @@
 /*!
- * Copyright 2019-2020 VMware, Inc.
+ * Copyright 2019-2021 VMware, Inc.
  * SPDX-License-Identifier: BSD-2-Clause
  */
 
@@ -20,8 +20,6 @@ import {
     ViewChildren,
 } from '@angular/core';
 import { ClrDatagrid, ClrDatagridPagination, ClrDatagridStateInterface } from '@clr/angular';
-import { SelectionType } from '@clr/angular/data/datagrid/enums/selection-type';
-import { columnStateFactory } from '@clr/angular/data/datagrid/providers/column-state.provider';
 import { LazyString, TranslationService } from '@vcd/i18n';
 import { Observable } from 'rxjs';
 import { ActionMenuComponent } from '../action-menu/action-menu.component';
@@ -523,6 +521,14 @@ export class DatagridComponent<R extends B, B = any> implements OnInit, AfterVie
      * Emitted whenever {@link #columns} input is updated
      */
     @Output() columnsUpdated = new EventEmitter<void>();
+
+    /**
+     * A reference to {@link ActionMenuComponent} that is positioned above the grid, in the grid action tool bar
+     * This action menu may be dynamically added to / removed from the DOM based on the actions availability so the
+     * very reference should be taken from subscription to the list changes.
+     */
+    @ViewChildren('mainActionMenu')
+    public readonly mainActionMenu: QueryList<ActionMenuComponent<unknown, unknown>>;
 
     /**
      * Columns are updated using set columns, addColumn and removeColumn methods. This cache helps in preserving changes
