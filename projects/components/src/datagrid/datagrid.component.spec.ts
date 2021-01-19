@@ -1,5 +1,5 @@
 /*!
- * Copyright 2019-2020 VMware, Inc.
+ * Copyright 2019-2021 VMware, Inc.
  * SPDX-License-Identifier: BSD-2-Clause
  */
 
@@ -973,6 +973,79 @@ describe('DatagridComponent', () => {
                 this.clrGridWidget.getSelectionLabelForRow(0).click();
                 this.finder.detectChanges();
                 expect(component.shouldShowActionBarOnTop).toBeTruthy();
+            });
+        });
+
+        describe('mainActionMenu', () => {
+            it('is available when there are static actions even if they are not enabled', function (this: HasFinderAndGrid): void {
+                this.finder.detectChanges();
+                const component = this.hostComponent.grid;
+                this.hostComponent.actions = [
+                    {
+                        textKey: 'static.action',
+                        handler: () => null,
+                        availability: () => false,
+                        actionType: ActionType.STATIC,
+                    },
+                ];
+                this.finder.detectChanges();
+                expect(component.mainActionMenu.first).toBeTruthy();
+            });
+            it('is available when there are contextual actions to be displayed at the top', function (this: HasFinderAndGrid): void {
+                this.finder.detectChanges();
+                this.hostComponent.selectionType = GridSelectionType.Single;
+                // ContextualActionPosition.TOP is the default, so there is no need to set it explicitly
+                // this.hostComponent.contextualActionPosition = ContextualActionPosition.TOP;
+                this.hostComponent.actions = [
+                    {
+                        textKey: 'contextual.action',
+                        handler: () => null,
+                        availability: () => false,
+                        actionType: ActionType.CONTEXTUAL,
+                    },
+                ];
+                this.finder.detectChanges();
+                const component = this.hostComponent.grid;
+                expect(component.mainActionMenu.first).toBeFalsy(
+                    'Action should not be available unless there is a selection'
+                );
+                // This is because contextual actions requires entities to be selected
+                this.clrGridWidget.getSelectionLabelForRow(0).click();
+                this.finder.detectChanges();
+                expect(component.mainActionMenu.first).toBeTruthy(
+                    'Action should be available when there is a selection'
+                );
+            });
+            it('is not available when there are contextual actions to be displayed in the row', function (this: HasFinderAndGrid): void {
+                this.finder.detectChanges();
+                this.hostComponent.selectionType = GridSelectionType.Single;
+                this.hostComponent.contextualActionPosition = ContextualActionPosition.ROW;
+                this.hostComponent.actions = [
+                    {
+                        textKey: 'contextual.action',
+                        handler: () => null,
+                        availability: () => false,
+                        actionType: ActionType.CONTEXTUAL,
+                    },
+                ];
+                this.finder.detectChanges();
+                const component = this.hostComponent.grid;
+                expect(component.mainActionMenu.first).toBeFalsy(
+                    'Action menu should not be available unless there is a selection'
+                );
+                // This is because contextual actions requires entities to be selected
+                this.clrGridWidget.getSelectionLabelForRow(0).click();
+                this.finder.detectChanges();
+                expect(component.mainActionMenu.first).toBeFalsy(
+                    'Action menu should not be available since it is displayed in row'
+                );
+            });
+            it('is not available when there are no actions', function (this: HasFinderAndGrid): void {
+                this.finder.detectChanges();
+                const component = this.hostComponent.grid;
+                this.hostComponent.actions = [];
+                this.finder.detectChanges();
+                expect(component.mainActionMenu.first).toBeFalsy();
             });
         });
 
