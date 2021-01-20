@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: BSD-2-Clause
  */
 
-import { Component, Injectable, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import {
     QuickSearchProviderDefaults,
@@ -67,7 +67,6 @@ function buildFilter(criteria: string): (item: QuickSearchResultItem) => boolean
     return (item: QuickSearchResultItem) => criteria && item.displayText.toLowerCase().includes(criteria);
 }
 
-@Injectable()
 export class ActionsSearchProvider extends QuickSearchProviderDefaults {
     sectionName = 'Actions';
 
