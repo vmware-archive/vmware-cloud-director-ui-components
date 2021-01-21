@@ -428,15 +428,25 @@ export class DatagridComponent<R extends B, B = any> implements OnInit, AfterVie
      */
     @Input()
     get datagridSelection(): B[] {
-        if (this.datagrid.selection.currentSingle) {
-            return [this.datagrid.selection.currentSingle];
-        }
-        if (this.datagrid.selection.current && this.datagrid.selection.current.length) {
-            return this.datagrid.selection.current;
-        }
-        return [];
+        // If a getter returns `[]` it is considered as a new reference in the angular detect changes process
+        // while `[]` in the template is not considered a new reference.
+        // In other words the following 2 have different behaviour:
+        // ```
+        // <component_tag
+        //    [someInput]='some_getter_that_retyrns_empty_array'
+        // ></component_tag>
+        // ```
+        // ```
+        // <component_tag
+        //    [someInput]='[]'
+        // ></component_tag>
+        // ```
+        // where the first one will result in setting `someInput` during the change detection while the second one will not
+        // TODO:  VDUCC-505 write unit tests
+        // The code below is to ensure there is no reference change unless there is a change indeed
+        return this._datagridSelection;
     }
-
+    private _datagridSelection = [];
     /**
      * Sets the items selected in the VCD datagrid.
      */
@@ -809,6 +819,17 @@ export class DatagridComponent<R extends B, B = any> implements OnInit, AfterVie
         if (this.datagrid.rows) {
             this.datagrid.rows.notifyOnChanges();
         }
+    }
+
+    onClarityDatafridSelectionChange(): void {
+        if (this.datagrid.selection.currentSingle) {
+            this._datagridSelection = [this.datagrid.selection.currentSingle];
+        } else if (this.datagrid.selection.current && this.datagrid.selection.current.length) {
+            this._datagridSelection = [...this.datagrid.selection.current];
+        } else {
+            this._datagridSelection = [];
+        }
+        this.datagridSelectionChange.emit(this.datagridSelection);
     }
 
     /**
