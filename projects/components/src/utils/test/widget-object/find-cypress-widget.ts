@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: BSD-2-Clause
  */
 
-import { BaseWidgetObject, CorrectReturnTypes, CypressWidgetObjectFinder, FindableWidget } from '@vcd/ui-components';
+import { BaseWidgetObject, CypressWidgetObjectFinder, FindableWidget } from '@vcd/ui-components';
 // import Cypress from 'cypress';
 
 /**
@@ -16,13 +16,10 @@ import { BaseWidgetObject, CorrectReturnTypes, CypressWidgetObjectFinder, Findab
  * @param cssSelector - The cssSelector to append to the tagName for the search
  *
  */
-export function findCypressWidget<
-    W extends BaseWidgetObject<Cypress.Chainable>,
-    C extends FindableWidget<Cypress.Chainable, W>
->(
-    widgetConstructor: C,
+export function findCypressWidget<W extends BaseWidgetObject<Cypress.Chainable>>(
+    widgetConstructor: FindableWidget<Cypress.Chainable, W>,
     ancestor?: string,
     cssSelector?: string
-): CorrectReturnTypes<InstanceType<C>, Cypress.Chainable> {
+): W {
     return new CypressWidgetObjectFinder<Cypress.Chainable>().find(widgetConstructor, ancestor, cssSelector);
 }
