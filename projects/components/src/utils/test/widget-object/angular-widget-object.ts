@@ -7,8 +7,7 @@ import { DebugElement, Injector, Type } from '@angular/core';
 import { ComponentFixture } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { AngularWidgetObjectFinder } from './angular-widget-finder';
-import { BaseWidgetObject, FindableWidget } from './widget-object';
-import { CorrectReturnTypes, LocatorDriver } from './widget-object';
+import { BaseWidgetObject, FindableWidget, LocatorDriver } from './widget-object';
 
 /**
  * Knows how to find Angular TestElements in the DOM.
@@ -74,10 +73,10 @@ export class AngularLocatorDriver implements LocatorDriver<TestElement> {
     /**
      * @inheritdoc
      */
-    findWidget<W extends BaseWidgetObject<TestElement>, C extends FindableWidget<TestElement, W>>(
-        widget: C,
+    findWidget<W extends BaseWidgetObject<TestElement>>(
+        widget: FindableWidget<TestElement, W>,
         cssSelector?: string
-    ): CorrectReturnTypes<InstanceType<C>, TestElement> {
+    ): W {
         return new AngularWidgetObjectFinder(this.testElement.fixture).find(widget, this.rootElement, cssSelector);
     }
 }

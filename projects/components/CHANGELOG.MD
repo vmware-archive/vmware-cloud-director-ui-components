@@ -10,6 +10,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Add `actionsUpdate` emitter to `ActionMenuComponent`
 - Add `hideWhenEmpty` flag to `QuickSearchProvider` to control section display when there is no data
 
+### Fixed
+- BREAKING: Fixes the `//@ ts-ignore problem with the Widget Object finder`
+
 ## [1.0.0-dev.56]
 ### Changed
 - BREAKING: Removed the calculateActionAvailability input which was acting as a switch to toggle the action availability

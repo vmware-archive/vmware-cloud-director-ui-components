@@ -5,7 +5,7 @@
 
 import { IdGenerator } from '../../id-generator/id-generator';
 import { CypressLocatorDriver } from './cypress-widget-object';
-import { BaseWidgetObject, CorrectReturnTypes, FindableWidget } from './widget-object';
+import { BaseWidgetObject, FindableWidget } from './widget-object';
 
 declare const cy;
 const idGenerator = new IdGenerator('cy-id');
@@ -29,11 +29,11 @@ export class CypressWidgetObjectFinder<T> {
      * @param cssSelector - The cssSelector to append to the tagName for the search
      *
      */
-    public find<W extends BaseWidgetObject<T>, C extends FindableWidget<T, W>>(
-        widgetConstructor: C,
+    public find<W extends BaseWidgetObject<T>>(
+        widgetConstructor: FindableWidget<T, W>,
         ancestor?: string,
         cssSelector?: string
-    ): CorrectReturnTypes<InstanceType<C>, T> {
+    ): W {
         let tagName = widgetConstructor.tagName;
         if (cssSelector) {
             tagName += `${cssSelector}`;
@@ -42,6 +42,6 @@ export class CypressWidgetObjectFinder<T> {
         const search = ancestor ? cy.get(ancestor).find(tagName) : cy.get(tagName);
         const root = search.as(id);
         const widget = new widgetConstructor(new CypressLocatorDriver(root, true, id));
-        return (widget as any) as CorrectReturnTypes<InstanceType<C>, T>;
+        return widget;
     }
 }
