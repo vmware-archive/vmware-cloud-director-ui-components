@@ -817,6 +817,24 @@ export class TestElement implements Iterable&lt;TestElement&gt; {
     }
 
     /**
+     * To simulate a mouse hover event on the test element
+     */
+    mouseOver(): void {
+        const nativeElement: HTMLBaseElement &#x3D; this.elements[0].nativeElement;
+        nativeElement.dispatchEvent(new MouseEvent(&#x27;mouseover&#x27;, { bubbles: true }));
+        this.detectChanges();
+    }
+
+    /**
+     * To simulate a mouse out event on the test element
+     */
+    mouseOut(): void {
+        const nativeElement: HTMLBaseElement &#x3D; this.elements[0].nativeElement;
+        nativeElement.dispatchEvent(new MouseEvent(&#x27;mouseout&#x27;, { bubbles: true }));
+        this.detectChanges();
+    }
+
+    /**
      * Returns classes of first element as a string array
      */
     classes(): string[] {
