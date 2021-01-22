@@ -132,7 +132,7 @@ we could not load the Cypress types in our library.</p>
             <tr>
                 <td class="col-md-4">
                     <span class="modifier-icon icon ion-ios-reset"></span>
-                    <code>find(widgetConstructor: C, ancestor?: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>, cssSelector?: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
+                    <code>find(widgetConstructor: FindableWidget<T | W>, ancestor?: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>, cssSelector?: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
                 </td>
             </tr>
 
@@ -149,7 +149,6 @@ we could not load the Cypress types in our library.</p>
                     <b>Type parameters :</b>
                     <ul class="type-parameters">
                         <li>W</li>
-                        <li>C</li>
                     </ul>
                 </td>
             </tr>
@@ -174,7 +173,7 @@ we could not load the Cypress types in our library.</p>
                                 <tr>
                                     <td>widgetConstructor</td>
                                     <td>
-                                            <code>C</code>
+                                            <code>FindableWidget&lt;T | W&gt;</code>
                                     </td>
 
                                     <td>
@@ -232,7 +231,7 @@ this will be passed to <code>cy.get</code> and is a global search.</li>
                     <div>
                     </div>
                     <div class="io-description">
-                        <b>Returns : </b>        <code><a href="../miscellaneous/typealiases.html#CorrectReturnTypes" target="_self" >CorrectReturnTypes&lt;InstanceType&lt;C&gt;, T&gt;</a></code>
+                        <b>Returns : </b>    <code>W</code>
 
                     </div>
                     <div class="io-description">
@@ -254,7 +253,7 @@ this will be passed to <code>cy.get</code> and is a global search.</li>
     <div class="tab-pane fade  tab-source-code" id="c-source">
         <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { IdGenerator } from &#x27;../../id-generator/id-generator&#x27;;
 import { CypressLocatorDriver } from &#x27;./cypress-widget-object&#x27;;
-import { BaseWidgetObject, CorrectReturnTypes, FindableWidget } from &#x27;./widget-object&#x27;;
+import { BaseWidgetObject, FindableWidget } from &#x27;./widget-object&#x27;;
 
 declare const cy;
 const idGenerator &#x3D; new IdGenerator(&#x27;cy-id&#x27;);
@@ -278,11 +277,11 @@ export class CypressWidgetObjectFinder&lt;T&gt; {
      * @param cssSelector - The cssSelector to append to the tagName for the search
      *
      */
-    public find&lt;W extends BaseWidgetObject&lt;T&gt;, C extends FindableWidget&lt;T, W&gt;&gt;(
-        widgetConstructor: C,
+    public find&lt;W extends BaseWidgetObject&lt;T&gt;&gt;(
+        widgetConstructor: FindableWidget&lt;T, W&gt;,
         ancestor?: string,
         cssSelector?: string
-    ): CorrectReturnTypes&lt;InstanceType&lt;C&gt;, T&gt; {
+    ): W {
         let tagName &#x3D; widgetConstructor.tagName;
         if (cssSelector) {
             tagName +&#x3D; &#x60;${cssSelector}&#x60;;
@@ -291,7 +290,7 @@ export class CypressWidgetObjectFinder&lt;T&gt; {
         const search &#x3D; ancestor ? cy.get(ancestor).find(tagName) : cy.get(tagName);
         const root &#x3D; search.as(id);
         const widget &#x3D; new widgetConstructor(new CypressLocatorDriver(root, true, id));
-        return (widget as any) as CorrectReturnTypes&lt;InstanceType&lt;C&gt;, T&gt;;
+        return widget;
     }
 }
 </code></pre>

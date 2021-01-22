@@ -127,7 +127,7 @@
             </tr>
             <tr>
                 <td class="col-md-4">
-<code>findWidget(widget: C, cssSelector?: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
+<code>findWidget(widget: FindableWidget<T | W>, cssSelector?: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
                 </td>
             </tr>
 
@@ -144,7 +144,6 @@
                     <b>Type parameters :</b>
                     <ul class="type-parameters">
                         <li>W</li>
-                        <li>C</li>
                     </ul>
                 </td>
             </tr>
@@ -168,7 +167,7 @@
                                 <tr>
                                     <td>widget</td>
                                     <td>
-                                            <code>C</code>
+                                            <code>FindableWidget&lt;T | W&gt;</code>
                                     </td>
 
                                     <td>
@@ -195,7 +194,7 @@
                     <div>
                     </div>
                     <div class="io-description">
-                        <b>Returns : </b>        <code><a href="../miscellaneous/typealiases.html#CorrectReturnTypes" target="_self" >CorrectReturnTypes&lt;InstanceType&lt;C&gt;, T&gt;</a></code>
+                        <b>Returns : </b>    <code>W</code>
 
                     </div>
                     <div class="io-description">
@@ -491,8 +490,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="87"
-                            class="link-to-prism">projects/components/src/utils/test/widget-object/widget-object.ts:87</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="84"
+                            class="link-to-prism">projects/components/src/utils/test/widget-object/widget-object.ts:84</a></div>
                 </td>
             </tr>
 
@@ -548,21 +547,21 @@ export class BaseWidgetObject&lt;T&gt; {
     /**
      * Returns an element locator that will find a child with the given cssSelector when called.
      */
-    protected locatorForCssSelectors ? &#x3D; (cssSelector: string): ElementLocator&lt;T&gt; &#x3D;&gt; {
+    protected locatorForCssSelectors? &#x3D; (cssSelector: string): ElementLocator&lt;T&gt; &#x3D;&gt; {
         return (options?: unknown) &#x3D;&gt; this.locatorDriver.get(cssSelector, options).unwrap();
     };
 
     /**
      * Returns an element locator that will find a parent with the given cssSelector when called.
      */
-    protected locatorForAncestors ? &#x3D; (cssSelector: string): ElementLocator&lt;T&gt; &#x3D;&gt; {
+    protected locatorForAncestors? &#x3D; (cssSelector: string): ElementLocator&lt;T&gt; &#x3D;&gt; {
         return (options?: unknown) &#x3D;&gt; this.locatorDriver.parents(cssSelector, options).unwrap();
     };
 
     /**
      * Returns an element locator that will find a child with the given cssSelector and text when called.
      */
-    protected locatorForText ? &#x3D; (cssSelector: string, text: string): ElementLocator&lt;T&gt; &#x3D;&gt; {
+    protected locatorForText? &#x3D; (cssSelector: string, text: string): ElementLocator&lt;T&gt; &#x3D;&gt; {
         return (options?: unknown) &#x3D;&gt; this.locatorDriver.getByText(cssSelector, text, options).unwrap();
     };
 }
@@ -589,10 +588,7 @@ export interface LocatorDriver&lt;T&gt; {
     /**
      * Returns an instance of the given widget within this widget object.
      */
-    findWidget&lt;W extends BaseWidgetObject&lt;T&gt;, C extends FindableWidget&lt;T, W&gt;&gt;(
-        widget: C,
-        cssSelector?: string
-    ): CorrectReturnTypes&lt;InstanceType&lt;C&gt;, T&gt;;
+    findWidget&lt;W extends BaseWidgetObject&lt;T&gt;&gt;(widget: FindableWidget&lt;T, W&gt;, cssSelector?: string): W;
 
     /**
      * Unwraps the value from this query and turns it into the resulting object type.

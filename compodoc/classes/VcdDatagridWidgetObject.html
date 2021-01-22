@@ -470,7 +470,7 @@
                 </tr>
                             <tr>
                                 <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="31" class="link-to-prism">projects/components/src/utils/test/datagrid/vcd-datagrid.wo.ts:31</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="30" class="link-to-prism">projects/components/src/utils/test/datagrid/vcd-datagrid.wo.ts:30</a></div>
                                 </td>
                             </tr>
                     <tr>
@@ -510,8 +510,7 @@ export class VcdDatagridWidgetObject&lt;T&gt; extends BaseWidgetObject&lt;T&gt; 
      * Gives the widget object for this &#x60;clr-datagrid&#x60;.
      */
     get clrDatagrid(): ClrDatagridWidgetObject&lt;T&gt; {
-        // @ts-ignore
-        return this.locatorDriver.findWidget(ClrDatagridWidgetObject);
+        return this.locatorDriver.findWidget&lt;ClrDatagridWidgetObject&lt;T&gt;&gt;(ClrDatagridWidgetObject);
     }
 
     /**

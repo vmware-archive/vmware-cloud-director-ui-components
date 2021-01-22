@@ -135,7 +135,7 @@
                 </tr>
                         <tr>
                             <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="16" class="link-to-prism">projects/components/src/utils/test/widget-object/angular-widget-object.ts:16</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="15" class="link-to-prism">projects/components/src/utils/test/widget-object/angular-widget-object.ts:15</a></div>
                             </td>
                         </tr>
 
@@ -215,8 +215,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="57"
-                            class="link-to-prism">projects/components/src/utils/test/widget-object/angular-widget-object.ts:57</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="56"
+                            class="link-to-prism">projects/components/src/utils/test/widget-object/angular-widget-object.ts:56</a></div>
                 </td>
             </tr>
 
@@ -293,15 +293,15 @@ Checks the given element.</p>
             </tr>
             <tr>
                 <td class="col-md-4">
-<code>findWidget(widget: C, cssSelector?: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
+<code>findWidget(widget: <a href="../classes/TestElement.html">FindableWidget<TestElement | W></a>, cssSelector?: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
                 </td>
             </tr>
 
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="77"
-                            class="link-to-prism">projects/components/src/utils/test/widget-object/angular-widget-object.ts:77</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="76"
+                            class="link-to-prism">projects/components/src/utils/test/widget-object/angular-widget-object.ts:76</a></div>
                 </td>
             </tr>
 
@@ -310,7 +310,6 @@ Checks the given element.</p>
                     <b>Type parameters :</b>
                     <ul class="type-parameters">
                         <li>W</li>
-                        <li>C</li>
                     </ul>
                 </td>
             </tr>
@@ -332,7 +331,7 @@ Checks the given element.</p>
                                 <tr>
                                     <td>widget</td>
                                     <td>
-                                            <code>C</code>
+                                                <code><a href="../classes/TestElement.html" target="_self" >FindableWidget&lt;TestElement | W&gt;</a></code>
                                     </td>
 
                                     <td>
@@ -359,7 +358,7 @@ Checks the given element.</p>
                     <div>
                     </div>
                     <div class="io-description">
-                        <b>Returns : </b>        <code><a href="../classes/TestElement.html" target="_self" >CorrectReturnTypes&lt;InstanceType&lt;C&gt;, TestElement&gt;</a></code>
+                        <b>Returns : </b>    <code>W</code>
 
                     </div>
                     <div class="io-description">
@@ -391,8 +390,8 @@ Checks the given element.</p>
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="22"
-                            class="link-to-prism">projects/components/src/utils/test/widget-object/angular-widget-object.ts:22</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="21"
+                            class="link-to-prism">projects/components/src/utils/test/widget-object/angular-widget-object.ts:21</a></div>
                 </td>
             </tr>
 
@@ -461,8 +460,8 @@ Checks the given element.</p>
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="31"
-                            class="link-to-prism">projects/components/src/utils/test/widget-object/angular-widget-object.ts:31</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="30"
+                            class="link-to-prism">projects/components/src/utils/test/widget-object/angular-widget-object.ts:30</a></div>
                 </td>
             </tr>
 
@@ -543,8 +542,8 @@ Checks the given element.</p>
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="43"
-                            class="link-to-prism">projects/components/src/utils/test/widget-object/angular-widget-object.ts:43</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="42"
+                            class="link-to-prism">projects/components/src/utils/test/widget-object/angular-widget-object.ts:42</a></div>
                 </td>
             </tr>
 
@@ -613,8 +612,8 @@ Checks the given element.</p>
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="70"
-                            class="link-to-prism">projects/components/src/utils/test/widget-object/angular-widget-object.ts:70</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="69"
+                            class="link-to-prism">projects/components/src/utils/test/widget-object/angular-widget-object.ts:69</a></div>
                 </td>
             </tr>
 
@@ -644,8 +643,7 @@ Checks the given element.</p>
 import { ComponentFixture } from &#x27;@angular/core/testing&#x27;;
 import { By } from &#x27;@angular/platform-browser&#x27;;
 import { AngularWidgetObjectFinder } from &#x27;./angular-widget-finder&#x27;;
-import { BaseWidgetObject, FindableWidget } from &#x27;./widget-object&#x27;;
-import { CorrectReturnTypes, LocatorDriver } from &#x27;./widget-object&#x27;;
+import { BaseWidgetObject, FindableWidget, LocatorDriver } from &#x27;./widget-object&#x27;;
 
 /**
  * Knows how to find Angular TestElements in the DOM.
@@ -711,10 +709,10 @@ export class AngularLocatorDriver implements LocatorDriver&lt;TestElement&gt; {
     /**
      * @inheritdoc
      */
-    findWidget&lt;W extends BaseWidgetObject&lt;TestElement&gt;, C extends FindableWidget&lt;TestElement, W&gt;&gt;(
-        widget: C,
+    findWidget&lt;W extends BaseWidgetObject&lt;TestElement&gt;&gt;(
+        widget: FindableWidget&lt;TestElement, W&gt;,
         cssSelector?: string
-    ): CorrectReturnTypes&lt;InstanceType&lt;C&gt;, TestElement&gt; {
+    ): W {
         return new AngularWidgetObjectFinder(this.testElement.fixture).find(widget, this.rootElement, cssSelector);
     }
 }

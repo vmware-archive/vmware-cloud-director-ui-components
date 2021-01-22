@@ -137,7 +137,7 @@
                 </tr>
                         <tr>
                             <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="26" class="link-to-prism">projects/components/src/utils/test/widget-object/angular-widget-finder.ts:26</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="25" class="link-to-prism">projects/components/src/utils/test/widget-object/angular-widget-finder.ts:25</a></div>
                             </td>
                         </tr>
 
@@ -201,7 +201,7 @@
                     </tr>
                         <tr>
                             <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="21" class="link-to-prism">projects/components/src/utils/test/widget-object/angular-widget-finder.ts:21</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="20" class="link-to-prism">projects/components/src/utils/test/widget-object/angular-widget-finder.ts:20</a></div>
                             </td>
                         </tr>
 
@@ -235,7 +235,7 @@
                     </tr>
                         <tr>
                             <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="26" class="link-to-prism">projects/components/src/utils/test/widget-object/angular-widget-finder.ts:26</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="25" class="link-to-prism">projects/components/src/utils/test/widget-object/angular-widget-finder.ts:25</a></div>
                             </td>
                         </tr>
 
@@ -279,8 +279,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="72"
-                            class="link-to-prism">projects/components/src/utils/test/widget-object/angular-widget-finder.ts:72</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="71"
+                            class="link-to-prism">projects/components/src/utils/test/widget-object/angular-widget-finder.ts:71</a></div>
                 </td>
             </tr>
 
@@ -315,15 +315,15 @@
             <tr>
                 <td class="col-md-4">
                     <span class="modifier-icon icon ion-ios-reset"></span>
-                    <code>find(widgetConstructor: C, ancestor?: <a href="https://angular.io/api/core/DebugElement" target="_blank">DebugElement</a>, cssSelector?: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
+                    <code>find(widgetConstructor: <a href="../classes/TestElement.html">FindableWidget<TestElement | W></a>, ancestor?: <a href="https://angular.io/api/core/DebugElement" target="_blank">DebugElement</a>, cssSelector?: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
                 </td>
             </tr>
 
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="47"
-                            class="link-to-prism">projects/components/src/utils/test/widget-object/angular-widget-finder.ts:47</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="46"
+                            class="link-to-prism">projects/components/src/utils/test/widget-object/angular-widget-finder.ts:46</a></div>
                 </td>
             </tr>
 
@@ -332,7 +332,6 @@
                     <b>Type parameters :</b>
                     <ul class="type-parameters">
                         <li>W</li>
-                        <li>C</li>
                     </ul>
                 </td>
             </tr>
@@ -357,7 +356,7 @@
                                 <tr>
                                     <td>widgetConstructor</td>
                                     <td>
-                                            <code>C</code>
+                                                <code><a href="../classes/TestElement.html" target="_self" >FindableWidget&lt;TestElement | W&gt;</a></code>
                                     </td>
 
                                     <td>
@@ -414,7 +413,7 @@
                     <div>
                     </div>
                     <div class="io-description">
-                        <b>Returns : </b>        <code><a href="../classes/TestElement.html" target="_self" >CorrectReturnTypes&lt;InstanceType&lt;C&gt;, TestElement&gt;</a></code>
+                        <b>Returns : </b>    <code>W</code>
 
                     </div>
                     <div class="io-description">
@@ -439,7 +438,6 @@ import { ComponentFixture, TestBed } from &#x27;@angular/core/testing&#x27;;
 import { By } from &#x27;@angular/platform-browser&#x27;;
 import { AngularLocatorDriver, TestElement } from &#x27;./angular-widget-object&#x27;;
 import { BaseWidgetObject, FindableWidget } from &#x27;./widget-object&#x27;;
-import { CorrectReturnTypes } from &#x27;./widget-object&#x27;;
 
 /**
  * Knows how to find Angular objects in the DOM.
@@ -475,11 +473,11 @@ export class AngularWidgetObjectFinder&lt;H &#x3D; unknown&gt; {
      *
      * @throws An error if the widget is not found or if there are multiple instances
      */
-    public find&lt;W extends BaseWidgetObject&lt;TestElement&gt;, C extends FindableWidget&lt;TestElement, W&gt;&gt;(
-        widgetConstructor: C,
+    public find&lt;W extends BaseWidgetObject&lt;TestElement&gt;&gt;(
+        widgetConstructor: FindableWidget&lt;TestElement, W&gt;,
         ancestor?: DebugElement,
         cssSelector?: string
-    ): CorrectReturnTypes&lt;InstanceType&lt;C&gt;, TestElement&gt; {
+    ): W {
         let query &#x3D; widgetConstructor.tagName;
         if (cssSelector) {
             query +&#x3D; &#x60;${cssSelector}&#x60;;
@@ -494,7 +492,7 @@ export class AngularWidgetObjectFinder&lt;H &#x3D; unknown&gt; {
         }
 
         const widget &#x3D; new widgetConstructor(new AngularLocatorDriver(new TestElement([root], this.fixture), root));
-        return (widget as any) as CorrectReturnTypes&lt;InstanceType&lt;C&gt;, TestElement&gt;;
+        return widget;
     }
 
     /**

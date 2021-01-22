@@ -223,7 +223,7 @@ we could not load the Cypress types in our library.</p>
             </tr>
             <tr>
                 <td class="col-md-4">
-<code>findWidget(widget: C, cssSelector?: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
+<code>findWidget(widget: FindableWidget<T | W>, cssSelector?: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
                 </td>
             </tr>
 
@@ -240,7 +240,6 @@ we could not load the Cypress types in our library.</p>
                     <b>Type parameters :</b>
                     <ul class="type-parameters">
                         <li>W</li>
-                        <li>C</li>
                     </ul>
                 </td>
             </tr>
@@ -262,7 +261,7 @@ we could not load the Cypress types in our library.</p>
                                 <tr>
                                     <td>widget</td>
                                     <td>
-                                            <code>C</code>
+                                            <code>FindableWidget&lt;T | W&gt;</code>
                                     </td>
 
                                     <td>
@@ -289,7 +288,7 @@ we could not load the Cypress types in our library.</p>
                     <div>
                     </div>
                     <div class="io-description">
-                        <b>Returns : </b>        <code><a href="../miscellaneous/typealiases.html#CorrectReturnTypes" target="_self" >CorrectReturnTypes&lt;InstanceType&lt;C&gt;, T&gt;</a></code>
+                        <b>Returns : </b>    <code>W</code>
 
                     </div>
                     <div class="io-description">
@@ -405,8 +404,8 @@ we could not load the Cypress types in our library.</p>
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="72"
-                            class="link-to-prism">projects/components/src/utils/test/widget-object/cypress-widget-object.ts:72</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="66"
+                            class="link-to-prism">projects/components/src/utils/test/widget-object/cypress-widget-object.ts:66</a></div>
                 </td>
             </tr>
 
@@ -651,7 +650,7 @@ This is to override the behavior where calls to .find will permanently change th
 
     <div class="tab-pane fade  tab-source-code" id="c-source">
         <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { CypressWidgetObjectFinder } from &#x27;./cypress-widget-finder&#x27;;
-import { BaseWidgetObject, CorrectReturnTypes, FindableWidget, LocatorDriver } from &#x27;./widget-object&#x27;;
+import { BaseWidgetObject, FindableWidget, LocatorDriver } from &#x27;./widget-object&#x27;;
 
 declare const cy;
 
@@ -702,14 +701,8 @@ export class CypressLocatorDriver&lt;T&gt; implements LocatorDriver&lt;T&gt; {
     /**
      * @inheritdoc
      */
-    findWidget&lt;W extends BaseWidgetObject&lt;T&gt;, C extends FindableWidget&lt;T, W&gt;&gt;(
-        widget: C,
-        cssSelector?: string
-    ): CorrectReturnTypes&lt;InstanceType&lt;C&gt;, T&gt; {
-        return new CypressWidgetObjectFinder&lt;T&gt;().find(widget, &#x27;@&#x27; + this.alias, cssSelector) as CorrectReturnTypes&lt;
-            InstanceType&lt;C&gt;,
-            T
-        &gt;;
+    findWidget&lt;W extends BaseWidgetObject&lt;T&gt;&gt;(widget: FindableWidget&lt;T, W&gt;, cssSelector?: string): W {
+        return new CypressWidgetObjectFinder&lt;T&gt;().find(widget, &#x27;@&#x27; + this.alias, cssSelector);
     }
 
     /**
