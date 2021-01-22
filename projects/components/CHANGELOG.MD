@@ -59,6 +59,10 @@ calculation by ActionMenuComponent
 - Make the signpost trigger on the form-checkbox consistent with the other form components
 - Update `ResponsiveInputDirective` to add Clarity grid classes based on the host element's width.
 
+## [1.0.0-dev.57]
+### Added
+- A convenience method called `updateDisplayedActions` to action menu to re-trigger the calculation of visible actions
+
 ## [1.0.0-dev.54]
 ### Changed
 - QuickSearchProvider now takes a boolean argument in its constructor to debounce calling the search functionality

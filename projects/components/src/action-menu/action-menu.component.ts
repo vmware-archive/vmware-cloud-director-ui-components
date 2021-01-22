@@ -245,6 +245,17 @@ export class ActionMenuComponent<R, T> {
             });
     }
 
+    /**
+     * The visibility of actions is dependent on their availability call back responses and in VCD application, some of the actions
+     * availability call back response is dependent on closure variables. However, we don't call those call backs every time those closure
+     * variables are updated, for example by asynchronous requests. This has a side effect of actions visibility not getting updated when
+     * those closure variables are updated. So, this convenience method is to make it clear for the user that such side effect exists and
+     * this method will re-trigger the availability call backs of actions
+     */
+    updateDisplayedActions(): void {
+        this.actions = [...this.actions];
+    }
+
     private updateActionListsAndDisplayFlags(): void {
         this.staticActions = this.getStaticActions();
         this.staticFeaturedActions = this.getStaticFeaturedActions();
