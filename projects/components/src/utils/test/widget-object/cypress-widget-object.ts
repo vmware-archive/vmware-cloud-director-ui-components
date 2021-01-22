@@ -4,7 +4,7 @@
  */
 
 import { CypressWidgetObjectFinder } from './cypress-widget-finder';
-import { BaseWidgetObject, CorrectReturnTypes, FindableWidget, LocatorDriver } from './widget-object';
+import { BaseWidgetObject, FindableWidget, LocatorDriver } from './widget-object';
 
 declare const cy;
 
@@ -55,14 +55,8 @@ export class CypressLocatorDriver<T> implements LocatorDriver<T> {
     /**
      * @inheritdoc
      */
-    findWidget<W extends BaseWidgetObject<T>, C extends FindableWidget<T, W>>(
-        widget: C,
-        cssSelector?: string
-    ): CorrectReturnTypes<InstanceType<C>, T> {
-        return new CypressWidgetObjectFinder<T>().find(widget, '@' + this.alias, cssSelector) as CorrectReturnTypes<
-            InstanceType<C>,
-            T
-        >;
+    findWidget<W extends BaseWidgetObject<T>>(widget: FindableWidget<T, W>, cssSelector?: string): W {
+        return new CypressWidgetObjectFinder<T>().find(widget, '@' + this.alias, cssSelector);
     }
 
     /**

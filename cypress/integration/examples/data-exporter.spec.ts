@@ -14,7 +14,7 @@ context('Window', () => {
 
     it('lets you select many column', async () => {
         // https://on.cypress.io/window
-        const widget = findCypressWidget(DataExporterWidgetObject);
+        const widget = findCypressWidget<DataExporterWidgetObject<Cypress.Chainable>>(DataExporterWidgetObject);
         widget.getToggleSelectAll().click({
             force: true,
         });

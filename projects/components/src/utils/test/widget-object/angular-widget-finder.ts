@@ -8,7 +8,6 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { AngularLocatorDriver, TestElement } from './angular-widget-object';
 import { BaseWidgetObject, FindableWidget } from './widget-object';
-import { CorrectReturnTypes } from './widget-object';
 
 /**
  * Knows how to find Angular objects in the DOM.
@@ -44,11 +43,11 @@ export class AngularWidgetObjectFinder<H = unknown> {
      *
      * @throws An error if the widget is not found or if there are multiple instances
      */
-    public find<W extends BaseWidgetObject<TestElement>, C extends FindableWidget<TestElement, W>>(
-        widgetConstructor: C,
+    public find<W extends BaseWidgetObject<TestElement>>(
+        widgetConstructor: FindableWidget<TestElement, W>,
         ancestor?: DebugElement,
         cssSelector?: string
-    ): CorrectReturnTypes<InstanceType<C>, TestElement> {
+    ): W {
         let query = widgetConstructor.tagName;
         if (cssSelector) {
             query += `${cssSelector}`;
@@ -63,7 +62,7 @@ export class AngularWidgetObjectFinder<H = unknown> {
         }
 
         const widget = new widgetConstructor(new AngularLocatorDriver(new TestElement([root], this.fixture), root));
-        return (widget as any) as CorrectReturnTypes<InstanceType<C>, TestElement>;
+        return widget;
     }
 
     /**

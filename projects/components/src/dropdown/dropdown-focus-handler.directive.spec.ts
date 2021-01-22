@@ -39,7 +39,7 @@ describe('DropdownFocusHandlerDirective', () => {
 
         this.finder = new AngularWidgetObjectFinder(TestHostComponent);
         this.finder.detectChanges();
-        this.dropdownWidget = this.finder.find(VcdDropdownWidgetObject);
+        this.dropdownWidget = this.finder.find<VcdDropdownWidgetObject<TestElement>>(VcdDropdownWidgetObject);
         this.dropdownComponent = this.dropdownWidget
             .getDropdown(PRIMARY_DROPDOWN_TOGGLE_CLASS_NAME)
             .getComponentInstance();
