@@ -11,7 +11,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Add `hideWhenEmpty` flag to `QuickSearchProvider` to control section display when there is no data
 
 ### Fixed
-- BREAKING: Fixes the `//@ ts-ignore problem with the Widget Object finder`
+- BREAKING: Fixes the `//@ ts-ignore problem with the Widget Object finder`. Now, you need to supply the type of the widget object as a type parameter to any of the `findWidget` or Widget Finder calls. This is because the type is too complicated for the method to infer.
 
 ## [1.0.0-dev.56]
 ### Changed
@@ -50,7 +50,7 @@ calculation by ActionMenuComponent
 - For vcd-form-with-unit component, Focus is set on input element when unlimited is unchecked
 - internal: Changed implementation of responsive form inputs to use a directive so that grid classes to be used
    on form input can be changed from a single place.
-- Associate label with <select> input in vcd-form-select
+- Associate label with `<select>` input in vcd-form-select
 
 ### Changed
 - Make the signpost trigger on the form-checkbox consistent with the other form components
@@ -108,7 +108,3 @@ by 300 milliseconds
 4. Add ARIA role to the ErrorBannerComponent
 5. Prevent sub-menus that are opened on hover from closing when clicked
 6. Add custom focus handling logic for dropdown menu
-
-### Added
-
-
