@@ -239,8 +239,6 @@ types.</p>
     ViewChildren,
 } from &#x27;@angular/core&#x27;;
 import { ClrDatagrid, ClrDatagridPagination, ClrDatagridStateInterface } from &#x27;@clr/angular&#x27;;
-import { SelectionType } from &#x27;@clr/angular/data/datagrid/enums/selection-type&#x27;;
-import { columnStateFactory } from &#x27;@clr/angular/data/datagrid/providers/column-state.provider&#x27;;
 import { LazyString, TranslationService } from &#x27;@vcd/i18n&#x27;;
 import { Observable } from &#x27;rxjs&#x27;;
 import { ActionMenuComponent } from &#x27;../action-menu/action-menu.component&#x27;;
@@ -649,15 +647,25 @@ export class DatagridComponent&lt;R extends B, B &#x3D; any&gt; implements OnIni
      */
     @Input()
     get datagridSelection(): B[] {
-        if (this.datagrid.selection.currentSingle) {
-            return [this.datagrid.selection.currentSingle];
-        }
-        if (this.datagrid.selection.current &amp;&amp; this.datagrid.selection.current.length) {
-            return this.datagrid.selection.current;
-        }
-        return [];
+        // If a getter returns &#x60;[]&#x60; it is considered as a new reference in the angular detect changes process
+        // while &#x60;[]&#x60; in the template is not considered a new reference.
+        // In other words the following 2 have different behaviour:
+        // &#x60;&#x60;&#x60;
+        // &lt;component_tag
+        //    [someInput]&#x3D;&#x27;some_getter_that_retyrns_empty_array&#x27;
+        // &gt;&lt;/component_tag&gt;
+        // &#x60;&#x60;&#x60;
+        // &#x60;&#x60;&#x60;
+        // &lt;component_tag
+        //    [someInput]&#x3D;&#x27;[]&#x27;
+        // &gt;&lt;/component_tag&gt;
+        // &#x60;&#x60;&#x60;
+        // where the first one will result in setting &#x60;someInput&#x60; during the change detection while the second one will not
+        // TODO:  VDUCC-505 write unit tests
+        // The code below is to ensure there is no reference change unless there is a change indeed
+        return this._datagridSelection;
     }
-
+    private _datagridSelection &#x3D; [];
     /**
      * Sets the items selected in the VCD datagrid.
      */
@@ -742,6 +750,14 @@ export class DatagridComponent&lt;R extends B, B &#x3D; any&gt; implements OnIni
      * Emitted whenever {@link #columns} input is updated
      */
     @Output() columnsUpdated &#x3D; new EventEmitter&lt;void&gt;();
+
+    /**
+     * A reference to {@link ActionMenuComponent} that is positioned above the grid, in the grid action tool bar
+     * This action menu may be dynamically added to / removed from the DOM based on the actions availability so the
+     * very reference should be taken from subscription to the list changes.
+     */
+    @ViewChildren(&#x27;mainActionMenu&#x27;)
+    public readonly mainActionMenu: QueryList&lt;ActionMenuComponent&lt;unknown, unknown&gt;&gt;;
 
     /**
      * Columns are updated using set columns, addColumn and removeColumn methods. This cache helps in preserving changes
@@ -1022,6 +1038,17 @@ export class DatagridComponent&lt;R extends B, B &#x3D; any&gt; implements OnIni
         if (this.datagrid.rows) {
             this.datagrid.rows.notifyOnChanges();
         }
+    }
+
+    onClarityDatafridSelectionChange(): void {
+        if (this.datagrid.selection.currentSingle) {
+            this._datagridSelection &#x3D; [this.datagrid.selection.currentSingle];
+        } else if (this.datagrid.selection.current &amp;&amp; this.datagrid.selection.current.length) {
+            this._datagridSelection &#x3D; [...this.datagrid.selection.current];
+        } else {
+            this._datagridSelection &#x3D; [];
+        }
+        this.datagridSelectionChange.emit(this.datagridSelection);
     }
 
     /**
