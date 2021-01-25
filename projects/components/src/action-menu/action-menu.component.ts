@@ -43,30 +43,7 @@ export class ActionMenuComponent<R, T> {
      * List of actions containing both static and contextual that are given by the calling component
      */
     @Input() set actions(actions: ActionItem<R, T>[]) {
-        if (!actions) {
-            return;
-        }
-        const hasNestedActions = actions.some((action) => action.children?.length > 0);
-        const markUnmarkedActionsAsContextual =
-            hasNestedActions ||
-            this.getFlattenedActionList(actions, ActionType.CONTEXTUAL_FEATURED).some(
-                (action) => action.actionType && action.actionType === ActionType.CONTEXTUAL_FEATURED
-            );
-
-        this._actions = actions.map((action) => {
-            const actionCopy = { ...action, children: action.children ? [...action.children] : null };
-            if (!actionCopy.actionType) {
-                actionCopy.actionType = markUnmarkedActionsAsContextual
-                    ? ActionType.CONTEXTUAL
-                    : ActionType.CONTEXTUAL_FEATURED;
-            }
-            return actionCopy;
-        });
-
-        this.shouldDisplayContextualActionsDropdownInline =
-            hasNestedActions || this._actions.some((action) => action.actionType === ActionType.CONTEXTUAL);
-
-        this.updateActionListsAndDisplayFlags();
+        this.refreshActions(actions);
     }
     private _actions: ActionItem<R, T>[] = [];
     get actions(): ActionItem<R, T>[] {
@@ -253,7 +230,34 @@ export class ActionMenuComponent<R, T> {
      * this method will re-trigger the availability call backs of actions
      */
     updateDisplayedActions(): void {
-        this.actions = [...this.actions];
+        this.refreshActions(this.actions);
+    }
+
+    private refreshActions(actions: ActionItem<R, T>[]): void {
+        if (!actions) {
+            return;
+        }
+        const hasNestedActions = actions.some((action) => action.children?.length > 0);
+        const markUnmarkedActionsAsContextual =
+            hasNestedActions ||
+            this.getFlattenedActionList(actions, ActionType.CONTEXTUAL_FEATURED).some(
+                (action) => action.actionType && action.actionType === ActionType.CONTEXTUAL_FEATURED
+            );
+
+        this._actions = actions.map((action) => {
+            const actionCopy = { ...action, children: action.children ? [...action.children] : null };
+            if (!actionCopy.actionType) {
+                actionCopy.actionType = markUnmarkedActionsAsContextual
+                    ? ActionType.CONTEXTUAL
+                    : ActionType.CONTEXTUAL_FEATURED;
+            }
+            return actionCopy;
+        });
+
+        this.shouldDisplayContextualActionsDropdownInline =
+            hasNestedActions || this._actions.some((action) => action.actionType === ActionType.CONTEXTUAL);
+
+        this.updateActionListsAndDisplayFlags();
     }
 
     private updateActionListsAndDisplayFlags(): void {
