@@ -56,8 +56,6 @@ MIT
 @ngx-formly/core
 MIT
 
-@ps37/ui-components
-
 @stackblitz/sdk
 MIT
 MIT License
@@ -84,6 +82,8 @@ SOFTWARE.
 
 
 @vcd/i18n
+
+@vcd/ui-components
 
 @vmw/ng-live-docs
 
