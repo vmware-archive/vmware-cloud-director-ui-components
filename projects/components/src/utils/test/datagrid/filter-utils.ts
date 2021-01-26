@@ -5,7 +5,6 @@
 
 import { Component, Type } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
-import { By } from '@angular/platform-browser';
 import { MockTranslationService, TranslationService } from '@vcd/i18n';
 import {
     DatagridFilter,
@@ -69,7 +68,7 @@ export function createDatagridFilterTestHelper<V, C>(
 
     // Add the filter to grid column
     const finder = new AngularWidgetObjectFinder(FilterTestHostComponent);
-    const grid = finder.find(ClrDatagridWidgetObject);
+    const grid = finder.find<ClrDatagridWidgetObject<TestElement>>(ClrDatagridWidgetObject);
 
     finder.hostComponent.setFilter(filterType, finder, config || ({} as C));
     grid.clrDatagrid.fixture.detectChanges();
@@ -88,7 +87,7 @@ export function createDatagridFilterTestHelperWithFinder<V, C>(
 
     // Add the filter to grid column
     const finder = new AngularWidgetObjectFinder(FilterTestHostComponent);
-    const grid = finder.find(ClrDatagridWidgetObject);
+    const grid = finder.find<ClrDatagridWidgetObject<TestElement>>(ClrDatagridWidgetObject);
     finder.hostComponent.setFilter(filterType, finder, config || ({} as C));
     grid.clrDatagrid.fixture.detectChanges();
     grid.filterToggle.click();

@@ -7,8 +7,8 @@
     [clrDgLoading]="isLoading"
     [ngClass]="[this.clrDatagridCssClass, this.height ? 'set-height' : 'fill-parent-grid']"
     (clrDgRefresh)="gridStateChanged($event)"
-    (clrDgSelectedChange)="datagridSelectionChange.emit(datagridSelection)"
-    (clrDgSingleSelectedChange)="datagridSelectionChange.emit(datagridSelection)"
+    (clrDgSelectedChange)="onClarityDatafridSelectionChange()"
+    (clrDgSingleSelectedChange)="onClarityDatafridSelectionChange()"
 >
     <clr-dg-placeholder>{{ emptyGridPlaceholder }}</clr-dg-placeholder>
     <clr-dg-action-bar class="top-action-bar" *ngIf="shouldShowActionBarOnTop">
@@ -115,6 +115,7 @@
 
 <ng-template #actionBar>
     <vcd-action-menu
+        #mainActionMenu
         [actions]="actions"
         [selectedEntities]="datagridSelection"
         [actionDisplayConfig]="actionDisplayConfig"
