@@ -43,30 +43,7 @@ export class ActionMenuComponent<R, T> {
      * List of actions containing both static and contextual that are given by the calling component
      */
     @Input() set actions(actions: ActionItem<R, T>[]) {
-        if (!actions) {
-            return;
-        }
-        const hasNestedActions = actions.some((action) => action.children?.length > 0);
-        const markUnmarkedActionsAsContextual =
-            hasNestedActions ||
-            this.getFlattenedActionList(actions, ActionType.CONTEXTUAL_FEATURED).some(
-                (action) => action.actionType && action.actionType === ActionType.CONTEXTUAL_FEATURED
-            );
-
-        this._actions = actions.map((action) => {
-            const actionCopy = { ...action, children: action.children ? [...action.children] : null };
-            if (!actionCopy.actionType) {
-                actionCopy.actionType = markUnmarkedActionsAsContextual
-                    ? ActionType.CONTEXTUAL
-                    : ActionType.CONTEXTUAL_FEATURED;
-            }
-            return actionCopy;
-        });
-
-        this.shouldDisplayContextualActionsDropdownInline =
-            hasNestedActions || this._actions.some((action) => action.actionType === ActionType.CONTEXTUAL);
-
-        this.updateActionListsAndDisplayFlags();
+        this.refreshActions(actions);
     }
     private _actions: ActionItem<R, T>[] = [];
     get actions(): ActionItem<R, T>[] {
@@ -243,6 +220,44 @@ export class ActionMenuComponent<R, T> {
                 }
                 return actionCopy;
             });
+    }
+
+    /**
+     * The visibility of actions is dependent on their availability call back responses and in VCD application, some of the actions
+     * availability call back response is dependent on closure variables. However, we don't call those call backs every time those closure
+     * variables are updated, for example by asynchronous requests. This has a side effect of actions visibility not getting updated when
+     * those closure variables are updated. So, this convenience method is to make it clear for the user that such side effect exists and
+     * this method will re-trigger the availability call backs of actions
+     */
+    updateDisplayedActions(): void {
+        this.refreshActions(this.actions);
+    }
+
+    private refreshActions(actions: ActionItem<R, T>[]): void {
+        if (!actions) {
+            return;
+        }
+        const hasNestedActions = actions.some((action) => action.children?.length > 0);
+        const markUnmarkedActionsAsContextual =
+            hasNestedActions ||
+            this.getFlattenedActionList(actions, ActionType.CONTEXTUAL_FEATURED).some(
+                (action) => action.actionType && action.actionType === ActionType.CONTEXTUAL_FEATURED
+            );
+
+        this._actions = actions.map((action) => {
+            const actionCopy = { ...action, children: action.children ? [...action.children] : null };
+            if (!actionCopy.actionType) {
+                actionCopy.actionType = markUnmarkedActionsAsContextual
+                    ? ActionType.CONTEXTUAL
+                    : ActionType.CONTEXTUAL_FEATURED;
+            }
+            return actionCopy;
+        });
+
+        this.shouldDisplayContextualActionsDropdownInline =
+            hasNestedActions || this._actions.some((action) => action.actionType === ActionType.CONTEXTUAL);
+
+        this.updateActionListsAndDisplayFlags();
     }
 
     private updateActionListsAndDisplayFlags(): void {
