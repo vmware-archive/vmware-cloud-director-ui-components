@@ -155,16 +155,14 @@ jobs:
                   key: ${{ github.sha }}-components
             - name: Install node_modules
               run: npm ci
-            - id: check-components-tag
-              uses: ./.github/actions/check-lib-tag
-              with:
-                  lib-name: 'components'
+            - id: check-release-tag
+              uses: ./.github/actions/check-release-tag
             - id: check-components-package
               uses: ./.github/actions/check-lib-package
               with:
                   lib-name: 'components'
             - name: Publish components@next
-              if: steps.check-components-tag.outputs.isLibTag != 'true' && steps.check-components-package.outputs.isLibPackageChanged == 'true' && github.event_name == 'push' && github.ref == 'refs/heads/master'
+              if: steps.check-release-tag.outputs.isReleaseTag != 'true' && steps.check-components-package.outputs.isLibPackageChanged == 'true' && github.event_name == 'push' && github.ref == 'refs/heads/master'
               run: |
                   cd ./dist/components
                   npm publish --tag next --access public
@@ -172,7 +170,7 @@ jobs:
                   NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}
 
             - name: Publish components@next-a11y
-              if: steps.check-components-tag.outputs.isLibTag != 'true' && steps.check-components-package.outputs.isLibPackageChanged == 'true' && github.event_name == 'push' && github.ref == 'refs/heads/a11y'
+              if: steps.check-release-tag.outputs.isReleaseTag != 'true' && steps.check-components-package.outputs.isLibPackageChanged == 'true' && github.event_name == 'push' && github.ref == 'refs/heads/a11y'
               run: |
                   cd ./dist/components
                   npm publish --tag next-a11y --access public
@@ -180,7 +178,7 @@ jobs:
                   NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}
 
             - name: Publish components@latest
-              if: steps.check-components-tag.outputs.isLibTag == 'true'
+              if: steps.check-release-tag.outputs.isReleaseTag == 'true' && steps.check-components-package.outputs.isLibPackageChanged == 'true' && github.event_name == 'push'
               run: |
                   cd ./dist/components
                   npm publish
@@ -207,23 +205,21 @@ jobs:
                   key: ${{github.sha}}-i18n
             - name: Install node_modules
               run: npm ci
-            - id: check-i18n-tag
-              uses: ./.github/actions/check-lib-tag
-              with:
-                  lib-name: 'i18n'
+            - id: check-release-tag
+              uses: ./.github/actions/check-release-tag
             - id: check-i18n-package
               uses: ./.github/actions/check-lib-package
               with:
                   lib-name: 'i18n'
             - name: Publish i18n@next
-              if: steps.check-i18n-tag.outputs.isLibTag != 'true' && steps.check-i18n-package.outputs.isLibPackageChanged == 'true' && github.event_name == 'push' && github.ref == 'refs/heads/master'
+              if: steps.check-release-tag.outputs.isReleaseTag != 'true' && steps.check-i18n-package.outputs.isLibPackageChanged == 'true' && github.event_name == 'push' && github.ref == 'refs/heads/master'
               run: |
                   cd ./dist/i18n
                   npm publish --tag next --access public
               env:
                   NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}
             - name: Publish i18n@latest
-              if: steps.check-i18n-tag.outputs.isLibTag == 'true'
+              if: steps.check-release-tag.outputs.isReleaseTag == 'true' && steps.check-i18n-package.outputs.isLibPackageChanged == 'true' && github.event_name == 'push'
               run: |
                   cd ./dist/i18n
                   npm publish
@@ -250,23 +246,21 @@ jobs:
                   key: ${{github.sha}}-route-analyzer
             - name: Install node_modules
               run: npm ci
-            - id: check-route-analyzer-tag
-              uses: ./.github/actions/check-lib-tag
-              with:
-                  lib-name: 'route-analyzer'
+            - id: check-release-tag
+              uses: ./.github/actions/check-release-tag
             - id: check-route-analyzer-package
               uses: ./.github/actions/check-lib-package
               with:
                   lib-name: 'route-analyzer'
             - name: Publish route-analyzer@next
-              if: steps.check-route-analyzer-tag.outputs.isLibTag != 'true' && steps.check-route-analyzer-package.outputs.isLibPackageChanged == 'true' && github.event_name == 'push' && github.ref == 'refs/heads/master'
+              if: steps.check-release-tag.outputs.isReleaseTag != 'true' && steps.check-route-analyzer-package.outputs.isLibPackageChanged == 'true' && github.event_name == 'push' && github.ref == 'refs/heads/master'
               run: |
                   cd ./dist/route-analyzer
                   npm publish --tag next --access public
               env:
                   NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}
             - name: Publish route-analyzer@latest
-              if: steps.check-route-analyzer-tag.outputs.isLibTag == 'true'
+              if: steps.check-release-tag.outputs.isReleaseTag == 'true' && steps.check-route-analyzer-package.outputs.isLibPackageChanged == 'true' && github.event_name == 'push'
               run: |
                   cd ./dist/route-analyzer
                   npm publish
