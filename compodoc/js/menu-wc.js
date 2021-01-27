@@ -361,13 +361,13 @@ customElements.define('compodoc-menu', class extends HTMLElement {
                                 <a href="modules/VcdFormlyModule.html" data-type="entity-link">VcdFormlyModule</a>
                                     <li class="chapter inner">
                                         <div class="simple menu-toggler" data-toggle="collapse" ${ isNormalMode ?
-                                            'data-target="#components-links-module-VcdFormlyModule-7051bd449414167f73c3b8f7a1d89131"' : 'data-target="#xs-components-links-module-VcdFormlyModule-7051bd449414167f73c3b8f7a1d89131"' }>
+                                            'data-target="#components-links-module-VcdFormlyModule-04a7b5b06ec114b99ee0d3eedda2b2c6"' : 'data-target="#xs-components-links-module-VcdFormlyModule-04a7b5b06ec114b99ee0d3eedda2b2c6"' }>
                                             <span class="icon ion-md-cog"></span>
                                             <span>Components</span>
                                             <span class="icon ion-ios-arrow-down"></span>
                                         </div>
-                                        <ul class="links collapse" ${ isNormalMode ? 'id="components-links-module-VcdFormlyModule-7051bd449414167f73c3b8f7a1d89131"' :
-                                            'id="xs-components-links-module-VcdFormlyModule-7051bd449414167f73c3b8f7a1d89131"' }>
+                                        <ul class="links collapse" ${ isNormalMode ? 'id="components-links-module-VcdFormlyModule-04a7b5b06ec114b99ee0d3eedda2b2c6"' :
+                                            'id="xs-components-links-module-VcdFormlyModule-04a7b5b06ec114b99ee0d3eedda2b2c6"' }>
                                             <li class="link">
                                                 <a href="components/FormlyInputComponent.html"
                                                     data-type="entity-link" data-context="sub-entity" data-context-id="modules">FormlyInputComponent</a>
@@ -491,9 +491,6 @@ customElements.define('compodoc-menu', class extends HTMLElement {
                                 <a href="classes/BannerActivityReporterWidgetObject.html" data-type="entity-link">BannerActivityReporterWidgetObject</a>
                             </li>
                             <li class="link">
-                                <a href="classes/BaseFormControl.html" data-type="entity-link">BaseFormControl</a>
-                            </li>
-                            <li class="link">
                                 <a href="classes/BaseWidgetObject.html" data-type="entity-link">BaseWidgetObject</a>
                             </li>
                             <li class="link">
@@ -516,9 +513,6 @@ customElements.define('compodoc-menu', class extends HTMLElement {
                             </li>
                             <li class="link">
                                 <a href="classes/DataExporterWidgetObject.html" data-type="entity-link">DataExporterWidgetObject</a>
-                            </li>
-                            <li class="link">
-                                <a href="classes/DatagridFilter.html" data-type="entity-link">DatagridFilter</a>
                             </li>
                             <li class="link">
                                 <a href="classes/DomUtil.html" data-type="entity-link">DomUtil</a>

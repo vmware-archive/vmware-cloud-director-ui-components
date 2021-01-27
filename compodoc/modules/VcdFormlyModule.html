@@ -266,7 +266,7 @@
                     <div>
                     </div>
                     <div class="io-description">
-                        <b>Returns : </b>        <code><a href="https://angular.io/api/core/ModuleWithProviders" target="_blank" >ModuleWithProviders</a></code>
+                        <b>Returns : </b>    <code>ModuleWithProviders&lt;VcdFormlyModule&gt;</code>
 
                     </div>
                     <div class="io-description">
@@ -317,7 +317,7 @@ export class VcdFormlyModule {
      * Used for passing configuration in addition to default {@link VCD_FORMLY_CONFIG}
      * @param configOption Additional Formly configuration
      */
-    static forRoot(configOption: ConfigOption): ModuleWithProviders {
+    static forRoot(configOption: ConfigOption): ModuleWithProviders&lt;VcdFormlyModule&gt; {
         return {
             ngModule: VcdFormlyModule,
             providers: [{ provide: FORMLY_CONFIG, useValue: configOption, multi: true }],

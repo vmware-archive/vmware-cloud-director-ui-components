@@ -363,7 +363,7 @@ export class ActivityPromiseResolver&lt;T&gt; {
             .then((result) &#x3D;&gt; {
                 return {
                     object: result,
-                    response: { ...result, success: successMessage || result },
+                    response: { ...result, success: successMessage || result } as ActivityResponse,
                 };
             })
             .catch((error) &#x3D;&gt; {

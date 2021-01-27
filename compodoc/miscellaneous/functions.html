@@ -133,6 +133,9 @@
                             <a href="#setStyle" title="projects/components/src/lib/directives/show-clipped-text.directive.ts"><b>setStyle</b>&nbsp;&nbsp;&nbsp;(projects/.../show-clipped-text.directive.ts)</a>
                         </li>
                         <li>
+                            <a href="#timeout" title="projects/components/src/utils/test/test-utils.ts"><b>timeout</b>&nbsp;&nbsp;&nbsp;(projects/.../test-utils.ts)</a>
+                        </li>
+                        <li>
                             <a href="#unwatchEvents" title="projects/components/src/lib/directives/show-clipped-text.directive.ts"><b>unwatchEvents</b>&nbsp;&nbsp;&nbsp;(projects/.../show-clipped-text.directive.ts)</a>
                         </li>
                         <li>
@@ -403,7 +406,7 @@ DatagridStringFilterComponent,
                     <div>
                     </div>
                     <div class="io-description">
-                        <b>Returns : </b>        <code><a href="../classes/DatagridFilter.html" target="_self" >DatagridFilter&lt;V, C&gt;</a></code>
+                        <b>Returns : </b>    <code>DatagridFilter&lt;V, C&gt;</code>
 
                     </div>
                     <div class="io-description">
@@ -543,7 +546,7 @@ DatagridStringFilterComponent,
                     <div>
                     </div>
                     <div class="io-description">
-                        <b>Returns : </b>        <code><a href="../classes/DatagridFilter.html" target="_self" >DatagridFilter&lt;V, C&gt;</a></code>
+                        <b>Returns : </b>    <code>DatagridFilter&lt;V, C&gt;</code>
 
                     </div>
                     <div class="io-description">
@@ -2146,6 +2149,79 @@ this will be passed to <code>cy.get</code> and is a global search.</li>
                     </div>
                     <div class="io-description">
                         <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                    </div>
+                    <div class="io-description">
+                        
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</section>    <h3>projects/components/src/utils/test/test-utils.ts</h3>
+    <section>
+    <h3></h3>    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="timeout"></a>
+                    <span class="name">
+                        <b>
+                            timeout
+                        </b>
+                        <a href="#timeout"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>timeout(ms: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank">number</a>)</code>
+                </td>
+            </tr>
+
+
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Helper to create a promise from a setTimeout so we can await for it</p>
+</div>
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Type</td>
+                                    <td>Optional</td>
+                                    <td>Description</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>ms</td>
+                                    <td>
+                                                <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                    <td>
+                                        <p>How long to wait before resolving</p>
+
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>    <code>Promise&lt;number&gt;</code>
 
                     </div>
                     <div class="io-description">
