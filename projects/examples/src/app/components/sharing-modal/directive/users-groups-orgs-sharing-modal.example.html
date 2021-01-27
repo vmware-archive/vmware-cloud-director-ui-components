@@ -1,0 +1,12 @@
+<button (click)="opened = true">Open</button>
+<vcd-sharing-modal
+    [title]="title"
+    [(isOpened)]="opened"
+    (formSubmitted)="log($event)"
+    vcdUsersGroupsOrgsSharingModal
+    [usersConfig]="usersTab"
+    [groupsConfig]="groupsTab"
+    [orgsConfig]="orgsTab"
+    [showSelectAllUsersAndGroups]="true"
+    [showSelectAllOrgs]="true"
+></vcd-sharing-modal>

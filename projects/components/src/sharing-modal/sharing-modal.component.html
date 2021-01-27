@@ -1,0 +1,45 @@
+<clr-modal
+    *ngIf="isOpened"
+    [clrModalSize]="'lg'"
+    [(clrModalOpen)]="isOpened"
+    (clrModalOpenChange)="isOpenedChange.emit($event)"
+>
+    <h3 class="modal-title">{{ title | lazyString }}</h3>
+    <div class="modal-body">
+        <b>{{ 'vcd.cc.share.with' | translate }}:</b>
+        <vcd-select-all-toggle
+            *ngFor="let toggle of selectAllToggles"
+            [description]="toggle.description"
+            [rightsOptions]="calculateRightsOptions(toggle.tabIds)"
+            (selectionChanged)="selectAllChange(toggle.tabIds, $event)"
+        >
+        </vcd-select-all-toggle>
+
+        <clr-tabs>
+            <clr-tab *ngFor="let tab of tabs">
+                <button clrTabLink>{{ tab.title | lazyString }}</button>
+                <clr-tab-content *clrIfActive>
+                    <vcd-sharing-modal-tab
+                        [id]="tab.id"
+                        [selectAllText]="tab.selectAllText"
+                        [rightsOptions]="tab.rightsOptions"
+                        [entityRenderer]="tab.entityRenderer"
+                        [isSelectAll]="tabsSelectAll.get(tab.id)"
+                        [makeSearch]="tab.makeSearch"
+                        [comboboxPlaceholder]="tab.comboboxPlaceholder"
+                        [(currentlySharedWith)]="tab.currentlySharedWith"
+                        #modalTab
+                    ></vcd-sharing-modal-tab>
+                </clr-tab-content>
+            </clr-tab>
+        </clr-tabs>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-outline cancel" (click)="closeForm()">
+            {{ 'vcd.cc.cancel' | translate }}
+        </button>
+        <button type="button" class="btn btn-primary submit" (click)="submitForm()">
+            {{ 'vcd.cc.submit' | translate }}
+        </button>
+    </div>
+</clr-modal>

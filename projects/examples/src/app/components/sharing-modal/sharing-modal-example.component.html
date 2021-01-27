@@ -1,0 +1,8 @@
+<button (click)="opened = true">Open</button>
+<vcd-sharing-modal
+    [title]="title"
+    [tabs]="tabs"
+    [selectAllToggles]="checkboxes"
+    [(isOpened)]="opened"
+    (formSubmitted)="log($event)"
+></vcd-sharing-modal>

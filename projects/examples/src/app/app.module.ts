@@ -5,22 +5,16 @@
 
 import { registerLocaleData } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
-import { NgModule } from '@angular/core';
-import { BrowserModule } from '@angular/platform-browser';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-
 import localeEs from '@angular/common/locales/es';
 import localeFr from '@angular/common/locales/fr';
+import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { BrowserModule } from '@angular/platform-browser';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ClarityModule } from '@clr/angular';
+import { FormlyModule } from '@ngx-formly/core';
 import { I18nModule, TranslationService } from '@vcd/i18n';
 import { ActivityPromiseResolver, VcdComponentsModule } from '@vcd/ui-components';
-import { AppRoutingModule } from './app-routing.module';
-import { ActionMenuExamplesModule } from './components/action-menu/action-menu.examples.module';
-
-import { AppComponent } from './app.component';
-
-import { FormlyModule } from '@ngx-formly/core';
 import { CompodocSchema, NgLiveDocsModule, StackBlitzInfo } from '@vmw/ng-live-docs';
 import componentsDocumentationJson from '../../gen/components-doc.json';
 import examplesDocumentationJson from '../../gen/examples-doc.json';
@@ -33,6 +27,10 @@ import { FormlyInputComponentsExamplesModule } from '../components/formly/input/
 import { LoadingIndicatorExamplesModule } from '../components/loading/loading-indicator.examples.module';
 import { QuickSearchExamplesModule } from '../components/quick-search/quick-search.examples.module';
 import { SubscriptionTrackerExamplesModule } from '../components/subscription/subscription-tracker.examples.module';
+import { AppRoutingModule } from './app-routing.module';
+import { AppComponent } from './app.component';
+import { ActionMenuExamplesModule } from './components/action-menu/action-menu.examples.module';
+import { SharingModalExamplesModule } from './components/sharing-modal/sharing-modal-examples.module';
 import { ShowClippedTextExamplesModule } from './components/show-clipped-text/show-clipped-text-examples.module';
 import { HomeComponent } from './home/home.component';
 
@@ -81,6 +79,7 @@ export const sbInfo: StackBlitzInfo = {
         FormlyModule.forRoot(),
         FormlyInputComponentsExamplesModule,
         ActionMenuExamplesModule,
+        SharingModalExamplesModule,
     ],
     entryComponents: [HomeComponent],
     providers: [

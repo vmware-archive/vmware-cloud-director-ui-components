@@ -16,6 +16,7 @@ import { AlternativeTextModule } from './lib/directives/alternative-text/alterna
 import { ResponsiveInputDirectiveModule } from './lib/directives/responsive-input/responsive-input.module';
 import { ShowClippedTextDirectiveModule } from './lib/directives/show-clipped-text.directive.module';
 import { QuickSearchModule } from './quick-search/quick-search.module';
+import { VcdSharingModalModule } from './sharing-modal/sharing-modal.module';
 
 @NgModule({
     exports: [
@@ -31,6 +32,7 @@ import { QuickSearchModule } from './quick-search/quick-search.module';
         DropdownModule,
         ResponsiveInputDirectiveModule,
         AlternativeTextModule,
+        VcdSharingModalModule,
     ],
 })
 export class VcdComponentsModule {}
