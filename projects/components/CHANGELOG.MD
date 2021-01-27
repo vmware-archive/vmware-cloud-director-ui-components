@@ -7,6 +7,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.0.0-dev.58]
+- Upgrades to Angular 10 and Clarity 4.
+
 ## [1.0.0-dev.57]
 ### Added
 - Add `actionsUpdate` emitter to `ActionMenuComponent`
