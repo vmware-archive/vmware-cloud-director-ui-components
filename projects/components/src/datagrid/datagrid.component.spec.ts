@@ -290,11 +290,11 @@ describe('DatagridComponent', () => {
                     this.finder.detectChanges();
                     spyOn(this.hostComponent, 'selectionChanged');
                     this.clrGridWidget.getSelectionLabelForRow(0).click();
-                    await timeout(0);
+                    await timeout();
                     this.finder.detectChanges();
                     expect(this.hostComponent.selectionChanged).toHaveBeenCalledWith([mockData[0]]);
                     this.clrGridWidget.getSelectionLabelForRow(1).click();
-                    await timeout(0);
+                    await timeout();
                     expect(this.hostComponent.selectionChanged).toHaveBeenCalledWith(mockData);
                 });
 
@@ -326,11 +326,11 @@ describe('DatagridComponent', () => {
                     this.finder.detectChanges();
                     spyOn(this.hostComponent, 'selectionChanged');
                     this.clrGridWidget.getSelectionLabelForRow(0).click();
-                    await timeout(0);
+                    await timeout();
                     expect(this.hostComponent.selectionChanged).toHaveBeenCalledWith([mockData[0]]);
                     this.hostComponent.datagridSelection = [];
                     this.finder.detectChanges();
-                    await timeout(0);
+                    await timeout();
                     this.finder.detectChanges();
                     expect(this.hostComponent.selectionChanged).toHaveBeenCalledWith([]);
                 });
@@ -367,10 +367,10 @@ describe('DatagridComponent', () => {
                         };
                         this.finder.detectChanges();
                         this.clrGridWidget.getSelectionLabelForRow(0).click();
-                        await timeout(0);
+                        await timeout();
                         this.finder.detectChanges();
                         this.clrGridWidget.getSelectionLabelForRow(1).click();
-                        await timeout(0);
+                        await timeout();
                         this.finder.detectChanges();
                         expect(this.hostComponent.datagridSelection).toEqual(mockData);
                         this.hostComponent.gridData = {
@@ -378,9 +378,9 @@ describe('DatagridComponent', () => {
                             totalItems: 2,
                         };
                         this.finder.detectChanges();
-                        await timeout(0);
+                        await timeout();
                         this.finder.detectChanges();
-                        await timeout(0);
+                        await timeout();
                         expect(this.hostComponent.datagridSelection).toEqual([mockData[0]]);
                     });
                 });
@@ -408,18 +408,20 @@ describe('DatagridComponent', () => {
                         items: [mockData[0]],
                         totalItems: 2,
                     };
-                    await timeout(0);
+                    await timeout();
                     this.hostComponent.datagridSelection = [{ name: mockData[1].name }];
                     this.finder.detectChanges();
                     expect(this.hostComponent.datagridSelection).toEqual([{ name: mockData[1].name }]);
+                    this.finder.detectChanges();
                     this.hostComponent.gridData = {
                         items: [mockData[1]],
                         totalItems: 2,
                     };
+                    await timeout();
                     this.finder.detectChanges();
-                    await timeout(0);
+                    await timeout();
                     this.finder.detectChanges();
-                    await timeout(0);
+                    await timeout();
                     expect(this.hostComponent.datagridSelection).toEqual([mockData[1]]);
                 });
             });
