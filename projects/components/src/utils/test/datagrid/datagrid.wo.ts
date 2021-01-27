@@ -11,7 +11,7 @@ const Css = {
     CELL: 'clr-dg-cell',
     PLACEHOLDER: 'clr-dg-placeholder',
     COLUMN_TITLE: '.datagrid-column-title',
-    HIDDEN_COLUMN: 'clr-dg-column.datagrid-hidden-column',
+    HIDDEN_COLUMN: 'clr-dg-column.datagrid-hidden-column span:not(.clr-sr-only)',
     DETAIL_ROW: 'clr-dg-row-detail',
     DETAIL_PANE: '.datagrid-detail-pane-content',
     DETAIL_PANE_HEADER: '.datagrid-detail-header-title',

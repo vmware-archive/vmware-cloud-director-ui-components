@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: BSD-2-Clause
  */
 
-import { Input, Type } from '@angular/core';
+import { Directive, Input } from '@angular/core';
 import { AbstractControl, ControlValueAccessor, FormControl, NgControl, ValidatorFn } from '@angular/forms';
 import { IdGenerator } from '../utils/id-generator/id-generator';
 import { CanBeReadOnly } from './interfaces/can-be-read-only.interface';
@@ -21,7 +21,7 @@ export function defaultValidatorForControl(control: AbstractControl, defaultVali
     control.setValidators([defaultValidator, control.validator].filter(Boolean));
 
     const oldSetValidators = control.setValidators;
-    control.setValidators = validators => {
+    control.setValidators = (validators) => {
         // Could be array, single value or null
         const validatorsArray = Array.isArray(validators) ? validators : [validators].filter(Boolean);
         return oldSetValidators.call(control, [defaultValidator, ...validatorsArray]);
@@ -31,6 +31,8 @@ export function defaultValidatorForControl(control: AbstractControl, defaultVali
  * Wrapper to enforce UX decisions like readonly-ness, label position and error displaying. And also to make
  * the form control backing a form control name directive available to sub classes.
  */
+@Directive({})
+// tslint:disable-next-line: directive-class-suffix
 export class BaseFormControl implements ControlValueAccessor, CanBeReadOnly {
     /**
      * Auto generated ID for the input field.

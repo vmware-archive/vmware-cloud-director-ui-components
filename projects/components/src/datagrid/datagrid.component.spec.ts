@@ -22,6 +22,7 @@ import {
 import { ShowClippedTextDirective, TooltipSize } from '../lib/directives/show-clipped-text.directive';
 import { ClrDatagridWidgetObject } from '../utils/test/datagrid/datagrid.wo';
 import { VcdDatagridWidgetObject } from '../utils/test/datagrid/vcd-datagrid.wo';
+import { timeout } from '../utils/test/test-utils';
 import { AngularWidgetObjectFinder } from '../utils/test/widget-object/angular-widget-finder';
 import { TestElement } from '../utils/test/widget-object/angular-widget-object';
 import {
@@ -251,14 +252,19 @@ describe('DatagridComponent', () => {
             });
 
             describe('@Input() datagridSelection', () => {
-                it('emits multiple rows when set to multi selection', function (this: HasFinderAndGrid): void {
+                it('emits multiple rows when set to multi selection', fakeAsync(function (
+                    this: HasFinderAndGrid
+                ): void {
                     this.hostComponent.selectionType = GridSelectionType.Multi;
                     this.finder.detectChanges();
                     this.clrGridWidget.getSelectionLabelForRow(0).click();
+                    tick();
+                    this.finder.detectChanges();
                     expect(this.hostComponent.datagridSelection).toEqual([mockData[0]]);
                     this.clrGridWidget.getSelectionLabelForRow(1).click();
+                    tick();
                     expect(this.hostComponent.datagridSelection).toEqual(mockData);
-                });
+                }));
 
                 it('emits only one row when set to single selection', function (this: HasFinderAndGrid): void {
                     this.hostComponent.selectionType = GridSelectionType.Single;
@@ -277,13 +283,18 @@ describe('DatagridComponent', () => {
             });
 
             describe('@Output() selectionChanged', () => {
-                it('emits multiple rows when set to multi selection', function (this: HasFinderAndGrid): void {
+                it('emits multiple rows when set to multi selection', async function (this: HasFinderAndGrid): Promise<
+                    void
+                > {
                     this.hostComponent.selectionType = GridSelectionType.Multi;
                     this.finder.detectChanges();
                     spyOn(this.hostComponent, 'selectionChanged');
                     this.clrGridWidget.getSelectionLabelForRow(0).click();
+                    await timeout();
+                    this.finder.detectChanges();
                     expect(this.hostComponent.selectionChanged).toHaveBeenCalledWith([mockData[0]]);
                     this.clrGridWidget.getSelectionLabelForRow(1).click();
+                    await timeout();
                     expect(this.hostComponent.selectionChanged).toHaveBeenCalledWith(mockData);
                 });
 
@@ -308,13 +319,18 @@ describe('DatagridComponent', () => {
                     expect(this.hostComponent.selectionChanged).toHaveBeenCalledWith([]);
                 });
 
-                it('emits empty array when multiple selection is cleared', function (this: HasFinderAndGrid): void {
+                it('emits empty array when multiple selection is cleared', async function (this: HasFinderAndGrid): Promise<
+                    void
+                > {
                     this.hostComponent.selectionType = GridSelectionType.Multi;
                     this.finder.detectChanges();
                     spyOn(this.hostComponent, 'selectionChanged');
                     this.clrGridWidget.getSelectionLabelForRow(0).click();
+                    await timeout();
                     expect(this.hostComponent.selectionChanged).toHaveBeenCalledWith([mockData[0]]);
                     this.hostComponent.datagridSelection = [];
+                    this.finder.detectChanges();
+                    await timeout();
                     this.finder.detectChanges();
                     expect(this.hostComponent.selectionChanged).toHaveBeenCalledWith([]);
                 });
@@ -351,15 +367,20 @@ describe('DatagridComponent', () => {
                         };
                         this.finder.detectChanges();
                         this.clrGridWidget.getSelectionLabelForRow(0).click();
+                        await timeout();
+                        this.finder.detectChanges();
                         this.clrGridWidget.getSelectionLabelForRow(1).click();
+                        await timeout();
+                        this.finder.detectChanges();
                         expect(this.hostComponent.datagridSelection).toEqual(mockData);
                         this.hostComponent.gridData = {
                             items: [mockData[0]],
                             totalItems: 2,
                         };
                         this.finder.detectChanges();
-                        await new Promise((resolve) => setTimeout(() => resolve()));
+                        await timeout();
                         this.finder.detectChanges();
+                        await timeout();
                         expect(this.hostComponent.datagridSelection).toEqual([mockData[0]]);
                     });
                 });
@@ -387,18 +408,20 @@ describe('DatagridComponent', () => {
                         items: [mockData[0]],
                         totalItems: 2,
                     };
-                    this.finder.detectChanges();
+                    await timeout();
                     this.hostComponent.datagridSelection = [{ name: mockData[1].name }];
                     this.finder.detectChanges();
                     expect(this.hostComponent.datagridSelection).toEqual([{ name: mockData[1].name }]);
+                    this.finder.detectChanges();
                     this.hostComponent.gridData = {
                         items: [mockData[1]],
                         totalItems: 2,
                     };
+                    await timeout();
                     this.finder.detectChanges();
-                    await new Promise((resolve) => setTimeout(() => resolve()));
+                    await timeout();
                     this.finder.detectChanges();
-                    console.log(this.hostComponent.datagridSelection);
+                    await timeout();
                     expect(this.hostComponent.datagridSelection).toEqual([mockData[1]]);
                 });
             });
