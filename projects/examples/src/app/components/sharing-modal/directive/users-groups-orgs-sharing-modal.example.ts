@@ -4,7 +4,12 @@
  */
 
 import { Component, Input } from '@angular/core';
-import { ComponentRenderer, Entity, PredefinedSharingTab, SearchResult } from '@vcd/ui-components';
+import { ComponentRenderer, HasHref, PredefinedSharingTab, SearchResult } from '@vcd/ui-components';
+
+interface MyEntity {
+    name: string;
+    href: string;
+}
 
 @Component({
     selector: 'vcd-users-groups-sharing-modal-example',
@@ -18,17 +23,33 @@ export class UsersGroupsOrgsSharingModalExampleComponent {
 
     title = 'Sharing Modal Example';
 
-    usersTab: PredefinedSharingTab = {
-        rightsOptions: ['Read Only', 'Write Only', 'All Access'],
+    usersTab: PredefinedSharingTab<MyEntity> = {
+        rightsOptions: [
+            {
+                display: 'Read Only',
+                value: 'read_only',
+            },
+            {
+                display: 'Write Only',
+                value: 'write_only',
+            },
+            {
+                display: 'All Access',
+                value: 'all_access',
+            },
+        ],
         currentlySharedWith: [
             {
                 name: 'Ryan',
                 href: 'ryan',
-                accessRight: 'Owner',
+                accessRight: {
+                    display: 'Owner',
+                    value: 'owner',
+                },
             },
         ],
         entityRenderer: SharingModalRendererComponent,
-        makeSearch(criteria: string): Promise<SearchResult> {
+        makeSearch(criteria: string): Promise<SearchResult<MyEntity>> {
             return Promise.resolve({
                 items: [
                     {
@@ -45,17 +66,33 @@ export class UsersGroupsOrgsSharingModalExampleComponent {
         },
     };
 
-    groupsTab: PredefinedSharingTab = {
-        rightsOptions: ['Read Only', 'Write Only', 'All Access'],
+    groupsTab: PredefinedSharingTab<MyEntity> = {
+        rightsOptions: [
+            {
+                display: 'Read Only',
+                value: 'read_only',
+            },
+            {
+                display: 'Write Only',
+                value: 'write_only',
+            },
+            {
+                display: 'All Access',
+                value: 'all_access',
+            },
+        ],
         currentlySharedWith: [
             {
                 name: 'Group1',
                 href: 'group1',
-                accessRight: 'Read Only',
+                accessRight: {
+                    display: 'Read Only',
+                    value: 'read_only',
+                },
             },
         ],
         entityRenderer: SharingModalRendererComponent,
-        makeSearch(criteria: string): Promise<SearchResult> {
+        makeSearch(criteria: string): Promise<SearchResult<MyEntity>> {
             return Promise.resolve({
                 items: [
                     {
@@ -72,17 +109,25 @@ export class UsersGroupsOrgsSharingModalExampleComponent {
         },
     };
 
-    orgsTab: PredefinedSharingTab = {
-        rightsOptions: ['Read Only'],
+    orgsTab: PredefinedSharingTab<MyEntity> = {
+        rightsOptions: [
+            {
+                display: 'Read Only',
+                value: 'read_only',
+            },
+        ],
         currentlySharedWith: [
             {
                 name: 'Org 1',
                 href: 'org1',
-                accessRight: 'Read Only',
+                accessRight: {
+                    display: 'Read Only',
+                    value: 'read_only',
+                },
             },
         ],
         entityRenderer: SharingModalRendererComponent,
-        makeSearch(criteria: string): Promise<SearchResult> {
+        makeSearch(criteria: string): Promise<SearchResult<MyEntity>> {
             return Promise.resolve({
                 items: [
                     {
@@ -108,6 +153,6 @@ export class UsersGroupsOrgsSharingModalExampleComponent {
     selector: 'vcd-datagrid-detail-pane-sub-example',
     template: ` {{ config.name }} ({{ config.href }}) `,
 })
-export class SharingModalRendererComponent implements ComponentRenderer<Entity> {
-    @Input() config: Entity;
+export class SharingModalRendererComponent implements ComponentRenderer<HasHref<MyEntity>> {
+    @Input() config: HasHref<MyEntity>;
 }

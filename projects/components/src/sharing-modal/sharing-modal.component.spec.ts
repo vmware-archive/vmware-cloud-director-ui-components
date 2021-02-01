@@ -12,7 +12,7 @@ import { AngularWidgetObjectFinder, BaseWidgetObject, ClrDatagridWidgetObject, T
 import { timeout } from '../utils/test/test-utils';
 import { SharingModalResult, SharingSelectAllToggle } from './sharing-modal.component';
 import { VcdSharingModalModule } from './sharing-modal.module';
-import { SharingModalTabComponent } from './tabs/sharing-modal-tab.component';
+import { SharingModalTabComponent, VcdSharingModalError } from './tabs/sharing-modal-tab.component';
 
 interface HasVcdSharingModal {
     finder: AngularWidgetObjectFinder<TestHostComponent>;
@@ -34,11 +34,15 @@ class VcdDropdownWidgetObject<T> extends BaseWidgetObject<T> {
 
     getSubmitButton = this.locatorForCssSelectors('.submit');
 
-    getAddButton = this.locatorForCssSelectors('.add-btn');
+    getAddButton = this.locatorForCssSelectors('.add');
 
     getActiveTab = this.locatorForCssSelectors('vcd-sharing-modal-tab');
 
     getSelectAllBox = this.locatorForCssSelectors('.rectangle');
+
+    getErrorLabel = this.locatorForCssSelectors('.search-error');
+
+    getSearchWarning = this.locatorForCssSelectors('.search-warning');
 
     getSelectToogleByText = (text: string) =>
         this.locatorDriver.getByText('label', text).parents('div').get('clr-checkbox-wrapper input').unwrap();
@@ -50,7 +54,7 @@ class VcdDropdownWidgetObject<T> extends BaseWidgetObject<T> {
 
     getTabByHeader = (title: string) => this.locatorDriver.getByText('.nav-item button', title).unwrap();
 
-    getCurrentShareDatagrid = () => this.locatorDriver.findWidget(ClrDatagridWidgetObject);
+    getCurrentShareDatagrid = () => this.locatorDriver.findWidget<ClrDatagridWidgetObject<T>>(ClrDatagridWidgetObject);
 
     getDeleteButtonInDatagridCell = (row: number) => {
         return this.locatorDriver
@@ -61,7 +65,7 @@ class VcdDropdownWidgetObject<T> extends BaseWidgetObject<T> {
     };
 }
 
-describe('SharingModalComponent', () => {
+fdescribe('SharingModalComponent', () => {
     beforeEach(async function (this: HasVcdSharingModal): Promise<void> {
         await TestBed.configureTestingModule({
             imports: [VcdSharingModalModule, BrowserAnimationsModule],
@@ -103,7 +107,12 @@ describe('SharingModalComponent', () => {
                 {
                     id: 'user',
                     title: 'Users',
-                    rightsOptions: ['read'],
+                    rightsOptions: [
+                        {
+                            display: 'read',
+                            value: 'read',
+                        },
+                    ],
                     currentlySharedWith: [],
                     makeSearch: (criteria: string) =>
                         Promise.resolve({
@@ -115,7 +124,12 @@ describe('SharingModalComponent', () => {
                 {
                     id: 'groups',
                     title: 'Groups',
-                    rightsOptions: ['read'],
+                    rightsOptions: [
+                        {
+                            display: 'read',
+                            value: 'read',
+                        },
+                    ],
                     currentlySharedWith: [],
                     makeSearch: (criteria: string) =>
                         Promise.resolve({
@@ -134,17 +148,25 @@ describe('SharingModalComponent', () => {
             ).toEqual(['Users', 'Groups']);
         });
 
-        it('shows currently shared with in the tab', function (this: HasVcdSharingModal): void {
+        it('shows currently shared with in the tab', async function (this: HasVcdSharingModal): Promise<void> {
             this.finder.hostComponent.tabs = [
                 {
                     id: 'user',
                     title: 'Users',
-                    rightsOptions: ['read'],
+                    rightsOptions: [
+                        {
+                            display: 'read',
+                            value: 'read',
+                        },
+                    ],
                     currentlySharedWith: [
                         {
                             name: 'ryan',
                             href: 'ryan',
-                            accessRight: 'read',
+                            accessRight: {
+                                display: 'read',
+                                value: 'read',
+                            },
                         },
                     ],
                     makeSearch: (criteria: string) =>
@@ -157,6 +179,8 @@ describe('SharingModalComponent', () => {
             ];
             this.finder.detectChanges();
             this.widget.getTabByHeader('Users').click();
+            await timeout(0);
+            this.finder.detectChanges();
             expect(this.widget.getCurrentShareDatagrid().getRows().length()).toEqual(1);
             expect(this.widget.getCurrentShareDatagrid().getCell(0, 1).text()).toEqual('ryan');
         });
@@ -166,7 +190,12 @@ describe('SharingModalComponent', () => {
                 {
                     id: 'user',
                     title: 'Users',
-                    rightsOptions: ['read'],
+                    rightsOptions: [
+                        {
+                            display: 'read',
+                            value: 'read',
+                        },
+                    ],
                     currentlySharedWith: [],
                     makeSearch: (criteria: string) =>
                         Promise.resolve({
@@ -185,7 +214,7 @@ describe('SharingModalComponent', () => {
             this.widget.getTabByHeader('Users').click();
             await timeout(0);
             this.widget.openComboboxButton().click();
-            await timeout(0);
+            await timeout(401);
             this.finder.detectChanges();
             expect(
                 this.widget
@@ -193,6 +222,71 @@ describe('SharingModalComponent', () => {
                     .toArray()
                     .map((el) => el.text())
             ).toEqual(['ryan']);
+            this.widget.openComboboxButton().click();
+        });
+
+        it('displays an error if thrown while searching', async function (this: HasVcdSharingModal): Promise<void> {
+            this.finder.hostComponent.tabs = [
+                {
+                    id: 'user',
+                    title: 'Users',
+                    rightsOptions: [
+                        {
+                            display: 'read',
+                            value: 'read',
+                        },
+                    ],
+                    currentlySharedWith: [],
+                    makeSearch: (criteria: string) => Promise.reject(new VcdSharingModalError('BAD')),
+                    selectAllText: 'All users selected',
+                },
+            ];
+            this.finder.detectChanges();
+            this.widget.getTabByHeader('Users').click();
+            await timeout(0);
+            this.widget.openComboboxButton().click();
+            await timeout(401);
+            this.finder.detectChanges();
+            expect(this.widget.getErrorLabel().text()).toEqual('BAD');
+            this.widget.openComboboxButton().click();
+        });
+
+        it('shows a warning at the bottom about missing results', async function (this: HasVcdSharingModal): Promise<
+            void
+        > {
+            this.finder.hostComponent.tabs = [
+                {
+                    id: 'user',
+                    title: 'Users',
+                    rightsOptions: [
+                        {
+                            display: 'read',
+                            value: 'read',
+                        },
+                    ],
+                    currentlySharedWith: [],
+                    makeSearch: (criteria: string) =>
+                        Promise.resolve({
+                            totalCount: 15,
+                            items: [
+                                {
+                                    name: 'ryan',
+                                    href: 'ryan',
+                                },
+                            ],
+                        }),
+                    selectAllText: 'All users selected',
+                },
+            ];
+            this.finder.detectChanges();
+            this.widget.getTabByHeader('Users').click();
+            await timeout(0);
+            this.widget.openComboboxButton().click();
+            await timeout(401);
+            this.finder.detectChanges();
+            expect(this.widget.getSearchWarning().text()).toEqual(
+                new MockTranslationService().translate('vcd.cc.sharing-results-warning', [1, 15])
+            );
             this.widget.openComboboxButton().click();
         });
     });
@@ -203,7 +297,12 @@ describe('SharingModalComponent', () => {
                 {
                     id: 'user',
                     title: 'Users',
-                    rightsOptions: ['read'],
+                    rightsOptions: [
+                        {
+                            display: 'read',
+                            value: 'read',
+                        },
+                    ],
                     currentlySharedWith: [],
                     makeSearch: (criteria: string) =>
                         Promise.resolve({
@@ -235,7 +334,12 @@ describe('SharingModalComponent', () => {
                 {
                     id: 'user',
                     title: 'Users',
-                    rightsOptions: ['read'],
+                    rightsOptions: [
+                        {
+                            display: 'read',
+                            value: 'read',
+                        },
+                    ],
                     currentlySharedWith: [],
                     makeSearch: (criteria: string) =>
                         Promise.resolve({
@@ -252,7 +356,16 @@ describe('SharingModalComponent', () => {
                 {
                     id: 'user2',
                     title: 'Users',
-                    rightsOptions: ['read', 'write'],
+                    rightsOptions: [
+                        {
+                            display: 'read',
+                            value: 'read',
+                        },
+                        {
+                            display: 'write',
+                            value: 'write',
+                        },
+                    ],
                     currentlySharedWith: [],
                     makeSearch: (criteria: string) =>
                         Promise.resolve({
@@ -290,7 +403,12 @@ describe('SharingModalComponent', () => {
                 {
                     id: 'user',
                     title: 'Users',
-                    rightsOptions: ['read'],
+                    rightsOptions: [
+                        {
+                            display: 'read',
+                            value: 'read',
+                        },
+                    ],
                     currentlySharedWith: [],
                     makeSearch: (criteria: string) =>
                         Promise.resolve({
@@ -307,7 +425,16 @@ describe('SharingModalComponent', () => {
                 {
                     id: 'user2',
                     title: 'Users',
-                    rightsOptions: ['read', 'write'],
+                    rightsOptions: [
+                        {
+                            display: 'read',
+                            value: 'read',
+                        },
+                        {
+                            display: 'write',
+                            value: 'write',
+                        },
+                    ],
                     currentlySharedWith: [],
                     makeSearch: (criteria: string) =>
                         Promise.resolve({
@@ -346,7 +473,12 @@ describe('SharingModalComponent', () => {
                 {
                     id: 'user',
                     title: 'Users',
-                    rightsOptions: ['read'],
+                    rightsOptions: [
+                        {
+                            display: 'read',
+                            value: 'read',
+                        },
+                    ],
                     currentlySharedWith: [],
                     makeSearch: (criteria: string) =>
                         Promise.resolve({
@@ -365,7 +497,7 @@ describe('SharingModalComponent', () => {
             this.widget.getTabByHeader('Users').click();
             await timeout(0);
             this.widget.openComboboxButton().click();
-            await timeout(0);
+            await timeout(401);
             this.finder.detectChanges();
             this.widget.getComboboxDropdownRows().toArray()[0].click();
             await timeout(0);
@@ -376,7 +508,23 @@ describe('SharingModalComponent', () => {
             this.widget.getSubmitButton().click();
             await timeout(0);
             expect(spy.calls.mostRecent().args[0]).toEqual(
-                new Map([['user', { selectedItems: [{ name: 'ryan', href: 'ryan', accessRight: 'read' }] }]])
+                new Map([
+                    [
+                        'user',
+                        {
+                            selectedItems: [
+                                {
+                                    name: 'ryan',
+                                    href: 'ryan',
+                                    accessRight: {
+                                        display: 'read',
+                                        value: 'read',
+                                    },
+                                },
+                            ],
+                        },
+                    ],
+                ])
             );
         });
 
@@ -385,12 +533,24 @@ describe('SharingModalComponent', () => {
                 {
                     id: 'user',
                     title: 'Users',
-                    rightsOptions: ['read', 'write'],
+                    rightsOptions: [
+                        {
+                            display: 'read',
+                            value: 'read',
+                        },
+                        {
+                            display: 'write',
+                            value: 'write',
+                        },
+                    ],
                     currentlySharedWith: [
                         {
                             name: 'ryan',
                             href: 'ryan',
-                            accessRight: 'read',
+                            accessRight: {
+                                display: 'read',
+                                value: 'read',
+                            },
                         },
                     ],
                     makeSearch: (criteria: string) =>
@@ -423,12 +583,24 @@ describe('SharingModalComponent', () => {
                 {
                     id: 'user',
                     title: 'Users',
-                    rightsOptions: ['read', 'write'],
+                    rightsOptions: [
+                        {
+                            display: 'read',
+                            value: 'read',
+                        },
+                        {
+                            display: 'write',
+                            value: 'write',
+                        },
+                    ],
                     currentlySharedWith: [
                         {
                             name: 'ryan',
                             href: 'ryan',
-                            accessRight: 'read',
+                            accessRight: {
+                                display: 'read',
+                                value: 'read',
+                            },
                         },
                     ],
                     makeSearch: (criteria: string) =>
@@ -448,11 +620,14 @@ describe('SharingModalComponent', () => {
             this.widget.getTabByHeader('Users').click();
             await timeout(0);
             this.finder.detectChanges();
-            (this.widget.getActiveTab().getComponentInstance() as SharingModalTabComponent).updateEntityRights(
+            (this.widget.getActiveTab().getComponentInstance() as SharingModalTabComponent<any>).updateEntityRights(
                 {
                     name: 'ryan',
                     href: 'ryan',
-                    accessRight: 'read',
+                    accessRight: {
+                        display: 'read',
+                        value: 'read',
+                    },
                 },
                 'write'
             );
@@ -461,7 +636,23 @@ describe('SharingModalComponent', () => {
             this.widget.getSubmitButton().click();
             await timeout(0);
             expect(spy.calls.mostRecent().args[0]).toEqual(
-                new Map([['user', { selectedItems: [{ name: 'ryan', href: 'ryan', accessRight: 'write' }] }]])
+                new Map([
+                    [
+                        'user',
+                        {
+                            selectedItems: [
+                                {
+                                    name: 'ryan',
+                                    href: 'ryan',
+                                    accessRight: {
+                                        display: 'write',
+                                        value: 'write',
+                                    },
+                                },
+                            ],
+                        },
+                    ],
+                ])
             );
         });
     });
@@ -484,7 +675,7 @@ export class TestHostComponent {
 
     title: string;
 
-    tabs: SharingTab[];
+    tabs: SharingTab<any>[];
 
     checkboxes: SharingSelectAllToggle[];
 

@@ -498,7 +498,7 @@ export class DatagridComponent<R extends B, B = any> implements OnInit, AfterVie
         let max = 0;
         actionMenus.forEach((actionMenu) => {
             const contextualFeaturedActions = actionMenu.contextualFeaturedActions;
-            max = Math.max(contextualFeaturedActions.length + 1, max);
+            max = Math.max(contextualFeaturedActions.length, max);
         });
         this.maxFeaturedActionsOnRow = max;
         this.changeDetectorRef.detectChanges();
@@ -616,8 +616,9 @@ export class DatagridComponent<R extends B, B = any> implements OnInit, AfterVie
     private _height: number;
 
     /**
-     * Loading indicator on the grid
+     * If the grid is currently loading.
      */
+    @Input()
     isLoading = false;
 
     /**

@@ -12,7 +12,7 @@ clr-datagrid {
     margin-top: 20px;
 }
 
-.add-btn {
+button.add {
     margin-right: 0;
     flex: 0;
 }
@@ -70,9 +70,8 @@ clr-dg-cell.action-cell {
 }
 
 .rectangle {
-    margin-top: 0.6rem;
-    min-height: 20rem;
-    max-height: 20rem;
+    min-height: 400px;
+    max-height: 400px;
 
     background: #fafafa;
     border: 1px solid #cccccc;
@@ -84,7 +83,7 @@ clr-dg-cell.action-cell {
 }
 
 .content {
-    margin: auto auto auto auto;
+    margin: auto;
 }
 
 .select-all-placeholder {
@@ -106,4 +105,12 @@ clr-dg-cell.action-cell {
 
 .flex-cell {
     display: flex;
+}
+
+::ng-deep .clr-combobox-options-empty-text {
+    display: none;
+}
+
+.clr-mock-option {
+    padding: 0.15rem 1.2rem;
 }

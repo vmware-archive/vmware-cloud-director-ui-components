@@ -6,8 +6,13 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { LazyString } from '@vcd/i18n';
 
+export interface ComboOption {
+    display: LazyString;
+    value: string;
+}
+
 /**
- * A togggle that allows you to select all for a given type of entity.
+ * A togggle that allows you to select all and choose the type of right to apply.
  */
 @Component({
     selector: 'vcd-select-all-toggle',
@@ -19,7 +24,7 @@ export class VcdSelectAllToggleComponent {
      * The right options that should be displayed in the dropdown.
      */
     @Input()
-    rightsOptions: string[];
+    rightsOptions: ComboOption[];
 
     /**
      * The text that is displayed next to the toggle.
@@ -33,19 +38,23 @@ export class VcdSelectAllToggleComponent {
     @Output()
     selectionChanged: EventEmitter<string | undefined> = new EventEmitter();
 
-    set selectedRight(selected: string) {
+    set selectedRight(selectedValue: string) {
         if (this.isSelected) {
-            this._selectedRight = selected;
+            this._selectedRightValue = selectedValue;
             this.selectionChanged.emit(this.selectedRight);
         }
     }
 
     get selectedRight(): string {
-        return this._selectedRight || this.rightsOptions[0];
+        return this._selectedRightValue || this.rightsOptions[0].value;
     }
 
-    _selectedRight: string;
+    private _selectedRightValue: string;
     isSelected = false;
+
+    private getComboOptionByValue(value: string): ComboOption {
+        return this.rightsOptions.find((combo) => combo.value === value);
+    }
 
     selectAllChange(): void {
         this.isSelected = !this.isSelected;

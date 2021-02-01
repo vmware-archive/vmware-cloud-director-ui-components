@@ -6,7 +6,7 @@
             clrMulti="true"
             (clrInputChange)="doSearchInternal($event)"
             (clrOpenChange)="doSearchInternal()"
-            [clrLoading]="searchResults === undefined"
+            [clrLoading]="!searchResults"
             [disabled]="this.isSelectAll"
             [placeholder]="comboboxPlaceholder | lazyString"
         >
@@ -21,76 +21,70 @@
                 </ng-template>
             </ng-container>
             <clr-options>
-                <clr-option *ngFor="let state of searchResults; trackBy: entityTrackBy" [clrValue]="state">
-                    <ng-template
-                        *ngIf="entityRenderer; else name"
-                        [vcdComponentRendererOutlet]="{ rendererSpec: getEntityRenderSpec(state) }"
-                    >
-                    </ng-template>
-                    <ng-template #name>
-                        {{ state.name }}
-                    </ng-template>
-                </clr-option>
+                <div *ngIf="searchError; else showOptions" class="clr-mock-option">
+                    <vcd-error-banner
+                        class="search-error"
+                        [errorMessage]="searchError"
+                        [alertClosable]="false"
+                    ></vcd-error-banner>
+                </div>
+                <ng-template #showOptions>
+                    <clr-option *ngFor="let entity of searchResults; trackBy: entityTrackBy" [clrValue]="entity">
+                        <ng-template
+                            *ngIf="entityRenderer; else name"
+                            [vcdComponentRendererOutlet]="{ rendererSpec: getEntityRenderSpec(entity) }"
+                        >
+                        </ng-template>
+                        <ng-template #name>
+                            {{ defaultRenderer(entity) }}
+                        </ng-template>
+                    </clr-option>
+                    <div class="clr-mock-option" *ngIf="searchResults">
+                        <clr-alert [clrAlertType]="'warning'">
+                            <clr-alert-item>
+                                <span class="alert-text search-warning">
+                                    {{
+                                        this.translationService.translateAsync('vcd.cc.sharing-results-warning', [
+                                            searchResults.length,
+                                            totalSearchResults
+                                        ]) | lazyString
+                                    }}
+                                </span>
+                            </clr-alert-item>
+                        </clr-alert>
+                    </div>
+                </ng-template>
             </clr-options>
         </clr-combobox>
     </clr-combobox-container>
     <select
         clrSelect
         name="options"
-        [(ngModel)]="currentlySelectedRight"
+        [(ngModel)]="currentlySelectedRightValue"
         [disabled]="this.isComboboxSubmittable()"
         class="rights-selector"
     >
-        <option *ngFor="let option of rightsOptions" value="{{ option }}">{{ option }}</option>
+        <option *ngFor="let option of rightsOptions" value="{{ option.value }}">
+            {{ option.display | lazyString }}
+        </option>
     </select>
-    <button class="btn add-btn" (click)="addPendingEntities()" [disabled]="this.isComboboxSubmittable()">
+    <button class="btn add" (click)="addPendingEntities()" [disabled]="this.isComboboxSubmittable()">
         {{ 'vcd.cc.add' | translate }}
     </button>
 </div>
 <div class="grid-container">
-    <clr-datagrid *ngIf="!this.isSelectAll; else placeholderGrid">
-        <clr-dg-column class="action-cell"></clr-dg-column>
-        <clr-dg-column> {{ 'vcd.cc.shared.with' | translate }} </clr-dg-column>
-        <clr-dg-column> {{ 'vcd.cc.rights' | translate }} </clr-dg-column>
-        <clr-dg-row *ngFor="let entity of currentlySharedWith; trackBy: entityTrackBy" [clrDgItem]="entity">
-            <clr-dg-cell class="action-cell datagrid-select datagrid-fixed-column">
-                <button (click)="this.removeEntity(entity)" class="btn btn-link" *ngIf="!isOwner(entity)">
-                    <clr-icon shape="trash" class="is-error" size="18"></clr-icon>
-                </button>
-            </clr-dg-cell>
-            <clr-dg-cell class="flex-cell">
-                <div class="cell-content">
-                    <ng-template
-                        *ngIf="entityRenderer; else name"
-                        [vcdComponentRendererOutlet]="{ rendererSpec: getEntityRenderSpec(entity) }"
-                    >
-                    </ng-template>
-                    <ng-template #name>
-                        {{ entity.name }}
-                    </ng-template>
-                </div>
-            </clr-dg-cell>
-            <clr-dg-cell class="flex-cell">
-                <div *ngIf="isOwner(entity); else notOwner" class="cell-content">Owner</div>
-                <ng-template #notOwner>
-                    <select
-                        clrSelect
-                        name="options"
-                        [ngModel]="entity.accessRight"
-                        (ngModelChange)="updateEntityRights(entity, $event)"
-                        class="cell-content"
-                    >
-                        <option *ngFor="let option of rightsOptions" value="{{ option }}">{{ option }}</option>
-                    </select>
-                </ng-template>
-            </clr-dg-cell>
-        </clr-dg-row>
-        <clr-dg-footer>
-            <clr-dg-pagination #paginationData [clrDgTotalItems]="currentlySharedWith.length" [clrDgPageSize]="5">
-                <div>{{ getPaginationTranslation(paginationData) | lazyString }}</div>
-            </clr-dg-pagination>
-        </clr-dg-footer>
-    </clr-datagrid>
+    <vcd-datagrid
+        [columns]="columns"
+        [gridData]="gridItems"
+        [actions]="actions"
+        [contextualActionPosition]="rowPosition"
+        [actionDisplayConfig]="actionDisplayConfig"
+        *ngIf="!this.isSelectAll; else placeholderGrid"
+        [height]="400"
+        (gridRefresh)="gridRefreshed($event)"
+        [pagination]="paginationInfo"
+    >
+    </vcd-datagrid>
     <ng-template #placeholderGrid>
         <div class="rectangle">
             <div class="content">

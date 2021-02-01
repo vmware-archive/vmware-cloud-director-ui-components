@@ -5,9 +5,10 @@
 
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { LazyString } from '@vcd/i18n';
+import { ComboOption } from './select-all-checkbox/select-all-toggle.component';
 import { SharingTab, SharingTabResult } from './tabs/sharing-modal-tab.component';
 
-export type SharingModalResult = Map<string, SharingTabResult>;
+export type SharingModalResult = Map<string, SharingTabResult<unknown>>;
 
 export type NonEmptyArray<T> = T[] & { 0: T };
 
@@ -50,7 +51,7 @@ export class SharingModalComponent implements OnInit {
      * All of the options of entities that the use can share to.
      */
     @Input()
-    tabs: SharingTab[];
+    tabs: SharingTab<unknown>[];
 
     /**
      * The select all toggles that should appear at the top of the modal.
@@ -128,12 +129,14 @@ export class SharingModalComponent implements OnInit {
      *
      * @throws Error if there are no common rights.
      */
-    calculateRightsOptions(tabIds: string[]): string[] {
+    calculateRightsOptions(tabIds: string[]): ComboOption[] {
         const tabs = tabIds.map((id) => this.getTabById(id));
         let rights = tabs[0].rightsOptions;
         tabs.shift();
         for (const tab of tabs) {
-            rights = rights.filter((right) => tab.rightsOptions.includes(right)) as NonEmptyArray<string>;
+            rights = rights.filter((right) =>
+                tab.rightsOptions.find((tabRight) => tabRight.value === right.value)
+            ) as NonEmptyArray<ComboOption>;
             if (rights.length === 0) {
                 throw new Error('There is no shared set of rights between these tabs');
             }
@@ -144,19 +147,19 @@ export class SharingModalComponent implements OnInit {
     /**
      * Gives the tab with the given ID.
      */
-    getTabById(id: string): SharingTab {
-        return this.tabs.filter((tab) => tab.id === id)[0];
+    getTabById(id: string): SharingTab<unknown> {
+        return this.tabs.find((tab) => tab.id === id);
     }
 
     ngOnInit(): void {
         if (this.selectAllToggles) {
-            this.selectAllToggles.map((toggle) => {
+            for (const toggle of this.selectAllToggles) {
                 if (toggle.currentSelectAllRight) {
                     toggle.tabIds.map((tabId) => {
                         this.tabsSelectAll.set(tabId, toggle.currentSelectAllRight);
                     });
                 }
-            });
+            }
         }
     }
 }

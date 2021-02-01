@@ -5,8 +5,19 @@
 
 import { Component, Input, OnInit } from '@angular/core';
 import { LazyString } from '@vcd/i18n';
-import { ComponentRenderer, Entity, SharingSelectAllToggle, SharingTab } from '@vcd/ui-components';
+import {
+    ComponentRenderer,
+    HasHref,
+    SharingSelectAllToggle,
+    SharingTab,
+    VcdSharingModalError,
+} from '@vcd/ui-components';
 import { BehaviorSubject } from 'rxjs';
+
+interface MyEntity {
+    name: string;
+    href: string;
+}
 
 @Component({
     selector: 'vcd-sharing-modal-example',
@@ -20,21 +31,40 @@ export class SharingModalExampleComponent implements OnInit {
 
     title: LazyString = 'Sharing Modal Example';
 
-    tabs: SharingTab[] = [
+    tabs: SharingTab<MyEntity>[] = [
         {
             id: 'user',
             title: 'Users',
-            rightsOptions: ['Read Only', 'Write Access', 'All-Access'],
+            rightsOptions: [
+                {
+                    display: 'Read Only',
+                    value: 'read_only',
+                },
+                {
+                    display: 'Write Only',
+                    value: 'write_only',
+                },
+                {
+                    display: 'All Access',
+                    value: 'all_access',
+                },
+            ],
             currentlySharedWith: [
                 {
                     name: 'Hannah',
                     href: 'hannah',
-                    accessRight: 'Read Only',
+                    accessRight: {
+                        display: 'Read Only',
+                        value: 'read_only',
+                    },
                 },
                 {
                     name: 'Ryan',
                     href: 'ryan',
-                    accessRight: 'Owner',
+                    accessRight: {
+                        display: 'Owner',
+                        value: 'owner',
+                    },
                 },
             ],
             makeSearch: (criteria: string) =>
@@ -55,24 +85,33 @@ export class SharingModalExampleComponent implements OnInit {
             id: 'groups',
             title: 'Groups',
             // customRenderer: (record) => `${record.name} ${record.id}`,
-            rightsOptions: ['Read Only', 'Write Access', 'All-Access'],
+            rightsOptions: [
+                {
+                    display: 'Read Only',
+                    value: 'read_only',
+                },
+                {
+                    display: 'Write Only',
+                    value: 'write_only',
+                },
+                {
+                    display: 'All Access',
+                    value: 'all_access',
+                },
+            ],
             currentlySharedWith: [
                 {
                     name: 'Hannah',
                     href: 'hannah',
-                    accessRight: 'Read Only',
+                    accessRight: {
+                        display: 'Read Only',
+                        value: 'read_only',
+                    },
                 },
             ],
-            makeSearch: (criteria: string) =>
-                Promise.resolve({
-                    totalCount: 15,
-                    items: [
-                        {
-                            name: 'Bob',
-                            href: String(Math.random()),
-                        },
-                    ],
-                }),
+            makeSearch: (criteria: string) => {
+                return Promise.reject(new VcdSharingModalError('Could not complete this search'));
+            },
             comboboxPlaceholder: 'Select groups to share with',
             selectAllText: 'Currently Sharing with All Groups',
         },
@@ -80,12 +119,28 @@ export class SharingModalExampleComponent implements OnInit {
             id: 'org',
             title: 'Orgs',
             // customRenderer: (record) => `${record.name} ${record.id}`,
-            rightsOptions: ['Read Only', 'Write Access', 'All-Access'],
+            rightsOptions: [
+                {
+                    display: 'Read Only',
+                    value: 'read_only',
+                },
+                {
+                    display: 'Write Only',
+                    value: 'write_only',
+                },
+                {
+                    display: 'All Access',
+                    value: 'all_access',
+                },
+            ],
             currentlySharedWith: [
                 {
                     name: 'Hannah',
                     href: 'hannah',
-                    accessRight: 'Read Only',
+                    accessRight: {
+                        display: 'Read Only',
+                        value: 'read_only',
+                    },
                 },
             ],
             makeSearch: (criteria: string) =>
@@ -125,6 +180,6 @@ export class SharingModalExampleComponent implements OnInit {
     selector: 'vcd-datagrid-detail-pane-sub-example',
     template: ` {{ config.name }} ({{ config.href }}) `,
 })
-export class SharingModalRendererComponent implements ComponentRenderer<Entity> {
-    @Input() config: Entity;
+export class SharingModalRendererComponent implements ComponentRenderer<HasHref<MyEntity>> {
+    @Input() config: HasHref<MyEntity>;
 }

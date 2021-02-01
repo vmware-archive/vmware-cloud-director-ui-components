@@ -23,7 +23,7 @@ export class UsersGroupsOrgsSharingModalDirective implements OnInit {
      * If unset, there will be no users tab.
      */
     @Input()
-    set usersConfig(config: PredefinedSharingTab) {
+    set usersConfig(config: PredefinedSharingTab<unknown>) {
         this.tabs.push({
             id: 'users',
             title: this.translationService.translateAsync('vcd.cc.sharing.users'),
@@ -37,7 +37,7 @@ export class UsersGroupsOrgsSharingModalDirective implements OnInit {
      * If unset, there will be no groups tab.
      */
     @Input()
-    set groupsConfig(config: PredefinedSharingTab) {
+    set groupsConfig(config: PredefinedSharingTab<unknown>) {
         this.tabs.push({
             id: 'groups',
             title: this.translationService.translateAsync('vcd.cc.sharing.groups'),
@@ -51,7 +51,7 @@ export class UsersGroupsOrgsSharingModalDirective implements OnInit {
      * If unset, there will be no organizations tab.
      */
     @Input()
-    set orgsConfig(config: PredefinedSharingTab) {
+    set orgsConfig(config: PredefinedSharingTab<unknown>) {
         this.tabs.push({
             id: 'organizations',
             title: this.translationService.translateAsync('vcd.cc.sharing.orgs'),
@@ -112,7 +112,7 @@ export class UsersGroupsOrgsSharingModalDirective implements OnInit {
         }
     }
 
-    private tabs: SharingTab[] = [];
+    private tabs: SharingTab<unknown>[] = [];
     private toggles: SharingSelectAllToggle[] = [];
 
     constructor(

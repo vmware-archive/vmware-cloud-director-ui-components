@@ -20,7 +20,7 @@
     ],
     "paths": {
       "@vcd/ui-components": [
-        "projects/components/src"
+        "dist/components"
       ],
       "@vcd/i18n": [
         "dist/i18n"
