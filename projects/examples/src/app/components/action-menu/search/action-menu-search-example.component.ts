@@ -95,6 +95,11 @@ export class ActionMenuSearchExampleComponent<R extends Record, T extends Handle
                 },
             ],
         },
+        {
+            textKey: 'No children action',
+            actionType: ActionType.CONTEXTUAL,
+            children: [],
+        },
     ];
 
     actionDisplayConfig: ActionDisplayConfig = {

@@ -204,6 +204,24 @@ describe('ActionMenuComponent', () => {
             ]);
             expect(availableActions[0].children.length).toEqual(2);
         });
+        it('filters out the grouped actions with empty children array', function (this: HasFinderAndActionMenu): void {
+            const availableActions = this.actionMenu.getAvailableActions([
+                {
+                    textKey: 'Grouped action with empty children',
+                    children: [],
+                },
+                {
+                    textKey: 'Grouped action with children',
+                    children: [
+                        {
+                            textKey: 'child action',
+                            handler: () => {},
+                        },
+                    ],
+                },
+            ]);
+            expect(availableActions.length).toEqual(1);
+        });
     });
     describe('getContextualActions', () => {
         beforeEach(function (this: HasFinderAndActionMenu): void {

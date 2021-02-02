@@ -215,11 +215,15 @@ export class ActionMenuComponent<R, T> {
             .filter((action) => this.isActionAvailable(action))
             .map((action) => {
                 const actionCopy = { ...action, children: action.children ? [...action.children] : null };
-                if (actionCopy.children?.length) {
+                if (actionCopy.children) {
+                    if (actionCopy.children.length === 0) {
+                        return null;
+                    }
                     actionCopy.children = this.getAvailableActions(actionCopy.children);
                 }
                 return actionCopy;
-            });
+            })
+            .filter((action) => !!action);
     }
 
     /**

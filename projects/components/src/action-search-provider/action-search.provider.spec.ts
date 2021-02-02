@@ -41,11 +41,11 @@ const getMockActionsList = (): ActionItem<MockRecord, any>[] => [
 ];
 
 describe('ActionSearchProvider', () => {
-    beforeEach(function(this: HasActionSearchProvider): void {
+    beforeEach(function (this: HasActionSearchProvider): void {
         this.actionSearchProvider = new ActionSearchProvider(new MockTranslationService());
     });
     describe('actions', () => {
-        it('when set, the search method will give the action that matches with the search' + ' text', async function(
+        it('when set, the search method will give the action that matches with the search' + ' text', async function (
             this: HasActionSearchProvider
         ): Promise<void> {
             const searchResults = await this.actionSearchProvider.search('sta');
@@ -62,7 +62,7 @@ describe('ActionSearchProvider', () => {
         it(
             'when set with an entity that will yield ActionItem.availability as false, the search method does not return the ActionItem' +
                 ' as it is unavailable',
-            async function(this: HasActionSearchProvider): Promise<void> {
+            async function (this: HasActionSearchProvider): Promise<void> {
                 this.actionSearchProvider.actions = getMockActionsList();
 
                 let searchResults = await this.actionSearchProvider.search('sto');
@@ -83,7 +83,7 @@ describe('ActionSearchProvider', () => {
         it(
             'when pause is not called by default, search returns a promise which is resolved without having to' +
                 'call unpause',
-            async function(this: HasActionSearchProvider): Promise<void> {
+            async function (this: HasActionSearchProvider): Promise<void> {
                 this.actionSearchProvider.actions = getMockActionsList();
                 let searchResultsBeforePausing;
                 searchResultsBeforePausing = await this.actionSearchProvider.search('sta');
@@ -92,7 +92,7 @@ describe('ActionSearchProvider', () => {
         );
         it(
             'when pause method is called, search returns a promise which is not resolved until unpause' + 'is called',
-            async function(this: HasActionSearchProvider): Promise<void> {
+            async function (this: HasActionSearchProvider): Promise<void> {
                 this.actionSearchProvider.actions = getMockActionsList();
                 const unpauseAfter1second = (): void => {
                     setTimeout(() => {
@@ -118,5 +118,35 @@ describe('ActionSearchProvider', () => {
                 const searchResultsAfterPausing = await this.actionSearchProvider.search('sta');
             }
         );
+    });
+
+    describe('search', () => {
+        it('will not return actions with empty children as part of the search' + 'result', async function (
+            this: HasActionSearchProvider
+        ): Promise<void> {
+            const actions: ActionItem<any, any>[] = [
+                {
+                    textKey: 'No children group',
+                    children: [],
+                    isTranslatable: false,
+                },
+                {
+                    textKey: 'Group with children',
+                    children: [
+                        {
+                            textKey: 'some action',
+                            handler: () => null,
+                            isTranslatable: false,
+                        },
+                    ],
+                    isTranslatable: false,
+                },
+            ];
+            this.actionSearchProvider.actions = actions;
+            const searchResults2 = await this.actionSearchProvider.search('no children');
+            expect(searchResults2.items.length).toEqual(0);
+            const searchResults1 = await this.actionSearchProvider.search('some action');
+            expect(searchResults1.items.length).toEqual(1);
+        });
     });
 });
