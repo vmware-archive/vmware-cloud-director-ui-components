@@ -3,7 +3,8 @@
     *ngIf="opened"
     [title]="title"
     [(isOpened)]="opened"
-    (formSubmitted)="log($event)"
+    [formValue]="value"
+    (formValueChange)="log($event)"
     vcdUsersGroupsOrgsSharingModal
     [usersConfig]="usersTab"
     [groupsConfig]="groupsTab"

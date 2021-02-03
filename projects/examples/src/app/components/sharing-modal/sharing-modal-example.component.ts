@@ -8,6 +8,7 @@ import { LazyString } from '@vcd/i18n';
 import {
     ComponentRenderer,
     HasHref,
+    SharingModalResult,
     SharingSelectAllToggle,
     SharingTab,
     VcdSharingModalError,
@@ -49,24 +50,6 @@ export class SharingModalExampleComponent implements OnInit {
                     value: 'all_access',
                 },
             ],
-            currentlySharedWith: [
-                {
-                    name: 'Hannah',
-                    href: 'hannah',
-                    accessRight: {
-                        display: 'Read Only',
-                        value: 'read_only',
-                    },
-                },
-                {
-                    name: 'Ryan',
-                    href: 'ryan',
-                    accessRight: {
-                        display: 'Owner',
-                        value: 'owner',
-                    },
-                },
-            ],
             makeSearch: (criteria: string) =>
                 Promise.resolve({
                     totalCount: 15,
@@ -82,7 +65,7 @@ export class SharingModalExampleComponent implements OnInit {
             selectAllText: new BehaviorSubject('Currently Sharing with All Users'),
         },
         {
-            id: 'groups',
+            id: 'group',
             title: 'Groups',
             // customRenderer: (record) => `${record.name} ${record.id}`,
             rightsOptions: [
@@ -97,16 +80,6 @@ export class SharingModalExampleComponent implements OnInit {
                 {
                     display: 'All Access',
                     value: 'all_access',
-                },
-            ],
-            currentlySharedWith: [
-                {
-                    name: 'Hannah',
-                    href: 'hannah',
-                    accessRight: {
-                        display: 'Read Only',
-                        value: 'read_only',
-                    },
                 },
             ],
             makeSearch: (criteria: string) => {
@@ -133,16 +106,6 @@ export class SharingModalExampleComponent implements OnInit {
                     value: 'all_access',
                 },
             ],
-            currentlySharedWith: [
-                {
-                    name: 'Hannah',
-                    href: 'hannah',
-                    accessRight: {
-                        display: 'Read Only',
-                        value: 'read_only',
-                    },
-                },
-            ],
             makeSearch: (criteria: string) =>
                 Promise.resolve({
                     totalCount: 15,
@@ -161,13 +124,51 @@ export class SharingModalExampleComponent implements OnInit {
     checkboxes: SharingSelectAllToggle[] = [
         {
             description: 'Select All Users and Groups',
-            tabIds: ['user', 'groups'],
+            tabIds: ['user', 'group'],
         },
         {
             description: 'Select All Orgs',
             tabIds: ['org'],
         },
     ];
+
+    value: SharingModalResult = {
+        user: {
+            selectedItems: [
+                {
+                    name: 'Hannah',
+                    href: 'hannah',
+                    accessRight: {
+                        display: 'Read Only',
+                        value: 'read_only',
+                    },
+                },
+                {
+                    name: 'Ryan',
+                    href: 'ryan',
+                    accessRight: {
+                        display: 'Owner',
+                        value: 'owner',
+                    },
+                },
+            ],
+        },
+        group: {
+            selectedItems: [
+                {
+                    name: 'Hannah',
+                    href: 'hannah',
+                    accessRight: {
+                        display: 'Read Only',
+                        value: 'read_only',
+                    },
+                },
+            ],
+        },
+        org: {
+            selectAllRights: 'read_only',
+        },
+    };
 
     ngOnInit(): void {}
 

@@ -125,10 +125,10 @@ export class UsersGroupsOrgsSharingModalDirective implements OnInit {
         if (!host.tabs) {
             host.tabs = [];
         }
-        host.tabs.push(...this.tabs);
+        host.tabs = [...host.tabs, ...this.tabs];
         if (!host.selectAllToggles) {
             host.selectAllToggles = [];
         }
-        host.selectAllToggles.push(...this.toggles);
+        host.selectAllToggles = [...host.selectAllToggles, ...this.toggles];
     }
 }

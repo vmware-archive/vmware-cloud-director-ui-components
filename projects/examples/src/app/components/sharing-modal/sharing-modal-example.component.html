@@ -5,5 +5,6 @@
     [tabs]="tabs"
     [selectAllToggles]="checkboxes"
     [(isOpened)]="opened"
-    (formSubmitted)="log($event)"
+    [formValue]="value"
+    (formValueChange)="log($event)"
 ></vcd-sharing-modal>

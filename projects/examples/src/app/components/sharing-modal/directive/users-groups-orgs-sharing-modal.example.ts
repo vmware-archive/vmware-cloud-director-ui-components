@@ -4,7 +4,7 @@
  */
 
 import { Component, Input } from '@angular/core';
-import { ComponentRenderer, HasHref, PredefinedSharingTab, SearchResult } from '@vcd/ui-components';
+import { ComponentRenderer, HasHref, PredefinedSharingTab, SearchResult, SharingModalResult } from '@vcd/ui-components';
 
 interface MyEntity {
     name: string;
@@ -36,16 +36,6 @@ export class UsersGroupsOrgsSharingModalExampleComponent {
             {
                 display: 'All Access',
                 value: 'all_access',
-            },
-        ],
-        currentlySharedWith: [
-            {
-                name: 'Ryan',
-                href: 'ryan',
-                accessRight: {
-                    display: 'Owner',
-                    value: 'owner',
-                },
             },
         ],
         entityRenderer: SharingModalRendererComponent,
@@ -81,16 +71,6 @@ export class UsersGroupsOrgsSharingModalExampleComponent {
                 value: 'all_access',
             },
         ],
-        currentlySharedWith: [
-            {
-                name: 'Group1',
-                href: 'group1',
-                accessRight: {
-                    display: 'Read Only',
-                    value: 'read_only',
-                },
-            },
-        ],
         entityRenderer: SharingModalRendererComponent,
         makeSearch(criteria: string): Promise<SearchResult<MyEntity>> {
             return Promise.resolve({
@@ -116,16 +96,6 @@ export class UsersGroupsOrgsSharingModalExampleComponent {
                 value: 'read_only',
             },
         ],
-        currentlySharedWith: [
-            {
-                name: 'Org 1',
-                href: 'org1',
-                accessRight: {
-                    display: 'Read Only',
-                    value: 'read_only',
-                },
-            },
-        ],
         entityRenderer: SharingModalRendererComponent,
         makeSearch(criteria: string): Promise<SearchResult<MyEntity>> {
             return Promise.resolve({
@@ -141,6 +111,44 @@ export class UsersGroupsOrgsSharingModalExampleComponent {
                 ],
                 totalCount: 5,
             });
+        },
+    };
+
+    value: SharingModalResult = {
+        users: {
+            selectedItems: [
+                {
+                    name: 'Hannah',
+                    href: 'hannah',
+                    accessRight: {
+                        display: 'Read Only',
+                        value: 'read_only',
+                    },
+                },
+                {
+                    name: 'Ryan',
+                    href: 'ryan',
+                    accessRight: {
+                        display: 'Owner',
+                        value: 'owner',
+                    },
+                },
+            ],
+        },
+        groups: {
+            selectedItems: [
+                {
+                    name: 'Hannah',
+                    href: 'hannah',
+                    accessRight: {
+                        display: 'Read Only',
+                        value: 'read_only',
+                    },
+                },
+            ],
+        },
+        organizations: {
+            selectAllRights: 'read_only',
         },
     };
 

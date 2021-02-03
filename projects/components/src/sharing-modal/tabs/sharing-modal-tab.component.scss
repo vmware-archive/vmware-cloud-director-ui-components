@@ -1,10 +1,5 @@
 ::ng-deep .clr-form-control {
-    margin-top: 0 !important;
-}
-
-clr-datagrid {
-    min-height: 20rem;
-    max-height: 20rem;
+    margin-top: 0;
 }
 
 .search-container {
@@ -17,7 +12,7 @@ button.add {
     flex: 0;
 }
 
-.search-container ::ng-deep .clr-select-wrapper {
+.search-container select {
     margin-left: 20px;
     margin-right: 20px;
 }
@@ -52,23 +47,6 @@ button.add {
     height: 100%;
 }
 
-.action-column {
-    flex: 0 1 auto;
-    width: unset;
-    min-width: unset;
-}
-
-.action-cell {
-    flex: 0 0 auto;
-    width: 50px !important;
-    padding-left: 15px;
-    min-width: unset !important;
-}
-
-clr-dg-cell.action-cell {
-    margin-right: 10px;
-}
-
 .rectangle {
     min-height: 400px;
     max-height: 400px;
@@ -96,15 +74,6 @@ clr-dg-cell.action-cell {
     margin-left: auto;
     margin-right: auto;
     display: block;
-}
-
-.cell-content {
-    margin-top: auto;
-    margin-bottom: auto;
-}
-
-.flex-cell {
-    display: flex;
 }
 
 ::ng-deep .clr-combobox-options-empty-text {

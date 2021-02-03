@@ -37,6 +37,6 @@ import { UsersGroupsOrgsSharingModalDirective } from './users-groups-orgs-sharin
         VcdComponentRendererOutletModule,
         VcdErrorBannerModule,
     ],
-    exports: [SharingModalComponent, SharingModalTabComponent, UsersGroupsOrgsSharingModalDirective],
+    exports: [SharingModalComponent, UsersGroupsOrgsSharingModalDirective],
 })
 export class VcdSharingModalModule {}

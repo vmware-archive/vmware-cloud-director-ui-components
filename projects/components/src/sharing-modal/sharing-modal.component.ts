@@ -8,7 +8,9 @@ import { LazyString } from '@vcd/i18n';
 import { ComboOption } from './select-all-checkbox/select-all-toggle.component';
 import { SharingTab, SharingTabResult } from './tabs/sharing-modal-tab.component';
 
-export type SharingModalResult = Map<string, SharingTabResult<unknown>>;
+export type SharingModalResult = {
+    [key: string]: SharingTabResult<any>;
+};
 
 export type NonEmptyArray<T> = T[] & { 0: T };
 
@@ -25,11 +27,6 @@ export interface SharingSelectAllToggle {
      * The text that will be displayed next to the toggle.
      */
     description: LazyString;
-    /**
-     * The right that they are set to if currently selected.
-     * If unset, will be set to false.
-     */
-    currentSelectAllRight?: string;
 }
 
 /**
@@ -51,7 +48,22 @@ export class SharingModalComponent implements OnInit {
      * All of the options of entities that the use can share to.
      */
     @Input()
-    tabs: SharingTab<unknown>[];
+    set tabs(tabs: SharingTab<unknown>[]) {
+        this._tabs = tabs;
+        for (const tab of this.tabs) {
+            if (!this.formValue[tab.id]) {
+                this.formValue[tab.id] = {
+                    selectedItems: [],
+                };
+            }
+        }
+    }
+
+    get tabs(): SharingTab<unknown>[] {
+        return this._tabs;
+    }
+
+    private _tabs: SharingTab<unknown>[];
 
     /**
      * The select all toggles that should appear at the top of the modal.
@@ -69,16 +81,14 @@ export class SharingModalComponent implements OnInit {
     @Output()
     isOpenedChange: EventEmitter<boolean> = new EventEmitter();
 
+    @Input()
+    formValue: SharingModalResult = {};
+
     /**
      * The event that is emitted when the user clicks the submit button.
      */
     @Output()
-    formSubmitted: EventEmitter<SharingModalResult> = new EventEmitter();
-
-    /**
-     * A map of tabId to the right this tab is selected all for.
-     */
-    tabsSelectAll: Map<string, string> = new Map();
+    formValueChange: EventEmitter<SharingModalResult> = new EventEmitter();
 
     /**
      * Closes this sharing modal. Resets the values within.
@@ -86,7 +96,6 @@ export class SharingModalComponent implements OnInit {
     closeForm(): void {
         this.isOpened = false;
         this.isOpenedChange.emit(false);
-        this.tabsSelectAll = new Map();
     }
 
     /**
@@ -94,24 +103,12 @@ export class SharingModalComponent implements OnInit {
      */
     submitForm(): void {
         this.isOpened = false;
-        const output = new Map();
-
-        for (const tab of this.tabs) {
-            if (!output.get(tab.id)) {
-                output.set(tab.id, {
-                    selectedItems: tab.currentlySharedWith,
-                });
+        for (const tab of Object.values(this.formValue)) {
+            if (tab.selectAllRights) {
+                tab.selectedItems = undefined;
             }
         }
-        for (const tab of this.tabsSelectAll.keys()) {
-            if (this.tabsSelectAll.get(tab)) {
-                output.set(tab, {
-                    selectAllRights: this.tabsSelectAll.get(tab),
-                });
-            }
-        }
-
-        this.formSubmitted.emit(output);
+        this.formValueChange.emit(this.formValue);
         this.closeForm();
     }
 
@@ -120,7 +117,7 @@ export class SharingModalComponent implements OnInit {
      */
     selectAllChange(tabIds: string[], right?: string): void {
         for (const id of tabIds) {
-            this.tabsSelectAll.set(id, right);
+            this.formValue[id].selectAllRights = right;
         }
     }
 
@@ -151,15 +148,28 @@ export class SharingModalComponent implements OnInit {
         return this.tabs.find((tab) => tab.id === id);
     }
 
-    ngOnInit(): void {
-        if (this.selectAllToggles) {
-            for (const toggle of this.selectAllToggles) {
-                if (toggle.currentSelectAllRight) {
-                    toggle.tabIds.map((tabId) => {
-                        this.tabsSelectAll.set(tabId, toggle.currentSelectAllRight);
-                    });
+    /**
+     * Returns true if all tabs are selected all for.
+     */
+    getTabsSelectedRights(tabs: string[]): string | undefined {
+        let value = '';
+        for (const tabId of tabs) {
+            if (this.formValue[tabId].selectAllRights) {
+                if (value && value !== this.formValue[tabId].selectAllRights) {
+                    throw new Error('Cannot have different rights for tabs in one group');
                 }
+                value = this.formValue[tabId].selectAllRights;
+            } else {
+                if (value) {
+                    throw new Error('All tabs in a group must be selected');
+                }
+                return undefined;
             }
         }
+        return value;
+    }
+
+    ngOnInit(): void {
+        this.tabs = [...this.tabs];
     }
 }

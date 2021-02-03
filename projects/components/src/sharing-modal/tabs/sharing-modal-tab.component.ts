@@ -87,11 +87,6 @@ export interface PredefinedSharingTab<T> {
     rightsOptions: NonEmptyArray<ComboOption>;
 
     /**
-     * Which of the user type this entity is already share dwith.
-     */
-    currentlySharedWith: IsSelected<T>[];
-
-    /**
      * How a given Entity should be rendered in the grid and combobox. Will be given the type of object you return from {@param makeSearch}.
      * If non is given, defaults to display the name as text.
      */
@@ -148,7 +143,7 @@ export class SharingModalTabComponent<T> implements OnInit, OnDestroy, AfterView
      */
     @Input()
     set currentlySharedWith(currentlySharedWith: IsSelected<T>[]) {
-        this.allSharedWith = currentlySharedWith;
+        this.allSharedWith = currentlySharedWith || [];
         this.updateGridItems();
     }
 
@@ -386,7 +381,7 @@ export class SharingModalTabComponent<T> implements OnInit, OnDestroy, AfterView
                           type: this.entityRenderer,
                           config: (record) => record,
                       })
-                    : (entity) => entity.href,
+                    : (entity) => this.defaultRenderer(entity),
             },
             {
                 displayName: this.translationService.translate('vcd.cc.rights'),

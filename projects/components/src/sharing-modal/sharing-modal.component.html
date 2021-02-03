@@ -11,7 +11,8 @@
             *ngFor="let toggle of selectAllToggles"
             [description]="toggle.description"
             [rightsOptions]="calculateRightsOptions(toggle.tabIds)"
-            (selectionChanged)="selectAllChange(toggle.tabIds, $event)"
+            [selection]="getTabsSelectedRights(toggle.tabIds)"
+            (selectionChange)="selectAllChange(toggle.tabIds, $event)"
         >
         </vcd-select-all-toggle>
 
@@ -24,10 +25,10 @@
                         [selectAllText]="tab.selectAllText"
                         [rightsOptions]="tab.rightsOptions"
                         [entityRenderer]="tab.entityRenderer"
-                        [isSelectAll]="tabsSelectAll.get(tab.id)"
+                        [isSelectAll]="getTabsSelectedRights([tab.id])"
                         [makeSearch]="tab.makeSearch"
                         [comboboxPlaceholder]="tab.comboboxPlaceholder"
-                        [(currentlySharedWith)]="tab.currentlySharedWith"
+                        [(currentlySharedWith)]="formValue[tab.id].selectedItems"
                         #modalTab
                     ></vcd-sharing-modal-tab>
                 </clr-tab-content>

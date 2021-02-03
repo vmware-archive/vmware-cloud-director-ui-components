@@ -33,15 +33,29 @@ export class VcdSelectAllToggleComponent {
     description: LazyString;
 
     /**
+     * The right that they are set to if currently selected.
+     * If unset, will be set to false.
+     */
+    @Input()
+    set selection(value: string | undefined) {
+        if (value === undefined) {
+            this.isSelected = false;
+        } else {
+            this.isSelected = true;
+            this._selectedRightValue = value;
+        }
+    }
+
+    /**
      * Ouput when the value behind select all is changed or undefined if select all is disabled.
      */
     @Output()
-    selectionChanged: EventEmitter<string | undefined> = new EventEmitter();
+    selectionChange: EventEmitter<string | undefined> = new EventEmitter();
 
     set selectedRight(selectedValue: string) {
         if (this.isSelected) {
             this._selectedRightValue = selectedValue;
-            this.selectionChanged.emit(this.selectedRight);
+            this.selectionChange.emit(this.selectedRight);
         }
     }
 
@@ -52,16 +66,12 @@ export class VcdSelectAllToggleComponent {
     private _selectedRightValue: string;
     isSelected = false;
 
-    private getComboOptionByValue(value: string): ComboOption {
-        return this.rightsOptions.find((combo) => combo.value === value);
-    }
-
     selectAllChange(): void {
         this.isSelected = !this.isSelected;
         if (this.isSelected) {
-            this.selectionChanged.emit(this.selectedRight);
+            this.selectionChange.emit(this.selectedRight);
         } else {
-            this.selectionChanged.emit(undefined);
+            this.selectionChange.emit(undefined);
         }
     }
 }

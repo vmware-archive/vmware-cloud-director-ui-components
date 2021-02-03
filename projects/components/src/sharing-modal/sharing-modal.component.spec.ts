@@ -65,7 +65,7 @@ class VcdDropdownWidgetObject<T> extends BaseWidgetObject<T> {
     };
 }
 
-fdescribe('SharingModalComponent', () => {
+describe('SharingModalComponent', () => {
     beforeEach(async function (this: HasVcdSharingModal): Promise<void> {
         await TestBed.configureTestingModule({
             imports: [VcdSharingModalModule, BrowserAnimationsModule],
@@ -113,7 +113,6 @@ fdescribe('SharingModalComponent', () => {
                             value: 'read',
                         },
                     ],
-                    currentlySharedWith: [],
                     makeSearch: (criteria: string) =>
                         Promise.resolve({
                             totalCount: 1,
@@ -130,7 +129,6 @@ fdescribe('SharingModalComponent', () => {
                             value: 'read',
                         },
                     ],
-                    currentlySharedWith: [],
                     makeSearch: (criteria: string) =>
                         Promise.resolve({
                             totalCount: 1,
@@ -159,7 +157,17 @@ fdescribe('SharingModalComponent', () => {
                             value: 'read',
                         },
                     ],
-                    currentlySharedWith: [
+                    makeSearch: (criteria: string) =>
+                        Promise.resolve({
+                            totalCount: 1,
+                            items: [],
+                        }),
+                    selectAllText: 'All users selected',
+                },
+            ];
+            this.finder.hostComponent.formValue = {
+                user: {
+                    selectedItems: [
                         {
                             name: 'ryan',
                             href: 'ryan',
@@ -169,14 +177,8 @@ fdescribe('SharingModalComponent', () => {
                             },
                         },
                     ],
-                    makeSearch: (criteria: string) =>
-                        Promise.resolve({
-                            totalCount: 1,
-                            items: [],
-                        }),
-                    selectAllText: 'All users selected',
                 },
-            ];
+            };
             this.finder.detectChanges();
             this.widget.getTabByHeader('Users').click();
             await timeout(0);
@@ -196,7 +198,6 @@ fdescribe('SharingModalComponent', () => {
                             value: 'read',
                         },
                     ],
-                    currentlySharedWith: [],
                     makeSearch: (criteria: string) =>
                         Promise.resolve({
                             totalCount: 1,
@@ -236,7 +237,6 @@ fdescribe('SharingModalComponent', () => {
                             value: 'read',
                         },
                     ],
-                    currentlySharedWith: [],
                     makeSearch: (criteria: string) => Promise.reject(new VcdSharingModalError('BAD')),
                     selectAllText: 'All users selected',
                 },
@@ -264,7 +264,6 @@ fdescribe('SharingModalComponent', () => {
                             value: 'read',
                         },
                     ],
-                    currentlySharedWith: [],
                     makeSearch: (criteria: string) =>
                         Promise.resolve({
                             totalCount: 15,
@@ -303,7 +302,6 @@ fdescribe('SharingModalComponent', () => {
                             value: 'read',
                         },
                     ],
-                    currentlySharedWith: [],
                     makeSearch: (criteria: string) =>
                         Promise.resolve({
                             totalCount: 1,
@@ -340,7 +338,6 @@ fdescribe('SharingModalComponent', () => {
                             value: 'read',
                         },
                     ],
-                    currentlySharedWith: [],
                     makeSearch: (criteria: string) =>
                         Promise.resolve({
                             totalCount: 1,
@@ -366,7 +363,6 @@ fdescribe('SharingModalComponent', () => {
                             value: 'write',
                         },
                     ],
-                    currentlySharedWith: [],
                     makeSearch: (criteria: string) =>
                         Promise.resolve({
                             totalCount: 1,
@@ -409,7 +405,6 @@ fdescribe('SharingModalComponent', () => {
                             value: 'read',
                         },
                     ],
-                    currentlySharedWith: [],
                     makeSearch: (criteria: string) =>
                         Promise.resolve({
                             totalCount: 1,
@@ -435,7 +430,6 @@ fdescribe('SharingModalComponent', () => {
                             value: 'write',
                         },
                     ],
-                    currentlySharedWith: [],
                     makeSearch: (criteria: string) =>
                         Promise.resolve({
                             totalCount: 1,
@@ -460,12 +454,10 @@ fdescribe('SharingModalComponent', () => {
             const spy = spyOn(this.finder.hostComponent, 'output');
             this.widget.getSubmitButton().click();
             await timeout(0);
-            expect(spy.calls.mostRecent().args[0]).toEqual(
-                new Map([
-                    ['user', { selectAllRights: 'read' }],
-                    ['user2', { selectAllRights: 'read' }],
-                ])
-            );
+            expect(spy.calls.mostRecent().args[0]).toEqual({
+                user: { selectAllRights: 'read', selectedItems: undefined },
+                user2: { selectAllRights: 'read', selectedItems: undefined },
+            });
         });
 
         it('can add users with the combobox', async function (this: HasVcdSharingModal): Promise<void> {
@@ -479,7 +471,6 @@ fdescribe('SharingModalComponent', () => {
                             value: 'read',
                         },
                     ],
-                    currentlySharedWith: [],
                     makeSearch: (criteria: string) =>
                         Promise.resolve({
                             totalCount: 1,
@@ -507,25 +498,20 @@ fdescribe('SharingModalComponent', () => {
             this.widget.openComboboxButton().click();
             this.widget.getSubmitButton().click();
             await timeout(0);
-            expect(spy.calls.mostRecent().args[0]).toEqual(
-                new Map([
-                    [
-                        'user',
+            expect(spy.calls.mostRecent().args[0]).toEqual({
+                user: {
+                    selectedItems: [
                         {
-                            selectedItems: [
-                                {
-                                    name: 'ryan',
-                                    href: 'ryan',
-                                    accessRight: {
-                                        display: 'read',
-                                        value: 'read',
-                                    },
-                                },
-                            ],
+                            name: 'ryan',
+                            href: 'ryan',
+                            accessRight: {
+                                display: 'read',
+                                value: 'read',
+                            },
                         },
                     ],
-                ])
-            );
+                },
+            });
         });
 
         it('can remove users from the datagrid', async function (this: HasVcdSharingModal): Promise<void> {
@@ -543,16 +529,6 @@ fdescribe('SharingModalComponent', () => {
                             value: 'write',
                         },
                     ],
-                    currentlySharedWith: [
-                        {
-                            name: 'ryan',
-                            href: 'ryan',
-                            accessRight: {
-                                display: 'read',
-                                value: 'read',
-                            },
-                        },
-                    ],
                     makeSearch: (criteria: string) =>
                         Promise.resolve({
                             totalCount: 1,
@@ -566,6 +542,20 @@ fdescribe('SharingModalComponent', () => {
                     selectAllText: 'All users selected',
                 },
             ];
+            this.finder.hostComponent.formValue = {
+                user: {
+                    selectedItems: [
+                        {
+                            name: 'ryan',
+                            href: 'ryan',
+                            accessRight: {
+                                display: 'read',
+                                value: 'read',
+                            },
+                        },
+                    ],
+                },
+            };
             this.finder.detectChanges();
             this.widget.getTabByHeader('Users').click();
             await timeout(0);
@@ -575,7 +565,7 @@ fdescribe('SharingModalComponent', () => {
             const spy = spyOn(this.finder.hostComponent, 'output');
             this.widget.getSubmitButton().click();
             await timeout(0);
-            expect(spy.calls.mostRecent().args[0]).toEqual(new Map([['user', { selectedItems: [] }]]));
+            expect(spy.calls.mostRecent().args[0]).toEqual({ user: { selectedItems: [] } });
         });
 
         it('can change users rights from the datagrid', async function (this: HasVcdSharingModal): Promise<void> {
@@ -593,16 +583,6 @@ fdescribe('SharingModalComponent', () => {
                             value: 'write',
                         },
                     ],
-                    currentlySharedWith: [
-                        {
-                            name: 'ryan',
-                            href: 'ryan',
-                            accessRight: {
-                                display: 'read',
-                                value: 'read',
-                            },
-                        },
-                    ],
                     makeSearch: (criteria: string) =>
                         Promise.resolve({
                             totalCount: 1,
@@ -616,6 +596,20 @@ fdescribe('SharingModalComponent', () => {
                     selectAllText: 'All users selected',
                 },
             ];
+            this.finder.hostComponent.formValue = {
+                user: {
+                    selectedItems: [
+                        {
+                            name: 'ryan',
+                            href: 'ryan',
+                            accessRight: {
+                                display: 'read',
+                                value: 'read',
+                            },
+                        },
+                    ],
+                },
+            };
             this.finder.detectChanges();
             this.widget.getTabByHeader('Users').click();
             await timeout(0);
@@ -635,25 +629,20 @@ fdescribe('SharingModalComponent', () => {
             const spy = spyOn(this.finder.hostComponent, 'output');
             this.widget.getSubmitButton().click();
             await timeout(0);
-            expect(spy.calls.mostRecent().args[0]).toEqual(
-                new Map([
-                    [
-                        'user',
+            expect(spy.calls.mostRecent().args[0]).toEqual({
+                user: {
+                    selectedItems: [
                         {
-                            selectedItems: [
-                                {
-                                    name: 'ryan',
-                                    href: 'ryan',
-                                    accessRight: {
-                                        display: 'write',
-                                        value: 'write',
-                                    },
-                                },
-                            ],
+                            name: 'ryan',
+                            href: 'ryan',
+                            accessRight: {
+                                display: 'write',
+                                value: 'write',
+                            },
                         },
                     ],
-                ])
-            );
+                },
+            });
         });
     });
 });
@@ -665,7 +654,8 @@ fdescribe('SharingModalComponent', () => {
         [tabs]="tabs"
         [selectAllToggles]="checkboxes"
         [isOpened]="opened"
-        (formSubmitted)="output($event)"
+        [formValue]="formValue"
+        (formValueChange)="output($event)"
     ></vcd-sharing-modal>`,
 })
 export class TestHostComponent {
@@ -675,9 +665,11 @@ export class TestHostComponent {
 
     title: string;
 
-    tabs: SharingTab<any>[];
+    tabs: SharingTab<any>[] = [];
 
     checkboxes: SharingSelectAllToggle[];
+
+    formValue: SharingModalResult = {};
 
     output(event: SharingModalResult): void {}
 }
