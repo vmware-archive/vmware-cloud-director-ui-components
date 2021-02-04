@@ -1,0 +1,10 @@
+<button (click)="opened = true">Open</button>
+<vcd-sharing-modal
+    *ngIf="opened"
+    [title]="title"
+    [tabs]="tabs"
+    [selectAllToggles]="checkboxes"
+    [(isOpened)]="opened"
+    [formValue]="value"
+    (formValueChange)="log($event)"
+></vcd-sharing-modal>

@@ -15,7 +15,7 @@ import { PipesModule } from '../common/pipes/pipes.module';
 import { VcdFormModule } from '../form/form.module';
 import { ShowClippedTextDirectiveModule } from '../lib/directives/show-clipped-text.directive.module';
 import { DatagridComponent } from './datagrid.component';
-import { ComponentRendererOutletDirective } from './directives/component-renderer-outlet.directive';
+import { VcdComponentRendererOutletModule } from './directives/component-renderer-outlet.module';
 import { DatagridMultiSelectFilterComponent } from './filters/datagrid-multiselect-filter.component';
 import { DatagridNumericFilterComponent } from './filters/datagrid-numeric-filter.component';
 import { DatagridSelectFilterComponent } from './filters/datagrid-select-filter.component';
@@ -23,7 +23,6 @@ import { DatagridStringFilterComponent } from './filters/datagrid-string-filter.
 import { FunctionRendererPipe } from './pipes/function-renderer.pipe';
 import { BoldTextRendererComponent } from './renderers/bold-text-renderer.component';
 
-const directives = [ComponentRendererOutletDirective];
 const pipes = [FunctionRendererPipe];
 const renderers = [BoldTextRendererComponent];
 const filters = [
@@ -46,8 +45,9 @@ const filters = [
         VcdActivityReporterModule,
         VcdFormModule,
         VcdActionMenuModule,
+        VcdComponentRendererOutletModule,
     ],
-    declarations: [DatagridComponent, ...directives, ...renderers, ...pipes, ...filters],
+    declarations: [DatagridComponent, ...renderers, ...pipes, ...filters],
     providers: [],
     exports: [DatagridComponent, ...renderers],
     entryComponents: [...renderers, ...filters],

@@ -1,0 +1,85 @@
+::ng-deep .clr-form-control {
+    margin-top: 0;
+}
+
+.search-container {
+    display: flex;
+    margin-top: 20px;
+}
+
+button.add {
+    margin-right: 0;
+    flex: 0;
+}
+
+.search-container select {
+    margin-left: 20px;
+    margin-right: 20px;
+}
+
+.combobox-container {
+    flex: 1;
+
+    clr-combobox {
+        flex: 1;
+        display: flex;
+
+        ::ng-deep {
+            .clr-combobox-input {
+                flex: 1;
+            }
+
+            .clr-combobox-input-wrapper {
+                display: flex;
+            }
+        }
+    }
+
+    ::ng-deep .clr-combobox-wrapper {
+        flex: 1;
+    }
+}
+
+.grid-container {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+.rectangle {
+    min-height: 400px;
+    max-height: 400px;
+
+    background: #fafafa;
+    border: 1px solid #cccccc;
+    box-sizing: border-box;
+    border-radius: 3px;
+
+    align-content: center;
+    display: flex;
+}
+
+.content {
+    margin: auto;
+}
+
+.select-all-placeholder {
+    margin-left: auto;
+    margin-right: auto;
+    display: block;
+}
+
+.select-all-icon {
+    margin-left: auto;
+    margin-right: auto;
+    display: block;
+}
+
+::ng-deep .clr-combobox-options-empty-text {
+    display: none;
+}
+
+.clr-mock-option {
+    padding: 0.15rem 1.2rem;
+}

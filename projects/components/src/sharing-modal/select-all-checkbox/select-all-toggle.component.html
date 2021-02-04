@@ -1,0 +1,16 @@
+<div class="select-all">
+    <input
+        type="checkbox"
+        clrToggle
+        value="isSelectAll"
+        name="options"
+        [ngModel]="isSelected"
+        (change)="selectAllChange()"
+    />
+    <label>{{ description | lazyString }}</label>
+    <select clrSelect name="options" [(ngModel)]="selectedRight" [disabled]="!isSelected">
+        <option *ngFor="let option of rightsOptions" value="{{ option.value }}">
+            {{ option.display | lazyString }}
+        </option>
+    </select>
+</div>

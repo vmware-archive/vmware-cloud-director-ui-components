@@ -15,6 +15,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Add `actionsUpdate` emitter to `ActionMenuComponent`
 - Add `hideWhenEmpty` flag to `QuickSearchProvider` to control section display when there is no data
 - Add `mainActionMenu` property to `DatagridComponent`
+- Add `SharingModalComponent` to share entities with individuals in a tabbed modal
+- Add `UsersGroupsOrgsSharingModalDirective` to share entities with users, groups, and orgs
 ### Fixed
 - BREAKING: Fixes the `//@ ts-ignore problem with the Widget Object finder`. Now, you need to supply the type of the widget object as a type parameter to any of the `findWidget` or Widget Finder calls. This is because the type is too complicated for the method to infer.
 - Fixed datagrid returning new `datagridSelection` reference even if there were no real changes

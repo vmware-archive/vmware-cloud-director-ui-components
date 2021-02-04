@@ -1,0 +1,14 @@
+<button (click)="opened = true">Open</button>
+<vcd-sharing-modal
+    *ngIf="opened"
+    [title]="title"
+    [(isOpened)]="opened"
+    [formValue]="value"
+    (formValueChange)="log($event)"
+    vcdUsersGroupsOrgsSharingModal
+    [usersConfig]="usersTab"
+    [groupsConfig]="groupsTab"
+    [orgsConfig]="orgsTab"
+    [showSelectAllUsersAndGroups]="true"
+    [showSelectAllOrgs]="true"
+></vcd-sharing-modal>
