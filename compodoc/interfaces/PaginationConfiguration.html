@@ -814,7 +814,7 @@ export class DatagridComponent&lt;R extends B, B &#x3D; any&gt; implements OnIni
         let max &#x3D; 0;
         actionMenus.forEach((actionMenu) &#x3D;&gt; {
             const contextualFeaturedActions &#x3D; actionMenu.contextualFeaturedActions;
-            max &#x3D; Math.max(contextualFeaturedActions.length + 1, max);
+            max &#x3D; Math.max(contextualFeaturedActions.length, max);
         });
         this.maxFeaturedActionsOnRow &#x3D; max;
         this.changeDetectorRef.detectChanges();
@@ -932,8 +932,9 @@ export class DatagridComponent&lt;R extends B, B &#x3D; any&gt; implements OnIni
     private _height: number;
 
     /**
-     * Loading indicator on the grid
+     * If the grid is currently loading.
      */
+    @Input()
     isLoading &#x3D; false;
 
     /**

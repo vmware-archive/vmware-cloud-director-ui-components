@@ -1,0 +1,2990 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>vmware-cloud-director-ui-components documentation</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
+	      <link rel="stylesheet" href="../styles/style.css">
+    </head>
+    <body>
+
+        <div class="navbar navbar-default navbar-fixed-top visible-xs">
+            <a href="../" class="navbar-brand">vmware-cloud-director-ui-components documentation</a>
+            <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
+        </div>
+
+        <div class="xs-menu menu" id="mobile-menu">
+                <div id="book-search-input" role="search"><input type="text" placeholder="Type to search"></div>            <compodoc-menu></compodoc-menu>
+        </div>
+
+        <div class="container-fluid main">
+           <div class="row main">
+               <div class="hidden-xs menu">
+                   <compodoc-menu mode="normal"></compodoc-menu>
+               </div>
+               <!-- START CONTENT -->
+               <div class="content component">
+                   <div class="content-data">
+
+
+
+
+<ol class="breadcrumb">
+  <li>Components</li>
+  <li>SharingModalTabComponent</li>
+</ol>
+
+<ul class="nav nav-tabs" role="tablist">
+        <li class="active">
+            <a href="#info" role="tab" id="info-tab" data-toggle="tab" data-link="info">Info</a>
+        </li>
+        <li >
+            <a href="#source" role="tab" id="source-tab" data-toggle="tab" data-link="source">Source</a>
+        </li>
+        <li >
+            <a href="#templateData" role="tab" id="templateData-tab" data-toggle="tab" data-link="template">Template</a>
+        </li>
+        <li >
+            <a href="#styleData" role="tab" id="styleData-tab" data-toggle="tab" data-link="style">Styles</a>
+        </li>
+        <li >
+            <a href="#tree" role="tab" id="tree-tab" data-toggle="tab" data-link="dom-tree">DOM Tree</a>
+        </li>
+</ul>
+
+<div class="tab-content">
+    <div class="tab-pane fade active in" id="c-info"><p class="comment">
+    <h3>File</h3>
+</p>
+<p class="comment">
+    <code>projects/components/src/sharing-modal/tabs/sharing-modal-tab.component.ts</code>
+</p>
+
+    <p class="comment">
+        <h3>Description</h3>
+    </p>
+    <p class="comment">
+        <p>A tab that allows users to add users to share with given rights.</p>
+
+    </p>
+
+
+    <p class="comment">
+        <h3>Implements</h3>
+    </p>
+    <p class="comment">
+                    <code><a href="https://angular.io/api/core/OnInit" target="_blank" >OnInit</a></code>
+                    <code><a href="https://angular.io/api/core/OnDestroy" target="_blank" >OnDestroy</a></code>
+                    <code><a href="https://angular.io/api/core/AfterViewInit" target="_blank" >AfterViewInit</a></code>
+    </p>
+
+    <p class="comment">
+        <h3>Example</h3>
+    </p>
+    <div class="io-description">
+    </div>
+
+<section>
+    <h3>Metadata</h3>
+    <table class="table table-sm table-hover">
+        <tbody>
+
+
+
+
+
+
+
+
+
+
+
+            <tr>
+                <td class="col-md-3">selector</td>
+                <td class="col-md-9"><code>vcd-sharing-modal-tab</code></td>
+            </tr>
+
+            <tr>
+                <td class="col-md-3">styleUrls</td>
+                <td class="col-md-9"><code>./sharing-modal-tab.component.scss</code></td>
+            </tr>
+
+
+
+            <tr>
+                <td class="col-md-3">templateUrl</td>
+                <td class="col-md-9"><code>sharing-modal-tab.component.html</code></td>
+            </tr>
+
+
+
+
+
+
+
+
+        </tbody>
+    </table>
+</section>
+
+    <section>
+    <h3 id="index">Index</h3>
+    <table class="table table-sm table-bordered index-table">
+        <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Properties</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#actionDisplayConfig">actionDisplayConfig</a>
+                            </li>
+                            <li>
+                                <a href="#actions">actions</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#allSharedWith">allSharedWith</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#bufferedSearch">bufferedSearch</a>
+                            </li>
+                            <li>
+                                <a href="#columns">columns</a>
+                            </li>
+                            <li>
+                                <a href="#comboboxSelection">comboboxSelection</a>
+                            </li>
+                            <li>
+                                <a href="#currentlySelectedRightValue">currentlySelectedRightValue</a>
+                            </li>
+                            <li>
+                                <a href="#gridItems">gridItems</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#gridState">gridState</a>
+                            </li>
+                            <li>
+                                <a href="#paginationInfo">paginationInfo</a>
+                            </li>
+                            <li>
+                                <a href="#rowPosition">rowPosition</a>
+                            </li>
+                            <li>
+                                <a href="#searchError">searchError</a>
+                            </li>
+                            <li>
+                                <a href="#searchResults">searchResults</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#subTracker">subTracker</a>
+                            </li>
+                            <li>
+                                <a href="#totalSearchResults">totalSearchResults</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Public</span>
+                                <a href="#translationService">translationService</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Methods</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#addPendingEntities">addPendingEntities</a>
+                            </li>
+                            <li>
+                                <a href="#defaultRenderer">defaultRenderer</a>
+                            </li>
+                            <li>
+                                <a href="#doSearchInternal">doSearchInternal</a>
+                            </li>
+                            <li>
+                                <a href="#entityTrackBy">entityTrackBy</a>
+                            </li>
+                            <li>
+                                <a href="#getEntityRenderSpec">getEntityRenderSpec</a>
+                            </li>
+                            <li>
+                                <a href="#getPaginationTranslation">getPaginationTranslation</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#getRightByValue">getRightByValue</a>
+                            </li>
+                            <li>
+                                <a href="#gridRefreshed">gridRefreshed</a>
+                            </li>
+                            <li>
+                                <a href="#isComboboxSubmittable">isComboboxSubmittable</a>
+                            </li>
+                            <li>
+                                <a href="#isOwner">isOwner</a>
+                            </li>
+                            <li>
+                                <a href="#ngAfterViewInit">ngAfterViewInit</a>
+                            </li>
+                            <li>
+                                <a href="#ngOnDestroy">ngOnDestroy</a>
+                            </li>
+                            <li>
+                                <a href="#ngOnInit">ngOnInit</a>
+                            </li>
+                            <li>
+                                <a href="#removeEntity">removeEntity</a>
+                            </li>
+                            <li>
+                                <a href="#updateEntityRights">updateEntityRights</a>
+                            </li>
+                            <li>
+                                <a href="#updateGridItems">updateGridItems</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Inputs</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#comboboxPlaceholder">comboboxPlaceholder</a>
+                            </li>
+                            <li>
+                                <a href="#currentlySharedWith">currentlySharedWith</a>
+                            </li>
+                            <li>
+                                <a href="#entityRenderer">entityRenderer</a>
+                            </li>
+                            <li>
+                                <a href="#id">id</a>
+                            </li>
+                            <li>
+                                <a href="#isSelectAll">isSelectAll</a>
+                            </li>
+                            <li>
+                                <a href="#makeSearch">makeSearch</a>
+                            </li>
+                            <li>
+                                <a href="#rightsOptions">rightsOptions</a>
+                            </li>
+                            <li>
+                                <a href="#selectAllText">selectAllText</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Outputs</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#currentlySharedWithChange">currentlySharedWithChange</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <h6><b>Accessors</b></h6>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <ul class="index-list">
+                                <li>
+                                    <a href="#currentlySharedWith">currentlySharedWith</a>
+                                </li>
+                            </ul>
+                        </td>
+                    </tr>
+        </tbody>
+    </table>
+</section>
+
+    <section>
+    <h3 id="constructor">Constructor</h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+<code>constructor(translationService: TranslationService)</code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="138" class="link-to-prism">projects/components/src/sharing-modal/tabs/sharing-modal-tab.component.ts:138</a></div>
+                            </td>
+                        </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                            <div>
+                                    <b>Parameters :</b>
+                                    <table class="params">
+                                        <thead>
+                                            <tr>
+                                                <td>Name</td>
+                                                    <td>Type</td>
+                                                <td>Optional</td>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                                <tr>
+                                                        <td>translationService</td>
+                                                  
+                                                        <td>
+                                                                    <code>TranslationService</code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                        </tbody>
+                                    </table>
+                            </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+</section>
+
+    <section>
+    <h3 id="inputs">Inputs</h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="comboboxPlaceholder"></a>
+                        <b>comboboxPlaceholder</b>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="../miscellaneous/typealiases.html#LazyString" target="_self" >LazyString</a></code>
+
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-2" colspan="2">
+                                    <div class="io-line">Defined in <a href="" data-line="182" class="link-to-prism">projects/components/src/sharing-modal/tabs/sharing-modal-tab.component.ts:182</a></div>
+                            </td>
+                        </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <div class="io-description"><p>The placeholder to put in the combobox when no search has been entered.</p>
+</div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="currentlySharedWith"></a>
+                        <b>currentlySharedWith</b>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="../miscellaneous/typealiases.html#IsSelected" target="_self" >IsSelected&lt;T&gt;[]</a></code>
+
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-2" colspan="2">
+                                    <div class="io-line">Defined in <a href="" data-line="145" class="link-to-prism">projects/components/src/sharing-modal/tabs/sharing-modal-tab.component.ts:145</a></div>
+                            </td>
+                        </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <div class="io-description"><p>Which of the user type this entity is already share dwith.</p>
+</div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="entityRenderer"></a>
+                        <b>entityRenderer</b>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="../interfaces/ComponentRenderer.html" target="_self" >ComponentRendererConstructor&lt;HasHref&lt;T&gt;&gt;</a></code>
+
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-2" colspan="2">
+                                    <div class="io-line">Defined in <a href="" data-line="164" class="link-to-prism">projects/components/src/sharing-modal/tabs/sharing-modal-tab.component.ts:164</a></div>
+                            </td>
+                        </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <div class="io-description"><p>How a given Entity should be rendered. Will be given the type of object you return from {@param makeSearch}</p>
+</div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="id"></a>
+                        <b>id</b>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-2" colspan="2">
+                                    <div class="io-line">Defined in <a href="" data-line="170" class="link-to-prism">projects/components/src/sharing-modal/tabs/sharing-modal-tab.component.ts:170</a></div>
+                            </td>
+                        </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <div class="io-description"><p>The unique ID of this tab.</p>
+</div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="isSelectAll"></a>
+                        <b>isSelectAll</b>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank" >boolean</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>false</code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-2" colspan="2">
+                                    <div class="io-line">Defined in <a href="" data-line="158" class="link-to-prism">projects/components/src/sharing-modal/tabs/sharing-modal-tab.component.ts:158</a></div>
+                            </td>
+                        </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <div class="io-description"><p>If this tab is in select all mode.</p>
+</div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="makeSearch"></a>
+                        <b>makeSearch</b>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="../interfaces/SearchResult.html" target="_self" >(criteria?: string): Promise&lt;SearchResult&lt;T&gt;&gt; &#x3D;&gt; {
+        throw new Error(&#x27;No implementation for makeSearch&#x27;);
+    }</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>(criteria?: string): Promise&lt;SearchResult&lt;T&gt;&gt; &#x3D;&gt; {
+        throw new Error(&#x27;No implementation for makeSearch&#x27;);
+    }</code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-2" colspan="2">
+                                    <div class="io-line">Defined in <a href="" data-line="273" class="link-to-prism">projects/components/src/sharing-modal/tabs/sharing-modal-tab.component.ts:273</a></div>
+                            </td>
+                        </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <div class="io-description"><p>Called when the user types something into or opens the combobox. Returns the results from that search.</p>
+</div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="rightsOptions"></a>
+                        <b>rightsOptions</b>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="../interfaces/ComboOption.html" target="_self" >NonEmptyArray&lt;ComboOption&gt;</a></code>
+
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-2" colspan="2">
+                                    <div class="io-line">Defined in <a href="" data-line="176" class="link-to-prism">projects/components/src/sharing-modal/tabs/sharing-modal-tab.component.ts:176</a></div>
+                            </td>
+                        </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <div class="io-description"><p>The possible rights that can be selected to share with from this tab. Must have at least one element.</p>
+</div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="selectAllText"></a>
+                        <b>selectAllText</b>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="../miscellaneous/typealiases.html#LazyString" target="_self" >LazyString</a></code>
+
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-2" colspan="2">
+                                    <div class="io-line">Defined in <a href="" data-line="188" class="link-to-prism">projects/components/src/sharing-modal/tabs/sharing-modal-tab.component.ts:188</a></div>
+                            </td>
+                        </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <div class="io-description"><p>The text displayed in the datagrid when select all is enabled.</p>
+</div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+</section>
+    <section>
+    <h3 id="outputs">Outputs</h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="currentlySharedWithChange"></a>
+                        <b>currentlySharedWithChange</b>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="../miscellaneous/typealiases.html#IsSelected" target="_self" >EventEmitter&lt;IsSelected[]&gt;</a></code>
+
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-2" colspan="2">
+                                    <div class="io-line">Defined in <a href="" data-line="194" class="link-to-prism">projects/components/src/sharing-modal/tabs/sharing-modal-tab.component.ts:194</a></div>
+                            </td>
+                        </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <div class="io-description"><p>Emitted when anything about the list of users currently shared with changes.</p>
+</div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+</section>
+
+
+    <section>
+    
+    <h3 id="methods">
+        Methods
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="addPendingEntities"></a>
+                    <span class="name">
+                        <b>
+                            addPendingEntities
+                        </b>
+                        <a href="#addPendingEntities"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>addPendingEntities()</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="288"
+                            class="link-to-prism">projects/components/src/sharing-modal/tabs/sharing-modal-tab.component.ts:288</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Adds the entities selected in the combobox to the datagrid.</p>
+</div>
+
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="defaultRenderer"></a>
+                    <span class="name">
+                        <b>
+                            defaultRenderer
+                        </b>
+                        <a href="#defaultRenderer"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>defaultRenderer(entity: <a href="../undefineds/HasHref.html">HasHref<T></a>)</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="427"
+                            class="link-to-prism">projects/components/src/sharing-modal/tabs/sharing-modal-tab.component.ts:427</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Type</td>
+                                    <td>Optional</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>entity</td>
+                                    <td>
+                                                <code><a href="../miscellaneous/typealiases.html#HasHref" target="_self" >HasHref&lt;T&gt;</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                    </div>
+                    <div class="io-description">
+                        
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="doSearchInternal"></a>
+                    <span class="name">
+                        <b>
+                            doSearchInternal
+                        </b>
+                        <a href="#doSearchInternal"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>doSearchInternal(criteria?: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="301"
+                            class="link-to-prism">projects/components/src/sharing-modal/tabs/sharing-modal-tab.component.ts:301</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Makes a call to {@param makeSearch} and properly enables loading for the combobox.</p>
+</div>
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Type</td>
+                                    <td>Optional</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>criteria</td>
+                                    <td>
+                                                <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                    </td>
+
+                                    <td>
+                                        Yes
+                                    </td>
+
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                    </div>
+                    <div class="io-description">
+                        
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="entityTrackBy"></a>
+                    <span class="name">
+                        <b>
+                            entityTrackBy
+                        </b>
+                        <a href="#entityTrackBy"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>entityTrackBy(_index: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank">number</a>, entity: <a href="../undefineds/HasHref.html">HasHref<T></a>)</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="353"
+                            class="link-to-prism">projects/components/src/sharing-modal/tabs/sharing-modal-tab.component.ts:353</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>A trackBy function to track entities.</p>
+</div>
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Type</td>
+                                    <td>Optional</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>_index</td>
+                                    <td>
+                                                <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                                <tr>
+                                    <td>entity</td>
+                                    <td>
+                                                <code><a href="../miscellaneous/typealiases.html#HasHref" target="_self" >HasHref&lt;T&gt;</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                    </div>
+                    <div class="io-description">
+                        
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="getEntityRenderSpec"></a>
+                    <span class="name">
+                        <b>
+                            getEntityRenderSpec
+                        </b>
+                        <a href="#getEntityRenderSpec"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>getEntityRenderSpec(entity: <a href="../undefineds/HasHref.html">HasHref<T></a>)</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="323"
+                            class="link-to-prism">projects/components/src/sharing-modal/tabs/sharing-modal-tab.component.ts:323</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Gives the render spec to render an given entity.</p>
+</div>
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Type</td>
+                                    <td>Optional</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>entity</td>
+                                    <td>
+                                                <code><a href="../miscellaneous/typealiases.html#HasHref" target="_self" >HasHref&lt;T&gt;</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="../miscellaneous/typealiases.html#HasHref" target="_self" >ComponentRendererSpec&lt;HasHref&lt;T&gt;&gt;</a></code>
+
+                    </div>
+                    <div class="io-description">
+                        
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="getPaginationTranslation"></a>
+                    <span class="name">
+                        <b>
+                            getPaginationTranslation
+                        </b>
+                        <a href="#getPaginationTranslation"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>getPaginationTranslation(paginationData: ClrDatagridPagination)</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="340"
+                            class="link-to-prism">projects/components/src/sharing-modal/tabs/sharing-modal-tab.component.ts:340</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Gets the translated string to display pagination information.</p>
+</div>
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Type</td>
+                                    <td>Optional</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>paginationData</td>
+                                    <td>
+                                            <code>ClrDatagridPagination</code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>    <code>Observable&lt;string&gt;</code>
+
+                    </div>
+                    <div class="io-description">
+                        
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="getRightByValue"></a>
+                    <span class="name">
+                        <b>
+                            <span class="modifier">Private</span>
+                            getRightByValue
+                        </b>
+                        <a href="#getRightByValue"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                    <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>getRightByValue(value: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="442"
+                            class="link-to-prism">projects/components/src/sharing-modal/tabs/sharing-modal-tab.component.ts:442</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Type</td>
+                                    <td>Optional</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>value</td>
+                                    <td>
+                                                <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="../interfaces/ComboOption.html" target="_self" >ComboOption</a></code>
+
+                    </div>
+                    <div class="io-description">
+                        
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="gridRefreshed"></a>
+                    <span class="name">
+                        <b>
+                            gridRefreshed
+                        </b>
+                        <a href="#gridRefreshed"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>gridRefreshed(state: <a href="../interfaces/GridState.html">GridState<IsSelected<T>></a>)</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="264"
+                            class="link-to-prism">projects/components/src/sharing-modal/tabs/sharing-modal-tab.component.ts:264</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Type</td>
+                                    <td>Optional</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>state</td>
+                                    <td>
+                                                <code><a href="../interfaces/GridState.html" target="_self" >GridState&lt;IsSelected&lt;T&gt;&gt;</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                    </div>
+                    <div class="io-description">
+                        
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="isComboboxSubmittable"></a>
+                    <span class="name">
+                        <b>
+                            isComboboxSubmittable
+                        </b>
+                        <a href="#isComboboxSubmittable"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>isComboboxSubmittable()</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="360"
+                            class="link-to-prism">projects/components/src/sharing-modal/tabs/sharing-modal-tab.component.ts:360</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Says if this combobox is both enabled and has entities to submit.</p>
+</div>
+
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank" >boolean</a></code>
+
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="isOwner"></a>
+                    <span class="name">
+                        <b>
+                            isOwner
+                        </b>
+                        <a href="#isOwner"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>isOwner(entity: <a href="../undefineds/IsSelected.html">IsSelected<T></a>)</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="333"
+                            class="link-to-prism">projects/components/src/sharing-modal/tabs/sharing-modal-tab.component.ts:333</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Says if this user is the owner of the entity to share.</p>
+</div>
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Type</td>
+                                    <td>Optional</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>entity</td>
+                                    <td>
+                                                <code><a href="../miscellaneous/typealiases.html#IsSelected" target="_self" >IsSelected&lt;T&gt;</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank" >boolean</a></code>
+
+                    </div>
+                    <div class="io-description">
+                        
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="ngAfterViewInit"></a>
+                    <span class="name">
+                        <b>
+                            ngAfterViewInit
+                        </b>
+                        <a href="#ngAfterViewInit"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>ngAfterViewInit()</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="423"
+                            class="link-to-prism">projects/components/src/sharing-modal/tabs/sharing-modal-tab.component.ts:423</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="ngOnDestroy"></a>
+                    <span class="name">
+                        <b>
+                            ngOnDestroy
+                        </b>
+                        <a href="#ngOnDestroy"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>ngOnDestroy()</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="421"
+                            class="link-to-prism">projects/components/src/sharing-modal/tabs/sharing-modal-tab.component.ts:421</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="ngOnInit"></a>
+                    <span class="name">
+                        <b>
+                            ngOnInit
+                        </b>
+                        <a href="#ngOnInit"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>ngOnInit()</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="374"
+                            class="link-to-prism">projects/components/src/sharing-modal/tabs/sharing-modal-tab.component.ts:374</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="removeEntity"></a>
+                    <span class="name">
+                        <b>
+                            removeEntity
+                        </b>
+                        <a href="#removeEntity"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>removeEntity(entity: <a href="../undefineds/HasHref.html">HasHref<T></a>)</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="280"
+                            class="link-to-prism">projects/components/src/sharing-modal/tabs/sharing-modal-tab.component.ts:280</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Removes the given entity from the currently selected list.</p>
+</div>
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Type</td>
+                                    <td>Optional</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>entity</td>
+                                    <td>
+                                                <code><a href="../miscellaneous/typealiases.html#HasHref" target="_self" >HasHref&lt;T&gt;</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                    </div>
+                    <div class="io-description">
+                        
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="updateEntityRights"></a>
+                    <span class="name">
+                        <b>
+                            updateEntityRights
+                        </b>
+                        <a href="#updateEntityRights"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>updateEntityRights(entity: <a href="../undefineds/IsSelected.html">IsSelected<T></a>, newAccessRight: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="367"
+                            class="link-to-prism">projects/components/src/sharing-modal/tabs/sharing-modal-tab.component.ts:367</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Updates this entity in the currently shared with list to have the given access right.</p>
+</div>
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Type</td>
+                                    <td>Optional</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>entity</td>
+                                    <td>
+                                                <code><a href="../miscellaneous/typealiases.html#IsSelected" target="_self" >IsSelected&lt;T&gt;</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                                <tr>
+                                    <td>newAccessRight</td>
+                                    <td>
+                                                <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                    </div>
+                    <div class="io-description">
+                        
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="updateGridItems"></a>
+                    <span class="name">
+                        <b>
+                            updateGridItems
+                        </b>
+                        <a href="#updateGridItems"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>updateGridItems()</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="431"
+                            class="link-to-prism">projects/components/src/sharing-modal/tabs/sharing-modal-tab.component.ts:431</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</section>
+    <section>
+    
+        <h3 id="inputs">
+            Properties
+        </h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="actionDisplayConfig"></a>
+                        <span class="name">
+                            <b>
+                            actionDisplayConfig</b>
+                            <a href="#actionDisplayConfig"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Type : </i>        <code><a href="../interfaces/ActionDisplayConfig.html" target="_self" >ActionDisplayConfig</a></code>
+
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Default value : </i><code>{
+        contextual: {
+            featuredCount: 1,
+            styling: ActionStyling.INLINE,
+            buttonContents: TextIcon.ICON,
+        },
+    }</code>
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="233" class="link-to-prism">projects/components/src/sharing-modal/tabs/sharing-modal-tab.component.ts:233</a></div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="actions"></a>
+                        <span class="name">
+                            <b>
+                            actions</b>
+                            <a href="#actions"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Type : </i>        <code><a href="../interfaces/ActionItem.html" target="_self" >ActionItem&lt;IsSelected&lt;T&gt;, unknown&gt;[]</a></code>
+
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Default value : </i><code>[
+        {
+            icon: &#x27;trash&#x27;,
+            availability: (record: IsSelected&lt;T&gt;[]) &#x3D;&gt; !this.isOwner(record[0]),
+            actionType: ActionType.CONTEXTUAL_FEATURED,
+            handler: (selected) &#x3D;&gt; {
+                this.removeEntity(selected[0]);
+            },
+        },
+    ]</code>
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="222" class="link-to-prism">projects/components/src/sharing-modal/tabs/sharing-modal-tab.component.ts:222</a></div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="allSharedWith"></a>
+                        <span class="name">
+                            <b>
+                                <span class="modifier">Private</span>
+                            allSharedWith</b>
+                            <a href="#allSharedWith"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Type : </i>        <code><a href="../miscellaneous/typealiases.html#IsSelected" target="_self" >IsSelected&lt;T&gt;[]</a></code>
+
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Default value : </i><code>[]</code>
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="261" class="link-to-prism">projects/components/src/sharing-modal/tabs/sharing-modal-tab.component.ts:261</a></div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="bufferedSearch"></a>
+                        <span class="name">
+                            <b>
+                                <span class="modifier">Private</span>
+                            bufferedSearch</b>
+                            <a href="#bufferedSearch"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/function" target="_blank" >function</a></code>
+
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="260" class="link-to-prism">projects/components/src/sharing-modal/tabs/sharing-modal-tab.component.ts:260</a></div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="columns"></a>
+                        <span class="name">
+                            <b>
+                            columns</b>
+                            <a href="#columns"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Type : </i>        <code><a href="../interfaces/GridColumn.html" target="_self" >GridColumn&lt;IsSelected&lt;T&gt;&gt;[]</a></code>
+
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Default value : </i><code>[]</code>
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="215" class="link-to-prism">projects/components/src/sharing-modal/tabs/sharing-modal-tab.component.ts:215</a></div>
+                            </td>
+                        </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <div class="io-description"><p>START GRID CONFIGURATION</p>
+</div>
+                    </td>
+                </tr>
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="comboboxSelection"></a>
+                        <span class="name">
+                            <b>
+                            comboboxSelection</b>
+                            <a href="#comboboxSelection"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Type : </i>        <code><a href="../miscellaneous/typealiases.html#HasHref" target="_self" >HasHref&lt;T&gt;[]</a></code>
+
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Default value : </i><code>[]</code>
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="210" class="link-to-prism">projects/components/src/sharing-modal/tabs/sharing-modal-tab.component.ts:210</a></div>
+                            </td>
+                        </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <div class="io-description"><p>The entities currently selected in the combobox,</p>
+</div>
+                    </td>
+                </tr>
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="currentlySelectedRightValue"></a>
+                        <span class="name">
+                            <b>
+                            currentlySelectedRightValue</b>
+                            <a href="#currentlySelectedRightValue"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="199" class="link-to-prism">projects/components/src/sharing-modal/tabs/sharing-modal-tab.component.ts:199</a></div>
+                            </td>
+                        </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <div class="io-description"><p>The right that is currently selected in the rights dropdown for pending users.</p>
+</div>
+                    </td>
+                </tr>
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="gridItems"></a>
+                        <span class="name">
+                            <b>
+                            gridItems</b>
+                            <a href="#gridItems"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Type : </i>        <code><a href="../interfaces/GridDataFetchResult.html" target="_self" >GridDataFetchResult&lt;IsSelected&lt;T&gt;&gt;</a></code>
+
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Default value : </i><code>{
+        items: [],
+        totalItems: 0,
+    }</code>
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="217" class="link-to-prism">projects/components/src/sharing-modal/tabs/sharing-modal-tab.component.ts:217</a></div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="gridState"></a>
+                        <span class="name">
+                            <b>
+                                <span class="modifier">Private</span>
+                            gridState</b>
+                            <a href="#gridState"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Type : </i>        <code><a href="../interfaces/GridState.html" target="_self" >GridState&lt;IsSelected&lt;T&gt;&gt;</a></code>
+
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="262" class="link-to-prism">projects/components/src/sharing-modal/tabs/sharing-modal-tab.component.ts:262</a></div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="paginationInfo"></a>
+                        <span class="name">
+                            <b>
+                            paginationInfo</b>
+                            <a href="#paginationInfo"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Type : </i>        <code><a href="../interfaces/PaginationConfiguration.html" target="_self" >PaginationConfiguration</a></code>
+
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Default value : </i><code>{
+        pageSize: 10,
+        pageSizeOptions: [10, 20, 50, 100],
+        shouldShowPageNumberInput: true,
+        shouldShowPageSizeSelector: true,
+    }</code>
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="243" class="link-to-prism">projects/components/src/sharing-modal/tabs/sharing-modal-tab.component.ts:243</a></div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="rowPosition"></a>
+                        <span class="name">
+                            <b>
+                            rowPosition</b>
+                            <a href="#rowPosition"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Type : </i>        <code><a href="../miscellaneous/enumerations.html#ContextualActionPosition" target="_self" >ContextualActionPosition.ROW</a></code>
+
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Default value : </i><code>ContextualActionPosition.ROW</code>
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="241" class="link-to-prism">projects/components/src/sharing-modal/tabs/sharing-modal-tab.component.ts:241</a></div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="searchError"></a>
+                        <span class="name">
+                            <b>
+                            searchError</b>
+                            <a href="#searchError"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Default value : </i><code>undefined</code>
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="257" class="link-to-prism">projects/components/src/sharing-modal/tabs/sharing-modal-tab.component.ts:257</a></div>
+                            </td>
+                        </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <div class="io-description"><p>END GRID CONFIGURATION</p>
+</div>
+                    </td>
+                </tr>
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="searchResults"></a>
+                        <span class="name">
+                            <b>
+                            searchResults</b>
+                            <a href="#searchResults"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Type : </i>        <code><a href="../miscellaneous/typealiases.html#HasHref" target="_self" >HasHref&lt;T&gt;[]</a></code>
+
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="204" class="link-to-prism">projects/components/src/sharing-modal/tabs/sharing-modal-tab.component.ts:204</a></div>
+                            </td>
+                        </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <div class="io-description"><p>The results returned from a search in the combobox.</p>
+</div>
+                    </td>
+                </tr>
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="subTracker"></a>
+                        <span class="name">
+                            <b>
+                                <span class="modifier">Private</span>
+                            subTracker</b>
+                            <a href="#subTracker"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Type : </i>        <code><a href="../classes/SubscriptionTracker.html" target="_self" >SubscriptionTracker</a></code>
+
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Default value : </i><code>new SubscriptionTracker(this)</code>
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="259" class="link-to-prism">projects/components/src/sharing-modal/tabs/sharing-modal-tab.component.ts:259</a></div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="totalSearchResults"></a>
+                        <span class="name">
+                            <b>
+                            totalSearchResults</b>
+                            <a href="#totalSearchResults"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="205" class="link-to-prism">projects/components/src/sharing-modal/tabs/sharing-modal-tab.component.ts:205</a></div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="translationService"></a>
+                        <span class="name">
+                            <b>
+                                <span class="modifier">Public</span>
+                            translationService</b>
+                            <a href="#translationService"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Type : </i>    <code>TranslationService</code>
+
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="139" class="link-to-prism">projects/components/src/sharing-modal/tabs/sharing-modal-tab.component.ts:139</a></div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+</section>
+
+    <section>
+    <h3 id="accessors">
+        Accessors
+    </h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="currentlySharedWith"></a>
+                        <span class="name"><b>currentlySharedWith</b><a href="#currentlySharedWith"><span class="icon ion-ios-link"></span></a></span>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <span class="accessor"><b>get</b><code>currentlySharedWith()</code></span>
+                    </td>
+                </tr>
+                            <tr>
+                                <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="150" class="link-to-prism">projects/components/src/sharing-modal/tabs/sharing-modal-tab.component.ts:150</a></div>
+                                </td>
+                            </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <span class="accessor"><b>set</b><code>currentlySharedWith(currentlySharedWith: [])</code></span>
+                    </td>
+                </tr>
+                            <tr>
+                                <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="145" class="link-to-prism">projects/components/src/sharing-modal/tabs/sharing-modal-tab.component.ts:145</a></div>
+                                </td>
+                            </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-description"><p>Which of the user type this entity is already share dwith.</p>
+</div>
+
+                                <div class="io-description">
+                                        <b>Parameters :</b>
+                                        <table class="params">
+                                            <thead>
+                                                <tr>
+                                                    <td>Name</td>
+                                                        <td>Type</td>
+                                                    <td>Optional</td>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                    <tr>
+                                                            <td>currentlySharedWith</td>
+                                                    
+                                                            <td>
+                                                                        <code>[]</code>
+                                                            </td>
+                                                    
+                                                        <td>
+                                                                No
+                                                        </td>
+                                                        
+                                                    </tr>
+                                            </tbody>
+                                        </table>
+                                </div>
+                                <div>
+                                </div>
+                                <div class="io-description">
+                                    <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                                </div>
+                        </td>
+                    </tr>
+            </tbody>
+        </table>
+</section>
+</div>
+
+
+    <div class="tab-pane fade  tab-source-code" id="c-source">
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { AfterViewInit, Component, EventEmitter, Input, OnDestroy, OnInit, Output } from &#x27;@angular/core&#x27;;
+import { ClrDatagridPagination } from &#x27;@clr/angular&#x27;;
+import { LazyString, TranslationService } from &#x27;@vcd/i18n&#x27;;
+import { Observable } from &#x27;rxjs&#x27;;
+import {
+    ActionDisplayConfig,
+    ActionItem,
+    ActionStyling,
+    ActionType,
+    TextIcon,
+} from &#x27;../../common/interfaces/action-item.interface&#x27;;
+import { SubscriptionTracker } from &#x27;../../common/subscription&#x27;;
+import {
+    ColumnComponentRendererSpec,
+    ComponentRendererConstructor,
+    ComponentRendererSpec,
+    ContextualActionPosition,
+    GridColumn,
+    GridDataFetchResult,
+    GridState,
+    PaginationConfiguration,
+} from &#x27;../../datagrid&#x27;;
+import { CommonUtil } from &#x27;../../utils/common-util&#x27;;
+import { RightsDropdownRendererComponent } from &#x27;../renderers/rights-dropdown-renderer&#x27;;
+import { ComboOption } from &#x27;../select-all-checkbox/select-all-toggle.component&#x27;;
+import { NonEmptyArray } from &#x27;../sharing-modal.component&#x27;;
+
+export class VcdSharingModalError {
+    constructor(public message: string) {}
+}
+
+/**
+ * The objects an entity must have. You are allowed to pass a more complicated object.
+ *
+ * @param T is the interface for the Object that is being selected.
+ */
+export type HasHref&lt;T&gt; &#x3D; T &amp; {
+    /**
+     * The unique href of this entity.
+     */
+    href: string;
+};
+
+/**
+ * Adds the rights that this entity has been granted.
+ *
+ * @param T is the interface for the Object that is being selected.
+ */
+export type IsSelected&lt;T&gt; &#x3D; HasHref&lt;T&gt; &amp; {
+    accessRight: ComboOption;
+};
+
+/**
+ * The result returned when the user searches in the combobox.
+ *
+ * @param T is the interface for the Object that is being searched.
+ */
+export interface SearchResult&lt;T&gt; {
+    items: HasHref&lt;T&gt;[];
+    totalCount: number;
+}
+
+/**
+ * The result that is output for a given tab from the sharing modal.
+ *
+ * @param T is the interface for the Object that is being shared with.
+ */
+export interface SharingTabResult&lt;T&gt; {
+    selectedItems?: IsSelected&lt;T&gt;[];
+    selectAllRights?: string;
+}
+
+/**
+ * A tab with a predefined ID and title.
+ *
+ * @param T is the interface for the Object that is being shared with.
+ */
+export interface PredefinedSharingTab&lt;T&gt; {
+    /**
+     * The possible rights that can be selected to share with from this tab. Must have at least one element.
+     */
+    rightsOptions: NonEmptyArray&lt;ComboOption&gt;;
+
+    /**
+     * How a given Entity should be rendered in the grid and combobox. Will be given the type of object you return from {@param makeSearch}.
+     * If non is given, defaults to display the name as text.
+     */
+    entityRenderer?: ComponentRendererConstructor&lt;HasHref&lt;T&gt;&gt;;
+
+    /**
+     * The placeholder to put in the combobox when no search has been entered.
+     */
+    comboboxPlaceholder?: LazyString;
+
+    /**
+     * Called when the user types something into or opens the combobox. Returns the results from that search.
+     */
+    makeSearch(criteria?: string): Promise&lt;SearchResult&lt;T&gt;&gt;;
+}
+
+/**
+ * The configuration for a tab in the sharing modal.
+ *
+ * @param T is the interface for the Object that is being shared with.
+ */
+export interface SharingTab&lt;T&gt; extends PredefinedSharingTab&lt;T&gt; {
+    /**
+     * The unique ID of this tab.
+     */
+    id: string;
+
+    /**
+     * The title of this tab.
+     */
+    title: LazyString;
+
+    /**
+     * The text displayed in the datagrid when select all is enabled.
+     */
+    selectAllText: LazyString;
+}
+
+/**
+ * A tab that allows users to add users to share with given rights.
+ *
+ * @param T is the interface for the Object that is being shared with.
+ */
+@Component({
+    selector: &#x27;vcd-sharing-modal-tab&#x27;,
+    templateUrl: &#x27;sharing-modal-tab.component.html&#x27;,
+    styleUrls: [&#x27;./sharing-modal-tab.component.scss&#x27;],
+})
+export class SharingModalTabComponent&lt;T&gt; implements OnInit, OnDestroy, AfterViewInit {
+    constructor(public translationService: TranslationService) {}
+
+    /**
+     * Which of the user type this entity is already share dwith.
+     */
+    @Input()
+    set currentlySharedWith(currentlySharedWith: IsSelected&lt;T&gt;[]) {
+        this.allSharedWith &#x3D; currentlySharedWith || [];
+        this.updateGridItems();
+    }
+
+    get currentlySharedWith(): IsSelected&lt;T&gt;[] {
+        return this.allSharedWith;
+    }
+
+    /**
+     * If this tab is in select all mode.
+     */
+    @Input()
+    isSelectAll: boolean &#x3D; false;
+
+    /**
+     * How a given Entity should be rendered. Will be given the type of object you return from {@param makeSearch}
+     */
+    @Input()
+    entityRenderer: ComponentRendererConstructor&lt;HasHref&lt;T&gt;&gt;;
+
+    /**
+     * The unique ID of this tab.
+     */
+    @Input()
+    id: string;
+
+    /**
+     * The possible rights that can be selected to share with from this tab. Must have at least one element.
+     */
+    @Input()
+    rightsOptions: NonEmptyArray&lt;ComboOption&gt;;
+
+    /**
+     * The placeholder to put in the combobox when no search has been entered.
+     */
+    @Input()
+    comboboxPlaceholder: LazyString;
+
+    /**
+     * The text displayed in the datagrid when select all is enabled.
+     */
+    @Input()
+    selectAllText: LazyString;
+
+    /**
+     * Emitted when anything about the list of users currently shared with changes.
+     */
+    @Output()
+    currentlySharedWithChange: EventEmitter&lt;IsSelected&lt;T&gt;[]&gt; &#x3D; new EventEmitter();
+
+    /**
+     * The right that is currently selected in the rights dropdown for pending users.
+     */
+    currentlySelectedRightValue: string;
+
+    /**
+     * The results returned from a search in the combobox.
+     */
+    searchResults: HasHref&lt;T&gt;[];
+    totalSearchResults: number;
+
+    /**
+     * The entities currently selected in the combobox,
+     */
+    comboboxSelection: HasHref&lt;T&gt;[] &#x3D; [];
+
+    /**
+     * START GRID CONFIGURATION
+     */
+    columns: GridColumn&lt;IsSelected&lt;T&gt;&gt;[] &#x3D; [];
+
+    gridItems: GridDataFetchResult&lt;IsSelected&lt;T&gt;&gt; &#x3D; {
+        items: [],
+        totalItems: 0,
+    };
+
+    actions: ActionItem&lt;IsSelected&lt;T&gt;, unknown&gt;[] &#x3D; [
+        {
+            icon: &#x27;trash&#x27;,
+            availability: (record: IsSelected&lt;T&gt;[]) &#x3D;&gt; !this.isOwner(record[0]),
+            actionType: ActionType.CONTEXTUAL_FEATURED,
+            handler: (selected) &#x3D;&gt; {
+                this.removeEntity(selected[0]);
+            },
+        },
+    ];
+
+    actionDisplayConfig: ActionDisplayConfig &#x3D; {
+        contextual: {
+            featuredCount: 1,
+            styling: ActionStyling.INLINE,
+            buttonContents: TextIcon.ICON,
+        },
+    };
+
+    rowPosition &#x3D; ContextualActionPosition.ROW;
+
+    paginationInfo: PaginationConfiguration &#x3D; {
+        pageSize: 10,
+        pageSizeOptions: [10, 20, 50, 100],
+        shouldShowPageNumberInput: true,
+        shouldShowPageSizeSelector: true,
+    };
+
+    /**
+     * END GRID CONFIGURATION
+     */
+
+    /**
+     * The error returned from a call to makeSearch. Undefined if there is no error.
+     */
+    searchError: string &#x3D; undefined;
+
+    private subTracker: SubscriptionTracker &#x3D; new SubscriptionTracker(this);
+    private bufferedSearch: (criteria?: string) &#x3D;&gt; Promise&lt;SearchResult&lt;T&gt;&gt;;
+    private allSharedWith: IsSelected&lt;T&gt;[] &#x3D; [];
+    private gridState: GridState&lt;IsSelected&lt;T&gt;&gt;;
+
+    gridRefreshed(state: GridState&lt;IsSelected&lt;T&gt;&gt;): void {
+        this.gridState &#x3D; state;
+        this.updateGridItems();
+    }
+
+    /**
+     * Called when the user types something into or opens the combobox. Returns the results from that search.
+     */
+    @Input()
+    makeSearch &#x3D; (criteria?: string): Promise&lt;SearchResult&lt;T&gt;&gt; &#x3D;&gt; {
+        throw new Error(&#x27;No implementation for makeSearch&#x27;);
+    };
+
+    /**
+     * Removes the given entity from the currently selected list.
+     */
+    removeEntity(entity: HasHref&lt;T&gt;): void {
+        this.currentlySharedWith &#x3D; this.currentlySharedWith.filter((toTest) &#x3D;&gt; toTest.href !&#x3D;&#x3D; entity.href);
+        this.currentlySharedWithChange.emit(this.currentlySharedWith);
+    }
+
+    /**
+     * Adds the entities selected in the combobox to the datagrid.
+     */
+    addPendingEntities(): void {
+        const selectedVersion: IsSelected&lt;T&gt;[] &#x3D; this.comboboxSelection.map((selected) &#x3D;&gt; {
+            (selected as IsSelected&lt;T&gt;).accessRight &#x3D; this.getRightByValue(this.currentlySelectedRightValue);
+            return selected as IsSelected&lt;T&gt;;
+        });
+        this.currentlySharedWith &#x3D; [...selectedVersion, ...this.allSharedWith];
+        this.comboboxSelection &#x3D; [];
+        this.currentlySharedWithChange.emit(this.currentlySharedWith);
+    }
+
+    /**
+     * Makes a call to {@param makeSearch} and properly enables loading for the combobox.
+     */
+    doSearchInternal(criteria?: string): void {
+        this.searchResults &#x3D; undefined;
+        this.totalSearchResults &#x3D; undefined;
+        this.bufferedSearch(criteria)
+            .then((result) &#x3D;&gt; {
+                this.searchError &#x3D; &#x27;&#x27;;
+                this.searchResults &#x3D; result.items;
+                this.totalSearchResults &#x3D; result.totalCount;
+            })
+            .catch((error: Error) &#x3D;&gt; {
+                if (error instanceof VcdSharingModalError) {
+                    this.searchError &#x3D; error.message;
+                    this.searchResults &#x3D; [];
+                } else {
+                    throw error;
+                }
+            });
+    }
+
+    /**
+     * Gives the render spec to render an given entity.
+     */
+    getEntityRenderSpec(entity: HasHref&lt;T&gt;): ComponentRendererSpec&lt;HasHref&lt;T&gt;&gt; {
+        return {
+            type: this.entityRenderer,
+            config: entity,
+        };
+    }
+
+    /**
+     * Says if this user is the owner of the entity to share.
+     */
+    isOwner(entity: IsSelected&lt;T&gt;): boolean {
+        return !this.rightsOptions.find((right) &#x3D;&gt; right.value &#x3D;&#x3D;&#x3D; entity.accessRight.value);
+    }
+
+    /**
+     * Gets the translated string to display pagination information.
+     */
+    getPaginationTranslation(paginationData: ClrDatagridPagination): Observable&lt;string&gt; {
+        return this.translationService.translateAsync(&#x27;vcd.cc.grid.default.pagination&#x27;, [
+            {
+                firstItem: paginationData.firstItem + 1,
+                lastItem: paginationData.lastItem + 1,
+                totalItems: paginationData.totalItems,
+            },
+        ]);
+    }
+
+    /**
+     * A trackBy function to track entities.
+     */
+    entityTrackBy(_index: number, entity: HasHref&lt;T&gt;): string {
+        return entity.href;
+    }
+
+    /**
+     * Says if this combobox is both enabled and has entities to submit.
+     */
+    isComboboxSubmittable(): boolean {
+        return !this.comboboxSelection || this.comboboxSelection.length &#x3D;&#x3D;&#x3D; 0 || this.isSelectAll;
+    }
+
+    /**
+     * Updates this entity in the currently shared with list to have the given access right.
+     */
+    updateEntityRights(entity: IsSelected&lt;T&gt;, newAccessRight: string): void {
+        this.currentlySharedWith.find((toTest) &#x3D;&gt; entity.href &#x3D;&#x3D;&#x3D; toTest.href).accessRight &#x3D; this.getRightByValue(
+            newAccessRight
+        );
+        this.currentlySharedWithChange.emit(this.currentlySharedWith);
+    }
+
+    ngOnInit(): void {
+        this.currentlySelectedRightValue &#x3D; this.rightsOptions[0].value;
+        this.columns &#x3D; [
+            {
+                displayName: this.translationService.translate(&#x27;vcd.cc.shared.with&#x27;),
+                renderer: this.entityRenderer
+                    ? ColumnComponentRendererSpec({
+                          type: this.entityRenderer,
+                          config: (record) &#x3D;&gt; record,
+                      })
+                    : (entity) &#x3D;&gt; this.defaultRenderer(entity),
+            },
+            {
+                displayName: this.translationService.translate(&#x27;vcd.cc.rights&#x27;),
+                renderer: ColumnComponentRendererSpec({
+                    type: RightsDropdownRendererComponent,
+                    config: (record) &#x3D;&gt; {
+                        return {
+                            entity: record,
+                            shouldShowDropdown: !this.isOwner(record),
+                            rightsChangedCallback: (entity: IsSelected&lt;T&gt;, newRightValue: string) &#x3D;&gt;
+                                this.updateEntityRights(entity, newRightValue),
+                            rightsOptions: this.rightsOptions,
+                        };
+                    },
+                }),
+            },
+        ];
+
+        this.subTracker.subscribe(this.translationService.translateAsync(&#x27;vcd.cc.shared.with&#x27;), (translation) &#x3D;&gt; {
+            this.columns[0].displayName &#x3D; translation;
+            this.columns &#x3D; [...this.columns];
+        });
+
+        this.subTracker.subscribe(this.translationService.translateAsync(&#x27;vcd.cc.rights&#x27;), (translation) &#x3D;&gt; {
+            this.columns[1].displayName &#x3D; translation;
+            this.columns &#x3D; [...this.columns];
+        });
+
+        const searchFn &#x3D; CommonUtil.createBufferedPromise(this.makeSearch, this);
+
+        this.bufferedSearch &#x3D; (criteria?: string) &#x3D;&gt;
+            searchFn(criteria)
+                .then((result) &#x3D;&gt; result)
+                .then((result) &#x3D;&gt; result);
+    }
+
+    ngOnDestroy(): void {}
+
+    ngAfterViewInit(): void {
+        this.updateGridItems();
+    }
+
+    defaultRenderer(entity: HasHref&lt;T&gt;): string {
+        return (entity as any).name;
+    }
+
+    updateGridItems(): void {
+        if (this.gridState) {
+            const startIndex &#x3D; (this.gridState.pagination.pageNumber - 1) * this.gridState.pagination.itemsPerPage;
+            const endIndex &#x3D; startIndex + this.gridState.pagination.itemsPerPage;
+            this.gridItems &#x3D; {
+                items: this.allSharedWith.slice(startIndex, endIndex),
+                totalItems: this.allSharedWith.length,
+            };
+        }
+    }
+
+    private getRightByValue(value: string): ComboOption {
+        return this.rightsOptions.find((right) &#x3D;&gt; right.value &#x3D;&#x3D;&#x3D; value);
+    }
+}
+</code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="c-templateData">
+        <pre class="line-numbers"><code class="language-html">&lt;div class&#x3D;&quot;search-container&quot;&gt;
+    &lt;clr-combobox-container class&#x3D;&quot;combobox-container&quot;&gt;
+        &lt;clr-combobox
+            [(ngModel)]&#x3D;&quot;comboboxSelection&quot;
+            name&#x3D;&quot;multiSelect&quot;
+            clrMulti&#x3D;&quot;true&quot;
+            (clrInputChange)&#x3D;&quot;doSearchInternal($event)&quot;
+            (clrOpenChange)&#x3D;&quot;doSearchInternal()&quot;
+            [clrLoading]&#x3D;&quot;!searchResults&quot;
+            [disabled]&#x3D;&quot;this.isSelectAll&quot;
+            [placeholder]&#x3D;&quot;comboboxPlaceholder | lazyString&quot;
+        &gt;
+            &lt;ng-container *clrOptionSelected&#x3D;&quot;let selected&quot;&gt;
+                &lt;ng-template
+                    *ngIf&#x3D;&quot;entityRenderer; else name&quot;
+                    [vcdComponentRendererOutlet]&#x3D;&quot;{ rendererSpec: getEntityRenderSpec(selected) }&quot;
+                &gt;
+                &lt;/ng-template&gt;
+                &lt;ng-template #name&gt;
+                    {{ selected.name }}
+                &lt;/ng-template&gt;
+            &lt;/ng-container&gt;
+            &lt;clr-options&gt;
+                &lt;div *ngIf&#x3D;&quot;searchError; else showOptions&quot; class&#x3D;&quot;clr-mock-option&quot;&gt;
+                    &lt;vcd-error-banner
+                        class&#x3D;&quot;search-error&quot;
+                        [errorMessage]&#x3D;&quot;searchError&quot;
+                        [alertClosable]&#x3D;&quot;false&quot;
+                    &gt;&lt;/vcd-error-banner&gt;
+                &lt;/div&gt;
+                &lt;ng-template #showOptions&gt;
+                    &lt;clr-option *ngFor&#x3D;&quot;let entity of searchResults; trackBy: entityTrackBy&quot; [clrValue]&#x3D;&quot;entity&quot;&gt;
+                        &lt;ng-template
+                            *ngIf&#x3D;&quot;entityRenderer; else name&quot;
+                            [vcdComponentRendererOutlet]&#x3D;&quot;{ rendererSpec: getEntityRenderSpec(entity) }&quot;
+                        &gt;
+                        &lt;/ng-template&gt;
+                        &lt;ng-template #name&gt;
+                            {{ defaultRenderer(entity) }}
+                        &lt;/ng-template&gt;
+                    &lt;/clr-option&gt;
+                    &lt;div class&#x3D;&quot;clr-mock-option&quot; *ngIf&#x3D;&quot;searchResults&quot;&gt;
+                        &lt;clr-alert [clrAlertType]&#x3D;&quot;&#x27;warning&#x27;&quot;&gt;
+                            &lt;clr-alert-item&gt;
+                                &lt;span class&#x3D;&quot;alert-text search-warning&quot;&gt;
+                                    {{
+                                        this.translationService.translateAsync(&#x27;vcd.cc.sharing-results-warning&#x27;, [
+                                            searchResults.length,
+                                            totalSearchResults
+                                        ]) | lazyString
+                                    }}
+                                &lt;/span&gt;
+                            &lt;/clr-alert-item&gt;
+                        &lt;/clr-alert&gt;
+                    &lt;/div&gt;
+                &lt;/ng-template&gt;
+            &lt;/clr-options&gt;
+        &lt;/clr-combobox&gt;
+    &lt;/clr-combobox-container&gt;
+    &lt;select
+        clrSelect
+        name&#x3D;&quot;options&quot;
+        [(ngModel)]&#x3D;&quot;currentlySelectedRightValue&quot;
+        [disabled]&#x3D;&quot;this.isComboboxSubmittable()&quot;
+        class&#x3D;&quot;rights-selector&quot;
+    &gt;
+        &lt;option *ngFor&#x3D;&quot;let option of rightsOptions&quot; value&#x3D;&quot;{{ option.value }}&quot;&gt;
+            {{ option.display | lazyString }}
+        &lt;/option&gt;
+    &lt;/select&gt;
+    &lt;button class&#x3D;&quot;btn add&quot; (click)&#x3D;&quot;addPendingEntities()&quot; [disabled]&#x3D;&quot;this.isComboboxSubmittable()&quot;&gt;
+        {{ &#x27;vcd.cc.add&#x27; | translate }}
+    &lt;/button&gt;
+&lt;/div&gt;
+&lt;div class&#x3D;&quot;grid-container&quot;&gt;
+    &lt;vcd-datagrid
+        [columns]&#x3D;&quot;columns&quot;
+        [gridData]&#x3D;&quot;gridItems&quot;
+        [actions]&#x3D;&quot;actions&quot;
+        [contextualActionPosition]&#x3D;&quot;rowPosition&quot;
+        [actionDisplayConfig]&#x3D;&quot;actionDisplayConfig&quot;
+        *ngIf&#x3D;&quot;!this.isSelectAll; else placeholderGrid&quot;
+        [height]&#x3D;&quot;400&quot;
+        (gridRefresh)&#x3D;&quot;gridRefreshed($event)&quot;
+        [pagination]&#x3D;&quot;paginationInfo&quot;
+    &gt;
+    &lt;/vcd-datagrid&gt;
+    &lt;ng-template #placeholderGrid&gt;
+        &lt;div class&#x3D;&quot;rectangle&quot;&gt;
+            &lt;div class&#x3D;&quot;content&quot;&gt;
+                &lt;clr-icon shape&#x3D;&quot;assign-user&quot; size&#x3D;&quot;35&quot; class&#x3D;&quot;select-all-icon&quot;&gt;&lt;/clr-icon&gt;
+                &lt;h4 class&#x3D;&quot;select-all-placeholder&quot;&gt;{{ selectAllText | lazyString }}&lt;/h4&gt;
+            &lt;/div&gt;
+        &lt;/div&gt;
+    &lt;/ng-template&gt;
+&lt;/div&gt;
+</code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="c-styleData">
+                <p class="comment">
+                    <code>./sharing-modal-tab.component.scss</code>
+                </p>
+                <pre class="line-numbers"><code class="language-scss">::ng-deep .clr-form-control {
+    margin-top: 0;
+}
+
+.search-container {
+    display: flex;
+    margin-top: 20px;
+}
+
+button.add {
+    margin-right: 0;
+    flex: 0;
+}
+
+.search-container select {
+    margin-left: 20px;
+    margin-right: 20px;
+}
+
+.combobox-container {
+    flex: 1;
+
+    clr-combobox {
+        flex: 1;
+        display: flex;
+
+        ::ng-deep {
+            .clr-combobox-input {
+                flex: 1;
+            }
+
+            .clr-combobox-input-wrapper {
+                display: flex;
+            }
+        }
+    }
+
+    ::ng-deep .clr-combobox-wrapper {
+        flex: 1;
+    }
+}
+
+.grid-container {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+.rectangle {
+    min-height: 400px;
+    max-height: 400px;
+
+    background: #fafafa;
+    border: 1px solid #cccccc;
+    box-sizing: border-box;
+    border-radius: 3px;
+
+    align-content: center;
+    display: flex;
+}
+
+.content {
+    margin: auto;
+}
+
+.select-all-placeholder {
+    margin-left: auto;
+    margin-right: auto;
+    display: block;
+}
+
+.select-all-icon {
+    margin-left: auto;
+    margin-right: auto;
+    display: block;
+}
+
+::ng-deep .clr-combobox-options-empty-text {
+    display: none;
+}
+
+.clr-mock-option {
+    padding: 0.15rem 1.2rem;
+}
+</code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="c-tree">
+        <div id="tree-container"></div>
+        <div class="tree-legend">
+            <div class="title">
+                <b>Legend</b>
+            </div>
+            <div>
+                <div class="color htmlelement"></div><span>Html element</span>
+            </div>
+            <div>
+                <div class="color component"></div><span>Component</span>
+            </div>
+            <div>
+                <div class="color directive"></div><span>Html element with directive</span>
+            </div>
+        </div>
+    </div>
+
+    
+</div>
+
+<script src="../js/libs/vis.min.js"></script>
+<script src="../js/libs/htmlparser.js"></script>
+<script src="../js/libs/deep-iterator.js"></script>
+<script>
+        var COMPONENT_TEMPLATE = '<div><div class="search-container">    <clr-combobox-container class="combobox-container">        <clr-combobox            [(ngModel)]="comboboxSelection"            name="multiSelect"            clrMulti="true"            (clrInputChange)="doSearchInternal($event)"            (clrOpenChange)="doSearchInternal()"            [clrLoading]="!searchResults"            [disabled]="this.isSelectAll"            [placeholder]="comboboxPlaceholder | lazyString"        >            <ng-container *clrOptionSelected="let selected">                <ng-template                    *ngIf="entityRenderer; else name"                    [vcdComponentRendererOutlet]="{ rendererSpec: getEntityRenderSpec(selected) }"                >                </ng-template>                <ng-template #name>                    {{ selected.name }}                </ng-template>            </ng-container>            <clr-options>                <div *ngIf="searchError; else showOptions" class="clr-mock-option">                    <vcd-error-banner                        class="search-error"                        [errorMessage]="searchError"                        [alertClosable]="false"                    ></vcd-error-banner>                </div>                <ng-template #showOptions>                    <clr-option *ngFor="let entity of searchResults; trackBy: entityTrackBy" [clrValue]="entity">                        <ng-template                            *ngIf="entityRenderer; else name"                            [vcdComponentRendererOutlet]="{ rendererSpec: getEntityRenderSpec(entity) }"                        >                        </ng-template>                        <ng-template #name>                            {{ defaultRenderer(entity) }}                        </ng-template>                    </clr-option>                    <div class="clr-mock-option" *ngIf="searchResults">                        <clr-alert [clrAlertType]="\'warning\'">                            <clr-alert-item>                                <span class="alert-text search-warning">                                    {{                                        this.translationService.translateAsync(\'vcd.cc.sharing-results-warning\', [                                            searchResults.length,                                            totalSearchResults                                        ]) | lazyString                                    }}                                </span>                            </clr-alert-item>                        </clr-alert>                    </div>                </ng-template>            </clr-options>        </clr-combobox>    </clr-combobox-container>    <select        clrSelect        name="options"        [(ngModel)]="currentlySelectedRightValue"        [disabled]="this.isComboboxSubmittable()"        class="rights-selector"    >        <option *ngFor="let option of rightsOptions" value="{{ option.value }}">            {{ option.display | lazyString }}        </option>    </select>    <button class="btn add" (click)="addPendingEntities()" [disabled]="this.isComboboxSubmittable()">        {{ \'vcd.cc.add\' | translate }}    </button></div><div class="grid-container">    <vcd-datagrid        [columns]="columns"        [gridData]="gridItems"        [actions]="actions"        [contextualActionPosition]="rowPosition"        [actionDisplayConfig]="actionDisplayConfig"        *ngIf="!this.isSelectAll; else placeholderGrid"        [height]="400"        (gridRefresh)="gridRefreshed($event)"        [pagination]="paginationInfo"    >    </vcd-datagrid>    <ng-template #placeholderGrid>        <div class="rectangle">            <div class="content">                <clr-icon shape="assign-user" size="35" class="select-all-icon"></clr-icon>                <h4 class="select-all-placeholder">{{ selectAllText | lazyString }}</h4>            </div>        </div>    </ng-template></div></div>'
+    var COMPONENTS = [{'name': 'ActionMenuComponent', 'selector': 'vcd-action-menu'},{'name': 'BannerActivityReporterComponent', 'selector': 'vcd-banner-activity-reporter'},{'name': 'BoldTextRendererComponent', 'selector': 'vcd-bold-text-renderer'},{'name': 'DataExporterComponent', 'selector': 'vcd-data-exporter'},{'name': 'DatagridComponent', 'selector': 'vcd-datagrid'},{'name': 'DatagridMultiSelectFilterComponent', 'selector': 'vcd-dg-multiselect-filter'},{'name': 'DatagridNumericFilterComponent', 'selector': 'vcd-dg-numeric-filter'},{'name': 'DatagridSelectFilterComponent', 'selector': 'vcd-dg-select-filter'},{'name': 'DatagridStringFilterComponent', 'selector': 'vcd-dg-string-filter'},{'name': 'DropdownComponent', 'selector': 'vcd-dropdown'},{'name': 'ErrorBannerComponent', 'selector': 'vcd-error-banner'},{'name': 'FilterTestHostComponent', 'selector': ''},{'name': 'FormCheckboxComponent', 'selector': 'vcd-form-checkbox'},{'name': 'FormInputComponent', 'selector': 'vcd-form-input'},{'name': 'FormlyInputComponent', 'selector': 'vcd-formly-input'},{'name': 'FormlyNumberWithUnitInputComponent', 'selector': 'vcd-formly-number-with-unit-input'},{'name': 'FormlySelectComponent', 'selector': 'vcd-formly-select'},{'name': 'FormSelectComponent', 'selector': 'vcd-form-select'},{'name': 'LoadingIndicatorComponent', 'selector': 'vcd-loading-indicator'},{'name': 'NumberWithUnitFormInputComponent', 'selector': 'vcd-number-with-unit-form-input'},{'name': 'QuickSearchComponent', 'selector': 'vcd-quick-search'},{'name': 'RightsDropdownRendererComponent', 'selector': 'vcd-rights-dropdown-renderer'},{'name': 'SharingModalComponent', 'selector': 'vcd-sharing-modal'},{'name': 'SharingModalTabComponent', 'selector': 'vcd-sharing-modal-tab'},{'name': 'ShowClippedTextDirectiveTestHostComponent', 'selector': ''},{'name': 'SpinnerActivityReporterComponent', 'selector': 'vcd-spinner-activity-reporter'},{'name': 'VcdSelectAllToggleComponent', 'selector': 'vcd-select-all-toggle'}];
+    var DIRECTIVES = [{'name': 'AlternativeTextDirective', 'selector': 'clr-icon'},{'name': 'ComponentRendererOutletDirective', 'selector': '[vcdComponentRendererOutlet]'},{'name': 'DropdownFocusHandlerDirective', 'selector': 'vcd-dropdown[vcdDropdownFocusHandler]'},{'name': 'DynamicDropdownPositionDirective', 'selector': 'clr-dropdown[vcdDynamicDropdown]'},{'name': 'ResponsiveInputDirective', 'selector': '.clr-form-control[vcdResponsiveInput]'},{'name': 'ShowClippedTextDirective', 'selector': '[vcdShowClippedText]'},{'name': 'UsersGroupsOrgsSharingModalDirective', 'selector': 'vcd-sharing-modal[vcdUsersGroupsOrgsSharingModal]'}];
+    var ACTUAL_COMPONENT = {'name': 'SharingModalTabComponent'};
+</script>
+<script src="../js/tree.js"></script>
+
+
+
+
+
+
+
+
+
+
+                   
+
+
+
+
+                   </div><div class="search-results">
+    <div class="has-results">
+        <h1 class="search-results-title"><span class='search-results-count'></span> result-matching "<span class='search-query'></span>"</h1>
+        <ul class="search-results-list"></ul>
+    </div>
+    <div class="no-results">
+        <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+    </div>
+</div>
+</div>
+               <!-- END CONTENT -->
+           </div>
+       </div>
+
+       <script>
+            var COMPODOC_CURRENT_PAGE_DEPTH = 1;
+            var COMPODOC_CURRENT_PAGE_CONTEXT = 'component';
+            var COMPODOC_CURRENT_PAGE_URL = 'SharingModalTabComponent.html';
+            var MAX_SEARCH_RESULTS = 15;
+       </script>
+
+       <script src="../js/libs/custom-elements.min.js"></script>
+       <script src="../js/libs/lit-html.js"></script>
+       <!-- Required to polyfill modern browsers as code is ES5 for IE... -->
+       <script src="../js/libs/custom-elements-es5-adapter.js" charset="utf-8" defer></script>
+       <script src="../js/menu-wc.js" defer></script>
+
+       <script src="../js/libs/bootstrap-native.js"></script>
+
+       <script src="../js/libs/es6-shim.min.js"></script>
+       <script src="../js/libs/EventDispatcher.js"></script>
+       <script src="../js/libs/promise.min.js"></script>
+       <script src="../js/libs/zepto.min.js"></script>
+
+       <script src="../js/compodoc.js"></script>
+
+       <script src="../js/tabs.js"></script>
+       <script src="../js/menu.js"></script>
+       <script src="../js/libs/clipboard.min.js"></script>
+       <script src="../js/libs/prism.js"></script>
+       <script src="../js/sourceCode.js"></script>
+          <script src="../js/search/search.js"></script>
+          <script src="../js/search/lunr.min.js"></script>
+          <script src="../js/search/search-lunr.js"></script>
+          <script src="../js/search/search_index.js"></script>
+       <script src="../js/lazy-load-graphs.js"></script>
+
+
+    </body>
+</html>

@@ -1,0 +1,1309 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>vmware-cloud-director-ui-components documentation</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
+	      <link rel="stylesheet" href="../styles/style.css">
+    </head>
+    <body>
+
+        <div class="navbar navbar-default navbar-fixed-top visible-xs">
+            <a href="../" class="navbar-brand">vmware-cloud-director-ui-components documentation</a>
+            <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
+        </div>
+
+        <div class="xs-menu menu" id="mobile-menu">
+                <div id="book-search-input" role="search"><input type="text" placeholder="Type to search"></div>            <compodoc-menu></compodoc-menu>
+        </div>
+
+        <div class="container-fluid main">
+           <div class="row main">
+               <div class="hidden-xs menu">
+                   <compodoc-menu mode="normal"></compodoc-menu>
+               </div>
+               <!-- START CONTENT -->
+               <div class="content component">
+                   <div class="content-data">
+
+
+
+
+<ol class="breadcrumb">
+  <li>Components</li>
+  <li>SharingModalComponent</li>
+</ol>
+
+<ul class="nav nav-tabs" role="tablist">
+        <li class="active">
+            <a href="#info" role="tab" id="info-tab" data-toggle="tab" data-link="info">Info</a>
+        </li>
+        <li >
+            <a href="#source" role="tab" id="source-tab" data-toggle="tab" data-link="source">Source</a>
+        </li>
+        <li >
+            <a href="#templateData" role="tab" id="templateData-tab" data-toggle="tab" data-link="template">Template</a>
+        </li>
+        <li >
+            <a href="#styleData" role="tab" id="styleData-tab" data-toggle="tab" data-link="style">Styles</a>
+        </li>
+        <li >
+            <a href="#tree" role="tab" id="tree-tab" data-toggle="tab" data-link="dom-tree">DOM Tree</a>
+        </li>
+</ul>
+
+<div class="tab-content">
+    <div class="tab-pane fade active in" id="c-info"><p class="comment">
+    <h3>File</h3>
+</p>
+<p class="comment">
+    <code>projects/components/src/sharing-modal/sharing-modal.component.ts</code>
+</p>
+
+    <p class="comment">
+        <h3>Description</h3>
+    </p>
+    <p class="comment">
+        <p>A modal for sharing some entities with other types of entities.</p>
+
+    </p>
+
+
+    <p class="comment">
+        <h3>Implements</h3>
+    </p>
+    <p class="comment">
+                    <code><a href="https://angular.io/api/core/OnInit" target="_blank" >OnInit</a></code>
+    </p>
+
+
+<section>
+    <h3>Metadata</h3>
+    <table class="table table-sm table-hover">
+        <tbody>
+
+
+
+
+
+
+
+
+
+
+
+            <tr>
+                <td class="col-md-3">selector</td>
+                <td class="col-md-9"><code>vcd-sharing-modal</code></td>
+            </tr>
+
+            <tr>
+                <td class="col-md-3">styleUrls</td>
+                <td class="col-md-9"><code>./sharing-modal.component.scss</code></td>
+            </tr>
+
+
+
+            <tr>
+                <td class="col-md-3">templateUrl</td>
+                <td class="col-md-9"><code>sharing-modal.component.html</code></td>
+            </tr>
+
+
+
+
+
+
+
+
+        </tbody>
+    </table>
+</section>
+
+    <section>
+    <h3 id="index">Index</h3>
+    <table class="table table-sm table-bordered index-table">
+        <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Properties</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#_tabs">_tabs</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Methods</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#calculateRightsOptions">calculateRightsOptions</a>
+                            </li>
+                            <li>
+                                <a href="#closeForm">closeForm</a>
+                            </li>
+                            <li>
+                                <a href="#getTabById">getTabById</a>
+                            </li>
+                            <li>
+                                <a href="#getTabsSelectedRights">getTabsSelectedRights</a>
+                            </li>
+                            <li>
+                                <a href="#ngOnInit">ngOnInit</a>
+                            </li>
+                            <li>
+                                <a href="#selectAllChange">selectAllChange</a>
+                            </li>
+                            <li>
+                                <a href="#submitForm">submitForm</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Inputs</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#formValue">formValue</a>
+                            </li>
+                            <li>
+                                <a href="#isOpened">isOpened</a>
+                            </li>
+                            <li>
+                                <a href="#selectAllToggles">selectAllToggles</a>
+                            </li>
+                            <li>
+                                <a href="#tabs">tabs</a>
+                            </li>
+                            <li>
+                                <a href="#title">title</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Outputs</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#formValueChange">formValueChange</a>
+                            </li>
+                            <li>
+                                <a href="#isOpenedChange">isOpenedChange</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <h6><b>Accessors</b></h6>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <ul class="index-list">
+                                <li>
+                                    <a href="#tabs">tabs</a>
+                                </li>
+                            </ul>
+                        </td>
+                    </tr>
+        </tbody>
+    </table>
+</section>
+
+
+    <section>
+    <h3 id="inputs">Inputs</h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="formValue"></a>
+                        <b>formValue</b>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="../miscellaneous/typealiases.html#SharingModalResult" target="_self" >SharingModalResult</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>{}</code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-2" colspan="2">
+                                    <div class="io-line">Defined in <a href="" data-line="85" class="link-to-prism">projects/components/src/sharing-modal/sharing-modal.component.ts:85</a></div>
+                            </td>
+                        </tr>
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="isOpened"></a>
+                        <b>isOpened</b>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank" >boolean</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>false</code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-2" colspan="2">
+                                    <div class="io-line">Defined in <a href="" data-line="79" class="link-to-prism">projects/components/src/sharing-modal/sharing-modal.component.ts:79</a></div>
+                            </td>
+                        </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <div class="io-description"><p>If the modal should be opened or closed.</p>
+</div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="selectAllToggles"></a>
+                        <b>selectAllToggles</b>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="../interfaces/SharingSelectAllToggle.html" target="_self" >SharingSelectAllToggle[]</a></code>
+
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-2" colspan="2">
+                                    <div class="io-line">Defined in <a href="" data-line="73" class="link-to-prism">projects/components/src/sharing-modal/sharing-modal.component.ts:73</a></div>
+                            </td>
+                        </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <div class="io-description"><p>The select all toggles that should appear at the top of the modal.
+These allow the user to share with all options in a certain tab(s).</p>
+</div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="tabs"></a>
+                        <b>tabs</b>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="../interfaces/SharingTab.html" target="_self" >SharingTab&lt;unknown&gt;[]</a></code>
+
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-2" colspan="2">
+                                    <div class="io-line">Defined in <a href="" data-line="51" class="link-to-prism">projects/components/src/sharing-modal/sharing-modal.component.ts:51</a></div>
+                            </td>
+                        </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <div class="io-description"><p>All of the options of entities that the use can share to.</p>
+</div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="title"></a>
+                        <b>title</b>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="../miscellaneous/typealiases.html#LazyString" target="_self" >LazyString</a></code>
+
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-2" colspan="2">
+                                    <div class="io-line">Defined in <a href="" data-line="45" class="link-to-prism">projects/components/src/sharing-modal/sharing-modal.component.ts:45</a></div>
+                            </td>
+                        </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <div class="io-description"><p>The title of this modal.</p>
+</div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+</section>
+    <section>
+    <h3 id="outputs">Outputs</h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="formValueChange"></a>
+                        <b>formValueChange</b>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="../miscellaneous/typealiases.html#SharingModalResult" target="_self" >EventEmitter&lt;SharingModalResult&gt;</a></code>
+
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-2" colspan="2">
+                                    <div class="io-line">Defined in <a href="" data-line="91" class="link-to-prism">projects/components/src/sharing-modal/sharing-modal.component.ts:91</a></div>
+                            </td>
+                        </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <div class="io-description"><p>The event that is emitted when the user clicks the submit button.</p>
+</div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="isOpenedChange"></a>
+                        <b>isOpenedChange</b>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>EventEmitter&lt;boolean&gt;</code>
+
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-2" colspan="2">
+                                    <div class="io-line">Defined in <a href="" data-line="82" class="link-to-prism">projects/components/src/sharing-modal/sharing-modal.component.ts:82</a></div>
+                            </td>
+                        </tr>
+            </tbody>
+        </table>
+</section>
+
+
+    <section>
+    
+    <h3 id="methods">
+        Methods
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="calculateRightsOptions"></a>
+                    <span class="name">
+                        <b>
+                            calculateRightsOptions
+                        </b>
+                        <a href="#calculateRightsOptions"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>calculateRightsOptions(tabIds: string[])</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="129"
+                            class="link-to-prism">projects/components/src/sharing-modal/sharing-modal.component.ts:129</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Calculates the subset of rights contained within all the given tabs.</p>
+</div>
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Type</td>
+                                    <td>Optional</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>tabIds</td>
+                                    <td>
+                                            <code>string[]</code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="../interfaces/ComboOption.html" target="_self" >ComboOption[]</a></code>
+
+                    </div>
+                    <div class="io-description">
+                        
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="closeForm"></a>
+                    <span class="name">
+                        <b>
+                            closeForm
+                        </b>
+                        <a href="#closeForm"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>closeForm()</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="96"
+                            class="link-to-prism">projects/components/src/sharing-modal/sharing-modal.component.ts:96</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Closes this sharing modal. Resets the values within.</p>
+</div>
+
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="getTabById"></a>
+                    <span class="name">
+                        <b>
+                            getTabById
+                        </b>
+                        <a href="#getTabById"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>getTabById(id: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="147"
+                            class="link-to-prism">projects/components/src/sharing-modal/sharing-modal.component.ts:147</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Gives the tab with the given ID.</p>
+</div>
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Type</td>
+                                    <td>Optional</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>id</td>
+                                    <td>
+                                                <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="../interfaces/SharingTab.html" target="_self" >SharingTab&lt;unknown&gt;</a></code>
+
+                    </div>
+                    <div class="io-description">
+                        
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="getTabsSelectedRights"></a>
+                    <span class="name">
+                        <b>
+                            getTabsSelectedRights
+                        </b>
+                        <a href="#getTabsSelectedRights"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>getTabsSelectedRights(tabs: string[])</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="154"
+                            class="link-to-prism">projects/components/src/sharing-modal/sharing-modal.component.ts:154</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Returns true if all tabs are selected all for.</p>
+</div>
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Type</td>
+                                    <td>Optional</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>tabs</td>
+                                    <td>
+                                            <code>string[]</code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>    <code>string | undefined</code>
+
+                    </div>
+                    <div class="io-description">
+                        
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="ngOnInit"></a>
+                    <span class="name">
+                        <b>
+                            ngOnInit
+                        </b>
+                        <a href="#ngOnInit"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>ngOnInit()</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="172"
+                            class="link-to-prism">projects/components/src/sharing-modal/sharing-modal.component.ts:172</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="selectAllChange"></a>
+                    <span class="name">
+                        <b>
+                            selectAllChange
+                        </b>
+                        <a href="#selectAllChange"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>selectAllChange(tabIds: string[], right?: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="118"
+                            class="link-to-prism">projects/components/src/sharing-modal/sharing-modal.component.ts:118</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Updates the map of select all rights for the given tabs.</p>
+</div>
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Type</td>
+                                    <td>Optional</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>tabIds</td>
+                                    <td>
+                                            <code>string[]</code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                                <tr>
+                                    <td>right</td>
+                                    <td>
+                                                <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                    </td>
+
+                                    <td>
+                                        Yes
+                                    </td>
+
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                    </div>
+                    <div class="io-description">
+                        
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="submitForm"></a>
+                    <span class="name">
+                        <b>
+                            submitForm
+                        </b>
+                        <a href="#submitForm"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>submitForm()</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="104"
+                            class="link-to-prism">projects/components/src/sharing-modal/sharing-modal.component.ts:104</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Submits the sharing form.</p>
+</div>
+
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</section>
+    <section>
+    
+        <h3 id="inputs">
+            Properties
+        </h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="_tabs"></a>
+                        <span class="name">
+                            <b>
+                                <span class="modifier">Private</span>
+                            _tabs</b>
+                            <a href="#_tabs"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Type : </i>        <code><a href="../interfaces/SharingTab.html" target="_self" >SharingTab&lt;unknown&gt;[]</a></code>
+
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="66" class="link-to-prism">projects/components/src/sharing-modal/sharing-modal.component.ts:66</a></div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+</section>
+
+    <section>
+    <h3 id="accessors">
+        Accessors
+    </h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="tabs"></a>
+                        <span class="name"><b>tabs</b><a href="#tabs"><span class="icon ion-ios-link"></span></a></span>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <span class="accessor"><b>get</b><code>tabs()</code></span>
+                    </td>
+                </tr>
+                            <tr>
+                                <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="62" class="link-to-prism">projects/components/src/sharing-modal/sharing-modal.component.ts:62</a></div>
+                                </td>
+                            </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <span class="accessor"><b>set</b><code>tabs(tabs: [])</code></span>
+                    </td>
+                </tr>
+                            <tr>
+                                <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="51" class="link-to-prism">projects/components/src/sharing-modal/sharing-modal.component.ts:51</a></div>
+                                </td>
+                            </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-description"><p>All of the options of entities that the use can share to.</p>
+</div>
+
+                                <div class="io-description">
+                                        <b>Parameters :</b>
+                                        <table class="params">
+                                            <thead>
+                                                <tr>
+                                                    <td>Name</td>
+                                                        <td>Type</td>
+                                                    <td>Optional</td>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                    <tr>
+                                                            <td>tabs</td>
+                                                    
+                                                            <td>
+                                                                        <code>[]</code>
+                                                            </td>
+                                                    
+                                                        <td>
+                                                                No
+                                                        </td>
+                                                        
+                                                    </tr>
+                                            </tbody>
+                                        </table>
+                                </div>
+                                <div>
+                                </div>
+                                <div class="io-description">
+                                    <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                                </div>
+                        </td>
+                    </tr>
+            </tbody>
+        </table>
+</section>
+</div>
+
+
+    <div class="tab-pane fade  tab-source-code" id="c-source">
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Component, EventEmitter, Input, OnInit, Output } from &#x27;@angular/core&#x27;;
+import { LazyString } from &#x27;@vcd/i18n&#x27;;
+import { ComboOption } from &#x27;./select-all-checkbox/select-all-toggle.component&#x27;;
+import { SharingTab, SharingTabResult } from &#x27;./tabs/sharing-modal-tab.component&#x27;;
+
+export type SharingModalResult &#x3D; {
+    [key: string]: SharingTabResult&lt;any&gt;;
+};
+
+export type NonEmptyArray&lt;T&gt; &#x3D; T[] &amp; { 0: T };
+
+/**
+ * Allows the creation of toggles to select all for some set of entities.
+ * Allows selection for any rights that are included in each tab.
+ */
+export interface SharingSelectAllToggle {
+    /**
+     * The tabs that this will select all for.
+     */
+    tabIds: NonEmptyArray&lt;string&gt;;
+    /**
+     * The text that will be displayed next to the toggle.
+     */
+    description: LazyString;
+}
+
+/**
+ * A modal for sharing some entities with other types of entities.
+ */
+@Component({
+    selector: &#x27;vcd-sharing-modal&#x27;,
+    templateUrl: &#x27;sharing-modal.component.html&#x27;,
+    styleUrls: [&#x27;./sharing-modal.component.scss&#x27;],
+})
+export class SharingModalComponent implements OnInit {
+    /**
+     * The title of this modal.
+     */
+    @Input()
+    title: LazyString;
+
+    /**
+     * All of the options of entities that the use can share to.
+     */
+    @Input()
+    set tabs(tabs: SharingTab&lt;unknown&gt;[]) {
+        this._tabs &#x3D; tabs;
+        for (const tab of this.tabs) {
+            if (!this.formValue[tab.id]) {
+                this.formValue[tab.id] &#x3D; {
+                    selectedItems: [],
+                };
+            }
+        }
+    }
+
+    get tabs(): SharingTab&lt;unknown&gt;[] {
+        return this._tabs;
+    }
+
+    private _tabs: SharingTab&lt;unknown&gt;[];
+
+    /**
+     * The select all toggles that should appear at the top of the modal.
+     * These allow the user to share with all options in a certain tab(s).
+     */
+    @Input()
+    selectAllToggles: SharingSelectAllToggle[];
+
+    /**
+     * If the modal should be opened or closed.
+     */
+    @Input()
+    isOpened &#x3D; false;
+
+    @Output()
+    isOpenedChange: EventEmitter&lt;boolean&gt; &#x3D; new EventEmitter();
+
+    @Input()
+    formValue: SharingModalResult &#x3D; {};
+
+    /**
+     * The event that is emitted when the user clicks the submit button.
+     */
+    @Output()
+    formValueChange: EventEmitter&lt;SharingModalResult&gt; &#x3D; new EventEmitter();
+
+    /**
+     * Closes this sharing modal. Resets the values within.
+     */
+    closeForm(): void {
+        this.isOpened &#x3D; false;
+        this.isOpenedChange.emit(false);
+    }
+
+    /**
+     * Submits the sharing form.
+     */
+    submitForm(): void {
+        this.isOpened &#x3D; false;
+        for (const tab of Object.values(this.formValue)) {
+            if (tab.selectAllRights) {
+                tab.selectedItems &#x3D; undefined;
+            }
+        }
+        this.formValueChange.emit(this.formValue);
+        this.closeForm();
+    }
+
+    /**
+     * Updates the map of select all rights for the given tabs.
+     */
+    selectAllChange(tabIds: string[], right?: string): void {
+        for (const id of tabIds) {
+            this.formValue[id].selectAllRights &#x3D; right;
+        }
+    }
+
+    /**
+     * Calculates the subset of rights contained within all the given tabs.
+     *
+     * @throws Error if there are no common rights.
+     */
+    calculateRightsOptions(tabIds: string[]): ComboOption[] {
+        const tabs &#x3D; tabIds.map((id) &#x3D;&gt; this.getTabById(id));
+        let rights &#x3D; tabs[0].rightsOptions;
+        tabs.shift();
+        for (const tab of tabs) {
+            rights &#x3D; rights.filter((right) &#x3D;&gt;
+                tab.rightsOptions.find((tabRight) &#x3D;&gt; tabRight.value &#x3D;&#x3D;&#x3D; right.value)
+            ) as NonEmptyArray&lt;ComboOption&gt;;
+            if (rights.length &#x3D;&#x3D;&#x3D; 0) {
+                throw new Error(&#x27;There is no shared set of rights between these tabs&#x27;);
+            }
+        }
+        return rights;
+    }
+
+    /**
+     * Gives the tab with the given ID.
+     */
+    getTabById(id: string): SharingTab&lt;unknown&gt; {
+        return this.tabs.find((tab) &#x3D;&gt; tab.id &#x3D;&#x3D;&#x3D; id);
+    }
+
+    /**
+     * Returns true if all tabs are selected all for.
+     */
+    getTabsSelectedRights(tabs: string[]): string | undefined {
+        let value &#x3D; &#x27;&#x27;;
+        for (const tabId of tabs) {
+            if (this.formValue[tabId].selectAllRights) {
+                if (value &amp;&amp; value !&#x3D;&#x3D; this.formValue[tabId].selectAllRights) {
+                    throw new Error(&#x27;Cannot have different rights for tabs in one group&#x27;);
+                }
+                value &#x3D; this.formValue[tabId].selectAllRights;
+            } else {
+                if (value) {
+                    throw new Error(&#x27;All tabs in a group must be selected&#x27;);
+                }
+                return undefined;
+            }
+        }
+        return value;
+    }
+
+    ngOnInit(): void {
+        this.tabs &#x3D; [...this.tabs];
+    }
+}
+</code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="c-templateData">
+        <pre class="line-numbers"><code class="language-html">&lt;clr-modal
+    *ngIf&#x3D;&quot;isOpened&quot;
+    [clrModalSize]&#x3D;&quot;&#x27;lg&#x27;&quot;
+    [(clrModalOpen)]&#x3D;&quot;isOpened&quot;
+    (clrModalOpenChange)&#x3D;&quot;isOpenedChange.emit($event)&quot;
+&gt;
+    &lt;h3 class&#x3D;&quot;modal-title&quot;&gt;{{ title | lazyString }}&lt;/h3&gt;
+    &lt;div class&#x3D;&quot;modal-body&quot;&gt;
+        &lt;b&gt;{{ &#x27;vcd.cc.share.with&#x27; | translate }}:&lt;/b&gt;
+        &lt;vcd-select-all-toggle
+            *ngFor&#x3D;&quot;let toggle of selectAllToggles&quot;
+            [description]&#x3D;&quot;toggle.description&quot;
+            [rightsOptions]&#x3D;&quot;calculateRightsOptions(toggle.tabIds)&quot;
+            [selection]&#x3D;&quot;getTabsSelectedRights(toggle.tabIds)&quot;
+            (selectionChange)&#x3D;&quot;selectAllChange(toggle.tabIds, $event)&quot;
+        &gt;
+        &lt;/vcd-select-all-toggle&gt;
+
+        &lt;clr-tabs&gt;
+            &lt;clr-tab *ngFor&#x3D;&quot;let tab of tabs&quot;&gt;
+                &lt;button clrTabLink&gt;{{ tab.title | lazyString }}&lt;/button&gt;
+                &lt;clr-tab-content *clrIfActive&gt;
+                    &lt;vcd-sharing-modal-tab
+                        [id]&#x3D;&quot;tab.id&quot;
+                        [selectAllText]&#x3D;&quot;tab.selectAllText&quot;
+                        [rightsOptions]&#x3D;&quot;tab.rightsOptions&quot;
+                        [entityRenderer]&#x3D;&quot;tab.entityRenderer&quot;
+                        [isSelectAll]&#x3D;&quot;getTabsSelectedRights([tab.id])&quot;
+                        [makeSearch]&#x3D;&quot;tab.makeSearch&quot;
+                        [comboboxPlaceholder]&#x3D;&quot;tab.comboboxPlaceholder&quot;
+                        [(currentlySharedWith)]&#x3D;&quot;formValue[tab.id].selectedItems&quot;
+                        #modalTab
+                    &gt;&lt;/vcd-sharing-modal-tab&gt;
+                &lt;/clr-tab-content&gt;
+            &lt;/clr-tab&gt;
+        &lt;/clr-tabs&gt;
+    &lt;/div&gt;
+    &lt;div class&#x3D;&quot;modal-footer&quot;&gt;
+        &lt;button type&#x3D;&quot;button&quot; class&#x3D;&quot;btn btn-outline cancel&quot; (click)&#x3D;&quot;closeForm()&quot;&gt;
+            {{ &#x27;vcd.cc.cancel&#x27; | translate }}
+        &lt;/button&gt;
+        &lt;button type&#x3D;&quot;button&quot; class&#x3D;&quot;btn btn-primary submit&quot; (click)&#x3D;&quot;submitForm()&quot;&gt;
+            {{ &#x27;vcd.cc.submit&#x27; | translate }}
+        &lt;/button&gt;
+    &lt;/div&gt;
+&lt;/clr-modal&gt;
+</code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="c-styleData">
+                <p class="comment">
+                    <code>./sharing-modal.component.scss</code>
+                </p>
+                <pre class="line-numbers"><code class="language-scss"></code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="c-tree">
+        <div id="tree-container"></div>
+        <div class="tree-legend">
+            <div class="title">
+                <b>Legend</b>
+            </div>
+            <div>
+                <div class="color htmlelement"></div><span>Html element</span>
+            </div>
+            <div>
+                <div class="color component"></div><span>Component</span>
+            </div>
+            <div>
+                <div class="color directive"></div><span>Html element with directive</span>
+            </div>
+        </div>
+    </div>
+
+    
+</div>
+
+<script src="../js/libs/vis.min.js"></script>
+<script src="../js/libs/htmlparser.js"></script>
+<script src="../js/libs/deep-iterator.js"></script>
+<script>
+        var COMPONENT_TEMPLATE = '<div><clr-modal    *ngIf="isOpened"    [clrModalSize]="\'lg\'"    [(clrModalOpen)]="isOpened"    (clrModalOpenChange)="isOpenedChange.emit($event)">    <h3 class="modal-title">{{ title | lazyString }}</h3>    <div class="modal-body">        <b>{{ \'vcd.cc.share.with\' | translate }}:</b>        <vcd-select-all-toggle            *ngFor="let toggle of selectAllToggles"            [description]="toggle.description"            [rightsOptions]="calculateRightsOptions(toggle.tabIds)"            [selection]="getTabsSelectedRights(toggle.tabIds)"            (selectionChange)="selectAllChange(toggle.tabIds, $event)"        >        </vcd-select-all-toggle>        <clr-tabs>            <clr-tab *ngFor="let tab of tabs">                <button clrTabLink>{{ tab.title | lazyString }}</button>                <clr-tab-content *clrIfActive>                    <vcd-sharing-modal-tab                        [id]="tab.id"                        [selectAllText]="tab.selectAllText"                        [rightsOptions]="tab.rightsOptions"                        [entityRenderer]="tab.entityRenderer"                        [isSelectAll]="getTabsSelectedRights([tab.id])"                        [makeSearch]="tab.makeSearch"                        [comboboxPlaceholder]="tab.comboboxPlaceholder"                        [(currentlySharedWith)]="formValue[tab.id].selectedItems"                        #modalTab                    ></vcd-sharing-modal-tab>                </clr-tab-content>            </clr-tab>        </clr-tabs>    </div>    <div class="modal-footer">        <button type="button" class="btn btn-outline cancel" (click)="closeForm()">            {{ \'vcd.cc.cancel\' | translate }}        </button>        <button type="button" class="btn btn-primary submit" (click)="submitForm()">            {{ \'vcd.cc.submit\' | translate }}        </button>    </div></clr-modal></div>'
+    var COMPONENTS = [{'name': 'ActionMenuComponent', 'selector': 'vcd-action-menu'},{'name': 'BannerActivityReporterComponent', 'selector': 'vcd-banner-activity-reporter'},{'name': 'BoldTextRendererComponent', 'selector': 'vcd-bold-text-renderer'},{'name': 'DataExporterComponent', 'selector': 'vcd-data-exporter'},{'name': 'DatagridComponent', 'selector': 'vcd-datagrid'},{'name': 'DatagridMultiSelectFilterComponent', 'selector': 'vcd-dg-multiselect-filter'},{'name': 'DatagridNumericFilterComponent', 'selector': 'vcd-dg-numeric-filter'},{'name': 'DatagridSelectFilterComponent', 'selector': 'vcd-dg-select-filter'},{'name': 'DatagridStringFilterComponent', 'selector': 'vcd-dg-string-filter'},{'name': 'DropdownComponent', 'selector': 'vcd-dropdown'},{'name': 'ErrorBannerComponent', 'selector': 'vcd-error-banner'},{'name': 'FilterTestHostComponent', 'selector': ''},{'name': 'FormCheckboxComponent', 'selector': 'vcd-form-checkbox'},{'name': 'FormInputComponent', 'selector': 'vcd-form-input'},{'name': 'FormlyInputComponent', 'selector': 'vcd-formly-input'},{'name': 'FormlyNumberWithUnitInputComponent', 'selector': 'vcd-formly-number-with-unit-input'},{'name': 'FormlySelectComponent', 'selector': 'vcd-formly-select'},{'name': 'FormSelectComponent', 'selector': 'vcd-form-select'},{'name': 'LoadingIndicatorComponent', 'selector': 'vcd-loading-indicator'},{'name': 'NumberWithUnitFormInputComponent', 'selector': 'vcd-number-with-unit-form-input'},{'name': 'QuickSearchComponent', 'selector': 'vcd-quick-search'},{'name': 'RightsDropdownRendererComponent', 'selector': 'vcd-rights-dropdown-renderer'},{'name': 'SharingModalComponent', 'selector': 'vcd-sharing-modal'},{'name': 'SharingModalTabComponent', 'selector': 'vcd-sharing-modal-tab'},{'name': 'ShowClippedTextDirectiveTestHostComponent', 'selector': ''},{'name': 'SpinnerActivityReporterComponent', 'selector': 'vcd-spinner-activity-reporter'},{'name': 'VcdSelectAllToggleComponent', 'selector': 'vcd-select-all-toggle'}];
+    var DIRECTIVES = [{'name': 'AlternativeTextDirective', 'selector': 'clr-icon'},{'name': 'ComponentRendererOutletDirective', 'selector': '[vcdComponentRendererOutlet]'},{'name': 'DropdownFocusHandlerDirective', 'selector': 'vcd-dropdown[vcdDropdownFocusHandler]'},{'name': 'DynamicDropdownPositionDirective', 'selector': 'clr-dropdown[vcdDynamicDropdown]'},{'name': 'ResponsiveInputDirective', 'selector': '.clr-form-control[vcdResponsiveInput]'},{'name': 'ShowClippedTextDirective', 'selector': '[vcdShowClippedText]'},{'name': 'UsersGroupsOrgsSharingModalDirective', 'selector': 'vcd-sharing-modal[vcdUsersGroupsOrgsSharingModal]'}];
+    var ACTUAL_COMPONENT = {'name': 'SharingModalComponent'};
+</script>
+<script src="../js/tree.js"></script>
+
+
+
+
+
+
+
+
+
+
+                   
+
+
+
+
+                   </div><div class="search-results">
+    <div class="has-results">
+        <h1 class="search-results-title"><span class='search-results-count'></span> result-matching "<span class='search-query'></span>"</h1>
+        <ul class="search-results-list"></ul>
+    </div>
+    <div class="no-results">
+        <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+    </div>
+</div>
+</div>
+               <!-- END CONTENT -->
+           </div>
+       </div>
+
+       <script>
+            var COMPODOC_CURRENT_PAGE_DEPTH = 1;
+            var COMPODOC_CURRENT_PAGE_CONTEXT = 'component';
+            var COMPODOC_CURRENT_PAGE_URL = 'SharingModalComponent.html';
+            var MAX_SEARCH_RESULTS = 15;
+       </script>
+
+       <script src="../js/libs/custom-elements.min.js"></script>
+       <script src="../js/libs/lit-html.js"></script>
+       <!-- Required to polyfill modern browsers as code is ES5 for IE... -->
+       <script src="../js/libs/custom-elements-es5-adapter.js" charset="utf-8" defer></script>
+       <script src="../js/menu-wc.js" defer></script>
+
+       <script src="../js/libs/bootstrap-native.js"></script>
+
+       <script src="../js/libs/es6-shim.min.js"></script>
+       <script src="../js/libs/EventDispatcher.js"></script>
+       <script src="../js/libs/promise.min.js"></script>
+       <script src="../js/libs/zepto.min.js"></script>
+
+       <script src="../js/compodoc.js"></script>
+
+       <script src="../js/tabs.js"></script>
+       <script src="../js/menu.js"></script>
+       <script src="../js/libs/clipboard.min.js"></script>
+       <script src="../js/libs/prism.js"></script>
+       <script src="../js/sourceCode.js"></script>
+          <script src="../js/search/search.js"></script>
+          <script src="../js/search/lunr.min.js"></script>
+          <script src="../js/search/search-lunr.js"></script>
+          <script src="../js/search/search_index.js"></script>
+       <script src="../js/lazy-load-graphs.js"></script>
+
+
+    </body>
+</html>
