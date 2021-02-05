@@ -104,7 +104,7 @@ export class ActionMenuSearchExampleComponent<R extends Record, T extends Handle
 
     actionDisplayConfig: ActionDisplayConfig = {
         contextual: {
-            featuredCount: 1,
+            featuredCount: 2,
             styling: ActionStyling.INLINE,
             buttonContents: TextIcon.TEXT,
         },

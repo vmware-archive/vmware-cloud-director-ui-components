@@ -212,18 +212,14 @@ export class ActionMenuComponent<R, T> {
      */
     getAvailableActions(actions: ActionItem<R, T>[]): ActionItem<R, T>[] {
         return actions
-            .filter((action) => this.isActionAvailable(action))
+            .filter((action) => this.isActionAvailable(action) && (!action.children || action.children.length !== 0))
             .map((action) => {
                 const actionCopy = { ...action, children: action.children ? [...action.children] : null };
                 if (actionCopy.children) {
-                    if (actionCopy.children.length === 0) {
-                        return null;
-                    }
                     actionCopy.children = this.getAvailableActions(actionCopy.children);
                 }
                 return actionCopy;
-            })
-            .filter((action) => !!action);
+            });
     }
 
     /**
