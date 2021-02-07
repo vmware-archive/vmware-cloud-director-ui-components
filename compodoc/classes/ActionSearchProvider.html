@@ -793,8 +793,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="115"
-                            class="link-to-prism">projects/components/src/action-search-provider/action-search.provider.ts:115</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="118"
+                            class="link-to-prism">projects/components/src/action-search-provider/action-search.provider.ts:118</a></div>
                 </td>
             </tr>
 
@@ -865,8 +865,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="123"
-                            class="link-to-prism">projects/components/src/action-search-provider/action-search.provider.ts:123</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="126"
+                            class="link-to-prism">projects/components/src/action-search-provider/action-search.provider.ts:126</a></div>
                 </td>
             </tr>
 
@@ -1420,7 +1420,10 @@ export class ActionSearchProvider&lt;R, T&gt; extends QuickSearchProviderDefault
 
     private getFlatListOfAvailableActions(actions: ActionItem&lt;R, T&gt;[]): ActionItem&lt;R, T&gt;[] {
         return actions.reduce((flatActionList, currentAction) &#x3D;&gt; {
-            if (currentAction?.children?.length) {
+            if (currentAction?.children) {
+                if (currentAction.children.length &#x3D;&#x3D;&#x3D; 0) {
+                    return flatActionList;
+                }
                 flatActionList &#x3D; flatActionList.concat(this.getFlatListOfAvailableActions(currentAction.children));
             } else if (this.isActionAvailable(currentAction)) {
                 const textKey &#x3D;

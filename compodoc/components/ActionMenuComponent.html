@@ -2947,10 +2947,10 @@ export class ActionMenuComponent&lt;R, T&gt; {
      */
     getAvailableActions(actions: ActionItem&lt;R, T&gt;[]): ActionItem&lt;R, T&gt;[] {
         return actions
-            .filter((action) &#x3D;&gt; this.isActionAvailable(action))
+            .filter((action) &#x3D;&gt; this.isActionAvailable(action) &amp;&amp; (!action.children || action.children.length !&#x3D;&#x3D; 0))
             .map((action) &#x3D;&gt; {
                 const actionCopy &#x3D; { ...action, children: action.children ? [...action.children] : null };
-                if (actionCopy.children?.length) {
+                if (actionCopy.children) {
                     actionCopy.children &#x3D; this.getAvailableActions(actionCopy.children);
                 }
                 return actionCopy;
