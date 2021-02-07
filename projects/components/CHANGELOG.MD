@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [2.0.0-dev.1]
+### Fixed
+- Vapp Add action bug which exposed the bug with quick search showing grouped actions with empty children in the search result
+
 ## [1.0.0-dev.58]
 - Upgrades to Angular 10 and Clarity 4.
 

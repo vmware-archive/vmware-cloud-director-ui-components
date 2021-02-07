@@ -99,7 +99,10 @@ export class ActionSearchProvider<R, T> extends QuickSearchProviderDefaults impl
 
     private getFlatListOfAvailableActions(actions: ActionItem<R, T>[]): ActionItem<R, T>[] {
         return actions.reduce((flatActionList, currentAction) => {
-            if (currentAction?.children?.length) {
+            if (currentAction?.children) {
+                if (currentAction.children.length === 0) {
+                    return flatActionList;
+                }
                 flatActionList = flatActionList.concat(this.getFlatListOfAvailableActions(currentAction.children));
             } else if (this.isActionAvailable(currentAction)) {
                 const textKey =
