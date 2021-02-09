@@ -170,7 +170,7 @@ describe('SharingModalComponent', () => {
                     selectedItems: [
                         {
                             name: 'ryan',
-                            href: 'ryan',
+                            id: 'ryan',
                             accessRight: {
                                 display: 'read',
                                 value: 'read',
@@ -204,7 +204,7 @@ describe('SharingModalComponent', () => {
                             items: [
                                 {
                                     name: 'ryan',
-                                    href: 'ryan',
+                                    id: 'ryan',
                                 },
                             ],
                         }),
@@ -270,7 +270,7 @@ describe('SharingModalComponent', () => {
                             items: [
                                 {
                                     name: 'ryan',
-                                    href: 'ryan',
+                                    id: 'ryan',
                                 },
                             ],
                         }),
@@ -308,7 +308,7 @@ describe('SharingModalComponent', () => {
                             items: [
                                 {
                                     name: 'ryan',
-                                    href: 'ryan',
+                                    id: 'ryan',
                                 },
                             ],
                         }),
@@ -344,7 +344,7 @@ describe('SharingModalComponent', () => {
                             items: [
                                 {
                                     name: 'ryan',
-                                    href: 'ryan',
+                                    id: 'ryan',
                                 },
                             ],
                         }),
@@ -369,7 +369,7 @@ describe('SharingModalComponent', () => {
                             items: [
                                 {
                                     name: 'ryan',
-                                    href: 'ryan',
+                                    id: 'ryan',
                                 },
                             ],
                         }),
@@ -411,7 +411,7 @@ describe('SharingModalComponent', () => {
                             items: [
                                 {
                                     name: 'ryan',
-                                    href: 'ryan',
+                                    id: 'ryan',
                                 },
                             ],
                         }),
@@ -436,7 +436,7 @@ describe('SharingModalComponent', () => {
                             items: [
                                 {
                                     name: 'ryan',
-                                    href: 'ryan',
+                                    id: 'ryan',
                                 },
                             ],
                         }),
@@ -477,7 +477,7 @@ describe('SharingModalComponent', () => {
                             items: [
                                 {
                                     name: 'ryan',
-                                    href: 'ryan',
+                                    id: 'ryan',
                                 },
                             ],
                         }),
@@ -503,7 +503,7 @@ describe('SharingModalComponent', () => {
                     selectedItems: [
                         {
                             name: 'ryan',
-                            href: 'ryan',
+                            id: 'ryan',
                             accessRight: {
                                 display: 'read',
                                 value: 'read',
@@ -535,7 +535,7 @@ describe('SharingModalComponent', () => {
                             items: [
                                 {
                                     name: 'ryan',
-                                    href: 'ryan',
+                                    id: 'ryan',
                                 },
                             ],
                         }),
@@ -547,7 +547,7 @@ describe('SharingModalComponent', () => {
                     selectedItems: [
                         {
                             name: 'ryan',
-                            href: 'ryan',
+                            id: 'ryan',
                             accessRight: {
                                 display: 'read',
                                 value: 'read',
@@ -589,7 +589,7 @@ describe('SharingModalComponent', () => {
                             items: [
                                 {
                                     name: 'ryan',
-                                    href: 'ryan',
+                                    id: 'ryan',
                                 },
                             ],
                         }),
@@ -601,7 +601,7 @@ describe('SharingModalComponent', () => {
                     selectedItems: [
                         {
                             name: 'ryan',
-                            href: 'ryan',
+                            id: 'ryan',
                             accessRight: {
                                 display: 'read',
                                 value: 'read',
@@ -617,7 +617,7 @@ describe('SharingModalComponent', () => {
             (this.widget.getActiveTab().getComponentInstance() as SharingModalTabComponent<any>).updateEntityRights(
                 {
                     name: 'ryan',
-                    href: 'ryan',
+                    id: 'ryan',
                     accessRight: {
                         display: 'read',
                         value: 'read',
@@ -634,7 +634,7 @@ describe('SharingModalComponent', () => {
                     selectedItems: [
                         {
                             name: 'ryan',
-                            href: 'ryan',
+                            id: 'ryan',
                             accessRight: {
                                 display: 'write',
                                 value: 'write',

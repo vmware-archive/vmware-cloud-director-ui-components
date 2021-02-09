@@ -4,11 +4,11 @@
  */
 
 import { Component, Input } from '@angular/core';
-import { ComponentRenderer, HasHref, PredefinedSharingTab, SearchResult, SharingModalResult } from '@vcd/ui-components';
+import { ComponentRenderer, HasId, PredefinedSharingTab, SearchResult, SharingModalResult } from '@vcd/ui-components';
 
 interface MyEntity {
     name: string;
-    href: string;
+    id: string;
 }
 
 @Component({
@@ -44,11 +44,11 @@ export class UsersGroupsOrgsSharingModalExampleComponent {
                 items: [
                     {
                         name: 'Matt',
-                        href: 'matt',
+                        id: 'matt',
                     },
                     {
                         name: 'Hannah',
-                        href: 'hannah',
+                        id: 'hannah',
                     },
                 ],
                 totalCount: 5,
@@ -77,11 +77,11 @@ export class UsersGroupsOrgsSharingModalExampleComponent {
                 items: [
                     {
                         name: 'Group 2',
-                        href: 'group2',
+                        id: 'group2',
                     },
                     {
                         name: 'Group 3',
-                        href: 'group3',
+                        id: 'group3',
                     },
                 ],
                 totalCount: 5,
@@ -102,11 +102,11 @@ export class UsersGroupsOrgsSharingModalExampleComponent {
                 items: [
                     {
                         name: 'Org 2',
-                        href: 'org2',
+                        id: 'org2',
                     },
                     {
                         name: 'Org 3',
-                        href: 'org3',
+                        id: 'org3',
                     },
                 ],
                 totalCount: 5,
@@ -119,7 +119,7 @@ export class UsersGroupsOrgsSharingModalExampleComponent {
             selectedItems: [
                 {
                     name: 'Hannah',
-                    href: 'hannah',
+                    id: 'hannah',
                     accessRight: {
                         display: 'Read Only',
                         value: 'read_only',
@@ -127,7 +127,7 @@ export class UsersGroupsOrgsSharingModalExampleComponent {
                 },
                 {
                     name: 'Ryan',
-                    href: 'ryan',
+                    id: 'ryan',
                     accessRight: {
                         display: 'Owner',
                         value: 'owner',
@@ -139,7 +139,7 @@ export class UsersGroupsOrgsSharingModalExampleComponent {
             selectedItems: [
                 {
                     name: 'Hannah',
-                    href: 'hannah',
+                    id: 'hannah',
                     accessRight: {
                         display: 'Read Only',
                         value: 'read_only',
@@ -159,8 +159,8 @@ export class UsersGroupsOrgsSharingModalExampleComponent {
 
 @Component({
     selector: 'vcd-datagrid-detail-pane-sub-example',
-    template: ` {{ config.name }} ({{ config.href }}) `,
+    template: ` {{ config.name }} ({{ config.id }}) `,
 })
-export class SharingModalRendererComponent implements ComponentRenderer<HasHref<MyEntity>> {
-    @Input() config: HasHref<MyEntity>;
+export class SharingModalRendererComponent implements ComponentRenderer<HasId<MyEntity>> {
+    @Input() config: HasId<MyEntity>;
 }

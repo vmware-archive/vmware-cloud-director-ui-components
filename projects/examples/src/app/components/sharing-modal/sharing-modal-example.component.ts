@@ -7,7 +7,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { LazyString } from '@vcd/i18n';
 import {
     ComponentRenderer,
-    HasHref,
+    HasId,
     SharingModalResult,
     SharingSelectAllToggle,
     SharingTab,
@@ -17,7 +17,7 @@ import { BehaviorSubject } from 'rxjs';
 
 interface MyEntity {
     name: string;
-    href: string;
+    id: string;
 }
 
 @Component({
@@ -56,7 +56,7 @@ export class SharingModalExampleComponent implements OnInit {
                     items: [
                         {
                             name: 'Bob',
-                            href: String(Math.random()),
+                            id: String(Math.random()),
                         },
                     ],
                 }),
@@ -112,7 +112,7 @@ export class SharingModalExampleComponent implements OnInit {
                     items: [
                         {
                             name: 'Bob',
-                            href: String(Math.random()),
+                            id: String(Math.random()),
                         },
                     ],
                 }),
@@ -137,7 +137,7 @@ export class SharingModalExampleComponent implements OnInit {
             selectedItems: [
                 {
                     name: 'Hannah',
-                    href: 'hannah',
+                    id: 'hannah',
                     accessRight: {
                         display: 'Read Only',
                         value: 'read_only',
@@ -145,7 +145,7 @@ export class SharingModalExampleComponent implements OnInit {
                 },
                 {
                     name: 'Ryan',
-                    href: 'ryan',
+                    id: 'ryan',
                     accessRight: {
                         display: 'Owner',
                         value: 'owner',
@@ -157,7 +157,7 @@ export class SharingModalExampleComponent implements OnInit {
             selectedItems: [
                 {
                     name: 'Hannah',
-                    href: 'hannah',
+                    id: 'hannah',
                     accessRight: {
                         display: 'Read Only',
                         value: 'read_only',
@@ -179,8 +179,8 @@ export class SharingModalExampleComponent implements OnInit {
 
 @Component({
     selector: 'vcd-datagrid-detail-pane-sub-example',
-    template: ` {{ config.name }} ({{ config.href }}) `,
+    template: ` {{ config.name }} ({{ config.id }}) `,
 })
-export class SharingModalRendererComponent implements ComponentRenderer<HasHref<MyEntity>> {
-    @Input() config: HasHref<MyEntity>;
+export class SharingModalRendererComponent implements ComponentRenderer<HasId<MyEntity>> {
+    @Input() config: HasId<MyEntity>;
 }

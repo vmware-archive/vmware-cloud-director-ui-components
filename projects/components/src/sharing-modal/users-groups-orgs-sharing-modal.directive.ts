@@ -3,10 +3,14 @@
  * SPDX-License-Identifier: BSD-2-Clause
  */
 
-import { Directive, Input, OnInit } from '@angular/core';
+import { Component, Directive, Inject, Input, OnInit, Optional } from '@angular/core';
+import { Query, VcdApiClient } from '@vcd/angular-client';
+import { GroupType, OrgType, UserType } from '@vcd/bindings/vcloud/api/rest/schema_v1_5/index';
 import { TranslationService } from '@vcd/i18n';
+import { ComponentRenderer } from '../datagrid/interfaces/component-renderer.interface';
+import { FilterBuilder } from '../utils/filter-builder';
 import { SharingModalComponent, SharingSelectAllToggle } from './sharing-modal.component';
-import { PredefinedSharingTab, SharingTab } from './tabs/sharing-modal-tab.component';
+import { HasId, PredefinedSharingTab, SearchResult, SharingTab } from './tabs/sharing-modal-tab.component';
 
 /**
  * Supplies convinece bindings to the `vcd-sharing-modal` for the use case
@@ -28,6 +32,8 @@ export class UsersGroupsOrgsSharingModalDirective implements OnInit {
             id: 'users',
             title: this.translationService.translateAsync('vcd.cc.sharing.users'),
             selectAllText: this.translationService.translateAsync('vcd.cc.sharing.users.selected'),
+            makeSearch: this.makeSearchGenerator<UserType>('user'),
+            entityRenderer: SharingModalUserRenderComponent,
             ...config,
         });
     }
@@ -42,6 +48,8 @@ export class UsersGroupsOrgsSharingModalDirective implements OnInit {
             id: 'groups',
             title: this.translationService.translateAsync('vcd.cc.sharing.groups'),
             selectAllText: this.translationService.translateAsync('vcd.cc.sharing.groups.selected'),
+            makeSearch: this.makeSearchGenerator<GroupType>('group'),
+            entityRenderer: SharingModalGroupRenderComponent,
             ...config,
         });
     }
@@ -56,6 +64,8 @@ export class UsersGroupsOrgsSharingModalDirective implements OnInit {
             id: 'organizations',
             title: this.translationService.translateAsync('vcd.cc.sharing.orgs'),
             selectAllText: this.translationService.translateAsync('vcd.cc.sharing.orgs.selected'),
+            makeSearch: this.makeSearchGenerator<OrgType>('organization'),
+            entityRenderer: SharingModalOrgRenderComponent,
             ...config,
         });
     }
@@ -117,7 +127,8 @@ export class UsersGroupsOrgsSharingModalDirective implements OnInit {
 
     constructor(
         private hostSharingModalComponent: SharingModalComponent,
-        private translationService: TranslationService
+        private translationService: TranslationService,
+        @Optional() @Inject(VcdApiClient) private client: VcdApiClient
     ) {}
 
     ngOnInit(): void {
@@ -131,4 +142,44 @@ export class UsersGroupsOrgsSharingModalDirective implements OnInit {
         }
         host.selectAllToggles = [...host.selectAllToggles, ...this.toggles];
     }
+
+    makeSearchGenerator<T>(type: string): (search: string) => Promise<SearchResult<T>> {
+        if (!this.client) {
+            return undefined;
+        }
+        return async (searchTerm: string) => {
+            const filter = new FilterBuilder().is('name').equalTo(`*${searchTerm}*`);
+            const result: any = await this.client
+                .query(Query.Builder.ofType(type).filter(filter.getString()).links(false).pageSize(10), true)
+                .toPromise();
+            return {
+                items: result.record as HasId<T>[],
+                totalCount: result.total,
+            };
+        };
+    }
+}
+
+@Component({
+    selector: 'vcd-sharing-modal-user-renderer',
+    template: ` <clr-icon [attr.size]="'1em'" [attr.shape]="'user'"></clr-icon> {{ config.name }}`,
+})
+export class SharingModalUserRenderComponent implements ComponentRenderer<HasId<UserType>> {
+    @Input() config: HasId<UserType>;
+}
+
+@Component({
+    selector: 'vcd-sharing-modal-group-renderer',
+    template: ` <clr-icon [attr.size]="'1em'" [attr.shape]="'users'"></clr-icon> {{ config.name }}`,
+})
+export class SharingModalGroupRenderComponent implements ComponentRenderer<HasId<UserType>> {
+    @Input() config: HasId<UserType>;
+}
+
+@Component({
+    selector: 'vcd-sharing-modal-group-renderer',
+    template: ` <clr-icon [attr.size]="'1em'" [attr.shape]="'organization'"></clr-icon> {{ config.name }}`,
+})
+export class SharingModalOrgRenderComponent implements ComponentRenderer<HasId<UserType>> {
+    @Input() config: HasId<UserType>;
 }

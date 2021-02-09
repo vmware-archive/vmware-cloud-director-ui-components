@@ -170,6 +170,8 @@ export class SharingModalComponent implements OnInit {
     }
 
     ngOnInit(): void {
-        this.tabs = [...this.tabs];
+        if (this.tabs) {
+            this.tabs = [...this.tabs];
+        }
     }
 }

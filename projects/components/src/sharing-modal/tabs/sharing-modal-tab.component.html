@@ -39,7 +39,10 @@
                             {{ defaultRenderer(entity) }}
                         </ng-template>
                     </clr-option>
-                    <div class="clr-mock-option" *ngIf="searchResults">
+                    <div
+                        class="clr-mock-option"
+                        *ngIf="searchResults && shouldShowWarning(totalSearchResults, searchResults.length)"
+                    >
                         <clr-alert [clrAlertType]="'warning'">
                             <clr-alert-item>
                                 <span class="alert-text search-warning">

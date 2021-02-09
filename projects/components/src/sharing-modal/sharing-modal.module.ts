@@ -16,7 +16,12 @@ import { RightsDropdownRendererComponent } from './renderers/rights-dropdown-ren
 import { VcdSelectAllToggleComponent } from './select-all-checkbox/select-all-toggle.component';
 import { SharingModalComponent } from './sharing-modal.component';
 import { SharingModalTabComponent } from './tabs/sharing-modal-tab.component';
-import { UsersGroupsOrgsSharingModalDirective } from './users-groups-orgs-sharing-modal.directive';
+import {
+    SharingModalGroupRenderComponent,
+    SharingModalOrgRenderComponent,
+    SharingModalUserRenderComponent,
+    UsersGroupsOrgsSharingModalDirective,
+} from './users-groups-orgs-sharing-modal.directive';
 
 @NgModule({
     declarations: [
@@ -25,6 +30,9 @@ import { UsersGroupsOrgsSharingModalDirective } from './users-groups-orgs-sharin
         UsersGroupsOrgsSharingModalDirective,
         VcdSelectAllToggleComponent,
         RightsDropdownRendererComponent,
+        SharingModalUserRenderComponent,
+        SharingModalGroupRenderComponent,
+        SharingModalOrgRenderComponent,
     ],
     imports: [
         CommonModule,
@@ -36,6 +44,12 @@ import { UsersGroupsOrgsSharingModalDirective } from './users-groups-orgs-sharin
         VcdDatagridModule,
         VcdComponentRendererOutletModule,
         VcdErrorBannerModule,
+    ],
+    entryComponents: [
+        RightsDropdownRendererComponent,
+        SharingModalUserRenderComponent,
+        SharingModalGroupRenderComponent,
+        SharingModalOrgRenderComponent,
     ],
     exports: [SharingModalComponent, UsersGroupsOrgsSharingModalDirective],
 })
