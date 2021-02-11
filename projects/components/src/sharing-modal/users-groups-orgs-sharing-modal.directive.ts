@@ -32,7 +32,7 @@ export class UsersGroupsOrgsSharingModalDirective implements OnInit {
             id: 'users',
             title: this.translationService.translateAsync('vcd.cc.sharing.users'),
             selectAllText: this.translationService.translateAsync('vcd.cc.sharing.users.selected'),
-            makeSearch: this.makeSearchGenerator<UserType>('user'),
+            makeSearch: this.makeSearchGenerator('user'),
             entityRenderer: SharingModalUserRenderComponent,
             ...config,
         });
@@ -48,7 +48,7 @@ export class UsersGroupsOrgsSharingModalDirective implements OnInit {
             id: 'groups',
             title: this.translationService.translateAsync('vcd.cc.sharing.groups'),
             selectAllText: this.translationService.translateAsync('vcd.cc.sharing.groups.selected'),
-            makeSearch: this.makeSearchGenerator<GroupType>('group'),
+            makeSearch: this.makeSearchGenerator('group'),
             entityRenderer: SharingModalGroupRenderComponent,
             ...config,
         });
@@ -64,7 +64,7 @@ export class UsersGroupsOrgsSharingModalDirective implements OnInit {
             id: 'organizations',
             title: this.translationService.translateAsync('vcd.cc.sharing.orgs'),
             selectAllText: this.translationService.translateAsync('vcd.cc.sharing.orgs.selected'),
-            makeSearch: this.makeSearchGenerator<OrgType>('organization'),
+            makeSearch: this.makeSearchGenerator('organization'),
             entityRenderer: SharingModalOrgRenderComponent,
             ...config,
         });
@@ -142,6 +142,10 @@ export class UsersGroupsOrgsSharingModalDirective implements OnInit {
         }
         host.selectAllToggles = [...host.selectAllToggles, ...this.toggles];
     }
+
+    makeSearchGenerator(type: 'user'): (search: string) => Promise<SearchResult<UserType>>;
+    makeSearchGenerator(type: 'organization'): (search: string) => Promise<SearchResult<OrgType>>;
+    makeSearchGenerator(type: 'group'): (search: string) => Promise<SearchResult<GroupType>>;
 
     makeSearchGenerator<T>(type: string): (search: string) => Promise<SearchResult<T>> {
         if (!this.client) {
