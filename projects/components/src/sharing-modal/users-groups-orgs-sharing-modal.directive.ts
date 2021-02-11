@@ -9,6 +9,7 @@ import { GroupType, OrgType, UserType } from '@vcd/bindings/vcloud/api/rest/sche
 import { TranslationService } from '@vcd/i18n';
 import { ComponentRenderer } from '../datagrid/interfaces/component-renderer.interface';
 import { FilterBuilder } from '../utils/filter-builder';
+import { RestQueryService } from '../utils/rest-query-search.client';
 import { SharingModalComponent, SharingSelectAllToggle } from './sharing-modal.component';
 import { HasId, PredefinedSharingTab, SearchResult, SharingTab } from './tabs/sharing-modal-tab.component';
 
@@ -128,7 +129,7 @@ export class UsersGroupsOrgsSharingModalDirective implements OnInit {
     constructor(
         private hostSharingModalComponent: SharingModalComponent,
         private translationService: TranslationService,
-        @Optional() @Inject(VcdApiClient) private client: VcdApiClient
+        @Optional() @Inject(RestQueryService) private client: RestQueryService
     ) {}
 
     ngOnInit(): void {
@@ -154,7 +155,20 @@ export class UsersGroupsOrgsSharingModalDirective implements OnInit {
         return async (searchTerm: string) => {
             const filter = new FilterBuilder().is('name').equalTo(`*${searchTerm}*`);
             const result: any = await this.client
-                .query(Query.Builder.ofType(type).filter(filter.getString()).links(false).pageSize(10), true)
+                .queryEntity(
+                    type,
+                    {
+                        filter,
+                        pagination: {
+                            page: 1,
+                            pageSize: 10,
+                        },
+                    },
+                    {
+                        links: false,
+                        multisite: true,
+                    }
+                )
                 .toPromise();
             return {
                 items: result.record as HasId<T>[],
