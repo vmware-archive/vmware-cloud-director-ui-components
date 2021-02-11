@@ -1,3 +1,9 @@
+<p>
+    This is an example of how to configure the sharing modal on its own. You can customize the title, the tabs, and the
+    checkboxes. Opening the modal must be done by a trigger coming outside through the two-way binding of `isOpened`.
+    The form value is also a two way binding. Supply the currently shared with entities, and it will emit the new value
+    when the user clicks submit.
+</p>
 <button (click)="opened = true">Open</button>
 <vcd-sharing-modal
     *ngIf="opened"

@@ -38,7 +38,6 @@ export class UsersGroupsOrgsSharingModalExampleComponent {
                 value: 'all_access',
             },
         ],
-        entityRenderer: SharingModalRendererComponent,
         makeSearch(criteria: string): Promise<SearchResult<MyEntity>> {
             return Promise.resolve({
                 items: [
@@ -71,7 +70,6 @@ export class UsersGroupsOrgsSharingModalExampleComponent {
                 value: 'all_access',
             },
         ],
-        entityRenderer: SharingModalRendererComponent,
         makeSearch(criteria: string): Promise<SearchResult<MyEntity>> {
             return Promise.resolve({
                 items: [
@@ -96,7 +94,6 @@ export class UsersGroupsOrgsSharingModalExampleComponent {
                 value: 'read_only',
             },
         ],
-        entityRenderer: SharingModalRendererComponent,
         makeSearch(criteria: string): Promise<SearchResult<MyEntity>> {
             return Promise.resolve({
                 items: [
@@ -155,12 +152,4 @@ export class UsersGroupsOrgsSharingModalExampleComponent {
     log(event): void {
         console.log(event);
     }
-}
-
-@Component({
-    selector: 'vcd-datagrid-detail-pane-sub-example',
-    template: ` {{ config.name }} ({{ config.id }}) `,
-})
-export class SharingModalRendererComponent implements ComponentRenderer<HasId<MyEntity>> {
-    @Input() config: HasId<MyEntity>;
 }

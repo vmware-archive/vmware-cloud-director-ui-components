@@ -34,8 +34,8 @@ export class SharingModalExampleComponent implements OnInit {
 
     tabs: SharingTab<MyEntity>[] = [
         {
-            id: 'user',
-            title: 'Users',
+            id: 'entity-a',
+            title: 'Entity A',
             rightsOptions: [
                 {
                     display: 'Read Only',
@@ -61,12 +61,12 @@ export class SharingModalExampleComponent implements OnInit {
                     ],
                 }),
             entityRenderer: SharingModalRendererComponent,
-            comboboxPlaceholder: new BehaviorSubject('Select users to share with'),
-            selectAllText: new BehaviorSubject('Currently Sharing with All Users'),
+            comboboxPlaceholder: new BehaviorSubject('Select entities to share with'),
+            selectAllText: new BehaviorSubject('Currently Sharing with All entities'),
         },
         {
-            id: 'group',
-            title: 'Groups',
+            id: 'entity-b',
+            title: 'Entity B',
             // customRenderer: (record) => `${record.name} ${record.id}`,
             rightsOptions: [
                 {
@@ -88,64 +88,29 @@ export class SharingModalExampleComponent implements OnInit {
             comboboxPlaceholder: 'Select groups to share with',
             selectAllText: 'Currently Sharing with All Groups',
         },
-        {
-            id: 'org',
-            title: 'Orgs',
-            // customRenderer: (record) => `${record.name} ${record.id}`,
-            rightsOptions: [
-                {
-                    display: 'Read Only',
-                    value: 'read_only',
-                },
-                {
-                    display: 'Write Only',
-                    value: 'write_only',
-                },
-                {
-                    display: 'All Access',
-                    value: 'all_access',
-                },
-            ],
-            makeSearch: (criteria: string) =>
-                Promise.resolve({
-                    totalCount: 15,
-                    items: [
-                        {
-                            name: 'Bob',
-                            id: String(Math.random()),
-                        },
-                    ],
-                }),
-            comboboxPlaceholder: 'Select organizations to share with',
-            selectAllText: 'Currently Sharing with All Orgs',
-        },
     ];
 
     checkboxes: SharingSelectAllToggle[] = [
         {
-            description: 'Select All Users and Groups',
-            tabIds: ['user', 'group'],
-        },
-        {
-            description: 'Select All Orgs',
-            tabIds: ['org'],
+            description: 'Select All Entites',
+            tabIds: ['entity-a', 'entity-b'],
         },
     ];
 
     value: SharingModalResult = {
-        user: {
+        'entity-a': {
             selectedItems: [
                 {
-                    name: 'Hannah',
-                    id: 'hannah',
+                    name: 'An Entity',
+                    id: 'an-entity',
                     accessRight: {
                         display: 'Read Only',
                         value: 'read_only',
                     },
                 },
                 {
-                    name: 'Ryan',
-                    id: 'ryan',
+                    name: 'Another Entity',
+                    id: 'another-entity',
                     accessRight: {
                         display: 'Owner',
                         value: 'owner',
@@ -153,20 +118,17 @@ export class SharingModalExampleComponent implements OnInit {
                 },
             ],
         },
-        group: {
+        'entity-b': {
             selectedItems: [
                 {
-                    name: 'Hannah',
-                    id: 'hannah',
+                    name: 'Some Entity',
+                    id: 'some-entity',
                     accessRight: {
                         display: 'Read Only',
                         value: 'read_only',
                     },
                 },
             ],
-        },
-        org: {
-            selectAllRights: 'read_only',
         },
     };
 

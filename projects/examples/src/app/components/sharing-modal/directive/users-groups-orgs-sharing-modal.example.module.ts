@@ -6,13 +6,10 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { VcdComponentsModule } from '@vcd/ui-components';
-import {
-    SharingModalRendererComponent,
-    UsersGroupsOrgsSharingModalExampleComponent,
-} from './users-groups-orgs-sharing-modal.example';
+import { UsersGroupsOrgsSharingModalExampleComponent } from './users-groups-orgs-sharing-modal.example';
 
 @NgModule({
-    declarations: [UsersGroupsOrgsSharingModalExampleComponent, SharingModalRendererComponent],
+    declarations: [UsersGroupsOrgsSharingModalExampleComponent],
     imports: [CommonModule, VcdComponentsModule],
     exports: [UsersGroupsOrgsSharingModalExampleComponent],
     entryComponents: [UsersGroupsOrgsSharingModalExampleComponent],
