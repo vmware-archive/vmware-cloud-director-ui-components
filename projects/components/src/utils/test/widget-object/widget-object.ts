@@ -33,6 +33,13 @@ export class BaseWidgetObject<T> {
     }
 
     /**
+     * Gives the element that underlies the current widget object.
+     */
+    public self(): T {
+        return this.locatorDriver.unwrap();
+    }
+
+    /**
      * Returns an element locator that will find a child with the given cssSelector when called.
      */
     protected locatorForCssSelectors? = (cssSelector: string): ElementLocator<T> => {

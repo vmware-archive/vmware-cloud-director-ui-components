@@ -117,7 +117,7 @@ describe('DatagridComponent', () => {
             it('gives proper css class for the grid', function (this: HasFinderAndGrid): void {
                 this.hostComponent.clrDatagridCssClass = 'some_class';
                 this.finder.detectChanges();
-                expect(this.clrGridWidget.clrDatagrid.classes()).toContain('some_class');
+                expect(this.clrGridWidget.self().classes()).toContain('some_class');
             });
 
             it('sets no default CSS classnames for the rows', function (this: HasFinderAndGrid): void {
@@ -348,7 +348,7 @@ describe('DatagridComponent', () => {
                         tick();
                         this.clrGridWidget.getSelectionLabelForRow(1).click();
                         tick();
-                        const component = this.vcdDatagrid.vcdDatagrid.getComponentInstance() as MockRecordDatagridComponent;
+                        const component = this.vcdDatagrid.self().getComponentInstance() as MockRecordDatagridComponent;
                         expect(component.datagridSelection).toEqual([mockData[1]]);
                         this.hostComponent.gridData = {
                             items: [mockData[0]],
@@ -610,24 +610,24 @@ describe('DatagridComponent', () => {
                 it('defaults to parent height when height is not set', function (this: HasFinderAndGrid): void {
                     this.hostComponent.height = undefined;
                     this.finder.detectChanges();
-                    expect(this.vcdDatagrid.vcdDatagrid.classes()).toContain('fill-parent');
-                    expect(this.vcdDatagrid.vcdDatagrid.getStylePropertyValue('--datagrid-height')).toEqual('unset');
+                    expect(this.vcdDatagrid.self().classes()).toContain('fill-parent');
+                    expect(this.vcdDatagrid.self().getStylePropertyValue('--datagrid-height')).toEqual('unset');
                 });
 
                 it('uses the given height when height is set', function (this: HasFinderAndGrid): void {
                     this.hostComponent.height = 200;
                     this.finder.detectChanges();
-                    expect(this.vcdDatagrid.vcdDatagrid.getStylePropertyValue('--datagrid-height')).toEqual('200px');
+                    expect(this.vcdDatagrid.self().getStylePropertyValue('--datagrid-height')).toEqual('200px');
                 });
 
                 it('allows the height to be dynamically changed', function (this: HasFinderAndGrid): void {
                     this.hostComponent.height = 200;
                     this.finder.detectChanges();
-                    expect(this.vcdDatagrid.vcdDatagrid.getStylePropertyValue('--datagrid-height')).toEqual('200px');
+                    expect(this.vcdDatagrid.self().getStylePropertyValue('--datagrid-height')).toEqual('200px');
                     this.hostComponent.height = undefined;
                     this.finder.detectChanges();
-                    expect(this.vcdDatagrid.vcdDatagrid.classes()).toContain('fill-parent');
-                    expect(this.vcdDatagrid.vcdDatagrid.getStylePropertyValue('--datagrid-height')).toEqual('unset');
+                    expect(this.vcdDatagrid.self().classes()).toContain('fill-parent');
+                    expect(this.vcdDatagrid.self().getStylePropertyValue('--datagrid-height')).toEqual('unset');
                 });
             });
         });
@@ -666,7 +666,7 @@ describe('DatagridComponent', () => {
 
         it('displays loading indicators while data is loading', function (this: HasFinderAndGrid): void {
             this.finder.detectChanges();
-            expect(this.clrGridWidget.clrDatagrid.getComponentInstance().loading).toBe(
+            expect(this.clrGridWidget.self().getComponentInstance().loading).toBe(
                 true,
                 'Initially loading indicator should be true'
             );
@@ -675,7 +675,7 @@ describe('DatagridComponent', () => {
                 totalItems: 2,
             };
             this.finder.detectChanges();
-            expect(this.clrGridWidget.clrDatagrid.getComponentInstance().loading).toBe(
+            expect(this.clrGridWidget.self().getComponentInstance().loading).toBe(
                 false,
                 'After setting gridData, loading indicator should not be visible'
             );
@@ -1093,7 +1093,7 @@ describe('DatagridComponent', () => {
             it('enables only sorting when queryFieldName is given but no filter is provided', function (this: HasFinderAndGrid): void {
                 this.hostComponent.columns = [{ displayName: 'Name', renderer: 'name', queryFieldName: 'name' }];
                 this.finder.detectChanges();
-                const el = this.clrGridWidget.clrDatagrid.getComponentInstance();
+                const el = this.clrGridWidget.self().getComponentInstance();
                 expect(el.columns.first.sortable).toEqual(true);
                 expect(el.columns.first.customFilter).toEqual(false);
             });
@@ -1109,7 +1109,7 @@ describe('DatagridComponent', () => {
                     },
                 ];
                 this.finder.detectChanges();
-                const el = this.clrGridWidget.clrDatagrid.getComponentInstance();
+                const el = this.clrGridWidget.self().getComponentInstance();
                 expect(el.columns.first.sortable).toEqual(false);
                 expect(el.columns.first.customFilter).toEqual(true);
             });
@@ -1124,7 +1124,7 @@ describe('DatagridComponent', () => {
                     },
                 ];
                 this.finder.detectChanges();
-                const el = this.clrGridWidget.clrDatagrid.getComponentInstance();
+                const el = this.clrGridWidget.self().getComponentInstance();
                 expect(el.columns.first.sortable).toEqual(true);
                 expect(el.columns.first.customFilter).toEqual(true);
             });

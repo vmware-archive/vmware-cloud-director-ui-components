@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+- Adds a `self` method to `BaseWidgetObject`.
 ## [2.0.0-dev.1]
 ### Fixed
 - Vapp Add action bug which exposed the bug with quick search showing grouped actions with empty children in the search result
