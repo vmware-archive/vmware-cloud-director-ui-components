@@ -9,9 +9,30 @@ import { GroupType, OrgType, UserType } from '@vcd/bindings/vcloud/api/rest/sche
 import { TranslationService } from '@vcd/i18n';
 import { ComponentRenderer } from '../datagrid/interfaces/component-renderer.interface';
 import { FilterBuilder } from '../utils/filter-builder';
-import { RestQueryService } from '../utils/rest-query-search.client';
+import { RestQueryService } from '../utils/rest/rest-query-search.client';
 import { SharingModalComponent, SharingSelectAllToggle } from './sharing-modal.component';
 import { HasId, PredefinedSharingTab, SearchResult, SharingTab } from './tabs/sharing-modal-tab.component';
+
+/**
+ * Given some search term, gives the complete filter.
+ */
+export type FilterCreator = (searchTerm: string) => FilterBuilder;
+
+/**
+ * A tab that knows how to communicate with the backend.
+ */
+export interface QueryableTab<T> extends PredefinedSharingTab<T> {
+    /**
+     * Gives the search term, provides the filter that will be sent to the backend.
+     */
+    filterCreator?: FilterCreator;
+}
+
+/**
+ * A filter creator that knows how to filter by name.
+ */
+export const defaultFilterCreator: FilterCreator = (searchTerm: string) =>
+    new FilterBuilder().is('name').equalTo(`*${searchTerm}*`);
 
 /**
  * Supplies convinece bindings to the `vcd-sharing-modal` for the use case
@@ -28,12 +49,12 @@ export class UsersGroupsOrgsSharingModalDirective implements OnInit {
      * If unset, there will be no users tab.
      */
     @Input()
-    set usersConfig(config: PredefinedSharingTab<unknown>) {
+    set usersConfig(config: QueryableTab<unknown>) {
         this.tabs.push({
             id: 'users',
             title: this.translationService.translateAsync('vcd.cc.sharing.users'),
             selectAllText: this.translationService.translateAsync('vcd.cc.sharing.users.selected'),
-            makeSearch: this.makeSearchGenerator('user'),
+            makeSearch: this.makeSearchGenerator('user', config.filterCreator || defaultFilterCreator),
             entityRenderer: SharingModalUserRenderComponent,
             ...config,
         });
@@ -44,12 +65,12 @@ export class UsersGroupsOrgsSharingModalDirective implements OnInit {
      * If unset, there will be no groups tab.
      */
     @Input()
-    set groupsConfig(config: PredefinedSharingTab<unknown>) {
+    set groupsConfig(config: QueryableTab<unknown>) {
         this.tabs.push({
             id: 'groups',
             title: this.translationService.translateAsync('vcd.cc.sharing.groups'),
             selectAllText: this.translationService.translateAsync('vcd.cc.sharing.groups.selected'),
-            makeSearch: this.makeSearchGenerator('group'),
+            makeSearch: this.makeSearchGenerator('group', config.filterCreator || defaultFilterCreator),
             entityRenderer: SharingModalGroupRenderComponent,
             ...config,
         });
@@ -60,12 +81,12 @@ export class UsersGroupsOrgsSharingModalDirective implements OnInit {
      * If unset, there will be no organizations tab.
      */
     @Input()
-    set orgsConfig(config: PredefinedSharingTab<unknown>) {
+    set orgsConfig(config: QueryableTab<unknown>) {
         this.tabs.push({
             id: 'organizations',
             title: this.translationService.translateAsync('vcd.cc.sharing.orgs'),
             selectAllText: this.translationService.translateAsync('vcd.cc.sharing.orgs.selected'),
-            makeSearch: this.makeSearchGenerator('organization'),
+            makeSearch: this.makeSearchGenerator('organization', config.filterCreator || defaultFilterCreator),
             entityRenderer: SharingModalOrgRenderComponent,
             ...config,
         });
@@ -144,25 +165,19 @@ export class UsersGroupsOrgsSharingModalDirective implements OnInit {
         host.selectAllToggles = [...host.selectAllToggles, ...this.toggles];
     }
 
-    makeSearchGenerator(type: 'user'): (search: string) => Promise<SearchResult<UserType>>;
-    makeSearchGenerator(type: 'organization'): (search: string) => Promise<SearchResult<OrgType>>;
-    makeSearchGenerator(type: 'group'): (search: string) => Promise<SearchResult<GroupType>>;
-
-    makeSearchGenerator<T>(type: string): (search: string) => Promise<SearchResult<T>> {
+    // tslint:disable-next-line: typedef
+    makeSearchGenerator<T extends string>(type: T, filterCreator: FilterCreator) {
         if (!this.client) {
             return undefined;
         }
         return async (searchTerm: string) => {
-            const filter = new FilterBuilder().is('name').equalTo(`*${searchTerm}*`);
-            const result: any = await this.client
+            const filter = filterCreator(searchTerm);
+            const result = await this.client
                 .queryEntity(
                     type,
                     {
                         filter,
-                        pagination: {
-                            page: 1,
-                            pageSize: 10,
-                        },
+                        pageSize: 10,
                     },
                     {
                         links: false,
@@ -171,13 +186,12 @@ export class UsersGroupsOrgsSharingModalDirective implements OnInit {
                 )
                 .toPromise();
             return {
-                items: result.record as HasId<T>[],
+                items: result.record as HasId<typeof result.record>[],
                 totalCount: result.total,
             };
         };
     }
 }
-
 @Component({
     selector: 'vcd-sharing-modal-user-renderer',
     template: ` <clr-icon [attr.size]="'1em'" [attr.shape]="'user'"></clr-icon> {{ config.name }}`,

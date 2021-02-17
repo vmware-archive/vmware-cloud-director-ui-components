@@ -13,7 +13,7 @@ import { VcdErrorBannerModule } from '../common/error';
 import { VcdDatagridModule } from '../datagrid';
 import { VcdComponentRendererOutletModule } from '../datagrid/directives/component-renderer-outlet.module';
 import { DropdownModule } from '../dropdown';
-import { RestQueryService } from '../utils/rest-query-search.client';
+import { RestQueryService } from '../utils/rest/rest-query-search.client';
 import { RightsDropdownRendererComponent } from './renderers/rights-dropdown-renderer';
 import { VcdSelectAllToggleComponent } from './select-all-checkbox/select-all-toggle.component';
 import { SharingModalComponent } from './sharing-modal.component';
