@@ -324,6 +324,7 @@ export class DatagridComponent<R extends B, B = any> implements OnInit, AfterVie
             /**
              * Reopen updated row or close it
              */
+            // eslint-disable-next-line @typescript-eslint/no-unused-expressions
             row ? this.datagrid.detailService.open(row.item, row.detailButton) : this.datagrid.detailService.close();
         }
     }

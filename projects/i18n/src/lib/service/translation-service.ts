@@ -4,8 +4,8 @@
  */
 
 import { Injectable } from '@angular/core';
-import DateTimeFormatOptions = Intl.DateTimeFormatOptions;
 import { Observable } from 'rxjs';
+import DateTimeFormatOptions = Intl.DateTimeFormatOptions;
 
 /**
  * Basic translations.

@@ -11,7 +11,7 @@ export const ALTERNATIVE_TEXT = 'alt';
  * Adds the 'alt' attribute to the injected svg in clr-icon elements.
  */
 @Directive({
-    // tslint:disable-next-line: directive-selector
+    // eslint-disable-next-line @angular-eslint/directive-selector
     selector: 'clr-icon',
 })
 export class AlternativeTextDirective implements AfterViewInit {

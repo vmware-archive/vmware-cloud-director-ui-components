@@ -413,7 +413,7 @@ export class NumberWithUnitFormInputComponent extends BaseFormControl implements
             const unitValue = Number(this.unitsControlValue);
 
             const displayComboUnit = this.comboOptions.find(
-                // tslint:disable-next-line:triple-equals
+                // eslint-disable-next-line eqeqeq
                 (co) => co.value == unitValue
             );
             const inputUnit: Unit = this.comboOptionUnitMap.get(displayComboUnit);

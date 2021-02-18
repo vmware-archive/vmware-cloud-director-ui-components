@@ -6,11 +6,11 @@
 // This file is required by karma.conf.js and loads recursively all the .spec and framework files
 
 import 'zone.js/dist/zone-testing';
-// tslint:disable-next-line: ordered-imports
+// eslint-disable-next-line import/order
 import { getTestBed } from '@angular/core/testing';
 import { BrowserDynamicTestingModule, platformBrowserDynamicTesting } from '@angular/platform-browser-dynamic/testing';
 // Required so typescript to access karma's context
-// tslint:disable-next-line:variable-name
+// eslint-disable-next-line @typescript-eslint/naming-convention, no-underscore-dangle, id-blacklist, id-match
 declare const require: any;
 
 // First, initialize the Angular testing environment.

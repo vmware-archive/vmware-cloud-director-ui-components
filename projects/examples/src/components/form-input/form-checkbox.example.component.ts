@@ -28,6 +28,7 @@ export class FormCheckboxExampleComponent implements OnInit {
 
     ngOnInit(): void {
         this.formGroup.get('checkboxInput').valueChanges.subscribe((value) => {
+            // eslint-disable-next-line @typescript-eslint/no-unused-expressions
             value ? this.formGroup.controls.toggleInput.enable() : this.formGroup.controls.toggleInput.disable();
         });
     }

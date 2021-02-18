@@ -85,8 +85,7 @@ describe('ActionSearchProvider', () => {
                 'call unpause',
             async function (this: HasActionSearchProvider): Promise<void> {
                 this.actionSearchProvider.actions = getMockActionsList();
-                let searchResultsBeforePausing;
-                searchResultsBeforePausing = await this.actionSearchProvider.search('sta');
+                const searchResultsBeforePausing = await this.actionSearchProvider.search('sta');
                 expect(searchResultsBeforePausing.items[0].displayText).toEqual('Start');
             }
         );

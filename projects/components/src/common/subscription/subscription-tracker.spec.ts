@@ -3,10 +3,10 @@
  * SPDX-License-Identifier: BSD-2-Clause
  */
 
-import createSpy = jasmine.createSpy;
 import { OnDestroy } from '@angular/core';
 import { Subject } from 'rxjs';
 import { SubscriptionTracker } from './subscription-tracker';
+import createSpy = jasmine.createSpy;
 
 describe('SubscriptionTracker', () => {
     /**

@@ -42,10 +42,10 @@ export class CommonUtil {
     ): (...args: Parameters<T>) => Promise<ReturnType<T>> {
         let timerId: any;
         let pendingPromise: Promise<ReturnType<T>> = null;
-        // tslint:disable-next-line:ban-types
+        // eslint-disable-next-line @typescript-eslint/ban-types
         let resolver: Function;
-        // tslint:disable-next-line:only-arrow-functions
-        return function(): Promise<any> {
+        // eslint-disable-next-line prefer-arrow/prefer-arrow-functions
+        return function (): Promise<any> {
             if (!pendingPromise) {
                 pendingPromise = new Promise((resolve) => {
                     resolver = resolve;

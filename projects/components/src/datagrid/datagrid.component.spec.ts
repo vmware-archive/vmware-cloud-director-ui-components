@@ -1097,7 +1097,7 @@ describe('DatagridComponent', () => {
                 expect(el.columns.first.sortable).toEqual(true);
                 expect(el.columns.first.customFilter).toEqual(false);
             });
-            // tslint:disable-next-line:max-line-length
+            // eslint-disable-next-line max-len
             it('enables only filtering when queryFieldName, filter are provided and sortable is set to false', function (this: HasFinderAndGrid): void {
                 this.hostComponent.columns = [
                     {
@@ -1113,7 +1113,7 @@ describe('DatagridComponent', () => {
                 expect(el.columns.first.sortable).toEqual(false);
                 expect(el.columns.first.customFilter).toEqual(true);
             });
-            // tslint:disable-next-line:max-line-length
+            // eslint-disable-next-line max-len
             it('enables both filtering and sorting when queryFieldName, filter are provided and sortable is not set to false', function (this: HasFinderAndGrid): void {
                 this.hostComponent.columns = [
                     {

@@ -13,16 +13,16 @@ import { ActionMenuHideDisableExampleComponent } from './hide-disable/action-men
 import { ActionMenuHideDisableExampleModule } from './hide-disable/action-menu-hide-disable.example.module';
 import { ActionMenuSearchDebounceExampleComponent } from './search-debounce/action-menu-search-debounce.example.component';
 import { ActionMenuSearchDebounceExampleModule } from './search-debounce/action-menu-search-debounce.example.module';
-// tslint:disable-next-line:max-line-length
+// eslint-disable-next-line max-len
 import { ActionMenuSearchPauseUnpauseExampleComponent } from './search-pause-unpause/action-menu-search-pause-and-unpause.example.component';
 import { ActionMenuSearchPauseAndUnpauseExampleModule } from './search-pause-unpause/action-menu-search-pause-and-unpause.example.module';
 import { ActionMenuSearchExampleComponent } from './search/action-menu-search-example.component';
 import { ActionMenuSearchExampleModule } from './search/action-menu-search-example.module';
 import { ActionMenuStaticActionsExampleComponent } from './static-actions/action-menu-static-actions-example.component';
 import { ActionMenuStaticActionsExampleModule } from './static-actions/action-menu-static-actions-example.module';
-// tslint:disable-next-line:max-line-length
+// eslint-disable-next-line max-len
 import { ActionMenuStaticAndContextualActionsExampleComponent } from './static-and-contextual-actions/action-menu-static-and-contextual-actions-example.component';
-// tslint:disable-next-line:max-line-length
+// eslint-disable-next-line max-len
 import { ActionMenuStaticAndContextualActionsExampleModule } from './static-and-contextual-actions/action-menu-static-and-contextual-actions-example.module';
 import { ActionMenuWithSeparatorsExampleComponent } from './with-separators/action-menu-with-separators.example.component';
 import { ActionMenuWithSeparatorsExampleModule } from './with-separators/action-menu-with-separators.example.module';

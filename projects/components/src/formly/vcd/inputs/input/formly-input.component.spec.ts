@@ -24,7 +24,6 @@ describe('vcd-formly-input', () => {
     let templateOptions: VcdFormlyTemplateOptions;
 
     beforeEach(async () => {
-        let vcdFormlyInputWidgetObject: VcdFormlyInputWidgetObject;
         await TestBed.configureTestingModule({
             imports: [FormlyModule.forRoot(), VcdFormlyModule],
             declarations: [TestHostComponent],
@@ -40,7 +39,7 @@ describe('vcd-formly-input', () => {
         finder.detectChanges();
 
         testHostComponent = finder.hostComponent;
-        vcdFormlyInputWidgetObject = finder.find(VcdFormlyInputWidgetObject);
+        const vcdFormlyInputWidgetObject = finder.find(VcdFormlyInputWidgetObject);
         vcdFormlyInputComponent = vcdFormlyInputWidgetObject.component;
     });
     beforeEach(() => {

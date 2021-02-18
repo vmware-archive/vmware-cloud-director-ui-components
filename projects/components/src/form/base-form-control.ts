@@ -32,7 +32,7 @@ export function defaultValidatorForControl(control: AbstractControl, defaultVali
  * the form control backing a form control name directive available to sub classes.
  */
 @Directive({})
-// tslint:disable-next-line: directive-class-suffix
+// eslint-disable-next-line @angular-eslint/directive-class-suffix
 export class BaseFormControl implements ControlValueAccessor, CanBeReadOnly {
     /**
      * Auto generated ID for the input field.
