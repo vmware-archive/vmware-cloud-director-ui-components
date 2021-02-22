@@ -63,7 +63,7 @@ export class SharingModalComponent implements OnInit {
         return this._tabs;
     }
 
-    private _tabs: SharingTab<unknown>[];
+    private _tabs: SharingTab<unknown>[] = [];
 
     /**
      * The select all toggles that should appear at the top of the modal.
@@ -170,8 +170,6 @@ export class SharingModalComponent implements OnInit {
     }
 
     ngOnInit(): void {
-        if (this.tabs) {
-            this.tabs = [...this.tabs];
-        }
+        this.tabs = [...this.tabs];
     }
 }

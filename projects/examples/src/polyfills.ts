@@ -89,6 +89,10 @@ if (!Element.prototype.matches) {
     Element.prototype.matches = (Element.prototype as any).msMatchesSelector || Element.prototype.webkitMatchesSelector;
 }
 
-/** Patches in SystemJs for use by the Angular Client */
+/**
+ * Patches in SystemJs for use by the VCD Angular Client. This package is @vcd/angular-client.
+ * This project requires that you use system JS to provide a module that gives injection tokens. We need
+ * to mock this module.
+ */
 import System from 'systemjs/dist/system';
 (window as any).SystemJs = System.registry.set('@vcd/common', System.newModule({})); // >= 9.5
