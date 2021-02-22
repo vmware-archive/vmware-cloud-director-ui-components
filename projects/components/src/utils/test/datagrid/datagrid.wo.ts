@@ -201,7 +201,12 @@ export class ClrDatagridWidgetObject<T> extends BaseWidgetObject<T> {
         return this.locatorDriver.get(Css.COLUMN).get(Css.FILTER).get(Css.FILTER_TOGGLE).unwrap();
     }
 
+    /**
+     * Unwraps the `vcd-datagrid`
+     *
+     * @deprecated Please use {@link ClrDatagridWidgetObject.self()}.
+     */
     get clrDatagrid(): T {
-        return this.locatorDriver.unwrap();
+        return this.self();
     }
 }

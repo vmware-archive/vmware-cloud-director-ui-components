@@ -72,10 +72,6 @@ class ClickTrackerWidgetObject<T> extends BaseWidgetObject<T> {
     findHeaderWidget(): HeaderWidgetObject<T> {
         return this.locatorDriver.findWidget<HeaderWidgetObject<T>>(HeaderWidgetObject);
     }
-
-    getSelf(): T {
-        return this.locatorDriver.unwrap();
-    }
 }
 
 /**
@@ -201,8 +197,8 @@ describe('TestElement', () => {
 
     describe('value', () => {
         it('gives the value from an input', fakeAsync(function (this: HasClickTracker): void {
-            this.clickTracker.getSelf().getComponentInstance().name = 'Ryan';
-            this.clickTracker.getSelf().detectChanges();
+            this.clickTracker.self().getComponentInstance().name = 'Ryan';
+            this.clickTracker.self().detectChanges();
             tick();
             expect(this.clickTracker.getNameInput().value()).toEqual('Ryan');
         }));
@@ -210,8 +206,8 @@ describe('TestElement', () => {
 
     describe('clear', () => {
         it('clears the input', fakeAsync(function (this: HasClickTracker): void {
-            this.clickTracker.getSelf().getComponentInstance().name = 'Ryan';
-            this.clickTracker.getSelf().detectChanges();
+            this.clickTracker.self().getComponentInstance().name = 'Ryan';
+            this.clickTracker.self().detectChanges();
             tick();
             expect(this.clickTracker.getNameInput().value()).toEqual('Ryan');
             this.clickTracker.getNameInput().clear();
