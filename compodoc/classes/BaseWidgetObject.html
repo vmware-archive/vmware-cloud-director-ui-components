@@ -131,6 +131,21 @@ actions on these elements in a given widget object.</p>
                     </td>
                 </tr>
 
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Methods</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                    <span class="modifier">Public</span>
+                                <a href="#self">self</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
 
 
 
@@ -252,7 +267,7 @@ actions on these elements in a given widget object.</p>
                     </tr>
                         <tr>
                             <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="45" class="link-to-prism">projects/components/src/utils/test/widget-object/widget-object.ts:45</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="52" class="link-to-prism">projects/components/src/utils/test/widget-object/widget-object.ts:52</a></div>
                             </td>
                         </tr>
 
@@ -294,7 +309,7 @@ actions on these elements in a given widget object.</p>
                     </tr>
                         <tr>
                             <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="38" class="link-to-prism">projects/components/src/utils/test/widget-object/widget-object.ts:38</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="45" class="link-to-prism">projects/components/src/utils/test/widget-object/widget-object.ts:45</a></div>
                             </td>
                         </tr>
 
@@ -336,7 +351,7 @@ actions on these elements in a given widget object.</p>
                     </tr>
                         <tr>
                             <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="52" class="link-to-prism">projects/components/src/utils/test/widget-object/widget-object.ts:52</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="59" class="link-to-prism">projects/components/src/utils/test/widget-object/widget-object.ts:59</a></div>
                             </td>
                         </tr>
 
@@ -351,7 +366,55 @@ actions on these elements in a given widget object.</p>
         </table>
 </section>
 
+            <section>
+    
+    <h3 id="methods">
+        Methods
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="self"></a>
+                    <span class="name">
+                        <b>
+                            <span class="modifier">Public</span>
+                            self
+                        </b>
+                        <a href="#self"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                    <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>self()</code>
+                </td>
+            </tr>
 
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="38"
+                            class="link-to-prism">projects/components/src/utils/test/widget-object/widget-object.ts:38</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Gives the element that underlies the current widget object.</p>
+</div>
+
+                    <div class="io-description">
+                        <b>Returns : </b>    <code>T</code>
+
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</section>
 
 
 
@@ -388,6 +451,13 @@ export class BaseWidgetObject&lt;T&gt; {
     protected locatorDriver?: LocatorDriver&lt;T&gt;;
     constructor(driver: LocatorDriver&lt;T&gt;) {
         this.locatorDriver &#x3D; driver;
+    }
+
+    /**
+     * Gives the element that underlies the current widget object.
+     */
+    public self(): T {
+        return this.locatorDriver.unwrap();
     }
 
     /**

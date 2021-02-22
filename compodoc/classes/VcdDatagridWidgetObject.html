@@ -123,6 +123,21 @@
                     </td>
                 </tr>
 
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Methods</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                    <span class="modifier">Public</span>
+                                <a href="#self">self</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
 
 
 
@@ -297,7 +312,7 @@
                             </tr>
                         <tr>
                             <td class="col-md-4">
-                                    <div class="io-line">Defined in         <code><a href="../classes/BaseWidgetObject.html#source" target="_self" >BaseWidgetObject:45</a></code>
+                                    <div class="io-line">Defined in         <code><a href="../classes/BaseWidgetObject.html#source" target="_self" >BaseWidgetObject:52</a></code>
 </div>
                             </td>
                         </tr>
@@ -346,7 +361,7 @@
                             </tr>
                         <tr>
                             <td class="col-md-4">
-                                    <div class="io-line">Defined in         <code><a href="../classes/BaseWidgetObject.html#source" target="_self" >BaseWidgetObject:38</a></code>
+                                    <div class="io-line">Defined in         <code><a href="../classes/BaseWidgetObject.html#source" target="_self" >BaseWidgetObject:45</a></code>
 </div>
                             </td>
                         </tr>
@@ -395,7 +410,7 @@
                             </tr>
                         <tr>
                             <td class="col-md-4">
-                                    <div class="io-line">Defined in         <code><a href="../classes/BaseWidgetObject.html#source" target="_self" >BaseWidgetObject:52</a></code>
+                                    <div class="io-line">Defined in         <code><a href="../classes/BaseWidgetObject.html#source" target="_self" >BaseWidgetObject:59</a></code>
 </div>
                             </td>
                         </tr>
@@ -411,7 +426,61 @@
         </table>
 </section>
 
+            <section>
+    
+    <h3 id="methods">
+        Methods
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="self"></a>
+                    <span class="name">
+                        <b>
+                            <span class="modifier">Public</span>
+                            self
+                        </b>
+                        <a href="#self"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                    <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>self()</code>
+                </td>
+            </tr>
 
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Inherited from         <code><a href="../classes/BaseWidgetObject.html" target="_self" >BaseWidgetObject</a></code>
+</div>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-line">Defined in         <code><a href="../classes/BaseWidgetObject.html#source" target="_self" >BaseWidgetObject:38</a></code>
+</div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Gives the element that underlies the current widget object.</p>
+</div>
+
+                    <div class="io-description">
+                        <b>Returns : </b>    <code>T</code>
+
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</section>
 
 
 
@@ -470,7 +539,7 @@
                 </tr>
                             <tr>
                                 <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="30" class="link-to-prism">projects/components/src/utils/test/datagrid/vcd-datagrid.wo.ts:30</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="32" class="link-to-prism">projects/components/src/utils/test/datagrid/vcd-datagrid.wo.ts:32</a></div>
                                 </td>
                             </tr>
                     <tr>
@@ -478,6 +547,8 @@
                                 <div class="io-description"><p>Unwraps the <code>vcd-datagrid</code></p>
 </div>
 
+                                <div>
+                                </div>
                                 <div class="io-description">
                                     <b>Returns : </b>    <code>T</code>
 
@@ -515,9 +586,11 @@ export class VcdDatagridWidgetObject&lt;T&gt; extends BaseWidgetObject&lt;T&gt; 
 
     /**
      * Unwraps the &#x60;vcd-datagrid&#x60;
+     *
+     * @deprecated Please use {@link VcdDatagridWidgetObject.self()}.
      */
     get vcdDatagrid(): T {
-        return this.locatorDriver.unwrap();
+        return this.self();
     }
 }
 </code></pre>

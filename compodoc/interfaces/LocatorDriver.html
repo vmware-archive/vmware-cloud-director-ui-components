@@ -134,8 +134,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="79"
-                            class="link-to-prism">projects/components/src/utils/test/widget-object/widget-object.ts:79</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="86"
+                            class="link-to-prism">projects/components/src/utils/test/widget-object/widget-object.ts:86</a></div>
                 </td>
             </tr>
 
@@ -226,8 +226,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="64"
-                            class="link-to-prism">projects/components/src/utils/test/widget-object/widget-object.ts:64</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="71"
+                            class="link-to-prism">projects/components/src/utils/test/widget-object/widget-object.ts:71</a></div>
                 </td>
             </tr>
 
@@ -310,8 +310,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="69"
-                            class="link-to-prism">projects/components/src/utils/test/widget-object/widget-object.ts:69</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="76"
+                            class="link-to-prism">projects/components/src/utils/test/widget-object/widget-object.ts:76</a></div>
                 </td>
             </tr>
 
@@ -406,8 +406,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="74"
-                            class="link-to-prism">projects/components/src/utils/test/widget-object/widget-object.ts:74</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="81"
+                            class="link-to-prism">projects/components/src/utils/test/widget-object/widget-object.ts:81</a></div>
                 </td>
             </tr>
 
@@ -490,8 +490,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="84"
-                            class="link-to-prism">projects/components/src/utils/test/widget-object/widget-object.ts:84</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="91"
+                            class="link-to-prism">projects/components/src/utils/test/widget-object/widget-object.ts:91</a></div>
                 </td>
             </tr>
 
@@ -542,6 +542,13 @@ export class BaseWidgetObject&lt;T&gt; {
     protected locatorDriver?: LocatorDriver&lt;T&gt;;
     constructor(driver: LocatorDriver&lt;T&gt;) {
         this.locatorDriver &#x3D; driver;
+    }
+
+    /**
+     * Gives the element that underlies the current widget object.
+     */
+    public self(): T {
+        return this.locatorDriver.unwrap();
     }
 
     /**
