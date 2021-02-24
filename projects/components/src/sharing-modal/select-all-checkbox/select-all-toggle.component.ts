@@ -21,18 +21,6 @@ export interface ComboOption {
 })
 export class VcdSelectAllToggleComponent {
     /**
-     * The right options that should be displayed in the dropdown.
-     */
-    @Input()
-    rightsOptions: ComboOption[];
-
-    /**
-     * The text that is displayed next to the toggle.
-     */
-    @Input()
-    description: LazyString;
-
-    /**
      * The right that they are set to if currently selected.
      * If unset, will be set to false.
      */
@@ -46,12 +34,6 @@ export class VcdSelectAllToggleComponent {
         }
     }
 
-    /**
-     * Ouput when the value behind select all is changed or undefined if select all is disabled.
-     */
-    @Output()
-    selectionChange: EventEmitter<string | undefined> = new EventEmitter();
-
     set selectedRight(selectedValue: string) {
         if (this.isSelected) {
             this._selectedRightValue = selectedValue;
@@ -62,9 +44,28 @@ export class VcdSelectAllToggleComponent {
     get selectedRight(): string {
         return this._selectedRightValue || this.rightsOptions[0].value;
     }
+    /**
+     * The right options that should be displayed in the dropdown.
+     */
+    @Input()
+    rightsOptions: ComboOption[];
+
+    /**
+     * The text that is displayed next to the toggle.
+     */
+    @Input()
+    description: LazyString;
+
+    /**
+     * Ouput when the value behind select all is changed or undefined if select all is disabled.
+     */
+    @Output()
+    selectionChange: EventEmitter<string | undefined> = new EventEmitter();
 
     private _selectedRightValue: string;
     isSelected = false;
+
+    id = `checkbox-${Math.random()}`;
 
     selectAllChange(): void {
         this.isSelected = !this.isSelected;

@@ -6,6 +6,15 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
+### Fixes
+- Makes it so the page size warning is only displayed when all are not shown.
+- Fixes an error that was thrown in the sharing modal with the users groups orgs directive.
+### Changed
+- BREAKING: Renamed `HasHref` to `HasId`. Entities given to the Sharing Modal are now required to have an ID property instead of a HREF.
+
+### Added
+- The UsersGroupsOrgsSharingModalDirective now provides a default for `makeSearch` and `entityRenderer`.
+- BREAKING: Adds @vcd/angular-client as a dependency.
 
 ### Added
 - Adds a `self` method to `BaseWidgetObject`.

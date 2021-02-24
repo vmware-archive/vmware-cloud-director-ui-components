@@ -7,7 +7,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { LazyString } from '@vcd/i18n';
 import {
     ComponentRenderer,
-    HasHref,
+    HasId,
     SharingModalResult,
     SharingSelectAllToggle,
     SharingTab,
@@ -17,7 +17,7 @@ import { BehaviorSubject } from 'rxjs';
 
 interface MyEntity {
     name: string;
-    href: string;
+    id: string;
 }
 
 @Component({
@@ -34,8 +34,8 @@ export class SharingModalExampleComponent implements OnInit {
 
     tabs: SharingTab<MyEntity>[] = [
         {
-            id: 'user',
-            title: 'Users',
+            id: 'entity-a',
+            title: 'Entity A',
             rightsOptions: [
                 {
                     display: 'Read Only',
@@ -56,17 +56,17 @@ export class SharingModalExampleComponent implements OnInit {
                     items: [
                         {
                             name: 'Bob',
-                            href: String(Math.random()),
+                            id: String(Math.random()),
                         },
                     ],
                 }),
             entityRenderer: SharingModalRendererComponent,
-            comboboxPlaceholder: new BehaviorSubject('Select users to share with'),
-            selectAllText: new BehaviorSubject('Currently Sharing with All Users'),
+            comboboxPlaceholder: new BehaviorSubject('Select entities to share with'),
+            selectAllText: new BehaviorSubject('Currently Sharing with All entities'),
         },
         {
-            id: 'group',
-            title: 'Groups',
+            id: 'entity-b',
+            title: 'Entity B',
             // customRenderer: (record) => `${record.name} ${record.id}`,
             rightsOptions: [
                 {
@@ -88,64 +88,29 @@ export class SharingModalExampleComponent implements OnInit {
             comboboxPlaceholder: 'Select groups to share with',
             selectAllText: 'Currently Sharing with All Groups',
         },
-        {
-            id: 'org',
-            title: 'Orgs',
-            // customRenderer: (record) => `${record.name} ${record.id}`,
-            rightsOptions: [
-                {
-                    display: 'Read Only',
-                    value: 'read_only',
-                },
-                {
-                    display: 'Write Only',
-                    value: 'write_only',
-                },
-                {
-                    display: 'All Access',
-                    value: 'all_access',
-                },
-            ],
-            makeSearch: (criteria: string) =>
-                Promise.resolve({
-                    totalCount: 15,
-                    items: [
-                        {
-                            name: 'Bob',
-                            href: String(Math.random()),
-                        },
-                    ],
-                }),
-            comboboxPlaceholder: 'Select organizations to share with',
-            selectAllText: 'Currently Sharing with All Orgs',
-        },
     ];
 
     checkboxes: SharingSelectAllToggle[] = [
         {
-            description: 'Select All Users and Groups',
-            tabIds: ['user', 'group'],
-        },
-        {
-            description: 'Select All Orgs',
-            tabIds: ['org'],
+            description: 'Select All Entites',
+            tabIds: ['entity-a', 'entity-b'],
         },
     ];
 
     value: SharingModalResult = {
-        user: {
+        'entity-a': {
             selectedItems: [
                 {
-                    name: 'Hannah',
-                    href: 'hannah',
+                    name: 'An Entity',
+                    id: 'an-entity',
                     accessRight: {
                         display: 'Read Only',
                         value: 'read_only',
                     },
                 },
                 {
-                    name: 'Ryan',
-                    href: 'ryan',
+                    name: 'Another Entity',
+                    id: 'another-entity',
                     accessRight: {
                         display: 'Owner',
                         value: 'owner',
@@ -153,20 +118,17 @@ export class SharingModalExampleComponent implements OnInit {
                 },
             ],
         },
-        group: {
+        'entity-b': {
             selectedItems: [
                 {
-                    name: 'Hannah',
-                    href: 'hannah',
+                    name: 'Some Entity',
+                    id: 'some-entity',
                     accessRight: {
                         display: 'Read Only',
                         value: 'read_only',
                     },
                 },
             ],
-        },
-        org: {
-            selectAllRights: 'read_only',
         },
     };
 
@@ -179,8 +141,8 @@ export class SharingModalExampleComponent implements OnInit {
 
 @Component({
     selector: 'vcd-datagrid-detail-pane-sub-example',
-    template: ` {{ config.name }} ({{ config.href }}) `,
+    template: ` {{ config.name }} ({{ config.id }}) `,
 })
-export class SharingModalRendererComponent implements ComponentRenderer<HasHref<MyEntity>> {
-    @Input() config: HasHref<MyEntity>;
+export class SharingModalRendererComponent implements ComponentRenderer<HasId<MyEntity>> {
+    @Input() config: HasId<MyEntity>;
 }

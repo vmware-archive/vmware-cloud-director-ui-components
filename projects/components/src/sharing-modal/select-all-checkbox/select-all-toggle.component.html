@@ -6,8 +6,9 @@
         name="options"
         [ngModel]="isSelected"
         (change)="selectAllChange()"
+        [id]="id"
     />
-    <label>{{ description | lazyString }}</label>
+    <label [for]="id">{{ description | lazyString }}</label>
     <select clrSelect name="options" [(ngModel)]="selectedRight" [disabled]="!isSelected">
         <option *ngFor="let option of rightsOptions" value="{{ option.value }}">
             {{ option.display | lazyString }}
