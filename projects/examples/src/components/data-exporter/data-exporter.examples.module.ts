@@ -4,10 +4,10 @@
  */
 
 import { NgModule } from '@angular/core';
-import { DataExporterExampleComponent } from './data-exporter.example.component';
 
 import { DataExporterComponent } from '@vcd/ui-components';
 import { Documentation } from '@vmw/ng-live-docs';
+import { DataExporterExampleComponent } from './data-exporter.example.component';
 import { DataExporterExampleModule } from './data-exporter.example.module';
 
 Documentation.registerDocumentationEntry({

@@ -105,7 +105,7 @@ describe('Datagrid numeric filter', () => {
                 this.filter.setValue([1, null]);
                 expect(this.filter.getValue()).toEqual(`${queryFieldName}=gt=1`);
             });
-            // tslint:disable-next-line: max-line-length
+            // eslint-disable-next-line max-len
             it('returns a FIQL string with both ge and le as operators when both limits are set', function (this: HasDgNumericFilter): void {
                 this.filter.setValue([1, 10]);
                 expect(this.filter.getValue()).toEqual(`(${queryFieldName}=ge=1;${queryFieldName}=le=10)`);

@@ -8,15 +8,15 @@
  */
 export class PlatformUtil {
     public static readonly browser = {
-        // tslint:disable-next-line: no-string-literal
+        // eslint-disable-next-line @typescript-eslint/dot-notation
         isOpera: !!window['opera'] || navigator.userAgent.indexOf(' OPR/') >= 0,
-        // tslint:disable-next-line: no-string-literal
+        // eslint-disable-next-line @typescript-eslint/dot-notation
         isFirefox: typeof window['InstallTrigger'] !== 'undefined',
-        // tslint:disable-next-line: no-string-literal
+        // eslint-disable-next-line @typescript-eslint/dot-notation
         isSafari: Object.prototype.toString.call(window['HTMLElement']).indexOf('Constructor') > 0,
-        // tslint:disable-next-line: no-string-literal
+        // eslint-disable-next-line @typescript-eslint/dot-notation
         isChrome: !!window['chrome'] && !(!!window['opera'] || navigator.userAgent.indexOf(' OPR/') >= 0),
-        // tslint:disable-next-line: no-string-literal
+        // eslint-disable-next-line @typescript-eslint/dot-notation
         isIE: /*@cc_on!@*/ false || !!document['documentMode'], // At least IE6
     };
 

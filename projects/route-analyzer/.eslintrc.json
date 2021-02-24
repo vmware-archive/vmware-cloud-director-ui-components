@@ -1,0 +1,20 @@
+{
+  "extends": "../../.eslintrc.js",
+  "ignorePatterns": [
+    "!**/*"
+  ],
+  "overrides": [
+    {
+      "files": [
+        "*.ts"
+      ],
+      "parserOptions": {
+        "project": [
+          "projects/route-analyzer/tsconfig.lib.json",
+          "projects/route-analyzer/tsconfig.spec.json"
+        ],
+        "createDefaultProgram": true
+      }
+    }
+  ]
+}

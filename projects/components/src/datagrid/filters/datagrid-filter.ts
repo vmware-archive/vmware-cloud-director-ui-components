@@ -54,7 +54,7 @@ export interface FilterRendererSpec<C> extends ComponentRendererSpec<C> {
  * C extends FilterConfig<V> is configuration of a filter that contains queryField and a value of type V
  */
 @Directive()
-// tslint:disable-next-line: directive-class-suffix
+// eslint-disable-next-line @angular-eslint/directive-class-suffix
 export abstract class DatagridFilter<V, C extends FilterConfig<V>>
     implements OnInit, OnDestroy, ClrDatagridFilterInterface<V>, ComponentRenderer<C> {
     formGroup = this.createFormGroup();

@@ -9,6 +9,6 @@
  */
 export function timeout(ms = 0): Promise<number> {
     // See https://github.com/microsoft/tslint-microsoft-contrib/issues/355
-    // tslint:disable-next-line no-string-based-set-timeout
+    // eslint-disable-next-line
     return new Promise((resolve) => window.setTimeout(resolve, ms));
 }
