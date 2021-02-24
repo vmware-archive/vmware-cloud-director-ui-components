@@ -8,7 +8,7 @@ module.exports = {
                 project: ['tsconfig.json', 'e2e/tsconfig.json'],
                 createDefaultProgram: true,
             },
-            plugins: ['eslint-plugin-header'],
+            plugins: ['eslint-plugin-header', 'deprecation'],
             extends: [
                 'plugin:@angular-eslint/ng-cli-compat',
                 'plugin:@angular-eslint/ng-cli-compat--formatting-add-on',
@@ -90,6 +90,7 @@ module.exports = {
                 '@typescript-eslint/no-shadow': ['error'],
                 'no-delete-var': 'error',
                 'no-restricted-syntax': ['error', 'document.domain', 'exec'],
+                'deprecation/deprecation': 'warn',
             },
         },
         {
