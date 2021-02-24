@@ -194,7 +194,7 @@ In both formats single unitName - &quot;%&quot; is used represent the value</p>
                 </tr>
                         <tr>
                             <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="188" class="link-to-prism">projects/components/src/utils/unit/unit.ts:188</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="190" class="link-to-prism">projects/components/src/utils/unit/unit.ts:190</a></div>
                             </td>
                         </tr>
 
@@ -331,7 +331,7 @@ In both formats single unitName - &quot;%&quot; is used represent the value</p>
                     </tr>
                         <tr>
                             <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="196" class="link-to-prism">projects/components/src/utils/unit/unit.ts:196</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="189" class="link-to-prism">projects/components/src/utils/unit/unit.ts:189</a></div>
                             </td>
                         </tr>
 
@@ -364,7 +364,7 @@ In both formats single unitName - &quot;%&quot; is used represent the value</p>
                     </tr>
                         <tr>
                             <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="197" class="link-to-prism">projects/components/src/utils/unit/unit.ts:197</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="190" class="link-to-prism">projects/components/src/utils/unit/unit.ts:190</a></div>
                             </td>
                         </tr>
 
@@ -1294,6 +1294,8 @@ export class Bytes extends PowerTwoUnit {
 export class Percent extends Unit {
     static valueWithUnitTranslationKey &#x3D; &#x27;vcd.cc.display.percent&#x27;;
     static unitTranslationKey &#x3D; &#x27;vcd.cc.units.percent&#x27;;
+    static ZERO_TO_1 &#x3D; new Percent(1);
+    static ZERO_TO_100 &#x3D; new Percent(0.01);
 
     /**
      * Percent always has unitName as &quot;%&quot;
@@ -1301,8 +1303,6 @@ export class Percent extends Unit {
     constructor(multiplier: number) {
         super(multiplier, &#x27;%&#x27;);
     }
-    static ZERO_TO_1 &#x3D; new Percent(1);
-    static ZERO_TO_100 &#x3D; new Percent(0.01);
 
     getValueWithUnitTranslationKey(): string {
         return Percent.valueWithUnitTranslationKey;

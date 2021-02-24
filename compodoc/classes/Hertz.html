@@ -3645,6 +3645,8 @@ export class Bytes extends PowerTwoUnit {
 export class Percent extends Unit {
     static valueWithUnitTranslationKey &#x3D; &#x27;vcd.cc.display.percent&#x27;;
     static unitTranslationKey &#x3D; &#x27;vcd.cc.units.percent&#x27;;
+    static ZERO_TO_1 &#x3D; new Percent(1);
+    static ZERO_TO_100 &#x3D; new Percent(0.01);
 
     /**
      * Percent always has unitName as &quot;%&quot;
@@ -3652,8 +3654,6 @@ export class Percent extends Unit {
     constructor(multiplier: number) {
         super(multiplier, &#x27;%&#x27;);
     }
-    static ZERO_TO_1 &#x3D; new Percent(1);
-    static ZERO_TO_100 &#x3D; new Percent(0.01);
 
     getValueWithUnitTranslationKey(): string {
         return Percent.valueWithUnitTranslationKey;

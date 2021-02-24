@@ -262,6 +262,7 @@ export interface RestQueryOptions {
  */
 @Injectable()
 export class RestQueryService extends VcdApiClient {
+    // eslint-disable-next-line constructor-super
     constructor(injectors: Injector) {
         let http: VcdHttpClient;
         try {

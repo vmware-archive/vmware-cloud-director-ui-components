@@ -179,8 +179,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="64"
-                            class="link-to-prism">projects/components/src/utils/rest/rest-query-search.client.ts:64</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="65"
+                            class="link-to-prism">projects/components/src/utils/rest/rest-query-search.client.ts:65</a></div>
                 </td>
             </tr>
 
@@ -314,6 +314,7 @@ export interface RestQueryOptions {
  */
 @Injectable()
 export class RestQueryService extends VcdApiClient {
+    // eslint-disable-next-line constructor-super
     constructor(injectors: Injector) {
         let http: VcdHttpClient;
         try {

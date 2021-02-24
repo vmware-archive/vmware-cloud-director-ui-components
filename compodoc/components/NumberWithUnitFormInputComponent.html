@@ -2865,7 +2865,7 @@ export class NumberWithUnitFormInputComponent extends BaseFormControl implements
             const unitValue &#x3D; Number(this.unitsControlValue);
 
             const displayComboUnit &#x3D; this.comboOptions.find(
-                // tslint:disable-next-line:triple-equals
+                // eslint-disable-next-line eqeqeq
                 (co) &#x3D;&gt; co.value &#x3D;&#x3D; unitValue
             );
             const inputUnit: Unit &#x3D; this.comboOptionUnitMap.get(displayComboUnit);
