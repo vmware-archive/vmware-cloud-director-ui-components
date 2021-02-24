@@ -453,13 +453,13 @@ customElements.define('compodoc-menu', class extends HTMLElement {
                                 <a href="modules/VcdSharingModalModule.html" data-type="entity-link">VcdSharingModalModule</a>
                                     <li class="chapter inner">
                                         <div class="simple menu-toggler" data-toggle="collapse" ${ isNormalMode ?
-                                            'data-target="#components-links-module-VcdSharingModalModule-56703912e33908c89b5a60bd9451f78b"' : 'data-target="#xs-components-links-module-VcdSharingModalModule-56703912e33908c89b5a60bd9451f78b"' }>
+                                            'data-target="#components-links-module-VcdSharingModalModule-527167f49fc16832e6e9f12cd0366ffd"' : 'data-target="#xs-components-links-module-VcdSharingModalModule-527167f49fc16832e6e9f12cd0366ffd"' }>
                                             <span class="icon ion-md-cog"></span>
                                             <span>Components</span>
                                             <span class="icon ion-ios-arrow-down"></span>
                                         </div>
-                                        <ul class="links collapse" ${ isNormalMode ? 'id="components-links-module-VcdSharingModalModule-56703912e33908c89b5a60bd9451f78b"' :
-                                            'id="xs-components-links-module-VcdSharingModalModule-56703912e33908c89b5a60bd9451f78b"' }>
+                                        <ul class="links collapse" ${ isNormalMode ? 'id="components-links-module-VcdSharingModalModule-527167f49fc16832e6e9f12cd0366ffd"' :
+                                            'id="xs-components-links-module-VcdSharingModalModule-527167f49fc16832e6e9f12cd0366ffd"' }>
                                             <li class="link">
                                                 <a href="components/RightsDropdownRendererComponent.html"
                                                     data-type="entity-link" data-context="sub-entity" data-context-id="modules">RightsDropdownRendererComponent</a>
@@ -469,8 +469,20 @@ customElements.define('compodoc-menu', class extends HTMLElement {
                                                     data-type="entity-link" data-context="sub-entity" data-context-id="modules">SharingModalComponent</a>
                                             </li>
                                             <li class="link">
+                                                <a href="components/SharingModalGroupRenderComponent.html"
+                                                    data-type="entity-link" data-context="sub-entity" data-context-id="modules">SharingModalGroupRenderComponent</a>
+                                            </li>
+                                            <li class="link">
+                                                <a href="components/SharingModalOrgRenderComponent.html"
+                                                    data-type="entity-link" data-context="sub-entity" data-context-id="modules">SharingModalOrgRenderComponent</a>
+                                            </li>
+                                            <li class="link">
                                                 <a href="components/SharingModalTabComponent.html"
                                                     data-type="entity-link" data-context="sub-entity" data-context-id="modules">SharingModalTabComponent</a>
+                                            </li>
+                                            <li class="link">
+                                                <a href="components/SharingModalUserRenderComponent.html"
+                                                    data-type="entity-link" data-context="sub-entity" data-context-id="modules">SharingModalUserRenderComponent</a>
                                             </li>
                                             <li class="link">
                                                 <a href="components/VcdSelectAllToggleComponent.html"
@@ -480,16 +492,31 @@ customElements.define('compodoc-menu', class extends HTMLElement {
                                     </li>
                                 <li class="chapter inner">
                                     <div class="simple menu-toggler" data-toggle="collapse" ${ isNormalMode ?
-                                        'data-target="#directives-links-module-VcdSharingModalModule-56703912e33908c89b5a60bd9451f78b"' : 'data-target="#xs-directives-links-module-VcdSharingModalModule-56703912e33908c89b5a60bd9451f78b"' }>
+                                        'data-target="#directives-links-module-VcdSharingModalModule-527167f49fc16832e6e9f12cd0366ffd"' : 'data-target="#xs-directives-links-module-VcdSharingModalModule-527167f49fc16832e6e9f12cd0366ffd"' }>
                                         <span class="icon ion-md-code-working"></span>
                                         <span>Directives</span>
                                         <span class="icon ion-ios-arrow-down"></span>
                                     </div>
-                                    <ul class="links collapse" ${ isNormalMode ? 'id="directives-links-module-VcdSharingModalModule-56703912e33908c89b5a60bd9451f78b"' :
-                                        'id="xs-directives-links-module-VcdSharingModalModule-56703912e33908c89b5a60bd9451f78b"' }>
+                                    <ul class="links collapse" ${ isNormalMode ? 'id="directives-links-module-VcdSharingModalModule-527167f49fc16832e6e9f12cd0366ffd"' :
+                                        'id="xs-directives-links-module-VcdSharingModalModule-527167f49fc16832e6e9f12cd0366ffd"' }>
                                         <li class="link">
                                             <a href="directives/UsersGroupsOrgsSharingModalDirective.html"
                                                 data-type="entity-link" data-context="sub-entity" data-context-id="modules">UsersGroupsOrgsSharingModalDirective</a>
+                                        </li>
+                                    </ul>
+                                </li>
+                                <li class="chapter inner">
+                                    <div class="simple menu-toggler" data-toggle="collapse" ${ isNormalMode ?
+                                        'data-target="#injectables-links-module-VcdSharingModalModule-527167f49fc16832e6e9f12cd0366ffd"' : 'data-target="#xs-injectables-links-module-VcdSharingModalModule-527167f49fc16832e6e9f12cd0366ffd"' }>
+                                        <span class="icon ion-md-arrow-round-down"></span>
+                                        <span>Injectables</span>
+                                        <span class="icon ion-ios-arrow-down"></span>
+                                    </div>
+                                    <ul class="links collapse" ${ isNormalMode ? 'id="injectables-links-module-VcdSharingModalModule-527167f49fc16832e6e9f12cd0366ffd"' :
+                                        'id="xs-injectables-links-module-VcdSharingModalModule-527167f49fc16832e6e9f12cd0366ffd"' }>
+                                        <li class="link">
+                                            <a href="injectables/RestQueryService.html"
+                                                data-type="entity-link" data-context="sub-entity" data-context-id="modules" }>RestQueryService</a>
                                         </li>
                                     </ul>
                                 </li>
@@ -787,6 +814,12 @@ customElements.define('compodoc-menu', class extends HTMLElement {
                                 <a href="interfaces/PredefinedSharingTab.html" data-type="entity-link">PredefinedSharingTab</a>
                             </li>
                             <li class="link">
+                                <a href="interfaces/QueryableTab.html" data-type="entity-link">QueryableTab</a>
+                            </li>
+                            <li class="link">
+                                <a href="interfaces/QueryResult.html" data-type="entity-link">QueryResult</a>
+                            </li>
+                            <li class="link">
                                 <a href="interfaces/QuickSearchProvider.html" data-type="entity-link">QuickSearchProvider</a>
                             </li>
                             <li class="link">
@@ -797,6 +830,12 @@ customElements.define('compodoc-menu', class extends HTMLElement {
                             </li>
                             <li class="link">
                                 <a href="interfaces/ResponsiveInputOptions.html" data-type="entity-link">ResponsiveInputOptions</a>
+                            </li>
+                            <li class="link">
+                                <a href="interfaces/RestQuery.html" data-type="entity-link">RestQuery</a>
+                            </li>
+                            <li class="link">
+                                <a href="interfaces/RestQueryOptions.html" data-type="entity-link">RestQueryOptions</a>
                             </li>
                             <li class="link">
                                 <a href="interfaces/ResultActivatedEvent.html" data-type="entity-link">ResultActivatedEvent</a>

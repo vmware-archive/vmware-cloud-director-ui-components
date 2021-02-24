@@ -257,11 +257,11 @@ export class VcdSharingModalError {
  *
  * @param T is the interface for the Object that is being selected.
  */
-export type HasHref&lt;T&gt; &#x3D; T &amp; {
+export type HasId&lt;T&gt; &#x3D; T &amp; {
     /**
-     * The unique href of this entity.
+     * The unique ID of this entity.
      */
-    href: string;
+    id: string;
 };
 
 /**
@@ -269,7 +269,7 @@ export type HasHref&lt;T&gt; &#x3D; T &amp; {
  *
  * @param T is the interface for the Object that is being selected.
  */
-export type IsSelected&lt;T&gt; &#x3D; HasHref&lt;T&gt; &amp; {
+export type IsSelected&lt;T&gt; &#x3D; HasId&lt;T&gt; &amp; {
     accessRight: ComboOption;
 };
 
@@ -279,7 +279,7 @@ export type IsSelected&lt;T&gt; &#x3D; HasHref&lt;T&gt; &amp; {
  * @param T is the interface for the Object that is being searched.
  */
 export interface SearchResult&lt;T&gt; {
-    items: HasHref&lt;T&gt;[];
+    items: HasId&lt;T&gt;[];
     totalCount: number;
 }
 
@@ -308,7 +308,7 @@ export interface PredefinedSharingTab&lt;T&gt; {
      * How a given Entity should be rendered in the grid and combobox. Will be given the type of object you return from {@param makeSearch}.
      * If non is given, defaults to display the name as text.
      */
-    entityRenderer?: ComponentRendererConstructor&lt;HasHref&lt;T&gt;&gt;;
+    entityRenderer?: ComponentRendererConstructor&lt;HasId&lt;T&gt;&gt;;
 
     /**
      * The placeholder to put in the combobox when no search has been entered.
@@ -318,7 +318,7 @@ export interface PredefinedSharingTab&lt;T&gt; {
     /**
      * Called when the user types something into or opens the combobox. Returns the results from that search.
      */
-    makeSearch(criteria?: string): Promise&lt;SearchResult&lt;T&gt;&gt;;
+    makeSearch?: (criteria?: string) &#x3D;&gt; Promise&lt;SearchResult&lt;T&gt;&gt;;
 }
 
 /**
@@ -379,7 +379,7 @@ export class SharingModalTabComponent&lt;T&gt; implements OnInit, OnDestroy, Aft
      * How a given Entity should be rendered. Will be given the type of object you return from {@param makeSearch}
      */
     @Input()
-    entityRenderer: ComponentRendererConstructor&lt;HasHref&lt;T&gt;&gt;;
+    entityRenderer: ComponentRendererConstructor&lt;HasId&lt;T&gt;&gt;;
 
     /**
      * The unique ID of this tab.
@@ -419,13 +419,13 @@ export class SharingModalTabComponent&lt;T&gt; implements OnInit, OnDestroy, Aft
     /**
      * The results returned from a search in the combobox.
      */
-    searchResults: HasHref&lt;T&gt;[];
+    searchResults: HasId&lt;T&gt;[];
     totalSearchResults: number;
 
     /**
      * The entities currently selected in the combobox,
      */
-    comboboxSelection: HasHref&lt;T&gt;[] &#x3D; [];
+    comboboxSelection: HasId&lt;T&gt;[] &#x3D; [];
 
     /**
      * START GRID CONFIGURATION
@@ -495,8 +495,8 @@ export class SharingModalTabComponent&lt;T&gt; implements OnInit, OnDestroy, Aft
     /**
      * Removes the given entity from the currently selected list.
      */
-    removeEntity(entity: HasHref&lt;T&gt;): void {
-        this.currentlySharedWith &#x3D; this.currentlySharedWith.filter((toTest) &#x3D;&gt; toTest.href !&#x3D;&#x3D; entity.href);
+    removeEntity(entity: HasId&lt;T&gt;): void {
+        this.currentlySharedWith &#x3D; this.currentlySharedWith.filter((toTest) &#x3D;&gt; toTest.id !&#x3D;&#x3D; entity.id);
         this.currentlySharedWithChange.emit(this.currentlySharedWith);
     }
 
@@ -538,7 +538,7 @@ export class SharingModalTabComponent&lt;T&gt; implements OnInit, OnDestroy, Aft
     /**
      * Gives the render spec to render an given entity.
      */
-    getEntityRenderSpec(entity: HasHref&lt;T&gt;): ComponentRendererSpec&lt;HasHref&lt;T&gt;&gt; {
+    getEntityRenderSpec(entity: HasId&lt;T&gt;): ComponentRendererSpec&lt;HasId&lt;T&gt;&gt; {
         return {
             type: this.entityRenderer,
             config: entity,
@@ -568,8 +568,8 @@ export class SharingModalTabComponent&lt;T&gt; implements OnInit, OnDestroy, Aft
     /**
      * A trackBy function to track entities.
      */
-    entityTrackBy(_index: number, entity: HasHref&lt;T&gt;): string {
-        return entity.href;
+    entityTrackBy(_index: number, entity: HasId&lt;T&gt;): string {
+        return entity.id;
     }
 
     /**
@@ -583,7 +583,7 @@ export class SharingModalTabComponent&lt;T&gt; implements OnInit, OnDestroy, Aft
      * Updates this entity in the currently shared with list to have the given access right.
      */
     updateEntityRights(entity: IsSelected&lt;T&gt;, newAccessRight: string): void {
-        this.currentlySharedWith.find((toTest) &#x3D;&gt; entity.href &#x3D;&#x3D;&#x3D; toTest.href).accessRight &#x3D; this.getRightByValue(
+        this.currentlySharedWith.find((toTest) &#x3D;&gt; entity.id &#x3D;&#x3D;&#x3D; toTest.id).accessRight &#x3D; this.getRightByValue(
             newAccessRight
         );
         this.currentlySharedWithChange.emit(this.currentlySharedWith);
@@ -642,7 +642,7 @@ export class SharingModalTabComponent&lt;T&gt; implements OnInit, OnDestroy, Aft
         this.updateGridItems();
     }
 
-    defaultRenderer(entity: HasHref&lt;T&gt;): string {
+    defaultRenderer(entity: HasId&lt;T&gt;): string {
         return (entity as any).name;
     }
 
@@ -655,6 +655,10 @@ export class SharingModalTabComponent&lt;T&gt; implements OnInit, OnDestroy, Aft
                 totalItems: this.allSharedWith.length,
             };
         }
+    }
+
+    shouldShowWarning(total: number, visible: number): boolean {
+        return total &#x3D;&#x3D;&#x3D; 0 || total !&#x3D;&#x3D; visible;
     }
 
     private getRightByValue(value: string): ComboOption {

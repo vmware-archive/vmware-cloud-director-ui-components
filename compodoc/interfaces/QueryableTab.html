@@ -1,0 +1,425 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>vmware-cloud-director-ui-components documentation</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
+	      <link rel="stylesheet" href="../styles/style.css">
+    </head>
+    <body>
+
+        <div class="navbar navbar-default navbar-fixed-top visible-xs">
+            <a href="../" class="navbar-brand">vmware-cloud-director-ui-components documentation</a>
+            <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
+        </div>
+
+        <div class="xs-menu menu" id="mobile-menu">
+                <div id="book-search-input" role="search"><input type="text" placeholder="Type to search"></div>            <compodoc-menu></compodoc-menu>
+        </div>
+
+        <div class="container-fluid main">
+           <div class="row main">
+               <div class="hidden-xs menu">
+                   <compodoc-menu mode="normal"></compodoc-menu>
+               </div>
+               <!-- START CONTENT -->
+               <div class="content interface">
+                   <div class="content-data">
+
+
+
+
+
+
+
+
+
+
+
+
+<ol class="breadcrumb">
+  <li>Interfaces</li>
+  <li>QueryableTab</li>
+</ol>
+
+<ul class="nav nav-tabs" role="tablist">
+        <li class="active">
+            <a href="#info" role="tab" id="info-tab" data-toggle="tab" data-link="info">Info</a>
+        </li>
+        <li >
+            <a href="#source" role="tab" id="source-tab" data-toggle="tab" data-link="source">Source</a>
+        </li>
+</ul>
+
+<div class="tab-content">
+    <div class="tab-pane fade active in" id="c-info">
+        <p class="comment">
+            <h3>File</h3>
+        </p>
+        <p class="comment">
+            <code>projects/components/src/sharing-modal/users-groups-orgs-sharing-modal.directive.ts</code>
+        </p>
+
+            <p class="comment">
+                <h3>Description</h3>
+            </p>
+            <p class="comment">
+                <p>A tab that knows how to communicate with the backend.</p>
+
+            </p>
+
+            <p class="comment">
+                <h3>Extends</h3>
+            </p>
+            <p class="comment">
+                        <code><a href="../interfaces/PredefinedSharingTab.html" target="_self" >PredefinedSharingTab</a></code>
+            </p>
+
+        <section>
+            <h3 id="index">Index</h3>
+            <table class="table table-sm table-bordered index-table">
+                <tbody>
+                    <tr>
+                        <td class="col-md-4">
+                            <h6><b>Properties</b></h6>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <ul class="index-list">
+                                <li>
+                                            <span class="modifier">Optional</span>
+                                        <a href="#filterCreator">filterCreator</a>
+                                </li>
+                            </ul>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+
+
+            <section>
+                <h3 id="inputs">Properties</h3>
+                    <table class="table table-sm table-bordered">
+                        <tbody>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <a name="filterCreator"></a>
+                                        <span class="name"><b>filterCreator</b><a href="#filterCreator"><span class="icon ion-ios-link"></span></a></span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <code>filterCreator:         <code><a href="../miscellaneous/typealiases.html#FilterCreator" target="_self" >FilterCreator</a></code>
+</code>
+                                    </td>
+                                </tr>
+
+
+                                    <tr>
+                                        <td class="col-md-4">
+                                            <i>Type : </i>        <code><a href="../miscellaneous/typealiases.html#FilterCreator" target="_self" >FilterCreator</a></code>
+
+                                        </td>
+                                    </tr>
+
+                                    <tr>
+                                        <td class="col-md-4">
+                                            <i>Optional</i>
+                                        </td>
+                                    </tr>
+
+
+
+
+                            <tr>
+                                <td class="col-md-4">
+                                    <div class="io-description"><p>Gives the search term, provides the filter that will be sent to the backend.</p>
+</div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+            </section>
+    </div>
+
+
+    <div class="tab-pane fade  tab-source-code" id="c-source">
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Component, Directive, Inject, Input, OnInit, Optional } from &#x27;@angular/core&#x27;;
+import { Query, VcdApiClient } from &#x27;@vcd/angular-client&#x27;;
+import { GroupType, OrgType, UserType } from &#x27;@vcd/bindings/vcloud/api/rest/schema_v1_5/index&#x27;;
+import { TranslationService } from &#x27;@vcd/i18n&#x27;;
+import { ComponentRenderer } from &#x27;../datagrid/interfaces/component-renderer.interface&#x27;;
+import { FilterBuilder } from &#x27;../utils/filter-builder&#x27;;
+import { RestQueryService } from &#x27;../utils/rest/rest-query-search.client&#x27;;
+import { SharingModalComponent, SharingSelectAllToggle } from &#x27;./sharing-modal.component&#x27;;
+import { HasId, PredefinedSharingTab, SearchResult, SharingTab } from &#x27;./tabs/sharing-modal-tab.component&#x27;;
+
+/**
+ * Given some search term, gives the complete filter.
+ */
+export type FilterCreator &#x3D; (searchTerm: string) &#x3D;&gt; FilterBuilder;
+
+/**
+ * A tab that knows how to communicate with the backend.
+ */
+export interface QueryableTab&lt;T&gt; extends PredefinedSharingTab&lt;T&gt; {
+    /**
+     * Gives the search term, provides the filter that will be sent to the backend.
+     */
+    filterCreator?: FilterCreator;
+}
+
+/**
+ * A filter creator that knows how to filter by name.
+ */
+export const defaultFilterCreator: FilterCreator &#x3D; (searchTerm: string) &#x3D;&gt;
+    new FilterBuilder().is(&#x27;name&#x27;).equalTo(&#x60;*${searchTerm}*&#x60;);
+
+/**
+ * Supplies convinece bindings to the &#x60;vcd-sharing-modal&#x60; for the use case
+ * of selecting users, groups, and/or organizations to share with.
+ *
+ * Inputs only work if applied before rendering is complete. Not dynamic.
+ */
+@Directive({
+    selector: &#x27;vcd-sharing-modal[vcdUsersGroupsOrgsSharingModal]&#x27;,
+})
+export class UsersGroupsOrgsSharingModalDirective implements OnInit {
+    /**
+     * The configration for the users tab.
+     * If unset, there will be no users tab.
+     */
+    @Input()
+    set usersConfig(config: QueryableTab&lt;unknown&gt;) {
+        this.tabs.push({
+            id: &#x27;users&#x27;,
+            title: this.translationService.translateAsync(&#x27;vcd.cc.sharing.users&#x27;),
+            selectAllText: this.translationService.translateAsync(&#x27;vcd.cc.sharing.users.selected&#x27;),
+            makeSearch: this.makeSearchGenerator(&#x27;user&#x27;, config.filterCreator || defaultFilterCreator),
+            entityRenderer: SharingModalUserRenderComponent,
+            ...config,
+        });
+    }
+
+    /**
+     * The configration for the groups tab.
+     * If unset, there will be no groups tab.
+     */
+    @Input()
+    set groupsConfig(config: QueryableTab&lt;unknown&gt;) {
+        this.tabs.push({
+            id: &#x27;groups&#x27;,
+            title: this.translationService.translateAsync(&#x27;vcd.cc.sharing.groups&#x27;),
+            selectAllText: this.translationService.translateAsync(&#x27;vcd.cc.sharing.groups.selected&#x27;),
+            makeSearch: this.makeSearchGenerator(&#x27;group&#x27;, config.filterCreator || defaultFilterCreator),
+            entityRenderer: SharingModalGroupRenderComponent,
+            ...config,
+        });
+    }
+
+    /**
+     * The configration for the organizations tab.
+     * If unset, there will be no organizations tab.
+     */
+    @Input()
+    set orgsConfig(config: QueryableTab&lt;unknown&gt;) {
+        this.tabs.push({
+            id: &#x27;organizations&#x27;,
+            title: this.translationService.translateAsync(&#x27;vcd.cc.sharing.orgs&#x27;),
+            selectAllText: this.translationService.translateAsync(&#x27;vcd.cc.sharing.orgs.selected&#x27;),
+            makeSearch: this.makeSearchGenerator(&#x27;organization&#x27;, config.filterCreator || defaultFilterCreator),
+            entityRenderer: SharingModalOrgRenderComponent,
+            ...config,
+        });
+    }
+
+    /**
+     * If there should be a checkbox for selecting all users and groups.
+     */
+    @Input()
+    set showSelectAllUsersAndGroups(isEnabled: boolean) {
+        if (isEnabled) {
+            this.toggles.push({
+                tabIds: [&#x27;users&#x27;, &#x27;groups&#x27;],
+                description: this.translationService.translateAsync(&#x27;vcd.cc.sharing.all.users.groups&#x27;),
+            });
+        }
+    }
+
+    /**
+     * If there should be a checkbox for selecting all users.
+     */
+    @Input()
+    set showSelectAllUsers(isEnabled: boolean) {
+        if (isEnabled) {
+            this.toggles.push({
+                tabIds: [&#x27;users&#x27;],
+                description: this.translationService.translateAsync(&#x27;vcd.cc.sharing.all.users&#x27;),
+            });
+        }
+    }
+
+    /**
+     * If there should be a checkbox for selecting all groups
+     */
+    @Input()
+    set showSelectAllGroups(isEnabled: boolean) {
+        if (isEnabled) {
+            this.toggles.push({
+                tabIds: [&#x27;groups&#x27;],
+                description: this.translationService.translateAsync(&#x27;vcd.cc.sharing.all.groups&#x27;),
+            });
+        }
+    }
+
+    /**
+     * If there should be a checkbox for selecting all organizations.
+     */
+    @Input()
+    set showSelectAllOrgs(isEnabled: boolean) {
+        if (isEnabled) {
+            this.toggles.push({
+                tabIds: [&#x27;organizations&#x27;],
+                description: this.translationService.translateAsync(&#x27;vcd.cc.sharing.all.orgs&#x27;),
+            });
+        }
+    }
+
+    private tabs: SharingTab&lt;unknown&gt;[] &#x3D; [];
+    private toggles: SharingSelectAllToggle[] &#x3D; [];
+
+    constructor(
+        private hostSharingModalComponent: SharingModalComponent,
+        private translationService: TranslationService,
+        @Optional() @Inject(RestQueryService) private client: RestQueryService
+    ) {}
+
+    ngOnInit(): void {
+        const host &#x3D; this.hostSharingModalComponent;
+        if (!host.tabs) {
+            host.tabs &#x3D; [];
+        }
+        host.tabs &#x3D; [...host.tabs, ...this.tabs];
+        if (!host.selectAllToggles) {
+            host.selectAllToggles &#x3D; [];
+        }
+        host.selectAllToggles &#x3D; [...host.selectAllToggles, ...this.toggles];
+    }
+
+    // tslint:disable-next-line: typedef
+    makeSearchGenerator&lt;T extends string&gt;(type: T, filterCreator: FilterCreator) {
+        if (!this.client) {
+            return undefined;
+        }
+        return async (searchTerm: string) &#x3D;&gt; {
+            const filter &#x3D; filterCreator(searchTerm);
+            const result &#x3D; await this.client
+                .queryEntity(
+                    type,
+                    {
+                        filter,
+                        pageSize: 10,
+                    },
+                    {
+                        links: false,
+                        multisite: true,
+                    }
+                )
+                .toPromise();
+            return {
+                items: result.record as HasId&lt;typeof result.record&gt;[],
+                totalCount: result.total,
+            };
+        };
+    }
+}
+@Component({
+    selector: &#x27;vcd-sharing-modal-user-renderer&#x27;,
+    template: &#x60; &lt;clr-icon [attr.size]&#x3D;&quot;&#x27;1em&#x27;&quot; [attr.shape]&#x3D;&quot;&#x27;user&#x27;&quot;&gt;&lt;/clr-icon&gt; {{ config.name }}&#x60;,
+})
+export class SharingModalUserRenderComponent implements ComponentRenderer&lt;HasId&lt;UserType&gt;&gt; {
+    @Input() config: HasId&lt;UserType&gt;;
+}
+
+@Component({
+    selector: &#x27;vcd-sharing-modal-group-renderer&#x27;,
+    template: &#x60; &lt;clr-icon [attr.size]&#x3D;&quot;&#x27;1em&#x27;&quot; [attr.shape]&#x3D;&quot;&#x27;users&#x27;&quot;&gt;&lt;/clr-icon&gt; {{ config.name }}&#x60;,
+})
+export class SharingModalGroupRenderComponent implements ComponentRenderer&lt;HasId&lt;UserType&gt;&gt; {
+    @Input() config: HasId&lt;UserType&gt;;
+}
+
+@Component({
+    selector: &#x27;vcd-sharing-modal-group-renderer&#x27;,
+    template: &#x60; &lt;clr-icon [attr.size]&#x3D;&quot;&#x27;1em&#x27;&quot; [attr.shape]&#x3D;&quot;&#x27;organization&#x27;&quot;&gt;&lt;/clr-icon&gt; {{ config.name }}&#x60;,
+})
+export class SharingModalOrgRenderComponent implements ComponentRenderer&lt;HasId&lt;UserType&gt;&gt; {
+    @Input() config: HasId&lt;UserType&gt;;
+}
+</code></pre>
+    </div>
+</div>
+
+
+                   
+
+
+
+
+                   </div><div class="search-results">
+    <div class="has-results">
+        <h1 class="search-results-title"><span class='search-results-count'></span> result-matching "<span class='search-query'></span>"</h1>
+        <ul class="search-results-list"></ul>
+    </div>
+    <div class="no-results">
+        <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+    </div>
+</div>
+</div>
+               <!-- END CONTENT -->
+           </div>
+       </div>
+
+       <script>
+            var COMPODOC_CURRENT_PAGE_DEPTH = 1;
+            var COMPODOC_CURRENT_PAGE_CONTEXT = 'interface';
+            var COMPODOC_CURRENT_PAGE_URL = 'QueryableTab.html';
+            var MAX_SEARCH_RESULTS = 15;
+       </script>
+
+       <script src="../js/libs/custom-elements.min.js"></script>
+       <script src="../js/libs/lit-html.js"></script>
+       <!-- Required to polyfill modern browsers as code is ES5 for IE... -->
+       <script src="../js/libs/custom-elements-es5-adapter.js" charset="utf-8" defer></script>
+       <script src="../js/menu-wc.js" defer></script>
+
+       <script src="../js/libs/bootstrap-native.js"></script>
+
+       <script src="../js/libs/es6-shim.min.js"></script>
+       <script src="../js/libs/EventDispatcher.js"></script>
+       <script src="../js/libs/promise.min.js"></script>
+       <script src="../js/libs/zepto.min.js"></script>
+
+       <script src="../js/compodoc.js"></script>
+
+       <script src="../js/tabs.js"></script>
+       <script src="../js/menu.js"></script>
+       <script src="../js/libs/clipboard.min.js"></script>
+       <script src="../js/libs/prism.js"></script>
+       <script src="../js/sourceCode.js"></script>
+          <script src="../js/search/search.js"></script>
+          <script src="../js/search/lunr.min.js"></script>
+          <script src="../js/search/search-lunr.js"></script>
+          <script src="../js/search/search_index.js"></script>
+       <script src="../js/lazy-load-graphs.js"></script>
+
+
+    </body>
+</html>
