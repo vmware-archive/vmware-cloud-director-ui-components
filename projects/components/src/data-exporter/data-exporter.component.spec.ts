@@ -8,7 +8,7 @@ import { fakeAsync, TestBed } from '@angular/core/testing';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { MockTranslationService, TranslationService } from '@vcd/i18n';
 import { TestElement } from '../utils';
-import { AngularWidgetObjectFinder } from '../utils/test/widget-object/angular-widget-finder';
+import { AngularWidgetObjectFinder } from '../utils/test/widget-object/angular/angular-widget-finder';
 import { CsvExporterService } from './csv-exporter.service';
 import { DataExporterComponent, DataExportRequestEvent, ExportColumn } from './data-exporter.component';
 import { VcdDataExporterModule } from './data-exporter.module';

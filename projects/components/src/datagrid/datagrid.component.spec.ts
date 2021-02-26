@@ -23,8 +23,8 @@ import { ShowClippedTextDirective, TooltipSize } from '../lib/directives/show-cl
 import { ClrDatagridWidgetObject } from '../utils/test/datagrid/datagrid.wo';
 import { VcdDatagridWidgetObject } from '../utils/test/datagrid/vcd-datagrid.wo';
 import { timeout } from '../utils/test/test-utils';
-import { AngularWidgetObjectFinder } from '../utils/test/widget-object/angular-widget-finder';
-import { TestElement } from '../utils/test/widget-object/angular-widget-object';
+import { AngularWidgetObjectFinder } from '../utils/test/widget-object/angular/angular-widget-finder';
+import { TestElement } from '../utils/test/widget-object/angular/angular-widget-object-element';
 import {
     ActivityIndicatorType,
     ContextualActionPosition,

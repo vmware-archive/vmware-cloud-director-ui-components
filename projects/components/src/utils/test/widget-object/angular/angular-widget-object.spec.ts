@@ -6,9 +6,9 @@
 import { Component, Input, Type } from '@angular/core';
 import { ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
+import { BaseWidgetObject } from '../widget-object';
 import { AngularWidgetObjectFinder } from './angular-widget-finder';
-import { AngularLocatorDriver, TestElement } from './angular-widget-object';
-import { BaseWidgetObject } from './widget-object';
+import { AngularWidgetObjectElement, TestElement } from './angular-widget-object-element';
 
 /**
  * This is the reusable component being tested, typically goes in its own file
@@ -128,10 +128,7 @@ describe('AngularLocatorDriver', () => {
         this.fixture = TestBed.createComponent(ClickTrackerComponent);
         this.fixture.detectChanges();
         this.clickTracker = new ClickTrackerWidgetObject(
-            new AngularLocatorDriver(
-                new TestElement([this.fixture.debugElement], this.fixture),
-                this.fixture.debugElement
-            )
+            new AngularWidgetObjectElement(new TestElement([this.fixture.debugElement], this.fixture))
         );
     });
 
@@ -175,10 +172,7 @@ describe('TestElement', () => {
         this.fixture = TestBed.createComponent(ClickTrackerComponent);
         this.fixture.detectChanges();
         this.clickTracker = new ClickTrackerWidgetObject(
-            new AngularLocatorDriver(
-                new TestElement([this.fixture.debugElement], this.fixture),
-                this.fixture.debugElement
-            )
+            new AngularWidgetObjectElement(new TestElement([this.fixture.debugElement], this.fixture))
         );
     });
 

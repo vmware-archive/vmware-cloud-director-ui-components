@@ -7,8 +7,8 @@ import { Component, ViewChild } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
 import { MockTranslationService, TranslationService } from '@vcd/i18n';
 import { ActionItem, TextIcon } from '../common/interfaces';
-import { AngularWidgetObjectFinder } from '../utils/test/widget-object/angular-widget-finder';
-import { TestElement } from '../utils/test/widget-object/angular-widget-object';
+import { AngularWidgetObjectFinder } from '../utils/test/widget-object/angular/angular-widget-finder';
+import { TestElement } from '../utils/test/widget-object/angular/angular-widget-object-element';
 import { DropdownFocusHandlerDirective, MenuItem } from './dropdown-focus-handler.directive';
 import { DropdownComponent } from './dropdown.component';
 import {

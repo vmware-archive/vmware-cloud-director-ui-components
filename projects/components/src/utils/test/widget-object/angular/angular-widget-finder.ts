@@ -6,9 +6,12 @@
 import { DebugElement, Type } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { AngularLocatorDriver, TestElement } from './angular-widget-object';
-import { BaseWidgetObject, FindableWidget } from './widget-object';
+import { BaseWidgetObject, FindableWidget, FindWidgetOptions } from '../widget-object';
+import { AngularWidgetObjectElement, TestElement } from './angular-widget-object-element';
 
+export interface FindAngularWidgetOptions extends FindWidgetOptions {
+    ancestor?: DebugElement;
+}
 /**
  * Knows how to find Angular objects in the DOM.
  */
@@ -45,9 +48,9 @@ export class AngularWidgetObjectFinder<H = unknown> {
      */
     public find<W extends BaseWidgetObject<TestElement>>(
         widgetConstructor: FindableWidget<TestElement, W>,
-        ancestor?: DebugElement,
-        cssSelector?: string
+        findOptions: FindAngularWidgetOptions = {}
     ): W {
+        const { cssSelector, ancestor } = findOptions;
         let query = widgetConstructor.tagName;
         if (cssSelector) {
             query += `${cssSelector}`;
@@ -61,7 +64,7 @@ export class AngularWidgetObjectFinder<H = unknown> {
             throw new Error(`Could not find the widget using the query ${query}`);
         }
 
-        const widget = new widgetConstructor(new AngularLocatorDriver(new TestElement([root], this.fixture), root));
+        const widget = new widgetConstructor(new AngularWidgetObjectElement(new TestElement([root], this.fixture)));
         return widget;
     }
 

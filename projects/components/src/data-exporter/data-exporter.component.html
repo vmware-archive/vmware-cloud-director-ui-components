@@ -50,7 +50,7 @@
                                 clrCheckbox
                                 [formControl]="this.selectAllControl"
                             />
-                            <label>{{ exportAllText | lazyString }}</label>
+                            <label data-ui="export-all">{{ exportAllText | lazyString }}</label>
                         </clr-checkbox-wrapper>
                         <clr-dropdown *ngIf="!this.selectAllControl.value">
                             <clr-icon
