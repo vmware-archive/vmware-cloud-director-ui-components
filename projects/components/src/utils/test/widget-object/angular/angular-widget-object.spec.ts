@@ -40,7 +40,7 @@ class HeaderWidgetObject<T> extends BaseWidgetObject<T> {
     static tagName = 'h1';
 
     getBoldText(): T {
-        return this.locatorDriver.get('b').unwrap();
+        return this.el.get('b').unwrap();
     }
 }
 
@@ -53,24 +53,24 @@ class HeaderWidgetObject<T> extends BaseWidgetObject<T> {
 class ClickTrackerWidgetObject<T> extends BaseWidgetObject<T> {
     static tagName = 'vcd-click-tracker';
 
-    getClickCount = this.locatorForCssSelectors('.click-count');
+    getClickCount = this.factory.css('.click-count');
 
-    getHeaderText = this.locatorForCssSelectors('h1');
+    getHeaderText = this.factory.css('h1');
 
-    getTrackerElement = this.locatorForCssSelectors('p');
+    getTrackerElement = this.factory.css('p');
 
-    getNameInput = this.locatorForCssSelectors('.name');
+    getNameInput = this.factory.css('.name');
 
-    getButton = this.locatorForText('button', 'BUTTON');
+    getButton = this.factory._text('button', 'BUTTON');
 
-    getButtons = this.locatorForCssSelectors('button');
+    getButtons = this.factory.css('button');
 
     getTrackerElementUsingParent(): T {
-        return this.locatorDriver.get('span').parents('p').unwrap();
+        return this.el.get('span').parents('p').unwrap();
     }
 
     findHeaderWidget(): HeaderWidgetObject<T> {
-        return this.locatorDriver.findWidget<HeaderWidgetObject<T>>(HeaderWidgetObject);
+        return this.el.findWidget<HeaderWidgetObject<T>>(HeaderWidgetObject);
     }
 }
 

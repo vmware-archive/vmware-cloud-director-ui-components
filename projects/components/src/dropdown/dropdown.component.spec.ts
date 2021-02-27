@@ -17,11 +17,11 @@ export class VcdDropdownWidgetObject<T> extends BaseWidgetObject<T> {
     static tagName = `vcd-dropdown`;
 
     getDropdownToggleButton(dropdownToggleBtnClassName: string): T {
-        return this.locatorForCssSelectors(`.${dropdownToggleBtnClassName}`)();
+        return this.el.get(`.${dropdownToggleBtnClassName}`).unwrap();
     }
 
     getDropdown(dropdownToggleBtnClassName: string): T {
-        const dropdownToggle = this.locatorDriver.get(`.${dropdownToggleBtnClassName}`);
+        const dropdownToggle = this.el.get(`.${dropdownToggleBtnClassName}`);
         const toggleParentDropdown = dropdownToggle.parents(VcdDropdownWidgetObject.tagName);
         return toggleParentDropdown.unwrap();
     }

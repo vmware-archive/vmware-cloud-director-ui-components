@@ -7,8 +7,7 @@ import {
     BaseWidgetObject,
     CypressWidgetObjectFinder,
     DataExporterWidgetObject,
-    FindableWidget,
-    FindWidgetOptions,
+    FindableWidget
 } from '@vcd/ui-components';
 import { FindCypressWidgetOptions } from '@vcd/ui-components';
 import Cypress from 'cypress';

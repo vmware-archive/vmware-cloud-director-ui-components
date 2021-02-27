@@ -9,13 +9,16 @@ import { By } from '@angular/platform-browser';
 import { BaseWidgetObject, FindableWidget, FindWidgetOptions } from '../widget-object';
 import { AngularWidgetObjectElement, TestElement } from './angular-widget-object-element';
 
+/**
+ * Adds Angular specific options for finding widgets
+ */
 export interface FindAngularWidgetOptions extends FindWidgetOptions {
     ancestor?: DebugElement;
 }
-/**
- * Knows how to find Angular objects in the DOM.
- */
 
+/**
+ * Knows how to find and instantiate Angular Widgets objects.
+ */
 export class AngularWidgetObjectFinder<H = unknown> {
     /**
      * We don't care or could possibly know the type of fixture
@@ -28,7 +31,8 @@ export class AngularWidgetObjectFinder<H = unknown> {
     public hostComponent: H;
 
     /**
-     * @param componentConstructor The host component to be created as the root of the tests's fixture
+     * @param arg The host component to be created as the root of the tests's fixture or its creator, in which
+     * case, it will be created.
      */
     constructor(arg: Type<H> | ComponentFixture<H>) {
         this.fixture = (arg as ComponentFixture<H>).componentRef
@@ -41,9 +45,6 @@ export class AngularWidgetObjectFinder<H = unknown> {
      * Finds a single widget object
      *
      * @param widgetConstructor - The constructor of the widget to use
-     * @param ancestor - The parent DebugElement to begin the search from
-     * @param cssSelector - The cssSelector to append to the tagName for the search
-     *
      * @throws An error if the widget is not found or if there are multiple instances
      */
     public find<W extends BaseWidgetObject<TestElement>>(

@@ -6,15 +6,15 @@
 import { DebugElement, Injector, Type } from '@angular/core';
 import { ComponentFixture } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { BaseWidgetObject, FindableWidget, LocatorDriver } from '../widget-object';
+import { BaseWidgetObject, FindableWidget, WidgetObjectElement } from '../widget-object';
 import { AngularWidgetObjectFinder, FindAngularWidgetOptions } from './angular-widget-finder';
 
 /**
  * Angular implementation of the Widget Object's internal HTML Element wrapper
- * Its `unwrap` method returns a DebugElementWrappper, which wraps angular's DebugElement so that it can be considered
+ * Its `unwrap` method returns a DebugElementWrapper, which wraps Angular's DebugElement so that it can be considered
  * a collection and to simplify access to its attributes
  */
-export class AngularWidgetObjectElement implements LocatorDriver<TestElement> {
+export class AngularWidgetObjectElement implements WidgetObjectElement<TestElement> {
     constructor(private testElement: TestElement) {}
 
     /**

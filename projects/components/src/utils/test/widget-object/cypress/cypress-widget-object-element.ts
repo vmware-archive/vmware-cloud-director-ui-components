@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: BSD-2-Clause
  */
 
-import { BaseWidgetObject, ElementActions, FindableWidget, FindWidgetOptions, LocatorDriver } from '../widget-object';
+import { BaseWidgetObject, ElementActions, FindableWidget, WidgetObjectElement } from '../widget-object';
 import { CypressWidgetObjectFinder, FindCypressWidgetOptions } from './cypress-widget-finder';
 
 declare const cy;
@@ -18,7 +18,7 @@ declare const cy;
  * [this PR](https://github.com/vmware/vmware-cloud-director-ui-components/pull/248)
  * we could not load the Cypress types in our library.
  */
-export class CypressWidgetObjectElement<T extends ElementActions> implements LocatorDriver<T> {
+export class CypressWidgetObjectElement<T extends ElementActions> implements WidgetObjectElement<T> {
     constructor(private chainable: T, private isRoot: boolean, private alias: string) {}
 
     /**

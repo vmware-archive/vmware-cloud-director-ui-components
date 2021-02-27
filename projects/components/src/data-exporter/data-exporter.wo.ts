@@ -2,8 +2,7 @@
  * Copyright 2019-2020 VMware, Inc.
  * SPDX-License-Identifier: BSD-2-Clause
  */
-
-import { BaseWidgetObject, LocatorDriver } from '../utils/test/widget-object/widget-object';
+import { BaseWidgetObject, WidgetObjectElement } from '../utils/test/widget-object/widget-object';
 
 /**
  * Testing Object for {@link DataExporterComponent}
@@ -14,42 +13,51 @@ export class DataExporterWidgetObject<T> extends BaseWidgetObject<T> {
     /**
      * The strings for the available column bubbles.
      */
-    getColumnBubbles = this.locatorForCssSelectors('.column-container .column-label');
+    getColumnBubbles = this.factory.css(`.column-container .column-checkbox`);
 
     /**
      * The strings for the available column checkboxes.
      */
-    getColumnCheckboxes = this.locatorForCssSelectors('li .column-checkbox');
+    getColumnCheckboxes = this.factory.css('li .column-checkbox');
 
     /**
      * Gets the cancel button.
      */
-    getCancelButton = this.locatorForCssSelectors('.cancel');
+    getCancelButton = this.factory.css('.cancel');
 
     /**
      * Gets the arrow to open/close the column dropdown.
      */
-    getColumnDropdown = this.locatorForCssSelectors('.dropdown-button');
+    getColumnDropdown = this.factory.css('.dropdown-button');
 
     /**
      * Gets the export all switch
      */
-    getToggleSelectAll = this.locatorForCssSelectors('label.export-all');
+    getToggleSelectAll = this.factory.css('label.export-all');
 
     /**
      * Gets the sanitization switch
      */
-    getToggleSanitize = this.locatorForCssSelectors('.sanitize-cells');
+    getToggleSanitize = this.factory.css('.sanitize-cells');
 
     /**
      * Gets the friendly field names switch
      */
-    getToggleFriendlyNames = this.locatorForCssSelectors('.friendly-names');
+    getToggleFriendlyNames = this.factory.css('.friendly-names');
 
     /**
      * Gets the progress bar.
      */
-    getProgress = this.locatorForCssSelectors('progress');
+    getProgress = this.factory.css('progress');
+
+    private _getExportButton = this.factory._css('button.export');
+
+    /**
+     * Gets the export button.
+     */
+    getExportButton = this.factory.unwrap(this._getExportButton);
+
+    private _getExportAllCheckboxLabel = this.factory._dataUi('export-all');
 
     /**
      * Gets the checkbox next to a given column
@@ -59,31 +67,20 @@ export class DataExporterWidgetObject<T> extends BaseWidgetObject<T> {
         return this._getColumnCheckbox(indexOrLabel).unwrap();
     }
 
-    private _getColumnCheckbox(indexOrLabel: number | string): LocatorDriver<T> {
+    private _getColumnCheckbox(indexOrLabel: number | string): WidgetObjectElement<T> {
         if (typeof indexOrLabel === 'number') {
-            return this.locatorDriver.get(`.dropdown-item:nth-of-type(${indexOrLabel + 1})  .column-checkbox label`);
+            return this.el.get(`.dropdown-item:nth-of-type(${indexOrLabel + 1})  .column-checkbox label`);
         }
-        return this.locatorDriver.getByText(`.dropdown-item .column-checkbox label`, indexOrLabel);
+        return this.el.getByText(`.dropdown-item .column-checkbox label`, indexOrLabel);
     }
 
     /**
-     * Gets the export button.
-     */
-    getExportButton(): T {
-        return this._getExportButton().unwrap();
-    }
-
-    private _getExportButton(): LocatorDriver<T> {
-        return this.locatorDriver.get('button.export');
-    }
-
-    /**
-     *
-     * @param columnsToUncheck[] Assumes the columns were checked
+     * Exports data with the option to specify columns to be deselected
+     * @param columnsToUncheck  - Columns to be unchecked before exporting
      */
     exportData(columnsToUncheck?: string[]): void {
         if (columnsToUncheck) {
-            this.locatorDriver.get('label[data-ui=export-all]').click();
+            this._getExportAllCheckboxLabel().click();
             for (const column of columnsToUncheck) {
                 this._getColumnCheckbox(column).click();
             }

@@ -22,42 +22,41 @@ interface HasVcdSharingModal {
 class VcdDropdownWidgetObject<T> extends BaseWidgetObject<T> {
     static tagName = `vcd-sharing-modal`;
 
-    getComboboxInput = this.locatorForCssSelectors('clr-combobox input');
+    getComboboxInput = this.factory.css('clr-combobox input');
 
-    openComboboxButton = this.locatorForCssSelectors('clr-combobox .clr-combobox-trigger');
+    openComboboxButton = this.factory.css('clr-combobox .clr-combobox-trigger');
 
-    getModalHeader = this.locatorForCssSelectors('.modal-title');
+    getModalHeader = this.factory.css('.modal-title');
 
-    getModalBody = this.locatorForCssSelectors('.modal-body');
+    getModalBody = this.factory.css('.modal-body');
 
-    getTabHeaders = this.locatorForCssSelectors('.nav-item');
+    getTabHeaders = this.factory.css('.nav-item');
 
-    getSubmitButton = this.locatorForCssSelectors('.submit');
+    getSubmitButton = this.factory.css('.submit');
 
-    getAddButton = this.locatorForCssSelectors('.add');
+    getAddButton = this.factory.css('.add');
 
-    getActiveTab = this.locatorForCssSelectors('vcd-sharing-modal-tab');
+    getActiveTab = this.factory.css('vcd-sharing-modal-tab');
 
-    getSelectAllBox = this.locatorForCssSelectors('.rectangle');
+    getSelectAllBox = this.factory.css('.rectangle');
 
-    getErrorLabel = this.locatorForCssSelectors('.search-error');
+    getErrorLabel = this.factory.css('.search-error');
 
-    getSearchWarning = this.locatorForCssSelectors('.search-warning');
+    getSearchWarning = this.factory.css('.search-warning');
 
     getSelectToogleByText = (text: string) =>
-        this.locatorDriver.getByText('label', text).parents('div').get('clr-checkbox-wrapper input').unwrap();
+        this.el.getByText('label', text).parents('div').get('clr-checkbox-wrapper input').unwrap();
 
-    getRightsOptionsByText = (text: string) =>
-        this.locatorDriver.getByText('label', text).parents('div').get('option').unwrap();
+    getRightsOptionsByText = (text: string) => this.el.getByText('label', text).parents('div').get('option').unwrap();
 
-    getComboboxDropdownRows = () => this.locatorDriver.parents('body').get('clr-option').unwrap();
+    getComboboxDropdownRows = () => this.el.parents('body').get('clr-option').unwrap();
 
-    getTabByHeader = (title: string) => this.locatorDriver.getByText('.nav-item button', title).unwrap();
+    getTabByHeader = (title: string) => this.el.getByText('.nav-item button', title).unwrap();
 
-    getCurrentShareDatagrid = () => this.locatorDriver.findWidget<ClrDatagridWidgetObject<T>>(ClrDatagridWidgetObject);
+    getCurrentShareDatagrid = () => this.el.findWidget<ClrDatagridWidgetObject<T>>(ClrDatagridWidgetObject);
 
     getDeleteButtonInDatagridCell = (row: number) => {
-        return this.locatorDriver
+        return this.el
             .get(`clr-dg-row:nth-of-type(${row + 1})`)
             .get(`clr-dg-cell:nth-of-type(1)`)
             .get('button')
