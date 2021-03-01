@@ -45,13 +45,14 @@ class VcdDropdownWidgetObject<T> extends BaseWidgetObject<T> {
     getSearchWarning = this.factory.css('.search-warning');
 
     getSelectToogleByText = (text: string) =>
-        this.el.getByText('label', text).parents('div').get('clr-checkbox-wrapper input').unwrap();
+        this.el.get({ cssSelector: 'label', text }).parents('div').get('clr-checkbox-wrapper input').unwrap();
 
-    getRightsOptionsByText = (text: string) => this.el.getByText('label', text).parents('div').get('option').unwrap();
+    getRightsOptionsByText = (text: string) =>
+        this.el.get({ cssSelector: 'label', text }).parents('div').get('option').unwrap();
 
     getComboboxDropdownRows = () => this.el.parents('body').get('clr-option').unwrap();
 
-    getTabByHeader = (title: string) => this.el.getByText('.nav-item button', title).unwrap();
+    getTabByHeader = (title: string) => this.el.get({ cssSelector: '.nav-item button', text: title }).unwrap();
 
     getCurrentShareDatagrid = () => this.el.findWidget<ClrDatagridWidgetObject<T>>(ClrDatagridWidgetObject);
 

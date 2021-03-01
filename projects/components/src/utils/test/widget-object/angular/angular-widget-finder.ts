@@ -6,13 +6,13 @@
 import { DebugElement, Type } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { BaseWidgetObject, FindableWidget, FindWidgetOptions } from '../widget-object';
+import { BaseWidgetObject, FindableWidget, FindElementOptions } from '../widget-object';
 import { AngularWidgetObjectElement, TestElement } from './angular-widget-object-element';
 
 /**
  * Adds Angular specific options for finding widgets
  */
-export interface FindAngularWidgetOptions extends FindWidgetOptions {
+export interface FindAngularWidgetOptions extends FindElementOptions {
     ancestor?: DebugElement;
 }
 

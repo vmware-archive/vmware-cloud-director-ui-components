@@ -66,19 +66,11 @@ describe('DataExporterColumnsWithoutDisplayName', () => {
         const exporter = this.finder.find<DataExporterWidgetObject<TestElement>>(DataExporterWidgetObject);
         exporter.getToggleSelectAll().click();
         this.finder.detectChanges();
-        const dropdownMenuItemTexts = exporter.getColumnBubbles();
+        const columnBubbles = exporter.getColumnBubbles().map((i) => i.text());
+        const columnCheckboxLabels = exporter.getColumnCheckboxes().map((i) => i.text());
         const expects = ['col1', 'col2'];
-        for (const item of dropdownMenuItemTexts) {
-            expect(item.text()).toEqual(expects.pop());
-        }
-        expect(dropdownMenuItemTexts.text()).toEqual('col1');
-
-        exporter.getColumnCheckbox(0).click();
-
-        const columnBubbles = exporter.getColumnBubbles();
-        exporter.getColumnDropdown().click();
-
-        expect(exporter.getColumnBubbles().text()).toEqual('col2');
+        expect(columnBubbles).toEqual(expects);
+        expect(columnCheckboxLabels).toEqual(expects);
     });
 });
 
@@ -122,14 +114,14 @@ describe('VcdExportTableComponent', () => {
                     .toArray()
                     .map((it) => it.text())
             ).toEqual(['Name', 'Description']);
-            exporter.getColumnCheckbox(0).click();
+            exporter.getColumnCheckboxes({ index: 0 }).click();
             expect(exporter.getColumnBubbles().text()).toBe('Description');
         });
 
         it('allows the user to remove selected columns', function (this: TestHostFinder): void {
             const exporter = this.finder.find<DataExporterWidgetObject<TestElement>>(DataExporterWidgetObject);
             exporter.getToggleSelectAll().click();
-            exporter.getColumnCheckbox(0).click();
+            exporter.getColumnCheckboxes({ index: 0 }).click();
             expect(exporter.getColumnBubbles().text()).toBe('Description');
         });
 
@@ -137,21 +129,25 @@ describe('VcdExportTableComponent', () => {
             this.finder.detectChanges();
             const exporter = this.finder.find<DataExporterWidgetObject<TestElement>>(DataExporterWidgetObject);
             exporter.getToggleSelectAll().click();
-            exporter.getColumnCheckbox(0).click();
+            exporter.getColumnCheckboxes({ index: 0 }).click();
             expect(exporter.getColumnBubbles().text()).toBe('Description');
-            exporter.getColumnCheckbox(0).click();
-            expect(
-                exporter
-                    .getColumnBubbles()
-                    .toArray()
-                    .map((it) => it.text())
-            ).toEqual(['Name', 'Description']);
-            exporter.getToggleSelectAll().click();
-            exporter.getColumnDropdown().click();
-            exporter.getToggleSelectAll().click();
-            exporter.getColumnCheckbox(1).click();
+            exporter.getColumnCheckboxes({ index: 0 }).click();
+            const actual = exporter.getColumnBubbles().map((it) => it.text());
+            expect(actual).toEqual(['Name', 'Description']);
+            exporter.getColumnCheckboxes({ index: 1 }).click();
             expect(exporter.getColumnBubbles().text()).toBe('Name');
         }));
+
+        it('allows the user to remove selected columns from the bubbles below the combo', function (this: TestHostFinder): void {
+            const exporter = this.finder.find<DataExporterWidgetObject<TestElement>>(DataExporterWidgetObject);
+            exporter.getToggleSelectAll().click();
+            exporter.getColumnCheckboxArrow().click();
+            const bubblesTextBeforeRemoving = exporter.getColumnBubbles().map((it) => it.text());
+            expect(bubblesTextBeforeRemoving).toEqual(['Name', 'Description']);
+            exporter.getColumnBubblesX({ index: 0 }).click();
+            const bubblesTextAfterRemoving = exporter.getColumnBubbles().map((it) => it.text());
+            expect(bubblesTextAfterRemoving).toEqual(['Description']);
+        });
     });
 
     describe('@Input: fileName', () => {

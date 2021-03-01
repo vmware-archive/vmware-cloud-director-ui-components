@@ -4,13 +4,13 @@
  */
 
 import { IdGenerator } from '../../../id-generator/id-generator';
-import { BaseWidgetObject, FindableWidget, FindWidgetOptions } from '../widget-object';
+import { BaseWidgetObject, FindableWidget, FindElementOptions } from '../widget-object';
 import { CypressWidgetObjectElement } from './cypress-widget-object-element';
 
 declare const cy;
 const idGenerator = new IdGenerator('cy-id');
 
-export interface FindCypressWidgetOptions extends FindWidgetOptions {
+export interface FindCypressWidgetOptions extends FindElementOptions {
     ancestor?: string;
     options?: { timeout: number };
 }

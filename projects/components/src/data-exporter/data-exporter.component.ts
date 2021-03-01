@@ -53,7 +53,34 @@ export interface DataExportRequestEvent {
      */
     selectedColumns: ExportColumn[];
 }
-//
+
+export const DataUi = {
+    /** The label for each check box in the column selection menu */
+    columnSelectionMenuOptions: 'col-selection-menu-option',
+
+    /** Where the selected columns are displayed, if select all is disabled  */
+    columnSelectionBubbles: 'col-selection-bubble',
+
+    cancelButton: 'cancel-btn',
+
+    exportButton: 'export-btn',
+
+    /** The label on the checkbox to select all columns */
+    selectAllToggleLabel: 'select-all-toggle-label',
+
+    /** The label on the checkbox to enable friendly names */
+    friendlyNamesToggleLabel: 'friendly-names',
+
+    /** The progress HTML element containing the value which can be queried for amount of progress     */
+    progressInput: 'progress-input',
+
+    /** The arrow next to Select All columns that lets you collapse the dropdown without checking the box */
+    columnCheckboxArrow: 'column-checkbox-arrow',
+
+    /** The x buttons to close the column bubbles */
+    columnBubblesX: 'column-bubbles-x',
+};
+
 /**
  * A dialog to export data
  *
@@ -67,6 +94,8 @@ export interface DataExportRequestEvent {
     styleUrls: ['./data-exporter.component.scss'],
 })
 export class DataExporterComponent implements OnInit, OnDestroy {
+    DataUi = DataUi;
+
     constructor(private csvExporterService: CsvExporterService, private translationService: TranslationService) {}
 
     @ViewChild(ClrDropdown) set columnDropdown(columnDropdown: ClrDropdown) {
@@ -246,7 +275,7 @@ export class DataExporterComponent implements OnInit, OnDestroy {
     });
 
     /**
-     * Says if the column dropdown is open.
+     * Says if the column selection dropdown is open.
      */
     isDropdownOpen = false;
 

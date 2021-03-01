@@ -2,8 +2,13 @@
  * Copyright 2020 VMware, Inc.
  * SPDX-License-Identifier: BSD-2-Clause
  */
-
-import { BaseWidgetObject, ElementActions, FindableWidget, WidgetObjectElement } from '../widget-object';
+import {
+    BaseWidgetObject,
+    ElementActions,
+    FindableWidget,
+    FindElementOptions,
+    WidgetObjectElement,
+} from '../widget-object';
 import { CypressWidgetObjectFinder, FindCypressWidgetOptions } from './cypress-widget-finder';
 
 declare const cy;
@@ -24,26 +29,31 @@ export class CypressWidgetObjectElement<T extends ElementActions> implements Wid
     /**
      * @inheritdoc
      */
-    get(cssSelector: string, options?: unknown): CypressWidgetObjectElement<T> {
+    get(selector: string | FindElementOptions): CypressWidgetObjectElement<T> {
         const root = this.getBase();
-        return new CypressWidgetObjectElement(root.find(cssSelector, options), false, this.alias);
+        let chainable: any;
+        if (typeof selector === 'string') {
+            chainable = root.find(selector);
+        } else if (selector.index) {
+            chainable = root.find(selector.cssSelector, selector.options).eq(selector.index);
+        } else if (selector.text) {
+            const queryOptions = { matchCase: false, ...(selector.options || {}) };
+            chainable = root.contains(selector.cssSelector, selector.text, queryOptions);
+        } else {
+            chainable = root.find(selector.cssSelector, selector.options);
+        }
+        return new CypressWidgetObjectElement(chainable, false, this.alias);
     }
 
     /**
      * @inheritdoc
      */
-    getByText(cssSelector: string, value: string, options?: unknown): CypressWidgetObjectElement<T> {
+    parents(selector: string | FindElementOptions): CypressWidgetObjectElement<T> {
         const root = this.getBase();
-        const queryOptions = { matchCase: false, ...(options ? (options as object) : {}) };
-        return new CypressWidgetObjectElement(root.contains(cssSelector, value, queryOptions), false, this.alias);
-    }
-
-    /**
-     * @inheritdoc
-     */
-    parents(cssSelector: string, options?: unknown): CypressWidgetObjectElement<T> {
-        const root = this.getBase();
-        return new CypressWidgetObjectElement(root.parents(cssSelector, options), false, this.alias);
+        if (typeof selector === 'string') {
+            return new CypressWidgetObjectElement(root.parents(selector), false, this.alias);
+        }
+        return new CypressWidgetObjectElement(root.parents(selector.cssSelector, selector.options), false, this.alias);
     }
 
     /**
@@ -53,22 +63,37 @@ export class CypressWidgetObjectElement<T extends ElementActions> implements Wid
         return this.chainable;
     }
 
+    /**
+     * @inheritdoc
+     */
     click(options?: unknown): void {
         this.chainable.click(options);
     }
 
+    /**
+     * @inheritdoc
+     */
     type(value: string, options: unknown): void {
         this.chainable.type(value, options);
     }
 
+    /**
+     * @inheritdoc
+     */
     select(text: string, options: unknown): void {
         this.chainable.select(text, options);
     }
 
+    /**
+     * @inheritdoc
+     */
     check(options?: unknown): void {
         this.chainable.check(options);
     }
 
+    /**
+     * @inheritdoc
+     */
     uncheck(options?: unknown): void {
         this.chainable.uncheck();
     }

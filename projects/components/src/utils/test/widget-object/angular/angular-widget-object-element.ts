@@ -6,7 +6,7 @@
 import { DebugElement, Injector, Type } from '@angular/core';
 import { ComponentFixture } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { BaseWidgetObject, FindableWidget, WidgetObjectElement } from '../widget-object';
+import { BaseWidgetObject, FindableWidget, FindElementOptions, WidgetObjectElement } from '../widget-object';
 import { AngularWidgetObjectFinder, FindAngularWidgetOptions } from './angular-widget-finder';
 
 /**
@@ -20,20 +20,25 @@ export class AngularWidgetObjectElement implements WidgetObjectElement<TestEleme
     /**
      * @inheritdoc
      */
-    get(cssSelector: string): AngularWidgetObjectElement {
+    get(selector: string | FindElementOptions): AngularWidgetObjectElement {
+        const cssSelector = typeof selector === 'string' ? selector : selector.cssSelector;
         const elements = this.testElement.elements;
-        const nextElements = [].concat(...elements.map((element) => element.queryAll(By.css(cssSelector))));
-        return new AngularWidgetObjectElement(new TestElement(nextElements, this.testElement.fixture));
+        let matches = [].concat(...elements.map((element) => element.queryAll(By.css(cssSelector))));
+        if (typeof selector !== 'string') {
+            if (typeof selector.index === 'number') {
+                matches = [matches[selector.index]];
+            } else if (selector.text) {
+                matches = matches.filter((el) => el.nativeElement.textContent.includes(selector.text));
+            }
+        }
+        return new AngularWidgetObjectElement(new TestElement(matches, this.testElement.fixture));
     }
-
     /**
      * @inheritdoc
      */
     getByText(cssSelector: string, value: string): AngularWidgetObjectElement {
         const elements = this.testElement.elements;
-        let nextElements: DebugElement[] = [].concat(
-            ...elements.map((element) => element.queryAll(By.css(cssSelector)))
-        );
+        let nextElements = [].concat(...elements.map((element) => element.queryAll(By.css(cssSelector))));
         nextElements = nextElements.filter((el) => el.nativeElement.textContent.includes(value));
         return new AngularWidgetObjectElement(new TestElement(nextElements, this.testElement.fixture));
     }
@@ -50,14 +55,26 @@ export class AngularWidgetObjectElement implements WidgetObjectElement<TestEleme
         );
     }
 
+    /**
+     * @inheritdoc
+     */
     click(): void {
         this.testElement.click();
     }
 
+    /**
+     * @inheritdoc
+     */
     check(options?: unknown): void {}
 
+    /**
+     * @inheritdoc
+     */
     uncheck(options?: unknown): void {}
 
+    /**
+     * @inheritdoc
+     */
     select(value: string, options?: unknown): void {}
 
     type(value: string): void {
@@ -192,6 +209,13 @@ export class TestElement implements Iterable<TestElement> {
      */
     toArray(): TestElement[] {
         return this.elements.map((el) => new TestElement([el], this.fixture));
+    }
+
+    /**
+     * Maps over each element of this collection
+     */
+    map<U>(callbackfn: (el: TestElement, index: number, array: TestElement[]) => U): U[] {
+        return this.toArray().map(callbackfn);
     }
 
     /**
