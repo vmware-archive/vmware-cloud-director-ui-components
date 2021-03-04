@@ -5,6 +5,12 @@
     .modal-backdrop {
         background: transparent;
     }
+
+    height: 0;
+}
+
+.dropdown {
+    position: absolute;
 }
 
 .modal-body {
@@ -13,6 +19,7 @@
     height: 500px;
 
     .search-input-container {
+        margin-top: 30px;
         display: flex;
 
         clr-icon {
@@ -50,13 +57,52 @@
 
         .search-result-item {
             padding-left: 8px;
-
-            &.selected {
-                background-color: var(--clr-global-selection-color);
-            }
             &:hover {
                 background-color: var(--clr-tree-link-hover-color);
             }
         }
     }
+}
+
+.filters-autofill {
+    top: 4rem;
+}
+
+.selected {
+    background-color: var(--clr-global-selection-color);
+}
+
+.sub-section {
+    padding-left: 8px;
+}
+
+.measurement-div {
+    flex-shrink: 1;
+    visibility: hidden;
+    height: 0;
+}
+
+.btn.btn-link.pin-button {
+    display: flex;
+    margin: 0px;
+    min-width: 0px;
+}
+
+vcd-drawer-component.modal-body {
+    display: inline;
+    height: unset;
+    flex-direction: row;
+}
+
+.dropdown-item {
+    color: var(--clr-global-font-color);
+}
+
+::ng-deep .modal-header--accessible {
+    display: none;
+}
+
+clr-control-helper.input-helper {
+    margin-left: 25px;
+    margin-top: 0;
 }
