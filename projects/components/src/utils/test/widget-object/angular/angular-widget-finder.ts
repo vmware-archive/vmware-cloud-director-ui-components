@@ -6,13 +6,19 @@
 import { DebugElement, Type } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { AngularLocatorDriver, TestElement } from './angular-widget-object';
-import { BaseWidgetObject, FindableWidget } from './widget-object';
+import { BaseWidgetObject, FindableWidget, FindElementOptions } from '../widget-object';
+import { AngularWidgetObjectElement, TestElement } from './angular-widget-object-element';
 
 /**
- * Knows how to find Angular objects in the DOM.
+ * Adds Angular specific options for finding widgets
  */
+export interface FindAngularWidgetOptions extends FindElementOptions {
+    ancestor?: DebugElement;
+}
 
+/**
+ * Knows how to find and instantiate Angular Widgets objects.
+ */
 export class AngularWidgetObjectFinder<H = unknown> {
     /**
      * We don't care or could possibly know the type of fixture
@@ -25,7 +31,8 @@ export class AngularWidgetObjectFinder<H = unknown> {
     public hostComponent: H;
 
     /**
-     * @param componentConstructor The host component to be created as the root of the tests's fixture
+     * @param arg The host component to be created as the root of the tests's fixture or its creator, in which
+     * case, it will be created.
      */
     constructor(arg: Type<H> | ComponentFixture<H>) {
         this.fixture = (arg as ComponentFixture<H>).componentRef
@@ -38,16 +45,13 @@ export class AngularWidgetObjectFinder<H = unknown> {
      * Finds a single widget object
      *
      * @param widgetConstructor - The constructor of the widget to use
-     * @param ancestor - The parent DebugElement to begin the search from
-     * @param cssSelector - The cssSelector to append to the tagName for the search
-     *
      * @throws An error if the widget is not found or if there are multiple instances
      */
     public find<W extends BaseWidgetObject<TestElement>>(
         widgetConstructor: FindableWidget<TestElement, W>,
-        ancestor?: DebugElement,
-        cssSelector?: string
+        findOptions: FindAngularWidgetOptions = {}
     ): W {
+        const { cssSelector, ancestor } = findOptions;
         let query = widgetConstructor.tagName;
         if (cssSelector) {
             query += `${cssSelector}`;
@@ -61,7 +65,7 @@ export class AngularWidgetObjectFinder<H = unknown> {
             throw new Error(`Could not find the widget using the query ${query}`);
         }
 
-        const widget = new widgetConstructor(new AngularLocatorDriver(new TestElement([root], this.fixture), root));
+        const widget = new widgetConstructor(new AngularWidgetObjectElement(new TestElement([root], this.fixture)));
         return widget;
     }
 

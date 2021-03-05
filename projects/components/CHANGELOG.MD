@@ -7,19 +7,24 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [2.0.0-dev.3]
+### Changed
+- BREAKING: Renames LocatorDriver to WidgetObjectElement and its field name to `this.el`
+- BREAKING: Removed WidgetObject base protected methods to create element locators with a factory
+
 ## [2.0.0-dev.2]
 ### Fixes
 - Makes it so the page size warning is only displayed when all are not shown.
 - Fixes an error that was thrown in the sharing modal with the users groups orgs directive.
+
 ### Changed
 - BREAKING: Renamed `HasHref` to `HasId`. Entities given to the Sharing Modal are now required to have an ID property instead of a HREF.
 
 ### Added
 - The UsersGroupsOrgsSharingModalDirective now provides a default for `makeSearch` and `entityRenderer`.
 - BREAKING: Adds @vcd/angular-client as a dependency.
-
-### Added
 - Adds a `self` method to `BaseWidgetObject`.
+
 ## [2.0.0-dev.1]
 ### Fixed
 - Vapp Add action bug which exposed the bug with quick search showing grouped actions with empty children in the search result
@@ -41,14 +46,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [1.0.0-dev.56]
 ### Changed
 - BREAKING: Removed the calculateActionAvailability input which was acting as a switch to toggle the action availability
-calculation by ActionMenuComponent  
+calculation by ActionMenuComponent
 
 ## [1.0.0-dev.55] - 2020-12-16
 - Merged a11y branch, changes described below
 
 ### Added
-- Ability to disable the responsive input directive on form controls so 
-  they can by used in vertical forms.
+- Ability to disable the responsive input directive on form controls so
+  they can be used in vertical forms.
 - Enabled hints for vcd-form-checkbox
 - Fixed previous bad vcdResponsiveInput commits. Module was incorrectly setup and vcdResponsiveInput had
     been added as  a class name instead of an attribute (directive)
@@ -88,7 +93,7 @@ calculation by ActionMenuComponent
 ## [1.0.0-dev.54]
 ### Changed
 - QuickSearchProvider now takes a boolean argument in its constructor to debounce calling the search functionality
-by 300 milliseconds 
+by 300 milliseconds
 
 ## [1.0.0-dev.53] - 2020-12-16
 ### Fixed

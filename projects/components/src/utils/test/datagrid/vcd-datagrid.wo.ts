@@ -15,13 +15,13 @@ export class VcdDatagridWidgetObject<T> extends BaseWidgetObject<T> {
     /**
      * Gives the header above the grid.
      */
-    getHeader = this.locatorForCssSelectors('h3');
+    getHeader = this.factory.css('h3');
 
     /**
      * Gives the widget object for this `clr-datagrid`.
      */
     get clrDatagrid(): ClrDatagridWidgetObject<T> {
-        return this.locatorDriver.findWidget<ClrDatagridWidgetObject<T>>(ClrDatagridWidgetObject);
+        return this.el.findWidget<ClrDatagridWidgetObject<T>>(ClrDatagridWidgetObject);
     }
 
     /**

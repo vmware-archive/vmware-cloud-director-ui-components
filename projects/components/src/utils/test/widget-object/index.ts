@@ -3,7 +3,8 @@
  * SPDX-License-Identifier: BSD-2-Clause
  */
 
-export { BaseWidgetObject, CorrectReturnTypes, FindableWidget } from './widget-object';
-export { TestElement } from './angular-widget-object';
-export { CypressWidgetObjectFinder } from './cypress-widget-finder';
-export { AngularWidgetObjectFinder } from './angular-widget-finder';
+export { BaseWidgetObject, FindableWidget } from './widget-object';
+export { CypressWidgetObjectFinder, FindCypressWidgetOptions } from './cypress/cypress-widget-finder';
+export { AngularWidgetObjectFinder } from './angular/angular-widget-finder';
+export { TestElement } from './angular/angular-widget-object-element';
+export { FindElementOptions } from './widget-object';

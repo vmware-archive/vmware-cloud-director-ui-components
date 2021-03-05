@@ -7,8 +7,8 @@ import { Component } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
 import { MockTranslationService, TranslationService } from '@vcd/i18n';
 import { ActionItem } from '../common/interfaces';
-import { AngularWidgetObjectFinder } from '../utils/test/widget-object/angular-widget-finder';
-import { TestElement } from '../utils/test/widget-object/angular-widget-object';
+import { TestElement } from '../utils';
+import { AngularWidgetObjectFinder } from '../utils/test/widget-object/angular/angular-widget-finder';
 import { BaseWidgetObject } from '../utils/test/widget-object/widget-object';
 import { DropdownComponent, NESTED_MENU_HIDE_DELAY } from './dropdown.component';
 import { DropdownModule } from './dropdown.module';
@@ -17,11 +17,11 @@ export class VcdDropdownWidgetObject<T> extends BaseWidgetObject<T> {
     static tagName = `vcd-dropdown`;
 
     getDropdownToggleButton(dropdownToggleBtnClassName: string): T {
-        return this.locatorForCssSelectors(`.${dropdownToggleBtnClassName}`)();
+        return this.el.get(`.${dropdownToggleBtnClassName}`).unwrap();
     }
 
     getDropdown(dropdownToggleBtnClassName: string): T {
-        const dropdownToggle = this.locatorDriver.get(`.${dropdownToggleBtnClassName}`);
+        const dropdownToggle = this.el.get(`.${dropdownToggleBtnClassName}`);
         const toggleParentDropdown = dropdownToggle.parents(VcdDropdownWidgetObject.tagName);
         return toggleParentDropdown.unwrap();
     }

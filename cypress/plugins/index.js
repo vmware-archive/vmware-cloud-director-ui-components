@@ -15,7 +15,59 @@
 /**
  * @type {Cypress.PluginConfig}
  */
+const path = require('path');
+const fs = require('fs');
+
+const downloadDirectory = path.join(__dirname, '..', 'downloads');
+
+const findFile = (filename) => {
+    const fileName = `${downloadDirectory}/${filename}`;
+    return fs.existsSync(fileName);
+};
+
+const hasFile = (filename, ms) => {
+    const delay = 10;
+    return new Promise((resolve, reject) => {
+        if (ms < 0) {
+            return reject(new Error(`Could not find file ${downloadDirectory}/${filename}`));
+        }
+        const found = findFile(filename);
+
+        if (found) {
+            try {
+                var data = fs.readFileSync(`${downloadDirectory}/${filename}`, 'utf8');
+                return resolve(data);
+            } catch (e) {
+                return reject(new Error(`Could not read file ${downloadDirectory}/${filename}`));
+            }
+        }
+        setTimeout(() => {
+            hasFile(filename, ms - delay).then(resolve, reject);
+        }, 10);
+    });
+};
+
 module.exports = (on, config) => {
-    // `on` is used to hook into various events Cypress emits
-    // `config` is the resolved Cypress config
+    on('before:browser:launch', (browser, options) => {
+        if (browser.family === 'chromium') {
+            options.preferences.default['download'] = {
+                default_directory: downloadDirectory,
+            };
+            return options;
+        }
+        if (browser.family === 'firefox') {
+            options.preferences['browser.download.dir'] = downloadDirectory;
+            options.preferences['browser.download.folderList'] = 2;
+            options.preferences['browser.helperApps.neverAsk.saveToDisk'] = 'text/csv';
+            return options;
+        }
+    });
+
+    on('task', {
+        fileIsDownloaded(filename, ms = 4000) {
+            return hasFile(filename, ms);
+        },
+    });
+
+    return config;
 };

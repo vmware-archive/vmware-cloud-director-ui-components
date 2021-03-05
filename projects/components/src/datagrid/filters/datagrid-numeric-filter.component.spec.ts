@@ -7,7 +7,7 @@ import {
     createDatagridFilterTestHelperWithFinder,
     FilterTestHostComponent,
 } from '../../utils/test/datagrid/filter-utils';
-import { AngularWidgetObjectFinder } from '../../utils/test/widget-object/angular-widget-finder';
+import { AngularWidgetObjectFinder } from '../../utils/test/widget-object/angular/angular-widget-finder';
 import { Bytes } from '../../utils/unit/unit';
 import { DatagridFilter } from './datagrid-filter';
 import {

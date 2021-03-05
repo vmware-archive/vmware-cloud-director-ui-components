@@ -6,9 +6,22 @@
 import { Component, Input, Type } from '@angular/core';
 import { ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
+import { BaseWidgetObject } from '../widget-object';
 import { AngularWidgetObjectFinder } from './angular-widget-finder';
-import { AngularLocatorDriver, TestElement } from './angular-widget-object';
-import { BaseWidgetObject } from './widget-object';
+import { AngularWidgetObjectElement, TestElement } from './angular-widget-object-element';
+
+/**
+ * We should always prefer DataUi attributes when possible. They are easy to share between
+ * HTML and widget objects and can easily be stripped from production code while
+ * making sure that CSS hooks don't get confused with testing specific hooks
+ */
+const DataUi = {
+    clickCount: 'click-count',
+    header: 'header',
+    clickReceiver: 'click-receiver',
+    nameInput: 'name-input',
+    button: 'button',
+};
 
 /**
  * This is the reusable component being tested, typically goes in its own file
@@ -17,19 +30,28 @@ import { BaseWidgetObject } from './widget-object';
     selector: 'vcd-click-tracker',
     template: `
         <div>
-            <h1>
+            <h1 [attr.data-ui]="DataUi.header">
                 <b>hello</b>
             </h1>
-            <p (click)="clickCount = clickCount + 1">
-                Clicks: <span class="click-count">{{ clickCount }}</span>
+            <p (click)="clickCount = clickCount + 1" [attr.data-ui]="DataUi.clickReceiver">
+                Clicks: <span data-ui="click-count">{{ clickCount }}</span>
             </p>
-            <button ng-disabled="{{ true }}">BUTTON</button>
-            <button>BUTTON2</button>
-            <input type="text" id="fname" name="fname" class="name" [(ngModel)]="name" />
+            <button disabled [attr.data-ui]="DataUi.button">BUTTON</button>
+            <button [attr.data-ui]="DataUi.button">BUTTON2</button>
+            <input
+                type="text"
+                id="fname"
+                name="fname"
+                class="name"
+                [attr.data-ui]="DataUi.nameInput"
+                [(ngModel)]="name"
+            />
         </div>
     `,
 })
 class ClickTrackerComponent {
+    DataUi = DataUi;
+
     @Input() header = 'Click Tracker';
     clickCount = 0;
 
@@ -39,8 +61,11 @@ class ClickTrackerComponent {
 class HeaderWidgetObject<T> extends BaseWidgetObject<T> {
     static tagName = 'h1';
 
+    /**
+     * This is a bad example for a method for an h1 because an h1 widget can't know that it contains a b tag
+     */
     getBoldText(): T {
-        return this.locatorDriver.get('b').unwrap();
+        return this.el.get('b').unwrap();
     }
 }
 
@@ -53,24 +78,26 @@ class HeaderWidgetObject<T> extends BaseWidgetObject<T> {
 class ClickTrackerWidgetObject<T> extends BaseWidgetObject<T> {
     static tagName = 'vcd-click-tracker';
 
-    getClickCount = this.locatorForCssSelectors('.click-count');
+    private _getClickCount = this.internalFactory.dataUi(DataUi.clickCount);
 
-    getHeaderText = this.locatorForCssSelectors('h1');
+    getClickCount = this.factory.unwrap(this._getClickCount);
 
-    getTrackerElement = this.locatorForCssSelectors('p');
+    getHeaderText = this.factory.dataUi(DataUi.header);
 
-    getNameInput = this.locatorForCssSelectors('.name');
+    getTrackerElement = this.factory.dataUi(DataUi.clickReceiver);
 
-    getButton = this.locatorForText('button', 'BUTTON');
+    getNameInput = this.factory.dataUi(DataUi.nameInput);
 
-    getButtons = this.locatorForCssSelectors('button');
+    getButtons = this.factory.dataUi(DataUi.button);
+
+    getButtonByLabel = this.factory.dataUi('button');
 
     getTrackerElementUsingParent(): T {
-        return this.locatorDriver.get('span').parents('p').unwrap();
+        return this._getClickCount().parents(`[data-ui=${DataUi.clickReceiver}]`).unwrap();
     }
 
     findHeaderWidget(): HeaderWidgetObject<T> {
-        return this.locatorDriver.findWidget<HeaderWidgetObject<T>>(HeaderWidgetObject);
+        return this.el.findWidget<HeaderWidgetObject<T>>(HeaderWidgetObject);
     }
 }
 
@@ -118,7 +145,7 @@ describe('AngularWidgetFinder', () => {
     });
 });
 
-describe('AngularLocatorDriver', () => {
+describe('AngularWidgetObjectElement', () => {
     beforeEach(async function (this: HasClickTracker): Promise<void> {
         await TestBed.configureTestingModule({
             imports: [FormsModule],
@@ -128,16 +155,19 @@ describe('AngularLocatorDriver', () => {
         this.fixture = TestBed.createComponent(ClickTrackerComponent);
         this.fixture.detectChanges();
         this.clickTracker = new ClickTrackerWidgetObject(
-            new AngularLocatorDriver(
-                new TestElement([this.fixture.debugElement], this.fixture),
-                this.fixture.debugElement
-            )
+            new AngularWidgetObjectElement(new TestElement([this.fixture.debugElement], this.fixture))
         );
     });
 
     describe('get', () => {
         it('can find elements by CSS selector', function (this: HasClickTracker): void {
             expect(this.clickTracker.getClickCount().text()).toEqual('0');
+        });
+        it('can find an element by text', function (this: HasClickTracker): void {
+            expect(this.clickTracker.getButtonByLabel({ text: 'BUTTON2' }).text()).toEqual('BUTTON2');
+        });
+        it('can find an element by index', function (this: HasClickTracker): void {
+            expect(this.clickTracker.getButtonByLabel({ index: 0 }).text()).toEqual('BUTTON');
         });
     });
 
@@ -151,12 +181,6 @@ describe('AngularLocatorDriver', () => {
         it('can find a parent by css selector', function (this: HasClickTracker): void {
             this.clickTracker.getTrackerElementUsingParent().click();
             expect(this.clickTracker.getClickCount().text()).toEqual('1');
-        });
-    });
-
-    describe('getByText', () => {
-        it('can find an element by text', function (this: HasClickTracker): void {
-            expect(this.clickTracker.getButton().text()).toEqual('BUTTON');
         });
     });
 });
@@ -175,10 +199,7 @@ describe('TestElement', () => {
         this.fixture = TestBed.createComponent(ClickTrackerComponent);
         this.fixture.detectChanges();
         this.clickTracker = new ClickTrackerWidgetObject(
-            new AngularLocatorDriver(
-                new TestElement([this.fixture.debugElement], this.fixture),
-                this.fixture.debugElement
-            )
+            new AngularWidgetObjectElement(new TestElement([this.fixture.debugElement], this.fixture))
         );
     });
 

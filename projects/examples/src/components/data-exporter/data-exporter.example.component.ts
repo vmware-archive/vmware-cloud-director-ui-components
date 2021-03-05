@@ -2,7 +2,6 @@
  * Copyright 2019-2020 VMware, Inc.
  * SPDX-License-Identifier: BSD-2-Clause
  */
-
 import { Component } from '@angular/core';
 import { DataExportRequestEvent, ExportColumn } from '@vcd/ui-components';
 
@@ -53,10 +52,18 @@ export class DataExporterExampleComponent {
                 request.updateProgress(currentProgress);
                 setTimeout(updateProgress, 50);
             } else {
-                request.exportData([
+                const data = [
                     { name: 'Jack', desc: 'Tis what tis', injection: '=1+1' },
                     { name: 'Jill', desc: 'Still tis what tis', injection: '+1+1' },
-                ]);
+                ];
+                const dataWithCorrectColumns = data.map((row) => {
+                    const obj = {};
+                    for (const col of request.selectedColumns) {
+                        obj[col.fieldName] = row[col.fieldName];
+                    }
+                    return obj;
+                });
+                request.exportData(dataWithCorrectColumns);
             }
         };
         updateProgress();

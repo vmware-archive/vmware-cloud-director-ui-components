@@ -15,8 +15,8 @@ import {
 } from '../../../datagrid';
 import { MockRecord } from '../../../datagrid/mock-data';
 import { IdGenerator } from '../../id-generator/id-generator';
-import { AngularWidgetObjectFinder } from '../widget-object/angular-widget-finder';
-import { TestElement } from '../widget-object/angular-widget-object';
+import { AngularWidgetObjectFinder } from '../widget-object/angular/angular-widget-finder';
+import { TestElement } from '../widget-object/angular/angular-widget-object-element';
 import { ClrDatagridWidgetObject } from './datagrid.wo';
 
 function getFilter<V, C>(element: TestElement, filterType: Type<DatagridFilter<V, C>>): DatagridFilter<V, C> {

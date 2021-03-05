@@ -1,52 +1,87 @@
 /*!
- * Copyright 2020 VMware, Inc.
+ * Copyright 2021 VMware, Inc.
  * SPDX-License-Identifier: BSD-2-Clause
  */
 
 import { DebugElement, Injector, Type } from '@angular/core';
 import { ComponentFixture } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { AngularWidgetObjectFinder } from './angular-widget-finder';
-import { BaseWidgetObject, FindableWidget, LocatorDriver } from './widget-object';
+import { BaseWidgetObject, FindableWidget, FindElementOptions, WidgetObjectElement } from '../widget-object';
+import { AngularWidgetObjectFinder, FindAngularWidgetOptions } from './angular-widget-finder';
 
 /**
- * Knows how to find Angular TestElements in the DOM.
+ * Angular implementation of the Widget Object's internal HTML Element wrapper
+ * Its `unwrap` method returns a DebugElementWrapper, which wraps Angular's DebugElement so that it can be considered
+ * a collection and to simplify access to its attributes
  */
-export class AngularLocatorDriver implements LocatorDriver<TestElement> {
-    constructor(private testElement: TestElement, private rootElement: DebugElement) {}
+export class AngularWidgetObjectElement implements WidgetObjectElement<TestElement> {
+    constructor(private testElement: TestElement) {}
 
     /**
      * @inheritdoc
      */
-    get(cssSelector: string): AngularLocatorDriver {
+    get(selector: string | FindElementOptions): AngularWidgetObjectElement {
+        const cssSelector = typeof selector === 'string' ? selector : selector.cssSelector;
         const elements = this.testElement.elements;
-        const nextElements = [].concat(...elements.map((element) => element.queryAll(By.css(cssSelector))));
-        return new AngularLocatorDriver(new TestElement(nextElements, this.testElement.fixture), this.rootElement);
+        let matches = [].concat(...elements.map((element) => element.queryAll(By.css(cssSelector))));
+        if (typeof selector !== 'string') {
+            if (typeof selector.index === 'number') {
+                matches = [matches[selector.index]];
+            } else if (selector.text) {
+                matches = matches.filter((el) => el.nativeElement.textContent.includes(selector.text));
+            }
+        }
+        return new AngularWidgetObjectElement(new TestElement(matches, this.testElement.fixture));
     }
-
     /**
      * @inheritdoc
      */
-    getByText(cssSelector: string, value: string): AngularLocatorDriver {
+    getByText(cssSelector: string, value: string): AngularWidgetObjectElement {
         const elements = this.testElement.elements;
-        let nextElements: DebugElement[] = [].concat(
-            ...elements.map((element) => element.queryAll(By.css(cssSelector)))
-        );
+        let nextElements = [].concat(...elements.map((element) => element.queryAll(By.css(cssSelector))));
         nextElements = nextElements.filter((el) => el.nativeElement.textContent.includes(value));
-        return new AngularLocatorDriver(new TestElement(nextElements, this.testElement.fixture), this.rootElement);
+        return new AngularWidgetObjectElement(new TestElement(nextElements, this.testElement.fixture));
     }
 
     /**
      * @inheritdoc
      */
-    parents(cssSelector: string): AngularLocatorDriver {
-        return new AngularLocatorDriver(
+    parents(cssSelector: string): AngularWidgetObjectElement {
+        return new AngularWidgetObjectElement(
             new TestElement(
                 this.testElement.elements.map((el) => this.findParent(cssSelector, el.parent)),
                 this.testElement.fixture
-            ),
-            this.rootElement
+            )
         );
+    }
+
+    /**
+     * @inheritdoc
+     */
+    click(): void {
+        this.testElement.click();
+    }
+
+    /**
+     * @inheritdoc
+     */
+    check(options?: unknown): void {}
+
+    /**
+     * @inheritdoc
+     */
+    uncheck(options?: unknown): void {}
+
+    /**
+     * @inheritdoc
+     */
+    select(value: string, options?: unknown): void {}
+
+    type(value: string): void {
+        const inputEl = this.testElement.elements[0].nativeElement as HTMLInputElement;
+        inputEl.value = String(value);
+        inputEl.dispatchEvent(new Event('change'));
+        inputEl.dispatchEvent(new Event('input'));
     }
 
     /**
@@ -55,12 +90,12 @@ export class AngularLocatorDriver implements LocatorDriver<TestElement> {
      */
     private findParent(cssSelector: string, debugElement: DebugElement): DebugElement {
         if (!debugElement) {
-            return undefined;
-        } else if (debugElement.nativeElement.matches(cssSelector)) {
-            return debugElement;
-        } else {
-            return this.findParent(cssSelector, debugElement.parent);
+            return;
         }
+        if (debugElement.nativeElement.matches(cssSelector)) {
+            return debugElement;
+        }
+        return this.findParent(cssSelector, debugElement.parent);
     }
 
     /**
@@ -74,10 +109,13 @@ export class AngularLocatorDriver implements LocatorDriver<TestElement> {
      * @inheritdoc
      */
     findWidget<W extends BaseWidgetObject<TestElement>>(
-        widget: FindableWidget<TestElement, W>,
-        cssSelector?: string
+        widgetCtor: FindableWidget<TestElement, W>,
+        findOptions: FindAngularWidgetOptions
     ): W {
-        return new AngularWidgetObjectFinder(this.testElement.fixture).find(widget, this.rootElement, cssSelector);
+        return new AngularWidgetObjectFinder(this.testElement.fixture).find(widgetCtor, {
+            ...findOptions,
+            ancestor: this.testElement.elements[0],
+        });
     }
 }
 
@@ -95,32 +133,44 @@ export class AngularLocatorDriver implements LocatorDriver<TestElement> {
 export class TestElement implements Iterable<TestElement> {
     constructor(public elements: DebugElement[], public fixture: ComponentFixture<any>) {}
 
+    private get firstNativeElement(): HTMLElement {
+        return this.firstDebugElement.nativeElement;
+    }
+
+    private get firstDebugElement(): DebugElement {
+        return this.elements[0];
+    }
+
+    private forEach(cb: (item: DebugElement, index, array: DebugElement[]) => void): void {
+        this.elements.forEach(cb);
+    }
+
     /**
      * Gives the text of the first element.
      */
     text(): string {
-        return this.elements[0].nativeElement.textContent.trim();
+        return this.firstNativeElement.textContent.trim();
     }
 
     /**
      * Gives the value of the first element.
      */
     value(): string {
-        return this.elements[0].nativeElement.value;
+        return (this.firstNativeElement as HTMLInputElement).value;
     }
 
     /**
      * Says if this element is enabled.
      */
     enabled(): boolean {
-        return !this.elements[0].nativeElement.disabled;
+        return !(this.firstNativeElement as HTMLInputElement).disabled;
     }
 
     /**
      * Clicks all of the elements contained.
      */
     click(): void {
-        this.elements.map((element) => element.nativeElement.click());
+        this.forEach((element) => element.nativeElement.click());
         this.fixture.detectChanges();
     }
 
@@ -128,7 +178,7 @@ export class TestElement implements Iterable<TestElement> {
      * Blurs all the contained elements.
      */
     blur(): void {
-        this.elements.map((el) => el.nativeElement.dispatchEvent(new Event('blur')));
+        this.forEach((el) => el.nativeElement.dispatchEvent(new Event('blur')));
         this.fixture.detectChanges();
     }
 
@@ -136,7 +186,7 @@ export class TestElement implements Iterable<TestElement> {
      * Clears the input on all the contained elements.
      */
     clear(): void {
-        this.elements.map((el) => (el.nativeElement.value = ''));
+        this.forEach((el) => (el.nativeElement.value = ''));
         this.fixture.detectChanges();
     }
 
@@ -162,6 +212,13 @@ export class TestElement implements Iterable<TestElement> {
     }
 
     /**
+     * Maps over each element of this collection
+     */
+    map<U>(callbackfn: (el: TestElement, index: number, array: TestElement[]) => U): U[] {
+        return this.toArray().map(callbackfn);
+    }
+
+    /**
      * Send a keyboard event of type {@param eventType} with properties {@param eventProperties} on this element.
      * Setting the event properties is done with `Object.defineProperty` on the created event. This allows setting
      * properties like `which` that is deprecated and cannot be set with the native approach of creating keyboard event.
@@ -169,12 +226,11 @@ export class TestElement implements Iterable<TestElement> {
      * @param eventProperties properties of the event like `code`, `key` etc.
      */
     sendKeyboardEvent(eventType: string, eventProperties: { [name: string]: unknown }): void {
-        const element = this.elements[0].nativeElement as HTMLElement;
         const event = new KeyboardEvent(eventType, { bubbles: true });
         Object.keys(eventProperties).forEach((key) => {
             Object.defineProperty(event, key, { value: eventProperties[key] });
         });
-        element.dispatchEvent(event);
+        this.firstNativeElement.dispatchEvent(event);
         this.detectChanges();
     }
 
@@ -182,8 +238,7 @@ export class TestElement implements Iterable<TestElement> {
      * To simulate a mouse hover event on the test element
      */
     mouseOver(): void {
-        const nativeElement: HTMLBaseElement = this.elements[0].nativeElement;
-        nativeElement.dispatchEvent(new MouseEvent('mouseover', { bubbles: true }));
+        this.firstNativeElement.dispatchEvent(new MouseEvent('mouseover', { bubbles: true }));
         this.detectChanges();
     }
 
@@ -191,8 +246,7 @@ export class TestElement implements Iterable<TestElement> {
      * To simulate a mouse out event on the test element
      */
     mouseOut(): void {
-        const nativeElement: HTMLBaseElement = this.elements[0].nativeElement;
-        nativeElement.dispatchEvent(new MouseEvent('mouseout', { bubbles: true }));
+        this.firstNativeElement.dispatchEvent(new MouseEvent('mouseout', { bubbles: true }));
         this.detectChanges();
     }
 
@@ -200,7 +254,7 @@ export class TestElement implements Iterable<TestElement> {
      * Returns classes of first element as a string array
      */
     classes(): string[] {
-        return Object.keys(this.elements[0].classes);
+        return Object.keys(this.firstDebugElement.classes);
     }
 
     /**
@@ -208,21 +262,21 @@ export class TestElement implements Iterable<TestElement> {
      * @param key specified CSS property
      */
     getStylePropertyValue(key: string): string {
-        return this.elements[0].nativeElement.style.getPropertyValue(key);
+        return this.firstNativeElement.style.getPropertyValue(key);
     }
 
     /**
      * Returns componentInstance of the first element
      */
     getComponentInstance(): any {
-        return this.elements[0].componentInstance;
+        return this.firstDebugElement.componentInstance;
     }
 
     /**
      * Returns injector of the first element
      */
     getInjector(): Injector {
-        return this.elements[0].injector;
+        return this.firstDebugElement.injector;
     }
 
     /**
@@ -239,7 +293,7 @@ export class TestElement implements Iterable<TestElement> {
      * Returns the first parent element that matches css selector
      */
     parents(cssSelector: string): TestElement {
-        const result = this.findParents(this.elements[0].parent, cssSelector);
+        const result = this.findParents(this.firstDebugElement.parent, cssSelector);
         return new TestElement(result ? [result] : [], this.fixture);
     }
 
@@ -247,14 +301,14 @@ export class TestElement implements Iterable<TestElement> {
      * Returns componentInstance after query directive
      */
     queryDirective(type: Type<any>): any {
-        return this.elements[0].query(By.directive(type)).componentInstance;
+        return this.firstDebugElement.query(By.directive(type)).componentInstance;
     }
 
     /**
      * Returns children of the first element that matches css selector
      */
     queryElements(cssSelector: string): TestElement {
-        const result = this.elements[0].queryAll(By.css(cssSelector));
+        const result = this.firstDebugElement.queryAll(By.css(cssSelector));
         return new TestElement(result ? result : [], this.fixture);
     }
 
