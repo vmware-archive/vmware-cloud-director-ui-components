@@ -557,7 +557,7 @@ customElements.define('compodoc-menu', class extends HTMLElement {
                                 <a href="classes/ActivityReporter.html" data-type="entity-link">ActivityReporter</a>
                             </li>
                             <li class="link">
-                                <a href="classes/AngularLocatorDriver.html" data-type="entity-link">AngularLocatorDriver</a>
+                                <a href="classes/AngularWidgetObjectElement.html" data-type="entity-link">AngularWidgetObjectElement</a>
                             </li>
                             <li class="link">
                                 <a href="classes/AngularWidgetObjectFinder.html" data-type="entity-link">AngularWidgetObjectFinder</a>
@@ -581,7 +581,7 @@ customElements.define('compodoc-menu', class extends HTMLElement {
                                 <a href="classes/CommonUtil.html" data-type="entity-link">CommonUtil</a>
                             </li>
                             <li class="link">
-                                <a href="classes/CypressLocatorDriver.html" data-type="entity-link">CypressLocatorDriver</a>
+                                <a href="classes/CypressWidgetObjectElement.html" data-type="entity-link">CypressWidgetObjectElement</a>
                             </li>
                             <li class="link">
                                 <a href="classes/CypressWidgetObjectFinder.html" data-type="entity-link">CypressWidgetObjectFinder</a>
@@ -745,6 +745,9 @@ customElements.define('compodoc-menu', class extends HTMLElement {
                                 <a href="interfaces/DetailRowConfig.html" data-type="entity-link">DetailRowConfig</a>
                             </li>
                             <li class="link">
+                                <a href="interfaces/ElementActions.html" data-type="entity-link">ElementActions</a>
+                            </li>
+                            <li class="link">
                                 <a href="interfaces/ExportColumn.html" data-type="entity-link">ExportColumn</a>
                             </li>
                             <li class="link">
@@ -758,6 +761,12 @@ customElements.define('compodoc-menu', class extends HTMLElement {
                             </li>
                             <li class="link">
                                 <a href="interfaces/FindableWidget-1.html" data-type="entity-link">FindableWidget</a>
+                            </li>
+                            <li class="link">
+                                <a href="interfaces/FindAngularWidgetOptions.html" data-type="entity-link">FindAngularWidgetOptions</a>
+                            </li>
+                            <li class="link">
+                                <a href="interfaces/FindCypressWidgetOptions.html" data-type="entity-link">FindCypressWidgetOptions</a>
                             </li>
                             <li class="link">
                                 <a href="interfaces/FindParams.html" data-type="entity-link">FindParams</a>
@@ -781,7 +790,7 @@ customElements.define('compodoc-menu', class extends HTMLElement {
                                 <a href="interfaces/ISubscriptionTracker.html" data-type="entity-link">ISubscriptionTracker</a>
                             </li>
                             <li class="link">
-                                <a href="interfaces/LocatorDriver.html" data-type="entity-link">LocatorDriver</a>
+                                <a href="interfaces/Locator.html" data-type="entity-link">Locator</a>
                             </li>
                             <li class="link">
                                 <a href="interfaces/MenuItem.html" data-type="entity-link">MenuItem</a>
@@ -869,6 +878,9 @@ customElements.define('compodoc-menu', class extends HTMLElement {
                             </li>
                             <li class="link">
                                 <a href="interfaces/VcdFormlyTemplateOptions.html" data-type="entity-link">VcdFormlyTemplateOptions</a>
+                            </li>
+                            <li class="link">
+                                <a href="interfaces/WidgetObjectElement.html" data-type="entity-link">WidgetObjectElement</a>
                             </li>
                         </ul>
                     </li>

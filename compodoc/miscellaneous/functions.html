@@ -97,9 +97,6 @@
                             <a href="#FilterComponentRendererSpec" title="projects/components/src/datagrid/filters/datagrid-filter.ts"><b>FilterComponentRendererSpec</b>&nbsp;&nbsp;&nbsp;(projects/.../datagrid-filter.ts)</a>
                         </li>
                         <li>
-                            <a href="#findCypressWidget" title="projects/components/src/utils/test/widget-object/find-cypress-widget.ts"><b>findCypressWidget</b>&nbsp;&nbsp;&nbsp;(projects/.../find-cypress-widget.ts)</a>
-                        </li>
-                        <li>
                             <a href="#getDeepCopyOfActionItems" title="projects/components/src/action-menu/action-menu.component.ts"><b>getDeepCopyOfActionItems</b>&nbsp;&nbsp;&nbsp;(projects/.../action-menu.component.ts)</a>
                         </li>
                         <li>
@@ -1443,109 +1440,6 @@ const gridColumn = {
                     </div>
                     <div class="io-description">
                         <b>Returns : </b>        <code><a href="../interfaces/FilterRendererSpec.html" target="_self" >FilterRendererSpec&lt;C&gt;</a></code>
-
-                    </div>
-                    <div class="io-description">
-                        
-                    </div>
-                </td>
-            </tr>
-        </tbody>
-    </table>
-</section>    <h3>projects/components/src/utils/test/widget-object/find-cypress-widget.ts</h3>
-    <section>
-    <h3></h3>    <table class="table table-sm table-bordered">
-        <tbody>
-            <tr>
-                <td class="col-md-4">
-                    <a name="findCypressWidget"></a>
-                    <span class="name">
-                        <b>
-                            findCypressWidget
-                        </b>
-                        <a href="#findCypressWidget"><span class="icon ion-ios-link"></span></a>
-                    </span>
-                </td>
-            </tr>
-            <tr>
-                <td class="col-md-4">
-<code>findCypressWidget(widgetConstructor, ancestor?, cssSelector?)</code>
-                </td>
-            </tr>
-
-
-
-
-            <tr>
-                <td class="col-md-4">
-                    <div class="io-description"><p>Finds a single widget object. This is a convenience wrapper around the <code>CypressWidgetFinder</code>
-that should be copied into any application E2E tests that want to use this Widget Finder system.</p>
-</div>
-
-                    <div class="io-description">
-                        <b>Parameters :</b>
-                        <table class="params">
-                            <thead>
-                                <tr>
-                                    <td>Name</td>
-                                    <td>Optional</td>
-                                    <td>Description</td>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td>widgetConstructor</td>
-
-                                    <td>
-                                        No
-                                    </td>
-
-
-                                    <td>
-                                        <ul>
-<li>The constructor of the widget to use</li>
-</ul>
-
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>ancestor</td>
-
-                                    <td>
-                                        Yes
-                                    </td>
-
-
-                                    <td>
-                                        <ul>
-<li>The CSS query or alias of the parent to begin the search from.
-this will be passed to <code>cy.get</code> and is a global search.</li>
-</ul>
-
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>cssSelector</td>
-
-                                    <td>
-                                        Yes
-                                    </td>
-
-
-                                    <td>
-                                        <ul>
-<li>The cssSelector to append to the tagName for the search</li>
-</ul>
-
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                    <div>
-                    </div>
-                    <div class="io-description">
-                        <b>Returns : </b>    <code>W</code>
 
                     </div>
                     <div class="io-description">

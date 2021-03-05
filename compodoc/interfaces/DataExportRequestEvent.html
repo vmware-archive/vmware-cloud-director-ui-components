@@ -217,7 +217,7 @@ This should only be called once after all data fetching is finished</p>
 
     <div class="tab-pane fade  tab-source-code" id="c-source">
         <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Component, EventEmitter, Input, OnDestroy, OnInit, Output, ViewChild } from &#x27;@angular/core&#x27;;
-import { AbstractControl, FormControl, FormGroup } from &#x27;@angular/forms&#x27;;
+import { FormControl, FormGroup } from &#x27;@angular/forms&#x27;;
 import { ClrDropdown } from &#x27;@clr/angular&#x27;;
 import { LazyString, TranslationService } from &#x27;@vcd/i18n&#x27;;
 import { SubscriptionTracker } from &#x27;../common/subscription&#x27;;
@@ -267,6 +267,33 @@ export interface DataExportRequestEvent {
     selectedColumns: ExportColumn[];
 }
 
+export const DataUi &#x3D; {
+    /** The label for each check box in the column selection menu */
+    columnSelectionMenuOptions: &#x27;col-selection-menu-option&#x27;,
+
+    /** Where the selected columns are displayed, if select all is disabled  */
+    columnSelectionBubbles: &#x27;col-selection-bubble&#x27;,
+
+    cancelButton: &#x27;cancel-btn&#x27;,
+
+    exportButton: &#x27;export-btn&#x27;,
+
+    /** The label on the checkbox to select all columns */
+    selectAllToggleLabel: &#x27;select-all-toggle-label&#x27;,
+
+    /** The label on the checkbox to enable friendly names */
+    friendlyNamesToggleLabel: &#x27;friendly-names&#x27;,
+
+    /** The progress HTML element containing the value which can be queried for amount of progress     */
+    progressInput: &#x27;progress-input&#x27;,
+
+    /** The arrow next to Select All columns that lets you collapse the dropdown without checking the box */
+    columnCheckboxArrow: &#x27;column-checkbox-arrow&#x27;,
+
+    /** The x buttons to close the column bubbles */
+    columnBubblesX: &#x27;column-bubbles-x&#x27;,
+};
+
 /**
  * A dialog to export data
  *
@@ -280,6 +307,8 @@ export interface DataExportRequestEvent {
     styleUrls: [&#x27;./data-exporter.component.scss&#x27;],
 })
 export class DataExporterComponent implements OnInit, OnDestroy {
+    DataUi &#x3D; DataUi;
+
     constructor(private csvExporterService: CsvExporterService, private translationService: TranslationService) {}
 
     @ViewChild(ClrDropdown) set columnDropdown(columnDropdown: ClrDropdown) {
@@ -459,7 +488,7 @@ export class DataExporterComponent implements OnInit, OnDestroy {
     });
 
     /**
-     * Says if the column dropdown is open.
+     * Says if the column selection dropdown is open.
      */
     isDropdownOpen &#x3D; false;
 

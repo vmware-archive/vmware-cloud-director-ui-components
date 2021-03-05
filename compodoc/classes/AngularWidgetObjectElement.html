@@ -1,0 +1,1363 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>vmware-cloud-director-ui-components documentation</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
+	      <link rel="stylesheet" href="../styles/style.css">
+    </head>
+    <body>
+
+        <div class="navbar navbar-default navbar-fixed-top visible-xs">
+            <a href="../" class="navbar-brand">vmware-cloud-director-ui-components documentation</a>
+            <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
+        </div>
+
+        <div class="xs-menu menu" id="mobile-menu">
+                <div id="book-search-input" role="search"><input type="text" placeholder="Type to search"></div>            <compodoc-menu></compodoc-menu>
+        </div>
+
+        <div class="container-fluid main">
+           <div class="row main">
+               <div class="hidden-xs menu">
+                   <compodoc-menu mode="normal"></compodoc-menu>
+               </div>
+               <!-- START CONTENT -->
+               <div class="content class">
+                   <div class="content-data">
+
+
+
+
+
+
+
+
+
+
+
+<ol class="breadcrumb">
+  <li>Classes</li>
+  <li>AngularWidgetObjectElement</li>
+</ol>
+
+<ul class="nav nav-tabs" role="tablist">
+        <li class="active">
+            <a href="#info" role="tab" id="info-tab" data-toggle="tab" data-link="info">Info</a>
+        </li>
+        <li >
+            <a href="#source" role="tab" id="source-tab" data-toggle="tab" data-link="source">Source</a>
+        </li>
+</ul>
+
+<div class="tab-content">
+    <div class="tab-pane fade active in" id="c-info">
+        <p class="comment">
+            <h3>File</h3>
+        </p>
+        <p class="comment">
+            <code>projects/components/src/utils/test/widget-object/angular/angular-widget-object-element.ts</code>
+        </p>
+
+            <p class="comment">
+                <h3>Description</h3>
+            </p>
+            <p class="comment">
+                <p>Angular implementation of the Widget Object&#39;s internal HTML Element wrapper
+Its <code>unwrap</code> method returns a DebugElementWrapper, which wraps Angular&#39;s DebugElement so that it can be considered
+a collection and to simplify access to its attributes</p>
+
+            </p>
+
+
+            <p class="comment">
+                <h3>Implements</h3>
+            </p>
+            <p class="comment">
+                            <code><a href="../interfaces/WidgetObjectElement.html" target="_self" >WidgetObjectElement</a></code>
+            </p>
+
+
+            <section>
+    <h3 id="index">Index</h3>
+    <table class="table table-sm table-bordered index-table">
+        <tbody>
+
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Methods</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#check">check</a>
+                            </li>
+                            <li>
+                                <a href="#click">click</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#findParent">findParent</a>
+                            </li>
+                            <li>
+                                <a href="#findWidget">findWidget</a>
+                            </li>
+                            <li>
+                                <a href="#get">get</a>
+                            </li>
+                            <li>
+                                <a href="#getByText">getByText</a>
+                            </li>
+                            <li>
+                                <a href="#parents">parents</a>
+                            </li>
+                            <li>
+                                <a href="#select">select</a>
+                            </li>
+                            <li>
+                                <a href="#type">type</a>
+                            </li>
+                            <li>
+                                <a href="#uncheck">uncheck</a>
+                            </li>
+                            <li>
+                                <a href="#unwrap">unwrap</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+
+
+
+
+        </tbody>
+    </table>
+</section>
+
+            <section>
+    <h3 id="constructor">Constructor</h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+<code>constructor(testElement: <a href="../classes/TestElement.html">TestElement</a>)</code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="17" class="link-to-prism">projects/components/src/utils/test/widget-object/angular/angular-widget-object-element.ts:17</a></div>
+                            </td>
+                        </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                            <div>
+                                    <b>Parameters :</b>
+                                    <table class="params">
+                                        <thead>
+                                            <tr>
+                                                <td>Name</td>
+                                                    <td>Type</td>
+                                                <td>Optional</td>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                                <tr>
+                                                        <td>testElement</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="../classes/TestElement.html" target="_self" >TestElement</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                        </tbody>
+                                    </table>
+                            </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+</section>
+
+
+            <section>
+    
+    <h3 id="methods">
+        Methods
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="check"></a>
+                    <span class="name">
+                        <b>
+                            check
+                        </b>
+                        <a href="#check"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>check(options?: unknown)</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="68"
+                            class="link-to-prism">projects/components/src/utils/test/widget-object/angular/angular-widget-object-element.ts:68</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Type</td>
+                                    <td>Optional</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>options</td>
+                                    <td>
+                                            <code>unknown</code>
+                                    </td>
+
+                                    <td>
+                                        Yes
+                                    </td>
+
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                    </div>
+                    <div class="io-description">
+                        
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="click"></a>
+                    <span class="name">
+                        <b>
+                            click
+                        </b>
+                        <a href="#click"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>click()</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="61"
+                            class="link-to-prism">projects/components/src/utils/test/widget-object/angular/angular-widget-object-element.ts:61</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="findParent"></a>
+                    <span class="name">
+                        <b>
+                            <span class="modifier">Private</span>
+                            findParent
+                        </b>
+                        <a href="#findParent"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                    <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>findParent(cssSelector: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>, debugElement: <a href="https://angular.io/api/core/DebugElement" target="_blank">DebugElement</a>)</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="91"
+                            class="link-to-prism">projects/components/src/utils/test/widget-object/angular/angular-widget-object-element.ts:91</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Looks up the chain of debug elements until it finds a parent that matches the CSS selector.
+Checks the given element.</p>
+</div>
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Type</td>
+                                    <td>Optional</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>cssSelector</td>
+                                    <td>
+                                                <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                                <tr>
+                                    <td>debugElement</td>
+                                    <td>
+                                                <code><a href="https://angular.io/api/core/DebugElement" target="_blank" >DebugElement</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://angular.io/api/core/DebugElement" target="_blank" >DebugElement</a></code>
+
+                    </div>
+                    <div class="io-description">
+                        
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="findWidget"></a>
+                    <span class="name">
+                        <b>
+                            findWidget
+                        </b>
+                        <a href="#findWidget"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>findWidget(widgetCtor: <a href="../classes/TestElement.html">FindableWidget<TestElement | W></a>, findOptions: <a href="../interfaces/FindAngularWidgetOptions.html">FindAngularWidgetOptions</a>)</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="111"
+                            class="link-to-prism">projects/components/src/utils/test/widget-object/angular/angular-widget-object-element.ts:111</a></div>
+                </td>
+            </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <b>Type parameters :</b>
+                    <ul class="type-parameters">
+                        <li>W</li>
+                    </ul>
+                </td>
+            </tr>
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Type</td>
+                                    <td>Optional</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>widgetCtor</td>
+                                    <td>
+                                                <code><a href="../classes/TestElement.html" target="_self" >FindableWidget&lt;TestElement | W&gt;</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                                <tr>
+                                    <td>findOptions</td>
+                                    <td>
+                                                <code><a href="../interfaces/FindAngularWidgetOptions.html" target="_self" >FindAngularWidgetOptions</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>    <code>W</code>
+
+                    </div>
+                    <div class="io-description">
+                        
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="get"></a>
+                    <span class="name">
+                        <b>
+                            get
+                        </b>
+                        <a href="#get"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>get(selector: <a href="../undefineds/FindElementOptions.html">string | FindElementOptions</a>)</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="23"
+                            class="link-to-prism">projects/components/src/utils/test/widget-object/angular/angular-widget-object-element.ts:23</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Type</td>
+                                    <td>Optional</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>selector</td>
+                                    <td>
+                                                <code><a href="../miscellaneous/typealiases.html#FindElementOptions" target="_self" >string | FindElementOptions</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="../interfaces/WidgetObjectElement.html" target="_self" >AngularWidgetObjectElement</a></code>
+
+                    </div>
+                    <div class="io-description">
+                        
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="getByText"></a>
+                    <span class="name">
+                        <b>
+                            getByText
+                        </b>
+                        <a href="#getByText"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>getByText(cssSelector: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>, value: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="39"
+                            class="link-to-prism">projects/components/src/utils/test/widget-object/angular/angular-widget-object-element.ts:39</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Type</td>
+                                    <td>Optional</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>cssSelector</td>
+                                    <td>
+                                                <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                                <tr>
+                                    <td>value</td>
+                                    <td>
+                                                <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="../interfaces/WidgetObjectElement.html" target="_self" >AngularWidgetObjectElement</a></code>
+
+                    </div>
+                    <div class="io-description">
+                        
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="parents"></a>
+                    <span class="name">
+                        <b>
+                            parents
+                        </b>
+                        <a href="#parents"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>parents(cssSelector: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="49"
+                            class="link-to-prism">projects/components/src/utils/test/widget-object/angular/angular-widget-object-element.ts:49</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Type</td>
+                                    <td>Optional</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>cssSelector</td>
+                                    <td>
+                                                <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="../interfaces/WidgetObjectElement.html" target="_self" >AngularWidgetObjectElement</a></code>
+
+                    </div>
+                    <div class="io-description">
+                        
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="select"></a>
+                    <span class="name">
+                        <b>
+                            select
+                        </b>
+                        <a href="#select"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>select(value: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>, options?: unknown)</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="78"
+                            class="link-to-prism">projects/components/src/utils/test/widget-object/angular/angular-widget-object-element.ts:78</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Type</td>
+                                    <td>Optional</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>value</td>
+                                    <td>
+                                                <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                                <tr>
+                                    <td>options</td>
+                                    <td>
+                                            <code>unknown</code>
+                                    </td>
+
+                                    <td>
+                                        Yes
+                                    </td>
+
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                    </div>
+                    <div class="io-description">
+                        
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="type"></a>
+                    <span class="name">
+                        <b>
+                            type
+                        </b>
+                        <a href="#type"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>type(value: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="80"
+                            class="link-to-prism">projects/components/src/utils/test/widget-object/angular/angular-widget-object-element.ts:80</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Type</td>
+                                    <td>Optional</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>value</td>
+                                    <td>
+                                                <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                    </div>
+                    <div class="io-description">
+                        
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="uncheck"></a>
+                    <span class="name">
+                        <b>
+                            uncheck
+                        </b>
+                        <a href="#uncheck"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>uncheck(options?: unknown)</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="73"
+                            class="link-to-prism">projects/components/src/utils/test/widget-object/angular/angular-widget-object-element.ts:73</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Type</td>
+                                    <td>Optional</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>options</td>
+                                    <td>
+                                            <code>unknown</code>
+                                    </td>
+
+                                    <td>
+                                        Yes
+                                    </td>
+
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                    </div>
+                    <div class="io-description">
+                        
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="unwrap"></a>
+                    <span class="name">
+                        <b>
+                            unwrap
+                        </b>
+                        <a href="#unwrap"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>unwrap()</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="104"
+                            class="link-to-prism">projects/components/src/utils/test/widget-object/angular/angular-widget-object-element.ts:104</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="../classes/TestElement.html" target="_self" >TestElement</a></code>
+
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</section>
+
+
+
+
+
+    </div>
+
+
+    <div class="tab-pane fade  tab-source-code" id="c-source">
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { DebugElement, Injector, Type } from &#x27;@angular/core&#x27;;
+import { ComponentFixture } from &#x27;@angular/core/testing&#x27;;
+import { By } from &#x27;@angular/platform-browser&#x27;;
+import { BaseWidgetObject, FindableWidget, FindElementOptions, WidgetObjectElement } from &#x27;../widget-object&#x27;;
+import { AngularWidgetObjectFinder, FindAngularWidgetOptions } from &#x27;./angular-widget-finder&#x27;;
+
+/**
+ * Angular implementation of the Widget Object&#x27;s internal HTML Element wrapper
+ * Its &#x60;unwrap&#x60; method returns a DebugElementWrapper, which wraps Angular&#x27;s DebugElement so that it can be considered
+ * a collection and to simplify access to its attributes
+ */
+export class AngularWidgetObjectElement implements WidgetObjectElement&lt;TestElement&gt; {
+    constructor(private testElement: TestElement) {}
+
+    /**
+     * @inheritdoc
+     */
+    get(selector: string | FindElementOptions): AngularWidgetObjectElement {
+        const cssSelector &#x3D; typeof selector &#x3D;&#x3D;&#x3D; &#x27;string&#x27; ? selector : selector.cssSelector;
+        const elements &#x3D; this.testElement.elements;
+        let matches &#x3D; [].concat(...elements.map((element) &#x3D;&gt; element.queryAll(By.css(cssSelector))));
+        if (typeof selector !&#x3D;&#x3D; &#x27;string&#x27;) {
+            if (typeof selector.index &#x3D;&#x3D;&#x3D; &#x27;number&#x27;) {
+                matches &#x3D; [matches[selector.index]];
+            } else if (selector.text) {
+                matches &#x3D; matches.filter((el) &#x3D;&gt; el.nativeElement.textContent.includes(selector.text));
+            }
+        }
+        return new AngularWidgetObjectElement(new TestElement(matches, this.testElement.fixture));
+    }
+    /**
+     * @inheritdoc
+     */
+    getByText(cssSelector: string, value: string): AngularWidgetObjectElement {
+        const elements &#x3D; this.testElement.elements;
+        let nextElements &#x3D; [].concat(...elements.map((element) &#x3D;&gt; element.queryAll(By.css(cssSelector))));
+        nextElements &#x3D; nextElements.filter((el) &#x3D;&gt; el.nativeElement.textContent.includes(value));
+        return new AngularWidgetObjectElement(new TestElement(nextElements, this.testElement.fixture));
+    }
+
+    /**
+     * @inheritdoc
+     */
+    parents(cssSelector: string): AngularWidgetObjectElement {
+        return new AngularWidgetObjectElement(
+            new TestElement(
+                this.testElement.elements.map((el) &#x3D;&gt; this.findParent(cssSelector, el.parent)),
+                this.testElement.fixture
+            )
+        );
+    }
+
+    /**
+     * @inheritdoc
+     */
+    click(): void {
+        this.testElement.click();
+    }
+
+    /**
+     * @inheritdoc
+     */
+    check(options?: unknown): void {}
+
+    /**
+     * @inheritdoc
+     */
+    uncheck(options?: unknown): void {}
+
+    /**
+     * @inheritdoc
+     */
+    select(value: string, options?: unknown): void {}
+
+    type(value: string): void {
+        const inputEl &#x3D; this.testElement.elements[0].nativeElement as HTMLInputElement;
+        inputEl.value &#x3D; String(value);
+        inputEl.dispatchEvent(new Event(&#x27;change&#x27;));
+        inputEl.dispatchEvent(new Event(&#x27;input&#x27;));
+    }
+
+    /**
+     * Looks up the chain of debug elements until it finds a parent that matches the CSS selector.
+     * Checks the given element.
+     */
+    private findParent(cssSelector: string, debugElement: DebugElement): DebugElement {
+        if (!debugElement) {
+            return;
+        }
+        if (debugElement.nativeElement.matches(cssSelector)) {
+            return debugElement;
+        }
+        return this.findParent(cssSelector, debugElement.parent);
+    }
+
+    /**
+     * @inheritdoc
+     */
+    unwrap(): TestElement {
+        return this.testElement;
+    }
+
+    /**
+     * @inheritdoc
+     */
+    findWidget&lt;W extends BaseWidgetObject&lt;TestElement&gt;&gt;(
+        widgetCtor: FindableWidget&lt;TestElement, W&gt;,
+        findOptions: FindAngularWidgetOptions
+    ): W {
+        return new AngularWidgetObjectFinder(this.testElement.fixture).find(widgetCtor, {
+            ...findOptions,
+            ancestor: this.testElement.elements[0],
+        });
+    }
+}
+
+/**
+ * A wrapper around an array of DebugElements that adds convenience methods.
+ * Avoid accessing the debug elements at all costs.
+ *
+ * Can be used in a &#x60;for ... of ...&#x60; loop to inspect all the sub elements within this TestElement.
+ *
+ * @example
+ * for (const el of testElement) {
+ *     expect(el.enabled()).toBeTruthy()
+ * }
+ */
+export class TestElement implements Iterable&lt;TestElement&gt; {
+    constructor(public elements: DebugElement[], public fixture: ComponentFixture&lt;any&gt;) {}
+
+    private get firstNativeElement(): HTMLElement {
+        return this.firstDebugElement.nativeElement;
+    }
+
+    private get firstDebugElement(): DebugElement {
+        return this.elements[0];
+    }
+
+    private forEach(cb: (item: DebugElement, index, array: DebugElement[]) &#x3D;&gt; void): void {
+        this.elements.forEach(cb);
+    }
+
+    /**
+     * Gives the text of the first element.
+     */
+    text(): string {
+        return this.firstNativeElement.textContent.trim();
+    }
+
+    /**
+     * Gives the value of the first element.
+     */
+    value(): string {
+        return (this.firstNativeElement as HTMLInputElement).value;
+    }
+
+    /**
+     * Says if this element is enabled.
+     */
+    enabled(): boolean {
+        return !(this.firstNativeElement as HTMLInputElement).disabled;
+    }
+
+    /**
+     * Clicks all of the elements contained.
+     */
+    click(): void {
+        this.forEach((element) &#x3D;&gt; element.nativeElement.click());
+        this.fixture.detectChanges();
+    }
+
+    /**
+     * Blurs all the contained elements.
+     */
+    blur(): void {
+        this.forEach((el) &#x3D;&gt; el.nativeElement.dispatchEvent(new Event(&#x27;blur&#x27;)));
+        this.fixture.detectChanges();
+    }
+
+    /**
+     * Clears the input on all the contained elements.
+     */
+    clear(): void {
+        this.forEach((el) &#x3D;&gt; (el.nativeElement.value &#x3D; &#x27;&#x27;));
+        this.fixture.detectChanges();
+    }
+
+    /**
+     * Says how many elements are contained in this TestElement.
+     */
+    length(): number {
+        return this.elements.length;
+    }
+
+    /**
+     * Runs change detection with the component fixture.
+     */
+    detectChanges(): void {
+        this.fixture.detectChanges();
+    }
+
+    /**
+     * Gives the elements contained within this TestElement where each element is its own TestElement
+     */
+    toArray(): TestElement[] {
+        return this.elements.map((el) &#x3D;&gt; new TestElement([el], this.fixture));
+    }
+
+    /**
+     * Maps over each element of this collection
+     */
+    map&lt;U&gt;(callbackfn: (el: TestElement, index: number, array: TestElement[]) &#x3D;&gt; U): U[] {
+        return this.toArray().map(callbackfn);
+    }
+
+    /**
+     * Send a keyboard event of type {@param eventType} with properties {@param eventProperties} on this element.
+     * Setting the event properties is done with &#x60;Object.defineProperty&#x60; on the created event. This allows setting
+     * properties like &#x60;which&#x60; that is deprecated and cannot be set with the native approach of creating keyboard event.
+     * @param eventType The keyboard event type like &#x27;keyup&#x27;, &#x27;keydown&#x27;, &#x27;keypress&#x27;
+     * @param eventProperties properties of the event like &#x60;code&#x60;, &#x60;key&#x60; etc.
+     */
+    sendKeyboardEvent(eventType: string, eventProperties: { [name: string]: unknown }): void {
+        const event &#x3D; new KeyboardEvent(eventType, { bubbles: true });
+        Object.keys(eventProperties).forEach((key) &#x3D;&gt; {
+            Object.defineProperty(event, key, { value: eventProperties[key] });
+        });
+        this.firstNativeElement.dispatchEvent(event);
+        this.detectChanges();
+    }
+
+    /**
+     * To simulate a mouse hover event on the test element
+     */
+    mouseOver(): void {
+        this.firstNativeElement.dispatchEvent(new MouseEvent(&#x27;mouseover&#x27;, { bubbles: true }));
+        this.detectChanges();
+    }
+
+    /**
+     * To simulate a mouse out event on the test element
+     */
+    mouseOut(): void {
+        this.firstNativeElement.dispatchEvent(new MouseEvent(&#x27;mouseout&#x27;, { bubbles: true }));
+        this.detectChanges();
+    }
+
+    /**
+     * Returns classes of first element as a string array
+     */
+    classes(): string[] {
+        return Object.keys(this.firstDebugElement.classes);
+    }
+
+    /**
+     * Returns style property value of the first element
+     * @param key specified CSS property
+     */
+    getStylePropertyValue(key: string): string {
+        return this.firstNativeElement.style.getPropertyValue(key);
+    }
+
+    /**
+     * Returns componentInstance of the first element
+     */
+    getComponentInstance(): any {
+        return this.firstDebugElement.componentInstance;
+    }
+
+    /**
+     * Returns injector of the first element
+     */
+    getInjector(): Injector {
+        return this.firstDebugElement.injector;
+    }
+
+    /**
+     * Finds the first parent element that matches the CSS selector
+     */
+    private findParents(debugEl: DebugElement, cssSelector: string): DebugElement {
+        if (!debugEl) {
+            return null;
+        }
+        return debugEl.nativeElement.matches(cssSelector) ? debugEl : this.findParents(debugEl.parent, cssSelector);
+    }
+
+    /**
+     * Returns the first parent element that matches css selector
+     */
+    parents(cssSelector: string): TestElement {
+        const result &#x3D; this.findParents(this.firstDebugElement.parent, cssSelector);
+        return new TestElement(result ? [result] : [], this.fixture);
+    }
+
+    /**
+     * Returns componentInstance after query directive
+     */
+    queryDirective(type: Type&lt;any&gt;): any {
+        return this.firstDebugElement.query(By.directive(type)).componentInstance;
+    }
+
+    /**
+     * Returns children of the first element that matches css selector
+     */
+    queryElements(cssSelector: string): TestElement {
+        const result &#x3D; this.firstDebugElement.queryAll(By.css(cssSelector));
+        return new TestElement(result ? result : [], this.fixture);
+    }
+
+    /**
+     * Allows a TestElement to be used in a &#x60;for ... of ...&#x60; loop.
+     */
+    [Symbol.iterator](): Iterator&lt;TestElement, any, undefined&gt; {
+        let counter &#x3D; 0;
+        return {
+            next: () &#x3D;&gt; {
+                counter +&#x3D; 1;
+                return {
+                    done: counter &#x3D;&#x3D;&#x3D; this.elements.length,
+                    value: new TestElement([this.elements[counter]], this.fixture),
+                };
+            },
+        };
+    }
+}
+</code></pre>
+    </div>
+</div>
+
+
+
+                   
+
+
+
+
+                   </div><div class="search-results">
+    <div class="has-results">
+        <h1 class="search-results-title"><span class='search-results-count'></span> result-matching "<span class='search-query'></span>"</h1>
+        <ul class="search-results-list"></ul>
+    </div>
+    <div class="no-results">
+        <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+    </div>
+</div>
+</div>
+               <!-- END CONTENT -->
+           </div>
+       </div>
+
+       <script>
+            var COMPODOC_CURRENT_PAGE_DEPTH = 1;
+            var COMPODOC_CURRENT_PAGE_CONTEXT = 'class';
+            var COMPODOC_CURRENT_PAGE_URL = 'AngularWidgetObjectElement.html';
+            var MAX_SEARCH_RESULTS = 15;
+       </script>
+
+       <script src="../js/libs/custom-elements.min.js"></script>
+       <script src="../js/libs/lit-html.js"></script>
+       <!-- Required to polyfill modern browsers as code is ES5 for IE... -->
+       <script src="../js/libs/custom-elements-es5-adapter.js" charset="utf-8" defer></script>
+       <script src="../js/menu-wc.js" defer></script>
+
+       <script src="../js/libs/bootstrap-native.js"></script>
+
+       <script src="../js/libs/es6-shim.min.js"></script>
+       <script src="../js/libs/EventDispatcher.js"></script>
+       <script src="../js/libs/promise.min.js"></script>
+       <script src="../js/libs/zepto.min.js"></script>
+
+       <script src="../js/compodoc.js"></script>
+
+       <script src="../js/tabs.js"></script>
+       <script src="../js/menu.js"></script>
+       <script src="../js/libs/clipboard.min.js"></script>
+       <script src="../js/libs/prism.js"></script>
+       <script src="../js/sourceCode.js"></script>
+          <script src="../js/search/search.js"></script>
+          <script src="../js/search/lunr.min.js"></script>
+          <script src="../js/search/search-lunr.js"></script>
+          <script src="../js/search/search_index.js"></script>
+       <script src="../js/lazy-load-graphs.js"></script>
+
+
+    </body>
+</html>

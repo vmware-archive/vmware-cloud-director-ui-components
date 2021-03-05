@@ -60,14 +60,14 @@
             <h3>File</h3>
         </p>
         <p class="comment">
-            <code>projects/components/src/utils/test/widget-object/cypress-widget-finder.ts</code>
+            <code>projects/components/src/utils/test/widget-object/cypress/cypress-widget-finder.ts</code>
         </p>
 
             <p class="comment">
                 <h3>Description</h3>
             </p>
             <p class="comment">
-                <p>Knows how to find Cypress widget objects within the DOM.</p>
+                <p>Knows how to find and construct Cypress widget objects within the DOM.</p>
 <p>T is the type of data that this will output when you call <code>unwrap</code>.
 In almost all cases, this should be a <code>Cypress.Chainable</code>.
 We chose to provide this as a generic because for reasons seen in
@@ -132,15 +132,15 @@ we could not load the Cypress types in our library.</p>
             <tr>
                 <td class="col-md-4">
                     <span class="modifier-icon icon ion-ios-reset"></span>
-                    <code>find(widgetConstructor: FindableWidget<T | W>, ancestor?: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>, cssSelector?: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
+                    <code>find(widgetConstructor: FindableWidget<T | W>, findOptions?: <a href="../interfaces/FindCypressWidgetOptions.html">FindCypressWidgetOptions</a>)</code>
                 </td>
             </tr>
 
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="32"
-                            class="link-to-prism">projects/components/src/utils/test/widget-object/cypress-widget-finder.ts:32</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="35"
+                            class="link-to-prism">projects/components/src/utils/test/widget-object/cypress/cypress-widget-finder.ts:35</a></div>
                 </td>
             </tr>
 
@@ -189,9 +189,9 @@ we could not load the Cypress types in our library.</p>
                                     </td>
                                 </tr>
                                 <tr>
-                                    <td>ancestor</td>
+                                    <td>findOptions</td>
                                     <td>
-                                                <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                                <code><a href="../interfaces/FindCypressWidgetOptions.html" target="_self" >FindCypressWidgetOptions</a></code>
                                     </td>
 
                                     <td>
@@ -201,26 +201,7 @@ we could not load the Cypress types in our library.</p>
 
                                     <td>
                                         <ul>
-<li>The CSS query or alias of the parent to begin the search from.
-this will be passed to <code>cy.get</code> and is a global search.</li>
-</ul>
-
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>cssSelector</td>
-                                    <td>
-                                                <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
-                                    </td>
-
-                                    <td>
-                                        Yes
-                                    </td>
-
-
-                                    <td>
-                                        <ul>
-<li>The cssSelector to append to the tagName for the search</li>
+<li>Options when finding an element</li>
 </ul>
 
                                     </td>
@@ -251,15 +232,20 @@ this will be passed to <code>cy.get</code> and is a global search.</li>
 
 
     <div class="tab-pane fade  tab-source-code" id="c-source">
-        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { IdGenerator } from &#x27;../../id-generator/id-generator&#x27;;
-import { CypressLocatorDriver } from &#x27;./cypress-widget-object&#x27;;
-import { BaseWidgetObject, FindableWidget } from &#x27;./widget-object&#x27;;
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { IdGenerator } from &#x27;../../../id-generator/id-generator&#x27;;
+import { BaseWidgetObject, FindableWidget, FindElementOptions } from &#x27;../widget-object&#x27;;
+import { CypressWidgetObjectElement } from &#x27;./cypress-widget-object-element&#x27;;
 
 declare const cy;
 const idGenerator &#x3D; new IdGenerator(&#x27;cy-id&#x27;);
 
+export interface FindCypressWidgetOptions extends FindElementOptions {
+    ancestor?: string;
+    options?: { timeout: number };
+}
+
 /**
- * Knows how to find Cypress widget objects within the DOM.
+ * Knows how to find and construct Cypress widget objects within the DOM.
  *
  * T is the type of data that this will output when you call &#x60;unwrap&#x60;.
  * In almost all cases, this should be a &#x60;Cypress.Chainable&#x60;.
@@ -272,25 +258,23 @@ export class CypressWidgetObjectFinder&lt;T&gt; {
      * Finds a single widget object
      *
      * @param widgetConstructor - The constructor of the widget to use
-     * @param ancestor - The CSS query or alias of the parent to begin the search from.
-     *                 this will be passed to &#x60;cy.get&#x60; and is a global search.
-     * @param cssSelector - The cssSelector to append to the tagName for the search
+     * @param findOptions - Options when finding an element
      *
      */
     public find&lt;W extends BaseWidgetObject&lt;T&gt;&gt;(
         widgetConstructor: FindableWidget&lt;T, W&gt;,
-        ancestor?: string,
-        cssSelector?: string
+        findOptions?: FindCypressWidgetOptions
     ): W {
         let tagName &#x3D; widgetConstructor.tagName;
-        if (cssSelector) {
-            tagName +&#x3D; &#x60;${cssSelector}&#x60;;
+        if (findOptions?.cssSelector) {
+            tagName +&#x3D; &#x60;${findOptions.cssSelector}&#x60;;
         }
         const id &#x3D; idGenerator.generate();
-        const search &#x3D; ancestor ? cy.get(ancestor).find(tagName) : cy.get(tagName);
+        const search &#x3D; findOptions?.ancestor
+            ? cy.get(findOptions.ancestor).find(tagName)
+            : cy.get(tagName, findOptions?.options);
         const root &#x3D; search.as(id);
-        const widget &#x3D; new widgetConstructor(new CypressLocatorDriver(root, true, id));
-        return widget;
+        return new widgetConstructor(new CypressWidgetObjectElement(root, true, id));
     }
 }
 </code></pre>
