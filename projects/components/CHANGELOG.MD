@@ -5,7 +5,13 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [Unreleased]
+## [2.0.0-dev.4]
+
+### Changed
+- Formalizes @vcd/bindings as a peerDependency.
+
+### Fixes
+- Fixes a build error from importing modules from barrels.
 
 ## [2.0.0-dev.3]
 ### Changed
