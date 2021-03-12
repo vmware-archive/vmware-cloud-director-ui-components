@@ -403,7 +403,7 @@ export class QuickSearchComponent {
      */
     private selectFirst(ensureFirstSectionIsLoaded: boolean): void {
         for (const section of this.searchSections) {
-            // The section is still loading. If it was requested to ensure the loading has completed than abort
+            // The section is still loading. If it was requested to ensure the loading has completed than stop
             // the attempt to select an item or just skip it and examine the next section.
             if (section.isLoading) {
                 if (ensureFirstSectionIsLoaded) {

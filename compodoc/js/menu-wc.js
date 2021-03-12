@@ -453,13 +453,13 @@ customElements.define('compodoc-menu', class extends HTMLElement {
                                 <a href="modules/VcdSharingModalModule.html" data-type="entity-link">VcdSharingModalModule</a>
                                     <li class="chapter inner">
                                         <div class="simple menu-toggler" data-toggle="collapse" ${ isNormalMode ?
-                                            'data-target="#components-links-module-VcdSharingModalModule-527167f49fc16832e6e9f12cd0366ffd"' : 'data-target="#xs-components-links-module-VcdSharingModalModule-527167f49fc16832e6e9f12cd0366ffd"' }>
+                                            'data-target="#components-links-module-VcdSharingModalModule-6753ddac1e6d20dc1e75efa7cdb5513a"' : 'data-target="#xs-components-links-module-VcdSharingModalModule-6753ddac1e6d20dc1e75efa7cdb5513a"' }>
                                             <span class="icon ion-md-cog"></span>
                                             <span>Components</span>
                                             <span class="icon ion-ios-arrow-down"></span>
                                         </div>
-                                        <ul class="links collapse" ${ isNormalMode ? 'id="components-links-module-VcdSharingModalModule-527167f49fc16832e6e9f12cd0366ffd"' :
-                                            'id="xs-components-links-module-VcdSharingModalModule-527167f49fc16832e6e9f12cd0366ffd"' }>
+                                        <ul class="links collapse" ${ isNormalMode ? 'id="components-links-module-VcdSharingModalModule-6753ddac1e6d20dc1e75efa7cdb5513a"' :
+                                            'id="xs-components-links-module-VcdSharingModalModule-6753ddac1e6d20dc1e75efa7cdb5513a"' }>
                                             <li class="link">
                                                 <a href="components/RightsDropdownRendererComponent.html"
                                                     data-type="entity-link" data-context="sub-entity" data-context-id="modules">RightsDropdownRendererComponent</a>
@@ -492,13 +492,13 @@ customElements.define('compodoc-menu', class extends HTMLElement {
                                     </li>
                                 <li class="chapter inner">
                                     <div class="simple menu-toggler" data-toggle="collapse" ${ isNormalMode ?
-                                        'data-target="#directives-links-module-VcdSharingModalModule-527167f49fc16832e6e9f12cd0366ffd"' : 'data-target="#xs-directives-links-module-VcdSharingModalModule-527167f49fc16832e6e9f12cd0366ffd"' }>
+                                        'data-target="#directives-links-module-VcdSharingModalModule-6753ddac1e6d20dc1e75efa7cdb5513a"' : 'data-target="#xs-directives-links-module-VcdSharingModalModule-6753ddac1e6d20dc1e75efa7cdb5513a"' }>
                                         <span class="icon ion-md-code-working"></span>
                                         <span>Directives</span>
                                         <span class="icon ion-ios-arrow-down"></span>
                                     </div>
-                                    <ul class="links collapse" ${ isNormalMode ? 'id="directives-links-module-VcdSharingModalModule-527167f49fc16832e6e9f12cd0366ffd"' :
-                                        'id="xs-directives-links-module-VcdSharingModalModule-527167f49fc16832e6e9f12cd0366ffd"' }>
+                                    <ul class="links collapse" ${ isNormalMode ? 'id="directives-links-module-VcdSharingModalModule-6753ddac1e6d20dc1e75efa7cdb5513a"' :
+                                        'id="xs-directives-links-module-VcdSharingModalModule-6753ddac1e6d20dc1e75efa7cdb5513a"' }>
                                         <li class="link">
                                             <a href="directives/UsersGroupsOrgsSharingModalDirective.html"
                                                 data-type="entity-link" data-context="sub-entity" data-context-id="modules">UsersGroupsOrgsSharingModalDirective</a>
@@ -507,13 +507,13 @@ customElements.define('compodoc-menu', class extends HTMLElement {
                                 </li>
                                 <li class="chapter inner">
                                     <div class="simple menu-toggler" data-toggle="collapse" ${ isNormalMode ?
-                                        'data-target="#injectables-links-module-VcdSharingModalModule-527167f49fc16832e6e9f12cd0366ffd"' : 'data-target="#xs-injectables-links-module-VcdSharingModalModule-527167f49fc16832e6e9f12cd0366ffd"' }>
+                                        'data-target="#injectables-links-module-VcdSharingModalModule-6753ddac1e6d20dc1e75efa7cdb5513a"' : 'data-target="#xs-injectables-links-module-VcdSharingModalModule-6753ddac1e6d20dc1e75efa7cdb5513a"' }>
                                         <span class="icon ion-md-arrow-round-down"></span>
                                         <span>Injectables</span>
                                         <span class="icon ion-ios-arrow-down"></span>
                                     </div>
-                                    <ul class="links collapse" ${ isNormalMode ? 'id="injectables-links-module-VcdSharingModalModule-527167f49fc16832e6e9f12cd0366ffd"' :
-                                        'id="xs-injectables-links-module-VcdSharingModalModule-527167f49fc16832e6e9f12cd0366ffd"' }>
+                                    <ul class="links collapse" ${ isNormalMode ? 'id="injectables-links-module-VcdSharingModalModule-6753ddac1e6d20dc1e75efa7cdb5513a"' :
+                                        'id="xs-injectables-links-module-VcdSharingModalModule-6753ddac1e6d20dc1e75efa7cdb5513a"' }>
                                         <li class="link">
                                             <a href="injectables/RestQueryService.html"
                                                 data-type="entity-link" data-context="sub-entity" data-context-id="modules" }>RestQueryService</a>
