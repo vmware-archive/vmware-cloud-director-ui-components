@@ -160,13 +160,17 @@ customElements.define('compodoc-menu', class extends HTMLElement {
                                 <a href="modules/QuickSearchModule.html" data-type="entity-link">QuickSearchModule</a>
                                     <li class="chapter inner">
                                         <div class="simple menu-toggler" data-toggle="collapse" ${ isNormalMode ?
-                                            'data-target="#components-links-module-QuickSearchModule-10fd0bc2b57922922ec8b8ab6c21b700"' : 'data-target="#xs-components-links-module-QuickSearchModule-10fd0bc2b57922922ec8b8ab6c21b700"' }>
+                                            'data-target="#components-links-module-QuickSearchModule-a3c032dfe735fc91aeb55e2ee9b5271c"' : 'data-target="#xs-components-links-module-QuickSearchModule-a3c032dfe735fc91aeb55e2ee9b5271c"' }>
                                             <span class="icon ion-md-cog"></span>
                                             <span>Components</span>
                                             <span class="icon ion-ios-arrow-down"></span>
                                         </div>
-                                        <ul class="links collapse" ${ isNormalMode ? 'id="components-links-module-QuickSearchModule-10fd0bc2b57922922ec8b8ab6c21b700"' :
-                                            'id="xs-components-links-module-QuickSearchModule-10fd0bc2b57922922ec8b8ab6c21b700"' }>
+                                        <ul class="links collapse" ${ isNormalMode ? 'id="components-links-module-QuickSearchModule-a3c032dfe735fc91aeb55e2ee9b5271c"' :
+                                            'id="xs-components-links-module-QuickSearchModule-a3c032dfe735fc91aeb55e2ee9b5271c"' }>
+                                            <li class="link">
+                                                <a href="components/DrawerComponent.html"
+                                                    data-type="entity-link" data-context="sub-entity" data-context-id="modules">DrawerComponent</a>
+                                            </li>
                                             <li class="link">
                                                 <a href="components/QuickSearchComponent.html"
                                                     data-type="entity-link" data-context="sub-entity" data-context-id="modules">QuickSearchComponent</a>
@@ -694,6 +698,9 @@ customElements.define('compodoc-menu', class extends HTMLElement {
                                 <a href="interfaces/ActionItem.html" data-type="entity-link">ActionItem</a>
                             </li>
                             <li class="link">
+                                <a href="interfaces/ActiveQuickSearchFilter.html" data-type="entity-link">ActiveQuickSearchFilter</a>
+                            </li>
+                            <li class="link">
                                 <a href="interfaces/ActivityResponse.html" data-type="entity-link">ActivityResponse</a>
                             </li>
                             <li class="link">
@@ -784,6 +791,9 @@ customElements.define('compodoc-menu', class extends HTMLElement {
                                 <a href="interfaces/GridState.html" data-type="entity-link">GridState</a>
                             </li>
                             <li class="link">
+                                <a href="interfaces/GroupedSearchSections.html" data-type="entity-link">GroupedSearchSections</a>
+                            </li>
+                            <li class="link">
                                 <a href="interfaces/HasFinder.html" data-type="entity-link">HasFinder</a>
                             </li>
                             <li class="link">
@@ -827,6 +837,15 @@ customElements.define('compodoc-menu', class extends HTMLElement {
                             </li>
                             <li class="link">
                                 <a href="interfaces/QueryResult.html" data-type="entity-link">QueryResult</a>
+                            </li>
+                            <li class="link">
+                                <a href="interfaces/QuickSearchFilter.html" data-type="entity-link">QuickSearchFilter</a>
+                            </li>
+                            <li class="link">
+                                <a href="interfaces/QuickSearchFilterOption.html" data-type="entity-link">QuickSearchFilterOption</a>
+                            </li>
+                            <li class="link">
+                                <a href="interfaces/QuickSearchNestedProvider.html" data-type="entity-link">QuickSearchNestedProvider</a>
                             </li>
                             <li class="link">
                                 <a href="interfaces/QuickSearchProvider.html" data-type="entity-link">QuickSearchProvider</a>

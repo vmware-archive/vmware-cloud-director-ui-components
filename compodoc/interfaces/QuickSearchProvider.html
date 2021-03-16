@@ -93,6 +93,10 @@
                                         <a href="#hideWhenEmpty">hideWhenEmpty</a>
                                 </li>
                                 <li>
+                                            <span class="modifier">Optional</span>
+                                        <a href="#id">id</a>
+                                </li>
+                                <li>
                                         <a href="#order">order</a>
                                 </li>
                                 <li>
@@ -109,6 +113,10 @@
                     <tr>
                         <td class="col-md-4">
                             <ul class="index-list">
+                                <li>
+                                        <span class="modifier">Optional</span>
+                                    <a href="#canHandleFilter">canHandleFilter</a>
+                                </li>
                                 <li>
                                     <a href="#search">search</a>
                                 </li>
@@ -128,6 +136,79 @@
         <tbody>
             <tr>
                 <td class="col-md-4">
+                    <a name="canHandleFilter"></a>
+                    <span class="name">
+                        <b>
+                            <span class="modifier">Optional</span>
+                            canHandleFilter
+                        </b>
+                        <a href="#canHandleFilter"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>canHandleFilter(filter: <a href="../interfaces/ActiveQuickSearchFilter.html">ActiveQuickSearchFilter</a>)</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="81"
+                            class="link-to-prism">projects/components/src/quick-search/quick-search.provider.ts:81</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Says whether this provider can return results with the given filter applied.</p>
+</div>
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Type</td>
+                                    <td>Optional</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>filter</td>
+                                    <td>
+                                                <code><a href="../interfaces/ActiveQuickSearchFilter.html" target="_self" >ActiveQuickSearchFilter</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank" >boolean</a></code>
+
+                    </div>
+                    <div class="io-description">
+                        
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
                     <a name="search"></a>
                     <span class="name">
                         <b>
@@ -139,15 +220,15 @@
             </tr>
             <tr>
                 <td class="col-md-4">
-<code>search(criteria: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
+<code>search(criteria: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>, activeFilters?: ActiveQuickSearchFilter[])</code>
                 </td>
             </tr>
 
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="43"
-                            class="link-to-prism">projects/components/src/quick-search/quick-search.provider.ts:43</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="76"
+                            class="link-to-prism">projects/components/src/quick-search/quick-search.provider.ts:76</a></div>
                 </td>
             </tr>
 
@@ -183,6 +264,20 @@
                                     <td>
                                         <p>The search string provided by the user when typing in the Quick Search Component</p>
 
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>activeFilters</td>
+                                    <td>
+                                            <code>ActiveQuickSearchFilter[]</code>
+                                    </td>
+
+                                    <td>
+                                        Yes
+                                    </td>
+
+
+                                    <td>
                                     </td>
                                 </tr>
                             </tbody>
@@ -287,6 +382,46 @@ Defaults to <code>false</code> and in that case the section is always visible, r
                         <tbody>
                                 <tr>
                                     <td class="col-md-4">
+                                        <a name="id"></a>
+                                        <span class="name"><b>id</b><a href="#id"><span class="icon ion-ios-link"></span></a></span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <code>id:         <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+</code>
+                                    </td>
+                                </tr>
+
+
+                                    <tr>
+                                        <td class="col-md-4">
+                                            <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                                        </td>
+                                    </tr>
+
+                                    <tr>
+                                        <td class="col-md-4">
+                                            <i>Optional</i>
+                                        </td>
+                                    </tr>
+
+
+
+
+                            <tr>
+                                <td class="col-md-4">
+                                    <div class="io-description"><p>The unique ID of this provider. This can be used for applying a filter that filters by ID.</p>
+</div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <table class="table table-sm table-bordered">
+                        <tbody>
+                                <tr>
+                                    <td class="col-md-4">
                                         <a name="order"></a>
                                         <span class="name"><b>order</b><a href="#order"><span class="icon ion-ios-link"></span></a></span>
                                     </td>
@@ -361,13 +496,46 @@ Defaults to <code>false</code> and in that case the section is always visible, r
     <div class="tab-pane fade  tab-source-code" id="c-source">
         <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { CommonUtil } from &#x27;../utils&#x27;;
 import { QuickSearchResultsType } from &#x27;./quick-search-result&#x27;;
+import { ActiveQuickSearchFilter } from &#x27;./quick-search.component&#x27;;
 
 export const PROVIDER_SEARCH_DEBOUNCE_TIME &#x3D; 300;
+
+/**
+ * A provider that contains many children in it.
+ *
+ * Designed to be able to group providers easily.
+ */
+export interface QuickSearchNestedProvider {
+    /**
+     * Every search provider gets displayed in a separate section. This will be used as the section header.
+     */
+    sectionName: string;
+    /**
+     * The order of the section in the quick search results. The lower the order, the closer to the beginning of the list.
+     * -1 means append
+     */
+    order: number;
+    /**
+     * The providers that should be displayed within this nested provider.
+     */
+    children: QuickSearchProvider[];
+
+    /**
+     * A custom property available throughout all the providers. Not designed for any specific scenario.
+     * Use it according to the specific needs you may have.
+     */
+    data?: unknown;
+}
 
 /**
  * The interface a search providers should implement in order to register itself with the {@link QuickSearchService}
  */
 export interface QuickSearchProvider {
+    /**
+     * The unique ID of this provider. This can be used for applying a filter that filters by ID.
+     */
+    id?: string;
+
     /**
      * Every search provider gets displayed in a separate section. This will be used as the section header.
      */
@@ -396,16 +564,15 @@ export interface QuickSearchProvider {
      * Returns an array or a promise of array of items that comply with the search criteria.
      * @param criteria The search string provided by the user when typing in the Quick Search Component
      */
-    search(criteria: string): QuickSearchResultsType;
+    search(criteria: string, activeFilters?: ActiveQuickSearchFilter[]): QuickSearchResultsType;
+
+    /**
+     * Says whether this provider can return results with the given filter applied.
+     */
+    canHandleFilter?(filter: ActiveQuickSearchFilter): boolean;
 }
 
 export abstract class QuickSearchProviderDefaults implements QuickSearchProvider {
-    sectionName &#x3D; &#x27;&#x27;;
-    order &#x3D; -1;
-    hideWhenEmpty &#x3D; false;
-    data: unknown;
-    abstract search(criteria: string): QuickSearchResultsType;
-
     /**
      * @param shouldDebounceInput Indicates if a provider has to wait for {@link PROVIDER_SEARCH_DEBOUNCE_TIME} milliseconds
      */
@@ -418,6 +585,17 @@ export abstract class QuickSearchProviderDefaults implements QuickSearchProvider
             // @ts-ignore
             this.search &#x3D; CommonUtil.createBufferedPromise(this.search, this, PROVIDER_SEARCH_DEBOUNCE_TIME);
         }
+    }
+    sectionName &#x3D; &#x27;&#x27;;
+    order &#x3D; -1;
+    hideWhenEmpty &#x3D; false;
+    data: unknown;
+    parentSectionName?: string;
+
+    abstract search(criteria: string, activeFilters?: ActiveQuickSearchFilter[]): QuickSearchResultsType;
+
+    canHandleFilter(filter: ActiveQuickSearchFilter): boolean {
+        return filter.id &#x3D;&#x3D;&#x3D; &#x27;type&#x27; &amp;&amp; (this as any).id &amp;&amp; (this as any).id.includes(filter.value);
     }
 }
 </code></pre>
