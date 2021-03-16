@@ -81,4 +81,30 @@ describe('QuickSearchService', () => {
         const firstProvider = new SimpleSearchProvider();
         expect(service.unregisterProvider(firstProvider)).toBe(false);
     });
+
+    it('can register a nested provider', () => {
+        const service = new QuickSearchService();
+        const nestedProviders = {
+            sectionName: 'section1',
+            order: -1,
+            children: [new SimpleSearchProvider('section1')],
+        };
+        service.registerNestedProvider(nestedProviders);
+        const registeredProvider = service.getRegisteredNestedProviders()[0];
+        expect(registeredProvider).toBe(nestedProviders);
+        expect(registeredProvider.sectionName).toBe('section1');
+    });
+
+    it('can unregister a nested provider', () => {
+        const service = new QuickSearchService();
+        const nestedProvider1 = {
+            sectionName: 'nestedProvider1',
+            order: -1,
+            children: [new SimpleSearchProvider('section1')],
+        };
+        service.registerNestedProvider(nestedProvider1);
+        service.unregisterNestedProvider(nestedProvider1);
+        const nestedProviders = service.getRegisteredNestedProviders();
+        expect(nestedProviders.length).toBe(0);
+    });
 });

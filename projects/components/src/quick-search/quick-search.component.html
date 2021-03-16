@@ -1,68 +1,131 @@
+<ng-template let-searchSection #searchSectionTemplate>
+    <div *ngIf="searchSection.isLoading">
+        <div class="spinner spinner-inline" data-ui="spinner"></div>
+        {{ 'vcd.cc.loading' | translate }}
+    </div>
+    <ul *ngIf="!searchSection.isLoading" class="list-unstyled compact">
+        <li
+            class="search-result-item"
+            data-ui="search-result-item"
+            role="button"
+            *ngFor="let item of searchSection.result?.items"
+            (click)="itemClicked(item)"
+            [ngClass]="item == selectedItem && !this.currentFilterOptionSelection ? 'selected' : ''"
+        >
+            {{ item.displayText }}
+        </li>
+        <li class="no-results" data-ui="no-results" *ngIf="showNoResults(searchSection)">
+            {{ 'vcd.cc.quickSearch.noResults' | translate }}
+        </li>
+        <li>
+            <clr-alert
+                *ngIf="hasPartialResult(searchSection)"
+                [clrAlertType]="'warning'"
+                [clrAlertSizeSmall]="true"
+                [clrAlertClosable]="false"
+            >
+                <clr-alert-item>
+                    {{ 'vcd.cc.quickSearch.refineQuery' | translate: { max: searchSection.result.items.length } }}
+                </clr-alert-item>
+            </clr-alert>
+        </li>
+    </ul>
+</ng-template>
+
+<ng-template #quickSearchInterior>
+    <div class="search-input-container" data-ui="search-input-container">
+        <clr-icon shape="search" size="20"></clr-icon>
+        <input
+            #searchInput
+            type="text"
+            class="clr-input"
+            [placeholder]="placeholder || ''"
+            [(ngModel)]="searchCriteria"
+        />
+        <div class="dropdown open filters-autofill" *ngIf="filterBeingEdited" #filtersOptions>
+            <div class="dropdown-menu">
+                <li
+                    class="dropdown-item"
+                    [ngClass]="this.currentFilterOptionSelection.display === option.display ? 'selected' : ''"
+                    *ngFor="let option of filterBeingEditedOptions"
+                    (click)="autofillSelectedFilterOption(option.display)"
+                >
+                    {{ option.display }}
+                </li>
+            </div>
+        </div>
+        <button class="btn btn-link pin-button" (click)="togglePinned()">
+            <clr-icon shape="pin" size="20" [ngClass]="isPinned ? 'is-solid' : ''"> </clr-icon>
+        </button>
+    </div>
+    <clr-control-helper class="input-helper">{{ helper }}</clr-control-helper>
+    <ng-content select=".top-of-results"></ng-content>
+    <div class="search-result-container">
+        <section
+            *ngFor="let searchSection of ungroupedSearchSections; let i = index"
+            class="search-result-section section-index-0-{{ i + 1 }}"
+            data-ui="search-result-section"
+        >
+            <h5 *ngIf="showSectionTitle(searchSection)" class="search-result-section-title" data-ui="section-title">
+                {{ searchSection.provider.sectionName }}
+                <span *ngIf="hasPartialResult(searchSection); let partial" class="partial-result">
+                    {{ 'vcd.cc.quickSearch.partialResultNotation' | translate: partial }}
+                </span>
+            </h5>
+            <ng-container *ngTemplateOutlet="searchSectionTemplate; context: { $implicit: searchSection }">
+            </ng-container>
+        </section>
+        <div *ngFor="let parentSearchSection of groupedSearchSections; let n = index">
+            <h5
+                *ngIf="showParentSectionTitle(parentSearchSection)"
+                class="search-result-section-title"
+                data-ui="section-title"
+            >
+                {{ parentSearchSection.headerTitle }}
+            </h5>
+            <section *ngFor="let searchSection of parentSearchSection.subSections; let i = index" class="sub-section">
+                <p
+                    *ngIf="showSectionTitle(searchSection)"
+                    class="p2 search-result-section-title search-result-section section-index-{{ n }}-{{ i }}"
+                    data-ui="section-title"
+                >
+                    {{ searchSection.provider.sectionName }}
+                    <span *ngIf="hasPartialResult(searchSection); let partial" class="partial-result">
+                        {{ 'vcd.cc.quickSearch.partialResultNotation' | translate: partial }}
+                    </span>
+                </p>
+                <ng-container *ngTemplateOutlet="searchSectionTemplate; context: { $implicit: searchSection }">
+                </ng-container>
+            </section>
+        </div>
+    </div>
+    <ng-content select=".bottom-of-results"></ng-content>
+</ng-template>
+
+<ng-template #drawerComponent>
+    <vcd-drawer-component
+        (keydown.arrowup)="onArrowUp($event)"
+        (keydown.arrowdown)="onArrowDown($event)"
+        (keydown.enter)="onEnterKey($event)"
+        class="modal-body"
+    >
+        <ng-container *ngTemplateOutlet="quickSearchInterior"> </ng-container>
+    </vcd-drawer-component>
+</ng-template>
+
 <clr-modal
     [(clrModalOpen)]="open"
     [clrModalStaticBackdrop]="false"
     (keydown.arrowup)="onArrowUp($event)"
     (keydown.arrowdown)="onArrowDown($event)"
     (keydown.enter)="onEnterKey($event)"
+    *ngIf="!isPinned; else drawerComponent"
 >
     <div class="modal-body">
-        <div class="search-input-container">
-            <clr-icon shape="search" size="20"></clr-icon>
-            <input
-                #searchInput
-                type="text"
-                class="clr-input"
-                [placeholder]="placeholder || ''"
-                [(ngModel)]="searchCriteria"
-            />
-        </div>
-        <ng-content select=".top-of-results"></ng-content>
-        <div class="search-result-container">
-            <section
-                *ngFor="let searchSection of searchSections; let i = index"
-                class="search-result-section section-index-{{ i }}"
-            >
-                <h5 *ngIf="showSectionTitle(searchSection)" class="search-result-section-title">
-                    {{ searchSection.provider.sectionName }}
-                    <span *ngIf="hasPartialResult(searchSection); let partial" class="partial-result">
-                        {{ 'vcd.cc.quickSearch.partialResultNotation' | translate: partial }}
-                    </span>
-                </h5>
-                <div *ngIf="searchSection.isLoading">
-                    <div class="spinner spinner-inline"></div>
-                    {{ 'vcd.cc.loading' | translate }}
-                </div>
-                <ul *ngIf="!searchSection.isLoading" class="list-unstyled compact">
-                    <li
-                        class="search-result-item"
-                        role="button"
-                        *ngFor="let item of searchSection.result?.items"
-                        (click)="itemClicked(item)"
-                        [ngClass]="item == selectedItem ? 'selected' : ''"
-                    >
-                        {{ item.displayText }}
-                    </li>
-                    <li class="no-results" *ngIf="showNoResults(searchSection)">
-                        {{ 'vcd.cc.quickSearch.noResults' | translate }}
-                    </li>
-                    <li>
-                        <clr-alert
-                            *ngIf="hasPartialResult(searchSection)"
-                            [clrAlertType]="'warning'"
-                            [clrAlertSizeSmall]="true"
-                            [clrAlertClosable]="false"
-                        >
-                            <clr-alert-item>
-                                {{
-                                    'vcd.cc.quickSearch.refineQuery'
-                                        | translate: { max: searchSection.result.items.length }
-                                }}
-                            </clr-alert-item>
-                        </clr-alert>
-                    </li>
-                </ul>
-            </section>
-        </div>
-        <ng-content select=".bottom-of-results"></ng-content>
+        <ng-container *ngTemplateOutlet="quickSearchInterior"> </ng-container>
     </div>
 </clr-modal>
+
+<div style="display: flex">
+    <div class="clr-input measurement-div" #measurementDiv>{{ searchCriteria }}</div>
+</div>

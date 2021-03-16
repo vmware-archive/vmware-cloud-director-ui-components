@@ -5,6 +5,15 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [Unreleased]
+
+## [2.0.0-dev.5]
+### Added
+- The ability to group providers in sections in quick search.
+- The ability to add filters to quick search.
+- Helper text below the quick search input.
+- The ability to pin the quick search modal on the right side of the screen.
+
 ## [2.0.0-dev.4]
 
 ### Changed

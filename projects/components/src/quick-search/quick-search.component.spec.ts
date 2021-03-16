@@ -11,7 +11,7 @@ import { ClarityModule } from '@clr/angular';
 import { MockTranslationService, TranslationService } from '@vcd/i18n';
 import { WidgetFinder, WidgetObject } from '../utils/test/widget-object';
 import { QuickSearchResultItem, QuickSearchResultsType } from './quick-search-result';
-import { QuickSearchComponent, ResultActivatedEvent } from './quick-search.component';
+import { QuickSearchComponent, QuickSearchFilter, ResultActivatedEvent } from './quick-search.component';
 import { QuickSearchModule } from './quick-search.module';
 import { QuickSearchProviderDefaults } from './quick-search.provider';
 import { QuickSearchService } from './quick-search.service';
@@ -44,6 +44,8 @@ abstract class TestProviderBase extends QuickSearchProviderDefaults {
 
 // Provider that returns an array
 class SimpleSearchProvider extends TestProviderBase {
+    id = 'simple';
+
     constructor(public shouldDebounceInput: boolean) {
         super(shouldDebounceInput);
     }
@@ -469,6 +471,62 @@ describe('QuickSearchComponent', () => {
             expect(this.quickSearch.searchResults.length).toBe(0);
             expect(this.quickSearch.sectionTitles.length).toEqual(0, 'There should be no sections finishing search');
         }));
+
+        it('displays nested providers title correctly with nested, filtered providers', function (this: Test): void {
+            // Open
+            this.quickSearchData.anotherSimpleProvider.hideWhenEmpty = true;
+            this.quickSearchData.anotherSimpleProvider.sectionName = 'another section';
+            this.quickSearchData.spotlightSearchService.registerNestedProvider({
+                sectionName: 'Some Nested Provider',
+                order: -1,
+                children: [this.quickSearchData.simpleProvider, this.quickSearchData.anotherSimpleProvider],
+            });
+            this.finder.hostComponent.spotlightOpen = true;
+            this.finder.detectChanges();
+            // Set search
+            this.quickSearch.searchInputValue = 'o';
+            //
+            expect(this.quickSearch.searchResults.length).toBe(4);
+            expect(this.quickSearch.sectionTitles).toEqual([
+                'section',
+                'Some Nested Provider',
+                'section',
+                'another section',
+            ]);
+
+            this.quickSearch.searchInputValue = 'copy';
+            this.finder.detectChanges();
+            expect(this.quickSearch.searchResults.length).toBe(2);
+            expect(this.quickSearch.sectionTitles).toEqual(['section', 'Some Nested Provider', 'section']);
+        });
+
+        it('orders nested providers by their given order', function (this: Test): void {
+            // Open
+            this.quickSearchData.spotlightSearchService.registerNestedProvider({
+                sectionName: 'Some Nested Provider',
+                order: 2,
+                children: [this.quickSearchData.simpleProvider],
+            });
+
+            this.quickSearchData.spotlightSearchService.registerNestedProvider({
+                sectionName: 'Another Nested Provider',
+                order: 1,
+                children: [this.quickSearchData.simpleProvider],
+            });
+
+            this.finder.hostComponent.spotlightOpen = true;
+            this.finder.detectChanges();
+            // Set search
+            this.quickSearch.searchInputValue = 'o';
+            //
+            expect(this.quickSearch.sectionTitles).toEqual([
+                'section',
+                'Another Nested Provider',
+                'section',
+                'Some Nested Provider',
+                'section',
+            ]);
+        });
     });
 
     describe('selection', () => {
@@ -750,6 +808,34 @@ describe('QuickSearchComponent', () => {
             expect(this.quickSearch.bottomOfResultsText).toEqual('Bottom of results');
         });
     });
+
+    describe('filters', () => {
+        beforeEach(function (this: Test): void {
+            this.finder.hostComponent.spotlightOpen = true;
+            this.finder.detectChanges();
+        });
+
+        it('adds a filter icon that shows providers only of that type', function (this: Test): void {
+            this.finder.hostComponent.filters = [
+                {
+                    id: 'type',
+                    options: [{ display: 'simple' }],
+                },
+            ];
+            this.quickSearchData.anotherSimpleProvider.sectionName = 'another section';
+            this.quickSearchData.spotlightSearchService.registerProvider(this.quickSearchData.anotherSimpleProvider);
+            this.quickSearch.searchInputValue = 'copy';
+            this.finder.detectChanges();
+            expect(this.quickSearch.sectionTitles.length).toEqual(2);
+
+            // When the type filter is present,, the list of providers is filtered based on it.
+            // In this case, the type:simple filter is set and anotherSimpleProvider is removed.
+            this.quickSearch.searchInputValue = 'copy type:simple';
+            this.finder.detectChanges();
+            expect(this.quickSearch.sectionTitles.length).toEqual(1);
+            expect(this.quickSearch.searchResults).toEqual(['copy']);
+        });
+    });
 });
 
 @Component({
@@ -758,9 +844,12 @@ describe('QuickSearchComponent', () => {
             [(open)]="spotlightOpen"
             (resultActivated)="resultActivated($event)"
             [placeholder]="placeholder"
+            [filters]="filters"
         >
-            <div class="top-of-results" *ngIf="isTopOfResultsShown">Top of results</div>
-            <div class="bottom-of-results" *ngIf="isBottomOfResultsShown">Bottom of results</div>
+            <div data-ui="top-results" class="top-of-results" *ngIf="isTopOfResultsShown">Top of results</div>
+            <div data-ui="bottom-results" class="bottom-of-results" *ngIf="isBottomOfResultsShown">
+                Bottom of results
+            </div>
         </vcd-quick-search>
     `,
 })
@@ -769,6 +858,7 @@ export class HostSpotlightSearchComponent {
     public spotlightOpen = false;
     public isTopOfResultsShown = false;
     public isBottomOfResultsShown = false;
+    public filters: QuickSearchFilter[] = [];
     resultActivated(event: ResultActivatedEvent): void {}
 }
 
@@ -776,11 +866,11 @@ export class QuickSearchWidgetObject extends WidgetObject<QuickSearchComponent> 
     static tagName = `vcd-quick-search`;
 
     public isOpened(): boolean {
-        return !!this.findElement('.search-input-container input');
+        return !!this.findElement('[data-ui="search-input-container"] input');
     }
 
     private get searchInputElement(): HTMLInputElement {
-        return this.findElement('.search-input-container input').nativeElement;
+        return this.findElement('[data-ui="search-input-container"] input').nativeElement;
     }
 
     public get searchInputValue(): string {
@@ -788,7 +878,7 @@ export class QuickSearchWidgetObject extends WidgetObject<QuickSearchComponent> 
     }
 
     public set searchInputValue(val: string) {
-        this.setInputValue(val, '.search-input-container input');
+        this.setInputValue(val, '[data-ui="search-input-container"] input');
     }
 
     public get seacrhPlaceholder(): string {
@@ -800,23 +890,23 @@ export class QuickSearchWidgetObject extends WidgetObject<QuickSearchComponent> 
     }
 
     public pressEscape(): void {
-        this.sendKeyboardEvent('keyup', { key: 'escape' }, '.search-input-container input');
+        this.sendKeyboardEvent('keyup', { key: 'escape' }, '[data-ui="search-input-container"] input');
     }
 
     public pressEnter(): void {
-        this.sendKeyboardEvent('keydown', { key: 'enter' }, '.search-input-container input');
+        this.sendKeyboardEvent('keydown', { key: 'enter' }, '[data-ui="search-input-container"] input');
     }
 
     public pressArrowUp(): void {
-        this.sendKeyboardEvent('keydown', { key: 'ArrowUp' }, '.search-input-container input');
+        this.sendKeyboardEvent('keydown', { key: 'ArrowUp' }, '[data-ui="search-input-container"] input');
     }
 
     public pressArrowDown(): void {
-        this.sendKeyboardEvent('keydown', { key: 'ArrowDown' }, '.search-input-container input');
+        this.sendKeyboardEvent('keydown', { key: 'ArrowDown' }, '[data-ui="search-input-container"] input');
     }
 
     public get searchResults(): string[] {
-        return this.getTexts('.search-result-item');
+        return this.getTexts('[data-ui="search-result-item"]');
     }
 
     public get searchResultAlerts(): string[] {
@@ -824,34 +914,40 @@ export class QuickSearchWidgetObject extends WidgetObject<QuickSearchComponent> 
     }
 
     public get noSearchResults(): string[] {
-        return this.getTexts('.no-results');
+        return this.getTexts('[data-ui="no-results"]');
     }
 
     public get sectionTitles(): string[] {
-        return this.getTexts('.search-result-section-title');
+        return this.getTexts('[data-ui="section-title"');
     }
 
     public getSelectedItem(section?: number): string {
-        let cssSelector = '.search-result-item.selected';
+        let cssSelector = '.selected';
         if (section) {
-            cssSelector = `.search-result-section:nth-child(${section}) ${cssSelector}`;
+            cssSelector = `[data-ui="search-result-section"]:nth-child(${section}) ${cssSelector}`;
         }
         return this.getText(cssSelector);
     }
 
     public clickItem(itemIndex, sectionIndex): void {
-        this.click(`.search-result-section:nth-child(${sectionIndex}) .search-result-item:nth-child(${itemIndex})`);
+        this.click(
+            `[data-ui="search-result-section"]:nth-child(${sectionIndex}) [data-ui="search-result-item"]:nth-child(${itemIndex})`
+        );
     }
 
     public get topOfResultsText(): string {
-        return this.getText('.top-of-results');
+        return this.getText('[data-ui="top-results"]');
     }
 
     public get bottomOfResultsText(): string {
-        return this.getText('.bottom-of-results');
+        return this.getText('[data-ui="bottom-results"]');
     }
 
     public get isLoading(): boolean {
-        return !!this.findElement('.spinner');
+        return !!this.findElement('[data-ui="spinner"]');
+    }
+
+    public openFiltersDropdown(): void {
+        return this.click('[data-ui="open-filter"]');
     }
 }
