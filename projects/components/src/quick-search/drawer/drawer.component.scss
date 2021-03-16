@@ -1,0 +1,126 @@
+$zindex: 0;
+$scrollbarColor: white;
+
+:root {
+    --vcd-drawer-width: 350px;
+}
+
+.drawer-container {
+    position: absolute;
+    bottom: 0;
+    top: 60px;
+    right: 0;
+    left: 0;
+    overflow: hidden;
+
+    .left-area {
+        z-index: $zindex;
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        background-color: #313131;
+        animation: backdrop-fade-in 0.2s 1;
+        &.hiding {
+            animation: backdrop-fade-out 0.2s 1;
+            opacity: 0;
+        }
+    }
+
+    .fixed-bottom-container {
+        flex-shrink: 1;
+        flex-basis: auto;
+        overflow-y: auto;
+        padding: 18px;
+
+        width: var(--vcd-drawer-width);
+        animation: drawer-slide-in 0.2s 1;
+
+        &.slide-out {
+            animation: drawer-slide-out 0.2s 1;
+            right: -var(--vcd-drawer-width);
+        }
+    }
+
+    .flex-container {
+        z-index: $zindex + 2;
+        position: absolute;
+        right: 0;
+        display: flex;
+        flex-direction: column;
+        animation: drawer-slide-in 0.2s 1;
+        border-left: 1px solid var(--clr-accordion-border-color);
+        &.hiding {
+            animation: drawer-slide-out 0.2s 1;
+            right: -var(--vcd-drawer-width);
+        }
+    }
+
+    .drawer {
+        flex-grow: 1;
+        flex-shrink: 1;
+        flex-basis: auto;
+        overflow-y: auto;
+
+        padding: 18px;
+        width: var(--vcd-drawer-width);
+        overflow-x: hidden;
+
+        .fade-in {
+            animation: drawer-fade-in 0.2s 1;
+        }
+
+        .fade-out {
+            animation: drawer-fade-out 0.2s 1;
+            opacity: 0;
+        }
+
+        .slide-in {
+            animation: section-slide-in 0.5s 1;
+        }
+
+        .slide-out {
+            animation: section-slide-out 0.5s 1;
+            margin-left: var(--vcd-drawer-width);
+        }
+
+        .pin-container {
+            z-index: 1;
+            position: absolute;
+            right: 0;
+            margin: -5px 20px 0 0;
+            cursor: pointer;
+            border-radius: 15px;
+            height: 30px;
+            width: 30px;
+            border-radius: 15px;
+            background-color: rgba(255, 255, 255, 0.1);
+
+            .pinned {
+                transform: rotate(-45deg);
+            }
+
+            button {
+                background: transparent;
+                color: #fff;
+                border: none;
+                padding: 0;
+                cursor: pointer;
+
+                clr-icon[shape='close'] {
+                    margin-top: 3px;
+                }
+
+                clr-icon {
+                    opacity: 0.6;
+                    margin-left: 5px;
+                }
+
+                clr-icon:hover {
+                    opacity: 1;
+                }
+            }
+        }
+    }
+}
