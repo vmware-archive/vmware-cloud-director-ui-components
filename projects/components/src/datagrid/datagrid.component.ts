@@ -827,9 +827,11 @@ export class DatagridComponent<R extends B, B = any> implements OnInit, AfterVie
         if (this.datagrid.selection.currentSingle) {
             this._datagridSelection = [this.datagrid.selection.currentSingle];
         } else if (this.datagrid.selection.current && this.datagrid.selection.current.length) {
-            this._datagridSelection = [...this.datagrid.selection.current];
+            this._datagridSelection = this.datagrid.selection.current;
         } else {
-            this._datagridSelection = [];
+            if (this._datagridSelection.length) {
+                this._datagridSelection = [];
+            }
         }
         this.datagridSelectionChange.emit(this.datagridSelection);
     }

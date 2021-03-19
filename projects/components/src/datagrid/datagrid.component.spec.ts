@@ -296,6 +296,14 @@ describe('DatagridComponent', () => {
                     this.clrGridWidget.getSelectionLabelForRow(1).click();
                     await timeout();
                     expect(this.hostComponent.selectionChanged).toHaveBeenCalledWith(mockData);
+                    await timeout();
+                    this.finder.detectChanges();
+                    await timeout();
+                    this.finder.detectChanges();
+                    await timeout();
+                    this.finder.detectChanges();
+                    await timeout();
+                    expect(this.hostComponent.selectionChanged).toHaveBeenCalledTimes(3);
                 });
 
                 it('emits only one row when set to single selection', function (this: HasFinderAndGrid): void {
