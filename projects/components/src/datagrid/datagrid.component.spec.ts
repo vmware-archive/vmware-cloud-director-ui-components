@@ -298,6 +298,25 @@ describe('DatagridComponent', () => {
                     expect(this.hostComponent.selectionChanged).toHaveBeenCalledWith(mockData);
                 });
 
+                it('only emits events when selection actually changes', async function (this: HasFinderAndGrid): Promise<
+                    void
+                > {
+                    this.hostComponent.selectionType = GridSelectionType.Multi;
+                    this.finder.detectChanges();
+                    spyOn(this.hostComponent, 'selectionChanged');
+                    this.hostComponent.datagridSelection = [mockData[0]];
+                    this.finder.detectChanges();
+                    await timeout();
+                    this.finder.detectChanges();
+                    expect(this.hostComponent.selectionChanged).toHaveBeenCalledTimes(1);
+                    await timeout();
+                    this.finder.detectChanges();
+                    expect(this.hostComponent.selectionChanged).toHaveBeenCalledTimes(1);
+                    await timeout();
+                    this.finder.detectChanges();
+                    expect(this.hostComponent.selectionChanged).toHaveBeenCalledTimes(1);
+                });
+
                 it('emits only one row when set to single selection', function (this: HasFinderAndGrid): void {
                     this.hostComponent.selectionType = GridSelectionType.Single;
                     this.finder.detectChanges();
