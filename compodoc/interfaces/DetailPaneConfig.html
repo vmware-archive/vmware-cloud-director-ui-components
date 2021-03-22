@@ -961,11 +961,19 @@ export class DatagridComponent&lt;R extends B, B &#x3D; any&gt; implements OnIni
 
     onClarityDatafridSelectionChange(): void {
         if (this.datagrid.selection.currentSingle) {
-            this._datagridSelection &#x3D; [this.datagrid.selection.currentSingle];
+            if (
+                this._datagridSelection?.length !&#x3D;&#x3D; 1 ||
+                this._datagridSelection[0] !&#x3D;&#x3D; this.datagrid.selection.currentSingle
+            ) {
+                this._datagridSelection &#x3D; [this.datagrid.selection.currentSingle];
+            }
         } else if (this.datagrid.selection.current &amp;&amp; this.datagrid.selection.current.length) {
-            this._datagridSelection &#x3D; [...this.datagrid.selection.current];
+            // If there is no selection from Clarity, we should clear the datagrid without creating a new reference.
+            this._datagridSelection &#x3D; this.datagrid.selection.current;
         } else {
-            this._datagridSelection &#x3D; [];
+            if (this._datagridSelection.length) {
+                this._datagridSelection &#x3D; [];
+            }
         }
         this.datagridSelectionChange.emit(this.datagridSelection);
     }

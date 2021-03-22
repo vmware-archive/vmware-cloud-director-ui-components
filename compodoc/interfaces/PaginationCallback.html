@@ -86,7 +86,7 @@
                         <td class="col-md-4">
                             <ul class="index-list">
                                 <li>
-                                            <a href="#call-declaration-423506fccd92a0fdbac75b453ce71f10">Unamed property</a>
+                                            <a href="#call-declaration-202773532675a4f3c354ebfccbc891a5">Unamed property</a>
                                 </li>
                             </ul>
                         </td>
@@ -105,7 +105,7 @@
                                     <tr>
                                         <td class="col-md-4">
                                             <i>Signature :</i>
-                                            <a name="call-declaration-423506fccd92a0fdbac75b453ce71f10"></a>
+                                            <a name="call-declaration-202773532675a4f3c354ebfccbc891a5"></a>
                                             <code>
                                                 <!--ts.SyntaxKind.CallSignature-->
                                                     [firstItem: number, lastItem: number, totalItems: number]
@@ -953,11 +953,19 @@ export class DatagridComponent&lt;R extends B, B &#x3D; any&gt; implements OnIni
 
     onClarityDatafridSelectionChange(): void {
         if (this.datagrid.selection.currentSingle) {
-            this._datagridSelection &#x3D; [this.datagrid.selection.currentSingle];
+            if (
+                this._datagridSelection?.length !&#x3D;&#x3D; 1 ||
+                this._datagridSelection[0] !&#x3D;&#x3D; this.datagrid.selection.currentSingle
+            ) {
+                this._datagridSelection &#x3D; [this.datagrid.selection.currentSingle];
+            }
         } else if (this.datagrid.selection.current &amp;&amp; this.datagrid.selection.current.length) {
-            this._datagridSelection &#x3D; [...this.datagrid.selection.current];
+            // If there is no selection from Clarity, we should clear the datagrid without creating a new reference.
+            this._datagridSelection &#x3D; this.datagrid.selection.current;
         } else {
-            this._datagridSelection &#x3D; [];
+            if (this._datagridSelection.length) {
+                this._datagridSelection &#x3D; [];
+            }
         }
         this.datagridSelectionChange.emit(this.datagridSelection);
     }
