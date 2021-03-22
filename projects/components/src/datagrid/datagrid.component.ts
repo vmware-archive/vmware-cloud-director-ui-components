@@ -825,11 +825,19 @@ export class DatagridComponent<R extends B, B = any> implements OnInit, AfterVie
 
     onClarityDatafridSelectionChange(): void {
         if (this.datagrid.selection.currentSingle) {
-            this._datagridSelection = [this.datagrid.selection.currentSingle];
+            if (
+                this._datagridSelection?.length !== 1 ||
+                this._datagridSelection[0] !== this.datagrid.selection.currentSingle
+            ) {
+                this._datagridSelection = [this.datagrid.selection.currentSingle];
+            }
         } else if (this.datagrid.selection.current && this.datagrid.selection.current.length) {
-            this._datagridSelection = [...this.datagrid.selection.current];
+            // If there is no selection from Clarity, we should clear the datagrid without creating a new reference.
+            this._datagridSelection = this.datagrid.selection.current;
         } else {
-            this._datagridSelection = [];
+            if (this._datagridSelection.length) {
+                this._datagridSelection = [];
+            }
         }
         this.datagridSelectionChange.emit(this.datagridSelection);
     }
