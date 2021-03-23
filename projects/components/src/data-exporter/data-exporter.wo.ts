@@ -2,71 +2,59 @@
  * Copyright 2019-2020 VMware, Inc.
  * SPDX-License-Identifier: BSD-2-Clause
  */
-
-import { WidgetObject } from '../utils/test/widget-object';
-import { DataExporterComponent } from './data-exporter.component';
+import { BaseWidgetObject } from '../utils/test/widget-object/widget-object';
+import { DataUi } from './data-exporter.component';
 
 /**
  * Testing Object for {@link DataExporterComponent}
  */
-export class DataExporterWidgetObject extends WidgetObject<DataExporterComponent> {
+export class DataExporterWidgetObject<T> extends BaseWidgetObject<T> {
     static tagName = 'vcd-data-exporter';
 
     /**
-     * Whether the progress bar is currently showing indefinite progress, that is a looping loading indicator
+     * The available column bubbles that display the selected columns when the dropdown
+     * is closed, if check all is not selected.
      */
-    get isLoopingProgressBar(): boolean {
-        return !!this.findElement('.progress.loop');
-    }
+    getColumnBubbles = this.factory.dataUi(DataUi.columnSelectionBubbles);
+
+    /** Gets the cancel button. */
+    getCancelButton = this.factory.dataUi(DataUi.cancelButton);
+
+    /** The button that initiates the export process */
+    private _getExportButton = this.internalFactory.dataUi(DataUi.exportButton);
+    public getExportButton = this.factory.unwrap(this._getExportButton);
+
+    /** Gets the export all switch */
+    private _getToggleSelectAll = this.internalFactory.dataUi(DataUi.selectAllToggleLabel);
+    public getToggleSelectAll = this.factory.unwrap(this._getToggleSelectAll);
+
+    /** Gets the friendly field names switch  */
+    getToggleFriendlyNames = this.factory.dataUi(DataUi.friendlyNamesToggleLabel);
+
+    /** Gets the progress bar. */
+    getProgress = this.factory.dataUi(DataUi.progressInput);
+
+    /** The list of labels for the checkboxes with the configured columns */
+    private _getColumnCheckboxes = this.internalFactory.dataUi(DataUi.columnSelectionMenuOptions);
+    public getColumnCheckboxes = this.factory.unwrap(this._getColumnCheckboxes);
+
+    private _getColumnCheckboxByLabel = this.internalFactory.dataUi(DataUi.columnSelectionMenuOptions);
+
+    getColumnCheckboxArrow = this.factory.dataUi(DataUi.columnCheckboxArrow);
+
+    getColumnBubblesX = this.factory.dataUi(DataUi.columnBubblesX);
 
     /**
-     * The strings for the available column bubbles.
+     * Exports data with the option to specify columns to be deselected
+     * @param columnsToUncheck  - Columns to be unchecked before exporting
      */
-    get columnBubbles(): string[] {
-        return this.getTexts('.column-label');
-    }
-
-    /**
-     * The strings for the available column checkboxes.
-     */
-    get columnCheckboxes(): string[] {
-        return this.getTexts('.column-checkbox');
-    }
-
-    /**
-     * Clicks the remove button for a column
-     * @param index Index of column, 0 based
-     */
-    removeColumn(index: number): void {
-        this.click(`.column-label:nth-of-type(${index + 1}) clr-icon`);
-    }
-
-    /**
-     * Clicks the checkbox next to a given column
-     * @param index Index of column, 0 based
-     */
-    clickColumnCheckbox(index: number): void {
-        this.click(`.column-checkbox:nth-of-type(${index + 1}) input`);
-    }
-
-    /**
-     * Clicks the cancel button.
-     */
-    clickCancel(): void {
-        this.click('.cancel');
-    }
-
-    /**
-     * Clicks the export button.
-     */
-    clickExport(): void {
-        this.click('.export');
-    }
-
-    /**
-     * Click the arrow to open/close the column dropdown.
-     */
-    clickColumnDropdown(): void {
-        this.click('.dropdown-button');
+    exportData(columnsToUncheck?: string[]): void {
+        if (columnsToUncheck) {
+            this._getToggleSelectAll().click();
+            for (const column of columnsToUncheck) {
+                this._getColumnCheckboxByLabel({ text: column }).click();
+            }
+        }
+        this._getExportButton().click();
     }
 }

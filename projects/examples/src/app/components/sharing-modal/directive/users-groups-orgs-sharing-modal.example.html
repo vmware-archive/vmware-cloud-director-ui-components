@@ -1,0 +1,22 @@
+<p>
+    This is an example of how to configure the sharing modal using the `vcdUsersGroupsOrgsSharingModal` directive. This
+    directive gives convenience inputs for the users, groups, and organizations tabs. It also gives convenience inputs
+    for predefined checkboxes. In each tab config, we also give a default for `makeSearch` that uses the @vcd/sdk to
+    search for entities on the current environment. If you wish to use our default, just don't supply your own
+    implementation of `makeSearch`. You can also override the default `entityRenderer` if you wish to have custom
+    behavior.
+</p>
+<button (click)="opened = true">Open</button>
+<vcd-sharing-modal
+    *ngIf="opened"
+    [title]="title"
+    [(isOpened)]="opened"
+    [formValue]="value"
+    (formValueChange)="log($event)"
+    vcdUsersGroupsOrgsSharingModal
+    [usersConfig]="usersTab"
+    [groupsConfig]="groupsTab"
+    [orgsConfig]="orgsTab"
+    [showSelectAllUsersAndGroups]="true"
+    [showSelectAllOrgs]="true"
+></vcd-sharing-modal>

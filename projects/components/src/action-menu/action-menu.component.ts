@@ -1,9 +1,9 @@
 /*!
- * Copyright 2020 VMware, Inc.
+ * Copyright 2020-2021 VMware, Inc.
  * SPDX-License-Identifier: BSD-2-Clause
  */
 
-import { Component, Input, TrackByFunction } from '@angular/core';
+import { Component, EventEmitter, Input, Output, TrackByFunction } from '@angular/core';
 import { ActionDisplayConfig, ActionItem, ActionStyling, ActionType, TextIcon } from '../common/interfaces';
 import { CommonUtil } from '../utils';
 
@@ -34,33 +34,16 @@ export function getDefaultActionDisplayConfig(cfg: ActionDisplayConfig = {}): Ac
 })
 export class ActionMenuComponent<R, T> {
     /**
+     * Emits when the actions have been updated.
+     * Then one can get the actual actions from {@link staticActions} and {@link contextualActions} property.
+     */
+    @Output() actionsUpdate: EventEmitter<void> = new EventEmitter();
+
+    /**
      * List of actions containing both static and contextual that are given by the calling component
      */
     @Input() set actions(actions: ActionItem<R, T>[]) {
-        if (!actions) {
-            return;
-        }
-        const hasNestedActions = actions.some((action) => action.children?.length > 0);
-        const markUnmarkedActionsAsContextual =
-            hasNestedActions ||
-            this.getFlattenedActionList(actions, ActionType.CONTEXTUAL_FEATURED).some(
-                (action) => action.actionType && action.actionType === ActionType.CONTEXTUAL_FEATURED
-            );
-
-        this._actions = actions.map((action) => {
-            const actionCopy = { ...action, children: action.children ? [...action.children] : null };
-            if (!actionCopy.actionType) {
-                actionCopy.actionType = markUnmarkedActionsAsContextual
-                    ? ActionType.CONTEXTUAL
-                    : ActionType.CONTEXTUAL_FEATURED;
-            }
-            return actionCopy;
-        });
-
-        this.shouldDisplayContextualActionsDropdownInline =
-            hasNestedActions || this._actions.some((action) => action.actionType === ActionType.CONTEXTUAL);
-
-        this.updateActionListsAndDisplayFlags();
+        this.refreshActions(actions);
     }
     private _actions: ActionItem<R, T>[] = [];
     get actions(): ActionItem<R, T>[] {
@@ -101,19 +84,6 @@ export class ActionMenuComponent<R, T> {
     shouldDisplayContextualActionsDropdownInline = false;
 
     /**
-     * This flag is for the parent to say to the action menu that it is already calculating the actions availability and
-     * telling it not to calculate the availability
-     */
-    @Input() set calculateActionsAvailability(val: boolean) {
-        this._calculateActionsAvailability = val;
-        this.updateActionListsAndDisplayFlags();
-    }
-    private _calculateActionsAvailability = true;
-    get calculateActionsAvailability(): boolean {
-        return this._calculateActionsAvailability;
-    }
-
-    /**
      * Text Content of the action menu dropdown trigger button. Used when {@link #actionDisplayConfig} styling is
      * {@link ActionStyling.DROPDOWN}
      */
@@ -143,7 +113,7 @@ export class ActionMenuComponent<R, T> {
         this._selectedEntities = val;
         this.updateActionListsAndDisplayFlags();
     }
-    private _selectedEntities: R[];
+    private _selectedEntities: R[] = [];
     get selectedEntities(): R[] {
         return this._selectedEntities;
     }
@@ -241,18 +211,53 @@ export class ActionMenuComponent<R, T> {
      * Returns the actions to be shown
      */
     getAvailableActions(actions: ActionItem<R, T>[]): ActionItem<R, T>[] {
-        if (!this.calculateActionsAvailability) {
-            return actions;
-        }
         return actions
-            .filter((action) => this.isActionAvailable(action))
+            .filter((action) => this.isActionAvailable(action) && (!action.children || action.children.length !== 0))
             .map((action) => {
                 const actionCopy = { ...action, children: action.children ? [...action.children] : null };
-                if (actionCopy.children?.length) {
+                if (actionCopy.children) {
                     actionCopy.children = this.getAvailableActions(actionCopy.children);
                 }
                 return actionCopy;
             });
+    }
+
+    /**
+     * The visibility of actions is dependent on their availability call back responses and in VCD application, some of the actions
+     * availability call back response is dependent on closure variables. However, we don't call those call backs every time those closure
+     * variables are updated, for example by asynchronous requests. This has a side effect of actions visibility not getting updated when
+     * those closure variables are updated. So, this convenience method is to make it clear for the user that such side effect exists and
+     * this method will re-trigger the availability call backs of actions
+     */
+    updateDisplayedActions(): void {
+        this.refreshActions(this.actions);
+    }
+
+    private refreshActions(actions: ActionItem<R, T>[]): void {
+        if (!actions) {
+            return;
+        }
+        const hasNestedActions = actions.some((action) => action.children?.length > 0);
+        const markUnmarkedActionsAsContextual =
+            hasNestedActions ||
+            this.getFlattenedActionList(actions, ActionType.CONTEXTUAL_FEATURED).some(
+                (action) => action.actionType && action.actionType === ActionType.CONTEXTUAL_FEATURED
+            );
+
+        this._actions = actions.map((action) => {
+            const actionCopy = { ...action, children: action.children ? [...action.children] : null };
+            if (!actionCopy.actionType) {
+                actionCopy.actionType = markUnmarkedActionsAsContextual
+                    ? ActionType.CONTEXTUAL
+                    : ActionType.CONTEXTUAL_FEATURED;
+            }
+            return actionCopy;
+        });
+
+        this.shouldDisplayContextualActionsDropdownInline =
+            hasNestedActions || this._actions.some((action) => action.actionType === ActionType.CONTEXTUAL);
+
+        this.updateActionListsAndDisplayFlags();
     }
 
     private updateActionListsAndDisplayFlags(): void {
@@ -275,6 +280,7 @@ export class ActionMenuComponent<R, T> {
             this.shouldDisplayStaticActions(this.actionStyling.DROPDOWN) ||
             this.shouldDisplayStaticFeaturedActions(this.actionStyling.DROPDOWN);
         this.shouldDisplayContextualActionsDropdown = this.shouldDisplayContextualActions(this.actionStyling.DROPDOWN);
+        this.actionsUpdate.emit();
     }
 
     /**
@@ -291,7 +297,7 @@ export class ActionMenuComponent<R, T> {
     }
 
     private getContextualFeaturedActions(): ActionItem<R, T>[] {
-        if (this.calculateActionsAvailability && !this.selectedEntities?.length) {
+        if (!this.selectedEntities?.length) {
             return [];
         }
         const flattenedFeaturedActionList = this.getFlattenedActionList(this.actions, ActionType.CONTEXTUAL_FEATURED);
@@ -308,12 +314,12 @@ export class ActionMenuComponent<R, T> {
 
     private getStaticDropdownActions(): ActionItem<R, T>[] | object {
         return this.staticFeaturedActions.concat([
-            { textKey: 'vcd.cc.action.menu.all.actions', children: this.staticActions },
+            { textKey: 'vcd.cc.action.menu.other.actions', children: this.staticActions },
         ]);
     }
 
     private getContextualActions(): ActionItem<R, T>[] {
-        if (this.calculateActionsAvailability && !this.selectedEntities?.length) {
+        if (!this.selectedEntities?.length) {
             return [];
         }
         const contextualActions = this.actions.filter(
@@ -344,10 +350,12 @@ export class ActionMenuComponent<R, T> {
     }
 
     /**
-     * Execute the {@link ActionItem.handler} function by passing it {@link #selectedEntities} and
-     * {@link ActionItem.handlerData} as arguments
+     * Action click handler
      */
     runActionHandler(action: ActionItem<R, T>): void {
+        if (this.isActionDisabled(action)) {
+            return;
+        }
         if (action.handler) {
             action.handler(this.selectedEntities, action.handlerData);
         }
@@ -394,7 +402,7 @@ export class ActionMenuComponent<R, T> {
 
     private shouldDisplayContextualActions(style: ActionStyling): boolean {
         return (
-            (!this.calculateActionsAvailability || this.selectedEntities?.length) &&
+            this.selectedEntities?.length &&
             this.contextualActions.length &&
             this.actionDisplayConfig.contextual.styling === style
         );

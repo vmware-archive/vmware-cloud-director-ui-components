@@ -45,15 +45,15 @@ describe('ActionSearchProvider', () => {
         this.actionSearchProvider = new ActionSearchProvider(new MockTranslationService());
     });
     describe('actions', () => {
-        it('when set, the search method will give the action that matches with the search' + ' text', function (
+        it('when set, the search method will give the action that matches with the search' + ' text', async function (
             this: HasActionSearchProvider
-        ): void {
-            const searchResults = this.actionSearchProvider.search('sta');
+        ): Promise<void> {
+            const searchResults = await this.actionSearchProvider.search('sta');
             expect(searchResults.items).toEqual([]);
             this.actionSearchProvider.actions = getMockActionsList();
-            const searchResults2 = this.actionSearchProvider.search('sta');
+            const searchResults2 = await this.actionSearchProvider.search('sta');
             expect(searchResults2.items[0].displayText).toEqual('Start');
-            const searchResults1 = this.actionSearchProvider.search('sto');
+            const searchResults1 = await this.actionSearchProvider.search('sto');
             expect(searchResults1.items[0].displayText).toEqual('Stop');
         });
     });
@@ -62,10 +62,10 @@ describe('ActionSearchProvider', () => {
         it(
             'when set with an entity that will yield ActionItem.availability as false, the search method does not return the ActionItem' +
                 ' as it is unavailable',
-            function (this: HasActionSearchProvider): void {
+            async function (this: HasActionSearchProvider): Promise<void> {
                 this.actionSearchProvider.actions = getMockActionsList();
 
-                let searchResults = this.actionSearchProvider.search('sto');
+                let searchResults = await this.actionSearchProvider.search('sto');
                 expect(searchResults.items[0].displayText).toEqual('Stop');
 
                 this.actionSearchProvider.selectedEntities = [
@@ -73,9 +73,79 @@ describe('ActionSearchProvider', () => {
                         stopped: true,
                     },
                 ];
-                searchResults = this.actionSearchProvider.search('sto');
+                searchResults = await this.actionSearchProvider.search('sto');
                 expect(searchResults.items).toEqual([]);
             }
         );
+    });
+
+    describe('pause and unpause', () => {
+        it(
+            'when pause is not called by default, search returns a promise which is resolved without having to' +
+                'call unpause',
+            async function (this: HasActionSearchProvider): Promise<void> {
+                this.actionSearchProvider.actions = getMockActionsList();
+                const searchResultsBeforePausing = await this.actionSearchProvider.search('sta');
+                expect(searchResultsBeforePausing.items[0].displayText).toEqual('Start');
+            }
+        );
+        it(
+            'when pause method is called, search returns a promise which is not resolved until unpause' + 'is called',
+            async function (this: HasActionSearchProvider): Promise<void> {
+                this.actionSearchProvider.actions = getMockActionsList();
+                const unpauseAfter1second = (): void => {
+                    setTimeout(() => {
+                        this.actionSearchProvider.unPause();
+                    }, 1000);
+                };
+                const checkResultsAfter500ms = (): void => {
+                    setTimeout(() => {
+                        expect(searchResultsAfterPausing).toEqual(undefined);
+                    }, 500);
+                };
+
+                const checkResultsAfter1second = (): void => {
+                    setTimeout(() => {
+                        expect(searchResultsAfterPausing.items[0].displayText).toEqual('Start');
+                    }, 1000);
+                };
+
+                this.actionSearchProvider.pause();
+                unpauseAfter1second();
+                checkResultsAfter500ms();
+                checkResultsAfter1second();
+                const searchResultsAfterPausing = await this.actionSearchProvider.search('sta');
+            }
+        );
+    });
+
+    describe('search', () => {
+        it('will not return actions with empty children as part of the search' + 'result', async function (
+            this: HasActionSearchProvider
+        ): Promise<void> {
+            const actions: ActionItem<any, any>[] = [
+                {
+                    textKey: 'No children group',
+                    children: [],
+                    isTranslatable: false,
+                },
+                {
+                    textKey: 'Group with children',
+                    children: [
+                        {
+                            textKey: 'some action',
+                            handler: () => null,
+                            isTranslatable: false,
+                        },
+                    ],
+                    isTranslatable: false,
+                },
+            ];
+            this.actionSearchProvider.actions = actions;
+            const searchResults2 = await this.actionSearchProvider.search('no children');
+            expect(searchResults2.items.length).toEqual(0);
+            const searchResults1 = await this.actionSearchProvider.search('some action');
+            expect(searchResults1.items.length).toEqual(1);
+        });
     });
 });

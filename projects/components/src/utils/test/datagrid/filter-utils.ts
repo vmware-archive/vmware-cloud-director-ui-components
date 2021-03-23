@@ -15,8 +15,13 @@ import {
 } from '../../../datagrid';
 import { MockRecord } from '../../../datagrid/mock-data';
 import { IdGenerator } from '../../id-generator/id-generator';
-import { WidgetFinder } from '../widget-object';
+import { AngularWidgetObjectFinder } from '../widget-object/angular/angular-widget-finder';
+import { TestElement } from '../widget-object/angular/angular-widget-object-element';
 import { ClrDatagridWidgetObject } from './datagrid.wo';
+
+function getFilter<V, C>(element: TestElement, filterType: Type<DatagridFilter<V, C>>): DatagridFilter<V, C> {
+    return element.parents('body').queryDirective(filterType);
+}
 
 /**
  * Creates a testing module with {@link FilterTestHostComponent} that has only single column for filter testing
@@ -62,11 +67,13 @@ export function createDatagridFilterTestHelper<V, C>(
     configureTestingModule();
 
     // Add the filter to grid column
-    const finder = new WidgetFinder(FilterTestHostComponent);
-    const grid = finder.find(ClrDatagridWidgetObject);
-    finder.hostComponent.setFilter(filterType, finder, config || ({} as C));
+    const finder = new AngularWidgetObjectFinder(FilterTestHostComponent);
+    const grid = finder.find<ClrDatagridWidgetObject<TestElement>>(ClrDatagridWidgetObject);
 
-    return grid.getFilter(filterType);
+    finder.hostComponent.setFilter(filterType, finder, config || ({} as C));
+    grid.self().fixture.detectChanges();
+    grid.filterToggle.click();
+    return getFilter(grid.self(), filterType);
 }
 
 /**
@@ -75,24 +82,27 @@ export function createDatagridFilterTestHelper<V, C>(
 export function createDatagridFilterTestHelperWithFinder<V, C>(
     filterType: Type<DatagridFilter<V, C>>,
     config?: C
-): { finder: WidgetFinder; filter: DatagridFilter<V, C> } {
+): { finder: AngularWidgetObjectFinder; filter: DatagridFilter<V, C> } {
     configureTestingModule();
 
     // Add the filter to grid column
-    const finder = new WidgetFinder(FilterTestHostComponent);
-    const grid = finder.find(ClrDatagridWidgetObject);
+    const finder = new AngularWidgetObjectFinder(FilterTestHostComponent);
+    const grid = finder.find<ClrDatagridWidgetObject<TestElement>>(ClrDatagridWidgetObject);
     finder.hostComponent.setFilter(filterType, finder, config || ({} as C));
+    grid.self().fixture.detectChanges();
+    grid.filterToggle.click();
 
-    return { finder, filter: grid.getFilter(filterType) };
+    return {
+        finder,
+        filter: getFilter(grid.self(), filterType),
+    };
 }
 
 /**
  * TestHostComponent that has only single column for filter testing.
  */
 @Component({
-    template: `
-        <vcd-datagrid [gridData]="gridData" [columns]="[column]"></vcd-datagrid>
-    `,
+    template: ` <vcd-datagrid [gridData]="gridData" [columns]="[column]"></vcd-datagrid> `,
 })
 export class FilterTestHostComponent {
     /**
@@ -116,11 +126,7 @@ export class FilterTestHostComponent {
     /**
      * Creates the filterRendererSpec and adds it to the grid column above
      */
-    setFilter<V, C>(
-        filterType: Type<DatagridFilter<V, C>>,
-        finder: WidgetFinder<FilterTestHostComponent>,
-        config: C
-    ): void {
+    setFilter<V, C>(filterType: Type<DatagridFilter<V, C>>, finder: AngularWidgetObjectFinder, config: C): void {
         this.column.filter = FilterComponentRendererSpec({ type: filterType, config });
         finder.detectChanges();
     }

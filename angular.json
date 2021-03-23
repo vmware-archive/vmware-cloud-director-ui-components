@@ -22,7 +22,9 @@
             "main": "projects/components/src/test.ts",
             "tsConfig": "projects/components/tsconfig.spec.json",
             "karmaConfig": "projects/components/karma.conf.js",
-            "styles": ["node_modules/@clr/ui/clr-ui.min.css"],
+            "styles": [
+              "node_modules/@clr/ui/clr-ui.min.css"
+            ],
             "stylePreprocessorOptions": {
               "includePaths": [
                 "node_modules"
@@ -31,14 +33,11 @@
           }
         },
         "lint": {
-          "builder": "@angular-devkit/build-angular:tslint",
+          "builder": "@angular-eslint/builder:lint",
           "options": {
-            "tsConfig": [
-              "projects/components/tsconfig.lib.json",
-              "projects/components/tsconfig.spec.json"
-            ],
-            "exclude": [
-              "**/node_modules/**"
+            "lintFilePatterns": [
+              "projects/components/**/*.ts",
+              "projects/components/**/*.html"
             ]
           }
         }
@@ -101,7 +100,7 @@
                 {
                   "type": "initial",
                   "maximumWarning": "2mb",
-                  "maximumError": "5mb"
+                  "maximumError": "20mb"
                 },
                 {
                   "type": "anyComponentStyle",
@@ -148,15 +147,11 @@
           }
         },
         "lint": {
-          "builder": "@angular-devkit/build-angular:tslint",
+          "builder": "@angular-eslint/builder:lint",
           "options": {
-            "tsConfig": [
-              "projects/examples/tsconfig.app.json",
-              "projects/examples/tsconfig.spec.json",
-              "projects/examples/e2e/tsconfig.json"
-            ],
-            "exclude": [
-              "**/node_modules/**"
+            "lintFilePatterns": [
+              "projects/examples/**/*.ts",
+              "projects/examples/**/*.html"
             ]
           }
         },
@@ -206,14 +201,11 @@
           }
         },
         "lint": {
-          "builder": "@angular-devkit/build-angular:tslint",
+          "builder": "@angular-eslint/builder:lint",
           "options": {
-            "tsConfig": [
-              "projects/i18n/tsconfig.lib.json",
-              "projects/i18n/tsconfig.spec.json"
-            ],
-            "exclude": [
-              "**/node_modules/**"
+            "lintFilePatterns": [
+              "projects/i18n/**/*.ts",
+              "projects/i18n/**/*.html"
             ]
           }
         }
@@ -241,14 +233,11 @@
           }
         },
         "lint": {
-          "builder": "@angular-devkit/build-angular:tslint",
+          "builder": "@angular-eslint/builder:lint",
           "options": {
-            "tsConfig": [
-              "projects/route-analyzer/tsconfig.lib.json",
-              "projects/route-analyzer/tsconfig.spec.json"
-            ],
-            "exclude": [
-              "**/node_modules/**"
+            "lintFilePatterns": [
+              "projects/route-analyzer/**/*.ts",
+              "projects/route-analyzer/**/*.html"
             ]
           }
         }

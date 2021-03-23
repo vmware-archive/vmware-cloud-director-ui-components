@@ -56,7 +56,7 @@ export interface ActionItem<R, T> {
      * Indicates if an action that is available should be disabled. If true, a non available action is disabled.
      * If false, a non-available action is hidden
      */
-    disabled?: (records?: R[]) => boolean | boolean;
+    disabled?: ((records?: R[]) => boolean) | boolean;
     /**
      * The key that will be fired with the action.
      */

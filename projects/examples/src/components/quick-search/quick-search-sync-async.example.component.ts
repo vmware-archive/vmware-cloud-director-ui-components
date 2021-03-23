@@ -74,8 +74,8 @@ export class ActionsSearchProvider extends QuickSearchProviderDefaults {
 
     private actions: QuickSearchResultItem[];
 
-    constructor() {
-        super();
+    constructor(public shouldDebounceInput = false) {
+        super(shouldDebounceInput);
 
         // Build actions
         this.actions = actions.map((action) => {
@@ -108,6 +108,10 @@ export class LazyLoadedActionsSearchProvider extends QuickSearchProviderDefaults
 
     order = -1;
 
+    constructor(public shouldDebounceInput = false) {
+        super(shouldDebounceInput);
+    }
+
     private actions: QuickSearchResultItem[] = actions.map((action) => {
         return {
             displayText: `Lazy loaded ${action}`,
@@ -129,8 +133,8 @@ export class PagedActionsSearchProvider extends QuickSearchProviderDefaults {
 
     private actions: QuickSearchResultItem[];
 
-    constructor() {
-        super();
+    constructor(public shouldDebounceInput = false) {
+        super(shouldDebounceInput);
         // Build actions
         this.actions = [...Array(200)].map((_, i) => {
             const action = `Action - ${i + 1}`;

@@ -50,13 +50,13 @@ export class ActivityPromiseResolver<T> {
      */
     resolveActivity(activityResolutionPromise: Promise<T>, successMessage?: string): Promise<ObjectAndResponse<T>> {
         return activityResolutionPromise
-            .then(result => {
+            .then((result) => {
                 return {
                     object: result,
-                    response: { ...result, success: successMessage || result },
+                    response: { ...result, success: successMessage || result } as ActivityResponse,
                 };
             })
-            .catch(error => {
+            .catch((error) => {
                 return { response: { error } };
             });
     }
@@ -71,9 +71,9 @@ export class ActivityPromiseResolver<T> {
     resolveActivities(
         activityResolutionPromises: Promise<T[]>,
         successMessage?: string
-    ): Promise<(ObjectAndResponse<T>)[]> {
+    ): Promise<ObjectAndResponse<T>[]> {
         return activityResolutionPromises
-            .then(result => {
+            .then((result) => {
                 return [
                     {
                         object: result[0],
@@ -81,7 +81,7 @@ export class ActivityPromiseResolver<T> {
                     },
                 ];
             })
-            .catch(error => {
+            .catch((error) => {
                 return [{ response: { error } }];
             });
     }

@@ -3,3 +3,14 @@
     color: red;
     padding-left: 5px;
 }
+.form-group ::ng-deep aside {
+    display: inline-block;
+}
+
+clr-signpost-content p:first-child {
+    margin-top: 0;
+
+    // Sequences of whitespace will collapse into a single whitespace.
+    // Text will wrap when necessary, and on line breaks.
+    white-space: pre-line;
+}

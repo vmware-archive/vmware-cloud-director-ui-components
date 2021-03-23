@@ -1,0 +1,26 @@
+<h4 style="margin-top: 0">Use case</h4>
+<p>
+    In some cases, the data required for searching for available actions is not readily available when the component is
+    initialized. It can be fetched asynchronously and is available at a later point in time. During that time, if a user
+    searches for actions, we want to display a loading indicator and display results that match the search criteria
+    after the data is fetched. This example showcases that behavior by pausing the display of action search results when
+    a data fetch is initialized and un pauses it after the data has been fetched
+</p>
+
+<h4>Example description</h4>
+<p>
+    Press the button below to open quick search and also to initialize a mock data fetch which is resolved after 5
+    seconds. Notice that even as you are typing, a loading indicator is displayed for 5 seconds and only then it is
+    replaced by the search results.
+</p>
+&nbsp;
+<div>
+    <button (click)="openActionSearch()" class="btn btn-primary">Open action search</button>
+    <vcd-action-menu
+        [actions]="actions"
+        [selectedEntities]="selectedEntities"
+        [dropdownTriggerBtnText]="'vcd.cc.action.menu.actions'"
+    >
+    </vcd-action-menu>
+</div>
+<vcd-quick-search [(open)]="spotlightOpen" [placeholder]="'Search contextual actions'"></vcd-quick-search>

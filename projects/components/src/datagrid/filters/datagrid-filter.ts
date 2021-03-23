@@ -3,10 +3,9 @@
  * SPDX-License-Identifier: BSD-2-Clause
  */
 
-import { Input, OnDestroy, OnInit } from '@angular/core';
+import { Directive, Input, OnDestroy, OnInit } from '@angular/core';
 import { FormGroup } from '@angular/forms';
-import { ClrDatagridFilter } from '@clr/angular';
-import { ClrDatagridFilterInterface } from '@clr/angular/data/datagrid/interfaces/filter.interface';
+import { ClrDatagridFilter, ClrDatagridFilterInterface } from '@clr/angular';
 import { Subject } from 'rxjs';
 import { debounceTime } from 'rxjs/operators';
 import { SubscriptionTracker } from '../../common/subscription';
@@ -54,6 +53,8 @@ export interface FilterRendererSpec<C> extends ComponentRendererSpec<C> {
  * V is the type of filter input value that is passed into setValue method
  * C extends FilterConfig<V> is configuration of a filter that contains queryField and a value of type V
  */
+@Directive()
+// eslint-disable-next-line @angular-eslint/directive-class-suffix
 export abstract class DatagridFilter<V, C extends FilterConfig<V>>
     implements OnInit, OnDestroy, ClrDatagridFilterInterface<V>, ComponentRenderer<C> {
     formGroup = this.createFormGroup();

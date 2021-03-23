@@ -1,8 +1,8 @@
 <div class="form-group">
-    <div class="clr-form-control">
-        <label *ngIf="label" class="clr-control-label" [attr.for]="id" [ngClass]="{ 'required-field': showAsterisk }">
-            {{ label }}
-        </label>
+    <div class="clr-form-control" [vcdResponsiveInput]="{ disabled: !isResponsive }">
+        <label *ngIf="label" class="clr-control-label" [for]="id" [ngClass]="{ 'required-field': showAsterisk }">{{
+            label
+        }}</label>
         <div class="clr-control-container" [ngClass]="{ 'clr-error': showErrors }">
             <div class="clr-input-wrapper">
                 <input
@@ -17,27 +17,29 @@
                     [min]="min"
                     [max]="max"
                     [attr.maxlength]="maxlength"
+                    [attr.aria-required]="showAsterisk"
+                    [attr.aria-describedby]="showErrors ? errorsId : descriptionId"
                     (blur)="inputChanged()"
                     (keyup.enter)="enterClicked.emit(true)"
                     (keyup.escape)="escapeClicked.emit(true)"
                 />
                 <clr-icon *ngIf="showErrors && !hint" class="clr-validate-icon" shape="exclamation-circle"></clr-icon>
+                <ng-content select="aside"></ng-content>
+                <clr-signpost *ngIf="hint">
+                    <clr-signpost-content [clrPosition]="hintPosition" *clrIfOpen>
+                        <p>{{ hint }}</p>
+                    </clr-signpost-content>
+                </clr-signpost>
             </div>
-            <span class="clr-subtext" *ngIf="showErrors">
+            <span class="clr-subtext" *ngIf="showErrors" [id]="errorsId">
                 <div *ngFor="let key of errorKeys">
                     <div>{{ key | translate: formControl.value:min.toString():max }}</div>
                 </div>
             </span>
-            <span class="clr-subtext" *ngIf="!showErrors && description">
+            <span class="clr-subtext" *ngIf="!showErrors && description" [id]="descriptionId">
                 {{ description }}
             </span>
         </div>
-        <ng-content select="aside"></ng-content>
-        <clr-signpost *ngIf="hint">
-            <clr-signpost-content [clrPosition]="hintPosition" *clrIfOpen>
-                <p>{{ hint }}</p>
-            </clr-signpost-content>
-        </clr-signpost>
     </div>
 </div>
 <div class="clr-subtext">

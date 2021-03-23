@@ -3,8 +3,7 @@ name: vmware-cloud-director-ui-components
 on:
     push:
     pull_request:
-        branches:
-            - master
+        branches: [master, a11y]
         types: [opened, reopened, synchronize]
 
 jobs:
@@ -171,6 +170,15 @@ jobs:
                   npm publish --tag next --access public
               env:
                   NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}
+
+            - name: Publish components@next-a11y
+              if: steps.check-components-tag.outputs.isLibTag != 'true' && steps.check-components-package.outputs.isLibPackageChanged == 'true' && github.event_name == 'push' && github.ref == 'refs/heads/a11y'
+              run: |
+                  cd ./dist/components
+                  npm publish --tag next-a11y --access public
+              env:
+                  NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}
+
             - name: Publish components@latest
               if: steps.check-components-tag.outputs.isLibTag == 'true'
               run: |

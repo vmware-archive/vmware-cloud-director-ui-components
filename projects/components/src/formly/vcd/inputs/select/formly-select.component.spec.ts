@@ -10,7 +10,7 @@ import { MockTranslationService, TranslationService } from '@vcd/i18n';
 import { of } from 'rxjs';
 import { SelectOption } from '../../../../common/interfaces';
 import { CommonUtil } from '../../../../utils';
-import { WidgetFinder, WidgetObject } from '../../../../utils/test';
+import { WidgetFinder, WidgetObject } from '../../../../utils/test/widget-object';
 import { VcdFormlyFieldConfig, VcdFormlyInputTypes, VcdFormlyTemplateOptions } from '../../vcd-formly.config';
 import { VcdFormlyModule } from '../../vcd-formly.module';
 import { FormlySelectComponent } from './formly-select.component';

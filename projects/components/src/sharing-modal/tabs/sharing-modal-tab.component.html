@@ -1,0 +1,99 @@
+<div class="search-container">
+    <clr-combobox-container class="combobox-container">
+        <clr-combobox
+            [(ngModel)]="comboboxSelection"
+            name="multiSelect"
+            clrMulti="true"
+            (clrInputChange)="doSearchInternal($event)"
+            (clrOpenChange)="doSearchInternal()"
+            [clrLoading]="!searchResults"
+            [disabled]="this.isSelectAll"
+            [placeholder]="comboboxPlaceholder | lazyString"
+        >
+            <ng-container *clrOptionSelected="let selected">
+                <ng-template
+                    *ngIf="entityRenderer; else name"
+                    [vcdComponentRendererOutlet]="{ rendererSpec: getEntityRenderSpec(selected) }"
+                >
+                </ng-template>
+                <ng-template #name>
+                    {{ selected.name }}
+                </ng-template>
+            </ng-container>
+            <clr-options>
+                <div *ngIf="searchError; else showOptions" class="clr-mock-option">
+                    <vcd-error-banner
+                        class="search-error"
+                        [errorMessage]="searchError"
+                        [alertClosable]="false"
+                    ></vcd-error-banner>
+                </div>
+                <ng-template #showOptions>
+                    <clr-option *ngFor="let entity of searchResults; trackBy: entityTrackBy" [clrValue]="entity">
+                        <ng-template
+                            *ngIf="entityRenderer; else name"
+                            [vcdComponentRendererOutlet]="{ rendererSpec: getEntityRenderSpec(entity) }"
+                        >
+                        </ng-template>
+                        <ng-template #name>
+                            {{ defaultRenderer(entity) }}
+                        </ng-template>
+                    </clr-option>
+                    <div
+                        class="clr-mock-option"
+                        *ngIf="searchResults && shouldShowWarning(totalSearchResults, searchResults.length)"
+                    >
+                        <clr-alert [clrAlertType]="'warning'">
+                            <clr-alert-item>
+                                <span class="alert-text search-warning">
+                                    {{
+                                        this.translationService.translateAsync('vcd.cc.sharing-results-warning', [
+                                            searchResults.length,
+                                            totalSearchResults
+                                        ]) | lazyString
+                                    }}
+                                </span>
+                            </clr-alert-item>
+                        </clr-alert>
+                    </div>
+                </ng-template>
+            </clr-options>
+        </clr-combobox>
+    </clr-combobox-container>
+    <select
+        clrSelect
+        name="options"
+        [(ngModel)]="currentlySelectedRightValue"
+        [disabled]="this.isComboboxSubmittable()"
+        class="rights-selector"
+    >
+        <option *ngFor="let option of rightsOptions" value="{{ option.value }}">
+            {{ option.display | lazyString }}
+        </option>
+    </select>
+    <button class="btn add" (click)="addPendingEntities()" [disabled]="this.isComboboxSubmittable()">
+        {{ 'vcd.cc.add' | translate }}
+    </button>
+</div>
+<div class="grid-container">
+    <vcd-datagrid
+        [columns]="columns"
+        [gridData]="gridItems"
+        [actions]="actions"
+        [contextualActionPosition]="rowPosition"
+        [actionDisplayConfig]="actionDisplayConfig"
+        *ngIf="!this.isSelectAll; else placeholderGrid"
+        [height]="400"
+        (gridRefresh)="gridRefreshed($event)"
+        [pagination]="paginationInfo"
+    >
+    </vcd-datagrid>
+    <ng-template #placeholderGrid>
+        <div class="rectangle">
+            <div class="content">
+                <clr-icon shape="assign-user" size="35" class="select-all-icon"></clr-icon>
+                <h4 class="select-all-placeholder">{{ selectAllText | lazyString }}</h4>
+            </div>
+        </div>
+    </ng-template>
+</div>

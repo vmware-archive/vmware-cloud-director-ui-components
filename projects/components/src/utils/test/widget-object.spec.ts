@@ -68,9 +68,7 @@ class HostWithTwoComponent {}
  * This is the host component that is typically created within the test
  */
 @Component({
-    template: `
-        <vcd-click-tracker header="First"></vcd-click-tracker>
-    `,
+    template: ` <vcd-click-tracker header="First"></vcd-click-tracker> `,
 })
 class HostWithOneComponent {}
 

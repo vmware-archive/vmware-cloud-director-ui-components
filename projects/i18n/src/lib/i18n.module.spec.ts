@@ -78,7 +78,7 @@ describe('I18nModule', () => {
         <h2>{{ 'vcd.cc.cancel' | translate }}</h2>
         <h4>{{ text | lazyString }}</h4>
     `,
-    selector: 'lib-translate-test',
+    selector: 'vcd-translate-test',
 })
 class TestClassComponent {
     text: Observable<string> = this.translationService.translateAsync('vcd.cc.cancel');

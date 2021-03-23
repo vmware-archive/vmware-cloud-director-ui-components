@@ -1,0 +1,38 @@
+This example shows how you can track the action menu availability and get the action state from it.
+<p>Use the form below to configure the Actions and observe the tracking response below the grid</p>
+
+<form [formGroup]="formGroup" clrForm class="clr-form clr-form-compact">
+    <vcd-form-checkbox
+        [label]="'Static actions'"
+        [styling]="CheckBoxStyling.TOGGLESWITCH"
+        [formControlName]="'staticActions'"
+    >
+    </vcd-form-checkbox>
+    <vcd-form-checkbox
+        [label]="'Contextual actions'"
+        [styling]="CheckBoxStyling.TOGGLESWITCH"
+        [formControlName]="'contextualActions'"
+    >
+    </vcd-form-checkbox>
+    <vcd-form-checkbox
+        [label]="'Enable actions'"
+        [styling]="CheckBoxStyling.TOGGLESWITCH"
+        [formControlName]="'enableActions'"
+    >
+    </vcd-form-checkbox>
+</form>
+<br />
+<vcd-datagrid
+    [gridData]="gridData"
+    (gridRefresh)="refresh($event)"
+    [columns]="columns"
+    [actions]="actions"
+    [actionDisplayConfig]="actionDisplayConfig"
+    [contextualActionPosition]="contextualActionPosition"
+    [selectionType]="GridSelectionType.Multi"
+></vcd-datagrid>
+
+<p>
+    {{ isActionMenuAvailable ? 'Action menu is available' : 'Action menu is NOT available' }}
+    <span *ngIf="isActionMenuAvailable"> <br />There are {{ numberOfAvailableActions }} available actions.</span>
+</p>

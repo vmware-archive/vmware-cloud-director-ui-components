@@ -1,5 +1,5 @@
 /*!
- * Copyright 2019-2020 VMware, Inc.
+ * Copyright 2019-2021 VMware, Inc.
  * SPDX-License-Identifier: BSD-2-Clause
  */
 
@@ -20,7 +20,6 @@ import {
     ViewChildren,
 } from '@angular/core';
 import { ClrDatagrid, ClrDatagridPagination, ClrDatagridStateInterface } from '@clr/angular';
-import { SelectionType } from '@clr/angular/data/datagrid/enums/selection-type';
 import { LazyString, TranslationService } from '@vcd/i18n';
 import { Observable } from 'rxjs';
 import { ActionMenuComponent } from '../action-menu/action-menu.component';
@@ -325,6 +324,7 @@ export class DatagridComponent<R extends B, B = any> implements OnInit, AfterVie
             /**
              * Reopen updated row or close it
              */
+            // eslint-disable-next-line @typescript-eslint/no-unused-expressions
             row ? this.datagrid.detailService.open(row.item, row.detailButton) : this.datagrid.detailService.close();
         }
     }
@@ -429,15 +429,25 @@ export class DatagridComponent<R extends B, B = any> implements OnInit, AfterVie
      */
     @Input()
     get datagridSelection(): B[] {
-        if (this.datagrid.selection.currentSingle) {
-            return [this.datagrid.selection.currentSingle];
-        }
-        if (this.datagrid.selection.current && this.datagrid.selection.current.length) {
-            return this.datagrid.selection.current;
-        }
-        return [];
+        // If a getter returns `[]` it is considered as a new reference in the angular detect changes process
+        // while `[]` in the template is not considered a new reference.
+        // In other words the following 2 have different behaviour:
+        // ```
+        // <component_tag
+        //    [someInput]='some_getter_that_retyrns_empty_array'
+        // ></component_tag>
+        // ```
+        // ```
+        // <component_tag
+        //    [someInput]='[]'
+        // ></component_tag>
+        // ```
+        // where the first one will result in setting `someInput` during the change detection while the second one will not
+        // TODO:  VDUCC-505 write unit tests
+        // The code below is to ensure there is no reference change unless there is a change indeed
+        return this._datagridSelection;
     }
-
+    private _datagridSelection = [];
     /**
      * Sets the items selected in the VCD datagrid.
      */
@@ -489,7 +499,7 @@ export class DatagridComponent<R extends B, B = any> implements OnInit, AfterVie
         let max = 0;
         actionMenus.forEach((actionMenu) => {
             const contextualFeaturedActions = actionMenu.contextualFeaturedActions;
-            max = Math.max(contextualFeaturedActions.length + 1, max);
+            max = Math.max(contextualFeaturedActions.length, max);
         });
         this.maxFeaturedActionsOnRow = max;
         this.changeDetectorRef.detectChanges();
@@ -522,6 +532,14 @@ export class DatagridComponent<R extends B, B = any> implements OnInit, AfterVie
      * Emitted whenever {@link #columns} input is updated
      */
     @Output() columnsUpdated = new EventEmitter<void>();
+
+    /**
+     * A reference to {@link ActionMenuComponent} that is positioned above the grid, in the grid action tool bar
+     * This action menu may be dynamically added to / removed from the DOM based on the actions availability so the
+     * very reference should be taken from subscription to the list changes.
+     */
+    @ViewChildren('mainActionMenu')
+    public readonly mainActionMenu: QueryList<ActionMenuComponent<unknown, unknown>>;
 
     /**
      * Columns are updated using set columns, addColumn and removeColumn methods. This cache helps in preserving changes
@@ -599,8 +617,9 @@ export class DatagridComponent<R extends B, B = any> implements OnInit, AfterVie
     private _height: number;
 
     /**
-     * Loading indicator on the grid
+     * If the grid is currently loading.
      */
+    @Input()
     isLoading = false;
 
     /**
@@ -723,6 +742,13 @@ export class DatagridComponent<R extends B, B = any> implements OnInit, AfterVie
     };
 
     /**
+     * Returns an identifier for the given column at the given index.
+     */
+    columnTrackBy(index: number, column: ColumnConfigInternal<R, unknown>): string {
+        return column.displayName;
+    }
+
+    /**
      * Gives the render spec to create the detail row for the row with the given record, at the given index, and
      * in a datagrid with the given count of total items.
      */
@@ -795,6 +821,25 @@ export class DatagridComponent<R extends B, B = any> implements OnInit, AfterVie
         if (this.datagrid.rows) {
             this.datagrid.rows.notifyOnChanges();
         }
+    }
+
+    onClarityDatafridSelectionChange(): void {
+        if (this.datagrid.selection.currentSingle) {
+            if (
+                this._datagridSelection?.length !== 1 ||
+                this._datagridSelection[0] !== this.datagrid.selection.currentSingle
+            ) {
+                this._datagridSelection = [this.datagrid.selection.currentSingle];
+            }
+        } else if (this.datagrid.selection.current && this.datagrid.selection.current.length) {
+            // If there is no selection from Clarity, we should clear the datagrid without creating a new reference.
+            this._datagridSelection = this.datagrid.selection.current;
+        } else {
+            if (this._datagridSelection.length) {
+                this._datagridSelection = [];
+            }
+        }
+        this.datagridSelectionChange.emit(this.datagridSelection);
     }
 
     /**
@@ -988,6 +1033,10 @@ export class DatagridComponent<R extends B, B = any> implements OnInit, AfterVie
             if (this.datagrid.items.displayed.length > 0) {
                 (this.datagrid as any).organizer.resize();
             }
+        });
+
+        this.columnsUpdated.subscribe(() => {
+            this.datagrid.columns.reset(this.datagrid.columns.toArray());
         });
     }
 

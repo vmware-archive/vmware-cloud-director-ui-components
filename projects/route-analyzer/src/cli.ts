@@ -1,11 +1,12 @@
 #!/usr/bin/env node
+/* eslint-disable header/header */
 
 /*!
  * Copyright 2020 VMware, Inc.
  * SPDX-License-Identifier: BSD-2-Clause
  */
-const ts = require('typescript');
 const fs = require('fs');
+const ts = require('typescript');
 
 const yargs = require('yargs');
 const argv = yargs
@@ -23,6 +24,7 @@ const argv = yargs
     .demandOption(['e', 'o'])
     .alias('help', 'h').argv;
 
+// eslint-disable-next-line import/order
 import * as routeAnalyzer from './lib/route-analyzer';
 const getRoutesByEntryPoint = routeAnalyzer.getRoutesByEntryPoint;
 

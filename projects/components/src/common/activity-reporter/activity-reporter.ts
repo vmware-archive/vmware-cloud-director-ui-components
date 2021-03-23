@@ -54,7 +54,7 @@ export abstract class ActivityReporter {
         this.startActivity();
         const performer = this.promiseResolver as ActivityPromiseResolver<T>;
         const response = await performer.resolveActivities(activityResolutionPromises);
-        const returnValue = response.map(item => item.object);
+        const returnValue = response.map((item) => item.object);
         if (response.length) {
             for (const item of response) {
                 if (item.response.error) {

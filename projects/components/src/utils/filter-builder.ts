@@ -89,7 +89,7 @@ export class FilterBuilder {
             const first = conditions.shift();
             let partial = first.buildPartial();
 
-            conditions.forEach(condition => {
+            conditions.forEach((condition) => {
                 partial += Operators.AND + condition.buildPartial();
             });
 
@@ -108,7 +108,7 @@ export class FilterBuilder {
             const first = conditions.shift();
             let partial = first.buildPartial();
 
-            conditions.forEach(condition => {
+            conditions.forEach((condition) => {
                 partial += Operators.AND + condition.buildPartial();
             });
 
@@ -143,7 +143,7 @@ export class FilterBuilder {
             const first = conditions.shift();
             let partial = first.buildPartial();
 
-            conditions.forEach(condition => {
+            conditions.forEach((condition) => {
                 partial += Operators.OR + condition.buildPartial();
             });
 
@@ -163,7 +163,7 @@ export class FilterBuilder {
             let partial = first.buildPartial();
             first.clear();
 
-            conditions.forEach(condition => {
+            conditions.forEach((condition) => {
                 partial += Operators.OR + condition.buildPartial();
                 condition.clear();
             });
@@ -271,7 +271,7 @@ export class FilterBuilder {
         const name = this.result;
         this.result += (operator + value) as string;
         if (moreValues.length) {
-            moreValues.forEach(val => {
+            moreValues.forEach((val) => {
                 this.result += (',' + name + operator + val) as string;
             });
             this.currentOperator = Operators.OR;

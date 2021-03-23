@@ -36,9 +36,12 @@ type of units.
             [max]="maxMemoryAllowedMB"
             [initialValueUnit]="Bytes.MB"
             [isReadOnly]="formGroup.controls.readonly.value"
+            [description]="
+                'This control has its inputValueUnit set to MB. That is why the initial displayed value is not 2GB'
+            "
         >
         </vcd-number-with-unit-form-input>
-        <div class="value-container" *ngIf="!formGroup.controls.readonly.value">
+        <div *ngIf="!formGroup.controls.readonly.value">
             <strong>Selected Memory:</strong>
             {{ formGroup.get('memory').value + ' ' + memoryFormControlValueUnit.getUnitName() }}
         </div>
@@ -54,7 +57,7 @@ type of units.
             [isReadOnly]="formGroup.controls.readonly.value"
         >
         </vcd-number-with-unit-form-input>
-        <div class="value-container" *ngIf="!formGroup.controls.readonly.value">
+        <div *ngIf="!formGroup.controls.readonly.value">
             <strong>Selected Cpu speed:</strong>
             {{ formGroup.get('cpuLimit').value + ' ' + cpuSpeedFormControlValueUnit.getUnitName() }}
         </div>

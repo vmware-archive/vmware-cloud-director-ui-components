@@ -42,8 +42,8 @@ export class NumberWithUnitFormInputUnitlessExampleComponent implements OnDestro
             readonly: new FormControl(false),
             disabled: new FormControl(false),
             validatorShowPercent: new FormControl(true),
-            noUnit: new FormControl(null, [Validators.required, noUnitValidator]),
-            percentUnit: new FormControl(null, [percentValidatorShowPercent]),
+            noUnit: new FormControl(5, [Validators.required, noUnitValidator]),
+            percentUnit: new FormControl(50, [percentValidatorShowPercent]),
         });
         this.subscriptionTracker.subscribe(this.formGroup.controls.disabled.valueChanges, (value) => {
             if (value) {

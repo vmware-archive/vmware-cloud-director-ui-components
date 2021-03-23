@@ -26,6 +26,7 @@ export enum CheckBoxStyling {
 @Component({
     selector: 'vcd-form-checkbox',
     templateUrl: './form-checkbox.component.html',
+    styleUrls: ['../form.scss', './form-checkbox.component.scss'],
 })
 export class FormCheckboxComponent extends BaseFormControl {
     /**
@@ -47,6 +48,16 @@ export class FormCheckboxComponent extends BaseFormControl {
      * A shape for the icon that appears next to the checkbox.
      */
     @Input() iconShape: string;
+
+    /**
+     * The direction for displaying the hint
+     */
+    @Input() hintPosition = 'top-left';
+
+    /**
+     * Hint to display in the content of a signpost
+     */
+    @Input() hint: string;
 
     get isCheckbox(): boolean {
         return this.styling === CheckBoxStyling.CHECKBOX;

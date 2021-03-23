@@ -20,7 +20,7 @@ import Mousetrap from 'mousetrap';
     templateUrl: './quick-search-content-projection.example.component.html',
     providers: [QuickSearchRegistrarService],
 })
-export class QuickSearchContentProjectionComponent implements OnInit, OnDestroy {
+export class QuickSearchContentProjectionExampleComponent implements OnInit, OnDestroy {
     formGroup: FormGroup;
     kbdShortcut = 'mod+f';
     spotlightOpen: boolean;
@@ -60,8 +60,8 @@ export class SimpleSearchProvider extends QuickSearchProviderDefaults {
 
     private actions: QuickSearchResultItem[];
 
-    constructor() {
-        super();
+    constructor(public shouldDebounceInput = false) {
+        super(shouldDebounceInput);
         // Build actions
         this.actions = [...Array(200)].map((_, i) => {
             const action = `Action - ${i + 1}`;

@@ -1,60 +1,82 @@
-<div class="form-group clr-form-control" *ngIf="isReadOnly">
+<div class="clr-form-control" [vcdResponsiveInput]="{ disabled: !isResponsive }" *ngIf="isReadOnly">
     <label class="clr-control-label">{{ label }}</label>
-    <span class="readonly-text">{{ this.displayValue }}</span>
+    <span class="clr-control-container readonly-text">{{ displayValue || '-' }}</span>
 </div>
-<div *ngIf="!isReadOnly" class="input-number-with-unit">
-    <vcd-form-input
-        #limitedInput
-        [formControl]="formGroup.controls.limited"
-        [placeholder]="placeholder"
-        type="number"
-        [size]="size"
-        [min]="unitMin"
-        [max]="unitMax"
-        [maxlength]="maxlength"
-        [showAsterisk]="showAsterisk"
-        [label]="label"
-        [description]="description"
-    >
-        <aside [ngSwitch]="unitOptions.length">
-            <ng-container *ngSwitchCase="0">
-                <!-- Do not display unit -->
-            </ng-container>
-            <ng-container *ngSwitchCase="1">
-                <div class="single-option">{{ unitOptions[0].getUnitNameTranslationKey() | translate }}</div>
-            </ng-container>
-            <vcd-form-select
-                class="combo-options"
-                *ngSwitchDefault
-                #unitDropdown
-                [options]="comboOptions"
-                [formControl]="formGroup.controls.comboUnitOptions"
-            >
-            </vcd-form-select>
-            <clr-signpost *ngIf="hint">
-                <clr-signpost-content [clrPosition]="hintPosition" *clrIfOpen>
-                    <p>{{ hint }}</p>
-                </clr-signpost-content>
-            </clr-signpost>
-        </aside>
-    </vcd-form-input>
-    <div class="clr-form-control errors" *ngIf="showErrors">
-        <label class="clr-control-label"></label>
-        <div class="clr-error">
-            <span class="clr-subtext">
+
+<div *ngIf="!isReadOnly">
+    <div class="clr-form-control" [vcdResponsiveInput]="{ disabled: !isResponsive }">
+        <label *ngIf="label" class="clr-control-label" [for]="id" [ngClass]="{ 'required-field': showAsterisk }">{{
+            label
+        }}</label>
+        <div class="clr-control-container" [ngClass]="{ 'clr-error': showErrors }">
+            <div class="clr-input-wrapper">
+                <input
+                    [id]="id"
+                    class="clr-input"
+                    type="number"
+                    [min]="unitMin"
+                    [max]="unitMax"
+                    #textInput
+                    (ngModelChange)="onTextInputChange($event)"
+                    [ngModel]="textInputValue"
+                    [attr.disabled]="shouldDisableNumberAndUnitControls"
+                    [attr.placeholder]="placeholder"
+                    [attr.size]="size"
+                    [attr.aria-required]="showAsterisk"
+                    [attr.aria-describedby]="showErrors ? errorsId : descriptionId"
+                />
+                <ng-container [ngSwitch]="unitOptions.length">
+                    <ng-container *ngSwitchCase="0">
+                        <!-- Do not display unit -->
+                    </ng-container>
+                    <div class="single-option" *ngSwitchCase="1">
+                        {{ unitOptions[0].getUnitNameTranslationKey() | translate }}
+                    </div>
+
+                    <div class="clr-select-wrapper" *ngSwitchDefault>
+                        <select
+                            [id]="id + 'unit'"
+                            (ngModelChange)="onUnitChange($event)"
+                            [ngModel]="unitsControlValue"
+                            [attr.disabled]="shouldDisableNumberAndUnitControls"
+                        >
+                            <option *ngFor="let option of comboOptions" [value]="option.value">
+                                {{ option.isTranslatable ? (option.display | translate) : option.display }}
+                            </option>
+                        </select>
+                    </div>
+                </ng-container>
+                <clr-icon *ngIf="showErrors" class="clr-validate-icon" shape="exclamation-circle"></clr-icon>
+                <clr-signpost *ngIf="hint">
+                    <clr-signpost-content [clrPosition]="hintPosition" *clrIfOpen>
+                        <p>{{ hint }}</p>
+                    </clr-signpost-content>
+                </clr-signpost>
+            </div>
+            <div class="clr-subtext" *ngIf="showErrors" [id]="errorsId">
                 <div *ngFor="let error of errors | keyvalue">
                     <div>{{ error.key | translate: getErrorTranslationParams(error.value) }}</div>
                 </div>
-            </span>
+            </div>
+            <div class="clr-subtext" *ngIf="!showErrors && description" [id]="descriptionId">
+                {{ description }}
+            </div>
+
+            <div
+                *ngIf="showUnlimitedOption"
+                class="clr-checkbox-wrapper"
+                [ngClass]="{ 'clr-form-control-disabled': disabled }"
+            >
+                <input
+                    type="checkbox"
+                    class="clr-checkbox"
+                    [attr.disabled]="disabled || null"
+                    [id]="id + 'checkbox'"
+                    (ngModelChange)="onUnlimitedCheckboxChange($event)"
+                    [ngModel]="unlimitedControlValue"
+                />
+                <label class="clr-control-label" [for]="id + 'checkbox'">{{ 'vcd.cc.unlimited' | translate }}</label>
+            </div>
         </div>
     </div>
-
-    <footer *ngIf="showUnlimitedOption">
-        <!-- Setting [label] to space ensures the label is created hence the checkbox aligned properly -->
-        <vcd-form-checkbox
-            [label]="' '"
-            [text]="'vcd.cc.unlimited' | translate"
-            [formControl]="formGroup.controls.unlimited"
-        ></vcd-form-checkbox>
-    </footer>
 </div>

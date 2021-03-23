@@ -12,7 +12,9 @@
                                 clrCheckbox
                                 [formControl]="this.friendlyFieldsControl"
                             />
-                            <label>{{ friendlyNamesCheckboxLabel | lazyString }}</label>
+                            <label [attr.data-ui]="DataUi.friendlyNamesToggleLabel">{{
+                                friendlyNamesCheckboxLabel | lazyString
+                            }}</label>
                         </clr-checkbox-wrapper>
                         <div class="fill-space"></div>
                         <clr-signpost>
@@ -25,12 +27,7 @@
                     <i>{{ friendlyNamesHint | lazyString }}</i>
                     <div class="flex-row">
                         <clr-checkbox-wrapper>
-                            <input
-                                class="sanitize-cells"
-                                type="checkbox"
-                                clrCheckbox
-                                [formControl]="this.sanitizeControl"
-                            />
+                            <input type="checkbox" clrCheckbox [formControl]="this.sanitizeControl" />
                             <label>{{ sanitizeCheckboxLabel | lazyString }}</label>
                         </clr-checkbox-wrapper>
                         <div class="fill-space"></div>
@@ -44,13 +41,8 @@
                     <i>{{ sanitizeCheckboxHint | lazyString }}</i>
                     <div class="flex-row">
                         <clr-checkbox-wrapper>
-                            <input
-                                class="export-all"
-                                type="checkbox"
-                                clrCheckbox
-                                [formControl]="this.selectAllControl"
-                            />
-                            <label>{{ exportAllText | lazyString }}</label>
+                            <input type="checkbox" clrCheckbox [formControl]="this.selectAllControl" />
+                            <label [attr.data-ui]="DataUi.selectAllToggleLabel">{{ exportAllText | lazyString }}</label>
                         </clr-checkbox-wrapper>
                         <clr-dropdown *ngIf="!this.selectAllControl.value">
                             <clr-icon
@@ -58,13 +50,14 @@
                                 size="24"
                                 clrDropdownTrigger
                                 class="dropdown-button"
+                                [attr.data-ui]="DataUi.columnCheckboxArrow"
                             ></clr-icon>
                             <clr-dropdown-menu clrPosition="bottom" *clrIfOpen="forceDropdownOpen">
                                 <ul class="list-unstyled column-selection" [formGroup]="formGroup">
                                     <li *ngFor="let col of columns" class="dropdown-item">
                                         <clr-checkbox-wrapper class="column-checkbox">
                                             <input type="checkbox" clrCheckbox [formControlName]="col.fieldName" />
-                                            <label>{{
+                                            <label [attr.data-ui]="DataUi.columnSelectionMenuOptions">{{
                                                 this.friendlyFieldsControl.value
                                                     ? getDisplayNameForColumn(col)
                                                     : col.fieldName
@@ -78,9 +71,19 @@
                 </li>
             </ul>
             <div [ngStyle]="{ visibility: shouldShowBubbles ? 'visible' : 'hidden' }" class="column-container">
-                <span class="label column-label" *ngFor="let column of selectedColumns">
+                <span
+                    class="label"
+                    *ngFor="let column of selectedColumns"
+                    [attr.data-ui]="DataUi.columnSelectionBubbles"
+                >
                     {{ this.friendlyFieldsControl.value ? getDisplayNameForColumn(column) : column.fieldName }}
-                    <clr-icon shape="close" class="badge badge-info" (click)="selectColumn(column, false)"> </clr-icon>
+                    <clr-icon
+                        [attr.data-ui]="DataUi.columnBubblesX"
+                        shape="close"
+                        class="badge badge-info"
+                        (click)="selectColumn(column, false)"
+                    >
+                    </clr-icon>
                 </span>
             </div>
         </div>
@@ -88,15 +91,21 @@
         <ng-container *ngIf="isRequestPending">{{ exportStage | lazyString }}</ng-container>
         <div class="progress-divider"></div>
         <div class="progress" [ngClass]="{ loop: progress == -1, pending: isRequestPending }">
-            <progress max="100" value="{{ progress * 100 }}"></progress>
+            <progress max="100" value="{{ progress * 100 }}" [attr.data-ui]="DataUi.progressInput"></progress>
         </div>
     </div>
 
     <div class="modal-footer">
-        <button type="button" class="btn btn-outline cancel" (click)="open = false">
+        <button type="button" class="btn btn-outline" (click)="open = false" [attr.data-ui]="DataUi.cancelButton">
             {{ cancelText | lazyString }}
         </button>
-        <button type="button" class="btn btn-primary export" [disabled]="!isExportEnabled" (click)="onClickExport()">
+        <button
+            type="button"
+            class="btn btn-primary"
+            [disabled]="!isExportEnabled"
+            (click)="onClickExport()"
+            [attr.data-ui]="DataUi.exportButton"
+        >
             {{ exportText | lazyString }}
         </button>
     </div>

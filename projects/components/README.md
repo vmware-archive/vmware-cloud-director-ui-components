@@ -13,3 +13,6 @@ translations for the strings in our components. This file is intended for usage 
 
 Run `npm run test:components` to execute the unit tests via [Karma](https://karma-runner.github.io). Our unit tests make use
 of a WidgetObject pattern to minimize duplication of HTML access in tests.
+
+## Examples site
+Visit [our live examples site](https://vmware.github.io/vmware-cloud-director-ui-components/) for live examples, with source code, that you run on stackblitz. Powered by [Live Docs](https://github.com/vmware/live-docs)

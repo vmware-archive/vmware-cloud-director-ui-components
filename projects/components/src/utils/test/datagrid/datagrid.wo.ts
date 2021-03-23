@@ -3,343 +3,201 @@
  * SPDX-License-Identifier: BSD-2-Clause
  */
 
-import { GridSelectionType } from './../../../datagrid/datagrid.component';
+import { BaseWidgetObject, WidgetObjectElement } from '../widget-object/widget-object';
 
-import { DebugElement, Type } from '@angular/core';
-import { By } from '@angular/platform-browser';
-import { ClrDatagrid } from '@clr/angular';
-import { DatagridFilter } from '../../../datagrid/filters/datagrid-filter';
-import { ShowClippedTextDirective } from '../../../lib/directives/show-clipped-text.directive';
-import { WidgetObject } from '../widget-object';
-
-const ROW_TAG = 'clr-dg-row';
-const CELL_TAG = 'clr-dg-cell';
-const COLUMN_SELECTOR = 'clr-dg-column';
-const COLUMN_CSS_SELECTOR = '.datagrid-column-title';
-const FILTER_SELECTOR = 'clr-dg-filter';
+const Css = {
+    ROW: 'clr-dg-row',
+    COLUMN: 'clr-dg-column',
+    CELL: 'clr-dg-cell',
+    PLACEHOLDER: 'clr-dg-placeholder',
+    COLUMN_TITLE: '.datagrid-column-title',
+    HIDDEN_COLUMN: 'clr-dg-column.datagrid-hidden-column span:not(.clr-sr-only)',
+    DETAIL_ROW: 'clr-dg-row-detail',
+    DETAIL_PANE: '.datagrid-detail-pane-content',
+    DETAIL_PANE_HEADER: '.datagrid-detail-header-title',
+    DETAIL_ROW_BUTTON: '.datagrid-expandable-caret-button',
+    DETAIL_PANE_BUTTON: '.datagrid-detail-caret-button',
+    PAGINATION_DESCRIPTION: '.pagination-description',
+    PAGE_SIZE: 'clr-dg-page-size',
+    PAGINATION_NEXT: '.pagination-next',
+    TOP_POSITIONED_BUTTON: 'clr-dg-action-bar button',
+    ROW_ACTION_CONTAINER: '.datagrid-select label',
+    CHECKBOX_WRAPPER: 'clr-checkbox-wrapper',
+    RADIO_WRAPPER: 'clr-radio-wrapper',
+    FILTER: 'clr-dg-filter',
+    FILTER_TOGGLE: '.datagrid-filter-toggle',
+    SPINNER: 'clr-spinner',
+};
 
 /**
  * Widget Object for a Clarity DataGrid
  */
-export class ClrDatagridWidgetObject extends WidgetObject<ClrDatagrid> {
-    static tagName = `clr-datagrid`;
+export class ClrDatagridWidgetObject<T> extends BaseWidgetObject<T> {
+    static tagName = 'clr-datagrid';
 
     /**
-     * Retrieves the text content of a cell
-     * @param row 0-based index of row
-     * @param column 0-based index of column
+     * Gives the placeholder present on the datagrid
      */
-    getCellText(row: number, column: number): string {
-        return this.getNodeText(this.getCell(row, column));
-    }
+    getPlaceHolder = this.factory.css(Css.PLACEHOLDER);
 
     /**
-     * Gives the text content of all the cells in a row.
-     * @param rowIndex 0-based index of row
+     * The header of the detail pane
      */
-    getRowValues(rowIndex: number): string[] {
-        return this.getTexts(`${ROW_TAG}:nth-of-type(${rowIndex + 1}) ${CELL_TAG}`);
-    }
+    getDetailPaneHeader = this.factory.css(Css.DETAIL_PANE_HEADER);
 
     /**
-     * Gives the linked text in the given cell represented by the {@param rowIndex} and {@param columnIndex} if present.
+     * Gives the pagination description text
      */
-    getCellLink(rowIndex: number, columnIndex: number): string[] {
-        return this.getCell(rowIndex, columnIndex)
-            .nativeElement.querySelector('a')
-            .getAttribute('href');
-    }
+    getPaginationDescription = this.factory.css(Css.PAGINATION_DESCRIPTION);
 
     /**
-     * Retrieves if the cell will clip text
-     * @param column 0-based index of column
+     * Gives the text next to the pagination selector
      */
-    columnClippedTextDirective(column: number): ShowClippedTextDirective {
-        const res = this.getCell(0, column);
-        return res.injector.get(ShowClippedTextDirective);
-    }
+    getPaginationSizeSelector = this.factory.css(Css.PAGE_SIZE);
 
     /**
-     * Returns the number of visible columns
+     * Returns the next page button
      */
-    get columnCount(): number {
-        return this.component.columns ? this.component.columns.length : this.columns.length;
-    }
+    getNextButton = this.factory.css(Css.PAGINATION_NEXT);
 
     /**
-     * Returns the text for a header
-     * @param columnIndex 0-based index of header to retrieve
+     * Returns all the rows
      */
-    getColumnHeader(columnIndex: number): string {
-        return this.getText(`${COLUMN_CSS_SELECTOR}:nth-of-type(${columnIndex + 1})`);
-    }
+    getRows = this.factory.css(Css.ROW);
 
     /**
-     * Returns an array of the texts for columns, in DOM order
+     * Returns all the columns
      */
-    get columnHeaders(): string[] {
-        return this.getTexts(COLUMN_CSS_SELECTOR);
-    }
+    getColumns = this.factory.css(Css.COLUMN);
 
     /**
-     * Returns an array of the texts for columns that are hidden.
+     * Returns an array of headers
      */
-    get hiddenColumnHeaders(): string[] {
-        return this.getTexts('clr-dg-column.datagrid-hidden-column');
-    }
+    getColumnHeaders = this.factory.css(Css.COLUMN_TITLE);
 
     /**
-     * Returns the number of rows currently displayed
+     * Returns an array of columns that are hidden
      */
-    get rowCount(): number {
-        return this.rows.length;
-    }
+    getHiddenColumnHeaders = this.factory.css(Css.HIDDEN_COLUMN);
 
     /**
-     * Says if this datagrid is loading.
+     * Returns the elements within all the detail pane open
      */
-    get loading(): boolean {
-        return this.component.loading;
-    }
+    getDetailRows = this.factory.css(Css.DETAIL_ROW);
 
     /**
-     * Gives the placeholder present on the datagrid.
+     * Returns the elements within all the detail pane open
      */
-    get placeholder(): string {
-        return this.getText('clr-dg-placeholder');
-    }
+    getDetailPanes = this.factory.css(Css.DETAIL_PANE);
 
     /**
-     * Returns whether or not the column with the given index is displayed by the CSS.
+     * Returns all the detail buttons
      */
-    isColumnDisplayed(index: number): boolean {
-        return this.findElements(COLUMN_SELECTOR)[index].classes['datagrid-hidden-column'] !== true;
-    }
+    getDetailRowButtons = this.factory.css(Css.DETAIL_ROW_BUTTON);
 
     /**
-     * Returns the classes of the column with the given index.
+     * Returns all the detail pane buttons
      */
-    getColumnClasses(index: number): string[] {
-        return Object.keys(this.findElements(COLUMN_SELECTOR)[index].classes);
-    }
-
-    /*
-     * Returns the CSS class of the Clarity datagrid.
-     */
-    get gridCssClass(): string[] {
-        return Object.keys(this.root.classes);
-    }
+    getDetailPaneButtons = this.factory.css(Css.DETAIL_PANE_BUTTON);
 
     /**
-     * Returns the CSS class names of the given Clarity datarow.
+     * Gives a list of displayed action buttons at the top of the grid
      */
-    getRowsCssClass(index: number): string[] {
-        return Object.keys(this.rows[index].classes);
-    }
+    getTopPositionedButtons = this.factory.css(Css.TOP_POSITIONED_BUTTON);
 
     /**
-     * Returns the native element contents within all the detail pane open.
+     * Find a clr-checkbox-wrapper
      */
-    getAllDetailRowContents(): string[] {
-        return this.findElements('clr-dg-row-detail').map(detail => detail.nativeElement);
-    }
+    getCheckboxWrapper = this.factory.css(Css.CHECKBOX_WRAPPER);
 
     /**
-     * Returns the native element contents within all the detail pane open.
+     * Find a clr-radio-wrapper
      */
-    getAllDetailPaneContents(): string[] {
-        return this.findElements('.datagrid-detail-pane-content').map(detail => detail.nativeElement);
-    }
+    getRadioWrapper = this.factory.css(Css.RADIO_WRAPPER);
 
     /**
-     * Returns the header of the detail pane.
+     * Find a clr-spinner element
      */
-    getDetailPaneHeader(): string {
-        return this.getText('.datagrid-detail-header-title');
-    }
+    getSpinner = this.factory.css(Css.SPINNER);
 
     /**
-     * Clicks the given detail row button.
-     */
-    clickDetailRowButton(row: number): void {
-        this.detailRowButtons[row].nativeElement.click();
-    }
-
-    /**
-     * Clicks the given detail pane button.
-     */
-    clickDetailPaneButton(row: number): void {
-        this.detailPaneButtons[row].nativeElement.click();
-    }
-
-    /**
-     * Sorts the column at the given index.
-     */
-    sortColumn(index: number): void {
-        this.columns[index].nativeElement.click();
-    }
-
-    /**
-     * Returns the selection type of the grid.
-     */
-    getSelectionType(): GridSelectionType {
-        if (this.findElements('clr-checkbox-wrapper').length !== 0) {
-            return GridSelectionType.Multi;
-        } else if (this.findElements('clr-radio-wrapper').length !== 0) {
-            return GridSelectionType.Single;
-        } else {
-            return GridSelectionType.None;
-        }
-    }
-
-    /**
-     * Clicks the selection icon on the given row.
-     */
-    selectRow(row: number): void {
-        this.click(`input`, this.rows[row]);
-    }
-
-    /**
-     * Gives the pagination description text.
-     */
-    getPaginationDescription(): string {
-        return this.findElement('.pagination-description').nativeElement.textContent;
-    }
-
-    /**
-     * Gives the text next to the pagination selector.
-     * Gives empty string if the size dropdown is not in the page.
-     */
-    getPaginationSizeSelectorText(): string {
-        const sizer = this.findElement('clr-dg-page-size');
-        return sizer ? sizer.nativeElement.textContent : '';
-    }
-
-    /**
-     * Clicks the next page button.
-     */
-    nextPage(): void {
-        this.click('.pagination-next');
-    }
-
-    /**
-     * Gives a list of the labels of the displayed action buttons at the top of the grid.
-     */
-    getTopPositionedButtons(): string[] {
-        return this.findElements('clr-dg-action-bar button').map(button => button.nativeElement.textContent);
-    }
-
-    /**
-     * Gives the class of the cell that holds the row buttons.
-     */
-    getRowButtonContainerClass(rowIndex: number): string[] {
-        return Object.keys(this.findElement(`.action-button-cell`, this.rows[rowIndex]).classes);
-    }
-
-    /**
-     * Gives the text of the button with the given buttonClass on the top of the datagrid.
-     */
-    getTopButtonText(buttonClass: string): string {
-        return this.getText(`button.${buttonClass}`);
-    }
-
-    /**
-     * Gives the text of the button with the given buttonClass at a row of the datagrid.
+     * Helper function to retrieve a row
      * @param row 0-based index of row
      */
-    getRowButtonText(buttonClass: string, row: number): string {
-        return this.getText(`button.${buttonClass}`, this.rows[row]);
+    private _getRow(row: number): WidgetObjectElement<T> {
+        return this.el.get(`${Css.ROW}:nth-of-type(${row + 1})`);
     }
 
     /**
-     * Says if the button on the top of the grid with the given buttonClass is enabled.
+     * Retrieves the cell
+     * @param row 0-based index of row
+     * @param col 0-based index of column
      */
-    isTopButtonEnabled(buttonClass: string): boolean {
-        return !this.findElement(`button.${buttonClass}`).nativeElement.disabled;
+    getCell(row: number, col: number): T {
+        return this._getRow(row)
+            .get(`${Css.CELL}:nth-of-type(${col + 1})`)
+            .unwrap();
     }
 
     /**
-     * Says if the button at a row in the datagrid with the given buttonClass is enabled.
+     * Return a row by index
      * @param row 0-based index of row
      */
-    isRowButtonEnabled(buttonClass: string, row: number): boolean {
-        return !this.findElement(`button.${buttonClass}`, this.rows[row]).nativeElement.disabled;
+    getRow(row: number): T {
+        return this._getRow(row).unwrap();
     }
 
     /**
-     * Presses the button with the given buttonClass on the top of the datagrid.
+     * Return a column by index
+     * @param col 0-based index of column
      */
-    pressTopButton(buttonClass: string): void {
-        this.click(`button.${buttonClass}`);
+    getColumn(col: number): T {
+        return this.factory.css(`${Css.COLUMN}:nth-of-type(${col + 1})`)();
     }
 
     /**
-     * Presses the button with the given buttonClass on a row of the datagrid.
+     * Returns all the cell elements in the given row
      * @param row 0-based index of row
      */
-    pressRowButton(buttonClass: string, row: number): void {
-        this.click(`button.${buttonClass}`, this.rows[row]);
+    getRowCell(row: number): T {
+        return this._getRow(row).get(Css.CELL).unwrap();
     }
 
     /**
-     * Gives the height CSS of this clr-datagrid.
+     * Returns the button on the top of the grid with the given buttonClass
      */
-    get gridHeight(): string {
-        return this.root.parent.nativeElement.style.getPropertyValue('--datagrid-height');
+    getTopButton(btnClass: string): T {
+        return this.factory.css(`button.${btnClass}`)();
     }
 
     /**
-     * Gives the height of the grids container.
+     * Returns the button at a row with the given buttonClass
      */
-    get gridContainerClasses(): string[] {
-        return Object.keys(this.root.parent.classes);
+    getRowButton(btnClass: string, row: number): T {
+        return this._getRow(row).get(`button.${btnClass}`).unwrap();
     }
 
     /**
-     * Can be used by subclasses to create methods that assert about HTML in custom rendered columns. Note that
-     * subclasses should not return the DebugElement, they should return a string from a section of the HTML.
-     *
+     * Returns a header
+     * @param col 0-based index of header
+     */
+    getColumnHeader(col: number): T {
+        return this.el.get(`${Css.COLUMN_TITLE}:nth-of-type(${col + 1})`).unwrap();
+    }
+
+    /**
+     * Returns label of `.datagrid-select` element in the given row. This function can be used to
+     * perform both single and multiple selection
      * @param row 0-based index of row
-     * @param column 0-based index of column
-     *
-     * Because the custom renderer widget object requires getting the {@link DebugElement} of a cell,
-     * but doesn't directly extend {@link ClrDatagridWidgetObject}, this method needs to be public.
-     * This will be fixed in {@link https://jira.eng.vmware.com/browse/VDUCC-127}.
      */
-    getCell(row: number, column: number): DebugElement {
-        return this.findElement(`${ROW_TAG}:nth-of-type(${row + 1}) ${CELL_TAG}:nth-of-type(${column + 1})`);
-    }
-
-    private get rows(): DebugElement[] {
-        return this.findElements(ROW_TAG);
-    }
-
-    private get columns(): DebugElement[] {
-        return this.findElements(COLUMN_CSS_SELECTOR);
-    }
-
-    private get detailRowButtons(): DebugElement[] {
-        return this.findElements('.datagrid-expandable-caret-button');
-    }
-
-    private get detailPaneButtons(): DebugElement[] {
-        return this.findElements('.datagrid-detail-caret-button');
-    }
-
-    private openFilter(): void {
-        const clrDgColumn = this.findElements(COLUMN_SELECTOR)[0];
-        const filterDebugEl = this.findElement(FILTER_SELECTOR, clrDgColumn);
-        this.click('.datagrid-filter-toggle', filterDebugEl);
-        this.detectChanges();
+    getSelectionLabelForRow(row: number): T {
+        return this._getRow(row).get(Css.ROW_ACTION_CONTAINER).unwrap();
     }
 
     /**
-     * Used by the {@link createDatagridFilterTestHelper} to query for a filter component. Opens filter of first
-     * column and returns the filter component.
-     * @param ctor The constructor of a grid filter component
+     * Returns filter toggle
      */
-    getFilter<V, C>(ctor: Type<DatagridFilter<V, C>>): DatagridFilter<V, C> {
-        this.openFilter();
-        return this.root.parent.parent.parent.query(By.directive(ctor)).componentInstance;
+    get filterToggle(): T {
+        return this.el.get(Css.COLUMN).get(Css.FILTER).get(Css.FILTER_TOGGLE).unwrap();
     }
 }

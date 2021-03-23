@@ -6,7 +6,7 @@
 import { Component, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { SelectOption } from '../../common/interfaces/select-option';
-import { WidgetFinder, WidgetObject } from '../../utils/test';
+import { WidgetFinder, WidgetObject } from '../../utils/test/widget-object';
 import { configureFormInputTestingModule } from '../base-form-control.spec';
 import { FormSelectComponent } from './form-select.component';
 
@@ -15,6 +15,14 @@ export class VcdFormSelectWidgetObject extends WidgetObject<FormSelectComponent>
 
     private get selectElement(): HTMLSelectElement {
         return this.findElement('select').nativeElement;
+    }
+
+    /**
+     * Returns the 'shape' attribute if defined, returns empty string if undefined
+     */
+    get clrIconShape(): string {
+        const clrIconDebugEl = this.findElement('clr-icon');
+        return clrIconDebugEl?.nativeElement.getAttribute('shape') || '';
     }
 
     get value(): string {
@@ -42,8 +50,8 @@ describe('FormSelectComponent', () => {
         selectInput = finder.find({ woConstructor: VcdFormSelectWidgetObject });
     });
 
-    describe('selectedOption returns the option whose value', () => {
-        it('matches with form control value', () => {
+    describe('selectedOption', () => {
+        it('matches form control value', () => {
             expect(hostComponent.selectInputComponent.selectedOption.value).toEqual(
                 hostComponent.selectInputComponent.formControl.value
             );
@@ -55,6 +63,16 @@ describe('FormSelectComponent', () => {
         it('is of number type, when it is selected', () => {
             selectInput.select(hostComponent.options.length - 1);
             expect(hostComponent.selectInputComponent.selectedOption).toEqual(getOptionWithValueAsNumber());
+        });
+        it('is undefined if the component does not have a value set', () => {
+            selectInput.component.formControl.setValue(null);
+            expect(selectInput.component.selectedOption).toBe(undefined);
+            selectInput.component.formControl.setValue(undefined);
+            expect(selectInput.component.selectedOption).toBe(undefined);
+        });
+        it('allows falsy  values', () => {
+            selectInput.component.formControl.setValue('');
+            expect(selectInput.component.selectedOption.value).toBe('');
         });
     });
 
@@ -71,6 +89,20 @@ describe('FormSelectComponent', () => {
             expect(selectInput.value).toEqual(hostComponent.options[1].value as string);
             hostComponent.formGroup.get('selectInput').setValue(hostComponent.options[2].value);
             expect(selectInput.value).toEqual(hostComponent.options[2].value as string);
+        });
+    });
+
+    describe('validation', () => {
+        it('does not show error icon before user selects value', () => {
+            expect(selectInput.clrIconShape).toEqual('');
+        });
+        it('shows error icon when a invalid value is selected', () => {
+            selectInput.select(0);
+            expect(selectInput.clrIconShape).toEqual('exclamation-circle');
+        });
+        it('does not show error icon when a valid value is selected', () => {
+            selectInput.select(1);
+            expect(selectInput.clrIconShape).toEqual('');
         });
     });
 });

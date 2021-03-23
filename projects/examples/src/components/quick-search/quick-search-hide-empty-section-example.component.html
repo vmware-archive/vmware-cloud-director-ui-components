@@ -1,0 +1,16 @@
+Press <kbd>Command</kbd>+<kbd>f</kbd> on MacOS / <kbd>Ctrl</kbd>+<kbd>f</kbd> on PC or click
+<a href="javascript: void(0);" (click)="spotlightOpen = true">here</a> to open the Quick Search.
+<p>This example shows how to configure whether a provider section should be hidden if there are no results.</p>
+
+<p>Use the form below to configure the Quick Search</p>
+
+<form [formGroup]="formGroup" class="clr-form-horizontal">
+    <vcd-form-checkbox
+        [label]="'Hide empty section'"
+        [styling]="CheckBoxStyling.TOGGLESWITCH"
+        [formControlName]="'hideEmptySections'"
+    >
+    </vcd-form-checkbox>
+</form>
+
+<vcd-quick-search [(open)]="spotlightOpen" [placeholder]="formGroup.value.placeholder"> </vcd-quick-search>

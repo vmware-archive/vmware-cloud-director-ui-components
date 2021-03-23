@@ -29,7 +29,7 @@ export class BannerActivityReporterExampleComponent {
                     this.resolve = resolve;
                 })
             )
-            .then(result => {
+            .then((result) => {
                 this.showBanner = false;
                 return result;
             });

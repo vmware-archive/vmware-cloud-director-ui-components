@@ -12,8 +12,11 @@ import { VcdDataExporterModule } from './data-exporter/data-exporter.module';
 import { VcdDatagridModule } from './datagrid/datagrid.module';
 import { DropdownModule } from './dropdown/dropdown.module';
 import { VcdFormModule } from './form/form.module';
+import { AlternativeTextModule } from './lib/directives/alternative-text/alternative-text.module';
+import { ResponsiveInputDirectiveModule } from './lib/directives/responsive-input/responsive-input.module';
 import { ShowClippedTextDirectiveModule } from './lib/directives/show-clipped-text.directive.module';
 import { QuickSearchModule } from './quick-search/quick-search.module';
+import { VcdSharingModalModule } from './sharing-modal/sharing-modal.module';
 
 @NgModule({
     exports: [
@@ -27,6 +30,9 @@ import { QuickSearchModule } from './quick-search/quick-search.module';
         QuickSearchModule,
         VcdActionMenuModule,
         DropdownModule,
+        ResponsiveInputDirectiveModule,
+        AlternativeTextModule,
+        VcdSharingModalModule,
     ],
 })
 export class VcdComponentsModule {}
