@@ -86,10 +86,7 @@ export class AngularWidgetObjectElement implements WidgetObjectElement<TestEleme
     select(value: string, options?: unknown): void {}
 
     type(value: string): void {
-        const inputEl = this.testElement.elements[0].nativeElement as HTMLInputElement;
-        inputEl.value = String(value);
-        inputEl.dispatchEvent(new Event('change'));
-        inputEl.dispatchEvent(new Event('input'));
+        this.testElement.type(value);
     }
 
     /**
@@ -158,6 +155,13 @@ export class TestElement implements Iterable<TestElement> {
      */
     text(): string {
         return this.firstNativeElement.textContent.trim();
+    }
+
+    /**
+     * Gives the value of the placeholder text on this input element
+     */
+    placeholder(): string {
+        return (this.firstNativeElement as HTMLInputElement).placeholder;
     }
 
     /**
@@ -318,6 +322,17 @@ export class TestElement implements Iterable<TestElement> {
     queryElements(cssSelector: string): TestElement {
         const result = this.firstDebugElement.queryAll(By.css(cssSelector));
         return new TestElement(result ? result : [], this.fixture);
+    }
+
+    /**
+     * Allows data to be entered into a test element
+     */
+    type(value: string): void {
+        const inputEl = this.elements[0].nativeElement as HTMLInputElement;
+        inputEl.value = String(value);
+        inputEl.dispatchEvent(new Event('change'));
+        inputEl.dispatchEvent(new Event('input'));
+        this.detectChanges();
     }
 
     /**

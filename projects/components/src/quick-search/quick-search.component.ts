@@ -9,6 +9,7 @@ import { DomUtil } from '../utils/dom-util';
 import { QuickSearchResultItem, QuickSearchResults, QuickSearchResultsType } from './quick-search-result';
 import { QuickSearchProvider } from './quick-search.provider';
 import { QuickSearchService } from './quick-search.service';
+import { DataUi } from './quick-search.dataui';
 
 /**
  * A group of search sections.
@@ -188,6 +189,8 @@ export class QuickSearchComponent {
 
     isPinned = false;
     hasNoResults = false;
+
+    DataUi = DataUi;
 
     constructor(
         private searchService: QuickSearchService,
