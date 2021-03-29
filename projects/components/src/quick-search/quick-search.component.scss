@@ -98,7 +98,7 @@ vcd-drawer-component.modal-body {
     color: var(--clr-global-font-color);
 }
 
-::ng-deep .modal-header--accessible {
+:host ::ng-deep .modal-header--accessible {
     display: none;
 }
 

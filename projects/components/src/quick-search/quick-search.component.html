@@ -19,7 +19,7 @@
         </li>
         <li>
             <clr-alert
-                *ngIf="hasPartialResult(searchSection)"
+                *ngIf="searchSection.hasPartialResult"
                 [clrAlertType]="'warning'"
                 [clrAlertSizeSmall]="true"
                 [clrAlertClosable]="false"
@@ -47,7 +47,7 @@
                 <li
                     class="dropdown-item"
                     [ngClass]="this.currentFilterOptionSelection.display === option.display ? 'selected' : ''"
-                    *ngFor="let option of filterBeingEditedOptions"
+                    *ngFor="let option of filterBeingEditedOptions; trackBy: filterOptionTrackBy"
                     (click)="autofillSelectedFilterOption(option.display)"
                 >
                     {{ option.display }}
@@ -62,20 +62,20 @@
     <ng-content select=".top-of-results"></ng-content>
     <div class="search-result-container">
         <section
-            *ngFor="let searchSection of ungroupedSearchSections; let i = index"
+            *ngFor="let searchSection of ungroupedSearchSections; let i = index; trackBy: sectionTrackBy"
             class="search-result-section section-index-0-{{ i + 1 }}"
             data-ui="search-result-section"
         >
-            <h5 *ngIf="showSectionTitle(searchSection)" class="search-result-section-title" data-ui="section-title">
+            <h5 *ngIf="searchSection.shouldShowText" class="search-result-section-title" data-ui="section-title">
                 {{ searchSection.provider.sectionName }}
-                <span *ngIf="hasPartialResult(searchSection); let partial" class="partial-result">
+                <span *ngIf="searchSection.hasPartialResult; let partial" class="partial-result">
                     {{ 'vcd.cc.quickSearch.partialResultNotation' | translate: partial }}
                 </span>
             </h5>
             <ng-container *ngTemplateOutlet="searchSectionTemplate; context: { $implicit: searchSection }">
             </ng-container>
         </section>
-        <div *ngFor="let parentSearchSection of groupedSearchSections; let n = index">
+        <div *ngFor="let parentSearchSection of groupedSearchSections; let n = index; trackBy: groupSectionTrackBy">
             <h5
                 *ngIf="showParentSectionTitle(parentSearchSection)"
                 class="search-result-section-title"
@@ -83,14 +83,17 @@
             >
                 {{ parentSearchSection.headerTitle }}
             </h5>
-            <section *ngFor="let searchSection of parentSearchSection.subSections; let i = index" class="sub-section">
+            <section
+                *ngFor="let searchSection of parentSearchSection.subSections; let i = index; trackBy: sectionTrackBy"
+                class="sub-section"
+            >
                 <p
-                    *ngIf="showSectionTitle(searchSection)"
+                    *ngIf="searchSection.shouldShowText"
                     class="p2 search-result-section-title search-result-section section-index-{{ n }}-{{ i }}"
                     data-ui="section-title"
                 >
                     {{ searchSection.provider.sectionName }}
-                    <span *ngIf="hasPartialResult(searchSection); let partial" class="partial-result">
+                    <span *ngIf="searchSection.hasPartialResult; let partial" class="partial-result">
                         {{ 'vcd.cc.quickSearch.partialResultNotation' | translate: partial }}
                     </span>
                 </p>
