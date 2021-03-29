@@ -28,6 +28,8 @@ interface SearchSection {
     provider: QuickSearchProvider;
     result: QuickSearchResults;
     isLoading: boolean;
+    shouldShowText: boolean;
+    hasPartialResult: PartialResult;
 }
 
 /**
@@ -371,7 +373,9 @@ export class QuickSearchComponent {
             // search function. However, we don't currently see any problem with that because the following code just re assigns variables
             // with same values
             searchSection.result = searchResult;
+            searchSection.hasPartialResult = this.hasPartialResult(searchSection);
             searchSection.isLoading = false;
+            searchSection.shouldShowText = this.showSectionTitle(searchSection);
             if (!this.selectedItem) {
                 this.selectFirst(true);
             }
@@ -494,6 +498,8 @@ export class QuickSearchComponent {
             provider,
             result: null,
             isLoading: true,
+            shouldShowText: true,
+            hasPartialResult: undefined,
         }));
         this.groupedSearchSections = this.searchService.getRegisteredNestedProviders(activeFilters).map((section) => {
             return {
@@ -502,6 +508,8 @@ export class QuickSearchComponent {
                     provider,
                     result: null,
                     isLoading: true,
+                    shouldShowText: true,
+                    hasPartialResult: undefined,
                 })),
             };
         });
@@ -525,7 +533,7 @@ export class QuickSearchComponent {
         }
     }
 
-    showSectionTitle(searchSection: SearchSection): boolean {
+    private showSectionTitle(searchSection: SearchSection): boolean {
         // Do not show when there is no search criteria
         if (!this.searchCriteria) {
             return false;
@@ -550,12 +558,12 @@ export class QuickSearchComponent {
     }
 
     showParentSectionTitle(parentSection: GroupedSearchSections): boolean {
-        return parentSection.subSections.some((section) => this.showSectionTitle(section));
+        return parentSection.subSections.some((section) => section.shouldShowText);
     }
 
     showNoResults(searchSection: SearchSection): boolean {
         // Show 'No Results' if the section is empty and the section title is shown
-        if (searchSection.result?.items?.length === 0 && this.showSectionTitle(searchSection)) {
+        if (searchSection.result?.items?.length === 0 && searchSection.shouldShowText) {
             return true;
         }
         return false;
@@ -568,7 +576,7 @@ export class QuickSearchComponent {
      * then null is returned
      * @param searchSection the section which result items is to be checked
      */
-    hasPartialResult(searchSection: SearchSection): PartialResult {
+    private hasPartialResult(searchSection: SearchSection): PartialResult {
         if (
             searchSection.result?.total &&
             searchSection.result?.items?.length &&
@@ -627,5 +635,17 @@ export class QuickSearchComponent {
             filters: activeFilters,
             searchTerm: removedFiltersSearch,
         };
+    }
+
+    groupSectionTrackBy(_index: number, groupedSection: GroupedSearchSections): string {
+        return groupedSection.headerTitle;
+    }
+
+    sectionTrackBy(_index: number, searchSection: SearchSection): string {
+        return searchSection.provider.sectionName;
+    }
+
+    filterOptionTrackBy(_index: number, filterOption: QuickSearchFilterOption): string {
+        return filterOption.display;
     }
 }

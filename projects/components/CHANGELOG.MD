@@ -7,8 +7,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [2.0.0-dev.6]
+### Changed
+- Quick search now performs much better with many providers.
 ### Fixes
 - A bug where using a two-way binding on selection results in an infinite loop.
+- Styles on quick search remove the header on a lot of modals.
+
 ## [2.0.0-dev.5]
 ### Added
 - The ability to group providers in sections in quick search.
