@@ -14,9 +14,6 @@
         >
             {{ item.displayText }}
         </li>
-        <li class="no-results" data-ui="no-results" *ngIf="showNoResults(searchSection)">
-            {{ 'vcd.cc.quickSearch.noResults' | translate }}
-        </li>
         <li>
             <clr-alert
                 *ngIf="searchSection.hasPartialResult"
@@ -61,6 +58,9 @@
     <clr-control-helper class="input-helper">{{ helper }}</clr-control-helper>
     <ng-content select=".top-of-results"></ng-content>
     <div class="search-result-container">
+        <section class="no-results" data-ui="no-results" *ngIf="hasNoResults()">
+            {{ 'vcd.cc.quickSearch.noResults' | translate }}
+        </section>
         <section
             *ngFor="let searchSection of ungroupedSearchSections; let i = index; trackBy: sectionTrackBy"
             class="search-result-section section-index-0-{{ i + 1 }}"

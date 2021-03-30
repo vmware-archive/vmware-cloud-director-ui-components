@@ -18,6 +18,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - The availability property of action items now accepts observables so that their visibility can be updated from
 asynchronous responses  
 
+### Change
+- BREAKING: All quick search sections now hide when empty.
+
 ## [2.0.0-dev.6]
 ### Changed
 - Quick search now performs much better with many providers.
