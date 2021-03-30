@@ -5,6 +5,8 @@
 
 import { Component } from '@angular/core';
 import { ActionDisplayConfig, ActionItem, ActionStyling, ActionType, TextIcon } from '@vcd/ui-components';
+import { interval } from 'rxjs';
+import { map } from 'rxjs/operators';
 
 @Component({
     selector: 'vcd-dynamic-availability-example',
@@ -81,6 +83,36 @@ export class ActionMenuHideDisableExampleComponent {
             disabled: () => true,
         },
     ];
+
+    observableActions: ActionItem<any, any>[] = [
+        {
+            textKey: 'Action 1',
+            actionType: ActionType.STATIC_FEATURED,
+            availability: interval(2000).pipe(map((val) => val % 2 === 0)),
+            isTranslatable: false,
+        },
+        {
+            textKey: 'Action 2',
+            actionType: ActionType.STATIC,
+            isTranslatable: false,
+        },
+        {
+            textKey: 'Nested actions',
+            isTranslatable: false,
+            children: [
+                {
+                    textKey: 'Nested Action 1',
+                    availability: interval(2000).pipe(map((val) => val % 2 === 0)),
+                    isTranslatable: false,
+                },
+                {
+                    textKey: 'Nested Action 2',
+                    isTranslatable: false,
+                },
+            ],
+        },
+    ];
+
     dropdownActionDisplayConfig: ActionDisplayConfig = {
         contextual: {
             featuredCount: 2,

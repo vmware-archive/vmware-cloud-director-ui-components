@@ -4,6 +4,7 @@
  */
 
 import { Component, EventEmitter, Input, Output, TrackByFunction } from '@angular/core';
+import { isObservable } from 'rxjs';
 import { ActionDisplayConfig, ActionItem, ActionStyling, ActionType, TextIcon } from '../common/interfaces';
 import { CommonUtil } from '../utils';
 
@@ -50,16 +51,6 @@ export class ActionMenuComponent<R, T> {
         return this._actions;
     }
 
-    /**
-     * Used by the {@link EntityActionExtensionComponentsDirective} to provide the extension actions from plugins after
-     * they are created asynchronously
-     * @param val List of extension actions
-     */
-    set extensionEntityActions(val: ActionItem<unknown, unknown>[]) {
-        this._extensionEntityActions = val;
-    }
-    private _extensionEntityActions: ActionItem<unknown, unknown>[];
-
     private _actionDisplayConfig: ActionDisplayConfig = getDefaultActionDisplayConfig();
     /**
      * Display configuration of both static and contextual actions
@@ -76,6 +67,12 @@ export class ActionMenuComponent<R, T> {
     get actionDisplayConfig(): ActionDisplayConfig {
         return this._actionDisplayConfig;
     }
+
+    /**
+     * Copy of actions passed with their availability call backs. This is because, when the selected entities get updated, we need to use
+     * those CBs to calculate the availability again
+     */
+    private actionsWithAvailabilityCb: ActionItem<R, T>[];
 
     /**
      * When there are no nested actions and if all of the contextual actions are marked to be featured, there is no need to show
@@ -111,7 +108,7 @@ export class ActionMenuComponent<R, T> {
      */
     @Input() set selectedEntities(val: R[]) {
         this._selectedEntities = val;
-        this.updateActionListsAndDisplayFlags();
+        this.updateDisplayedActions();
     }
     private _selectedEntities: R[] = [];
     get selectedEntities(): R[] {
@@ -208,6 +205,11 @@ export class ActionMenuComponent<R, T> {
     shouldDisplayContextualActionsDropdown: boolean;
 
     /**
+     * Used for deciding if the availability has to be passed through an Async pipe in the template
+     */
+    isObservable = isObservable;
+
+    /**
      * Returns the actions to be shown
      */
     getAvailableActions(actions: ActionItem<R, T>[]): ActionItem<R, T>[] {
@@ -230,7 +232,7 @@ export class ActionMenuComponent<R, T> {
      * this method will re-trigger the availability call backs of actions
      */
     updateDisplayedActions(): void {
-        this.refreshActions(this.actions);
+        this.refreshActions(this.actionsWithAvailabilityCb);
     }
 
     private refreshActions(actions: ActionItem<R, T>[]): void {
@@ -244,7 +246,7 @@ export class ActionMenuComponent<R, T> {
                 (action) => action.actionType && action.actionType === ActionType.CONTEXTUAL_FEATURED
             );
 
-        this._actions = actions.map((action) => {
+        this.actionsWithAvailabilityCb = actions.map((action) => {
             const actionCopy = { ...action, children: action.children ? [...action.children] : null };
             if (!actionCopy.actionType) {
                 actionCopy.actionType = markUnmarkedActionsAsContextual
@@ -254,10 +256,29 @@ export class ActionMenuComponent<R, T> {
             return actionCopy;
         });
 
+        this._actions = this.changeAvailabilityCallbacksToBooleans(this.actionsWithAvailabilityCb);
+
         this.shouldDisplayContextualActionsDropdownInline =
             hasNestedActions || this._actions.some((action) => action.actionType === ActionType.CONTEXTUAL);
 
         this.updateActionListsAndDisplayFlags();
+    }
+
+    /**
+     * Executes the availability call backs and updates them to booleans
+     */
+    private changeAvailabilityCallbacksToBooleans(actions) {
+        return actions.map((action) => {
+            const actionAvailability = isObservable(action.availability)
+                ? action.availability
+                : this.isActionAvailable(action);
+
+            return {
+                ...action,
+                availability: actionAvailability,
+                children: action.children ? this.changeAvailabilityCallbacksToBooleans(action.children) : null,
+            };
+        });
     }
 
     private updateActionListsAndDisplayFlags(): void {
@@ -284,11 +305,22 @@ export class ActionMenuComponent<R, T> {
     }
 
     /**
+     * Used only for actions that don't have their availability as Observables.
      * An action whose availability is false but has the disabled state set to true is still shown on the screen in
      * disabled mode
      */
     private isActionAvailable(action: ActionItem<R, T>): boolean {
-        return !action.availability || action.availability(this.selectedEntities) || this.isActionDisabled(action);
+        let isActionAvailable = true;
+        if (action.availability == null) {
+            isActionAvailable = true;
+        }
+        if (typeof action.availability === 'boolean') {
+            isActionAvailable = action.availability;
+        }
+        if (CommonUtil.isFunction(action.availability)) {
+            isActionAvailable = this.selectedEntities?.length > 0 && action.availability(this.selectedEntities);
+        }
+        return isActionAvailable || this.isActionDisabled(action);
     }
 
     private getStaticFeaturedActions(): ActionItem<R, T>[] {
@@ -327,11 +359,7 @@ export class ActionMenuComponent<R, T> {
                 !action.actionType ||
                 (action.actionType !== ActionType.STATIC_FEATURED && action.actionType !== ActionType.STATIC)
         );
-        const availableContextualActions = this.getAvailableActions(contextualActions);
-        if (this._extensionEntityActions) {
-            availableContextualActions.push(...this._extensionEntityActions);
-        }
-        return availableContextualActions;
+        return this.getAvailableActions(contextualActions);
     }
 
     /**
@@ -365,9 +393,13 @@ export class ActionMenuComponent<R, T> {
      * To disable a displayed action
      */
     isActionDisabled(action: ActionItem<R, T>): boolean {
-        return (CommonUtil.isFunction(action.disabled)
-            ? action.disabled(this.selectedEntities)
-            : action.disabled) as boolean;
+        if (action.disabled == null) {
+            return false;
+        }
+        if (CommonUtil.isFunction(action.disabled)) {
+            return action.disabled(this.selectedEntities);
+        }
+        return action.disabled;
     }
 
     /**
