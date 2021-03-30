@@ -22,6 +22,7 @@ import {
     ViewChildren,
 } from '@angular/core';
 import { ClrDropdown, ClrDropdownMenu, ClrDropdownTrigger } from '@clr/angular';
+import { isObservable } from 'rxjs';
 import { ActionItem, TextIcon } from '../common/interfaces';
 import { CliptextConfig, TooltipSize } from '../lib/directives';
 import { CommonUtil } from '../utils';
@@ -196,6 +197,11 @@ export class DropdownComponent implements AfterViewInit {
      * hovered over
      */
     @ViewChildren(DropdownComponent) vcdDropdownChildren: QueryList<DropdownComponent>;
+
+    /**
+     * Used for deciding if the availability has to be passed through an Async pipe in the template
+     */
+    isObservable = isObservable;
 
     private hideTimeout: number;
 

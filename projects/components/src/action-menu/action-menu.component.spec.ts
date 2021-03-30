@@ -162,18 +162,18 @@ describe('ActionMenuComponent', () => {
                 {
                     textKey: 'action.1',
                     handler: () => {},
-                    availability: () => false,
+                    availability: false,
                     disabled: () => true,
                 },
                 {
                     textKey: 'action.2',
                     handler: () => {},
-                    availability: () => true,
+                    availability: true,
                 },
                 {
                     textKey: 'action.3',
                     handler: () => {},
-                    availability: () => false,
+                    availability: false,
                 },
             ]);
             expect(availableActions.length).toEqual(2);
@@ -186,18 +186,18 @@ describe('ActionMenuComponent', () => {
                         {
                             textKey: 'action.1',
                             handler: () => {},
-                            availability: () => false,
+                            availability: false,
                             disabled: () => true,
                         },
                         {
                             textKey: 'action.2',
                             handler: () => {},
-                            availability: () => true,
+                            availability: true,
                         },
                         {
                             textKey: 'action.3',
                             handler: () => {},
-                            availability: () => false,
+                            availability: false,
                         },
                     ],
                 },
@@ -243,21 +243,22 @@ describe('ActionMenuComponent', () => {
             });
         });
         it('returns empty array if there are no selectedEntities', function (this: HasFinderAndActionMenu): void {
+            this.actionMenu.actions = [...CONTEXTUAL_ACTIONS];
             this.actionMenu.selectedEntities = null;
             expect(this.actionMenu.contextualActions.length).toEqual(0);
         });
         it('returns only actions that are available and either contextual or' + ' contextual_featured', function (
             this: HasFinderAndActionMenu
         ): void {
+            this.actionMenu.actions = [...CONTEXTUAL_ACTIONS]
+                .concat([...CONTEXTUAL_FEATURED_ACTIONS])
+                .concat([...STATIC_FEATURED_ACTIONS]);
             this.actionMenu.selectedEntities = [
                 {
                     value: 'foo',
                     paused: false,
                 },
             ];
-            this.actionMenu.actions = [...CONTEXTUAL_ACTIONS]
-                .concat([...CONTEXTUAL_FEATURED_ACTIONS])
-                .concat([...STATIC_FEATURED_ACTIONS]);
             this.finder.detectChanges();
             const availableActions = this.actionMenu.contextualActions;
             const availableContextualActions = this.actionMenu.getAvailableActions(
@@ -288,6 +289,7 @@ describe('ActionMenuComponent', () => {
                     handlerData,
                     availability: () => true,
                 };
+                this.actionMenu.actions = [action];
                 this.actionMenu.selectedEntities = selectedEntities;
                 const spy = spyOn(action, 'handler').and.returnValue(null);
                 this.actionMenu.runActionHandler(action);
@@ -340,9 +342,10 @@ describe('ActionMenuComponent', () => {
         it('emits event when selectedEntities input has changed', function (this: HasFinderAndActionMenu): void {
             const spy = createSpy('actionsUpdate');
             this.actionMenu.actionsUpdate.subscribe(spy);
+            this.actionMenu.actions = [];
             this.actionMenu.selectedEntities = [];
             this.finder.detectChanges();
-            expect(spy).toHaveBeenCalledTimes(1);
+            expect(spy).toHaveBeenCalledTimes(2);
         });
     });
 
@@ -356,6 +359,7 @@ describe('ActionMenuComponent', () => {
                     actionType: ActionType.STATIC_FEATURED,
                 },
             ];
+            this.actionMenu.selectedEntities = [{ value: '', paused: true }];
             expect(this.actionMenu.staticFeaturedActions.length).toEqual(0);
             isActionAvailable = true;
             this.actionMenu.updateDisplayedActions();

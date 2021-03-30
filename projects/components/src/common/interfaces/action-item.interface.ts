@@ -6,6 +6,8 @@
 /**
  * List of different type of action buckets
  */
+import { Observable } from 'rxjs';
+
 export enum ActionType {
     /**
      * Global actions that are displayed always irrespective of the context. These display as the first set of actions
@@ -48,10 +50,10 @@ export interface ActionItem<R, T> {
     class?: string;
     /**
      * Condition whether or not the action is available.
-     * @param records Single item in case of an operation on single record and multiple in case of an operation on batch
+     * @param selectedEntities Single item in case of an operation on single record and multiple in case of an operation on batch
      * selection
      */
-    availability?: (records?: R[], additionalData?: any) => boolean;
+    availability?: Observable<boolean> | ((selectedEntities: R[]) => boolean) | boolean;
     /**
      * Indicates if an action that is available should be disabled. If true, a non available action is disabled.
      * If false, a non-available action is hidden

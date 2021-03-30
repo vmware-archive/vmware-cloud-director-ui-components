@@ -16,6 +16,15 @@
     >
     </vcd-action-menu>
 
+    <h4>Action availability as observable</h4>
+    <p>
+        The availability of actions can also be a observable streams. This is useful for actions like static actions
+        whose availability sometimes depends on values coming from asynchronous server responses. Out of the following
+        actions, The static featured "Action 1" and the contextual "Nested Action 1" have their availability as
+        observable streams and they get updated every 2 seconds
+    </p>
+    <vcd-action-menu [actions]="observableActions" [selectedEntities]="[{}]"> </vcd-action-menu>
+
     <h4>Disabling of actions</h4>
     <p>Clicking on stop will disable it and enable start and vice versa.</p>
     <vcd-action-menu

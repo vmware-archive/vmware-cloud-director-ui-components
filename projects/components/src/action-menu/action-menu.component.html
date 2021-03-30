@@ -1,13 +1,23 @@
 <div class="inline-actions-container" *ngIf="shouldDisplayActionsInline">
     <ng-container *ngIf="shouldDisplayStaticFeaturedActionsInline">
         <ng-container *ngFor="let action of staticFeaturedActions; trackBy: actionsTrackBy">
-            <ng-template *ngTemplateOutlet="actionButton; context: { $implicit: action }"></ng-template>
+            <ng-template
+                *ngTemplateOutlet="
+                    isObservable(action.availability) ? obsTmpl : actionButtonTmpl;
+                    context: { $implicit: action }
+                "
+            ></ng-template>
         </ng-container>
     </ng-container>
 
     <ng-container *ngIf="shouldDisplayContextualActionsInline">
         <ng-container *ngFor="let action of contextualFeaturedActions; trackBy: actionsTrackBy">
-            <ng-template *ngTemplateOutlet="actionButton; context: { $implicit: action }"></ng-template>
+            <ng-template
+                *ngTemplateOutlet="
+                    isObservable(action.availability) ? obsTmpl : actionButtonTmpl;
+                    context: { $implicit: action }
+                "
+            ></ng-template>
         </ng-container>
 
         <vcd-dropdown
@@ -28,7 +38,12 @@
     <ng-container *ngIf="shouldDisplayStaticActionsInline">
         <div class="static-actions-separator"></div>
         <ng-container *ngFor="let action of staticActions; trackBy: actionsTrackBy">
-            <ng-template *ngTemplateOutlet="actionButton; context: { $implicit: action }"></ng-template>
+            <ng-template
+                *ngTemplateOutlet="
+                    isObservable(action.availability) ? obsTmpl : actionButtonTmpl;
+                    context: { $implicit: action }
+                "
+            ></ng-template>
         </ng-container>
     </ng-container>
 </div>
@@ -61,7 +76,15 @@
     [isDropdownDisabled]="disabled"
 ></vcd-dropdown>
 
-<ng-template #actionButton let-action>
+<ng-template #obsTmpl let-action>
+    <ng-template
+        *ngIf="action.availability | async"
+        [ngTemplateOutlet]="actionButtonTmpl"
+        [ngTemplateOutletContext]="{ $implicit: action }"
+    ></ng-template>
+</ng-template>
+
+<ng-template #actionButtonTmpl let-action>
     <button
         class="btn btn-link"
         [ngClass]="action.class"
