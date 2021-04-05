@@ -222,7 +222,7 @@ export class SharingModalTabComponent<T> implements OnInit, OnDestroy, AfterView
     actions: ActionItem<IsSelected<T>, unknown>[] = [
         {
             icon: 'trash',
-            availability: (record: IsSelected<T>[]) => !this.isOwner(record[0]),
+            availability: (record: IsSelected<T>[]) => record[0] && !this.isOwner(record[0]),
             actionType: ActionType.CONTEXTUAL_FEATURED,
             handler: (selected) => {
                 this.removeEntity(selected[0]);

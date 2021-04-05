@@ -318,7 +318,7 @@ export class ActionMenuComponent<R, T> {
             isActionAvailable = action.availability;
         }
         if (CommonUtil.isFunction(action.availability)) {
-            isActionAvailable = this.selectedEntities?.length > 0 && action.availability(this.selectedEntities);
+            isActionAvailable = action.availability(this.selectedEntities);
         }
         return isActionAvailable || this.isActionDisabled(action);
     }
