@@ -95,7 +95,7 @@ export class CypressWidgetObjectElement<T extends ElementActions> implements Wid
      * @inheritdoc
      */
     uncheck(options?: unknown): void {
-        this.chainable.uncheck();
+        this.chainable.uncheck(options);
     }
 
     /**

@@ -40,11 +40,23 @@ export class CypressWidgetObjectFinder<T> {
         if (findOptions?.cssSelector) {
             tagName += `${findOptions.cssSelector}`;
         }
+
         const id = idGenerator.generate();
-        const search = findOptions?.ancestor
-            ? cy.get(findOptions.ancestor).find(tagName)
-            : cy.get(tagName, findOptions?.options);
-        const root = search.as(id);
+
+        const ancestor = findOptions?.ancestor ? cy.get(findOptions?.ancestor) : cy.get('body');
+        const parentWidget = new CypressWidgetObjectElement(ancestor, false, undefined);
+        let query = widgetConstructor.tagName;
+        if (findOptions?.cssSelector) {
+            query = query + findOptions.cssSelector;
+        }
+        const parentQuery: FindCypressWidgetOptions = {
+            cssSelector: query,
+            text: findOptions?.text,
+            index: findOptions?.index,
+            options: findOptions?.options,
+        };
+
+        const root = parentWidget.get(parentQuery).unwrap().as(id);
         return new widgetConstructor(new CypressWidgetObjectElement(root, true, id));
     }
 }
