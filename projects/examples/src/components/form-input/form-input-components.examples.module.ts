@@ -15,6 +15,7 @@ import { FormCheckboxExampleComponent } from './form-checkbox.example.component'
 import { FormCheckboxExampleModule } from './form-checkbox.example.module';
 import { FormInputExampleComponent } from './form-input.example.component';
 import { FormInputExampleModule } from './form-input.example.module';
+import { FormSelectDisabledExampleComponent } from './form-select-disabled.example.component';
 import { FormSelectExampleComponent } from './form-select.example.component';
 import { FormSelectExampleModule } from './form-select.example.module';
 import { NumberWithUnitFormInputUnitlessExampleComponent } from './number-with-unit-form-input-unitless.example.component';
@@ -46,6 +47,12 @@ Documentation.registerDocumentationEntry({
             forComponent: null,
             title: 'Select form input',
             urlSegment: 'form-select',
+        },
+        {
+            component: FormSelectDisabledExampleComponent,
+            forComponent: null,
+            title: 'Select form input with disabled options',
+            urlSegment: 'form-select-disabled',
         },
     ],
 });

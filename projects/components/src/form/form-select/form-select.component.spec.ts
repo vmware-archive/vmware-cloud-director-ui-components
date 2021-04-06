@@ -61,7 +61,7 @@ describe('FormSelectComponent', () => {
             expect(hostComponent.selectInputComponent.selectedOption).toEqual(getOptionWithValueAsNumber());
         });
         it('is of number type, when it is selected', () => {
-            selectInput.select(hostComponent.options.length - 1);
+            selectInput.select(hostComponent.options.length - 2);
             expect(hostComponent.selectInputComponent.selectedOption).toEqual(getOptionWithValueAsNumber());
         });
         it('is undefined if the component does not have a value set', () => {
@@ -73,6 +73,10 @@ describe('FormSelectComponent', () => {
         it('allows falsy  values', () => {
             selectInput.component.formControl.setValue('');
             expect(selectInput.component.selectedOption.value).toBe('');
+        });
+        it('is disabled if the option property `disabled` is set to true', () => {
+            selectInput.component.formControl.setValue('five');
+            expect(selectInput.component.selectedOption.disabled).toBe(true);
         });
     });
 
@@ -136,6 +140,9 @@ class TestHostComponent {
         {
             ...getOptionWithValueAsNumber(),
         },
+        {
+            ...getDisabledOption(),
+        },
     ];
 
     constructor(private fb: FormBuilder) {
@@ -147,4 +154,12 @@ class TestHostComponent {
 
 function getOptionWithValueAsNumber(): SelectOption {
     return { display: 'option4', value: 4 };
+}
+
+function getDisabledOption(): SelectOption {
+    return {
+        display: 'option5',
+        value: 'five',
+        disabled: true,
+    };
 }
