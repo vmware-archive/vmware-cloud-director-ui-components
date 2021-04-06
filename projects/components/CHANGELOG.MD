@@ -7,6 +7,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+- `clear` is now a method in a widget object.
+
 ### Fixed
 - Allows findWidget in the widget object to use all given findOption.
 ## [2.0.0-dev.7]

@@ -101,6 +101,13 @@ export class CypressWidgetObjectElement<T extends ElementActions> implements Wid
     /**
      * @inheritdoc
      */
+    clear(options?: unknown): void {
+        this.chainable.clear(options);
+    }
+
+    /**
+     * @inheritdoc
+     */
     findWidget<W extends BaseWidgetObject<T>>(widget: FindableWidget<T, W>, findOptions: FindCypressWidgetOptions): W {
         return new CypressWidgetObjectFinder<T>().find(widget, { ancestor: '@' + this.alias, ...findOptions });
     }

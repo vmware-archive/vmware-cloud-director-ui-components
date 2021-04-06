@@ -50,6 +50,10 @@ class MockCy {
     eq() {
         return this;
     }
+
+    clear(options: any) {
+        return this;
+    }
 }
 
 // eslint-disable-next-line no-var
@@ -107,6 +111,15 @@ describe('CypressWidgetObjectElement', () => {
             expect(getSpy).toHaveBeenCalledWith('@1');
             expect(parentSpy).toHaveBeenCalledWith('some_parent');
             expect(parent.isRoot).toBeFalsy();
+        });
+    });
+
+    describe('clear', () => {
+        it('clears the given input', () => {
+            const clearSpy = spyOn(cy, 'clear').and.callThrough();
+            const widget = new CypressWidgetObjectElement(cy, true, '1');
+            widget.clear({ a: 'test' });
+            expect(clearSpy).toHaveBeenCalledWith({ a: 'test' });
         });
     });
 });
