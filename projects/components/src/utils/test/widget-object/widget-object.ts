@@ -18,8 +18,11 @@ type ElementLocator<T> = (options?: FindElementOptions) => T;
 type UnknownOptions = {};
 
 export type FindElementOptions = {
-    /** CSS selector used to query */
+    /** CSS selector used to query. Ignored if {@link #dataUiSelector} is passed */
     cssSelector?: string;
+
+    /** Data UI attribute selector used to query */
+    dataUiSelector?: string;
 
     /** To get the nth element of a result set. */
     index?: number;
