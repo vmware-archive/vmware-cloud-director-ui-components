@@ -6,7 +6,7 @@
 /**
  * List of different type of action buckets
  */
-import { Observable } from 'rxjs';
+import { Observable, of } from 'rxjs';
 
 export enum ActionType {
     /**
@@ -33,11 +33,12 @@ export enum ActionType {
 export type ActionHandlerType<R, T> = (selectedEntities?: R[], handlerData?: T) => Promise<string | undefined> | void;
 
 /**
- * Data required for displaying an action item in a menu.
+ * Data required for displaying an action item in a menu. Additional data like the type of action and visibility is part of separate
+ * interfaces {@link StaticActionItem} and {@link ContextualActionItem}
  * T is the type of custom data passed to action handler
  * R is the type of selected entity on which the action will be performed
  */
-export interface ActionItem<R, T> {
+export interface BaseActionItem<R, T> {
     /**
      * The i18n key or a translated string for contents of a action button
      */
@@ -48,12 +49,6 @@ export interface ActionItem<R, T> {
      * Must be unique among all added actions within an action list
      */
     class?: string;
-    /**
-     * Condition whether or not the action is available.
-     * @param selectedEntities Single item in case of an operation on single record and multiple in case of an operation on batch
-     * selection
-     */
-    availability?: Observable<boolean> | ((selectedEntities: R[]) => boolean) | boolean;
     /**
      * Indicates if an action that is available should be disabled. If true, a non available action is disabled.
      * If false, a non-available action is hidden
@@ -75,10 +70,6 @@ export interface ActionItem<R, T> {
      */
     handlerData?: any;
     /**
-     * Used for determining where in the action menu this action gets displayed
-     */
-    actionType?: ActionType;
-    /**
      * The Clarity icon of the contextual button that is displayed if the button is featured.
      */
     icon?: string;
@@ -99,6 +90,43 @@ export interface ActionItem<R, T> {
      */
     busy?: boolean;
 }
+
+/**
+ * Created this separate type to enforce the type of Static actions availability to not be a call back method. This is because, call back
+ * with selected entities is only supported for Contextual actions as the call backs receive selected entities and static actions visibility
+ * is not dependent on selected entities
+ */
+interface StaticActionItem<R, T> extends BaseActionItem<R, T> {
+    /**
+     * Used for determining where in the action menu this action gets displayed
+     */
+    actionType: ActionType.STATIC_FEATURED | ActionType.STATIC;
+    /**
+     * Condition whether or not the action is available. It is an observable if it relies on response from asynchronous requests
+     */
+    availability?: Observable<boolean>;
+}
+
+/**
+ * Created this separate type for contextual actions because, we want to enforce the type of Static actions availability to not be a call back method.
+ * Refer to {@link #StaticActionItem}
+ */
+interface ContextualActionItem<R, T> extends BaseActionItem<R, T> {
+    /**
+     * Used for determining where in the action menu this action gets displayed
+     */
+    actionType?: ActionType.CONTEXTUAL_FEATURED | ActionType.CONTEXTUAL;
+    /**
+     * Condition whether or not the action is available. Call back with selected entities when visibility depends on entities selected.
+     * It is an observable if it relies on some other condition like a response from asynchronous requests
+     */
+    availability?: Observable<boolean> | ((selectedEntities: R[]) => boolean);
+}
+
+/**
+ * Lets the caller pass both static and contextual actions as part of a single array
+ */
+export type ActionItem<R, T> = StaticActionItem<R, T> | ContextualActionItem<R, T>;
 
 /**
  * Configuration of actions that are not static/featured

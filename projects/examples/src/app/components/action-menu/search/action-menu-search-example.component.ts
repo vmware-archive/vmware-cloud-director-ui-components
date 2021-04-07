@@ -42,7 +42,6 @@ export class ActionMenuSearchExampleComponent<R extends Record, T extends Handle
         {
             textKey: 'Static Featured 1',
             handler: () => console.log('Static Featured 1'),
-            availability: () => true,
             actionType: ActionType.STATIC_FEATURED,
             isTranslatable: false,
         },
@@ -50,7 +49,6 @@ export class ActionMenuSearchExampleComponent<R extends Record, T extends Handle
             textKey: 'Static 1',
             handler: (rec: R[], data: T) => console.log('Static 1 with custom handler data: ', JSON.stringify(data)),
             handlerData: { foo: 'foo', bar: 'bar' } as T,
-            availability: () => true,
             actionType: ActionType.STATIC,
             isTranslatable: false,
         },

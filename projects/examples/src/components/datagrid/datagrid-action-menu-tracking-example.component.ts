@@ -20,6 +20,7 @@ import {
     SubscriptionTracker,
     TextIcon,
 } from '@vcd/ui-components';
+import { of } from 'rxjs';
 
 interface Record {
     value: string;
@@ -57,13 +58,17 @@ export class DatagridActionMenuTrackingExampleComponent<R extends Record> implem
 
     contextualActionPosition: ContextualActionPosition = ContextualActionPosition.TOP;
 
+    formGroup: FormGroup;
+
+    isActionMenuAvailable = false;
+
     private readonly staticActions: ActionItem<R, unknown>[] = [
         {
             textKey: 'Add',
             handler: () => {
                 console.log('TODO Add!');
             },
-            availability: () => this.formGroup.controls.enableActions.value,
+            availability: of(this.formGroup.controls.enableActions.value),
             class: 'add',
             actionType: ActionType.STATIC_FEATURED,
             isTranslatable: false,
@@ -87,10 +92,6 @@ export class DatagridActionMenuTrackingExampleComponent<R extends Record> implem
 
     CheckBoxStyling = CheckBoxStyling;
 
-    formGroup: FormGroup;
-
-    isActionMenuAvailable = false;
-
     numberOfAvailableActions = 0;
 
     private subscriptionTracker = new SubscriptionTracker(this);
@@ -102,6 +103,7 @@ export class DatagridActionMenuTrackingExampleComponent<R extends Record> implem
             ['contextualActions']: [true],
             ['staticActions']: [true],
         });
+        this.setActions();
     }
 
     ngOnInit(): void {
