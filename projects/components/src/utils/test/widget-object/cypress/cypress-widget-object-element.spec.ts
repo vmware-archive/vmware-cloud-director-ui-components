@@ -74,7 +74,7 @@ describe('CypressWidgetObjectFinder', () => {
             const getSpy = spyOn(cy, 'get').and.callThrough();
             const containsSpy = spyOn(cy, 'contains').and.callThrough();
             new CypressWidgetObjectFinder().find(FakeWidget, { text: 'text' });
-            expect(getSpy).toHaveBeenCalledWith('body');
+            expect(getSpy).toHaveBeenCalledWith('body', { timeout: undefined });
             expect(containsSpy).toHaveBeenCalledWith(FakeWidget.tagName, 'text', { matchCase: false });
         });
 
@@ -83,7 +83,7 @@ describe('CypressWidgetObjectFinder', () => {
             const findSpy = spyOn(cy, 'find').and.callThrough();
             const eqSpy = spyOn(cy, 'eq').and.callThrough();
             new CypressWidgetObjectFinder().find(FakeWidget, { index: 1 });
-            expect(getSpy).toHaveBeenCalledWith('body');
+            expect(getSpy).toHaveBeenCalledWith('body', { timeout: undefined });
             expect(findSpy).toHaveBeenCalledWith(FakeWidget.tagName, undefined);
             expect(eqSpy).toHaveBeenCalledWith(1);
         });
@@ -97,7 +97,7 @@ describe('CypressWidgetObjectElement', () => {
             const findSpy = spyOn(cy, 'find').and.callThrough();
             const widget = new CypressWidgetObjectElement(cy, true, '1');
             widget.findWidget(FakeWidget, {});
-            expect(getSpy).toHaveBeenCalledWith('@1');
+            expect(getSpy).toHaveBeenCalledWith('@1', { timeout: undefined });
             expect(findSpy).toHaveBeenCalledWith(FakeWidget.tagName, undefined);
         });
     });

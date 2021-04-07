@@ -43,7 +43,9 @@ export class CypressWidgetObjectFinder<T> {
 
         const id = idGenerator.generate();
 
-        const ancestor = findOptions?.ancestor ? cy.get(findOptions?.ancestor) : cy.get('body');
+        const ancestor = findOptions?.ancestor
+            ? cy.get(findOptions?.ancestor, { timeout: findOptions?.options?.timeout })
+            : cy.get('body', { timeout: findOptions?.options?.timeout });
         const parentWidget = new CypressWidgetObjectElement(ancestor, false, undefined);
         let query = widgetConstructor.tagName;
         if (findOptions?.cssSelector) {
@@ -55,7 +57,6 @@ export class CypressWidgetObjectFinder<T> {
             index: findOptions?.index,
             options: findOptions?.options,
         };
-
         const root = parentWidget.get(parentQuery).unwrap().as(id);
         return new widgetConstructor(new CypressWidgetObjectElement(root, true, id));
     }
