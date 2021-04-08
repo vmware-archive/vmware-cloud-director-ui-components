@@ -90,10 +90,6 @@
                                 </li>
                                 <li>
                                             <span class="modifier">Optional</span>
-                                        <a href="#hideWhenEmpty">hideWhenEmpty</a>
-                                </li>
-                                <li>
-                                            <span class="modifier">Optional</span>
                                         <a href="#id">id</a>
                                 </li>
                                 <li>
@@ -155,8 +151,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="81"
-                            class="link-to-prism">projects/components/src/quick-search/quick-search.provider.ts:81</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="74"
+                            class="link-to-prism">projects/components/src/quick-search/quick-search.provider.ts:74</a></div>
                 </td>
             </tr>
 
@@ -227,8 +223,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="76"
-                            class="link-to-prism">projects/components/src/quick-search/quick-search.provider.ts:76</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="69"
+                            class="link-to-prism">projects/components/src/quick-search/quick-search.provider.ts:69</a></div>
                 </td>
             </tr>
 
@@ -331,48 +327,6 @@
                                 <td class="col-md-4">
                                     <div class="io-description"><p>A custom property available throughout all the providers. Not designed for any specific scenario.
 Use it according to the specific needs you may have.</p>
-</div>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-                    <table class="table table-sm table-bordered">
-                        <tbody>
-                                <tr>
-                                    <td class="col-md-4">
-                                        <a name="hideWhenEmpty"></a>
-                                        <span class="name"><b>hideWhenEmpty</b><a href="#hideWhenEmpty"><span class="icon ion-ios-link"></span></a></span>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td class="col-md-4">
-                                        <code>hideWhenEmpty:         <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank" >boolean</a></code>
-</code>
-                                    </td>
-                                </tr>
-
-
-                                    <tr>
-                                        <td class="col-md-4">
-                                            <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank" >boolean</a></code>
-
-                                        </td>
-                                    </tr>
-
-                                    <tr>
-                                        <td class="col-md-4">
-                                            <i>Optional</i>
-                                        </td>
-                                    </tr>
-
-
-
-
-                            <tr>
-                                <td class="col-md-4">
-                                    <div class="io-description"><p>Whether a provider section should be hidden if there are no results.
-When <code>true</code> the section will not be displayed if it contains no data.
-Defaults to <code>false</code> and in that case the section is always visible, rendering &#39;No results found.&#39;</p>
 </div>
                                 </td>
                             </tr>
@@ -554,13 +508,6 @@ export interface QuickSearchProvider {
     data: unknown;
 
     /**
-     * Whether a provider section should be hidden if there are no results.
-     * When &#x60;true&#x60; the section will not be displayed if it contains no data.
-     * Defaults to &#x60;false&#x60; and in that case the section is always visible, rendering &#x27;No results found.&#x27;
-     */
-    hideWhenEmpty?: boolean;
-
-    /**
      * Returns an array or a promise of array of items that comply with the search criteria.
      * @param criteria The search string provided by the user when typing in the Quick Search Component
      */
@@ -588,7 +535,6 @@ export abstract class QuickSearchProviderDefaults implements QuickSearchProvider
     }
     sectionName &#x3D; &#x27;&#x27;;
     order &#x3D; -1;
-    hideWhenEmpty &#x3D; false;
     data: unknown;
     parentSectionName?: string;
 

@@ -322,13 +322,6 @@ export interface QuickSearchProvider {
     data: unknown;
 
     /**
-     * Whether a provider section should be hidden if there are no results.
-     * When &#x60;true&#x60; the section will not be displayed if it contains no data.
-     * Defaults to &#x60;false&#x60; and in that case the section is always visible, rendering &#x27;No results found.&#x27;
-     */
-    hideWhenEmpty?: boolean;
-
-    /**
      * Returns an array or a promise of array of items that comply with the search criteria.
      * @param criteria The search string provided by the user when typing in the Quick Search Component
      */
@@ -356,7 +349,6 @@ export abstract class QuickSearchProviderDefaults implements QuickSearchProvider
     }
     sectionName &#x3D; &#x27;&#x27;;
     order &#x3D; -1;
-    hideWhenEmpty &#x3D; false;
     data: unknown;
     parentSectionName?: string;
 
