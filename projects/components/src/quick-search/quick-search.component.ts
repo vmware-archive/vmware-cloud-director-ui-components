@@ -187,6 +187,7 @@ export class QuickSearchComponent {
     @Output() resultActivated: EventEmitter<ResultActivatedEvent> = new EventEmitter<ResultActivatedEvent>();
 
     isPinned = false;
+    hasNoResults = false;
 
     constructor(
         private searchService: QuickSearchService,
@@ -375,6 +376,7 @@ export class QuickSearchComponent {
             searchSection.result = searchResult;
             searchSection.hasPartialResult = this.hasPartialResult(searchSection);
             searchSection.isLoading = false;
+            this.hasNoResults = this.checkHasNoResults();
             searchSection.shouldShowText = this.showSectionTitle(searchSection);
             if (!this.selectedItem) {
                 this.selectFirst(true);
@@ -549,8 +551,8 @@ export class QuickSearchComponent {
             return true;
         }
 
-        // Do not show when the provider has no results and it is marked with {@link QuickSearchProvider#hideWhenEmpty}
-        if (searchSection.provider.hideWhenEmpty && !searchSection.result?.items?.length) {
+        // Do not show when the provider has no results
+        if (!searchSection.result?.items?.length) {
             return false;
         }
 
@@ -561,12 +563,8 @@ export class QuickSearchComponent {
         return parentSection.subSections.some((section) => section.shouldShowText);
     }
 
-    showNoResults(searchSection: SearchSection): boolean {
-        // Show 'No Results' if the section is empty and the section title is shown
-        if (searchSection.result?.items?.length === 0 && searchSection.shouldShowText) {
-            return true;
-        }
-        return false;
+    checkHasNoResults(): boolean {
+        return this.getFlattenedSearchSections().every((section) => section.result?.items?.length === 0);
     }
 
     /**

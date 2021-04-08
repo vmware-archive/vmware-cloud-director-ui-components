@@ -6,13 +6,18 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
-- Added functionality to disable an option in `FormSelectComponent`
+
+## [2.0.0-dev.8]
 
 ### Added
 - `clear` is now a method in a widget object.
+- Added functionality to disable an option in `FormSelectComponent`
 
 ### Fixed
 - Allows findWidget in the widget object to use all given findOption.
+
+### Change
+- BREAKING: All quick search sections now hide when empty.
 ## [2.0.0-dev.7]
 ### Changed
 - The availability property of action items now accepts observables so that their visibility can be updated from
