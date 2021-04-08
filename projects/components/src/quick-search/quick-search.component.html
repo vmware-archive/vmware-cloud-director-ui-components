@@ -58,7 +58,7 @@
     <clr-control-helper class="input-helper">{{ helper }}</clr-control-helper>
     <ng-content select=".top-of-results"></ng-content>
     <div class="search-result-container">
-        <section class="no-results" data-ui="no-results" *ngIf="hasNoResults()">
+        <section class="no-results" data-ui="no-results" *ngIf="hasNoResults">
             {{ 'vcd.cc.quickSearch.noResults' | translate }}
         </section>
         <section

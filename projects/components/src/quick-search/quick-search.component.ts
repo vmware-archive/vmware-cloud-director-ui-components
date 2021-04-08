@@ -187,6 +187,7 @@ export class QuickSearchComponent {
     @Output() resultActivated: EventEmitter<ResultActivatedEvent> = new EventEmitter<ResultActivatedEvent>();
 
     isPinned = false;
+    hasNoResults = false;
 
     constructor(
         private searchService: QuickSearchService,
@@ -375,6 +376,7 @@ export class QuickSearchComponent {
             searchSection.result = searchResult;
             searchSection.hasPartialResult = this.hasPartialResult(searchSection);
             searchSection.isLoading = false;
+            this.hasNoResults = this.checkHasNoResults();
             searchSection.shouldShowText = this.showSectionTitle(searchSection);
             if (!this.selectedItem) {
                 this.selectFirst(true);
@@ -561,7 +563,7 @@ export class QuickSearchComponent {
         return parentSection.subSections.some((section) => section.shouldShowText);
     }
 
-    hasNoResults(): boolean {
+    checkHasNoResults(): boolean {
         return this.getFlattenedSearchSections().every((section) => section.result?.items?.length === 0);
     }
 
