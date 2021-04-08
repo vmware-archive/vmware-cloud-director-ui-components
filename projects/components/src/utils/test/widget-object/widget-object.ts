@@ -91,6 +91,12 @@ export interface ElementActions {
      * @param options Options to be passed down to implementations
      */
     select(value: string, options: UnknownOptions): void;
+
+    /**
+     * For inputs or text areas, clears the current value.
+     * @param options Options to be passed down to implementations
+     */
+    clear(options?: UnknownOptions): void;
 }
 
 /**
