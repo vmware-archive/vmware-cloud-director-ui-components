@@ -286,7 +286,7 @@ describe('QuickSearchComponent', () => {
             expect(searchHandlerSpy).toHaveBeenCalledWith('copy');
         });
 
-        it('display "No results found" when there are no results', function (this: Test): void {
+        it('display a single "No results found" when there are no results', function (this: Test): void {
             // Register one more provider
             this.quickSearchData.simpleProvider.sectionName = 'new section';
             this.quickSearchData.spotlightSearchService.registerProvider(this.quickSearchData.simpleProvider);
@@ -298,7 +298,7 @@ describe('QuickSearchComponent', () => {
             //
             const noResults = TestBed.inject(TranslationService).translate('vcd.cc.quickSearch.noResults', []);
             expect(this.quickSearch.searchResults.length).toBe(0);
-            expect(this.quickSearch.noSearchResults).toEqual([noResults, noResults]);
+            expect(this.quickSearch.noSearchResults).toEqual([noResults]);
         });
 
         describe('partial search result', () => {
@@ -422,23 +422,8 @@ describe('QuickSearchComponent', () => {
             expect(this.quickSearch.sectionTitles).toEqual(['section']);
         });
 
-        it('display section title if there are no results', function (this: Test): void {
-            // Register one more provider
-            this.quickSearchData.simpleProvider.sectionName = 'new section';
-            this.quickSearchData.spotlightSearchService.registerProvider(this.quickSearchData.simpleProvider);
-            // Open
-            this.finder.hostComponent.spotlightOpen = true;
-            this.finder.detectChanges();
-            // Set search
-            this.quickSearch.searchInputValue = 'no match';
-            //
-            expect(this.quickSearch.searchResults.length).toBe(0);
-            expect(this.quickSearch.sectionTitles.length).toEqual(2);
-        });
-
-        it('does not display section title if there are no results and hideWhenEmpty is set to `true`', function (this: Test): void {
+        it('does not display section title if there are no results', function (this: Test): void {
             // Set the flag to hide the section when there is no result
-            this.quickSearchData.simpleProvider.hideWhenEmpty = true;
             // Open
             this.finder.hostComponent.spotlightOpen = true;
             this.finder.detectChanges();
@@ -449,32 +434,8 @@ describe('QuickSearchComponent', () => {
             expect(this.quickSearch.sectionTitles.length).toEqual(0);
         });
 
-        it('displays section title during search when hideWhenEmpty is set to `true`', fakeAsync(function (
-            this: Test
-        ): void {
-            // Set the flag to hide the section when there is no result
-            this.quickSearchData.simpleProvider.hideWhenEmpty = true;
-            this.quickSearchData.asyncProvider.hideWhenEmpty = true;
-            this.quickSearchData.spotlightSearchService.registerProvider(this.quickSearchData.asyncProvider);
-            // Open
-            this.finder.hostComponent.spotlightOpen = true;
-            this.finder.detectChanges();
-            // Set search
-            this.quickSearch.searchInputValue = 'no match';
-            // Check expectations
-            expect(this.quickSearch.searchResults.length).toBe(0);
-            expect(this.quickSearch.sectionTitles.length).toEqual(1, 'There should be 1 section during search');
-            // Simulate search has ended
-            tick(1000);
-            this.finder.detectChanges();
-            // Check expectations
-            expect(this.quickSearch.searchResults.length).toBe(0);
-            expect(this.quickSearch.sectionTitles.length).toEqual(0, 'There should be no sections finishing search');
-        }));
-
         it('displays nested providers title correctly with nested, filtered providers', function (this: Test): void {
             // Open
-            this.quickSearchData.anotherSimpleProvider.hideWhenEmpty = true;
             this.quickSearchData.anotherSimpleProvider.sectionName = 'another section';
             this.quickSearchData.spotlightSearchService.registerNestedProvider({
                 sectionName: 'Some Nested Provider',
@@ -826,7 +787,7 @@ describe('QuickSearchComponent', () => {
             this.quickSearchData.spotlightSearchService.registerProvider(this.quickSearchData.anotherSimpleProvider);
             this.quickSearch.searchInputValue = 'copy';
             this.finder.detectChanges();
-            expect(this.quickSearch.sectionTitles.length).toEqual(2);
+            expect(this.quickSearch.sectionTitles.length).toEqual(1);
 
             // When the type filter is present,, the list of providers is filtered based on it.
             // In this case, the type:simple filter is set and anotherSimpleProvider is removed.

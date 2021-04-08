@@ -54,11 +54,6 @@ export class QuickSearchHideEmptySectionExampleComponent implements OnInit, OnDe
         });
 
         this.searchRegistrar.register(this.actionsSearchProvider);
-
-        this.subscriptionTracker.subscribe(this.formGroup.controls.hideEmptySections.valueChanges, (value) => {
-            // Configure hiding the section if there is no result
-            this.actionsSearchProvider.hideWhenEmpty = value;
-        });
     }
 
     ngOnDestroy(): void {
