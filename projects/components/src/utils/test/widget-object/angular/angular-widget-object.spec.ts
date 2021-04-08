@@ -86,6 +86,7 @@ class ClickTrackerWidgetObject<T> extends BaseWidgetObject<T> {
 
     getTrackerElement = this.factory.dataUi(DataUi.clickReceiver);
 
+    _getNameInput = this.internalFactory.dataUi(DataUi.nameInput);
     getNameInput = this.factory.dataUi(DataUi.nameInput);
 
     getButtons = this.factory.dataUi(DataUi.button);
@@ -98,6 +99,11 @@ class ClickTrackerWidgetObject<T> extends BaseWidgetObject<T> {
 
     findHeaderWidget(): HeaderWidgetObject<T> {
         return this.el.findWidget<HeaderWidgetObject<T>>(HeaderWidgetObject);
+    }
+
+    typeNameInput(value: string) {
+        this._getNameInput().clear();
+        this._getNameInput().type(value);
     }
 }
 
@@ -256,6 +262,15 @@ describe('TestElement', () => {
     describe('classes', () => {
         it('gives the classes of an input', function (this: HasClickTracker): void {
             expect(this.clickTracker.getNameInput().classes()).toContain('name');
+        });
+    });
+
+    describe('clear', () => {
+        it('clears a given input', function (this: HasClickTracker): void {
+            this.clickTracker.typeNameInput('ryan');
+            expect(this.clickTracker.getNameInput().value()).toEqual('ryan');
+            this.clickTracker.typeNameInput('hannah');
+            expect(this.clickTracker.getNameInput().value()).toEqual('hannah');
         });
     });
 });

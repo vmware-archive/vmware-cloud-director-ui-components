@@ -8,6 +8,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 - Added functionality to disable an option in `FormSelectComponent`
 
+### Added
+- `clear` is now a method in a widget object.
+
+### Fixed
+- Allows findWidget in the widget object to use all given findOption.
 ## [2.0.0-dev.7]
 ### Changed
 - The availability property of action items now accepts observables so that their visibility can be updated from

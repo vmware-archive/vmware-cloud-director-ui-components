@@ -65,6 +65,13 @@ export class AngularWidgetObjectElement implements WidgetObjectElement<TestEleme
     /**
      * @inheritdoc
      */
+    clear(): void {
+        this.testElement.clear();
+    }
+
+    /**
+     * @inheritdoc
+     */
     check(options?: unknown): void {}
 
     /**

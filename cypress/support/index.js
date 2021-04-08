@@ -13,6 +13,10 @@
 // https://on.cypress.io/configuration
 // ***********************************************************
 
+// Load system JS registery
+import System from 'systemjs/dist/system';
+// Provides the @vcd/common module so loading the VcdApiClient does not throw an error.
+window.SystemJs = System.registry.set('@vcd/common', System.newModule({})); // >= 9.5
 // Import commands.js using ES2015 syntax:
 import './commands';
 
