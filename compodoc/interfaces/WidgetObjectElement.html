@@ -132,8 +132,8 @@ from the widget object.</p>
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="112"
-                            class="link-to-prism">projects/components/src/utils/test/widget-object/widget-object.ts:112</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="118"
+                            class="link-to-prism">projects/components/src/utils/test/widget-object/widget-object.ts:118</a></div>
                 </td>
             </tr>
 
@@ -244,6 +244,12 @@ export interface ElementActions {
      * @param options Options to be passed down to implementations
      */
     select(value: string, options: UnknownOptions): void;
+
+    /**
+     * For inputs or text areas, clears the current value.
+     * @param options Options to be passed down to implementations
+     */
+    clear(options?: UnknownOptions): void;
 }
 
 /**

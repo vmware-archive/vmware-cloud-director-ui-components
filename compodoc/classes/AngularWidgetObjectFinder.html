@@ -285,8 +285,8 @@ case, it will be created.</p>
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="75"
-                            class="link-to-prism">projects/components/src/utils/test/widget-object/angular/angular-widget-finder.ts:75</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="87"
+                            class="link-to-prism">projects/components/src/utils/test/widget-object/angular/angular-widget-finder.ts:87</a></div>
                 </td>
             </tr>
 
@@ -471,21 +471,33 @@ export class AngularWidgetObjectFinder&lt;H &#x3D; unknown&gt; {
         widgetConstructor: FindableWidget&lt;TestElement, W&gt;,
         findOptions: FindAngularWidgetOptions &#x3D; {}
     ): W {
-        const { cssSelector, ancestor } &#x3D; findOptions;
+        const { ancestor } &#x3D; findOptions;
+
+        const ancestorWidget &#x3D; new AngularWidgetObjectElement(
+            new TestElement([ancestor ? ancestor : this.fixture.debugElement], this.fixture)
+        );
         let query &#x3D; widgetConstructor.tagName;
-        if (cssSelector) {
-            query +&#x3D; &#x60;${cssSelector}&#x60;;
+        if (findOptions?.cssSelector) {
+            query &#x3D; query + findOptions.cssSelector;
         }
-        if (ancestor) {
-            query &#x3D; query;
+        const parentQuery: FindAngularWidgetOptions &#x3D; {
+            cssSelector: query,
+            text: findOptions?.text,
+            index: findOptions?.index,
+            options: findOptions?.options,
+        };
+
+        const element &#x3D; ancestorWidget.get(parentQuery).unwrap();
+        if (!element.length()) {
+            throw new Error(&#x60;Could not find the widget using the query&#x60;);
+        }
+        if (element.length() &gt; 1) {
+            throw new Error(&#x60;Found ${element.length} elements matching the given query&#x60;);
         }
 
-        const root &#x3D; (ancestor ? ancestor : this.fixture.debugElement).query(By.css(query));
-        if (!root) {
-            throw new Error(&#x60;Could not find the widget using the query ${query}&#x60;);
-        }
-
-        const widget &#x3D; new widgetConstructor(new AngularWidgetObjectElement(new TestElement([root], this.fixture)));
+        const widget &#x3D; new widgetConstructor(
+            new AngularWidgetObjectElement(new TestElement(element.elements, this.fixture))
+        );
         return widget;
     }
 

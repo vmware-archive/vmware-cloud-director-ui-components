@@ -269,11 +269,24 @@ export class CypressWidgetObjectFinder&lt;T&gt; {
         if (findOptions?.cssSelector) {
             tagName +&#x3D; &#x60;${findOptions.cssSelector}&#x60;;
         }
+
         const id &#x3D; idGenerator.generate();
-        const search &#x3D; findOptions?.ancestor
-            ? cy.get(findOptions.ancestor).find(tagName)
-            : cy.get(tagName, findOptions?.options);
-        const root &#x3D; search.as(id);
+
+        const ancestor &#x3D; findOptions?.ancestor
+            ? cy.get(findOptions?.ancestor, { timeout: findOptions?.options?.timeout })
+            : cy.get(&#x27;body&#x27;, { timeout: findOptions?.options?.timeout });
+        const parentWidget &#x3D; new CypressWidgetObjectElement(ancestor, false, undefined);
+        let query &#x3D; widgetConstructor.tagName;
+        if (findOptions?.cssSelector) {
+            query &#x3D; query + findOptions.cssSelector;
+        }
+        const parentQuery: FindCypressWidgetOptions &#x3D; {
+            cssSelector: query,
+            text: findOptions?.text,
+            index: findOptions?.index,
+            options: findOptions?.options,
+        };
+        const root &#x3D; parentWidget.get(parentQuery).unwrap().as(id);
         return new widgetConstructor(new CypressWidgetObjectElement(root, true, id));
     }
 }

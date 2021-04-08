@@ -90,6 +90,9 @@ is a subset of the functionality from Cypress</p>
                                     <a href="#check">check</a>
                                 </li>
                                 <li>
+                                    <a href="#clear">clear</a>
+                                </li>
+                                <li>
                                     <a href="#click">click</a>
                                 </li>
                                 <li>
@@ -144,6 +147,83 @@ is a subset of the functionality from Cypress</p>
             <tr>
                 <td class="col-md-4">
                     <div class="io-description"><p>For checkboxes, makes sure a box is checked</p>
+</div>
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Type</td>
+                                    <td>Optional</td>
+                                    <td>Description</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>options</td>
+                                    <td>
+                                                <code><a href="../miscellaneous/typealiases.html#UnknownOptions" target="_self" >UnknownOptions</a></code>
+                                    </td>
+
+                                    <td>
+                                        Yes
+                                    </td>
+
+
+                                    <td>
+                                        <p>Options to be passed down to implementations</p>
+
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                    </div>
+                    <div class="io-description">
+                        
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="clear"></a>
+                    <span class="name">
+                        <b>
+                            clear
+                        </b>
+                        <a href="#clear"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>clear(options?: <a href="../undefineds/UnknownOptions.html">UnknownOptions</a>)</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="99"
+                            class="link-to-prism">projects/components/src/utils/test/widget-object/widget-object.ts:99</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>For inputs or text areas, clears the current value.</p>
 </div>
 
                     <div class="io-description">
@@ -622,6 +702,12 @@ export interface ElementActions {
      * @param options Options to be passed down to implementations
      */
     select(value: string, options: UnknownOptions): void;
+
+    /**
+     * For inputs or text areas, clears the current value.
+     * @param options Options to be passed down to implementations
+     */
+    clear(options?: UnknownOptions): void;
 }
 
 /**
