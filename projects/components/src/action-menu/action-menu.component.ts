@@ -231,13 +231,13 @@ export class ActionMenuComponent<R, T> {
     /**
      * Returns the actions to be shown
      */
-    getAvailableActions(actions: ActionItemInternal<R, T>[]): ActionItemInternal<R, T>[] {
-        return actions
+    getAvailableActions(actions: ActionItemInternal<R, T>[] | ActionItem<R, T>[]): ActionItemInternal<R, T>[] {
+        return (actions as ActionItemInternal<R, T>[])
             .filter((action) => this.isActionAvailable(action) && (!action.children || action.children.length !== 0))
             .map((action) => {
                 const actionCopy = { ...action, children: action.children ? [...action.children] : null };
                 if (actionCopy.children) {
-                    actionCopy.children = this.getAvailableActions(actionCopy.children) as ActionItem<R, T>[];
+                    actionCopy.children = (this.getAvailableActions(actionCopy.children) as any) as ActionItem<R, T>[];
                 }
                 return actionCopy;
             });
@@ -367,7 +367,10 @@ export class ActionMenuComponent<R, T> {
 
     private getStaticDropdownActions(): ActionItemInternal<R, T>[] | object {
         return this.staticFeaturedActions.concat([
-            { textKey: 'vcd.cc.action.menu.other.actions', children: this.staticActions as ActionItem<R, T>[] },
+            {
+                textKey: 'vcd.cc.action.menu.other.actions',
+                children: (this.staticActions as any) as ActionItem<R, T>[],
+            },
         ]);
     }
 
@@ -387,7 +390,7 @@ export class ActionMenuComponent<R, T> {
      * Extracts the nested actions that are marked as featured and returns them as part of a flat list
      */
     private getFlattenedActionList(
-        actions: ActionItemInternal<R, T>[],
+        actions: ActionItemInternal<R, T>[] | ActionItem<R, T>[],
         actionType: ActionType
     ): ActionItemInternal<R, T>[] {
         let featuredActions: ActionItemInternal<R, T>[] = [];
