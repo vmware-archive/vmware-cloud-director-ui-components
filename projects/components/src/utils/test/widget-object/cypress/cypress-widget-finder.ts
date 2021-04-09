@@ -36,11 +36,6 @@ export class CypressWidgetObjectFinder<T> {
         widgetConstructor: FindableWidget<T, W>,
         findOptions?: FindCypressWidgetOptions
     ): W {
-        let tagName = widgetConstructor.tagName;
-        if (findOptions?.cssSelector) {
-            tagName += `${findOptions.cssSelector}`;
-        }
-
         const id = idGenerator.generate();
 
         const ancestor = findOptions?.ancestor
@@ -53,6 +48,7 @@ export class CypressWidgetObjectFinder<T> {
         }
         const parentQuery: FindCypressWidgetOptions = {
             cssSelector: query,
+            dataUiSelector: findOptions?.dataUiSelector,
             text: findOptions?.text,
             index: findOptions?.index,
             options: findOptions?.options,

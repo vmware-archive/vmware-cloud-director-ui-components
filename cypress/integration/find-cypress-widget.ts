@@ -7,7 +7,7 @@ import {
     BaseWidgetObject,
     CypressWidgetObjectFinder,
     DataExporterWidgetObject,
-    FindableWidget
+    FindableWidget,
 } from '@vcd/ui-components';
 import { FindCypressWidgetOptions } from '@vcd/ui-components';
 import Cypress from 'cypress';
@@ -22,6 +22,7 @@ type Chainable = Cypress.Chainable;
  * @param ancestor - The CSS query or alias of the parent to begin the search from.
  *                 this will be passed to `cy.get` and is a global search.
  * @param cssSelector - The cssSelector to append to the tagName for the search
+ * @param dataUiSelector - The dataUiSelector to append to the tagName for the search
  *
  */
 export function findCypressWidget<W extends BaseWidgetObject<Chainable>>(

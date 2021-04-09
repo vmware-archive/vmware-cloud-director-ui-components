@@ -10,6 +10,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [2.0.0-dev.8]
 
 ### Added
+- Find widget by data ui attribute.
+
+### Added
 - `clear` is now a method in a widget object.
 - Added functionality to disable an option in `FormSelectComponent`
 

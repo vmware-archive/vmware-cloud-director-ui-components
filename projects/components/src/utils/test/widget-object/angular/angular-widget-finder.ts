@@ -62,6 +62,7 @@ export class AngularWidgetObjectFinder<H = unknown> {
         }
         const parentQuery: FindAngularWidgetOptions = {
             cssSelector: query,
+            dataUiSelector: findOptions?.dataUiSelector,
             text: findOptions?.text,
             index: findOptions?.index,
             options: findOptions?.options,
