@@ -6,6 +6,7 @@
 import { DebugElement, Injector, Type } from '@angular/core';
 import { ComponentFixture } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
+import { SelectorUtil } from '../selector-util';
 import { BaseWidgetObject, FindableWidget, FindElementOptions, WidgetObjectElement } from '../widget-object';
 import { AngularWidgetObjectFinder, FindAngularWidgetOptions } from './angular-widget-finder';
 
@@ -21,7 +22,7 @@ export class AngularWidgetObjectElement implements WidgetObjectElement<TestEleme
      * @inheritdoc
      */
     get(selector: string | FindElementOptions): AngularWidgetObjectElement {
-        const cssSelector = typeof selector === 'string' ? selector : selector.cssSelector;
+        const cssSelector = SelectorUtil.extractSelector(selector);
         const elements = this.testElement.elements;
         let matches = [].concat(...elements.map((element) => element.queryAll(By.css(cssSelector))));
         if (typeof selector !== 'string') {
