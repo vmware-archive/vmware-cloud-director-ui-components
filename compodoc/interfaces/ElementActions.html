@@ -138,8 +138,8 @@ is a subset of the functionality from Cypress</p>
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="80"
-                            class="link-to-prism">projects/components/src/utils/test/widget-object/widget-object.ts:80</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="83"
+                            class="link-to-prism">projects/components/src/utils/test/widget-object/widget-object.ts:83</a></div>
                 </td>
             </tr>
 
@@ -215,8 +215,8 @@ is a subset of the functionality from Cypress</p>
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="99"
-                            class="link-to-prism">projects/components/src/utils/test/widget-object/widget-object.ts:99</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="102"
+                            class="link-to-prism">projects/components/src/utils/test/widget-object/widget-object.ts:102</a></div>
                 </td>
             </tr>
 
@@ -292,8 +292,8 @@ is a subset of the functionality from Cypress</p>
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="67"
-                            class="link-to-prism">projects/components/src/utils/test/widget-object/widget-object.ts:67</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="70"
+                            class="link-to-prism">projects/components/src/utils/test/widget-object/widget-object.ts:70</a></div>
                 </td>
             </tr>
 
@@ -369,8 +369,8 @@ is a subset of the functionality from Cypress</p>
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="93"
-                            class="link-to-prism">projects/components/src/utils/test/widget-object/widget-object.ts:93</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="96"
+                            class="link-to-prism">projects/components/src/utils/test/widget-object/widget-object.ts:96</a></div>
                 </td>
             </tr>
 
@@ -462,8 +462,8 @@ is a subset of the functionality from Cypress</p>
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="74"
-                            class="link-to-prism">projects/components/src/utils/test/widget-object/widget-object.ts:74</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="77"
+                            class="link-to-prism">projects/components/src/utils/test/widget-object/widget-object.ts:77</a></div>
                 </td>
             </tr>
 
@@ -555,8 +555,8 @@ is a subset of the functionality from Cypress</p>
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="86"
-                            class="link-to-prism">projects/components/src/utils/test/widget-object/widget-object.ts:86</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="89"
+                            class="link-to-prism">projects/components/src/utils/test/widget-object/widget-object.ts:89</a></div>
                 </td>
             </tr>
 
@@ -629,8 +629,11 @@ is a subset of the functionality from Cypress</p>
 type UnknownOptions &#x3D; {};
 
 export type FindElementOptions &#x3D; {
-    /** CSS selector used to query */
+    /** CSS selector used to query. Ignored if {@link #dataUiSelector} is passed */
     cssSelector?: string;
+
+    /** Data UI attribute selector used to query */
+    dataUiSelector?: string;
 
     /** To get the nth element of a result set. */
     index?: number;

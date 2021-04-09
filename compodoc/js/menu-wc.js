@@ -630,6 +630,9 @@ customElements.define('compodoc-menu', class extends HTMLElement {
                                 <a href="classes/QuickSearchProviderDefaults.html" data-type="entity-link">QuickSearchProviderDefaults</a>
                             </li>
                             <li class="link">
+                                <a href="classes/SelectorUtil.html" data-type="entity-link">SelectorUtil</a>
+                            </li>
+                            <li class="link">
                                 <a href="classes/ShowClippedTextDirectiveTestHelper.html" data-type="entity-link">ShowClippedTextDirectiveTestHelper</a>
                             </li>
                             <li class="link">

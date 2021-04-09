@@ -132,8 +132,8 @@ from the widget object.</p>
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="118"
-                            class="link-to-prism">projects/components/src/utils/test/widget-object/widget-object.ts:118</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="121"
+                            class="link-to-prism">projects/components/src/utils/test/widget-object/widget-object.ts:121</a></div>
                 </td>
             </tr>
 
@@ -171,8 +171,11 @@ should be exposed to subclasses</p>
 type UnknownOptions &#x3D; {};
 
 export type FindElementOptions &#x3D; {
-    /** CSS selector used to query */
+    /** CSS selector used to query. Ignored if {@link #dataUiSelector} is passed */
     cssSelector?: string;
+
+    /** Data UI attribute selector used to query */
+    dataUiSelector?: string;
 
     /** To get the nth element of a result set. */
     index?: number;

@@ -181,7 +181,7 @@ enters it into both fields and then clicks the submit button.</li>
                 </tr>
                         <tr>
                             <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="220" class="link-to-prism">projects/components/src/utils/test/widget-object/widget-object.ts:220</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="223" class="link-to-prism">projects/components/src/utils/test/widget-object/widget-object.ts:223</a></div>
                             </td>
                         </tr>
 
@@ -262,7 +262,7 @@ enters it into both fields and then clicks the submit button.</li>
                     </tr>
                         <tr>
                             <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="208" class="link-to-prism">projects/components/src/utils/test/widget-object/widget-object.ts:208</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="211" class="link-to-prism">projects/components/src/utils/test/widget-object/widget-object.ts:211</a></div>
                             </td>
                         </tr>
 
@@ -335,7 +335,7 @@ calls from different implementations to feel more natural, according to their te
                     </tr>
                         <tr>
                             <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="170" class="link-to-prism">projects/components/src/utils/test/widget-object/widget-object.ts:170</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="173" class="link-to-prism">projects/components/src/utils/test/widget-object/widget-object.ts:173</a></div>
                             </td>
                         </tr>
 
@@ -379,8 +379,8 @@ calls from different implementations to feel more natural, according to their te
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="229"
-                            class="link-to-prism">projects/components/src/utils/test/widget-object/widget-object.ts:229</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="232"
+                            class="link-to-prism">projects/components/src/utils/test/widget-object/widget-object.ts:232</a></div>
                 </td>
             </tr>
 
@@ -423,8 +423,11 @@ object.</p>
 type UnknownOptions &#x3D; {};
 
 export type FindElementOptions &#x3D; {
-    /** CSS selector used to query */
+    /** CSS selector used to query. Ignored if {@link #dataUiSelector} is passed */
     cssSelector?: string;
+
+    /** Data UI attribute selector used to query */
+    dataUiSelector?: string;
 
     /** To get the nth element of a result set. */
     index?: number;
