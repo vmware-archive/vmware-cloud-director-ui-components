@@ -9,7 +9,7 @@ import {
     DataExporterWidgetObject,
     FindableWidget,
 } from '@vcd/ui-components';
-import { FindCypressWidgetOptions } from '@vcd/ui-components';
+import { FindElementOptions } from '@vcd/ui-components';
 import Cypress from 'cypress';
 
 type Chainable = Cypress.Chainable;
@@ -27,11 +27,11 @@ type Chainable = Cypress.Chainable;
  */
 export function findCypressWidget<W extends BaseWidgetObject<Chainable>>(
     widgetConstructor: FindableWidget<Chainable, W>,
-    findOptions?: FindCypressWidgetOptions
+    findOptions?: FindElementOptions<Chainable>
 ): W {
     return new CypressWidgetObjectFinder<Chainable>().find(widgetConstructor, findOptions) as W;
 }
 
-export function findDataExporter(options?: FindCypressWidgetOptions): DataExporterWidgetObject<Chainable> {
+export function findDataExporter(options?: FindElementOptions<Chainable>): DataExporterWidgetObject<Chainable> {
     return findCypressWidget<DataExporterWidgetObject<Chainable>>(DataExporterWidgetObject, options);
 }

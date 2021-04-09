@@ -7,8 +7,14 @@ import { DebugElement, Injector, Type } from '@angular/core';
 import { ComponentFixture } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { SelectorUtil } from '../selector-util';
-import { BaseWidgetObject, FindableWidget, FindElementOptions, WidgetObjectElement } from '../widget-object';
-import { AngularWidgetObjectFinder, FindAngularWidgetOptions } from './angular-widget-finder';
+import {
+    AngularWidgetActionOptions,
+    BaseWidgetObject,
+    FindableWidget,
+    FindElementOptions,
+    WidgetObjectElement,
+} from '../widget-object';
+import { AngularWidgetObjectFinder } from './angular-widget-finder';
 
 /**
  * Angular implementation of the Widget Object's internal HTML Element wrapper
@@ -21,8 +27,8 @@ export class AngularWidgetObjectElement implements WidgetObjectElement<TestEleme
     /**
      * @inheritdoc
      */
-    get(selector: string | FindElementOptions): AngularWidgetObjectElement {
-        const cssSelector = SelectorUtil.extractSelector(selector);
+    get(selector: string | FindElementOptions<TestElement>): AngularWidgetObjectElement {
+        const cssSelector = SelectorUtil.extractSelector<TestElement>(selector);
         const elements = this.testElement.elements;
         let matches = [].concat(...elements.map((element) => element.queryAll(By.css(cssSelector))));
         if (typeof selector !== 'string') {
@@ -34,23 +40,20 @@ export class AngularWidgetObjectElement implements WidgetObjectElement<TestEleme
         }
         return new AngularWidgetObjectElement(new TestElement(matches, this.testElement.fixture));
     }
-    /**
-     * @inheritdoc
-     */
-    getByText(cssSelector: string, value: string): AngularWidgetObjectElement {
-        const elements = this.testElement.elements;
-        let nextElements = [].concat(...elements.map((element) => element.queryAll(By.css(cssSelector))));
-        nextElements = nextElements.filter((el) => el.nativeElement.textContent.includes(value));
-        return new AngularWidgetObjectElement(new TestElement(nextElements, this.testElement.fixture));
-    }
 
     /**
      * @inheritdoc
      */
-    parents(cssSelector: string): AngularWidgetObjectElement {
+    parents(cssSelector: string | FindElementOptions<TestElement>): AngularWidgetObjectElement {
+        let selector: string;
+        if (typeof cssSelector === 'string') {
+            selector = cssSelector;
+        } else {
+            selector = SelectorUtil.extractSelector<TestElement>(cssSelector);
+        }
         return new AngularWidgetObjectElement(
             new TestElement(
-                this.testElement.elements.map((el) => this.findParent(cssSelector, el.parent)),
+                this.testElement.elements.map((el) => this.findParent(selector, el.parent)),
                 this.testElement.fixture
             )
         );
@@ -59,33 +62,33 @@ export class AngularWidgetObjectElement implements WidgetObjectElement<TestEleme
     /**
      * @inheritdoc
      */
-    click(): void {
+    click(options?: AngularWidgetActionOptions): void {
         this.testElement.click();
     }
 
     /**
      * @inheritdoc
      */
-    clear(): void {
+    clear(options?: AngularWidgetActionOptions): void {
         this.testElement.clear();
     }
 
     /**
      * @inheritdoc
      */
-    check(options?: unknown): void {}
+    check(options?: AngularWidgetActionOptions): void {}
 
     /**
      * @inheritdoc
      */
-    uncheck(options?: unknown): void {}
+    uncheck(options?: AngularWidgetActionOptions): void {}
 
     /**
      * @inheritdoc
      */
-    select(value: string, options?: unknown): void {}
+    select(value: string, options?: AngularWidgetActionOptions): void {}
 
-    type(value: string): void {
+    type(value: string, options?: AngularWidgetActionOptions): void {
         const inputEl = this.testElement.elements[0].nativeElement as HTMLInputElement;
         inputEl.value = String(value);
         inputEl.dispatchEvent(new Event('change'));
@@ -118,7 +121,7 @@ export class AngularWidgetObjectElement implements WidgetObjectElement<TestEleme
      */
     findWidget<W extends BaseWidgetObject<TestElement>>(
         widgetCtor: FindableWidget<TestElement, W>,
-        findOptions: FindAngularWidgetOptions
+        findOptions: FindElementOptions<TestElement>
     ): W {
         return new AngularWidgetObjectFinder(this.testElement.fixture).find(widgetCtor, {
             ...findOptions,

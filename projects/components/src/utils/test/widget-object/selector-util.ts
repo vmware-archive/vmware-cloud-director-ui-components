@@ -8,7 +8,7 @@ export class SelectorUtil {
     /**
      * Extracts the selector from the parameter passed
      */
-    static extractSelector(selector: string | FindElementOptions): string {
+    static extractSelector<T>(selector: string | FindElementOptions<T>): string {
         if (typeof selector === 'string') {
             return selector;
         } else {

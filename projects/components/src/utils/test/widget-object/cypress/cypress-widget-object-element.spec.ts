@@ -118,8 +118,8 @@ describe('CypressWidgetObjectElement', () => {
         it('clears the given input', () => {
             const clearSpy = spyOn(cy, 'clear').and.callThrough();
             const widget = new CypressWidgetObjectElement(cy, true, '1');
-            widget.clear({ a: 'test' });
-            expect(clearSpy).toHaveBeenCalledWith({ a: 'test' });
+            widget.clear({ timeout: 1 });
+            expect(clearSpy).toHaveBeenCalledWith({ timeout: 1 });
         });
     });
 });

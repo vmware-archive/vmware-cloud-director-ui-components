@@ -2,22 +2,39 @@
  * Copyright 2020 VMware, Inc.
  * SPDX-License-Identifier: BSD-2-Clause
  */
+
+import { DebugElement } from '@angular/core';
+import { TestElement } from './angular/angular-widget-object-element';
+
 /**
  * A function tht finds an HTML Element wrapper of some type `T`
  */
-type ElementLocator<T> = (options?: FindElementOptions) => T;
+type ElementLocator<T, W> = (options?: FindElementOptions<W>) => T;
 
 /**
- * Like unknown but can be an object but also needs to be cast before it can be used (since an empty object doesn't
- * allow properties)
- *
+ * The options that a call to a Cypress widget will accept.
+ */
+export interface CypressWidgetActionOptions {
+    timeout?: number;
+}
+
+/**
+ * The options that a call to a Angular widget will accept.
+ */
+// eslint-disable-next-line @typescript-eslint/no-empty-interface
+export interface AngularWidgetActionOptions {}
+
+/**
  * These options will be passed down to the implementation when querying or running actions. For example, when
  * specifying a timeout for a cypress command. An implementation specific type should be used in their implementation of
  * the WidgetObjectElement
  */
-type UnknownOptions = {};
+export type WidgetActionOptions<T> = T extends TestElement ? AngularWidgetActionOptions : CypressWidgetActionOptions;
 
-export type FindElementOptions = {
+/**
+ * These are the options a user has when searching for an element.
+ */
+export type FindElementOptions<T> = {
     /** CSS selector used to query. Ignored if {@link #dataUiSelector} is passed */
     cssSelector?: string;
 
@@ -31,10 +48,10 @@ export type FindElementOptions = {
     text?: string;
 
     /** An implementation specific parent can be used to start the search */
-    ancestor?: unknown;
+    ancestor?: T extends TestElement ? DebugElement : string;
 
     /** Implementation specific options. For example, timeouts in cypress */
-    options?: UnknownOptions;
+    options?: WidgetActionOptions<T>;
 };
 
 /**
@@ -45,61 +62,61 @@ interface Locator<T> {
      * Finds all descendants by CSS selector
      * @param selector - Can be a CSS query string or a FindElementOptions for more refined querying
      */
-    get(selector: string | FindElementOptions): WidgetObjectElement<T>;
+    get(selector: string | FindElementOptions<T>): WidgetObjectElement<T>;
 
     /**
      * Finds the closest parent that matches the given cssSelector. Ignores the index attribute
      */
-    parents(selector: string | FindElementOptions): WidgetObjectElement<T>;
+    parents(selector: string | FindElementOptions<T>): WidgetObjectElement<T>;
 
     /**
      * Returns an instance of the given widget within this widget object.
      */
-    findWidget<W extends BaseWidgetObject<T>>(widget: FindableWidget<T, W>, findOptions?: FindElementOptions): W;
+    findWidget<W extends BaseWidgetObject<T>>(widget: FindableWidget<T, W>, findOptions?: FindElementOptions<T>): W;
 }
 
 /**
  * Actions that can be taken on elements from within widget objects. This
  * is a subset of the functionality from Cypress
  */
-export interface ElementActions {
+export interface ElementActions<T> {
     /**
      * Clicks an element, it must typically be visible
      * @param options Options to be passed down to implementations
      */
-    click(options?: UnknownOptions): void;
+    click(options?: WidgetActionOptions<T>): void;
 
     /**
      * Types into a text field
      * @param value What to type into the field
      * @param options Options to be passed down to implementations
      */
-    type(value: string, options?: UnknownOptions): void;
+    type(value: string, options?: WidgetActionOptions<T>): void;
 
     /**
      * For checkboxes, makes sure a box is checked
      * @param options Options to be passed down to implementations
      */
-    check(options?: UnknownOptions): void;
+    check(options?: WidgetActionOptions<T>): void;
 
     /**
      * For checkboxes, makes sure a box is unchecked
      * @param options Options to be passed down to implementations
      */
-    uncheck(options?: UnknownOptions): void;
+    uncheck(options?: WidgetActionOptions<T>): void;
 
     /**
      * For select elements
      * @param value The text of the dropdown to select
      * @param options Options to be passed down to implementations
      */
-    select(value: string, options: UnknownOptions): void;
+    select(value: string, options: WidgetActionOptions<T>): void;
 
     /**
      * For inputs or text areas, clears the current value.
      * @param options Options to be passed down to implementations
      */
-    clear(options?: UnknownOptions): void;
+    clear(options?: WidgetActionOptions<T>): void;
 }
 
 /**
@@ -113,7 +130,7 @@ export interface ElementActions {
  * `T` is the type of the external interface for an HTMLELement. For example, DebugElement in Angular or Cy
  *
  */
-export interface WidgetObjectElement<T> extends Locator<T>, ElementActions {
+export interface WidgetObjectElement<T> extends Locator<T>, ElementActions<T> {
     /**
      * Unwraps the value from this WidgetObjectElement and turns it into the resulting object type (T) which is what
      * should be exposed to subclasses
@@ -151,12 +168,6 @@ export interface WidgetObjectElement<T> extends Locator<T>, ElementActions {
  *
  *      // Don't need an internal version, use the factory methods to create public methods
  *      public errorMessage = this.factory.dataUi('error-message');
- *
- *       // Sometimes there's no factory for more complex finding logic, write a custom query.
- *       // Be sure to call unwrap on the result if exposing it publicly
- *      getOkButtonContainer(): T {
- *          return this.el.getByText('button', 'Ok').parent('.button-container').unwrap();
- *      }
  *      ...
  *
  *      login(user, password) {
@@ -171,7 +182,7 @@ export class BaseWidgetObject<T> {
      * This is like {@link #factory} but it returns WidgetObjectElements, which can be used internally
      */
     protected internalFactory = {
-        css: (cssSelector: string) => (options?: FindElementOptions) => this.el.get({ cssSelector, ...options }),
+        css: (cssSelector: string) => (options?: FindElementOptions<T>) => this.el.get({ cssSelector, ...options }),
         dataUi: (name: string) => this.internalFactory.css(`[data-ui="${name}"]`),
     };
 
@@ -212,8 +223,8 @@ export class BaseWidgetObject<T> {
         /**
          * Utility to create versions of factories that return the unwrapped T
          */
-        unwrap: (fun: ElementLocator<WidgetObjectElement<T>>) => {
-            return (options?: FindElementOptions) => fun(options).unwrap();
+        unwrap: (fun: ElementLocator<WidgetObjectElement<T>, T>) => {
+            return (options?: FindElementOptions<T>) => fun(options).unwrap();
         },
 
         css: (cssSelector: string) => this.factory.unwrap(this.internalFactory.css(cssSelector)),

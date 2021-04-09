@@ -4,16 +4,11 @@
  */
 
 import { IdGenerator } from '../../../id-generator/id-generator';
-import { BaseWidgetObject, FindableWidget, FindElementOptions } from '../widget-object';
+import { BaseWidgetObject, CypressWidgetActionOptions, FindableWidget, FindElementOptions } from '../widget-object';
 import { CypressWidgetObjectElement } from './cypress-widget-object-element';
 
 declare const cy;
 const idGenerator = new IdGenerator('cy-id');
-
-export interface FindCypressWidgetOptions extends FindElementOptions {
-    ancestor?: string;
-    options?: { timeout: number };
-}
 
 /**
  * Knows how to find and construct Cypress widget objects within the DOM.
@@ -34,19 +29,20 @@ export class CypressWidgetObjectFinder<T> {
      */
     public find<W extends BaseWidgetObject<T>>(
         widgetConstructor: FindableWidget<T, W>,
-        findOptions?: FindCypressWidgetOptions
+        findOptions?: FindElementOptions<T>
     ): W {
         const id = idGenerator.generate();
 
+        const options: CypressWidgetActionOptions = findOptions?.options;
         const ancestor = findOptions?.ancestor
-            ? cy.get(findOptions?.ancestor, { timeout: findOptions?.options?.timeout })
-            : cy.get('body', { timeout: findOptions?.options?.timeout });
+            ? cy.get(findOptions?.ancestor, { timeout: options?.timeout })
+            : cy.get('body', { timeout: options?.timeout });
         const parentWidget = new CypressWidgetObjectElement(ancestor, false, undefined);
         let query = widgetConstructor.tagName;
         if (findOptions?.cssSelector) {
             query = query + findOptions.cssSelector;
         }
-        const parentQuery: FindCypressWidgetOptions = {
+        const parentQuery: FindElementOptions<T> = {
             cssSelector: query,
             dataUiSelector: findOptions?.dataUiSelector,
             text: findOptions?.text,
