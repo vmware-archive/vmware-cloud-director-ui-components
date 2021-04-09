@@ -34,7 +34,7 @@ export function getDefaultActionDisplayConfig(cfg: ActionDisplayConfig = {}): Ac
  * We internally convert the callbacks to booleans to avoid calling the callbacks all the time from template. However, we don't want to
  * allow callers to assign boolean variables to availability as there is no way to know when those variables can get updated from outside.
  */
-interface ActionItemInternal<R, T> extends BaseActionItem<R, T> {
+export interface ActionItemInternal<R, T> extends BaseActionItem<R, T> {
     /**
      * Used for determining where in the action menu this action gets displayed
      */
@@ -42,7 +42,7 @@ interface ActionItemInternal<R, T> extends BaseActionItem<R, T> {
     /**
      * Condition whether or not the action is available.
      */
-    availability?: ((selectedEntities: R[]) => boolean) | Observable<boolean> | boolean;
+    availability?: Observable<boolean> | boolean;
 }
 
 /**
