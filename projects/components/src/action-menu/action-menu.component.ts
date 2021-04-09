@@ -68,7 +68,11 @@ export class ActionMenuComponent<R, T> {
     @Input() set actions(actions: ActionItem<R, T>[]) {
         this.refreshActions(actions);
     }
-    private _actions: ActionItemInternal<R, T>[] = [];
+
+    /**
+     * Access modifier is public in order to access this property in unit tests
+     */
+    _actions: ActionItemInternal<R, T>[] = [];
 
     private _actionDisplayConfig: ActionDisplayConfig = getDefaultActionDisplayConfig();
     /**
