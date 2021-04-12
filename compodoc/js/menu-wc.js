@@ -698,13 +698,16 @@ customElements.define('compodoc-menu', class extends HTMLElement {
                                 <a href="interfaces/ActionDisplayConfig.html" data-type="entity-link">ActionDisplayConfig</a>
                             </li>
                             <li class="link">
-                                <a href="interfaces/ActionItem.html" data-type="entity-link">ActionItem</a>
+                                <a href="interfaces/ActionItemInternal.html" data-type="entity-link">ActionItemInternal</a>
                             </li>
                             <li class="link">
                                 <a href="interfaces/ActiveQuickSearchFilter.html" data-type="entity-link">ActiveQuickSearchFilter</a>
                             </li>
                             <li class="link">
                                 <a href="interfaces/ActivityResponse.html" data-type="entity-link">ActivityResponse</a>
+                            </li>
+                            <li class="link">
+                                <a href="interfaces/BaseActionItem.html" data-type="entity-link">BaseActionItem</a>
                             </li>
                             <li class="link">
                                 <a href="interfaces/BoldTextRendererConfig.html" data-type="entity-link">BoldTextRendererConfig</a>
@@ -729,6 +732,9 @@ customElements.define('compodoc-menu', class extends HTMLElement {
                             </li>
                             <li class="link">
                                 <a href="interfaces/ComponentRendererSpec.html" data-type="entity-link">ComponentRendererSpec</a>
+                            </li>
+                            <li class="link">
+                                <a href="interfaces/ContextualActionItem.html" data-type="entity-link">ContextualActionItem</a>
                             </li>
                             <li class="link">
                                 <a href="interfaces/DataExportRequestEvent.html" data-type="entity-link">DataExportRequestEvent</a>
@@ -894,6 +900,9 @@ customElements.define('compodoc-menu', class extends HTMLElement {
                             </li>
                             <li class="link">
                                 <a href="interfaces/SortedColumn.html" data-type="entity-link">SortedColumn</a>
+                            </li>
+                            <li class="link">
+                                <a href="interfaces/StaticActionItem.html" data-type="entity-link">StaticActionItem</a>
                             </li>
                             <li class="link">
                                 <a href="interfaces/VcdFormlyFieldConfig.html" data-type="entity-link">VcdFormlyFieldConfig</a>
