@@ -45,7 +45,7 @@ describe('ActionMenuComponent', () => {
         it('marks the actions with no actionType as ActionType.CONTEXTUAL', function (this: HasFinderAndActionMenu): void {
             this.actionMenu.actions = [...ACTIONS_WITH_NO_ACTION_TYPES];
             this.finder.detectChanges();
-            this.actionMenu.actions.forEach((action) => {
+            this.actionMenu._actions.forEach((action) => {
                 expect(action.actionType).toEqual(ActionType.CONTEXTUAL);
             });
         });
@@ -55,7 +55,7 @@ describe('ActionMenuComponent', () => {
             function (this: HasFinderAndActionMenu): void {
                 this.actionMenu.actions = [...FLAT_LIST_OF_ACTIONS_WITH_NO_ACTION_TYPE];
                 this.finder.detectChanges();
-                this.actionMenu.actions.forEach((action) => {
+                this.actionMenu._actions.forEach((action) => {
                     expect(action.actionType).toEqual(ActionType.CONTEXTUAL_FEATURED);
                 });
             }
@@ -179,6 +179,7 @@ describe('ActionMenuComponent', () => {
             expect(availableActions.length).toEqual(2);
         });
         it('returns nested actions that are either available or disabled', function (this: HasFinderAndActionMenu): void {
+            this.actionMenu.selectedEntities = [{ value: 'blah', paused: false }];
             const availableActions = this.actionMenu.getAvailableActions([
                 {
                     textKey: 'action',
@@ -186,18 +187,18 @@ describe('ActionMenuComponent', () => {
                         {
                             textKey: 'action.1',
                             handler: () => {},
-                            availability: false,
+                            availability: () => false,
                             disabled: () => true,
                         },
                         {
                             textKey: 'action.2',
                             handler: () => {},
-                            availability: true,
+                            availability: () => true,
                         },
                         {
                             textKey: 'action.3',
                             handler: () => {},
-                            availability: false,
+                            availability: () => false,
                         },
                     ],
                 },
@@ -356,14 +357,14 @@ describe('ActionMenuComponent', () => {
                 {
                     textKey: 'Some action',
                     availability: () => isActionAvailable,
-                    actionType: ActionType.STATIC_FEATURED,
+                    actionType: ActionType.CONTEXTUAL_FEATURED,
                 },
             ];
             this.actionMenu.selectedEntities = [{ value: '', paused: true }];
-            expect(this.actionMenu.staticFeaturedActions.length).toEqual(0);
+            expect(this.actionMenu.contextualFeaturedActions.length).toEqual(0);
             isActionAvailable = true;
             this.actionMenu.updateDisplayedActions();
-            expect(this.actionMenu.staticFeaturedActions.length).toEqual(1);
+            expect(this.actionMenu.contextualFeaturedActions.length).toEqual(1);
         });
     });
 });
@@ -420,7 +421,6 @@ const STATIC_ACTIONS = [
         handler: () => {
             return Promise.resolve('Static');
         },
-        availability: () => true,
         actionType: ActionType.STATIC,
     },
 ];
@@ -431,7 +431,6 @@ const STATIC_FEATURED_ACTIONS: any[] = [
         handler: () => {
             return Promise.resolve('Static featured');
         },
-        availability: () => true,
         actionType: ActionType.STATIC_FEATURED,
     },
 ];

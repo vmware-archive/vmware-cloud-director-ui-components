@@ -50,14 +50,12 @@ export class DatagridActivityReporterExampleComponent {
         {
             textKey: 'Start normal activity',
             isTranslatable: false,
-            availability: () => true,
             actionType: ActionType.STATIC_FEATURED,
             handler: () => this.promiseWithSuccess,
         },
         {
             textKey: 'Start activity with error',
             isTranslatable: false,
-            availability: () => true,
             actionType: ActionType.STATIC_FEATURED,
             handler: () => this.promiseWithError,
         },
