@@ -545,7 +545,6 @@ describe('DatagridComponent', () => {
                         this.hostComponent.actions = [
                             {
                                 textKey: 'Add',
-                                availability: () => true,
                                 handler: () => null,
                                 actionType: ActionType.STATIC_FEATURED,
                             },
@@ -965,7 +964,6 @@ describe('DatagridComponent', () => {
                     {
                         textKey: 'static.action',
                         handler: () => null,
-                        availability: () => true,
                         actionType: ActionType.STATIC,
                     },
                 ];
@@ -985,7 +983,6 @@ describe('DatagridComponent', () => {
                     {
                         textKey: 'static.action',
                         handler: () => null,
-                        availability: () => true,
                         actionType: ActionType.STATIC,
                     },
                 ];
@@ -1026,7 +1023,6 @@ describe('DatagridComponent', () => {
                     {
                         textKey: 'static.action',
                         handler: () => null,
-                        availability: () => false,
                         actionType: ActionType.STATIC,
                     },
                 ];

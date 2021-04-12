@@ -4,8 +4,15 @@
  */
 
 import { Component, EventEmitter, Input, Output, TrackByFunction } from '@angular/core';
-import { isObservable } from 'rxjs';
-import { ActionDisplayConfig, ActionItem, ActionStyling, ActionType, TextIcon } from '../common/interfaces';
+import { isObservable, Observable } from 'rxjs';
+import {
+    ActionDisplayConfig,
+    ActionItem,
+    ActionStyling,
+    ActionType,
+    BaseActionItem,
+    TextIcon,
+} from '../common/interfaces';
 import { CommonUtil } from '../utils';
 
 /**
@@ -21,6 +28,21 @@ export function getDefaultActionDisplayConfig(cfg: ActionDisplayConfig = {}): Ac
         staticActionStyling: ActionStyling.INLINE,
     };
     return { ...defaults, ...cfg };
+}
+
+/**
+ * We internally convert the callbacks to booleans to avoid calling the callbacks all the time from template. However, we don't want to
+ * allow callers to assign boolean variables to availability as there is no way to know when those variables can get updated from outside.
+ */
+interface ActionItemInternal<R, T> extends BaseActionItem<R, T> {
+    /**
+     * Used for determining where in the action menu this action gets displayed
+     */
+    actionType?: ActionType;
+    /**
+     * Condition whether or not the action is available.
+     */
+    availability?: Observable<boolean> | boolean;
 }
 
 /**
@@ -46,10 +68,11 @@ export class ActionMenuComponent<R, T> {
     @Input() set actions(actions: ActionItem<R, T>[]) {
         this.refreshActions(actions);
     }
-    private _actions: ActionItem<R, T>[] = [];
-    get actions(): ActionItem<R, T>[] {
-        return this._actions;
-    }
+
+    /**
+     * Access modifier is public in order to access this property in unit tests
+     */
+    _actions: ActionItemInternal<R, T>[] = [];
 
     private _actionDisplayConfig: ActionDisplayConfig = getDefaultActionDisplayConfig();
     /**
@@ -149,29 +172,29 @@ export class ActionMenuComponent<R, T> {
     /**
      * List of actions that are marked as {@link ActionType.STATIC_FEATURED} only
      */
-    staticFeaturedActions: ActionItem<R, T>[];
+    staticFeaturedActions: ActionItemInternal<R, T>[];
 
     /**
      * Actions that depend on selected entities and belong to main menu list. The returned list length is less than or
      * equal to the configured featured count in {@link actionDisplayConfig}
      */
-    contextualFeaturedActions: ActionItem<R, T>[];
+    contextualFeaturedActions: ActionItemInternal<R, T>[];
 
     /**
      * All the actions that depend on selected entities
      */
-    contextualActions: ActionItem<R, T>[];
+    contextualActions: ActionItemInternal<R, T>[];
 
     /**
      * List containing all the static actions. It has static featured actions in the beginning of the list followed by
      * non-featured static actions as children of grouped action called 'vcd.cc.action.menu.all.actions'
      */
-    staticDropdownActions: ActionItem<R, T>[] | object;
+    staticDropdownActions: ActionItemInternal<R, T>[] | object;
 
     /**
      * List of only the actions that are marked as {@link ActionType.STATIC}
      */
-    staticActions: ActionItem<R, T>[];
+    staticActions: ActionItemInternal<R, T>[];
 
     /**
      * To show or hide the container elements containing inline and also dropdown actions
@@ -212,13 +235,13 @@ export class ActionMenuComponent<R, T> {
     /**
      * Returns the actions to be shown
      */
-    getAvailableActions(actions: ActionItem<R, T>[]): ActionItem<R, T>[] {
-        return actions
+    getAvailableActions(actions: ActionItemInternal<R, T>[] | ActionItem<R, T>[]): ActionItemInternal<R, T>[] {
+        return (actions as ActionItemInternal<R, T>[])
             .filter((action) => this.isActionAvailable(action) && (!action.children || action.children.length !== 0))
             .map((action) => {
                 const actionCopy = { ...action, children: action.children ? [...action.children] : null };
                 if (actionCopy.children) {
-                    actionCopy.children = this.getAvailableActions(actionCopy.children);
+                    actionCopy.children = (this.getAvailableActions(actionCopy.children) as any) as ActionItem<R, T>[];
                 }
                 return actionCopy;
             });
@@ -309,7 +332,7 @@ export class ActionMenuComponent<R, T> {
      * An action whose availability is false but has the disabled state set to true is still shown on the screen in
      * disabled mode
      */
-    private isActionAvailable(action: ActionItem<R, T>): boolean {
+    private isActionAvailable(action: ActionItem<R, T> | ActionItemInternal<R, T>): boolean {
         let isActionAvailable = true;
         if (action.availability == null) {
             isActionAvailable = true;
@@ -323,38 +346,43 @@ export class ActionMenuComponent<R, T> {
         return isActionAvailable || this.isActionDisabled(action);
     }
 
-    private getStaticFeaturedActions(): ActionItem<R, T>[] {
-        const staticFeaturedActions = this.actions.filter((action) => action.actionType === ActionType.STATIC_FEATURED);
+    private getStaticFeaturedActions(): ActionItemInternal<R, T>[] {
+        const staticFeaturedActions = this._actions.filter(
+            (action) => action.actionType === ActionType.STATIC_FEATURED
+        );
         return this.getAvailableActions(staticFeaturedActions);
     }
 
-    private getContextualFeaturedActions(): ActionItem<R, T>[] {
+    private getContextualFeaturedActions(): ActionItemInternal<R, T>[] {
         if (!this.selectedEntities?.length) {
             return [];
         }
-        const flattenedFeaturedActionList = this.getFlattenedActionList(this.actions, ActionType.CONTEXTUAL_FEATURED);
+        const flattenedFeaturedActionList = this.getFlattenedActionList(this._actions, ActionType.CONTEXTUAL_FEATURED);
         const availableFeaturedActions = this.getAvailableActions(flattenedFeaturedActionList);
         return this.actionDisplayConfig.contextual.featuredCount
             ? availableFeaturedActions.slice(0, this.actionDisplayConfig.contextual.featuredCount)
             : availableFeaturedActions;
     }
 
-    private getStaticActions(): ActionItem<R, T>[] {
-        const staticActions = this.actions.filter((action) => action.actionType === ActionType.STATIC);
+    private getStaticActions(): ActionItemInternal<R, T>[] {
+        const staticActions = this._actions.filter((action) => action.actionType === ActionType.STATIC);
         return this.getAvailableActions(staticActions);
     }
 
-    private getStaticDropdownActions(): ActionItem<R, T>[] | object {
+    private getStaticDropdownActions(): ActionItemInternal<R, T>[] | object {
         return this.staticFeaturedActions.concat([
-            { textKey: 'vcd.cc.action.menu.other.actions', children: this.staticActions },
+            {
+                textKey: 'vcd.cc.action.menu.other.actions',
+                children: (this.staticActions as any) as ActionItem<R, T>[],
+            },
         ]);
     }
 
-    private getContextualActions(): ActionItem<R, T>[] {
+    private getContextualActions(): ActionItemInternal<R, T>[] {
         if (!this.selectedEntities?.length) {
             return [];
         }
-        const contextualActions = this.actions.filter(
+        const contextualActions = this._actions.filter(
             (action) =>
                 !action.actionType ||
                 (action.actionType !== ActionType.STATIC_FEATURED && action.actionType !== ActionType.STATIC)
@@ -365,8 +393,11 @@ export class ActionMenuComponent<R, T> {
     /**
      * Extracts the nested actions that are marked as featured and returns them as part of a flat list
      */
-    private getFlattenedActionList(actions: ActionItem<R, T>[], actionType: ActionType): ActionItem<R, T>[] {
-        let featuredActions: ActionItem<R, T>[] = [];
+    private getFlattenedActionList(
+        actions: ActionItemInternal<R, T>[] | ActionItem<R, T>[],
+        actionType: ActionType
+    ): ActionItemInternal<R, T>[] {
+        let featuredActions: ActionItemInternal<R, T>[] = [];
         actions.forEach((action) => {
             if (action.children && action.children.length) {
                 featuredActions = featuredActions.concat(this.getFlattenedActionList(action.children, actionType));
@@ -392,7 +423,7 @@ export class ActionMenuComponent<R, T> {
     /**
      * To disable a displayed action
      */
-    isActionDisabled(action: ActionItem<R, T>): boolean {
+    isActionDisabled(action: ActionItem<R, T> | ActionItemInternal<R, T>): boolean {
         if (action.disabled == null) {
             return false;
         }
@@ -439,16 +470,4 @@ export class ActionMenuComponent<R, T> {
             this.actionDisplayConfig.contextual.styling === style
         );
     }
-}
-
-/**
- * Without the deep copy, the changes made to any of the action children in one of the methods will persist in other methods
- */
-export function getDeepCopyOfActionItems<R, T>(actions: ActionItem<R, T>[]): ActionItem<R, T>[] {
-    return actions.map((action) => {
-        if (action.children && action.children.length) {
-            action.children = getDeepCopyOfActionItems(action.children);
-        }
-        return { ...action };
-    });
 }

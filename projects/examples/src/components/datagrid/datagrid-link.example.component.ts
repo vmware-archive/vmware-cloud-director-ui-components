@@ -86,7 +86,6 @@ export class DatagridLinkExampleComponent<R extends Record> {
             handler: () => {
                 console.log('Adding stuff!');
             },
-            availability: () => true,
             class: 'add',
             actionType: ActionType.STATIC_FEATURED,
             isTranslatable: false,
@@ -97,7 +96,6 @@ export class DatagridLinkExampleComponent<R extends Record> {
                 console.log('Custom handler data ' + JSON.stringify(data));
             },
             handlerData: { foo: 'foo', bar: 'bar' },
-            availability: () => true,
             class: 'b',
             icon: 'pause',
             actionType: ActionType.STATIC,
