@@ -10,13 +10,6 @@ import { BaseWidgetObject, FindableWidget, FindElementOptions } from '../widget-
 import { AngularWidgetObjectElement, TestElement } from './angular-widget-object-element';
 
 /**
- * Adds Angular specific options for finding widgets
- */
-export interface FindAngularWidgetOptions extends FindElementOptions {
-    ancestor?: DebugElement;
-}
-
-/**
  * Knows how to find and instantiate Angular Widgets objects.
  */
 export class AngularWidgetObjectFinder<H = unknown> {
@@ -49,7 +42,7 @@ export class AngularWidgetObjectFinder<H = unknown> {
      */
     public find<W extends BaseWidgetObject<TestElement>>(
         widgetConstructor: FindableWidget<TestElement, W>,
-        findOptions: FindAngularWidgetOptions = {}
+        findOptions: FindElementOptions<TestElement> = {}
     ): W {
         const { ancestor } = findOptions;
 
@@ -60,7 +53,7 @@ export class AngularWidgetObjectFinder<H = unknown> {
         if (findOptions?.cssSelector) {
             query = query + findOptions.cssSelector;
         }
-        const parentQuery: FindAngularWidgetOptions = {
+        const parentQuery: FindElementOptions<TestElement> = {
             cssSelector: query,
             dataUiSelector: findOptions?.dataUiSelector,
             text: findOptions?.text,

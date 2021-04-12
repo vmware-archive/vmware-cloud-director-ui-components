@@ -5,12 +5,14 @@
 import { SelectorUtil } from '../selector-util';
 import {
     BaseWidgetObject,
+    CypressWidgetActionOptions,
     ElementActions,
     FindableWidget,
     FindElementOptions,
+    WidgetActionOptions,
     WidgetObjectElement,
 } from '../widget-object';
-import { CypressWidgetObjectFinder, FindCypressWidgetOptions } from './cypress-widget-finder';
+import { CypressWidgetObjectFinder } from './cypress-widget-finder';
 
 declare const cy;
 
@@ -24,15 +26,15 @@ declare const cy;
  * [this PR](https://github.com/vmware/vmware-cloud-director-ui-components/pull/248)
  * we could not load the Cypress types in our library.
  */
-export class CypressWidgetObjectElement<T extends ElementActions> implements WidgetObjectElement<T> {
+export class CypressWidgetObjectElement<T extends ElementActions<T>> implements WidgetObjectElement<T> {
     constructor(private chainable: T, private isRoot: boolean, private alias: string) {}
 
     /**
      * @inheritdoc
      */
-    get(selector: string | FindElementOptions): CypressWidgetObjectElement<T> {
+    get(selector: string | FindElementOptions<T>): CypressWidgetObjectElement<T> {
         const root = this.getBase();
-        const cssSelector = SelectorUtil.extractSelector(selector);
+        const cssSelector = SelectorUtil.extractSelector<T>(selector);
         let chainable: any;
         if (typeof selector === 'string') {
             chainable = root.find(selector);
@@ -50,13 +52,13 @@ export class CypressWidgetObjectElement<T extends ElementActions> implements Wid
     /**
      * @inheritdoc
      */
-    parents(selector: string | FindElementOptions): CypressWidgetObjectElement<T> {
+    parents(selector: string | FindElementOptions<T>): CypressWidgetObjectElement<T> {
         const root = this.getBase();
         if (typeof selector === 'string') {
             return new CypressWidgetObjectElement(root.parents(selector), false, this.alias);
         }
         return new CypressWidgetObjectElement(
-            root.parents(SelectorUtil.extractSelector(selector), selector.options),
+            root.parents(SelectorUtil.extractSelector<T>(selector), selector.options),
             false,
             this.alias
         );
@@ -72,50 +74,53 @@ export class CypressWidgetObjectElement<T extends ElementActions> implements Wid
     /**
      * @inheritdoc
      */
-    click(options?: unknown): void {
+    click(options?: WidgetActionOptions<T>): void {
         this.chainable.click(options);
     }
 
     /**
      * @inheritdoc
      */
-    type(value: string, options: unknown): void {
+    type(value: string, options: WidgetActionOptions<T>): void {
         this.chainable.type(value, options);
     }
 
     /**
      * @inheritdoc
      */
-    select(text: string, options: unknown): void {
+    select(text: string, options: WidgetActionOptions<T>): void {
         this.chainable.select(text, options);
     }
 
     /**
      * @inheritdoc
      */
-    check(options?: unknown): void {
+    check(options?: WidgetActionOptions<T>): void {
         this.chainable.check(options);
     }
 
     /**
      * @inheritdoc
      */
-    uncheck(options?: unknown): void {
+    uncheck(options?: WidgetActionOptions<T>): void {
         this.chainable.uncheck(options);
     }
 
     /**
      * @inheritdoc
      */
-    clear(options?: unknown): void {
+    clear(options?: WidgetActionOptions<T>): void {
         this.chainable.clear(options);
     }
 
     /**
      * @inheritdoc
      */
-    findWidget<W extends BaseWidgetObject<T>>(widget: FindableWidget<T, W>, findOptions: FindCypressWidgetOptions): W {
-        return new CypressWidgetObjectFinder<T>().find(widget, { ancestor: '@' + this.alias, ...findOptions });
+    findWidget<W extends BaseWidgetObject<T>>(widget: FindableWidget<T, W>, findOptions: FindElementOptions<T>): W {
+        return new CypressWidgetObjectFinder<T>().find(widget, {
+            ancestor: '@' + this.alias,
+            ...findOptions,
+        } as FindElementOptions<T>);
     }
 
     /**
