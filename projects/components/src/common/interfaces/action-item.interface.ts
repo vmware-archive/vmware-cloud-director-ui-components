@@ -6,7 +6,7 @@
 /**
  * List of different type of action buckets
  */
-import { Observable, of } from 'rxjs';
+import { Observable } from 'rxjs';
 
 export enum ActionType {
     /**

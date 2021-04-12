@@ -8,8 +8,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 
 ## [2.0.0-dev.9]
-### Breaking
-- Changed the interface action availability such that the availability of static actions does not accept call backs
+### Changed
+- BREAKING: Changed the interface action availability such that the availability of static actions does not accept call backs
 
 ## [2.0.0-dev.8]
 ### Added
