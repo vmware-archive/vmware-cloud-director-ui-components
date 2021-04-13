@@ -10,6 +10,7 @@ import {
     ActionStyling,
     ActionType,
     ContextualActionPosition,
+    DatagridActionDisplayConfig,
     DatagridComponent,
     GridColumn,
     GridDataFetchResult,
@@ -44,10 +45,10 @@ type HandlerData = Record[] | Blah;
     selector: 'vcd-datagrid-link-example',
     template: `
         <button (click)="changeActionLocation()" class="btn btn-primary">
-            Display contextual actions {{ contextualActionPosition === 'ROW' ? 'on top' : 'in row' }}
+            Display contextual actions {{ actionDisplayConfig.contextual.position === 'ROW' ? 'on top' : 'in row' }}
         </button>
         <button
-            *ngIf="contextualActionPosition === 'ROW'"
+            *ngIf="actionDisplayConfig.contextual.position === 'ROW'"
             (click)="changeContextualActionStyling()"
             class="btn btn-primary"
         >
@@ -60,7 +61,6 @@ type HandlerData = Record[] | Blah;
             [columns]="columns"
             [actions]="actions"
             [actionDisplayConfig]="actionDisplayConfig"
-            [contextualActionPosition]="contextualActionPosition"
             [selectionType]="selectionType"
         ></vcd-datagrid>
     `,
@@ -153,25 +153,23 @@ export class DatagridLinkExampleComponent<R extends Record> {
         },
     ];
 
-    actionDisplayConfig: ActionDisplayConfig = {
+    actionDisplayConfig: DatagridActionDisplayConfig = {
         contextual: {
-            featuredCount: 3,
             styling: ActionStyling.INLINE,
             buttonContents: TextIcon.TEXT,
+            position: ContextualActionPosition.TOP,
         },
         staticActionStyling: ActionStyling.INLINE,
     };
 
-    contextualActionPosition: ContextualActionPosition = ContextualActionPosition.TOP;
-
     selectionType = GridSelectionType.Single;
 
     changeActionLocation(): void {
-        if (this.contextualActionPosition === ContextualActionPosition.TOP) {
-            this.contextualActionPosition = ContextualActionPosition.ROW;
+        if (this.actionDisplayConfig.contextual.position === ContextualActionPosition.TOP) {
+            this.actionDisplayConfig.contextual.position = ContextualActionPosition.ROW;
             this.selectionType = GridSelectionType.None;
         } else {
-            this.contextualActionPosition = ContextualActionPosition.TOP;
+            this.actionDisplayConfig.contextual.position = ContextualActionPosition.TOP;
             this.selectionType = GridSelectionType.Single;
         }
     }
@@ -195,7 +193,7 @@ export class DatagridLinkExampleComponent<R extends Record> {
                 ...this.actionDisplayConfig.contextual,
                 styling:
                     this.actionDisplayConfig.contextual.styling === ActionStyling.DROPDOWN
-                        ? ActionStyling.INLINE
+                        ? (ActionStyling.INLINE as any)
                         : ActionStyling.DROPDOWN,
             },
         };

@@ -71,7 +71,6 @@ export class ActionMenuContextualActionsExampleComponent {
     ];
     inlineActionDisplayConfig: ActionDisplayConfig = {
         contextual: {
-            featuredCount: 2,
             styling: ActionStyling.INLINE,
             buttonContents: TextIcon.TEXT,
         },
@@ -85,14 +84,12 @@ export class ActionMenuContextualActionsExampleComponent {
     };
     featuredCountActionDisplayConfig: ActionDisplayConfig = {
         contextual: {
-            featuredCount: 1,
             styling: ActionStyling.INLINE,
             buttonContents: TextIcon.TEXT,
         },
     };
     buttonContentsActionDisplayConfig: ActionDisplayConfig = {
         contextual: {
-            featuredCount: 2,
             styling: ActionStyling.INLINE,
             buttonContents: TextIcon.ICON,
         },

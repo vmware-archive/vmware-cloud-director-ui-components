@@ -24,16 +24,15 @@ import { LazyString, TranslationService } from '@vcd/i18n';
 import { Observable } from 'rxjs';
 import { ActionMenuComponent } from '../action-menu/action-menu.component';
 import { ActivityReporter } from '../common/activity-reporter';
-import {
-    ActionDisplayConfig,
-    ActionHandlerType,
-    ActionItem,
-    ActionType,
-} from '../common/interfaces/action-item.interface';
+import { ActionHandlerType, ActionItem, ActionType } from '../common/interfaces/action-item.interface';
 import { SubscriptionTracker } from '../common/subscription';
 import { TooltipSize } from '../lib/directives/show-clipped-text.directive';
 import { DatagridFilter } from './filters/datagrid-filter';
 import { ComponentRendererConstructor, ComponentRendererSpec } from './interfaces/component-renderer.interface';
+import {
+    DatagridActionDisplayConfig,
+    getDefaultDatagridActionDisplayConfig,
+} from './interfaces/datagrid-action-display.interface';
 import {
     ColumnRendererSpec,
     FunctionRenderer,
@@ -473,8 +472,7 @@ export class DatagridComponent<R extends B, B = any> implements OnInit, AfterVie
      */
     get shouldDisplayContextualActionsOnTop(): boolean {
         return (
-            this.contextualActionPosition &&
-            this.contextualActionPosition === ContextualActionPosition.TOP &&
+            this.actionDisplayConfig?.contextual?.position === ContextualActionPosition.TOP &&
             this.datagridSelection.length !== 0
         );
     }
@@ -483,7 +481,7 @@ export class DatagridComponent<R extends B, B = any> implements OnInit, AfterVie
      * If the contextual buttons should display in a row.
      */
     get shouldDisplayContextualActionsInRow(): boolean {
-        return this.contextualActionPosition && this.contextualActionPosition === ContextualActionPosition.ROW;
+        return this.actionDisplayConfig?.contextual?.position === ContextualActionPosition.ROW;
     }
 
     /**
@@ -518,15 +516,16 @@ export class DatagridComponent<R extends B, B = any> implements OnInit, AfterVie
      */
     @Output() selectionChanged = this.datagridSelectionChange;
 
+    private _actionDisplayConfig: DatagridActionDisplayConfig = getDefaultDatagridActionDisplayConfig();
     /**
      * How to display the static and contextual actions.
      */
-    @Input() actionDisplayConfig: ActionDisplayConfig;
-
-    /**
-     * Whether to display contextual actions inside the row or on top of the grid
-     */
-    @Input() contextualActionPosition: ContextualActionPosition = ContextualActionPosition.TOP;
+    @Input() set actionDisplayConfig(value: DatagridActionDisplayConfig) {
+        this._actionDisplayConfig = getDefaultDatagridActionDisplayConfig(value);
+    }
+    get actionDisplayConfig(): DatagridActionDisplayConfig {
+        return this._actionDisplayConfig;
+    }
 
     /**
      * Emitted whenever {@link #columns} input is updated

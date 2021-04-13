@@ -12,7 +12,6 @@ import { Observable } from 'rxjs';
 import { first } from 'rxjs/operators';
 import { ActivityPromiseResolver } from '../common/activity-reporter/activity-promise-resolver';
 import {
-    ActionDisplayConfig,
     ActionHandlerType,
     ActionItem,
     ActionStyling,
@@ -37,6 +36,7 @@ import {
 } from './datagrid.component';
 import { VcdDatagridModule } from './datagrid.module';
 import { DatagridStringFilter, WildCardPosition } from './filters/datagrid-string-filter.component';
+import { DatagridActionDisplayConfig } from './interfaces/datagrid-action-display.interface';
 import { ColumnComponentRendererSpec, GridColumn, GridColumnHideable } from './interfaces/datagrid-column.interface';
 import { mockData, MockRecord } from './mock-data';
 import { BoldTextRendererComponent } from './renderers/bold-text-renderer.component';
@@ -549,7 +549,7 @@ describe('DatagridComponent', () => {
                                 actionType: ActionType.STATIC_FEATURED,
                             },
                         ];
-                        this.hostComponent.contextualActionPosition = ContextualActionPosition.ROW;
+                        this.hostComponent.actionDisplayConfig.contextual.position = ContextualActionPosition.ROW;
                         this.finder.detectChanges();
                         this.hostComponent.pagination = {
                             pageSize: 'Magic',
@@ -998,7 +998,7 @@ describe('DatagridComponent', () => {
                 };
                 this.finder.detectChanges();
                 this.hostComponent.selectionType = GridSelectionType.Single;
-                this.hostComponent.contextualActionPosition = ContextualActionPosition.TOP;
+                this.hostComponent.actionDisplayConfig.contextual.position = ContextualActionPosition.TOP;
                 this.hostComponent.actions = [
                     {
                         textKey: 'contextual.action',
@@ -1057,7 +1057,7 @@ describe('DatagridComponent', () => {
             it('is not available when there are contextual actions to be displayed in the row', function (this: HasFinderAndGrid): void {
                 this.finder.detectChanges();
                 this.hostComponent.selectionType = GridSelectionType.Single;
-                this.hostComponent.contextualActionPosition = ContextualActionPosition.ROW;
+                this.hostComponent.actionDisplayConfig.contextual.position = ContextualActionPosition.ROW;
                 this.hostComponent.actions = [
                     {
                         textKey: 'contextual.action',
@@ -1327,7 +1327,6 @@ describe('DatagridComponent', () => {
                 [pagination]="pagination"
                 [actions]="actions"
                 [actionDisplayConfig]="actionDisplayConfig"
-                [contextualActionPosition]="contextualActionPosition"
                 [height]="height"
                 [header]="header"
                 [indicatorType]="indicatorType"
@@ -1368,16 +1367,14 @@ export class HostWithDatagridComponent {
 
     actions: ActionItem<MockRecord, unknown>[] = [];
 
-    actionDisplayConfig: ActionDisplayConfig = {
+    actionDisplayConfig: DatagridActionDisplayConfig = {
         contextual: {
-            featuredCount: 0,
             styling: ActionStyling.INLINE,
             buttonContents: TextIcon.TEXT,
+            position: ContextualActionPosition.TOP,
         },
         staticActionStyling: ActionStyling.INLINE,
     };
-
-    contextualActionPosition: ContextualActionPosition = ContextualActionPosition.TOP;
 
     details = DatagridDetailsComponent;
 

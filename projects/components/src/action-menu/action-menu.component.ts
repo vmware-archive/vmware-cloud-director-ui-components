@@ -359,9 +359,10 @@ export class ActionMenuComponent<R, T> {
         }
         const flattenedFeaturedActionList = this.getFlattenedActionList(this._actions, ActionType.CONTEXTUAL_FEATURED);
         const availableFeaturedActions = this.getAvailableActions(flattenedFeaturedActionList);
-        return this.actionDisplayConfig.contextual.featuredCount
-            ? availableFeaturedActions.slice(0, this.actionDisplayConfig.contextual.featuredCount)
-            : availableFeaturedActions;
+        const featuredCount =
+            this.actionDisplayConfig.contextual.styling === ActionStyling.DROPDOWN &&
+            this.actionDisplayConfig.contextual.featuredCount;
+        return featuredCount ? availableFeaturedActions.slice(0, featuredCount) : availableFeaturedActions;
     }
 
     private getStaticActions(): ActionItemInternal<R, T>[] {

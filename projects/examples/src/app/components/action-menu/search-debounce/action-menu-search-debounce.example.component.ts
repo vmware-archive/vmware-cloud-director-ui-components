@@ -70,7 +70,6 @@ export class ActionMenuSearchDebounceExampleComponent<R extends Record, T extend
 
     actionDisplayConfig: ActionDisplayConfig = {
         contextual: {
-            featuredCount: 1,
             styling: ActionStyling.INLINE,
             buttonContents: TextIcon.TEXT,
         },

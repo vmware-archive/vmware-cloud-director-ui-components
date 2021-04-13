@@ -7,15 +7,19 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
-## [2.0.0-dev.10]
+## [2.0.0-dev.11]
+### Changed
+- BREAKING: ActionDisplayConfig of ActionMenuComponent does not accept featuredCount when actions are displayed inline
+and ActionDisplayConfig of DatagridComponent now takes a new property called position
 
+## [2.0.0-dev.10]
 ### Fixed
 - Fix the styling of Number with unit input component such that the inputs inside the component take the available
 container width
 - The data exporter is now accessible from the keyboard.
 - A bug where clearing the form would not work properly if the unlimitedValue was 0
 - A bug where if the default value of the form was unlimited, the component would not select a unit and fail to work.
-- A bug where if the user types in the unlimitedValue, the form did not check the checkbox on blur
+- A bug where if the user types in the unlimitedValue, the form did not check the checkbox on blur  
 
 ## [2.0.0-dev.9]
 ### Changed
