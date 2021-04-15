@@ -1,5 +1,4 @@
 .clr-control-container .clr-input {
-    width: 5rem;
     margin-right: 5px;
 }
 
@@ -23,8 +22,8 @@ input[type='number'] {
     }
 }
 
-.clr-form-control .clr-control-container {
-    width: auto;
+div.clr-select-wrapper {
+    width: auto; // The width is being set to 100% else where making this div grow wider than necessary
     flex: 0 1 auto;
 }
 
