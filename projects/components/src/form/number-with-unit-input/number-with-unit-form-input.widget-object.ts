@@ -111,4 +111,16 @@ export class NumberWithUnitFormInputWidgetObject extends WidgetObject<NumberWith
     get singleUnitDisplayText(): string {
         return this.getText('.single-option');
     }
+
+    typeInput(value: string): void {
+        this.inputElement.value = value;
+        this.inputElement.dispatchEvent(new Event('input'));
+        this.inputElement.focus();
+        this.detectChanges();
+    }
+
+    blurInput(): void {
+        this.inputElement.dispatchEvent(new Event('blur'));
+        this.detectChanges();
+    }
 }

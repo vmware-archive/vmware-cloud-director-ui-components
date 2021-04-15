@@ -24,6 +24,7 @@
                     [attr.size]="size"
                     [attr.aria-required]="showAsterisk"
                     [attr.aria-describedby]="showErrors ? errorsId : descriptionId"
+                    (blur)="updateUnlimitedCheckbox()"
                 />
                 <ng-container [ngSwitch]="unitOptions.length">
                     <ng-container *ngSwitchCase="0">
