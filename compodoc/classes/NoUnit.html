@@ -194,7 +194,7 @@
                     </tr>
                         <tr>
                             <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="492" class="link-to-prism">projects/components/src/form/number-with-unit-input/number-with-unit-form-input.component.ts:492</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="506" class="link-to-prism">projects/components/src/form/number-with-unit-input/number-with-unit-form-input.component.ts:506</a></div>
                             </td>
                         </tr>
 
@@ -302,8 +302,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="493"
-                            class="link-to-prism">projects/components/src/form/number-with-unit-input/number-with-unit-form-input.component.ts:493</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="507"
+                            class="link-to-prism">projects/components/src/form/number-with-unit-input/number-with-unit-form-input.component.ts:507</a></div>
                 </td>
             </tr>
 
@@ -384,8 +384,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="497"
-                            class="link-to-prism">projects/components/src/form/number-with-unit-input/number-with-unit-form-input.component.ts:497</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="511"
+                            class="link-to-prism">projects/components/src/form/number-with-unit-input/number-with-unit-form-input.component.ts:511</a></div>
                 </td>
             </tr>
 
@@ -423,8 +423,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="501"
-                            class="link-to-prism">projects/components/src/form/number-with-unit-input/number-with-unit-form-input.component.ts:501</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="515"
+                            class="link-to-prism">projects/components/src/form/number-with-unit-input/number-with-unit-form-input.component.ts:515</a></div>
                 </td>
             </tr>
 
@@ -1177,6 +1177,11 @@ export class NumberWithUnitFormInputComponent extends BaseFormControl implements
         this.unlimitedControlValue &#x3D; unlimitedChecked;
         this.textInputValue &#x3D; unlimitedChecked ? &#x27;&#x27; : this.lastRealValue?.toString() || &#x27;&#x27;;
 
+        // If there is no unit currently selected, we need to writeValue to recalculate everything.
+        if (!this.unitsControlValue &amp;&amp; !unlimitedChecked) {
+            this.writeValue(this.getValue());
+        }
+
         if (!unlimitedChecked) {
             // Usability requirements imply the focus to be on the input element when &#x27;unlimited checkbox&#x27; is
             // deselected in order to be easier for the user to modify the value.
@@ -1271,6 +1276,15 @@ export class NumberWithUnitFormInputComponent extends BaseFormControl implements
         }
     }
 
+    /**
+     * Toggles the unlimited checkbox if the formValue is the unlimited value.
+     */
+    updateUnlimitedCheckbox() {
+        if (this.getValue() &#x3D;&#x3D;&#x3D; this.unlimitedValue &amp;&amp; !this.unlimitedControlValue) {
+            this.onUnlimitedCheckboxChange(true);
+        }
+    }
+
     private computeBestUnitAndValue(value: number): void {
         // Nothing to do when setting to unlimited
         if (this.isUnlimitedValue(value)) {
@@ -1298,7 +1312,7 @@ export class NumberWithUnitFormInputComponent extends BaseFormControl implements
 
         const value &#x3D; this.textInputValue;
 
-        if (value &#x3D;&#x3D;&#x3D; &#x27;&#x27;) {
+        if (value &#x3D;&#x3D;&#x3D; &#x27;&#x27; || value &#x3D;&#x3D;&#x3D; null) {
             return null;
         }
 

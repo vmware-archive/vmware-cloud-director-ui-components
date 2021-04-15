@@ -113,6 +113,9 @@
                     <td class="col-md-4">
                         <ul class="index-list">
                             <li>
+                                <a href="#blurInput">blurInput</a>
+                            </li>
+                            <li>
                                 <a href="#clickUnlimitedCheckbox">clickUnlimitedCheckbox</a>
                             </li>
                             <li>
@@ -129,6 +132,9 @@
                             </li>
                             <li>
                                 <a href="#setUnitOptionsToPercent">setUnitOptionsToPercent</a>
+                            </li>
+                            <li>
+                                <a href="#typeInput">typeInput</a>
                             </li>
                             <li>
                                     <span class="modifier">Protected</span>
@@ -324,6 +330,45 @@
     <h3 id="methods">
         Methods
     </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="blurInput"></a>
+                    <span class="name">
+                        <b>
+                            blurInput
+                        </b>
+                        <a href="#blurInput"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>blurInput()</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="122"
+                            class="link-to-prism">projects/components/src/form/number-with-unit-input/number-with-unit-form-input.widget-object.ts:122</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
     <table class="table table-sm table-bordered">
         <tbody>
             <tr>
@@ -646,6 +691,76 @@
                     <div class="io-description">
                         <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
 
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="typeInput"></a>
+                    <span class="name">
+                        <b>
+                            typeInput
+                        </b>
+                        <a href="#typeInput"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>typeInput(value: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="115"
+                            class="link-to-prism">projects/components/src/form/number-with-unit-input/number-with-unit-form-input.widget-object.ts:115</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Type</td>
+                                    <td>Optional</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>value</td>
+                                    <td>
+                                                <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                    </div>
+                    <div class="io-description">
+                        
                     </div>
                 </td>
             </tr>
@@ -2058,6 +2173,18 @@ export class NumberWithUnitFormInputWidgetObject extends WidgetObject&lt;NumberW
      */
     get singleUnitDisplayText(): string {
         return this.getText(&#x27;.single-option&#x27;);
+    }
+
+    typeInput(value: string): void {
+        this.inputElement.value &#x3D; value;
+        this.inputElement.dispatchEvent(new Event(&#x27;input&#x27;));
+        this.inputElement.focus();
+        this.detectChanges();
+    }
+
+    blurInput(): void {
+        this.inputElement.dispatchEvent(new Event(&#x27;blur&#x27;));
+        this.detectChanges();
     }
 }
 </code></pre>
