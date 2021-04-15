@@ -4,7 +4,7 @@
  */
 
 import { Component, ViewChild } from '@angular/core';
-import { fakeAsync, TestBed } from '@angular/core/testing';
+import { fakeAsync, TestBed, tick } from '@angular/core/testing';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { MockTranslationService, TranslationService } from '@vcd/i18n';
 import { TestElement } from '../utils';
@@ -136,6 +136,7 @@ describe('VcdExportTableComponent', () => {
             expect(actual).toEqual(['Name', 'Description']);
             exporter.getColumnCheckboxes({ index: 1 }).click();
             expect(exporter.getColumnBubbles().text()).toBe('Name');
+            tick();
         }));
 
         it('allows the user to remove selected columns from the bubbles below the combo', function (this: TestHostFinder): void {
