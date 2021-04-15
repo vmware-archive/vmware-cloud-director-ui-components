@@ -3068,7 +3068,6 @@ clr-signpost-content p:first-child {
                     <code>./number-with-unit-form-input.component.scss</code>
                 </p>
                 <pre class="line-numbers"><code class="language-scss">.clr-control-container .clr-input {
-    width: 5rem;
     margin-right: 5px;
 }
 
@@ -3092,8 +3091,8 @@ input[type&#x3D;&#x27;number&#x27;] {
     }
 }
 
-.clr-form-control .clr-control-container {
-    width: auto;
+div.clr-select-wrapper {
+    width: auto; // The width is being set to 100% else where making this div grow wider than necessary
     flex: 0 1 auto;
 }
 
