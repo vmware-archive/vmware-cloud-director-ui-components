@@ -39,3 +39,14 @@ clr-dropdown-menu {
     height: 200px;
     overflow: auto;
 }
+
+.x-button.label {
+    padding: 0 0.1rem 0.02rem;
+}
+
+button.btn-link.remove-col-button {
+    margin: 0;
+    clr-icon {
+        margin-right: 0px;
+    }
+}
