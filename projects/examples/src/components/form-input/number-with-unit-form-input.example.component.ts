@@ -19,7 +19,7 @@ import {
     styleUrls: ['./number-with-unit-form-input.example.component.scss'],
     templateUrl: './number-with-unit-form-input.example.component.html',
 })
-export class NumberWithUnitFormInputExampleComponent implements AfterViewInit, OnDestroy {
+export class NumberWithUnitFormInputExampleComponent implements OnDestroy {
     formGroup: FormGroup;
     hertzOptions: Unit[] = [Hertz.Mhz, Hertz.Ghz];
     cpuSpeedFormControlValueUnit: Unit = Hertz.Mhz;
@@ -53,7 +53,7 @@ export class NumberWithUnitFormInputExampleComponent implements AfterViewInit, O
             readonly: new FormControl(false),
             disabled: new FormControl(false),
             memory: new FormControl(1024 * 2, [Validators.required, memoryValidator]),
-            cpuLimit: new FormControl(1500, [cpuValidator]),
+            cpuLimit: new FormControl(-1, [cpuValidator]),
         });
 
         this.subscriptionTracker.subscribe(this.formGroup.controls.disabled.valueChanges, (value) => {
@@ -65,10 +65,6 @@ export class NumberWithUnitFormInputExampleComponent implements AfterViewInit, O
                 this.formGroup.controls.memory.enable();
             }
         });
-    }
-
-    ngAfterViewInit(): void {
-        this.formGroup.controls.cpuLimit.setValue(-1);
     }
 
     ngOnDestroy(): void {}
