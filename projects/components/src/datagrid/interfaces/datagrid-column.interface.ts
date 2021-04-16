@@ -6,7 +6,6 @@
 /**
  * Whether something shows up in the column toggler
  */
-import { TextIcon } from '../../common/interfaces/action-item.interface';
 import { CliptextConfig } from '../../lib/directives/show-clipped-text.directive';
 import { FilterConfig, FilterRendererSpec } from '../filters/datagrid-filter';
 import { ComponentRendererConstructor, ComponentRendererSpec } from './component-renderer.interface';
