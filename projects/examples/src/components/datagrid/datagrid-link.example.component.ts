@@ -9,9 +9,9 @@ import {
     ActionItem,
     ActionStyling,
     ActionType,
-    ContextualActionPosition,
     DatagridActionDisplayConfig,
     DatagridComponent,
+    DatagridContextualActionPosition,
     GridColumn,
     GridDataFetchResult,
     GridSelectionType,
@@ -157,7 +157,7 @@ export class DatagridLinkExampleComponent<R extends Record> {
         contextual: {
             styling: ActionStyling.INLINE,
             buttonContents: TextIcon.TEXT,
-            position: ContextualActionPosition.TOP,
+            position: DatagridContextualActionPosition.TOP,
         },
         staticActionStyling: ActionStyling.INLINE,
     };
@@ -165,11 +165,11 @@ export class DatagridLinkExampleComponent<R extends Record> {
     selectionType = GridSelectionType.Single;
 
     changeActionLocation(): void {
-        if (this.actionDisplayConfig.contextual.position === ContextualActionPosition.TOP) {
-            this.actionDisplayConfig.contextual.position = ContextualActionPosition.ROW;
+        if (this.actionDisplayConfig.contextual.position === DatagridContextualActionPosition.TOP) {
+            this.actionDisplayConfig.contextual.position = DatagridContextualActionPosition.ROW;
             this.selectionType = GridSelectionType.None;
         } else {
-            this.actionDisplayConfig.contextual.position = ContextualActionPosition.TOP;
+            this.actionDisplayConfig.contextual.position = DatagridContextualActionPosition.TOP;
             this.selectionType = GridSelectionType.Single;
         }
     }

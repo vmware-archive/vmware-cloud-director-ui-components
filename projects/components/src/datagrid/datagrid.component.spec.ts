@@ -26,7 +26,7 @@ import { AngularWidgetObjectFinder } from '../utils/test/widget-object/angular/a
 import { TestElement } from '../utils/test/widget-object/angular/angular-widget-object-element';
 import {
     ActivityIndicatorType,
-    ContextualActionPosition,
+    DatagridContextualActionPosition,
     DatagridComponent,
     DEFAULT_PAGINATION_TRANSLATION_KEY,
     GridDataFetchResult,
@@ -549,7 +549,8 @@ describe('DatagridComponent', () => {
                                 actionType: ActionType.STATIC_FEATURED,
                             },
                         ];
-                        this.hostComponent.actionDisplayConfig.contextual.position = ContextualActionPosition.ROW;
+                        this.hostComponent.actionDisplayConfig.contextual.position =
+                            DatagridContextualActionPosition.ROW;
                         this.finder.detectChanges();
                         this.hostComponent.pagination = {
                             pageSize: 'Magic',
@@ -998,7 +999,7 @@ describe('DatagridComponent', () => {
                 };
                 this.finder.detectChanges();
                 this.hostComponent.selectionType = GridSelectionType.Single;
-                this.hostComponent.actionDisplayConfig.contextual.position = ContextualActionPosition.TOP;
+                this.hostComponent.actionDisplayConfig.contextual.position = DatagridContextualActionPosition.TOP;
                 this.hostComponent.actions = [
                     {
                         textKey: 'contextual.action',
@@ -1057,7 +1058,7 @@ describe('DatagridComponent', () => {
             it('is not available when there are contextual actions to be displayed in the row', function (this: HasFinderAndGrid): void {
                 this.finder.detectChanges();
                 this.hostComponent.selectionType = GridSelectionType.Single;
-                this.hostComponent.actionDisplayConfig.contextual.position = ContextualActionPosition.ROW;
+                this.hostComponent.actionDisplayConfig.contextual.position = DatagridContextualActionPosition.ROW;
                 this.hostComponent.actions = [
                     {
                         textKey: 'contextual.action',
@@ -1371,7 +1372,7 @@ export class HostWithDatagridComponent {
         contextual: {
             styling: ActionStyling.INLINE,
             buttonContents: TextIcon.TEXT,
-            position: ContextualActionPosition.TOP,
+            position: DatagridContextualActionPosition.TOP,
         },
         staticActionStyling: ActionStyling.INLINE,
     };

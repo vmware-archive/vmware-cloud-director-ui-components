@@ -13,7 +13,7 @@ import {
     ColumnComponentRendererSpec,
     ComponentRendererConstructor,
     ComponentRendererSpec,
-    ContextualActionPosition,
+    DatagridContextualActionPosition,
     GridColumn,
     GridDataFetchResult,
     GridState,
@@ -229,7 +229,7 @@ export class SharingModalTabComponent<T> implements OnInit, OnDestroy, AfterView
         contextual: {
             styling: ActionStyling.INLINE,
             buttonContents: TextIcon.ICON,
-            position: ContextualActionPosition.ROW,
+            position: DatagridContextualActionPosition.ROW,
         },
     };
 

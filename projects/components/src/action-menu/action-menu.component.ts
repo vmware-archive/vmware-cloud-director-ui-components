@@ -27,7 +27,10 @@ export function getDefaultActionDisplayConfig(cfg: ActionDisplayConfig = {}): Ac
         },
         staticActionStyling: ActionStyling.INLINE,
     };
-    return { ...defaults, ...cfg };
+    return {
+        contextual: { ...defaults.contextual, ...cfg.contextual },
+        staticActionStyling: cfg.staticActionStyling || defaults.staticActionStyling,
+    };
 }
 
 /**

@@ -8,7 +8,7 @@ import {
     ContextualActionInlineDisplayConfig,
     TextIcon,
 } from '../../common/interfaces';
-import { ContextualActionPosition } from '../datagrid.component';
+import { DatagridContextualActionPosition } from '../datagrid.component';
 
 /**
  * Makes the featured count as required when action menu is displayed as a dropdown and also adds the position
@@ -18,7 +18,7 @@ interface DatagridContextualActionDropdownDisplayConfig extends ContextualAction
     /**
      * An enum that describes where the contextual buttons should display.
      */
-    position: ContextualActionPosition;
+    position: DatagridContextualActionPosition;
 }
 
 /**
@@ -29,7 +29,7 @@ interface DatagridContextualActionInlineDisplayConfig extends ContextualActionIn
     /**
      * An enum that describes where the contextual buttons should display.
      */
-    position: ContextualActionPosition;
+    position: DatagridContextualActionPosition;
 }
 
 /**
@@ -58,7 +58,7 @@ export function getDefaultDatagridActionDisplayConfig(
             styling: ActionStyling.DROPDOWN,
             featuredCount: 2,
             buttonContents: TextIcon.TEXT,
-            position: ContextualActionPosition.TOP,
+            position: DatagridContextualActionPosition.TOP,
         },
         staticActionStyling: ActionStyling.INLINE,
     };

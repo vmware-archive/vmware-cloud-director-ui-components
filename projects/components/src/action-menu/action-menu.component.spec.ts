@@ -6,7 +6,14 @@
 import { Component } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
 import { MockTranslationService, TranslationService } from '@vcd/i18n';
-import { ActionDisplayConfig, ActionItem, ActionStyling, ActionType, TextIcon } from '../common/interfaces/index';
+import {
+    ActionDisplayConfig,
+    ActionItem,
+    ActionStyling,
+    ActionType,
+    ContextualActionDropdownDisplayConfig,
+    TextIcon,
+} from '../common/interfaces/index';
 import { WidgetFinder, WidgetObject } from '../utils/test/widget-object';
 import { ActionMenuComponent, getDefaultActionDisplayConfig } from './action-menu.component';
 import { VcdActionMenuModule } from './action-menu.module';
@@ -66,7 +73,7 @@ describe('ActionMenuComponent', () => {
             this.actionMenu.actionDisplayConfig = { ...ACTION_DISPLAY_CONFIG };
             this.finder.detectChanges();
             const actionDisplayConfig = this.actionMenu.actionDisplayConfig;
-            expect(actionDisplayConfig.contextual.featuredCount).toEqual(2);
+            expect((actionDisplayConfig.contextual as ContextualActionDropdownDisplayConfig).featuredCount).toEqual(2);
             expect(actionDisplayConfig.contextual.styling).toEqual(ActionStyling.DROPDOWN);
             expect(actionDisplayConfig.contextual.buttonContents).toEqual(TextIcon.ICON);
             expect(actionDisplayConfig.staticActionStyling).toEqual(ActionStyling.DROPDOWN);

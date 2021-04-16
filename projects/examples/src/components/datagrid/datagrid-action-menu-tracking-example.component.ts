@@ -10,9 +10,9 @@ import {
     ActionStyling,
     ActionType,
     CheckBoxStyling,
-    ContextualActionPosition,
     DatagridActionDisplayConfig,
     DatagridComponent,
+    DatagridContextualActionPosition,
     GridColumn,
     GridDataFetchResult,
     GridSelectionType,
@@ -51,7 +51,7 @@ export class DatagridActionMenuTrackingExampleComponent<R extends Record> implem
         contextual: {
             styling: ActionStyling.INLINE,
             buttonContents: TextIcon.TEXT,
-            position: ContextualActionPosition.TOP,
+            position: DatagridContextualActionPosition.TOP,
         },
         staticActionStyling: ActionStyling.INLINE,
     };

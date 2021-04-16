@@ -157,16 +157,16 @@ export interface ContextualActionDropdownDisplayConfig {
      *
      * If featuredCount is not set, it will default to all featured actions.
      */
-    featuredCount: number;
+    featuredCount?: number;
     /**
-     * How the featured actions should be displayed
+     * To display actions in a dropdown
      */
     styling: ActionStyling.DROPDOWN;
     /**
      * If the title should be the button label, icon, or both
-     * Defaults to ICON if unset.
+     * Defaults to {@link TextIcon.TEXT} when unset
      */
-    buttonContents: TextIcon;
+    buttonContents?: TextIcon;
 }
 
 /**
@@ -175,7 +175,7 @@ export interface ContextualActionDropdownDisplayConfig {
  */
 export interface ContextualActionInlineDisplayConfig {
     /**
-     * How the featured actions should be displayed
+     * To display actions in a inline horizontal ribbon
      */
     styling: ActionStyling.INLINE;
     /**
@@ -191,11 +191,13 @@ export interface ContextualActionInlineDisplayConfig {
 export interface ActionDisplayConfig {
     /**
      * How the contextual actions list shows up on the screen
+     * If this is not specified, this defaults to { featuredCount: 0, styling: ActionStyling.INLINE, buttonContents: TextIcon.TEXT}
      */
     contextual?: ContextualActionDropdownDisplayConfig | ContextualActionInlineDisplayConfig;
 
     /**
      * How the static actions list shows up on the screen
+     * This defaults to ActionStyling.INLINE
      */
     staticActionStyling?: ActionStyling;
 }

@@ -43,7 +43,7 @@ import {
 /**
  * An enum that describes where the contextual buttons should display.
  */
-export enum ContextualActionPosition {
+export enum DatagridContextualActionPosition {
     TOP = 'TOP',
     ROW = 'ROW',
 }
@@ -472,7 +472,7 @@ export class DatagridComponent<R extends B, B = any> implements OnInit, AfterVie
      */
     get shouldDisplayContextualActionsOnTop(): boolean {
         return (
-            this.actionDisplayConfig?.contextual?.position === ContextualActionPosition.TOP &&
+            this.actionDisplayConfig?.contextual?.position === DatagridContextualActionPosition.TOP &&
             this.datagridSelection.length !== 0
         );
     }
@@ -481,7 +481,7 @@ export class DatagridComponent<R extends B, B = any> implements OnInit, AfterVie
      * If the contextual buttons should display in a row.
      */
     get shouldDisplayContextualActionsInRow(): boolean {
-        return this.actionDisplayConfig?.contextual?.position === ContextualActionPosition.ROW;
+        return this.actionDisplayConfig?.contextual?.position === DatagridContextualActionPosition.ROW;
     }
 
     /**
@@ -516,13 +516,14 @@ export class DatagridComponent<R extends B, B = any> implements OnInit, AfterVie
      */
     @Output() selectionChanged = this.datagridSelectionChange;
 
-    private _actionDisplayConfig: DatagridActionDisplayConfig = getDefaultDatagridActionDisplayConfig();
     /**
      * How to display the static and contextual actions.
+     * If not set, this will default to the output of {@link getDefaultDatagridActionDisplayConfig}
      */
     @Input() set actionDisplayConfig(value: DatagridActionDisplayConfig) {
         this._actionDisplayConfig = getDefaultDatagridActionDisplayConfig(value);
     }
+    private _actionDisplayConfig: DatagridActionDisplayConfig = getDefaultDatagridActionDisplayConfig();
     get actionDisplayConfig(): DatagridActionDisplayConfig {
         return this._actionDisplayConfig;
     }
