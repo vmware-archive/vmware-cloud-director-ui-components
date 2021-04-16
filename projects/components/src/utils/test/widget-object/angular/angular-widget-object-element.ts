@@ -172,6 +172,13 @@ export class TestElement implements Iterable<TestElement> {
     }
 
     /**
+     * Gives all attributes on this element.
+     */
+    attributes(): NamedNodeMap {
+        return this.firstNativeElement.attributes;
+    }
+
+    /**
      * Says if this element is enabled.
      */
     enabled(): boolean {

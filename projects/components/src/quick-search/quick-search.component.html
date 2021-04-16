@@ -1,3 +1,21 @@
+<ng-template #sectionTitle let-searchSection>
+    <clr-icon *ngIf="searchSection.icon" [attr.shape]="searchSection.icon" size="20"> </clr-icon>
+    <div *ngIf="searchSection.hasPartialResult; let partial; else: partial">
+        {{
+            'vcd.cc.quickSearch.partialResultTitle'
+                | translate
+                    : {
+                          title: searchSection.provider.sectionName,
+                          lastItem: partial.lastItem,
+                          totalItems: partial.totalItems
+                      }
+        }}
+    </div>
+    <ng-template #partial>
+        {{ searchSection.provider.sectionName }}
+    </ng-template>
+</ng-template>
+
 <ng-template let-searchSection #searchSectionTemplate>
     <div *ngIf="searchSection.isLoading">
         <div class="spinner spinner-inline" [attr.data-ui]="DataUi.spinner"></div>
@@ -72,10 +90,7 @@
                 class="search-result-section-title"
                 [attr.data-ui]="DataUi.searchResultSectionTitles"
             >
-                {{ searchSection.provider.sectionName }}
-                <span *ngIf="searchSection.hasPartialResult; let partial" class="partial-result">
-                    {{ 'vcd.cc.quickSearch.partialResultNotation' | translate: partial }}
-                </span>
+                <ng-container *ngTemplateOutlet="sectionTitle; context: { $implicit: searchSection }"> </ng-container>
             </h5>
             <ng-container *ngTemplateOutlet="searchSectionTemplate; context: { $implicit: searchSection }">
             </ng-container>
@@ -97,10 +112,8 @@
                     class="p2 search-result-section-title search-result-section section-index-{{ n }}-{{ i }}"
                     [attr.data-ui]="DataUi.searchResultSectionTitles"
                 >
-                    {{ searchSection.provider.sectionName }}
-                    <span *ngIf="searchSection.hasPartialResult; let partial" class="partial-result">
-                        {{ 'vcd.cc.quickSearch.partialResultNotation' | translate: partial }}
-                    </span>
+                    <ng-container *ngTemplateOutlet="sectionTitle; context: { $implicit: searchSection }">
+                    </ng-container>
                 </p>
                 <ng-container *ngTemplateOutlet="searchSectionTemplate; context: { $implicit: searchSection }">
                 </ng-container>
