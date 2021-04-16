@@ -220,7 +220,10 @@ export function getDefaultActionDisplayConfig(cfg: ActionDisplayConfig &#x3D; {}
         },
         staticActionStyling: ActionStyling.INLINE,
     };
-    return { ...defaults, ...cfg };
+    return {
+        contextual: { ...defaults.contextual, ...cfg.contextual },
+        staticActionStyling: cfg.staticActionStyling || defaults.staticActionStyling,
+    };
 }
 
 /**
@@ -552,9 +555,10 @@ export class ActionMenuComponent&lt;R, T&gt; {
         }
         const flattenedFeaturedActionList &#x3D; this.getFlattenedActionList(this._actions, ActionType.CONTEXTUAL_FEATURED);
         const availableFeaturedActions &#x3D; this.getAvailableActions(flattenedFeaturedActionList);
-        return this.actionDisplayConfig.contextual.featuredCount
-            ? availableFeaturedActions.slice(0, this.actionDisplayConfig.contextual.featuredCount)
-            : availableFeaturedActions;
+        const featuredCount &#x3D;
+            this.actionDisplayConfig.contextual.styling &#x3D;&#x3D;&#x3D; ActionStyling.DROPDOWN &amp;&amp;
+            this.actionDisplayConfig.contextual.featuredCount;
+        return featuredCount ? availableFeaturedActions.slice(0, featuredCount) : availableFeaturedActions;
     }
 
     private getStaticActions(): ActionItemInternal&lt;R, T&gt;[] {

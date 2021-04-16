@@ -734,10 +734,25 @@ customElements.define('compodoc-menu', class extends HTMLElement {
                                 <a href="interfaces/ComponentRendererSpec.html" data-type="entity-link">ComponentRendererSpec</a>
                             </li>
                             <li class="link">
+                                <a href="interfaces/ContextualActionDropdownDisplayConfig.html" data-type="entity-link">ContextualActionDropdownDisplayConfig</a>
+                            </li>
+                            <li class="link">
+                                <a href="interfaces/ContextualActionInlineDisplayConfig.html" data-type="entity-link">ContextualActionInlineDisplayConfig</a>
+                            </li>
+                            <li class="link">
                                 <a href="interfaces/ContextualActionItem.html" data-type="entity-link">ContextualActionItem</a>
                             </li>
                             <li class="link">
                                 <a href="interfaces/DataExportRequestEvent.html" data-type="entity-link">DataExportRequestEvent</a>
+                            </li>
+                            <li class="link">
+                                <a href="interfaces/DatagridActionDisplayConfig.html" data-type="entity-link">DatagridActionDisplayConfig</a>
+                            </li>
+                            <li class="link">
+                                <a href="interfaces/DatagridContextualActionDropdownDisplayConfig.html" data-type="entity-link">DatagridContextualActionDropdownDisplayConfig</a>
+                            </li>
+                            <li class="link">
+                                <a href="interfaces/DatagridContextualActionInlineDisplayConfig.html" data-type="entity-link">DatagridContextualActionInlineDisplayConfig</a>
                             </li>
                             <li class="link">
                                 <a href="interfaces/DatagridMultiSelectFilterConfig.html" data-type="entity-link">DatagridMultiSelectFilterConfig</a>

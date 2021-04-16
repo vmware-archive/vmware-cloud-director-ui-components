@@ -1,0 +1,436 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>vmware-cloud-director-ui-components documentation</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
+	      <link rel="stylesheet" href="../styles/style.css">
+    </head>
+    <body>
+
+        <div class="navbar navbar-default navbar-fixed-top visible-xs">
+            <a href="../" class="navbar-brand">vmware-cloud-director-ui-components documentation</a>
+            <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
+        </div>
+
+        <div class="xs-menu menu" id="mobile-menu">
+                <div id="book-search-input" role="search"><input type="text" placeholder="Type to search"></div>            <compodoc-menu></compodoc-menu>
+        </div>
+
+        <div class="container-fluid main">
+           <div class="row main">
+               <div class="hidden-xs menu">
+                   <compodoc-menu mode="normal"></compodoc-menu>
+               </div>
+               <!-- START CONTENT -->
+               <div class="content interface">
+                   <div class="content-data">
+
+
+
+
+
+
+
+
+
+
+
+
+<ol class="breadcrumb">
+  <li>Interfaces</li>
+  <li>ContextualActionInlineDisplayConfig</li>
+</ol>
+
+<ul class="nav nav-tabs" role="tablist">
+        <li class="active">
+            <a href="#info" role="tab" id="info-tab" data-toggle="tab" data-link="info">Info</a>
+        </li>
+        <li >
+            <a href="#source" role="tab" id="source-tab" data-toggle="tab" data-link="source">Source</a>
+        </li>
+</ul>
+
+<div class="tab-content">
+    <div class="tab-pane fade active in" id="c-info">
+        <p class="comment">
+            <h3>File</h3>
+        </p>
+        <p class="comment">
+            <code>projects/components/src/common/interfaces/action-item.interface.ts</code>
+        </p>
+
+            <p class="comment">
+                <h3>Description</h3>
+            </p>
+            <p class="comment">
+                <p>This along with <a href="../interfaces/ContextualActionDropdownDisplayConfig.html">ContextualActionDropdownDisplayConfig</a> is one of the types of
+<a href="ActionDisplayConfig.contextual">ActionDisplayConfig.contextual</a></p>
+
+            </p>
+
+
+        <section>
+            <h3 id="index">Index</h3>
+            <table class="table table-sm table-bordered index-table">
+                <tbody>
+                    <tr>
+                        <td class="col-md-4">
+                            <h6><b>Properties</b></h6>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <ul class="index-list">
+                                <li>
+                                        <a href="#buttonContents">buttonContents</a>
+                                </li>
+                                <li>
+                                        <a href="#styling">styling</a>
+                                </li>
+                            </ul>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+
+
+            <section>
+                <h3 id="inputs">Properties</h3>
+                    <table class="table table-sm table-bordered">
+                        <tbody>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <a name="buttonContents"></a>
+                                        <span class="name"><b>buttonContents</b><a href="#buttonContents"><span class="icon ion-ios-link"></span></a></span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <code>buttonContents:         <code><a href="../miscellaneous/enumerations.html#TextIcon" target="_self" >TextIcon</a></code>
+</code>
+                                    </td>
+                                </tr>
+
+
+                                    <tr>
+                                        <td class="col-md-4">
+                                            <i>Type : </i>        <code><a href="../miscellaneous/enumerations.html#TextIcon" target="_self" >TextIcon</a></code>
+
+                                        </td>
+                                    </tr>
+
+
+
+
+
+                            <tr>
+                                <td class="col-md-4">
+                                    <div class="io-description"><p>If the title should be the button label, icon, or both
+Defaults to ICON if unset.</p>
+</div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <table class="table table-sm table-bordered">
+                        <tbody>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <a name="styling"></a>
+                                        <span class="name"><b>styling</b><a href="#styling"><span class="icon ion-ios-link"></span></a></span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <code>styling:         <code><a href="../miscellaneous/enumerations.html#ActionStyling" target="_self" >ActionStyling.INLINE</a></code>
+</code>
+                                    </td>
+                                </tr>
+
+
+                                    <tr>
+                                        <td class="col-md-4">
+                                            <i>Type : </i>        <code><a href="../miscellaneous/enumerations.html#ActionStyling" target="_self" >ActionStyling.INLINE</a></code>
+
+                                        </td>
+                                    </tr>
+
+
+
+
+
+                            <tr>
+                                <td class="col-md-4">
+                                    <div class="io-description"><p>To display actions in a inline horizontal ribbon</p>
+</div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+            </section>
+    </div>
+
+
+    <div class="tab-pane fade  tab-source-code" id="c-source">
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Observable } from &#x27;rxjs&#x27;;
+
+export enum ActionType {
+    /**
+     * Global actions that are displayed always irrespective of the context. These display as the first set of actions
+     */
+    STATIC_FEATURED &#x3D; &#x27;STATIC_FEATURED&#x27;,
+    /**
+     * Actions that are visible when an entity is selected. These display in the main menu section
+     */
+    CONTEXTUAL_FEATURED &#x3D; &#x27;CONTEXTUAL_FEATURED&#x27;,
+    /**
+     * Actions that are visible when an entity is selected. These display in a sub menu
+     */
+    CONTEXTUAL &#x3D; &#x27;CONTEXTUAL&#x27;,
+    /**
+     * Actions that are not context dependent. These display after the above 3 buckets of actions
+     */
+    STATIC &#x3D; &#x27;STATIC&#x27;,
+}
+
+/**
+ * Type of {@link ActionItem.handler} function
+ */
+export type ActionHandlerType&lt;R, T&gt; &#x3D; (selectedEntities?: R[], handlerData?: T) &#x3D;&gt; Promise&lt;string | undefined&gt; | void;
+
+/**
+ * Data required for displaying an action item in a menu. Additional data like the type of action and visibility is part of separate
+ * interfaces {@link StaticActionItem} and {@link ContextualActionItem}
+ * T is the type of custom data passed to action handler
+ * R is the type of selected entity on which the action will be performed
+ */
+export interface BaseActionItem&lt;R, T&gt; {
+    /**
+     * The i18n key or a translated string for contents of a action button
+     */
+    textKey?: string;
+    /**
+     * The css class the button should have.
+     *
+     * Must be unique among all added actions within an action list
+     */
+    class?: string;
+    /**
+     * Indicates if an action that is available should be disabled. If true, a non available action is disabled.
+     * If false, a non-available action is hidden
+     */
+    disabled?: ((records?: R[]) &#x3D;&gt; boolean) | boolean;
+    /**
+     * The key that will be fired with the action.
+     */
+    action?: string;
+    /**
+     * The function to be executed when the button is clicked.
+     *
+     * Actions that require additional user input can collect it using handlerData which will be passed as an argument
+     * to the handler call
+     */
+    handler?: ActionHandlerType&lt;R, T&gt;;
+    /**
+     * Custom data that will be passed when handler is called
+     */
+    handlerData?: any;
+    /**
+     * The Clarity icon of the contextual button that is displayed if the button is featured.
+     */
+    icon?: string;
+    /**
+     * List of actions that will be grouped under this action
+     */
+    children?: ActionItem&lt;R, T&gt;[];
+    /**
+     * To mark if the {@link #ActionItem.textKey} has to be translated or not
+     */
+    isTranslatable?: boolean;
+    /**
+     * To add separators between groups of actions
+     */
+    isSeparator?: boolean;
+    /**
+     * Busy state for the menu item. Used by extension actions of plugins
+     */
+    busy?: boolean;
+}
+
+/**
+ * Created this separate type to enforce the type of Static actions availability to not be a call back method. This is because, call back
+ * with selected entities is only supported for Contextual actions as the call backs receive selected entities and static actions visibility
+ * is not dependent on selected entities
+ */
+interface StaticActionItem&lt;R, T&gt; extends BaseActionItem&lt;R, T&gt; {
+    /**
+     * Used for determining where in the action menu this action gets displayed
+     */
+    actionType: ActionType.STATIC_FEATURED | ActionType.STATIC;
+    /**
+     * Condition whether or not the action is available. It is an observable if it relies on response from asynchronous requests
+     */
+    availability?: Observable&lt;boolean&gt;;
+}
+
+/**
+ * Created this separate type for contextual actions because, we want to enforce the type of Static actions availability to not be a call back method.
+ * Refer to {@link #StaticActionItem}
+ */
+interface ContextualActionItem&lt;R, T&gt; extends BaseActionItem&lt;R, T&gt; {
+    /**
+     * Used for determining where in the action menu this action gets displayed
+     */
+    actionType?: ActionType.CONTEXTUAL_FEATURED | ActionType.CONTEXTUAL;
+    /**
+     * Condition whether or not the action is available. Call back with selected entities when visibility depends on entities selected.
+     * It is an observable if it relies on some other condition like a response from asynchronous requests
+     */
+    availability?: Observable&lt;boolean&gt; | ((selectedEntities: R[]) &#x3D;&gt; boolean);
+}
+
+/**
+ * Lets the caller pass both static and contextual actions as part of a single array
+ */
+export type ActionItem&lt;R, T&gt; &#x3D; StaticActionItem&lt;R, T&gt; | ContextualActionItem&lt;R, T&gt;;
+
+/**
+ * Display options for action menu
+ */
+export enum ActionStyling {
+    INLINE &#x3D; &#x27;INLINE&#x27;,
+    DROPDOWN &#x3D; &#x27;DROPDOWN&#x27;,
+}
+
+/**
+ * An enum that describes the possible ways to display the button title.
+ */
+export enum TextIcon {
+    ICON &#x3D; 1 &lt;&lt; 0,
+    TEXT &#x3D; 1 &lt;&lt; 1,
+    ICON_AND_TEXT &#x3D; TextIcon.ICON | TextIcon.TEXT,
+}
+
+/**
+ * This is created separately from {@link ContextualActionInlineDisplayConfig} because, featured count is only required
+ * when contextual actions are displayed as a dropdown
+ */
+export interface ContextualActionDropdownDisplayConfig {
+    /**
+     * How many buttons should display on the featured section.
+     *
+     * Used when you want to set a limit on the number of featured buttons shown.
+     *
+     * If featuredCount is not set, it will default to all featured actions.
+     */
+    featuredCount?: number;
+    /**
+     * To display actions in a dropdown
+     */
+    styling: ActionStyling.DROPDOWN;
+    /**
+     * If the title should be the button label, icon, or both
+     * Defaults to {@link TextIcon.TEXT} when unset
+     */
+    buttonContents?: TextIcon;
+}
+
+/**
+ * This along with {@link ContextualActionDropdownDisplayConfig} is one of the types of
+ * {@link ActionDisplayConfig.contextual}
+ */
+export interface ContextualActionInlineDisplayConfig {
+    /**
+     * To display actions in a inline horizontal ribbon
+     */
+    styling: ActionStyling.INLINE;
+    /**
+     * If the title should be the button label, icon, or both
+     * Defaults to ICON if unset.
+     */
+    buttonContents: TextIcon;
+}
+
+/**
+ * Display configuration of actions that are displayed in a action menu
+ */
+export interface ActionDisplayConfig {
+    /**
+     * How the contextual actions list shows up on the screen
+     * If this is not specified, this defaults to { featuredCount: 0, styling: ActionStyling.INLINE, buttonContents: TextIcon.TEXT}
+     */
+    contextual?: ContextualActionDropdownDisplayConfig | ContextualActionInlineDisplayConfig;
+
+    /**
+     * How the static actions list shows up on the screen
+     * This defaults to ActionStyling.INLINE
+     */
+    staticActionStyling?: ActionStyling;
+}
+</code></pre>
+    </div>
+</div>
+
+
+                   
+
+
+
+
+                   </div><div class="search-results">
+    <div class="has-results">
+        <h1 class="search-results-title"><span class='search-results-count'></span> result-matching "<span class='search-query'></span>"</h1>
+        <ul class="search-results-list"></ul>
+    </div>
+    <div class="no-results">
+        <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+    </div>
+</div>
+</div>
+               <!-- END CONTENT -->
+           </div>
+       </div>
+
+       <script>
+            var COMPODOC_CURRENT_PAGE_DEPTH = 1;
+            var COMPODOC_CURRENT_PAGE_CONTEXT = 'interface';
+            var COMPODOC_CURRENT_PAGE_URL = 'ContextualActionInlineDisplayConfig.html';
+            var MAX_SEARCH_RESULTS = 15;
+       </script>
+
+       <script src="../js/libs/custom-elements.min.js"></script>
+       <script src="../js/libs/lit-html.js"></script>
+       <!-- Required to polyfill modern browsers as code is ES5 for IE... -->
+       <script src="../js/libs/custom-elements-es5-adapter.js" charset="utf-8" defer></script>
+       <script src="../js/menu-wc.js" defer></script>
+
+       <script src="../js/libs/bootstrap-native.js"></script>
+
+       <script src="../js/libs/es6-shim.min.js"></script>
+       <script src="../js/libs/EventDispatcher.js"></script>
+       <script src="../js/libs/promise.min.js"></script>
+       <script src="../js/libs/zepto.min.js"></script>
+
+       <script src="../js/compodoc.js"></script>
+
+       <script src="../js/tabs.js"></script>
+       <script src="../js/menu.js"></script>
+       <script src="../js/libs/clipboard.min.js"></script>
+       <script src="../js/libs/prism.js"></script>
+       <script src="../js/sourceCode.js"></script>
+          <script src="../js/search/search.js"></script>
+          <script src="../js/search/lunr.min.js"></script>
+          <script src="../js/search/search-lunr.js"></script>
+          <script src="../js/search/search_index.js"></script>
+       <script src="../js/lazy-load-graphs.js"></script>
+
+
+    </body>
+</html>

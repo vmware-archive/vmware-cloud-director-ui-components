@@ -160,16 +160,15 @@ import { LazyString, TranslationService } from &#x27;@vcd/i18n&#x27;;
 import { Observable } from &#x27;rxjs&#x27;;
 import { ActionMenuComponent } from &#x27;../action-menu/action-menu.component&#x27;;
 import { ActivityReporter } from &#x27;../common/activity-reporter&#x27;;
-import {
-    ActionDisplayConfig,
-    ActionHandlerType,
-    ActionItem,
-    ActionType,
-} from &#x27;../common/interfaces/action-item.interface&#x27;;
+import { ActionHandlerType, ActionItem, ActionType } from &#x27;../common/interfaces/action-item.interface&#x27;;
 import { SubscriptionTracker } from &#x27;../common/subscription&#x27;;
 import { TooltipSize } from &#x27;../lib/directives/show-clipped-text.directive&#x27;;
 import { DatagridFilter } from &#x27;./filters/datagrid-filter&#x27;;
 import { ComponentRendererConstructor, ComponentRendererSpec } from &#x27;./interfaces/component-renderer.interface&#x27;;
+import {
+    DatagridActionDisplayConfig,
+    getDefaultDatagridActionDisplayConfig,
+} from &#x27;./interfaces/datagrid-action-display.interface&#x27;;
 import {
     ColumnRendererSpec,
     FunctionRenderer,
@@ -180,7 +179,7 @@ import {
 /**
  * An enum that describes where the contextual buttons should display.
  */
-export enum ContextualActionPosition {
+export enum DatagridContextualActionPosition {
     TOP &#x3D; &#x27;TOP&#x27;,
     ROW &#x3D; &#x27;ROW&#x27;,
 }
@@ -609,8 +608,7 @@ export class DatagridComponent&lt;R extends B, B &#x3D; any&gt; implements OnIni
      */
     get shouldDisplayContextualActionsOnTop(): boolean {
         return (
-            this.contextualActionPosition &amp;&amp;
-            this.contextualActionPosition &#x3D;&#x3D;&#x3D; ContextualActionPosition.TOP &amp;&amp;
+            this.actionDisplayConfig?.contextual?.position &#x3D;&#x3D;&#x3D; DatagridContextualActionPosition.TOP &amp;&amp;
             this.datagridSelection.length !&#x3D;&#x3D; 0
         );
     }
@@ -619,7 +617,7 @@ export class DatagridComponent&lt;R extends B, B &#x3D; any&gt; implements OnIni
      * If the contextual buttons should display in a row.
      */
     get shouldDisplayContextualActionsInRow(): boolean {
-        return this.contextualActionPosition &amp;&amp; this.contextualActionPosition &#x3D;&#x3D;&#x3D; ContextualActionPosition.ROW;
+        return this.actionDisplayConfig?.contextual?.position &#x3D;&#x3D;&#x3D; DatagridContextualActionPosition.ROW;
     }
 
     /**
@@ -656,13 +654,15 @@ export class DatagridComponent&lt;R extends B, B &#x3D; any&gt; implements OnIni
 
     /**
      * How to display the static and contextual actions.
+     * If not set, this will default to the output of {@link getDefaultDatagridActionDisplayConfig}
      */
-    @Input() actionDisplayConfig: ActionDisplayConfig;
-
-    /**
-     * Whether to display contextual actions inside the row or on top of the grid
-     */
-    @Input() contextualActionPosition: ContextualActionPosition &#x3D; ContextualActionPosition.TOP;
+    @Input() set actionDisplayConfig(value: DatagridActionDisplayConfig) {
+        this._actionDisplayConfig &#x3D; getDefaultDatagridActionDisplayConfig(value);
+    }
+    private _actionDisplayConfig: DatagridActionDisplayConfig &#x3D; getDefaultDatagridActionDisplayConfig();
+    get actionDisplayConfig(): DatagridActionDisplayConfig {
+        return this._actionDisplayConfig;
+    }
 
     /**
      * Emitted whenever {@link #columns} input is updated

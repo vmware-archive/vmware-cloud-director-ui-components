@@ -225,24 +225,19 @@
 import { ClrDatagridPagination } from &#x27;@clr/angular&#x27;;
 import { LazyString, TranslationService } from &#x27;@vcd/i18n&#x27;;
 import { Observable } from &#x27;rxjs&#x27;;
-import {
-    ActionDisplayConfig,
-    ActionItem,
-    ActionStyling,
-    ActionType,
-    TextIcon,
-} from &#x27;../../common/interfaces/action-item.interface&#x27;;
+import { ActionItem, ActionStyling, ActionType, TextIcon } from &#x27;../../common/interfaces/action-item.interface&#x27;;
 import { SubscriptionTracker } from &#x27;../../common/subscription&#x27;;
 import {
     ColumnComponentRendererSpec,
     ComponentRendererConstructor,
     ComponentRendererSpec,
-    ContextualActionPosition,
+    DatagridContextualActionPosition,
     GridColumn,
     GridDataFetchResult,
     GridState,
     PaginationConfiguration,
 } from &#x27;../../datagrid&#x27;;
+import { DatagridActionDisplayConfig } from &#x27;../../datagrid/interfaces/datagrid-action-display.interface&#x27;;
 import { CommonUtil } from &#x27;../../utils/common-util&#x27;;
 import { RightsDropdownRendererComponent } from &#x27;../renderers/rights-dropdown-renderer&#x27;;
 import { ComboOption } from &#x27;../select-all-checkbox/select-all-toggle.component&#x27;;
@@ -448,15 +443,13 @@ export class SharingModalTabComponent&lt;T&gt; implements OnInit, OnDestroy, Aft
         },
     ];
 
-    actionDisplayConfig: ActionDisplayConfig &#x3D; {
+    actionDisplayConfig: DatagridActionDisplayConfig &#x3D; {
         contextual: {
-            featuredCount: 1,
             styling: ActionStyling.INLINE,
             buttonContents: TextIcon.ICON,
+            position: DatagridContextualActionPosition.ROW,
         },
     };
-
-    rowPosition &#x3D; ContextualActionPosition.ROW;
 
     paginationInfo: PaginationConfiguration &#x3D; {
         pageSize: 10,
