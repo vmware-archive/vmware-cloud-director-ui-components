@@ -6,13 +6,13 @@
 import { AfterViewInit, ChangeDetectorRef, Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import {
-    ActionDisplayConfig,
     ActionItem,
     ActionStyling,
     ActionType,
     CheckBoxStyling,
-    ContextualActionPosition,
+    DatagridActionDisplayConfig,
     DatagridComponent,
+    DatagridContextualActionPosition,
     GridColumn,
     GridDataFetchResult,
     GridSelectionType,
@@ -47,16 +47,14 @@ export class DatagridActionMenuTrackingExampleComponent<R extends Record> implem
 
     actions: ActionItem<R, unknown>[] = [];
 
-    actionDisplayConfig: ActionDisplayConfig = {
+    actionDisplayConfig: DatagridActionDisplayConfig = {
         contextual: {
-            featuredCount: 3,
             styling: ActionStyling.INLINE,
             buttonContents: TextIcon.TEXT,
+            position: DatagridContextualActionPosition.TOP,
         },
         staticActionStyling: ActionStyling.INLINE,
     };
-
-    contextualActionPosition: ContextualActionPosition = ContextualActionPosition.TOP;
 
     formGroup: FormGroup;
 

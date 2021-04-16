@@ -129,39 +129,6 @@ interface ContextualActionItem<R, T> extends BaseActionItem<R, T> {
 export type ActionItem<R, T> = StaticActionItem<R, T> | ContextualActionItem<R, T>;
 
 /**
- * Configuration of actions that are not static/featured
- */
-export interface ActionDisplayConfig {
-    /**
-     * How the contextual actions list shows up on the screen
-     */
-    contextual?: {
-        /**
-         * How many buttons should display on the featured section.
-         *
-         * Used when you want to set a limit on the number of featured buttons shown.
-         *
-         * If featuredCount is not set, it will default to all featured actions.
-         */
-        featuredCount: number;
-        /**
-         * How the featured actions should be displayed
-         */
-        styling: ActionStyling;
-        /**
-         * If the title should be the button label, icon, or both
-         * Defaults to ICON if unset.
-         */
-        buttonContents: TextIcon;
-    };
-
-    /**
-     * How the static actions list shows up on the screen
-     */
-    staticActionStyling?: ActionStyling;
-}
-
-/**
  * Display options for action menu
  */
 export enum ActionStyling {
@@ -176,4 +143,61 @@ export enum TextIcon {
     ICON = 1 << 0,
     TEXT = 1 << 1,
     ICON_AND_TEXT = TextIcon.ICON | TextIcon.TEXT,
+}
+
+/**
+ * This is created separately from {@link ContextualActionInlineDisplayConfig} because, featured count is only required
+ * when contextual actions are displayed as a dropdown
+ */
+export interface ContextualActionDropdownDisplayConfig {
+    /**
+     * How many buttons should display on the featured section.
+     *
+     * Used when you want to set a limit on the number of featured buttons shown.
+     *
+     * If featuredCount is not set, it will default to all featured actions.
+     */
+    featuredCount?: number;
+    /**
+     * To display actions in a dropdown
+     */
+    styling: ActionStyling.DROPDOWN;
+    /**
+     * If the title should be the button label, icon, or both
+     * Defaults to {@link TextIcon.TEXT} when unset
+     */
+    buttonContents?: TextIcon;
+}
+
+/**
+ * This along with {@link ContextualActionDropdownDisplayConfig} is one of the types of
+ * {@link ActionDisplayConfig.contextual}
+ */
+export interface ContextualActionInlineDisplayConfig {
+    /**
+     * To display actions in a inline horizontal ribbon
+     */
+    styling: ActionStyling.INLINE;
+    /**
+     * If the title should be the button label, icon, or both
+     * Defaults to ICON if unset.
+     */
+    buttonContents: TextIcon;
+}
+
+/**
+ * Display configuration of actions that are displayed in a action menu
+ */
+export interface ActionDisplayConfig {
+    /**
+     * How the contextual actions list shows up on the screen
+     * If this is not specified, this defaults to { featuredCount: 0, styling: ActionStyling.INLINE, buttonContents: TextIcon.TEXT}
+     */
+    contextual?: ContextualActionDropdownDisplayConfig | ContextualActionInlineDisplayConfig;
+
+    /**
+     * How the static actions list shows up on the screen
+     * This defaults to ActionStyling.INLINE
+     */
+    staticActionStyling?: ActionStyling;
 }

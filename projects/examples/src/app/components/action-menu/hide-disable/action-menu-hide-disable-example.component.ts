@@ -115,7 +115,6 @@ export class ActionMenuHideDisableExampleComponent {
 
     dropdownActionDisplayConfig: ActionDisplayConfig = {
         contextual: {
-            featuredCount: 2,
             styling: ActionStyling.INLINE,
             buttonContents: TextIcon.TEXT,
         },

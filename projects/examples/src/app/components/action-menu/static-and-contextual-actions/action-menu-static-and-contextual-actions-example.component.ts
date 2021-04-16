@@ -66,7 +66,6 @@ export class ActionMenuStaticAndContextualActionsExampleComponent {
     ];
     inlineActionDisplayConfig: ActionDisplayConfig = {
         contextual: {
-            featuredCount: 5,
             styling: ActionStyling.INLINE,
             buttonContents: TextIcon.TEXT,
         },
