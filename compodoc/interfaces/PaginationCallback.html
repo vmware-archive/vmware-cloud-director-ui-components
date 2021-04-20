@@ -86,7 +86,7 @@
                         <td class="col-md-4">
                             <ul class="index-list">
                                 <li>
-                                            <a href="#call-declaration-93ecfa8c4fc7f3d8a411d07461efe58d">Unamed property</a>
+                                            <a href="#call-declaration-c2174dca0b01428808f015eb62cf0d41">Unamed property</a>
                                 </li>
                             </ul>
                         </td>
@@ -105,7 +105,7 @@
                                     <tr>
                                         <td class="col-md-4">
                                             <i>Signature :</i>
-                                            <a name="call-declaration-93ecfa8c4fc7f3d8a411d07461efe58d"></a>
+                                            <a name="call-declaration-c2174dca0b01428808f015eb62cf0d41"></a>
                                             <code>
                                                 <!--ts.SyntaxKind.CallSignature-->
                                                     [firstItem: number, lastItem: number, totalItems: number]
@@ -1156,12 +1156,6 @@ export class DatagridComponent&lt;R extends B, B &#x3D; any&gt; implements OnIni
             // calling a setTimeout.
             this.changeDetectorRef.detectChanges();
         }
-
-        this.datagrid.items.change.subscribe(() &#x3D;&gt; {
-            if (this.datagrid.items.displayed.length &gt; 0) {
-                (this.datagrid as any).organizer.resize();
-            }
-        });
 
         this.columnsUpdated.subscribe(() &#x3D;&gt; {
             this.datagrid.columns.reset(this.datagrid.columns.toArray());

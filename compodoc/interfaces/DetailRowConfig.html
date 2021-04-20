@@ -1241,12 +1241,6 @@ export class DatagridComponent&lt;R extends B, B &#x3D; any&gt; implements OnIni
             this.changeDetectorRef.detectChanges();
         }
 
-        this.datagrid.items.change.subscribe(() &#x3D;&gt; {
-            if (this.datagrid.items.displayed.length &gt; 0) {
-                (this.datagrid as any).organizer.resize();
-            }
-        });
-
         this.columnsUpdated.subscribe(() &#x3D;&gt; {
             this.datagrid.columns.reset(this.datagrid.columns.toArray());
         });
