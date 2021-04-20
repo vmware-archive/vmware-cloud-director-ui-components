@@ -93,6 +93,7 @@ at which the actions have to displayed in a datagrid</p>
                         <td class="col-md-4">
                             <ul class="index-list">
                                 <li>
+                                            <span class="modifier">Optional</span>
                                         <a href="#position">position</a>
                                 </li>
                             </ul>
@@ -129,13 +130,19 @@ at which the actions have to displayed in a datagrid</p>
                                         </td>
                                     </tr>
 
+                                    <tr>
+                                        <td class="col-md-4">
+                                            <i>Optional</i>
+                                        </td>
+                                    </tr>
 
 
 
 
                             <tr>
                                 <td class="col-md-4">
-                                    <div class="io-description"><p>An enum that describes where the contextual buttons should display.</p>
+                                    <div class="io-description"><p>An enum that describes where the contextual buttons should display.
+If not specified, this defaults to <a href="DatagridContextualActionPosition.TOP">DatagridContextualActionPosition.TOP</a></p>
 </div>
                                 </td>
                             </tr>
@@ -161,8 +168,9 @@ import { DatagridContextualActionPosition } from &#x27;../datagrid.component&#x2
 interface DatagridContextualActionDropdownDisplayConfig extends ContextualActionDropdownDisplayConfig {
     /**
      * An enum that describes where the contextual buttons should display.
+     * If not specified, this defaults to {@link DatagridContextualActionPosition.TOP}
      */
-    position: DatagridContextualActionPosition;
+    position?: DatagridContextualActionPosition;
 }
 
 /**
@@ -172,8 +180,9 @@ interface DatagridContextualActionDropdownDisplayConfig extends ContextualAction
 interface DatagridContextualActionInlineDisplayConfig extends ContextualActionInlineDisplayConfig {
     /**
      * An enum that describes where the contextual buttons should display.
+     * If not specified, this defaults to {@link DatagridContextualActionPosition.TOP}
      */
-    position: DatagridContextualActionPosition;
+    position?: DatagridContextualActionPosition;
 }
 
 /**
@@ -206,7 +215,10 @@ export function getDefaultDatagridActionDisplayConfig(
         },
         staticActionStyling: ActionStyling.INLINE,
     };
-    return { ...defaults, ...cfg };
+    return {
+        contextual: { ...defaults.contextual, ...cfg.contextual },
+        staticActionStyling: cfg.staticActionStyling || defaults.staticActionStyling,
+    };
 }
 </code></pre>
     </div>

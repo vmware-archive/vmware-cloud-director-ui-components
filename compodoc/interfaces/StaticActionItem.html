@@ -365,9 +365,9 @@ export interface ContextualActionInlineDisplayConfig {
     styling: ActionStyling.INLINE;
     /**
      * If the title should be the button label, icon, or both
-     * Defaults to ICON if unset.
+     * Defaults to {@link TextIcon.TEXT} when unset
      */
-    buttonContents: TextIcon;
+    buttonContents?: TextIcon;
 }
 
 /**
