@@ -1029,12 +1029,6 @@ export class DatagridComponent<R extends B, B = any> implements OnInit, AfterVie
             this.changeDetectorRef.detectChanges();
         }
 
-        this.datagrid.items.change.subscribe(() => {
-            if (this.datagrid.items.displayed.length > 0) {
-                (this.datagrid as any).organizer.resize();
-            }
-        });
-
         this.columnsUpdated.subscribe(() => {
             this.datagrid.columns.reset(this.datagrid.columns.toArray());
         });
