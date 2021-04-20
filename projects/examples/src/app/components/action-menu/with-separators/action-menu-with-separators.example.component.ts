@@ -36,7 +36,6 @@ export class ActionMenuWithSeparatorsExampleComponent {
     ];
     actionDisplayConfig: ActionDisplayConfig = {
         contextual: {
-            featuredCount: 0,
             styling: ActionStyling.DROPDOWN,
             buttonContents: TextIcon.TEXT,
         },

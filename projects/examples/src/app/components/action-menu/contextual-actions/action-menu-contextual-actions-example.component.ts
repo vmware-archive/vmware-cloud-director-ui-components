@@ -77,13 +77,13 @@ export class ActionMenuContextualActionsExampleComponent {
     };
     dropdownActionDisplayConfig: ActionDisplayConfig = {
         contextual: {
-            featuredCount: 2,
             styling: ActionStyling.DROPDOWN,
             buttonContents: TextIcon.TEXT,
         },
     };
     featuredCountActionDisplayConfig: ActionDisplayConfig = {
         contextual: {
+            featuredCount: 1,
             styling: ActionStyling.INLINE,
             buttonContents: TextIcon.TEXT,
         },

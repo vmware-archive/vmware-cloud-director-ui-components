@@ -11,7 +11,7 @@ import {
     ActionItem,
     ActionStyling,
     ActionType,
-    ContextualActionDropdownDisplayConfig,
+    ContextualActionInlineDisplayConfig,
     TextIcon,
 } from '../common/interfaces/index';
 import { WidgetFinder, WidgetObject } from '../utils/test/widget-object';
@@ -73,7 +73,7 @@ describe('ActionMenuComponent', () => {
             this.actionMenu.actionDisplayConfig = { ...ACTION_DISPLAY_CONFIG };
             this.finder.detectChanges();
             const actionDisplayConfig = this.actionMenu.actionDisplayConfig;
-            expect((actionDisplayConfig.contextual as ContextualActionDropdownDisplayConfig).featuredCount).toEqual(2);
+            expect((actionDisplayConfig.contextual as ContextualActionInlineDisplayConfig).featuredCount).toEqual(2);
             expect(actionDisplayConfig.contextual.styling).toEqual(ActionStyling.DROPDOWN);
             expect(actionDisplayConfig.contextual.buttonContents).toEqual(TextIcon.ICON);
             expect(actionDisplayConfig.staticActionStyling).toEqual(ActionStyling.DROPDOWN);
@@ -156,12 +156,13 @@ describe('ActionMenuComponent', () => {
             });
         });
         it('does not return an action list with more items than featuredCount', function (this: HasFinderAndActionMenu): void {
-            const ACTION_DISPLAY_CONFIG_WITH_ONE_FEATURED = {
-                contextual: { ...ACTION_DISPLAY_CONFIG.contextual },
+            this.actionMenu.actionDisplayConfig = {
+                contextual: {
+                    featuredCount: 1,
+                    styling: ActionStyling.INLINE,
+                },
                 staticActionStyling: ACTION_DISPLAY_CONFIG.staticActionStyling,
             };
-            ACTION_DISPLAY_CONFIG_WITH_ONE_FEATURED.contextual.featuredCount = 1;
-            this.actionMenu.actionDisplayConfig = ACTION_DISPLAY_CONFIG_WITH_ONE_FEATURED;
             this.finder.detectChanges();
             const availableContextualFeaturedActions = this.actionMenu.contextualFeaturedActions;
             expect(CONTEXTUAL_FEATURED_ACTIONS.length).toEqual(3);
