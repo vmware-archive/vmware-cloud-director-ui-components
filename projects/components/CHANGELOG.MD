@@ -6,6 +6,11 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
+## [2.0.0-dev.13]
+### Changed
+- BREAKING: ActionDisplayConfig of ActionMenuComponent accepts featuredCount property only when the actions are displayed
+inline
+
 ## [2.0.0-dev.12]
 ### Changed
 - Responsive input directive now allocates 1/4th of the container space for input field labels on large modals
