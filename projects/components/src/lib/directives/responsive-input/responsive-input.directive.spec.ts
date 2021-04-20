@@ -13,7 +13,7 @@ interface Test {
 }
 
 describe('ResponsiveInputDirective', () => {
-    beforeEach(async function(this: Test): Promise<void> {
+    beforeEach(async function (this: Test): Promise<void> {
         await TestBed.configureTestingModule({
             declarations: [TestHostComponent],
             imports: [ResponsiveInputDirectiveModule],
@@ -21,38 +21,38 @@ describe('ResponsiveInputDirective', () => {
         this.fixture = TestBed.createComponent(TestHostComponent);
     });
 
-    it('adds clr-row to input wrapper', function(this: Test): void {
+    it('adds clr-row to input wrapper', function (this: Test): void {
         this.fixture.detectChanges();
         const helper = new TestHelper(this.fixture);
         expect(helper.rootHasClass('clr-row')).toBe(true, 'clr-row was not added to form control');
     });
 
-    it('adds clr-col-12 and clr-col-md-2 to label', function(this: Test): void {
+    it('adds clr-col-12 and clr-col-md-3 to label', function (this: Test): void {
         this.fixture.detectChanges();
         const helper = new TestHelper(this.fixture);
         expect(helper.labelHasClass('clr-col-12')).toBe(true, 'clr-col-12 was not added to control label');
-        expect(helper.labelHasClass('clr-col-md-2')).toBe(true, 'clr-md-2 was not added to control label');
+        expect(helper.labelHasClass('clr-col-md-3')).toBe(true, 'clr-md-3 was not added to control label');
     });
 
-    it('adds clr-col-12 and clr-col-md-10 to input', function(this: Test): void {
+    it('adds clr-col-12 and clr-col-md-9 to input', function (this: Test): void {
         this.fixture.detectChanges();
         const helper = new TestHelper(this.fixture);
         expect(helper.inputHasClass('clr-col-12')).toBe(true, 'clr-col-12 was not added to control label');
-        expect(helper.inputHasClass('clr-col-md-10')).toBe(true, 'clr-md-10 was not added to control label');
+        expect(helper.inputHasClass('clr-col-md-9')).toBe(true, 'clr-md-9 was not added to control label');
     });
 
-    it('does not throw an error if label is missing', function(this: Test): void {
+    it('does not throw an error if label is missing', function (this: Test): void {
         this.fixture.componentInstance.showLabel = false;
         expect(() => this.fixture.detectChanges()).not.toThrow();
     });
 
-    it('does not throw an error if input container is missing', function(this: Test): void {
+    it('does not throw an error if input container is missing', function (this: Test): void {
         this.fixture.componentInstance.showInput = false;
         expect(() => this.fixture.detectChanges()).not.toThrow();
     });
 
     describe('disabled', () => {
-        it('does not add classes if disabled', function(this: Test): void {
+        it('does not add classes if disabled', function (this: Test): void {
             this.fixture.componentInstance.disabled = true;
             this.fixture.detectChanges();
             const helper = new TestHelper(this.fixture);

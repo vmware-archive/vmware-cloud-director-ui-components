@@ -5,7 +5,7 @@
 
 import { AfterViewChecked, Directive, ElementRef, HostBinding, Input } from '@angular/core';
 
-type ColSize = '2' | '4' | '8' | '10';
+type ColSize = '3' | '4' | '8' | '9';
 
 export interface ResponsiveInputOptions {
     disabled: boolean;
@@ -55,7 +55,7 @@ export class ResponsiveInputDirective implements AfterViewChecked {
         if (newElementWidth) {
             this.elementWidth = newElementWidth;
             const [labelWidth, containerWidth]: ColSize[] =
-                this.elementWidth < this.breakPoint ? ['4', '8'] : ['2', '10'];
+                this.elementWidth < this.breakPoint ? ['4', '8'] : ['3', '9'];
             this.applyClasses('label', labelWidth);
             this.applyClasses('container', containerWidth);
         }
@@ -64,7 +64,7 @@ export class ResponsiveInputDirective implements AfterViewChecked {
     private applyClasses(className: 'label' | 'container', mdSize: ColSize): void {
         const el = this.el.nativeElement.querySelector(`:scope > .clr-control-${className}`);
         if (el) {
-            el.classList.remove('clr-col-12', 'clr-col-md-2', 'clr-col-md-4', 'clr-col-md-8', 'clr-col-md-10');
+            el.classList.remove('clr-col-12', 'clr-col-md-3', 'clr-col-md-4', 'clr-col-md-8', 'clr-col-md-9');
             el.classList.add('clr-col-12', `clr-col-md-${mdSize}`);
         }
     }
