@@ -17,8 +17,9 @@ import { DatagridContextualActionPosition } from '../datagrid.component';
 interface DatagridContextualActionDropdownDisplayConfig extends ContextualActionDropdownDisplayConfig {
     /**
      * An enum that describes where the contextual buttons should display.
+     * If not specified, this defaults to {@link DatagridContextualActionPosition.TOP}
      */
-    position: DatagridContextualActionPosition;
+    position?: DatagridContextualActionPosition;
 }
 
 /**
@@ -28,8 +29,9 @@ interface DatagridContextualActionDropdownDisplayConfig extends ContextualAction
 interface DatagridContextualActionInlineDisplayConfig extends ContextualActionInlineDisplayConfig {
     /**
      * An enum that describes where the contextual buttons should display.
+     * If not specified, this defaults to {@link DatagridContextualActionPosition.TOP}
      */
-    position: DatagridContextualActionPosition;
+    position?: DatagridContextualActionPosition;
 }
 
 /**
@@ -62,5 +64,8 @@ export function getDefaultDatagridActionDisplayConfig(
         },
         staticActionStyling: ActionStyling.INLINE,
     };
-    return { ...defaults, ...cfg };
+    return {
+        contextual: { ...defaults.contextual, ...cfg.contextual },
+        staticActionStyling: cfg.staticActionStyling || defaults.staticActionStyling,
+    };
 }

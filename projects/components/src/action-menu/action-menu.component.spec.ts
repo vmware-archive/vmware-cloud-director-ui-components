@@ -107,6 +107,15 @@ describe('ActionMenuComponent', () => {
                 );
             }
         );
+        it('default value of buttonContents is TEXT when it is not set', function (this: HasFinderAndActionMenu) {
+            this.actionMenu.actionDisplayConfig = {
+                contextual: {
+                    styling: ActionStyling.INLINE,
+                },
+            };
+            this.finder.detectChanges();
+            expect(this.actionMenu.actionDisplayConfig.contextual.buttonContents).toEqual(TextIcon.TEXT);
+        });
     });
     it('get staticActions returns only the actions that are marked as static', function (this: HasFinderAndActionMenu): void {
         this.actionMenu.actions = [...STATIC_ACTIONS].concat([...CONTEXTUAL_FEATURED_ACTIONS]);

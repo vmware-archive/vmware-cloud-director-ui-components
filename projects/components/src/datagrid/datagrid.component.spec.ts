@@ -1058,7 +1058,13 @@ describe('DatagridComponent', () => {
             it('is not available when there are contextual actions to be displayed in the row', function (this: HasFinderAndGrid): void {
                 this.finder.detectChanges();
                 this.hostComponent.selectionType = GridSelectionType.Single;
-                this.hostComponent.actionDisplayConfig.contextual.position = DatagridContextualActionPosition.ROW;
+                this.hostComponent.actionDisplayConfig = {
+                    contextual: {
+                        ...this.hostComponent.actionDisplayConfig.contextual,
+                        position: DatagridContextualActionPosition.ROW,
+                    },
+                    staticActionStyling: this.hostComponent.actionDisplayConfig.staticActionStyling,
+                };
                 this.hostComponent.actions = [
                     {
                         textKey: 'contextual.action',
