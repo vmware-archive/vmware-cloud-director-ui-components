@@ -128,7 +128,7 @@
     <div class="tab-pane fade  tab-source-code" id="c-source">
         <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { AfterViewChecked, Directive, ElementRef, HostBinding, Input } from &#x27;@angular/core&#x27;;
 
-type ColSize &#x3D; &#x27;2&#x27; | &#x27;4&#x27; | &#x27;8&#x27; | &#x27;10&#x27;;
+type ColSize &#x3D; &#x27;3&#x27; | &#x27;4&#x27; | &#x27;8&#x27; | &#x27;9&#x27;;
 
 export interface ResponsiveInputOptions {
     disabled: boolean;
@@ -178,7 +178,7 @@ export class ResponsiveInputDirective implements AfterViewChecked {
         if (newElementWidth) {
             this.elementWidth &#x3D; newElementWidth;
             const [labelWidth, containerWidth]: ColSize[] &#x3D;
-                this.elementWidth &lt; this.breakPoint ? [&#x27;4&#x27;, &#x27;8&#x27;] : [&#x27;2&#x27;, &#x27;10&#x27;];
+                this.elementWidth &lt; this.breakPoint ? [&#x27;4&#x27;, &#x27;8&#x27;] : [&#x27;3&#x27;, &#x27;9&#x27;];
             this.applyClasses(&#x27;label&#x27;, labelWidth);
             this.applyClasses(&#x27;container&#x27;, containerWidth);
         }
@@ -187,7 +187,7 @@ export class ResponsiveInputDirective implements AfterViewChecked {
     private applyClasses(className: &#x27;label&#x27; | &#x27;container&#x27;, mdSize: ColSize): void {
         const el &#x3D; this.el.nativeElement.querySelector(&#x60;:scope &gt; .clr-control-${className}&#x60;);
         if (el) {
-            el.classList.remove(&#x27;clr-col-12&#x27;, &#x27;clr-col-md-2&#x27;, &#x27;clr-col-md-4&#x27;, &#x27;clr-col-md-8&#x27;, &#x27;clr-col-md-10&#x27;);
+            el.classList.remove(&#x27;clr-col-12&#x27;, &#x27;clr-col-md-3&#x27;, &#x27;clr-col-md-4&#x27;, &#x27;clr-col-md-8&#x27;, &#x27;clr-col-md-9&#x27;);
             el.classList.add(&#x27;clr-col-12&#x27;, &#x60;clr-col-md-${mdSize}&#x60;);
         }
     }
