@@ -350,20 +350,115 @@ describe('ActionMenuComponent', () => {
     });
 
     describe('actionsUpdate', () => {
-        it('emits event when actions input has changed', function (this: HasFinderAndActionMenu): void {
-            const spy = createSpy('actionsUpdate');
-            this.actionMenu.actionsUpdate.subscribe(spy);
-            this.actionMenu.actions = [];
-            this.finder.detectChanges();
-            expect(spy).toHaveBeenCalledTimes(1);
+        describe('with regards to actions input', () => {
+            it('emits event when actions input is provided with non empty array', function (this: HasFinderAndActionMenu): void {
+                const spy = createSpy('actionsUpdate');
+                this.actionMenu.actionsUpdate.subscribe(spy);
+                this.actionMenu.actions = [...CONTEXTUAL_ACTIONS];
+                this.finder.detectChanges();
+                expect(spy).toHaveBeenCalledTimes(1);
+            });
+
+            it('does not emit event when actions input is provided with an empty array', function (this: HasFinderAndActionMenu): void {
+                const spy = createSpy('actionsUpdate');
+                this.actionMenu.actionsUpdate.subscribe(spy);
+                this.actionMenu.actions = [];
+                this.finder.detectChanges();
+                expect(spy).toHaveBeenCalledTimes(0);
+            });
+
+            it('does not emit twice when actions input has changed with the same array', function (this: HasFinderAndActionMenu): void {
+                const actions = [...CONTEXTUAL_ACTIONS];
+                const spy = createSpy('actionsUpdate');
+                this.actionMenu.actionsUpdate.subscribe(spy);
+                this.actionMenu.actions = actions;
+                this.finder.detectChanges();
+                this.actionMenu.actions = actions;
+                this.finder.detectChanges();
+                expect(spy).toHaveBeenCalledTimes(1);
+            });
+
+            it('does not emit event when actions input is null which is handled as an empty array', function (this: HasFinderAndActionMenu): void {
+                const spy = createSpy('actionsUpdate');
+                this.actionMenu.actionsUpdate.subscribe(spy);
+                this.actionMenu.actions = [];
+                this.finder.detectChanges();
+                this.actionMenu.actions = null;
+                this.finder.detectChanges();
+                expect(spy).toHaveBeenCalledTimes(0);
+            });
+
+            it('does not emit twice when actions input has changed with an array containing same item references', function (this: HasFinderAndActionMenu): void {
+                const spy = createSpy('actionsUpdate');
+                this.actionMenu.actionsUpdate.subscribe(spy);
+                this.actionMenu.actions = [...CONTEXTUAL_ACTIONS];
+                this.finder.detectChanges();
+                this.actionMenu.actions = [...CONTEXTUAL_ACTIONS];
+                this.finder.detectChanges();
+                expect(spy).toHaveBeenCalledTimes(1);
+            });
+
+            it('emits event when actions input has changed with an array containing same items but different references', function (this: HasFinderAndActionMenu): void {
+                const action = CONTEXTUAL_ACTIONS[0];
+                const spy = createSpy('actionsUpdate');
+                this.actionMenu.actionsUpdate.subscribe(spy);
+                this.actionMenu.actions = [action];
+                this.finder.detectChanges();
+                this.actionMenu.actions = [{ ...action }];
+                this.finder.detectChanges();
+                expect(spy).toHaveBeenCalledTimes(2);
+            });
         });
-        it('emits event when selectedEntities input has changed', function (this: HasFinderAndActionMenu): void {
-            const spy = createSpy('actionsUpdate');
-            this.actionMenu.actionsUpdate.subscribe(spy);
-            this.actionMenu.actions = [];
-            this.actionMenu.selectedEntities = [];
-            this.finder.detectChanges();
-            expect(spy).toHaveBeenCalledTimes(2);
+
+        describe('with regards to selectedEntities input', () => {
+            it('emits event when selectedEntities input is provided with non empty array', function (this: HasFinderAndActionMenu): void {
+                const spy = createSpy('actionsUpdate');
+                this.actionMenu.actionsUpdate.subscribe(spy);
+                this.actionMenu.selectedEntities = [{ value: 'foo', paused: false }];
+                this.finder.detectChanges();
+                expect(spy).toHaveBeenCalledTimes(1);
+            });
+
+            it('does not emit event when selectedEntities input is provided with an empty array', function (this: HasFinderAndActionMenu): void {
+                const spy = createSpy('actionsUpdate');
+                this.actionMenu.actionsUpdate.subscribe(spy);
+                this.actionMenu.selectedEntities = [];
+                this.finder.detectChanges();
+                expect(spy).toHaveBeenCalledTimes(0);
+            });
+
+            it('does not emit twice when selectedEntities input has changed with the same array', function (this: HasFinderAndActionMenu): void {
+                const selectedEntities = [{ value: 'foo', paused: false }];
+                const spy = createSpy('actionsUpdate');
+                this.actionMenu.actionsUpdate.subscribe(spy);
+                this.actionMenu.selectedEntities = selectedEntities;
+                this.finder.detectChanges();
+                this.actionMenu.selectedEntities = selectedEntities;
+                this.finder.detectChanges();
+                expect(spy).toHaveBeenCalledTimes(1);
+            });
+
+            it('does not emit twice when selectedEntities input has changed with an array containing same item references', function (this: HasFinderAndActionMenu): void {
+                const selectedEntity = { value: 'foo', paused: false };
+                const spy = createSpy('actionsUpdate');
+                this.actionMenu.actionsUpdate.subscribe(spy);
+                this.actionMenu.selectedEntities = [selectedEntity];
+                this.finder.detectChanges();
+                this.actionMenu.selectedEntities = [selectedEntity];
+                this.finder.detectChanges();
+                expect(spy).toHaveBeenCalledTimes(1);
+            });
+
+            it('emits event when selectedEntities input has changed with an array containing same items but different references', function (this: HasFinderAndActionMenu): void {
+                const selectedEntity = { value: 'foo', paused: false };
+                const spy = createSpy('actionsUpdate');
+                this.actionMenu.actionsUpdate.subscribe(spy);
+                this.actionMenu.selectedEntities = [selectedEntity];
+                this.finder.detectChanges();
+                this.actionMenu.selectedEntities = [{ ...selectedEntity }];
+                this.finder.detectChanges();
+                expect(spy).toHaveBeenCalledTimes(2);
+            });
         });
     });
 
@@ -399,7 +494,7 @@ interface Blah {
 type HandlerData = Record[] | Blah;
 
 @Component({
-    template: ` <vcd-action-menu> </vcd-action-menu> `,
+    template: ` <vcd-action-menu></vcd-action-menu> `,
 })
 class TestHostComponent<R extends Record> {}
 
