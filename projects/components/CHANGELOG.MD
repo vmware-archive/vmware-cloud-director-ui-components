@@ -6,6 +6,9 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
+
+### Fixed
+- A bug in the number with unit where if unlimited was disabled but the user types "-1", the whole form would become disabled
 ## [2.0.0-dev.14]
 ### Added
 - Quick-search widget object
