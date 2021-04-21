@@ -214,7 +214,6 @@ import { CommonUtil } from &#x27;../utils&#x27;;
 export function getDefaultActionDisplayConfig(cfg: ActionDisplayConfig &#x3D; {}): ActionDisplayConfig {
     const defaults &#x3D; {
         contextual: {
-            featuredCount: 0,
             styling: ActionStyling.INLINE,
             buttonContents: TextIcon.TEXT,
         },
@@ -556,7 +555,7 @@ export class ActionMenuComponent&lt;R, T&gt; {
         const flattenedFeaturedActionList &#x3D; this.getFlattenedActionList(this._actions, ActionType.CONTEXTUAL_FEATURED);
         const availableFeaturedActions &#x3D; this.getAvailableActions(flattenedFeaturedActionList);
         const featuredCount &#x3D;
-            this.actionDisplayConfig.contextual.styling &#x3D;&#x3D;&#x3D; ActionStyling.DROPDOWN &amp;&amp;
+            this.actionDisplayConfig.contextual.styling &#x3D;&#x3D;&#x3D; ActionStyling.INLINE &amp;&amp;
             this.actionDisplayConfig.contextual.featuredCount;
         return featuredCount ? availableFeaturedActions.slice(0, featuredCount) : availableFeaturedActions;
     }
