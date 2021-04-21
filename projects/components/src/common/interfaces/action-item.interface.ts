@@ -151,14 +151,6 @@ export enum TextIcon {
  */
 export interface ContextualActionDropdownDisplayConfig {
     /**
-     * How many buttons should display on the featured section.
-     *
-     * Used when you want to set a limit on the number of featured buttons shown.
-     *
-     * If featuredCount is not set, it will default to all featured actions.
-     */
-    featuredCount?: number;
-    /**
      * To display actions in a dropdown
      */
     styling: ActionStyling.DROPDOWN;
@@ -174,6 +166,14 @@ export interface ContextualActionDropdownDisplayConfig {
  * {@link ActionDisplayConfig.contextual}
  */
 export interface ContextualActionInlineDisplayConfig {
+    /**
+     * How many buttons should display on the featured section.
+     *
+     * Used when you want to set a limit on the number of featured buttons shown.
+     *
+     * If featuredCount is not set, it will default to all featured actions.
+     */
+    featuredCount?: number;
     /**
      * To display actions in a inline horizontal ribbon
      */

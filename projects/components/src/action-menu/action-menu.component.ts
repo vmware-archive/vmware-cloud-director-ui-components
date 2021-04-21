@@ -21,7 +21,6 @@ import { CommonUtil } from '../utils';
 export function getDefaultActionDisplayConfig(cfg: ActionDisplayConfig = {}): ActionDisplayConfig {
     const defaults = {
         contextual: {
-            featuredCount: 0,
             styling: ActionStyling.INLINE,
             buttonContents: TextIcon.TEXT,
         },
@@ -363,7 +362,7 @@ export class ActionMenuComponent<R, T> {
         const flattenedFeaturedActionList = this.getFlattenedActionList(this._actions, ActionType.CONTEXTUAL_FEATURED);
         const availableFeaturedActions = this.getAvailableActions(flattenedFeaturedActionList);
         const featuredCount =
-            this.actionDisplayConfig.contextual.styling === ActionStyling.DROPDOWN &&
+            this.actionDisplayConfig.contextual.styling === ActionStyling.INLINE &&
             this.actionDisplayConfig.contextual.featuredCount;
         return featuredCount ? availableFeaturedActions.slice(0, featuredCount) : availableFeaturedActions;
     }
