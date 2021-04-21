@@ -12,6 +12,7 @@ import {
     DatagridActionDisplayConfig,
     DatagridComponent,
     DatagridContextualActionPosition,
+    getDefaultDatagridActionDisplayConfig,
     GridColumn,
     GridDataFetchResult,
     GridSelectionType,
@@ -153,23 +154,22 @@ export class DatagridLinkExampleComponent<R extends Record> {
         },
     ];
 
-    actionDisplayConfig: DatagridActionDisplayConfig = {
-        contextual: {
-            styling: ActionStyling.INLINE,
-            buttonContents: TextIcon.TEXT,
-            position: DatagridContextualActionPosition.TOP,
-        },
-        staticActionStyling: ActionStyling.INLINE,
-    };
+    actionDisplayConfig: DatagridActionDisplayConfig = getDefaultDatagridActionDisplayConfig();
 
     selectionType = GridSelectionType.Single;
 
     changeActionLocation(): void {
         if (this.actionDisplayConfig.contextual.position === DatagridContextualActionPosition.TOP) {
-            this.actionDisplayConfig.contextual.position = DatagridContextualActionPosition.ROW;
+            this.actionDisplayConfig = {
+                contextual: {
+                    ...getDefaultDatagridActionDisplayConfig().contextual,
+                    position: DatagridContextualActionPosition.ROW,
+                },
+                staticActionStyling: getDefaultDatagridActionDisplayConfig().staticActionStyling,
+            };
             this.selectionType = GridSelectionType.None;
         } else {
-            this.actionDisplayConfig.contextual.position = DatagridContextualActionPosition.TOP;
+            this.actionDisplayConfig = getDefaultDatagridActionDisplayConfig();
             this.selectionType = GridSelectionType.Single;
         }
     }
@@ -188,7 +188,6 @@ export class DatagridLinkExampleComponent<R extends Record> {
 
     changeContextualActionStyling(): void {
         this.actionDisplayConfig = {
-            ...this.actionDisplayConfig,
             contextual: {
                 ...this.actionDisplayConfig.contextual,
                 styling:
@@ -196,6 +195,7 @@ export class DatagridLinkExampleComponent<R extends Record> {
                         ? (ActionStyling.INLINE as any)
                         : ActionStyling.DROPDOWN,
             },
+            staticActionStyling: this.actionDisplayConfig.staticActionStyling,
         };
     }
 }

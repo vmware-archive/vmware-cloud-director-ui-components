@@ -57,8 +57,7 @@ export function getDefaultDatagridActionDisplayConfig(
 ): DatagridActionDisplayConfig {
     const defaults = {
         contextual: {
-            styling: ActionStyling.DROPDOWN,
-            featuredCount: 2,
+            styling: ActionStyling.INLINE,
             buttonContents: TextIcon.TEXT,
             position: DatagridContextualActionPosition.TOP,
         },
