@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: BSD-2-Clause
  */
 
-import { BaseWidgetObject } from '../utils/test/widget-object/widget-object';
+import { BaseWidgetObject, FindElementOptions } from '../utils/test/widget-object/widget-object';
 import { DataUi } from './quick-search.dataui';
 
 const QUICK_SEARCH_CURRENT_RESULT = '.selected';
@@ -24,10 +24,12 @@ export class QuickSearchWo<T> extends BaseWidgetObject<T> {
      */
     getInput = this.factory.dataUi(DataUi.searchInput);
 
+    _getSearchResultSectionTitles = this.internalFactory.dataUi(DataUi.searchResultSectionTitles);
+
     /**
      * Returns the titles of all sections appearing in the search results
      */
-    getSearchResultSectionTitles = this.factory.dataUi(DataUi.searchResultSectionTitles);
+    getSearchResultSectionTitles = this.factory.unwrap(this._getSearchResultSectionTitles);
 
     /**
      * Returns each search result item in each section
@@ -68,4 +70,10 @@ export class QuickSearchWo<T> extends BaseWidgetObject<T> {
      * Returns the element that represents the bottom of the search results
      */
     getBottomOfResults = this.factory.css('.bottom-of-results');
+
+    /**
+     * Gives the icon next to each section title.
+     */
+    getTitleIcons = (options?: FindElementOptions) =>
+        this._getSearchResultSectionTitles(options).get('clr-icon').unwrap();
 }

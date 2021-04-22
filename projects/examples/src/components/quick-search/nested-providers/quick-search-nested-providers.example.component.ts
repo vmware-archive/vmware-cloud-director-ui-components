@@ -20,10 +20,10 @@ import {
 export class QuickSearchNestedProvidersExampleComponent implements OnInit {
     spotlightOpen: boolean;
 
-    private actionsSearchProvider = new ActionsSearchProvider('actions1');
-    private actionsSearchProvider2 = new ActionsSearchProvider('actions2');
-    private actionsSearchProvider3 = new ActionsSearchProvider('actions3');
-    private actionsSearchProvider4 = new ActionsSearchProvider('actions4');
+    private actionsSearchProvider = new ActionsSearchProvider('actions1', false, 'home');
+    private actionsSearchProvider2 = new ActionsSearchProvider('actions2', false, 'organization');
+    private actionsSearchProvider3 = new ActionsSearchProvider('actions3', false);
+    private actionsSearchProvider4 = new ActionsSearchProvider('actions4', false, 'clipboard');
 
     constructor(private searchRegistrar: QuickSearchRegistrarService) {}
 
@@ -56,7 +56,7 @@ export class ActionsSearchProvider extends QuickSearchProviderDefaults {
 
     private actions: QuickSearchResultItem[];
 
-    constructor(public id: string, public shouldDebounceInput = false) {
+    constructor(public id: string, public shouldDebounceInput = false, public icon?: string) {
         super(shouldDebounceInput);
 
         // Build actions

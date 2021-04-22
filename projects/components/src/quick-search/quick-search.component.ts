@@ -31,6 +31,7 @@ interface SearchSection {
     isLoading: boolean;
     shouldShowText: boolean;
     hasPartialResult: PartialResult;
+    icon?: string;
 }
 
 /**
@@ -505,6 +506,7 @@ export class QuickSearchComponent {
             isLoading: true,
             shouldShowText: true,
             hasPartialResult: undefined,
+            icon: provider.icon,
         }));
         this.groupedSearchSections = this.searchService.getRegisteredNestedProviders(activeFilters).map((section) => {
             return {
@@ -515,6 +517,7 @@ export class QuickSearchComponent {
                     isLoading: true,
                     shouldShowText: true,
                     hasPartialResult: undefined,
+                    icon: provider.icon,
                 })),
             };
         });

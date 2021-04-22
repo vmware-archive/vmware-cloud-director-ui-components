@@ -7,6 +7,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [2.0.0-dev.15]
+### Changed
+- Quick search sections can now have icons.
 ### Fixed
 - A bug in the number with unit where if unlimited was disabled but the user types "-1", the whole form would become disabled
 ## [2.0.0-dev.14]
