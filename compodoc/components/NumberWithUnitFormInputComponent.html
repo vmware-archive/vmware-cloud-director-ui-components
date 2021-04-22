@@ -2838,7 +2838,7 @@ export class NumberWithUnitFormInputComponent extends BaseFormControl implements
      * Toggles the unlimited checkbox if the formValue is the unlimited value.
      */
     updateUnlimitedCheckbox() {
-        if (this.getValue() &#x3D;&#x3D;&#x3D; this.unlimitedValue &amp;&amp; !this.unlimitedControlValue) {
+        if (this.getValue() &#x3D;&#x3D;&#x3D; this.unlimitedValue &amp;&amp; !this.unlimitedControlValue &amp;&amp; this.showUnlimitedOption) {
             this.onUnlimitedCheckboxChange(true);
         }
     }
