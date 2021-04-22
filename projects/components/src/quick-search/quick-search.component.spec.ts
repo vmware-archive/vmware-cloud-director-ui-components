@@ -5,7 +5,8 @@
 
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
-import { ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing';
+import { fakeAsync, TestBed, tick } from '@angular/core/testing';
+import { By } from '@angular/platform-browser';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { ClarityModule } from '@clr/angular';
 import { MockTranslationService, TranslationService } from '@vcd/i18n';
@@ -33,6 +34,8 @@ interface Test {
 }
 
 abstract class TestProviderBase extends QuickSearchProviderDefaults {
+    icon: string;
+
     searchHandler(criteria: string): QuickSearchResultItem[] {
         return ['copy', 'create']
             .filter((item) => item.includes(criteria))
@@ -50,8 +53,9 @@ abstract class TestProviderBase extends QuickSearchProviderDefaults {
 class SimpleSearchProvider extends TestProviderBase {
     id = 'simple';
 
-    constructor(public shouldDebounceInput: boolean) {
+    constructor(public shouldDebounceInput: boolean, icon?: string) {
         super(shouldDebounceInput);
+        this.icon = icon;
     }
     search(criteria: string): QuickSearchResultsType {
         const items = this.searchHandler(criteria);
@@ -358,11 +362,10 @@ describe('QuickSearchComponent', () => {
                     this.quickSearch.getInput().type('c');
                     const partial = TestBed.inject(
                         TranslationService
-                    ).translate('vcd.cc.quickSearch.partialResultNotation', [{ lastItem: 2, totalItems: 3 }]);
-                    expect(this.quickSearch.getSearchResultSectionTitles().toArray()[1].text()).toContain(
-                        partialSearchProvider.sectionName
-                    );
-                    expect(this.quickSearch.getSearchResultSectionTitles().toArray()[1].text()).toContain(partial);
+                    ).translate('vcd.cc.quickSearch.partialResultTitle', [
+                        { title: partialSearchProvider.sectionName, lastItem: 2, totalItems: 3 },
+                    ]);
+                    expect(this.quickSearch.getSearchResultSectionTitles().toArray()[1].text()).toEqual(partial);
                 });
 
                 it('displays warning message to refine the search', function (this: Test): void {
@@ -421,6 +424,20 @@ describe('QuickSearchComponent', () => {
             //
             expect(this.quickSearch.getSearchResultItems().length()).toBe(1);
             expect(this.quickSearch.getSearchResultSectionTitles().text()).toEqual('section');
+        });
+
+        it('displays icon next to a section title', function (this: Test): void {
+            // Open
+            const simpleSearchProvider = new SimpleSearchProvider(false, 'user');
+            simpleSearchProvider.sectionName = 'new section';
+            this.quickSearchData.spotlightSearchService.registerProvider(simpleSearchProvider);
+            this.finder.hostComponent.spotlightOpen = true;
+            this.finder.detectChanges();
+            // Set search
+            this.quickSearch.getInput().type('copy');
+            expect(this.quickSearch.getTitleIcons().map((el) => el.attributes().getNamedItem('shape').value)).toEqual([
+                'user',
+            ]);
         });
 
         it('displays all section titles when there are results', function (this: Test): void {
