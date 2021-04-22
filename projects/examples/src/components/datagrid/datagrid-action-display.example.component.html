@@ -1,0 +1,34 @@
+<h4 class="example-heading">Actions displayed on top as inline bar</h4>
+<p>
+    This is the default display configuration used by datagrid if no display config is provided. When displayed inline,
+    Contextual actions that are marked as featured are shown towards the left outside the dropdown containing all the
+    contextual actions
+</p>
+<vcd-datagrid
+    [gridData]="gridData"
+    (gridRefresh)="refresh($event)"
+    [columns]="columns"
+    [actions]="actions"
+    [actionDisplayConfig]="topAndInlineActionDisplayConfig"
+    [selectionType]="singleSelectionType"
+></vcd-datagrid>
+
+<h4 class="example-heading">Contextual actions displayed in rows as inline bar</h4>
+<p>Only contextual actions are displayed in rows and static actions are always displayed on top</p>
+<vcd-datagrid
+    [gridData]="gridData"
+    (gridRefresh)="refresh($event)"
+    [columns]="columns"
+    [actions]="actions"
+    [actionDisplayConfig]="rowAndInlineActionDisplayConfig"
+></vcd-datagrid>
+
+<h4 class="example-heading">Contextual actions displayed in rows as dropdown</h4>
+<p>Only contextual actions are displayed in rows and static actions are always displayed on top</p>
+<vcd-datagrid
+    [gridData]="gridData"
+    (gridRefresh)="refresh($event)"
+    [columns]="columns"
+    [actions]="actions"
+    [actionDisplayConfig]="rowAndDropdownActionDisplayConfig"
+></vcd-datagrid>
