@@ -199,6 +199,7 @@ interface SearchSection {
     isLoading: boolean;
     shouldShowText: boolean;
     hasPartialResult: PartialResult;
+    icon?: string;
 }
 
 /**
@@ -673,6 +674,7 @@ export class QuickSearchComponent {
             isLoading: true,
             shouldShowText: true,
             hasPartialResult: undefined,
+            icon: provider.icon,
         }));
         this.groupedSearchSections &#x3D; this.searchService.getRegisteredNestedProviders(activeFilters).map((section) &#x3D;&gt; {
             return {
@@ -683,6 +685,7 @@ export class QuickSearchComponent {
                     isLoading: true,
                     shouldShowText: true,
                     hasPartialResult: undefined,
+                    icon: provider.icon,
                 })),
             };
         });

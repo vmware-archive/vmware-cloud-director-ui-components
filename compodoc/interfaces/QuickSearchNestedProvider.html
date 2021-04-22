@@ -331,6 +331,11 @@ export interface QuickSearchProvider {
      * Says whether this provider can return results with the given filter applied.
      */
     canHandleFilter?(filter: ActiveQuickSearchFilter): boolean;
+
+    /**
+     * The icon that is displayed next to the search section title. This is the shape property put into the clr-icon.
+     */
+    icon?: string;
 }
 
 export abstract class QuickSearchProviderDefaults implements QuickSearchProvider {
