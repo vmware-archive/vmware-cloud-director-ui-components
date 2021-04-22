@@ -282,6 +282,133 @@ describe('DatagridComponent', () => {
                 });
             });
 
+            describe('datagridSelection getter', () => {
+                describe('when selectionType is set to multi', () => {
+                    beforeEach(function (this: HasFinderAndGrid): void {
+                        this.hostComponent.selectionType = GridSelectionType.Multi;
+                        this.finder.detectChanges();
+                    });
+
+                    it('returns same reference when there is no selection', fakeAsync(function (
+                        this: HasFinderAndGrid
+                    ): void {
+                        const selection = this.hostComponent.grid.datagridSelection;
+                        tick();
+                        this.finder.detectChanges();
+                        expect(this.hostComponent.grid.datagridSelection).toEqual([]);
+                        expect(this.hostComponent.grid.datagridSelection).toBe(selection);
+                    }));
+                    it('returns same reference when there is a selection that was not changed', fakeAsync(function (
+                        this: HasFinderAndGrid
+                    ): void {
+                        this.clrGridWidget.getSelectionLabelForRow(0).click();
+                        tick();
+                        this.finder.detectChanges();
+                        const selection = this.hostComponent.grid.datagridSelection;
+                        tick();
+                        this.finder.detectChanges();
+                        expect(this.hostComponent.grid.datagridSelection).toBe(selection);
+                    }));
+                    it('returns new reference when there is a selection that was changed', fakeAsync(function (
+                        this: HasFinderAndGrid
+                    ): void {
+                        // Select an item
+                        this.clrGridWidget.getSelectionLabelForRow(0).click();
+                        tick();
+                        this.finder.detectChanges();
+                        const selection = this.hostComponent.grid.datagridSelection;
+                        // Deselect the item
+                        this.clrGridWidget.getSelectionLabelForRow(0).click();
+                        tick();
+                        this.finder.detectChanges();
+                        // Select the same item
+                        this.clrGridWidget.getSelectionLabelForRow(0).click();
+                        tick();
+                        this.finder.detectChanges();
+                        expect(this.hostComponent.grid.datagridSelection).toEqual(selection);
+                        expect(this.hostComponent.grid.datagridSelection[0]).toBe(selection[0]);
+                        expect(this.hostComponent.grid.datagridSelection).not.toBe(selection);
+                        tick();
+                    }));
+                });
+
+                describe('when selectionType is set to single', () => {
+                    beforeEach(function (this: HasFinderAndGrid): void {
+                        this.hostComponent.selectionType = GridSelectionType.Single;
+                        this.finder.detectChanges();
+                    });
+
+                    it('returns same reference when there is no selection', fakeAsync(function (
+                        this: HasFinderAndGrid
+                    ): void {
+                        const selection = this.hostComponent.grid.datagridSelection;
+                        tick();
+                        this.finder.detectChanges();
+                        expect(this.hostComponent.grid.datagridSelection).toEqual([]);
+                        expect(this.hostComponent.grid.datagridSelection).toBe(selection);
+                    }));
+
+                    it('returns same reference when there is a selection that was not changed', fakeAsync(function (
+                        this: HasFinderAndGrid
+                    ): void {
+                        this.clrGridWidget.getSelectionLabelForRow(0).click();
+                        tick();
+                        this.finder.detectChanges();
+                        const selection = this.hostComponent.grid.datagridSelection;
+                        tick();
+                        this.finder.detectChanges();
+                        expect(this.hostComponent.grid.datagridSelection).toBe(selection);
+                    }));
+
+                    it('returns new reference when there is a selection that not changed', fakeAsync(function (
+                        this: HasFinderAndGrid
+                    ): void {
+                        // Select an item
+                        this.clrGridWidget.getSelectionLabelForRow(0).click();
+                        tick();
+                        this.finder.detectChanges();
+                        const selection = this.hostComponent.grid.datagridSelection;
+                        // Select another item
+                        this.clrGridWidget.getSelectionLabelForRow(1).click();
+                        tick();
+                        this.finder.detectChanges();
+                        // Select the first item again
+                        this.clrGridWidget.getSelectionLabelForRow(0).click();
+                        tick();
+                        this.finder.detectChanges();
+                        expect(this.hostComponent.grid.datagridSelection).toEqual(selection);
+                        expect(this.hostComponent.grid.datagridSelection[0]).toBe(selection[0]);
+                        expect(this.hostComponent.grid.datagridSelection).not.toBe(selection);
+                    }));
+                });
+
+                it('returns same reference when selectionType is not set', fakeAsync(function (
+                    this: HasFinderAndGrid
+                ): void {
+                    tick();
+                    this.finder.detectChanges();
+                    const selection = this.hostComponent.grid.datagridSelection;
+                    tick();
+                    this.finder.detectChanges();
+                    expect(this.hostComponent.grid.datagridSelection).toEqual([]);
+                    expect(this.hostComponent.grid.datagridSelection).toBe(selection);
+                }));
+
+                it('returns an empty array when selectionType is set to none', fakeAsync(function (
+                    this: HasFinderAndGrid
+                ): void {
+                    this.hostComponent.selectionType = GridSelectionType.None;
+                    this.finder.detectChanges();
+                    tick();
+                    this.finder.detectChanges();
+                    const selection = this.hostComponent.grid.datagridSelection;
+                    tick();
+                    this.finder.detectChanges();
+                    expect(this.hostComponent.grid.datagridSelection).toEqual([]);
+                    expect(this.hostComponent.grid.datagridSelection).toBe(selection);
+                }));
+            });
+
             describe('@Output() selectionChanged', () => {
                 it('emits multiple rows when set to multi selection', async function (this: HasFinderAndGrid): Promise<
                     void
@@ -1329,7 +1456,6 @@ describe('DatagridComponent', () => {
                 [clrDatagridCssClass]="clrDatagridCssClass"
                 [clrDatarowCssClassGetter]="clrDatarowCssClassGetter"
                 [selectionType]="selectionType"
-                (datagridSelectionChange)="selectionChanged($event)"
                 [paginationDropdownText]="paginationText"
                 [pagination]="pagination"
                 [actions]="actions"
@@ -1343,6 +1469,7 @@ describe('DatagridComponent', () => {
                 [emptyGridPlaceholder]="placeholder"
                 [detailPane]="detailPane"
                 [(datagridSelection)]="datagridSelection"
+                (datagridSelectionChange)="selectionChanged($event)"
                 [preserveSelection]="preserveSelection"
             >
             </vcd-datagrid>
