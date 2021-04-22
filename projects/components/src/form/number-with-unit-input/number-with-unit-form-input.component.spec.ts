@@ -65,6 +65,16 @@ const [MIN, MAX] = [1000, 10000];
             class="no-given-units"
         >
         </vcd-number-with-unit-form-input>
+        <vcd-number-with-unit-form-input
+            [formControl]="cpuLimit"
+            [label]="'cpu.limit' | translate"
+            [unitOptions]="hertzOptions"
+            [inputValueUnit]="formControlValueUnit"
+            [showUnlimitedOption]="false"
+            [description]="'sizingPolicies.form.cpuLimit.description' | translate"
+            class="no-unlimited"
+        >
+        </vcd-number-with-unit-form-input>
     `,
 })
 export class TestHostComponent {
@@ -148,7 +158,7 @@ describe('VcdNumberWithUnitFormInputComponent', () => {
             expect(numberWithUnitInputUnlimited.selectedUnitDisplayValue).toEqual('MHz');
         });
 
-        it('selects unlimited when the unlimited value is typed', fakeAsync(() => {
+        it('selects unlimited when the unlimited value is typed if unlimited is enabled', fakeAsync(() => {
             expect(numberWithUnitInput.displayValue).toEqual('');
             numberWithUnitInput.typeInput('-1');
             tick();
@@ -161,7 +171,27 @@ describe('VcdNumberWithUnitFormInputComponent', () => {
             tick();
             numberWithUnitInput.detectChanges();
             expect(numberWithUnitInput.isInputValueFocused).toBe(false);
+            expect(numberWithUnitInput.isInputFieldDisabled).toBe(true);
             expect(numberWithUnitInput.displayValue).toEqual(ts.translate('vcd.cc.unlimited'));
+        }));
+
+        it('does not select unlimited when the unlimited value is typed if unlimited is disabled', fakeAsync(() => {
+            const noUnlimited = finder.find({
+                woConstructor: NumberWithUnitFormInputWidgetObject,
+                className: 'no-unlimited',
+            });
+            expect(noUnlimited.displayValue).toEqual('');
+            noUnlimited.typeInput('-1');
+            tick();
+            noUnlimited.detectChanges();
+            expect(noUnlimited.isInputValueFocused).toBe(true);
+            expect(noUnlimited.displayValue).toEqual(ts.translate(Hertz.Mhz.getValueWithUnitTranslationKey(), [-1]));
+            noUnlimited.blurInput();
+            tick();
+            noUnlimited.detectChanges();
+            expect(noUnlimited.isInputValueFocused).toBe(true);
+            expect(noUnlimited.isInputFieldDisabled).toBe(false);
+            expect(noUnlimited.displayValue).toEqual(ts.translate(Hertz.Mhz.getValueWithUnitTranslationKey(), [-1]));
         }));
     });
 
