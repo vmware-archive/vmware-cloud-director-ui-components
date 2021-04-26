@@ -45,6 +45,9 @@ Same as 4.0.1-dev.1 . Created because we'll use major versions that match Angula
 ### No Changes
 - This version is identical to dev.27 and rc.0
 
+### Fixed
+- A bug where findWidget in Cypress searched from the root rather than from the current widget
+
 ## [2.0.0-rc.0]
 
 ### No Changes
