@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+
+### Fixes
+- Fix pinned quick search appearing above modals
+
 ## [2.0.0-dev.20]
 ### Changed
 - BREAKING: Reworked Quick Search Filters
