@@ -261,8 +261,19 @@ export class ActionMenuComponent&lt;R, T&gt; {
      * List of actions containing both static and contextual that are given by the calling component
      */
     @Input() set actions(actions: ActionItem&lt;R, T&gt;[]) {
+        actions &#x3D; actions || [];
+        // Shallow equal does the job for most of the cases and currently saves a lot of calculations
+        if (this.isShallowEqual(actions, this._originalActions)) {
+            return;
+        }
+        this._originalActions &#x3D; actions;
         this.refreshActions(actions);
     }
+
+    /**
+     * Original actions as provided to this component without any modifications
+     */
+    private _originalActions: ActionItem&lt;R, T&gt;[] &#x3D; [];
 
     /**
      * Access modifier is public in order to access this property in unit tests
@@ -290,7 +301,7 @@ export class ActionMenuComponent&lt;R, T&gt; {
      * Copy of actions passed with their availability call backs. This is because, when the selected entities get updated, we need to use
      * those CBs to calculate the availability again
      */
-    private actionsWithAvailabilityCb: ActionItem&lt;R, T&gt;[];
+    private actionsWithAvailabilityCb: ActionItem&lt;R, T&gt;[] &#x3D; [];
 
     /**
      * When there are no nested actions and if all of the contextual actions are marked to be featured, there is no need to show
@@ -325,6 +336,10 @@ export class ActionMenuComponent&lt;R, T&gt; {
      * availability of actions, action lists are updated
      */
     @Input() set selectedEntities(val: R[]) {
+        // Shallow equal does the job for most of the cases and currently saves a lot of calculations
+        if (this.isShallowEqual(val, this._selectedEntities)) {
+            return;
+        }
         this._selectedEntities &#x3D; val;
         this.updateDisplayedActions();
     }
@@ -506,6 +521,8 @@ export class ActionMenuComponent&lt;R, T&gt; {
         this.contextualActions &#x3D; this.getContextualActions();
         this.staticDropdownActions &#x3D; this.getStaticDropdownActions();
         this.updateActionDisplayFlags();
+        // Emit an update that actions have been changed
+        this.actionsUpdate.emit();
     }
 
     private updateActionDisplayFlags(): void {
@@ -519,7 +536,6 @@ export class ActionMenuComponent&lt;R, T&gt; {
             this.shouldDisplayStaticActions(this.actionStyling.DROPDOWN) ||
             this.shouldDisplayStaticFeaturedActions(this.actionStyling.DROPDOWN);
         this.shouldDisplayContextualActionsDropdown &#x3D; this.shouldDisplayContextualActions(this.actionStyling.DROPDOWN);
-        this.actionsUpdate.emit();
     }
 
     /**
@@ -665,6 +681,30 @@ export class ActionMenuComponent&lt;R, T&gt; {
             this.contextualActions.length &amp;&amp;
             this.actionDisplayConfig.contextual.styling &#x3D;&#x3D;&#x3D; style
         );
+    }
+
+    /**
+     * Performance optimization function to do shallow comparison of two arrays.
+     * @param arr1
+     * @param arr2
+     */
+    private isShallowEqual(arr1: unknown[], arr2: unknown[]): boolean {
+        if (arr1 &#x3D;&#x3D;&#x3D; arr2) {
+            return true;
+        }
+        if ((!arr1 &amp;&amp; arr2) || (arr1 &amp;&amp; !arr2)) {
+            return false;
+        }
+        if (arr1.length !&#x3D;&#x3D; arr2.length) {
+            return false;
+        }
+        if (arr1.length &#x3D;&#x3D;&#x3D; 0 &amp;&amp; arr2.length &#x3D;&#x3D;&#x3D; 0) {
+            return true;
+        }
+        if (arr1.every((item, index) &#x3D;&gt; item &#x3D;&#x3D;&#x3D; arr2[index])) {
+            return true;
+        }
+        return false;
     }
 }
 </code></pre>
