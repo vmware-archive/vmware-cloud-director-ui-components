@@ -6,6 +6,9 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
+## [2.0.0-dev.17]
+### Changed
+- Selected entities input of action menu converts array with single null item to an empty array
 
 ## [2.0.0-dev.16]
 ### Added

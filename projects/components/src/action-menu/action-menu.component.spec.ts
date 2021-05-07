@@ -479,6 +479,13 @@ describe('ActionMenuComponent', () => {
             expect(this.actionMenu.contextualFeaturedActions.length).toEqual(1);
         });
     });
+
+    fdescribe('set selectedEntities', () => {
+        it('when an array with single null item is passed, the input is set as empty array', function (this: HasFinderAndActionMenu): void {
+            this.actionMenu.selectedEntities = [null];
+            expect(this.actionMenu.selectedEntities.length).toEqual(0);
+        });
+    });
 });
 
 interface Record {

@@ -143,6 +143,9 @@ export class ActionMenuComponent<R, T> {
      * availability of actions, action lists are updated
      */
     @Input() set selectedEntities(val: R[]) {
+        if (val?.length === 1) {
+            val = val[0] ? val : [];
+        }
         // Shallow equal does the job for most of the cases and currently saves a lot of calculations
         if (this.isShallowEqual(val, this._selectedEntities)) {
             return;
