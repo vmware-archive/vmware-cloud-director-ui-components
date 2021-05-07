@@ -14,17 +14,18 @@ import {
     ContextualActionInlineDisplayConfig,
     TextIcon,
 } from '../common/interfaces/index';
-import { WidgetFinder, WidgetObject } from '../utils/test/widget-object';
+import { BaseWidgetObject } from '../utils/test/widget-object/widget-object';
+import { AngularWidgetObjectFinder } from '../utils/test/widget-object/angular/angular-widget-finder';
 import { ActionMenuComponent, getDefaultActionDisplayConfig } from './action-menu.component';
 import { VcdActionMenuModule } from './action-menu.module';
 import createSpy = jasmine.createSpy;
 
 interface HasFinderAndActionMenu {
-    finder: WidgetFinder<TestHostComponent<Record>>;
+    finder: AngularWidgetObjectFinder<TestHostComponent<Record>>;
     actionMenu: ActionMenuComponent<Record, HandlerData>;
 }
 
-export class ActionMenuWidgetObject<R, T> extends WidgetObject<ActionMenuComponent<R, T>> {
+export class ActionMenuWidgetObject<T> extends BaseWidgetObject<T> {
     static tagName = 'vcd-action-menu';
 }
 
@@ -41,11 +42,9 @@ describe('ActionMenuComponent', () => {
             declarations: [TestHostComponent],
         }).compileComponents();
 
-        this.finder = new WidgetFinder(TestHostComponent);
+        this.finder = new AngularWidgetObjectFinder(TestHostComponent);
         this.finder.detectChanges();
-        this.actionMenu = this.finder.find({
-            woConstructor: ActionMenuWidgetObject,
-        }).component as ActionMenuComponent<Record, HandlerData>;
+        this.actionMenu = this.finder.find(ActionMenuWidgetObject).self().getComponentInstance();
     });
 
     describe('set actions', () => {
@@ -480,10 +479,18 @@ describe('ActionMenuComponent', () => {
         });
     });
 
-    fdescribe('set selectedEntities', () => {
-        it('when an array with single null item is passed, the input is set as empty array', function (this: HasFinderAndActionMenu): void {
-            this.actionMenu.selectedEntities = [null];
-            expect(this.actionMenu.selectedEntities.length).toEqual(0);
+    describe('set selectedEntities', () => {
+        it('when null is passed as input, displayed actions are not updated', function (this: HasFinderAndActionMenu): void {
+            const spy = spyOn(this.actionMenu, 'updateDisplayedActions').and.callThrough();
+
+            this.actionMenu.selectedEntities = null;
+            expect(spy).not.toHaveBeenCalled();
+
+            this.actionMenu.selectedEntities = {
+                value: 'foo',
+                paused: false,
+            };
+            expect(spy).toHaveBeenCalled();
         });
     });
 });

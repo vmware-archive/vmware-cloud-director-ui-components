@@ -5,6 +5,7 @@
 
 import { Component, EventEmitter, Input, Output, TrackByFunction } from '@angular/core';
 import { isObservable, Observable } from 'rxjs';
+import { isArray } from 'rxjs/internal-compatibility';
 import {
     ActionDisplayConfig,
     ActionItem,
@@ -139,26 +140,6 @@ export class ActionMenuComponent<R, T> {
     @Input() disabled: boolean;
 
     /**
-     * The list of entities selected on which contextualActions are performed. As they are also used for calculating the
-     * availability of actions, action lists are updated
-     */
-    @Input() set selectedEntities(val: R[]) {
-        if (val?.length === 1) {
-            val = val[0] ? val : [];
-        }
-        // Shallow equal does the job for most of the cases and currently saves a lot of calculations
-        if (this.isShallowEqual(val, this._selectedEntities)) {
-            return;
-        }
-        this._selectedEntities = val;
-        this.updateDisplayedActions();
-    }
-    private _selectedEntities: R[] = [];
-    get selectedEntities(): R[] {
-        return this._selectedEntities;
-    }
-
-    /**
      * The direction with respect to the root dropdown trigger button in which the root drop down should open
      * {@link DropdownComponent.dropdownPosition}
      */
@@ -251,6 +232,31 @@ export class ActionMenuComponent<R, T> {
      * Used for deciding if the availability has to be passed through an Async pipe in the template
      */
     isObservable = isObservable;
+
+    /**
+     * The list of entities selected on which contextualActions are performed. As they are also used for calculating the
+     * availability of actions, action lists are updated
+     */
+    @Input() set selectedEntities(val: R[] | R) {
+        if (!Array.isArray(val)) {
+            val = val ? [val] : [];
+        }
+        // Shallow equal does the job for most of the cases and currently saves a lot of calculations
+        if (this.isShallowEqual(val, this._selectedEntities)) {
+            return;
+        }
+        this._selectedEntities = val;
+        this.updateDisplayedActions();
+    }
+    private _selectedEntities: R[] = [];
+
+    /**
+     * This not a getter because, getter always returns an array while the setter above can accept an array or a single
+     * item
+     */
+    getSelectedEntities(): R[] {
+        return this._selectedEntities;
+    }
 
     /**
      * Returns the actions to be shown
@@ -362,7 +368,8 @@ export class ActionMenuComponent<R, T> {
             isActionAvailable = action.availability;
         }
         if (CommonUtil.isFunction(action.availability)) {
-            isActionAvailable = this.selectedEntities?.length > 0 && action.availability(this.selectedEntities);
+            isActionAvailable =
+                this.getSelectedEntities()?.length > 0 && action.availability(this.getSelectedEntities());
         }
         return isActionAvailable || this.isActionDisabled(action);
     }
@@ -375,7 +382,7 @@ export class ActionMenuComponent<R, T> {
     }
 
     private getContextualFeaturedActions(): ActionItemInternal<R, T>[] {
-        if (!this.selectedEntities?.length) {
+        if (!this.getSelectedEntities()?.length) {
             return [];
         }
         const flattenedFeaturedActionList = this.getFlattenedActionList(this._actions, ActionType.CONTEXTUAL_FEATURED);
@@ -401,7 +408,7 @@ export class ActionMenuComponent<R, T> {
     }
 
     private getContextualActions(): ActionItemInternal<R, T>[] {
-        if (!this.selectedEntities?.length) {
+        if (!this.getSelectedEntities()?.length) {
             return [];
         }
         const contextualActions = this._actions.filter(
@@ -438,7 +445,7 @@ export class ActionMenuComponent<R, T> {
             return;
         }
         if (action.handler) {
-            action.handler(this.selectedEntities, action.handlerData);
+            action.handler(this.getSelectedEntities(), action.handlerData);
         }
     }
 
@@ -450,7 +457,7 @@ export class ActionMenuComponent<R, T> {
             return false;
         }
         if (CommonUtil.isFunction(action.disabled)) {
-            return action.disabled(this.selectedEntities);
+            return action.disabled(this.getSelectedEntities());
         }
         return action.disabled;
     }
@@ -487,7 +494,7 @@ export class ActionMenuComponent<R, T> {
 
     private shouldDisplayContextualActions(style: ActionStyling): boolean {
         return (
-            this.selectedEntities?.length &&
+            this.getSelectedEntities()?.length &&
             this.contextualActions.length &&
             this.actionDisplayConfig.contextual.styling === style
         );
