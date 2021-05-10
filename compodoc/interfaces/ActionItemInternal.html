@@ -332,23 +332,6 @@ export class ActionMenuComponent&lt;R, T&gt; {
     @Input() disabled: boolean;
 
     /**
-     * The list of entities selected on which contextualActions are performed. As they are also used for calculating the
-     * availability of actions, action lists are updated
-     */
-    @Input() set selectedEntities(val: R[]) {
-        // Shallow equal does the job for most of the cases and currently saves a lot of calculations
-        if (this.isShallowEqual(val, this._selectedEntities)) {
-            return;
-        }
-        this._selectedEntities &#x3D; val;
-        this.updateDisplayedActions();
-    }
-    private _selectedEntities: R[] &#x3D; [];
-    get selectedEntities(): R[] {
-        return this._selectedEntities;
-    }
-
-    /**
      * The direction with respect to the root dropdown trigger button in which the root drop down should open
      * {@link DropdownComponent.dropdownPosition}
      */
@@ -441,6 +424,32 @@ export class ActionMenuComponent&lt;R, T&gt; {
      * Used for deciding if the availability has to be passed through an Async pipe in the template
      */
     isObservable &#x3D; isObservable;
+
+    /**
+     * The list of entities selected on which contextualActions are performed. As they are also used for calculating the
+     * availability of actions, action lists are updated when the input is updated
+     * @param val Is an array in case of batch selection and is a single item for example in the case of data grids with single selection
+     */
+    @Input() set selectedEntities(val: R[] | R) {
+        if (!Array.isArray(val)) {
+            val &#x3D; val ? [val] : [];
+        }
+        // Shallow equal does the job for most of the cases and currently saves a lot of calculations
+        if (this.isShallowEqual(val, this._selectedEntities)) {
+            return;
+        }
+        this._selectedEntities &#x3D; val;
+        this.updateDisplayedActions();
+    }
+    private _selectedEntities: R[] &#x3D; [];
+
+    /**
+     * Returns the selected entities
+     * Note: This is not a getter because its matching setter can accept an array or a single item but this method always returns an array.
+     */
+    getSelectedEntities(): R[] {
+        return this._selectedEntities;
+    }
 
     /**
      * Returns the actions to be shown
@@ -552,7 +561,8 @@ export class ActionMenuComponent&lt;R, T&gt; {
             isActionAvailable &#x3D; action.availability;
         }
         if (CommonUtil.isFunction(action.availability)) {
-            isActionAvailable &#x3D; this.selectedEntities?.length &gt; 0 &amp;&amp; action.availability(this.selectedEntities);
+            isActionAvailable &#x3D;
+                this.getSelectedEntities().length &gt; 0 &amp;&amp; action.availability(this.getSelectedEntities());
         }
         return isActionAvailable || this.isActionDisabled(action);
     }
@@ -565,7 +575,7 @@ export class ActionMenuComponent&lt;R, T&gt; {
     }
 
     private getContextualFeaturedActions(): ActionItemInternal&lt;R, T&gt;[] {
-        if (!this.selectedEntities?.length) {
+        if (!this.getSelectedEntities().length) {
             return [];
         }
         const flattenedFeaturedActionList &#x3D; this.getFlattenedActionList(this._actions, ActionType.CONTEXTUAL_FEATURED);
@@ -591,7 +601,7 @@ export class ActionMenuComponent&lt;R, T&gt; {
     }
 
     private getContextualActions(): ActionItemInternal&lt;R, T&gt;[] {
-        if (!this.selectedEntities?.length) {
+        if (!this.getSelectedEntities().length) {
             return [];
         }
         const contextualActions &#x3D; this._actions.filter(
@@ -628,7 +638,7 @@ export class ActionMenuComponent&lt;R, T&gt; {
             return;
         }
         if (action.handler) {
-            action.handler(this.selectedEntities, action.handlerData);
+            action.handler(this.getSelectedEntities(), action.handlerData);
         }
     }
 
@@ -640,7 +650,7 @@ export class ActionMenuComponent&lt;R, T&gt; {
             return false;
         }
         if (CommonUtil.isFunction(action.disabled)) {
-            return action.disabled(this.selectedEntities);
+            return action.disabled(this.getSelectedEntities());
         }
         return action.disabled;
     }
@@ -677,7 +687,7 @@ export class ActionMenuComponent&lt;R, T&gt; {
 
     private shouldDisplayContextualActions(style: ActionStyling): boolean {
         return (
-            this.selectedEntities?.length &amp;&amp;
+            this.getSelectedEntities().length &amp;&amp;
             this.contextualActions.length &amp;&amp;
             this.actionDisplayConfig.contextual.styling &#x3D;&#x3D;&#x3D; style
         );
