@@ -5,7 +5,6 @@
 
 import { Component, EventEmitter, Input, Output, TrackByFunction } from '@angular/core';
 import { isObservable, Observable } from 'rxjs';
-import { isArray } from 'rxjs/internal-compatibility';
 import {
     ActionDisplayConfig,
     ActionItem,
@@ -252,8 +251,8 @@ export class ActionMenuComponent<R, T> {
     private _selectedEntities: R[] = [];
 
     /**
-     * This not a getter because getter always returns an array while the setter above can accept an array or a single
-     * item
+     * Returns the selected entities
+     * Note: This is not a getter because its matching setter can accept an array or a single item but this method always returns an array.
      */
     getSelectedEntities(): R[] {
         return this._selectedEntities;
@@ -370,7 +369,7 @@ export class ActionMenuComponent<R, T> {
         }
         if (CommonUtil.isFunction(action.availability)) {
             isActionAvailable =
-                this.getSelectedEntities()?.length > 0 && action.availability(this.getSelectedEntities());
+                this.getSelectedEntities().length > 0 && action.availability(this.getSelectedEntities());
         }
         return isActionAvailable || this.isActionDisabled(action);
     }
@@ -383,7 +382,7 @@ export class ActionMenuComponent<R, T> {
     }
 
     private getContextualFeaturedActions(): ActionItemInternal<R, T>[] {
-        if (!this.getSelectedEntities()?.length) {
+        if (!this.getSelectedEntities().length) {
             return [];
         }
         const flattenedFeaturedActionList = this.getFlattenedActionList(this._actions, ActionType.CONTEXTUAL_FEATURED);
@@ -409,7 +408,7 @@ export class ActionMenuComponent<R, T> {
     }
 
     private getContextualActions(): ActionItemInternal<R, T>[] {
-        if (!this.getSelectedEntities()?.length) {
+        if (!this.getSelectedEntities().length) {
             return [];
         }
         const contextualActions = this._actions.filter(
@@ -495,7 +494,7 @@ export class ActionMenuComponent<R, T> {
 
     private shouldDisplayContextualActions(style: ActionStyling): boolean {
         return (
-            this.getSelectedEntities()?.length &&
+            this.getSelectedEntities().length &&
             this.contextualActions.length &&
             this.actionDisplayConfig.contextual.styling === style
         );
