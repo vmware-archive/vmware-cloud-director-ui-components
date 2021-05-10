@@ -252,7 +252,7 @@ export class ActionMenuComponent<R, T> {
     private _selectedEntities: R[] = [];
 
     /**
-     * This not a getter because, getter always returns an array while the setter above can accept an array or a single
+     * This not a getter because getter always returns an array while the setter above can accept an array or a single
      * item
      */
     getSelectedEntities(): R[] {
