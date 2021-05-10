@@ -480,6 +480,28 @@ describe('ActionMenuComponent', () => {
     });
 
     describe('set selectedEntities', () => {
+        it('accepts single item as input', function (this: HasFinderAndActionMenu): void {
+            const singleItem = {
+                value: 'foo',
+                paused: false,
+            };
+            this.actionMenu.selectedEntities = singleItem;
+            expect(this.actionMenu.getSelectedEntities()).toEqual([singleItem]);
+        });
+        it('accepts array as input', function (this: HasFinderAndActionMenu): void {
+            const arrayOfItems = [
+                {
+                    value: 'foo',
+                    paused: false,
+                },
+                {
+                    value: 'blah',
+                    paused: true,
+                },
+            ];
+            this.actionMenu.selectedEntities = arrayOfItems;
+            expect(this.actionMenu.getSelectedEntities()).toBe(arrayOfItems);
+        });
         it('when null is passed as input, displayed actions are not updated', function (this: HasFinderAndActionMenu): void {
             const spy = spyOn(this.actionMenu, 'updateDisplayedActions').and.callThrough();
 

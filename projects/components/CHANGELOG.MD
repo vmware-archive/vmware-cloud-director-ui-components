@@ -8,7 +8,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 ## [2.0.0-dev.17]
 ### Changed
-- Selected entities input of action menu converts array with single null item to an empty array
+- The selectedEntities input of ActionMenuComponent now takes a single item as a convenience to callers
+- BREAKING: get selectedEntities is changed to getSelectedEntities() as the types of the setter and getter are not same
 
 ## [2.0.0-dev.16]
 ### Added

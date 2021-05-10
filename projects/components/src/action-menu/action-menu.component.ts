@@ -235,7 +235,8 @@ export class ActionMenuComponent<R, T> {
 
     /**
      * The list of entities selected on which contextualActions are performed. As they are also used for calculating the
-     * availability of actions, action lists are updated
+     * availability of actions, action lists are updated when the input is updated
+     * @param val Is an array in case of batch selection and is a single item for example in the case of data grids with single selection
      */
     @Input() set selectedEntities(val: R[] | R) {
         if (!Array.isArray(val)) {
