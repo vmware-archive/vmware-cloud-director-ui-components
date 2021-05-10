@@ -6,6 +6,12 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
+## [2.0.0-dev.17]
+### Changed
+- `ActionMenuComponent`'s `@Input set selectedEntities` now also takes a single item as a convenience to callers
+- BREAKING: `ActionMenuComponent`'s `get selectedEntities(): T[]` was replaced with `getSelectedEntitites(): T[]`
+because changing the getter to take `T | T[]` to match the setter would cause callers to do type checking even though
+we guarantee it will be an array.
 
 ## [2.0.0-dev.16]
 ### Added

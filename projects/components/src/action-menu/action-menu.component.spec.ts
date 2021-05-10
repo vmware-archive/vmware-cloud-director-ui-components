@@ -14,17 +14,18 @@ import {
     ContextualActionInlineDisplayConfig,
     TextIcon,
 } from '../common/interfaces/index';
-import { WidgetFinder, WidgetObject } from '../utils/test/widget-object';
+import { BaseWidgetObject } from '../utils/test/widget-object/widget-object';
+import { AngularWidgetObjectFinder } from '../utils/test/widget-object/angular/angular-widget-finder';
 import { ActionMenuComponent, getDefaultActionDisplayConfig } from './action-menu.component';
 import { VcdActionMenuModule } from './action-menu.module';
 import createSpy = jasmine.createSpy;
 
 interface HasFinderAndActionMenu {
-    finder: WidgetFinder<TestHostComponent<Record>>;
+    finder: AngularWidgetObjectFinder<TestHostComponent<Record>>;
     actionMenu: ActionMenuComponent<Record, HandlerData>;
 }
 
-export class ActionMenuWidgetObject<R, T> extends WidgetObject<ActionMenuComponent<R, T>> {
+export class ActionMenuWidgetObject<T> extends BaseWidgetObject<T> {
     static tagName = 'vcd-action-menu';
 }
 
@@ -41,11 +42,9 @@ describe('ActionMenuComponent', () => {
             declarations: [TestHostComponent],
         }).compileComponents();
 
-        this.finder = new WidgetFinder(TestHostComponent);
+        this.finder = new AngularWidgetObjectFinder(TestHostComponent);
         this.finder.detectChanges();
-        this.actionMenu = this.finder.find({
-            woConstructor: ActionMenuWidgetObject,
-        }).component as ActionMenuComponent<Record, HandlerData>;
+        this.actionMenu = this.finder.find(ActionMenuWidgetObject).self().getComponentInstance();
     });
 
     describe('set actions', () => {
@@ -477,6 +476,43 @@ describe('ActionMenuComponent', () => {
             isActionAvailable = true;
             this.actionMenu.updateDisplayedActions();
             expect(this.actionMenu.contextualFeaturedActions.length).toEqual(1);
+        });
+    });
+
+    describe('set selectedEntities', () => {
+        it('accepts single item as input', function (this: HasFinderAndActionMenu): void {
+            const singleItem = {
+                value: 'foo',
+                paused: false,
+            };
+            this.actionMenu.selectedEntities = singleItem;
+            expect(this.actionMenu.getSelectedEntities()).toEqual([singleItem]);
+        });
+        it('accepts array as input', function (this: HasFinderAndActionMenu): void {
+            const arrayOfItems = [
+                {
+                    value: 'foo',
+                    paused: false,
+                },
+                {
+                    value: 'blah',
+                    paused: true,
+                },
+            ];
+            this.actionMenu.selectedEntities = arrayOfItems;
+            expect(this.actionMenu.getSelectedEntities()).toBe(arrayOfItems);
+        });
+        it('when null is passed as input, displayed actions are not updated', function (this: HasFinderAndActionMenu): void {
+            const spy = spyOn(this.actionMenu, 'updateDisplayedActions').and.callThrough();
+
+            this.actionMenu.selectedEntities = null;
+            expect(spy).not.toHaveBeenCalled();
+
+            this.actionMenu.selectedEntities = {
+                value: 'foo',
+                paused: false,
+            };
+            expect(spy).toHaveBeenCalled();
         });
     });
 });
