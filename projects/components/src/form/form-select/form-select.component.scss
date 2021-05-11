@@ -17,3 +17,13 @@
 label {
     white-space: normal;
 }
+
+clr-signpost-content {
+    white-space: pre;
+}
+
+clr-signpost {
+    // Offset margin right on the button rendered by the signpost so there's
+    // no extra room after the signpost
+    margin-right: -12px;
+}
