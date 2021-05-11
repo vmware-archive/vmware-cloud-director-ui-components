@@ -22,6 +22,16 @@ export class FormSelectComponent extends BaseFormControl {
      */
     @Input() options: SelectOption[] = [];
 
+    /**
+     * The direction for displaying the hint
+     */
+    @Input() hintPosition = 'top-left';
+
+    /**
+     * Hint to display in the content of a signpost
+     */
+    @Input() hint: string;
+
     constructor(@Self() @Optional() ngControl: NgControl) {
         super(ngControl);
     }
