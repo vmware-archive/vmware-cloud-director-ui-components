@@ -213,8 +213,22 @@ interface SearchSection {
  * A filter that can be applied to quick search to filter results.
  */
 export interface QuickSearchFilter {
+    /**
+     * The unique ID of this filter.
+     */
     id: string;
+    /**
+     * The options that are displayed in the dropdown.
+     */
     options: QuickSearchFilterOption[];
+    /**
+     * The text displayed on the button to open the dropdown.
+     */
+    dropdownText: string;
+    /**
+     * The i18n key for the selection bubble of this filter. Is passed one parameter {display} which is the value selected.
+     */
+    bubbleI18nKey: string;
 }
 
 /**
@@ -225,6 +239,11 @@ export interface QuickSearchFilterOption {
      * The displayed title of this option.
      */
     display: string;
+
+    /**
+     * The key of this quick search filter option.
+     */
+    key: string;
     /**
      * Any optional data that is associated with this option.
      */
@@ -235,7 +254,13 @@ export interface QuickSearchFilterOption {
  * A filter that has a value typed in.
  */
 export interface ActiveQuickSearchFilter extends QuickSearchFilter {
+    /**
+     * The key value of the selected option.
+     */
     value: string;
+    /**
+     * Any date assocated with this filter option.
+     */
     data: any;
 }
 
@@ -344,7 +369,14 @@ export class QuickSearchComponent {
      * If two filters of different IDs are used in the search, the filters should act like and&#x27;s. If two filters of the same ID
      * are present in the search, the filter should act like an or.
      */
-    @Input() filters: QuickSearchFilter[] &#x3D; [];
+    @Input() set filters(filters: QuickSearchFilter[]) {
+        this._filters &#x3D; filters;
+        filters.forEach((filter) &#x3D;&gt; {
+            this.filterValues.set(filter.id, []);
+        });
+    }
+    _filters: QuickSearchFilter[] &#x3D; [];
+    filterValues: Map&lt;string, QuickSearchFilterOption[]&gt; &#x3D; new Map();
 
     /**
      * Outputs an event when the user changes the pinning status of this component.
@@ -365,6 +397,8 @@ export class QuickSearchComponent {
 
     isPinned &#x3D; false;
     hasNoResults &#x3D; false;
+    isLoading &#x3D; false;
+    activeFilters: ActiveQuickSearchFilter[] &#x3D; [];
 
     DataUi &#x3D; DataUi;
 
@@ -382,47 +416,17 @@ export class QuickSearchComponent {
     set searchCriteria(value: string) {
         this._searchCriteria &#x3D; value;
         this.doSearch();
-        this.filterBeingEdited &#x3D; this.getLastFilter();
-        this.filterBeingEditedOptions &#x3D; this.getFilterOptionsMatchSearch(this.filterBeingEdited?.options);
-        if (!this.filterBeingEdited) {
-            this.currentFilterOptionSelection &#x3D; null;
-        } else {
-            this.currentFilterOptionSelection &#x3D; this.filterBeingEditedOptions[0];
-        }
-
-        // The filterOptionsDropdown is not rendered immediately after the search criteria is set. It takes a moment
-        // for this change to propagate through Angular. As such, we need to setTimeout to be able to shift the element.
-        setTimeout(() &#x3D;&gt; {
-            if (this.filterOptionsDropdown) {
-                this.filterOptionsDropdown.nativeElement.style.left &#x3D;
-                    this.measurementDiv.nativeElement.offsetWidth + 50 + &#x27;px&#x27;;
-            }
-        });
     }
 
-    /**
-     * Represents the current filter that the user is typing into.
-     */
-    filterBeingEdited: QuickSearchFilter &#x3D; null;
-
-    /**
-     * The options for the current filter being edited
-     */
-    filterBeingEditedOptions: QuickSearchFilterOption[];
-
-    private _searchCriteria: string;
+    private _searchCriteria: string &#x3D; &#x27;&#x27;;
+    private lastSearchCriteria: string &#x3D; &#x27;&#x27;;
+    private searchesRunning &#x3D; 0;
 
     private _open &#x3D; false;
 
     @ViewChild(&#x27;searchInput&#x27;, { static: false, read: ElementRef }) searchInput: ElementRef;
 
-    @ViewChild(&#x27;filtersOptions&#x27;, { static: false }) filterOptionsDropdown: ElementRef;
-
-    @ViewChild(&#x27;measurementDiv&#x27;, { static: false }) measurementDiv: ElementRef;
-
     private searchId &#x3D; 0;
-
-    private currentActiveFilters: ActiveQuickSearchFilter[] &#x3D; [];
 
     /**
      * The search sections are provided by the {@link QuickSearchService} upon opening the Quick Search.
@@ -440,10 +444,6 @@ export class QuickSearchComponent {
      * The selected result in the results section.
      */
     selectedItem: QuickSearchResultItem;
-    /**
-     * The current selected dropdown in the filter options dropdown.
-     */
-    currentFilterOptionSelection: QuickSearchFilterOption &#x3D; null;
 
     itemClicked(item: QuickSearchResultItem): void {
         this.handleItem(item, true);
@@ -460,11 +460,6 @@ export class QuickSearchComponent {
     }
 
     onEnterKey(event): void {
-        if (this.currentFilterOptionSelection) {
-            this.autofillSelectedFilterOption(this.currentFilterOptionSelection.display);
-            this.searchInput.nativeElement.focus();
-            return;
-        }
         if (!this.selectedItem) {
             return;
         }
@@ -479,28 +474,24 @@ export class QuickSearchComponent {
         return [...this.ungroupedSearchSections, ...allSections];
     }
 
-    private getLastFilter(): QuickSearchFilter {
-        if (!this.searchCriteria) {
-            return null;
-        }
-        const parts &#x3D; this.searchCriteria.split(&#x27; &#x27;);
-        const finalFilter &#x3D; parts[parts.length - 1];
-        return this.filters.find((filter) &#x3D;&gt; finalFilter.match(filter.id + &#x27;:&#x27;));
+    getFilterOptionValue(filterId: string, optionKey: string): boolean {
+        return !!this.filterValues.get(filterId).find((option) &#x3D;&gt; option.key &#x3D;&#x3D;&#x3D; optionKey);
     }
 
-    private getFilterOptionsMatchSearch(options: QuickSearchFilterOption[]): QuickSearchFilterOption[] {
-        if (!options) {
-            return [];
+    updateFilterValue(id: string, value: QuickSearchFilterOption): void {
+        if (value &#x3D;&#x3D;&#x3D; undefined) {
+            return;
         }
-        const parts &#x3D; this.searchCriteria.split(&#x27;:&#x27;);
-        const searchTerm &#x3D; parts[parts.length - 1];
-        return options.filter((option) &#x3D;&gt; option.display.startsWith(searchTerm));
-    }
-
-    autofillSelectedFilterOption(option: string) {
-        const parts &#x3D; this.searchCriteria.split(&#x27;:&#x27;);
-        parts.pop();
-        this.searchCriteria &#x3D; parts.join(&#x27;:&#x27;) + &#x27;:&#x27; + option + &#x27; &#x27;;
+        const isActive &#x3D; this.getFilterOptionValue(id, value.key);
+        if (isActive) {
+            this.filterValues.set(
+                id,
+                this.filterValues.get(id).filter((option) &#x3D;&gt; option.key !&#x3D;&#x3D; value.key)
+            );
+        } else {
+            this.filterValues.get(id).push(value);
+        }
+        this.doSearch();
     }
 
     togglePinned(): void {
@@ -513,52 +504,91 @@ export class QuickSearchComponent {
         });
     }
 
-    private doSearch(): void {
+    /**
+     * Searches all the providers given the search term and the active filters.
+     *
+     * @param force runs the search even if the active filters and search term has not changed.
+     */
+    doSearch(force?: boolean): void {
+        if (!this.open &amp;&amp; !force) {
+            return;
+        }
+
+        const activeFilters &#x3D; [];
+        this.filterValues.forEach((valueList, id) &#x3D;&gt; {
+            valueList.forEach((value) &#x3D;&gt; {
+                activeFilters.push({
+                    id,
+                    value: value.key,
+                    data: value.data,
+                });
+            });
+        });
+        // If the active filters are the same as last time and the search term has not changed
+        // We should not run a search unless force is true.
+        if (this.activeFilters.length &#x3D;&#x3D;&#x3D; activeFilters.length &amp;&amp; this.searchCriteria &#x3D;&#x3D;&#x3D; this.lastSearchCriteria) {
+            if (!force) {
+                return;
+            }
+        }
+        this.activeFilters &#x3D; activeFilters;
+        this.lastSearchCriteria &#x3D; this.searchCriteria;
+        this.updateActiveSections(activeFilters);
+
         // Remember which is the current search. This will help us not to show results from an old search
         const searchId &#x3D; ++this.searchId;
 
         this.selectedItem &#x3D; null;
 
-        const { searchTerm, filters } &#x3D; this.parseSearchCriteria(this.searchCriteria);
-
-        if (filters !&#x3D;&#x3D; this.currentActiveFilters) {
-            this.updateActiveSections(filters);
-            this.currentActiveFilters &#x3D; filters;
-        }
+        const searchTerm &#x3D; this.searchCriteria;
 
         // Mark each sections in loading state. This flag is needed when trying to select the first item
         // while the search is still in progress
-        this.getFlattenedSearchSections().forEach((searchSection) &#x3D;&gt; (searchSection.isLoading &#x3D; true));
+        const flatSections &#x3D; this.getFlattenedSearchSections();
+
+        if (flatSections.length &#x3D;&#x3D;&#x3D; 0) {
+            return;
+        }
+        this.isLoading &#x3D; true;
+        this.searchesRunning +&#x3D; 1;
+        flatSections.forEach((searchSection) &#x3D;&gt; (searchSection.isLoading &#x3D; true));
 
         // Go through the available search sections, i.e. the registered search providers and request for results
-        this.getFlattenedSearchSections().forEach(async (searchSection) &#x3D;&gt; {
-            let searchResult: QuickSearchResults;
-            // Only request for data if the search is not empty
-            if ((searchTerm &amp;&amp; searchTerm.length &gt; 0) || filters.length &gt; 0) {
-                const result &#x3D; searchSection.provider.search(searchTerm, filters);
+        Promise.all(
+            flatSections.map(async (searchSection) &#x3D;&gt; {
+                let searchResult: QuickSearchResults;
+                // Only request for data if the search is not empty
+                if (searchTerm &amp;&amp; searchTerm.length &gt; 0) {
+                    const result &#x3D; searchSection.provider.search(searchTerm, activeFilters);
 
-                // Some of the results may be provided later, so mark the section as loading
-                if (result instanceof Promise) {
-                    searchResult &#x3D; await result;
-                } else {
-                    searchResult &#x3D; result;
+                    // Some of the results may be provided later, so mark the section as loading
+                    if (result instanceof Promise) {
+                        searchResult &#x3D; await result;
+                    } else {
+                        searchResult &#x3D; result;
+                    }
+                    // Use the closure to verify that the displayed data is going to be really from the latest search
+                    if (searchId !&#x3D;&#x3D; this.searchId) {
+                        return;
+                    }
                 }
-                // Use the closure to verify that the displayed data is going to be really from the latest search
-                if (searchId !&#x3D;&#x3D; this.searchId) {
-                    return;
+                // This code will get called for each of the key strokes that gets typed during the buffer time. This means if there were 10
+                // characters typed during the de-bouncing time, this code will be called 10 times after the promise is resolved from a provider
+                // search function. However, we don&#x27;t currently see any problem with that because the following code just re assigns variables
+                // with same values
+                searchSection.result &#x3D; searchResult;
+                searchSection.hasPartialResult &#x3D; this.hasPartialResult(searchSection);
+                searchSection.isLoading &#x3D; false;
+                this.hasNoResults &#x3D; this.checkHasNoResults();
+                searchSection.shouldShowText &#x3D; this.showSectionTitle(searchSection);
+                if (!this.selectedItem) {
+                    this.selectFirst(true);
                 }
-            }
-            // This code will get called for each of the key strokes that gets typed during the buffer time. This means if there were 10
-            // characters typed during the de-bouncing time, this code will be called 10 times after the promise is resolved from a provider
-            // search function. However, we don&#x27;t currently see any problem with that because the following code just re assigns variables
-            // with same values
-            searchSection.result &#x3D; searchResult;
-            searchSection.hasPartialResult &#x3D; this.hasPartialResult(searchSection);
-            searchSection.isLoading &#x3D; false;
-            this.hasNoResults &#x3D; this.checkHasNoResults();
-            searchSection.shouldShowText &#x3D; this.showSectionTitle(searchSection);
-            if (!this.selectedItem) {
-                this.selectFirst(true);
+            })
+        ).then(() &#x3D;&gt; {
+            this.searchesRunning -&#x3D; 1;
+            if (this.searchesRunning &#x3D;&#x3D;&#x3D; 0) {
+                this.isLoading &#x3D; false;
             }
         });
     }
@@ -587,26 +617,18 @@ export class QuickSearchComponent {
 
     private selectNext(down: boolean): void {
         // If there is no selection then just select the first available item
-        if (this.currentFilterOptionSelection) {
-            this.currentFilterOptionSelection &#x3D; this.genericSelectNext(
-                down,
-                this.currentFilterOptionSelection,
-                this.filterBeingEditedOptions
-            );
-        } else {
-            if (!this.selectedItem) {
-                this.selectFirst(false);
-                return;
-            }
-            this.selectedItem &#x3D; this.genericSelectNext(
-                down,
-                this.selectedItem,
-                this.getFlattenedSearchSections().reduce((acc, v) &#x3D;&gt; [...acc, ...(v.result?.items || [])], [])
-            );
+        if (!this.selectedItem) {
+            this.selectFirst(false);
+            return;
+        }
+        this.selectedItem &#x3D; this.genericSelectNext(
+            down,
+            this.selectedItem,
+            this.getFlattenedSearchSections().reduce((acc, v) &#x3D;&gt; [...acc, ...(v.result?.items || [])], [])
+        );
 
-            if (this.selectedItem &#x3D;&#x3D;&#x3D; null) {
-                this.selectFirst(false);
-            }
+        if (this.selectedItem &#x3D;&#x3D;&#x3D; null) {
+            this.selectFirst(false);
         }
         // Call the change detector otherwise the selection on the screen may not refreshed quickly enough if the
         // user just presses and holds down the arrow key
@@ -666,7 +688,7 @@ export class QuickSearchComponent {
                 this.searchInput.nativeElement.focus();
                 this.searchInput.nativeElement.select();
             }, 0);
-            this.doSearch();
+            this.doSearch(true);
         }
 
         this._open &#x3D; open;
@@ -679,7 +701,7 @@ export class QuickSearchComponent {
             provider,
             result: null,
             isLoading: true,
-            shouldShowText: true,
+            shouldShowText: false,
             hasPartialResult: undefined,
             icon: provider.icon,
         }));
@@ -690,7 +712,7 @@ export class QuickSearchComponent {
                     provider,
                     result: null,
                     isLoading: true,
-                    shouldShowText: true,
+                    shouldShowText: false,
                     hasPartialResult: undefined,
                     icon: provider.icon,
                 })),
@@ -717,19 +739,14 @@ export class QuickSearchComponent {
     }
 
     private showSectionTitle(searchSection: SearchSection): boolean {
-        // Do not show when there is no search criteria
-        if (!this.searchCriteria) {
-            return false;
-        }
-
         // Do not show when there is no section name
         if (!searchSection.provider.sectionName) {
             return false;
         }
 
-        // Show when it is loading
+        // Don&#x27;t show when it is loading
         if (searchSection.isLoading) {
-            return true;
+            return false;
         }
 
         // Do not show when the provider has no results
@@ -741,7 +758,7 @@ export class QuickSearchComponent {
     }
 
     showParentSectionTitle(parentSection: GroupedSearchSections): boolean {
-        return parentSection.subSections.some((section) &#x3D;&gt; section.shouldShowText);
+        return parentSection.subSections.some((section) &#x3D;&gt; section.shouldShowText &amp;&amp; !section.isLoading);
     }
 
     checkHasNoResults(): boolean {
@@ -769,53 +786,6 @@ export class QuickSearchComponent {
         return null;
     }
 
-    /**
-     * Parses the given search criteria to remove all filters and separate them.
-     *
-     * @example this.parseSearchCriteria(&#x27;searchTerm filter:value other:value&#x27;) &#x3D;&gt;
-     * {
-     *    searchTerm: &#x27;searchTerm&#x27;,
-     *    filters: [{ id: &#x27;filter&#x27;, value: &#x27;value&#x27;, ...}, { id: &#x27;other&#x27;, value: &#x27;value&#x27;}]
-     * }
-     */
-    private parseSearchCriteria(
-        searchCriteria: string
-    ): {
-        searchTerm: string;
-        filters: ActiveQuickSearchFilter[];
-    } {
-        const activeFilters: ActiveQuickSearchFilter[] &#x3D; [];
-        let removedFiltersSearch &#x3D; searchCriteria;
-        if (removedFiltersSearch) {
-            for (const filter of this.filters) {
-                while (removedFiltersSearch.includes(filter.id + &#x27;:&#x27;)) {
-                    const parts &#x3D; removedFiltersSearch.split(filter.id + &#x27;:&#x27;);
-                    const beginning &#x3D; parts.shift();
-                    const end &#x3D; parts.join(filter.id + &#x27;:&#x27;);
-                    const parts2 &#x3D; end.split(&#x27; &#x27;);
-                    const filterValue &#x3D; parts2.shift();
-                    const rest &#x3D; parts2.join(&#x27; &#x27;);
-                    activeFilters.push({
-                        id: filter.id,
-                        options: filter.options,
-                        value: filterValue,
-                        data: filter.options.find((option) &#x3D;&gt; option.display &#x3D;&#x3D;&#x3D; filterValue)?.data,
-                    });
-                    removedFiltersSearch &#x3D; (beginning + rest).trim();
-                }
-            }
-        }
-
-        if (removedFiltersSearch) {
-            removedFiltersSearch &#x3D; removedFiltersSearch.trim();
-        }
-
-        return {
-            filters: activeFilters,
-            searchTerm: removedFiltersSearch,
-        };
-    }
-
     groupSectionTrackBy(_index: number, groupedSection: GroupedSearchSections): string {
         return groupedSection.headerTitle;
     }
@@ -825,7 +795,11 @@ export class QuickSearchComponent {
     }
 
     filterOptionTrackBy(_index: number, filterOption: QuickSearchFilterOption): string {
-        return filterOption.display;
+        return filterOption.key;
+    }
+
+    filterTrackBy(_index: number, filterOption: QuickSearchFilter): string {
+        return filterOption.id;
     }
 }
 </code></pre>

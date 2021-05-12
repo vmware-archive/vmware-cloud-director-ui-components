@@ -160,13 +160,13 @@ customElements.define('compodoc-menu', class extends HTMLElement {
                                 <a href="modules/QuickSearchModule.html" data-type="entity-link">QuickSearchModule</a>
                                     <li class="chapter inner">
                                         <div class="simple menu-toggler" data-toggle="collapse" ${ isNormalMode ?
-                                            'data-target="#components-links-module-QuickSearchModule-a3c032dfe735fc91aeb55e2ee9b5271c"' : 'data-target="#xs-components-links-module-QuickSearchModule-a3c032dfe735fc91aeb55e2ee9b5271c"' }>
+                                            'data-target="#components-links-module-QuickSearchModule-d823661678a717e393303e973fb03ea9"' : 'data-target="#xs-components-links-module-QuickSearchModule-d823661678a717e393303e973fb03ea9"' }>
                                             <span class="icon ion-md-cog"></span>
                                             <span>Components</span>
                                             <span class="icon ion-ios-arrow-down"></span>
                                         </div>
-                                        <ul class="links collapse" ${ isNormalMode ? 'id="components-links-module-QuickSearchModule-a3c032dfe735fc91aeb55e2ee9b5271c"' :
-                                            'id="xs-components-links-module-QuickSearchModule-a3c032dfe735fc91aeb55e2ee9b5271c"' }>
+                                        <ul class="links collapse" ${ isNormalMode ? 'id="components-links-module-QuickSearchModule-d823661678a717e393303e973fb03ea9"' :
+                                            'id="xs-components-links-module-QuickSearchModule-d823661678a717e393303e973fb03ea9"' }>
                                             <li class="link">
                                                 <a href="components/DrawerComponent.html"
                                                     data-type="entity-link" data-context="sub-entity" data-context-id="modules">DrawerComponent</a>
