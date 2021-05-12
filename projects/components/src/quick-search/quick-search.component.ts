@@ -245,6 +245,7 @@ export class QuickSearchComponent {
 
     private _searchCriteria: string = '';
     private lastSearchCriteria: string = '';
+    private searchesRunning = 0;
 
     private _open = false;
 
@@ -374,6 +375,7 @@ export class QuickSearchComponent {
             return;
         }
         this.isLoading = true;
+        this.searchesRunning += 1;
         flatSections.forEach((searchSection) => (searchSection.isLoading = true));
 
         // Go through the available search sections, i.e. the registered search providers and request for results
@@ -409,7 +411,10 @@ export class QuickSearchComponent {
                 }
             })
         ).then(() => {
-            this.isLoading = false;
+            this.searchesRunning -= 1;
+            if (this.searchesRunning === 0) {
+                this.isLoading = false;
+            }
         });
     }
 

@@ -298,7 +298,7 @@ describe('QuickSearchComponent', () => {
             expect(searchHandlerSpy).toHaveBeenCalledWith('copy');
         });
 
-        it('display a single "No results found" when there are no results', function (this: Test): void {
+        it('display a single "No results found" when there are no results', fakeAsync(function (this: Test): void {
             // Register one more provider
             this.quickSearchData.simpleProvider.sectionName = 'new section';
             this.quickSearchData.spotlightSearchService.registerProvider(this.quickSearchData.simpleProvider);
@@ -308,10 +308,13 @@ describe('QuickSearchComponent', () => {
             // Set search
             this.quickSearch.getInput().type('no match');
             //
+
+            tick();
+            this.finder.detectChanges();
             const noResults = TestBed.inject(TranslationService).translate('vcd.cc.quickSearch.noResults', []);
             expect(this.quickSearch.getSearchResultItems().toArray().length).toBe(0);
             expect(this.quickSearch.getNoResults().map((item) => item.text())).toEqual([noResults]);
-        });
+        }));
 
         describe('partial search result', () => {
             it('does not display partial information if total is less than the number of items', function (this: Test): void {

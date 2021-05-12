@@ -63,7 +63,9 @@
     <div>
         <ng-container *ngFor="let filter of _filters">
             <span class="filter-bubble label" *ngFor="let option of filterValues.get(filter.id)">
-                <span vcdShowClippedText>{{ filter.bubbleI18nKey | translate: { option: option.display } }}</span>
+                <span [vcdShowClippedText]="{ disabled: !open }">{{
+                    filter.bubbleI18nKey | translate: { option: option.display }
+                }}</span>
                 <button
                     type="button"
                     class="btn btn-icon btn-link remove-col-button"
