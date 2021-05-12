@@ -38,8 +38,22 @@ interface SearchSection {
  * A filter that can be applied to quick search to filter results.
  */
 export interface QuickSearchFilter {
+    /**
+     * The unique ID of this filter.
+     */
     id: string;
+    /**
+     * The options that are displayed in the dropdown.
+     */
     options: QuickSearchFilterOption[];
+    /**
+     * The text displayed on the button to open the dropdown.
+     */
+    dropdownText: string;
+    /**
+     * The i18n key for the selection bubble of this filter. Is passed one parameter {display} which is the value selected.
+     */
+    bubbleI18nKey: string;
 }
 
 /**
@@ -50,6 +64,11 @@ export interface QuickSearchFilterOption {
      * The displayed title of this option.
      */
     display: string;
+
+    /**
+     * The key of this quick search filter option.
+     */
+    key: string;
     /**
      * Any optional data that is associated with this option.
      */
@@ -60,7 +79,13 @@ export interface QuickSearchFilterOption {
  * A filter that has a value typed in.
  */
 export interface ActiveQuickSearchFilter extends QuickSearchFilter {
+    /**
+     * The key value of the selected option.
+     */
     value: string;
+    /**
+     * Any date assocated with this filter option.
+     */
     data: any;
 }
 
@@ -169,7 +194,14 @@ export class QuickSearchComponent {
      * If two filters of different IDs are used in the search, the filters should act like and's. If two filters of the same ID
      * are present in the search, the filter should act like an or.
      */
-    @Input() filters: QuickSearchFilter[] = [];
+    @Input() set filters(filters: QuickSearchFilter[]) {
+        this._filters = filters;
+        filters.forEach((filter) => {
+            this.filterValues.set(filter.id, []);
+        });
+    }
+    _filters: QuickSearchFilter[] = [];
+    filterValues: Map<string, QuickSearchFilterOption[]> = new Map();
 
     /**
      * Outputs an event when the user changes the pinning status of this component.
@@ -190,6 +222,8 @@ export class QuickSearchComponent {
 
     isPinned = false;
     hasNoResults = false;
+    isLoading = false;
+    activeFilters: ActiveQuickSearchFilter[] = [];
 
     DataUi = DataUi;
 
@@ -207,47 +241,17 @@ export class QuickSearchComponent {
     set searchCriteria(value: string) {
         this._searchCriteria = value;
         this.doSearch();
-        this.filterBeingEdited = this.getLastFilter();
-        this.filterBeingEditedOptions = this.getFilterOptionsMatchSearch(this.filterBeingEdited?.options);
-        if (!this.filterBeingEdited) {
-            this.currentFilterOptionSelection = null;
-        } else {
-            this.currentFilterOptionSelection = this.filterBeingEditedOptions[0];
-        }
-
-        // The filterOptionsDropdown is not rendered immediately after the search criteria is set. It takes a moment
-        // for this change to propagate through Angular. As such, we need to setTimeout to be able to shift the element.
-        setTimeout(() => {
-            if (this.filterOptionsDropdown) {
-                this.filterOptionsDropdown.nativeElement.style.left =
-                    this.measurementDiv.nativeElement.offsetWidth + 50 + 'px';
-            }
-        });
     }
 
-    /**
-     * Represents the current filter that the user is typing into.
-     */
-    filterBeingEdited: QuickSearchFilter = null;
-
-    /**
-     * The options for the current filter being edited
-     */
-    filterBeingEditedOptions: QuickSearchFilterOption[];
-
-    private _searchCriteria: string;
+    private _searchCriteria: string = '';
+    private lastSearchCriteria: string = '';
+    private searchesRunning = 0;
 
     private _open = false;
 
     @ViewChild('searchInput', { static: false, read: ElementRef }) searchInput: ElementRef;
 
-    @ViewChild('filtersOptions', { static: false }) filterOptionsDropdown: ElementRef;
-
-    @ViewChild('measurementDiv', { static: false }) measurementDiv: ElementRef;
-
     private searchId = 0;
-
-    private currentActiveFilters: ActiveQuickSearchFilter[] = [];
 
     /**
      * The search sections are provided by the {@link QuickSearchService} upon opening the Quick Search.
@@ -265,10 +269,6 @@ export class QuickSearchComponent {
      * The selected result in the results section.
      */
     selectedItem: QuickSearchResultItem;
-    /**
-     * The current selected dropdown in the filter options dropdown.
-     */
-    currentFilterOptionSelection: QuickSearchFilterOption = null;
 
     itemClicked(item: QuickSearchResultItem): void {
         this.handleItem(item, true);
@@ -285,11 +285,6 @@ export class QuickSearchComponent {
     }
 
     onEnterKey(event): void {
-        if (this.currentFilterOptionSelection) {
-            this.autofillSelectedFilterOption(this.currentFilterOptionSelection.display);
-            this.searchInput.nativeElement.focus();
-            return;
-        }
         if (!this.selectedItem) {
             return;
         }
@@ -304,28 +299,24 @@ export class QuickSearchComponent {
         return [...this.ungroupedSearchSections, ...allSections];
     }
 
-    private getLastFilter(): QuickSearchFilter {
-        if (!this.searchCriteria) {
-            return null;
-        }
-        const parts = this.searchCriteria.split(' ');
-        const finalFilter = parts[parts.length - 1];
-        return this.filters.find((filter) => finalFilter.match(filter.id + ':'));
+    getFilterOptionValue(filterId: string, optionKey: string): boolean {
+        return !!this.filterValues.get(filterId).find((option) => option.key === optionKey);
     }
 
-    private getFilterOptionsMatchSearch(options: QuickSearchFilterOption[]): QuickSearchFilterOption[] {
-        if (!options) {
-            return [];
+    updateFilterValue(id: string, value: QuickSearchFilterOption): void {
+        if (value === undefined) {
+            return;
         }
-        const parts = this.searchCriteria.split(':');
-        const searchTerm = parts[parts.length - 1];
-        return options.filter((option) => option.display.startsWith(searchTerm));
-    }
-
-    autofillSelectedFilterOption(option: string) {
-        const parts = this.searchCriteria.split(':');
-        parts.pop();
-        this.searchCriteria = parts.join(':') + ':' + option + ' ';
+        const isActive = this.getFilterOptionValue(id, value.key);
+        if (isActive) {
+            this.filterValues.set(
+                id,
+                this.filterValues.get(id).filter((option) => option.key !== value.key)
+            );
+        } else {
+            this.filterValues.get(id).push(value);
+        }
+        this.doSearch();
     }
 
     togglePinned(): void {
@@ -338,52 +329,91 @@ export class QuickSearchComponent {
         });
     }
 
-    private doSearch(): void {
+    /**
+     * Searches all the providers given the search term and the active filters.
+     *
+     * @param force runs the search even if the active filters and search term has not changed.
+     */
+    doSearch(force?: boolean): void {
+        if (!this.open && !force) {
+            return;
+        }
+
+        const activeFilters = [];
+        this.filterValues.forEach((valueList, id) => {
+            valueList.forEach((value) => {
+                activeFilters.push({
+                    id,
+                    value: value.key,
+                    data: value.data,
+                });
+            });
+        });
+        // If the active filters are the same as last time and the search term has not changed
+        // We should not run a search unless force is true.
+        if (this.activeFilters.length === activeFilters.length && this.searchCriteria === this.lastSearchCriteria) {
+            if (!force) {
+                return;
+            }
+        }
+        this.activeFilters = activeFilters;
+        this.lastSearchCriteria = this.searchCriteria;
+        this.updateActiveSections(activeFilters);
+
         // Remember which is the current search. This will help us not to show results from an old search
         const searchId = ++this.searchId;
 
         this.selectedItem = null;
 
-        const { searchTerm, filters } = this.parseSearchCriteria(this.searchCriteria);
-
-        if (filters !== this.currentActiveFilters) {
-            this.updateActiveSections(filters);
-            this.currentActiveFilters = filters;
-        }
+        const searchTerm = this.searchCriteria;
 
         // Mark each sections in loading state. This flag is needed when trying to select the first item
         // while the search is still in progress
-        this.getFlattenedSearchSections().forEach((searchSection) => (searchSection.isLoading = true));
+        const flatSections = this.getFlattenedSearchSections();
+
+        if (flatSections.length === 0) {
+            return;
+        }
+        this.isLoading = true;
+        this.searchesRunning += 1;
+        flatSections.forEach((searchSection) => (searchSection.isLoading = true));
 
         // Go through the available search sections, i.e. the registered search providers and request for results
-        this.getFlattenedSearchSections().forEach(async (searchSection) => {
-            let searchResult: QuickSearchResults;
-            // Only request for data if the search is not empty
-            if ((searchTerm && searchTerm.length > 0) || filters.length > 0) {
-                const result = searchSection.provider.search(searchTerm, filters);
+        Promise.all(
+            flatSections.map(async (searchSection) => {
+                let searchResult: QuickSearchResults;
+                // Only request for data if the search is not empty
+                if (searchTerm && searchTerm.length > 0) {
+                    const result = searchSection.provider.search(searchTerm, activeFilters);
 
-                // Some of the results may be provided later, so mark the section as loading
-                if (result instanceof Promise) {
-                    searchResult = await result;
-                } else {
-                    searchResult = result;
+                    // Some of the results may be provided later, so mark the section as loading
+                    if (result instanceof Promise) {
+                        searchResult = await result;
+                    } else {
+                        searchResult = result;
+                    }
+                    // Use the closure to verify that the displayed data is going to be really from the latest search
+                    if (searchId !== this.searchId) {
+                        return;
+                    }
                 }
-                // Use the closure to verify that the displayed data is going to be really from the latest search
-                if (searchId !== this.searchId) {
-                    return;
+                // This code will get called for each of the key strokes that gets typed during the buffer time. This means if there were 10
+                // characters typed during the de-bouncing time, this code will be called 10 times after the promise is resolved from a provider
+                // search function. However, we don't currently see any problem with that because the following code just re assigns variables
+                // with same values
+                searchSection.result = searchResult;
+                searchSection.hasPartialResult = this.hasPartialResult(searchSection);
+                searchSection.isLoading = false;
+                this.hasNoResults = this.checkHasNoResults();
+                searchSection.shouldShowText = this.showSectionTitle(searchSection);
+                if (!this.selectedItem) {
+                    this.selectFirst(true);
                 }
-            }
-            // This code will get called for each of the key strokes that gets typed during the buffer time. This means if there were 10
-            // characters typed during the de-bouncing time, this code will be called 10 times after the promise is resolved from a provider
-            // search function. However, we don't currently see any problem with that because the following code just re assigns variables
-            // with same values
-            searchSection.result = searchResult;
-            searchSection.hasPartialResult = this.hasPartialResult(searchSection);
-            searchSection.isLoading = false;
-            this.hasNoResults = this.checkHasNoResults();
-            searchSection.shouldShowText = this.showSectionTitle(searchSection);
-            if (!this.selectedItem) {
-                this.selectFirst(true);
+            })
+        ).then(() => {
+            this.searchesRunning -= 1;
+            if (this.searchesRunning === 0) {
+                this.isLoading = false;
             }
         });
     }
@@ -412,26 +442,18 @@ export class QuickSearchComponent {
 
     private selectNext(down: boolean): void {
         // If there is no selection then just select the first available item
-        if (this.currentFilterOptionSelection) {
-            this.currentFilterOptionSelection = this.genericSelectNext(
-                down,
-                this.currentFilterOptionSelection,
-                this.filterBeingEditedOptions
-            );
-        } else {
-            if (!this.selectedItem) {
-                this.selectFirst(false);
-                return;
-            }
-            this.selectedItem = this.genericSelectNext(
-                down,
-                this.selectedItem,
-                this.getFlattenedSearchSections().reduce((acc, v) => [...acc, ...(v.result?.items || [])], [])
-            );
+        if (!this.selectedItem) {
+            this.selectFirst(false);
+            return;
+        }
+        this.selectedItem = this.genericSelectNext(
+            down,
+            this.selectedItem,
+            this.getFlattenedSearchSections().reduce((acc, v) => [...acc, ...(v.result?.items || [])], [])
+        );
 
-            if (this.selectedItem === null) {
-                this.selectFirst(false);
-            }
+        if (this.selectedItem === null) {
+            this.selectFirst(false);
         }
         // Call the change detector otherwise the selection on the screen may not refreshed quickly enough if the
         // user just presses and holds down the arrow key
@@ -491,7 +513,7 @@ export class QuickSearchComponent {
                 this.searchInput.nativeElement.focus();
                 this.searchInput.nativeElement.select();
             }, 0);
-            this.doSearch();
+            this.doSearch(true);
         }
 
         this._open = open;
@@ -504,7 +526,7 @@ export class QuickSearchComponent {
             provider,
             result: null,
             isLoading: true,
-            shouldShowText: true,
+            shouldShowText: false,
             hasPartialResult: undefined,
             icon: provider.icon,
         }));
@@ -515,7 +537,7 @@ export class QuickSearchComponent {
                     provider,
                     result: null,
                     isLoading: true,
-                    shouldShowText: true,
+                    shouldShowText: false,
                     hasPartialResult: undefined,
                     icon: provider.icon,
                 })),
@@ -542,19 +564,14 @@ export class QuickSearchComponent {
     }
 
     private showSectionTitle(searchSection: SearchSection): boolean {
-        // Do not show when there is no search criteria
-        if (!this.searchCriteria) {
-            return false;
-        }
-
         // Do not show when there is no section name
         if (!searchSection.provider.sectionName) {
             return false;
         }
 
-        // Show when it is loading
+        // Don't show when it is loading
         if (searchSection.isLoading) {
-            return true;
+            return false;
         }
 
         // Do not show when the provider has no results
@@ -566,7 +583,7 @@ export class QuickSearchComponent {
     }
 
     showParentSectionTitle(parentSection: GroupedSearchSections): boolean {
-        return parentSection.subSections.some((section) => section.shouldShowText);
+        return parentSection.subSections.some((section) => section.shouldShowText && !section.isLoading);
     }
 
     checkHasNoResults(): boolean {
@@ -594,53 +611,6 @@ export class QuickSearchComponent {
         return null;
     }
 
-    /**
-     * Parses the given search criteria to remove all filters and separate them.
-     *
-     * @example this.parseSearchCriteria('searchTerm filter:value other:value') =>
-     * {
-     *    searchTerm: 'searchTerm',
-     *    filters: [{ id: 'filter', value: 'value', ...}, { id: 'other', value: 'value'}]
-     * }
-     */
-    private parseSearchCriteria(
-        searchCriteria: string
-    ): {
-        searchTerm: string;
-        filters: ActiveQuickSearchFilter[];
-    } {
-        const activeFilters: ActiveQuickSearchFilter[] = [];
-        let removedFiltersSearch = searchCriteria;
-        if (removedFiltersSearch) {
-            for (const filter of this.filters) {
-                while (removedFiltersSearch.includes(filter.id + ':')) {
-                    const parts = removedFiltersSearch.split(filter.id + ':');
-                    const beginning = parts.shift();
-                    const end = parts.join(filter.id + ':');
-                    const parts2 = end.split(' ');
-                    const filterValue = parts2.shift();
-                    const rest = parts2.join(' ');
-                    activeFilters.push({
-                        id: filter.id,
-                        options: filter.options,
-                        value: filterValue,
-                        data: filter.options.find((option) => option.display === filterValue)?.data,
-                    });
-                    removedFiltersSearch = (beginning + rest).trim();
-                }
-            }
-        }
-
-        if (removedFiltersSearch) {
-            removedFiltersSearch = removedFiltersSearch.trim();
-        }
-
-        return {
-            filters: activeFilters,
-            searchTerm: removedFiltersSearch,
-        };
-    }
-
     groupSectionTrackBy(_index: number, groupedSection: GroupedSearchSections): string {
         return groupedSection.headerTitle;
     }
@@ -650,6 +620,10 @@ export class QuickSearchComponent {
     }
 
     filterOptionTrackBy(_index: number, filterOption: QuickSearchFilterOption): string {
-        return filterOption.display;
+        return filterOption.key;
+    }
+
+    filterTrackBy(_index: number, filterOption: QuickSearchFilter): string {
+        return filterOption.id;
     }
 }
