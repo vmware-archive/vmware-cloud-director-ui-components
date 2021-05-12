@@ -328,6 +328,11 @@ export class QuickSearchComponent {
         });
     }
 
+    /**
+     * Searches all the providers given the search term and the active filters.
+     *
+     * @param force runs the search even if the active filters and search term has not changed.
+     */
     doSearch(force?: boolean): void {
         if (!this.open && !force) {
             return;
@@ -343,14 +348,14 @@ export class QuickSearchComponent {
                 });
             });
         });
-        if (this.activeFilters.length !== activeFilters.length) {
-            this.activeFilters = activeFilters;
-        } else if (this.searchCriteria === this.lastSearchCriteria) {
-            this.lastSearchCriteria = this.searchCriteria;
+        // If the active filters are the same as last time and the search term has not changed
+        // We should not run a search unless force is true.
+        if (this.activeFilters.length === activeFilters.length && this.searchCriteria === this.lastSearchCriteria) {
             if (!force) {
                 return;
             }
         }
+        this.activeFilters = activeFilters;
         this.lastSearchCriteria = this.searchCriteria;
         this.updateActiveSections(activeFilters);
 
@@ -371,42 +376,40 @@ export class QuickSearchComponent {
         this.isLoading = true;
         flatSections.forEach((searchSection) => (searchSection.isLoading = true));
 
-        let numberLoaded = 0;
         // Go through the available search sections, i.e. the registered search providers and request for results
-        flatSections.forEach(async (searchSection) => {
-            let searchResult: QuickSearchResults;
-            // Only request for data if the search is not empty
-            if (searchTerm && searchTerm.length > 0) {
-                const result = searchSection.provider.search(searchTerm, activeFilters);
+        Promise.all(
+            flatSections.map(async (searchSection) => {
+                let searchResult: QuickSearchResults;
+                // Only request for data if the search is not empty
+                if (searchTerm && searchTerm.length > 0) {
+                    const result = searchSection.provider.search(searchTerm, activeFilters);
 
-                // Some of the results may be provided later, so mark the section as loading
-                if (result instanceof Promise) {
-                    searchResult = await result;
-                } else {
-                    searchResult = result;
+                    // Some of the results may be provided later, so mark the section as loading
+                    if (result instanceof Promise) {
+                        searchResult = await result;
+                    } else {
+                        searchResult = result;
+                    }
+                    // Use the closure to verify that the displayed data is going to be really from the latest search
+                    if (searchId !== this.searchId) {
+                        return;
+                    }
                 }
-                // Use the closure to verify that the displayed data is going to be really from the latest search
-                if (searchId !== this.searchId) {
-                    return;
+                // This code will get called for each of the key strokes that gets typed during the buffer time. This means if there were 10
+                // characters typed during the de-bouncing time, this code will be called 10 times after the promise is resolved from a provider
+                // search function. However, we don't currently see any problem with that because the following code just re assigns variables
+                // with same values
+                searchSection.result = searchResult;
+                searchSection.hasPartialResult = this.hasPartialResult(searchSection);
+                searchSection.isLoading = false;
+                this.hasNoResults = this.checkHasNoResults();
+                searchSection.shouldShowText = this.showSectionTitle(searchSection);
+                if (!this.selectedItem) {
+                    this.selectFirst(true);
                 }
-            }
-            // This code will get called for each of the key strokes that gets typed during the buffer time. This means if there were 10
-            // characters typed during the de-bouncing time, this code will be called 10 times after the promise is resolved from a provider
-            // search function. However, we don't currently see any problem with that because the following code just re assigns variables
-            // with same values
-            searchSection.result = searchResult;
-            searchSection.hasPartialResult = this.hasPartialResult(searchSection);
-            searchSection.isLoading = false;
-            numberLoaded = numberLoaded + 1;
-
-            if (numberLoaded === flatSections.length) {
-                this.isLoading = false;
-            }
-            this.hasNoResults = this.checkHasNoResults();
-            searchSection.shouldShowText = this.showSectionTitle(searchSection);
-            if (!this.selectedItem) {
-                this.selectFirst(true);
-            }
+            })
+        ).then(() => {
+            this.isLoading = false;
         });
     }
 

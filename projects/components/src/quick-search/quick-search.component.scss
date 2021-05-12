@@ -22,7 +22,7 @@
         margin-top: 30px;
         display: flex;
 
-        clr-icon {
+        .search-icon-container {
             margin-top: 2px;
             margin-right: 4px;
         }
@@ -103,13 +103,11 @@ clr-control-helper.input-helper {
     margin-top: 0;
 }
 
-.loading-alert {
-    height: 25px;
-
-    ::ng-deep .alert-items {
-        display: block;
-    }
+.search-icon-container {
+    width: 20px;
+    height: 20px;
 }
+
 .section-title-wrapper {
     display: flex;
 
@@ -135,13 +133,9 @@ clr-control-helper.input-helper {
     }
 }
 
-.x-button {
+.filter-bubble {
     padding-left: 0.4rem;
     padding-right: 0.1rem;
-    p {
-        max-width: 10rem;
-        margin-top: 0px;
-    }
 
     .btn-link {
         margin: 0px;
