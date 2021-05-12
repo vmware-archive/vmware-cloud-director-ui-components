@@ -10,4 +10,8 @@ export const DataUi = {
     noResults: 'no-results',
     searchInput: 'search-input,',
     searchResultAlerts: 'search-result-alerts',
+    filterDropdownItem: 'filter-dropdown-item',
+    filterButton(id: string) {
+        return `filter-btn:${id}`;
+    },
 };

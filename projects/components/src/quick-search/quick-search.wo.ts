@@ -71,6 +71,14 @@ export class QuickSearchWo<T> extends BaseWidgetObject<T> {
      */
     getBottomOfResults = this.factory.css('.bottom-of-results');
 
+    getFilterButton(id: string) {
+        return this.el.get({ dataUiSelector: DataUi.filterButton(id) }).unwrap();
+    }
+
+    getFilterDropdownOptions(index: number) {
+        return this.el.get({ dataUiSelector: DataUi.filterDropdownItem, index }).unwrap();
+    }
+
     /**
      * Gives the icon next to each section title.
      */

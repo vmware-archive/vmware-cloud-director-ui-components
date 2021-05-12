@@ -65,6 +65,10 @@ export class ActionSearchProvider<R, T> extends QuickSearchProviderDefaults impl
         this.isReadyToSearchPromise = this.readyToSearchPromiseFactory();
     }
 
+    canHandleFilter(): boolean {
+        return true;
+    }
+
     private readyToSearchPromiseFactory(): Promise<null> {
         return new Promise<null>((resolve, reject) => {
             this.resolveIsReadyToSearch = resolve;

@@ -22,7 +22,7 @@
         margin-top: 30px;
         display: flex;
 
-        clr-icon {
+        .search-icon-container {
             margin-top: 2px;
             margin-right: 4px;
         }
@@ -101,4 +101,56 @@ vcd-drawer-component.modal-body {
 clr-control-helper.input-helper {
     margin-left: 25px;
     margin-top: 0;
+}
+
+.search-icon-container {
+    width: 20px;
+    height: 20px;
+}
+
+.section-title-wrapper {
+    display: flex;
+
+    clr-icon {
+        margin-right: 5px;
+    }
+}
+
+.filter-container {
+    display: flex;
+    clr-dropdown {
+        position: static;
+    }
+
+    .filter-text {
+        margin-right: 10px;
+    }
+
+    p {
+        margin-top: auto;
+        margin-bottom: auto;
+        margin-right: 10px;
+    }
+}
+
+.filter-bubble {
+    padding-left: 0.4rem;
+    padding-right: 0.1rem;
+
+    .btn-link {
+        margin: 0px;
+    }
+
+    clr-icon {
+        color: var(--clr-badge-info-color, white);
+    }
+}
+
+button.btn-link.remove-col-button {
+    margin: 0;
+    padding-right: 5px;
+    padding-left: 5px;
+    clr-icon {
+        margin-right: 0px;
+    }
 }
