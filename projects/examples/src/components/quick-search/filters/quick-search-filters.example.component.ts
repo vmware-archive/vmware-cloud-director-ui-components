@@ -26,15 +26,22 @@ export class QuickSearchFiltersExampleComponent implements OnInit {
         {
             id: 'type',
             options: [
-                { display: 'actions1' },
-                { display: 'actions2' },
-                { display: 'actions3' },
-                { display: 'actions4' },
+                { display: 'actions1', key: 'actions1' },
+                { display: 'actions2', key: 'actions2' },
+                { display: 'actions3', key: 'actions3' },
+                { display: 'actions4', key: 'actions4' },
             ],
+            dropdownText: 'test',
+            bubbleI18nKey: 'hello',
         },
         {
             id: 'is',
-            options: [{ display: 'real' }, { display: 'fake' }],
+            options: [
+                { display: 'real', key: 'real' },
+                { display: 'fake', key: 'fake' },
+            ],
+            dropdownText: 'test',
+            bubbleI18nKey: 'hello',
         },
     ];
 

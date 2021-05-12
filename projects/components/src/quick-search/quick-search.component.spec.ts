@@ -392,7 +392,6 @@ describe('QuickSearchComponent', () => {
                 this.quickSearch.getInput().type('c');
                 expect(this.quickSearch.getSearchResultSectionTitles().map((title) => title.text())).toEqual([
                     'section',
-                    debounceSearchProvider.sectionName,
                 ]);
                 tick(100);
                 this.finder.detectChanges();
@@ -833,7 +832,12 @@ describe('QuickSearchComponent', () => {
             this.finder.hostComponent.filters = [
                 {
                     id: 'type',
-                    options: [{ display: 'simple' }],
+                    options: [
+                        { display: 'simple', key: 'simple' },
+                        { display: 'simple2', key: 'simple2' },
+                    ],
+                    dropdownText: 'dropdown',
+                    bubbleI18nKey: 'bubble-key',
                 },
             ];
             this.quickSearchData.anotherSimpleProvider.sectionName = 'another section';
@@ -843,7 +847,8 @@ describe('QuickSearchComponent', () => {
 
             // When the type filter is present,, the list of providers is filtered based on it.
             // In this case, the type:simple filter is set and anotherSimpleProvider is removed.
-            this.quickSearch.getInput().type('copy type:simple');
+            this.quickSearch.getFilterButton('type').click();
+            this.quickSearch.getFilterDropdownOptions(0).click();
             expect(this.quickSearch.getSearchResultSectionTitles().length()).toEqual(1);
             expect(this.quickSearch.getSearchResultItems().text()).toEqual('copy');
         });

@@ -102,3 +102,61 @@ clr-control-helper.input-helper {
     margin-left: 25px;
     margin-top: 0;
 }
+
+.loading-alert {
+    height: 25px;
+
+    ::ng-deep .alert-items {
+        display: block;
+    }
+}
+.section-title-wrapper {
+    display: flex;
+
+    clr-icon {
+        margin-right: 5px;
+    }
+}
+
+.filter-container {
+    display: flex;
+    clr-dropdown {
+        position: static;
+    }
+
+    .filter-text {
+        margin-right: 10px;
+    }
+
+    p {
+        margin-top: auto;
+        margin-bottom: auto;
+        margin-right: 10px;
+    }
+}
+
+.x-button {
+    padding-left: 0.4rem;
+    padding-right: 0.1rem;
+    p {
+        max-width: 10rem;
+        margin-top: 0px;
+    }
+
+    .btn-link {
+        margin: 0px;
+    }
+
+    clr-icon {
+        color: var(--clr-badge-info-color, white);
+    }
+}
+
+button.btn-link.remove-col-button {
+    margin: 0;
+    padding-right: 5px;
+    padding-left: 5px;
+    clr-icon {
+        margin-right: 0px;
+    }
+}

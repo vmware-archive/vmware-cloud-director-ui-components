@@ -22,6 +22,10 @@ HTML
 because changing the getter to take `T | T[]` to match the setter would cause callers to do type checking even though
 we guarantee it will be an array.
 
+### Changed
+- BREAKING: Reworked Quick Search Filters
+- Quick search now has a single loading indicator.
+
 ## [2.0.0-dev.16]
 ### Added
 - New unit tests to ensure datagridSelection returns same reference
