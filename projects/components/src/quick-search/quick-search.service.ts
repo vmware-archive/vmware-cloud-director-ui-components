@@ -4,6 +4,7 @@
  */
 
 import { Injectable, OnDestroy } from '@angular/core';
+import { BehaviorSubject, Observable, ReplaySubject } from 'rxjs';
 import { ActiveQuickSearchFilter, QuickSearchFilter } from './quick-search.component';
 import { QuickSearchProvider, QuickSearchNestedProvider } from './quick-search.provider';
 
@@ -13,6 +14,14 @@ import { QuickSearchProvider, QuickSearchNestedProvider } from './quick-search.p
 export class QuickSearchService {
     registrations: QuickSearchProvider[] = [];
     nestedProviders: QuickSearchNestedProvider[] = [];
+    filters: QuickSearchFilter[] = [];
+    private _filterOverrides: ReplaySubject<[string, string[]]> = new ReplaySubject();
+    filterOverrides: Observable<[string, string[]]> = this._filterOverrides;
+
+    /**
+     * Says if the quick search modal is pinned.
+     */
+    isPinned: boolean = false;
 
     /**
      * Register a search provider
@@ -115,6 +124,42 @@ export class QuickSearchService {
             };
         });
         return newNestedProviders.filter((provider) => provider.children.length);
+    }
+
+    /**
+     * Selects the given filterValue on the filter represented by the given filterId.
+     * Clears any current selection on the filter.
+     *
+     * @example selectFilter('type', 'org') selects the Organization option in the "Type" filter.
+     */
+    public selectFilter(filterId: string, filterValues: string[]): void {
+        this._filterOverrides.next([filterId, filterValues]);
+    }
+
+    /**
+     * Adds a filter to the list of registered filters. A filter can be used to filter the list of providers and/or the results from a given provider.
+     *
+     * All filters have some ID that is displayed and a list of options for their value. These options can also have associated data.
+     *
+     * A provider then must know
+     * 1. If it can respond to a given filter</li>
+     * 2. How to filter the search results given the filter</li>
+     *
+     * This means that if Filter A is present, and Provider 1 cannot respond to it, Provider 1 will not be displayed. Provider 2 must
+     * then filter its results based on the filter.
+     *
+     * If two filters of different IDs are used in the search, the filters should act like and's. If two filters of the same ID
+     * are present in the search, the filter should act like an or.
+     */
+    registerFilters(filter: QuickSearchFilter[]) {
+        this.filters.push(...filter);
+    }
+
+    /**
+     * Removes the given filterId from the list of registered filters.
+     */
+    unregisterFilter(filterId: string) {
+        this.filters.filter((filter) => filter.id !== filterId);
     }
 
     private providerShouldBeActive(provider: QuickSearchProvider, filters: ActiveQuickSearchFilter[]): boolean {

@@ -3,10 +3,21 @@
  * SPDX-License-Identifier: BSD-2-Clause
  */
 
-import { ChangeDetectorRef, Component, ElementRef, EventEmitter, Input, Output, ViewChild } from '@angular/core';
+import {
+    ChangeDetectorRef,
+    Component,
+    ElementRef,
+    EventEmitter,
+    Input,
+    OnDestroy,
+    OnInit,
+    Output,
+    ViewChild,
+} from '@angular/core';
 import { TranslationService } from '@vcd/i18n';
 import { DomUtil } from '../utils/dom-util';
-import { QuickSearchResultItem, QuickSearchResults, QuickSearchResultsType } from './quick-search-result';
+import { SubscriptionTracker } from '../common/subscription';
+import { QuickSearchResultItem, QuickSearchResults } from './quick-search-result';
 import { QuickSearchProvider } from './quick-search.provider';
 import { QuickSearchService } from './quick-search.service';
 import { DataUi } from './quick-search.dataui';
@@ -160,7 +171,7 @@ interface PartialResult {
     templateUrl: './quick-search.component.html',
     styleUrls: ['./quick-search.component.scss'],
 })
-export class QuickSearchComponent {
+export class QuickSearchComponent implements OnDestroy, OnInit {
     /**
      * Placeholder for the search input. Default is empty string;
      */
@@ -183,30 +194,7 @@ export class QuickSearchComponent {
         return this._open;
     }
 
-    /**
-     * A list of filters that can be used to filter the list of providers and/or the results from a given provider.
-     *
-     * All filters have some ID that is displayed and a list of options for their value. These options can also have associated data.
-     * A provider then must know a) if it can respond to a given filter and b) how to filter the search results given the filter.
-     * This means that if Filter A is present, and Provider 1 cannot respond to it, Provider 1 will not be displayed. Provider 2 must
-     * then filter it's results based on the filter.
-     *
-     * If two filters of different IDs are used in the search, the filters should act like and's. If two filters of the same ID
-     * are present in the search, the filter should act like an or.
-     */
-    @Input() set filters(filters: QuickSearchFilter[]) {
-        this._filters = filters;
-        filters.forEach((filter) => {
-            this.filterValues.set(filter.id, []);
-        });
-    }
-    _filters: QuickSearchFilter[] = [];
     filterValues: Map<string, QuickSearchFilterOption[]> = new Map();
-
-    /**
-     * Outputs an event when the user changes the pinning status of this component.
-     */
-    @Output() isPinnedChange = new EventEmitter<boolean>();
 
     /**
      * This method along with `open` property provide two-way binding [(open)] for controlling the visibility state
@@ -220,7 +208,6 @@ export class QuickSearchComponent {
      */
     @Output() resultActivated: EventEmitter<ResultActivatedEvent> = new EventEmitter<ResultActivatedEvent>();
 
-    isPinned = false;
     hasNoResults = false;
     isLoading = false;
     activeFilters: ActiveQuickSearchFilter[] = [];
@@ -228,7 +215,7 @@ export class QuickSearchComponent {
     DataUi = DataUi;
 
     constructor(
-        private searchService: QuickSearchService,
+        public searchService: QuickSearchService,
         private changeDetectorRef: ChangeDetectorRef,
         private el: ElementRef,
         public translationService: TranslationService
@@ -245,9 +232,10 @@ export class QuickSearchComponent {
 
     private _searchCriteria: string = '';
     private lastSearchCriteria: string = '';
-    private searchesRunning = 0;
 
     private _open = false;
+
+    private subTracker: SubscriptionTracker = new SubscriptionTracker(this);
 
     @ViewChild('searchInput', { static: false, read: ElementRef }) searchInput: ElementRef;
 
@@ -300,7 +288,7 @@ export class QuickSearchComponent {
     }
 
     getFilterOptionValue(filterId: string, optionKey: string): boolean {
-        return !!this.filterValues.get(filterId).find((option) => option.key === optionKey);
+        return !!this.getFilterValue(filterId).find((option) => option.key === optionKey);
     }
 
     updateFilterValue(id: string, value: QuickSearchFilterOption): void {
@@ -311,17 +299,16 @@ export class QuickSearchComponent {
         if (isActive) {
             this.filterValues.set(
                 id,
-                this.filterValues.get(id).filter((option) => option.key !== value.key)
+                this.getFilterValue(id).filter((option) => option.key !== value.key)
             );
         } else {
-            this.filterValues.get(id).push(value);
+            this.getFilterValue(id).push(value);
         }
         this.doSearch();
     }
 
     togglePinned(): void {
-        this.isPinned = !this.isPinned;
-        this.isPinnedChange.emit(this.isPinned);
+        this.searchService.isPinned = !this.searchService.isPinned;
         // When the pinning of the component changes, the searchInput is re-rendered. Because of this, we need to wait for
         // Angular to re-render the searchInput before focusing it.
         setTimeout(() => {
@@ -375,7 +362,6 @@ export class QuickSearchComponent {
             return;
         }
         this.isLoading = true;
-        this.searchesRunning += 1;
         flatSections.forEach((searchSection) => (searchSection.isLoading = true));
 
         // Go through the available search sections, i.e. the registered search providers and request for results
@@ -410,9 +396,8 @@ export class QuickSearchComponent {
                     this.selectFirst(true);
                 }
             })
-        ).then(() => {
-            this.searchesRunning -= 1;
-            if (this.searchesRunning === 0) {
+        ).finally(() => {
+            if (searchId === this.searchId) {
                 this.isLoading = false;
             }
         });
@@ -496,6 +481,13 @@ export class QuickSearchComponent {
         return selected;
     }
 
+    private getFilterValue(filterId: string): QuickSearchFilterOption[] {
+        if (!this.filterValues.get(filterId)) {
+            this.filterValues.set(filterId, []);
+        }
+        return this.filterValues.get(filterId);
+    }
+
     /**
      * Handle showing / hiding of the Quick Search.
      * @param open true when opening, false when closing
@@ -558,7 +550,7 @@ export class QuickSearchComponent {
         };
         item.handler();
         this.resultActivated.emit(resultActivatedEvent);
-        if (!this.isPinned) {
+        if (!this.searchService.isPinned) {
             this.open = false;
         }
     }
@@ -625,5 +617,19 @@ export class QuickSearchComponent {
 
     filterTrackBy(_index: number, filterOption: QuickSearchFilter): string {
         return filterOption.id;
+    }
+
+    ngOnDestroy(): void {}
+
+    ngOnInit(): void {
+        this.subTracker.subscribe(this.searchService.filterOverrides, ([filterId, filterValues]) => {
+            this.filterValues.set(filterId, []);
+
+            for (const value of filterValues.filter(Boolean)) {
+                const foundFilter = this.searchService.filters.find((filter) => filter.id === filterId);
+                const foundOption = foundFilter.options.find((option) => option.key === value);
+                this.updateFilterValue(filterId, foundOption);
+            }
+        });
     }
 }

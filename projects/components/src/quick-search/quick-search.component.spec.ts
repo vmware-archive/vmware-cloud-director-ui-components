@@ -832,7 +832,7 @@ describe('QuickSearchComponent', () => {
         });
 
         it('adds a filter icon that shows providers only of that type', function (this: Test): void {
-            this.finder.hostComponent.filters = [
+            this.quickSearchData.spotlightSearchService.registerFilters([
                 {
                     id: 'type',
                     options: [
@@ -842,7 +842,7 @@ describe('QuickSearchComponent', () => {
                     dropdownText: 'dropdown',
                     bubbleI18nKey: 'bubble-key',
                 },
-            ];
+            ]);
             this.quickSearchData.anotherSimpleProvider.sectionName = 'another section';
             this.quickSearchData.spotlightSearchService.registerProvider(this.quickSearchData.anotherSimpleProvider);
             this.quickSearch.getInput().type('copy');
@@ -855,6 +855,30 @@ describe('QuickSearchComponent', () => {
             expect(this.quickSearch.getSearchResultSectionTitles().length()).toEqual(1);
             expect(this.quickSearch.getSearchResultItems().text()).toEqual('copy');
         });
+
+        it('can set filter values through the QuickSearchService', function (this: Test): void {
+            this.quickSearchData.spotlightSearchService.registerFilters([
+                {
+                    id: 'type',
+                    options: [
+                        { display: 'simple', key: 'simple' },
+                        { display: 'simple2', key: 'simple2' },
+                    ],
+                    dropdownText: 'dropdown',
+                    bubbleI18nKey: 'bubble-key',
+                },
+            ]);
+            this.quickSearchData.anotherSimpleProvider.sectionName = 'another section';
+            this.quickSearchData.spotlightSearchService.registerProvider(this.quickSearchData.anotherSimpleProvider);
+            this.quickSearch.getInput().type('copy');
+            expect(this.quickSearch.getSearchResultSectionTitles().length()).toEqual(1);
+
+            // When the type filter is present, the list of providers is filtered based on it.
+            // In this case, the type:simple filter is set and anotherSimpleProvider is removed.
+            this.quickSearchData.spotlightSearchService.selectFilter('type', ['simple']);
+            expect(this.quickSearch.getSearchResultSectionTitles().length()).toEqual(1);
+            expect(this.quickSearch.getSearchResultItems().text()).toEqual('copy');
+        });
     });
 });
 @Component({
@@ -863,7 +887,6 @@ describe('QuickSearchComponent', () => {
             [(open)]="spotlightOpen"
             (resultActivated)="resultActivated($event)"
             [placeholder]="placeholder"
-            [filters]="filters"
         >
             <div data-ui="top-results" class="top-of-results" *ngIf="isTopOfResultsShown">Top of results</div>
             <div data-ui="bottom-results" class="bottom-of-results" *ngIf="isBottomOfResultsShown">
@@ -877,7 +900,6 @@ export class HostSpotlightSearchComponent {
     public spotlightOpen = false;
     public isTopOfResultsShown = false;
     public isBottomOfResultsShown = false;
-    public filters: QuickSearchFilter[] = [];
 
     resultActivated(event: ResultActivatedEvent): void {}
 }
