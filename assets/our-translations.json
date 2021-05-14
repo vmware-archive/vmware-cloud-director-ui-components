@@ -11,7 +11,9 @@
         "grouped.actions3": "Grouped Actions 3",
         "grouped.actions4": "Grouped Actions 4",
         "grouped.actions.with.single.child": "Grouped actions with single child",
-        "contextual.actions": "Contextual actions"
+        "contextual.actions": "Contextual actions",
+        "result.filter.identifier": "Result: {option}",
+        "provider.filter.identifier": "Provider: {option}"
     },
     "de": {
         "select.all": "Wählen Sie Alle",
