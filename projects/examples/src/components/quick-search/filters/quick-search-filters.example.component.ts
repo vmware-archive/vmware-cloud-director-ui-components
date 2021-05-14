@@ -11,6 +11,7 @@ import {
     QuickSearchRegistrarService,
     QuickSearchResultItem,
     QuickSearchResultsType,
+    QuickSearchService,
 } from '@vcd/ui-components';
 
 @Component({
@@ -31,17 +32,17 @@ export class QuickSearchFiltersExampleComponent implements OnInit {
                 { display: 'actions3', key: 'actions3' },
                 { display: 'actions4', key: 'actions4' },
             ],
-            dropdownText: 'test',
-            bubbleI18nKey: 'hello',
+            dropdownText: 'Provider Filter',
+            bubbleI18nKey: 'provider.filter.identifier',
         },
         {
-            id: 'is',
+            id: 'result-filter',
             options: [
-                { display: 'real', key: 'real' },
-                { display: 'fake', key: 'fake' },
+                { display: 'Real', key: 'real' },
+                { display: 'Fake', key: 'fake' },
             ],
-            dropdownText: 'test',
-            bubbleI18nKey: 'hello',
+            dropdownText: 'Result Filter',
+            bubbleI18nKey: 'result.filter.identifier',
         },
     ];
 
@@ -50,9 +51,10 @@ export class QuickSearchFiltersExampleComponent implements OnInit {
     private actionsSearchProvider3 = new ActionsSearchProvider('actions3');
     private actionsSearchProvider4 = new ActionsSearchProvider('actions4');
 
-    constructor(private searchRegistrar: QuickSearchRegistrarService) {}
+    constructor(private searchRegistrar: QuickSearchRegistrarService, private searchService: QuickSearchService) {}
 
     ngOnInit(): void {
+        this.searchService.registerFilters(this.filters);
         this.searchRegistrar.register(this.actionsSearchProvider);
         this.searchRegistrar.register(this.actionsSearchProvider2);
         this.searchRegistrar.register(this.actionsSearchProvider3);
@@ -64,7 +66,7 @@ const actions: string[] = ['copy', 'paste', 'move', 'dummy', 'other-dummy'];
 
 function buildFilter(criteria: string, filters: ActiveQuickSearchFilter[]): (item: QuickSearchResultItem) => boolean {
     criteria = criteria ? criteria.toLowerCase() : '';
-    const isFilter = filters.find((filter) => filter.id === 'is');
+    const isFilter = filters.find((filter) => filter.id === 'result-filter');
     return (item: QuickSearchResultItem) =>
         item.displayText.toLowerCase().includes(criteria) &&
         (!isFilter ||
@@ -107,6 +109,6 @@ export class ActionsSearchProvider extends QuickSearchProviderDefaults {
     }
 
     canHandleFilter(filter: ActiveQuickSearchFilter): boolean {
-        return super.canHandleFilter(filter) || filter.id === 'is';
+        return super.canHandleFilter(filter) || filter.id === 'result-filter';
     }
 }

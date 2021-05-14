@@ -7,10 +7,17 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [2.0.0-dev.21]
+
+### Changed
+- BREAKING: Quick search filters are now set through the service.
+- BREAKING: Pinning is now handled through the search service.
+
+### Added
+- You can now use the quick search service to select a filter and test if the modal is pinned.
 
 ### Fixes
 - Fix pinned quick search appearing above modals
-
 ## [2.0.0-dev.20]
 ### Changed
 - BREAKING: Reworked Quick Search Filters
