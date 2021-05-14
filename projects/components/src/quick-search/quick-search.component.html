@@ -19,9 +19,9 @@
 </ng-template>
 
 <ng-template #filtersSection>
-    <div class="filter-container" *ngIf="_filters.length > 0">
+    <div class="filter-container" *ngIf="this.searchService.filters.length > 0">
         <p>Filter By</p>
-        <ng-container *ngFor="let filter of _filters">
+        <ng-container *ngFor="let filter of this.searchService.filters">
             <clr-dropdown
                 [clrCloseMenuOnItemClick]="false"
                 *ngIf="filter.options.length > 1"
@@ -61,7 +61,7 @@
         </ng-container>
     </div>
     <div>
-        <ng-container *ngFor="let filter of _filters">
+        <ng-container *ngFor="let filter of this.searchService.filters">
             <span class="filter-bubble label" *ngFor="let option of filterValues.get(filter.id)">
                 <span [vcdShowClippedText]="{ disabled: !open }">{{
                     filter.bubbleI18nKey | translate: { option: option.display }
@@ -126,7 +126,7 @@
             [attr.data-ui]="DataUi.searchInput"
         />
         <button class="btn btn-link pin-button" (click)="togglePinned()">
-            <clr-icon shape="pin" size="20" [ngClass]="isPinned ? 'is-solid' : ''"> </clr-icon>
+            <clr-icon shape="pin" size="20" [ngClass]="this.searchService.isPinned ? 'is-solid' : ''"> </clr-icon>
         </button>
     </div>
     <clr-control-helper class="input-helper">{{ helper }}</clr-control-helper>
@@ -201,7 +201,7 @@
     (keydown.arrowup)="onArrowUp($event)"
     (keydown.arrowdown)="onArrowDown($event)"
     (keydown.enter)="onEnterKey($event)"
-    *ngIf="!isPinned; else drawerComponent"
+    *ngIf="!searchService.isPinned; else drawerComponent"
 >
     <div class="modal-body" [attr.data-ui]="DataUi.modalBody">
         <ng-container *ngTemplateOutlet="quickSearchInterior"> </ng-container>
