@@ -6,6 +6,8 @@
 import { NgModule } from '@angular/core';
 import { DatagridComponent } from '@vcd/ui-components';
 import { Documentation } from '@vmw/ng-live-docs';
+import { DatagridActionDisplayExampleComponent } from './datagrid-action-display.example.component';
+import { DatagridActionDisplayExampleModule } from './datagrid-action-display.example.module';
 import { DatagridActionMenuTrackingExampleComponent } from './datagrid-action-menu-tracking-example.component';
 import { DatagridActionMenuTrackerExampleModule } from './datagrid-action-menu-tracking.example.module';
 import { DatagridActivityReporterExampleComponent } from './datagrid-activity-reporter.example.component';
@@ -156,6 +158,12 @@ Documentation.registerDocumentationEntry({
             title: 'Set the width of columns through CSS class names',
             urlSegment: 'datagrid-column-width',
         },
+        {
+            component: DatagridActionDisplayExampleComponent,
+            forComponent: null,
+            title: 'Action menu display configurations',
+            urlSegment: 'datagrid-action-display',
+        },
     ],
 });
 /**
@@ -181,6 +189,7 @@ Documentation.registerDocumentationEntry({
         DatagridLoadingPlaceholderExampleModule,
         DatagridDetailPaneExampleModule,
         DatagridColumnWidthExampleModule,
+        DatagridActionDisplayExampleModule,
     ],
 })
 export class DatagridExamplesModule {}
