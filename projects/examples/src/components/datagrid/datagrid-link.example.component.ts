@@ -35,27 +35,10 @@ type HandlerData = Record[] | Blah;
 /**
  * Shows linked buttons on the top of the datagrid.
  * Has examples of both buttons that are global and contextual.
- *
- * Enable the delete button to hide it and disable the delete button to show it in disable mode. This is because the
- * inactive display mode of a button can be set as following:
- *  - Hidden - availability is false and disabled is false
- *  - Shown as Disabled - availability is false and disabled is true
- * Please refer to the delete action object configuration in the actions object list configuration.
  */
 @Component({
     selector: 'vcd-datagrid-link-example',
     template: `
-        <button (click)="changeActionLocation()" class="btn btn-primary">
-            Display contextual actions {{ actionDisplayConfig.contextual.position === 'ROW' ? 'on top' : 'in row' }}
-        </button>
-        <button
-            *ngIf="actionDisplayConfig.contextual.position === 'ROW'"
-            (click)="changeContextualActionStyling()"
-            class="btn btn-primary"
-        >
-            Display contextual actions {{ actionDisplayConfig.contextual.styling === 'INLINE' ? 'dropdown' : 'inline' }}
-        </button>
-        <br />
         <vcd-datagrid
             [gridData]="gridData"
             (gridRefresh)="refresh($event)"
@@ -158,22 +141,6 @@ export class DatagridLinkExampleComponent<R extends Record> {
 
     selectionType = GridSelectionType.Single;
 
-    changeActionLocation(): void {
-        if (this.actionDisplayConfig.contextual.position === DatagridContextualActionPosition.TOP) {
-            this.actionDisplayConfig = {
-                contextual: {
-                    ...getDefaultDatagridActionDisplayConfig().contextual,
-                    position: DatagridContextualActionPosition.ROW,
-                },
-                staticActionStyling: getDefaultDatagridActionDisplayConfig().staticActionStyling,
-            };
-            this.selectionType = GridSelectionType.None;
-        } else {
-            this.actionDisplayConfig = getDefaultDatagridActionDisplayConfig();
-            this.selectionType = GridSelectionType.Single;
-        }
-    }
-
     refresh(eventData: GridState<R>): void {
         this.gridData = {
             items: [
@@ -183,19 +150,6 @@ export class DatagridLinkExampleComponent<R extends Record> {
                 { value: 'b', paused: false },
             ],
             totalItems: 2,
-        };
-    }
-
-    changeContextualActionStyling(): void {
-        this.actionDisplayConfig = {
-            contextual: {
-                ...this.actionDisplayConfig.contextual,
-                styling:
-                    this.actionDisplayConfig.contextual.styling === ActionStyling.DROPDOWN
-                        ? (ActionStyling.INLINE as any)
-                        : ActionStyling.DROPDOWN,
-            },
-            staticActionStyling: this.actionDisplayConfig.staticActionStyling,
         };
     }
 }
