@@ -7,7 +7,7 @@ import { Component, EventEmitter, Input, OnDestroy, OnInit, Output, ViewChild } 
 import { FormControl, FormGroup } from '@angular/forms';
 import { ClrDropdown } from '@clr/angular';
 import { LazyString, TranslationService } from '@vcd/i18n';
-import { SubscriptionTracker } from '../common/subscription';
+import { SubscriptionTracker } from '../common/subscription/subscription-tracker';
 import { CsvExporterService } from './csv-exporter.service';
 
 /**
@@ -92,11 +92,16 @@ export const DataUi = {
     selector: 'vcd-data-exporter',
     templateUrl: 'data-exporter.component.html',
     styleUrls: ['./data-exporter.component.scss'],
+    providers: [SubscriptionTracker],
 })
-export class DataExporterComponent implements OnInit, OnDestroy {
+export class DataExporterComponent implements OnInit {
     DataUi = DataUi;
 
-    constructor(private csvExporterService: CsvExporterService, private translationService: TranslationService) {}
+    constructor(
+        private csvExporterService: CsvExporterService,
+        private translationService: TranslationService,
+        private subscriptionTracker: SubscriptionTracker
+    ) {}
 
     @ViewChild(ClrDropdown) set columnDropdown(columnDropdown: ClrDropdown) {
         if (!columnDropdown) {
@@ -234,8 +239,6 @@ export class DataExporterComponent implements OnInit, OnDestroy {
     }
 
     private _open = false;
-    private subscriptionTracker = new SubscriptionTracker(this);
-
     /**
      * Fires when {@link _open} changes. Its parameter indicates the new state.
      */
@@ -355,8 +358,6 @@ export class DataExporterComponent implements OnInit, OnDestroy {
             }
         });
     }
-
-    ngOnDestroy(): void {}
 
     private exportData(records: object[]): Promise<string> {
         if (!this.open) {
