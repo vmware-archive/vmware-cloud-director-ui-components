@@ -150,6 +150,7 @@ associating checkbox options with their labels in the HTML</p>
 import { FormControl, FormGroup } from &#x27;@angular/forms&#x27;;
 import { ClrDatagridFilter } from &#x27;@clr/angular&#x27;;
 import { SelectOption } from &#x27;../../common/interfaces/select-option&#x27;;
+import { SubscriptionTracker } from &#x27;../../common/subscription/subscription-tracker&#x27;;
 import { FilterBuilder } from &#x27;../../utils/filter-builder&#x27;;
 import { IdGenerator } from &#x27;../../utils/id-generator/id-generator&#x27;;
 import { DatagridFilter, FilterComponentRendererSpec, FilterConfig, FilterRendererSpec } from &#x27;./datagrid-filter&#x27;;
@@ -207,12 +208,11 @@ const idGenerator &#x3D; new IdGenerator(&#x27;vcd-multiselect-filter-id&#x27;);
 @Component({
     selector: &#x27;vcd-dg-multiselect-filter&#x27;,
     templateUrl: &#x27;./datagrid-multiselect-filter.component.html&#x27;,
+    providers: [SubscriptionTracker],
 })
-export class DatagridMultiSelectFilterComponent
-    extends DatagridFilter&lt;string[], DatagridMultiSelectFilterConfig&gt;
-    implements OnDestroy {
-    constructor(private filterContainer: ClrDatagridFilter) {
-        super(filterContainer);
+export class DatagridMultiSelectFilterComponent extends DatagridFilter&lt;string[], DatagridMultiSelectFilterConfig&gt; {
+    constructor(private filterContainer: ClrDatagridFilter, subTracker: SubscriptionTracker) {
+        super(filterContainer, subTracker);
     }
 
     /**
@@ -269,8 +269,6 @@ export class DatagridMultiSelectFilterComponent
             !!Object.keys(this.formGroup.getRawValue()).filter((frmCtrl) &#x3D;&gt; this.formGroup.get(frmCtrl).value).length
         );
     }
-
-    ngOnDestroy(): void {}
 }
 
 /**

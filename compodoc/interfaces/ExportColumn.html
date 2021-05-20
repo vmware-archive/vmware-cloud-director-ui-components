@@ -187,7 +187,7 @@
 import { FormControl, FormGroup } from &#x27;@angular/forms&#x27;;
 import { ClrDropdown } from &#x27;@clr/angular&#x27;;
 import { LazyString, TranslationService } from &#x27;@vcd/i18n&#x27;;
-import { SubscriptionTracker } from &#x27;../common/subscription&#x27;;
+import { SubscriptionTracker } from &#x27;../common/subscription/subscription-tracker&#x27;;
 import { CsvExporterService } from &#x27;./csv-exporter.service&#x27;;
 
 /**
@@ -272,11 +272,16 @@ export const DataUi &#x3D; {
     selector: &#x27;vcd-data-exporter&#x27;,
     templateUrl: &#x27;data-exporter.component.html&#x27;,
     styleUrls: [&#x27;./data-exporter.component.scss&#x27;],
+    providers: [SubscriptionTracker],
 })
-export class DataExporterComponent implements OnInit, OnDestroy {
+export class DataExporterComponent implements OnInit {
     DataUi &#x3D; DataUi;
 
-    constructor(private csvExporterService: CsvExporterService, private translationService: TranslationService) {}
+    constructor(
+        private csvExporterService: CsvExporterService,
+        private translationService: TranslationService,
+        private subscriptionTracker: SubscriptionTracker
+    ) {}
 
     @ViewChild(ClrDropdown) set columnDropdown(columnDropdown: ClrDropdown) {
         if (!columnDropdown) {
@@ -414,8 +419,6 @@ export class DataExporterComponent implements OnInit, OnDestroy {
     }
 
     private _open &#x3D; false;
-    private subscriptionTracker &#x3D; new SubscriptionTracker(this);
-
     /**
      * Fires when {@link _open} changes. Its parameter indicates the new state.
      */
@@ -535,8 +538,6 @@ export class DataExporterComponent implements OnInit, OnDestroy {
             }
         });
     }
-
-    ngOnDestroy(): void {}
 
     private exportData(records: object[]): Promise&lt;string&gt; {
         if (!this.open) {

@@ -186,6 +186,7 @@
         <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Component, Host, Input, OnDestroy, OnInit, ViewChild } from &#x27;@angular/core&#x27;;
 import { FormBuilder, FormControl, FormGroup } from &#x27;@angular/forms&#x27;;
 import { ClrDatagridFilter } from &#x27;@clr/angular&#x27;;
+import { SubscriptionTracker } from &#x27;../../common/subscription/subscription-tracker&#x27;;
 import { NumberWithUnitFormInputComponent } from &#x27;../../form&#x27;;
 import { FilterBuilder } from &#x27;../../utils/filter-builder&#x27;;
 import { Unit } from &#x27;../../utils/unit/unit&#x27;;
@@ -213,10 +214,11 @@ export interface DatagridNumericFilterConfig extends FilterConfig&lt;DatagridNum
     selector: &#x27;vcd-dg-numeric-filter&#x27;,
     templateUrl: &#x27;datagrid-numeric-filter.component.html&#x27;,
     styleUrls: [&#x27;datagrid-numeric-filter.component.scss&#x27;],
+    providers: [SubscriptionTracker],
 })
 export class DatagridNumericFilterComponent
     extends DatagridFilter&lt;DatagridNumericFilterValue, DatagridNumericFilterConfig&gt;
-    implements OnInit, OnDestroy {
+    implements OnInit {
     maxNumberLength &#x3D; Number.MAX_SAFE_INTEGER.toString().length;
 
     @ViewChild(&#x27;from&#x27;) fromInput: NumberWithUnitFormInputComponent;
@@ -257,8 +259,8 @@ export class DatagridNumericFilterComponent
         });
     }
 
-    constructor(private filterContainer: ClrDatagridFilter) {
-        super(filterContainer);
+    constructor(private filterContainer: ClrDatagridFilter, subTracker: SubscriptionTracker) {
+        super(filterContainer, subTracker);
     }
 
     protected onBeforeSetConfig(config: DatagridNumericFilterConfig): void {
@@ -308,8 +310,6 @@ export class DatagridNumericFilterComponent
     close(): void {
         this.filterContainer.open &#x3D; false;
     }
-
-    ngOnDestroy(): void {}
 }
 
 /**

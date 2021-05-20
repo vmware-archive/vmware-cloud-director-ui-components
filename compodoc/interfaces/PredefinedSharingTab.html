@@ -277,7 +277,7 @@ import { ClrDatagridPagination } from &#x27;@clr/angular&#x27;;
 import { LazyString, TranslationService } from &#x27;@vcd/i18n&#x27;;
 import { Observable } from &#x27;rxjs&#x27;;
 import { ActionItem, ActionStyling, ActionType, TextIcon } from &#x27;../../common/interfaces/action-item.interface&#x27;;
-import { SubscriptionTracker } from &#x27;../../common/subscription&#x27;;
+import { SubscriptionTracker } from &#x27;../../common/subscription/subscription-tracker&#x27;;
 import {
     ColumnComponentRendererSpec,
     ComponentRendererConstructor,
@@ -398,9 +398,10 @@ export interface SharingTab&lt;T&gt; extends PredefinedSharingTab&lt;T&gt; {
     selector: &#x27;vcd-sharing-modal-tab&#x27;,
     templateUrl: &#x27;sharing-modal-tab.component.html&#x27;,
     styleUrls: [&#x27;./sharing-modal-tab.component.scss&#x27;],
+    providers: [SubscriptionTracker],
 })
-export class SharingModalTabComponent&lt;T&gt; implements OnInit, OnDestroy, AfterViewInit {
-    constructor(public translationService: TranslationService) {}
+export class SharingModalTabComponent&lt;T&gt; implements OnInit, AfterViewInit {
+    constructor(public translationService: TranslationService, private subTracker: SubscriptionTracker) {}
 
     /**
      * Which of the user type this entity is already share dwith.
@@ -518,7 +519,6 @@ export class SharingModalTabComponent&lt;T&gt; implements OnInit, OnDestroy, Aft
      */
     searchError: string &#x3D; undefined;
 
-    private subTracker: SubscriptionTracker &#x3D; new SubscriptionTracker(this);
     private bufferedSearch: (criteria?: string) &#x3D;&gt; Promise&lt;SearchResult&lt;T&gt;&gt;;
     private allSharedWith: IsSelected&lt;T&gt;[] &#x3D; [];
     private gridState: GridState&lt;IsSelected&lt;T&gt;&gt;;
@@ -679,8 +679,6 @@ export class SharingModalTabComponent&lt;T&gt; implements OnInit, OnDestroy, Aft
                 .then((result) &#x3D;&gt; result)
                 .then((result) &#x3D;&gt; result);
     }
-
-    ngOnDestroy(): void {}
 
     ngAfterViewInit(): void {
         this.updateGridItems();

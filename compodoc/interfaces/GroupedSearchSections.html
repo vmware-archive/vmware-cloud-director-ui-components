@@ -190,7 +190,7 @@
 } from &#x27;@angular/core&#x27;;
 import { TranslationService } from &#x27;@vcd/i18n&#x27;;
 import { DomUtil } from &#x27;../utils/dom-util&#x27;;
-import { SubscriptionTracker } from &#x27;../common/subscription&#x27;;
+import { SubscriptionTracker } from &#x27;../common/subscription/subscription-tracker&#x27;;
 import { QuickSearchResultItem, QuickSearchResults } from &#x27;./quick-search-result&#x27;;
 import { QuickSearchProvider } from &#x27;./quick-search.provider&#x27;;
 import { QuickSearchService } from &#x27;./quick-search.service&#x27;;
@@ -344,8 +344,9 @@ interface PartialResult {
     selector: &#x27;vcd-quick-search&#x27;,
     templateUrl: &#x27;./quick-search.component.html&#x27;,
     styleUrls: [&#x27;./quick-search.component.scss&#x27;],
+    providers: [SubscriptionTracker],
 })
-export class QuickSearchComponent implements OnDestroy, OnInit {
+export class QuickSearchComponent implements OnInit {
     /**
      * Placeholder for the search input. Default is empty string;
      */
@@ -392,7 +393,8 @@ export class QuickSearchComponent implements OnDestroy, OnInit {
         public searchService: QuickSearchService,
         private changeDetectorRef: ChangeDetectorRef,
         private el: ElementRef,
-        public translationService: TranslationService
+        public translationService: TranslationService,
+        private subTracker: SubscriptionTracker
     ) {}
 
     get searchCriteria(): string {
@@ -408,8 +410,6 @@ export class QuickSearchComponent implements OnDestroy, OnInit {
     private lastSearchCriteria: string &#x3D; &#x27;&#x27;;
 
     private _open &#x3D; false;
-
-    private subTracker: SubscriptionTracker &#x3D; new SubscriptionTracker(this);
 
     @ViewChild(&#x27;searchInput&#x27;, { static: false, read: ElementRef }) searchInput: ElementRef;
 
@@ -792,8 +792,6 @@ export class QuickSearchComponent implements OnDestroy, OnInit {
     filterTrackBy(_index: number, filterOption: QuickSearchFilter): string {
         return filterOption.id;
     }
-
-    ngOnDestroy(): void {}
 
     ngOnInit(): void {
         this.subTracker.subscribe(this.searchService.filterOverrides, ([filterId, filterValues]) &#x3D;&gt; {

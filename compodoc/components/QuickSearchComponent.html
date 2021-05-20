@@ -102,7 +102,6 @@ in sections based on the registered provider <a href="../interfaces/QuickSearchP
         <h3>Implements</h3>
     </p>
     <p class="comment">
-                    <code><a href="https://angular.io/api/core/OnDestroy" target="_blank" >OnDestroy</a></code>
                     <code><a href="https://angular.io/api/core/OnInit" target="_blank" >OnInit</a></code>
     </p>
 
@@ -120,6 +119,12 @@ in sections based on the registered provider <a href="../interfaces/QuickSearchP
 
 
 
+            <tr>
+                <td class="col-md-3">providers</td>
+                <td class="col-md-9">
+                                <code><a href="../injectables/SubscriptionTracker.html" target="_self" >SubscriptionTracker</a></code>
+                </td>
+            </tr>
 
 
             <tr>
@@ -207,10 +212,6 @@ in sections based on the registered provider <a href="../interfaces/QuickSearchP
                                 <a href="#selectedItem">selectedItem</a>
                             </li>
                             <li>
-                                    <span class="modifier">Private</span>
-                                <a href="#subTracker">subTracker</a>
-                            </li>
-                            <li>
                                     <span class="modifier">Public</span>
                                 <a href="#translationService">translationService</a>
                             </li>
@@ -272,9 +273,6 @@ in sections based on the registered provider <a href="../interfaces/QuickSearchP
                             </li>
                             <li>
                                 <a href="#itemClicked">itemClicked</a>
-                            </li>
-                            <li>
-                                <a href="#ngOnDestroy">ngOnDestroy</a>
                             </li>
                             <li>
                                 <a href="#ngOnInit">ngOnInit</a>
@@ -388,12 +386,12 @@ in sections based on the registered provider <a href="../interfaces/QuickSearchP
             <tbody>
                 <tr>
                     <td class="col-md-4">
-<code>constructor(searchService: <a href="../injectables/QuickSearchService.html">QuickSearchService</a>, changeDetectorRef: <a href="https://angular.io/api/core/ChangeDetectorRef" target="_blank">ChangeDetectorRef</a>, el: <a href="https://angular.io/api/core/ElementRef" target="_blank">ElementRef</a>, translationService: TranslationService)</code>
+<code>constructor(searchService: <a href="../injectables/QuickSearchService.html">QuickSearchService</a>, changeDetectorRef: <a href="https://angular.io/api/core/ChangeDetectorRef" target="_blank">ChangeDetectorRef</a>, el: <a href="https://angular.io/api/core/ElementRef" target="_blank">ElementRef</a>, translationService: TranslationService, subTracker: <a href="../injectables/SubscriptionTracker.html">SubscriptionTracker</a>)</code>
                     </td>
                 </tr>
                         <tr>
                             <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="215" class="link-to-prism">projects/components/src/quick-search/quick-search.component.ts:215</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="216" class="link-to-prism">projects/components/src/quick-search/quick-search.component.ts:216</a></div>
                             </td>
                         </tr>
 
@@ -458,6 +456,18 @@ in sections based on the registered provider <a href="../interfaces/QuickSearchP
                                                     </td>
                                                     
                                                 </tr>
+                                                <tr>
+                                                        <td>subTracker</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="../injectables/SubscriptionTracker.html" target="_self" >SubscriptionTracker</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
                                         </tbody>
                                     </table>
                             </div>
@@ -485,7 +495,7 @@ in sections based on the registered provider <a href="../interfaces/QuickSearchP
                 </tr>
                         <tr>
                             <td class="col-md-2" colspan="2">
-                                    <div class="io-line">Defined in <a href="" data-line="183" class="link-to-prism">projects/components/src/quick-search/quick-search.component.ts:183</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="184" class="link-to-prism">projects/components/src/quick-search/quick-search.component.ts:184</a></div>
                             </td>
                         </tr>
                 <tr>
@@ -512,7 +522,7 @@ in sections based on the registered provider <a href="../interfaces/QuickSearchP
                 </tr>
                         <tr>
                             <td class="col-md-2" colspan="2">
-                                    <div class="io-line">Defined in <a href="" data-line="190" class="link-to-prism">projects/components/src/quick-search/quick-search.component.ts:190</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="191" class="link-to-prism">projects/components/src/quick-search/quick-search.component.ts:191</a></div>
                             </td>
                         </tr>
                 <tr>
@@ -540,7 +550,7 @@ of the quick search component</p>
                 </tr>
                         <tr>
                             <td class="col-md-2" colspan="2">
-                                    <div class="io-line">Defined in <a href="" data-line="178" class="link-to-prism">projects/components/src/quick-search/quick-search.component.ts:178</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="179" class="link-to-prism">projects/components/src/quick-search/quick-search.component.ts:179</a></div>
                             </td>
                         </tr>
                 <tr>
@@ -570,7 +580,7 @@ of the quick search component</p>
                 </tr>
                         <tr>
                             <td class="col-md-2" colspan="2">
-                                    <div class="io-line">Defined in <a href="" data-line="203" class="link-to-prism">projects/components/src/quick-search/quick-search.component.ts:203</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="204" class="link-to-prism">projects/components/src/quick-search/quick-search.component.ts:204</a></div>
                             </td>
                         </tr>
                 <tr>
@@ -598,7 +608,7 @@ of the quick search component</p>
                 </tr>
                         <tr>
                             <td class="col-md-2" colspan="2">
-                                    <div class="io-line">Defined in <a href="" data-line="209" class="link-to-prism">projects/components/src/quick-search/quick-search.component.ts:209</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="210" class="link-to-prism">projects/components/src/quick-search/quick-search.component.ts:210</a></div>
                             </td>
                         </tr>
                 <tr>
@@ -1597,45 +1607,6 @@ then null is returned</p>
         <tbody>
             <tr>
                 <td class="col-md-4">
-                    <a name="ngOnDestroy"></a>
-                    <span class="name">
-                        <b>
-                            ngOnDestroy
-                        </b>
-                        <a href="#ngOnDestroy"><span class="icon ion-ios-link"></span></a>
-                    </span>
-                </td>
-            </tr>
-            <tr>
-                <td class="col-md-4">
-<code>ngOnDestroy()</code>
-                </td>
-            </tr>
-
-
-            <tr>
-                <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="622"
-                            class="link-to-prism">projects/components/src/quick-search/quick-search.component.ts:622</a></div>
-                </td>
-            </tr>
-
-
-            <tr>
-                <td class="col-md-4">
-
-                    <div class="io-description">
-                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
-
-                    </div>
-                </td>
-            </tr>
-        </tbody>
-    </table>
-    <table class="table table-sm table-bordered">
-        <tbody>
-            <tr>
-                <td class="col-md-4">
                     <a name="ngOnInit"></a>
                     <span class="name">
                         <b>
@@ -1654,8 +1625,8 @@ then null is returned</p>
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="624"
-                            class="link-to-prism">projects/components/src/quick-search/quick-search.component.ts:624</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="622"
+                            class="link-to-prism">projects/components/src/quick-search/quick-search.component.ts:622</a></div>
                 </td>
             </tr>
 
@@ -2477,7 +2448,7 @@ then null is returned</p>
                     </tr>
                         <tr>
                             <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="236" class="link-to-prism">projects/components/src/quick-search/quick-search.component.ts:236</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="238" class="link-to-prism">projects/components/src/quick-search/quick-search.component.ts:238</a></div>
                             </td>
                         </tr>
 
@@ -2510,7 +2481,7 @@ then null is returned</p>
                     </tr>
                         <tr>
                             <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="233" class="link-to-prism">projects/components/src/quick-search/quick-search.component.ts:233</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="235" class="link-to-prism">projects/components/src/quick-search/quick-search.component.ts:235</a></div>
                             </td>
                         </tr>
 
@@ -2542,7 +2513,7 @@ then null is returned</p>
                     </tr>
                         <tr>
                             <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="213" class="link-to-prism">projects/components/src/quick-search/quick-search.component.ts:213</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="214" class="link-to-prism">projects/components/src/quick-search/quick-search.component.ts:214</a></div>
                             </td>
                         </tr>
 
@@ -2574,7 +2545,7 @@ then null is returned</p>
                     </tr>
                         <tr>
                             <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="215" class="link-to-prism">projects/components/src/quick-search/quick-search.component.ts:215</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="216" class="link-to-prism">projects/components/src/quick-search/quick-search.component.ts:216</a></div>
                             </td>
                         </tr>
 
@@ -2606,7 +2577,7 @@ then null is returned</p>
                     </tr>
                         <tr>
                             <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="197" class="link-to-prism">projects/components/src/quick-search/quick-search.component.ts:197</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="198" class="link-to-prism">projects/components/src/quick-search/quick-search.component.ts:198</a></div>
                             </td>
                         </tr>
 
@@ -2680,7 +2651,7 @@ a parent section name, and sub section names.</p>
                     </tr>
                         <tr>
                             <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="211" class="link-to-prism">projects/components/src/quick-search/quick-search.component.ts:211</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="212" class="link-to-prism">projects/components/src/quick-search/quick-search.component.ts:212</a></div>
                             </td>
                         </tr>
 
@@ -2712,7 +2683,7 @@ a parent section name, and sub section names.</p>
                     </tr>
                         <tr>
                             <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="212" class="link-to-prism">projects/components/src/quick-search/quick-search.component.ts:212</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="213" class="link-to-prism">projects/components/src/quick-search/quick-search.component.ts:213</a></div>
                             </td>
                         </tr>
 
@@ -2745,7 +2716,7 @@ a parent section name, and sub section names.</p>
                     </tr>
                         <tr>
                             <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="234" class="link-to-prism">projects/components/src/quick-search/quick-search.component.ts:234</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="236" class="link-to-prism">projects/components/src/quick-search/quick-search.component.ts:236</a></div>
                             </td>
                         </tr>
 
@@ -2842,7 +2813,7 @@ a parent section name, and sub section names.</p>
                     </tr>
                         <tr>
                             <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="218" class="link-to-prism">projects/components/src/quick-search/quick-search.component.ts:218</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="219" class="link-to-prism">projects/components/src/quick-search/quick-search.component.ts:219</a></div>
                             </td>
                         </tr>
 
@@ -2886,39 +2857,6 @@ a parent section name, and sub section names.</p>
             <tbody>
                 <tr>
                     <td class="col-md-4">
-                        <a name="subTracker"></a>
-                        <span class="name">
-                            <b>
-                                <span class="modifier">Private</span>
-                            subTracker</b>
-                            <a href="#subTracker"><span class="icon ion-ios-link"></span></a>
-                        </span>
-                    </td>
-                </tr>
-                    <tr>
-                        <td class="col-md-4">
-                            <i>Type : </i>        <code><a href="../classes/SubscriptionTracker.html" target="_self" >SubscriptionTracker</a></code>
-
-                        </td>
-                    </tr>
-                    <tr>
-                        <td class="col-md-4">
-                            <i>Default value : </i><code>new SubscriptionTracker(this)</code>
-                        </td>
-                    </tr>
-                        <tr>
-                            <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="238" class="link-to-prism">projects/components/src/quick-search/quick-search.component.ts:238</a></div>
-                            </td>
-                        </tr>
-
-
-            </tbody>
-        </table>
-        <table class="table table-sm table-bordered">
-            <tbody>
-                <tr>
-                    <td class="col-md-4">
                         <a name="translationService"></a>
                         <span class="name">
                             <b>
@@ -2936,7 +2874,7 @@ a parent section name, and sub section names.</p>
                     </tr>
                         <tr>
                             <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="221" class="link-to-prism">projects/components/src/quick-search/quick-search.component.ts:221</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="222" class="link-to-prism">projects/components/src/quick-search/quick-search.component.ts:222</a></div>
                             </td>
                         </tr>
 
@@ -2997,7 +2935,7 @@ a parent section name, and sub section names.</p>
                 </tr>
                             <tr>
                                 <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="193" class="link-to-prism">projects/components/src/quick-search/quick-search.component.ts:193</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="194" class="link-to-prism">projects/components/src/quick-search/quick-search.component.ts:194</a></div>
                                 </td>
                             </tr>
 
@@ -3008,7 +2946,7 @@ a parent section name, and sub section names.</p>
                 </tr>
                             <tr>
                                 <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="190" class="link-to-prism">projects/components/src/quick-search/quick-search.component.ts:190</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="191" class="link-to-prism">projects/components/src/quick-search/quick-search.component.ts:191</a></div>
                                 </td>
                             </tr>
                     <tr>
@@ -3069,7 +3007,7 @@ of the quick search component</p>
                 </tr>
                             <tr>
                                 <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="224" class="link-to-prism">projects/components/src/quick-search/quick-search.component.ts:224</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="226" class="link-to-prism">projects/components/src/quick-search/quick-search.component.ts:226</a></div>
                                 </td>
                             </tr>
 
@@ -3080,7 +3018,7 @@ of the quick search component</p>
                 </tr>
                             <tr>
                                 <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="228" class="link-to-prism">projects/components/src/quick-search/quick-search.component.ts:228</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="230" class="link-to-prism">projects/components/src/quick-search/quick-search.component.ts:230</a></div>
                                 </td>
                             </tr>
                     <tr>
@@ -3140,7 +3078,7 @@ of the quick search component</p>
 } from &#x27;@angular/core&#x27;;
 import { TranslationService } from &#x27;@vcd/i18n&#x27;;
 import { DomUtil } from &#x27;../utils/dom-util&#x27;;
-import { SubscriptionTracker } from &#x27;../common/subscription&#x27;;
+import { SubscriptionTracker } from &#x27;../common/subscription/subscription-tracker&#x27;;
 import { QuickSearchResultItem, QuickSearchResults } from &#x27;./quick-search-result&#x27;;
 import { QuickSearchProvider } from &#x27;./quick-search.provider&#x27;;
 import { QuickSearchService } from &#x27;./quick-search.service&#x27;;
@@ -3294,8 +3232,9 @@ interface PartialResult {
     selector: &#x27;vcd-quick-search&#x27;,
     templateUrl: &#x27;./quick-search.component.html&#x27;,
     styleUrls: [&#x27;./quick-search.component.scss&#x27;],
+    providers: [SubscriptionTracker],
 })
-export class QuickSearchComponent implements OnDestroy, OnInit {
+export class QuickSearchComponent implements OnInit {
     /**
      * Placeholder for the search input. Default is empty string;
      */
@@ -3342,7 +3281,8 @@ export class QuickSearchComponent implements OnDestroy, OnInit {
         public searchService: QuickSearchService,
         private changeDetectorRef: ChangeDetectorRef,
         private el: ElementRef,
-        public translationService: TranslationService
+        public translationService: TranslationService,
+        private subTracker: SubscriptionTracker
     ) {}
 
     get searchCriteria(): string {
@@ -3358,8 +3298,6 @@ export class QuickSearchComponent implements OnDestroy, OnInit {
     private lastSearchCriteria: string &#x3D; &#x27;&#x27;;
 
     private _open &#x3D; false;
-
-    private subTracker: SubscriptionTracker &#x3D; new SubscriptionTracker(this);
 
     @ViewChild(&#x27;searchInput&#x27;, { static: false, read: ElementRef }) searchInput: ElementRef;
 
@@ -3742,8 +3680,6 @@ export class QuickSearchComponent implements OnDestroy, OnInit {
     filterTrackBy(_index: number, filterOption: QuickSearchFilter): string {
         return filterOption.id;
     }
-
-    ngOnDestroy(): void {}
 
     ngOnInit(): void {
         this.subTracker.subscribe(this.searchService.filterOverrides, ([filterId, filterValues]) &#x3D;&gt; {
@@ -4163,7 +4099,7 @@ button.btn-link.remove-col-button {
 <script>
         var COMPONENT_TEMPLATE = '<div><ng-template #sectionTitle let-searchSection>    <div class="section-title-wrapper">        <clr-icon *ngIf="searchSection.icon" [attr.shape]="searchSection.icon" size="20"> </clr-icon>        <div *ngIf="searchSection.hasPartialResult; let partial; else: partial">            {{                \'vcd.cc.quickSearch.partialResultTitle\'                    | translate                        : {                              title: searchSection.provider.sectionName,                              lastItem: partial.lastItem,                              totalItems: partial.totalItems                          }            }}        </div>        <ng-template #partial>            {{ searchSection.provider.sectionName }}        </ng-template>    </div></ng-template><ng-template #filtersSection>    <div class="filter-container" *ngIf="this.searchService.filters.length > 0">        <p>Filter By</p>        <ng-container *ngFor="let filter of this.searchService.filters">            <clr-dropdown                [clrCloseMenuOnItemClick]="false"                *ngIf="filter.options.length > 1"                (keydown.arrowup)="$event.stopPropagation()"                (keydown.arrowdown)="$event.stopPropagation()"                (keydown.enter)="$event.stopPropagation()"            >                <button                    class="dropdown-toggle btn btn-link"                    type="button"                    clrDropdownTrigger                    [attr.data-ui]="DataUi.filterButton(filter.id)"                >                    {{ filter.dropdownText }}                    <clr-icon shape="caret down"></clr-icon>                </button>                <clr-dropdown-menu clrPosition="bottom" *clrIfOpen #dropdownMenu>                    <li                        clrDropdownItem                        *ngFor="let option of filter.options"                        (click)="updateFilterValue(filter.id, option)"                    >                        <clr-checkbox-wrapper class="column-checkbox">                            <input                                type="checkbox"                                clrCheckbox                                (click)="$event.stopPropagation()"                                [ngModel]="getFilterOptionValue(filter.id, option.key)"                                (ngModelChange)="updateFilterValue(filter.id, option)"                                [attr.data-ui]="DataUi.filterDropdownItem"                            />                            <label (click)="$event.stopPropagation()">{{ option.display }}</label>                        </clr-checkbox-wrapper>                    </li>                </clr-dropdown-menu>            </clr-dropdown>        </ng-container>    </div>    <div>        <ng-container *ngFor="let filter of this.searchService.filters">            <span class="filter-bubble label" *ngFor="let option of filterValues.get(filter.id)">                <span [vcdShowClippedText]="{ disabled: !open }">{{                    filter.bubbleI18nKey | translate: { option: option.display }                }}</span>                <button                    type="button"                    class="btn btn-icon btn-link remove-col-button"                    aria-label="home"                    (click)="updateFilterValue(filter.id, option)"                >                    <clr-icon shape="close" class="badge badge-info"> </clr-icon>                </button>            </span>        </ng-container>    </div></ng-template><ng-template let-searchSection #searchSectionTemplate>    <ul class="list-unstyled compact">        <li            class="search-result-item"            role="button"            *ngFor="let item of searchSection.result?.items"            (click)="itemClicked(item)"            [ngClass]="item == selectedItem ? \'selected\' : \'\'"            [attr.data-ui]="DataUi.searchResultItems"        >            {{ item.displayText }}        </li>        <li>            <clr-alert                *ngIf="searchSection.hasPartialResult"                [clrAlertType]="\'warning\'"                [clrAlertSizeSmall]="true"                [clrAlertClosable]="false"            >                <clr-alert-item [attr.data-ui]="DataUi.searchResultAlerts">                    {{ \'vcd.cc.quickSearch.refineQuery\' | translate: { max: searchSection.result.items.length } }}                </clr-alert-item>            </clr-alert>        </li>    </ul></ng-template><ng-template #quickSearchInterior>    <div class="search-input-container" data-ui="search-input-container">        <div class="search-icon-container">            <clr-icon shape="search" size="20" *ngIf="!isLoading"></clr-icon>            <clr-spinner                [clrSmall]="true"                [clrInline]="true"                [attr.data-ui]="DataUi.spinner"                *ngIf="isLoading"            ></clr-spinner>        </div>        <input            #searchInput            type="text"            class="clr-input"            [placeholder]="placeholder || \'\'"            [(ngModel)]="searchCriteria"            [attr.data-ui]="DataUi.searchInput"        />        <button class="btn btn-link pin-button" (click)="togglePinned()">            <clr-icon shape="pin" size="20" [ngClass]="this.searchService.isPinned ? \'is-solid\' : \'\'"> </clr-icon>        </button>    </div>    <clr-control-helper class="input-helper">{{ helper }}</clr-control-helper>    <ng-container *ngTemplateOutlet="filtersSection"> </ng-container>    <ng-content select=".top-of-results"></ng-content>    <div class="search-result-container">        <section class="no-results" [attr.data-ui]="DataUi.noResults" *ngIf="hasNoResults && !isLoading">            {{ \'vcd.cc.quickSearch.noResults\' | translate }}        </section>        <section            *ngFor="let searchSection of ungroupedSearchSections; let i = index; trackBy: sectionTrackBy"            class="search-result-section section-index-0-{{ i + 1 }}"            data-ui="search-result-section"        >            <div *ngIf="!searchSection.isLoading">                <h5                    *ngIf="searchSection.shouldShowText"                    class="search-result-section-title"                    [attr.data-ui]="DataUi.searchResultSectionTitles"                >                    <ng-container *ngTemplateOutlet="sectionTitle; context: { $implicit: searchSection }">                    </ng-container>                </h5>                <ng-container *ngTemplateOutlet="searchSectionTemplate; context: { $implicit: searchSection }">                </ng-container>            </div>        </section>        <div *ngFor="let parentSearchSection of groupedSearchSections; let n = index; trackBy: groupSectionTrackBy">            <h5                *ngIf="showParentSectionTitle(parentSearchSection)"                class="search-result-section-title"                [attr.data-ui]="DataUi.searchResultSectionTitles"            >                {{ parentSearchSection.headerTitle }}            </h5>            <section                *ngFor="let searchSection of parentSearchSection.subSections; let i = index; trackBy: sectionTrackBy"                class="sub-section"            >                <div *ngIf="!searchSection.isLoading">                    <p                        *ngIf="searchSection.shouldShowText"                        class="p2 search-result-section-title search-result-section section-index-{{ n }}-{{ i }}"                        [attr.data-ui]="DataUi.searchResultSectionTitles"                    >                        <ng-container *ngTemplateOutlet="sectionTitle; context: { $implicit: searchSection }">                        </ng-container>                    </p>                    <ng-container *ngTemplateOutlet="searchSectionTemplate; context: { $implicit: searchSection }">                    </ng-container>                </div>            </section>        </div>    </div>    <ng-content select=".bottom-of-results"></ng-content></ng-template><ng-template #drawerComponent>    <vcd-drawer-component        (keydown.arrowup)="onArrowUp($event)"        (keydown.arrowdown)="onArrowDown($event)"        (keydown.enter)="onEnterKey($event)"        class="modal-body"    >        <ng-container *ngTemplateOutlet="quickSearchInterior"> </ng-container>    </vcd-drawer-component></ng-template><clr-modal    [(clrModalOpen)]="open"    [clrModalStaticBackdrop]="false"    (keydown.arrowup)="onArrowUp($event)"    (keydown.arrowdown)="onArrowDown($event)"    (keydown.enter)="onEnterKey($event)"    *ngIf="!searchService.isPinned; else drawerComponent">    <div class="modal-body" [attr.data-ui]="DataUi.modalBody">        <ng-container *ngTemplateOutlet="quickSearchInterior"> </ng-container>    </div></clr-modal></div>'
     var COMPONENTS = [{'name': 'ActionMenuComponent', 'selector': 'vcd-action-menu'},{'name': 'BannerActivityReporterComponent', 'selector': 'vcd-banner-activity-reporter'},{'name': 'BoldTextRendererComponent', 'selector': 'vcd-bold-text-renderer'},{'name': 'DataExporterComponent', 'selector': 'vcd-data-exporter'},{'name': 'DatagridComponent', 'selector': 'vcd-datagrid'},{'name': 'DatagridMultiSelectFilterComponent', 'selector': 'vcd-dg-multiselect-filter'},{'name': 'DatagridNumericFilterComponent', 'selector': 'vcd-dg-numeric-filter'},{'name': 'DatagridSelectFilterComponent', 'selector': 'vcd-dg-select-filter'},{'name': 'DatagridStringFilterComponent', 'selector': 'vcd-dg-string-filter'},{'name': 'DrawerComponent', 'selector': 'vcd-drawer-component'},{'name': 'DropdownComponent', 'selector': 'vcd-dropdown'},{'name': 'ErrorBannerComponent', 'selector': 'vcd-error-banner'},{'name': 'FilterTestHostComponent', 'selector': ''},{'name': 'FormCheckboxComponent', 'selector': 'vcd-form-checkbox'},{'name': 'FormInputComponent', 'selector': 'vcd-form-input'},{'name': 'FormlyInputComponent', 'selector': 'vcd-formly-input'},{'name': 'FormlyNumberWithUnitInputComponent', 'selector': 'vcd-formly-number-with-unit-input'},{'name': 'FormlySelectComponent', 'selector': 'vcd-formly-select'},{'name': 'FormSelectComponent', 'selector': 'vcd-form-select'},{'name': 'LoadingIndicatorComponent', 'selector': 'vcd-loading-indicator'},{'name': 'NumberWithUnitFormInputComponent', 'selector': 'vcd-number-with-unit-form-input'},{'name': 'QuickSearchComponent', 'selector': 'vcd-quick-search'},{'name': 'RightsDropdownRendererComponent', 'selector': 'vcd-rights-dropdown-renderer'},{'name': 'SharingModalComponent', 'selector': 'vcd-sharing-modal'},{'name': 'SharingModalGroupRenderComponent', 'selector': 'vcd-sharing-modal-group-renderer'},{'name': 'SharingModalOrgRenderComponent', 'selector': 'vcd-sharing-modal-group-renderer'},{'name': 'SharingModalTabComponent', 'selector': 'vcd-sharing-modal-tab'},{'name': 'SharingModalUserRenderComponent', 'selector': 'vcd-sharing-modal-user-renderer'},{'name': 'ShowClippedTextDirectiveTestHostComponent', 'selector': ''},{'name': 'SpinnerActivityReporterComponent', 'selector': 'vcd-spinner-activity-reporter'},{'name': 'VcdSelectAllToggleComponent', 'selector': 'vcd-select-all-toggle'}];
-    var DIRECTIVES = [{'name': 'AlternativeTextDirective', 'selector': 'clr-icon'},{'name': 'ComponentRendererOutletDirective', 'selector': '[vcdComponentRendererOutlet]'},{'name': 'DropdownFocusHandlerDirective', 'selector': 'vcd-dropdown[vcdDropdownFocusHandler]'},{'name': 'DynamicDropdownPositionDirective', 'selector': 'clr-dropdown[vcdDynamicDropdown]'},{'name': 'ResponsiveInputDirective', 'selector': '.clr-form-control[vcdResponsiveInput]'},{'name': 'ShowClippedTextDirective', 'selector': '[vcdShowClippedText]'},{'name': 'UsersGroupsOrgsSharingModalDirective', 'selector': 'vcd-sharing-modal[vcdUsersGroupsOrgsSharingModal]'}];
+    var DIRECTIVES = [{'name': 'AlternativeTextDirective', 'selector': 'clr-icon'},{'name': 'ComponentRendererOutletDirective', 'selector': '[vcdComponentRendererOutlet]'},{'name': 'DatagridFilter', 'selector': ''},{'name': 'DropdownFocusHandlerDirective', 'selector': 'vcd-dropdown[vcdDropdownFocusHandler]'},{'name': 'DynamicDropdownPositionDirective', 'selector': 'clr-dropdown[vcdDynamicDropdown]'},{'name': 'ResponsiveInputDirective', 'selector': '.clr-form-control[vcdResponsiveInput]'},{'name': 'ShowClippedTextDirective', 'selector': '[vcdShowClippedText]'},{'name': 'UsersGroupsOrgsSharingModalDirective', 'selector': 'vcd-sharing-modal[vcdUsersGroupsOrgsSharingModal]'}];
     var ACTUAL_COMPONENT = {'name': 'QuickSearchComponent'};
 </script>
 <script src="../js/tree.js"></script>

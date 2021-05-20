@@ -77,7 +77,6 @@
     </p>
     <p class="comment">
                     <code><a href="https://angular.io/api/core/OnInit" target="_blank" >OnInit</a></code>
-                    <code><a href="https://angular.io/api/core/OnDestroy" target="_blank" >OnDestroy</a></code>
     </p>
 
 
@@ -94,6 +93,12 @@
 
 
 
+            <tr>
+                <td class="col-md-3">providers</td>
+                <td class="col-md-9">
+                                <code><a href="../injectables/SubscriptionTracker.html" target="_self" >SubscriptionTracker</a></code>
+                </td>
+            </tr>
 
 
             <tr>
@@ -178,9 +183,6 @@
                                 <a href="#isActive">isActive</a>
                             </li>
                             <li>
-                                <a href="#ngOnDestroy">ngOnDestroy</a>
-                            </li>
-                            <li>
                                     <span class="modifier">Protected</span>
                                 <a href="#onBeforeSetConfig">onBeforeSetConfig</a>
                             </li>
@@ -239,12 +241,12 @@
             <tbody>
                 <tr>
                     <td class="col-md-4">
-<code>constructor(filterContainer: ClrDatagridFilter)</code>
+<code>constructor(filterContainer: ClrDatagridFilter, subTracker: <a href="../injectables/SubscriptionTracker.html">SubscriptionTracker</a>)</code>
                     </td>
                 </tr>
                         <tr>
                             <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="78" class="link-to-prism">projects/components/src/datagrid/filters/datagrid-numeric-filter.component.ts:78</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="80" class="link-to-prism">projects/components/src/datagrid/filters/datagrid-numeric-filter.component.ts:80</a></div>
                             </td>
                         </tr>
 
@@ -266,6 +268,18 @@
                                                   
                                                         <td>
                                                                     <code>ClrDatagridFilter</code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>subTracker</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="../injectables/SubscriptionTracker.html" target="_self" >SubscriptionTracker</a></code>
                                                         </td>
                                                   
                                                     <td>
@@ -300,7 +314,7 @@
                 </tr>
                         <tr>
                             <td class="col-md-2" colspan="2">
-                                    <div class="io-line">Defined in <a href="" data-line="63" class="link-to-prism">projects/components/src/datagrid/filters/datagrid-numeric-filter.component.ts:63</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="65" class="link-to-prism">projects/components/src/datagrid/filters/datagrid-numeric-filter.component.ts:65</a></div>
                             </td>
                         </tr>
             </tbody>
@@ -321,7 +335,7 @@
                 </tr>
                         <tr>
                             <td class="col-md-2" colspan="2">
-                                    <div class="io-line">Defined in <a href="" data-line="49" class="link-to-prism">projects/components/src/datagrid/filters/datagrid-numeric-filter.component.ts:49</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="51" class="link-to-prism">projects/components/src/datagrid/filters/datagrid-numeric-filter.component.ts:51</a></div>
                             </td>
                         </tr>
             </tbody>
@@ -357,8 +371,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="128"
-                            class="link-to-prism">projects/components/src/datagrid/filters/datagrid-numeric-filter.component.ts:128</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="130"
+                            class="link-to-prism">projects/components/src/datagrid/filters/datagrid-numeric-filter.component.ts:130</a></div>
                 </td>
             </tr>
 
@@ -396,8 +410,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="73"
-                            class="link-to-prism">projects/components/src/datagrid/filters/datagrid-numeric-filter.component.ts:73</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="75"
+                            class="link-to-prism">projects/components/src/datagrid/filters/datagrid-numeric-filter.component.ts:75</a></div>
                 </td>
             </tr>
 
@@ -435,8 +449,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="105"
-                            class="link-to-prism">projects/components/src/datagrid/filters/datagrid-numeric-filter.component.ts:105</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="107"
+                            class="link-to-prism">projects/components/src/datagrid/filters/datagrid-numeric-filter.component.ts:107</a></div>
                 </td>
             </tr>
 
@@ -474,8 +488,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="120"
-                            class="link-to-prism">projects/components/src/datagrid/filters/datagrid-numeric-filter.component.ts:120</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="122"
+                            class="link-to-prism">projects/components/src/datagrid/filters/datagrid-numeric-filter.component.ts:122</a></div>
                 </td>
             </tr>
 
@@ -485,45 +499,6 @@
 
                     <div class="io-description">
                         <b>Returns : </b>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank" >boolean</a></code>
-
-                    </div>
-                </td>
-            </tr>
-        </tbody>
-    </table>
-    <table class="table table-sm table-bordered">
-        <tbody>
-            <tr>
-                <td class="col-md-4">
-                    <a name="ngOnDestroy"></a>
-                    <span class="name">
-                        <b>
-                            ngOnDestroy
-                        </b>
-                        <a href="#ngOnDestroy"><span class="icon ion-ios-link"></span></a>
-                    </span>
-                </td>
-            </tr>
-            <tr>
-                <td class="col-md-4">
-<code>ngOnDestroy()</code>
-                </td>
-            </tr>
-
-
-            <tr>
-                <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="132"
-                            class="link-to-prism">projects/components/src/datagrid/filters/datagrid-numeric-filter.component.ts:132</a></div>
-                </td>
-            </tr>
-
-
-            <tr>
-                <td class="col-md-4">
-
-                    <div class="io-description">
-                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
 
                     </div>
                 </td>
@@ -554,8 +529,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="84"
-                            class="link-to-prism">projects/components/src/datagrid/filters/datagrid-numeric-filter.component.ts:84</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="86"
+                            class="link-to-prism">projects/components/src/datagrid/filters/datagrid-numeric-filter.component.ts:86</a></div>
                 </td>
             </tr>
 
@@ -624,8 +599,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="89"
-                            class="link-to-prism">projects/components/src/datagrid/filters/datagrid-numeric-filter.component.ts:89</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="91"
+                            class="link-to-prism">projects/components/src/datagrid/filters/datagrid-numeric-filter.component.ts:91</a></div>
                 </td>
             </tr>
 
@@ -699,7 +674,7 @@
                     </tr>
                         <tr>
                             <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="62" class="link-to-prism">projects/components/src/datagrid/filters/datagrid-numeric-filter.component.ts:62</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="64" class="link-to-prism">projects/components/src/datagrid/filters/datagrid-numeric-filter.component.ts:64</a></div>
                             </td>
                         </tr>
 
@@ -733,7 +708,7 @@
                     </tr>
                         <tr>
                             <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="48" class="link-to-prism">projects/components/src/datagrid/filters/datagrid-numeric-filter.component.ts:48</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="50" class="link-to-prism">projects/components/src/datagrid/filters/datagrid-numeric-filter.component.ts:50</a></div>
                             </td>
                         </tr>
 
@@ -775,7 +750,7 @@
                     </tr>
                         <tr>
                             <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="42" class="link-to-prism">projects/components/src/datagrid/filters/datagrid-numeric-filter.component.ts:42</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="44" class="link-to-prism">projects/components/src/datagrid/filters/datagrid-numeric-filter.component.ts:44</a></div>
                             </td>
                         </tr>
 
@@ -807,7 +782,7 @@
                     </tr>
                         <tr>
                             <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="40" class="link-to-prism">projects/components/src/datagrid/filters/datagrid-numeric-filter.component.ts:40</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="42" class="link-to-prism">projects/components/src/datagrid/filters/datagrid-numeric-filter.component.ts:42</a></div>
                             </td>
                         </tr>
 
@@ -843,7 +818,7 @@
                     </tr>
                         <tr>
                             <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="43" class="link-to-prism">projects/components/src/datagrid/filters/datagrid-numeric-filter.component.ts:43</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="45" class="link-to-prism">projects/components/src/datagrid/filters/datagrid-numeric-filter.component.ts:45</a></div>
                             </td>
                         </tr>
 
@@ -872,7 +847,7 @@
                 </tr>
                             <tr>
                                 <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="55" class="link-to-prism">projects/components/src/datagrid/filters/datagrid-numeric-filter.component.ts:55</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="57" class="link-to-prism">projects/components/src/datagrid/filters/datagrid-numeric-filter.component.ts:57</a></div>
                                 </td>
                             </tr>
 
@@ -883,7 +858,7 @@
                 </tr>
                             <tr>
                                 <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="49" class="link-to-prism">projects/components/src/datagrid/filters/datagrid-numeric-filter.component.ts:49</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="51" class="link-to-prism">projects/components/src/datagrid/filters/datagrid-numeric-filter.component.ts:51</a></div>
                                 </td>
                             </tr>
                     <tr>
@@ -941,7 +916,7 @@
                 </tr>
                             <tr>
                                 <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="70" class="link-to-prism">projects/components/src/datagrid/filters/datagrid-numeric-filter.component.ts:70</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="72" class="link-to-prism">projects/components/src/datagrid/filters/datagrid-numeric-filter.component.ts:72</a></div>
                                 </td>
                             </tr>
 
@@ -952,7 +927,7 @@
                 </tr>
                             <tr>
                                 <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="63" class="link-to-prism">projects/components/src/datagrid/filters/datagrid-numeric-filter.component.ts:63</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="65" class="link-to-prism">projects/components/src/datagrid/filters/datagrid-numeric-filter.component.ts:65</a></div>
                                 </td>
                             </tr>
                     <tr>
@@ -998,6 +973,7 @@
         <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Component, Host, Input, OnDestroy, OnInit, ViewChild } from &#x27;@angular/core&#x27;;
 import { FormBuilder, FormControl, FormGroup } from &#x27;@angular/forms&#x27;;
 import { ClrDatagridFilter } from &#x27;@clr/angular&#x27;;
+import { SubscriptionTracker } from &#x27;../../common/subscription/subscription-tracker&#x27;;
 import { NumberWithUnitFormInputComponent } from &#x27;../../form&#x27;;
 import { FilterBuilder } from &#x27;../../utils/filter-builder&#x27;;
 import { Unit } from &#x27;../../utils/unit/unit&#x27;;
@@ -1025,10 +1001,11 @@ export interface DatagridNumericFilterConfig extends FilterConfig&lt;DatagridNum
     selector: &#x27;vcd-dg-numeric-filter&#x27;,
     templateUrl: &#x27;datagrid-numeric-filter.component.html&#x27;,
     styleUrls: [&#x27;datagrid-numeric-filter.component.scss&#x27;],
+    providers: [SubscriptionTracker],
 })
 export class DatagridNumericFilterComponent
     extends DatagridFilter&lt;DatagridNumericFilterValue, DatagridNumericFilterConfig&gt;
-    implements OnInit, OnDestroy {
+    implements OnInit {
     maxNumberLength &#x3D; Number.MAX_SAFE_INTEGER.toString().length;
 
     @ViewChild(&#x27;from&#x27;) fromInput: NumberWithUnitFormInputComponent;
@@ -1069,8 +1046,8 @@ export class DatagridNumericFilterComponent
         });
     }
 
-    constructor(private filterContainer: ClrDatagridFilter) {
-        super(filterContainer);
+    constructor(private filterContainer: ClrDatagridFilter, subTracker: SubscriptionTracker) {
+        super(filterContainer, subTracker);
     }
 
     protected onBeforeSetConfig(config: DatagridNumericFilterConfig): void {
@@ -1120,8 +1097,6 @@ export class DatagridNumericFilterComponent
     close(): void {
         this.filterContainer.open &#x3D; false;
     }
-
-    ngOnDestroy(): void {}
 }
 
 /**
@@ -1238,7 +1213,7 @@ export function DatagridNumericFilter(
 <script>
         var COMPONENT_TEMPLATE = '<div><div [formGroup]="formGroup" class="clr-row">    <div class="clr-col-6">        <vcd-number-with-unit-form-input            #from            *ngIf="unit"            [label]="\'vcd.cc.numeric.filter.from\' | translate"            [formControlName]="\'from\'"            [unitOptions]="unitOptions"            [showUnlimitedOption]="false"            [min]="0"            [inputValueUnit]="unit"        >        </vcd-number-with-unit-form-input>        <vcd-form-input            *ngIf="!unit"            [type]="\'number\'"            [label]="\'vcd.cc.numeric.filter.from\' | translate"            [formControlName]="\'from\'"            [maxlength]="maxNumberLength"            (enterClicked)="close()"            (escapeClicked)="close()"        ></vcd-form-input>    </div>    <div class="clr-col-6">        <vcd-number-with-unit-form-input            #to            *ngIf="unit"            [label]="\'vcd.cc.numeric.filter.to\' | translate"            [formControlName]="\'to\'"            [unitOptions]="unitOptions"            [showUnlimitedOption]="false"            [min]="0"            [inputValueUnit]="unit"        >        </vcd-number-with-unit-form-input>        <vcd-form-input            *ngIf="!unit"            [type]="\'number\'"            [label]="\'vcd.cc.numeric.filter.to\' | translate"            [formControlName]="\'to\'"            [maxlength]="maxNumberLength"            (enterClicked)="close()"            (escapeClicked)="close()"        ></vcd-form-input>    </div></div></div>'
     var COMPONENTS = [{'name': 'ActionMenuComponent', 'selector': 'vcd-action-menu'},{'name': 'BannerActivityReporterComponent', 'selector': 'vcd-banner-activity-reporter'},{'name': 'BoldTextRendererComponent', 'selector': 'vcd-bold-text-renderer'},{'name': 'DataExporterComponent', 'selector': 'vcd-data-exporter'},{'name': 'DatagridComponent', 'selector': 'vcd-datagrid'},{'name': 'DatagridMultiSelectFilterComponent', 'selector': 'vcd-dg-multiselect-filter'},{'name': 'DatagridNumericFilterComponent', 'selector': 'vcd-dg-numeric-filter'},{'name': 'DatagridSelectFilterComponent', 'selector': 'vcd-dg-select-filter'},{'name': 'DatagridStringFilterComponent', 'selector': 'vcd-dg-string-filter'},{'name': 'DrawerComponent', 'selector': 'vcd-drawer-component'},{'name': 'DropdownComponent', 'selector': 'vcd-dropdown'},{'name': 'ErrorBannerComponent', 'selector': 'vcd-error-banner'},{'name': 'FilterTestHostComponent', 'selector': ''},{'name': 'FormCheckboxComponent', 'selector': 'vcd-form-checkbox'},{'name': 'FormInputComponent', 'selector': 'vcd-form-input'},{'name': 'FormlyInputComponent', 'selector': 'vcd-formly-input'},{'name': 'FormlyNumberWithUnitInputComponent', 'selector': 'vcd-formly-number-with-unit-input'},{'name': 'FormlySelectComponent', 'selector': 'vcd-formly-select'},{'name': 'FormSelectComponent', 'selector': 'vcd-form-select'},{'name': 'LoadingIndicatorComponent', 'selector': 'vcd-loading-indicator'},{'name': 'NumberWithUnitFormInputComponent', 'selector': 'vcd-number-with-unit-form-input'},{'name': 'QuickSearchComponent', 'selector': 'vcd-quick-search'},{'name': 'RightsDropdownRendererComponent', 'selector': 'vcd-rights-dropdown-renderer'},{'name': 'SharingModalComponent', 'selector': 'vcd-sharing-modal'},{'name': 'SharingModalGroupRenderComponent', 'selector': 'vcd-sharing-modal-group-renderer'},{'name': 'SharingModalOrgRenderComponent', 'selector': 'vcd-sharing-modal-group-renderer'},{'name': 'SharingModalTabComponent', 'selector': 'vcd-sharing-modal-tab'},{'name': 'SharingModalUserRenderComponent', 'selector': 'vcd-sharing-modal-user-renderer'},{'name': 'ShowClippedTextDirectiveTestHostComponent', 'selector': ''},{'name': 'SpinnerActivityReporterComponent', 'selector': 'vcd-spinner-activity-reporter'},{'name': 'VcdSelectAllToggleComponent', 'selector': 'vcd-select-all-toggle'}];
-    var DIRECTIVES = [{'name': 'AlternativeTextDirective', 'selector': 'clr-icon'},{'name': 'ComponentRendererOutletDirective', 'selector': '[vcdComponentRendererOutlet]'},{'name': 'DropdownFocusHandlerDirective', 'selector': 'vcd-dropdown[vcdDropdownFocusHandler]'},{'name': 'DynamicDropdownPositionDirective', 'selector': 'clr-dropdown[vcdDynamicDropdown]'},{'name': 'ResponsiveInputDirective', 'selector': '.clr-form-control[vcdResponsiveInput]'},{'name': 'ShowClippedTextDirective', 'selector': '[vcdShowClippedText]'},{'name': 'UsersGroupsOrgsSharingModalDirective', 'selector': 'vcd-sharing-modal[vcdUsersGroupsOrgsSharingModal]'}];
+    var DIRECTIVES = [{'name': 'AlternativeTextDirective', 'selector': 'clr-icon'},{'name': 'ComponentRendererOutletDirective', 'selector': '[vcdComponentRendererOutlet]'},{'name': 'DatagridFilter', 'selector': ''},{'name': 'DropdownFocusHandlerDirective', 'selector': 'vcd-dropdown[vcdDropdownFocusHandler]'},{'name': 'DynamicDropdownPositionDirective', 'selector': 'clr-dropdown[vcdDynamicDropdown]'},{'name': 'ResponsiveInputDirective', 'selector': '.clr-form-control[vcdResponsiveInput]'},{'name': 'ShowClippedTextDirective', 'selector': '[vcdShowClippedText]'},{'name': 'UsersGroupsOrgsSharingModalDirective', 'selector': 'vcd-sharing-modal[vcdUsersGroupsOrgsSharingModal]'}];
     var ACTUAL_COMPONENT = {'name': 'DatagridNumericFilterComponent'};
 </script>
 <script src="../js/tree.js"></script>

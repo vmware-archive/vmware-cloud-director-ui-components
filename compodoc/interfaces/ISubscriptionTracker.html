@@ -342,7 +342,7 @@ Will call the {@param complete} when complete, and {@param error} when errors ha
 
 
     <div class="tab-pane fade  tab-source-code" id="c-source">
-        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { OnDestroy } from &#x27;@angular/core&#x27;;
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Injectable, OnDestroy } from &#x27;@angular/core&#x27;;
 import { Observable, PartialObserver, Subscription } from &#x27;rxjs&#x27;;
 import { toSubscriber } from &#x27;rxjs/internal-compatibility&#x27;;
 
@@ -375,19 +375,9 @@ export interface ISubscriptionTracker {
 /**
  * Components can use this to have subscriptions automatically removed when the component is destroyed
  */
-export class SubscriptionTracker implements ISubscriptionTracker {
+@Injectable()
+export class SubscriptionTracker implements ISubscriptionTracker, OnDestroy {
     private subscriptions: Subscription[] &#x3D; [];
-
-    /**
-     * Constructs this tracker to call {@link unsubscribeAll} when {@link OnDestroy.ngOnDestroy} is called.
-     */
-    constructor(destroyable: OnDestroy) {
-        const originalOnDestroy &#x3D; destroyable.ngOnDestroy;
-        destroyable.ngOnDestroy &#x3D; () &#x3D;&gt; {
-            this.unsubscribeAll();
-            originalOnDestroy.call(destroyable);
-        };
-    }
 
     subscribe&lt;T&gt;(
         observable: Observable&lt;T&gt;,
@@ -413,6 +403,10 @@ export class SubscriptionTracker implements ISubscriptionTracker {
     unsubscribeAll(): void {
         this.subscriptions.forEach((subscription) &#x3D;&gt; subscription.unsubscribe());
         this.subscriptions &#x3D; [];
+    }
+
+    ngOnDestroy(): void {
+        this.unsubscribeAll();
     }
 }
 </code></pre>

@@ -341,7 +341,7 @@ import { Observable } from &#x27;rxjs&#x27;;
 import { ActionMenuComponent } from &#x27;../action-menu/action-menu.component&#x27;;
 import { ActivityReporter } from &#x27;../common/activity-reporter&#x27;;
 import { ActionHandlerType, ActionItem, ActionType } from &#x27;../common/interfaces/action-item.interface&#x27;;
-import { SubscriptionTracker } from &#x27;../common/subscription&#x27;;
+import { SubscriptionTracker } from &#x27;../common/subscription/subscription-tracker&#x27;;
 import { TooltipSize } from &#x27;../lib/directives/show-clipped-text.directive&#x27;;
 import { DatagridFilter } from &#x27;./filters/datagrid-filter&#x27;;
 import { ComponentRendererConstructor, ComponentRendererSpec } from &#x27;./interfaces/component-renderer.interface&#x27;;
@@ -593,8 +593,9 @@ interface ColumnConfigInternal&lt;R, T&gt; extends GridColumn&lt;R&gt; {
     selector: &#x27;vcd-datagrid&#x27;,
     templateUrl: &#x27;./datagrid.component.html&#x27;,
     styleUrls: [&#x27;./datagrid.component.scss&#x27;],
+    providers: [SubscriptionTracker],
 })
-export class DatagridComponent&lt;R extends B, B &#x3D; any&gt; implements OnInit, AfterViewInit, OnDestroy {
+export class DatagridComponent&lt;R extends B, B &#x3D; any&gt; implements OnInit, AfterViewInit {
     /**
      * Sets the configuration of columns on the grid and updates the {@link columnsConfig} array. Also pushes
      * notifications for listeners to make changes to the _columns array
@@ -697,7 +698,8 @@ export class DatagridComponent&lt;R extends B, B &#x3D; any&gt; implements OnIni
     constructor(
         private node: ElementRef,
         private translationService: TranslationService,
-        private changeDetectorRef: ChangeDetectorRef
+        private changeDetectorRef: ChangeDetectorRef,
+        private subTracker: SubscriptionTracker
     ) {}
 
     /**
@@ -977,8 +979,6 @@ export class DatagridComponent&lt;R extends B, B &#x3D; any&gt; implements OnIni
      * Used for translating pagination information displayed in the grid
      */
     @Input() paginationTranslationKey: string &#x3D; DEFAULT_PAGINATION_TRANSLATION_KEY;
-
-    private subTracker &#x3D; new SubscriptionTracker(this);
 
     /**
      * Used for calculating the width of actions column
@@ -1345,12 +1345,10 @@ export class DatagridComponent&lt;R extends B, B &#x3D; any&gt; implements OnIni
             this.changeDetectorRef.detectChanges();
         }
 
-        this.columnsUpdated.subscribe(() &#x3D;&gt; {
+        this.subTracker.subscribe(this.columnsUpdated, () &#x3D;&gt; {
             this.datagrid.columns.reset(this.datagrid.columns.toArray());
         });
     }
-
-    ngOnDestroy(): void {}
 }
 </code></pre>
     </div>

@@ -342,7 +342,7 @@
 
     <div class="tab-pane fade  tab-source-code" id="c-source">
         <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { AfterViewInit, Directive, Host, OnDestroy, Optional, Renderer2, SkipSelf } from &#x27;@angular/core&#x27;;
-import { SubscriptionTracker } from &#x27;../common/subscription&#x27;;
+import { SubscriptionTracker } from &#x27;../common/subscription/subscription-tracker&#x27;;
 import { DropdownFocusHandlerService } from &#x27;./dropdown-focus-handler.service&#x27;;
 import { DropdownComponent } from &#x27;./dropdown.component&#x27;;
 
@@ -400,6 +400,7 @@ export interface MenuItem {
  */
 @Directive({
     selector: &#x27;vcd-dropdown[vcdDropdownFocusHandler]&#x27;,
+    providers: [SubscriptionTracker],
 })
 export class DropdownFocusHandlerDirective implements AfterViewInit, OnDestroy {
     constructor(
@@ -407,7 +408,8 @@ export class DropdownFocusHandlerDirective implements AfterViewInit, OnDestroy {
         @Optional() @SkipSelf() private parentFocusHandler: DropdownFocusHandlerDirective,
         @Host() private hostVcdDropdown: DropdownComponent,
         private focusHandlerService: DropdownFocusHandlerService,
-        private renderer: Renderer2
+        private renderer: Renderer2,
+        private subscriptionTracker: SubscriptionTracker
     ) {}
 
     /**
@@ -422,7 +424,6 @@ export class DropdownFocusHandlerDirective implements AfterViewInit, OnDestroy {
     private clrDropdownMenuEl: HTMLElement;
     private isRootDropdown &#x3D; !this.parentVcdDropdown;
     private timeoutId: number;
-    private subscriptionTracker &#x3D; new SubscriptionTracker(this);
     private unlistenRightArrowKeyPress: (...argArray: any[]) &#x3D;&gt; any;
 
     /**

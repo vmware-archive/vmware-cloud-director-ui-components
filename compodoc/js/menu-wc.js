@@ -543,6 +543,19 @@ customElements.define('compodoc-menu', class extends HTMLElement {
                             </li>
                         </ul>
                     </li>
+                        <li class="chapter">
+                            <div class="simple menu-toggler" data-toggle="collapse" ${ isNormalMode ? 'data-target="#directives-links"' :
+                                'data-target="#xs-directives-links"' }>
+                                <span class="icon ion-md-code-working"></span>
+                                <span>Directives</span>
+                                <span class="icon ion-ios-arrow-down"></span>
+                            </div>
+                            <ul class="links collapse " ${ isNormalMode ? 'id="directives-links"' : 'id="xs-directives-links"' }>
+                                <li class="link">
+                                    <a href="directives/DatagridFilter.html" data-type="entity-link">DatagridFilter</a>
+                                </li>
+                            </ul>
+                        </li>
                     <li class="chapter">
                         <div class="simple menu-toggler" data-toggle="collapse" ${ isNormalMode ? 'data-target="#classes-links"' :
                             'data-target="#xs-classes-links"' }>
@@ -642,9 +655,6 @@ customElements.define('compodoc-menu', class extends HTMLElement {
                                 <a href="classes/SpinnerActivityReporterWidgetObject.html" data-type="entity-link">SpinnerActivityReporterWidgetObject</a>
                             </li>
                             <li class="link">
-                                <a href="classes/SubscriptionTracker.html" data-type="entity-link">SubscriptionTracker</a>
-                            </li>
-                            <li class="link">
                                 <a href="classes/TestElement.html" data-type="entity-link">TestElement</a>
                             </li>
                             <li class="link">
@@ -686,6 +696,9 @@ customElements.define('compodoc-menu', class extends HTMLElement {
                                 </li>
                                 <li class="link">
                                     <a href="injectables/QuickSearchService.html" data-type="entity-link">QuickSearchService</a>
+                                </li>
+                                <li class="link">
+                                    <a href="injectables/SubscriptionTracker.html" data-type="entity-link">SubscriptionTracker</a>
                                 </li>
                             </ul>
                         </li>
