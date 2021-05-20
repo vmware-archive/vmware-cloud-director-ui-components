@@ -16,7 +16,7 @@ import {
 } from '@angular/core';
 import { TranslationService } from '@vcd/i18n';
 import { DomUtil } from '../utils/dom-util';
-import { SubscriptionTracker } from '../common/subscription';
+import { SubscriptionTracker } from '../common/subscription/subscription-tracker';
 import { QuickSearchResultItem, QuickSearchResults } from './quick-search-result';
 import { QuickSearchProvider } from './quick-search.provider';
 import { QuickSearchService } from './quick-search.service';
@@ -170,8 +170,9 @@ interface PartialResult {
     selector: 'vcd-quick-search',
     templateUrl: './quick-search.component.html',
     styleUrls: ['./quick-search.component.scss'],
+    providers: [SubscriptionTracker],
 })
-export class QuickSearchComponent implements OnDestroy, OnInit {
+export class QuickSearchComponent implements OnInit {
     /**
      * Placeholder for the search input. Default is empty string;
      */
@@ -218,7 +219,8 @@ export class QuickSearchComponent implements OnDestroy, OnInit {
         public searchService: QuickSearchService,
         private changeDetectorRef: ChangeDetectorRef,
         private el: ElementRef,
-        public translationService: TranslationService
+        public translationService: TranslationService,
+        private subTracker: SubscriptionTracker
     ) {}
 
     get searchCriteria(): string {
@@ -234,8 +236,6 @@ export class QuickSearchComponent implements OnDestroy, OnInit {
     private lastSearchCriteria: string = '';
 
     private _open = false;
-
-    private subTracker: SubscriptionTracker = new SubscriptionTracker(this);
 
     @ViewChild('searchInput', { static: false, read: ElementRef }) searchInput: ElementRef;
 
@@ -618,8 +618,6 @@ export class QuickSearchComponent implements OnDestroy, OnInit {
     filterTrackBy(_index: number, filterOption: QuickSearchFilter): string {
         return filterOption.id;
     }
-
-    ngOnDestroy(): void {}
 
     ngOnInit(): void {
         this.subTracker.subscribe(this.searchService.filterOverrides, ([filterId, filterValues]) => {

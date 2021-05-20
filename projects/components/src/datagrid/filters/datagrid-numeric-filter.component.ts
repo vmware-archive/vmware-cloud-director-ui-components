@@ -6,6 +6,7 @@
 import { Component, Host, Input, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { ClrDatagridFilter } from '@clr/angular';
+import { SubscriptionTracker } from '../../common/subscription/subscription-tracker';
 import { NumberWithUnitFormInputComponent } from '../../form';
 import { FilterBuilder } from '../../utils/filter-builder';
 import { Unit } from '../../utils/unit/unit';
@@ -33,10 +34,11 @@ export interface DatagridNumericFilterConfig extends FilterConfig<DatagridNumeri
     selector: 'vcd-dg-numeric-filter',
     templateUrl: 'datagrid-numeric-filter.component.html',
     styleUrls: ['datagrid-numeric-filter.component.scss'],
+    providers: [SubscriptionTracker],
 })
 export class DatagridNumericFilterComponent
     extends DatagridFilter<DatagridNumericFilterValue, DatagridNumericFilterConfig>
-    implements OnInit, OnDestroy {
+    implements OnInit {
     maxNumberLength = Number.MAX_SAFE_INTEGER.toString().length;
 
     @ViewChild('from') fromInput: NumberWithUnitFormInputComponent;
@@ -77,8 +79,8 @@ export class DatagridNumericFilterComponent
         });
     }
 
-    constructor(private filterContainer: ClrDatagridFilter) {
-        super(filterContainer);
+    constructor(private filterContainer: ClrDatagridFilter, subTracker: SubscriptionTracker) {
+        super(filterContainer, subTracker);
     }
 
     protected onBeforeSetConfig(config: DatagridNumericFilterConfig): void {
@@ -128,8 +130,6 @@ export class DatagridNumericFilterComponent
     close(): void {
         this.filterContainer.open = false;
     }
-
-    ngOnDestroy(): void {}
 }
 
 /**

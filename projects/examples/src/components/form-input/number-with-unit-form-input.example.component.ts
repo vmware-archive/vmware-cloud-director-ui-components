@@ -18,8 +18,9 @@ import {
     selector: 'vcd-number-with-unit-form-example-component',
     styleUrls: ['./number-with-unit-form-input.example.component.scss'],
     templateUrl: './number-with-unit-form-input.example.component.html',
+    providers: [SubscriptionTracker],
 })
-export class NumberWithUnitFormInputExampleComponent implements OnDestroy {
+export class NumberWithUnitFormInputExampleComponent {
     formGroup: FormGroup;
     hertzOptions: Unit[] = [Hertz.Mhz, Hertz.Ghz];
     cpuSpeedFormControlValueUnit: Unit = Hertz.Mhz;
@@ -32,9 +33,11 @@ export class NumberWithUnitFormInputExampleComponent implements OnDestroy {
     Bytes = Bytes;
     CheckBoxStyling = CheckBoxStyling;
 
-    subscriptionTracker = new SubscriptionTracker(this);
-
-    constructor(fb: FormBuilder, numberWithUnitsFormValidators: NumberWithUnitsFormValidatorsFactory) {
+    constructor(
+        fb: FormBuilder,
+        numberWithUnitsFormValidators: NumberWithUnitsFormValidatorsFactory,
+        private subscriptionTracker: SubscriptionTracker
+    ) {
         const memoryValidator = numberWithUnitsFormValidators.isInRange(
             10,
             this.maxMemoryAllowedMB,
@@ -66,6 +69,4 @@ export class NumberWithUnitFormInputExampleComponent implements OnDestroy {
             }
         });
     }
-
-    ngOnDestroy(): void {}
 }

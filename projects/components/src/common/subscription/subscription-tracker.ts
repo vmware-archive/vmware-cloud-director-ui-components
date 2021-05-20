@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: BSD-2-Clause
  */
 
-import { OnDestroy } from '@angular/core';
+import { Injectable, OnDestroy } from '@angular/core';
 import { Observable, PartialObserver, Subscription } from 'rxjs';
 import { toSubscriber } from 'rxjs/internal-compatibility';
 
@@ -36,19 +36,9 @@ export interface ISubscriptionTracker {
 /**
  * Components can use this to have subscriptions automatically removed when the component is destroyed
  */
-export class SubscriptionTracker implements ISubscriptionTracker {
+@Injectable()
+export class SubscriptionTracker implements ISubscriptionTracker, OnDestroy {
     private subscriptions: Subscription[] = [];
-
-    /**
-     * Constructs this tracker to call {@link unsubscribeAll} when {@link OnDestroy.ngOnDestroy} is called.
-     */
-    constructor(destroyable: OnDestroy) {
-        const originalOnDestroy = destroyable.ngOnDestroy;
-        destroyable.ngOnDestroy = () => {
-            this.unsubscribeAll();
-            originalOnDestroy.call(destroyable);
-        };
-    }
 
     subscribe<T>(
         observable: Observable<T>,
@@ -74,5 +64,9 @@ export class SubscriptionTracker implements ISubscriptionTracker {
     unsubscribeAll(): void {
         this.subscriptions.forEach((subscription) => subscription.unsubscribe());
         this.subscriptions = [];
+    }
+
+    ngOnDestroy(): void {
+        this.unsubscribeAll();
     }
 }

@@ -16,8 +16,9 @@ import {
     selector: 'vcd-number-with-unit-form-input-unitless-example-component',
     styleUrls: ['number-with-unit-form-input-unitless.example.component.scss'],
     templateUrl: 'number-with-unit-form-input-unitless.example.component.html',
+    providers: [SubscriptionTracker],
 })
-export class NumberWithUnitFormInputUnitlessExampleComponent implements OnDestroy {
+export class NumberWithUnitFormInputUnitlessExampleComponent {
     formGroup: FormGroup;
     Percent = Percent;
     CheckBoxStyling = CheckBoxStyling;
@@ -25,9 +26,11 @@ export class NumberWithUnitFormInputUnitlessExampleComponent implements OnDestro
     noUnitUnlimited = -100;
     maxPercent = 100;
 
-    subscriptionTracker = new SubscriptionTracker(this);
-
-    constructor(fb: FormBuilder, numberWithUnitsFormValidators: NumberWithUnitsFormValidatorsFactory) {
+    constructor(
+        fb: FormBuilder,
+        numberWithUnitsFormValidators: NumberWithUnitsFormValidatorsFactory,
+        private subscriptionTracker: SubscriptionTracker
+    ) {
         const noUnitValidator = numberWithUnitsFormValidators.isInRange(1, 10, null, null, this.noUnitUnlimited);
         const percentValidatorShowPercent = numberWithUnitsFormValidators.isInRange(
             1,
@@ -59,6 +62,4 @@ export class NumberWithUnitFormInputUnitlessExampleComponent implements OnDestro
             this.formGroup.controls.percentUnit.updateValueAndValidity();
         });
     }
-
-    ngOnDestroy(): void {}
 }

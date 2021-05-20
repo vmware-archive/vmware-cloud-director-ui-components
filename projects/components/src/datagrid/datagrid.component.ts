@@ -25,7 +25,7 @@ import { Observable } from 'rxjs';
 import { ActionMenuComponent } from '../action-menu/action-menu.component';
 import { ActivityReporter } from '../common/activity-reporter';
 import { ActionHandlerType, ActionItem, ActionType } from '../common/interfaces/action-item.interface';
-import { SubscriptionTracker } from '../common/subscription';
+import { SubscriptionTracker } from '../common/subscription/subscription-tracker';
 import { TooltipSize } from '../lib/directives/show-clipped-text.directive';
 import { DatagridFilter } from './filters/datagrid-filter';
 import { ComponentRendererConstructor, ComponentRendererSpec } from './interfaces/component-renderer.interface';
@@ -277,8 +277,9 @@ interface ColumnConfigInternal<R, T> extends GridColumn<R> {
     selector: 'vcd-datagrid',
     templateUrl: './datagrid.component.html',
     styleUrls: ['./datagrid.component.scss'],
+    providers: [SubscriptionTracker],
 })
-export class DatagridComponent<R extends B, B = any> implements OnInit, AfterViewInit, OnDestroy {
+export class DatagridComponent<R extends B, B = any> implements OnInit, AfterViewInit {
     /**
      * Sets the configuration of columns on the grid and updates the {@link columnsConfig} array. Also pushes
      * notifications for listeners to make changes to the _columns array
@@ -381,7 +382,8 @@ export class DatagridComponent<R extends B, B = any> implements OnInit, AfterVie
     constructor(
         private node: ElementRef,
         private translationService: TranslationService,
-        private changeDetectorRef: ChangeDetectorRef
+        private changeDetectorRef: ChangeDetectorRef,
+        private subTracker: SubscriptionTracker
     ) {}
 
     /**
@@ -661,8 +663,6 @@ export class DatagridComponent<R extends B, B = any> implements OnInit, AfterVie
      * Used for translating pagination information displayed in the grid
      */
     @Input() paginationTranslationKey: string = DEFAULT_PAGINATION_TRANSLATION_KEY;
-
-    private subTracker = new SubscriptionTracker(this);
 
     /**
      * Used for calculating the width of actions column
@@ -1029,10 +1029,8 @@ export class DatagridComponent<R extends B, B = any> implements OnInit, AfterVie
             this.changeDetectorRef.detectChanges();
         }
 
-        this.columnsUpdated.subscribe(() => {
+        this.subTracker.subscribe(this.columnsUpdated, () => {
             this.datagrid.columns.reset(this.datagrid.columns.toArray());
         });
     }
-
-    ngOnDestroy(): void {}
 }

@@ -8,7 +8,7 @@ import { ClrDatagridPagination } from '@clr/angular';
 import { LazyString, TranslationService } from '@vcd/i18n';
 import { Observable } from 'rxjs';
 import { ActionItem, ActionStyling, ActionType, TextIcon } from '../../common/interfaces/action-item.interface';
-import { SubscriptionTracker } from '../../common/subscription';
+import { SubscriptionTracker } from '../../common/subscription/subscription-tracker';
 import {
     ColumnComponentRendererSpec,
     ComponentRendererConstructor,
@@ -129,9 +129,10 @@ export interface SharingTab<T> extends PredefinedSharingTab<T> {
     selector: 'vcd-sharing-modal-tab',
     templateUrl: 'sharing-modal-tab.component.html',
     styleUrls: ['./sharing-modal-tab.component.scss'],
+    providers: [SubscriptionTracker],
 })
-export class SharingModalTabComponent<T> implements OnInit, OnDestroy, AfterViewInit {
-    constructor(public translationService: TranslationService) {}
+export class SharingModalTabComponent<T> implements OnInit, AfterViewInit {
+    constructor(public translationService: TranslationService, private subTracker: SubscriptionTracker) {}
 
     /**
      * Which of the user type this entity is already share dwith.
@@ -249,7 +250,6 @@ export class SharingModalTabComponent<T> implements OnInit, OnDestroy, AfterView
      */
     searchError: string = undefined;
 
-    private subTracker: SubscriptionTracker = new SubscriptionTracker(this);
     private bufferedSearch: (criteria?: string) => Promise<SearchResult<T>>;
     private allSharedWith: IsSelected<T>[] = [];
     private gridState: GridState<IsSelected<T>>;
@@ -410,8 +410,6 @@ export class SharingModalTabComponent<T> implements OnInit, OnDestroy, AfterView
                 .then((result) => result)
                 .then((result) => result);
     }
-
-    ngOnDestroy(): void {}
 
     ngAfterViewInit(): void {
         this.updateGridItems();

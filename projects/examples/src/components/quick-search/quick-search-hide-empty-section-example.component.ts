@@ -18,7 +18,7 @@ import Mousetrap from 'mousetrap';
 @Component({
     selector: 'vcd-quick-search-hide-empty-section-example',
     templateUrl: './quick-search-hide-empty-section-example.component.html',
-    providers: [QuickSearchRegistrarService],
+    providers: [QuickSearchRegistrarService, SubscriptionTracker],
 })
 export class QuickSearchHideEmptySectionExampleComponent implements OnInit, OnDestroy {
     CheckBoxStyling = CheckBoxStyling;
@@ -31,9 +31,11 @@ export class QuickSearchHideEmptySectionExampleComponent implements OnInit, OnDe
 
     private readonly mousetrap: MousetrapInstance;
 
-    private subscriptionTracker = new SubscriptionTracker(this);
-
-    constructor(private fb: FormBuilder, private searchRegistrar: QuickSearchRegistrarService) {
+    constructor(
+        private fb: FormBuilder,
+        private searchRegistrar: QuickSearchRegistrarService,
+        private subscriptionTracker: SubscriptionTracker
+    ) {
         // Create an instance of mouse trap within the constructor so that any bount shortcut event handler
         // would be executed within the angular zone
         this.mousetrap = new Mousetrap();
