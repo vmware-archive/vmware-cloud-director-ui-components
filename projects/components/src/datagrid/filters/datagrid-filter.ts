@@ -8,7 +8,7 @@ import { FormGroup } from '@angular/forms';
 import { ClrDatagridFilter, ClrDatagridFilterInterface } from '@clr/angular';
 import { Subject } from 'rxjs';
 import { debounceTime } from 'rxjs/operators';
-import { SubscriptionTracker } from '../../common/subscription';
+import { SubscriptionTracker } from '../../common/subscription/subscription-tracker';
 import {
     ComponentRenderer,
     ComponentRendererConstructor,
@@ -53,14 +53,15 @@ export interface FilterRendererSpec<C> extends ComponentRendererSpec<C> {
  * V is the type of filter input value that is passed into setValue method
  * C extends FilterConfig<V> is configuration of a filter that contains queryField and a value of type V
  */
-@Directive()
+@Directive({
+    providers: [SubscriptionTracker],
+})
 // eslint-disable-next-line @angular-eslint/directive-class-suffix
 export abstract class DatagridFilter<V, C extends FilterConfig<V>>
-    implements OnInit, OnDestroy, ClrDatagridFilterInterface<V>, ComponentRenderer<C> {
+    implements OnInit, ClrDatagridFilterInterface<V>, ComponentRenderer<C> {
     formGroup = this.createFormGroup();
-    private subscriptionTracker = new SubscriptionTracker(this);
 
-    protected constructor(filterContainer: ClrDatagridFilter) {
+    protected constructor(filterContainer: ClrDatagridFilter, private subscriptionTracker: SubscriptionTracker) {
         filterContainer.setFilter(this);
     }
 
@@ -126,11 +127,6 @@ export abstract class DatagridFilter<V, C extends FilterConfig<V>>
      * Return true if the filter is currently activated (e.g. a value is provided)
      */
     abstract isActive(): boolean;
-
-    /**
-     * @inheritdoc
-     */
-    abstract ngOnDestroy(): void;
 
     /**
      * Required by Clarity but ignored since we don't support client side filtering

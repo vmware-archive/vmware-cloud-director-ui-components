@@ -30,8 +30,9 @@ interface Record {
     selector: 'vcd-datagrid-action-menu-tracking-example',
     templateUrl: 'datagrid-action-menu-tracking-example.component.html',
     styleUrls: ['datagrid-action-menu-tracking-example.component.scss'],
+    providers: [SubscriptionTracker],
 })
-export class DatagridActionMenuTrackingExampleComponent<R extends Record> implements OnDestroy, OnInit, AfterViewInit {
+export class DatagridActionMenuTrackingExampleComponent<R extends Record> implements OnInit, AfterViewInit, OnDestroy {
     @ViewChild(DatagridComponent, { static: false }) dg: DatagridComponent<R>;
 
     gridData: GridDataFetchResult<Record> = {
@@ -91,11 +92,13 @@ export class DatagridActionMenuTrackingExampleComponent<R extends Record> implem
     CheckBoxStyling = CheckBoxStyling;
 
     numberOfAvailableActions = 0;
+    private actionsTracker = new SubscriptionTracker();
 
-    private subscriptionTracker = new SubscriptionTracker(this);
-    private actionsTracker = new SubscriptionTracker(this);
-
-    constructor(private fb: FormBuilder, private cd: ChangeDetectorRef) {
+    constructor(
+        private fb: FormBuilder,
+        private cd: ChangeDetectorRef,
+        private subscriptionTracker: SubscriptionTracker
+    ) {
         this.formGroup = this.fb.group({
             ['enableActions']: [true],
             ['contextualActions']: [true],
@@ -116,13 +119,15 @@ export class DatagridActionMenuTrackingExampleComponent<R extends Record> implem
         this.subscriptionTracker.subscribe(this.dg.mainActionMenu.changes, this.processActionMenuAvailability);
     }
 
-    ngOnDestroy(): void {}
-
     refresh(eventData: GridState<R>): void {
         this.gridData = {
             items: [{ value: 'Value a' }, { value: 'Value b' }],
             totalItems: 2,
         };
+    }
+
+    ngOnDestroy() {
+        this.actionsTracker.unsubscribeAll();
     }
 
     private processActionMenuAvailability = () => {
