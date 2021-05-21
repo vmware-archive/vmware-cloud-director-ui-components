@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [2.0.0-rc.0]
+
+### No Changes
+- This version is identical to dev.27
 
 ## [2.0.0-dev.27]
 ### Fixed
