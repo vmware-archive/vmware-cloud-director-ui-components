@@ -5,7 +5,7 @@
 
 import { CommonUtil } from '../utils';
 import { QuickSearchResultsType } from './quick-search-result';
-import { ActiveQuickSearchFilter } from './quick-search.component';
+import { ActiveQuickSearchFilter } from './quick-search.service';
 
 export const PROVIDER_SEARCH_DEBOUNCE_TIME = 300;
 

@@ -21,7 +21,7 @@
 <ng-template #filtersSection>
     <div class="filter-container" *ngIf="this.searchService.filters.length > 0">
         <p>Filter By</p>
-        <ng-container *ngFor="let filter of this.searchService.filters">
+        <ng-container *ngFor="let filter of this.searchService.filters; trackBy: filterTrackBy">
             <clr-dropdown
                 [clrCloseMenuOnItemClick]="false"
                 *ngIf="filter.options.length > 1"
@@ -41,8 +41,8 @@
                 <clr-dropdown-menu clrPosition="bottom" *clrIfOpen #dropdownMenu>
                     <li
                         clrDropdownItem
-                        *ngFor="let option of filter.options"
-                        (click)="updateFilterValue(filter.id, option)"
+                        *ngFor="let option of filter.options; trackBy: filterOptionTrackBy"
+                        (click)="searchService.selectFilter(filter.id, [option.key], false)"
                     >
                         <clr-checkbox-wrapper class="column-checkbox">
                             <input
@@ -50,7 +50,7 @@
                                 clrCheckbox
                                 (click)="$event.stopPropagation()"
                                 [ngModel]="getFilterOptionValue(filter.id, option.key)"
-                                (ngModelChange)="updateFilterValue(filter.id, option)"
+                                (ngModelChange)="searchService.selectFilter(filter.id, [option.key], false)"
                                 [attr.data-ui]="DataUi.filterDropdownItem"
                             />
                             <label (click)="$event.stopPropagation()">{{ option.display }}</label>
@@ -61,8 +61,11 @@
         </ng-container>
     </div>
     <div>
-        <ng-container *ngFor="let filter of this.searchService.filters">
-            <span class="filter-bubble label" *ngFor="let option of filterValues.get(filter.id)">
+        <ng-container *ngFor="let filter of this.searchService.filters; trackBy: filterTrackBy">
+            <span
+                class="filter-bubble label"
+                *ngFor="let option of _filterValues.get(filter.id); trackBy: filterOptionTrackBy"
+            >
                 <span [vcdShowClippedText]="{ disabled: !open }">{{
                     filter.bubbleI18nKey | translate: { option: option.display }
                 }}</span>
@@ -70,7 +73,7 @@
                     type="button"
                     class="btn btn-icon btn-link remove-col-button"
                     aria-label="home"
-                    (click)="updateFilterValue(filter.id, option)"
+                    (click)="searchService.selectFilter(filter.id, [option.key], false)"
                 >
                     <clr-icon shape="close" class="badge badge-info"> </clr-icon>
                 </button>
@@ -109,12 +112,12 @@
 <ng-template #quickSearchInterior>
     <div class="search-input-container" data-ui="search-input-container">
         <div class="search-icon-container">
-            <clr-icon shape="search" size="20" *ngIf="!isLoading"></clr-icon>
+            <clr-icon shape="search" size="20" *ngIf="!searchService.isLoading"></clr-icon>
             <clr-spinner
                 [clrSmall]="true"
                 [clrInline]="true"
                 [attr.data-ui]="DataUi.spinner"
-                *ngIf="isLoading"
+                *ngIf="searchService.isLoading"
             ></clr-spinner>
         </div>
         <input
@@ -133,11 +136,15 @@
     <ng-container *ngTemplateOutlet="filtersSection"> </ng-container>
     <ng-content select=".top-of-results"></ng-content>
     <div class="search-result-container">
-        <section class="no-results" [attr.data-ui]="DataUi.noResults" *ngIf="hasNoResults && !isLoading">
+        <section
+            class="no-results"
+            [attr.data-ui]="DataUi.noResults"
+            *ngIf="searchService.hasNoResults && !searchService.isLoading"
+        >
             {{ 'vcd.cc.quickSearch.noResults' | translate }}
         </section>
         <section
-            *ngFor="let searchSection of ungroupedSearchSections; let i = index; trackBy: sectionTrackBy"
+            *ngFor="let searchSection of _ungroupedSearchSections; let i = index; trackBy: sectionTrackBy"
             class="search-result-section section-index-0-{{ i + 1 }}"
             data-ui="search-result-section"
         >
@@ -154,7 +161,7 @@
                 </ng-container>
             </div>
         </section>
-        <div *ngFor="let parentSearchSection of groupedSearchSections; let n = index; trackBy: groupSectionTrackBy">
+        <div *ngFor="let parentSearchSection of _groupedSearchSections; let n = index; trackBy: groupSectionTrackBy">
             <h5
                 *ngIf="showParentSectionTitle(parentSearchSection)"
                 class="search-result-section-title"
