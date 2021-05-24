@@ -76,22 +76,63 @@
                         <ul class="index-list">
                             <li>
                                     <span class="modifier">Private</span>
-                                <a href="#_filterOverrides">_filterOverrides</a>
+                                <a href="#_groupedSearchSections">_groupedSearchSections</a>
                             </li>
                             <li>
-                                <a href="#filterOverrides">filterOverrides</a>
+                                    <span class="modifier">Private</span>
+                                <a href="#_ungroupedSearchSections">_ungroupedSearchSections</a>
                             </li>
                             <li>
+                                    <span class="modifier">Public</span>
                                 <a href="#filters">filters</a>
                             </li>
                             <li>
+                                    <span class="modifier">Public</span>
+                                <a href="#filterValueChanges">filterValueChanges</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#filterValues">filterValues</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Public</span>
+                                <a href="#groupedSearchSectionChanged">groupedSearchSectionChanged</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Public</span>
+                                <a href="#hasNoResults">hasNoResults</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Public</span>
+                                <a href="#isLoading">isLoading</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Public</span>
                                 <a href="#isPinned">isPinned</a>
                             </li>
                             <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#lastActiveFilters">lastActiveFilters</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#lastSearchCriteria">lastSearchCriteria</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
                                 <a href="#nestedProviders">nestedProviders</a>
                             </li>
                             <li>
+                                    <span class="modifier">Private</span>
                                 <a href="#registrations">registrations</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#searchId">searchId</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Public</span>
+                                <a href="#ungroupedSearchSectionChanged">ungroupedSearchSectionChanged</a>
                             </li>
                         </ul>
                     </td>
@@ -106,6 +147,30 @@
                     <td class="col-md-4">
                         <ul class="index-list">
                             <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#buildActiveFilters">buildActiveFilters</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#checkHasNoResults">checkHasNoResults</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Public</span>
+                                <a href="#doSearch">doSearch</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#getFilterOptionValue">getFilterOptionValue</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#getFilterValue">getFilterValue</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#getFlattenedSearchSections">getFlattenedSearchSections</a>
+                            </li>
+                            <li>
                                     <span class="modifier">Public</span>
                                 <a href="#getRegisteredNestedProviders">getRegisteredNestedProviders</a>
                             </li>
@@ -115,9 +180,14 @@
                             </li>
                             <li>
                                     <span class="modifier">Private</span>
+                                <a href="#hasPartialResult">hasPartialResult</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
                                 <a href="#providerShouldBeActive">providerShouldBeActive</a>
                             </li>
                             <li>
+                                    <span class="modifier">Public</span>
                                 <a href="#registerFilters">registerFilters</a>
                             </li>
                             <li>
@@ -133,6 +203,11 @@
                                 <a href="#selectFilter">selectFilter</a>
                             </li>
                             <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#showSectionTitle">showSectionTitle</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Public</span>
                                 <a href="#unregisterFilter">unregisterFilter</a>
                             </li>
                             <li>
@@ -142,6 +217,10 @@
                             <li>
                                     <span class="modifier">Public</span>
                                 <a href="#unregisterProvider">unregisterProvider</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#updateActiveSections">updateActiveSections</a>
                             </li>
                         </ul>
                     </td>
@@ -161,6 +240,402 @@
     <h3 id="methods">
         Methods
     </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="buildActiveFilters"></a>
+                    <span class="name">
+                        <b>
+                            <span class="modifier">Private</span>
+                            buildActiveFilters
+                        </b>
+                        <a href="#buildActiveFilters"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                    <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>buildActiveFilters()</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="425"
+                            class="link-to-prism">projects/components/src/quick-search/quick-search.service.ts:425</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Builds an array of the currently active quick search filters.</p>
+</div>
+
+                    <div class="io-description">
+                        <b>Returns : </b>    <code>ActiveQuickSearchFilter[]</code>
+
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="checkHasNoResults"></a>
+                    <span class="name">
+                        <b>
+                            <span class="modifier">Private</span>
+                            checkHasNoResults
+                        </b>
+                        <a href="#checkHasNoResults"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                    <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>checkHasNoResults()</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="562"
+                            class="link-to-prism">projects/components/src/quick-search/quick-search.service.ts:562</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Says if all providers have returned no results.</p>
+</div>
+
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank" >boolean</a></code>
+
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="doSearch"></a>
+                    <span class="name">
+                        <b>
+                            <span class="modifier">Public</span>
+                            doSearch
+                        </b>
+                        <a href="#doSearch"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                    <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>doSearch(searchCriteria: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>, force?: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank">boolean</a>, afterSectionLoad?: () => void)</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="347"
+                            class="link-to-prism">projects/components/src/quick-search/quick-search.service.ts:347</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Searches all the providers given the search term and the active filters.</p>
+</div>
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Type</td>
+                                    <td>Optional</td>
+                                    <td>Description</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>searchCriteria</td>
+                                    <td>
+                                                <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                    <td>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>force</td>
+                                    <td>
+                                                <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank" >boolean</a></code>
+                                    </td>
+
+                                    <td>
+                                        Yes
+                                    </td>
+
+
+                                    <td>
+                                        <p>runs the search even if the active filters and search term has not changed.</p>
+
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>afterSectionLoad</td>
+                                    <td>
+                                                <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/function" target="_blank" >function</a></code>
+                                    </td>
+
+                                    <td>
+                                        Yes
+                                    </td>
+
+
+                                    <td>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="../interfaces/SearchSection.html" target="_self" >Promise&lt;SearchSection[]&gt;</a></code>
+
+                    </div>
+                    <div class="io-description">
+                        
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="getFilterOptionValue"></a>
+                    <span class="name">
+                        <b>
+                            <span class="modifier">Private</span>
+                            getFilterOptionValue
+                        </b>
+                        <a href="#getFilterOptionValue"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                    <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>getFilterOptionValue(filterId: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>, optionKey: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="473"
+                            class="link-to-prism">projects/components/src/quick-search/quick-search.service.ts:473</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Gives whether the given option on the given filter is selected.</p>
+</div>
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Type</td>
+                                    <td>Optional</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>filterId</td>
+                                    <td>
+                                                <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                                <tr>
+                                    <td>optionKey</td>
+                                    <td>
+                                                <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank" >boolean</a></code>
+
+                    </div>
+                    <div class="io-description">
+                        
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="getFilterValue"></a>
+                    <span class="name">
+                        <b>
+                            <span class="modifier">Private</span>
+                            getFilterValue
+                        </b>
+                        <a href="#getFilterValue"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                    <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>getFilterValue(filterId: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="480"
+                            class="link-to-prism">projects/components/src/quick-search/quick-search.service.ts:480</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Gives all the options selected for the given filter.</p>
+</div>
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Type</td>
+                                    <td>Optional</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>filterId</td>
+                                    <td>
+                                                <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>    <code>QuickSearchFilterOption[]</code>
+
+                    </div>
+                    <div class="io-description">
+                        
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="getFlattenedSearchSections"></a>
+                    <span class="name">
+                        <b>
+                            <span class="modifier">Private</span>
+                            getFlattenedSearchSections
+                        </b>
+                        <a href="#getFlattenedSearchSections"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                    <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>getFlattenedSearchSections()</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="490"
+                            class="link-to-prism">projects/components/src/quick-search/quick-search.service.ts:490</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Gives the search sections as a single flat list.</p>
+</div>
+
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="../interfaces/SearchSection.html" target="_self" >SearchSection[]</a></code>
+
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
     <table class="table table-sm table-bordered">
         <tbody>
             <tr>
@@ -185,14 +660,16 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="115"
-                            class="link-to-prism">projects/components/src/quick-search/quick-search.service.ts:115</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="268"
+                            class="link-to-prism">projects/components/src/quick-search/quick-search.service.ts:268</a></div>
                 </td>
             </tr>
 
 
             <tr>
                 <td class="col-md-4">
+                    <div class="io-description"><p>Gives the list of currently active providers given the set of filters.</p>
+</div>
 
                     <div class="io-description">
                         <b>Parameters :</b>
@@ -257,8 +734,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="108"
-                            class="link-to-prism">projects/components/src/quick-search/quick-search.service.ts:108</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="258"
+                            class="link-to-prism">projects/components/src/quick-search/quick-search.service.ts:258</a></div>
                 </td>
             </tr>
 
@@ -311,6 +788,88 @@
         <tbody>
             <tr>
                 <td class="col-md-4">
+                    <a name="hasPartialResult"></a>
+                    <span class="name">
+                        <b>
+                            <span class="modifier">Private</span>
+                            hasPartialResult
+                        </b>
+                        <a href="#hasPartialResult"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                    <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>hasPartialResult(searchSection: <a href="../interfaces/SearchSection.html">SearchSection</a>)</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="523"
+                            class="link-to-prism">projects/components/src/quick-search/quick-search.service.ts:523</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Determines if the result in this section is partial (i.e. there are more items matching the criteria which are
+in the current list) or it is full (the current list contains all the items matching the criteria)
+If the result is partial then <a href="../interfaces/PartialResult.html">PartialResult</a> object is returned. If the result contains all the items
+then null is returned</p>
+</div>
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Type</td>
+                                    <td>Optional</td>
+                                    <td>Description</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>searchSection</td>
+                                    <td>
+                                                <code><a href="../interfaces/SearchSection.html" target="_self" >SearchSection</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                    <td>
+                                        <p>the section which result items is to be checked</p>
+
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="../interfaces/PartialResult.html" target="_self" >PartialResult</a></code>
+
+                    </div>
+                    <div class="io-description">
+                        
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
                     <a name="providerShouldBeActive"></a>
                     <span class="name">
                         <b>
@@ -331,14 +890,16 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="165"
-                            class="link-to-prism">projects/components/src/quick-search/quick-search.service.ts:165</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="500"
+                            class="link-to-prism">projects/components/src/quick-search/quick-search.service.ts:500</a></div>
                 </td>
             </tr>
 
 
             <tr>
                 <td class="col-md-4">
+                    <div class="io-description"><p>Says if the given provider should be active given the filters selected.</p>
+</div>
 
                     <div class="io-description">
                         <b>Parameters :</b>
@@ -398,6 +959,7 @@
                     <a name="registerFilters"></a>
                     <span class="name">
                         <b>
+                            <span class="modifier">Public</span>
                             registerFilters
                         </b>
                         <a href="#registerFilters"><span class="icon ion-ios-link"></span></a>
@@ -406,15 +968,16 @@
             </tr>
             <tr>
                 <td class="col-md-4">
-<code>registerFilters(filter: <a href="../interfaces/QuickSearchFilter.html">QuickSearchFilter[]</a>)</code>
+                    <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>registerFilters(filter: <a href="../interfaces/QuickSearchFilter.html">QuickSearchFilter[]</a>)</code>
                 </td>
             </tr>
 
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="154"
-                            class="link-to-prism">projects/components/src/quick-search/quick-search.service.ts:154</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="297"
+                            class="link-to-prism">projects/components/src/quick-search/quick-search.service.ts:297</a></div>
                 </td>
             </tr>
 
@@ -497,14 +1060,16 @@ are present in the search, the filter should act like an or.</p>
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="70"
-                            class="link-to-prism">projects/components/src/quick-search/quick-search.service.ts:70</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="219"
+                            class="link-to-prism">projects/components/src/quick-search/quick-search.service.ts:219</a></div>
                 </td>
             </tr>
 
 
             <tr>
                 <td class="col-md-4">
+                    <div class="io-description"><p>Registers a nested provider to search for results in quick search.</p>
+</div>
 
                     <div class="io-description">
                         <b>Parameters :</b>
@@ -569,8 +1134,8 @@ are present in the search, the filter should act like an or.</p>
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="30"
-                            class="link-to-prism">projects/components/src/quick-search/quick-search.service.ts:30</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="175"
+                            class="link-to-prism">projects/components/src/quick-search/quick-search.service.ts:175</a></div>
                 </td>
             </tr>
 
@@ -641,23 +1206,22 @@ are present in the search, the filter should act like an or.</p>
             <tr>
                 <td class="col-md-4">
                     <span class="modifier-icon icon ion-ios-reset"></span>
-                    <code>selectFilter(filterId: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>, filterValues: string[])</code>
+                    <code>selectFilter(filterId: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>, filterValues: string[], clear: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank">boolean</a>)</code>
                 </td>
             </tr>
 
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="135"
-                            class="link-to-prism">projects/components/src/quick-search/quick-search.service.ts:135</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="315"
+                            class="link-to-prism">projects/components/src/quick-search/quick-search.service.ts:315</a></div>
                 </td>
             </tr>
 
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-description"><p>Selects the given filterValue on the filter represented by the given filterId.
-Clears any current selection on the filter.</p>
+                    <div class="io-description"><p>Selects the given filterValue on the filter represented by the given filterId.</p>
 </div>
 
                     <div class="io-description">
@@ -668,6 +1232,8 @@ Clears any current selection on the filter.</p>
                                     <td>Name</td>
                                     <td>Type</td>
                                     <td>Optional</td>
+                                    <td>Default value</td>
+                                    <td>Description</td>
                                 </tr>
                             </thead>
                             <tbody>
@@ -681,7 +1247,11 @@ Clears any current selection on the filter.</p>
                                         No
                                     </td>
 
+                                    <td>
+                                    </td>
 
+                                    <td>
+                                    </td>
                                 </tr>
                                 <tr>
                                     <td>filterValues</td>
@@ -693,7 +1263,30 @@ Clears any current selection on the filter.</p>
                                         No
                                     </td>
 
+                                    <td>
+                                    </td>
 
+                                    <td>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>clear</td>
+                                    <td>
+                                                <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank" >boolean</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+                                    <td>
+                                        <code>true</code>
+                                    </td>
+
+                                    <td>
+                                        <p>clears the selection before setting if set to true, and defaults to true.</p>
+
+                                    </td>
                                 </tr>
                             </tbody>
                         </table>
@@ -719,9 +1312,84 @@ Clears any current selection on the filter.</p>
         <tbody>
             <tr>
                 <td class="col-md-4">
+                    <a name="showSectionTitle"></a>
+                    <span class="name">
+                        <b>
+                            <span class="modifier">Private</span>
+                            showSectionTitle
+                        </b>
+                        <a href="#showSectionTitle"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                    <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>showSectionTitle(searchSection: <a href="../interfaces/SearchSection.html">SearchSection</a>)</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="540"
+                            class="link-to-prism">projects/components/src/quick-search/quick-search.service.ts:540</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Says if the title of the given search section should be shown.</p>
+</div>
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Type</td>
+                                    <td>Optional</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>searchSection</td>
+                                    <td>
+                                                <code><a href="../interfaces/SearchSection.html" target="_self" >SearchSection</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank" >boolean</a></code>
+
+                    </div>
+                    <div class="io-description">
+                        
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
                     <a name="unregisterFilter"></a>
                     <span class="name">
                         <b>
+                            <span class="modifier">Public</span>
                             unregisterFilter
                         </b>
                         <a href="#unregisterFilter"><span class="icon ion-ios-link"></span></a>
@@ -730,15 +1398,16 @@ Clears any current selection on the filter.</p>
             </tr>
             <tr>
                 <td class="col-md-4">
-<code>unregisterFilter(filterId: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
+                    <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>unregisterFilter(filterId: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
                 </td>
             </tr>
 
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="161"
-                            class="link-to-prism">projects/components/src/quick-search/quick-search.service.ts:161</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="304"
+                            class="link-to-prism">projects/components/src/quick-search/quick-search.service.ts:304</a></div>
                 </td>
             </tr>
 
@@ -811,8 +1480,8 @@ Clears any current selection on the filter.</p>
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="97"
-                            class="link-to-prism">projects/components/src/quick-search/quick-search.service.ts:97</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="247"
+                            class="link-to-prism">projects/components/src/quick-search/quick-search.service.ts:247</a></div>
                 </td>
             </tr>
 
@@ -883,8 +1552,8 @@ Clears any current selection on the filter.</p>
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="62"
-                            class="link-to-prism">projects/components/src/quick-search/quick-search.service.ts:62</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="208"
+                            class="link-to-prism">projects/components/src/quick-search/quick-search.service.ts:208</a></div>
                 </td>
             </tr>
 
@@ -939,6 +1608,80 @@ Returns true if un-registration was done.</p>
             </tr>
         </tbody>
     </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="updateActiveSections"></a>
+                    <span class="name">
+                        <b>
+                            <span class="modifier">Private</span>
+                            updateActiveSections
+                        </b>
+                        <a href="#updateActiveSections"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                    <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>updateActiveSections(activeFilters: ActiveQuickSearchFilter[])</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="443"
+                            class="link-to-prism">projects/components/src/quick-search/quick-search.service.ts:443</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Updates the active search providers based on the active filters.</p>
+</div>
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Type</td>
+                                    <td>Optional</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>activeFilters</td>
+                                    <td>
+                                            <code>ActiveQuickSearchFilter[]</code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                    </div>
+                    <div class="io-description">
+                        
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
 </section>
             <section>
     
@@ -949,29 +1692,29 @@ Returns true if un-registration was done.</p>
             <tbody>
                 <tr>
                     <td class="col-md-4">
-                        <a name="_filterOverrides"></a>
+                        <a name="_groupedSearchSections"></a>
                         <span class="name">
                             <b>
                                 <span class="modifier">Private</span>
-                            _filterOverrides</b>
-                            <a href="#_filterOverrides"><span class="icon ion-ios-link"></span></a>
+                            _groupedSearchSections</b>
+                            <a href="#_groupedSearchSections"><span class="icon ion-ios-link"></span></a>
                         </span>
                     </td>
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                            <i>Type : </i>    <code>ReplaySubject&lt;&gt;</code>
+                            <i>Type : </i>    <code>GroupedSearchSections[]</code>
 
                         </td>
                     </tr>
                     <tr>
                         <td class="col-md-4">
-                            <i>Default value : </i><code>new ReplaySubject()</code>
+                            <i>Default value : </i><code>[]</code>
                         </td>
                     </tr>
                         <tr>
                             <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="18" class="link-to-prism">projects/components/src/quick-search/quick-search.service.ts:18</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="141" class="link-to-prism">projects/components/src/quick-search/quick-search.service.ts:141</a></div>
                             </td>
                         </tr>
 
@@ -982,28 +1725,29 @@ Returns true if un-registration was done.</p>
             <tbody>
                 <tr>
                     <td class="col-md-4">
-                        <a name="filterOverrides"></a>
+                        <a name="_ungroupedSearchSections"></a>
                         <span class="name">
                             <b>
-                            filterOverrides</b>
-                            <a href="#filterOverrides"><span class="icon ion-ios-link"></span></a>
+                                <span class="modifier">Private</span>
+                            _ungroupedSearchSections</b>
+                            <a href="#_ungroupedSearchSections"><span class="icon ion-ios-link"></span></a>
                         </span>
                     </td>
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                            <i>Type : </i>    <code>Observable&lt;&gt;</code>
+                            <i>Type : </i>        <code><a href="../interfaces/SearchSection.html" target="_self" >SearchSection[]</a></code>
 
                         </td>
                     </tr>
                     <tr>
                         <td class="col-md-4">
-                            <i>Default value : </i><code>this._filterOverrides</code>
+                            <i>Default value : </i><code>[]</code>
                         </td>
                     </tr>
                         <tr>
                             <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="19" class="link-to-prism">projects/components/src/quick-search/quick-search.service.ts:19</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="142" class="link-to-prism">projects/components/src/quick-search/quick-search.service.ts:142</a></div>
                             </td>
                         </tr>
 
@@ -1017,6 +1761,7 @@ Returns true if un-registration was done.</p>
                         <a name="filters"></a>
                         <span class="name">
                             <b>
+                                <span class="modifier">Public</span>
                             filters</b>
                             <a href="#filters"><span class="icon ion-ios-link"></span></a>
                         </span>
@@ -1035,7 +1780,87 @@ Returns true if un-registration was done.</p>
                     </tr>
                         <tr>
                             <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="17" class="link-to-prism">projects/components/src/quick-search/quick-search.service.ts:17</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="154" class="link-to-prism">projects/components/src/quick-search/quick-search.service.ts:154</a></div>
+                            </td>
+                        </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <div class="io-description"><p>The current set of registered filters.</p>
+</div>
+                    </td>
+                </tr>
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="filterValueChanges"></a>
+                        <span class="name">
+                            <b>
+                                <span class="modifier">Public</span>
+                            filterValueChanges</b>
+                            <a href="#filterValueChanges"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Type : </i>    <code>ReplaySubject&lt;Map&lt;string, QuickSearchFilterOption[]&gt;&gt;</code>
+
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Default value : </i><code>new ReplaySubject&lt;
+        Map&lt;string, QuickSearchFilterOption[]&gt;
+    &gt;()</code>
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="147" class="link-to-prism">projects/components/src/quick-search/quick-search.service.ts:147</a></div>
+                            </td>
+                        </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <div class="io-description"><p>Emits a value when any information about the filter selection changes.</p>
+</div>
+                    </td>
+                </tr>
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="filterValues"></a>
+                        <span class="name">
+                            <b>
+                                <span class="modifier">Private</span>
+                            filterValues</b>
+                            <a href="#filterValues"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Type : </i>    <code>Map&lt;string | QuickSearchFilterOption[]&gt;</code>
+
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Default value : </i><code>new Map()</code>
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="114" class="link-to-prism">projects/components/src/quick-search/quick-search.service.ts:114</a></div>
                             </td>
                         </tr>
 
@@ -1046,9 +1871,134 @@ Returns true if un-registration was done.</p>
             <tbody>
                 <tr>
                     <td class="col-md-4">
+                        <a name="groupedSearchSectionChanged"></a>
+                        <span class="name">
+                            <b>
+                                <span class="modifier">Public</span>
+                            groupedSearchSectionChanged</b>
+                            <a href="#groupedSearchSectionChanged"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Type : </i>    <code>ReplaySubject&lt;GroupedSearchSections[]&gt;</code>
+
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Default value : </i><code>new ReplaySubject&lt;
+        GroupedSearchSections[]
+    &gt;()</code>
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="136" class="link-to-prism">projects/components/src/quick-search/quick-search.service.ts:136</a></div>
+                            </td>
+                        </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <div class="io-description"><p>The search sections are provided by the <a href="../injectables/QuickSearchService.html">QuickSearchService</a> upon opening the Quick Search.
+This insures that new sections based on the current context of the application may appear.</p>
+<p>The groupedSearchSections are sections that come from Nested providers and are a double deep list of results with
+a parent section name, and sub section names.</p>
+<p>The ungroupedSearchSections are sections that come from Search providers and are a single list of results with a section name.</p>
+<p>These two events emit when anything about the search sections changes.</p>
+</div>
+                    </td>
+                </tr>
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="hasNoResults"></a>
+                        <span class="name">
+                            <b>
+                                <span class="modifier">Public</span>
+                            hasNoResults</b>
+                            <a href="#hasNoResults"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank" >boolean</a></code>
+
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Default value : </i><code>false</code>
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="169" class="link-to-prism">projects/components/src/quick-search/quick-search.service.ts:169</a></div>
+                            </td>
+                        </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <div class="io-description"><p>If all sections return no results.</p>
+</div>
+                    </td>
+                </tr>
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="isLoading"></a>
+                        <span class="name">
+                            <b>
+                                <span class="modifier">Public</span>
+                            isLoading</b>
+                            <a href="#isLoading"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank" >boolean</a></code>
+
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Default value : </i><code>false</code>
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="164" class="link-to-prism">projects/components/src/quick-search/quick-search.service.ts:164</a></div>
+                            </td>
+                        </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <div class="io-description"><p>If any section is loading.</p>
+</div>
+                    </td>
+                </tr>
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
                         <a name="isPinned"></a>
                         <span class="name">
                             <b>
+                                <span class="modifier">Public</span>
                             isPinned</b>
                             <a href="#isPinned"><span class="icon ion-ios-link"></span></a>
                         </span>
@@ -1067,13 +2017,91 @@ Returns true if un-registration was done.</p>
                     </tr>
                         <tr>
                             <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="24" class="link-to-prism">projects/components/src/quick-search/quick-search.service.ts:24</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="159" class="link-to-prism">projects/components/src/quick-search/quick-search.service.ts:159</a></div>
                             </td>
                         </tr>
 
                 <tr>
                     <td class="col-md-4">
-                        <div class="io-description"><p>Says if the quick search modal is pinned.</p>
+                        <div class="io-description"><p>If the quick search modal is pinned.</p>
+</div>
+                    </td>
+                </tr>
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="lastActiveFilters"></a>
+                        <span class="name">
+                            <b>
+                                <span class="modifier">Private</span>
+                            lastActiveFilters</b>
+                            <a href="#lastActiveFilters"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Type : </i>    <code>ActiveQuickSearchFilter[]</code>
+
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Default value : </i><code>[]</code>
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="119" class="link-to-prism">projects/components/src/quick-search/quick-search.service.ts:119</a></div>
+                            </td>
+                        </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <div class="io-description"><p>The filters the last search was run with.</p>
+</div>
+                    </td>
+                </tr>
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="lastSearchCriteria"></a>
+                        <span class="name">
+                            <b>
+                                <span class="modifier">Private</span>
+                            lastSearchCriteria</b>
+                            <a href="#lastSearchCriteria"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Default value : </i><code>&#x27;&#x27;</code>
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="123" class="link-to-prism">projects/components/src/quick-search/quick-search.service.ts:123</a></div>
+                            </td>
+                        </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <div class="io-description"><p>The term the last search was run with.</p>
 </div>
                     </td>
                 </tr>
@@ -1087,6 +2115,7 @@ Returns true if un-registration was done.</p>
                         <a name="nestedProviders"></a>
                         <span class="name">
                             <b>
+                                <span class="modifier">Private</span>
                             nestedProviders</b>
                             <a href="#nestedProviders"><span class="icon ion-ios-link"></span></a>
                         </span>
@@ -1105,7 +2134,7 @@ Returns true if un-registration was done.</p>
                     </tr>
                         <tr>
                             <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="16" class="link-to-prism">projects/components/src/quick-search/quick-search.service.ts:16</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="110" class="link-to-prism">projects/components/src/quick-search/quick-search.service.ts:110</a></div>
                             </td>
                         </tr>
 
@@ -1119,6 +2148,7 @@ Returns true if un-registration was done.</p>
                         <a name="registrations"></a>
                         <span class="name">
                             <b>
+                                <span class="modifier">Private</span>
                             registrations</b>
                             <a href="#registrations"><span class="icon ion-ios-link"></span></a>
                         </span>
@@ -1137,7 +2167,73 @@ Returns true if un-registration was done.</p>
                     </tr>
                         <tr>
                             <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="15" class="link-to-prism">projects/components/src/quick-search/quick-search.service.ts:15</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="109" class="link-to-prism">projects/components/src/quick-search/quick-search.service.ts:109</a></div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="searchId"></a>
+                        <span class="name">
+                            <b>
+                                <span class="modifier">Private</span>
+                            searchId</b>
+                            <a href="#searchId"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Default value : </i><code>0</code>
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="112" class="link-to-prism">projects/components/src/quick-search/quick-search.service.ts:112</a></div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="ungroupedSearchSectionChanged"></a>
+                        <span class="name">
+                            <b>
+                                <span class="modifier">Public</span>
+                            ungroupedSearchSectionChanged</b>
+                            <a href="#ungroupedSearchSectionChanged"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Type : </i>        <code><a href="../interfaces/SearchSection.html" target="_self" >ReplaySubject&lt;SearchSection[]&gt;</a></code>
+
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Default value : </i><code>new ReplaySubject&lt;SearchSection[]&gt;()</code>
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="139" class="link-to-prism">projects/components/src/quick-search/quick-search.service.ts:139</a></div>
                             </td>
                         </tr>
 
@@ -1150,25 +2246,170 @@ Returns true if un-registration was done.</p>
 
 
     <div class="tab-pane fade  tab-source-code" id="c-source">
-        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Injectable, OnDestroy } from &#x27;@angular/core&#x27;;
-import { BehaviorSubject, Observable, ReplaySubject } from &#x27;rxjs&#x27;;
-import { ActiveQuickSearchFilter, QuickSearchFilter } from &#x27;./quick-search.component&#x27;;
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Injectable } from &#x27;@angular/core&#x27;;
+import { ReplaySubject } from &#x27;rxjs&#x27;;
 import { QuickSearchProvider, QuickSearchNestedProvider } from &#x27;./quick-search.provider&#x27;;
+import { QuickSearchResults } from &#x27;.&#x27;;
+
+/**
+ * A group of search sections.
+ */
+export interface GroupedSearchSections {
+    /**
+     * The i18n key for the header.
+     */
+    headerTitle: string;
+    /**
+     * All of the sections within this section.
+     */
+    subSections: SearchSection[];
+}
+
+export interface SearchSection {
+    provider: QuickSearchProvider;
+    result: QuickSearchResults;
+    isLoading: boolean;
+    shouldShowText: boolean;
+    hasPartialResult: PartialResult;
+    icon?: string;
+}
+
+/**
+ * A filter that can be applied to quick search to filter results.
+ */
+export interface QuickSearchFilter {
+    /**
+     * The unique ID of this filter.
+     */
+    id: string;
+    /**
+     * The options that are displayed in the dropdown.
+     */
+    options: QuickSearchFilterOption[];
+    /**
+     * The text displayed on the button to open the dropdown.
+     */
+    dropdownText: string;
+    /**
+     * The i18n key for the selection bubble of this filter. Is passed one parameter {display} which is the value selected.
+     */
+    bubbleI18nKey: string;
+}
+
+/**
+ * Represents a possible selection option for a filter.
+ */
+export interface QuickSearchFilterOption {
+    /**
+     * The displayed title of this option.
+     */
+    display: string;
+
+    /**
+     * The key of this quick search filter option.
+     */
+    key: string;
+    /**
+     * Any optional data that is associated with this option.
+     */
+    data?: any;
+}
+
+/**
+ * A filter that has a value typed in.
+ */
+export interface ActiveQuickSearchFilter extends QuickSearchFilter {
+    /**
+     * The key value of the selected option.
+     */
+    value: string;
+    /**
+     * Any date assocated with this filter option.
+     */
+    data: any;
+}
+
+/**
+ * This interface describes partial search result, i.e. result that do not contain all the items that match the
+ * search criteria {@see QuickSearchComponent#hasPartialResult}
+ */
+export interface PartialResult {
+    /**
+     * The number of the last item of the result
+     */
+    lastItem: number;
+
+    /**
+     * Total number of items in the result
+     */
+    totalItems: number;
+}
 
 @Injectable({
     providedIn: &#x27;root&#x27;,
 })
 export class QuickSearchService {
-    registrations: QuickSearchProvider[] &#x3D; [];
-    nestedProviders: QuickSearchNestedProvider[] &#x3D; [];
-    filters: QuickSearchFilter[] &#x3D; [];
-    private _filterOverrides: ReplaySubject&lt;[string, string[]]&gt; &#x3D; new ReplaySubject();
-    filterOverrides: Observable&lt;[string, string[]]&gt; &#x3D; this._filterOverrides;
+    private registrations: QuickSearchProvider[] &#x3D; [];
+    private nestedProviders: QuickSearchNestedProvider[] &#x3D; [];
+
+    private searchId &#x3D; 0;
+
+    private filterValues: Map&lt;string, QuickSearchFilterOption[]&gt; &#x3D; new Map();
 
     /**
-     * Says if the quick search modal is pinned.
+     * The filters the last search was run with.
      */
-    isPinned: boolean &#x3D; false;
+    private lastActiveFilters: ActiveQuickSearchFilter[] &#x3D; [];
+    /**
+     * The term the last search was run with.
+     */
+    private lastSearchCriteria: string &#x3D; &#x27;&#x27;;
+
+    /**
+     * The search sections are provided by the {@link QuickSearchService} upon opening the Quick Search.
+     * This insures that new sections based on the current context of the application may appear.
+     *
+     * The groupedSearchSections are sections that come from Nested providers and are a double deep list of results with
+     * a parent section name, and sub section names.
+     *
+     * The ungroupedSearchSections are sections that come from Search providers and are a single list of results with a section name.
+     *
+     * These two events emit when anything about the search sections changes.
+     */
+    public groupedSearchSectionChanged: ReplaySubject&lt;GroupedSearchSections[]&gt; &#x3D; new ReplaySubject&lt;
+        GroupedSearchSections[]
+    &gt;();
+    public ungroupedSearchSectionChanged: ReplaySubject&lt;SearchSection[]&gt; &#x3D; new ReplaySubject&lt;SearchSection[]&gt;();
+
+    private _groupedSearchSections: GroupedSearchSections[] &#x3D; [];
+    private _ungroupedSearchSections: SearchSection[] &#x3D; [];
+
+    /**
+     * Emits a value when any information about the filter selection changes.
+     */
+    public filterValueChanges: ReplaySubject&lt;Map&lt;string, QuickSearchFilterOption[]&gt;&gt; &#x3D; new ReplaySubject&lt;
+        Map&lt;string, QuickSearchFilterOption[]&gt;
+    &gt;();
+
+    /**
+     * The current set of registered filters.
+     */
+    public filters: QuickSearchFilter[] &#x3D; [];
+
+    /**
+     * If the quick search modal is pinned.
+     */
+    public isPinned: boolean &#x3D; false;
+
+    /**
+     * If any section is loading.
+     */
+    public isLoading: boolean &#x3D; false;
+
+    /**
+     * If all sections return no results.
+     */
+    public hasNoResults: boolean &#x3D; false;
 
     /**
      * Register a search provider
@@ -1199,6 +2440,7 @@ export class QuickSearchService {
         } else {
             this.registrations.push(provider);
         }
+        this.updateActiveSections(this.lastActiveFilters);
     }
 
     /**
@@ -1214,6 +2456,9 @@ export class QuickSearchService {
         return index &gt; -1;
     }
 
+    /**
+     * Registers a nested provider to search for results in quick search.
+     */
     public registerNestedProvider(nestedProvider: QuickSearchNestedProvider) {
         const order &#x3D; typeof nestedProvider.order &#x3D;&#x3D;&#x3D; &#x27;undefined&#x27; ? -1 : nestedProvider.order;
 
@@ -1239,6 +2484,7 @@ export class QuickSearchService {
         } else {
             this.nestedProviders.push(nestedProvider);
         }
+        this.updateActiveSections(this.lastActiveFilters);
     }
 
     public unregisterNestedProvider(nestedProvider: QuickSearchNestedProvider) {
@@ -1259,6 +2505,9 @@ export class QuickSearchService {
         return this.registrations.filter((searchProvider) &#x3D;&gt; this.providerShouldBeActive(searchProvider, filters));
     }
 
+    /**
+     * Gives the list of currently active providers given the set of filters.
+     */
     public getRegisteredNestedProviders(filters?: ActiveQuickSearchFilter[]): QuickSearchNestedProvider[] {
         if (!filters || !filters.length) {
             return [...this.nestedProviders];
@@ -1271,16 +2520,6 @@ export class QuickSearchService {
             };
         });
         return newNestedProviders.filter((provider) &#x3D;&gt; provider.children.length);
-    }
-
-    /**
-     * Selects the given filterValue on the filter represented by the given filterId.
-     * Clears any current selection on the filter.
-     *
-     * @example selectFilter(&#x27;type&#x27;, &#x27;org&#x27;) selects the Organization option in the &quot;Type&quot; filter.
-     */
-    public selectFilter(filterId: string, filterValues: string[]): void {
-        this._filterOverrides.next([filterId, filterValues]);
     }
 
     /**
@@ -1298,17 +2537,209 @@ export class QuickSearchService {
      * If two filters of different IDs are used in the search, the filters should act like and&#x27;s. If two filters of the same ID
      * are present in the search, the filter should act like an or.
      */
-    registerFilters(filter: QuickSearchFilter[]) {
+    public registerFilters(filter: QuickSearchFilter[]) {
         this.filters.push(...filter);
     }
 
     /**
      * Removes the given filterId from the list of registered filters.
      */
-    unregisterFilter(filterId: string) {
+    public unregisterFilter(filterId: string) {
         this.filters.filter((filter) &#x3D;&gt; filter.id !&#x3D;&#x3D; filterId);
     }
 
+    /**
+     * Selects the given filterValue on the filter represented by the given filterId.
+     *
+     * @param clear clears the selection before setting if set to true, and defaults to true.
+     *
+     * @example selectFilter(&#x27;type&#x27;, &#x27;org&#x27;) selects the Organization option in the &quot;Type&quot; filter.
+     */
+    public selectFilter(filterId: string, filterValues: string[], clear: boolean &#x3D; true): void {
+        if (clear) {
+            this.filterValues.set(filterId, []);
+        }
+
+        for (const optionKey of filterValues.filter(Boolean)) {
+            const foundFilter &#x3D; this.filters.find((filter) &#x3D;&gt; filter.id &#x3D;&#x3D;&#x3D; filterId);
+            const foundOption &#x3D; foundFilter.options.find((option) &#x3D;&gt; option.key &#x3D;&#x3D;&#x3D; optionKey);
+
+            if (foundOption &#x3D;&#x3D;&#x3D; undefined) {
+                continue;
+            }
+            const isActive &#x3D; this.getFilterOptionValue(filterId, optionKey);
+            if (isActive) {
+                this.filterValues.set(
+                    filterId,
+                    this.getFilterValue(filterId).filter((option) &#x3D;&gt; option.key !&#x3D;&#x3D; optionKey)
+                );
+            } else {
+                this.getFilterValue(filterId).push(foundOption);
+            }
+        }
+
+        this.filterValueChanges.next(this.filterValues);
+        this.doSearch(this.lastSearchCriteria);
+    }
+
+    /**
+     * Searches all the providers given the search term and the active filters.
+     *
+     * @param force runs the search even if the active filters and search term has not changed.
+     */
+    public doSearch(searchCriteria: string, force?: boolean, afterSectionLoad?: () &#x3D;&gt; void): Promise&lt;SearchSection[]&gt; {
+        const activeFilters &#x3D; this.buildActiveFilters();
+
+        // If the active filters are the same as last time and the search term has not changed
+        // We should not run a search unless force is true.
+        if (
+            this.lastActiveFilters.length &#x3D;&#x3D;&#x3D; activeFilters.length &amp;&amp;
+            searchCriteria &#x3D;&#x3D;&#x3D; this.lastSearchCriteria &amp;&amp;
+            !force
+        ) {
+            return;
+        }
+        this.lastActiveFilters &#x3D; activeFilters;
+        this.lastSearchCriteria &#x3D; searchCriteria;
+        this.updateActiveSections(activeFilters);
+
+        // Remember which is the current search. This will help us not to show results from an old search
+        const searchId &#x3D; ++this.searchId;
+
+        // Mark each sections in loading state. This flag is needed when trying to select the first item
+        // while the search is still in progress
+        const flatSections &#x3D; this.getFlattenedSearchSections();
+
+        if (flatSections.length &#x3D;&#x3D;&#x3D; 0) {
+            return;
+        }
+
+        this.isLoading &#x3D; true;
+        flatSections.forEach((searchSection) &#x3D;&gt; (searchSection.isLoading &#x3D; true));
+
+        // Go through the available search sections, i.e. the registered search providers and request for results
+        return Promise.all(
+            flatSections.map(async (searchSection) &#x3D;&gt; {
+                let searchResult: QuickSearchResults;
+                // Only request for data if the search is not empty
+                if (searchCriteria &amp;&amp; searchCriteria.length &gt; 0) {
+                    const result &#x3D; searchSection.provider.search(searchCriteria, activeFilters);
+
+                    // Some of the results may be provided later, so mark the section as loading
+                    if (result instanceof Promise) {
+                        searchResult &#x3D; await result;
+                    } else {
+                        searchResult &#x3D; result;
+                    }
+                    // Use the closure to verify that the displayed data is going to be really from the latest search
+                    if (searchId !&#x3D;&#x3D; this.searchId) {
+                        return;
+                    }
+                }
+
+                // This code will get called for each of the key strokes that gets typed during the buffer time. This means if there were 10
+                // characters typed during the de-bouncing time, this code will be called 10 times after the promise is resolved from a provider
+                // search function. However, we don&#x27;t currently see any problem with that because the following code just re assigns variables
+                // with same values
+                searchSection.result &#x3D; searchResult;
+                searchSection.hasPartialResult &#x3D; this.hasPartialResult(searchSection);
+                searchSection.isLoading &#x3D; false;
+                this.hasNoResults &#x3D; this.checkHasNoResults();
+                searchSection.shouldShowText &#x3D; this.showSectionTitle(searchSection);
+
+                if (afterSectionLoad) {
+                    afterSectionLoad();
+                }
+                this.groupedSearchSectionChanged.next([...this._groupedSearchSections]);
+                this.ungroupedSearchSectionChanged.next([...this._ungroupedSearchSections]);
+
+                return searchSection;
+            })
+        ).finally(() &#x3D;&gt; {
+            if (searchId &#x3D;&#x3D;&#x3D; this.searchId) {
+                this.isLoading &#x3D; false;
+            }
+        });
+    }
+
+    /**
+     * Builds an array of the currently active quick search filters.
+     */
+    private buildActiveFilters(): ActiveQuickSearchFilter[] {
+        const activeFilters: ActiveQuickSearchFilter[] &#x3D; [];
+        this.filterValues.forEach((valueList, id) &#x3D;&gt; {
+            valueList.forEach((value) &#x3D;&gt; {
+                activeFilters.push({
+                    id,
+                    value: value.key,
+                    data: value.data,
+                } as ActiveQuickSearchFilter);
+            });
+        });
+
+        return activeFilters;
+    }
+
+    /**
+     * Updates the active search providers based on the active filters.
+     */
+    private updateActiveSections(activeFilters: ActiveQuickSearchFilter[]) {
+        this._ungroupedSearchSections &#x3D; this.getRegisteredProviders(activeFilters).map((provider) &#x3D;&gt; ({
+            provider,
+            result: null,
+            isLoading: true,
+            shouldShowText: false,
+            hasPartialResult: undefined,
+            icon: provider.icon,
+        }));
+        this._groupedSearchSections &#x3D; this.getRegisteredNestedProviders(activeFilters).map((section) &#x3D;&gt; {
+            return {
+                headerTitle: section.sectionName,
+                subSections: section.children.map((provider) &#x3D;&gt; ({
+                    provider,
+                    result: null,
+                    isLoading: true,
+                    shouldShowText: false,
+                    hasPartialResult: undefined,
+                    icon: provider.icon,
+                })),
+            };
+        });
+
+        this.groupedSearchSectionChanged.next(this._groupedSearchSections);
+        this.ungroupedSearchSectionChanged.next(this._ungroupedSearchSections);
+    }
+
+    /**
+     * Gives whether the given option on the given filter is selected.
+     */
+    private getFilterOptionValue(filterId: string, optionKey: string): boolean {
+        return !!this.getFilterValue(filterId).find((option) &#x3D;&gt; option.key &#x3D;&#x3D;&#x3D; optionKey);
+    }
+
+    /**
+     * Gives all the options selected for the given filter.
+     */
+    private getFilterValue(filterId: string): QuickSearchFilterOption[] {
+        if (!this.filterValues.get(filterId)) {
+            this.filterValues.set(filterId, []);
+        }
+        return this.filterValues.get(filterId);
+    }
+
+    /**
+     * Gives the search sections as a single flat list.
+     */
+    private getFlattenedSearchSections(): SearchSection[] {
+        const allSections: SearchSection[] &#x3D; [];
+        // Takes the nested providers, and turns them to a single deep list of sections.
+        this._groupedSearchSections.forEach((section) &#x3D;&gt; allSections.push(...section.subSections));
+        return [...this._ungroupedSearchSections, ...allSections];
+    }
+
+    /**
+     * Says if the given provider should be active given the filters selected.
+     */
     private providerShouldBeActive(provider: QuickSearchProvider, filters: ActiveQuickSearchFilter[]): boolean {
         const filtersGrouped &#x3D; new Map&lt;string, ActiveQuickSearchFilter[]&gt;();
         filters.forEach((filter) &#x3D;&gt; {
@@ -1323,6 +2754,56 @@ export class QuickSearchService {
         return Array.from(filtersGrouped.keys()).every((key) &#x3D;&gt;
             filtersGrouped.get(key).some((filter) &#x3D;&gt; provider.canHandleFilter &amp;&amp; provider.canHandleFilter(filter))
         );
+    }
+
+    /**
+     * Determines if the result in this section is partial (i.e. there are more items matching the criteria which are
+     * in the current list) or it is full (the current list contains all the items matching the criteria)
+     * If the result is partial then {@link PartialResult} object is returned. If the result contains all the items
+     * then null is returned
+     * @param searchSection the section which result items is to be checked
+     */
+    private hasPartialResult(searchSection: SearchSection): PartialResult {
+        if (
+            searchSection.result?.total &amp;&amp;
+            searchSection.result?.items?.length &amp;&amp;
+            searchSection.result.items.length &lt; searchSection.result.total
+        ) {
+            return {
+                lastItem: searchSection.result.items.length,
+                totalItems: searchSection.result.total,
+            };
+        }
+        return null;
+    }
+
+    /**
+     * Says if the title of the given search section should be shown.
+     */
+    private showSectionTitle(searchSection: SearchSection): boolean {
+        // Do not show when there is no section name
+        if (!searchSection.provider.sectionName) {
+            return false;
+        }
+
+        // Don&#x27;t show when it is loading
+        if (searchSection.isLoading) {
+            return false;
+        }
+
+        // Do not show when the provider has no results
+        if (!searchSection.result?.items?.length) {
+            return false;
+        }
+
+        return true;
+    }
+
+    /**
+     * Says if all providers have returned no results.
+     */
+    private checkHasNoResults(): boolean {
+        return this.getFlattenedSearchSections().every((section) &#x3D;&gt; section.result?.items?.length &#x3D;&#x3D;&#x3D; 0);
     }
 }
 </code></pre>

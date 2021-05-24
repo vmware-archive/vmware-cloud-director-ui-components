@@ -210,90 +210,18 @@ i.e. its event handler has been called.</p>
     ViewChild,
 } from &#x27;@angular/core&#x27;;
 import { TranslationService } from &#x27;@vcd/i18n&#x27;;
+import { combineLatest } from &#x27;rxjs&#x27;;
 import { DomUtil } from &#x27;../utils/dom-util&#x27;;
 import { SubscriptionTracker } from &#x27;../common/subscription/subscription-tracker&#x27;;
-import { QuickSearchResultItem, QuickSearchResults } from &#x27;./quick-search-result&#x27;;
-import { QuickSearchProvider } from &#x27;./quick-search.provider&#x27;;
-import { QuickSearchService } from &#x27;./quick-search.service&#x27;;
+import { QuickSearchResultItem } from &#x27;./quick-search-result&#x27;;
+import {
+    GroupedSearchSections,
+    QuickSearchFilter,
+    QuickSearchFilterOption,
+    QuickSearchService,
+    SearchSection,
+} from &#x27;./quick-search.service&#x27;;
 import { DataUi } from &#x27;./quick-search.dataui&#x27;;
-
-/**
- * A group of search sections.
- */
-interface GroupedSearchSections {
-    /**
-     * The i18n key for the header.
-     */
-    headerTitle: string;
-    /**
-     * All of the sections within this section.
-     */
-    subSections: SearchSection[];
-}
-
-interface SearchSection {
-    provider: QuickSearchProvider;
-    result: QuickSearchResults;
-    isLoading: boolean;
-    shouldShowText: boolean;
-    hasPartialResult: PartialResult;
-    icon?: string;
-}
-
-/**
- * A filter that can be applied to quick search to filter results.
- */
-export interface QuickSearchFilter {
-    /**
-     * The unique ID of this filter.
-     */
-    id: string;
-    /**
-     * The options that are displayed in the dropdown.
-     */
-    options: QuickSearchFilterOption[];
-    /**
-     * The text displayed on the button to open the dropdown.
-     */
-    dropdownText: string;
-    /**
-     * The i18n key for the selection bubble of this filter. Is passed one parameter {display} which is the value selected.
-     */
-    bubbleI18nKey: string;
-}
-
-/**
- * Represents a possible selection option for a filter.
- */
-export interface QuickSearchFilterOption {
-    /**
-     * The displayed title of this option.
-     */
-    display: string;
-
-    /**
-     * The key of this quick search filter option.
-     */
-    key: string;
-    /**
-     * Any optional data that is associated with this option.
-     */
-    data?: any;
-}
-
-/**
- * A filter that has a value typed in.
- */
-export interface ActiveQuickSearchFilter extends QuickSearchFilter {
-    /**
-     * The key value of the selected option.
-     */
-    value: string;
-    /**
-     * Any date assocated with this filter option.
-     */
-    data: any;
-}
 
 /**
  * This interface describes the event emitted when a result item is activated,
@@ -303,22 +231,6 @@ export interface ResultActivatedEvent {
     itemDisplayText: string;
     sectionTitle: string;
     eventSource: &#x27;MouseEvent&#x27; | &#x27;KeyboardEvent&#x27;;
-}
-
-/**
- * This interface describes partial search result, i.e. result that do not contain all the items that match the
- * search criteria {@see QuickSearchComponent#hasPartialResult}
- */
-interface PartialResult {
-    /**
-     * The number of the last item of the result
-     */
-    lastItem: number;
-
-    /**
-     * Total number of items in the result
-     */
-    totalItems: number;
 }
 
 /**
@@ -390,8 +302,6 @@ export class QuickSearchComponent implements OnInit {
         return this._open;
     }
 
-    filterValues: Map&lt;string, QuickSearchFilterOption[]&gt; &#x3D; new Map();
-
     /**
      * This method along with &#x60;open&#x60; property provide two-way binding [(open)] for controlling the visibility state
      * of the quick search component
@@ -404,10 +314,6 @@ export class QuickSearchComponent implements OnInit {
      */
     @Output() resultActivated: EventEmitter&lt;ResultActivatedEvent&gt; &#x3D; new EventEmitter&lt;ResultActivatedEvent&gt;();
 
-    hasNoResults &#x3D; false;
-    isLoading &#x3D; false;
-    activeFilters: ActiveQuickSearchFilter[] &#x3D; [];
-
     DataUi &#x3D; DataUi;
 
     constructor(
@@ -415,8 +321,10 @@ export class QuickSearchComponent implements OnInit {
         private changeDetectorRef: ChangeDetectorRef,
         private el: ElementRef,
         public translationService: TranslationService,
-        private subTracker: SubscriptionTracker
+        private subscriptionTracker: SubscriptionTracker
     ) {}
+
+    private _searchCriteria: string &#x3D; &#x27;&#x27;;
 
     get searchCriteria(): string {
         return this._searchCriteria;
@@ -427,31 +335,36 @@ export class QuickSearchComponent implements OnInit {
         this.doSearch();
     }
 
-    private _searchCriteria: string &#x3D; &#x27;&#x27;;
-    private lastSearchCriteria: string &#x3D; &#x27;&#x27;;
-
     private _open &#x3D; false;
 
+    _groupedSearchSections: GroupedSearchSections[] &#x3D; [];
+    _ungroupedSearchSections: SearchSection[] &#x3D; [];
+
+    _filterValues: Map&lt;string, QuickSearchFilterOption[]&gt; &#x3D; new Map();
+
     @ViewChild(&#x27;searchInput&#x27;, { static: false, read: ElementRef }) searchInput: ElementRef;
-
-    private searchId &#x3D; 0;
-
-    /**
-     * The search sections are provided by the {@link QuickSearchService} upon opening the Quick Search.
-     * This insures that new sections based on the current context of the application may appear.
-     *
-     * The groupedSearchSections are sections that come from Nested providers and are a double deep list of results with
-     * a parent section name, and sub section names.
-     *
-     * The ungroupedSearchSections are sections that come from Search providers and are a single list of results with a section name.
-     */
-    groupedSearchSections: GroupedSearchSections[] &#x3D; [];
-    ungroupedSearchSections: SearchSection[] &#x3D; [];
 
     /**
      * The selected result in the results section.
      */
     selectedItem: QuickSearchResultItem;
+
+    ngOnInit(): void {
+        this.subscriptionTracker.subscribe(
+            combineLatest([
+                this.searchService.groupedSearchSectionChanged,
+                this.searchService.ungroupedSearchSectionChanged,
+            ]),
+            ([grouped, ungrouped]) &#x3D;&gt; {
+                this._groupedSearchSections &#x3D; grouped;
+                this._ungroupedSearchSections &#x3D; ungrouped;
+            }
+        );
+
+        this.subscriptionTracker.subscribe(this.searchService.filterValueChanges, (filterValues) &#x3D;&gt; {
+            this._filterValues &#x3D; filterValues;
+        });
+    }
 
     itemClicked(item: QuickSearchResultItem): void {
         this.handleItem(item, true);
@@ -475,33 +388,6 @@ export class QuickSearchComponent implements OnInit {
         this.handleItem(this.selectedItem, false);
     }
 
-    getFlattenedSearchSections(): SearchSection[] {
-        const allSections: SearchSection[] &#x3D; [];
-        // Takes the nested providers, and turns them to a single deep list of sections.
-        this.groupedSearchSections.forEach((section) &#x3D;&gt; allSections.push(...section.subSections));
-        return [...this.ungroupedSearchSections, ...allSections];
-    }
-
-    getFilterOptionValue(filterId: string, optionKey: string): boolean {
-        return !!this.getFilterValue(filterId).find((option) &#x3D;&gt; option.key &#x3D;&#x3D;&#x3D; optionKey);
-    }
-
-    updateFilterValue(id: string, value: QuickSearchFilterOption): void {
-        if (value &#x3D;&#x3D;&#x3D; undefined) {
-            return;
-        }
-        const isActive &#x3D; this.getFilterOptionValue(id, value.key);
-        if (isActive) {
-            this.filterValues.set(
-                id,
-                this.getFilterValue(id).filter((option) &#x3D;&gt; option.key !&#x3D;&#x3D; value.key)
-            );
-        } else {
-            this.getFilterValue(id).push(value);
-        }
-        this.doSearch();
-    }
-
     togglePinned(): void {
         this.searchService.isPinned &#x3D; !this.searchService.isPinned;
         // When the pinning of the component changes, the searchInput is re-rendered. Because of this, we need to wait for
@@ -516,84 +402,15 @@ export class QuickSearchComponent implements OnInit {
      *
      * @param force runs the search even if the active filters and search term has not changed.
      */
-    doSearch(force?: boolean): void {
+    private doSearch(force?: boolean) {
         if (!this.open &amp;&amp; !force) {
             return;
         }
 
-        const activeFilters &#x3D; [];
-        this.filterValues.forEach((valueList, id) &#x3D;&gt; {
-            valueList.forEach((value) &#x3D;&gt; {
-                activeFilters.push({
-                    id,
-                    value: value.key,
-                    data: value.data,
-                });
-            });
-        });
-        // If the active filters are the same as last time and the search term has not changed
-        // We should not run a search unless force is true.
-        if (this.activeFilters.length &#x3D;&#x3D;&#x3D; activeFilters.length &amp;&amp; this.searchCriteria &#x3D;&#x3D;&#x3D; this.lastSearchCriteria) {
-            if (!force) {
-                return;
-            }
-        }
-        this.activeFilters &#x3D; activeFilters;
-        this.lastSearchCriteria &#x3D; this.searchCriteria;
-        this.updateActiveSections(activeFilters);
-
-        // Remember which is the current search. This will help us not to show results from an old search
-        const searchId &#x3D; ++this.searchId;
-
         this.selectedItem &#x3D; null;
-
-        const searchTerm &#x3D; this.searchCriteria;
-
-        // Mark each sections in loading state. This flag is needed when trying to select the first item
-        // while the search is still in progress
-        const flatSections &#x3D; this.getFlattenedSearchSections();
-
-        if (flatSections.length &#x3D;&#x3D;&#x3D; 0) {
-            return;
-        }
-        this.isLoading &#x3D; true;
-        flatSections.forEach((searchSection) &#x3D;&gt; (searchSection.isLoading &#x3D; true));
-
-        // Go through the available search sections, i.e. the registered search providers and request for results
-        Promise.all(
-            flatSections.map(async (searchSection) &#x3D;&gt; {
-                let searchResult: QuickSearchResults;
-                // Only request for data if the search is not empty
-                if (searchTerm &amp;&amp; searchTerm.length &gt; 0) {
-                    const result &#x3D; searchSection.provider.search(searchTerm, activeFilters);
-
-                    // Some of the results may be provided later, so mark the section as loading
-                    if (result instanceof Promise) {
-                        searchResult &#x3D; await result;
-                    } else {
-                        searchResult &#x3D; result;
-                    }
-                    // Use the closure to verify that the displayed data is going to be really from the latest search
-                    if (searchId !&#x3D;&#x3D; this.searchId) {
-                        return;
-                    }
-                }
-                // This code will get called for each of the key strokes that gets typed during the buffer time. This means if there were 10
-                // characters typed during the de-bouncing time, this code will be called 10 times after the promise is resolved from a provider
-                // search function. However, we don&#x27;t currently see any problem with that because the following code just re assigns variables
-                // with same values
-                searchSection.result &#x3D; searchResult;
-                searchSection.hasPartialResult &#x3D; this.hasPartialResult(searchSection);
-                searchSection.isLoading &#x3D; false;
-                this.hasNoResults &#x3D; this.checkHasNoResults();
-                searchSection.shouldShowText &#x3D; this.showSectionTitle(searchSection);
-                if (!this.selectedItem) {
-                    this.selectFirst(true);
-                }
-            })
-        ).finally(() &#x3D;&gt; {
-            if (searchId &#x3D;&#x3D;&#x3D; this.searchId) {
-                this.isLoading &#x3D; false;
+        this.searchService.doSearch(this.searchCriteria, force, () &#x3D;&gt; {
+            if (!this.selectedItem) {
+                this.selectFirst(true);
             }
         });
     }
@@ -676,13 +493,6 @@ export class QuickSearchComponent implements OnInit {
         return selected;
     }
 
-    private getFilterValue(filterId: string): QuickSearchFilterOption[] {
-        if (!this.filterValues.get(filterId)) {
-            this.filterValues.set(filterId, []);
-        }
-        return this.filterValues.get(filterId);
-    }
-
     /**
      * Handle showing / hiding of the Quick Search.
      * @param open true when opening, false when closing
@@ -695,7 +505,6 @@ export class QuickSearchComponent implements OnInit {
         }
 
         if (open) {
-            this.updateActiveSections([]);
             setTimeout(() &#x3D;&gt; {
                 this.searchInput.nativeElement.focus();
                 this.searchInput.nativeElement.select();
@@ -706,30 +515,6 @@ export class QuickSearchComponent implements OnInit {
         this._open &#x3D; open;
         this.openChange.emit(this._open);
         this.changeDetectorRef.detectChanges();
-    }
-
-    private updateActiveSections(activeFilters: ActiveQuickSearchFilter[]) {
-        this.ungroupedSearchSections &#x3D; this.searchService.getRegisteredProviders(activeFilters).map((provider) &#x3D;&gt; ({
-            provider,
-            result: null,
-            isLoading: true,
-            shouldShowText: false,
-            hasPartialResult: undefined,
-            icon: provider.icon,
-        }));
-        this.groupedSearchSections &#x3D; this.searchService.getRegisteredNestedProviders(activeFilters).map((section) &#x3D;&gt; {
-            return {
-                headerTitle: section.sectionName,
-                subSections: section.children.map((provider) &#x3D;&gt; ({
-                    provider,
-                    result: null,
-                    isLoading: true,
-                    shouldShowText: false,
-                    hasPartialResult: undefined,
-                    icon: provider.icon,
-                })),
-            };
-        });
     }
 
     private handleItem(item: QuickSearchResultItem, clicked: boolean): void {
@@ -750,52 +535,19 @@ export class QuickSearchComponent implements OnInit {
         }
     }
 
-    private showSectionTitle(searchSection: SearchSection): boolean {
-        // Do not show when there is no section name
-        if (!searchSection.provider.sectionName) {
-            return false;
-        }
+    private getFlattenedSearchSections(): SearchSection[] {
+        const allSections: SearchSection[] &#x3D; [];
+        // Takes the nested providers, and turns them to a single deep list of sections.
+        this._groupedSearchSections.forEach((section) &#x3D;&gt; allSections.push(...section.subSections));
+        return [...this._ungroupedSearchSections, ...allSections];
+    }
 
-        // Don&#x27;t show when it is loading
-        if (searchSection.isLoading) {
-            return false;
-        }
-
-        // Do not show when the provider has no results
-        if (!searchSection.result?.items?.length) {
-            return false;
-        }
-
-        return true;
+    getFilterOptionValue(filterId: string, optionKey: string): boolean {
+        return !!this._filterValues.get(filterId)?.find((option) &#x3D;&gt; option.key &#x3D;&#x3D;&#x3D; optionKey);
     }
 
     showParentSectionTitle(parentSection: GroupedSearchSections): boolean {
         return parentSection.subSections.some((section) &#x3D;&gt; section.shouldShowText &amp;&amp; !section.isLoading);
-    }
-
-    checkHasNoResults(): boolean {
-        return this.getFlattenedSearchSections().every((section) &#x3D;&gt; section.result?.items?.length &#x3D;&#x3D;&#x3D; 0);
-    }
-
-    /**
-     * Determines if the result in this section is partial (i.e. there are more items matching the criteria which are
-     * in the current list) or it is full (the current list contains all the items matching the criteria)
-     * If the result is partial then {@link PartialResult} object is returned. If the result contains all the items
-     * then null is returned
-     * @param searchSection the section which result items is to be checked
-     */
-    private hasPartialResult(searchSection: SearchSection): PartialResult {
-        if (
-            searchSection.result?.total &amp;&amp;
-            searchSection.result?.items?.length &amp;&amp;
-            searchSection.result.items.length &lt; searchSection.result.total
-        ) {
-            return {
-                lastItem: searchSection.result.items.length,
-                totalItems: searchSection.result.total,
-            };
-        }
-        return null;
     }
 
     groupSectionTrackBy(_index: number, groupedSection: GroupedSearchSections): string {
@@ -812,18 +564,6 @@ export class QuickSearchComponent implements OnInit {
 
     filterTrackBy(_index: number, filterOption: QuickSearchFilter): string {
         return filterOption.id;
-    }
-
-    ngOnInit(): void {
-        this.subTracker.subscribe(this.searchService.filterOverrides, ([filterId, filterValues]) &#x3D;&gt; {
-            this.filterValues.set(filterId, []);
-
-            for (const value of filterValues.filter(Boolean)) {
-                const foundFilter &#x3D; this.searchService.filters.find((filter) &#x3D;&gt; filter.id &#x3D;&#x3D;&#x3D; filterId);
-                const foundOption &#x3D; foundFilter.options.find((option) &#x3D;&gt; option.key &#x3D;&#x3D;&#x3D; value);
-                this.updateFilterValue(filterId, foundOption);
-            }
-        });
     }
 }
 </code></pre>
