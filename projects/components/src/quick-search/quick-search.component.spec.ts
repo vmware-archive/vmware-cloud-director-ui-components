@@ -15,7 +15,8 @@ import { AngularWidgetObjectFinder } from '../utils/test/widget-object/angular/a
 import { TestElement } from '../utils/test/widget-object/angular/angular-widget-object-element';
 import { WidgetObject } from '../utils/test/widget-object';
 import { QuickSearchResultItem, QuickSearchResultsType } from './quick-search-result';
-import { QuickSearchComponent, QuickSearchFilter, ResultActivatedEvent } from './quick-search.component';
+import { QuickSearchComponent, ResultActivatedEvent } from './quick-search.component';
+import { QuickSearchFilter } from './quick-search.service';
 import { QuickSearchModule } from './quick-search.module';
 import { QuickSearchProviderDefaults } from './quick-search.provider';
 import { QuickSearchService } from './quick-search.service';
@@ -597,6 +598,7 @@ describe('QuickSearchComponent', () => {
                 this.finder.detectChanges();
                 this.quickSearch.getInput().type('c');
                 tick(1000);
+                this.finder.detectChanges();
                 expect(this.quickSearch.getSelectedSearchResultItem().toArray()[0].text()).toEqual('copy');
             }));
 

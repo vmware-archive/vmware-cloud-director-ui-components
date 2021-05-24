@@ -13,7 +13,7 @@ class SimpleSearchProvider implements QuickSearchProvider {
 
     shouldDebounceInput: boolean;
     search(criteria: string): QuickSearchResultsType {
-        return { items: [] };
+        return { items: [{ displayText: 'hello', handler: () => {} }] };
     }
 }
 
@@ -106,5 +106,41 @@ describe('QuickSearchService', () => {
         service.unregisterNestedProvider(nestedProvider1);
         const nestedProviders = service.getRegisteredNestedProviders();
         expect(nestedProviders.length).toBe(0);
+    });
+
+    describe('doSearch', () => {
+        it('can run a search', async () => {
+            const service = new QuickSearchService();
+            const firstProvider = new SimpleSearchProvider();
+            service.registerProvider(firstProvider);
+            const result = await service.doSearch('hello');
+            expect(result.length).toEqual(1);
+            expect(result[0].provider).toEqual(firstProvider);
+        });
+
+        it('can be force to run search even if the term hasnt changed', async () => {
+            const service = new QuickSearchService();
+            const firstProvider = new SimpleSearchProvider();
+            const spy = spyOn(firstProvider, 'search');
+            service.registerProvider(firstProvider);
+            await service.doSearch('hello');
+            expect(spy).toHaveBeenCalledTimes(1);
+            await service.doSearch('hello');
+            expect(spy).toHaveBeenCalledTimes(1);
+            await service.doSearch('hello', true);
+            expect(spy).toHaveBeenCalledTimes(2);
+        });
+
+        it('can run a function after each provider loads', async () => {
+            const service = new QuickSearchService();
+            const firstProvider = new SimpleSearchProvider();
+            const secondProvider = new SimpleSearchProvider();
+            service.registerProvider(firstProvider);
+            service.registerProvider(secondProvider);
+            const toRun = { fun: () => {} };
+            const spy = spyOn(toRun, 'fun');
+            await service.doSearch('hello', undefined, toRun.fun);
+            expect(spy).toHaveBeenCalledTimes(2);
+        });
     });
 });

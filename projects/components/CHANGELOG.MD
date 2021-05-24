@@ -7,7 +7,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
-### changed
+### Changed
+- Refactor quick search so the service contains much more logic.
+
+## [2.0.0-dev.22]
+
+### Changed
 - BREAKING: Convert the subscription tracker to be a service.
 
 ## [2.0.0-dev.21]
