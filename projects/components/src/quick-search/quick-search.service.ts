@@ -1,5 +1,5 @@
 /*!
- * Copyright 2020 VMware, Inc.
+ * Copyright 2020-2021 VMware, Inc.
  * SPDX-License-Identifier: BSD-2-Clause
  */
 
@@ -51,6 +51,11 @@ export interface QuickSearchFilter {
      * The i18n key for the selection bubble of this filter. Is passed one parameter {display} which is the value selected.
      */
     bubbleI18nKey: string;
+    /**
+     * The order of the filter when displaying the filters. The lower the order, the closer to the beginning.
+     * undefined and -1 means append
+     */
+    order?: number;
 }
 
 /**
@@ -173,30 +178,7 @@ export class QuickSearchService {
      * @param provider The search provider {@link QuickSearchProvider}
      */
     public registerProvider(provider: QuickSearchProvider): void {
-        const order = typeof provider.order === 'undefined' ? -1 : provider.order;
-
-        let insertIndex = -1;
-        // Determine the position of the new registration
-        if (order > -1) {
-            insertIndex = this.registrations.findIndex((prov) => {
-                // If an item has a negative index, this means no order had been provided for that item
-                // which means we have found the insert index
-                if (prov.order < 0) {
-                    return true;
-                }
-
-                // If an item has a bigger order than the new one means we have found the insert index
-                if (order < prov.order) {
-                    return true;
-                }
-            });
-        }
-
-        if (insertIndex > -1) {
-            this.registrations.splice(insertIndex, 0, provider);
-        } else {
-            this.registrations.push(provider);
-        }
+        insertInOrder(provider, this.registrations);
         this.updateActiveSections(this.lastActiveFilters);
     }
 
@@ -217,30 +199,7 @@ export class QuickSearchService {
      * Registers a nested provider to search for results in quick search.
      */
     public registerNestedProvider(nestedProvider: QuickSearchNestedProvider) {
-        const order = typeof nestedProvider.order === 'undefined' ? -1 : nestedProvider.order;
-
-        let insertIndex = -1;
-        // Determine the position of the new registration
-        if (order > -1) {
-            insertIndex = this.nestedProviders.findIndex((prov) => {
-                // If an item has a negative index, this means no order had been provided for that item
-                // which means we have found the insert index
-                if (prov.order < 0) {
-                    return true;
-                }
-
-                // If an item has a bigger order than the new one means we have found the insert index
-                if (order < prov.order) {
-                    return true;
-                }
-            });
-        }
-
-        if (insertIndex > -1) {
-            this.nestedProviders.splice(insertIndex, 0, nestedProvider);
-        } else {
-            this.nestedProviders.push(nestedProvider);
-        }
+        insertInOrder(nestedProvider, this.nestedProviders);
         this.updateActiveSections(this.lastActiveFilters);
     }
 
@@ -294,15 +253,15 @@ export class QuickSearchService {
      * If two filters of different IDs are used in the search, the filters should act like and's. If two filters of the same ID
      * are present in the search, the filter should act like an or.
      */
-    public registerFilters(filter: QuickSearchFilter[]) {
-        this.filters.push(...filter);
+    public registerFilter(filter: QuickSearchFilter) {
+        insertInOrder(filter, this.filters);
     }
 
     /**
      * Removes the given filterId from the list of registered filters.
      */
     public unregisterFilter(filterId: string) {
-        this.filters.filter((filter) => filter.id !== filterId);
+        this.filters = this.filters.filter((filter) => filter.id !== filterId);
     }
 
     /**
@@ -313,12 +272,16 @@ export class QuickSearchService {
      * @example selectFilter('type', 'org') selects the Organization option in the "Type" filter.
      */
     public selectFilter(filterId: string, filterValues: string[], clear: boolean = true): void {
+        const foundFilter = this.filters.find((filter) => filter.id === filterId);
+        if (!foundFilter) {
+            return;
+        }
+
         if (clear) {
             this.filterValues.set(filterId, []);
         }
 
         for (const optionKey of filterValues.filter(Boolean)) {
-            const foundFilter = this.filters.find((filter) => filter.id === filterId);
             const foundOption = foundFilter.options.find((option) => option.key === optionKey);
 
             if (foundOption === undefined) {
@@ -563,3 +526,31 @@ export class QuickSearchService {
         return this.getFlattenedSearchSections().every((section) => section.result?.items?.length === 0);
     }
 }
+
+const insertInOrder = (item: { order?: number }, orderedArray: { order?: number }[]): void => {
+    const order = typeof item.order === 'undefined' ? -1 : item.order;
+
+    let insertIndex = -1;
+    // Determine the position of the new registration
+    if (order > -1) {
+        insertIndex = orderedArray.findIndex((fltr) => {
+            // If an item has a negative index, this means no order had been provided for that item,
+            // this means we have found the insert index
+            if (fltr.order < 0 || typeof fltr.order === 'undefined') {
+                return true;
+            }
+
+            // If an item has a bigger order than the new one,
+            // this means we have found the insert index
+            if (order < fltr.order) {
+                return true;
+            }
+        });
+    }
+
+    if (insertIndex > -1) {
+        orderedArray.splice(insertIndex, 0, item);
+    } else {
+        orderedArray.push(item);
+    }
+};

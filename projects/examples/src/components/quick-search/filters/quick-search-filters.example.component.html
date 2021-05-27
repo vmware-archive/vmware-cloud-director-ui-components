@@ -1,6 +1,6 @@
 Click <button class="btn" (click)="spotlightOpen = true">here</button> to open the Quick Search. <br /><br />
-Quick search gives the client the ability to register filters to filter search results. A filer simply has a name and
-options that can be selected. These filters are activated by typing name:option.
+Quick search gives the client the ability to register filters to filter search results. A filter simply has a name and
+options that can be selected.
 <br /><br />
 A filter can then filter either the list of providers that are active, or filter the results in a given provider. This
 is all handled from the provider side.
@@ -15,8 +15,9 @@ In this example, there are two filters present:
         see items from one specific provider.
     </li>
     <li>
-        "Result": this filter can filter the results by their text. In this example, if the "fake" filter is selected,
-        only results containing "dummy" will be shown.
+        "Result": this filter can filter the results by their text. In this example, if the "Fake" filter is selected,
+        the result will contain "dummy". If the "Real" filter is selected, the result will contain entries that do not
+        contain "dummy"
     </li>
 </ul>
 <br />
