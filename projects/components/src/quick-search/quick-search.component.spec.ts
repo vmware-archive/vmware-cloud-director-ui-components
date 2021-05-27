@@ -834,17 +834,15 @@ describe('QuickSearchComponent', () => {
         });
 
         it('adds a filter icon that shows providers only of that type', function (this: Test): void {
-            this.quickSearchData.spotlightSearchService.registerFilters([
-                {
-                    id: 'type',
-                    options: [
-                        { display: 'simple', key: 'simple' },
-                        { display: 'simple2', key: 'simple2' },
-                    ],
-                    dropdownText: 'dropdown',
-                    bubbleI18nKey: 'bubble-key',
-                },
-            ]);
+            this.quickSearchData.spotlightSearchService.registerFilter({
+                id: 'type',
+                options: [
+                    { display: 'simple', key: 'simple' },
+                    { display: 'simple2', key: 'simple2' },
+                ],
+                dropdownText: 'dropdown',
+                bubbleI18nKey: 'bubble-key',
+            });
             this.quickSearchData.anotherSimpleProvider.sectionName = 'another section';
             this.quickSearchData.spotlightSearchService.registerProvider(this.quickSearchData.anotherSimpleProvider);
             this.quickSearch.getInput().type('copy');
@@ -859,17 +857,15 @@ describe('QuickSearchComponent', () => {
         });
 
         it('can set filter values through the QuickSearchService', function (this: Test): void {
-            this.quickSearchData.spotlightSearchService.registerFilters([
-                {
-                    id: 'type',
-                    options: [
-                        { display: 'simple', key: 'simple' },
-                        { display: 'simple2', key: 'simple2' },
-                    ],
-                    dropdownText: 'dropdown',
-                    bubbleI18nKey: 'bubble-key',
-                },
-            ]);
+            this.quickSearchData.spotlightSearchService.registerFilter({
+                id: 'type',
+                options: [
+                    { display: 'simple', key: 'simple' },
+                    { display: 'simple2', key: 'simple2' },
+                ],
+                dropdownText: 'dropdown',
+                bubbleI18nKey: 'bubble-key',
+            });
             this.quickSearchData.anotherSimpleProvider.sectionName = 'another section';
             this.quickSearchData.spotlightSearchService.registerProvider(this.quickSearchData.anotherSimpleProvider);
             this.quickSearch.getInput().type('copy');

@@ -7,8 +7,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [2.0.0-dev.23]
 ### Changed
 - Refactor quick search so the service contains much more logic.
+- BREAKING: Change `QuickSearchService.registerFilters` to `QuickSearchService.registerFilter`
+### Fixed
+- `unregisterFilter` now removes the filter indeed
+### Added
+- Optional `order` field to the filters so they can be ordered when registered
 
 ## [2.0.0-dev.22]
 
