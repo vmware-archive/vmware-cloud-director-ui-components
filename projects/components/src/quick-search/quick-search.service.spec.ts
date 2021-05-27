@@ -1,11 +1,11 @@
 /*!
- * Copyright 2019 VMware, Inc.
+ * Copyright 2020-2021 VMware, Inc.
  * SPDX-License-Identifier: BSD-2-Clause
  */
 
 import { QuickSearchResultsType } from './quick-search-result';
 import { QuickSearchProvider } from './quick-search.provider';
-import { QuickSearchService } from './quick-search.service';
+import { QuickSearchFilter, QuickSearchService } from './quick-search.service';
 
 class SimpleSearchProvider implements QuickSearchProvider {
     constructor(public sectionName: string = '', public order: number = -1) {}
@@ -17,7 +17,15 @@ class SimpleSearchProvider implements QuickSearchProvider {
     }
 }
 
+interface Test {
+    service: QuickSearchService;
+}
+
 describe('QuickSearchService', () => {
+    beforeEach(function (this: Test) {
+        this.service = new QuickSearchService();
+    });
+
     it('can register a provider', () => {
         const service = new QuickSearchService();
         const provider1 = new SimpleSearchProvider('section1');
@@ -36,7 +44,7 @@ describe('QuickSearchService', () => {
         expect(providers[1].sectionName).toBe('section2');
     });
 
-    it('registers the providers in the beginning of the list when order 0 i sprovided', () => {
+    it('registers the providers in the beginning of the list when order 0 is provided', () => {
         const service = new QuickSearchService();
         service.registerProvider(new SimpleSearchProvider('section1'));
         service.registerProvider(new SimpleSearchProvider('section2'));
@@ -106,6 +114,32 @@ describe('QuickSearchService', () => {
         service.unregisterNestedProvider(nestedProvider1);
         const nestedProviders = service.getRegisteredNestedProviders();
         expect(nestedProviders.length).toBe(0);
+    });
+
+    describe('managing filters', () => {
+        it('registers filters according to their order', function (this: Test) {
+            const filter1: QuickSearchFilter = { bubbleI18nKey: '', dropdownText: '', id: '1', options: [] };
+            const filter2: QuickSearchFilter = { bubbleI18nKey: '', dropdownText: '', id: '2', options: [], order: 1 };
+            const filter3: QuickSearchFilter = { bubbleI18nKey: '', dropdownText: '', id: '3', options: [], order: 0 };
+            const filter4: QuickSearchFilter = { bubbleI18nKey: '', dropdownText: '', id: '4', options: [] };
+            this.service.registerFilter(filter1);
+            this.service.registerFilter(filter2);
+            this.service.registerFilter(filter3);
+            this.service.registerFilter(filter4);
+            expect(this.service.filters).toEqual([filter3, filter2, filter1, filter4]);
+        });
+        it('registers filters according to their order', function (this: Test) {
+            const filter1: QuickSearchFilter = { bubbleI18nKey: '', dropdownText: '', id: '1', options: [] };
+            const filter2: QuickSearchFilter = { bubbleI18nKey: '', dropdownText: '', id: '2', options: [], order: 1 };
+            const filter3: QuickSearchFilter = { bubbleI18nKey: '', dropdownText: '', id: '3', options: [], order: 0 };
+            const filter4: QuickSearchFilter = { bubbleI18nKey: '', dropdownText: '', id: '4', options: [] };
+            this.service.registerFilter(filter1);
+            this.service.registerFilter(filter2);
+            this.service.registerFilter(filter3);
+            this.service.registerFilter(filter4);
+            this.service.unregisterFilter(filter3.id);
+            expect(this.service.filters).toEqual([filter2, filter1, filter4]);
+        });
     });
 
     describe('doSearch', () => {
