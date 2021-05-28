@@ -7,6 +7,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [2.0.0-dev.24]
+## Changed
+- BREAKING: internalFactory has been removed from WidgetObject. All users of our exposed WidgetObjectElements
+  will need to call unwrap() on the methods returning HTML elements if they want to access `T` functionality
+
 ## [2.0.0-dev.23]
 ### Changed
 - Refactor quick search so the service contains much more logic.
