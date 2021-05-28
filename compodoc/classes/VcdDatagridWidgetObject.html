@@ -103,10 +103,6 @@
                                     <span class="modifier">Protected</span>
                                 <a href="#factory">factory</a>
                             </li>
-                            <li>
-                                    <span class="modifier">Protected</span>
-                                <a href="#internalFactory">internalFactory</a>
-                            </li>
                         </ul>
                     </td>
                 </tr>
@@ -251,17 +247,8 @@
                     <tr>
                         <td class="col-md-4">
                             <i>Default value : </i><code>{
-        /**
-         * Utility to create versions of factories that return the unwrapped T
-         */
-        unwrap: (fun: ElementLocator&lt;WidgetObjectElement&lt;T&gt;&gt;) &#x3D;&gt; {
-            return (options?: FindElementOptions) &#x3D;&gt; fun(options).unwrap();
-        },
-
-        css: (cssSelector: string) &#x3D;&gt; this.factory.unwrap(this.internalFactory.css(cssSelector)),
-
-        /** Utility to find by data-ui attribute which is the suggested way to tag elements in the DOM for testing  */
-        dataUi: (name: string) &#x3D;&gt; this.factory.unwrap(this.internalFactory.dataUi(name)),
+        css: (cssSelector: string) &#x3D;&gt; (options?: FindElementOptions) &#x3D;&gt; this.el.get({ cssSelector, ...options }),
+        dataUi: (name: string) &#x3D;&gt; this.factory.css(&#x60;[data-ui&#x3D;&quot;${name}&quot;]&#x60;),
     }</code>
                         </td>
                     </tr>
@@ -273,94 +260,27 @@
                             </tr>
                         <tr>
                             <td class="col-md-4">
-                                    <div class="io-line">Defined in         <code><a href="../classes/BaseWidgetObject.html#source" target="_self" >BaseWidgetObject:211</a></code>
+                                    <div class="io-line">Defined in         <code><a href="../classes/BaseWidgetObject.html#source" target="_self" >BaseWidgetObject:183</a></code>
 </div>
                             </td>
                         </tr>
 
                 <tr>
                     <td class="col-md-4">
-                        <div class="io-description"><p>Helpers for creating methods to find HTML elements within the widget object. They can find two types of elements:</p>
+                        <div class="io-description"><p>Helpers for creating methods to find HTML elements within the widget object. They return a</p>
 <ul>
 <li><p>WidgetObjectElements<T> which wrap the T which is unknown to this base class into a common interface that
  can be be used within to WidgetObject subclasses to provide methods that can abstract interactions with
  the widget. For example, a <code>loginWidget.login(usr, pwd)</code> call which types into the user and password fields
  and then hits the submit button; These elements don&#39;t provide means to assert anything or even to read
  information from the widget objects elements such as their text, CSS class names, etc.</p>
-</li>
-<li><p>The generic specified by <T> which depends on the implementation such as a DebugElement in Angular, a
- Chainable in Cypress, or a WebElement in Selenium.</p>
-</li>
-</ul>
-<p>Note that unlike Google Material&#39;s Harnesses, we do not impose a <code>TestElement</code> interface to be used from
-different implementations where all the methods return promises. The main reason is that it allows
-calls from different implementations to feel more natural, according to their testing environment. For example:</p>
-<ul>
-<li><p>Avoids adding <code>await</code>s all over unit tests where they aren&#39;t necessarily needed. When trying this approach,
- it was tricky to try to convert Cypress values into Promises in a reliable way. It initially looked promising
- (pun intended) but turned out not to work with nested promises.</p>
-</li>
-<li><p>Allows the calls to WidgetObject methods to be more like their native objects instead of forcing them
- to comply with a TestElement interface we have defined. That is, Cypress has a natural way to read text at
- polling intervals automatically so you can still benefit from that when writing a Cypress Tests while
- you would need a different mechanism in your Angular unit tests where you have a DebugElement.</p>
-<p> This also prevents widget object methods from querying information about the elements forcing any assertions
+<p> If a test wants to use the native functionality (T), they can call unwrap on the returned WidgetObjectElement.
+ For example, a Cypress test will call widgetObject.getSomeEl().unwrap().should(&quot;be.visible&quot;)</p>
+<p> This prevents widget object methods from querying information about the elements forcing any assertions
  to be run from the outside, which we believe is the correct way to structure codes since assertions are
  framework specific.</p>
-<p> Each factory method returns an ElementLocator&lt;WidgetObjectElement<T>&gt; which should never be public
- but also has a corresponding method prefixed with _ to indicate the it returns <code>T</code> which is what should be
- consumed by users of the class.</p>
 </li>
 </ul>
-</div>
-                    </td>
-                </tr>
-
-            </tbody>
-        </table>
-        <table class="table table-sm table-bordered">
-            <tbody>
-                <tr>
-                    <td class="col-md-4">
-                        <a name="internalFactory"></a>
-                        <span class="name">
-                            <b>
-                                <span class="modifier">Protected</span>
-                            internalFactory</b>
-                            <a href="#internalFactory"><span class="icon ion-ios-link"></span></a>
-                        </span>
-                    </td>
-                </tr>
-                    <tr>
-                        <td class="col-md-4">
-                            <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/object" target="_blank" >object</a></code>
-
-                        </td>
-                    </tr>
-                    <tr>
-                        <td class="col-md-4">
-                            <i>Default value : </i><code>{
-        css: (cssSelector: string) &#x3D;&gt; (options?: FindElementOptions) &#x3D;&gt; this.el.get({ cssSelector, ...options }),
-        dataUi: (name: string) &#x3D;&gt; this.internalFactory.css(&#x60;[data-ui&#x3D;&quot;${name}&quot;]&#x60;),
-    }</code>
-                        </td>
-                    </tr>
-                            <tr>
-                                <td class="col-md-4">
-                                    <div class="io-line">Inherited from         <code><a href="../classes/BaseWidgetObject.html" target="_self" >BaseWidgetObject</a></code>
-</div>
-                                </td>
-                            </tr>
-                        <tr>
-                            <td class="col-md-4">
-                                    <div class="io-line">Defined in         <code><a href="../classes/BaseWidgetObject.html#source" target="_self" >BaseWidgetObject:173</a></code>
-</div>
-                            </td>
-                        </tr>
-
-                <tr>
-                    <td class="col-md-4">
-                        <div class="io-description"><p>This is like <a href="#factory">#factory</a> but it returns WidgetObjectElements, which can be used internally</p>
 </div>
                     </td>
                 </tr>
@@ -404,7 +324,7 @@ calls from different implementations to feel more natural, according to their te
             </tr>
             <tr>
                 <td class="col-md-4">
-                        <div class="io-line">Defined in         <code><a href="../classes/BaseWidgetObject.html#source" target="_self" >BaseWidgetObject:232</a></code>
+                        <div class="io-line">Defined in         <code><a href="../classes/BaseWidgetObject.html#source" target="_self" >BaseWidgetObject:195</a></code>
 </div>
                 </td>
             </tr>

@@ -264,7 +264,8 @@ export interface WidgetObjectElement&lt;T&gt; extends Locator&lt;T&gt;, ElementA
  * It provides two main functions:
  *   - Access to key HTML elements within it so that tests can assert something about their content
  *   - Abstracting interactions. For example, a login method that takes a username and password and
- *     enters it into both fields and then clicks the submit button.
+ *     enters it into both fields and then clicks the submit button. Note that these interactions
+ *     cannot contain assertions as those are specific to a testing environment.
  *
  * These widgets can be used in multiple environments by implementing two pieces:
  * - A subclass of WidgetObjectElement&lt;T&gt; where T is the environment&#x27;s HTMLElement wrapper, such as DebugElement,
@@ -275,44 +276,31 @@ export interface WidgetObjectElement&lt;T&gt; extends Locator&lt;T&gt;, ElementA
  * @example
  *
  * class LoginWidgetObject&lt;T&gt; extends BaseWidgetObject&lt;T&gt; {
- *      // Private accessors return WidgetObjectElement using the factory
- *      private _getUserNameInput &#x3D; this.internalFactory.css(&#x27;.username&#x27;);
+ *      private getUserNameInput &#x3D; this.factory.css(&#x27;.username&#x27;);
  *
- *      // Public accessors return T and can be composed from their private counterparts
- *      // Differentiate them by the underscore to make it clear one is returning the internal format
  *      public getUsernameInput &#x3D; this.factory.unwrap(this._getUsernameInput);
  *
- *      // Don&#x27;t need to expose this publicly, user underscore so it&#x27;s clear it returns the WidgetObjectElement
- *      private _getOkButton &#x3D; this.internalFactory.text(&#x27;button&#x27;, OK);
+ *      private getOkButton &#x3D; this.factory.text(&#x27;button&#x27;, OK);
  *
  *      // Don&#x27;t need an internal version, use the factory methods to create public methods
  *      public errorMessage &#x3D; this.factory.dataUi(&#x27;error-message&#x27;);
  *
  *       // Sometimes there&#x27;s no factory for more complex finding logic, write a custom query.
- *       // Be sure to call unwrap on the result if exposing it publicly
- *      getOkButtonContainer(): T {
- *          return this.el.getByText(&#x27;button&#x27;, &#x27;Ok&#x27;).parent(&#x27;.button-container&#x27;).unwrap();
+ *      getOkButtonContainer() {
+ *          return this.el.getByText(&#x27;button&#x27;, &#x27;Ok&#x27;).parents(&#x27;.button-container&#x27;);
  *      }
  *      ...
  *
  *      login(user, password) {
- *          this._getUsernameInput().type(user);
- *          this._getPasswordInput().type(password);
- *          this._getOkButton().click();
+ *          this.getUsernameInput().type(user);
+ *          this.getPasswordInput().type(password);
+ *          this.getOkButton().click();
  *      }
  * }
  */
 export class BaseWidgetObject&lt;T&gt; {
     /**
-     * This is like {@link #factory} but it returns WidgetObjectElements, which can be used internally
-     */
-    protected internalFactory &#x3D; {
-        css: (cssSelector: string) &#x3D;&gt; (options?: FindElementOptions) &#x3D;&gt; this.el.get({ cssSelector, ...options }),
-        dataUi: (name: string) &#x3D;&gt; this.internalFactory.css(&#x60;[data-ui&#x3D;&quot;${name}&quot;]&#x60;),
-    };
-
-    /**
-     * Helpers for creating methods to find HTML elements within the widget object. They can find two types of elements:
+     * Helpers for creating methods to find HTML elements within the widget object. They return a
      *
      * - WidgetObjectElements&lt;T&gt; which wrap the T which is unknown to this base class into a common interface that
      *   can be be used within to WidgetObject subclasses to provide methods that can abstract interactions with
@@ -320,42 +308,17 @@ export class BaseWidgetObject&lt;T&gt; {
      *   and then hits the submit button; These elements don&#x27;t provide means to assert anything or even to read
      *   information from the widget objects elements such as their text, CSS class names, etc.
      *
-     * - The generic specified by &lt;T&gt; which depends on the implementation such as a DebugElement in Angular, a
-     *   Chainable in Cypress, or a WebElement in Selenium.
+     *   If a test wants to use the native functionality (T), they can call unwrap on the returned WidgetObjectElement.
+     *   For example, a Cypress test will call widgetObject.getSomeEl().unwrap().should(&quot;be.visible&quot;)
      *
-     * Note that unlike Google Material&#x27;s Harnesses, we do not impose a &#x60;TestElement&#x60; interface to be used from
-     * different implementations where all the methods return promises. The main reason is that it allows
-     * calls from different implementations to feel more natural, according to their testing environment. For example:
-     *
-     * - Avoids adding &#x60;await&#x60;s all over unit tests where they aren&#x27;t necessarily needed. When trying this approach,
-     *   it was tricky to try to convert Cypress values into Promises in a reliable way. It initially looked promising
-     *   (pun intended) but turned out not to work with nested promises.
-     *
-     * - Allows the calls to WidgetObject methods to be more like their native objects instead of forcing them
-     *   to comply with a TestElement interface we have defined. That is, Cypress has a natural way to read text at
-     *   polling intervals automatically so you can still benefit from that when writing a Cypress Tests while
-     *   you would need a different mechanism in your Angular unit tests where you have a DebugElement.
-     *
-     *   This also prevents widget object methods from querying information about the elements forcing any assertions
+     *   This prevents widget object methods from querying information about the elements forcing any assertions
      *   to be run from the outside, which we believe is the correct way to structure codes since assertions are
      *   framework specific.
      *
-     *   Each factory method returns an ElementLocator&lt;WidgetObjectElement&lt;T&gt;&gt; which should never be public
-     *   but also has a corresponding method prefixed with _ to indicate the it returns &#x60;T&#x60; which is what should be
-     *   consumed by users of the class.
      */
     protected factory &#x3D; {
-        /**
-         * Utility to create versions of factories that return the unwrapped T
-         */
-        unwrap: (fun: ElementLocator&lt;WidgetObjectElement&lt;T&gt;&gt;) &#x3D;&gt; {
-            return (options?: FindElementOptions) &#x3D;&gt; fun(options).unwrap();
-        },
-
-        css: (cssSelector: string) &#x3D;&gt; this.factory.unwrap(this.internalFactory.css(cssSelector)),
-
-        /** Utility to find by data-ui attribute which is the suggested way to tag elements in the DOM for testing  */
-        dataUi: (name: string) &#x3D;&gt; this.factory.unwrap(this.internalFactory.dataUi(name)),
+        css: (cssSelector: string) &#x3D;&gt; (options?: FindElementOptions) &#x3D;&gt; this.el.get({ cssSelector, ...options }),
+        dataUi: (name: string) &#x3D;&gt; this.factory.css(&#x60;[data-ui&#x3D;&quot;${name}&quot;]&#x60;),
     };
 
     constructor(protected el: WidgetObjectElement&lt;T&gt;) {}
