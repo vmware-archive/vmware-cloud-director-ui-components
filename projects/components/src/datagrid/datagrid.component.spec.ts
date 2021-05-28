@@ -86,13 +86,14 @@ describe('DatagridComponent', () => {
                 this.finder.detectChanges();
             });
             it('displays number of columns', function (this: HasFinderAndGrid): void {
-                expect(this.clrGridWidget.getColumns().length()).toBe(this.hostComponent.columns.length);
+                expect(this.clrGridWidget.getColumns().unwrap().length()).toBe(this.hostComponent.columns.length);
             });
 
             it('displays columns with headers', function (this: HasFinderAndGrid): void {
                 expect(
                     this.clrGridWidget
                         .getColumnHeaders()
+                        .unwrap()
                         .toArray()
                         .map((columnHeader: TestElement) => columnHeader.text())
                 ).toEqual(this.hostComponent.columns.map((col) => col.displayName));
@@ -104,14 +105,17 @@ describe('DatagridComponent', () => {
                 expect(
                     this.clrGridWidget
                         .getColumnHeaders()
+                        .unwrap()
                         .toArray()
                         .map((columnHeader: TestElement) => columnHeader.text())
                 ).toEqual(this.hostComponent.columns.map((col) => col.displayName));
-                expect(this.clrGridWidget.getColumnHeader(0).text()).toEqual(this.hostComponent.columns[0].displayName);
+                expect(this.clrGridWidget.getColumnHeader(0).unwrap().text()).toEqual(
+                    this.hostComponent.columns[0].displayName
+                );
             });
 
             it('displays rows based on the grid data received', function (this: HasFinderAndGrid): void {
-                expect(this.clrGridWidget.getRows().length()).toBe(mockData.length);
+                expect(this.clrGridWidget.getRows().unwrap().length()).toBe(mockData.length);
             });
 
             it('gives proper css class for the grid', function (this: HasFinderAndGrid): void {
@@ -121,7 +125,7 @@ describe('DatagridComponent', () => {
             });
 
             it('sets no default CSS classnames for the rows', function (this: HasFinderAndGrid): void {
-                expect(this.clrGridWidget.getRow(0).classes()).toEqual(['datagrid-row', 'ng-star-inserted']);
+                expect(this.clrGridWidget.getRow(0).unwrap().classes()).toEqual(['datagrid-row', 'ng-star-inserted']);
             });
 
             it('sets CSS classnames on rows', function (this: HasFinderAndGrid): void {
@@ -131,11 +135,11 @@ describe('DatagridComponent', () => {
                     return firstCall[index];
                 };
                 this.finder.detectChanges();
-                expect(this.clrGridWidget.getRow(0).classes()).toContain(
+                expect(this.clrGridWidget.getRow(0).unwrap().classes()).toContain(
                     'firstRowA',
                     'Expected the initial class to display for the first row.'
                 );
-                expect(this.clrGridWidget.getRow(1).classes()).toContain(
+                expect(this.clrGridWidget.getRow(1).unwrap().classes()).toContain(
                     'secondRowA',
                     'Expected some different initial class to display for the second row.'
                 );
@@ -143,11 +147,11 @@ describe('DatagridComponent', () => {
                     return secondCall[index];
                 };
                 this.finder.detectChanges();
-                expect(this.clrGridWidget.getRow(0).classes()).toContain(
+                expect(this.clrGridWidget.getRow(0).unwrap().classes()).toContain(
                     'firstRowB',
                     'Expected a new class to display for the first row.'
                 );
-                expect(this.clrGridWidget.getRow(1).classes()).toContain(
+                expect(this.clrGridWidget.getRow(1).unwrap().classes()).toContain(
                     'secondRowB',
                     'Expected a different new class to display for the second row.'
                 );
@@ -169,6 +173,7 @@ describe('DatagridComponent', () => {
                     expect(
                         this.vcdDatagrid.clrDatagrid
                             .getColumnHeaders()
+                            .unwrap()
                             .toArray()
                             .map((el) => el.text())
                     ).toEqual(['Name', 'City']);
@@ -187,7 +192,7 @@ describe('DatagridComponent', () => {
                 it('clips text when disableCliptext is unset', function (this: HasFinderAndGrid): void {
                     this.hostComponent.columns = [{ displayName: 'Name', renderer: 'name' }];
                     this.finder.detectChanges();
-                    const res = this.clrGridWidget.getCell(0, 0).getInjector().get(ShowClippedTextDirective);
+                    const res = this.clrGridWidget.getCell(0, 0).unwrap().getInjector().get(ShowClippedTextDirective);
                     expect(res.disabled).toBeFalsy();
                 });
 
@@ -196,7 +201,7 @@ describe('DatagridComponent', () => {
                         { displayName: 'Name', renderer: 'name', cliptextConfig: { size: TooltipSize.md } },
                     ];
                     this.finder.detectChanges();
-                    const res = this.clrGridWidget.getCell(0, 0).getInjector().get(ShowClippedTextDirective);
+                    const res = this.clrGridWidget.getCell(0, 0).unwrap().getInjector().get(ShowClippedTextDirective);
                     expect(res.disabled).toBeFalsy();
                 });
 
@@ -205,7 +210,7 @@ describe('DatagridComponent', () => {
                         { displayName: 'Name', renderer: 'name', cliptextConfig: { disabled: true } },
                     ];
                     this.finder.detectChanges();
-                    const res = this.clrGridWidget.getCell(0, 0).getInjector().get(ShowClippedTextDirective);
+                    const res = this.clrGridWidget.getCell(0, 0).unwrap().getInjector().get(ShowClippedTextDirective);
                     expect(res.disabled).toBeTruthy();
                 });
             });
@@ -225,8 +230,8 @@ describe('DatagridComponent', () => {
                         { displayName: 'Name', renderer: 'name' },
                     ];
                     this.finder.detectChanges();
-                    expect(this.clrGridWidget.getColumn(0).classes()).toContain('some-class');
-                    expect(this.clrGridWidget.getColumn(1).classes()).not.toContain('some-class');
+                    expect(this.clrGridWidget.getColumn(0).unwrap().classes()).toContain('some-class');
+                    expect(this.clrGridWidget.getColumn(1).unwrap().classes()).not.toContain('some-class');
                 });
             });
 
@@ -234,20 +239,20 @@ describe('DatagridComponent', () => {
                 it('has multi selection capabilities when set to multi selection', function (this: HasFinderAndGrid): void {
                     this.hostComponent.selectionType = GridSelectionType.Multi;
                     this.finder.detectChanges();
-                    expect(this.clrGridWidget.getCheckboxWrapper().length()).toBeGreaterThan(0);
+                    expect(this.clrGridWidget.getCheckboxWrapper().unwrap().length()).toBeGreaterThan(0);
                 });
 
                 it('has single selection capabilities when set to single selection', function (this: HasFinderAndGrid): void {
                     this.hostComponent.selectionType = GridSelectionType.Single;
                     this.finder.detectChanges();
-                    expect(this.clrGridWidget.getRadioWrapper().length()).toBeGreaterThan(0);
+                    expect(this.clrGridWidget.getRadioWrapper().unwrap().length()).toBeGreaterThan(0);
                 });
 
                 it('has none selection capabilities when set to none', function (this: HasFinderAndGrid): void {
                     this.hostComponent.selectionType = GridSelectionType.None;
                     this.finder.detectChanges();
-                    expect(this.clrGridWidget.getCheckboxWrapper().length()).toEqual(0);
-                    expect(this.clrGridWidget.getRadioWrapper().length()).toEqual(0);
+                    expect(this.clrGridWidget.getCheckboxWrapper().unwrap().length()).toEqual(0);
+                    expect(this.clrGridWidget.getRadioWrapper().unwrap().length()).toEqual(0);
                 });
             });
 
@@ -580,7 +585,7 @@ describe('DatagridComponent', () => {
                 describe('pageSize', () => {
                     it('can set the page size before AfterViewInit', function (this: HasFinderAndGrid): void {
                         this.finder.detectChanges();
-                        expect(this.clrGridWidget.getPaginationDescription().text()).toEqual(
+                        expect(this.clrGridWidget.getPaginationDescription().unwrap().text()).toEqual(
                             translationService.translate(DEFAULT_PAGINATION_TRANSLATION_KEY, [
                                 { firstItem: 1, lastItem: 5, totalItems: 150 },
                             ])
@@ -598,7 +603,7 @@ describe('DatagridComponent', () => {
                         };
                         this.finder.detectChanges();
                         tick();
-                        expect(this.clrGridWidget.getPaginationDescription().text()).toEqual(
+                        expect(this.clrGridWidget.getPaginationDescription().unwrap().text()).toEqual(
                             translationService.translate(DEFAULT_PAGINATION_TRANSLATION_KEY, [
                                 { firstItem: 1, lastItem: 52, totalItems: 150 },
                             ])
@@ -613,7 +618,7 @@ describe('DatagridComponent', () => {
                             pageSizeOptions: [10],
                         };
                         this.finder.detectChanges();
-                        expect(this.clrGridWidget.getPaginationDescription().text()).toEqual(
+                        expect(this.clrGridWidget.getPaginationDescription().unwrap().text()).toEqual(
                             translationService.translate(DEFAULT_PAGINATION_TRANSLATION_KEY, [
                                 { firstItem: 1, lastItem: 15, totalItems: 150 },
                             ])
@@ -629,7 +634,7 @@ describe('DatagridComponent', () => {
                             rowHeight: 100,
                         };
                         this.finder.detectChanges();
-                        expect(this.clrGridWidget.getPaginationDescription().text()).toEqual(
+                        expect(this.clrGridWidget.getPaginationDescription().unwrap().text()).toEqual(
                             translationService.translate(DEFAULT_PAGINATION_TRANSLATION_KEY, [
                                 { firstItem: 1, lastItem: 19, totalItems: 150 },
                             ])
@@ -647,7 +652,7 @@ describe('DatagridComponent', () => {
                         };
                         this.finder.detectChanges();
                         tick();
-                        expect(this.clrGridWidget.getPaginationDescription().text()).toEqual(
+                        expect(this.clrGridWidget.getPaginationDescription().unwrap().text()).toEqual(
                             translationService.translate(DEFAULT_PAGINATION_TRANSLATION_KEY, [
                                 { firstItem: 1, lastItem: 25, totalItems: 150 },
                             ])
@@ -660,7 +665,7 @@ describe('DatagridComponent', () => {
                             pageSizeOptions: [10],
                         };
                         this.finder.detectChanges();
-                        expect(this.clrGridWidget.getPaginationDescription().text()).toEqual(
+                        expect(this.clrGridWidget.getPaginationDescription().unwrap().text()).toEqual(
                             translationService.translate(DEFAULT_PAGINATION_TRANSLATION_KEY, [
                                 { firstItem: 1, lastItem: 100, totalItems: 150 },
                             ])
@@ -684,7 +689,7 @@ describe('DatagridComponent', () => {
                             pageSizeOptions: [10],
                         };
                         this.finder.detectChanges();
-                        expect(this.clrGridWidget.getPaginationDescription().text()).toEqual(
+                        expect(this.clrGridWidget.getPaginationDescription().unwrap().text()).toEqual(
                             translationService.translate(DEFAULT_PAGINATION_TRANSLATION_KEY, [
                                 { firstItem: 1, lastItem: 51, totalItems: 150 },
                             ])
@@ -700,7 +705,7 @@ describe('DatagridComponent', () => {
                             pageSizeOptions: [10],
                         };
                         this.finder.detectChanges();
-                        expect(this.clrGridWidget.getPaginationDescription().text()).toEqual(
+                        expect(this.clrGridWidget.getPaginationDescription().unwrap().text()).toEqual(
                             translationService.translate(DEFAULT_PAGINATION_TRANSLATION_KEY, [
                                 { firstItem: 1, lastItem: 51, totalItems: 150 },
                             ])
@@ -716,7 +721,7 @@ describe('DatagridComponent', () => {
                             pageSizeOptions: undefined,
                         };
                         this.finder.detectChanges();
-                        expect(this.clrGridWidget.getPaginationSizeSelector().text()).toEqual('Total Items5');
+                        expect(this.clrGridWidget.getPaginationSizeSelector().unwrap().text()).toEqual('Total Items5');
                     });
                 });
 
@@ -727,7 +732,7 @@ describe('DatagridComponent', () => {
                             shouldShowPageSizeSelector: false,
                         };
                         this.finder.detectChanges();
-                        expect(this.clrGridWidget.getPaginationSizeSelector().length()).toEqual(0);
+                        expect(this.clrGridWidget.getPaginationSizeSelector().unwrap().length()).toEqual(0);
                     });
 
                     it('shows the dropdown when set to true', function (this: HasFinderAndGrid): void {
@@ -736,7 +741,9 @@ describe('DatagridComponent', () => {
                             shouldShowPageSizeSelector: true,
                         };
                         this.finder.detectChanges();
-                        expect(this.clrGridWidget.getPaginationSizeSelector().text()).toEqual('Total Items52050100');
+                        expect(this.clrGridWidget.getPaginationSizeSelector().unwrap().text()).toEqual(
+                            'Total Items52050100'
+                        );
                     });
                 });
             });
@@ -748,7 +755,9 @@ describe('DatagridComponent', () => {
                         shouldShowPageSizeSelector: true,
                     };
                     this.finder.detectChanges();
-                    expect(this.clrGridWidget.getPaginationSizeSelector().text()).toEqual('Total Items52050100');
+                    expect(this.clrGridWidget.getPaginationSizeSelector().unwrap().text()).toEqual(
+                        'Total Items52050100'
+                    );
                 });
             });
 
@@ -781,32 +790,32 @@ describe('DatagridComponent', () => {
         describe('@Input() emptyGridPlaceholder', () => {
             it('does not show the placeholder while the grid is loading', function (this: HasFinderAndGrid): void {
                 this.finder.detectChanges();
-                expect(this.clrGridWidget.getSpinner().length()).toBeGreaterThan(0);
-                expect(this.clrGridWidget.getPlaceHolder().text()).toEqual('');
+                expect(this.clrGridWidget.getSpinner().unwrap().length()).toBeGreaterThan(0);
+                expect(this.clrGridWidget.getPlaceHolder().unwrap().text()).toEqual('');
             });
 
             it('shows the placeholder if the grid is empty', function (this: HasFinderAndGrid): void {
                 this.finder.detectChanges();
-                expect(this.clrGridWidget.getSpinner().length()).toBeGreaterThan(0);
+                expect(this.clrGridWidget.getSpinner().unwrap().length()).toBeGreaterThan(0);
                 this.hostComponent.gridData = {
                     items: [],
                     totalItems: 0,
                 };
                 this.finder.detectChanges();
-                expect(this.clrGridWidget.getSpinner().length()).toEqual(0);
-                expect(this.clrGridWidget.getPlaceHolder().text()).toEqual('Placeholder');
+                expect(this.clrGridWidget.getSpinner().unwrap().length()).toEqual(0);
+                expect(this.clrGridWidget.getPlaceHolder().unwrap().text()).toEqual('Placeholder');
             });
 
             it('does not show the placeholder if the grid has data', function (this: HasFinderAndGrid): void {
                 this.finder.detectChanges();
-                expect(this.clrGridWidget.getSpinner().length()).toBeGreaterThan(0);
+                expect(this.clrGridWidget.getSpinner().unwrap().length()).toBeGreaterThan(0);
                 this.hostComponent.gridData = {
                     items: mockData,
                     totalItems: 2,
                 };
                 this.finder.detectChanges();
-                expect(this.clrGridWidget.getSpinner().length()).toEqual(0);
-                expect(this.clrGridWidget.getPlaceHolder().text()).toEqual('');
+                expect(this.clrGridWidget.getSpinner().unwrap().length()).toEqual(0);
+                expect(this.clrGridWidget.getPlaceHolder().unwrap().text()).toEqual('');
             });
         });
 
@@ -865,25 +874,26 @@ describe('DatagridComponent', () => {
                 this.finder.detectChanges();
             });
             it('shows the columns with hidable value of  "Never"', function (this: HasFinderAndGrid): void {
-                expect(isColumnDisplayed(this.clrGridWidget.getColumn(0))).toBe(true);
+                expect(isColumnDisplayed(this.clrGridWidget.getColumn(0).unwrap())).toBe(true);
             });
 
             it('shows the columns with hidable value of  "Shown"', function (this: HasFinderAndGrid): void {
-                expect(isColumnDisplayed(this.clrGridWidget.getColumn(1))).toBe(true);
+                expect(isColumnDisplayed(this.clrGridWidget.getColumn(1).unwrap())).toBe(true);
             });
 
             it('hides the columns with hidable value of  "Hidden"', function (this: HasFinderAndGrid): void {
-                expect(isColumnDisplayed(this.clrGridWidget.getColumn(2))).toBe(false);
+                expect(isColumnDisplayed(this.clrGridWidget.getColumn(2).unwrap())).toBe(false);
                 expect(
                     this.clrGridWidget
                         .getHiddenColumnHeaders()
+                        .unwrap()
                         .toArray()
                         .map((header: TestElement) => header.text())
                 ).toEqual(['Default Renderer']);
             });
 
             it('shows the columns with hidable value of undefined', function (this: HasFinderAndGrid): void {
-                expect(isColumnDisplayed(this.clrGridWidget.getColumn(3))).toBe(true);
+                expect(isColumnDisplayed(this.clrGridWidget.getColumn(3).unwrap())).toBe(true);
             });
         });
 
@@ -900,8 +910,8 @@ describe('DatagridComponent', () => {
             });
 
             it('opens one detail pane when you click the button', function (this: HasFinderAndGrid): void {
-                this.clrGridWidget.getDetailRowButtons().toArray()[0].click();
-                expect(this.clrGridWidget.getDetailRows().length()).toEqual(1);
+                this.clrGridWidget.getDetailRowButtons().unwrap().toArray()[0].click();
+                expect(this.clrGridWidget.getDetailRows().unwrap().length()).toEqual(1);
             });
         });
 
@@ -918,13 +928,13 @@ describe('DatagridComponent', () => {
             });
 
             it('does NOT expand row when false', function (this: HasFinderAndGrid): void {
-                expect(this.clrGridWidget.getDetailRows().length()).toEqual(0);
+                expect(this.clrGridWidget.getDetailRows().unwrap().length()).toEqual(0);
             });
 
             it('expands row when true', function (this: HasFinderAndGrid): void {
                 this.hostComponent.isRowExpanded = true;
                 this.finder.detectChanges();
-                expect(this.clrGridWidget.getDetailRows().length()).toEqual(2);
+                expect(this.clrGridWidget.getDetailRows().unwrap().length()).toEqual(2);
             });
         });
 
@@ -940,14 +950,14 @@ describe('DatagridComponent', () => {
             });
 
             it('opens one detail pane when you click the button', function (this: HasFinderAndGrid): void {
-                this.clrGridWidget.getDetailPaneButtons().toArray()[0].click();
+                this.clrGridWidget.getDetailPaneButtons().unwrap().toArray()[0].click();
                 this.finder.detectChanges();
-                expect(this.clrGridWidget.getDetailPanes().length()).toEqual(1);
-                expect(this.clrGridWidget.getDetailPaneHeader().text()).toEqual('Palo Alto');
+                expect(this.clrGridWidget.getDetailPanes().unwrap().length()).toEqual(1);
+                expect(this.clrGridWidget.getDetailPaneHeader().unwrap().text()).toEqual('Palo Alto');
             });
 
             it('gives the same config when called with the same arguments', function (this: HasFinderAndGrid): void {
-                this.clrGridWidget.getDetailPaneButtons().toArray()[0].click();
+                this.clrGridWidget.getDetailPaneButtons().unwrap().toArray()[0].click();
                 this.finder.detectChanges();
                 expect(this.hostComponent.grid.getDetailPaneRenderSpec(mockData[0])).toEqual(
                     this.hostComponent.grid.getDetailPaneRenderSpec(mockData[0])
@@ -955,10 +965,10 @@ describe('DatagridComponent', () => {
             });
 
             it('updates the detail pane when the record changes', function (this: HasFinderAndGrid): void {
-                this.clrGridWidget.getDetailPaneButtons().toArray()[0].click();
+                this.clrGridWidget.getDetailPaneButtons().unwrap().toArray()[0].click();
                 this.finder.detectChanges();
-                expect(this.clrGridWidget.getDetailPanes().length()).toEqual(1);
-                expect(this.clrGridWidget.getDetailPaneHeader().text()).toEqual('Palo Alto');
+                expect(this.clrGridWidget.getDetailPanes().unwrap().length()).toEqual(1);
+                expect(this.clrGridWidget.getDetailPaneHeader().unwrap().text()).toEqual('Palo Alto');
                 this.hostComponent.gridData = {
                     items: [
                         {
@@ -969,8 +979,8 @@ describe('DatagridComponent', () => {
                     totalItems: 2,
                 };
                 this.finder.detectChanges();
-                expect(this.clrGridWidget.getDetailPanes().length()).toEqual(1);
-                expect(this.clrGridWidget.getDetailPaneHeader().text()).toEqual('NEW');
+                expect(this.clrGridWidget.getDetailPanes().unwrap().length()).toEqual(1);
+                expect(this.clrGridWidget.getDetailPaneHeader().unwrap().text()).toEqual('NEW');
             });
         });
 
@@ -1225,16 +1235,16 @@ describe('DatagridComponent', () => {
             it('shows the header if set and allows it to be changed', function (this: HasFinderAndGrid): void {
                 this.hostComponent.header = 'Some Header!';
                 this.finder.detectChanges();
-                expect(this.vcdDatagrid.getHeader().text()).toEqual('Some Header!');
+                expect(this.vcdDatagrid.getHeader().unwrap().text()).toEqual('Some Header!');
                 this.hostComponent.header = 'Some Other Header!';
                 this.finder.detectChanges();
-                expect(this.vcdDatagrid.getHeader().text()).toEqual('Some Other Header!');
+                expect(this.vcdDatagrid.getHeader().unwrap().text()).toEqual('Some Other Header!');
             });
 
             it('does not show a header when none is set', function (this: HasFinderAndGrid): void {
                 this.hostComponent.header = undefined;
                 this.finder.detectChanges();
-                expect(this.vcdDatagrid.getHeader().length()).toEqual(0);
+                expect(this.vcdDatagrid.getHeader().unwrap().length()).toEqual(0);
             });
         });
 
@@ -1403,10 +1413,11 @@ describe('DatagridComponent', () => {
             it('uses property path from  "renderer" property of column config ', function (this: HasFinderAndGrid): void {
                 this.hostComponent.columns = [{ displayName: '', renderer: 'details.gender' }];
                 this.finder.detectChanges();
-                expect(this.clrGridWidget.getCell(0, 0).text()).toEqual(mockData[0].details.gender);
+                expect(this.clrGridWidget.getCell(0, 0).unwrap().text()).toEqual(mockData[0].details.gender);
                 expect(
                     this.clrGridWidget
                         .getRowCell(0)
+                        .unwrap()
                         .toArray()
                         .map((cell: TestElement) => cell.text())
                 ).toEqual([mockData[0].details.gender]);
@@ -1422,7 +1433,9 @@ describe('DatagridComponent', () => {
                     },
                 ];
                 this.finder.detectChanges();
-                expect(this.clrGridWidget.getCell(0, 0).text()).toEqual(`${mockData[0].city}, ${mockData[0].state}`);
+                expect(this.clrGridWidget.getCell(0, 0).unwrap().text()).toEqual(
+                    `${mockData[0].city}, ${mockData[0].state}`
+                );
             });
         });
 
@@ -1440,7 +1453,7 @@ describe('DatagridComponent', () => {
                     },
                 ];
                 this.finder.detectChanges();
-                expect(this.clrGridWidget.getCell(0, 0).queryElements('strong').text()).toBe(mockData[0].name);
+                expect(this.clrGridWidget.getCell(0, 0).unwrap().queryElements('strong').text()).toBe(mockData[0].name);
             });
         });
     });
