@@ -6,20 +6,16 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { fakeAsync, TestBed, tick } from '@angular/core/testing';
-import { By } from '@angular/platform-browser';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { ClarityModule } from '@clr/angular';
 import { MockTranslationService, TranslationService } from '@vcd/i18n';
-import { FormsModule } from '@angular/forms';
 import { AngularWidgetObjectFinder } from '../utils/test/widget-object/angular/angular-widget-finder';
 import { TestElement } from '../utils/test/widget-object/angular/angular-widget-object-element';
-import { WidgetObject } from '../utils/test/widget-object';
 import { QuickSearchResultItem, QuickSearchResultsType } from './quick-search-result';
 import { QuickSearchComponent, ResultActivatedEvent } from './quick-search.component';
-import { QuickSearchFilter } from './quick-search.service';
+import { QuickSearchService } from './quick-search.service';
 import { QuickSearchModule } from './quick-search.module';
 import { QuickSearchProviderDefaults } from './quick-search.provider';
-import { QuickSearchService } from './quick-search.service';
 import { QuickSearchWo } from './quick-search.wo';
 
 interface Test {
@@ -164,37 +160,37 @@ describe('QuickSearchComponent', () => {
 
     describe('visibility', () => {
         beforeEach(function (this: Test): void {
-            expect(this.quickSearch.getModalBody().length()).toBe(0, 'Quick Search should be closed');
+            expect(this.quickSearch.getModalBody().unwrap().length()).toBe(0, 'Quick Search should be closed');
             this.finder.hostComponent.spotlightOpen = true;
             this.finder.detectChanges();
-            expect(this.quickSearch.getModalBody().length()).not.toBe(0, 'Quick Search should be opened');
+            expect(this.quickSearch.getModalBody().unwrap().length()).not.toBe(0, 'Quick Search should be opened');
         });
 
         it('can be opened', function (this: Test): void {
-            expect(this.quickSearch.getModalBody().length()).not.toBe(0, 'Quick Search should be opened');
+            expect(this.quickSearch.getModalBody().unwrap().length()).not.toBe(0, 'Quick Search should be opened');
         });
 
         it('can be closed', function (this: Test): void {
             this.finder.hostComponent.spotlightOpen = false;
             this.finder.detectChanges();
-            expect(this.quickSearch.getModalBody().length()).toBe(0, 'Quick Search should be closed');
+            expect(this.quickSearch.getModalBody().unwrap().length()).toBe(0, 'Quick Search should be closed');
         });
 
         it('is closed when esc is pressed', function (this: Test): void {
             this.quickSearch.self().sendKeyboardEvent('keyup', { key: 'escape' });
-            expect(this.quickSearch.getModalBody().length()).toBe(0, 'Quick Search should be closed');
+            expect(this.quickSearch.getModalBody().unwrap().length()).toBe(0, 'Quick Search should be closed');
         });
 
         it('is closed when clicking outside', function (this: Test): void {
             this.quickSearch.getModalBackdrop().click();
-            expect(this.quickSearch.getModalBody().length()).toBe(0, 'Quick Search should be closed');
+            expect(this.quickSearch.getModalBody().unwrap().length()).toBe(0, 'Quick Search should be closed');
         });
 
         it('is closed when item is handled', function (this: Test): void {
             this.quickSearch.getInput().type('c');
-            this.quickSearch.getInput().sendKeyboardEvent('keydown', { key: 'enter' });
+            this.quickSearch.getInput().unwrap().sendKeyboardEvent('keydown', { key: 'enter' });
             this.finder.detectChanges();
-            expect(this.quickSearch.getModalBody().length()).toBe(0, 'Quick Search should be closed');
+            expect(this.quickSearch.getModalBody().unwrap().length()).toBe(0, 'Quick Search should be closed');
         });
     });
 
@@ -212,7 +208,12 @@ describe('QuickSearchComponent', () => {
             this.finder.detectChanges();
             this.quickSearch.getInput().type('c');
             expect(searchHandlerSpy).toHaveBeenCalledWith('c');
-            expect(this.quickSearch.getSearchResultItems().map((item) => item.text())).toEqual(['copy', 'create']);
+            expect(
+                this.quickSearch
+                    .getSearchResultItems()
+                    .unwrap()
+                    .map((item) => item.text())
+            ).toEqual(['copy', 'create']);
         });
 
         it('displays a loading indicator when the result is a promise', function (this: Test): void {
@@ -220,7 +221,7 @@ describe('QuickSearchComponent', () => {
             this.finder.hostComponent.spotlightOpen = true;
             this.finder.detectChanges();
             this.quickSearch.getInput().type('c');
-            expect(this.quickSearch.getSpinners().length()).toBe(
+            expect(this.quickSearch.getSpinners().unwrap().length()).toBe(
                 1,
                 'There should be a loading indicator in the second section'
             );
@@ -233,8 +234,13 @@ describe('QuickSearchComponent', () => {
             this.quickSearch.getInput().type('copy');
             tick(1000);
             this.finder.detectChanges();
-            expect(this.quickSearch.getSpinners().length()).toBe(0);
-            expect(this.quickSearch.getSearchResultItems().map((item) => item.text())).toEqual(['copy', 'copy']);
+            expect(this.quickSearch.getSpinners().unwrap().length()).toBe(0);
+            expect(
+                this.quickSearch
+                    .getSearchResultItems()
+                    .unwrap()
+                    .map((item) => item.text())
+            ).toEqual(['copy', 'copy']);
         }));
 
         it('displays result from the last search', fakeAsync(function (this: Test): void {
@@ -251,13 +257,18 @@ describe('QuickSearchComponent', () => {
             tick(500);
             this.finder.detectChanges();
             // There should be just one result form the first provider
-            expect(this.quickSearch.getSearchResultItems().text()).toEqual('create');
+            expect(this.quickSearch.getSearchResultItems().unwrap().text()).toEqual('create');
             // There should still be loading indicator from the second search
-            expect(this.quickSearch.getSpinners().length()).toBe(1);
+            expect(this.quickSearch.getSpinners().unwrap().length()).toBe(1);
             // Advance the clock so that the second search has finished also
             tick(500);
             this.finder.detectChanges();
-            expect(this.quickSearch.getSearchResultItems().map((item) => item.text())).toEqual(['create', 'create']);
+            expect(
+                this.quickSearch
+                    .getSearchResultItems()
+                    .unwrap()
+                    .map((item) => item.text())
+            ).toEqual(['create', 'create']);
         }));
 
         it('preserves the search criteria upon reopening', function (this: Test): void {
@@ -272,8 +283,8 @@ describe('QuickSearchComponent', () => {
             // Open again
             this.finder.hostComponent.spotlightOpen = true;
             this.finder.detectChanges();
-            expect(this.quickSearch.getInput().value()).toEqual('copy');
-            expect(this.quickSearch.getSearchResultItems().text()).toEqual('copy');
+            expect(this.quickSearch.getInput().unwrap().value()).toEqual('copy');
+            expect(this.quickSearch.getSearchResultItems().unwrap().text()).toEqual('copy');
         });
 
         it('uses a newly added search handler', function (this: Test): void {
@@ -313,8 +324,13 @@ describe('QuickSearchComponent', () => {
             tick();
             this.finder.detectChanges();
             const noResults = TestBed.inject(TranslationService).translate('vcd.cc.quickSearch.noResults', []);
-            expect(this.quickSearch.getSearchResultItems().toArray().length).toBe(0);
-            expect(this.quickSearch.getNoResults().map((item) => item.text())).toEqual([noResults]);
+            expect(this.quickSearch.getSearchResultItems().unwrap().toArray().length).toBe(0);
+            expect(
+                this.quickSearch
+                    .getNoResults()
+                    .unwrap()
+                    .map((item) => item.text())
+            ).toEqual([noResults]);
         }));
 
         describe('partial search result', () => {
@@ -323,12 +339,14 @@ describe('QuickSearchComponent', () => {
                 this.quickSearchData.spotlightSearchService.registerProvider(partialSearchProvider);
                 this.finder.hostComponent.spotlightOpen = true;
                 this.finder.detectChanges();
-                this.quickSearch.getInput().type('c');
-                expect(this.quickSearch.getSearchResultSectionTitles().map((title) => title.text())).toEqual([
-                    'section',
-                    partialSearchProvider.sectionName,
-                ]);
-                expect(this.quickSearch.getSearchResultAlerts().toArray()).toEqual([]);
+                this.quickSearch.getInput().unwrap().type('c');
+                expect(
+                    this.quickSearch
+                        .getSearchResultSectionTitles()
+                        .unwrap()
+                        .map((title) => title.text())
+                ).toEqual(['section', partialSearchProvider.sectionName]);
+                expect(this.quickSearch.getSearchResultAlerts().unwrap().toArray()).toEqual([]);
             });
 
             it('does not display partial information if total is equal to the number of items', function (this: Test): void {
@@ -336,12 +354,14 @@ describe('QuickSearchComponent', () => {
                 this.quickSearchData.spotlightSearchService.registerProvider(partialSearchProvider);
                 this.finder.hostComponent.spotlightOpen = true;
                 this.finder.detectChanges();
-                this.quickSearch.getInput().type('c');
-                expect(this.quickSearch.getSearchResultSectionTitles().map((title) => title.text())).toEqual([
-                    'section',
-                    partialSearchProvider.sectionName,
-                ]);
-                expect(this.quickSearch.getSearchResultAlerts().toArray()).toEqual([]);
+                this.quickSearch.getInput().unwrap().type('c');
+                expect(
+                    this.quickSearch
+                        .getSearchResultSectionTitles()
+                        .unwrap()
+                        .map((title) => title.text())
+                ).toEqual(['section', partialSearchProvider.sectionName]);
+                expect(this.quickSearch.getSearchResultAlerts().unwrap().toArray()).toEqual([]);
             });
 
             it('does not display partial information if total is undefined', function (this: Test): void {
@@ -349,12 +369,14 @@ describe('QuickSearchComponent', () => {
                 this.quickSearchData.spotlightSearchService.registerProvider(partialSearchProvider);
                 this.finder.hostComponent.spotlightOpen = true;
                 this.finder.detectChanges();
-                this.quickSearch.getInput().type('c');
-                expect(this.quickSearch.getSearchResultSectionTitles().map((title) => title.text())).toEqual([
-                    'section',
-                    partialSearchProvider.sectionName,
-                ]);
-                expect(this.quickSearch.getSearchResultAlerts().toArray()).toEqual([]);
+                this.quickSearch.getInput().unwrap().type('c');
+                expect(
+                    this.quickSearch
+                        .getSearchResultSectionTitles()
+                        .unwrap()
+                        .map((title) => title.text())
+                ).toEqual(['section', partialSearchProvider.sectionName]);
+                expect(this.quickSearch.getSearchResultAlerts().unwrap().toArray()).toEqual([]);
             });
 
             describe('when total count is bigger than the number of items', () => {
@@ -369,7 +391,9 @@ describe('QuickSearchComponent', () => {
                     ).translate('vcd.cc.quickSearch.partialResultTitle', [
                         { title: partialSearchProvider.sectionName, lastItem: 2, totalItems: 3 },
                     ]);
-                    expect(this.quickSearch.getSearchResultSectionTitles().toArray()[1].text()).toEqual(partial);
+                    expect(this.quickSearch.getSearchResultSectionTitles().unwrap().toArray()[1].text()).toEqual(
+                        partial
+                    );
                 });
 
                 it('displays warning message to refine the search', function (this: Test): void {
@@ -377,12 +401,12 @@ describe('QuickSearchComponent', () => {
                     this.quickSearchData.spotlightSearchService.registerProvider(partialSearchProvider);
                     this.finder.hostComponent.spotlightOpen = true;
                     this.finder.detectChanges();
-                    this.quickSearch.getInput().type('c');
+                    this.quickSearch.getInput().unwrap().type('c');
                     const warning = TestBed.inject(TranslationService).translate('vcd.cc.quickSearch.refineQuery', [
                         { max: 2 },
                     ]);
                     this.finder.detectChanges();
-                    expect(this.quickSearch.getSearchResultAlerts().text()).toEqual(warning);
+                    expect(this.quickSearch.getSearchResultAlerts().unwrap().text()).toEqual(warning);
                 });
             });
         });
@@ -393,26 +417,31 @@ describe('QuickSearchComponent', () => {
                 this.quickSearchData.spotlightSearchService.registerProvider(debounceSearchProvider);
                 this.finder.hostComponent.spotlightOpen = true;
                 this.finder.detectChanges();
-                this.quickSearch.getInput().type('c');
-                expect(this.quickSearch.getSearchResultSectionTitles().map((title) => title.text())).toEqual([
-                    'section',
-                ]);
+                this.quickSearch.getInput().unwrap().type('c');
+                expect(
+                    this.quickSearch
+                        .getSearchResultSectionTitles()
+                        .unwrap()
+                        .map((title) => title.text())
+                ).toEqual(['section']);
                 tick(100);
                 this.finder.detectChanges();
-                expect(this.quickSearch.getSpinners().length()).toBe(1);
-                expect(this.quickSearch.getSearchResultItems().map((title) => title.text())).toEqual([
-                    'copy',
-                    'create',
-                ]);
+                expect(this.quickSearch.getSpinners().unwrap().length()).toBe(1);
+                expect(
+                    this.quickSearch
+                        .getSearchResultItems()
+                        .unwrap()
+                        .map((title) => title.text())
+                ).toEqual(['copy', 'create']);
                 tick(200);
                 this.finder.detectChanges();
-                expect(this.quickSearch.getSpinners().length()).toBe(0);
-                expect(this.quickSearch.getSearchResultItems().map((title) => title.text())).toEqual([
-                    'copy',
-                    'create',
-                    'copy',
-                    'create',
-                ]);
+                expect(this.quickSearch.getSpinners().unwrap().length()).toBe(0);
+                expect(
+                    this.quickSearch
+                        .getSearchResultItems()
+                        .unwrap()
+                        .map((title) => title.text())
+                ).toEqual(['copy', 'create', 'copy', 'create']);
             }));
         });
     });
@@ -425,8 +454,8 @@ describe('QuickSearchComponent', () => {
             // Set search
             this.quickSearch.getInput().type('copy');
             //
-            expect(this.quickSearch.getSearchResultItems().length()).toBe(1);
-            expect(this.quickSearch.getSearchResultSectionTitles().text()).toEqual('section');
+            expect(this.quickSearch.getSearchResultItems().unwrap().length()).toBe(1);
+            expect(this.quickSearch.getSearchResultSectionTitles().unwrap().text()).toEqual('section');
         });
 
         it('displays icon next to a section title', function (this: Test): void {
@@ -438,9 +467,12 @@ describe('QuickSearchComponent', () => {
             this.finder.detectChanges();
             // Set search
             this.quickSearch.getInput().type('copy');
-            expect(this.quickSearch.getTitleIcons().map((el) => el.attributes().getNamedItem('shape').value)).toEqual([
-                'user',
-            ]);
+            expect(
+                this.quickSearch
+                    .getTitleIcons()
+                    .unwrap()
+                    .map((el) => el.attributes().getNamedItem('shape').value)
+            ).toEqual(['user']);
         });
 
         it('displays all section titles when there are results', function (this: Test): void {
@@ -452,11 +484,13 @@ describe('QuickSearchComponent', () => {
             this.finder.hostComponent.spotlightOpen = true;
             this.finder.detectChanges();
             // Set search
-            this.quickSearch.getInput().type('copy');
-            expect(this.quickSearch.getSearchResultSectionTitles().map((title) => title.text())).toEqual([
-                'section',
-                'new section',
-            ]);
+            this.quickSearch.getInput().unwrap().type('copy');
+            expect(
+                this.quickSearch
+                    .getSearchResultSectionTitles()
+                    .unwrap()
+                    .map((title) => title.text())
+            ).toEqual(['section', 'new section']);
         });
 
         it('does not display section title if it is not provided', function (this: Test): void {
@@ -472,7 +506,7 @@ describe('QuickSearchComponent', () => {
             // Set search
             this.quickSearch.getInput().type('copy');
             //
-            expect(this.quickSearch.getSearchResultSectionTitles().text()).toEqual('section');
+            expect(this.quickSearch.getSearchResultSectionTitles().unwrap().text()).toEqual('section');
         });
 
         it('does not display section title if there are no results', function (this: Test): void {
@@ -483,8 +517,8 @@ describe('QuickSearchComponent', () => {
             // Set search
             this.quickSearch.getInput().type('no match');
             // Check expectations
-            expect(this.quickSearch.getSearchResultItems().length()).toBe(0);
-            expect(this.quickSearch.getSearchResultSectionTitles().length()).toEqual(0);
+            expect(this.quickSearch.getSearchResultItems().unwrap().length()).toBe(0);
+            expect(this.quickSearch.getSearchResultSectionTitles().unwrap().length()).toEqual(0);
         });
 
         it('displays nested providers title correctly with nested, filtered providers', function (this: Test): void {
@@ -499,21 +533,22 @@ describe('QuickSearchComponent', () => {
             this.finder.detectChanges();
             // Set search
             this.quickSearch.getInput().type('o');
-            expect(this.quickSearch.getSearchResultItems().length()).toBe(4);
-            expect(this.quickSearch.getSearchResultSectionTitles().map((title) => title.text())).toEqual([
-                'section',
-                'Some Nested Provider',
-                'section',
-                'another section',
-            ]);
+            expect(this.quickSearch.getSearchResultItems().unwrap().length()).toBe(4);
+            expect(
+                this.quickSearch
+                    .getSearchResultSectionTitles()
+                    .unwrap()
+                    .map((title) => title.text())
+            ).toEqual(['section', 'Some Nested Provider', 'section', 'another section']);
 
-            this.quickSearch.getInput().type('copy');
-            expect(this.quickSearch.getSearchResultItems().length()).toBe(2);
-            expect(this.quickSearch.getSearchResultSectionTitles().map((title) => title.text().toString())).toEqual([
-                'section',
-                'Some Nested Provider',
-                'section',
-            ]);
+            this.quickSearch.getInput().unwrap().type('copy');
+            expect(this.quickSearch.getSearchResultItems().unwrap().length()).toBe(2);
+            expect(
+                this.quickSearch
+                    .getSearchResultSectionTitles()
+                    .unwrap()
+                    .map((title) => title.text().toString())
+            ).toEqual(['section', 'Some Nested Provider', 'section']);
         });
 
         it('orders nested providers by their given order', function (this: Test): void {
@@ -533,15 +568,14 @@ describe('QuickSearchComponent', () => {
             this.finder.hostComponent.spotlightOpen = true;
             this.finder.detectChanges();
             // Set search
-            this.quickSearch.getInput().type('o');
+            this.quickSearch.getInput().unwrap().type('o');
             //
-            expect(this.quickSearch.getSearchResultSectionTitles().map((title) => title.text())).toEqual([
-                'section',
-                'Another Nested Provider',
-                'section',
-                'Some Nested Provider',
-                'section',
-            ]);
+            expect(
+                this.quickSearch
+                    .getSearchResultSectionTitles()
+                    .unwrap()
+                    .map((title) => title.text())
+            ).toEqual(['section', 'Another Nested Provider', 'section', 'Some Nested Provider', 'section']);
         });
     });
 
@@ -553,7 +587,7 @@ describe('QuickSearchComponent', () => {
                 this.finder.hostComponent.spotlightOpen = true;
                 this.finder.detectChanges();
                 this.quickSearch.getInput().type('c');
-                expect(this.quickSearch.getSelectedSearchResultItem().text()).toEqual('copy');
+                expect(this.quickSearch.getSelectedSearchResultItem().unwrap().text()).toEqual('copy');
             });
 
             it('can update the selected item with a new one from the same section', function (this: Test): void {
@@ -562,9 +596,9 @@ describe('QuickSearchComponent', () => {
                 this.finder.hostComponent.spotlightOpen = true;
                 this.finder.detectChanges();
                 this.quickSearch.getInput().type('c');
-                expect(this.quickSearch.getSelectedSearchResultItem().text()).toEqual('copy');
+                expect(this.quickSearch.getSelectedSearchResultItem().unwrap().text()).toEqual('copy');
                 this.quickSearch.getInput().type('cr');
-                expect(this.quickSearch.getSelectedSearchResultItem().text()).toEqual('create');
+                expect(this.quickSearch.getSelectedSearchResultItem().unwrap().text()).toEqual('create');
             });
 
             it('can update the selected item with a new one from a different section', function (this: Test): void {
@@ -576,7 +610,7 @@ describe('QuickSearchComponent', () => {
                 this.finder.detectChanges();
                 this.quickSearch.getInput().type('c');
                 this.quickSearch.getInput().type('another');
-                expect(this.quickSearch.getSelectedSearchResultItem().toArray()[0].text().toString()).toEqual(
+                expect(this.quickSearch.getSelectedSearchResultItem().unwrap().toArray()[0].text().toString()).toEqual(
                     'another'
                 );
             });
@@ -588,7 +622,7 @@ describe('QuickSearchComponent', () => {
                 this.finder.hostComponent.spotlightOpen = true;
                 this.finder.detectChanges();
                 this.quickSearch.getInput().type('c');
-                expect(this.quickSearch.getSelectedSearchResultItem().toArray().toString()).toEqual('');
+                expect(this.quickSearch.getSelectedSearchResultItem().unwrap().toArray().toString()).toEqual('');
             });
 
             it('selects the first item after the promise is resolved', fakeAsync(function (this: Test): void {
@@ -599,7 +633,7 @@ describe('QuickSearchComponent', () => {
                 this.quickSearch.getInput().type('c');
                 tick(1000);
                 this.finder.detectChanges();
-                expect(this.quickSearch.getSelectedSearchResultItem().toArray()[0].text()).toEqual('copy');
+                expect(this.quickSearch.getSelectedSearchResultItem().unwrap().toArray()[0].text()).toEqual('copy');
             }));
 
             it('does not change manual selection', fakeAsync(function (this: Test): void {
@@ -609,10 +643,10 @@ describe('QuickSearchComponent', () => {
                 this.finder.detectChanges();
                 this.quickSearch.getInput().type('copy');
                 // Pressing arrow up selects the first available result, in this case it is the from from the simple provider
-                this.quickSearch.getInput().sendKeyboardEvent('keydown', { key: 'ArrowUp' });
+                this.quickSearch.getInput().unwrap().sendKeyboardEvent('keydown', { key: 'ArrowUp' });
                 tick(1000);
                 this.finder.detectChanges();
-                expect(this.quickSearch.getSelectedSearchResultItem().text()).toEqual('copy');
+                expect(this.quickSearch.getSelectedSearchResultItem().unwrap().text()).toEqual('copy');
             }));
         });
 
@@ -624,8 +658,8 @@ describe('QuickSearchComponent', () => {
                 this.finder.hostComponent.spotlightOpen = true;
                 this.finder.detectChanges();
                 this.quickSearch.getInput().type('c');
-                this.quickSearch.getInput().sendKeyboardEvent('keydown', { key: 'ArrowUp' });
-                expect(this.quickSearch.getSelectedSearchResultItem().text()).toEqual('copy');
+                this.quickSearch.getInput().unwrap().sendKeyboardEvent('keydown', { key: 'ArrowUp' });
+                expect(this.quickSearch.getSelectedSearchResultItem().unwrap().text()).toEqual('copy');
             });
 
             it('selects first item when arrow down is pressed before search is completed', function (this: Test): void {
@@ -635,17 +669,17 @@ describe('QuickSearchComponent', () => {
                 this.finder.hostComponent.spotlightOpen = true;
                 this.finder.detectChanges();
                 this.quickSearch.getInput().type('c');
-                this.quickSearch.getInput().sendKeyboardEvent('keydown', { key: 'ArrowDown' });
-                expect(this.quickSearch.getSelectedSearchResultItem().text()).toEqual('copy');
+                this.quickSearch.getInput().unwrap().sendKeyboardEvent('keydown', { key: 'ArrowDown' });
+                expect(this.quickSearch.getSelectedSearchResultItem().unwrap().text()).toEqual('copy');
             });
 
             it('selects next item when arrow down is pressed', function (this: Test): void {
                 this.finder.hostComponent.spotlightOpen = true;
                 this.finder.detectChanges();
                 this.quickSearch.getInput().type('c');
-                expect(this.quickSearch.getSelectedSearchResultItem().text()).toEqual('copy');
-                this.quickSearch.getInput().sendKeyboardEvent('keydown', { key: 'ArrowDown' });
-                expect(this.quickSearch.getSelectedSearchResultItem().text()).toEqual('create');
+                expect(this.quickSearch.getSelectedSearchResultItem().unwrap().text()).toEqual('copy');
+                this.quickSearch.getInput().unwrap().sendKeyboardEvent('keydown', { key: 'ArrowDown' });
+                expect(this.quickSearch.getSelectedSearchResultItem().unwrap().text()).toEqual('create');
             });
 
             it(
@@ -655,12 +689,12 @@ describe('QuickSearchComponent', () => {
                     this.finder.hostComponent.spotlightOpen = true;
                     this.finder.detectChanges();
                     this.quickSearch.getInput().type('c');
-                    this.quickSearch.getInput().sendKeyboardEvent('keydown', { key: 'ArrowDown' });
+                    this.quickSearch.getInput().unwrap().sendKeyboardEvent('keydown', { key: 'ArrowDown' });
                     // Test the selection is from the first section
-                    expect(this.quickSearch.getSelectedSearchResultItem().text()).toEqual('create');
-                    this.quickSearch.getInput().sendKeyboardEvent('keydown', { key: 'ArrowDown' });
+                    expect(this.quickSearch.getSelectedSearchResultItem().unwrap().text()).toEqual('create');
+                    this.quickSearch.getInput().unwrap().sendKeyboardEvent('keydown', { key: 'ArrowDown' });
                     // Test the selection now is from the second section
-                    expect(this.quickSearch.getSelectedSearchResultItem().text()).toEqual('copy');
+                    expect(this.quickSearch.getSelectedSearchResultItem().unwrap().text()).toEqual('copy');
                 }
             );
 
@@ -669,28 +703,28 @@ describe('QuickSearchComponent', () => {
                 this.finder.hostComponent.spotlightOpen = true;
                 this.finder.detectChanges();
                 this.quickSearch.getInput().type('c');
-                expect(this.quickSearch.getSearchResultItems().length()).toBe(4);
+                expect(this.quickSearch.getSearchResultItems().unwrap().length()).toBe(4);
                 // Go to the bottom of the list
-                this.quickSearch.getInput().sendKeyboardEvent('keydown', { key: 'ArrowDown' });
-                this.quickSearch.getInput().sendKeyboardEvent('keydown', { key: 'ArrowDown' });
-                this.quickSearch.getInput().sendKeyboardEvent('keydown', { key: 'ArrowDown' });
+                this.quickSearch.getInput().unwrap().sendKeyboardEvent('keydown', { key: 'ArrowDown' });
+                this.quickSearch.getInput().unwrap().sendKeyboardEvent('keydown', { key: 'ArrowDown' });
+                this.quickSearch.getInput().unwrap().sendKeyboardEvent('keydown', { key: 'ArrowDown' });
                 // Test the selection is the bottom of the second section
-                expect(this.quickSearch.getSelectedSearchResultItem().text()).toEqual('create');
+                expect(this.quickSearch.getSelectedSearchResultItem().unwrap().text()).toEqual('create');
                 // Go beyond the length of the list
-                this.quickSearch.getInput().sendKeyboardEvent('keydown', { key: 'ArrowDown' });
+                this.quickSearch.getInput().unwrap().sendKeyboardEvent('keydown', { key: 'ArrowDown' });
                 // Test the selection is the first item of the first selection
-                expect(this.quickSearch.getSelectedSearchResultItem().text()).toEqual('copy');
+                expect(this.quickSearch.getSelectedSearchResultItem().unwrap().text()).toEqual('copy');
             });
 
             it('selects previous item when arrow up is pressed', function (this: Test): void {
                 this.finder.hostComponent.spotlightOpen = true;
                 this.finder.detectChanges();
                 this.quickSearch.getInput().type('c');
-                expect(this.quickSearch.getSelectedSearchResultItem().text()).toEqual('copy');
-                this.quickSearch.getInput().sendKeyboardEvent('keydown', { key: 'ArrowDown' });
-                expect(this.quickSearch.getSelectedSearchResultItem().text()).toEqual('create');
-                this.quickSearch.getInput().sendKeyboardEvent('keydown', { key: 'ArrowUp' });
-                expect(this.quickSearch.getSelectedSearchResultItem().text()).toEqual('copy');
+                expect(this.quickSearch.getSelectedSearchResultItem().unwrap().text()).toEqual('copy');
+                this.quickSearch.getInput().unwrap().sendKeyboardEvent('keydown', { key: 'ArrowDown' });
+                expect(this.quickSearch.getSelectedSearchResultItem().unwrap().text()).toEqual('create');
+                this.quickSearch.getInput().unwrap().sendKeyboardEvent('keydown', { key: 'ArrowUp' });
+                expect(this.quickSearch.getSelectedSearchResultItem().unwrap().text()).toEqual('copy');
             });
 
             it('selects the last item when being at the top of the list and up is pressed', function (this: Test): void {
@@ -700,11 +734,11 @@ describe('QuickSearchComponent', () => {
                 this.finder.detectChanges();
                 this.quickSearch.getInput().type('c');
                 // Test
-                expect(this.quickSearch.getSelectedSearchResultItem().text()).toEqual('copy');
+                expect(this.quickSearch.getSelectedSearchResultItem().unwrap().text()).toEqual('copy');
                 // Press arrow up key
-                this.quickSearch.getInput().sendKeyboardEvent('keydown', { key: 'ArrowUp' });
+                this.quickSearch.getInput().unwrap().sendKeyboardEvent('keydown', { key: 'ArrowUp' });
                 // Test
-                expect(this.quickSearch.getSelectedSearchResultItem().text()).toEqual('create');
+                expect(this.quickSearch.getSelectedSearchResultItem().unwrap().text()).toEqual('create');
             });
         });
     });
@@ -714,7 +748,7 @@ describe('QuickSearchComponent', () => {
             this.finder.hostComponent.spotlightOpen = true;
             this.finder.detectChanges();
             this.quickSearch.getInput().type('c');
-            this.quickSearch.getInput().sendKeyboardEvent('keydown', { key: 'enter' });
+            this.quickSearch.getInput().unwrap().sendKeyboardEvent('keydown', { key: 'enter' });
             expect(itemHandlerSpy).toHaveBeenCalledWith('copy');
         });
 
@@ -728,7 +762,7 @@ describe('QuickSearchComponent', () => {
             this.finder.hostComponent.spotlightOpen = true;
             this.finder.detectChanges();
             this.quickSearch.getInput().type('c');
-            this.quickSearch.getInput().sendKeyboardEvent('keydown', { key: 'enter' });
+            this.quickSearch.getInput().unwrap().sendKeyboardEvent('keydown', { key: 'enter' });
             expect(itemHandlerSpy).not.toHaveBeenCalled();
         });
 
@@ -742,7 +776,7 @@ describe('QuickSearchComponent', () => {
             this.finder.hostComponent.spotlightOpen = true;
             this.finder.detectChanges();
             this.quickSearch.getInput().type('c');
-            this.quickSearch.getSearchResultItems().toArray()[1].click();
+            this.quickSearch.getSearchResultItems().unwrap().toArray()[1].click();
             this.finder.detectChanges();
             expect(itemHandlerSpy).toHaveBeenCalledWith('create');
         });
@@ -753,7 +787,7 @@ describe('QuickSearchComponent', () => {
             this.finder.hostComponent.spotlightOpen = true;
             this.finder.detectChanges();
             this.quickSearch.getInput().type('c');
-            this.quickSearch.getInput().sendKeyboardEvent('keydown', { key: 'enter' });
+            this.quickSearch.getInput().unwrap().sendKeyboardEvent('keydown', { key: 'enter' });
             const event: ResultActivatedEvent = {
                 itemDisplayText: 'copy',
                 sectionTitle: 'section',
@@ -769,7 +803,7 @@ describe('QuickSearchComponent', () => {
             this.finder.hostComponent.spotlightOpen = true;
             this.finder.detectChanges();
             this.quickSearch.getInput().type('c');
-            this.quickSearch.getInput().sendKeyboardEvent('keydown', { key: 'enter' });
+            this.quickSearch.getInput().unwrap().sendKeyboardEvent('keydown', { key: 'enter' });
             expect(this.quickSearchData.resultActivated).not.toHaveBeenCalled();
         });
 
@@ -780,7 +814,7 @@ describe('QuickSearchComponent', () => {
             this.finder.hostComponent.spotlightOpen = true;
             this.finder.detectChanges();
             this.quickSearch.getInput().type('c');
-            this.quickSearch.getSearchResultItems().toArray()[1].click();
+            this.quickSearch.getSearchResultItems().unwrap().toArray()[1].click();
             const event: ResultActivatedEvent = {
                 itemDisplayText: 'create',
                 sectionTitle: 'section',
@@ -794,7 +828,7 @@ describe('QuickSearchComponent', () => {
         it('default to empty', function (this: Test): void {
             this.finder.hostComponent.spotlightOpen = true;
             this.finder.detectChanges();
-            expect(this.quickSearch.getInput().value()).toBe('');
+            expect(this.quickSearch.getInput().unwrap().value()).toBe('');
         });
 
         it('can be set', function (this: Test): void {
@@ -802,7 +836,7 @@ describe('QuickSearchComponent', () => {
             this.finder.detectChanges();
             this.finder.hostComponent.spotlightOpen = true;
             this.finder.detectChanges();
-            expect(this.quickSearch.getInput().placeholder()).toBe('Search...');
+            expect(this.quickSearch.getInput().unwrap().placeholder()).toBe('Search...');
         });
     });
 
@@ -813,17 +847,17 @@ describe('QuickSearchComponent', () => {
         });
 
         it('can project content at the top of the results', function (this: Test): void {
-            expect(this.quickSearch.getSearchResultItems().elements.toString()).toEqual('');
+            expect(this.quickSearch.getSearchResultItems().unwrap().elements.toString()).toEqual('');
             this.finder.hostComponent.isTopOfResultsShown = true;
             this.finder.detectChanges();
-            expect(this.quickSearch.getTopOfResults().text()).toEqual('Top of results');
+            expect(this.quickSearch.getTopOfResults().unwrap().text()).toEqual('Top of results');
         });
 
         it('can project content at the bottom of the results', function (this: Test): void {
-            expect(this.quickSearch.getBottomOfResults().elements.toString()).toEqual('');
+            expect(this.quickSearch.getBottomOfResults().unwrap().elements.toString()).toEqual('');
             this.finder.hostComponent.isBottomOfResultsShown = true;
             this.finder.detectChanges();
-            expect(this.quickSearch.getBottomOfResults().text()).toEqual('Bottom of results');
+            expect(this.quickSearch.getBottomOfResults().unwrap().text()).toEqual('Bottom of results');
         });
     });
 
@@ -846,14 +880,14 @@ describe('QuickSearchComponent', () => {
             this.quickSearchData.anotherSimpleProvider.sectionName = 'another section';
             this.quickSearchData.spotlightSearchService.registerProvider(this.quickSearchData.anotherSimpleProvider);
             this.quickSearch.getInput().type('copy');
-            expect(this.quickSearch.getSearchResultSectionTitles().length()).toEqual(1);
+            expect(this.quickSearch.getSearchResultSectionTitles().unwrap().length()).toEqual(1);
 
             // When the type filter is present,, the list of providers is filtered based on it.
             // In this case, the type:simple filter is set and anotherSimpleProvider is removed.
             this.quickSearch.getFilterButton('type').click();
             this.quickSearch.getFilterDropdownOptions(0).click();
-            expect(this.quickSearch.getSearchResultSectionTitles().length()).toEqual(1);
-            expect(this.quickSearch.getSearchResultItems().text()).toEqual('copy');
+            expect(this.quickSearch.getSearchResultSectionTitles().unwrap().length()).toEqual(1);
+            expect(this.quickSearch.getSearchResultItems().unwrap().text()).toEqual('copy');
         });
 
         it('can set filter values through the QuickSearchService', function (this: Test): void {
@@ -869,13 +903,13 @@ describe('QuickSearchComponent', () => {
             this.quickSearchData.anotherSimpleProvider.sectionName = 'another section';
             this.quickSearchData.spotlightSearchService.registerProvider(this.quickSearchData.anotherSimpleProvider);
             this.quickSearch.getInput().type('copy');
-            expect(this.quickSearch.getSearchResultSectionTitles().length()).toEqual(1);
+            expect(this.quickSearch.getSearchResultSectionTitles().unwrap().length()).toEqual(1);
 
             // When the type filter is present, the list of providers is filtered based on it.
             // In this case, the type:simple filter is set and anotherSimpleProvider is removed.
             this.quickSearchData.spotlightSearchService.selectFilter('type', ['simple']);
-            expect(this.quickSearch.getSearchResultSectionTitles().length()).toEqual(1);
-            expect(this.quickSearch.getSearchResultItems().text()).toEqual('copy');
+            expect(this.quickSearch.getSearchResultSectionTitles().unwrap().length()).toEqual(1);
+            expect(this.quickSearch.getSearchResultItems().unwrap().text()).toEqual('copy');
         });
     });
 });

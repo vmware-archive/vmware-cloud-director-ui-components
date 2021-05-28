@@ -64,8 +64,8 @@ class HeaderWidgetObject<T> extends BaseWidgetObject<T> {
     /**
      * This is a bad example for a method for an h1 because an h1 widget can't know that it contains a b tag
      */
-    getBoldText(): T {
-        return this.el.get('b').unwrap();
+    getBoldText() {
+        return this.el.get('b');
     }
 }
 
@@ -78,23 +78,20 @@ class HeaderWidgetObject<T> extends BaseWidgetObject<T> {
 class ClickTrackerWidgetObject<T> extends BaseWidgetObject<T> {
     static tagName = 'vcd-click-tracker';
 
-    private _getClickCount = this.internalFactory.dataUi(DataUi.clickCount);
-
-    getClickCount = this.factory.unwrap(this._getClickCount);
+    getClickCount = this.factory.dataUi(DataUi.clickCount);
 
     getHeaderText = this.factory.dataUi(DataUi.header);
 
     getTrackerElement = this.factory.dataUi(DataUi.clickReceiver);
 
-    _getNameInput = this.internalFactory.dataUi(DataUi.nameInput);
     getNameInput = this.factory.dataUi(DataUi.nameInput);
 
     getButtons = this.factory.dataUi(DataUi.button);
 
     getButtonByLabel = this.factory.dataUi('button');
 
-    getTrackerElementUsingParent(): T {
-        return this._getClickCount().parents(`[data-ui=${DataUi.clickReceiver}]`).unwrap();
+    getTrackerElementUsingParent() {
+        return this.getClickCount().parents(`[data-ui=${DataUi.clickReceiver}]`);
     }
 
     findHeaderWidget(): HeaderWidgetObject<T> {
@@ -102,8 +99,8 @@ class ClickTrackerWidgetObject<T> extends BaseWidgetObject<T> {
     }
 
     typeNameInput(value: string) {
-        this._getNameInput().clear();
-        this._getNameInput().type(value);
+        this.getNameInput().clear();
+        this.getNameInput().type(value);
     }
 }
 
@@ -145,7 +142,7 @@ describe('AngularWidgetFinder', () => {
         describe('find', () => {
             it('returns the first one within the fixture if no classname is specified', function (this: HasAngularFinder): void {
                 const widget = this.finder.find<ClickTrackerWidgetObject<TestElement>>(ClickTrackerWidgetObject);
-                expect(widget.getHeaderText().text()).toEqual('hello');
+                expect(widget.getHeaderText().unwrap().text()).toEqual('hello');
             });
         });
     });
@@ -167,26 +164,26 @@ describe('AngularWidgetObjectElement', () => {
 
     describe('get', () => {
         it('can find elements by CSS selector', function (this: HasClickTracker): void {
-            expect(this.clickTracker.getClickCount().text()).toEqual('0');
+            expect(this.clickTracker.getClickCount().unwrap().text()).toEqual('0');
         });
         it('can find an element by text', function (this: HasClickTracker): void {
-            expect(this.clickTracker.getButtonByLabel({ text: 'BUTTON2' }).text()).toEqual('BUTTON2');
+            expect(this.clickTracker.getButtonByLabel({ text: 'BUTTON2' }).unwrap().text()).toEqual('BUTTON2');
         });
         it('can find an element by index', function (this: HasClickTracker): void {
-            expect(this.clickTracker.getButtonByLabel({ index: 0 }).text()).toEqual('BUTTON');
+            expect(this.clickTracker.getButtonByLabel({ index: 0 }).unwrap().text()).toEqual('BUTTON');
         });
     });
 
     describe('findWidget', () => {
         it('can find widgets within widgets', function (this: HasClickTracker): void {
-            expect(this.clickTracker.findHeaderWidget().getBoldText().text()).toEqual('hello');
+            expect(this.clickTracker.findHeaderWidget().getBoldText().unwrap().text()).toEqual('hello');
         });
     });
 
     describe('parents', () => {
         it('can find a parent by css selector', function (this: HasClickTracker): void {
             this.clickTracker.getTrackerElementUsingParent().click();
-            expect(this.clickTracker.getClickCount().text()).toEqual('1');
+            expect(this.clickTracker.getClickCount().unwrap().text()).toEqual('1');
         });
     });
 });
@@ -211,14 +208,14 @@ describe('TestElement', () => {
 
     describe('text', () => {
         it('can find elements within itself passing a css query', function (this: HasClickTracker): void {
-            expect(this.clickTracker.getClickCount().text()).toEqual('0');
+            expect(this.clickTracker.getClickCount().unwrap().text()).toEqual('0');
         });
     });
 
     describe('click', () => {
         it('calls detectChanges after clicking', function (this: HasClickTracker): void {
             this.clickTracker.getTrackerElement().click();
-            expect(this.clickTracker.getClickCount().text()).toEqual('1');
+            expect(this.clickTracker.getClickCount().unwrap().text()).toEqual('1');
         });
     });
 
@@ -227,7 +224,7 @@ describe('TestElement', () => {
             this.clickTracker.self().getComponentInstance().name = 'Ryan';
             this.clickTracker.self().detectChanges();
             tick();
-            expect(this.clickTracker.getNameInput().value()).toEqual('Ryan');
+            expect(this.clickTracker.getNameInput().unwrap().value()).toEqual('Ryan');
         }));
     });
 
@@ -236,15 +233,15 @@ describe('TestElement', () => {
             this.clickTracker.self().getComponentInstance().name = 'Ryan';
             this.clickTracker.self().detectChanges();
             tick();
-            expect(this.clickTracker.getNameInput().value()).toEqual('Ryan');
+            expect(this.clickTracker.getNameInput().unwrap().value()).toEqual('Ryan');
             this.clickTracker.getNameInput().clear();
-            expect(this.clickTracker.getNameInput().value()).toEqual('');
+            expect(this.clickTracker.getNameInput().unwrap().value()).toEqual('');
         }));
     });
 
     describe('length', () => {
         it('says how many elements are in this TestElement', function (this: HasClickTracker): void {
-            expect(this.clickTracker.getButtons().length()).toEqual(2);
+            expect(this.clickTracker.getButtons().unwrap().length()).toEqual(2);
         });
     });
 
@@ -253,6 +250,7 @@ describe('TestElement', () => {
             expect(
                 this.clickTracker
                     .getButtons()
+                    .unwrap()
                     .toArray()
                     .map((el) => el.text())
             ).toEqual(['BUTTON', 'BUTTON2']);
@@ -261,16 +259,16 @@ describe('TestElement', () => {
 
     describe('classes', () => {
         it('gives the classes of an input', function (this: HasClickTracker): void {
-            expect(this.clickTracker.getNameInput().classes()).toContain('name');
+            expect(this.clickTracker.getNameInput().unwrap().classes()).toContain('name');
         });
     });
 
     describe('clear', () => {
         it('clears a given input', function (this: HasClickTracker): void {
             this.clickTracker.typeNameInput('ryan');
-            expect(this.clickTracker.getNameInput().value()).toEqual('ryan');
+            expect(this.clickTracker.getNameInput().unwrap().value()).toEqual('ryan');
             this.clickTracker.typeNameInput('hannah');
-            expect(this.clickTracker.getNameInput().value()).toEqual('hannah');
+            expect(this.clickTracker.getNameInput().unwrap().value()).toEqual('hannah');
         });
     });
 });

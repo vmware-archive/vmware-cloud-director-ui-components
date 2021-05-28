@@ -121,10 +121,10 @@ export class ClrDatagridWidgetObject<T> extends BaseWidgetObject<T> {
     getSpinner = this.factory.css(Css.SPINNER);
 
     /**
-     * Helper function to retrieve a row
+     * Return a row by index
      * @param row 0-based index of row
      */
-    private _getRow(row: number): WidgetObjectElement<T> {
+    getRow(row: number): WidgetObjectElement<T> {
         return this.el.get(`${Css.ROW}:nth-of-type(${row + 1})`);
     }
 
@@ -133,25 +133,15 @@ export class ClrDatagridWidgetObject<T> extends BaseWidgetObject<T> {
      * @param row 0-based index of row
      * @param col 0-based index of column
      */
-    getCell(row: number, col: number): T {
-        return this._getRow(row)
-            .get(`${Css.CELL}:nth-of-type(${col + 1})`)
-            .unwrap();
-    }
-
-    /**
-     * Return a row by index
-     * @param row 0-based index of row
-     */
-    getRow(row: number): T {
-        return this._getRow(row).unwrap();
+    getCell(row: number, col: number) {
+        return this.getRow(row).get(`${Css.CELL}:nth-of-type(${col + 1})`);
     }
 
     /**
      * Return a column by index
      * @param col 0-based index of column
      */
-    getColumn(col: number): T {
+    getColumn(col: number) {
         return this.factory.css(`${Css.COLUMN}:nth-of-type(${col + 1})`)();
     }
 
@@ -159,30 +149,30 @@ export class ClrDatagridWidgetObject<T> extends BaseWidgetObject<T> {
      * Returns all the cell elements in the given row
      * @param row 0-based index of row
      */
-    getRowCell(row: number): T {
-        return this._getRow(row).get(Css.CELL).unwrap();
+    getRowCell(row: number) {
+        return this.getRow(row).get(Css.CELL);
     }
 
     /**
      * Returns the button on the top of the grid with the given buttonClass
      */
-    getTopButton(btnClass: string): T {
+    getTopButton(btnClass: string) {
         return this.factory.css(`button.${btnClass}`)();
     }
 
     /**
      * Returns the button at a row with the given buttonClass
      */
-    getRowButton(btnClass: string, row: number): T {
-        return this._getRow(row).get(`button.${btnClass}`).unwrap();
+    getRowButton(btnClass: string, row: number) {
+        return this.getRow(row).get(`button.${btnClass}`);
     }
 
     /**
      * Returns a header
      * @param col 0-based index of header
      */
-    getColumnHeader(col: number): T {
-        return this.el.get(`${Css.COLUMN_TITLE}:nth-of-type(${col + 1})`).unwrap();
+    getColumnHeader(col: number) {
+        return this.el.get(`${Css.COLUMN_TITLE}:nth-of-type(${col + 1})`);
     }
 
     /**
@@ -190,14 +180,14 @@ export class ClrDatagridWidgetObject<T> extends BaseWidgetObject<T> {
      * perform both single and multiple selection
      * @param row 0-based index of row
      */
-    getSelectionLabelForRow(row: number): T {
-        return this._getRow(row).get(Css.ROW_ACTION_CONTAINER).unwrap();
+    getSelectionLabelForRow(row: number) {
+        return this.getRow(row).get(Css.ROW_ACTION_CONTAINER);
     }
 
     /**
      * Returns filter toggle
      */
-    get filterToggle(): T {
-        return this.el.get(Css.COLUMN).get(Css.FILTER).get(Css.FILTER_TOGGLE).unwrap();
+    get filterToggle() {
+        return this.el.get(Css.COLUMN).get(Css.FILTER).get(Css.FILTER_TOGGLE);
     }
 }
