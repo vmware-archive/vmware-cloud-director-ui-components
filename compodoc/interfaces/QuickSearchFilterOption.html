@@ -269,6 +269,11 @@ export interface QuickSearchFilter {
      * The i18n key for the selection bubble of this filter. Is passed one parameter {display} which is the value selected.
      */
     bubbleI18nKey: string;
+    /**
+     * The order of the filter when displaying the filters. The lower the order, the closer to the beginning.
+     * undefined and -1 means append
+     */
+    order?: number;
 }
 
 /**
@@ -391,30 +396,7 @@ export class QuickSearchService {
      * @param provider The search provider {@link QuickSearchProvider}
      */
     public registerProvider(provider: QuickSearchProvider): void {
-        const order &#x3D; typeof provider.order &#x3D;&#x3D;&#x3D; &#x27;undefined&#x27; ? -1 : provider.order;
-
-        let insertIndex &#x3D; -1;
-        // Determine the position of the new registration
-        if (order &gt; -1) {
-            insertIndex &#x3D; this.registrations.findIndex((prov) &#x3D;&gt; {
-                // If an item has a negative index, this means no order had been provided for that item
-                // which means we have found the insert index
-                if (prov.order &lt; 0) {
-                    return true;
-                }
-
-                // If an item has a bigger order than the new one means we have found the insert index
-                if (order &lt; prov.order) {
-                    return true;
-                }
-            });
-        }
-
-        if (insertIndex &gt; -1) {
-            this.registrations.splice(insertIndex, 0, provider);
-        } else {
-            this.registrations.push(provider);
-        }
+        insertInOrder(provider, this.registrations);
         this.updateActiveSections(this.lastActiveFilters);
     }
 
@@ -435,30 +417,7 @@ export class QuickSearchService {
      * Registers a nested provider to search for results in quick search.
      */
     public registerNestedProvider(nestedProvider: QuickSearchNestedProvider) {
-        const order &#x3D; typeof nestedProvider.order &#x3D;&#x3D;&#x3D; &#x27;undefined&#x27; ? -1 : nestedProvider.order;
-
-        let insertIndex &#x3D; -1;
-        // Determine the position of the new registration
-        if (order &gt; -1) {
-            insertIndex &#x3D; this.nestedProviders.findIndex((prov) &#x3D;&gt; {
-                // If an item has a negative index, this means no order had been provided for that item
-                // which means we have found the insert index
-                if (prov.order &lt; 0) {
-                    return true;
-                }
-
-                // If an item has a bigger order than the new one means we have found the insert index
-                if (order &lt; prov.order) {
-                    return true;
-                }
-            });
-        }
-
-        if (insertIndex &gt; -1) {
-            this.nestedProviders.splice(insertIndex, 0, nestedProvider);
-        } else {
-            this.nestedProviders.push(nestedProvider);
-        }
+        insertInOrder(nestedProvider, this.nestedProviders);
         this.updateActiveSections(this.lastActiveFilters);
     }
 
@@ -512,15 +471,15 @@ export class QuickSearchService {
      * If two filters of different IDs are used in the search, the filters should act like and&#x27;s. If two filters of the same ID
      * are present in the search, the filter should act like an or.
      */
-    public registerFilters(filter: QuickSearchFilter[]) {
-        this.filters.push(...filter);
+    public registerFilter(filter: QuickSearchFilter) {
+        insertInOrder(filter, this.filters);
     }
 
     /**
      * Removes the given filterId from the list of registered filters.
      */
     public unregisterFilter(filterId: string) {
-        this.filters.filter((filter) &#x3D;&gt; filter.id !&#x3D;&#x3D; filterId);
+        this.filters &#x3D; this.filters.filter((filter) &#x3D;&gt; filter.id !&#x3D;&#x3D; filterId);
     }
 
     /**
@@ -531,12 +490,16 @@ export class QuickSearchService {
      * @example selectFilter(&#x27;type&#x27;, &#x27;org&#x27;) selects the Organization option in the &quot;Type&quot; filter.
      */
     public selectFilter(filterId: string, filterValues: string[], clear: boolean &#x3D; true): void {
+        const foundFilter &#x3D; this.filters.find((filter) &#x3D;&gt; filter.id &#x3D;&#x3D;&#x3D; filterId);
+        if (!foundFilter) {
+            return;
+        }
+
         if (clear) {
             this.filterValues.set(filterId, []);
         }
 
         for (const optionKey of filterValues.filter(Boolean)) {
-            const foundFilter &#x3D; this.filters.find((filter) &#x3D;&gt; filter.id &#x3D;&#x3D;&#x3D; filterId);
             const foundOption &#x3D; foundFilter.options.find((option) &#x3D;&gt; option.key &#x3D;&#x3D;&#x3D; optionKey);
 
             if (foundOption &#x3D;&#x3D;&#x3D; undefined) {
@@ -781,6 +744,34 @@ export class QuickSearchService {
         return this.getFlattenedSearchSections().every((section) &#x3D;&gt; section.result?.items?.length &#x3D;&#x3D;&#x3D; 0);
     }
 }
+
+const insertInOrder &#x3D; (item: { order?: number }, orderedArray: { order?: number }[]): void &#x3D;&gt; {
+    const order &#x3D; typeof item.order &#x3D;&#x3D;&#x3D; &#x27;undefined&#x27; ? -1 : item.order;
+
+    let insertIndex &#x3D; -1;
+    // Determine the position of the new registration
+    if (order &gt; -1) {
+        insertIndex &#x3D; orderedArray.findIndex((fltr) &#x3D;&gt; {
+            // If an item has a negative index, this means no order had been provided for that item,
+            // this means we have found the insert index
+            if (fltr.order &lt; 0 || typeof fltr.order &#x3D;&#x3D;&#x3D; &#x27;undefined&#x27;) {
+                return true;
+            }
+
+            // If an item has a bigger order than the new one,
+            // this means we have found the insert index
+            if (order &lt; fltr.order) {
+                return true;
+            }
+        });
+    }
+
+    if (insertIndex &gt; -1) {
+        orderedArray.splice(insertIndex, 0, item);
+    } else {
+        orderedArray.push(item);
+    }
+};
 </code></pre>
     </div>
 </div>

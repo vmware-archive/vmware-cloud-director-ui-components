@@ -130,6 +130,9 @@
                             <a href="#idGenerator" title="projects/components/src/utils/test/widget-object/cypress/cypress-widget-finder.ts"><b>idGenerator</b>&nbsp;&nbsp;&nbsp;(projects/.../cypress-widget-finder.ts)</a>
                         </li>
                         <li>
+                            <a href="#insertInOrder" title="projects/components/src/quick-search/quick-search.service.ts"><b>insertInOrder</b>&nbsp;&nbsp;&nbsp;(projects/.../quick-search.service.ts)</a>
+                        </li>
+                        <li>
                             <a href="#LEADING_CONTROL_CHAR" title="projects/components/src/data-exporter/csv-exporter.service.ts"><b>LEADING_CONTROL_CHAR</b>&nbsp;&nbsp;&nbsp;(projects/.../csv-exporter.service.ts)</a>
                         </li>
                         <li>
@@ -1402,6 +1405,56 @@ As such, from the tests, you need to manually call this method.</p>
                     <tr>
                         <td class="col-md-4">
                             <i>Default value : </i><code>new IdGenerator(&#x27;vcd-multiselect-filter-id&#x27;)</code>
+                        </td>
+                    </tr>
+
+
+            </tbody>
+        </table>
+</section>
+    <h3>projects/components/src/quick-search/quick-search.service.ts</h3>
+    <section>
+    <h3></h3>        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="insertInOrder"></a>
+                        <span class="name">
+                            <b>
+                            insertInOrder</b>
+                            <a href="#insertInOrder"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Default value : </i><code>(item: { order?: number }, orderedArray: { order?: number }[]): void &#x3D;&gt; {
+    const order &#x3D; typeof item.order &#x3D;&#x3D;&#x3D; &#x27;undefined&#x27; ? -1 : item.order;
+
+    let insertIndex &#x3D; -1;
+    // Determine the position of the new registration
+    if (order &gt; -1) {
+        insertIndex &#x3D; orderedArray.findIndex((fltr) &#x3D;&gt; {
+            // If an item has a negative index, this means no order had been provided for that item,
+            // this means we have found the insert index
+            if (fltr.order &lt; 0 || typeof fltr.order &#x3D;&#x3D;&#x3D; &#x27;undefined&#x27;) {
+                return true;
+            }
+
+            // If an item has a bigger order than the new one,
+            // this means we have found the insert index
+            if (order &lt; fltr.order) {
+                return true;
+            }
+        });
+    }
+
+    if (insertIndex &gt; -1) {
+        orderedArray.splice(insertIndex, 0, item);
+    } else {
+        orderedArray.push(item);
+    }
+}</code>
                         </td>
                     </tr>
 
