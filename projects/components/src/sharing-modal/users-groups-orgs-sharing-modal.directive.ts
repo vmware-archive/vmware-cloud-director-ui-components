@@ -182,6 +182,7 @@ export class UsersGroupsOrgsSharingModalDirective implements OnInit {
                     {
                         links: false,
                         multisite: true,
+                        format: Query.Format,
                     }
                 )
                 .toPromise();
