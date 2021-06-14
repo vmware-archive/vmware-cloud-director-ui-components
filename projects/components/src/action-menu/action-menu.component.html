@@ -90,6 +90,7 @@
         [ngClass]="action.class"
         (click)="runActionHandler(action)"
         [disabled]="isActionDisabled(action)"
+        [attr.data-ui]="action.textKey"
     >
         <ng-container *ngIf="shouldShowText">{{
             action.isTranslatable === false ? action.textKey : (action.textKey | translate)
