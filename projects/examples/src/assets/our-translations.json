@@ -13,7 +13,11 @@
         "grouped.actions.with.single.child": "Grouped actions with single child",
         "contextual.actions": "Contextual actions",
         "result.filter.identifier": "Result: {option}",
-        "provider.filter.identifier": "Provider: {option}"
+        "provider.filter.identifier": "Provider: {option}",
+        "actionMenu.dataUi.example.static.featured": "Static Featured",
+        "actionMenu.dataUi.example.static": "Static",
+        "actionMenu.dataUi.example.contextual": "Contextual",
+        "actionMenu.dataUi.example.contextual.featured": "Contextual Featured"
     },
     "de": {
         "select.all": "Wählen Sie Alle",
