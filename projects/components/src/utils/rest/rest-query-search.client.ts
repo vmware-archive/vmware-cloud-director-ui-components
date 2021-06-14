@@ -43,6 +43,7 @@ export interface RestQuery {
 export interface RestQueryOptions {
     links?: boolean;
     multisite?: boolean;
+    format?: Query.Format;
 }
 
 /**
@@ -87,6 +88,10 @@ export class RestQueryService extends VcdApiClient {
         let multisite: boolean;
         if (options?.multisite) {
             multisite = options.multisite;
+        }
+
+        if (options?.format) {
+            toSend.format(options.format);
         }
 
         return this.query(toSend, multisite);

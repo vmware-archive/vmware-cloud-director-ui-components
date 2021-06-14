@@ -8,3 +8,4 @@ export * from './test/index';
 export * from './unit/unit';
 export * from './unit/unit-formatter';
 export * from './common-util';
+export * from './filter-builder';
