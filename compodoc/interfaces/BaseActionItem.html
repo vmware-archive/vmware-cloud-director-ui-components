@@ -581,7 +581,8 @@ to the handler call</p>
 
                             <tr>
                                 <td class="col-md-4">
-                                    <div class="io-description"><p>The i18n key or a translated string for contents of a action button</p>
+                                    <div class="io-description"><p>The i18n key or a translated string for contents of a action button. This is also added as the data-ui attribute on a action button
+HTML element so that it can be used as a CSS selector</p>
 </div>
                                 </td>
                             </tr>
@@ -626,7 +627,8 @@ export type ActionHandlerType&lt;R, T&gt; &#x3D; (selectedEntities?: R[], handle
  */
 export interface BaseActionItem&lt;R, T&gt; {
     /**
-     * The i18n key or a translated string for contents of a action button
+     * The i18n key or a translated string for contents of a action button. This is also added as the data-ui attribute on a action button
+     * HTML element so that it can be used as a CSS selector
      */
     textKey?: string;
     /**
