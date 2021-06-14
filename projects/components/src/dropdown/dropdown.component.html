@@ -75,6 +75,7 @@
                         (keydown.space)="onDropdownItemActivated($event)"
                         (keydown.escape)="onDropdownEscPressed($event)"
                         [clrDisabled]="isItemDisabled(item)"
+                        [attr.data-ui]="item.textKey"
                     >
                         <ng-container *ngIf="shouldShowText">{{
                             item.isTranslatable === false ? item.textKey : (item.textKey | translate)

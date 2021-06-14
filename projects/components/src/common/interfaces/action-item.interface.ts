@@ -40,7 +40,8 @@ export type ActionHandlerType<R, T> = (selectedEntities?: R[], handlerData?: T) 
  */
 export interface BaseActionItem<R, T> {
     /**
-     * The i18n key or a translated string for contents of a action button
+     * The i18n key or a translated string for contents of a action button. This is also added as the data-ui attribute on a action button
+     * HTML element so that it can be used as a CSS selector
      */
     textKey?: string;
     /**
