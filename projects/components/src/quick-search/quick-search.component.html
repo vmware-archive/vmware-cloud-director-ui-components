@@ -20,7 +20,7 @@
 
 <ng-template #filtersSection>
     <div class="filter-container" *ngIf="this.searchService.filters.length > 0">
-        <p>Filter By</p>
+        <p>{{ 'vcd.cc.search.filterBy' | translate }}</p>
         <ng-container *ngFor="let filter of this.searchService.filters; trackBy: filterTrackBy">
             <clr-dropdown
                 [clrCloseMenuOnItemClick]="false"
