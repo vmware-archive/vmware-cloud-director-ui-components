@@ -5,7 +5,7 @@
 
 import { CommonUtil } from '../utils';
 import { QuickSearchResultsType } from './quick-search-result';
-import { ActiveQuickSearchFilter } from './quick-search.component';
+import { ActiveQuickSearchFilter } from './quick-search.service';
 
 export const PROVIDER_SEARCH_DEBOUNCE_TIME = 300;
 
@@ -63,13 +63,6 @@ export interface QuickSearchProvider {
     data: unknown;
 
     /**
-     * Whether a provider section should be hidden if there are no results.
-     * When `true` the section will not be displayed if it contains no data.
-     * Defaults to `false` and in that case the section is always visible, rendering 'No results found.'
-     */
-    hideWhenEmpty?: boolean;
-
-    /**
      * Returns an array or a promise of array of items that comply with the search criteria.
      * @param criteria The search string provided by the user when typing in the Quick Search Component
      */
@@ -79,6 +72,11 @@ export interface QuickSearchProvider {
      * Says whether this provider can return results with the given filter applied.
      */
     canHandleFilter?(filter: ActiveQuickSearchFilter): boolean;
+
+    /**
+     * The icon that is displayed next to the search section title. This is the shape property put into the clr-icon.
+     */
+    icon?: string;
 }
 
 export abstract class QuickSearchProviderDefaults implements QuickSearchProvider {
@@ -97,7 +95,6 @@ export abstract class QuickSearchProviderDefaults implements QuickSearchProvider
     }
     sectionName = '';
     order = -1;
-    hideWhenEmpty = false;
     data: unknown;
     parentSectionName?: string;
 

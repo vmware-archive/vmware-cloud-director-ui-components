@@ -7,24 +7,19 @@ import { AfterViewInit, Component, EventEmitter, Input, OnDestroy, OnInit, Outpu
 import { ClrDatagridPagination } from '@clr/angular';
 import { LazyString, TranslationService } from '@vcd/i18n';
 import { Observable } from 'rxjs';
-import {
-    ActionDisplayConfig,
-    ActionItem,
-    ActionStyling,
-    ActionType,
-    TextIcon,
-} from '../../common/interfaces/action-item.interface';
-import { SubscriptionTracker } from '../../common/subscription';
+import { ActionItem, ActionStyling, ActionType, TextIcon } from '../../common/interfaces/action-item.interface';
+import { SubscriptionTracker } from '../../common/subscription/subscription-tracker';
 import {
     ColumnComponentRendererSpec,
     ComponentRendererConstructor,
     ComponentRendererSpec,
-    ContextualActionPosition,
+    DatagridContextualActionPosition,
     GridColumn,
     GridDataFetchResult,
     GridState,
     PaginationConfiguration,
 } from '../../datagrid';
+import { DatagridActionDisplayConfig } from '../../datagrid/interfaces/datagrid-action-display.interface';
 import { CommonUtil } from '../../utils/common-util';
 import { RightsDropdownRendererComponent } from '../renderers/rights-dropdown-renderer';
 import { ComboOption } from '../select-all-checkbox/select-all-toggle.component';
@@ -134,9 +129,10 @@ export interface SharingTab<T> extends PredefinedSharingTab<T> {
     selector: 'vcd-sharing-modal-tab',
     templateUrl: 'sharing-modal-tab.component.html',
     styleUrls: ['./sharing-modal-tab.component.scss'],
+    providers: [SubscriptionTracker],
 })
-export class SharingModalTabComponent<T> implements OnInit, OnDestroy, AfterViewInit {
-    constructor(public translationService: TranslationService) {}
+export class SharingModalTabComponent<T> implements OnInit, AfterViewInit {
+    constructor(public translationService: TranslationService, private subTracker: SubscriptionTracker) {}
 
     /**
      * Which of the user type this entity is already share dwith.
@@ -230,15 +226,13 @@ export class SharingModalTabComponent<T> implements OnInit, OnDestroy, AfterView
         },
     ];
 
-    actionDisplayConfig: ActionDisplayConfig = {
+    actionDisplayConfig: DatagridActionDisplayConfig = {
         contextual: {
-            featuredCount: 1,
             styling: ActionStyling.INLINE,
             buttonContents: TextIcon.ICON,
+            position: DatagridContextualActionPosition.ROW,
         },
     };
-
-    rowPosition = ContextualActionPosition.ROW;
 
     paginationInfo: PaginationConfiguration = {
         pageSize: 10,
@@ -256,7 +250,6 @@ export class SharingModalTabComponent<T> implements OnInit, OnDestroy, AfterView
      */
     searchError: string = undefined;
 
-    private subTracker: SubscriptionTracker = new SubscriptionTracker(this);
     private bufferedSearch: (criteria?: string) => Promise<SearchResult<T>>;
     private allSharedWith: IsSelected<T>[] = [];
     private gridState: GridState<IsSelected<T>>;
@@ -417,8 +410,6 @@ export class SharingModalTabComponent<T> implements OnInit, OnDestroy, AfterView
                 .then((result) => result)
                 .then((result) => result);
     }
-
-    ngOnDestroy(): void {}
 
     ngAfterViewInit(): void {
         this.updateGridItems();

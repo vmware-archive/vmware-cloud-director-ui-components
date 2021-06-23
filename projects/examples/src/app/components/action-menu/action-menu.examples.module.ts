@@ -9,6 +9,8 @@ import { ActionMenuComponent } from '@vcd/ui-components';
 import { Documentation } from '@vmw/ng-live-docs';
 import { ActionMenuContextualActionsExampleComponent } from './contextual-actions/action-menu-contextual-actions-example.component';
 import { ActionMenuContextualActionsExampleModule } from './contextual-actions/action-menu-contextual-actions-example.module';
+import { ActionMenuDataUiExampleComponent } from './data-ui-attribute/action-menu-data-ui-example.component';
+import { ActionMenuDataUiExampleModule } from './data-ui-attribute/action-menu-data-ui-example.module';
 import { ActionMenuHideDisableExampleComponent } from './hide-disable/action-menu-hide-disable-example.component';
 import { ActionMenuHideDisableExampleModule } from './hide-disable/action-menu-hide-disable.example.module';
 import { ActionMenuSearchDebounceExampleComponent } from './search-debounce/action-menu-search-debounce.example.component';
@@ -80,6 +82,12 @@ Documentation.registerDocumentationEntry({
             title: 'Debounced Action Search',
             urlSegment: 'action-menu-search-debounce',
         },
+        {
+            component: ActionMenuDataUiExampleComponent,
+            forComponent: null,
+            title: 'Data-ui attributes on actions',
+            urlSegment: 'action-menu-data-ui-attr',
+        },
     ],
 });
 
@@ -93,6 +101,7 @@ Documentation.registerDocumentationEntry({
         ActionMenuHideDisableExampleModule,
         ActionMenuSearchExampleModule,
         ActionMenuSearchDebounceExampleModule,
+        ActionMenuDataUiExampleModule,
     ],
 })
 export class ActionMenuExamplesModule {}

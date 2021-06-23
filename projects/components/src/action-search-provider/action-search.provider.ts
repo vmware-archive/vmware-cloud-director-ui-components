@@ -4,6 +4,8 @@
  */
 
 import { TranslationService } from '@vcd/i18n';
+import { isObservable } from 'rxjs';
+import { last, take, takeLast } from 'rxjs/operators';
 import { ActionItem } from '../common/interfaces';
 import {
     QuickSearchProvider,
@@ -63,6 +65,10 @@ export class ActionSearchProvider<R, T> extends QuickSearchProviderDefaults impl
         this.isReadyToSearchPromise = this.readyToSearchPromiseFactory();
     }
 
+    canHandleFilter(): boolean {
+        return true;
+    }
+
     private readyToSearchPromiseFactory(): Promise<null> {
         return new Promise<null>((resolve, reject) => {
             this.resolveIsReadyToSearch = resolve;
@@ -83,7 +89,7 @@ export class ActionSearchProvider<R, T> extends QuickSearchProviderDefaults impl
         }
 
         if (this.flatListOfAvailableActions == null) {
-            this.flatListOfAvailableActions = this.getFlatListOfAvailableActions(this._actions);
+            this.flatListOfAvailableActions = await this.getFlatListOfAvailableActions(this._actions);
         }
         return { items: this.getActions(criteria.toLowerCase()) };
     }
@@ -97,30 +103,43 @@ export class ActionSearchProvider<R, T> extends QuickSearchProviderDefaults impl
             }));
     }
 
-    private getFlatListOfAvailableActions(actions: ActionItem<R, T>[]): ActionItem<R, T>[] {
-        return actions.reduce((flatActionList, currentAction) => {
+    private async getFlatListOfAvailableActions(actions: ActionItem<R, T>[]): Promise<ActionItem<R, T>[]> {
+        let flatActionList = [];
+        for (const currentAction of actions) {
             if (currentAction?.children) {
-                if (currentAction.children.length === 0) {
-                    return flatActionList;
+                if (currentAction.children.length > 0) {
+                    flatActionList = flatActionList.concat(
+                        await this.getFlatListOfAvailableActions(currentAction.children)
+                    );
                 }
-                flatActionList = flatActionList.concat(this.getFlatListOfAvailableActions(currentAction.children));
-            } else if (this.isActionAvailable(currentAction)) {
+                continue;
+            }
+            if (await this.isActionAvailable(currentAction)) {
                 const textKey =
                     currentAction.isTranslatable === false
                         ? currentAction.textKey
                         : this.ts.translate(currentAction.textKey);
                 flatActionList.push({ ...currentAction, textKey });
             }
-            return flatActionList;
-        }, []);
+        }
+        return flatActionList;
     }
 
-    private isActionAvailable(action: ActionItem<R, T>): boolean {
-        return (
-            !action.isSeparator &&
-            (!action.availability || action.availability(this._selectedEntities)) &&
-            !this.isActionDisabled(action)
-        );
+    private async isActionAvailable(action: ActionItem<R, T>): Promise<boolean> {
+        if (action.isSeparator) {
+            return false;
+        }
+        let actionAvailability;
+        if (action.availability == null) {
+            actionAvailability = true;
+        } else if (typeof action.availability === 'boolean') {
+            actionAvailability = action.availability;
+        } else if (isObservable(action.availability)) {
+            actionAvailability = await action.availability.pipe(take(1)).toPromise();
+        } else {
+            actionAvailability = action.availability(this._selectedEntities);
+        }
+        return actionAvailability && !this.isActionDisabled(action);
     }
 
     private isActionDisabled(action: ActionItem<R, T>): boolean {

@@ -7,14 +7,14 @@
             {{ selectedOption.isTranslatable ? (selectedOption.display | translate) : selectedOption.display }}
         </span>
         <div class="clr-control-container" [ngClass]="{ 'clr-error': showErrors }">
-            <div class="clr-select-wrapper" *ngIf="!isReadOnly">
+            <div class="clr-select-wrapper" [ngClass]="{ 'showing-hint': !!hint }" *ngIf="!isReadOnly">
                 <select
                     [id]="id"
                     [attr.aria-required]="showAsterisk"
                     [attr.aria-describedby]="showErrors ? errorsId : ''"
                     [formControl]="formControl"
                 >
-                    <option *ngFor="let option of options" [value]="option.value">
+                    <option *ngFor="let option of options" [value]="option.value" [disabled]="option.disabled">
                         {{ option.isTranslatable ? (option.display | translate) : option.display }}
                     </option>
                 </select>
@@ -23,10 +23,20 @@
 
             <ng-content select="aside"></ng-content>
 
+            <clr-signpost *ngIf="hint && !showErrors">
+                <clr-signpost-content [clrPosition]="hintPosition" *clrIfOpen>
+                    <p>{{ hint }}</p>
+                </clr-signpost-content>
+            </clr-signpost>
+
             <span class="clr-subtext" *ngIf="showErrors" [id]="errorsId">
                 <div *ngFor="let key of errorKeys">
                     <div>{{ key | translate: [formControl.value] }}</div>
                 </div>
+            </span>
+
+            <span class="clr-subtext" *ngIf="!showErrors && description" [id]="descriptionId">
+                {{ description }}
             </span>
         </div>
     </div>

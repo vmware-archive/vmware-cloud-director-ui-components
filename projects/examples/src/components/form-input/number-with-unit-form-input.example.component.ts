@@ -18,8 +18,9 @@ import {
     selector: 'vcd-number-with-unit-form-example-component',
     styleUrls: ['./number-with-unit-form-input.example.component.scss'],
     templateUrl: './number-with-unit-form-input.example.component.html',
+    providers: [SubscriptionTracker],
 })
-export class NumberWithUnitFormInputExampleComponent implements AfterViewInit, OnDestroy {
+export class NumberWithUnitFormInputExampleComponent {
     formGroup: FormGroup;
     hertzOptions: Unit[] = [Hertz.Mhz, Hertz.Ghz];
     cpuSpeedFormControlValueUnit: Unit = Hertz.Mhz;
@@ -32,9 +33,11 @@ export class NumberWithUnitFormInputExampleComponent implements AfterViewInit, O
     Bytes = Bytes;
     CheckBoxStyling = CheckBoxStyling;
 
-    subscriptionTracker = new SubscriptionTracker(this);
-
-    constructor(fb: FormBuilder, numberWithUnitsFormValidators: NumberWithUnitsFormValidatorsFactory) {
+    constructor(
+        fb: FormBuilder,
+        numberWithUnitsFormValidators: NumberWithUnitsFormValidatorsFactory,
+        private subscriptionTracker: SubscriptionTracker
+    ) {
         const memoryValidator = numberWithUnitsFormValidators.isInRange(
             10,
             this.maxMemoryAllowedMB,
@@ -53,7 +56,7 @@ export class NumberWithUnitFormInputExampleComponent implements AfterViewInit, O
             readonly: new FormControl(false),
             disabled: new FormControl(false),
             memory: new FormControl(1024 * 2, [Validators.required, memoryValidator]),
-            cpuLimit: new FormControl(1500, [cpuValidator]),
+            cpuLimit: new FormControl(-1, [cpuValidator]),
         });
 
         this.subscriptionTracker.subscribe(this.formGroup.controls.disabled.valueChanges, (value) => {
@@ -66,10 +69,4 @@ export class NumberWithUnitFormInputExampleComponent implements AfterViewInit, O
             }
         });
     }
-
-    ngAfterViewInit(): void {
-        this.formGroup.controls.cpuLimit.setValue(-1);
-    }
-
-    ngOnDestroy(): void {}
 }

@@ -6,6 +6,8 @@
 import { NgModule } from '@angular/core';
 import { DatagridComponent } from '@vcd/ui-components';
 import { Documentation } from '@vmw/ng-live-docs';
+import { DatagridActionDisplayConfigExampleComponent } from './datagrid-action-display-config.example.component';
+import { DatagridActionDisplayConfigExampleModule } from './datagrid-action-display-config.example.module';
 import { DatagridActionMenuTrackingExampleComponent } from './datagrid-action-menu-tracking-example.component';
 import { DatagridActionMenuTrackerExampleModule } from './datagrid-action-menu-tracking.example.module';
 import { DatagridActivityReporterExampleComponent } from './datagrid-activity-reporter.example.component';
@@ -105,14 +107,20 @@ Documentation.registerDocumentationEntry({
         {
             component: DatagridLinkExampleComponent,
             forComponent: null,
-            title: 'Links from Datagrid Example',
+            title: 'Datagrid with actions',
             urlSegment: 'datagrid-link',
         },
         {
             component: DatagridActionMenuTrackingExampleComponent,
             forComponent: null,
-            title: 'Action menu availability tracking',
+            title: 'Hiding of actions',
             urlSegment: 'action-menu-availability-tracking',
+        },
+        {
+            component: DatagridActionDisplayConfigExampleComponent,
+            forComponent: null,
+            title: 'Display config of contextual actions',
+            urlSegment: 'datagrid-action-display-config',
         },
         {
             component: DatagridFilterExampleComponent,
@@ -181,6 +189,7 @@ Documentation.registerDocumentationEntry({
         DatagridLoadingPlaceholderExampleModule,
         DatagridDetailPaneExampleModule,
         DatagridColumnWidthExampleModule,
+        DatagridActionDisplayConfigExampleModule,
     ],
 })
 export class DatagridExamplesModule {}

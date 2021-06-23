@@ -50,6 +50,23 @@
                 </ng-container>
 
                 <ng-container *ngIf="!item.isSeparator && !item.children">
+                    <ng-template
+                        *ngTemplateOutlet="
+                            isObservable(item.availability) ? obsTmpl : actionButtonTmpl;
+                            context: { $implicit: item }
+                        "
+                    ></ng-template>
+                </ng-container>
+
+                <ng-template #obsTmpl let-item>
+                    <ng-template
+                        *ngIf="item.availability | async"
+                        [ngTemplateOutlet]="actionButtonTmpl"
+                        [ngTemplateOutletContext]="{ $implicit: item }"
+                    ></ng-template>
+                </ng-template>
+
+                <ng-template #actionButtonTmpl let-item>
                     <button
                         [ngClass]="[item.class ? item.class : '', shouldShowIcon ? 'btn-icon' : '', 'btn', 'btn-link']"
                         clrDropdownItem
@@ -58,6 +75,7 @@
                         (keydown.space)="onDropdownItemActivated($event)"
                         (keydown.escape)="onDropdownEscPressed($event)"
                         [clrDisabled]="isItemDisabled(item)"
+                        [attr.data-ui]="item.textKey"
                     >
                         <ng-container *ngIf="shouldShowText">{{
                             item.isTranslatable === false ? item.textKey : (item.textKey | translate)
@@ -70,7 +88,7 @@
                             }}</span>
                         </a>
                     </button>
-                </ng-container>
+                </ng-template>
             </ng-container>
         </clr-dropdown-menu>
     </ng-container>

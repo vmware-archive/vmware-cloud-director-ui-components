@@ -51,21 +51,34 @@ export class AngularWidgetObjectFinder<H = unknown> {
         widgetConstructor: FindableWidget<TestElement, W>,
         findOptions: FindAngularWidgetOptions = {}
     ): W {
-        const { cssSelector, ancestor } = findOptions;
+        const { ancestor } = findOptions;
+
+        const ancestorWidget = new AngularWidgetObjectElement(
+            new TestElement([ancestor ? ancestor : this.fixture.debugElement], this.fixture)
+        );
         let query = widgetConstructor.tagName;
-        if (cssSelector) {
-            query += `${cssSelector}`;
+        if (findOptions?.cssSelector) {
+            query = query + findOptions.cssSelector;
         }
-        if (ancestor) {
-            query = query;
+        const parentQuery: FindAngularWidgetOptions = {
+            cssSelector: query,
+            dataUiSelector: findOptions?.dataUiSelector,
+            text: findOptions?.text,
+            index: findOptions?.index,
+            options: findOptions?.options,
+        };
+
+        const element = ancestorWidget.get(parentQuery).unwrap();
+        if (!element.length()) {
+            throw new Error(`Could not find the widget using the query`);
+        }
+        if (element.length() > 1) {
+            throw new Error(`Found ${element.length} elements matching the given query`);
         }
 
-        const root = (ancestor ? ancestor : this.fixture.debugElement).query(By.css(query));
-        if (!root) {
-            throw new Error(`Could not find the widget using the query ${query}`);
-        }
-
-        const widget = new widgetConstructor(new AngularWidgetObjectElement(new TestElement([root], this.fixture)));
+        const widget = new widgetConstructor(
+            new AngularWidgetObjectElement(new TestElement(element.elements, this.fixture))
+        );
         return widget;
     }
 

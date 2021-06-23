@@ -239,6 +239,11 @@ export class NumberWithUnitFormInputComponent extends BaseFormControl implements
         this.unlimitedControlValue = unlimitedChecked;
         this.textInputValue = unlimitedChecked ? '' : this.lastRealValue?.toString() || '';
 
+        // If there is no unit currently selected, we need to writeValue to recalculate everything.
+        if (!this.unitsControlValue && !unlimitedChecked) {
+            this.writeValue(this.getValue());
+        }
+
         if (!unlimitedChecked) {
             // Usability requirements imply the focus to be on the input element when 'unlimited checkbox' is
             // deselected in order to be easier for the user to modify the value.
@@ -333,6 +338,15 @@ export class NumberWithUnitFormInputComponent extends BaseFormControl implements
         }
     }
 
+    /**
+     * Toggles the unlimited checkbox if the formValue is the unlimited value.
+     */
+    updateUnlimitedCheckbox() {
+        if (this.getValue() === this.unlimitedValue && !this.unlimitedControlValue && this.showUnlimitedOption) {
+            this.onUnlimitedCheckboxChange(true);
+        }
+    }
+
     private computeBestUnitAndValue(value: number): void {
         // Nothing to do when setting to unlimited
         if (this.isUnlimitedValue(value)) {
@@ -360,7 +374,7 @@ export class NumberWithUnitFormInputComponent extends BaseFormControl implements
 
         const value = this.textInputValue;
 
-        if (value === '') {
+        if (value === '' || value === null) {
             return null;
         }
 

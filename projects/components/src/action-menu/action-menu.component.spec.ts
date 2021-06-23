@@ -6,18 +6,26 @@
 import { Component } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
 import { MockTranslationService, TranslationService } from '@vcd/i18n';
-import { ActionDisplayConfig, ActionItem, ActionStyling, ActionType, TextIcon } from '../common/interfaces/index';
-import { WidgetFinder, WidgetObject } from '../utils/test/widget-object';
+import {
+    ActionDisplayConfig,
+    ActionItem,
+    ActionStyling,
+    ActionType,
+    ContextualActionInlineDisplayConfig,
+    TextIcon,
+} from '../common/interfaces/index';
+import { BaseWidgetObject } from '../utils/test/widget-object/widget-object';
+import { AngularWidgetObjectFinder } from '../utils/test/widget-object/angular/angular-widget-finder';
 import { ActionMenuComponent, getDefaultActionDisplayConfig } from './action-menu.component';
 import { VcdActionMenuModule } from './action-menu.module';
 import createSpy = jasmine.createSpy;
 
 interface HasFinderAndActionMenu {
-    finder: WidgetFinder<TestHostComponent<Record>>;
+    finder: AngularWidgetObjectFinder<TestHostComponent<Record>>;
     actionMenu: ActionMenuComponent<Record, HandlerData>;
 }
 
-export class ActionMenuWidgetObject<R, T> extends WidgetObject<ActionMenuComponent<R, T>> {
+export class ActionMenuWidgetObject<T> extends BaseWidgetObject<T> {
     static tagName = 'vcd-action-menu';
 }
 
@@ -34,18 +42,16 @@ describe('ActionMenuComponent', () => {
             declarations: [TestHostComponent],
         }).compileComponents();
 
-        this.finder = new WidgetFinder(TestHostComponent);
+        this.finder = new AngularWidgetObjectFinder(TestHostComponent);
         this.finder.detectChanges();
-        this.actionMenu = this.finder.find({
-            woConstructor: ActionMenuWidgetObject,
-        }).component as ActionMenuComponent<Record, HandlerData>;
+        this.actionMenu = this.finder.find(ActionMenuWidgetObject).self().getComponentInstance();
     });
 
     describe('set actions', () => {
         it('marks the actions with no actionType as ActionType.CONTEXTUAL', function (this: HasFinderAndActionMenu): void {
             this.actionMenu.actions = [...ACTIONS_WITH_NO_ACTION_TYPES];
             this.finder.detectChanges();
-            this.actionMenu.actions.forEach((action) => {
+            this.actionMenu._actions.forEach((action) => {
                 expect(action.actionType).toEqual(ActionType.CONTEXTUAL);
             });
         });
@@ -55,7 +61,7 @@ describe('ActionMenuComponent', () => {
             function (this: HasFinderAndActionMenu): void {
                 this.actionMenu.actions = [...FLAT_LIST_OF_ACTIONS_WITH_NO_ACTION_TYPE];
                 this.finder.detectChanges();
-                this.actionMenu.actions.forEach((action) => {
+                this.actionMenu._actions.forEach((action) => {
                     expect(action.actionType).toEqual(ActionType.CONTEXTUAL_FEATURED);
                 });
             }
@@ -66,7 +72,7 @@ describe('ActionMenuComponent', () => {
             this.actionMenu.actionDisplayConfig = { ...ACTION_DISPLAY_CONFIG };
             this.finder.detectChanges();
             const actionDisplayConfig = this.actionMenu.actionDisplayConfig;
-            expect(actionDisplayConfig.contextual.featuredCount).toEqual(2);
+            expect((actionDisplayConfig.contextual as ContextualActionInlineDisplayConfig).featuredCount).toEqual(2);
             expect(actionDisplayConfig.contextual.styling).toEqual(ActionStyling.DROPDOWN);
             expect(actionDisplayConfig.contextual.buttonContents).toEqual(TextIcon.ICON);
             expect(actionDisplayConfig.staticActionStyling).toEqual(ActionStyling.DROPDOWN);
@@ -100,6 +106,15 @@ describe('ActionMenuComponent', () => {
                 );
             }
         );
+        it('default value of buttonContents is TEXT when it is not set', function (this: HasFinderAndActionMenu) {
+            this.actionMenu.actionDisplayConfig = {
+                contextual: {
+                    styling: ActionStyling.INLINE,
+                },
+            };
+            this.finder.detectChanges();
+            expect(this.actionMenu.actionDisplayConfig.contextual.buttonContents).toEqual(TextIcon.TEXT);
+        });
     });
     it('get staticActions returns only the actions that are marked as static', function (this: HasFinderAndActionMenu): void {
         this.actionMenu.actions = [...STATIC_ACTIONS].concat([...CONTEXTUAL_FEATURED_ACTIONS]);
@@ -140,12 +155,13 @@ describe('ActionMenuComponent', () => {
             });
         });
         it('does not return an action list with more items than featuredCount', function (this: HasFinderAndActionMenu): void {
-            const ACTION_DISPLAY_CONFIG_WITH_ONE_FEATURED = {
-                contextual: { ...ACTION_DISPLAY_CONFIG.contextual },
+            this.actionMenu.actionDisplayConfig = {
+                contextual: {
+                    featuredCount: 1,
+                    styling: ActionStyling.INLINE,
+                },
                 staticActionStyling: ACTION_DISPLAY_CONFIG.staticActionStyling,
             };
-            ACTION_DISPLAY_CONFIG_WITH_ONE_FEATURED.contextual.featuredCount = 1;
-            this.actionMenu.actionDisplayConfig = ACTION_DISPLAY_CONFIG_WITH_ONE_FEATURED;
             this.finder.detectChanges();
             const availableContextualFeaturedActions = this.actionMenu.contextualFeaturedActions;
             expect(CONTEXTUAL_FEATURED_ACTIONS.length).toEqual(3);
@@ -162,23 +178,24 @@ describe('ActionMenuComponent', () => {
                 {
                     textKey: 'action.1',
                     handler: () => {},
-                    availability: () => false,
+                    availability: false,
                     disabled: () => true,
                 },
                 {
                     textKey: 'action.2',
                     handler: () => {},
-                    availability: () => true,
+                    availability: true,
                 },
                 {
                     textKey: 'action.3',
                     handler: () => {},
-                    availability: () => false,
+                    availability: false,
                 },
             ]);
             expect(availableActions.length).toEqual(2);
         });
         it('returns nested actions that are either available or disabled', function (this: HasFinderAndActionMenu): void {
+            this.actionMenu.selectedEntities = [{ value: 'blah', paused: false }];
             const availableActions = this.actionMenu.getAvailableActions([
                 {
                     textKey: 'action',
@@ -243,21 +260,22 @@ describe('ActionMenuComponent', () => {
             });
         });
         it('returns empty array if there are no selectedEntities', function (this: HasFinderAndActionMenu): void {
+            this.actionMenu.actions = [...CONTEXTUAL_ACTIONS];
             this.actionMenu.selectedEntities = null;
             expect(this.actionMenu.contextualActions.length).toEqual(0);
         });
         it('returns only actions that are available and either contextual or' + ' contextual_featured', function (
             this: HasFinderAndActionMenu
         ): void {
+            this.actionMenu.actions = [...CONTEXTUAL_ACTIONS]
+                .concat([...CONTEXTUAL_FEATURED_ACTIONS])
+                .concat([...STATIC_FEATURED_ACTIONS]);
             this.actionMenu.selectedEntities = [
                 {
                     value: 'foo',
                     paused: false,
                 },
             ];
-            this.actionMenu.actions = [...CONTEXTUAL_ACTIONS]
-                .concat([...CONTEXTUAL_FEATURED_ACTIONS])
-                .concat([...STATIC_FEATURED_ACTIONS]);
             this.finder.detectChanges();
             const availableActions = this.actionMenu.contextualActions;
             const availableContextualActions = this.actionMenu.getAvailableActions(
@@ -288,6 +306,7 @@ describe('ActionMenuComponent', () => {
                     handlerData,
                     availability: () => true,
                 };
+                this.actionMenu.actions = [action];
                 this.actionMenu.selectedEntities = selectedEntities;
                 const spy = spyOn(action, 'handler').and.returnValue(null);
                 this.actionMenu.runActionHandler(action);
@@ -330,19 +349,115 @@ describe('ActionMenuComponent', () => {
     });
 
     describe('actionsUpdate', () => {
-        it('emits event when actions input has changed', function (this: HasFinderAndActionMenu): void {
-            const spy = createSpy('actionsUpdate');
-            this.actionMenu.actionsUpdate.subscribe(spy);
-            this.actionMenu.actions = [];
-            this.finder.detectChanges();
-            expect(spy).toHaveBeenCalledTimes(1);
+        describe('with regards to actions input', () => {
+            it('emits event when actions input is provided with non empty array', function (this: HasFinderAndActionMenu): void {
+                const spy = createSpy('actionsUpdate');
+                this.actionMenu.actionsUpdate.subscribe(spy);
+                this.actionMenu.actions = [...CONTEXTUAL_ACTIONS];
+                this.finder.detectChanges();
+                expect(spy).toHaveBeenCalledTimes(1);
+            });
+
+            it('does not emit event when actions input is provided with an empty array', function (this: HasFinderAndActionMenu): void {
+                const spy = createSpy('actionsUpdate');
+                this.actionMenu.actionsUpdate.subscribe(spy);
+                this.actionMenu.actions = [];
+                this.finder.detectChanges();
+                expect(spy).toHaveBeenCalledTimes(0);
+            });
+
+            it('does not emit twice when actions input has changed with the same array', function (this: HasFinderAndActionMenu): void {
+                const actions = [...CONTEXTUAL_ACTIONS];
+                const spy = createSpy('actionsUpdate');
+                this.actionMenu.actionsUpdate.subscribe(spy);
+                this.actionMenu.actions = actions;
+                this.finder.detectChanges();
+                this.actionMenu.actions = actions;
+                this.finder.detectChanges();
+                expect(spy).toHaveBeenCalledTimes(1);
+            });
+
+            it('does not emit event when actions input is null which is handled as an empty array', function (this: HasFinderAndActionMenu): void {
+                const spy = createSpy('actionsUpdate');
+                this.actionMenu.actionsUpdate.subscribe(spy);
+                this.actionMenu.actions = [];
+                this.finder.detectChanges();
+                this.actionMenu.actions = null;
+                this.finder.detectChanges();
+                expect(spy).toHaveBeenCalledTimes(0);
+            });
+
+            it('does not emit twice when actions input has changed with an array containing same item references', function (this: HasFinderAndActionMenu): void {
+                const spy = createSpy('actionsUpdate');
+                this.actionMenu.actionsUpdate.subscribe(spy);
+                this.actionMenu.actions = [...CONTEXTUAL_ACTIONS];
+                this.finder.detectChanges();
+                this.actionMenu.actions = [...CONTEXTUAL_ACTIONS];
+                this.finder.detectChanges();
+                expect(spy).toHaveBeenCalledTimes(1);
+            });
+
+            it('emits event when actions input has changed with an array containing same items but different references', function (this: HasFinderAndActionMenu): void {
+                const action = CONTEXTUAL_ACTIONS[0];
+                const spy = createSpy('actionsUpdate');
+                this.actionMenu.actionsUpdate.subscribe(spy);
+                this.actionMenu.actions = [action];
+                this.finder.detectChanges();
+                this.actionMenu.actions = [{ ...action }];
+                this.finder.detectChanges();
+                expect(spy).toHaveBeenCalledTimes(2);
+            });
         });
-        it('emits event when selectedEntities input has changed', function (this: HasFinderAndActionMenu): void {
-            const spy = createSpy('actionsUpdate');
-            this.actionMenu.actionsUpdate.subscribe(spy);
-            this.actionMenu.selectedEntities = [];
-            this.finder.detectChanges();
-            expect(spy).toHaveBeenCalledTimes(1);
+
+        describe('with regards to selectedEntities input', () => {
+            it('emits event when selectedEntities input is provided with non empty array', function (this: HasFinderAndActionMenu): void {
+                const spy = createSpy('actionsUpdate');
+                this.actionMenu.actionsUpdate.subscribe(spy);
+                this.actionMenu.selectedEntities = [{ value: 'foo', paused: false }];
+                this.finder.detectChanges();
+                expect(spy).toHaveBeenCalledTimes(1);
+            });
+
+            it('does not emit event when selectedEntities input is provided with an empty array', function (this: HasFinderAndActionMenu): void {
+                const spy = createSpy('actionsUpdate');
+                this.actionMenu.actionsUpdate.subscribe(spy);
+                this.actionMenu.selectedEntities = [];
+                this.finder.detectChanges();
+                expect(spy).toHaveBeenCalledTimes(0);
+            });
+
+            it('does not emit twice when selectedEntities input has changed with the same array', function (this: HasFinderAndActionMenu): void {
+                const selectedEntities = [{ value: 'foo', paused: false }];
+                const spy = createSpy('actionsUpdate');
+                this.actionMenu.actionsUpdate.subscribe(spy);
+                this.actionMenu.selectedEntities = selectedEntities;
+                this.finder.detectChanges();
+                this.actionMenu.selectedEntities = selectedEntities;
+                this.finder.detectChanges();
+                expect(spy).toHaveBeenCalledTimes(1);
+            });
+
+            it('does not emit twice when selectedEntities input has changed with an array containing same item references', function (this: HasFinderAndActionMenu): void {
+                const selectedEntity = { value: 'foo', paused: false };
+                const spy = createSpy('actionsUpdate');
+                this.actionMenu.actionsUpdate.subscribe(spy);
+                this.actionMenu.selectedEntities = [selectedEntity];
+                this.finder.detectChanges();
+                this.actionMenu.selectedEntities = [selectedEntity];
+                this.finder.detectChanges();
+                expect(spy).toHaveBeenCalledTimes(1);
+            });
+
+            it('emits event when selectedEntities input has changed with an array containing same items but different references', function (this: HasFinderAndActionMenu): void {
+                const selectedEntity = { value: 'foo', paused: false };
+                const spy = createSpy('actionsUpdate');
+                this.actionMenu.actionsUpdate.subscribe(spy);
+                this.actionMenu.selectedEntities = [selectedEntity];
+                this.finder.detectChanges();
+                this.actionMenu.selectedEntities = [{ ...selectedEntity }];
+                this.finder.detectChanges();
+                expect(spy).toHaveBeenCalledTimes(2);
+            });
         });
     });
 
@@ -353,13 +468,51 @@ describe('ActionMenuComponent', () => {
                 {
                     textKey: 'Some action',
                     availability: () => isActionAvailable,
-                    actionType: ActionType.STATIC_FEATURED,
+                    actionType: ActionType.CONTEXTUAL_FEATURED,
                 },
             ];
-            expect(this.actionMenu.staticFeaturedActions.length).toEqual(0);
+            this.actionMenu.selectedEntities = [{ value: '', paused: true }];
+            expect(this.actionMenu.contextualFeaturedActions.length).toEqual(0);
             isActionAvailable = true;
             this.actionMenu.updateDisplayedActions();
-            expect(this.actionMenu.staticFeaturedActions.length).toEqual(1);
+            expect(this.actionMenu.contextualFeaturedActions.length).toEqual(1);
+        });
+    });
+
+    describe('set selectedEntities', () => {
+        it('accepts single item as input', function (this: HasFinderAndActionMenu): void {
+            const singleItem = {
+                value: 'foo',
+                paused: false,
+            };
+            this.actionMenu.selectedEntities = singleItem;
+            expect(this.actionMenu.getSelectedEntities()).toEqual([singleItem]);
+        });
+        it('accepts array as input', function (this: HasFinderAndActionMenu): void {
+            const arrayOfItems = [
+                {
+                    value: 'foo',
+                    paused: false,
+                },
+                {
+                    value: 'blah',
+                    paused: true,
+                },
+            ];
+            this.actionMenu.selectedEntities = arrayOfItems;
+            expect(this.actionMenu.getSelectedEntities()).toBe(arrayOfItems);
+        });
+        it('when null is passed as input, displayed actions are not updated', function (this: HasFinderAndActionMenu): void {
+            const spy = spyOn(this.actionMenu, 'updateDisplayedActions').and.callThrough();
+
+            this.actionMenu.selectedEntities = null;
+            expect(spy).not.toHaveBeenCalled();
+
+            this.actionMenu.selectedEntities = {
+                value: 'foo',
+                paused: false,
+            };
+            expect(spy).toHaveBeenCalled();
         });
     });
 });
@@ -377,7 +530,7 @@ interface Blah {
 type HandlerData = Record[] | Blah;
 
 @Component({
-    template: ` <vcd-action-menu> </vcd-action-menu> `,
+    template: ` <vcd-action-menu></vcd-action-menu> `,
 })
 class TestHostComponent<R extends Record> {}
 
@@ -416,7 +569,6 @@ const STATIC_ACTIONS = [
         handler: () => {
             return Promise.resolve('Static');
         },
-        availability: () => true,
         actionType: ActionType.STATIC,
     },
 ];
@@ -427,7 +579,6 @@ const STATIC_FEATURED_ACTIONS: any[] = [
         handler: () => {
             return Promise.resolve('Static featured');
         },
-        availability: () => true,
         actionType: ActionType.STATIC_FEATURED,
     },
 ];

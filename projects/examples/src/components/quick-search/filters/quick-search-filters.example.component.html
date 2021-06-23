@@ -1,6 +1,6 @@
 Click <button class="btn" (click)="spotlightOpen = true">here</button> to open the Quick Search. <br /><br />
-Quick search gives the client the ability to register filters to filter search results. A filer simply has a name and
-options that can be selected. These filters are activated by typing name:option.
+Quick search gives the client the ability to register filters to filter search results. A filter simply has a name and
+options that can be selected.
 <br /><br />
 A filter can then filter either the list of providers that are active, or filter the results in a given provider. This
 is all handled from the provider side.
@@ -8,9 +8,20 @@ is all handled from the provider side.
 If two filters of the same name are present, they should be joined by "or". If two filters of different names are
 present, they should be joined by "and".
 <br /><br />
-In this example, there are two filters present: "type" and "is". Type will filter the results by provider ID, and is a
-dynamic filter that will filter the results on if they are real action.
-<br /><br />
-Users are able to navigate through the filters both by typing and by using the mouse. Typing (name): will bring up a
-dropdown that allows the user to either scroll through using the keyboard or by clicking.
-<vcd-quick-search [(open)]="spotlightOpen" [filters]="filters"> </vcd-quick-search>
+In this example, there are two filters present:
+<ul>
+    <li>
+        "Provider": this filter can filter the results by provider ID. Meaning users can filter the results so they only
+        see items from one specific provider.
+    </li>
+    <li>
+        "Result": this filter can filter the results by their text. In this example, if the "Fake" filter is selected,
+        the result will contain "dummy". If the "Real" filter is selected, the result will contain entries that do not
+        contain "dummy"
+    </li>
+</ul>
+<br />
+The users are able to select these filters through the dropdowns. Click either dropdown to open the filter options, and
+select an option. The selected option is then shown as a bubble that can be deleted using the close button. The text for
+this bubble is provided as a translation key that takes one parameter "option" which is the text of the option selected.
+<vcd-quick-search [(open)]="spotlightOpen"> </vcd-quick-search>

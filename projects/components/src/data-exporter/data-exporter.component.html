@@ -44,48 +44,58 @@
                             <input type="checkbox" clrCheckbox [formControl]="this.selectAllControl" />
                             <label [attr.data-ui]="DataUi.selectAllToggleLabel">{{ exportAllText | lazyString }}</label>
                         </clr-checkbox-wrapper>
-                        <clr-dropdown *ngIf="!this.selectAllControl.value">
+                        <clr-dropdown [clrCloseMenuOnItemClick]="false">
                             <clr-icon
                                 [attr.shape]="isDropdownOpen ? 'caret up' : 'caret down'"
                                 size="24"
                                 clrDropdownTrigger
                                 class="dropdown-button"
                                 [attr.data-ui]="DataUi.columnCheckboxArrow"
+                                *ngIf="!this.selectAllControl.value"
                             ></clr-icon>
-                            <clr-dropdown-menu clrPosition="bottom" *clrIfOpen="forceDropdownOpen">
-                                <ul class="list-unstyled column-selection" [formGroup]="formGroup">
-                                    <li *ngFor="let col of columns" class="dropdown-item">
-                                        <clr-checkbox-wrapper class="column-checkbox">
-                                            <input type="checkbox" clrCheckbox [formControlName]="col.fieldName" />
-                                            <label [attr.data-ui]="DataUi.columnSelectionMenuOptions">{{
-                                                this.friendlyFieldsControl.value
-                                                    ? getDisplayNameForColumn(col)
-                                                    : col.fieldName
-                                            }}</label>
-                                        </clr-checkbox-wrapper>
-                                    </li>
-                                </ul>
+                            <clr-dropdown-menu clrPosition="bottom" [formGroup]="formGroup" *clrIfOpen #dropdownMenu>
+                                <li
+                                    clrDropdownItem
+                                    *ngFor="let col of columns"
+                                    (click)="selectColumn(col)"
+                                    [attr.data-ui]="DataUi.columnSelectionMenuOptions"
+                                >
+                                    <clr-checkbox-wrapper class="column-checkbox">
+                                        <input
+                                            type="checkbox"
+                                            clrCheckbox
+                                            [formControlName]="col.fieldName"
+                                            (click)="$event.stopPropagation()"
+                                        />
+                                        <label (click)="$event.stopPropagation()">{{
+                                            this.friendlyFieldsControl.value
+                                                ? getDisplayNameForColumn(col)
+                                                : col.fieldName
+                                        }}</label>
+                                    </clr-checkbox-wrapper>
+                                </li>
                             </clr-dropdown-menu>
                         </clr-dropdown>
                     </div>
                 </li>
             </ul>
-            <div [ngStyle]="{ visibility: shouldShowBubbles ? 'visible' : 'hidden' }" class="column-container">
-                <span
-                    class="label"
-                    *ngFor="let column of selectedColumns"
-                    [attr.data-ui]="DataUi.columnSelectionBubbles"
+            <span
+                class="x-button label"
+                *ngFor="let column of selectedColumns"
+                [attr.data-ui]="DataUi.columnSelectionBubbles"
+                [ngStyle]="{ visibility: shouldShowBubbles ? 'visible' : 'hidden' }"
+            >
+                {{ this.friendlyFieldsControl.value ? getDisplayNameForColumn(column) : column.fieldName }}
+                <button
+                    type="button"
+                    class="btn btn-icon btn-link remove-col-button"
+                    aria-label="home"
+                    (click)="selectColumn(column, false)"
+                    [attr.data-ui]="DataUi.columnBubblesX"
                 >
-                    {{ this.friendlyFieldsControl.value ? getDisplayNameForColumn(column) : column.fieldName }}
-                    <clr-icon
-                        [attr.data-ui]="DataUi.columnBubblesX"
-                        shape="close"
-                        class="badge badge-info"
-                        (click)="selectColumn(column, false)"
-                    >
-                    </clr-icon>
-                </span>
-            </div>
+                    <clr-icon shape="close" class="badge badge-info"> </clr-icon>
+                </button>
+            </span>
         </div>
         <div class="progress-divider"></div>
         <ng-container *ngIf="isRequestPending">{{ exportStage | lazyString }}</ng-container>

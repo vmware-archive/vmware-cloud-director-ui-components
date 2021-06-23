@@ -16,17 +16,15 @@ import { BehaviorSubject, Observable } from 'rxjs';
 })
 // Use an empty class as its base class instead of Object to support IE11
 // See https://github.com/microsoft/TypeScript/issues/37601
-export class SubscriptionTrackerExampleSubComponent implements OnInit, OnDestroy {
+export class SubscriptionTrackerExampleSubComponent implements OnInit {
     @Input()
     observable: Observable<number>;
 
-    private subscriptionTracker = new SubscriptionTracker(this);
+    constructor(private subscriptionTracker: SubscriptionTracker) {}
 
     ngOnInit(): void {
         this.subscriptionTracker.subscribe(this.observable, (value) => console.log(value));
     }
-
-    ngOnDestroy(): void {}
 }
 
 /**

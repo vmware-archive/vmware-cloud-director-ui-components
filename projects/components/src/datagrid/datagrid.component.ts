@@ -24,16 +24,15 @@ import { LazyString, TranslationService } from '@vcd/i18n';
 import { Observable } from 'rxjs';
 import { ActionMenuComponent } from '../action-menu/action-menu.component';
 import { ActivityReporter } from '../common/activity-reporter';
-import {
-    ActionDisplayConfig,
-    ActionHandlerType,
-    ActionItem,
-    ActionType,
-} from '../common/interfaces/action-item.interface';
-import { SubscriptionTracker } from '../common/subscription';
+import { ActionHandlerType, ActionItem, ActionType } from '../common/interfaces/action-item.interface';
+import { SubscriptionTracker } from '../common/subscription/subscription-tracker';
 import { TooltipSize } from '../lib/directives/show-clipped-text.directive';
 import { DatagridFilter } from './filters/datagrid-filter';
 import { ComponentRendererConstructor, ComponentRendererSpec } from './interfaces/component-renderer.interface';
+import {
+    DatagridActionDisplayConfig,
+    getDefaultDatagridActionDisplayConfig,
+} from './interfaces/datagrid-action-display.interface';
 import {
     ColumnRendererSpec,
     FunctionRenderer,
@@ -44,7 +43,7 @@ import {
 /**
  * An enum that describes where the contextual buttons should display.
  */
-export enum ContextualActionPosition {
+export enum DatagridContextualActionPosition {
     TOP = 'TOP',
     ROW = 'ROW',
 }
@@ -278,8 +277,9 @@ interface ColumnConfigInternal<R, T> extends GridColumn<R> {
     selector: 'vcd-datagrid',
     templateUrl: './datagrid.component.html',
     styleUrls: ['./datagrid.component.scss'],
+    providers: [SubscriptionTracker],
 })
-export class DatagridComponent<R extends B, B = any> implements OnInit, AfterViewInit, OnDestroy {
+export class DatagridComponent<R extends B, B = any> implements OnInit, AfterViewInit {
     /**
      * Sets the configuration of columns on the grid and updates the {@link columnsConfig} array. Also pushes
      * notifications for listeners to make changes to the _columns array
@@ -382,7 +382,8 @@ export class DatagridComponent<R extends B, B = any> implements OnInit, AfterVie
     constructor(
         private node: ElementRef,
         private translationService: TranslationService,
-        private changeDetectorRef: ChangeDetectorRef
+        private changeDetectorRef: ChangeDetectorRef,
+        private subTracker: SubscriptionTracker
     ) {}
 
     /**
@@ -473,8 +474,7 @@ export class DatagridComponent<R extends B, B = any> implements OnInit, AfterVie
      */
     get shouldDisplayContextualActionsOnTop(): boolean {
         return (
-            this.contextualActionPosition &&
-            this.contextualActionPosition === ContextualActionPosition.TOP &&
+            this.actionDisplayConfig?.contextual?.position === DatagridContextualActionPosition.TOP &&
             this.datagridSelection.length !== 0
         );
     }
@@ -483,7 +483,7 @@ export class DatagridComponent<R extends B, B = any> implements OnInit, AfterVie
      * If the contextual buttons should display in a row.
      */
     get shouldDisplayContextualActionsInRow(): boolean {
-        return this.contextualActionPosition && this.contextualActionPosition === ContextualActionPosition.ROW;
+        return this.actionDisplayConfig?.contextual?.position === DatagridContextualActionPosition.ROW;
     }
 
     /**
@@ -520,13 +520,15 @@ export class DatagridComponent<R extends B, B = any> implements OnInit, AfterVie
 
     /**
      * How to display the static and contextual actions.
+     * If not set, this will default to the output of {@link getDefaultDatagridActionDisplayConfig}
      */
-    @Input() actionDisplayConfig: ActionDisplayConfig;
-
-    /**
-     * Whether to display contextual actions inside the row or on top of the grid
-     */
-    @Input() contextualActionPosition: ContextualActionPosition = ContextualActionPosition.TOP;
+    @Input() set actionDisplayConfig(value: DatagridActionDisplayConfig) {
+        this._actionDisplayConfig = getDefaultDatagridActionDisplayConfig(value);
+    }
+    private _actionDisplayConfig: DatagridActionDisplayConfig = getDefaultDatagridActionDisplayConfig();
+    get actionDisplayConfig(): DatagridActionDisplayConfig {
+        return this._actionDisplayConfig;
+    }
 
     /**
      * Emitted whenever {@link #columns} input is updated
@@ -661,8 +663,6 @@ export class DatagridComponent<R extends B, B = any> implements OnInit, AfterVie
      * Used for translating pagination information displayed in the grid
      */
     @Input() paginationTranslationKey: string = DEFAULT_PAGINATION_TRANSLATION_KEY;
-
-    private subTracker = new SubscriptionTracker(this);
 
     /**
      * Used for calculating the width of actions column
@@ -1029,16 +1029,8 @@ export class DatagridComponent<R extends B, B = any> implements OnInit, AfterVie
             this.changeDetectorRef.detectChanges();
         }
 
-        this.datagrid.items.change.subscribe(() => {
-            if (this.datagrid.items.displayed.length > 0) {
-                (this.datagrid as any).organizer.resize();
-            }
-        });
-
-        this.columnsUpdated.subscribe(() => {
+        this.subTracker.subscribe(this.columnsUpdated, () => {
             this.datagrid.columns.reset(this.datagrid.columns.toArray());
         });
     }
-
-    ngOnDestroy(): void {}
 }

@@ -45,14 +45,13 @@ class VcdDropdownWidgetObject<T> extends BaseWidgetObject<T> {
     getSearchWarning = this.factory.css('.search-warning');
 
     getSelectToogleByText = (text: string) =>
-        this.el.get({ cssSelector: 'label', text }).parents('div').get('clr-checkbox-wrapper input').unwrap();
+        this.el.get({ cssSelector: 'label', text }).parents('div').get('clr-checkbox-wrapper input');
 
-    getRightsOptionsByText = (text: string) =>
-        this.el.get({ cssSelector: 'label', text }).parents('div').get('option').unwrap();
+    getRightsOptionsByText = (text: string) => this.el.get({ cssSelector: 'label', text }).parents('div').get('option');
 
-    getComboboxDropdownRows = () => this.el.parents('body').get('clr-option').unwrap();
+    getComboboxDropdownRows = () => this.el.parents('body').get('clr-option');
 
-    getTabByHeader = (title: string) => this.el.get({ cssSelector: '.nav-item button', text: title }).unwrap();
+    getTabByHeader = (title: string) => this.el.get({ cssSelector: '.nav-item button', text: title });
 
     getCurrentShareDatagrid = () => this.el.findWidget<ClrDatagridWidgetObject<T>>(ClrDatagridWidgetObject);
 
@@ -86,10 +85,10 @@ describe('SharingModalComponent', () => {
 
     describe('@Input() isOpened', () => {
         it('closes the sharing modal when set to close', function (this: HasVcdSharingModal): void {
-            expect(this.widget.getModalBody().length()).toEqual(1);
+            expect(this.widget.getModalBody().unwrap().length()).toEqual(1);
             this.finder.hostComponent.opened = false;
             this.finder.detectChanges();
-            expect(this.widget.getModalBody().length()).toEqual(0);
+            expect(this.widget.getModalBody().unwrap().length()).toEqual(0);
         });
     });
 
@@ -97,7 +96,7 @@ describe('SharingModalComponent', () => {
         it('sets the title of the modal', function (this: HasVcdSharingModal): void {
             this.finder.hostComponent.title = 'This is a title';
             this.finder.detectChanges();
-            expect(this.widget.getModalHeader().text()).toEqual('This is a title');
+            expect(this.widget.getModalHeader().unwrap().text()).toEqual('This is a title');
         });
     });
 
@@ -141,6 +140,7 @@ describe('SharingModalComponent', () => {
             expect(
                 this.widget
                     .getTabHeaders()
+                    .unwrap()
                     .toArray()
                     .map((el) => el.text())
             ).toEqual(['Users', 'Groups']);
@@ -183,8 +183,8 @@ describe('SharingModalComponent', () => {
             this.widget.getTabByHeader('Users').click();
             await timeout(0);
             this.finder.detectChanges();
-            expect(this.widget.getCurrentShareDatagrid().getRows().length()).toEqual(1);
-            expect(this.widget.getCurrentShareDatagrid().getCell(0, 1).text()).toEqual('ryan');
+            expect(this.widget.getCurrentShareDatagrid().getRows().unwrap().length()).toEqual(1);
+            expect(this.widget.getCurrentShareDatagrid().getCell(0, 1).unwrap().text()).toEqual('ryan');
         });
 
         it('allows the user to search for entities', async function (this: HasVcdSharingModal): Promise<void> {
@@ -220,6 +220,7 @@ describe('SharingModalComponent', () => {
             expect(
                 this.widget
                     .getComboboxDropdownRows()
+                    .unwrap()
                     .toArray()
                     .map((el) => el.text())
             ).toEqual(['ryan']);
@@ -247,7 +248,7 @@ describe('SharingModalComponent', () => {
             this.widget.openComboboxButton().click();
             await timeout(401);
             this.finder.detectChanges();
-            expect(this.widget.getErrorLabel().text()).toEqual('BAD');
+            expect(this.widget.getErrorLabel().unwrap().text()).toEqual('BAD');
             this.widget.openComboboxButton().click();
         });
 
@@ -283,7 +284,7 @@ describe('SharingModalComponent', () => {
             this.widget.openComboboxButton().click();
             await timeout(401);
             this.finder.detectChanges();
-            expect(this.widget.getSearchWarning().text()).toEqual(
+            expect(this.widget.getSearchWarning().unwrap().text()).toEqual(
                 new MockTranslationService().translate('vcd.cc.sharing-results-warning', [1, 15])
             );
             this.widget.openComboboxButton().click();
@@ -387,6 +388,7 @@ describe('SharingModalComponent', () => {
             expect(
                 this.widget
                     .getRightsOptionsByText('Select all users')
+                    .unwrap()
                     .toArray()
                     .map((el) => el.text())
             ).toEqual(['read']);
@@ -490,7 +492,7 @@ describe('SharingModalComponent', () => {
             this.widget.openComboboxButton().click();
             await timeout(401);
             this.finder.detectChanges();
-            this.widget.getComboboxDropdownRows().toArray()[0].click();
+            this.widget.getComboboxDropdownRows().unwrap().toArray()[0].click();
             await timeout(0);
             this.finder.detectChanges();
             this.widget.getAddButton().click();
@@ -614,7 +616,9 @@ describe('SharingModalComponent', () => {
             this.widget.getTabByHeader('Users').click();
             await timeout(0);
             this.finder.detectChanges();
-            (this.widget.getActiveTab().getComponentInstance() as SharingModalTabComponent<any>).updateEntityRights(
+            (this.widget.getActiveTab().unwrap().getComponentInstance() as SharingModalTabComponent<
+                any
+            >).updateEntityRights(
                 {
                     name: 'ryan',
                     id: 'ryan',

@@ -9,8 +9,10 @@ import {
     ActionItem,
     ActionStyling,
     ActionType,
-    ContextualActionPosition,
+    DatagridActionDisplayConfig,
     DatagridComponent,
+    DatagridContextualActionPosition,
+    getDefaultDatagridActionDisplayConfig,
     GridColumn,
     GridDataFetchResult,
     GridSelectionType,
@@ -33,34 +35,16 @@ type HandlerData = Record[] | Blah;
 /**
  * Shows linked buttons on the top of the datagrid.
  * Has examples of both buttons that are global and contextual.
- *
- * Enable the delete button to hide it and disable the delete button to show it in disable mode. This is because the
- * inactive display mode of a button can be set as following:
- *  - Hidden - availability is false and disabled is false
- *  - Shown as Disabled - availability is false and disabled is true
- * Please refer to the delete action object configuration in the actions object list configuration.
  */
 @Component({
     selector: 'vcd-datagrid-link-example',
     template: `
-        <button (click)="changeActionLocation()" class="btn btn-primary">
-            Display contextual actions {{ contextualActionPosition === 'ROW' ? 'on top' : 'in row' }}
-        </button>
-        <button
-            *ngIf="contextualActionPosition === 'ROW'"
-            (click)="changeContextualActionStyling()"
-            class="btn btn-primary"
-        >
-            Display contextual actions {{ actionDisplayConfig.contextual.styling === 'INLINE' ? 'dropdown' : 'inline' }}
-        </button>
-        <br />
         <vcd-datagrid
             [gridData]="gridData"
             (gridRefresh)="refresh($event)"
             [columns]="columns"
             [actions]="actions"
             [actionDisplayConfig]="actionDisplayConfig"
-            [contextualActionPosition]="contextualActionPosition"
             [selectionType]="selectionType"
         ></vcd-datagrid>
     `,
@@ -86,7 +70,6 @@ export class DatagridLinkExampleComponent<R extends Record> {
             handler: () => {
                 console.log('Adding stuff!');
             },
-            availability: () => true,
             class: 'add',
             actionType: ActionType.STATIC_FEATURED,
             isTranslatable: false,
@@ -97,7 +80,6 @@ export class DatagridLinkExampleComponent<R extends Record> {
                 console.log('Custom handler data ' + JSON.stringify(data));
             },
             handlerData: { foo: 'foo', bar: 'bar' },
-            availability: () => true,
             class: 'b',
             icon: 'pause',
             actionType: ActionType.STATIC,
@@ -155,28 +137,9 @@ export class DatagridLinkExampleComponent<R extends Record> {
         },
     ];
 
-    actionDisplayConfig: ActionDisplayConfig = {
-        contextual: {
-            featuredCount: 3,
-            styling: ActionStyling.INLINE,
-            buttonContents: TextIcon.TEXT,
-        },
-        staticActionStyling: ActionStyling.INLINE,
-    };
-
-    contextualActionPosition: ContextualActionPosition = ContextualActionPosition.TOP;
+    actionDisplayConfig: DatagridActionDisplayConfig = getDefaultDatagridActionDisplayConfig();
 
     selectionType = GridSelectionType.Single;
-
-    changeActionLocation(): void {
-        if (this.contextualActionPosition === ContextualActionPosition.TOP) {
-            this.contextualActionPosition = ContextualActionPosition.ROW;
-            this.selectionType = GridSelectionType.None;
-        } else {
-            this.contextualActionPosition = ContextualActionPosition.TOP;
-            this.selectionType = GridSelectionType.Single;
-        }
-    }
 
     refresh(eventData: GridState<R>): void {
         this.gridData = {
@@ -187,19 +150,6 @@ export class DatagridLinkExampleComponent<R extends Record> {
                 { value: 'b', paused: false },
             ],
             totalItems: 2,
-        };
-    }
-
-    changeContextualActionStyling(): void {
-        this.actionDisplayConfig = {
-            ...this.actionDisplayConfig,
-            contextual: {
-                ...this.actionDisplayConfig.contextual,
-                styling:
-                    this.actionDisplayConfig.contextual.styling === ActionStyling.DROPDOWN
-                        ? ActionStyling.INLINE
-                        : ActionStyling.DROPDOWN,
-            },
         };
     }
 }

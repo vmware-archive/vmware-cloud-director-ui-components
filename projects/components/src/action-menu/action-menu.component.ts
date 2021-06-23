@@ -4,7 +4,15 @@
  */
 
 import { Component, EventEmitter, Input, Output, TrackByFunction } from '@angular/core';
-import { ActionDisplayConfig, ActionItem, ActionStyling, ActionType, TextIcon } from '../common/interfaces';
+import { isObservable, Observable } from 'rxjs';
+import {
+    ActionDisplayConfig,
+    ActionItem,
+    ActionStyling,
+    ActionType,
+    BaseActionItem,
+    TextIcon,
+} from '../common/interfaces';
 import { CommonUtil } from '../utils';
 
 /**
@@ -13,13 +21,30 @@ import { CommonUtil } from '../utils';
 export function getDefaultActionDisplayConfig(cfg: ActionDisplayConfig = {}): ActionDisplayConfig {
     const defaults = {
         contextual: {
-            featuredCount: 0,
             styling: ActionStyling.INLINE,
             buttonContents: TextIcon.TEXT,
         },
         staticActionStyling: ActionStyling.INLINE,
     };
-    return { ...defaults, ...cfg };
+    return {
+        contextual: { ...defaults.contextual, ...cfg.contextual },
+        staticActionStyling: cfg.staticActionStyling || defaults.staticActionStyling,
+    };
+}
+
+/**
+ * We internally convert the callbacks to booleans to avoid calling the callbacks all the time from template. However, we don't want to
+ * allow callers to assign boolean variables to availability as there is no way to know when those variables can get updated from outside.
+ */
+interface ActionItemInternal<R, T> extends BaseActionItem<R, T> {
+    /**
+     * Used for determining where in the action menu this action gets displayed
+     */
+    actionType?: ActionType;
+    /**
+     * Condition whether or not the action is available.
+     */
+    availability?: Observable<boolean> | boolean;
 }
 
 /**
@@ -43,22 +68,24 @@ export class ActionMenuComponent<R, T> {
      * List of actions containing both static and contextual that are given by the calling component
      */
     @Input() set actions(actions: ActionItem<R, T>[]) {
+        actions = actions || [];
+        // Shallow equal does the job for most of the cases and currently saves a lot of calculations
+        if (this.isShallowEqual(actions, this._originalActions)) {
+            return;
+        }
+        this._originalActions = actions;
         this.refreshActions(actions);
-    }
-    private _actions: ActionItem<R, T>[] = [];
-    get actions(): ActionItem<R, T>[] {
-        return this._actions;
     }
 
     /**
-     * Used by the {@link EntityActionExtensionComponentsDirective} to provide the extension actions from plugins after
-     * they are created asynchronously
-     * @param val List of extension actions
+     * Original actions as provided to this component without any modifications
      */
-    set extensionEntityActions(val: ActionItem<unknown, unknown>[]) {
-        this._extensionEntityActions = val;
-    }
-    private _extensionEntityActions: ActionItem<unknown, unknown>[];
+    private _originalActions: ActionItem<R, T>[] = [];
+
+    /**
+     * Access modifier is public in order to access this property in unit tests
+     */
+    _actions: ActionItemInternal<R, T>[] = [];
 
     private _actionDisplayConfig: ActionDisplayConfig = getDefaultActionDisplayConfig();
     /**
@@ -76,6 +103,12 @@ export class ActionMenuComponent<R, T> {
     get actionDisplayConfig(): ActionDisplayConfig {
         return this._actionDisplayConfig;
     }
+
+    /**
+     * Copy of actions passed with their availability call backs. This is because, when the selected entities get updated, we need to use
+     * those CBs to calculate the availability again
+     */
+    private actionsWithAvailabilityCb: ActionItem<R, T>[] = [];
 
     /**
      * When there are no nested actions and if all of the contextual actions are marked to be featured, there is no need to show
@@ -104,19 +137,6 @@ export class ActionMenuComponent<R, T> {
      * Used for disabling the menu bar or menu dropdown
      */
     @Input() disabled: boolean;
-
-    /**
-     * The list of entities selected on which contextualActions are performed. As they are also used for calculating the
-     * availability of actions, action lists are updated
-     */
-    @Input() set selectedEntities(val: R[]) {
-        this._selectedEntities = val;
-        this.updateActionListsAndDisplayFlags();
-    }
-    private _selectedEntities: R[] = [];
-    get selectedEntities(): R[] {
-        return this._selectedEntities;
-    }
 
     /**
      * The direction with respect to the root dropdown trigger button in which the root drop down should open
@@ -152,29 +172,29 @@ export class ActionMenuComponent<R, T> {
     /**
      * List of actions that are marked as {@link ActionType.STATIC_FEATURED} only
      */
-    staticFeaturedActions: ActionItem<R, T>[];
+    staticFeaturedActions: ActionItemInternal<R, T>[];
 
     /**
      * Actions that depend on selected entities and belong to main menu list. The returned list length is less than or
      * equal to the configured featured count in {@link actionDisplayConfig}
      */
-    contextualFeaturedActions: ActionItem<R, T>[];
+    contextualFeaturedActions: ActionItemInternal<R, T>[];
 
     /**
      * All the actions that depend on selected entities
      */
-    contextualActions: ActionItem<R, T>[];
+    contextualActions: ActionItemInternal<R, T>[];
 
     /**
      * List containing all the static actions. It has static featured actions in the beginning of the list followed by
      * non-featured static actions as children of grouped action called 'vcd.cc.action.menu.all.actions'
      */
-    staticDropdownActions: ActionItem<R, T>[] | object;
+    staticDropdownActions: ActionItemInternal<R, T>[] | object;
 
     /**
      * List of only the actions that are marked as {@link ActionType.STATIC}
      */
-    staticActions: ActionItem<R, T>[];
+    staticActions: ActionItemInternal<R, T>[];
 
     /**
      * To show or hide the container elements containing inline and also dropdown actions
@@ -208,15 +228,46 @@ export class ActionMenuComponent<R, T> {
     shouldDisplayContextualActionsDropdown: boolean;
 
     /**
+     * Used for deciding if the availability has to be passed through an Async pipe in the template
+     */
+    isObservable = isObservable;
+
+    /**
+     * The list of entities selected on which contextualActions are performed. As they are also used for calculating the
+     * availability of actions, action lists are updated when the input is updated
+     * @param val Is an array in case of batch selection and is a single item for example in the case of data grids with single selection
+     */
+    @Input() set selectedEntities(val: R[] | R) {
+        if (!Array.isArray(val)) {
+            val = val ? [val] : [];
+        }
+        // Shallow equal does the job for most of the cases and currently saves a lot of calculations
+        if (this.isShallowEqual(val, this._selectedEntities)) {
+            return;
+        }
+        this._selectedEntities = val;
+        this.updateDisplayedActions();
+    }
+    private _selectedEntities: R[] = [];
+
+    /**
+     * Returns the selected entities
+     * Note: This is not a getter because its matching setter can accept an array or a single item but this method always returns an array.
+     */
+    getSelectedEntities(): R[] {
+        return this._selectedEntities;
+    }
+
+    /**
      * Returns the actions to be shown
      */
-    getAvailableActions(actions: ActionItem<R, T>[]): ActionItem<R, T>[] {
-        return actions
+    getAvailableActions(actions: ActionItemInternal<R, T>[] | ActionItem<R, T>[]): ActionItemInternal<R, T>[] {
+        return (actions as ActionItemInternal<R, T>[])
             .filter((action) => this.isActionAvailable(action) && (!action.children || action.children.length !== 0))
             .map((action) => {
                 const actionCopy = { ...action, children: action.children ? [...action.children] : null };
                 if (actionCopy.children) {
-                    actionCopy.children = this.getAvailableActions(actionCopy.children);
+                    actionCopy.children = (this.getAvailableActions(actionCopy.children) as any) as ActionItem<R, T>[];
                 }
                 return actionCopy;
             });
@@ -230,7 +281,7 @@ export class ActionMenuComponent<R, T> {
      * this method will re-trigger the availability call backs of actions
      */
     updateDisplayedActions(): void {
-        this.refreshActions(this.actions);
+        this.refreshActions(this.actionsWithAvailabilityCb);
     }
 
     private refreshActions(actions: ActionItem<R, T>[]): void {
@@ -244,7 +295,7 @@ export class ActionMenuComponent<R, T> {
                 (action) => action.actionType && action.actionType === ActionType.CONTEXTUAL_FEATURED
             );
 
-        this._actions = actions.map((action) => {
+        this.actionsWithAvailabilityCb = actions.map((action) => {
             const actionCopy = { ...action, children: action.children ? [...action.children] : null };
             if (!actionCopy.actionType) {
                 actionCopy.actionType = markUnmarkedActionsAsContextual
@@ -254,10 +305,29 @@ export class ActionMenuComponent<R, T> {
             return actionCopy;
         });
 
+        this._actions = this.changeAvailabilityCallbacksToBooleans(this.actionsWithAvailabilityCb);
+
         this.shouldDisplayContextualActionsDropdownInline =
             hasNestedActions || this._actions.some((action) => action.actionType === ActionType.CONTEXTUAL);
 
         this.updateActionListsAndDisplayFlags();
+    }
+
+    /**
+     * Executes the availability call backs and updates them to booleans
+     */
+    private changeAvailabilityCallbacksToBooleans(actions) {
+        return actions.map((action) => {
+            const actionAvailability = isObservable(action.availability)
+                ? action.availability
+                : this.isActionAvailable(action);
+
+            return {
+                ...action,
+                availability: actionAvailability,
+                children: action.children ? this.changeAvailabilityCallbacksToBooleans(action.children) : null,
+            };
+        });
     }
 
     private updateActionListsAndDisplayFlags(): void {
@@ -267,6 +337,8 @@ export class ActionMenuComponent<R, T> {
         this.contextualActions = this.getContextualActions();
         this.staticDropdownActions = this.getStaticDropdownActions();
         this.updateActionDisplayFlags();
+        // Emit an update that actions have been changed
+        this.actionsUpdate.emit();
     }
 
     private updateActionDisplayFlags(): void {
@@ -280,65 +352,81 @@ export class ActionMenuComponent<R, T> {
             this.shouldDisplayStaticActions(this.actionStyling.DROPDOWN) ||
             this.shouldDisplayStaticFeaturedActions(this.actionStyling.DROPDOWN);
         this.shouldDisplayContextualActionsDropdown = this.shouldDisplayContextualActions(this.actionStyling.DROPDOWN);
-        this.actionsUpdate.emit();
     }
 
     /**
+     * Used only for actions that don't have their availability as Observables.
      * An action whose availability is false but has the disabled state set to true is still shown on the screen in
      * disabled mode
      */
-    private isActionAvailable(action: ActionItem<R, T>): boolean {
-        return !action.availability || action.availability(this.selectedEntities) || this.isActionDisabled(action);
+    private isActionAvailable(action: ActionItem<R, T> | ActionItemInternal<R, T>): boolean {
+        let isActionAvailable = true;
+        if (action.availability == null) {
+            isActionAvailable = true;
+        }
+        if (typeof action.availability === 'boolean') {
+            isActionAvailable = action.availability;
+        }
+        if (CommonUtil.isFunction(action.availability)) {
+            isActionAvailable =
+                this.getSelectedEntities().length > 0 && action.availability(this.getSelectedEntities());
+        }
+        return isActionAvailable || this.isActionDisabled(action);
     }
 
-    private getStaticFeaturedActions(): ActionItem<R, T>[] {
-        const staticFeaturedActions = this.actions.filter((action) => action.actionType === ActionType.STATIC_FEATURED);
+    private getStaticFeaturedActions(): ActionItemInternal<R, T>[] {
+        const staticFeaturedActions = this._actions.filter(
+            (action) => action.actionType === ActionType.STATIC_FEATURED
+        );
         return this.getAvailableActions(staticFeaturedActions);
     }
 
-    private getContextualFeaturedActions(): ActionItem<R, T>[] {
-        if (!this.selectedEntities?.length) {
+    private getContextualFeaturedActions(): ActionItemInternal<R, T>[] {
+        if (!this.getSelectedEntities().length) {
             return [];
         }
-        const flattenedFeaturedActionList = this.getFlattenedActionList(this.actions, ActionType.CONTEXTUAL_FEATURED);
+        const flattenedFeaturedActionList = this.getFlattenedActionList(this._actions, ActionType.CONTEXTUAL_FEATURED);
         const availableFeaturedActions = this.getAvailableActions(flattenedFeaturedActionList);
-        return this.actionDisplayConfig.contextual.featuredCount
-            ? availableFeaturedActions.slice(0, this.actionDisplayConfig.contextual.featuredCount)
-            : availableFeaturedActions;
+        const featuredCount =
+            this.actionDisplayConfig.contextual.styling === ActionStyling.INLINE &&
+            this.actionDisplayConfig.contextual.featuredCount;
+        return featuredCount ? availableFeaturedActions.slice(0, featuredCount) : availableFeaturedActions;
     }
 
-    private getStaticActions(): ActionItem<R, T>[] {
-        const staticActions = this.actions.filter((action) => action.actionType === ActionType.STATIC);
+    private getStaticActions(): ActionItemInternal<R, T>[] {
+        const staticActions = this._actions.filter((action) => action.actionType === ActionType.STATIC);
         return this.getAvailableActions(staticActions);
     }
 
-    private getStaticDropdownActions(): ActionItem<R, T>[] | object {
+    private getStaticDropdownActions(): ActionItemInternal<R, T>[] | object {
         return this.staticFeaturedActions.concat([
-            { textKey: 'vcd.cc.action.menu.other.actions', children: this.staticActions },
+            {
+                textKey: 'vcd.cc.action.menu.other.actions',
+                children: (this.staticActions as any) as ActionItem<R, T>[],
+            },
         ]);
     }
 
-    private getContextualActions(): ActionItem<R, T>[] {
-        if (!this.selectedEntities?.length) {
+    private getContextualActions(): ActionItemInternal<R, T>[] {
+        if (!this.getSelectedEntities().length) {
             return [];
         }
-        const contextualActions = this.actions.filter(
+        const contextualActions = this._actions.filter(
             (action) =>
                 !action.actionType ||
                 (action.actionType !== ActionType.STATIC_FEATURED && action.actionType !== ActionType.STATIC)
         );
-        const availableContextualActions = this.getAvailableActions(contextualActions);
-        if (this._extensionEntityActions) {
-            availableContextualActions.push(...this._extensionEntityActions);
-        }
-        return availableContextualActions;
+        return this.getAvailableActions(contextualActions);
     }
 
     /**
      * Extracts the nested actions that are marked as featured and returns them as part of a flat list
      */
-    private getFlattenedActionList(actions: ActionItem<R, T>[], actionType: ActionType): ActionItem<R, T>[] {
-        let featuredActions: ActionItem<R, T>[] = [];
+    private getFlattenedActionList(
+        actions: ActionItemInternal<R, T>[] | ActionItem<R, T>[],
+        actionType: ActionType
+    ): ActionItemInternal<R, T>[] {
+        let featuredActions: ActionItemInternal<R, T>[] = [];
         actions.forEach((action) => {
             if (action.children && action.children.length) {
                 featuredActions = featuredActions.concat(this.getFlattenedActionList(action.children, actionType));
@@ -357,17 +445,21 @@ export class ActionMenuComponent<R, T> {
             return;
         }
         if (action.handler) {
-            action.handler(this.selectedEntities, action.handlerData);
+            action.handler(this.getSelectedEntities(), action.handlerData);
         }
     }
 
     /**
      * To disable a displayed action
      */
-    isActionDisabled(action: ActionItem<R, T>): boolean {
-        return (CommonUtil.isFunction(action.disabled)
-            ? action.disabled(this.selectedEntities)
-            : action.disabled) as boolean;
+    isActionDisabled(action: ActionItem<R, T> | ActionItemInternal<R, T>): boolean {
+        if (action.disabled == null) {
+            return false;
+        }
+        if (CommonUtil.isFunction(action.disabled)) {
+            return action.disabled(this.getSelectedEntities());
+        }
+        return action.disabled;
     }
 
     /**
@@ -402,21 +494,33 @@ export class ActionMenuComponent<R, T> {
 
     private shouldDisplayContextualActions(style: ActionStyling): boolean {
         return (
-            this.selectedEntities?.length &&
+            this.getSelectedEntities().length &&
             this.contextualActions.length &&
             this.actionDisplayConfig.contextual.styling === style
         );
     }
-}
 
-/**
- * Without the deep copy, the changes made to any of the action children in one of the methods will persist in other methods
- */
-export function getDeepCopyOfActionItems<R, T>(actions: ActionItem<R, T>[]): ActionItem<R, T>[] {
-    return actions.map((action) => {
-        if (action.children && action.children.length) {
-            action.children = getDeepCopyOfActionItems(action.children);
+    /**
+     * Performance optimization function to do shallow comparison of two arrays.
+     * @param arr1
+     * @param arr2
+     */
+    private isShallowEqual(arr1: unknown[], arr2: unknown[]): boolean {
+        if (arr1 === arr2) {
+            return true;
         }
-        return { ...action };
-    });
+        if ((!arr1 && arr2) || (arr1 && !arr2)) {
+            return false;
+        }
+        if (arr1.length !== arr2.length) {
+            return false;
+        }
+        if (arr1.length === 0 && arr2.length === 0) {
+            return true;
+        }
+        if (arr1.every((item, index) => item === arr2[index])) {
+            return true;
+        }
+        return false;
+    }
 }

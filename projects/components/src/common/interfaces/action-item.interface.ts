@@ -6,6 +6,8 @@
 /**
  * List of different type of action buckets
  */
+import { Observable } from 'rxjs';
+
 export enum ActionType {
     /**
      * Global actions that are displayed always irrespective of the context. These display as the first set of actions
@@ -31,13 +33,15 @@ export enum ActionType {
 export type ActionHandlerType<R, T> = (selectedEntities?: R[], handlerData?: T) => Promise<string | undefined> | void;
 
 /**
- * Data required for displaying an action item in a menu.
+ * Data required for displaying an action item in a menu. Additional data like the type of action and visibility is part of separate
+ * interfaces {@link StaticActionItem} and {@link ContextualActionItem}
  * T is the type of custom data passed to action handler
  * R is the type of selected entity on which the action will be performed
  */
-export interface ActionItem<R, T> {
+export interface BaseActionItem<R, T> {
     /**
-     * The i18n key or a translated string for contents of a action button
+     * The i18n key or a translated string for contents of a action button. This is also added as the data-ui attribute on a action button
+     * HTML element so that it can be used as a CSS selector
      */
     textKey?: string;
     /**
@@ -46,12 +50,6 @@ export interface ActionItem<R, T> {
      * Must be unique among all added actions within an action list
      */
     class?: string;
-    /**
-     * Condition whether or not the action is available.
-     * @param records Single item in case of an operation on single record and multiple in case of an operation on batch
-     * selection
-     */
-    availability?: (records?: R[], additionalData?: any) => boolean;
     /**
      * Indicates if an action that is available should be disabled. If true, a non available action is disabled.
      * If false, a non-available action is hidden
@@ -72,10 +70,6 @@ export interface ActionItem<R, T> {
      * Custom data that will be passed when handler is called
      */
     handlerData?: any;
-    /**
-     * Used for determining where in the action menu this action gets displayed
-     */
-    actionType?: ActionType;
     /**
      * The Clarity icon of the contextual button that is displayed if the button is featured.
      */
@@ -99,37 +93,41 @@ export interface ActionItem<R, T> {
 }
 
 /**
- * Configuration of actions that are not static/featured
+ * Created this separate type to enforce the type of Static actions availability to not be a call back method. This is because, call back
+ * with selected entities is only supported for Contextual actions as the call backs receive selected entities and static actions visibility
+ * is not dependent on selected entities
  */
-export interface ActionDisplayConfig {
+interface StaticActionItem<R, T> extends BaseActionItem<R, T> {
     /**
-     * How the contextual actions list shows up on the screen
+     * Used for determining where in the action menu this action gets displayed
      */
-    contextual?: {
-        /**
-         * How many buttons should display on the featured section.
-         *
-         * Used when you want to set a limit on the number of featured buttons shown.
-         *
-         * If featuredCount is not set, it will default to all featured actions.
-         */
-        featuredCount: number;
-        /**
-         * How the featured actions should be displayed
-         */
-        styling: ActionStyling;
-        /**
-         * If the title should be the button label, icon, or both
-         * Defaults to ICON if unset.
-         */
-        buttonContents: TextIcon;
-    };
-
+    actionType: ActionType.STATIC_FEATURED | ActionType.STATIC;
     /**
-     * How the static actions list shows up on the screen
+     * Condition whether or not the action is available. It is an observable if it relies on response from asynchronous requests
      */
-    staticActionStyling?: ActionStyling;
+    availability?: Observable<boolean>;
 }
+
+/**
+ * Created this separate type for contextual actions because, we want to enforce the type of Static actions availability to not be a call back method.
+ * Refer to {@link #StaticActionItem}
+ */
+interface ContextualActionItem<R, T> extends BaseActionItem<R, T> {
+    /**
+     * Used for determining where in the action menu this action gets displayed
+     */
+    actionType?: ActionType.CONTEXTUAL_FEATURED | ActionType.CONTEXTUAL;
+    /**
+     * Condition whether or not the action is available. Call back with selected entities when visibility depends on entities selected.
+     * It is an observable if it relies on some other condition like a response from asynchronous requests
+     */
+    availability?: Observable<boolean> | ((selectedEntities: R[]) => boolean);
+}
+
+/**
+ * Lets the caller pass both static and contextual actions as part of a single array
+ */
+export type ActionItem<R, T> = StaticActionItem<R, T> | ContextualActionItem<R, T>;
 
 /**
  * Display options for action menu
@@ -146,4 +144,61 @@ export enum TextIcon {
     ICON = 1 << 0,
     TEXT = 1 << 1,
     ICON_AND_TEXT = TextIcon.ICON | TextIcon.TEXT,
+}
+
+/**
+ * This is created separately from {@link ContextualActionInlineDisplayConfig} because, featured count is only required
+ * when contextual actions are displayed as a dropdown
+ */
+export interface ContextualActionDropdownDisplayConfig {
+    /**
+     * To display actions in a dropdown
+     */
+    styling: ActionStyling.DROPDOWN;
+    /**
+     * If the title should be the button label, icon, or both
+     * Defaults to {@link TextIcon.TEXT} when unset
+     */
+    buttonContents?: TextIcon;
+}
+
+/**
+ * This along with {@link ContextualActionDropdownDisplayConfig} is one of the types of
+ * {@link ActionDisplayConfig.contextual}
+ */
+export interface ContextualActionInlineDisplayConfig {
+    /**
+     * How many buttons should display on the featured section.
+     *
+     * Used when you want to set a limit on the number of featured buttons shown.
+     *
+     * If featuredCount is not set, it will default to all featured actions.
+     */
+    featuredCount?: number;
+    /**
+     * To display actions in a inline horizontal ribbon
+     */
+    styling: ActionStyling.INLINE;
+    /**
+     * If the title should be the button label, icon, or both
+     * Defaults to {@link TextIcon.TEXT} when unset
+     */
+    buttonContents?: TextIcon;
+}
+
+/**
+ * Display configuration of actions that are displayed in a action menu
+ */
+export interface ActionDisplayConfig {
+    /**
+     * How the contextual actions list shows up on the screen
+     * If this is not specified, this defaults to { featuredCount: 0, styling: ActionStyling.INLINE, buttonContents: TextIcon.TEXT}
+     */
+    contextual?: ContextualActionDropdownDisplayConfig | ContextualActionInlineDisplayConfig;
+
+    /**
+     * How the static actions list shows up on the screen
+     * This defaults to ActionStyling.INLINE
+     */
+    staticActionStyling?: ActionStyling;
 }

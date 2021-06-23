@@ -7,6 +7,7 @@ import { Component, Host, OnDestroy } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { ClrDatagridFilter } from '@clr/angular';
 import { SelectOption } from '../../common/interfaces/select-option';
+import { SubscriptionTracker } from '../../common/subscription/subscription-tracker';
 import { FilterBuilder } from '../../utils/filter-builder';
 import { IdGenerator } from '../../utils/id-generator/id-generator';
 import { DatagridFilter, FilterComponentRendererSpec, FilterConfig, FilterRendererSpec } from './datagrid-filter';
@@ -64,12 +65,11 @@ const idGenerator = new IdGenerator('vcd-multiselect-filter-id');
 @Component({
     selector: 'vcd-dg-multiselect-filter',
     templateUrl: './datagrid-multiselect-filter.component.html',
+    providers: [SubscriptionTracker],
 })
-export class DatagridMultiSelectFilterComponent
-    extends DatagridFilter<string[], DatagridMultiSelectFilterConfig>
-    implements OnDestroy {
-    constructor(private filterContainer: ClrDatagridFilter) {
-        super(filterContainer);
+export class DatagridMultiSelectFilterComponent extends DatagridFilter<string[], DatagridMultiSelectFilterConfig> {
+    constructor(private filterContainer: ClrDatagridFilter, subTracker: SubscriptionTracker) {
+        super(filterContainer, subTracker);
     }
 
     /**
@@ -126,8 +126,6 @@ export class DatagridMultiSelectFilterComponent
             !!Object.keys(this.formGroup.getRawValue()).filter((frmCtrl) => this.formGroup.get(frmCtrl).value).length
         );
     }
-
-    ngOnDestroy(): void {}
 }
 
 /**

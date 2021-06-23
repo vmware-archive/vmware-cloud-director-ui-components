@@ -6,6 +6,7 @@
 import { Component, Host, OnDestroy } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { ClrDatagridFilter } from '@clr/angular';
+import { SubscriptionTracker } from '../../common/subscription/subscription-tracker';
 import { FilterBuilder } from '../../utils/filter-builder';
 import { DatagridFilter, FilterComponentRendererSpec, FilterConfig, FilterRendererSpec } from './datagrid-filter';
 
@@ -26,18 +27,17 @@ export interface DatagridStringFilterConfig extends FilterConfig<string> {
 @Component({
     selector: 'vcd-dg-string-filter',
     templateUrl: 'datagrid-string-filter.component.html',
+    providers: [SubscriptionTracker],
 })
-export class DatagridStringFilterComponent
-    extends DatagridFilter<string, DatagridStringFilterConfig>
-    implements OnDestroy {
+export class DatagridStringFilterComponent extends DatagridFilter<string, DatagridStringFilterConfig> {
     createFormGroup(): FormGroup {
         return new FormGroup({
             filterText: new FormControl(''),
         });
     }
 
-    constructor(private filterContainer: ClrDatagridFilter) {
-        super(filterContainer);
+    constructor(private filterContainer: ClrDatagridFilter, subTracker: SubscriptionTracker) {
+        super(filterContainer, subTracker);
     }
 
     setValue(value: string): void {
@@ -73,8 +73,6 @@ export class DatagridStringFilterComponent
             return inputPosition & checkPosition ? wildcardCharacter : '';
         }
     }
-
-    ngOnDestroy(): void {}
 }
 
 /**

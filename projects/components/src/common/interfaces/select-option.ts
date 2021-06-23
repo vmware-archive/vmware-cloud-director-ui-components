@@ -19,4 +19,8 @@ export interface SelectOption {
      * Used for translation of the {@link SelectOption.display} text
      */
     isTranslatable?: boolean;
+    /**
+     * Wheather the option is disabled
+     */
+    disabled?: boolean;
 }

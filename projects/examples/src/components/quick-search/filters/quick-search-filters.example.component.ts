@@ -11,6 +11,7 @@ import {
     QuickSearchRegistrarService,
     QuickSearchResultItem,
     QuickSearchResultsType,
+    QuickSearchService,
 } from '@vcd/ui-components';
 
 @Component({
@@ -26,26 +27,43 @@ export class QuickSearchFiltersExampleComponent implements OnInit {
         {
             id: 'type',
             options: [
-                { display: 'actions1' },
-                { display: 'actions2' },
-                { display: 'actions3' },
-                { display: 'actions4' },
+                { display: 'Provider1', key: 'provider1' },
+                { display: 'Provider2', key: 'provider2' },
+                { display: 'Provider3', key: 'provider3' },
+                { display: 'Provider4', key: 'provider4' },
             ],
+            dropdownText: 'Provider Filter',
+            bubbleI18nKey: 'provider.filter.identifier',
         },
         {
-            id: 'is',
-            options: [{ display: 'real' }, { display: 'fake' }],
+            id: 'result-filter',
+            options: [
+                { display: 'Real', key: 'real' },
+                { display: 'Fake', key: 'fake' },
+            ],
+            dropdownText: 'Result Filter',
+            bubbleI18nKey: 'result.filter.identifier',
         },
     ];
 
-    private actionsSearchProvider = new ActionsSearchProvider('actions1');
-    private actionsSearchProvider2 = new ActionsSearchProvider('actions2');
-    private actionsSearchProvider3 = new ActionsSearchProvider('actions3');
-    private actionsSearchProvider4 = new ActionsSearchProvider('actions4');
+    private actionsSearchProvider;
+    private actionsSearchProvider2;
+    private actionsSearchProvider3;
+    private actionsSearchProvider4;
 
-    constructor(private searchRegistrar: QuickSearchRegistrarService) {}
+    constructor(private searchRegistrar: QuickSearchRegistrarService, private searchService: QuickSearchService) {
+        this.actionsSearchProvider = new ActionsSearchProvider('provider1');
+        this.actionsSearchProvider.sectionName = 'Actions from Provider 1';
+        this.actionsSearchProvider2 = new ActionsSearchProvider('provider2');
+        this.actionsSearchProvider2.sectionName = 'Actions from Provider 2';
+        this.actionsSearchProvider3 = new ActionsSearchProvider('provider3');
+        this.actionsSearchProvider3.sectionName = 'Actions from Provider 3';
+        this.actionsSearchProvider4 = new ActionsSearchProvider('provider4');
+        this.actionsSearchProvider4.sectionName = 'Actions from Provider 4';
+    }
 
     ngOnInit(): void {
+        this.filters.forEach((filter) => this.searchService.registerFilter(filter));
         this.searchRegistrar.register(this.actionsSearchProvider);
         this.searchRegistrar.register(this.actionsSearchProvider2);
         this.searchRegistrar.register(this.actionsSearchProvider3);
@@ -57,11 +75,14 @@ const actions: string[] = ['copy', 'paste', 'move', 'dummy', 'other-dummy'];
 
 function buildFilter(criteria: string, filters: ActiveQuickSearchFilter[]): (item: QuickSearchResultItem) => boolean {
     criteria = criteria ? criteria.toLowerCase() : '';
-    const isFilter = filters.find((filter) => filter.id === 'is');
+    const dummyFilter = filters.find((filter) => filter.id === 'result-filter' && filter.value === 'fake');
+    const realFilter = filters.find((filter) => filter.id === 'result-filter' && filter.value === 'real');
+    // console.log("===>", filters, dummyFilter, realFilter);
     return (item: QuickSearchResultItem) =>
         item.displayText.toLowerCase().includes(criteria) &&
-        (!isFilter ||
-            (isFilter.value === 'fake' ? item.displayText.includes('dummy') : !item.displayText.includes('dummy')));
+        ((!dummyFilter && !realFilter) ||
+            (dummyFilter && item.displayText.includes('dummy')) ||
+            (realFilter && !item.displayText.includes('dummy')));
 }
 
 export class ActionsSearchProvider extends QuickSearchProviderDefaults {
@@ -100,6 +121,6 @@ export class ActionsSearchProvider extends QuickSearchProviderDefaults {
     }
 
     canHandleFilter(filter: ActiveQuickSearchFilter): boolean {
-        return super.canHandleFilter(filter) || filter.id === 'is';
+        return super.canHandleFilter(filter) || filter.id === 'result-filter';
     }
 }

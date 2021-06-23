@@ -71,14 +71,12 @@ export class ActionMenuContextualActionsExampleComponent {
     ];
     inlineActionDisplayConfig: ActionDisplayConfig = {
         contextual: {
-            featuredCount: 2,
             styling: ActionStyling.INLINE,
             buttonContents: TextIcon.TEXT,
         },
     };
     dropdownActionDisplayConfig: ActionDisplayConfig = {
         contextual: {
-            featuredCount: 2,
             styling: ActionStyling.DROPDOWN,
             buttonContents: TextIcon.TEXT,
         },
@@ -92,7 +90,6 @@ export class ActionMenuContextualActionsExampleComponent {
     };
     buttonContentsActionDisplayConfig: ActionDisplayConfig = {
         contextual: {
-            featuredCount: 2,
             styling: ActionStyling.INLINE,
             buttonContents: TextIcon.ICON,
         },

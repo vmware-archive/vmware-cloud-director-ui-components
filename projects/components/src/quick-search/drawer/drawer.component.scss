@@ -12,9 +12,9 @@ $scrollbarColor: white;
     right: 0;
     left: 0;
     overflow: hidden;
+    z-index: $zindex;
 
     .left-area {
-        z-index: $zindex;
         position: absolute;
         top: 0;
         bottom: 0;

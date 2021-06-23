@@ -21,12 +21,10 @@ export class DataExporterWidgetObject<T> extends BaseWidgetObject<T> {
     getCancelButton = this.factory.dataUi(DataUi.cancelButton);
 
     /** The button that initiates the export process */
-    private _getExportButton = this.internalFactory.dataUi(DataUi.exportButton);
-    public getExportButton = this.factory.unwrap(this._getExportButton);
+    getExportButton = this.factory.dataUi(DataUi.exportButton);
 
     /** Gets the export all switch */
-    private _getToggleSelectAll = this.internalFactory.dataUi(DataUi.selectAllToggleLabel);
-    public getToggleSelectAll = this.factory.unwrap(this._getToggleSelectAll);
+    getToggleSelectAll = this.factory.dataUi(DataUi.selectAllToggleLabel);
 
     /** Gets the friendly field names switch  */
     getToggleFriendlyNames = this.factory.dataUi(DataUi.friendlyNamesToggleLabel);
@@ -35,10 +33,9 @@ export class DataExporterWidgetObject<T> extends BaseWidgetObject<T> {
     getProgress = this.factory.dataUi(DataUi.progressInput);
 
     /** The list of labels for the checkboxes with the configured columns */
-    private _getColumnCheckboxes = this.internalFactory.dataUi(DataUi.columnSelectionMenuOptions);
-    public getColumnCheckboxes = this.factory.unwrap(this._getColumnCheckboxes);
+    getColumnCheckboxes = this.factory.dataUi(DataUi.columnSelectionMenuOptions);
 
-    private _getColumnCheckboxByLabel = this.internalFactory.dataUi(DataUi.columnSelectionMenuOptions);
+    getColumnCheckboxByLabel = this.factory.dataUi(DataUi.columnSelectionMenuOptions);
 
     getColumnCheckboxArrow = this.factory.dataUi(DataUi.columnCheckboxArrow);
 
@@ -50,11 +47,11 @@ export class DataExporterWidgetObject<T> extends BaseWidgetObject<T> {
      */
     exportData(columnsToUncheck?: string[]): void {
         if (columnsToUncheck) {
-            this._getToggleSelectAll().click();
+            this.getToggleSelectAll().click();
             for (const column of columnsToUncheck) {
-                this._getColumnCheckboxByLabel({ text: column }).click();
+                this.getColumnCheckboxByLabel({ text: column }).click();
             }
         }
-        this._getExportButton().click();
+        this.getExportButton().click();
     }
 }

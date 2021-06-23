@@ -6,6 +6,7 @@ import { Component, Host, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { ClrDatagridFilter } from '@clr/angular';
 import { SelectOption } from '../../common/interfaces/select-option';
+import { SubscriptionTracker } from '../../common/subscription/subscription-tracker';
 import { FilterBuilder } from '../../utils/filter-builder';
 import { DatagridFilter, FilterComponentRendererSpec, FilterConfig, FilterRendererSpec } from './datagrid-filter';
 
@@ -49,10 +50,11 @@ export interface DatagridSelectFilterConfig extends FilterConfig<string | number
 @Component({
     selector: 'vcd-dg-select-filter',
     templateUrl: 'datagrid-select-filter.component.html',
+    providers: [SubscriptionTracker],
 })
 export class DatagridSelectFilterComponent
     extends DatagridFilter<string | number, DatagridSelectFilterConfig>
-    implements OnInit, OnDestroy {
+    implements OnInit {
     /**
      * Displayed as the first option with a falsy value. Selecting this option would deactivate the filter
      */
@@ -67,8 +69,8 @@ export class DatagridSelectFilterComponent
         });
     }
 
-    constructor(private filterContainer: ClrDatagridFilter, private fb: FormBuilder) {
-        super(filterContainer);
+    constructor(private filterContainer: ClrDatagridFilter, private fb: FormBuilder, subTracker: SubscriptionTracker) {
+        super(filterContainer, subTracker);
         this.formGroup = this.fb.group({
             filterSelect: '',
         });
@@ -99,8 +101,6 @@ export class DatagridSelectFilterComponent
     isActive(): boolean {
         return !!this.formGroup && this.formGroup.get('filterSelect').value;
     }
-
-    ngOnDestroy(): void {}
 }
 
 /**

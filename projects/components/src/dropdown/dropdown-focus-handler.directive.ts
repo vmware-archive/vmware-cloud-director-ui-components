@@ -4,7 +4,7 @@
  */
 
 import { AfterViewInit, Directive, Host, OnDestroy, Optional, Renderer2, SkipSelf } from '@angular/core';
-import { SubscriptionTracker } from '../common/subscription';
+import { SubscriptionTracker } from '../common/subscription/subscription-tracker';
 import { DropdownFocusHandlerService } from './dropdown-focus-handler.service';
 import { DropdownComponent } from './dropdown.component';
 
@@ -62,6 +62,7 @@ export interface MenuItem {
  */
 @Directive({
     selector: 'vcd-dropdown[vcdDropdownFocusHandler]',
+    providers: [SubscriptionTracker],
 })
 export class DropdownFocusHandlerDirective implements AfterViewInit, OnDestroy {
     constructor(
@@ -69,7 +70,8 @@ export class DropdownFocusHandlerDirective implements AfterViewInit, OnDestroy {
         @Optional() @SkipSelf() private parentFocusHandler: DropdownFocusHandlerDirective,
         @Host() private hostVcdDropdown: DropdownComponent,
         private focusHandlerService: DropdownFocusHandlerService,
-        private renderer: Renderer2
+        private renderer: Renderer2,
+        private subscriptionTracker: SubscriptionTracker
     ) {}
 
     /**
@@ -84,7 +86,6 @@ export class DropdownFocusHandlerDirective implements AfterViewInit, OnDestroy {
     private clrDropdownMenuEl: HTMLElement;
     private isRootDropdown = !this.parentVcdDropdown;
     private timeoutId: number;
-    private subscriptionTracker = new SubscriptionTracker(this);
     private unlistenRightArrowKeyPress: (...argArray: any[]) => any;
 
     /**

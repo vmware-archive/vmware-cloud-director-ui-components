@@ -4,7 +4,7 @@
  */
 
 import { Component, ViewChild } from '@angular/core';
-import { fakeAsync, TestBed } from '@angular/core/testing';
+import { fakeAsync, TestBed, tick } from '@angular/core/testing';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { MockTranslationService, TranslationService } from '@vcd/i18n';
 import { TestElement } from '../utils';
@@ -66,8 +66,14 @@ describe('DataExporterColumnsWithoutDisplayName', () => {
         const exporter = this.finder.find<DataExporterWidgetObject<TestElement>>(DataExporterWidgetObject);
         exporter.getToggleSelectAll().click();
         this.finder.detectChanges();
-        const columnBubbles = exporter.getColumnBubbles().map((i) => i.text());
-        const columnCheckboxLabels = exporter.getColumnCheckboxes().map((i) => i.text());
+        const columnBubbles = exporter
+            .getColumnBubbles()
+            .unwrap()
+            .map((i) => i.text());
+        const columnCheckboxLabels = exporter
+            .getColumnCheckboxes()
+            .unwrap()
+            .map((i) => i.text());
         const expects = ['col1', 'col2'];
         expect(columnBubbles).toEqual(expects);
         expect(columnCheckboxLabels).toEqual(expects);
@@ -100,6 +106,7 @@ describe('VcdExportTableComponent', () => {
             expect(
                 exporter
                     .getColumnBubbles()
+                    .unwrap()
                     .toArray()
                     .map((it) => it.text())
             ).toEqual(['Name', 'Description']);
@@ -111,18 +118,19 @@ describe('VcdExportTableComponent', () => {
             expect(
                 exporter
                     .getColumnBubbles()
+                    .unwrap()
                     .toArray()
                     .map((it) => it.text())
             ).toEqual(['Name', 'Description']);
             exporter.getColumnCheckboxes({ index: 0 }).click();
-            expect(exporter.getColumnBubbles().text()).toBe('Description');
+            expect(exporter.getColumnBubbles().unwrap().text()).toBe('Description');
         });
 
         it('allows the user to remove selected columns', function (this: TestHostFinder): void {
             const exporter = this.finder.find<DataExporterWidgetObject<TestElement>>(DataExporterWidgetObject);
             exporter.getToggleSelectAll().click();
             exporter.getColumnCheckboxes({ index: 0 }).click();
-            expect(exporter.getColumnBubbles().text()).toBe('Description');
+            expect(exporter.getColumnBubbles().unwrap().text()).toBe('Description');
         });
 
         it('allows the user to deselect and reselect columns', fakeAsync(function (this: TestHostFinder): void {
@@ -130,22 +138,32 @@ describe('VcdExportTableComponent', () => {
             const exporter = this.finder.find<DataExporterWidgetObject<TestElement>>(DataExporterWidgetObject);
             exporter.getToggleSelectAll().click();
             exporter.getColumnCheckboxes({ index: 0 }).click();
-            expect(exporter.getColumnBubbles().text()).toBe('Description');
+            expect(exporter.getColumnBubbles().unwrap().text()).toBe('Description');
             exporter.getColumnCheckboxes({ index: 0 }).click();
-            const actual = exporter.getColumnBubbles().map((it) => it.text());
+            const actual = exporter
+                .getColumnBubbles()
+                .unwrap()
+                .map((it) => it.text());
             expect(actual).toEqual(['Name', 'Description']);
             exporter.getColumnCheckboxes({ index: 1 }).click();
-            expect(exporter.getColumnBubbles().text()).toBe('Name');
+            expect(exporter.getColumnBubbles().unwrap().text()).toBe('Name');
+            tick();
         }));
 
         it('allows the user to remove selected columns from the bubbles below the combo', function (this: TestHostFinder): void {
             const exporter = this.finder.find<DataExporterWidgetObject<TestElement>>(DataExporterWidgetObject);
             exporter.getToggleSelectAll().click();
             exporter.getColumnCheckboxArrow().click();
-            const bubblesTextBeforeRemoving = exporter.getColumnBubbles().map((it) => it.text());
+            const bubblesTextBeforeRemoving = exporter
+                .getColumnBubbles()
+                .unwrap()
+                .map((it) => it.text());
             expect(bubblesTextBeforeRemoving).toEqual(['Name', 'Description']);
             exporter.getColumnBubblesX({ index: 0 }).click();
-            const bubblesTextAfterRemoving = exporter.getColumnBubbles().map((it) => it.text());
+            const bubblesTextAfterRemoving = exporter
+                .getColumnBubbles()
+                .unwrap()
+                .map((it) => it.text());
             expect(bubblesTextAfterRemoving).toEqual(['Description']);
         });
     });
@@ -175,7 +193,7 @@ describe('VcdExportTableComponent', () => {
                 spyOn(this.finder.hostComponent, 'onExportRequest').and.callFake((e: DataExportRequestEvent) => {
                     e.updateProgress(-1);
                     this.finder.detectChanges();
-                    expect(exporter.getProgress().length()).toBe(1, 'Looping bar should have been visible');
+                    expect(exporter.getProgress().unwrap().length()).toBe(1, 'Looping bar should have been visible');
                 });
                 exporter.getExportButton().click();
             });
@@ -187,10 +205,10 @@ describe('VcdExportTableComponent', () => {
                 spyOn(this.finder.hostComponent, 'onExportRequest').and.callFake((e: DataExportRequestEvent) => {
                     e.updateProgress(0);
                     this.finder.detectChanges();
-                    expect(Number(exporter.getProgress().value()) / 100).toBe(0);
+                    expect(Number(exporter.getProgress().unwrap().value()) / 100).toBe(0);
                     e.updateProgress(0.5);
                     this.finder.detectChanges();
-                    expect(Number(exporter.getProgress().value()) / 100).toBe(0.5);
+                    expect(Number(exporter.getProgress().unwrap().value()) / 100).toBe(0.5);
                 });
                 exporter.getExportButton().click();
             });

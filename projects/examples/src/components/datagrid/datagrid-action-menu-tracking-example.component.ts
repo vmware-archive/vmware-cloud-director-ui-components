@@ -6,13 +6,13 @@
 import { AfterViewInit, ChangeDetectorRef, Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import {
-    ActionDisplayConfig,
     ActionItem,
     ActionStyling,
     ActionType,
     CheckBoxStyling,
-    ContextualActionPosition,
+    DatagridActionDisplayConfig,
     DatagridComponent,
+    DatagridContextualActionPosition,
     GridColumn,
     GridDataFetchResult,
     GridSelectionType,
@@ -20,6 +20,7 @@ import {
     SubscriptionTracker,
     TextIcon,
 } from '@vcd/ui-components';
+import { of } from 'rxjs';
 
 interface Record {
     value: string;
@@ -29,8 +30,9 @@ interface Record {
     selector: 'vcd-datagrid-action-menu-tracking-example',
     templateUrl: 'datagrid-action-menu-tracking-example.component.html',
     styleUrls: ['datagrid-action-menu-tracking-example.component.scss'],
+    providers: [SubscriptionTracker],
 })
-export class DatagridActionMenuTrackingExampleComponent<R extends Record> implements OnDestroy, OnInit, AfterViewInit {
+export class DatagridActionMenuTrackingExampleComponent<R extends Record> implements OnInit, AfterViewInit, OnDestroy {
     @ViewChild(DatagridComponent, { static: false }) dg: DatagridComponent<R>;
 
     gridData: GridDataFetchResult<Record> = {
@@ -46,16 +48,18 @@ export class DatagridActionMenuTrackingExampleComponent<R extends Record> implem
 
     actions: ActionItem<R, unknown>[] = [];
 
-    actionDisplayConfig: ActionDisplayConfig = {
+    actionDisplayConfig: DatagridActionDisplayConfig = {
         contextual: {
-            featuredCount: 3,
             styling: ActionStyling.INLINE,
             buttonContents: TextIcon.TEXT,
+            position: DatagridContextualActionPosition.TOP,
         },
         staticActionStyling: ActionStyling.INLINE,
     };
 
-    contextualActionPosition: ContextualActionPosition = ContextualActionPosition.TOP;
+    formGroup: FormGroup;
+
+    isActionMenuAvailable = false;
 
     private readonly staticActions: ActionItem<R, unknown>[] = [
         {
@@ -63,7 +67,7 @@ export class DatagridActionMenuTrackingExampleComponent<R extends Record> implem
             handler: () => {
                 console.log('TODO Add!');
             },
-            availability: () => this.formGroup.controls.enableActions.value,
+            availability: of(this.formGroup.controls.enableActions.value),
             class: 'add',
             actionType: ActionType.STATIC_FEATURED,
             isTranslatable: false,
@@ -87,21 +91,20 @@ export class DatagridActionMenuTrackingExampleComponent<R extends Record> implem
 
     CheckBoxStyling = CheckBoxStyling;
 
-    formGroup: FormGroup;
-
-    isActionMenuAvailable = false;
-
     numberOfAvailableActions = 0;
+    private actionsTracker = new SubscriptionTracker();
 
-    private subscriptionTracker = new SubscriptionTracker(this);
-    private actionsTracker = new SubscriptionTracker(this);
-
-    constructor(private fb: FormBuilder, private cd: ChangeDetectorRef) {
+    constructor(
+        private fb: FormBuilder,
+        private cd: ChangeDetectorRef,
+        private subscriptionTracker: SubscriptionTracker
+    ) {
         this.formGroup = this.fb.group({
             ['enableActions']: [true],
             ['contextualActions']: [true],
             ['staticActions']: [true],
         });
+        this.setActions();
     }
 
     ngOnInit(): void {
@@ -116,13 +119,15 @@ export class DatagridActionMenuTrackingExampleComponent<R extends Record> implem
         this.subscriptionTracker.subscribe(this.dg.mainActionMenu.changes, this.processActionMenuAvailability);
     }
 
-    ngOnDestroy(): void {}
-
     refresh(eventData: GridState<R>): void {
         this.gridData = {
             items: [{ value: 'Value a' }, { value: 'Value b' }],
             totalItems: 2,
         };
+    }
+
+    ngOnDestroy() {
+        this.actionsTracker.unsubscribeAll();
     }
 
     private processActionMenuAvailability = () => {

@@ -7,7 +7,7 @@ import { Component, EventEmitter, Input, OnDestroy, OnInit, Output, ViewChild } 
 import { FormControl, FormGroup } from '@angular/forms';
 import { ClrDropdown } from '@clr/angular';
 import { LazyString, TranslationService } from '@vcd/i18n';
-import { SubscriptionTracker } from '../common/subscription';
+import { SubscriptionTracker } from '../common/subscription/subscription-tracker';
 import { CsvExporterService } from './csv-exporter.service';
 
 /**
@@ -92,20 +92,28 @@ export const DataUi = {
     selector: 'vcd-data-exporter',
     templateUrl: 'data-exporter.component.html',
     styleUrls: ['./data-exporter.component.scss'],
+    providers: [SubscriptionTracker],
 })
-export class DataExporterComponent implements OnInit, OnDestroy {
+export class DataExporterComponent implements OnInit {
     DataUi = DataUi;
 
-    constructor(private csvExporterService: CsvExporterService, private translationService: TranslationService) {}
+    constructor(
+        private csvExporterService: CsvExporterService,
+        private translationService: TranslationService,
+        private subscriptionTracker: SubscriptionTracker
+    ) {}
 
     @ViewChild(ClrDropdown) set columnDropdown(columnDropdown: ClrDropdown) {
         if (!columnDropdown) {
             return;
         }
+        this._columnDropdown = columnDropdown;
         this.subscriptionTracker.subscribe(columnDropdown.toggleService.openChange, (opened) => {
             this.isDropdownOpen = opened;
         });
     }
+
+    private _columnDropdown: ClrDropdown;
 
     _columns: ExportColumn[] = [];
 
@@ -231,10 +239,6 @@ export class DataExporterComponent implements OnInit, OnDestroy {
     }
 
     private _open = false;
-    private subscriptionTracker = new SubscriptionTracker(this);
-
-    forceDropdownOpen = false;
-
     /**
      * Fires when {@link _open} changes. Its parameter indicates the new state.
      */
@@ -327,8 +331,15 @@ export class DataExporterComponent implements OnInit, OnDestroy {
     /**
      * Sets the selected value of the given column.
      */
-    selectColumn(column: ExportColumn, selected: boolean): void {
+    selectColumn(column: ExportColumn, selected: boolean = !this.getColumnSelection(column)): void {
         this.formGroup.controls[column.fieldName].setValue(selected);
+    }
+
+    /**
+     * Gives the selection status of the given column.
+     */
+    getColumnSelection(column: ExportColumn): boolean {
+        return this.formGroup.controls[column.fieldName].value;
     }
 
     ngOnInit(): void {
@@ -343,13 +354,10 @@ export class DataExporterComponent implements OnInit, OnDestroy {
                     this.formGroup.controls[column.fieldName].setValue(true);
                 }
             } else {
-                this.forceDropdownOpen = true;
-                this.isDropdownOpen = true;
+                this._columnDropdown.toggleService.toggleWithEvent(new Event('click'));
             }
         });
     }
-
-    ngOnDestroy(): void {}
 
     private exportData(records: object[]): Promise<string> {
         if (!this.open) {

@@ -1,13 +1,23 @@
 <div class="inline-actions-container" *ngIf="shouldDisplayActionsInline">
     <ng-container *ngIf="shouldDisplayStaticFeaturedActionsInline">
         <ng-container *ngFor="let action of staticFeaturedActions; trackBy: actionsTrackBy">
-            <ng-template *ngTemplateOutlet="actionButton; context: { $implicit: action }"></ng-template>
+            <ng-template
+                *ngTemplateOutlet="
+                    isObservable(action.availability) ? obsTmpl : actionButtonTmpl;
+                    context: { $implicit: action }
+                "
+            ></ng-template>
         </ng-container>
     </ng-container>
 
     <ng-container *ngIf="shouldDisplayContextualActionsInline">
         <ng-container *ngFor="let action of contextualFeaturedActions; trackBy: actionsTrackBy">
-            <ng-template *ngTemplateOutlet="actionButton; context: { $implicit: action }"></ng-template>
+            <ng-template
+                *ngTemplateOutlet="
+                    isObservable(action.availability) ? obsTmpl : actionButtonTmpl;
+                    context: { $implicit: action }
+                "
+            ></ng-template>
         </ng-container>
 
         <vcd-dropdown
@@ -18,7 +28,7 @@
             [trackByFunction]="actionsTrackBy"
             [dropdownPosition]="dropdownPosition"
             [nestedDropdownPosition]="nestedDropdownPosition"
-            [selectedEntities]="selectedEntities"
+            [selectedEntities]="getSelectedEntities()"
             [dropdownTriggerBtnTxt]="inlineDropdownTriggerBtnText | translate"
             [dropdownItemContents]="actionDisplayConfig.contextual.buttonContents"
             [isDropdownDisabled]="disabled"
@@ -28,7 +38,12 @@
     <ng-container *ngIf="shouldDisplayStaticActionsInline">
         <div class="static-actions-separator"></div>
         <ng-container *ngFor="let action of staticActions; trackBy: actionsTrackBy">
-            <ng-template *ngTemplateOutlet="actionButton; context: { $implicit: action }"></ng-template>
+            <ng-template
+                *ngTemplateOutlet="
+                    isObservable(action.availability) ? obsTmpl : actionButtonTmpl;
+                    context: { $implicit: action }
+                "
+            ></ng-template>
         </ng-container>
     </ng-container>
 </div>
@@ -40,7 +55,7 @@
     [trackByFunction]="actionsTrackBy"
     [dropdownPosition]="dropdownPosition"
     [nestedDropdownPosition]="nestedDropdownPosition"
-    [selectedEntities]="selectedEntities"
+    [selectedEntities]="getSelectedEntities()"
     [dropdownTriggerBtnTxt]="dropdownTriggerBtnText | translate"
     [dropdownTriggerBtnIcon]="dropdownTriggerBtnIcon"
     [dropdownItemContents]="actionDisplayConfig.contextual.buttonContents"
@@ -54,19 +69,28 @@
     [trackByFunction]="actionsTrackBy"
     [dropdownPosition]="dropdownPosition"
     [nestedDropdownPosition]="nestedDropdownPosition"
-    [selectedEntities]="selectedEntities"
+    [selectedEntities]="getSelectedEntities()"
     [dropdownTriggerBtnTxt]="dropdownTriggerBtnText | translate"
     [dropdownTriggerBtnIcon]="dropdownTriggerBtnIcon"
     [dropdownItemContents]="actionDisplayConfig.contextual.buttonContents"
     [isDropdownDisabled]="disabled"
 ></vcd-dropdown>
 
-<ng-template #actionButton let-action>
+<ng-template #obsTmpl let-action>
+    <ng-template
+        *ngIf="action.availability | async"
+        [ngTemplateOutlet]="actionButtonTmpl"
+        [ngTemplateOutletContext]="{ $implicit: action }"
+    ></ng-template>
+</ng-template>
+
+<ng-template #actionButtonTmpl let-action>
     <button
         class="btn btn-link"
         [ngClass]="action.class"
         (click)="runActionHandler(action)"
         [disabled]="isActionDisabled(action)"
+        [attr.data-ui]="action.textKey"
     >
         <ng-container *ngIf="shouldShowText">{{
             action.isTranslatable === false ? action.textKey : (action.textKey | translate)

@@ -2,6 +2,7 @@
  * Copyright 2020 VMware, Inc.
  * SPDX-License-Identifier: BSD-2-Clause
  */
+import { SelectorUtil } from '../selector-util';
 import {
     BaseWidgetObject,
     ElementActions,
@@ -31,16 +32,17 @@ export class CypressWidgetObjectElement<T extends ElementActions> implements Wid
      */
     get(selector: string | FindElementOptions): CypressWidgetObjectElement<T> {
         const root = this.getBase();
+        const cssSelector = SelectorUtil.extractSelector(selector);
         let chainable: any;
         if (typeof selector === 'string') {
             chainable = root.find(selector);
         } else if (selector.index) {
-            chainable = root.find(selector.cssSelector, selector.options).eq(selector.index);
+            chainable = root.find(cssSelector, selector.options).eq(selector.index);
         } else if (selector.text) {
             const queryOptions = { matchCase: false, ...(selector.options || {}) };
-            chainable = root.contains(selector.cssSelector, selector.text, queryOptions);
+            chainable = root.contains(cssSelector, selector.text, queryOptions);
         } else {
-            chainable = root.find(selector.cssSelector, selector.options);
+            chainable = root.find(cssSelector, selector.options);
         }
         return new CypressWidgetObjectElement(chainable, false, this.alias);
     }
@@ -53,7 +55,11 @@ export class CypressWidgetObjectElement<T extends ElementActions> implements Wid
         if (typeof selector === 'string') {
             return new CypressWidgetObjectElement(root.parents(selector), false, this.alias);
         }
-        return new CypressWidgetObjectElement(root.parents(selector.cssSelector, selector.options), false, this.alias);
+        return new CypressWidgetObjectElement(
+            root.parents(SelectorUtil.extractSelector(selector), selector.options),
+            false,
+            this.alias
+        );
     }
 
     /**
@@ -95,7 +101,14 @@ export class CypressWidgetObjectElement<T extends ElementActions> implements Wid
      * @inheritdoc
      */
     uncheck(options?: unknown): void {
-        this.chainable.uncheck();
+        this.chainable.uncheck(options);
+    }
+
+    /**
+     * @inheritdoc
+     */
+    clear(options?: unknown): void {
+        this.chainable.clear(options);
     }
 
     /**

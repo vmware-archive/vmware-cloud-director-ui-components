@@ -4,7 +4,7 @@
  */
 
 import { Component } from '@angular/core';
-import { fakeAsync, TestBed } from '@angular/core/testing';
+import { fakeAsync, TestBed, tick } from '@angular/core/testing';
 import { FormControl, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ClarityModule } from '@clr/angular';
@@ -63,6 +63,16 @@ const [MIN, MAX] = [1000, 10000];
             [unitOptions]="[]"
             [description]="'sizingPolicies.form.cpuLimit.description' | translate"
             class="no-given-units"
+        >
+        </vcd-number-with-unit-form-input>
+        <vcd-number-with-unit-form-input
+            [formControl]="cpuLimit"
+            [label]="'cpu.limit' | translate"
+            [unitOptions]="hertzOptions"
+            [inputValueUnit]="formControlValueUnit"
+            [showUnlimitedOption]="false"
+            [description]="'sizingPolicies.form.cpuLimit.description' | translate"
+            class="no-unlimited"
         >
         </vcd-number-with-unit-form-input>
     `,
@@ -137,6 +147,52 @@ describe('VcdNumberWithUnitFormInputComponent', () => {
             numberWithUnitInput.clickUnlimitedCheckbox();
             expect(numberWithUnitInput.isInputValueFocused).toBe(true, 'Input element should have focus');
         });
+
+        it('will choose a unit when unchecked for initial value unlimited', () => {
+            const numberWithUnitInputUnlimited = finder.find({
+                woConstructor: NumberWithUnitFormInputWidgetObject,
+                className: 'initially-unlimited',
+            });
+            expect(numberWithUnitInputUnlimited.displayValue).toEqual(ts.translate('vcd.cc.unlimited'));
+            numberWithUnitInputUnlimited.clickUnlimitedCheckbox();
+            expect(numberWithUnitInputUnlimited.selectedUnitDisplayValue).toEqual('MHz');
+        });
+
+        it('selects unlimited when the unlimited value is typed if unlimited is enabled', fakeAsync(() => {
+            expect(numberWithUnitInput.displayValue).toEqual('');
+            numberWithUnitInput.typeInput('-1');
+            tick();
+            numberWithUnitInput.detectChanges();
+            expect(numberWithUnitInput.isInputValueFocused).toBe(true);
+            expect(numberWithUnitInput.displayValue).toEqual(
+                ts.translate(Hertz.Mhz.getValueWithUnitTranslationKey(), [-1])
+            );
+            numberWithUnitInput.blurInput();
+            tick();
+            numberWithUnitInput.detectChanges();
+            expect(numberWithUnitInput.isInputValueFocused).toBe(false);
+            expect(numberWithUnitInput.isInputFieldDisabled).toBe(true);
+            expect(numberWithUnitInput.displayValue).toEqual(ts.translate('vcd.cc.unlimited'));
+        }));
+
+        it('does not select unlimited when the unlimited value is typed if unlimited is disabled', fakeAsync(() => {
+            const noUnlimited = finder.find({
+                woConstructor: NumberWithUnitFormInputWidgetObject,
+                className: 'no-unlimited',
+            });
+            expect(noUnlimited.displayValue).toEqual('');
+            noUnlimited.typeInput('-1');
+            tick();
+            noUnlimited.detectChanges();
+            expect(noUnlimited.isInputValueFocused).toBe(true);
+            expect(noUnlimited.displayValue).toEqual(ts.translate(Hertz.Mhz.getValueWithUnitTranslationKey(), [-1]));
+            noUnlimited.blurInput();
+            tick();
+            noUnlimited.detectChanges();
+            expect(noUnlimited.isInputValueFocused).toBe(true);
+            expect(noUnlimited.isInputFieldDisabled).toBe(false);
+            expect(noUnlimited.displayValue).toEqual(ts.translate(Hertz.Mhz.getValueWithUnitTranslationKey(), [-1]));
+        }));
     });
 
     describe('unitOptions', () => {
@@ -229,6 +285,17 @@ describe('VcdNumberWithUnitFormInputComponent', () => {
             numberWithUnitInput.detectChanges();
             expect(numberWithUnitInput.isInputFieldDisabled).toEqual(true);
             expect(numberWithUnitInput.isUnitDropdownDisabled).toEqual(true);
+        });
+
+        it('gives a null value when cleared', () => {
+            numberWithUnitInput.component.unlimitedValue = 0;
+            numberWithUnitInput.component.unitOptions = [Hertz.Mhz];
+            finder.detectChanges();
+            numberWithUnitInput.setInputValueUnit(Hertz.Mhz);
+            numberWithUnitInput.selectUnit(Hertz.Mhz);
+            numberWithUnitInput.textInputValue = null;
+            // Gave 0 before this fix
+            expect(numberWithUnitInput.formControl.value).toEqual(null);
         });
     });
 

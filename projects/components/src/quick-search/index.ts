@@ -8,3 +8,4 @@ export * from './quick-search.component';
 export * from './quick-search.service';
 export * from './quick-search.provider';
 export * from './quick-search-registrar.service';
+export * from './quick-search.wo';

@@ -6,6 +6,7 @@
 import { DebugElement, Injector, Type } from '@angular/core';
 import { ComponentFixture } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
+import { SelectorUtil } from '../selector-util';
 import { BaseWidgetObject, FindableWidget, FindElementOptions, WidgetObjectElement } from '../widget-object';
 import { AngularWidgetObjectFinder, FindAngularWidgetOptions } from './angular-widget-finder';
 
@@ -21,7 +22,7 @@ export class AngularWidgetObjectElement implements WidgetObjectElement<TestEleme
      * @inheritdoc
      */
     get(selector: string | FindElementOptions): AngularWidgetObjectElement {
-        const cssSelector = typeof selector === 'string' ? selector : selector.cssSelector;
+        const cssSelector = SelectorUtil.extractSelector(selector);
         const elements = this.testElement.elements;
         let matches = [].concat(...elements.map((element) => element.queryAll(By.css(cssSelector))));
         if (typeof selector !== 'string') {
@@ -65,6 +66,13 @@ export class AngularWidgetObjectElement implements WidgetObjectElement<TestEleme
     /**
      * @inheritdoc
      */
+    clear(): void {
+        this.testElement.clear();
+    }
+
+    /**
+     * @inheritdoc
+     */
     check(options?: unknown): void {}
 
     /**
@@ -78,10 +86,7 @@ export class AngularWidgetObjectElement implements WidgetObjectElement<TestEleme
     select(value: string, options?: unknown): void {}
 
     type(value: string): void {
-        const inputEl = this.testElement.elements[0].nativeElement as HTMLInputElement;
-        inputEl.value = String(value);
-        inputEl.dispatchEvent(new Event('change'));
-        inputEl.dispatchEvent(new Event('input'));
+        this.testElement.type(value);
     }
 
     /**
@@ -153,10 +158,24 @@ export class TestElement implements Iterable<TestElement> {
     }
 
     /**
+     * Gives the value of the placeholder text on this input element
+     */
+    placeholder(): string {
+        return (this.firstNativeElement as HTMLInputElement).placeholder;
+    }
+
+    /**
      * Gives the value of the first element.
      */
     value(): string {
         return (this.firstNativeElement as HTMLInputElement).value;
+    }
+
+    /**
+     * Gives all attributes on this element.
+     */
+    attributes(): NamedNodeMap {
+        return this.firstNativeElement.attributes;
     }
 
     /**
@@ -310,6 +329,17 @@ export class TestElement implements Iterable<TestElement> {
     queryElements(cssSelector: string): TestElement {
         const result = this.firstDebugElement.queryAll(By.css(cssSelector));
         return new TestElement(result ? result : [], this.fixture);
+    }
+
+    /**
+     * Allows data to be entered into a test element
+     */
+    type(value: string): void {
+        const inputEl = this.elements[0].nativeElement as HTMLInputElement;
+        inputEl.value = String(value);
+        inputEl.dispatchEvent(new Event('change'));
+        inputEl.dispatchEvent(new Event('input'));
+        this.detectChanges();
     }
 
     /**

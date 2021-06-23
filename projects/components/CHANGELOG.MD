@@ -6,9 +6,133 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
+- Add translation for `Filter By` label in Quick search component
+
+## [2.0.0-dev.25]
+## Changed
+- Add action textKey as `data-ui` attribute on action button HTML elements
+
+## [2.0.0-dev.24]
+## Changed
+- BREAKING: internalFactory has been removed from WidgetObject. All users of our exposed WidgetObjectElements
+  will need to call unwrap() on the methods returning HTML elements if they want to access `T` functionality
+
+## [2.0.0-dev.23]
+### Changed
+- Refactor quick search so the service contains much more logic.
+- BREAKING: Change `QuickSearchService.registerFilters` to `QuickSearchService.registerFilter`
+### Fixed
+- `unregisterFilter` now removes the filter indeed
+### Added
+- Optional `order` field to the filters so they can be ordered when registered
+
+## [2.0.0-dev.22]
+
+### Changed
+- BREAKING: Convert the subscription tracker to be a service.
+
+## [2.0.0-dev.21]
+
+### Changed
+- BREAKING: Quick search filters are now set through the service.
+- BREAKING: Pinning is now handled through the search service.
+
+### Added
+- You can now use the quick search service to select a filter and test if the modal is pinned.
 
 ### Fixes
+- Fix pinned quick search appearing above modals
+## [2.0.0-dev.20]
+### Changed
+- BREAKING: Reworked Quick Search Filters
+- Quick search now has a single loading indicator.
+
+## [2.0.0-dev.19]
+### Added
+- `vcd-form-select` now accepts `@Input`s `hint` and `description`
+
+## [2.0.0-dev.18]
+### Fixed
+- Replaced the call to `get selectedEntities()` getter with `getSelectedEntities()` method in the `ActionMenuComponent`
+HTML
+
+## [2.0.0-dev.17]
+### Changed
+- `ActionMenuComponent`'s `@Input set selectedEntities` now also takes a single item as a convenience to callers
+- BREAKING: `ActionMenuComponent`'s `get selectedEntities(): T[]` was replaced with `getSelectedEntitites(): T[]`
+because changing the getter to take `T | T[]` to match the setter would cause callers to do type checking even though
+we guarantee it will be an array.
+
+## [2.0.0-dev.16]
+### Added
+- New unit tests to ensure datagridSelection returns same reference
+### Changed
+- Optimize ActionMenuComponent for less processing on input change
+
+## [2.0.0-dev.15]
+### Changed
+- Quick search sections can now have icons.
+### Fixed
+- A bug in the number with unit where if unlimited was disabled but the user types "-1", the whole form would become disabled
+
+## [2.0.0-dev.14]
+### Added
+- Quick-search widget object
+
+## [2.0.0-dev.13]
+### Changed
+- BREAKING: ActionDisplayConfig of ActionMenuComponent accepts featuredCount property only when the actions are displayed
+inline
+
+## [2.0.0-dev.12]
+### Changed
+- Responsive input directive now allocates 1/4th of the container space for input field labels on large modals
+- Make the buttonContents property as optional for inline display configuration of contextual actions
+- Make the position property as optional for display configuration of contextual actions in datagrid
+
+## [2.0.0-dev.11]
+### Changed
+- BREAKING: ActionDisplayConfig of ActionMenuComponent does not accept featuredCount when actions are displayed inline
+and ActionDisplayConfig of DatagridComponent now takes a new property called position
+
+## [2.0.0-dev.10]
+### Fixed
+- Fix the styling of Number with unit input component such that the inputs inside the component take the available
+container width
+- The data exporter is now accessible from the keyboard.
+- A bug where clearing the form would not work properly if the unlimitedValue was 0
+- A bug where if the default value of the form was unlimited, the component would not select a unit and fail to work.
+- A bug where if the user types in the unlimitedValue, the form did not check the checkbox on blur
+
+## [2.0.0-dev.9]
+### Changed
+- BREAKING: Changed the interface action availability such that the availability of static actions does not accept call backs
+
+## [2.0.0-dev.8]
+### Added
+- Find widget by data ui attribute.
+
+### Added
+- `clear` is now a method in a widget object.
+- Added functionality to disable an option in `FormSelectComponent`
+
+### Fixed
+- Allows findWidget in the widget object to use all given findOption.
+
+### Change
+- BREAKING: All quick search sections now hide when empty.
+## [2.0.0-dev.7]
+### Changed
+- The availability property of action items now accepts observables so that their visibility can be updated from
+asynchronous responses
+
+## [2.0.0-dev.6]
+### Changed
+- Quick search now performs much better with many providers.
+### Fixes
 - A bug where using a two-way binding on selection results in an infinite loop.
+- Styles on quick search remove the header on a lot of modals.
+
 ## [2.0.0-dev.5]
 ### Added
 - The ability to group providers in sections in quick search.
