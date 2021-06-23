@@ -1553,7 +1553,7 @@ button.datagrid-expandable-caret .datagrid-expandable-caret-button{cursor:pointe
 .datagrid-row .datagrid-signpost-trigger .signpost{margin:-.36rem 0;height:1.236rem}
 .datagrid-row .datagrid-signpost-trigger .signpost .signpost-trigger{height:inherit;line-height:1.2rem}
 .datagrid-row .datagrid-row-sticky{z-index:500}
-.datagrid-row-sticky{background-color:#fff;background-color:var(--clr-table-bgcolor, white);display:flex;flex-wrap:nowrap;position:-webkit-sticky;position:sticky;left:0;z-index:502}
+.datagrid-row-sticky{background-color:#fff;background-color:var(--clr-table-bgcolor, white);display:flex;flex-wrap:nowrap;position:sticky;left:0;z-index:502}
 .datagrid-row-sticky .datagrid-cell:last-child:after{content:"";width:.05rem;height:calc(100% - .5rem);position:absolute;right:0;top:.25rem;background-color:#ccc;background-color:var(--clr-table-border-color, #cccccc)}
 .datagrid-row-scrollable{flex:1 1 auto;display:flex;flex-flow:column nowrap}
 .datagrid-row-scrollable.is-replaced{flex-direction:row}
@@ -1565,7 +1565,7 @@ button.datagrid-expandable-caret .datagrid-expandable-caret-button{cursor:pointe
 .datagrid-scrolling-cells,.datagrid-scrolling-details{display:flex;flex:1 1 auto;flex-flow:row nowrap}
 .datagrid-action-bar{margin-top:1.2rem}
 .datagrid-action-bar~.datagrid-spinner{height:calc(100% - 1.2rem);top:1.2rem}
-.datagrid-header{position:-webkit-sticky;position:sticky;top:0;z-index:501;width:auto}
+.datagrid-header{position:sticky;top:0;z-index:501;width:auto}
 .datagrid-header .datagrid-column{border-bottom:none}
 .datagrid-header .datagrid-row{background-color:#fafafa;background-color:var(--clr-thead-bgcolor, #fafafa);border-top:none;border-bottom-style:solid;border-bottom-width:.05rem;border-bottom-width:var(--clr-global-borderwidth, 0.05rem);border-bottom-color:#ccc;border-bottom-color:var(--clr-table-border-color, #cccccc)}
 .datagrid-header .datagrid-row .datagrid-row-sticky{background-color:#fafafa;background-color:var(--clr-thead-bgcolor, #fafafa)}
