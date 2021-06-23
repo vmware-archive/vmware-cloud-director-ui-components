@@ -114,7 +114,7 @@
                 </tr>
                         <tr>
                             <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="52" class="link-to-prism">projects/components/src/utils/rest/rest-query-search.client.ts:52</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="53" class="link-to-prism">projects/components/src/utils/rest/rest-query-search.client.ts:53</a></div>
                             </td>
                         </tr>
 
@@ -179,8 +179,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="65"
-                            class="link-to-prism">projects/components/src/utils/rest/rest-query-search.client.ts:65</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="66"
+                            class="link-to-prism">projects/components/src/utils/rest/rest-query-search.client.ts:66</a></div>
                 </td>
             </tr>
 
@@ -307,6 +307,7 @@ export interface RestQuery {
 export interface RestQueryOptions {
     links?: boolean;
     multisite?: boolean;
+    format?: Query.Format;
 }
 
 /**
@@ -351,6 +352,10 @@ export class RestQueryService extends VcdApiClient {
         let multisite: boolean;
         if (options?.multisite) {
             multisite &#x3D; options.multisite;
+        }
+
+        if (options?.format) {
+            toSend.format(options.format);
         }
 
         return this.query(toSend, multisite);
