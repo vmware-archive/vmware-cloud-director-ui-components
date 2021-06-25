@@ -1,5 +1,5 @@
 <div class="clr-form-control" [vcdResponsiveInput]="{ disabled: !isResponsive }" *ngIf="isReadOnly">
-    <label class="clr-control-label">{{ label }}</label>
+    <label *ngIf="label" class="clr-control-label">{{ label }}</label>
     <span class="clr-control-container readonly-text">{{ displayValue || '-' }}</span>
 </div>
 
