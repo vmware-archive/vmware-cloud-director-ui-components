@@ -1024,7 +1024,7 @@ export class CypressWidgetObjectElement&lt;T extends ElementActions&gt; implemen
         let chainable: any;
         if (typeof selector &#x3D;&#x3D;&#x3D; &#x27;string&#x27;) {
             chainable &#x3D; root.find(selector);
-        } else if (selector.index) {
+        } else if (typeof selector.index &#x3D;&#x3D;&#x3D; &#x27;number&#x27;) {
             chainable &#x3D; root.find(cssSelector, selector.options).eq(selector.index);
         } else if (selector.text) {
             const queryOptions &#x3D; { matchCase: false, ...(selector.options || {}) };
