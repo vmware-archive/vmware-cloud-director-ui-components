@@ -36,7 +36,7 @@ export class CypressWidgetObjectElement<T extends ElementActions> implements Wid
         let chainable: any;
         if (typeof selector === 'string') {
             chainable = root.find(selector);
-        } else if (selector.index) {
+        } else if (typeof selector.index === 'number') {
             chainable = root.find(cssSelector, selector.options).eq(selector.index);
         } else if (selector.text) {
             const queryOptions = { matchCase: false, ...(selector.options || {}) };
