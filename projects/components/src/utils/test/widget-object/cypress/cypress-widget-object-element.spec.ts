@@ -79,13 +79,14 @@ describe('CypressWidgetObjectFinder', () => {
         });
 
         it('finds a widget using index', () => {
+            const index = 0;
             const getSpy = spyOn(cy, 'get').and.callThrough();
             const findSpy = spyOn(cy, 'find').and.callThrough();
             const eqSpy = spyOn(cy, 'eq').and.callThrough();
-            new CypressWidgetObjectFinder().find(FakeWidget, { index: 1 });
+            new CypressWidgetObjectFinder().find(FakeWidget, { index });
             expect(getSpy).toHaveBeenCalledWith('body', { timeout: undefined });
             expect(findSpy).toHaveBeenCalledWith(FakeWidget.tagName, undefined);
-            expect(eqSpy).toHaveBeenCalledWith(1);
+            expect(eqSpy).toHaveBeenCalledWith(index);
         });
     });
 });
