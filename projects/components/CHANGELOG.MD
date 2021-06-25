@@ -6,6 +6,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
+### Fixed
+- Fixed number-with-unit input read-only label to be hidden when empty.
+
+## [Unreleased]
 - Add translation for `Filter By` label in Quick search component
 
 ## [2.0.0-dev.26]
