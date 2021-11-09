@@ -16,6 +16,15 @@ export function createTypescriptProgram(entryFiles: string[], options: ts.Compil
 }
 
 export function getVariableInitializer(node: ts.Node, typeChecker: ts.TypeChecker): ts.Expression {
+    const declaration = getValueDeclaration(node, typeChecker);
+
+    if (!ts.isVariableDeclaration(declaration)) {
+        return;
+    }
+    return declaration.initializer;
+}
+
+export function getValueDeclaration(node: ts.Node, typeChecker: ts.TypeChecker): ts.Declaration {
     const symbol = typeChecker.getSymbolAtLocation(node);
     if (!symbol) {
         return;
@@ -30,11 +39,7 @@ export function getVariableInitializer(node: ts.Node, typeChecker: ts.TypeChecke
     if (!valueDeclaration) {
         return;
     }
-
-    if (!ts.isVariableDeclaration(valueDeclaration)) {
-        return;
-    }
-    return valueDeclaration.initializer;
+    return valueDeclaration;
 }
 
 export function getArrayItemsInitializer(
@@ -93,5 +98,40 @@ export function evaluateNode(
     }
     if (throwOnFailure) {
         throw new Error(`Corner case hit when evaluating: `);
+    }
+}
+
+/**
+ * Given an expression representing an Angular component class, find its tag name, which is the selector property but
+ * for components, it must be a tag name.
+ * @param initializer expression which declares an angular component
+ * @param typeChecker
+ */
+export function getTagName(initializer: ts.Expression, typeChecker: ts.TypeChecker): string | undefined {
+    const routeComponentInitializer = getValueDeclaration(initializer, typeChecker);
+    const componentDecorator = routeComponentInitializer?.decorators.find((dec) => {
+        return (
+            ts.isDecorator(dec) &&
+            ts.isCallExpression(dec.expression) &&
+            ts.isIdentifier(dec.expression.expression) &&
+            dec.expression.expression.escapedText === 'Component'
+        );
+    });
+
+    if (!componentDecorator) {
+        throw new Error(
+            `Invalid expression passed to getTagName. Expected class declaration with @Component annotation`
+        );
+    }
+    // We guaranteed it's a callExpression with the above
+    const compDecoratorArg = (componentDecorator.expression as ts.CallExpression).arguments[0];
+    if (!ts.isObjectLiteralExpression(compDecoratorArg)) {
+        return;
+    }
+    const selectorProp = compDecoratorArg.properties.find(
+        (p): p is ts.PropertyAssignment => ts.isPropertyAssignment(p) && p.name.getText() === 'selector'
+    );
+    if (selectorProp) {
+        return (selectorProp.initializer as ts.StringLiteral).text;
     }
 }

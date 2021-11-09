@@ -10,7 +10,8 @@
         "noImplicitAny": true,
         "noImplicitThis": true,
         "skipLibCheck": true,
-        "forceConsistentCasingInFileNames": true
+        "forceConsistentCasingInFileNames": true,
+        "lib": ["dom", "es2018", "es2020.string"]
     },
-    "files": ["./src/cli.ts"]
+    "files": ["./src/cli.ts", "src/lib/gen-route-builder.spec.ts"]
 }
