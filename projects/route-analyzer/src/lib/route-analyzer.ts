@@ -5,23 +5,25 @@
 import * as ts from 'typescript';
 import { AppRoute } from './app-route';
 import { ANGULAR_CORE, ROUTE_PROP } from './constants';
-import { createTypescriptProgram, evaluateNode, getArrayItemsInitializer, hasValue } from './utils';
+import { createTypescriptProgram, evaluateNode, getArrayItemsInitializer, getTagName, hasValue } from './utils';
 
 interface AppRouteWithLazyLoading extends AppRoute {
     loadChildren?: string;
 }
 
 interface ModuleRouteCall {
-    module: string;
+    /** The .module.ts file that contains a call to forChild() */
+    module: ts.SourceFile;
+    /** The call RouterModule.forChild() */
     routeCall: ts.CallExpression;
 }
 interface ModuleRoutes {
-    module: string;
+    module: ts.SourceFile;
     routes: AppRouteWithLazyLoading[];
 }
 
 interface ModuleAppRoutes {
-    module: string;
+    module: ts.SourceFile;
     routes: AppRoute[];
 }
 
@@ -91,19 +93,16 @@ function containsRouting(file: ts.SourceFile): boolean {
 
 /**
  * Extract the very angular call of the Route configuration (forRoot or forChild).
- * Returns the name of the file and the call expresion as found by the typescript compiler
- * @param file typescript file
+ * Returns the name of the module and the call expresion as found by the typescript compiler
+ * @param module typescript module
  */
-function moduleToModuleRouteCalls(file: ts.SourceFile): ModuleRouteCall {
+function moduleToModuleRouteCalls(module: ts.SourceFile): ModuleRouteCall {
     // Traverse the file to search for a router call
-    const routeCall = ts.forEachChild(file, searchForRouteCall);
+    const routeCall = ts.forEachChild(module, searchForRouteCall);
 
     // Not every file contains a forRoot or forChild router configuration
     if (routeCall) {
-        return {
-            module: file.fileName,
-            routeCall,
-        };
+        return { module, routeCall };
     }
     return null;
 
@@ -131,11 +130,9 @@ function moduleToModuleRouteCalls(file: ts.SourceFile): ModuleRouteCall {
  * Convert the angular router call (angular typescript expression ) to an actual AppRouter plain javascript object
  */
 function routeCallToRoutes(moduleRouteCall: ModuleRouteCall, typeChecker: ts.TypeChecker): ModuleRoutes {
+    const module = moduleRouteCall.module;
     const routes = convert(moduleRouteCall.routeCall.arguments[0]);
-    return {
-        module: moduleRouteCall.module,
-        routes,
-    };
+    return { module, routes };
 
     function convert(routeCallExpression: ts.Expression): AppRoute[] {
         // Convert the angular route configuration parameter to an array of object literal expression
@@ -178,9 +175,15 @@ function routeCallToRoutes(moduleRouteCall: ModuleRouteCall, typeChecker: ts.Typ
                 // We are interested only in the module name
                 route.loadChildren = getModulefromLoadChildrenCall(prop.initializer);
             } else if (propName === ROUTE_PROP.COMPONENT) {
-                // Maybe not really needed, but just in case we add the component name
-                route.component = prop.initializer.getText();
+                route.component = {
+                    name: prop.initializer.getText(),
+                };
+                const tagName = getTagName(prop.initializer, typeChecker);
+                if (tagName) {
+                    route.component.tagName = tagName;
+                }
             } else if (propName === ROUTE_PROP.DATA) {
+                // Don't lose an existing tagName that may have been added
                 route.data = evaluateNode(prop.initializer, typeChecker);
             }
         });
@@ -242,7 +245,7 @@ function fixupLoadChildren(
             const { loadChildren, ...routeWithNoLoadChildren } = route;
             const referencedModule = getReferencedModule(loadChildren);
             const children: AppRoute[] = [...routesByModule.get(referencedModule)];
-            referencedLazyLoadedModules[referencedModule] = true;
+            referencedLazyLoadedModules[referencedModule.fileName] = true;
             const newRoute: AppRoute = {
                 ...routeWithNoLoadChildren,
                 children,
@@ -253,12 +256,12 @@ function fixupLoadChildren(
     });
 
     // At the end delete all the modules that were used as reference
-    return moduleRoutes.filter((moduleRoute) => !referencedLazyLoadedModules[moduleRoute.module]);
+    return moduleRoutes.filter((moduleRoute) => !referencedLazyLoadedModules[moduleRoute.module.fileName]);
 
-    function getReferencedModule(loadChildrenModule: string): string {
+    function getReferencedModule(loadChildrenModule: string): ts.SourceFile {
         const moduleFileName = loadChildrenModule.substring(loadChildrenModule.lastIndexOf('/') + 1);
         let referencedModule = moduleRoutesWithLoadChildren.find((moduleRoute) =>
-            moduleRoute.module.includes(moduleFileName)
+            moduleRoute.module.fileName.includes(moduleFileName)
         );
 
         // referencedModule may not be found when routing modules are used. In this case the feature module
@@ -283,7 +286,7 @@ function fixupLoadChildren(
 
                 // Try to find the referenced module within the possible modules found in the step above
                 referencedModule = moduleRoutesWithLoadChildren.find((moduleRoute) =>
-                    possibleModules.find((fileName) => moduleRoute.module.includes(fileName))
+                    possibleModules.find((fileName) => moduleRoute.module.fileName.includes(fileName))
                 );
             }
         }

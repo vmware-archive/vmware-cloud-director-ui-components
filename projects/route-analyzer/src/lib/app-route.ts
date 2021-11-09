@@ -31,9 +31,15 @@ export interface AppRoute {
     children?: AppRoute[];
 
     /**
-     * A string representing the component of the angular `Route.component` configuration
+     * String representations the component of the angular `Route.component` configuration
      */
-    component?: string;
+    component?: {
+        // The name of the component, as in class MyViewComponent {}
+        name: string;
+        // The selector associated with the component, called a tagName since it must be a tag name, and cannot be
+        // a generic selector
+        tagName?: string;
+    };
 
     /**
      * The same as angular `Route.data` but it is an object literal, i.e. if there are any variables

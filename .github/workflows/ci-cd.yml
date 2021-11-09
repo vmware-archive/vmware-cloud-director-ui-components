@@ -114,6 +114,7 @@ jobs:
                   npm ci
                   npm run test:ci:components
                   npm run test:ci:i18n
+                  npm run test:route-analyzer
             - name: Upload coverage to Codecov
               if: success()
               uses: codecov/codecov-action@v1
