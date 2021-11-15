@@ -123,12 +123,39 @@ for (const entry of topLevelRoutes) {
 ## Build
 
 Run `npm run build:route-analyzer`
-Alternatively you can run:
 
-1. `ng build route-analyzer` to build the angular library
-1. `tsc -p projects/route-analyzer/tsconfig.cli.json` to build the CLI
+### Testing script on existing ng application
 
-## Testing
+When making changes to this library, you will want to run it on a host application to test your changes. We avoid using
+the `npm link` approach because it runs slightly differently from when using links because of [node module resolution and
+symlinks](https://nodejs.org/api/cli.html#--preserve-symlinks) that are created. That is, it may work in development
+because it was using a different version of a dependency, the one in vcd-ui-common, instead of the one in the target
+application.
+
+Instead, we prefer to use a local file npm install. It may take a few more seconds after every change, but it behaves
+more closely to an actual installation from npm.
+
+There are two steps required:
+
+#### Link Application to vcd-ui-common's dist folder
+
+Modify your application's package.json to use the file protocol to point to the dist folder
+
+```json
+"devDependencies": [{
+        "@vcd/route-analyzer": "file:/path/to/my/vcduicommon/dist/route-analyzer"
+}]
+```
+
+#### Install in test application
+
+```bash
+cd /path/to/your/project/using/route-analyzer
+npm i @vcd/route-analyzer
+# You must re-run this after building route-analyzer
+```
+
+## Unit Testing
 
 ### To run unit tests
 
@@ -136,21 +163,11 @@ Alternatively you can run:
 npm run test:route-analyzer
 ```
 
-### Testing script on existing ng application
-
-```bash
-# Make the current dist available to global node_modules
-cd dist/route-analyzer
-npm link
-# Go to ng application folder and link to @vcd/route-analyzer that was just made available globally
-cd /path/to/your/project/using/route-analyzer
-npm link @vcd/route-analyzer
-# You must re-run this last link step after rebuilding route-analyzer
-```
-
 ## Installation
 
+```bash
 npm i @vcd/route-analyzer
+```
 
 ## Running the CLI
 
