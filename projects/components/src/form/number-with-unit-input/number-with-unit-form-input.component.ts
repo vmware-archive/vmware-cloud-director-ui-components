@@ -1,5 +1,5 @@
 /*!
- * Copyright 2020 VMware, Inc.
+ * Copyright 2020-2021 VMware, Inc.
  * SPDX-License-Identifier: BSD-2-Clause
  */
 
@@ -62,10 +62,11 @@ export class NumberWithUnitFormInputComponent extends BaseFormControl implements
 
         this.comboOptionUnitMap.clear();
         this.comboOptions = [];
-        this._unitOptions.forEach((unitOption) => {
+        this._unitOptions.forEach((unitOption: Unit) => {
             const comboOption: SelectOption = {
-                display: unitOption.getUnitName(),
+                display: unitOption.getUnitNameTranslationKey(),
                 value: unitOption.getMultiplier(),
+                isTranslatable: true,
             };
             this.comboOptionUnitMap.set(comboOption, unitOption);
             this.comboOptions.push(comboOption);
@@ -444,15 +445,9 @@ export class NumberWithUnitFormInputComponent extends BaseFormControl implements
     }
 
     /**
-     * Up to now (when this function has been introduced) all our form errors were in the form
-     * `{ [key]: true }` which made it quite impossible to add custom parameters for translation.
-     *  `errorLabels` are a perfect example for this use case
-     *
-     * Now the errors are in format `{ [key]: any }` where any can be either an array [] for positional
-     * based message format or `{msgKey: string}` for a named message format.
-     *
-     * For `errorLabels` we
-     *
+     * @returns errors in format `{ [key]: any }` where the key value of any can be either
+     * an array for positional based message format or `{msgKey: string}` for a named message format.
+     * @see ValidationErrors.
      */
     get errors(): ValidationErrors {
         if (this.errorLabels.length) {
@@ -476,12 +471,17 @@ export class NumberWithUnitFormInputComponent extends BaseFormControl implements
 export class NumberWithUnitsFormValidatorsFactory {
     constructor(private unitFormatter: UnitFormatter) {}
 
-    public isInRange(min: number, max: number, inputUnit: Unit, availableUnits: Unit[], unlimited = -1): ValidatorFn {
-        const res = FormValidators.createNullSafeValidator((control: any) => {
+    public isInRange(
+        min: number,
+        max: number,
+        inputUnit: Unit,
+        availableUnits: Unit[],
+        unlimited: number = -1
+    ): ValidatorFn {
+        return FormValidators.createNullSafeValidator((control: any) => {
             const value = control.value;
 
             const isNumber = !isNaN(Number(control.value)) && isFinite(control.value);
-
             if (isNumber) {
                 if (value >= min && value <= max) {
                     return null;
@@ -494,11 +494,12 @@ export class NumberWithUnitsFormValidatorsFactory {
             if (inputUnit && availableUnits && availableUnits.length) {
                 const minString = this.unitFormatter.bestFormat(min, inputUnit, availableUnits);
                 const maxString = this.unitFormatter.bestFormat(max, inputUnit, availableUnits);
+
                 return { 'vcd.cc.warning.numRange': [value, minString, maxString] };
             }
+
             return { 'vcd.cc.warning.numRange': [value, min, max] };
         });
-        return res;
     }
 }
 

@@ -15,12 +15,14 @@ type of units.
             [styling]="CheckBoxStyling.TOGGLESWITCH"
             [formControlName]="'readonly'"
         ></vcd-form-checkbox>
+
         <vcd-form-checkbox
             [label]="'Disabled'"
             [styling]="CheckBoxStyling.TOGGLESWITCH"
             [formControlName]="'disabled'"
         ></vcd-form-checkbox>
     </section>
+
     <section>
         <vcd-number-with-unit-form-input
             [formControlName]="'memory'"
@@ -41,7 +43,8 @@ type of units.
             "
         >
         </vcd-number-with-unit-form-input>
-        <div *ngIf="!formGroup.controls.readonly.value">
+
+        <div *ngIf="!formGroup.controls.readonly.value" class="form-value-display">
             <strong>Selected Memory:</strong>
             {{ formGroup.get('memory').value + ' ' + memoryFormControlValueUnit.getUnitName() }}
         </div>
@@ -57,9 +60,26 @@ type of units.
             [isReadOnly]="formGroup.controls.readonly.value"
         >
         </vcd-number-with-unit-form-input>
-        <div *ngIf="!formGroup.controls.readonly.value">
+
+        <div *ngIf="!formGroup.controls.readonly.value" class="form-value-display">
             <strong>Selected Cpu speed:</strong>
             {{ formGroup.get('cpuLimit').value + ' ' + cpuSpeedFormControlValueUnit.getUnitName() }}
+        </div>
+    </section>
+
+    <section>
+        <vcd-number-with-unit-form-input
+            [formControlName]="'timePeriodSelection'"
+            [label]="'Time Period'"
+            [unitOptions]="timePeriodOptions"
+            [min]="timePeriodMin"
+            [max]="timePeriodMax"
+            [inputValueUnit]="timePeriodBaseUnit"
+            [isReadOnly]="formGroup.controls.readonly.value"
+        ></vcd-number-with-unit-form-input>
+
+        <div *ngIf="!formGroup.controls.readonly.value" class="form-value-display">
+            <strong>Selected Time Period:</strong> {{ formattedTimePeriodValue }}
         </div>
     </section>
 

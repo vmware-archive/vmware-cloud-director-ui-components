@@ -1,8 +1,8 @@
 /*!
- * Copyright 2020 VMware, Inc.
+ * Copyright 2020-2021 VMware, Inc.
  * SPDX-License-Identifier: BSD-2-Clause
  */
-import { Bytes, Hertz, Percent } from './unit';
+import { Bytes, Hertz, Percent, TimePeriod } from './unit';
 
 describe('Unit', () => {
     describe('Bytes', () => {
@@ -64,6 +64,52 @@ describe('Unit', () => {
             // For Percent ZERO_TO_100 is always the best unit
             expect(Percent.ZERO_TO_1.findBestUnit(50, [Percent.ZERO_TO_1])).toEqual(Percent.ZERO_TO_100);
             expect(Percent.ZERO_TO_1.findBestUnit(50, [Percent.ZERO_TO_100])).toEqual(Percent.ZERO_TO_100);
+        });
+    });
+
+    describe('Time Period', () => {
+        it('returns the value in the provided output units', () => {
+            expect(TimePeriod.HOURS.getOutputValue(1, TimePeriod.HOURS)).toEqual(1);
+            expect(TimePeriod.DAYS.getOutputValue(2, TimePeriod.HOURS)).toEqual(48);
+            expect(TimePeriod.DAYS.getOutputValue(14, TimePeriod.WEEKS)).toEqual(2);
+            expect(TimePeriod.MONTHS.getOutputValue(14, TimePeriod.YEARS)).toEqual(1);
+        });
+
+        it('returns best available unit name', () => {
+            expect(TimePeriod.HOURS.findBestUnit(23, [TimePeriod.HOURS, TimePeriod.DAYS]).getUnitName()).toEqual(
+                TimePeriod.HOURS.getUnitName()
+            );
+
+            expect(TimePeriod.HOURS.findBestUnit(72, [TimePeriod.HOURS, TimePeriod.DAYS]).getUnitName()).toEqual(
+                TimePeriod.DAYS.getUnitName()
+            );
+
+            expect(
+                TimePeriod.HOURS.findBestUnit(169, [TimePeriod.HOURS, TimePeriod.DAYS, TimePeriod.WEEKS]).getUnitName()
+            ).toEqual(TimePeriod.WEEKS.getUnitName());
+
+            expect(
+                TimePeriod.DAYS.findBestUnit(68, [
+                    TimePeriod.HOURS,
+                    TimePeriod.DAYS,
+                    TimePeriod.WEEKS,
+                    TimePeriod.MONTHS,
+                ]).getUnitName()
+            ).toEqual(TimePeriod.MONTHS.getUnitName());
+
+            expect(
+                TimePeriod.MONTHS.findBestUnit(16, [
+                    TimePeriod.HOURS,
+                    TimePeriod.DAYS,
+                    TimePeriod.WEEKS,
+                    TimePeriod.MONTHS,
+                    TimePeriod.YEARS,
+                ]).getUnitName()
+            ).toEqual(TimePeriod.YEARS.getUnitName());
+        });
+
+        it('returns base value', () => {
+            expect(TimePeriod.HOURS.getBaseValue(2)).toEqual(2 * 3600);
         });
     });
 });

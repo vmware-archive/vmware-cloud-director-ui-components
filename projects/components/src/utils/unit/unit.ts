@@ -1,7 +1,9 @@
 /*!
- * Copyright 2020 VMware, Inc.
+ * Copyright 2020-2021 VMware, Inc.
  * SPDX-License-Identifier: BSD-2-Clause
  */
+
+import { CommonUtil } from '../common-util';
 
 /**
  * Allows you to define different types of units with unitName and
@@ -212,5 +214,86 @@ export class Percent extends Unit {
      */
     findBestUnit(value: number, unitList: Unit[]): Unit {
         return Percent.ZERO_TO_100;
+    }
+}
+
+const SECONDS_IN_MINUTE: number = 60;
+const MINUTES_IN_HOUR: number = 60;
+const SECONDS_IN_HOUR: number = MINUTES_IN_HOUR * SECONDS_IN_MINUTE;
+const HOURS_IN_DAY: number = 24;
+const SECONDS_IN_DAY = HOURS_IN_DAY * SECONDS_IN_HOUR;
+const DAYS_IN_WEEK = 7;
+const DAYS_IN_MONTH_ROUNDED = 30;
+const DAYS_IN_YEAR_ROUNDED = 365;
+const WEEKS_IN_MONTH_ROUNDED = 4;
+const MONTHS_IN_YEAR = 12;
+const YEARS_IN_CENTURY = 100;
+
+/**
+ * Represents a period of time.
+ * The base value is in seconds.
+ */
+export class TimePeriod extends Unit {
+    // The base unit is seconds
+    static SECONDS = new TimePeriod(1, 'SECONDS', SECONDS_IN_MINUTE);
+    static MINUTES = new TimePeriod(SECONDS_IN_MINUTE, 'MINUTES', MINUTES_IN_HOUR);
+    static HOURS = new TimePeriod(SECONDS_IN_HOUR, 'HOURS', HOURS_IN_DAY);
+    static DAYS = new TimePeriod(SECONDS_IN_DAY, 'DAYS', DAYS_IN_WEEK);
+    // NOTE: rough calculation is used for the units below.
+    static WEEKS = new TimePeriod(SECONDS_IN_DAY * DAYS_IN_WEEK, 'WEEKS', WEEKS_IN_MONTH_ROUNDED);
+    static MONTHS = new TimePeriod(SECONDS_IN_DAY * DAYS_IN_MONTH_ROUNDED, 'MONTHS', MONTHS_IN_YEAR);
+    static YEARS = new TimePeriod(SECONDS_IN_DAY * DAYS_IN_YEAR_ROUNDED, 'YEARS', YEARS_IN_CENTURY);
+
+    static types = [
+        TimePeriod.SECONDS,
+        TimePeriod.MINUTES,
+        TimePeriod.HOURS,
+        TimePeriod.DAYS,
+        TimePeriod.WEEKS,
+        TimePeriod.MONTHS,
+        TimePeriod.YEARS,
+    ];
+
+    static unitNameTranslationKeyPrefix = 'vcd.cc.units.timePeriod.';
+    static valueWithUnitTranslationKeyPrefix = 'vcd.cc.display.timePeriod.';
+
+    /**
+     * The threshold value above which the next unit in the list is a better match to be used.
+     */
+    threshold: number;
+
+    constructor(multiplier: number, unitName: string, threshold: number) {
+        super(multiplier, unitName);
+
+        this.threshold = threshold;
+    }
+
+    getAllUnitTypes(): TimePeriod[] {
+        return TimePeriod.types;
+    }
+
+    getOutputValue(value: number, outputUnit: Unit): number {
+        const outputValue = super.getOutputValue(value, outputUnit);
+
+        return CommonUtil.roundTo(outputValue, 0);
+    }
+
+    getValueWithUnitTranslationKey(): string {
+        return TimePeriod.valueWithUnitTranslationKeyPrefix + this.getUnitName();
+    }
+
+    findBestUnit(value: number, availableUnits: TimePeriod[] = this.getAllUnitTypes()): Unit {
+        const baseValue = this.getBaseValue(value);
+
+        const bestMatchPeriod = availableUnits.find(
+            (unit: TimePeriod, index: number) =>
+                baseValue / unit.getMultiplier() < unit.threshold || index === availableUnits.length - 1
+        );
+
+        return bestMatchPeriod;
+    }
+
+    getUnitNameTranslationKey(): string {
+        return TimePeriod.unitNameTranslationKeyPrefix + this.getUnitName();
     }
 }
