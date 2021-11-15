@@ -7,6 +7,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [3.0.0-dev.1]
+### Added
+- Add support for `TimePeriod` unit.
+### Fixed
+- Fixed bug in `NumberWithUnitFormInputComponent` component - the unit text should be localized.
+### Changed
+- Enhanced some tsdoc texts.
+
 ## [2.0.0]
 
 ### No Changes
