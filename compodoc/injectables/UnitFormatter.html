@@ -63,7 +63,7 @@
                 <h3>Description</h3>
             </p>
             <p class="comment">
-                <p>UnitFormatter is used to format the value with unitName in localized string</p>
+                <p>UnitFormatter represents provided value and unit into a localized string.</p>
 
             </p>
 
@@ -176,17 +176,16 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="46"
-                            class="link-to-prism">projects/components/src/utils/unit/unit-formatter.ts:46</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="48"
+                            class="link-to-prism">projects/components/src/utils/unit/unit-formatter.ts:48</a></div>
                 </td>
             </tr>
 
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-description"><p>Converts the value of inputUnit to best unit out of availableUnits and returns
-in localized string format <code>${value} ${outputUnit.unitName}</code></p>
-<p>Ex: bestFormat(1000000, Unit.KB, [Unit.KB, Unit.MB, Unit.GB]) = &quot;1 GB&quot;</p>
+                    <div class="io-description"><p>Converts the value of inputUnit to the best unit out of the provided available units.
+Example: bestFormat(1000000, Unit.KB, [Unit.KB, Unit.MB, Unit.GB]) = &quot;1 GB&quot;</p>
 </div>
 
                     <div class="io-description">
@@ -263,7 +262,8 @@ in localized string format <code>${value} ${outputUnit.unitName}</code></p>
 
                     </div>
                     <div class="io-description">
-                        
+                        <p>localized string in format <code>${value} ${outputUnit.unitName}</code></p>
+
                     </div>
                 </td>
             </tr>
@@ -299,9 +299,8 @@ in localized string format <code>${value} ${outputUnit.unitName}</code></p>
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-description"><p>Converts the value of inputUnit to outPutUnit returns in
-localized string format <code>${value} ${outputUnit.unitName}</code></p>
-<p>Ex: format(1000, Unit.MB, Unit.GB, 2) = &quot;1 GB&quot;</p>
+                    <div class="io-description"><p>Converts the provided value in input units to a value in the output units.
+Example: format(1000, Unit.MB, Unit.GB, 2) = &quot;1 GB&quot;</p>
 </div>
 
                     <div class="io-description">
@@ -398,7 +397,8 @@ localized string format <code>${value} ${outputUnit.unitName}</code></p>
 
                     </div>
                     <div class="io-description">
-                        
+                        <p>localized string in format <code>${value} ${outputUnit.unitName}</code></p>
+
                     </div>
                 </td>
             </tr>
@@ -416,39 +416,41 @@ import { CommonUtil } from &#x27;../common-util&#x27;;
 import { Unit } from &#x27;./unit&#x27;;
 
 /**
- * UnitFormatter is used to format the value with unitName in localized string
+ * UnitFormatter represents provided value and unit into a localized string.
  */
 @Injectable()
 export class UnitFormatter {
     constructor(private translationService: TranslationService) {}
 
     /**
-     * Converts the value of inputUnit to outPutUnit returns in
-     * localized string format &#x60;${value} ${outputUnit.unitName}&#x60;
-     *
-     * Ex: format(1000, Unit.MB, Unit.GB, 2) &#x3D; &quot;1 GB&quot;
+     * Converts the provided value in input units to a value in the output units.
+     * Example: format(1000, Unit.MB, Unit.GB, 2) &#x3D; &quot;1 GB&quot;
      *
      * @param value - value of inputUnit
      * @param inputUnit - unit of value
      * @param outputUnit - unit to which value is converted
      * @param precision - how many digits are shown after decimal
+     *
+     * @returns localized string in format &#x60;${value} ${outputUnit.unitName}&#x60;
      */
     format(value: number, inputUnit: Unit, outputUnit: Unit, precision?: number): string {
-        // TODO response from getOutputValue() needs to be formatted to localized number
+        // TODO response from getOutputValue() needs to be formatted to a localized number
+        const outputValue &#x3D; inputUnit.getOutputValue(value, outputUnit);
+
         return this.translationService.translate(outputUnit.getValueWithUnitTranslationKey(), [
-            CommonUtil.roundTo(inputUnit.getOutputValue(value, outputUnit), precision),
+            CommonUtil.roundTo(outputValue, precision),
         ]);
     }
 
     /**
-     * Converts the value of inputUnit to best unit out of availableUnits and returns
-     * in localized string format &#x60;${value} ${outputUnit.unitName}&#x60;
-     *
-     * Ex: bestFormat(1000000, Unit.KB, [Unit.KB, Unit.MB, Unit.GB]) &#x3D; &quot;1 GB&quot;
+     * Converts the value of inputUnit to the best unit out of the provided available units.
+     * Example: bestFormat(1000000, Unit.KB, [Unit.KB, Unit.MB, Unit.GB]) &#x3D; &quot;1 GB&quot;
      *
      * @param value &#x3D; value of inputUnit
      * @param inputUnit - unit of value
      * @param availableUnits - list of units from which best unit is calculated
+     *
+     * @returns localized string in format &#x60;${value} ${outputUnit.unitName}&#x60;
      */
     bestFormat(value: number, inputUnit: Unit, availableUnits: Unit[]): string {
         return this.format(value, inputUnit, inputUnit.findBestUnit(value, availableUnits));

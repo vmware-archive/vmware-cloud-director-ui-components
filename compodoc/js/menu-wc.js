@@ -661,6 +661,9 @@ customElements.define('compodoc-menu', class extends HTMLElement {
                                 <a href="classes/ThousandsUnit.html" data-type="entity-link">ThousandsUnit</a>
                             </li>
                             <li class="link">
+                                <a href="classes/TimePeriod.html" data-type="entity-link">TimePeriod</a>
+                            </li>
+                            <li class="link">
                                 <a href="classes/Unit.html" data-type="entity-link">Unit</a>
                             </li>
                             <li class="link">
