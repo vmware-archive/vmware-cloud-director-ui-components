@@ -28,13 +28,9 @@
 <title>cluster_DropdownModule_declarations</title>
 <polygon fill="none" stroke="#000000" points="254,-143 254,-195 880,-195 880,-143 254,-143"/>
 </g>
-<g id="clust3" class="cluster">
-<title>cluster_DropdownModule_DropdownComponent_providers</title>
-<polygon fill="none" stroke="#000000" points="450,-78 450,-130 880,-130 880,-78 450,-78"/>
-</g>
 <g id="clust4" class="cluster">
 <title>cluster_DropdownModule_DropdownFocusHandlerDirective_providers</title>
-<polygon fill="none" stroke="#000000" points="246,-78 246,-130 442,-130 442,-78 246,-78"/>
+<polygon fill="none" stroke="#000000" points="511,-78 511,-130 707,-130 707,-78 511,-78"/>
 </g>
 <g id="clust6" class="cluster">
 <title>cluster_DropdownModule_imports</title>
@@ -69,7 +65,7 @@
 <text text-anchor="middle" x="609" y="-164.8" font-family="Times,serif" font-size="14.00" fill="#000000">DropdownFocusHandlerDirective</text>
 </g>
 <!-- DropdownFocusHandlerDirective&#45;&gt;DropdownModule -->
-<g id="edge3" class="edge">
+<g id="edge2" class="edge">
 <title>DropdownFocusHandlerDirective&#45;&gt;DropdownModule</title>
 <path fill="none" stroke="#000000" d="M527.7346,-187.1061C527.7346,-187.1061 527.7346,-205.991 527.7346,-205.991"/>
 <polygon fill="#000000" stroke="#000000" points="524.2346,-205.9909 527.7346,-215.991 531.2346,-205.991 524.2346,-205.9909"/>
@@ -81,79 +77,67 @@
 <text text-anchor="middle" x="375" y="-164.8" font-family="Times,serif" font-size="14.00" fill="#000000">DynamicDropdownPositionDirective</text>
 </g>
 <!-- DynamicDropdownPositionDirective&#45;&gt;DropdownModule -->
-<g id="edge5" class="edge">
+<g id="edge4" class="edge">
 <title>DynamicDropdownPositionDirective&#45;&gt;DropdownModule</title>
 <path fill="none" stroke="#000000" d="M458.9373,-187.1061C458.9373,-187.1061 458.9373,-205.991 458.9373,-205.991"/>
 <polygon fill="#000000" stroke="#000000" points="455.4373,-205.9909 458.9373,-215.991 462.4373,-205.991 455.4373,-205.9909"/>
 </g>
 <!-- DropdownComponent  -->
-<g id="node8" class="node">
+<g id="node7" class="node">
 <title>DropdownComponent </title>
 <polygon fill="#fb8072" stroke="#000000" points="757.2065,-317 612.7935,-317 612.7935,-281 757.2065,-281 757.2065,-317"/>
 <text text-anchor="middle" x="685" y="-294.8" font-family="Times,serif" font-size="14.00" fill="#000000">DropdownComponent </text>
 </g>
 <!-- DropdownModule&#45;&gt;DropdownComponent  -->
-<g id="edge7" class="edge">
+<g id="edge6" class="edge">
 <title>DropdownModule&#45;&gt;DropdownComponent </title>
 <path fill="none" stroke="#000000" stroke-dasharray="5,2" d="M549.8289,-240C599.635,-240 662.4448,-240 662.4448,-240 662.4448,-240 662.4448,-270.9775 662.4448,-270.9775"/>
 <polygon fill="#000000" stroke="#000000" points="658.9449,-270.9774 662.4448,-280.9775 665.9449,-270.9775 658.9449,-270.9774"/>
 </g>
 <!-- DropdownFocusHandlerDirective  -->
-<g id="node9" class="node">
+<g id="node8" class="node">
 <title>DropdownFocusHandlerDirective </title>
 <polygon fill="#fb8072" stroke="#000000" points="594.9854,-317 385.0146,-317 385.0146,-281 594.9854,-281 594.9854,-317"/>
 <text text-anchor="middle" x="490" y="-294.8" font-family="Times,serif" font-size="14.00" fill="#000000">DropdownFocusHandlerDirective </text>
 </g>
 <!-- DropdownModule&#45;&gt;DropdownFocusHandlerDirective  -->
-<g id="edge8" class="edge">
+<g id="edge7" class="edge">
 <title>DropdownModule&#45;&gt;DropdownFocusHandlerDirective </title>
 <path fill="none" stroke="#000000" stroke-dasharray="5,2" d="M490,-252.1061C490,-252.1061 490,-270.991 490,-270.991"/>
 <polygon fill="#000000" stroke="#000000" points="486.5001,-270.9909 490,-280.991 493.5001,-270.991 486.5001,-270.9909"/>
 </g>
 <!-- DynamicDropdownPositionDirective  -->
-<g id="node10" class="node">
+<g id="node9" class="node">
 <title>DynamicDropdownPositionDirective </title>
 <polygon fill="#fb8072" stroke="#000000" points="367.1728,-317 138.8272,-317 138.8272,-281 367.1728,-281 367.1728,-317"/>
 <text text-anchor="middle" x="253" y="-294.8" font-family="Times,serif" font-size="14.00" fill="#000000">DynamicDropdownPositionDirective </text>
 </g>
 <!-- DropdownModule&#45;&gt;DynamicDropdownPositionDirective  -->
-<g id="edge9" class="edge">
+<g id="edge8" class="edge">
 <title>DropdownModule&#45;&gt;DynamicDropdownPositionDirective </title>
 <path fill="none" stroke="#000000" stroke-dasharray="5,2" d="M430.2217,-240C379.4894,-240 314.875,-240 314.875,-240 314.875,-240 314.875,-270.9775 314.875,-270.9775"/>
 <polygon fill="#000000" stroke="#000000" points="311.3751,-270.9774 314.875,-280.9775 318.3751,-270.9775 311.3751,-270.9774"/>
 </g>
-<!-- DROPDOWN_FOCUS_HANDLER_PROVIDER -->
-<g id="node5" class="node">
-<title>DROPDOWN_FOCUS_HANDLER_PROVIDER</title>
-<ellipse fill="#fdb462" stroke="#000000" cx="665" cy="-104" rx="206.6468" ry="18"/>
-<text text-anchor="middle" x="665" y="-99.8" font-family="Times,serif" font-size="14.00" fill="#000000">DROPDOWN_FOCUS_HANDLER_PROVIDER</text>
-</g>
-<!-- DROPDOWN_FOCUS_HANDLER_PROVIDER&#45;&gt;DropdownComponent -->
-<g id="edge2" class="edge">
-<title>DROPDOWN_FOCUS_HANDLER_PROVIDER&#45;&gt;DropdownComponent</title>
-<path fill="none" stroke="#000000" d="M801,-117.7848C801,-117.7848 801,-140.5475 801,-140.5475"/>
-<polygon fill="#000000" stroke="#000000" points="797.5001,-140.5474 801,-150.5475 804.5001,-140.5475 797.5001,-140.5474"/>
-</g>
 <!-- SubscriptionTracker -->
-<g id="node6" class="node">
+<g id="node5" class="node">
 <title>SubscriptionTracker</title>
-<ellipse fill="#fdb462" stroke="#000000" cx="344" cy="-104" rx="89.746" ry="18"/>
-<text text-anchor="middle" x="344" y="-99.8" font-family="Times,serif" font-size="14.00" fill="#000000">SubscriptionTracker</text>
+<ellipse fill="#fdb462" stroke="#000000" cx="609" cy="-104" rx="89.746" ry="18"/>
+<text text-anchor="middle" x="609" y="-99.8" font-family="Times,serif" font-size="14.00" fill="#000000">SubscriptionTracker</text>
 </g>
 <!-- SubscriptionTracker&#45;&gt;DropdownFocusHandlerDirective -->
-<g id="edge4" class="edge">
+<g id="edge3" class="edge">
 <title>SubscriptionTracker&#45;&gt;DropdownFocusHandlerDirective</title>
-<path fill="none" stroke="#000000" d="M348.1433,-122.0449C348.1433,-129.749 348.1433,-137 348.1433,-137 348.1433,-137 609,-137 609,-137 609,-137 609,-140.7566 609,-140.7566"/>
-<polygon fill="#000000" stroke="#000000" points="605.5001,-140.7566 609,-150.7566 612.5001,-140.7566 605.5001,-140.7566"/>
+<path fill="none" stroke="#000000" d="M609,-122.1061C609,-122.1061 609,-140.991 609,-140.991"/>
+<polygon fill="#000000" stroke="#000000" points="605.5001,-140.9909 609,-150.991 612.5001,-140.991 605.5001,-140.9909"/>
 </g>
 <!-- ShowClippedTextDirectiveModule -->
-<g id="node7" class="node">
+<g id="node6" class="node">
 <title>ShowClippedTextDirectiveModule</title>
 <polygon fill="#8dd3c7" stroke="#000000" points="237.5126,-187 234.5126,-191 213.5126,-191 210.5126,-187 24.4874,-187 24.4874,-151 237.5126,-151 237.5126,-187"/>
 <text text-anchor="middle" x="131" y="-164.8" font-family="Times,serif" font-size="14.00" fill="#000000">ShowClippedTextDirectiveModule</text>
 </g>
 <!-- ShowClippedTextDirectiveModule&#45;&gt;DropdownModule -->
-<g id="edge6" class="edge">
+<g id="edge5" class="edge">
 <title>ShowClippedTextDirectiveModule&#45;&gt;DropdownModule</title>
 <path fill="none" stroke="#000000" d="M188.2099,-187.0225C188.2099,-204.3734 188.2099,-228 188.2098,-228 188.2098,-228 420.0152,-228 420.0152,-228"/>
 <polygon fill="#000000" stroke="#000000" points="420.0152,-231.5001 430.0152,-228 420.0151,-224.5001 420.0152,-231.5001"/>
