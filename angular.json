@@ -10,7 +10,7 @@
       "prefix": "vcd",
       "architect": {
         "build": {
-          "builder": "@angular-devkit/build-ng-packagr:build",
+          "builder": "@angular-devkit/build-angular:ng-packagr",
           "options": {
             "tsConfig": "projects/components/tsconfig.lib.json",
             "project": "projects/components/ng-package.json"
@@ -90,7 +90,6 @@
               "optimization": false,
               "outputHashing": "all",
               "sourceMap": false,
-              "extractCss": true,
               "namedChunks": false,
               "aot": true,
               "extractLicenses": true,
@@ -186,7 +185,7 @@
       "prefix": "lib",
       "architect": {
         "build": {
-          "builder": "@angular-devkit/build-ng-packagr:build",
+          "builder": "@angular-devkit/build-angular:ng-packagr",
           "options": {
             "tsConfig": "projects/i18n/tsconfig.lib.json",
             "project": "projects/i18n/ng-package.json"
@@ -218,7 +217,7 @@
       "prefix": "vcd",
       "architect": {
         "build": {
-          "builder": "@angular-devkit/build-ng-packagr:build",
+          "builder": "@angular-devkit/build-angular:ng-packagr",
           "options": {
             "tsConfig": "projects/route-analyzer/tsconfig.lib.json",
             "project": "projects/route-analyzer/ng-package.json"
