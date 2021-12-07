@@ -16,7 +16,6 @@ Documentation.registerDocumentationEntry({
     examples: [
         {
             component: LoadingIndicatorExampleComponent,
-            forComponent: null,
             title: 'Shows a loading indicator when set to loading',
             urlSegment: 'loading-indicator',
         },

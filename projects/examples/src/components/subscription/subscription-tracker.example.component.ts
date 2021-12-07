@@ -13,6 +13,7 @@ import { BehaviorSubject, Observable } from 'rxjs';
 @Component({
     selector: 'vcd-subscription-tracker-example-sub',
     template: ` <h1>This is a Sub Component</h1> `,
+    providers: [SubscriptionTracker],
 })
 // Use an empty class as its base class instead of Object to support IE11
 // See https://github.com/microsoft/TypeScript/issues/37601

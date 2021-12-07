@@ -16,7 +16,6 @@ Documentation.registerDocumentationEntry({
     examples: [
         {
             component: ErrorBannerExampleComponent,
-            forComponent: null,
             title: 'Error banner when the button is pressed',
             urlSegment: 'error-banner',
         },

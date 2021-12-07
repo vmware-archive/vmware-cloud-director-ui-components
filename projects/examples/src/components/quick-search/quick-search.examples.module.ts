@@ -24,31 +24,26 @@ Documentation.registerDocumentationEntry({
     examples: [
         {
             component: QuickSearchSyncAsyncExampleComponent,
-            forComponent: null,
             title: 'Async and sync sections',
             urlSegment: 'async-sync-sections',
         },
         {
             component: QuickSearchContentProjectionExampleComponent,
-            forComponent: null,
             title: 'Content Projection',
             urlSegment: 'content-projection',
         },
         {
             component: QuickSearchHideEmptySectionExampleComponent,
-            forComponent: null,
             title: 'Hide empty section',
             urlSegment: 'hide-empty-section',
         },
         {
             component: QuickSearchFiltersExampleComponent,
-            forComponent: null,
             title: 'Quick search filter',
             urlSegment: 'filters',
         },
         {
             component: QuickSearchNestedProvidersExampleComponent,
-            forComponent: null,
             title: 'Quick search nested providers',
             urlSegment: 'nested',
         },
