@@ -57,7 +57,11 @@ export class DatagridActionMenuTrackingExampleComponent<R extends Record> implem
         staticActionStyling: ActionStyling.INLINE,
     };
 
-    formGroup: FormGroup;
+    formGroup = this.fb.group({
+                                 ['enableActions']: [true],
+                                 ['contextualActions']: [true],
+                                 ['staticActions']: [true],
+                             });
 
     isActionMenuAvailable = false;
 
@@ -99,11 +103,6 @@ export class DatagridActionMenuTrackingExampleComponent<R extends Record> implem
         private cd: ChangeDetectorRef,
         private subscriptionTracker: SubscriptionTracker
     ) {
-        this.formGroup = this.fb.group({
-            ['enableActions']: [true],
-            ['contextualActions']: [true],
-            ['staticActions']: [true],
-        });
         this.setActions();
     }
 
