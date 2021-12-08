@@ -40,7 +40,7 @@ for further details</p>
 <p>Translation code for vcd-ui and its plugin developers. See its <a href="projects/i18n/README.md">README</a>
 for further details</p>
 <h3 id="examples-app-projectsexamples">Examples App (./projects/examples)</h3>
-<p>The application that showcases <code>@vcd/ui-components</code> using <code>@vmw/ng-live-docs</code>. </p>
+<p>The application that showcases <code>@vcd/ui-components</code> using <code>@vmw/ng-live-docs</code>.</p>
 <p>Run <code>npm install</code> first. Then run <code>npm run build:i18n</code> followed by <code>npm run build:components</code> to build.</p>
 <p>Run <code>npm start</code> for a dev server. Navigate to <code>http://localhost:4200/</code>. The app will automatically reload if
 you change any of the source files. This is where you&#39;ll see changes made in <a href="./projects/components">components</a>.</p>
@@ -66,29 +66,26 @@ information.</p>
 <h2 id="cloning-the-repo">Cloning the repo</h2>
 <p>We typically use <code>git clone https://github.com/vmware/vmware-cloud-director-ui-components ./vcd-ui-common</code> to avoid
 the extremely long folder name.</p>
-<h2 id="publishing">Publishing</h2>
-<p>Publishing happens through the CI/CD pipeline. See <a href=".github/workflows/ci-cd.yml">package.json</a></p>
 <h2 id="versioning">Versioning</h2>
 <p>For all official releases, versioning should be semantic as per <a href="https://docs.npmjs.com/about-semantic-versioning">NPM&#39;s documentation</a>.</p>
 <p>For all development, nightly builds, the version should be created using <code>npm version prerelease --preid=dev</code>.</p>
-<h3 id="steps-for-publishing-an-next-release">Steps for publishing an @next release:</h3>
+<h2 id="publishing">Publishing</h2>
+<p>See <a href=".github/workflows/ci-cd.yml">ci-cd.yml</a></p>
 <ul>
-<li>Update version number in projects/<lib-name>/package.json</li>
-<li>Push the changes to a remote topic branch and create a pull request into vmware/vmware-cloud-director-ui-components/master</li>
-<li>Upon approval of the PR, merge that PR into master</li>
+<li>Make a change to one or more of the following files<ul>
+<li><a href="./projects/i18n/package.json">projects/i18n/package.json</a></li>
+<li><a href="./projects/components/package.json">projects/components/package.json</a></li>
+<li><a href="./projects/route-analyzer/package.json">projects/route-analyzer/package.json</a></li>
 </ul>
-<p>Following the above steps makes the CI-CD pipeline to execute publishing job to npm with @next tag(npm publish --tag next)</p>
-<h3 id="steps-for-publishing-an-latest-release">Steps for publishing an @latest release:</h3>
-<ul>
-<li>Update version number in projects/<lib-name>/package.json</li>
-<li>Push the changes to a remote topic branch and create a pull request into vmware/vmware-cloud-director-ui-components/master</li>
-<li>Upon approval of the PR, Push the changes to remote repo using Git tag using following commands:<ul>
-<li>Add a Git tag to the HEAD commit that has to be published as latest: <code>git tag -fa &lt;lib-name&gt;-v[0-999].[0-999].[0-999]</code></li>
-<li>Push to the remote repo(vmware/vmware-cloud-director-ui-components): <code>git push git@github.com:vmware/vmware-cloud-director-ui-components.git refs/tags/&lt;lib-name&gt;-v[0-999].[0-999].[0-999]</code></li>
+</li>
+<li>Create a PR</li>
+<li>When the PR is merged, an action will run and publish the packages to npm.<ul>
+<li>By creating a version that ends with <code>next</code>, for example <code>&quot;version&quot; : &quot;1.2.3-next&quot;&quot;</code>, the npm version will be tagged
+with <code>@next</code></li>
+<li>Versions that don&#39;t end with <code>next</code> will be published without a tag, which means it will be considered <code>@latest</code>.</li>
 </ul>
 </li>
 </ul>
-<p>Following the above steps makes the CI-CD pipeline to execute publishing job to npm with @latest tag(npm publish)</p>
 <h2 id="angular-cli">Angular CLI</h2>
 <p>This project was generated with <a href="https://github.com/angular/angular-cli">Angular CLI</a> version 8.3.20. We attempt to
 keep the project following CLI guidelines so we can benefit from ng update.</p>
