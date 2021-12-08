@@ -16,14 +16,15 @@ for further details
 
 ### Examples App (./projects/examples)
 
-The application that showcases `@vcd/ui-components` using `@vmw/ng-live-docs`. 
+The application that showcases `@vcd/ui-components` using `@vmw/ng-live-docs`.
 
 Run `npm install` first. Then run `npm run build:i18n` followed by `npm run build:components` to build.
 
 Run `npm start` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if
 you change any of the source files. This is where you'll see changes made in [components](./projects/components).
 
-#### Online Examples 
+#### Online Examples
+
 Visit [our live examples site](https://vmware.github.io/vmware-cloud-director-ui-components/) for live examples, with source code, that you run on stackblitz. Powered by [Live Docs](https://github.com/vmware/live-docs)
 
 ### Route Analyzer (./projects/route-analyzer) `@vcd/route-analyzer`
@@ -60,33 +61,25 @@ Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protrac
 We typically use `git clone https://github.com/vmware/vmware-cloud-director-ui-components ./vcd-ui-common` to avoid
 the extremely long folder name.
 
-## Publishing
-
-Publishing happens through the CI/CD pipeline. See [package.json](.github/workflows/ci-cd.yml)
-
 ## Versioning
 
 For all official releases, versioning should be semantic as per [NPM's documentation](https://docs.npmjs.com/about-semantic-versioning).
 
 For all development, nightly builds, the version should be created using `npm version prerelease --preid=dev`.
 
-### Steps for publishing an @next release:
+## Publishing
 
--   Update version number in projects/<lib-name>/package.json
--   Push the changes to a remote topic branch and create a pull request into vmware/vmware-cloud-director-ui-components/master
--   Upon approval of the PR, merge that PR into master
+See [ci-cd.yml](.github/workflows/ci-cd.yml)
 
-Following the above steps makes the CI-CD pipeline to execute publishing job to npm with @next tag(npm publish --tag next)
-
-### Steps for publishing an @latest release:
-
--   Update version number in projects/<lib-name>/package.json
--   Push the changes to a remote topic branch and create a pull request into vmware/vmware-cloud-director-ui-components/master
--   Upon approval of the PR, Push the changes to remote repo using Git tag using following commands:
-    -   Add a Git tag to the HEAD commit that has to be published as latest: `git tag -fa <lib-name>-v[0-999].[0-999].[0-999]`
-    -   Push to the remote repo(vmware/vmware-cloud-director-ui-components): `git push git@github.com:vmware/vmware-cloud-director-ui-components.git refs/tags/<lib-name>-v[0-999].[0-999].[0-999]`
-
-Following the above steps makes the CI-CD pipeline to execute publishing job to npm with @latest tag(npm publish)
+-   Make a change to one or more of the following files
+    -   [projects/i18n/package.json](./projects/i18n/package.json)
+    -   [projects/components/package.json](./projects/components/package.json)
+    -   [projects/route-analyzer/package.json](./projects/route-analyzer/package.json)
+-   Create a PR
+-   When the PR is merged, an action will run and publish the packages to npm.
+    -   By creating a version that ends with `next`, for example `"version" : "1.2.3-next""`, the npm version will be tagged
+        with `@next`
+    -   Versions that don't end with `next` will be published without a tag, which means it will be considered `@latest`.
 
 ## Angular CLI
 
