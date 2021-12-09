@@ -119,7 +119,9 @@ export class ShowClippedTextDirectiveTestHelper {
 @Component({
     template: `
         <div [vcdShowClippedText]="{ disabled: disabled }" style="width: 20px" #div>{{ text }}</div>
-        <div [vcdShowClippedText]="{ disabled: disabled }" style="width: 20px" #div2>{{ text2 }}</div>
+        <div [vcdShowClippedText]="{ disabled: disabled }" style="width: 20px" #div2 *ngIf="showSecondHost">
+            {{ text2 }}
+        </div>
     `,
 })
 export class ShowClippedTextDirectiveTestHostComponent {
@@ -130,4 +132,5 @@ export class ShowClippedTextDirectiveTestHostComponent {
     public text = 'texting';
     public text2 = 'texting too';
     public disabled = false;
+    public showSecondHost = true;
 }

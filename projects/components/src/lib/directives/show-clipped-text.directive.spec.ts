@@ -7,7 +7,7 @@ import { ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testin
 import { fireTipTransitionEndForTests, ShowClippedTextDirective, TooltipPosition } from './show-clipped-text.directive';
 import {
     ShowClippedTextDirectiveTestHelper,
-    ShowClippedTextDirectiveTestHostComponent
+    ShowClippedTextDirectiveTestHostComponent,
 } from './show-clipped-text.directive.test-helper';
 
 /** The this parameter passed to the each test */
@@ -107,6 +107,28 @@ describe('ShowClippedTextDirective', () => {
             // Transition end is not called when the window is not focused, so need to add this.
             fireTipTransitionEndForTests(new Event('transitionend'));
             expect(helper.tooltipVisibility).toBe('hidden', 'CSS visibility should have been set to hidden');
+        }));
+
+        it('hide the tooltip after the component is destroyed', fakeAsync(function (this: Test): void {
+            const helper = this.clippedTextHelper;
+            helper.width = '10px';
+            helper.moveMouseOverSecondHost();
+            expect(helper.isTooltipVisible).toBe(true, 'tooltip should be visible');
+            helper.componentInstance.showSecondHost = false;
+            this.fixture.detectChanges();
+            tick(1);
+            expect(helper.isTooltipVisible).toBe(false, 'tooltip should not be visible');
+        }));
+
+        it('does not hide the tooltip if the active component is destroyed', fakeAsync(function (this: Test): void {
+            const helper = this.clippedTextHelper;
+            helper.width = '10px';
+            helper.moveMouseOverHost();
+            expect(helper.isTooltipVisible).toBe(true, 'tooltip should be visible');
+            helper.componentInstance.showSecondHost = false;
+            this.fixture.detectChanges();
+            tick(1);
+            expect(helper.isTooltipVisible).toBe(true, 'tooltip should be visible');
         }));
     });
 

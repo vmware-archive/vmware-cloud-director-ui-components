@@ -151,7 +151,7 @@ const tip = {
             width: rect.width + 'px',
             height: rect.height + 'px',
             opacity: '1',
-            wordBreak: 'break-all',
+            wordBreak: 'break-word',
         });
         setStyle(tip.content, {
             visibility: 'visible',
@@ -282,6 +282,9 @@ export class ShowClippedTextDirective implements OnDestroy, OnInit {
     deactivate(): void {
         ShowClippedTextDirective.instanceCount--;
         unwatchEvents(this.hostElement, this.onMouseIn, this.onMouseOut);
+        if (tip.currentDirective === this) {
+            tip.hideTooltip(0);
+        }
         if (ShowClippedTextDirective.instanceCount === 0) {
             tip.destroy();
         }
