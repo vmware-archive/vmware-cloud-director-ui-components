@@ -118,7 +118,6 @@ jobs:
                   key: ${{github.sha}}-examples
 
             - run: |
-                  npm ci
                   npm run build-components-doc
                   npm run build-examples-doc
                   npm run generate-translations
@@ -200,7 +199,6 @@ jobs:
                   key: ${{github.sha}}-examples
 
             - run: |
-                  npm ci
                   npx ng deploy --no-build
               if: github.event_name == 'push' && github.ref == 'refs/heads/master'
               env:
