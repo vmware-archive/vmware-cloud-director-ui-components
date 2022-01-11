@@ -1,5 +1,5 @@
 /*!
- * Copyright 2020 VMware, Inc.
+ * Copyright 2020-2022 VMware, Inc.
  * SPDX-License-Identifier: BSD-2-Clause
  */
 
@@ -17,6 +17,8 @@ import { UNLIMITED } from './number-with-unit-form-input.component';
 import { NumberWithUnitFormInputWidgetObject } from './number-with-unit-form-input.widget-object';
 
 const [MIN, MAX] = [1000, 10000];
+const CUSTOM_UNLIMITED_TEXT = 'Custom unlimited text';
+
 @Component({
     template: `
         <vcd-number-with-unit-form-input
@@ -75,14 +77,27 @@ const [MIN, MAX] = [1000, 10000];
             class="no-unlimited"
         >
         </vcd-number-with-unit-form-input>
+        <vcd-number-with-unit-form-input
+            [formControl]="cpuLimitCustomUnlimited"
+            [label]="'cpu.limit' | translate"
+            [unitOptions]="hertzOptions"
+            [inputValueUnit]="formControlValueUnit"
+            [description]="'sizingPolicies.form.cpuLimit.description' | translate"
+            [unlimitedText]="CUSTOM_UNLIMITED_TEXT"
+            class="custom-unlimited"
+        >
+        </vcd-number-with-unit-form-input>
     `,
 })
 export class TestHostComponent {
+    CUSTOM_UNLIMITED_TEXT = CUSTOM_UNLIMITED_TEXT;
+
     cpuLimit = new FormControl(null);
     cpuLimitInitiallyUnlimited = new FormControl(UNLIMITED);
     cpuLimitInitiallyNull = new FormControl(null);
     cpuLimitInitiallySet = new FormControl(null);
     cpuLimitNoUnits = new FormControl(null);
+    cpuLimitCustomUnlimited = new FormControl(UNLIMITED);
 
     public hertzOptions: Unit[] = [Hertz.Mhz, Hertz.Ghz];
     public formControlValueUnit: Unit = Hertz.Mhz;
@@ -403,13 +418,33 @@ describe('VcdNumberWithUnitFormInputComponent', () => {
     });
 
     describe('initialValueUnit', () => {
-        it('sets the initally selected unit', () => {
+        it('sets the initially selected unit', () => {
             const numberWithUnitInputInitializedNull = finder.find({
                 woConstructor: NumberWithUnitFormInputWidgetObject,
                 className: 'initially-set-unit',
             });
             finder.detectChanges();
             expect(numberWithUnitInputInitializedNull.selectedUnitDisplayValue).toEqual('GHz');
+        });
+    });
+
+    describe('Customizable unlimited text', () => {
+        it('shows default unlimited text', () => {
+            const numberWithUnitInputUnlimited = finder.find({
+                woConstructor: NumberWithUnitFormInputWidgetObject,
+                className: 'initially-unlimited',
+            });
+
+            expect(numberWithUnitInputUnlimited.displayValue).toEqual(ts.translate('vcd.cc.unlimited'));
+        });
+
+        it('shows custom unlimited text', () => {
+            const numberWithUnitInputUnlimitedCustomText = finder.find({
+                woConstructor: NumberWithUnitFormInputWidgetObject,
+                className: 'custom-unlimited',
+            });
+
+            expect(numberWithUnitInputUnlimitedCustomText.displayValue).toEqual(CUSTOM_UNLIMITED_TEXT);
         });
     });
 });
