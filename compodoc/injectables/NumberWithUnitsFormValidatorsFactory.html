@@ -102,7 +102,7 @@
                 </tr>
                         <tr>
                             <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="471" class="link-to-prism">projects/components/src/form/number-with-unit-input/number-with-unit-form-input.component.ts:471</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="478" class="link-to-prism">projects/components/src/form/number-with-unit-input/number-with-unit-form-input.component.ts:478</a></div>
                             </td>
                         </tr>
 
@@ -169,8 +169,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="474"
-                            class="link-to-prism">projects/components/src/form/number-with-unit-input/number-with-unit-form-input.component.ts:474</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="481"
+                            class="link-to-prism">projects/components/src/form/number-with-unit-input/number-with-unit-form-input.component.ts:481</a></div>
                 </td>
             </tr>
 
@@ -379,6 +379,13 @@ export class NumberWithUnitFormInputComponent extends BaseFormControl implements
      * The value when the component is set to unlimited. Default is -1.
      */
     @Input() unlimitedValue: number &#x3D; UNLIMITED;
+
+    /**
+     * Text to be shown for the unlimited checkbox.
+     * Optional.
+     * Default is the translation of vcd.cc.unlimited key.
+     */
+    @Input() unlimitedText: string &#x3D; this.translationService.translate(&#x27;vcd.cc.unlimited&#x27;);
 
     /**
      * Minimum value allowed relevant to {@link inputValueUnit}. Default is 0.
@@ -694,7 +701,7 @@ export class NumberWithUnitFormInputComponent extends BaseFormControl implements
 
     get displayValue(): string {
         if (this.unlimitedControlValue) {
-            return this.translationService.translate(&#x27;vcd.cc.unlimited&#x27;);
+            return this.unlimitedText;
         }
 
         const value &#x3D; Number(this.textInputValue);

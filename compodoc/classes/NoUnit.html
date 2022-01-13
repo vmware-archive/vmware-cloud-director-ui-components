@@ -194,7 +194,7 @@
                     </tr>
                         <tr>
                             <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="507" class="link-to-prism">projects/components/src/form/number-with-unit-input/number-with-unit-form-input.component.ts:507</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="514" class="link-to-prism">projects/components/src/form/number-with-unit-input/number-with-unit-form-input.component.ts:514</a></div>
                             </td>
                         </tr>
 
@@ -302,8 +302,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="508"
-                            class="link-to-prism">projects/components/src/form/number-with-unit-input/number-with-unit-form-input.component.ts:508</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="515"
+                            class="link-to-prism">projects/components/src/form/number-with-unit-input/number-with-unit-form-input.component.ts:515</a></div>
                 </td>
             </tr>
 
@@ -384,8 +384,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="512"
-                            class="link-to-prism">projects/components/src/form/number-with-unit-input/number-with-unit-form-input.component.ts:512</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="519"
+                            class="link-to-prism">projects/components/src/form/number-with-unit-input/number-with-unit-form-input.component.ts:519</a></div>
                 </td>
             </tr>
 
@@ -423,8 +423,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="516"
-                            class="link-to-prism">projects/components/src/form/number-with-unit-input/number-with-unit-form-input.component.ts:516</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="523"
+                            class="link-to-prism">projects/components/src/form/number-with-unit-input/number-with-unit-form-input.component.ts:523</a></div>
                 </td>
             </tr>
 
@@ -1039,6 +1039,13 @@ export class NumberWithUnitFormInputComponent extends BaseFormControl implements
     @Input() unlimitedValue: number &#x3D; UNLIMITED;
 
     /**
+     * Text to be shown for the unlimited checkbox.
+     * Optional.
+     * Default is the translation of vcd.cc.unlimited key.
+     */
+    @Input() unlimitedText: string &#x3D; this.translationService.translate(&#x27;vcd.cc.unlimited&#x27;);
+
+    /**
      * Minimum value allowed relevant to {@link inputValueUnit}. Default is 0.
      */
     @Input() min: number &#x3D; 0;
@@ -1352,7 +1359,7 @@ export class NumberWithUnitFormInputComponent extends BaseFormControl implements
 
     get displayValue(): string {
         if (this.unlimitedControlValue) {
-            return this.translationService.translate(&#x27;vcd.cc.unlimited&#x27;);
+            return this.unlimitedText;
         }
 
         const value &#x3D; Number(this.textInputValue);
