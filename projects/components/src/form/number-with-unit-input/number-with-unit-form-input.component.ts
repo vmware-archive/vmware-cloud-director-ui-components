@@ -1,5 +1,5 @@
 /*!
- * Copyright 2020-2021 VMware, Inc.
+ * Copyright 2020-2022 VMware, Inc.
  * SPDX-License-Identifier: BSD-2-Clause
  */
 
@@ -99,6 +99,13 @@ export class NumberWithUnitFormInputComponent extends BaseFormControl implements
      * The value when the component is set to unlimited. Default is -1.
      */
     @Input() unlimitedValue: number = UNLIMITED;
+
+    /**
+     * Text to be shown for the unlimited checkbox.
+     * Optional.
+     * Default is the translation of vcd.cc.unlimited key.
+     */
+    @Input() unlimitedText: string = this.translationService.translate('vcd.cc.unlimited');
 
     /**
      * Minimum value allowed relevant to {@link inputValueUnit}. Default is 0.
@@ -414,7 +421,7 @@ export class NumberWithUnitFormInputComponent extends BaseFormControl implements
 
     get displayValue(): string {
         if (this.unlimitedControlValue) {
-            return this.translationService.translate('vcd.cc.unlimited');
+            return this.unlimitedText;
         }
 
         const value = Number(this.textInputValue);

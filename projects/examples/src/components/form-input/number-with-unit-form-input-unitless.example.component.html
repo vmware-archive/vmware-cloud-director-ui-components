@@ -19,6 +19,7 @@ The "Warn Level" percent example also disables the "unlimited" functionality.
             [formControlName]="'disabled'"
         ></vcd-form-checkbox>
     </section>
+
     <section>
         <vcd-number-with-unit-form-input
             [formControlName]="'noUnit'"
@@ -50,6 +51,22 @@ The "Warn Level" percent example also disables the "unlimited" functionality.
             [isReadOnly]="formGroup.controls.readonly.value"
         >
         </vcd-number-with-unit-form-input>
+    </section>
+
+    <section>
+        <vcd-number-with-unit-form-input
+            #myInput
+            [formControlName]="'operationLimit'"
+            [label]="'Operations Limit'"
+            [unitOptions]="[]"
+            [unlimitedValue]="operationLimitUnlimited"
+            [unlimitedText]="'Custom Unlimited Text'"
+            [isReadOnly]="formGroup.controls.readonly.value"
+        ></vcd-number-with-unit-form-input>
+
+        <div *ngIf="!formGroup.controls.readonly.value">
+            <strong>Value:</strong> {{ formGroup.get('operationLimit').value }}
+        </div>
     </section>
 
     <section class="form-valid"><strong>Form valid:</strong> {{ formGroup.valid }}</section>
