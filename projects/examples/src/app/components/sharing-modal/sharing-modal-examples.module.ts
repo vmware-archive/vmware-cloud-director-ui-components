@@ -19,13 +19,11 @@ Documentation.registerDocumentationEntry({
     examples: [
         {
             component: SharingModalExampleComponent,
-            forComponent: null,
             title: 'Basic Sharing Modal',
             urlSegment: 'basic-sharing-modal-component-example',
         },
         {
             component: UsersGroupsOrgsSharingModalExampleComponent,
-            forComponent: null,
             title: 'Users/Groups/Orgs Sharing Modal',
             urlSegment: 'vcd-users-groups-sharing-modal-example',
         },

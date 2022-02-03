@@ -36,55 +36,46 @@ Documentation.registerDocumentationEntry({
     examples: [
         {
             component: ActionMenuStaticActionsExampleComponent,
-            forComponent: null,
             title: 'Static actions',
             urlSegment: 'action-menu-static-actions',
         },
         {
             component: ActionMenuContextualActionsExampleComponent,
-            forComponent: null,
             title: 'Contextual actions',
             urlSegment: 'action-menu-contextual-actions',
         },
         {
             component: ActionMenuStaticAndContextualActionsExampleComponent,
-            forComponent: null,
             title: 'Static and Contextual actions',
             urlSegment: 'action-menu-static-and-contextual-actions',
         },
         {
             component: ActionMenuHideDisableExampleComponent,
-            forComponent: null,
             title: 'Hiding and disabling of actions',
             urlSegment: 'action-menu-hiding-disabling',
         },
         {
             component: ActionMenuWithSeparatorsExampleComponent,
-            forComponent: null,
             title: 'Action Menu with separators',
             urlSegment: 'action-menu-with-separators',
         },
         {
             component: ActionMenuSearchExampleComponent,
-            forComponent: null,
             title: 'Action search example',
             urlSegment: 'action-search',
         },
         {
             component: ActionMenuSearchPauseUnpauseExampleComponent,
-            forComponent: null,
             title: 'Action search pause and unpause',
             urlSegment: 'action-search-pause-unpause',
         },
         {
             component: ActionMenuSearchDebounceExampleComponent,
-            forComponent: null,
             title: 'Debounced Action Search',
             urlSegment: 'action-menu-search-debounce',
         },
         {
             component: ActionMenuDataUiExampleComponent,
-            forComponent: null,
             title: 'Data-ui attributes on actions',
             urlSegment: 'action-menu-data-ui-attr',
         },

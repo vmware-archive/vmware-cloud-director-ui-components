@@ -30,7 +30,6 @@ Documentation.registerDocumentationEntry({
     examples: [
         {
             component: FormInputExampleComponent,
-            forComponent: null,
             title: 'String, Number and Date form inputs',
             urlSegment: 'form-input',
         },
@@ -44,13 +43,11 @@ Documentation.registerDocumentationEntry({
     examples: [
         {
             component: FormSelectExampleComponent,
-            forComponent: null,
             title: 'Select form input',
             urlSegment: 'form-select',
         },
         {
             component: FormSelectDisabledExampleComponent,
-            forComponent: null,
             title: 'Select form input with disabled options',
             urlSegment: 'form-select-disabled',
         },
@@ -64,7 +61,6 @@ Documentation.registerDocumentationEntry({
     examples: [
         {
             component: FormCheckboxExampleComponent,
-            forComponent: null,
             title: 'Checkbox form input',
             urlSegment: 'form-checkbox',
         },
@@ -78,13 +74,11 @@ Documentation.registerDocumentationEntry({
     examples: [
         {
             component: NumberWithUnitFormInputExampleComponent,
-            forComponent: null,
             title: 'Number with unit form input',
             urlSegment: 'number-with-unit-form-input',
         },
         {
             component: NumberWithUnitFormInputUnitlessExampleComponent,
-            forComponent: null,
             title: 'Unitless',
             urlSegment: 'number-with-unit-form-input-unitless',
         },
