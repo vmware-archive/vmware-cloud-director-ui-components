@@ -19,13 +19,11 @@ Documentation.registerDocumentationEntry({
     examples: [
         {
             component: ShowClippedTextSizingExampleComponent,
-            forComponent: null,
             title: 'Sizing of host component and tooltip',
             urlSegment: 'show-clipped-text-sizing',
         },
         {
             component: ShowClippedTextPositioningExampleComponent,
-            forComponent: null,
             title: 'Dynamic Positioning of tooltip',
             urlSegment: 'show-clipped-text-positioning',
         },

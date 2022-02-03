@@ -17,7 +17,6 @@ Documentation.registerDocumentationEntry({
     examples: [
         {
             component: DataExporterExampleComponent,
-            forComponent: null,
             title: 'Data Exporter example',
             urlSegment: 'data-exporter',
         },

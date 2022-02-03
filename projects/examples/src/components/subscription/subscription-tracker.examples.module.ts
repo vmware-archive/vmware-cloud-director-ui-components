@@ -16,7 +16,6 @@ Documentation.registerDocumentationEntry({
     examples: [
         {
             component: SubscriptionTrackerExampleComponent,
-            forComponent: null,
             title: 'Automatically destroy subscriptions when components are destroyed',
             urlSegment: 'subscription-tracker',
         },
