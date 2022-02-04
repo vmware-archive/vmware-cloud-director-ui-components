@@ -8,6 +8,7 @@ import { AppRoute } from './app-route';
 
 interface RouteHelper {
     route(...args: string[]): string;
+    regex: RegExp;
     tagName?: string;
 }
 
@@ -96,6 +97,39 @@ describe('generateRouteBuilder', () => {
         it('is not added to route objects that do have component declared for it', function () {
             const { hi } = getRoutesObj([{ path: 'hi', component: { name: 'TagComponent', tagName: 'my-tag' } }]);
             expect(hi.tagName).toBe('my-tag');
+        });
+    });
+
+    describe('regex', () => {
+        it('matches URLs without trailing slashes', function () {
+            const { test_id } = getRoutesObj([{ path: 'test/:id' }]);
+            expect(test_id.regex.test('/test/123')).toBe(true);
+        });
+
+        it('matches URLs with trailing slashes', function () {
+            const { test_id } = getRoutesObj([{ path: 'test/:id' }]);
+            expect(test_id.regex.test('/test/123/')).toBe(true);
+        });
+
+        it('does not match URLs not starting with slash', function () {
+            const { test_id } = getRoutesObj([{ path: 'test/:id' }]);
+            expect(test_id.regex.test('test/123')).toBe(false);
+        });
+
+        it('ignores content before the beginning of the route (to allow for full URLs)', function () {
+            const { test_id } = getRoutesObj([{ path: 'test/:id' }]);
+            expect(test_id.regex.test('https://google.com/test/123/')).toBe(true);
+        });
+
+        it('does not match route missing an id', () => {
+            const { test_id } = getRoutesObj([{ path: 'test/:id' }]);
+            expect(test_id.regex.test('/test/')).toBe(false);
+            expect(test_id.regex.test('/test')).toBe(false);
+        });
+
+        it('matches routes with multiple replacements', () => {
+            const { a_id_b_idd } = getRoutesObj([{ path: 'a/:id/b/:idd' }]);
+            expect(a_id_b_idd.regex.test('/a/123/b/123')).toBe(true);
         });
     });
 });

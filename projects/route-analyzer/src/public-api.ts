@@ -8,3 +8,4 @@
  */
 
 export * from './lib/app-route';
+export * from './lib/route-info';

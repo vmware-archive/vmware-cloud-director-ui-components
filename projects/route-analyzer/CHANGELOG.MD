@@ -6,6 +6,11 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
+
+## [0.0.6]
+### [Added]
+- route objects now contain regex property to allow you to test existing URLs
+
 ## [0.0.5]
 - Fixed version 0.0.4 which was using the wrong version of yargs causing errors when you
   run the script.
