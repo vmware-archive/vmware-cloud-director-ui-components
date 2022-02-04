@@ -181,6 +181,8 @@ function routeCallToRoutes(moduleRouteCall: ModuleRouteCall, typeChecker: ts.Typ
                 const tagName = getTagName(prop.initializer, typeChecker);
                 if (tagName) {
                     route.component.tagName = tagName;
+                } else {
+                    console.warn(`Warning: Component ${route.component.name} does not have a tag name`);
                 }
             } else if (propName === ROUTE_PROP.DATA) {
                 // Don't lose an existing tagName that may have been added

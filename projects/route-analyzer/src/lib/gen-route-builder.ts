@@ -5,7 +5,7 @@
 import { normalize, join, strings, Path } from '@angular-devkit/core';
 import { AppRoute } from './app-route';
 
-export function generateRouteBuilder(routes: AppRoute[], baseFilename: string = 'RouteBuilder'): string {
+export function generateRouteBuilder(routes: AppRoute[]): string {
     const out: string[] = [];
 
     // Map to avoid duplicate property names for similar paths
@@ -51,12 +51,15 @@ export function generateRouteBuilder(routes: AppRoute[], baseFilename: string = 
         out.push(`export const ${pathPropName} =  {
     route(${argsList}) {
         return \`${fullPath.replace(replacementSegmentRegex, (_, p: string) => `$\{${strings.camelize(p)}}`)}\`;
-    },${
-        route.component?.tagName
-            ? `
+    },
+
+    regex: /${fullPath.replace(replacementSegmentRegex, () => '[^/]+').replace(/\//g, '\\/')}\\/?$/,
+${
+    route.component?.tagName
+        ? `
     tagName: ${JSON.stringify(route.component.tagName)},`
-            : ''
-    }
+        : ''
+}
 }`);
     });
 
