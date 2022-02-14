@@ -71,15 +71,28 @@ For all development, nightly builds, the version should be created using `npm ve
 
 See [ci-cd.yml](.github/workflows/ci-cd.yml)
 
--   Make a change to one or more of the following files
-    -   [projects/i18n/package.json](./projects/i18n/package.json)
-    -   [projects/components/package.json](./projects/components/package.json)
-    -   [projects/route-analyzer/package.json](./projects/route-analyzer/package.json)
--   Create a PR
--   When the PR is merged, an action will run and publish the packages to npm.
-    -   By creating a version that ends with `next`, for example `"version" : "1.2.3-next""`, the npm version will be tagged
-        with `@next`
-    -   Versions that don't end with `next` will be published without a tag, which means it will be considered `@latest`.
+We recommend that a separate PR be created when publishing a new version of the library. To publish a new version
+of `@vcd/ui-components` or `@vcd/route-analyzer` or `@vcd/i18n`, you must add the following anywhere in your commit message:
+
+-   `[publish lib-name]` to publish an `@next` release
+-   `[publish lib-name@latest]` to publish an `@latest` release
+
+Where lib-name is one of the following:
+
+- `@vcd/ui-components`
+- `@vcd/route-analyzer`
+- `@vcd/i18n`
+
+And modify the corresponding package.json files:
+
+-   [projects/components/package.json](./projects/components/package.json)
+-   [projects/i18n/package.json](./projects/i18n/package.json).
+-   [projects/route-analyzer/package.json](./projects/route-analyzer/package.json).
+
+Note that `@latest` releases are only to be created when we release a version of VCD. Most releases, except for the
+final release that is used by a release of VCD, should be `@next`.
+
+Merging the PR will publish the mentioned packages when it's pushed to master
 
 ## Angular CLI
 
