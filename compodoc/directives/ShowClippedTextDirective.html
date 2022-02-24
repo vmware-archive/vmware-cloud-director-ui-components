@@ -378,8 +378,8 @@ the elements is clipped.</p>
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="305"
-                            class="link-to-prism">projects/components/src/lib/directives/show-clipped-text.directive.ts:305</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="308"
+                            class="link-to-prism">projects/components/src/lib/directives/show-clipped-text.directive.ts:308</a></div>
                 </td>
             </tr>
 
@@ -656,7 +656,7 @@ the elements is clipped.</p>
                     </tr>
                         <tr>
                             <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="290" class="link-to-prism">projects/components/src/lib/directives/show-clipped-text.directive.ts:290</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="293" class="link-to-prism">projects/components/src/lib/directives/show-clipped-text.directive.ts:293</a></div>
                             </td>
                         </tr>
 
@@ -691,7 +691,7 @@ the elements is clipped.</p>
                     </tr>
                         <tr>
                             <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="301" class="link-to-prism">projects/components/src/lib/directives/show-clipped-text.directive.ts:301</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="304" class="link-to-prism">projects/components/src/lib/directives/show-clipped-text.directive.ts:304</a></div>
                             </td>
                         </tr>
 
@@ -945,7 +945,7 @@ const tip &#x3D; {
             width: rect.width + &#x27;px&#x27;,
             height: rect.height + &#x27;px&#x27;,
             opacity: &#x27;1&#x27;,
-            wordBreak: &#x27;break-all&#x27;,
+            wordBreak: &#x27;break-word&#x27;,
         });
         setStyle(tip.content, {
             visibility: &#x27;visible&#x27;,
@@ -1076,6 +1076,9 @@ export class ShowClippedTextDirective implements OnDestroy, OnInit {
     deactivate(): void {
         ShowClippedTextDirective.instanceCount--;
         unwatchEvents(this.hostElement, this.onMouseIn, this.onMouseOut);
+        if (tip.currentDirective &#x3D;&#x3D;&#x3D; this) {
+            tip.hideTooltip(0);
+        }
         if (ShowClippedTextDirective.instanceCount &#x3D;&#x3D;&#x3D; 0) {
             tip.destroy();
         }

@@ -1160,7 +1160,9 @@ export class ShowClippedTextDirectiveTestHelper {
 @Component({
     template: &#x60;
         &lt;div [vcdShowClippedText]&#x3D;&quot;{ disabled: disabled }&quot; style&#x3D;&quot;width: 20px&quot; #div&gt;{{ text }}&lt;/div&gt;
-        &lt;div [vcdShowClippedText]&#x3D;&quot;{ disabled: disabled }&quot; style&#x3D;&quot;width: 20px&quot; #div2&gt;{{ text2 }}&lt;/div&gt;
+        &lt;div [vcdShowClippedText]&#x3D;&quot;{ disabled: disabled }&quot; style&#x3D;&quot;width: 20px&quot; #div2 *ngIf&#x3D;&quot;showSecondHost&quot;&gt;
+            {{ text2 }}
+        &lt;/div&gt;
     &#x60;,
 })
 export class ShowClippedTextDirectiveTestHostComponent {
@@ -1171,6 +1173,7 @@ export class ShowClippedTextDirectiveTestHostComponent {
     public text &#x3D; &#x27;texting&#x27;;
     public text2 &#x3D; &#x27;texting too&#x27;;
     public disabled &#x3D; false;
+    public showSecondHost &#x3D; true;
 }
 </code></pre>
     </div>
