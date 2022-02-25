@@ -41,6 +41,10 @@ export class CypressWidgetObjectElement<T extends ElementActions> implements Wid
         } else if (selector.text) {
             const queryOptions = { matchCase: false, ...(selector.options || {}) };
             chainable = root.contains(cssSelector, selector.text, queryOptions);
+        } else if (selector.exactText) {
+            const queryOptions = { matchCase: false, ...(selector.options || {}) };
+            const exactTextEscaped = selector.exactText.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+            chainable = root.contains(cssSelector, new RegExp(`^\\s*${exactTextEscaped}\\s*$`, 'g'), queryOptions);
         } else {
             chainable = root.find(cssSelector, selector.options);
         }

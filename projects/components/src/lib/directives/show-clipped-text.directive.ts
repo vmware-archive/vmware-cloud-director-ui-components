@@ -99,6 +99,7 @@ const tip = {
     destroy(): void {
         document.body.removeChild(tip.container);
         unwatchEvents(tip.container, tip.onMouseEnter, tip.onMouseLeave);
+        tip.clearHideTimeout();
         tip.content.removeEventListener('transitionend', this.onTransitionEnd);
         tip.container = null;
         tip.content = null;

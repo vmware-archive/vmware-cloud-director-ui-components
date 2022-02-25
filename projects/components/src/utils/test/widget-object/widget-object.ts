@@ -30,6 +30,9 @@ export type FindElementOptions = {
     /** To search for the element containing the given text. Ignored if {@link #index} is passed */
     text?: string;
 
+    /** To search for the element matching the given text exactly. Ignored if {@link #index} or  {@link #text} is passed */
+    exactText?: string;
+
     /** An implementation specific parent can be used to start the search */
     ancestor?: unknown;
 
