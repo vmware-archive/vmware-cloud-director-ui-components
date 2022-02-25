@@ -78,6 +78,17 @@ describe('CypressWidgetObjectFinder', () => {
             expect(containsSpy).toHaveBeenCalledWith(FakeWidget.tagName, 'text', { matchCase: false });
         });
 
+        it('finds a widget using exactText', () => {
+            const getSpy = spyOn(cy, 'get').and.callThrough();
+            const containsSpy = spyOn(cy, 'contains').and.callThrough();
+            new CypressWidgetObjectFinder().find(FakeWidget, { exactText: 'exactText[]{}' });
+            expect(getSpy).toHaveBeenCalledWith('body', { timeout: undefined });
+            // contains should be called with a regular expression that has RegEx characters escaped
+            expect(containsSpy).toHaveBeenCalledWith(FakeWidget.tagName, /^\s*exactText\[\]\{\}\s*$/g, {
+                matchCase: false,
+            });
+        });
+
         it('finds a widget using index', () => {
             const index = 0;
             const getSpy = spyOn(cy, 'get').and.callThrough();

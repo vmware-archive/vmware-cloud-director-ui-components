@@ -38,6 +38,8 @@ const DataUi = {
             </p>
             <button disabled [attr.data-ui]="DataUi.button">BUTTON</button>
             <button [attr.data-ui]="DataUi.button">BUTTON2</button>
+            <button [attr.data-ui]="DataUi.button">BUTTON3</button>
+            <button [attr.data-ui]="DataUi.button">BUTTON33</button>
             <input
                 type="text"
                 id="fname"
@@ -169,6 +171,12 @@ describe('AngularWidgetObjectElement', () => {
         it('can find an element by text', function (this: HasClickTracker): void {
             expect(this.clickTracker.getButtonByLabel({ text: 'BUTTON2' }).unwrap().text()).toEqual('BUTTON2');
         });
+        it('finds multiple elements using text', function (this: HasClickTracker): void {
+            expect(this.clickTracker.getButtonByLabel({ text: 'BUTTON3' }).unwrap().elements.length).toBe(2);
+        });
+        it('finds single element using exactText', function (this: HasClickTracker): void {
+            expect(this.clickTracker.getButtonByLabel({ exactText: 'BUTTON3' }).unwrap().elements.length).toBe(1);
+        });
         it('can find an element by index', function (this: HasClickTracker): void {
             expect(this.clickTracker.getButtonByLabel({ index: 0 }).unwrap().text()).toEqual('BUTTON');
         });
@@ -241,7 +249,7 @@ describe('TestElement', () => {
 
     describe('length', () => {
         it('says how many elements are in this TestElement', function (this: HasClickTracker): void {
-            expect(this.clickTracker.getButtons().unwrap().length()).toEqual(2);
+            expect(this.clickTracker.getButtons().unwrap().length()).toEqual(4);
         });
     });
 
@@ -253,7 +261,7 @@ describe('TestElement', () => {
                     .unwrap()
                     .toArray()
                     .map((el) => el.text())
-            ).toEqual(['BUTTON', 'BUTTON2']);
+            ).toEqual(['BUTTON', 'BUTTON2', 'BUTTON3', 'BUTTON33']);
         });
     });
 

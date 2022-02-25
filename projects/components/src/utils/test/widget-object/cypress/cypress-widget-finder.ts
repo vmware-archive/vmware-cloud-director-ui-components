@@ -50,6 +50,7 @@ export class CypressWidgetObjectFinder<T> {
             cssSelector: query,
             dataUiSelector: findOptions?.dataUiSelector,
             text: findOptions?.text,
+            exactText: findOptions?.exactText,
             index: findOptions?.index,
             options: findOptions?.options,
         };

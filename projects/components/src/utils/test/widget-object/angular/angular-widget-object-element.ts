@@ -30,6 +30,8 @@ export class AngularWidgetObjectElement implements WidgetObjectElement<TestEleme
                 matches = [matches[selector.index]];
             } else if (selector.text) {
                 matches = matches.filter((el) => el.nativeElement.textContent.includes(selector.text));
+            } else if (selector.exactText) {
+                matches = matches.filter((el) => el.nativeElement.textContent.trim() === selector.exactText);
             }
         }
         return new AngularWidgetObjectElement(new TestElement(matches, this.testElement.fixture));
@@ -83,7 +85,9 @@ export class AngularWidgetObjectElement implements WidgetObjectElement<TestEleme
     /**
      * @inheritdoc
      */
-    select(value: string, options?: unknown): void {}
+    select(value: string, options?: unknown): void {
+        this.testElement.select(value, options);
+    }
 
     type(value: string): void {
         this.testElement.type(value);
@@ -198,6 +202,23 @@ export class TestElement implements Iterable<TestElement> {
      */
     blur(): void {
         this.forEach((el) => el.nativeElement.dispatchEvent(new Event('blur')));
+        this.fixture.detectChanges();
+    }
+
+    /**
+     * Select an option by text in all the contained elements..
+     */
+    select(value: string, options: unknown): void {
+        this.forEach((el) => {
+            const optionIndex = el
+                .queryAll(By.css('option'))
+                .findIndex((optionEl) => (optionEl.nativeElement as HTMLOptionElement).text === value);
+            if (optionIndex > -1) {
+                const selectElement = el.nativeElement as HTMLSelectElement;
+                selectElement.selectedIndex = optionIndex;
+                selectElement.dispatchEvent(new Event('change'));
+            }
+        });
         this.fixture.detectChanges();
     }
 
