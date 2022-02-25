@@ -71,21 +71,27 @@ the extremely long folder name.</p>
 <p>For all development, nightly builds, the version should be created using <code>npm version prerelease --preid=dev</code>.</p>
 <h2 id="publishing">Publishing</h2>
 <p>See <a href=".github/workflows/ci-cd.yml">ci-cd.yml</a></p>
+<p>We recommend that a separate PR be created when publishing a new version of the library. To publish a new version
+of <code>@vcd/ui-components</code> or <code>@vcd/route-analyzer</code> or <code>@vcd/i18n</code>, you must add the following anywhere in your commit message:</p>
 <ul>
-<li>Make a change to one or more of the following files<ul>
-<li><a href="./projects/i18n/package.json">projects/i18n/package.json</a></li>
+<li><code>[publish lib-name]</code> to publish an <code>@next</code> release</li>
+<li><code>[publish lib-name@latest]</code> to publish an <code>@latest</code> release</li>
+</ul>
+<p>Where lib-name is one of the following:</p>
+<ul>
+<li><code>@vcd/ui-components</code></li>
+<li><code>@vcd/route-analyzer</code></li>
+<li><code>@vcd/i18n</code></li>
+</ul>
+<p>And modify the corresponding package.json files:</p>
+<ul>
 <li><a href="./projects/components/package.json">projects/components/package.json</a></li>
-<li><a href="./projects/route-analyzer/package.json">projects/route-analyzer/package.json</a></li>
+<li><a href="./projects/i18n/package.json">projects/i18n/package.json</a>.</li>
+<li><a href="./projects/route-analyzer/package.json">projects/route-analyzer/package.json</a>.</li>
 </ul>
-</li>
-<li>Create a PR</li>
-<li>When the PR is merged, an action will run and publish the packages to npm.<ul>
-<li>By creating a version that ends with <code>next</code>, for example <code>&quot;version&quot; : &quot;1.2.3-next&quot;&quot;</code>, the npm version will be tagged
-with <code>@next</code></li>
-<li>Versions that don&#39;t end with <code>next</code> will be published without a tag, which means it will be considered <code>@latest</code>.</li>
-</ul>
-</li>
-</ul>
+<p>Note that <code>@latest</code> releases are only to be created when we release a version of VCD. Most releases, except for the
+final release that is used by a release of VCD, should be <code>@next</code>.</p>
+<p>Merging the PR will publish the mentioned packages when it&#39;s pushed to master</p>
 <h2 id="angular-cli">Angular CLI</h2>
 <p>This project was generated with <a href="https://github.com/angular/angular-cli">Angular CLI</a> version 8.3.20. We attempt to
 keep the project following CLI guidelines so we can benefit from ng update.</p>
