@@ -53,7 +53,7 @@ export class FormatDateTimePipe implements PipeTransform {
      * @param dateTime dateTime to be formatted
      * @param options determinate how date should be formatted
      */
-    transform(dateTime: string | Date, options?: object): any {
+    transform(dateTime: string | Date, options?: any): any {
         if (!dateTime) {
             return this.service.formatDateTime(new Date(), options);
         }
