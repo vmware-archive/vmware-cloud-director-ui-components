@@ -48,6 +48,11 @@ const DataUi = {
                 [attr.data-ui]="DataUi.nameInput"
                 [(ngModel)]="name"
             />
+            <select>
+                <option>Lorem</option>
+                <option>Ipsum</option>
+                <option>Dolor</option>
+            </select>
         </div>
     `,
 })
@@ -91,6 +96,9 @@ class ClickTrackerWidgetObject<T> extends BaseWidgetObject<T> {
     getButtons = this.factory.dataUi(DataUi.button);
 
     getButtonByLabel = this.factory.dataUi('button');
+
+    getSelect = this.factory.css('select');
+    getOptions = this.factory.css('option');
 
     getTrackerElementUsingParent() {
         return this.getClickCount().parents(`[data-ui=${DataUi.clickReceiver}]`);
@@ -277,6 +285,20 @@ describe('TestElement', () => {
             expect(this.clickTracker.getNameInput().unwrap().value()).toEqual('ryan');
             this.clickTracker.typeNameInput('hannah');
             expect(this.clickTracker.getNameInput().unwrap().value()).toEqual('hannah');
+        });
+    });
+
+    describe('select', () => {
+        it('selects an option based on the option text', function (this: HasClickTracker): void {
+            const selectText = 'Ipsum';
+
+            this.clickTracker.getSelect().select(selectText);
+
+            const options = this.clickTracker.getOptions().unwrap().elements;
+            expect(options[0].properties.selected).toBeFalsy();
+            expect(options[1].properties.selected).toBeTruthy();
+            expect(options[1].nativeElement.text).toBe(selectText);
+            expect(options[2].properties.selected).toBeFalsy();
         });
     });
 });

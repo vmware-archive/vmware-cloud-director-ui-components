@@ -96,7 +96,7 @@ export interface ElementActions {
      * @param value The text of the dropdown to select
      * @param options Options to be passed down to implementations
      */
-    select(value: string, options: UnknownOptions): void;
+    select(value: string, options?: UnknownOptions): void;
 
     /**
      * For inputs or text areas, clears the current value.
