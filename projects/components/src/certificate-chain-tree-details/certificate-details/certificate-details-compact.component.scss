@@ -1,0 +1,21 @@
+.certificate-details {
+    border: 1px solid var(--clr-card-border-color);
+    padding: 0.25rem;
+
+    table {
+        margin: 0;
+
+        td {
+            padding: 0.25rem;
+        }
+
+        .value-title {
+            font-weight: 500;
+        }
+
+        .value-fingerprint {
+            word-break: break-word;
+            width: 60%;
+        }
+    }
+}
