@@ -1582,6 +1582,7 @@ As such, from the tests, you need to manually call this method.</p>
     destroy(): void {
         document.body.removeChild(tip.container);
         unwatchEvents(tip.container, tip.onMouseEnter, tip.onMouseLeave);
+        tip.clearHideTimeout();
         tip.content.removeEventListener(&#x27;transitionend&#x27;, this.onTransitionEnd);
         tip.container &#x3D; null;
         tip.content &#x3D; null;

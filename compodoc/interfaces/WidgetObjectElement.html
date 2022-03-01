@@ -132,8 +132,8 @@ from the widget object.</p>
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="121"
-                            class="link-to-prism">projects/components/src/utils/test/widget-object/widget-object.ts:121</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="124"
+                            class="link-to-prism">projects/components/src/utils/test/widget-object/widget-object.ts:124</a></div>
                 </td>
             </tr>
 
@@ -182,6 +182,9 @@ export type FindElementOptions &#x3D; {
 
     /** To search for the element containing the given text. Ignored if {@link #index} is passed */
     text?: string;
+
+    /** To search for the element matching the given text exactly. Ignored if {@link #index} or  {@link #text} is passed */
+    exactText?: string;
 
     /** An implementation specific parent can be used to start the search */
     ancestor?: unknown;
@@ -246,7 +249,7 @@ export interface ElementActions {
      * @param value The text of the dropdown to select
      * @param options Options to be passed down to implementations
      */
-    select(value: string, options: UnknownOptions): void;
+    select(value: string, options?: UnknownOptions): void;
 
     /**
      * For inputs or text areas, clears the current value.
