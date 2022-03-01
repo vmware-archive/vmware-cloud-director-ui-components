@@ -787,6 +787,42 @@ describe('DatagridComponent', () => {
             });
         });
 
+        describe('isRowSelectable', () => {
+            beforeEach(function (this: HasFinderAndGrid): void {
+                (this.hostComponent as HostWithDatagridComponent).columns = [
+                    { displayName: 'Name', renderer: 'name' },
+                    { displayName: 'City', renderer: 'city' },
+                ];
+                this.hostComponent.selectionType = GridSelectionType.Multi;
+                this.finder.detectChanges();
+            });
+
+            it('calls isRowSelectableCallback to calculate rows selectability', function (this: HasFinderAndGrid): void {
+                this.hostComponent.isRowSelectableCallback = (record: MockRecord) => {
+                    // Row is only selectable when it's Palo Alto.
+                    return record.city === 'Palo Alto';
+                };
+
+                this.finder.detectChanges();
+
+                // Palo Alto should be selectable
+                expect(this.clrGridWidget.getSelectionInputForRow(0).unwrap().enabled()).toBeTruthy();
+
+                // Other cities aren't selectable
+                expect(this.clrGridWidget.getSelectionInputForRow(1).unwrap().enabled()).toBeFalsy();
+            });
+
+            it('returns true when isRowSelectableCallback is not set', function (this: HasFinderAndGrid): void {
+                this.hostComponent.isRowSelectableCallback = null;
+                this.finder.detectChanges();
+
+                // All rows are enabled
+                this.hostComponent.gridData.items.forEach((value, index) => {
+                    expect(this.clrGridWidget.getSelectionInputForRow(index).unwrap().enabled()).toBeTruthy();
+                });
+            });
+        });
+
         describe('@Input() emptyGridPlaceholder', () => {
             it('does not show the placeholder while the grid is loading', function (this: HasFinderAndGrid): void {
                 this.finder.detectChanges();
@@ -1484,6 +1520,7 @@ describe('DatagridComponent', () => {
                 [(datagridSelection)]="datagridSelection"
                 (datagridSelectionChange)="selectionChanged($event)"
                 [preserveSelection]="preserveSelection"
+                [isRowSelectableCallback]="isRowSelectableCallback"
             >
             </vcd-datagrid>
         </div>
@@ -1496,6 +1533,8 @@ export class HostWithDatagridComponent {
     };
 
     @ViewChild(DatagridComponent) grid!: MockRecordDatagridComponent;
+
+    isRowSelectableCallback = null;
 
     /** Will be set in tests */
     columns: GridColumn<MockRecord>[] = [];

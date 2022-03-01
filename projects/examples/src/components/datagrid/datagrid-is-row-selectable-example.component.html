@@ -1,0 +1,9 @@
+<button class="btn btn-primary" (click)="selectionType = GridSelectionType.Single">Single Select</button>
+<button class="btn btn-primary" (click)="selectionType = GridSelectionType.Multi">Multi Select Select</button>
+<vcd-datagrid
+    [gridData]="gridData"
+    (gridRefresh)="refresh($event)"
+    [columns]="columns"
+    [selectionType]="selectionType"
+    [isRowSelectableCallback]="isRowSelectableCallback"
+></vcd-datagrid>
