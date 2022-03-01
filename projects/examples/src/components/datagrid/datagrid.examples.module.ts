@@ -44,6 +44,8 @@ import { DatagridSortExampleComponent } from './datagrid-sort.example.component'
 import { DatagridSortExampleModule } from './datagrid-sort.example.module';
 import { DatagridThreeRenderersExampleComponent } from './datagrid-three-renderers.example.component';
 import { DatagridThreeRenderersExampleModule } from './datagrid-three-renderers.example.module';
+import { DatagridIsRowSelectableExampleComponent } from './datagrid-is-row-selectable-example.component';
+import { DatagridIsRowSelectableExampleModule } from './datagrid-is-row-selectable-example.module';
 
 Documentation.registerDocumentationEntry({
     component: DatagridComponent,
@@ -79,6 +81,11 @@ Documentation.registerDocumentationEntry({
             component: DatagridRowSelectExampleComponent,
             title: 'Selectable datagrid rows',
             urlSegment: 'datagrid-row-select',
+        },
+        {
+            component: DatagridIsRowSelectableExampleComponent,
+            title: 'Disabling selection of datagrid rows',
+            urlSegment: 'datagrid-is-row-selectable',
         },
         {
             component: DatagridPaginationExampleComponent,
@@ -171,6 +178,7 @@ Documentation.registerDocumentationEntry({
         DatagridDetailPaneExampleModule,
         DatagridColumnWidthExampleModule,
         DatagridActionDisplayConfigExampleModule,
+        DatagridIsRowSelectableExampleModule,
     ],
 })
 export class DatagridExamplesModule {}

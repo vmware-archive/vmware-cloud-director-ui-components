@@ -47,6 +47,7 @@
         [ngForTrackBy]="trackBy"
         [ngClass]="this.clrDatarowCssClassGetter(restItem, i)"
         [clrDgItem]="restItem"
+        [clrDgSelectable]="isRowSelectable(restItem)"
     >
         <clr-dg-cell
             *ngIf="shouldDisplayContextualActionsInRow"

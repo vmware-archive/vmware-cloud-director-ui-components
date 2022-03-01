@@ -22,6 +22,7 @@ const Css = {
     PAGINATION_NEXT: '.pagination-next',
     TOP_POSITIONED_BUTTON: 'clr-dg-action-bar button',
     ROW_ACTION_CONTAINER: '.datagrid-select label',
+    ROW_ACTION_INPUT: '.datagrid-select input',
     CHECKBOX_WRAPPER: 'clr-checkbox-wrapper',
     RADIO_WRAPPER: 'clr-radio-wrapper',
     FILTER: 'clr-dg-filter',
@@ -182,6 +183,15 @@ export class ClrDatagridWidgetObject<T> extends BaseWidgetObject<T> {
      */
     getSelectionLabelForRow(row: number) {
         return this.getRow(row).get(Css.ROW_ACTION_CONTAINER);
+    }
+
+    /**
+     * Returns the input of .datagrid-select element in the given row. This function can be used to
+     * perform both single and multiple selection
+     * @param row 0-based index of row
+     */
+    getSelectionInputForRow(row: number) {
+        return this.getRow(row).get(Css.ROW_ACTION_INPUT);
     }
 
     /**
