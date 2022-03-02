@@ -23,7 +23,7 @@
     "build:route-analyzer": "ng build route-analyzer && tsc -p projects/route-analyzer/tsconfig.cli.json",
     "test": "ng test",
     "test-coverage": "ng test --code-coverage --watch=false",
-    "test:components": "ng test components",
+    "test:components": "ng test components --watch=true",
     "test:route-analyzer": "npm run build:route-analyzer && jasmine dist/route-analyzer/**/*.spec.js",
     "test:ci:components": "ng test components --watch=false --browsers ChromeHeadlessNoSandbox --code-coverage",
     "test:i18n": "ng test i18n",

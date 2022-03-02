@@ -37,7 +37,7 @@ describe('FormatDateTimePipe', () => {
 
         const result = subject.transform(dateString, formatOptions);
         expect(result).toBe(date.toDateString());
-        expect(formatDateTimeSpy.calls.mostRecent().args).toEqual([new Date(dateString), formatOptions])
+        expect(formatDateTimeSpy.calls.mostRecent().args).toEqual([new Date(dateString), formatOptions]);
     });
 
     it('forward to translation service for Date', () => {
@@ -48,7 +48,7 @@ describe('FormatDateTimePipe', () => {
 
         const result = subject.transform(new Date(dateString), formatOptions);
         expect(result).toBe(date.toDateString());
-        expect(formatDateTimeSpy.calls.mostRecent().args).toEqual([new Date(dateString), formatOptions])
+        expect(formatDateTimeSpy.calls.mostRecent().args).toEqual([new Date(dateString), formatOptions]);
     });
 
     describe('when the browser is IE11', () => {
