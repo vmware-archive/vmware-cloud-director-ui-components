@@ -7,7 +7,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [3.0.0-dev.3]
+### Added
+- Ability to disable datgrid rows from being selectable
+- Allow WidgetObjects to find elements by exact text
+- Allow selecting options from select elements for AngularWidgetObject
+
 ## [3.0.0-dev.2]
+
 ### Added
 - Customizable text for the unlimited checkbox of the `NumberWithUnitFormInputComponent`.
 ### Fixed
