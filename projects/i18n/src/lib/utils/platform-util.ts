@@ -13,14 +13,14 @@ export class PlatformUtil {
 
     public static browser = {
         // eslint-disable-next-line @typescript-eslint/dot-notation
-        get isOpera() { return  !!window['opera'] || navigator.userAgent.indexOf(' OPR/') >= 0},
+        get isOpera() { return  !!window['opera'] || navigator.userAgent.indexOf(' OPR/') >= 0;},
         // eslint-disable-next-line @typescript-eslint/dot-notation
-        get isFirefox() { return typeof window['InstallTrigger'] !== 'undefined'},
+        get isFirefox() { return typeof window['InstallTrigger'] !== 'undefined';},
         // eslint-disable-next-line @typescript-eslint/dot-notation
-        get isSafari() { return Object.prototype.toString.call(window['HTMLElement']).indexOf('Constructor') > 0},
+        get isSafari() { return Object.prototype.toString.call(window['HTMLElement']).indexOf('Constructor') > 0;},
         // eslint-disable-next-line @typescript-eslint/dot-notation
-        get isChrome() { return !!window['chrome'] && !(!!window['opera'] || navigator.userAgent.indexOf(' OPR/') >= 0)},
+        get isChrome() { return !!window['chrome'] && !(!!window['opera'] || navigator.userAgent.indexOf(' OPR/') >= 0);},
         // eslint-disable-next-line @typescript-eslint/dot-notation
-        get isIE() { return /*@cc_on!@*/ false || !!document['documentMode']} // At least IE6
+        get isIE() { return /*@cc_on!@*/ false || !!document['documentMode'];} // At least IE6
     };
 }

@@ -12,7 +12,7 @@ import { DomUtil } from './dom-util';
 describe('DomUtil', () => {
     describe('scrollToElement', () => {
         // scrollToElement uses smooth scrolling, so we should give the browser some time to do it
-        const SMOOTH_SCROLLING_TIMEOUT = 100;
+        const SMOOTH_SCROLLING_TIMEOUT = 200;
 
         interface Test {
             finder: WidgetFinder<TestHostComponent>;

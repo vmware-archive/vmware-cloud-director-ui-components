@@ -5,6 +5,7 @@
 
 import { MockTranslationService } from '@vcd/i18n';
 import { ActionItem } from '../common/interfaces';
+import { QuickSearchResults } from '../quick-search';
 import { ActionSearchProvider } from './action-search.provider';
 
 interface HasActionSearchProvider {
@@ -89,34 +90,38 @@ describe('ActionSearchProvider', () => {
                 expect(searchResultsBeforePausing.items[0].displayText).toEqual('Start');
             }
         );
-        it(
-            'when pause method is called, search returns a promise which is not resolved until unpause' + 'is called',
-            async function (this: HasActionSearchProvider): Promise<void> {
-                this.actionSearchProvider.actions = getMockActionsList();
-                const unpauseAfter1second = (): void => {
-                    setTimeout(() => {
-                        this.actionSearchProvider.unPause();
-                    }, 1000);
-                };
-                const checkResultsAfter500ms = (): void => {
-                    setTimeout(() => {
-                        expect(searchResultsAfterPausing).toEqual(undefined);
-                    }, 500);
-                };
+        it('when pause method is called, search returns a promise which is not resolved until unpause is called', async function (this: HasActionSearchProvider): Promise<
+            void
+        > {
+            this.actionSearchProvider.actions = getMockActionsList();
+            const unpauseAfter1second = (): void => {
+                setTimeout(() => {
+                    this.actionSearchProvider.unPause();
+                }, 1000);
+            };
+            const checkResultsAfter500ms = (): void => {
+                setTimeout(() => {
+                    expect(searchResultsAfterPausing).toEqual(null);
+                }, 500);
+            };
 
-                const checkResultsAfter1second = (): void => {
-                    setTimeout(() => {
-                        expect(searchResultsAfterPausing.items[0].displayText).toEqual('Start');
-                    }, 1000);
-                };
+            const checkResultsAfter1second = (): void => {
+                setTimeout(() => {
+                    expect(searchResultsAfterPausing.items[0].displayText).toEqual('Start');
+                }, 1000);
+            };
 
-                this.actionSearchProvider.pause();
-                unpauseAfter1second();
-                checkResultsAfter500ms();
-                checkResultsAfter1second();
-                const searchResultsAfterPausing = await this.actionSearchProvider.search('sta');
-            }
-        );
+            this.actionSearchProvider.pause();
+            unpauseAfter1second();
+            checkResultsAfter500ms();
+            checkResultsAfter1second();
+            // Separate declaration and assignment to prevent
+            // Uncaught ReferenceError: Cannot access 'searchResultsAfterPausing' before initialization thrown
+            // It also forces us to ignore prefer-const
+            // eslint-disable-next-line prefer-const
+            let searchResultsAfterPausing: QuickSearchResults = null;
+            searchResultsAfterPausing = await this.actionSearchProvider.search('sta');
+        });
     });
 
     describe('search', () => {
