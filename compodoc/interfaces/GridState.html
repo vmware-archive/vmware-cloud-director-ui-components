@@ -512,6 +512,13 @@ interface ColumnConfigInternal&lt;R, T&gt; extends GridColumn&lt;R&gt; {
 })
 export class DatagridComponent&lt;R extends B, B &#x3D; any&gt; implements OnInit, AfterViewInit {
     /**
+     * The parent component could provide a callback function to calculate if the row is selectable.
+     * When null (default) all rows are selectable.
+     */
+    @Input()
+    isRowSelectableCallback: (item: R) &#x3D;&gt; boolean &#x3D; null;
+
+    /**
      * Sets the configuration of columns on the grid and updates the {@link columnsConfig} array. Also pushes
      * notifications for listeners to make changes to the _columns array
      */
@@ -1240,6 +1247,19 @@ export class DatagridComponent&lt;R extends B, B &#x3D; any&gt; implements OnIni
 
             return columnConfig;
         });
+    }
+
+    /**
+     * Apply the parent&#x27;s component callback when available.
+     * The default is to make all rows selectable.
+     * @param row to make selectable or not.
+     */
+    public isRowSelectable(row: R): boolean {
+        if (!this.isRowSelectableCallback) {
+            return true;
+        }
+
+        return this.isRowSelectableCallback(row);
     }
 
     ngOnInit(): void {
