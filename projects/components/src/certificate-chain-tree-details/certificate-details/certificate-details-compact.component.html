@@ -1,0 +1,111 @@
+<vcd-error-banner [errorMessage]="errorMessage"></vcd-error-banner>
+
+<div [clrLoading]="loading" *ngIf="humanCertificate" class="certificate-details">
+    <table class="table table-compact table-noborder">
+        <thead>
+            <tr>
+                <th class="left">{{ 'certificate.subject' | translate }}</th>
+                <th class="left">{{ 'certificate.issuer' | translate }}</th>
+                <th class="left">{{ 'certificate.details' | translate }}</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td class="left">
+                    <table class="table table-compact table-noborder">
+                        <tbody>
+                            <tr>
+                                <td class="left value-title">{{ 'certificate.commonName' | translate }}</td>
+                                <td class="left">{{ subjectDetails?.commonName | noInfo }}</td>
+                            </tr>
+                            <tr>
+                                <td class="left value-title">{{ 'certificate.organizationUnit' | translate }}</td>
+                                <td class="left">{{ subjectDetails?.organizationalUnit | noInfo }}</td>
+                            </tr>
+                            <tr>
+                                <td class="left value-title">{{ 'certificate.organization' | translate }}</td>
+                                <td class="left">{{ subjectDetails?.organizationName | noInfo }}</td>
+                            </tr>
+                            <tr>
+                                <td class="left value-title">{{ 'certificate.locality' | translate }}</td>
+                                <td class="left">{{ subjectDetails?.localityName | noInfo }}</td>
+                            </tr>
+                            <tr>
+                                <td class="left value-title">{{ 'certificate.state' | translate }}</td>
+                                <td class="left">{{ subjectDetails?.stateName | noInfo }}</td>
+                            </tr>
+                            <tr>
+                                <td class="left value-title">{{ 'certificate.countryCode' | translate }}</td>
+                                <td class="left">{{ subjectDetails?.country | noInfo }}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </td>
+                <td class="left">
+                    <table class="table table-compact table-noborder">
+                        <tbody>
+                            <tr>
+                                <td class="left value-title">{{ 'certificate.commonName' | translate }}</td>
+                                <td class="left">{{ issuerDetails?.commonName | noInfo }}</td>
+                            </tr>
+                            <tr>
+                                <td class="left value-title">{{ 'certificate.organizationUnit' | translate }}</td>
+                                <td class="left">{{ issuerDetails?.organizationalUnit | noInfo }}</td>
+                            </tr>
+                            <tr>
+                                <td class="left value-title">{{ 'certificate.organization' | translate }}</td>
+                                <td class="left">{{ issuerDetails?.organizationName | noInfo }}</td>
+                            </tr>
+                            <tr>
+                                <td class="left value-title">{{ 'certificate.locality' | translate }}</td>
+                                <td class="left">{{ issuerDetails?.localityName | noInfo }}</td>
+                            </tr>
+                            <tr>
+                                <td class="left value-title">{{ 'certificate.state' | translate }}</td>
+                                <td class="left">{{ issuerDetails?.stateName | noInfo }}</td>
+                            </tr>
+                            <tr>
+                                <td class="left value-title">{{ 'certificate.countryCode' | translate }}</td>
+                                <td class="left">{{ issuerDetails?.country | noInfo }}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </td>
+                <td class="left">
+                    <table class="table table-compact table-noborder">
+                        <tbody>
+                            <tr>
+                                <td class="left value-title">{{ 'certificate.fingerprint' | translate }}</td>
+                                <td class="left">
+                                    <div class="value-fingerprint">{{ humanCertificate.fingerprint }}</div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="left value-title">{{ 'certificate.serialNumber' | translate }}</td>
+                                <td class="left">{{ humanCertificate.serialNumber }}</td>
+                            </tr>
+                            <tr>
+                                <td class="left value-title">{{ 'certificate.signatureAlgorithm' | translate }}</td>
+                                <td class="left">{{ humanCertificate.signatureAlgorithm }}</td>
+                            </tr>
+                            <tr>
+                                <td class="left value-title">{{ 'certificate.expiresOn' | translate }}</td>
+                                <td class="left">
+                                    {{
+                                        expirationDate
+                                            ? (expirationDate | formatDateTime)
+                                            : ('display.no.info.string' | translate)
+                                    }}
+                                </td>
+                            </tr>
+                            <tr *ngIf="humanCertificate.hasSubjectAlternativeNames()">
+                                <td class="left value-title">{{ 'certificate.subjectAlternativeName' | translate }}</td>
+                                <td class="left">{{ humanCertificate.subjectAlternativeNamesDisplayString }}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>

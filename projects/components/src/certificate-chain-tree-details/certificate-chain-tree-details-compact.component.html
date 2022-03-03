@@ -1,0 +1,13 @@
+<div class="chain-tree-compact-details">
+    <div class="chain-tree">
+        <vcd-certificate-chain-tree
+            [certificate]="certificate"
+            [selectionEnabled]="true"
+            [preselectionMode]="preselectionMode"
+            (certificateSelected)="onCertificateSelected($event)"
+        >
+        </vcd-certificate-chain-tree>
+    </div>
+
+    <vcd-certificate-details-compact [humanCertificate]="selectedCertificate"></vcd-certificate-details-compact>
+</div>
