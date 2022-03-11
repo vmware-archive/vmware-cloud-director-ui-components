@@ -3,8 +3,8 @@
  * SPDX-License-Identifier: BSD-2-Clause
  */
 
-import { Component, EventEmitter, Input, Output, TrackByFunction } from '@angular/core';
-import { isObservable, Observable } from 'rxjs';
+import { Component, EventEmitter, Input, OnDestroy, Output, TrackByFunction } from '@angular/core';
+import { isObservable, Observable, Subscription } from 'rxjs';
 import {
     ActionDisplayConfig,
     ActionItem,
@@ -33,6 +33,12 @@ export function getDefaultActionDisplayConfig(cfg: ActionDisplayConfig = {}): Ac
 }
 
 /**
+ * Key of an action item object that is intended to be used only by this component and the {@link DropdownComponent}. This property is used
+ * to store the last emitted value from availability observable of an action item.
+ */
+export const lastAvailabilityValue = Symbol();
+
+/**
  * We internally convert the callbacks to booleans to avoid calling the callbacks all the time from template. However, we don't want to
  * allow callers to assign boolean variables to availability as there is no way to know when those variables can get updated from outside.
  */
@@ -45,6 +51,10 @@ interface ActionItemInternal<R, T> extends BaseActionItem<R, T> {
      * Condition whether or not the action is available.
      */
     availability?: Observable<boolean> | boolean;
+    /**
+     * Stores the last emitted value from availability observable of an action item. Used to show or hide that action item.
+     */
+    [lastAvailabilityValue]?: boolean;
 }
 
 /**
@@ -57,7 +67,15 @@ interface ActionItemInternal<R, T> extends BaseActionItem<R, T> {
     templateUrl: './action-menu.component.html',
     styleUrls: ['./action-menu.component.scss'],
 })
-export class ActionMenuComponent<R, T> {
+export class ActionMenuComponent<R, T> implements OnDestroy {
+    /**
+     * To access the private key lastAvailabilityValue from the template
+     */
+    lastAvailabilityValue = lastAvailabilityValue;
+    /**
+     * Stores all the subscriptions of availability observables. Used for un-subscribing from subscriptions that are not needed
+     */
+    lastAvailabilitySubscriptions: Subscription[] = [];
     /**
      * Emits when the actions have been updated.
      * Then one can get the actual actions from {@link staticActions} and {@link contextualActions} property.
@@ -178,12 +196,12 @@ export class ActionMenuComponent<R, T> {
      * Actions that depend on selected entities and belong to main menu list. The returned list length is less than or
      * equal to the configured featured count in {@link actionDisplayConfig}
      */
-    contextualFeaturedActions: ActionItemInternal<R, T>[];
+    contextualFeaturedActions: ActionItemInternal<R, T>[] = [];
 
     /**
      * All the actions that depend on selected entities
      */
-    contextualActions: ActionItemInternal<R, T>[];
+    contextualActions: ActionItemInternal<R, T>[] = [];
 
     /**
      * List containing all the static actions. It has static featured actions in the beginning of the list followed by
@@ -259,21 +277,6 @@ export class ActionMenuComponent<R, T> {
     }
 
     /**
-     * Returns the actions to be shown
-     */
-    getAvailableActions(actions: ActionItemInternal<R, T>[] | ActionItem<R, T>[]): ActionItemInternal<R, T>[] {
-        return (actions as ActionItemInternal<R, T>[])
-            .filter((action) => this.isActionAvailable(action) && (!action.children || action.children.length !== 0))
-            .map((action) => {
-                const actionCopy = { ...action, children: action.children ? [...action.children] : null };
-                if (actionCopy.children) {
-                    actionCopy.children = (this.getAvailableActions(actionCopy.children) as any) as ActionItem<R, T>[];
-                }
-                return actionCopy;
-            });
-    }
-
-    /**
      * The visibility of actions is dependent on their availability call back responses and in VCD application, some of the actions
      * availability call back response is dependent on closure variables. However, we don't call those call backs every time those closure
      * variables are updated, for example by asynchronous requests. This has a side effect of actions visibility not getting updated when
@@ -281,7 +284,9 @@ export class ActionMenuComponent<R, T> {
      * this method will re-trigger the availability call backs of actions
      */
     updateDisplayedActions(): void {
-        this.refreshActions(this.actionsWithAvailabilityCb);
+        this.clearLastAvailabilitySubs();
+        this._actions = this.changeAvailabilityCallbacks(this.actionsWithAvailabilityCb);
+        this.updateActionListsAndDisplayFlags();
     }
 
     private refreshActions(actions: ActionItem<R, T>[]): void {
@@ -289,45 +294,59 @@ export class ActionMenuComponent<R, T> {
             return;
         }
         const hasNestedActions = actions.some((action) => action.children?.length > 0);
-        const markUnmarkedActionsAsContextual =
+        const shouldMarkUnmarkedActionsAsContextual =
             hasNestedActions ||
             this.getFlattenedActionList(actions, ActionType.CONTEXTUAL_FEATURED).some(
                 (action) => action.actionType && action.actionType === ActionType.CONTEXTUAL_FEATURED
             );
+        this.actionsWithAvailabilityCb = this.markUnmarkedActions(actions, shouldMarkUnmarkedActionsAsContextual);
+        this.shouldDisplayContextualActionsDropdownInline =
+            hasNestedActions ||
+            this.actionsWithAvailabilityCb.some((action) => action.actionType === ActionType.CONTEXTUAL);
+        this.updateDisplayedActions();
+    }
 
-        this.actionsWithAvailabilityCb = actions.map((action) => {
-            const actionCopy = { ...action, children: action.children ? [...action.children] : null };
+    private markUnmarkedActions(actions: ActionItem<R, T>[], shouldMarkUnmarkedActionsAsContextual: boolean) {
+        return actions.map((action) => {
+            const actionCopy = { ...action };
             if (!actionCopy.actionType) {
-                actionCopy.actionType = markUnmarkedActionsAsContextual
+                actionCopy.actionType = shouldMarkUnmarkedActionsAsContextual
                     ? ActionType.CONTEXTUAL
                     : ActionType.CONTEXTUAL_FEATURED;
             }
+            if (action.children) {
+                action.children = this.markUnmarkedActions(action.children, shouldMarkUnmarkedActionsAsContextual);
+            }
             return actionCopy;
         });
-
-        this._actions = this.changeAvailabilityCallbacksToBooleans(this.actionsWithAvailabilityCb);
-
-        this.shouldDisplayContextualActionsDropdownInline =
-            hasNestedActions || this._actions.some((action) => action.actionType === ActionType.CONTEXTUAL);
-
-        this.updateActionListsAndDisplayFlags();
     }
 
     /**
-     * Executes the availability call backs and updates them to booleans
+     * Executes the availability call backs and updates them to booleans. Also, Subscribes to availability of actions that are observables
+     * and adds a magic property called {@link lastAvailabilityValue} that stores the last emitted value from those observables.
      */
-    private changeAvailabilityCallbacksToBooleans(actions) {
+    private changeAvailabilityCallbacks(actions) {
         return actions.map((action) => {
-            const actionAvailability = isObservable(action.availability)
-                ? action.availability
-                : this.isActionAvailable(action);
-
-            return {
-                ...action,
-                availability: actionAvailability,
-                children: action.children ? this.changeAvailabilityCallbacksToBooleans(action.children) : null,
-            };
+            const actionCopy: ActionItemInternal<R, T> = { ...action };
+            if (action.availability instanceof Observable) {
+                this.lastAvailabilitySubscriptions.push(
+                    action.availability.subscribe((value) => {
+                        actionCopy[lastAvailabilityValue] = value;
+                    })
+                );
+            } else {
+                actionCopy.availability = this.isActionAvailable(action);
+            }
+            if (actionCopy.children) {
+                actionCopy.children = this.changeAvailabilityCallbacks(action.children);
+            }
+            return actionCopy;
         });
+    }
+
+    private clearLastAvailabilitySubs() {
+        this.lastAvailabilitySubscriptions.forEach((sub) => sub.unsubscribe());
+        this.lastAvailabilitySubscriptions.length = 0;
     }
 
     private updateActionListsAndDisplayFlags(): void {
@@ -375,10 +394,7 @@ export class ActionMenuComponent<R, T> {
     }
 
     private getStaticFeaturedActions(): ActionItemInternal<R, T>[] {
-        const staticFeaturedActions = this._actions.filter(
-            (action) => action.actionType === ActionType.STATIC_FEATURED
-        );
-        return this.getAvailableActions(staticFeaturedActions);
+        return this._actions.filter((action) => action.actionType === ActionType.STATIC_FEATURED);
     }
 
     private getContextualFeaturedActions(): ActionItemInternal<R, T>[] {
@@ -386,7 +402,9 @@ export class ActionMenuComponent<R, T> {
             return [];
         }
         const flattenedFeaturedActionList = this.getFlattenedActionList(this._actions, ActionType.CONTEXTUAL_FEATURED);
-        const availableFeaturedActions = this.getAvailableActions(flattenedFeaturedActionList);
+        const availableFeaturedActions = flattenedFeaturedActionList.filter(
+            (action) => action[lastAvailabilityValue] || action.availability
+        );
         const featuredCount =
             this.actionDisplayConfig.contextual.styling === ActionStyling.INLINE &&
             this.actionDisplayConfig.contextual.featuredCount;
@@ -394,8 +412,7 @@ export class ActionMenuComponent<R, T> {
     }
 
     private getStaticActions(): ActionItemInternal<R, T>[] {
-        const staticActions = this._actions.filter((action) => action.actionType === ActionType.STATIC);
-        return this.getAvailableActions(staticActions);
+        return this._actions.filter((action) => action.actionType === ActionType.STATIC);
     }
 
     private getStaticDropdownActions(): ActionItemInternal<R, T>[] | object {
@@ -411,12 +428,11 @@ export class ActionMenuComponent<R, T> {
         if (!this.getSelectedEntities().length) {
             return [];
         }
-        const contextualActions = this._actions.filter(
+        return this._actions.filter(
             (action) =>
                 !action.actionType ||
                 (action.actionType !== ActionType.STATIC_FEATURED && action.actionType !== ActionType.STATIC)
         );
-        return this.getAvailableActions(contextualActions);
     }
 
     /**
@@ -431,7 +447,7 @@ export class ActionMenuComponent<R, T> {
             if (action.children && action.children.length) {
                 featuredActions = featuredActions.concat(this.getFlattenedActionList(action.children, actionType));
             } else if (action.actionType === actionType) {
-                featuredActions.push({ ...action });
+                featuredActions.push(action);
             }
         });
         return featuredActions;
@@ -518,9 +534,10 @@ export class ActionMenuComponent<R, T> {
         if (arr1.length === 0 && arr2.length === 0) {
             return true;
         }
-        if (arr1.every((item, index) => item === arr2[index])) {
-            return true;
-        }
-        return false;
+        return arr1.every((item, index) => item === arr2[index]);
+    }
+
+    ngOnDestroy(): void {
+        this.clearLastAvailabilitySubs();
     }
 }

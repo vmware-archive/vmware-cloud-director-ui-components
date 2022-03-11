@@ -60,7 +60,7 @@
 
                 <ng-template #obsTmpl let-item>
                     <ng-template
-                        *ngIf="item.availability | async"
+                        *ngIf="item[lastAvailabilityValue]"
                         [ngTemplateOutlet]="actionButtonTmpl"
                         [ngTemplateOutletContext]="{ $implicit: item }"
                     ></ng-template>
