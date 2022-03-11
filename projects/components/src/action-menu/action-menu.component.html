@@ -78,7 +78,7 @@
 
 <ng-template #obsTmpl let-action>
     <ng-template
-        *ngIf="action.availability | async"
+        *ngIf="action[lastAvailabilityValue]"
         [ngTemplateOutlet]="actionButtonTmpl"
         [ngTemplateOutletContext]="{ $implicit: action }"
     ></ng-template>
@@ -86,6 +86,7 @@
 
 <ng-template #actionButtonTmpl let-action>
     <button
+        *ngIf="action.availability"
         class="btn btn-link"
         [ngClass]="action.class"
         (click)="runActionHandler(action)"

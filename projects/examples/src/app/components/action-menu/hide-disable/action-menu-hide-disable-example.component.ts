@@ -26,8 +26,9 @@ export class ActionMenuHideDisableExampleComponent {
                     textKey: 'Start',
                     handler: (rec: any[]) => {
                         console.log('Starting ' + rec[0].value);
-                        rec[0].paused = false;
-                        this.selectedEntities = [...rec];
+                        const newRec = Object.assign({}, rec[0]);
+                        newRec.paused = false;
+                        this.selectedEntities = [newRec];
                     },
                     availability: (rec: any[]) => rec.length === 1 && rec[0].paused,
                     actionType: ActionType.CONTEXTUAL_FEATURED,
@@ -37,8 +38,9 @@ export class ActionMenuHideDisableExampleComponent {
                     textKey: 'Stop',
                     handler: (rec: any[]) => {
                         console.log('Stopping ' + rec[0].value);
-                        rec[0].paused = true;
-                        this.selectedEntities = [...rec];
+                        const newRec = Object.assign({}, rec[0]);
+                        newRec.paused = true;
+                        this.selectedEntities = [newRec];
                     },
                     availability: (rec: any[]) => rec.length === 1 && !rec[0].paused,
                     actionType: ActionType.CONTEXTUAL_FEATURED,
@@ -102,6 +104,7 @@ export class ActionMenuHideDisableExampleComponent {
             children: [
                 {
                     textKey: 'Nested Action 1',
+                    actionType: ActionType.CONTEXTUAL_FEATURED,
                     availability: interval(2000).pipe(map((val) => val % 2 === 0)),
                     isTranslatable: false,
                 },
