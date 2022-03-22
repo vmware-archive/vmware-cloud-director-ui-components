@@ -1,5 +1,8 @@
-.nested-dropdown-menu ::ng-deep .nested-dropdown {
-    display: block;
-    white-space: nowrap;
+.nested-dropdown-menu {
     max-width: 15rem;
+
+    ::ng-deep .nested-dropdown {
+        display: block;
+        white-space: nowrap;
+    }
 }
