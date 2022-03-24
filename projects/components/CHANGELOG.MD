@@ -6,6 +6,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
+## [12.0]
+Upgrade to Angular 12 and now using the same major version as its underlying Angular version
 
 ## [3.0.0-dev.3]
 ### Added
