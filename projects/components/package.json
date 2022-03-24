@@ -5,9 +5,9 @@
         "@ngx-formly/core": "5.6.1"
     },
     "peerDependencies": {
-        "@clr/angular": ">=4.0.10",
-        "@angular/common": ">=10.0.0",
-        "@angular/core": ">=10.0.0",
+        "@clr/angular": ">=5",
+        "@angular/common": ">=11",
+        "@angular/core": ">=11",
         "@vcd/i18n": "1.0.0-dev.1",
         "@vcd/angular-client": "0.0.2-alpha.1",
         "@vcd/bindings": "9.1.1"

@@ -3,9 +3,9 @@
  * SPDX-License-Identifier: BSD-2-Clause
  */
 
-import MessageFormat from 'messageformat';
+import MessageFormat from '@messageformat/core';
 import { combineLatest, Observable, of, ReplaySubject } from 'rxjs';
-import { last, map } from 'rxjs/operators';
+import { map } from 'rxjs/operators';
 import { TranslationLoader } from '../loader/translation-loader';
 import { FormatDateOptions, TranslationService, TranslationSet, TRANSLATION_MAPPING } from './translation-service';
 
@@ -91,7 +91,7 @@ export class MessageFormatTranslationService extends TranslationService {
      * If the key is missing from the fallback locale, returns the key with ? prepended.
      * Otherwise uses message-format to format the string.
      * @param key translation key
-     * @param params array of subsitutions. arrays can be of the form [a, b, c] for positional parameters
+     * @param params array of substitutions. arrays can be of the form [a, b, c] for positional parameters
      *      or [{'key1': a, 'key2' b}]
      * @return an observable of the translated string.
      */
@@ -113,7 +113,7 @@ export class MessageFormatTranslationService extends TranslationService {
         return '?' + key;
     }
 
-    private formatString(locale: string, key: string, translationMap: object, translations: TranslationSet): string {
+    private formatString(locale: string, key: string, translationMap: any, translations: TranslationSet): string {
         const template = translations[locale][key];
         const message = new MessageFormat(locale).compile(template);
         return message(translationMap);

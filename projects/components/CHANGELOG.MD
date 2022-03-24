@@ -9,7 +9,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [3.0.0-dev.3]
 ### Added
-- Ability to disable datgrid rows from being selectable
+- Ability to disable datagrid rows from being selectable
 - Allow WidgetObjects to find elements by exact text
 - Allow selecting options from select elements for AngularWidgetObject
 

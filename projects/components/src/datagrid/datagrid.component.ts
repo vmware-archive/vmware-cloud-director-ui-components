@@ -318,22 +318,6 @@ export class DatagridComponent<R extends B, B = any> implements OnInit, AfterVie
         }
         this.updateSelectedItems();
 
-        /**
-         * This is to patch fix a bug in Clarity where the detail pane does not follow trackBy.
-         * (@link https://github.com/vmware/clarity/issues/4806)
-         * Remove this when we upgrade our version of Clarity.
-         */
-        if (this.datagrid.detailService.state && this.datagrid.detailService.isOpen) {
-            const row = this.datagrid.rows.find((findRow, index) => {
-                return this.trackBy(index, findRow.item) === this.trackBy(index, this.datagrid.detailService.state);
-            });
-
-            /**
-             * Reopen updated row or close it
-             */
-            // eslint-disable-next-line @typescript-eslint/no-unused-expressions
-            row ? this.datagrid.detailService.open(row.item, row.detailButton) : this.datagrid.detailService.close();
-        }
     }
 
     /**

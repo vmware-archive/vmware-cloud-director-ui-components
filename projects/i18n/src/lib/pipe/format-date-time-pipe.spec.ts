@@ -8,6 +8,7 @@
  */
 
 import { MockTranslationService } from '../service/mock-translation-service';
+import { TranslationService } from '../service/translation-service';
 import { PlatformUtil } from '../utils/platform-util';
 import { formatDateStringToValidFormatForIE, FormatDateTimePipe } from './format-date-time-pipe';
 
@@ -29,30 +30,30 @@ describe('FormatDateTimePipe', () => {
     const dateStringUTC = '2018-11-06T14:30:45.301Z';
 
     it('forward to translation service for string', () => {
-        const translationService = new MockTranslationService();
+        const translationService: TranslationService = new MockTranslationService();
         const subject = new FormatDateTimePipe(translationService);
 
-        spyOn(translationService, 'formatDateTime').and.returnValue(date.toDateString());
+        const formatDateTimeSpy = spyOn(translationService, 'formatDateTime').and.returnValue(date.toDateString());
 
         const result = subject.transform(dateString, formatOptions);
         expect(result).toBe(date.toDateString());
-        expect(translationService.formatDateTime).toHaveBeenCalledWith(new Date(dateString), formatOptions);
+        expect(formatDateTimeSpy.calls.mostRecent().args).toEqual([new Date(dateString), formatOptions]);
     });
 
     it('forward to translation service for Date', () => {
-        const translationService = new MockTranslationService();
+        const translationService: TranslationService = new MockTranslationService();
         const subject = new FormatDateTimePipe(translationService);
 
-        spyOn(translationService, 'formatDateTime').and.returnValue(date.toDateString());
+        const formatDateTimeSpy = spyOn(translationService, 'formatDateTime').and.returnValue(date.toDateString());
 
         const result = subject.transform(new Date(dateString), formatOptions);
         expect(result).toBe(date.toDateString());
-        expect(translationService.formatDateTime).toHaveBeenCalledWith(new Date(dateString), formatOptions);
+        expect(formatDateTimeSpy.calls.mostRecent().args).toEqual([new Date(dateString), formatOptions]);
     });
 
     describe('when the browser is IE11', () => {
         beforeEach(() => {
-            spyOn(PlatformUtil.browser, 'isIE').and.returnValue('11');
+            spyOnProperty(PlatformUtil.browser, 'isIE').and.returnValue('11');
         });
 
         it('formats the date string to valid IE format', () => {

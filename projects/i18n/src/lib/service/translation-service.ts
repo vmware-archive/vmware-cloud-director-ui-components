@@ -119,13 +119,5 @@ export const TRANSLATION_MAPPING = {
  * hour12 - Specifies whether to use a 12-hour format for hours. Default: true (for 12-hour format),
  *          false (for 24-hour format)
  */
-export interface FormatDateOptions {
-    year?: string;
-    month?: string;
-    day?: string;
-    hour?: string;
-    minute?: string;
-    second?: string;
-    hour12?: boolean;
-}
+export type  FormatDateOptions =  DateTimeFormatOptions;
 export { TranslationService };

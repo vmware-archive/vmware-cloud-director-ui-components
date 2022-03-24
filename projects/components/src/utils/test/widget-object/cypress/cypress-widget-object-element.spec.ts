@@ -11,35 +11,35 @@ class MockCy {
         return this;
     }
 
-    get(selector: string, options: any) {
+    get(selector: string, options?: any) {
         return this;
     }
 
-    find(selector: string, options: any) {
+    find(selector: string, options?: any) {
         return this;
     }
 
-    contains(text: string, options: any) {
+    contains(selector: string, text: string | RegExp, options?: any) {
         return this;
     }
 
-    click(options: any) {
+    click(options?: any) {
         return this;
     }
 
-    type(text: string, options: any) {
+    type(text: string, options?: any) {
         return this;
     }
 
-    select(text: string, options: any) {
+    select(text: string, options?: any) {
         return this;
     }
 
-    check(options: any) {
+    check(options?: any) {
         return this;
     }
 
-    uncheck(options: any) {
+    uncheck(options?: any) {
         return this;
     }
 
@@ -47,11 +47,11 @@ class MockCy {
         return this;
     }
 
-    eq() {
+    eq(index: number) {
         return this;
     }
 
-    clear(options: any) {
+    clear(options?: any) {
         return this;
     }
 }

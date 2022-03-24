@@ -38,7 +38,7 @@ describe('MessageFormatTranslationService', () => {
                 '{count, plural, =0{VM does not comply with compute policies}' +
                 'one{VM does not comply with compute policy "{0}"}' +
                 'other{VM does not comply with compute policies "{0}" and "{1}"}}',
-            'quoted.param': `'{0}'`,
+            'quoted.param': `''{0}'`,
         },
         fr: {},
     };
@@ -146,7 +146,7 @@ describe('MessageFormatTranslationService', () => {
         );
     });
 
-    it('doesnt treat single quote as an escape character', () => {
+    it('requires single quotes before braces to be escaped using two single quotes', () => {
         const translationService = new MessageFormatTranslationService('en', 'en');
         translationService.registerTranslations(translationSet);
         expect(translationService.translate('quoted.param', ['name'])).toEqual(`'name'`);
