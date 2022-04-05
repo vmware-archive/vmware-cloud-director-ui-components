@@ -59,7 +59,7 @@
     "@webcomponents/custom-elements": "^1.5.0",
     "@webcomponents/webcomponentsjs": "2.0.0",
     "@wessberg/ts-evaluator": "0.0.25",
-    "angular-cli-ghpages": "0.6.2",
+    "angular-cli-ghpages": "1.0.0",
     "classlist.js": "1.1.20150312",
     "codecov.io": "0.1.6",
     "copyfiles": "^2.4.1",
