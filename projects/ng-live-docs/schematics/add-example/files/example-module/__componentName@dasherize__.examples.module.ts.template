@@ -1,0 +1,31 @@
+/*!
+ * Copyright 2020 VMware, Inc.
+ * SPDX-License-Identifier: BSD-2-Clause
+ */
+
+import { CommonModule } from '@angular/common';
+import { NgModule } from '@angular/core';
+import { <%= componentName + ( componentHasSuffix ? classify(componentType) : '')  %> } from '<%= packageName %>';
+import { Documentation } from '@vmw/ng-live-docs';
+import { <%= componentName + exampleName %>ExampleComponent } from './<%= dasherize(exampleName) %>/<%= dasherize(componentName) + '-' + dasherize(exampleName) %>.example.component';
+import { <%= componentName + exampleName %>ExampleModule } from './<%= dasherize(exampleName) %>/<%= dasherize(componentName) + '-' + dasherize(exampleName) %>.example.module';
+
+Documentation.registerDocumentationEntry({
+    component: <%= componentName + ( componentHasSuffix ? classify(componentType) : '') %>,
+    displayName: '<%= insertWhiteSpace(componentName) %>',
+    urlSegment: '<%= camelize(componentName) %>',
+    examples: [
+        {
+            component: <%= componentName + exampleName %>ExampleComponent,
+            title: '<%= displayName %>',
+            urlSegment: '<%= dasherize(componentName) + '-' + dasherize(exampleName) %>',
+        },
+    ],
+});
+@NgModule({
+    imports: [
+        CommonModule,
+        <%= componentName + exampleName %>ExampleModule
+    ],
+})
+export class <%= componentName %>ExamplesModule {}

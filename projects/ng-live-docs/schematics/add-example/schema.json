@@ -1,0 +1,31 @@
+{
+  "$schema": "http://json-schema.org/schema",
+  "id": "SchematicsMyService",
+  "title": "My Service Schema",
+  "type": "object",
+  "properties": {
+    "packageName": {
+      "description": "Package name",
+      "type": "string"
+    },
+    "moduleName": {
+      "description": "Module name",
+      "type": "string"
+    },
+    "componentName": {
+      "description": "The component to add example",
+      "type": "string"
+    },
+    "exampleName": {
+      "description": "Example name",
+      "type": "string"
+    },
+    "displayName": {
+      "description": "Title of example",
+      "type": "string"
+    }
+  },
+  "required": [
+    "packageName", "moduleName", "componentName", "exampleName", "displayName"
+  ]
+}

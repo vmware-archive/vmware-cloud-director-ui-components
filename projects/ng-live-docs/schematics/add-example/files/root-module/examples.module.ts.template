@@ -1,0 +1,16 @@
+/*!
+ * Copyright 2020 VMware, Inc.
+ * SPDX-License-Identifier: BSD-2-Clause
+ */
+
+import { CommonModule } from '@angular/common';
+import { NgModule } from '@angular/core';
+import { <%= name %>ExamplesModule } from './<%= componentType %>s/<%= dasherize(name) %>/<%= dasherize(name) %>.examples.module';
+
+@NgModule({
+    imports: [
+        CommonModule,
+        <%= name %>ExamplesModule
+    ]
+})
+export class ExamplesModule {}
