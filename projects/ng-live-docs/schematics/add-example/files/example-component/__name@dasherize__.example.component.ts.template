@@ -1,0 +1,17 @@
+/*!
+ * Copyright 2020 VMware, Inc.
+ * SPDX-License-Identifier: BSD-2-Clause
+ */
+
+import { Component, OnInit } from '@angular/core';
+
+@Component({
+    selector: 'vcd-<%= dasherize(name) %>-example',
+    templateUrl: './<%= dasherize(name) %>.example.component.html',
+    styleUrls: ['./<%= dasherize(name) %>.example.component.scss'],
+})
+export class <%= name %>ExampleComponent implements OnInit {
+    constructor() {}
+
+    ngOnInit(): void {}
+}

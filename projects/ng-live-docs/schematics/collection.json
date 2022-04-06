@@ -1,0 +1,10 @@
+{
+    "$schema": "../../../node_modules/@angular-devkit/schematics/collection-schema.json",
+    "schematics": {
+        "add-example": {
+            "description": "Add example",
+            "factory": "./add-example/index#addExample",
+            "schema": "./add-example/schema.json"
+        }
+    }
+}
