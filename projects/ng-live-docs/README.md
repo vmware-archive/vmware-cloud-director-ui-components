@@ -1,6 +1,20 @@
 # NgLiveDocs
 
-This library was generated with [Angular CLI](https://github.com/angular/angular-cli)
+## Background
+
+By running a script to scour through your projects containing your UI components and their respective examples,
+Live Docs will be able to showcase their examples with the added benefit of a play button that opens
+the example in a stackblitz editor.
+
+## Features
+
+This library is for library developers that want to write an "Examples Application" that can
+
+-   Display source code for examples
+-   Display documentation including `@Inputs` and `@Outputs` for a component
+-   Allow users to run the example in [stackblitz](https://stackblitz.com/) for quicker learning.
+
+We are using [Angular Material Docs](https://material.angular.io/components) as inspiration.
 
 ## Code scaffolding
 
@@ -25,36 +39,28 @@ Run `ng test ng-live-docs` to execute the unit tests via [Karma](https://karma-r
     -   [App entry module changes](#app-entry-module-changes)
     -   [Adding examples to the HTML](#Adding-examples-to-the-html)
 
-#### To install
+### To install
 
 `npm install @vmw/ng-live-docs` for the latest stable release or
 `npm install @vmw/ng-live-docs@next` for the upcoming release, which could contain APIs that may not be stable
 
-#### Generate documentation:
+### Generate documentation:
 
 -   Once installed, documentation json files have to be generated for the angular components library and its examples app
     in the following way:
 
             node $NODE_DEBUG_OPTION node_modules/@vmw/ng-live-docs/index.js <path_to_package_tsconfig> <path_to_package_entryPoint_Or_publicApi> <docJson_outputFile_path>
 
-#### Creating examples and their modules:
+### Creating examples and their modules:
 
 -   Two files are required for every example and they HAVE to be named in the following format for them to work with NgLiveDocs
 
     -   <component_name>.example.component.ts. The component class name must be <component_name>ExampleComponent
     -   <component_name>.example.module.ts. The module class name must be <component_name>ExampleModule. For every `.component` a `.module` has to be created.
 
-Please refer to [apiviewer example](../example-ng-app/src/example-components/apiviewer) to get an idea about how to create an example and its module
+Please refer to the [ErrorBannerComponent](../examples/src/components/error) to get an idea about how to create an example and its module
 
-## Hosting Compodoc (optional)
-
-Your application may host compodoc to allow the type arguments in the API viewer to link to more extensive documentation. To do:
-
--   Generate the compodoc by running compodoc -p tsconfig.json in your relevant library.
--   Add this generated folder to the assets of your Angular app
--   Pass an extra argument to NgLiveDocsModule.forRoot to indicate the the URL of compodoc assets
-
-#### App entry module changes:
+### App entry module changes:
 
 -   Import the generated doc jsons into app.module.ts as following
 
@@ -103,9 +109,9 @@ Your application may host compodoc to allow the type arguments in the API viewer
 
 -   Import the <component_name>ExampleModule created in [previous step](#creating-examples-and-their-modules) into AppModule by adding it to list of imports
 
--   Please refer to [example app module](../example-ng-app/src/app/app.module.ts) for this step
+-   Please refer to [example app module](../examples/src/app/app.module.ts) for this step
 
-#### Adding examples to the HTML:
+### Adding examples to the HTML:
 
 -   Create a ExampleEntry object as below:
 
@@ -118,4 +124,12 @@ Your application may host compodoc to allow the type arguments in the API viewer
 
           <vmw-example-viewer [exampleEntry]="exampleEntry"></vmw-example-viewer>
 
-Please refer to [example app](../example-ng-app/src/app) for this step
+Please refer to [example app](../ng-live-docs/src/documentation-container/documentation-container-example.component.html) for this step
+
+### Hosting Compodoc (optional)
+
+Your application may host compodoc to allow the type arguments in the API viewer to link to more extensive documentation. To do:
+
+-   Generate the compodoc by running compodoc -p tsconfig.json in your relevant library.
+-   Add this generated folder to the assets of your Angular app
+-   Pass an extra argument to NgLiveDocsModule.forRoot to indicate the the URL of compodoc assets
