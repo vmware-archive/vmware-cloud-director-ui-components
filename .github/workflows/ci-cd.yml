@@ -86,10 +86,10 @@ jobs:
                   key: ${{ github.sha }}-components
             - run: npm run build:components
 
-    build-app:
+    build-ng-live-docs:
         runs-on: ubuntu-latest
-        name: Build /examples-app
-        needs: [npm-ci, build-i18n, build-components]
+        name: Build /ng-live-docs
+        needs: [npm-ci]
         steps:
             - uses: actions/checkout@v2
 
@@ -98,6 +98,34 @@ jobs:
               with:
                   path: ./node_modules
                   key: npm-${{ github.sha }}
+
+            - name: Store ng-live-docs output
+              uses: actions/cache@v1
+              with:
+                  path: ./dist/ng-live-docs
+                  key: ${{github.sha}}-ng-live-docs
+
+            - name: build
+              run: npm run build:ng-live-docs
+
+    build-app:
+        runs-on: ubuntu-latest
+        name: Build /examples-app
+        needs: [npm-ci, build-i18n, build-components, build-ng-live-docs]
+        steps:
+            - uses: actions/checkout@v2
+
+            - name: Read npm_modules cache
+              uses: actions/cache@v1
+              with:
+                  path: ./node_modules
+                  key: npm-${{ github.sha }}
+
+            - name: Read ng-live-docs cache
+              uses: actions/cache@v1
+              with:
+                  path: ./dist/ng-live-docs
+                  key: ${{github.sha}}-ng-live-docs
 
             - name: Read components cache
               uses: actions/cache@v1
@@ -174,6 +202,7 @@ jobs:
                   npm run test:ci:components
                   npm run test:ci:i18n
                   npm run test:route-analyzer
+                  npm run test:ci:ng-live-docs
 
             - name: Upload coverage to Codecov
               if: success()
@@ -257,8 +286,8 @@ jobs:
 
     publish-i18n:
         if: contains(github.event.head_commit.message, '[publish @vcd/i18n')
-                && github.event_name == 'push'
-                && github.ref == 'refs/heads/master'
+            && github.event_name == 'push'
+            && github.ref == 'refs/heads/master'
         needs: [build-i18n, unit-testing]
         runs-on: ubuntu-latest
         steps:
@@ -308,8 +337,8 @@ jobs:
 
     publish-route-analyzer:
         if: contains(github.event.head_commit.message, '[publish @vcd/route-analyzer')
-                    && github.event_name == 'push'
-                    && github.ref == 'refs/heads/master'
+            && github.event_name == 'push'
+            && github.ref == 'refs/heads/master'
         needs: [build-route-analyzer, unit-testing]
         runs-on: ubuntu-latest
         steps:
@@ -353,6 +382,50 @@ jobs:
               if: contains(github.event.head_commit.message, '[publish @vcd/route-analyzer@latest]')
               run: |
                   cd ./dist/route-analyzer
+                  npm publish
+              env:
+                  NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}
+
+    publish-ng-live-docs:
+        if: contains(github.event.head_commit.message, '[publish @vmw/ng-live-docs')
+            && github.event_name == 'push'
+            && github.ref == 'refs/heads/master'
+        needs: [build-ng-live-docs, unit-testing]
+        runs-on: ubuntu-latest
+        steps:
+            - uses: actions/checkout@v2
+
+            # Default registry is github's internal npm registry
+            - name: Setup Node registry
+              uses: actions/setup-node@v1
+              with:
+                  node-version: '13'
+                  registry-url: https://registry.npmjs.org/
+
+            - name: Read npm_modules cache
+              uses: actions/cache@v1
+              with:
+                  path: ./node_modules
+                  key: npm-${{ github.sha }}
+
+            - name: Read ng-live-docs cache
+              uses: actions/cache@v1
+              with:
+                  path: ./dist/ng-live-docs
+                  key: ${{github.sha}}-ng-live-docs
+
+            - name: Publish ng-live-docs@next
+              if: contains(github.event.head_commit.message, '[publish @vmw/ng-live-docs]')
+              run: |
+                  cd ./dist/ng-live-docs
+                  npm publish --tag next --access public
+              env:
+                  NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}
+
+            - name: Publish ng-live-docs@latest
+              if: contains(github.event.head_commit.message, '[publish @vmw/ng-live-docs@latest]')
+              run: |
+                  cd ./dist/ng-live-docs
                   npm publish
               env:
                   NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}

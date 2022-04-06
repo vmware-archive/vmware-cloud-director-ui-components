@@ -26,6 +26,9 @@
       "@vcd/i18n": [
         "dist/i18n"
       ],
+      "@vmw/ng-live-docs": [
+        "dist/ng-live-docs"
+      ],
       "route-analyzer": [
         "dist/route-analyzer"
       ],
