@@ -57,10 +57,10 @@ export class CypressWidgetObjectElement<T extends ElementActions> implements Wid
     parents(selector: string | FindElementOptions): CypressWidgetObjectElement<T> {
         const root = this.getBase();
         if (typeof selector === 'string') {
-            return new CypressWidgetObjectElement(root.parents(selector), false, this.alias);
+            return new CypressWidgetObjectElement(root.parents(selector).eq(0), false, this.alias);
         }
         return new CypressWidgetObjectElement(
-            root.parents(SelectorUtil.extractSelector(selector), selector.options),
+            root.parents(SelectorUtil.extractSelector(selector), selector.options).eq(0),
             false,
             this.alias
         );
