@@ -2846,10 +2846,13 @@ export class DropdownComponent implements AfterViewInit {
                 <p class="comment">
                     <code>./dropdown.component.scss</code>
                 </p>
-                <pre class="line-numbers"><code class="language-scss">.nested-dropdown-menu ::ng-deep .nested-dropdown {
-    display: block;
-    white-space: nowrap;
+                <pre class="line-numbers"><code class="language-scss">.nested-dropdown-menu {
     max-width: 15rem;
+
+    ::ng-deep .nested-dropdown {
+        display: block;
+        white-space: nowrap;
+    }
 }
 </code></pre>
     </div>
