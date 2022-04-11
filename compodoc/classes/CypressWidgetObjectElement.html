@@ -1045,10 +1045,10 @@ export class CypressWidgetObjectElement&lt;T extends ElementActions&gt; implemen
     parents(selector: string | FindElementOptions): CypressWidgetObjectElement&lt;T&gt; {
         const root &#x3D; this.getBase();
         if (typeof selector &#x3D;&#x3D;&#x3D; &#x27;string&#x27;) {
-            return new CypressWidgetObjectElement(root.parents(selector), false, this.alias);
+            return new CypressWidgetObjectElement(root.parents(selector).eq(0), false, this.alias);
         }
         return new CypressWidgetObjectElement(
-            root.parents(SelectorUtil.extractSelector(selector), selector.options),
+            root.parents(SelectorUtil.extractSelector(selector), selector.options).eq(0),
             false,
             this.alias
         );
