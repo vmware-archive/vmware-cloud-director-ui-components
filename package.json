@@ -62,6 +62,7 @@
     "codecov.io": "0.1.6",
     "copyfiles": "^2.4.1",
     "karma-coverage": "2.0.2",
+    "lint-staged": "^12.3.7",
     "lit-html": "1.1.2",
     "messageformat": "1.0.2",
     "mkdirp": "^1.0.4",
@@ -78,8 +79,16 @@
   },
   "husky": {
     "hooks": {
-      "pre-commit": "pretty-quick --staged; npm run lint-fix"
+      "pre-commit": "lint-staged"
     }
+  },
+  "lint-staged": {
+    "**/*.ts": [
+      "eslint --fix"
+    ],
+    "*.{ts,scss,css,html,json,js}": [
+      "prettier --write"
+    ]
   },
   "devDependencies": {
     "@actions/core": "1.2.6",
@@ -120,7 +129,6 @@
     "karma-jasmine-html-reporter": "1.5.0",
     "ng-packagr": "10.1.0",
     "prettier": "2.1.1",
-    "pretty-quick": "2.0.0",
     "protractor": "7.0.0",
     "ts-node": "7.0.0",
     "typescript": "3.9.7"
