@@ -67,7 +67,7 @@
     "messageformat": "1.0.2",
     "mkdirp": "^1.0.4",
     "mousetrap": "1.6.5",
-    "prismjs": "1.25.0",
+    "prismjs": "1.27.0",
     "properties": "1.2.1",
     "rbradford-compodoc": "1.1.11",
     "rxjs": "6.5.5",
