@@ -1,6 +1,9 @@
 {
   "name": "vmware-cloud-director-ui-components",
   "version": "0.0.0",
+  "engines": {
+    "node": "^14.15.0"
+  },
   "browser": {
     "fs": false,
     "path": false,

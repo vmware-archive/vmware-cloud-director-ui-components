@@ -26,6 +26,7 @@ import { isObservable } from 'rxjs';
 import { ActionItem, TextIcon } from '../common/interfaces';
 import { CliptextConfig, TooltipSize } from '../lib/directives';
 import { CommonUtil } from '../utils';
+import { lastAvailabilityValue } from '../action-menu';
 import { DropdownFocusHandlerService } from './dropdown-focus-handler.service';
 
 const NESTED_DROPDOWN_TRIGGER_SELECTOR = 'clr-dropdown clr-dropdown > button';
@@ -59,6 +60,10 @@ export class DropdownComponent implements AfterViewInit {
 
     private _items: ActionItem<unknown, unknown>[];
 
+    /**
+     * To access the private key lastAvailabilityValue from the template
+     */
+    lastAvailabilityValue = lastAvailabilityValue;
     /**
      * Decides what goes into the action buttons
      * @param textIcon An enum that describes the possible ways to display the button title
