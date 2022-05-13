@@ -13,7 +13,7 @@ import {
     ActionType,
     ContextualActionInlineDisplayConfig,
     TextIcon,
-} from '../common/interfaces/index';
+} from '../common/interfaces';
 import { BaseWidgetObject } from '../utils/test/widget-object/widget-object';
 import { AngularWidgetObjectFinder } from '../utils/test/widget-object/angular/angular-widget-finder';
 import { ActionMenuComponent, getDefaultActionDisplayConfig } from './action-menu.component';
@@ -172,74 +172,6 @@ describe('ActionMenuComponent', () => {
             expect(this.actionMenu.contextualFeaturedActions.length).toEqual(0);
         });
     });
-    describe('getAvailableActions', () => {
-        it('returns actions that are either available or disabled', function (this: HasFinderAndActionMenu): void {
-            const availableActions = this.actionMenu.getAvailableActions([
-                {
-                    textKey: 'action.1',
-                    handler: () => {},
-                    availability: false,
-                    disabled: () => true,
-                },
-                {
-                    textKey: 'action.2',
-                    handler: () => {},
-                    availability: true,
-                },
-                {
-                    textKey: 'action.3',
-                    handler: () => {},
-                    availability: false,
-                },
-            ]);
-            expect(availableActions.length).toEqual(2);
-        });
-        it('returns nested actions that are either available or disabled', function (this: HasFinderAndActionMenu): void {
-            this.actionMenu.selectedEntities = [{ value: 'blah', paused: false }];
-            const availableActions = this.actionMenu.getAvailableActions([
-                {
-                    textKey: 'action',
-                    children: [
-                        {
-                            textKey: 'action.1',
-                            handler: () => {},
-                            availability: () => false,
-                            disabled: () => true,
-                        },
-                        {
-                            textKey: 'action.2',
-                            handler: () => {},
-                            availability: () => true,
-                        },
-                        {
-                            textKey: 'action.3',
-                            handler: () => {},
-                            availability: () => false,
-                        },
-                    ],
-                },
-            ]);
-            expect(availableActions[0].children.length).toEqual(2);
-        });
-        it('filters out the grouped actions with empty children array', function (this: HasFinderAndActionMenu): void {
-            const availableActions = this.actionMenu.getAvailableActions([
-                {
-                    textKey: 'Grouped action with empty children',
-                    children: [],
-                },
-                {
-                    textKey: 'Grouped action with children',
-                    children: [
-                        {
-                            textKey: 'child action',
-                            handler: () => {},
-                        },
-                    ],
-                },
-            ]);
-            expect(availableActions.length).toEqual(1);
-        });
-    });
     describe('getContextualActions', () => {
         beforeEach(function (this: HasFinderAndActionMenu): void {
             this.actionMenu.actionDisplayConfig = { ...ACTION_DISPLAY_CONFIG };
@@ -264,9 +196,7 @@ describe('ActionMenuComponent', () => {
             this.actionMenu.selectedEntities = null;
             expect(this.actionMenu.contextualActions.length).toEqual(0);
         });
-        it('returns only actions that are available and either contextual or' + ' contextual_featured', function (
-            this: HasFinderAndActionMenu
-        ): void {
+        it('returns only actions that are either contextual or contextual_featured', function (this: HasFinderAndActionMenu): void {
             this.actionMenu.actions = [...CONTEXTUAL_ACTIONS]
                 .concat([...CONTEXTUAL_FEATURED_ACTIONS])
                 .concat([...STATIC_FEATURED_ACTIONS]);
@@ -277,12 +207,7 @@ describe('ActionMenuComponent', () => {
                 },
             ];
             this.finder.detectChanges();
-            const availableActions = this.actionMenu.contextualActions;
-            const availableContextualActions = this.actionMenu.getAvailableActions(
-                [...CONTEXTUAL_ACTIONS].concat([...CONTEXTUAL_FEATURED_ACTIONS])
-            );
-            expect(availableActions.length).toEqual(availableContextualActions.length);
-            availableActions.forEach((action) => {
+            this.actionMenu.contextualActions.forEach((action) => {
                 (expect(action.actionType) as any).toBeContextualOrContextualFeaturedAction();
             });
         });
