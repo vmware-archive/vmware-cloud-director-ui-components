@@ -26,8 +26,7 @@ export class ActionMenuHideDisableExampleComponent {
                     textKey: 'Start',
                     handler: (rec: any[]) => {
                         console.log('Starting ' + rec[0].value);
-                        const newRec = Object.assign({}, rec[0]);
-                        newRec.paused = false;
+                        const newRec = { ...rec[0], paused: false };
                         this.selectedEntities = [newRec];
                     },
                     availability: (rec: any[]) => rec.length === 1 && rec[0].paused,
@@ -38,8 +37,7 @@ export class ActionMenuHideDisableExampleComponent {
                     textKey: 'Stop',
                     handler: (rec: any[]) => {
                         console.log('Stopping ' + rec[0].value);
-                        const newRec = Object.assign({}, rec[0]);
-                        newRec.paused = true;
+                        const newRec = { ...rec[0], paused: true };
                         this.selectedEntities = [newRec];
                     },
                     availability: (rec: any[]) => rec.length === 1 && !rec[0].paused,
