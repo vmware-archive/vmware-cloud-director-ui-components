@@ -11,15 +11,15 @@ class MockCy {
         return this;
     }
 
-    get(selector: string, options: any) {
+    get(selector: string, options?: any) {
         return this;
     }
 
-    find(selector: string, options: any) {
+    find(selector: string, options?: any) {
         return this;
     }
 
-    contains(text: string, options: any) {
+    contains(tagName: string, text: string | RegExp, options: any) {
         return this;
     }
 
@@ -47,7 +47,7 @@ class MockCy {
         return this;
     }
 
-    eq() {
+    eq(index: number) {
         return this;
     }
 

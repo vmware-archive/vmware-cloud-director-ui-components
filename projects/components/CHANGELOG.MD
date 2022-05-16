@@ -6,8 +6,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
-- Fix visibility updates getting lost when `actionItem.availability` is an observable created from hot observable like
-a Subject
+
+## [4.0.1-dev.1]
+### Fixed
+- Fix visibility updates getting lost when `actionItem.availability` is an observable
 
 ## [3.0.0-dev.4]
 ### Fixed
