@@ -1,5 +1,5 @@
 /*!
- * Copyright 2020 VMware, Inc.
+ * Copyright 2022 VMware, Inc.
  * SPDX-License-Identifier: BSD-2-Clause
  */
 
@@ -8,6 +8,7 @@ import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ClarityModule } from '@clr/angular';
 import { I18nModule } from '@vcd/i18n';
+import { ShowClippedTextDirectiveModule } from '../lib/directives/show-clipped-text.directive.module';
 import { AlternativeTextModule } from '../lib/directives/alternative-text/alternative-text.module';
 import { ResponsiveInputDirectiveModule } from '../lib/directives/responsive-input/responsive-input.module';
 import { UnitFormatter } from '../utils/unit/unit-formatter';
@@ -27,6 +28,7 @@ const declarations = [FormInputComponent, FormSelectComponent, FormCheckboxCompo
         I18nModule,
         ResponsiveInputDirectiveModule,
         AlternativeTextModule,
+        ShowClippedTextDirectiveModule
     ],
     declarations,
     providers: [UnitFormatter],

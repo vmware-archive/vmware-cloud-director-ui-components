@@ -16,7 +16,7 @@
                 />
                 <label class="clr-control-label" [for]="id">
                     <clr-icon *ngIf="iconShape" [attr.shape]="iconShape"></clr-icon>
-                    {{ text }}
+                     <span vcdShowClippedText class="text">{{ text }}</span>
                 </label>
                 <clr-signpost *ngIf="hint">
                     <clr-signpost-content [clrPosition]="hintPosition" *clrIfOpen>
