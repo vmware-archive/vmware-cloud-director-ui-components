@@ -233,14 +233,14 @@ we could not load the Cypress types in our library.</p>
 
     <div class="tab-pane fade  tab-source-code" id="c-source">
         <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { IdGenerator } from &#x27;../../../id-generator/id-generator&#x27;;
-import { BaseWidgetObject, FindableWidget, FindElementOptions } from &#x27;../widget-object&#x27;;
+import { BaseWidgetObject, ElementActions, FindableWidget, FindElementOptions } from &#x27;../widget-object&#x27;;
 import { CypressWidgetObjectElement } from &#x27;./cypress-widget-object-element&#x27;;
 
 declare const cy;
-const idGenerator &#x3D; new IdGenerator(&#x27;cy-id&#x27;);
+const cypressWidgetIdGenerator &#x3D; new IdGenerator(&#x27;cy-id&#x27;);
 
 export interface FindCypressWidgetOptions extends FindElementOptions {
-    ancestor?: string;
+    ancestor?: string | ElementActions;
     options?: { timeout: number };
 }
 
@@ -265,11 +265,18 @@ export class CypressWidgetObjectFinder&lt;T&gt; {
         widgetConstructor: FindableWidget&lt;T, W&gt;,
         findOptions?: FindCypressWidgetOptions
     ): W {
-        const id &#x3D; idGenerator.generate();
+        const id &#x3D; cypressWidgetIdGenerator.generate();
 
-        const ancestor &#x3D; findOptions?.ancestor
-            ? cy.get(findOptions?.ancestor, { timeout: findOptions?.options?.timeout })
-            : cy.get(&#x27;body&#x27;, { timeout: findOptions?.options?.timeout });
+        let ancestor: any;
+        if (findOptions?.ancestor) {
+            if (typeof findOptions.ancestor &#x3D;&#x3D; &#x27;string&#x27;) {
+                ancestor &#x3D; cy.get(findOptions?.ancestor, { timeout: findOptions?.options?.timeout });
+            } else {
+                ancestor &#x3D; findOptions?.ancestor;
+            }
+        } else {
+            ancestor &#x3D; cy.get(&#x27;body&#x27;, { timeout: findOptions?.options?.timeout });
+        }
         const parentWidget &#x3D; new CypressWidgetObjectElement(ancestor, false, undefined);
         let query &#x3D; widgetConstructor.tagName;
         if (findOptions?.cssSelector) {
