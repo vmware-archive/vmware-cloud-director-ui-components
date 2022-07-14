@@ -50,7 +50,7 @@ export function moduleFinder(componentName: string): string {
 export const docJson1: CompodocSchema = (componentsDocumentationJson as unknown) as CompodocSchema;
 export const docJson2: CompodocSchema = (examplesDocumentationJson as unknown) as CompodocSchema;
 export const sbInfo: StackBlitzInfo = {
-    templateId: 'clarity-dark-theme-v5-acsnif',
+    templateId: 'vcd-ui-cc-starter-template',
     projectName: 'VMware Cloud Director UI Components',
     moduleFinder,
 };
