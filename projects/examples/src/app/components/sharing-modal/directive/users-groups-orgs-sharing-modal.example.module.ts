@@ -12,6 +12,5 @@ import { UsersGroupsOrgsSharingModalExampleComponent } from './users-groups-orgs
     declarations: [UsersGroupsOrgsSharingModalExampleComponent],
     imports: [CommonModule, VcdComponentsModule],
     exports: [UsersGroupsOrgsSharingModalExampleComponent],
-    entryComponents: [UsersGroupsOrgsSharingModalExampleComponent],
 })
 export class UsersGroupsOrgsSharingModalExampleModule {}

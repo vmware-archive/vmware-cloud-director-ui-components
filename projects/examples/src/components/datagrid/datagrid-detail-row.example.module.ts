@@ -22,10 +22,5 @@ import {
     ],
     imports: [CommonModule, ClarityModule, ReactiveFormsModule, VcdComponentsModule],
     exports: [DatagridDetailRowExampleComponent],
-    entryComponents: [
-        DatagridDetailRowExampleComponent,
-        DatagridDetailRowSubComponent,
-        DatagridDetailRowSubNoLazyComponent,
-    ],
 })
 export class DatagridDetailRowExampleModule {}

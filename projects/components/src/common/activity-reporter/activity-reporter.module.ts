@@ -16,6 +16,5 @@ import { SpinnerActivityReporterComponent } from './spinner-activity-reporter.co
     declarations: [BannerActivityReporterComponent, SpinnerActivityReporterComponent],
     imports: [CommonModule, ClarityModule, I18nModule, VcdErrorBannerModule, VcdLoadingIndicatorModule],
     exports: [BannerActivityReporterComponent, SpinnerActivityReporterComponent],
-    entryComponents: [BannerActivityReporterComponent, SpinnerActivityReporterComponent],
 })
 export class VcdActivityReporterModule {}

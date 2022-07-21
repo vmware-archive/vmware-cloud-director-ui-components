@@ -14,6 +14,5 @@ import { ActionMenuWithSeparatorsExampleComponent } from './action-menu-with-sep
     declarations: [ActionMenuWithSeparatorsExampleComponent],
     imports: [CommonModule, ClarityModule, ReactiveFormsModule, VcdActionMenuModule],
     exports: [ActionMenuWithSeparatorsExampleComponent],
-    entryComponents: [ActionMenuWithSeparatorsExampleComponent],
 })
 export class ActionMenuWithSeparatorsExampleModule {}

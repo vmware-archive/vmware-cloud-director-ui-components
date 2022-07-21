@@ -14,6 +14,5 @@ import { ActionsSearchProvider, QuickSearchFiltersExampleComponent } from './qui
     imports: [CommonModule, ClarityModule, QuickSearchModule, VcdFormModule, ReactiveFormsModule],
     declarations: [QuickSearchFiltersExampleComponent],
     exports: [QuickSearchFiltersExampleComponent],
-    entryComponents: [QuickSearchFiltersExampleComponent],
 })
 export class QuickSearchFiltersExampleModule {}

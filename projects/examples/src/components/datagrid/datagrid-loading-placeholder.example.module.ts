@@ -14,6 +14,5 @@ import { DatagridLoadingPlaceholderExampleComponent } from './datagrid-loading-p
     declarations: [DatagridLoadingPlaceholderExampleComponent],
     imports: [CommonModule, ClarityModule, ReactiveFormsModule, VcdComponentsModule],
     exports: [DatagridLoadingPlaceholderExampleComponent],
-    entryComponents: [DatagridLoadingPlaceholderExampleComponent],
 })
 export class DatagridLoadingPlaceholderExampleModule {}

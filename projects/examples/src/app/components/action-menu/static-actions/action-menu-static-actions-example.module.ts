@@ -14,6 +14,5 @@ import { ActionMenuStaticActionsExampleComponent } from './action-menu-static-ac
     declarations: [ActionMenuStaticActionsExampleComponent],
     imports: [CommonModule, ClarityModule, ReactiveFormsModule, VcdActionMenuModule],
     exports: [ActionMenuStaticActionsExampleComponent],
-    entryComponents: [ActionMenuStaticActionsExampleComponent],
 })
 export class ActionMenuStaticActionsExampleModule {}

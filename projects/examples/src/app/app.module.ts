@@ -81,7 +81,6 @@ export const sbInfo: StackBlitzInfo = {
         ActionMenuExamplesModule,
         SharingModalExamplesModule,
     ],
-    entryComponents: [HomeComponent],
     providers: [
         {
             provide: ASSET_URL,

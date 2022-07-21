@@ -14,6 +14,5 @@ import { DatagridLinkExampleComponent } from './datagrid-link.example.component'
     declarations: [DatagridLinkExampleComponent],
     imports: [CommonModule, ClarityModule, ReactiveFormsModule, VcdComponentsModule, VcdActionMenuModule],
     exports: [DatagridLinkExampleComponent],
-    entryComponents: [DatagridLinkExampleComponent],
 })
 export class DatagridLinkExampleModule {}

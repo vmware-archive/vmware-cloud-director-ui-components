@@ -13,6 +13,5 @@ import { DatagridRowIconExampleComponent, RowIconRendererComponent } from './dat
     declarations: [DatagridRowIconExampleComponent, RowIconRendererComponent],
     imports: [CommonModule, ClarityModule, VcdComponentsModule],
     exports: [DatagridRowIconExampleComponent],
-    entryComponents: [DatagridRowIconExampleComponent, RowIconRendererComponent],
 })
 export class DatagridRowIconExampleModule {}

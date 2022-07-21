@@ -12,6 +12,5 @@ import { SharingModalExampleComponent, SharingModalRendererComponent } from './s
     declarations: [SharingModalExampleComponent, SharingModalRendererComponent],
     imports: [CommonModule, VcdComponentsModule],
     exports: [SharingModalExampleComponent],
-    entryComponents: [SharingModalExampleComponent],
 })
 export class SharingModalExampleModule {}

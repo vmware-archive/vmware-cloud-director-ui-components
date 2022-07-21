@@ -17,10 +17,5 @@ import {
     declarations: [DatagridDetailPaneExampleComponent, DatagridDetailPaneSubComponent],
     imports: [CommonModule, ClarityModule, ReactiveFormsModule, VcdComponentsModule],
     exports: [DatagridDetailPaneExampleComponent],
-    entryComponents: [
-        DatagridDetailPaneExampleComponent,
-        DatagridDetailPaneSubComponent,
-        DatagridDetailPaneSubComponent,
-    ],
 })
 export class DatagridDetailPaneExampleModule {}

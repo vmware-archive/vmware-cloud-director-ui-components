@@ -14,6 +14,5 @@ import { DatagridIsRowSelectableExampleComponent } from './datagrid-is-row-selec
     declarations: [DatagridIsRowSelectableExampleComponent],
     imports: [CommonModule, ClarityModule, ReactiveFormsModule, VcdComponentsModule],
     exports: [DatagridIsRowSelectableExampleComponent],
-    entryComponents: [DatagridIsRowSelectableExampleComponent],
 })
 export class DatagridIsRowSelectableExampleModule {}

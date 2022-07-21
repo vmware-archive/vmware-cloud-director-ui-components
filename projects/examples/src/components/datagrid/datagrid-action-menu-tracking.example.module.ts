@@ -14,6 +14,5 @@ import { DatagridActionMenuTrackingExampleComponent } from './datagrid-action-me
     declarations: [DatagridActionMenuTrackingExampleComponent],
     imports: [CommonModule, ClarityModule, ReactiveFormsModule, VcdComponentsModule, VcdActionMenuModule],
     exports: [DatagridActionMenuTrackingExampleComponent],
-    entryComponents: [DatagridActionMenuTrackingExampleComponent],
 })
 export class DatagridActionMenuTrackerExampleModule {}

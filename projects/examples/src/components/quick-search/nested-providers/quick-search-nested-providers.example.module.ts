@@ -17,6 +17,5 @@ import {
     imports: [CommonModule, ClarityModule, QuickSearchModule, VcdFormModule, ReactiveFormsModule],
     declarations: [QuickSearchNestedProvidersExampleComponent],
     exports: [QuickSearchNestedProvidersExampleComponent],
-    entryComponents: [QuickSearchNestedProvidersExampleComponent],
 })
 export class QuickSearchNestedProvidersExampleModule {}

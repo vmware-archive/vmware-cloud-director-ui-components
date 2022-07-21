@@ -72,10 +72,5 @@ Documentation.registerDocumentationEntry({
         FormlyModule,
     ],
     exports: [FormlyInputsExampleComponent, FormlyInputFeaturesExampleComponent],
-    entryComponents: [
-        FormlyInputsExampleComponent,
-        FormlyInputFeaturesExampleComponent,
-        FormlyInputExampleWrapperComponent,
-    ],
 })
 export class FormlyInputComponentsExamplesModule {}

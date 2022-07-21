@@ -14,6 +14,5 @@ import { NumberWithUnitFormInputExampleComponent } from './number-with-unit-form
     declarations: [NumberWithUnitFormInputExampleComponent],
     imports: [CommonModule, VcdFormModule, ReactiveFormsModule, I18nModule],
     exports: [NumberWithUnitFormInputExampleComponent],
-    entryComponents: [NumberWithUnitFormInputExampleComponent],
 })
 export class NumberWithUnitFormInputExampleModule {}

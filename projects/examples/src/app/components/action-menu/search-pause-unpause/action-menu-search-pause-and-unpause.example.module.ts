@@ -14,6 +14,5 @@ import { ActionMenuSearchPauseUnpauseExampleComponent } from './action-menu-sear
     declarations: [ActionMenuSearchPauseUnpauseExampleComponent],
     imports: [CommonModule, ClarityModule, ReactiveFormsModule, VcdActionMenuModule, QuickSearchModule],
     exports: [ActionMenuSearchPauseUnpauseExampleComponent],
-    entryComponents: [ActionMenuSearchPauseUnpauseExampleComponent],
 })
 export class ActionMenuSearchPauseAndUnpauseExampleModule {}

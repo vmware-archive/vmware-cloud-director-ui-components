@@ -13,6 +13,5 @@ import { ShowClippedTextSizingExampleComponent } from './show-clipped-text-sizin
     declarations: [ShowClippedTextSizingExampleComponent],
     imports: [CommonModule, FormsModule, VcdComponentsModule],
     exports: [ShowClippedTextSizingExampleComponent],
-    entryComponents: [ShowClippedTextSizingExampleComponent],
 })
 export class ShowClippedTextSizingExampleModule {}

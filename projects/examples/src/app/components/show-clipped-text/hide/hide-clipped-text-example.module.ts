@@ -13,6 +13,5 @@ import { HideClippedTextPositioningExampleComponent } from './hide-clipped-text-
     declarations: [HideClippedTextPositioningExampleComponent],
     imports: [CommonModule, VcdComponentsModule, ClarityModule],
     exports: [HideClippedTextPositioningExampleComponent],
-    entryComponents: [HideClippedTextPositioningExampleComponent],
 })
 export class HideClippedTextPositioningExampleModule {}

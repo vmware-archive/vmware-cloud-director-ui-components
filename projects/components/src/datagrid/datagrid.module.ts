@@ -50,6 +50,5 @@ const filters = [
     declarations: [DatagridComponent, ...renderers, ...pipes, ...filters],
     providers: [],
     exports: [DatagridComponent, ...renderers],
-    entryComponents: [...renderers, ...filters],
 })
 export class VcdDatagridModule {}

@@ -14,6 +14,5 @@ import { BannerActivityReporterExampleComponent } from './banner-activity-report
     declarations: [BannerActivityReporterExampleComponent],
     imports: [CommonModule, ClarityModule, ReactiveFormsModule, VcdComponentsModule],
     exports: [BannerActivityReporterExampleComponent],
-    entryComponents: [BannerActivityReporterExampleComponent],
 })
 export class BannerActivityReporterExampleModule {}

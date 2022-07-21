@@ -12,6 +12,5 @@ import { FormInputExampleComponent } from './form-input.example.component';
     declarations: [FormInputExampleComponent],
     imports: [VcdFormModule, ReactiveFormsModule],
     exports: [FormInputExampleComponent],
-    entryComponents: [FormInputExampleComponent],
 })
 export class FormInputExampleModule {}

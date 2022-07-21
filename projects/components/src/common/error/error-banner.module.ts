@@ -13,6 +13,5 @@ import { ErrorBannerComponent } from './error-banner.component';
     declarations: [ErrorBannerComponent],
     imports: [CommonModule, ClarityModule, I18nModule],
     exports: [ErrorBannerComponent],
-    entryComponents: [ErrorBannerComponent],
 })
 export class VcdErrorBannerModule {}

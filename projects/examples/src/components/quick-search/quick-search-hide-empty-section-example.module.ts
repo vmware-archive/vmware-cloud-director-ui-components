@@ -17,7 +17,6 @@ import {
     imports: [CommonModule, ClarityModule, QuickSearchModule, VcdFormModule, ReactiveFormsModule],
     declarations: [QuickSearchHideEmptySectionExampleComponent],
     exports: [QuickSearchHideEmptySectionExampleComponent],
-    entryComponents: [QuickSearchHideEmptySectionExampleComponent],
     providers: [
         {
             provide: ActionsSearchProvider,

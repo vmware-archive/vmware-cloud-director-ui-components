@@ -14,6 +14,5 @@ import { DatagridPaginationExampleComponent } from './datagrid-pagination-exampl
     declarations: [DatagridPaginationExampleComponent],
     imports: [CommonModule, ClarityModule, ReactiveFormsModule, VcdComponentsModule],
     exports: [DatagridPaginationExampleComponent],
-    entryComponents: [DatagridPaginationExampleComponent],
 })
 export class DatagridPagionationExampleModule {}

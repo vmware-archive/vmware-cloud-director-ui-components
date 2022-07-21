@@ -14,6 +14,5 @@ import { DatagridRowSelectExampleComponent } from './datagrid-row-select.example
     declarations: [DatagridRowSelectExampleComponent],
     imports: [CommonModule, ClarityModule, ReactiveFormsModule, VcdComponentsModule],
     exports: [DatagridRowSelectExampleComponent],
-    entryComponents: [DatagridRowSelectExampleComponent],
 })
 export class DatagridRowSelectExampleModule {}

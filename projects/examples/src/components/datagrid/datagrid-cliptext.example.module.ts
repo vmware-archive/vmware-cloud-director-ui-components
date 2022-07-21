@@ -13,6 +13,5 @@ import { DatagridCliptextExampleComponent } from './datagrid-cliptext.example.co
     declarations: [DatagridCliptextExampleComponent],
     imports: [CommonModule, ClarityModule, VcdComponentsModule],
     exports: [DatagridCliptextExampleComponent],
-    entryComponents: [DatagridCliptextExampleComponent],
 })
 export class DatagridCliptextExampleModule {}

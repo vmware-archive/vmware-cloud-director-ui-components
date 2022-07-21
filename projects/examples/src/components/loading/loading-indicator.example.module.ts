@@ -14,6 +14,5 @@ import { LoadingIndicatorExampleComponent } from './loading-indicator.example.co
     declarations: [LoadingIndicatorExampleComponent],
     imports: [CommonModule, ClarityModule, ReactiveFormsModule, VcdComponentsModule],
     exports: [LoadingIndicatorExampleComponent],
-    entryComponents: [LoadingIndicatorExampleComponent],
 })
 export class LoadingIndicatorExampleModule {}

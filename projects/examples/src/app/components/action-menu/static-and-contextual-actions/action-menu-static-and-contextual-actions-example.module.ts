@@ -14,6 +14,5 @@ import { ActionMenuStaticAndContextualActionsExampleComponent } from './action-m
     declarations: [ActionMenuStaticAndContextualActionsExampleComponent],
     imports: [CommonModule, ClarityModule, ReactiveFormsModule, VcdActionMenuModule],
     exports: [ActionMenuStaticAndContextualActionsExampleComponent],
-    entryComponents: [ActionMenuStaticAndContextualActionsExampleComponent],
 })
 export class ActionMenuStaticAndContextualActionsExampleModule {}

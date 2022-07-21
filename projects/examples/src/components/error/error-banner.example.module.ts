@@ -14,6 +14,5 @@ import { ErrorBannerExampleComponent } from './error-banner.example.component';
     declarations: [ErrorBannerExampleComponent],
     imports: [CommonModule, ClarityModule, ReactiveFormsModule, VcdComponentsModule],
     exports: [ErrorBannerExampleComponent],
-    entryComponents: [ErrorBannerExampleComponent],
 })
 export class ErrorBannerExampleModule {}
