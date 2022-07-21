@@ -17,3 +17,4 @@ export * from './example-viewer/index';
 export * from './overview-viewer/index';
 export * from './source-code-viewer/index';
 export * from './stack-blitz-writer.service';
+export * from './interfaces';

@@ -5,3 +5,6 @@
 
 export * from './documentation-container.component';
 export * from './documentation-container.module';
+export * from './documentation-container-api.component';
+export * from './documentation-container-documentation.component';
+export * from './documentation-container-example.component';

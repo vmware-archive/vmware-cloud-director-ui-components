@@ -5,8 +5,8 @@
 
 import { Component, ComponentFactoryResolver, Input, OnInit, ViewChild, ViewContainerRef } from '@angular/core';
 import { ActivatedRoute, Data } from '@angular/router';
-import { ExampleEntry } from '../documentation';
 import { DocumentationRetrieverService } from '../documentation-retriever.service';
+import { ExampleEntry } from '../interfaces';
 import { StackBlitzWriterService } from '../stack-blitz-writer.service';
 
 @Component({
