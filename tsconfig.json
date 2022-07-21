@@ -7,10 +7,10 @@
     "declaration": false,
     "downlevelIteration": true,
     "experimentalDecorators": true,
-    "module": "esnext",
+    "module": "es2020",
     "moduleResolution": "node",
     "importHelpers": true,
-    "target": "es5",
+    "target": "es2017",
     "typeRoots": [
       "node_modules/@types"
     ],
@@ -25,6 +25,9 @@
       ],
       "@vcd/i18n": [
         "dist/i18n"
+      ],
+      "@vmw/ng-live-docs": [
+        "dist/ng-live-docs"
       ],
       "route-analyzer": [
         "dist/route-analyzer"

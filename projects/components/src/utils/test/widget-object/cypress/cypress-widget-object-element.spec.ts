@@ -19,27 +19,27 @@ class MockCy {
         return this;
     }
 
-    contains(tagName: string, text: string | RegExp, options: any) {
+    contains(tagName: string, text: string | RegExp, options?: any) {
         return this;
     }
 
-    click(options: any) {
+    click(options?: any) {
         return this;
     }
 
-    type(text: string, options: any) {
+    type(text: string, options?: any) {
         return this;
     }
 
-    select(text: string, options: any) {
+    select(text: string, options?: any) {
         return this;
     }
 
-    check(options: any) {
+    check(options?: any) {
         return this;
     }
 
-    uncheck(options: any) {
+    uncheck(options?: any) {
         return this;
     }
 
@@ -51,7 +51,7 @@ class MockCy {
         return this;
     }
 
-    clear(options: any) {
+    clear(options?: any) {
         return this;
     }
 }

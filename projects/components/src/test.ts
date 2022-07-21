@@ -12,8 +12,8 @@
 import System from 'systemjs/dist/system';
 // Provides the @vcd/common module so loading the VcdApiClient does not throw an error.
 (window as any).SystemJs = System.registry.set('@vcd/common', System.newModule({})); // >= 9.5
-import 'zone.js/dist/zone';
-import 'zone.js/dist/zone-testing';
+import 'zone.js';
+import 'zone.js/testing';
 // eslint-disable-next-line import/order
 import { getTestBed } from '@angular/core/testing';
 import { BrowserDynamicTestingModule, platformBrowserDynamicTesting } from '@angular/platform-browser-dynamic/testing';

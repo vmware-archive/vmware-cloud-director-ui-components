@@ -2,17 +2,30 @@
 
 ## Repo Structure
 
-This [monorepo](https://angular.io/guide/file-structure#multiple-projects) contains four separate but related projects:
+This [monorepo](https://angular.io/guide/file-structure#multiple-projects) contains five separate but related projects:
 
 ### Component Library (./projects/components) `@vcd/ui-components`
 
 Reusable components for vcd-ui and its plugin developers. See its [README](projects/components/README.md)
-for further details
+for further details.
 
 ### Internalization Library (./projects/i18n) `@vcd/i18n`
 
 Translation code for vcd-ui and its plugin developers. See its [README](projects/i18n/README.md)
-for further details
+for further details.
+
+### Route Analyzer (./projects/route-analyzer) `@vcd/route-analyzer`.
+
+Route Analyzer statically analyzes angular source code and generates a json file with all the available routes,
+including the ones from lazy loaded modules. See its [README](projects/route-analyzer/README.md)
+for further details.
+
+### NG Live docs (./projects/ng-live-docs) `@vmw/ng-live-docs`.
+
+Enables Angular based UI component libraries to embed editable code snippets win their showcase style application.
+
+See https://vmware.github.io/vmware-cloud-director-ui-components/dataExporter for an example and its
+[README](projects/ng-live-docs/README.md) for further details.
 
 ### Examples App (./projects/examples)
 
@@ -26,12 +39,6 @@ you change any of the source files. This is where you'll see changes made in [co
 #### Online Examples
 
 Visit [our live examples site](https://vmware.github.io/vmware-cloud-director-ui-components/) for live examples, with source code, that you run on stackblitz. Powered by [Live Docs](https://github.com/vmware/live-docs)
-
-### Route Analyzer (./projects/route-analyzer) `@vcd/route-analyzer`
-
-Route Analyzer statically analyzes angular source code and generates a json file with all the available routes,
-including the ones from lazy loaded modules. See its [README](projects/route-analyzer/README.md)
-for further details
 
 ## Peer Dependencies
 
@@ -72,22 +79,25 @@ For all development, nightly builds, the version should be created using `npm ve
 See [ci-cd.yml](.github/workflows/ci-cd.yml)
 
 We recommend that a separate PR be created when publishing a new version of the library. To publish a new version
-of `@vcd/ui-components` or `@vcd/route-analyzer` or `@vcd/i18n`, you must add the following anywhere in your commit message:
+of `@vcd/ui-components` or `@vcd/route-analyzer` or `@vcd/i18n` or `@vmw/ng-live-docs`, you must add the following
+anywhere in your commit message:
 
 -   `[publish lib-name]` to publish an `@next` release
 -   `[publish lib-name@latest]` to publish an `@latest` release
 
 Where lib-name is one of the following:
 
-- `@vcd/ui-components`
-- `@vcd/route-analyzer`
-- `@vcd/i18n`
+-   `@vcd/ui-components`
+-   `@vcd/route-analyzer`
+-   `@vcd/i18n`
+-   `@vmw/ng-live-docs`
 
-And modify the corresponding package.json files:
+Be sure to update the corresponding package.json files:
 
 -   [projects/components/package.json](./projects/components/package.json)
 -   [projects/i18n/package.json](./projects/i18n/package.json).
 -   [projects/route-analyzer/package.json](./projects/route-analyzer/package.json).
+-   [projects/ng-live-docs/package.json](./projects/ng-live-docs/package.json).
 
 Note that `@latest` releases are only to be created when we release a version of VCD. Most releases, except for the
 final release that is used by a release of VCD, should be `@next`.

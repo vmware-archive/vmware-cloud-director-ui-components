@@ -23,7 +23,7 @@ Same as 4.0.1-dev.1 . Created because we'll use major versions that match Angula
 
 ## [3.0.0-dev.3]
 ### Added
-- Ability to disable datgrid rows from being selectable
+- Ability to disable datagrid rows from being selectable
 - Allow WidgetObjects to find elements by exact text
 - Allow selecting options from select elements for AngularWidgetObject
 

@@ -23,7 +23,7 @@ const Css = {
     TOP_POSITIONED_BUTTON: 'clr-dg-action-bar button',
     ROW_ACTION_CONTAINER: '.datagrid-select label',
     ROW_ACTION_INPUT: '.datagrid-select input',
-    CHECKBOX_WRAPPER: 'clr-checkbox-wrapper',
+    CHECKBOX_WRAPPER: '.clr-checkbox-wrapper',
     RADIO_WRAPPER: 'clr-radio-wrapper',
     FILTER: 'clr-dg-filter',
     FILTER_TOGGLE: '.datagrid-filter-toggle',

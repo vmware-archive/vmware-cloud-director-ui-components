@@ -1,0 +1,11 @@
+<div *ngIf="examples?.length > 1">
+    <ul class="example-list">
+        <li *ngFor="let item of examples">
+            <a [routerLink]="['./' + item.urlSegment]">{{ item.title }}</a>
+        </li>
+    </ul>
+</div>
+<router-outlet></router-outlet>
+<div *ngIf="examples?.length === 1">
+    <vmw-example-viewer [exampleEntry]="examples[0]"> </vmw-example-viewer>
+</div>
