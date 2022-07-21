@@ -634,22 +634,6 @@ export class DatagridComponent&lt;R extends B, B &#x3D; any&gt; implements OnIni
         }
         this.updateSelectedItems();
 
-        /**
-         * This is to patch fix a bug in Clarity where the detail pane does not follow trackBy.
-         * (@link https://github.com/vmware/clarity/issues/4806)
-         * Remove this when we upgrade our version of Clarity.
-         */
-        if (this.datagrid.detailService.state &amp;&amp; this.datagrid.detailService.isOpen) {
-            const row &#x3D; this.datagrid.rows.find((findRow, index) &#x3D;&gt; {
-                return this.trackBy(index, findRow.item) &#x3D;&#x3D;&#x3D; this.trackBy(index, this.datagrid.detailService.state);
-            });
-
-            /**
-             * Reopen updated row or close it
-             */
-            // eslint-disable-next-line @typescript-eslint/no-unused-expressions
-            row ? this.datagrid.detailService.open(row.item, row.detailButton) : this.datagrid.detailService.close();
-        }
     }
 
     /**
