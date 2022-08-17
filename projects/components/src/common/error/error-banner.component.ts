@@ -14,7 +14,7 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
     styleUrls: ['./error-banner.component.scss'],
 })
 export class ErrorBannerComponent {
-    private _errorMessage = '';
+    private _errorMessage;
 
     closed = true;
 
@@ -57,8 +57,10 @@ export class ErrorBannerComponent {
      * Clears the error message when the alert is closed.
      */
     onAlertClosedChange(closed: boolean): void {
-        this._errorMessage = '';
-        this.errorMessageChange.emit('');
-        this.dismissed.next();
+        if (closed) {
+            this._errorMessage = undefined;
+            this.errorMessageChange.emit(undefined);
+            this.dismissed.next();
+        }
     }
 }
