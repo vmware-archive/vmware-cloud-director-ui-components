@@ -2,7 +2,7 @@
   "name": "vmware-cloud-director-ui-components",
   "version": "0.0.0",
   "engines": {
-    "node": "^14.15.0"
+    "node": "^16.10.0"
   },
   "browser": {
     "fs": false,
@@ -64,7 +64,6 @@
     "@vcd/angular-client": "0.0.2-alpha.1",
     "@vcd/bindings": "9.1.1",
     "@webcomponents/custom-elements": "^1.5.0",
-    "@webcomponents/webcomponentsjs": "2.0.0",
     "@wessberg/ts-evaluator": "0.0.25",
     "angular-cli-ghpages": "1.0.0",
     "codecov.io": "0.1.6",
