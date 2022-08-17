@@ -100,7 +100,7 @@
         <div class="progress-divider"></div>
         <ng-container *ngIf="isRequestPending">{{ exportStage | lazyString }}</ng-container>
         <div class="progress-divider"></div>
-        <div class="progress" [ngClass]="{ loop: progress == -1, pending: isRequestPending }">
+        <div class="progress" [ngClass]="{ loop: progress === -1, pending: isRequestPending }">
             <progress max="100" value="{{ progress * 100 }}" [attr.data-ui]="DataUi.progressInput"></progress>
         </div>
     </div>
