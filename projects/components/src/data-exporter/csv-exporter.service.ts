@@ -39,19 +39,14 @@ export class CsvExporterService {
     public downloadCsvFile(csvFile: string, filename: string): void {
         const mimeType = 'text/csv;charset=utf-8;';
         const blob = new Blob([csvFile], { type: mimeType });
-        // Jan 1, 2020 - Chrome and IE support this
-        if (navigator.msSaveBlob) {
-            navigator.msSaveBlob(blob, filename);
-        } else {
-            const link = document.createElement('a');
-            const url = URL.createObjectURL(blob);
-            link.setAttribute('href', url);
-            link.setAttribute('download', filename);
-            link.style.visibility = 'hidden';
-            document.body.appendChild(link);
-            link.click();
-            document.body.removeChild(link);
-        }
+        const link = document.createElement('a');
+        const url = URL.createObjectURL(blob);
+        link.setAttribute('href', url);
+        link.setAttribute('download', filename);
+        link.style.visibility = 'hidden';
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
     }
 }
 
