@@ -12,7 +12,9 @@ jobs:
         runs-on: ubuntu-latest
         steps:
             - uses: actions/checkout@v2
-
+            - uses: actions/setup-node@v3
+              with:
+                node-version: 16.10.0
             - name: Create npm_modules cache
               uses: actions/cache@v1
               with:
@@ -27,7 +29,9 @@ jobs:
         needs: [npm-ci]
         steps:
             - uses: actions/checkout@v2
-
+            - uses: actions/setup-node@v3
+              with:
+                node-version: 16.10.0
             - name: Read npm_modules cache
               uses: actions/cache@v1
               with:
@@ -45,7 +49,9 @@ jobs:
         needs: [npm-ci]
         steps:
             - uses: actions/checkout@v2
-
+            - uses: actions/setup-node@v3
+              with:
+                node-version: 16.10.0
             - name: Read npm_modules cache
               uses: actions/cache@v1
               with:
@@ -66,7 +72,9 @@ jobs:
         needs: [build-i18n, npm-ci]
         steps:
             - uses: actions/checkout@v2
-
+            - uses: actions/setup-node@v3
+              with:
+                node-version: 16.10.0
             - name: Read npm_modules cache
               uses: actions/cache@v1
               with:
@@ -92,7 +100,9 @@ jobs:
         needs: [npm-ci]
         steps:
             - uses: actions/checkout@v2
-
+            - uses: actions/setup-node@v3
+              with:
+                node-version: 16.10.0
             - name: Read npm_modules cache
               uses: actions/cache@v1
               with:
@@ -114,7 +124,9 @@ jobs:
         needs: [npm-ci, build-i18n, build-components, build-ng-live-docs]
         steps:
             - uses: actions/checkout@v2
-
+            - uses: actions/setup-node@v3
+              with:
+                node-version: 16.10.0
             - name: Read npm_modules cache
               uses: actions/cache@v1
               with:
@@ -158,7 +170,9 @@ jobs:
         needs: [npm-ci]
         steps:
             - uses: actions/checkout@v2
-
+            - uses: actions/setup-node@v3
+              with:
+                node-version: 16.10.0
             - name: Read npm_modules cache
               uses: actions/cache@v1
               with:
@@ -178,7 +192,9 @@ jobs:
         needs: [npm-ci, build-i18n]
         steps:
             - uses: actions/checkout@v2
-
+            - uses: actions/setup-node@v3
+              with:
+                node-version: 16.10.0
             - name: Read npm_modules cache
               uses: actions/cache@v1
               with:
@@ -214,7 +230,9 @@ jobs:
         needs: [npm-ci, build-app, unit-testing]
         steps:
             - uses: actions/checkout@v2
-
+            - uses: actions/setup-node@v3
+              with:
+                node-version: 16.10.0
             - name: Read npm_modules cache
               uses: actions/cache@v1
               with:
@@ -241,7 +259,9 @@ jobs:
         runs-on: ubuntu-latest
         steps:
             - uses: actions/checkout@v2
-
+            - uses: actions/setup-node@v3
+              with:
+                node-version: 16.10.0
             # Default registry is github's internal npm registry
             - name: Setup Node registry
               uses: actions/setup-node@v1
@@ -292,7 +312,9 @@ jobs:
         runs-on: ubuntu-latest
         steps:
             - uses: actions/checkout@v2
-
+            - uses: actions/setup-node@v3
+              with:
+                node-version: 16.10.0
             # Default registry is github's internal npm registry
             - name: Setup Node registry
               uses: actions/setup-node@v1
@@ -343,7 +365,9 @@ jobs:
         runs-on: ubuntu-latest
         steps:
             - uses: actions/checkout@v2
-
+            - uses: actions/setup-node@v3
+              with:
+                node-version: 16.10.0
             # Default registry is github's internal npm registry
             - name: Setup Node registry
               uses: actions/setup-node@v1
@@ -394,7 +418,9 @@ jobs:
         runs-on: ubuntu-latest
         steps:
             - uses: actions/checkout@v2
-
+            - uses: actions/setup-node@v3
+              with:
+                node-version: 16.10.0
             # Default registry is github's internal npm registry
             - name: Setup Node registry
               uses: actions/setup-node@v1
