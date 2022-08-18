@@ -11,7 +11,6 @@ module.exports = function generateKarmaConf(projectName) {
                 require('karma-coverage-istanbul-reporter'),
                 require('@angular-devkit/build-angular/plugins/karma'),
             ],
-            files: [require('path').join(__dirname, 'polyfills.js')],
             client: {
                 clearContext: false, // leave Jasmine Spec Runner output visible in browser
             },
@@ -20,7 +19,7 @@ module.exports = function generateKarmaConf(projectName) {
                 reports: ['html', 'lcov', 'text-summary'],
                 fixWebpackSourcePaths: true,
             },
-            reporters: ['progress', 'kjhtml'],
+            reporters: ['progress', 'kjhtml', 'coverage-istanbul'],
             port: 9876,
             colors: true,
             logLevel: config.LOG_INFO,
