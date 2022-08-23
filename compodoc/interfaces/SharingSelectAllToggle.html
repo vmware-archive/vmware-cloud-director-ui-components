@@ -180,14 +180,13 @@ Allows selection for any rights that are included in each tab.</p>
     <div class="tab-pane fade  tab-source-code" id="c-source">
         <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Component, EventEmitter, Input, OnInit, Output } from &#x27;@angular/core&#x27;;
 import { LazyString } from &#x27;@vcd/i18n&#x27;;
+import { NonEmptyArray } from &#x27;../constants&#x27;;
 import { ComboOption } from &#x27;./select-all-checkbox/select-all-toggle.component&#x27;;
 import { SharingTab, SharingTabResult } from &#x27;./tabs/sharing-modal-tab.component&#x27;;
 
 export type SharingModalResult &#x3D; {
     [key: string]: SharingTabResult&lt;any&gt;;
 };
-
-export type NonEmptyArray&lt;T&gt; &#x3D; T[] &amp; { 0: T };
 
 /**
  * Allows the creation of toggles to select all for some set of entities.

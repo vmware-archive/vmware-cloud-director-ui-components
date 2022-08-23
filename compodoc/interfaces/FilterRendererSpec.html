@@ -235,7 +235,7 @@ export abstract class DatagridFilter&lt;V, C extends FilterConfig&lt;V&gt;&gt;
         const obs &#x3D; this.getDebounceTimeMs()
             ? this.formGroup.valueChanges.pipe(debounceTime(this.getDebounceTimeMs()))
             : this.formGroup.valueChanges;
-        this.subscriptionTracker.subscribe(obs, () &#x3D;&gt; this.changes.next());
+        this.subscriptionTracker.subscribe(obs, () &#x3D;&gt; this.changes.next(null));
     }
 
     /**

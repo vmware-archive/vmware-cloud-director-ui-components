@@ -349,8 +349,12 @@ const tip &#x3D; {
         tip.clearHideTimeout();
         tip.hideTimeout &#x3D; window.setTimeout(() &#x3D;&gt; {
             tip.isMouseOver &#x3D; false;
-            tip.container.style.opacity &#x3D; &#x27;0&#x27;;
-            tip.content.style.opacity &#x3D; &#x27;0&#x27;;
+            if (tip.container !&#x3D;&#x3D; null) {
+                tip.container.style.opacity &#x3D; &#x27;0&#x27;;
+            }
+            if (tip.content !&#x3D;&#x3D; null) {
+                tip.content.style.opacity &#x3D; &#x27;0&#x27;;
+            }
             tip.hideTimeout &#x3D; null;
             tip.currentDirective &#x3D; null;
         }, delay);

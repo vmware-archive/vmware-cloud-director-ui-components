@@ -67,12 +67,6 @@
 
             </p>
 
-            <p class="comment">
-                <h3>Extends</h3>
-            </p>
-            <p class="comment">
-                    <code>VcdApiClient</code>
-            </p>
 
 
             <section>
@@ -109,7 +103,7 @@
             <tbody>
                 <tr>
                     <td class="col-md-4">
-<code>constructor(injectors: <a href="https://angular.io/api/core/Injector" target="_blank">Injector</a>)</code>
+<code>constructor(vcdApiClient: VcdApiClient)</code>
                     </td>
                 </tr>
                         <tr>
@@ -132,10 +126,10 @@
                                         </thead>
                                         <tbody>
                                                 <tr>
-                                                        <td>injectors</td>
+                                                        <td>vcdApiClient</td>
                                                   
                                                         <td>
-                                                                        <code><a href="https://angular.io/api/core/Injector" target="_blank" >Injector</a></code>
+                                                                    <code>VcdApiClient</code>
                                                         </td>
                                                   
                                                     <td>
@@ -179,8 +173,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="66"
-                            class="link-to-prism">projects/components/src/utils/rest/rest-query-search.client.ts:66</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="59"
+                            class="link-to-prism">projects/components/src/utils/rest/rest-query-search.client.ts:59</a></div>
                 </td>
             </tr>
 
@@ -314,15 +308,8 @@ export interface RestQueryOptions {
  * Makes a query to the backend via the {@link VcdApiClient}.
  */
 @Injectable()
-export class RestQueryService extends VcdApiClient {
-    // eslint-disable-next-line constructor-super
-    constructor(injectors: Injector) {
-        let http: VcdHttpClient;
-        try {
-            http &#x3D; injectors.get(VcdHttpClient);
-            super(http, injectors);
-        } catch (error) {}
-    }
+export class RestQueryService {
+    constructor(private vcdApiClient: VcdApiClient) {}
 
     /**
      * Queries the given type of entity with the given options.
@@ -358,7 +345,7 @@ export class RestQueryService extends VcdApiClient {
             toSend.format(options.format);
         }
 
-        return this.query(toSend, multisite);
+        return this.vcdApiClient.query(toSend, multisite);
     }
 }
 </code></pre>
