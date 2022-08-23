@@ -14,6 +14,5 @@ import { DatagridHeightExampleComponent } from './datagrid-height.example.compon
     declarations: [DatagridHeightExampleComponent],
     imports: [CommonModule, ClarityModule, ReactiveFormsModule, VcdComponentsModule],
     exports: [DatagridHeightExampleComponent],
-    entryComponents: [DatagridHeightExampleComponent],
 })
 export class DatagridHeightExampleModule {}

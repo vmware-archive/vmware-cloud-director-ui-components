@@ -9,7 +9,7 @@ import { MockTranslationService, TranslationService } from '@vcd/i18n';
 import { ActionItem, TextIcon } from '../common/interfaces';
 import { AngularWidgetObjectFinder } from '../utils/test/widget-object/angular/angular-widget-finder';
 import { TestElement } from '../utils/test/widget-object/angular/angular-widget-object-element';
-import { DropdownFocusHandlerDirective, MenuItem } from './dropdown-focus-handler.directive';
+import { DropdownFocusHandlerDirective, MenuItem } from './dropdown.component';
 import { DropdownComponent } from './dropdown.component';
 import {
     NESTED_DROPDOWN_TOGGLE_CLASS_NAME,

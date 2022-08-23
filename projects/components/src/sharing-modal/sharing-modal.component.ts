@@ -5,14 +5,13 @@
 
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { LazyString } from '@vcd/i18n';
+import { NonEmptyArray } from '../constants';
 import { ComboOption } from './select-all-checkbox/select-all-toggle.component';
 import { SharingTab, SharingTabResult } from './tabs/sharing-modal-tab.component';
 
 export type SharingModalResult = {
     [key: string]: SharingTabResult<any>;
 };
-
-export type NonEmptyArray<T> = T[] & { 0: T };
 
 /**
  * Allows the creation of toggles to select all for some set of entities.

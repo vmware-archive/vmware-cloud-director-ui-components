@@ -14,6 +14,5 @@ import { DatagridShowHideExampleComponent } from './datagrid-show-hide.example.c
     declarations: [DatagridShowHideExampleComponent],
     imports: [CommonModule, ClarityModule, ReactiveFormsModule, VcdComponentsModule],
     exports: [DatagridShowHideExampleComponent],
-    entryComponents: [DatagridShowHideExampleComponent],
 })
 export class DatagridShowHideExampleModule {}

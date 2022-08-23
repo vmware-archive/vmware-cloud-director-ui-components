@@ -13,6 +13,5 @@ import { DatagridCssClassesExampleComponent } from './datagrid-css-classes.examp
     declarations: [DatagridCssClassesExampleComponent],
     imports: [CommonModule, ClarityModule, VcdComponentsModule],
     exports: [DatagridCssClassesExampleComponent],
-    entryComponents: [DatagridCssClassesExampleComponent],
 })
 export class DatagridCssClassesExampleModule {}

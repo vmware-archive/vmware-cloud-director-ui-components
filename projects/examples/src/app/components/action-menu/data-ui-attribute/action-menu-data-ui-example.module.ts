@@ -14,6 +14,5 @@ import { ActionMenuDataUiExampleComponent } from './action-menu-data-ui-example.
     declarations: [ActionMenuDataUiExampleComponent],
     imports: [CommonModule, ClarityModule, ReactiveFormsModule, VcdActionMenuModule],
     exports: [ActionMenuDataUiExampleComponent],
-    entryComponents: [ActionMenuDataUiExampleComponent],
 })
 export class ActionMenuDataUiExampleModule {}

@@ -14,6 +14,5 @@ import { DatagridHeaderExampleComponent } from './datagrid-header.example.compon
     declarations: [DatagridHeaderExampleComponent],
     imports: [CommonModule, ClarityModule, ReactiveFormsModule, VcdComponentsModule],
     exports: [DatagridHeaderExampleComponent],
-    entryComponents: [DatagridHeaderExampleComponent],
 })
 export class DatagridHeaderExampleModule {}

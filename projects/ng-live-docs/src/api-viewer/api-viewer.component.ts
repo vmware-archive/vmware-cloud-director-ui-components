@@ -5,7 +5,7 @@
 
 import { Component, Inject, Input, Type } from '@angular/core';
 import { ApiParameters, DocumentationRetrieverService } from '../documentation-retriever.service';
-import { COMPODOC_URL } from '../ng-live-docs.module';
+import { COMPODOC_URL } from '../injection-tokens';
 
 @Component({
     selector: 'vmw-api-viewer',

@@ -12,6 +12,5 @@ import { ShowClippedTextPositioningExampleComponent } from './show-clipped-text-
     declarations: [ShowClippedTextPositioningExampleComponent],
     imports: [CommonModule, VcdComponentsModule],
     exports: [ShowClippedTextPositioningExampleComponent],
-    entryComponents: [ShowClippedTextPositioningExampleComponent],
 })
 export class ShowClippedTextPositioningExampleModule {}

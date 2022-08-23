@@ -153,54 +153,7 @@ describe('CsvExporterService', () => {
         });
     });
 
-    describe('downloadCsvFile - msSaveBlob', () => {
-        // Currently, msSaveBlob is available in both IE and Chrome
-        const msSaveBlob = navigator.msSaveBlob;
-        beforeEach(() => {
-            if (!msSaveBlob) {
-                // Empty stub, will be spied on
-                navigator.msSaveBlob = (): any => {};
-            }
-        });
-
-        afterEach(() => {
-            // Restore empty msSaveBlob only if we didn't stub it.
-            // Ensures we get coverage of the non msSaveBlob path
-            if (!msSaveBlob) {
-                delete navigator.msSaveBlob;
-            }
-        });
-
-        it('uses navigator.msSaveBlob if available', () => {
-            const service: CsvExporterService = TestBed.inject(CsvExporterService);
-            const rows = [
-                ['a', 'b'],
-                ['1"2', 2],
-                [3, 4],
-            ];
-            const csvString = service.createCsv(rows);
-
-            // Don't use spyOn, otherwise it would restore the empty function in its own afterEach()
-            navigator.msSaveBlob = jasmine.createSpy('msSaveBlob');
-            service.downloadCsvFile(csvString, 'test');
-            expect(navigator.msSaveBlob).toHaveBeenCalled();
-        });
-    });
-
     describe('downloadCsvFile - creating a link', () => {
-        // Make sure msSaveBlob is not defined
-        const msSaveBlob = navigator.msSaveBlob;
-        beforeEach(() => {
-            if (msSaveBlob) {
-                delete navigator.msSaveBlob;
-            }
-        });
-
-        afterEach(() => {
-            if (msSaveBlob) {
-                navigator.msSaveBlob = msSaveBlob;
-            }
-        });
         it('creates and clicks an invisible link', () => {
             const service: CsvExporterService = TestBed.inject(CsvExporterService);
             const rows = [

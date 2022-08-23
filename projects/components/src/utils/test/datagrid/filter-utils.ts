@@ -40,6 +40,7 @@ async function configureTestingModule(): Promise<void> {
                 useValue: new IdGenerator('vcd-id'),
             },
         ],
+        teardown: { destroyAfterEach: false },
     }).compileComponents();
 }
 

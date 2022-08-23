@@ -12,6 +12,5 @@ import { FormCheckboxExampleComponent } from './form-checkbox.example.component'
     declarations: [FormCheckboxExampleComponent],
     imports: [VcdFormModule, ReactiveFormsModule],
     exports: [FormCheckboxExampleComponent],
-    entryComponents: [FormCheckboxExampleComponent],
 })
 export class FormCheckboxExampleModule {}

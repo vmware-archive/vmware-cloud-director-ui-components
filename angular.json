@@ -75,7 +75,6 @@
               "projects/examples/src/styles.scss"
             ],
             "scripts": [
-              "node_modules/@webcomponents/webcomponentsjs/webcomponents-bundle.js",
               "node_modules/@clr/icons/clr-icons.min.js"
             ],
             "vendorChunk": true,
@@ -281,6 +280,11 @@
   },
   "defaultProject": "examples",
   "cli": {
-    "analytics": false
+    "analytics": false,
+    "cache": {
+      "enabled": true,
+      "path": ".cache",
+      "environment": "all"
+    }
   }
 }

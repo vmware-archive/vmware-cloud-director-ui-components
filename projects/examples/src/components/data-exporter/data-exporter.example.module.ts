@@ -14,6 +14,5 @@ import { DataExporterExampleComponent } from './data-exporter.example.component'
     declarations: [DataExporterExampleComponent],
     imports: [CommonModule, ClarityModule, ReactiveFormsModule, VcdComponentsModule],
     exports: [DataExporterExampleComponent],
-    entryComponents: [DataExporterExampleComponent],
 })
 export class DataExporterExampleModule {}

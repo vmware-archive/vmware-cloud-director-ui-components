@@ -59,16 +59,21 @@ class MockCy {
 // eslint-disable-next-line no-var
 var cy = new MockCy();
 
-// Define a global constant in NodeJS
-Object.defineProperty(global, 'cy', {
-    value: cy,
-});
-
 class FakeWidget<T> extends BaseWidgetObject<T> {
     static tagName = 'hello';
 }
 
 describe('CypressWidgetObjectFinder', () => {
+    beforeEach(() => {
+        // eslint-disable-next-line
+        window['cy'] = cy;
+    });
+
+    afterEach(() => {
+        // eslint-disable-next-line
+        delete window['cy'];
+    });
+
     describe('find', () => {
         it('finds a widget using text', () => {
             const getSpy = spyOn(cy, 'get').and.callThrough();
@@ -103,6 +108,16 @@ describe('CypressWidgetObjectFinder', () => {
 });
 
 describe('CypressWidgetObjectElement', () => {
+    beforeEach(() => {
+        // eslint-disable-next-line
+        window['cy'] = cy;
+    });
+
+    afterEach(() => {
+        // eslint-disable-next-line
+        delete window['cy'];
+    });
+
     describe('findWidget', () => {
         it('gets a sub-widget', () => {
             const getSpy = spyOn(cy, 'get').and.callThrough();

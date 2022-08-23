@@ -13,6 +13,5 @@ import { DatagridColumnWidthExampleComponent } from './datagrid-column-width.exa
     declarations: [DatagridColumnWidthExampleComponent],
     imports: [CommonModule, ClarityModule, VcdComponentsModule],
     exports: [DatagridColumnWidthExampleComponent],
-    entryComponents: [DatagridColumnWidthExampleComponent],
 })
 export class DatagridColumnWidthExampleModule {}

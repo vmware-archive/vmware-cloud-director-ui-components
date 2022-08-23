@@ -119,8 +119,12 @@ const tip = {
         tip.clearHideTimeout();
         tip.hideTimeout = window.setTimeout(() => {
             tip.isMouseOver = false;
-            tip.container.style.opacity = '0';
-            tip.content.style.opacity = '0';
+            if (tip.container !== null) {
+                tip.container.style.opacity = '0';
+            }
+            if (tip.content !== null) {
+                tip.content.style.opacity = '0';
+            }
             tip.hideTimeout = null;
             tip.currentDirective = null;
         }, delay);

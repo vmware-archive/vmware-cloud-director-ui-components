@@ -14,6 +14,5 @@ import { DatagridSortExampleComponent } from './datagrid-sort.example.component'
     declarations: [DatagridSortExampleComponent],
     imports: [CommonModule, ClarityModule, ReactiveFormsModule, VcdComponentsModule],
     exports: [DatagridSortExampleComponent],
-    entryComponents: [DatagridSortExampleComponent],
 })
 export class DatagridSortExampleModule {}

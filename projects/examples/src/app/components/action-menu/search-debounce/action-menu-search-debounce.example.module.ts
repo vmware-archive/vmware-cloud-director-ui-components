@@ -12,6 +12,5 @@ import { ActionMenuSearchDebounceExampleComponent } from './action-menu-search-d
     declarations: [ActionMenuSearchDebounceExampleComponent],
     imports: [CommonModule, VcdComponentsModule],
     exports: [ActionMenuSearchDebounceExampleComponent],
-    entryComponents: [ActionMenuSearchDebounceExampleComponent],
 })
 export class ActionMenuSearchDebounceExampleModule {}

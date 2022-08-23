@@ -14,6 +14,5 @@ import { ActionMenuSearchExampleComponent } from './action-menu-search-example.c
     declarations: [ActionMenuSearchExampleComponent],
     imports: [CommonModule, ClarityModule, ReactiveFormsModule, VcdActionMenuModule, QuickSearchModule],
     exports: [ActionMenuSearchExampleComponent],
-    entryComponents: [ActionMenuSearchExampleComponent],
 })
 export class ActionMenuSearchExampleModule {}

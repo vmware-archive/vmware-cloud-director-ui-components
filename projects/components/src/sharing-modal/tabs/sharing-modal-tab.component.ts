@@ -23,7 +23,7 @@ import { DatagridActionDisplayConfig } from '../../datagrid/interfaces/datagrid-
 import { CommonUtil } from '../../utils/common-util';
 import { RightsDropdownRendererComponent } from '../renderers/rights-dropdown-renderer';
 import { ComboOption } from '../select-all-checkbox/select-all-toggle.component';
-import { NonEmptyArray } from '../sharing-modal.component';
+import { NonEmptyArray } from '../../constants';
 
 export class VcdSharingModalError {
     constructor(public message: string) {}

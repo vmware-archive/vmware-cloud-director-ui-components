@@ -13,6 +13,5 @@ import { DatagridFilterExampleComponent } from './datagrid-filter.example.compon
     declarations: [DatagridFilterExampleComponent],
     imports: [CommonModule, ClarityModule, VcdComponentsModule],
     exports: [DatagridFilterExampleComponent],
-    entryComponents: [DatagridFilterExampleComponent],
 })
 export class DatagridFilterExampleModule {}

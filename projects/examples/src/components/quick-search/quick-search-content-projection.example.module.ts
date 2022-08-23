@@ -14,6 +14,5 @@ import { QuickSearchContentProjectionExampleComponent } from './quick-search-con
     imports: [CommonModule, ClarityModule, QuickSearchModule, VcdFormModule, ReactiveFormsModule],
     declarations: [QuickSearchContentProjectionExampleComponent],
     exports: [QuickSearchContentProjectionExampleComponent],
-    entryComponents: [QuickSearchContentProjectionExampleComponent],
 })
 export class QuickSearchContentProjectionExampleModule {}

@@ -13,6 +13,5 @@ import { FormSelectExampleComponent } from './form-select.example.component';
     declarations: [FormSelectExampleComponent, FormSelectDisabledExampleComponent],
     imports: [VcdFormModule, ReactiveFormsModule],
     exports: [FormSelectExampleComponent],
-    entryComponents: [FormSelectExampleComponent],
 })
 export class FormSelectExampleModule {}

@@ -14,6 +14,5 @@ import { SpinnerActivityReporterExampleComponent } from './spinner-activity-repo
     declarations: [SpinnerActivityReporterExampleComponent],
     imports: [CommonModule, ClarityModule, ReactiveFormsModule, VcdComponentsModule],
     exports: [SpinnerActivityReporterExampleComponent],
-    entryComponents: [SpinnerActivityReporterExampleComponent],
 })
 export class SpinnerActivityReporterExampleModule {}

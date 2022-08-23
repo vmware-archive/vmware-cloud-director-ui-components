@@ -13,6 +13,5 @@ import { LoadingIndicatorComponent } from './loading-indicator.component';
     declarations: [LoadingIndicatorComponent],
     imports: [CommonModule, ClarityModule, I18nModule],
     exports: [LoadingIndicatorComponent],
-    entryComponents: [LoadingIndicatorComponent],
 })
 export class VcdLoadingIndicatorModule {}

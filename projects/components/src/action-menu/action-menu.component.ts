@@ -13,6 +13,7 @@ import {
     BaseActionItem,
     TextIcon,
 } from '../common/interfaces';
+import { lastAvailabilityValue } from '../constants';
 import { CommonUtil } from '../utils';
 
 /**
@@ -31,12 +32,6 @@ export function getDefaultActionDisplayConfig(cfg: ActionDisplayConfig = {}): Ac
         staticActionStyling: cfg.staticActionStyling || defaults.staticActionStyling,
     };
 }
-
-/**
- * Key of an action item object that is intended to be used only by this component and the {@link DropdownComponent}. This property is used
- * to store the last emitted value from availability observable of an action item.
- */
-export const lastAvailabilityValue = Symbol();
 
 /**
  * We internally convert the callbacks to booleans to avoid calling the callbacks all the time from template. However, we don't want to

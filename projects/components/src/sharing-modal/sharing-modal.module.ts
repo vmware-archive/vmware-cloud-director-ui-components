@@ -46,12 +46,6 @@ import {
         VcdComponentRendererOutletModule,
         VcdErrorBannerModule,
     ],
-    entryComponents: [
-        RightsDropdownRendererComponent,
-        SharingModalUserRenderComponent,
-        SharingModalGroupRenderComponent,
-        SharingModalOrgRenderComponent,
-    ],
     exports: [SharingModalComponent, UsersGroupsOrgsSharingModalDirective],
     providers: [RestQueryService],
 })

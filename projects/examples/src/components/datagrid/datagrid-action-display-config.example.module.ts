@@ -14,6 +14,5 @@ import { DatagridActionDisplayConfigExampleComponent } from './datagrid-action-d
     declarations: [DatagridActionDisplayConfigExampleComponent],
     imports: [CommonModule, ClarityModule, ReactiveFormsModule, VcdComponentsModule],
     exports: [DatagridActionDisplayConfigExampleComponent],
-    entryComponents: [DatagridActionDisplayConfigExampleComponent],
 })
 export class DatagridActionDisplayConfigExampleModule {}

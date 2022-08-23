@@ -5,7 +5,7 @@
 
 import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { DocumentationEntry } from '../documentation';
+import { DocumentationEntry } from '../interfaces';
 
 @Component({
     selector: 'vmw-documentation-container',

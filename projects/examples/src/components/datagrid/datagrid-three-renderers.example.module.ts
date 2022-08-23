@@ -13,6 +13,5 @@ import { DatagridThreeRenderersExampleComponent } from './datagrid-three-rendere
     declarations: [DatagridThreeRenderersExampleComponent],
     imports: [CommonModule, ClarityModule, VcdComponentsModule],
     exports: [DatagridThreeRenderersExampleComponent],
-    entryComponents: [DatagridThreeRenderersExampleComponent],
 })
 export class DatagridThreeRenderersExampleModule {}

@@ -17,7 +17,6 @@ import {
     imports: [CommonModule, ClarityModule, QuickSearchModule, VcdFormModule, ReactiveFormsModule],
     declarations: [QuickSearchSyncAsyncExampleComponent],
     exports: [QuickSearchSyncAsyncExampleComponent],
-    entryComponents: [QuickSearchSyncAsyncExampleComponent],
     providers: [
         {
             provide: ActionsSearchProvider,

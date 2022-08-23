@@ -17,6 +17,5 @@ import {
     declarations: [SubscriptionTrackerExampleComponent, SubscriptionTrackerExampleSubComponent],
     imports: [CommonModule, ClarityModule, ReactiveFormsModule, VcdComponentsModule],
     exports: [SubscriptionTrackerExampleComponent],
-    entryComponents: [SubscriptionTrackerExampleComponent],
 })
 export class SubscriptionTrackerExampleModule {}

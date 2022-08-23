@@ -89,7 +89,7 @@
             role="button"
             *ngFor="let item of searchSection.result?.items"
             (click)="itemClicked(item)"
-            [ngClass]="item == selectedItem ? 'selected' : ''"
+            [ngClass]="item === selectedItem ? 'selected' : ''"
             [attr.data-ui]="DataUi.searchResultItems"
         >
             {{ item.displayText }}

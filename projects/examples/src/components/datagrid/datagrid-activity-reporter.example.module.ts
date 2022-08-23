@@ -13,6 +13,5 @@ import { DatagridActivityReporterExampleComponent } from './datagrid-activity-re
     declarations: [DatagridActivityReporterExampleComponent],
     imports: [CommonModule, ClarityModule, VcdComponentsModule],
     exports: [DatagridActivityReporterExampleComponent],
-    entryComponents: [DatagridActivityReporterExampleComponent],
 })
 export class DatagridActivityReporterExampleModule {}

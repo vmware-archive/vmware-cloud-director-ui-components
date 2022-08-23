@@ -10,51 +10,7 @@ import { DocumentationContainerDocumentationComponent } from './documentation-co
 import { DocumentationContainerExampleComponent } from './documentation-container/documentation-container-example.component';
 import { DocumentationContainerComponent } from './documentation-container/documentation-container.component';
 import { ExampleViewerComponent } from './example-viewer/example-viewer.component';
-
-/**
- * Represents each entry in {@link DocumentationEntry.examples}, that is an examples that shows a particular usage of a components
- */
-export interface ExampleEntry {
-    /**
-     * Example component written to show usage of the component
-     */
-    component: Type<unknown>;
-
-    /**
-     * The title of the section under which this example will be placed
-     */
-    title: string;
-
-    /**
-     * The subroutes for this example
-     */
-    urlSegment: string;
-}
-
-/**
- * Represents a component being showcased, along with the examples for it.
- */
-export interface DocumentationEntry {
-    /**
-     * The display name that is going to be used for the component
-     */
-    displayName: string;
-
-    /**
-     * The segment to be used in routing when displaying the documentation for this component.
-     */
-    urlSegment: string;
-
-    /**
-     * The component for which the documentation is going to be generated
-     */
-    component: Type<unknown>;
-
-    /**
-     * A list of examples that will show how the component may be used
-     */
-    examples?: ExampleEntry[];
-}
+import { DocumentationEntry, ExampleEntry } from './interfaces';
 
 /**
  * To register a documentation entry as value for corresponding component

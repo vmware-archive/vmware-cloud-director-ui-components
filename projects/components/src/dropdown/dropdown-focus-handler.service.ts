@@ -4,7 +4,7 @@
  */
 
 import { Injectable, OnDestroy, Renderer2 } from '@angular/core';
-import { Direction, MenuItem } from './dropdown-focus-handler.directive';
+import { Direction, MenuItem } from './dropdown.component';
 
 /**
  * Provided at the injector level of root {@link DropdownComponent}. The same service object is used for all the nested menus along

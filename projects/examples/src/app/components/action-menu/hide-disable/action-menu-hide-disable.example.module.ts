@@ -14,6 +14,5 @@ import { ActionMenuHideDisableExampleComponent } from './action-menu-hide-disabl
     declarations: [ActionMenuHideDisableExampleComponent],
     imports: [CommonModule, ClarityModule, ReactiveFormsModule, VcdActionMenuModule],
     exports: [ActionMenuHideDisableExampleComponent],
-    entryComponents: [ActionMenuHideDisableExampleComponent],
 })
 export class ActionMenuHideDisableExampleModule {}
