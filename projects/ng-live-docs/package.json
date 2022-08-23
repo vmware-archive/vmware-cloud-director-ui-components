@@ -1,14 +1,14 @@
 {
   "name": "@vmw/ng-live-docs",
-  "version": "0.0.15",
+  "version": "0.0.16",
   "peerDependencies": {
-    "@angular/common": "~12",
-    "@angular/core": "~12",
-    "@angular/platform-browser": "^12",
-    "@clr/ui": "^12",
-    "@clr/icons": "^12",
-    "@clr/angular": "^12",
-    "@cds/core": "^5",
+    "@angular/common": "~13.3.11",
+    "@angular/core": "~13.3.11",
+    "@angular/platform-browser": "^13.3.11",
+    "@clr/ui": "^13.5.0",
+    "@clr/icons": "^13.0.2",
+    "@clr/angular": "^13.5.0",
+    "@cds/core": "^6.1.0",
     "prismjs": "^1"
   },
   "dependencies": {
