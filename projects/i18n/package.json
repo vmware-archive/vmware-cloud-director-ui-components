@@ -2,8 +2,8 @@
     "name": "@vcd/i18n",
     "version": "13.0.0",
     "peerDependencies": {
-        "@angular/common": ">13",
-        "@angular/core": ">13"
+        "@angular/common": ">13.3.11",
+        "@angular/core": ">13.3.11"
     },
     "dependencies": {
         "@messageformat/core": "^3"
