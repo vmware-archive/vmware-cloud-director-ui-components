@@ -4,8 +4,8 @@
  */
 
 import { Injectable, OnDestroy } from '@angular/core';
-import { Subscriber } from 'rxjs';
 import { Observable, PartialObserver, Subscription } from 'rxjs';
+import { toSubscriber } from 'rxjs/internal-compatibility';
 
 /**
  * An interface that knows how to subscribe and unsubscribe from observables.
@@ -31,18 +31,6 @@ export interface ISubscriptionTracker {
      * Unsubscribes from all subscriptions on this {@link Subscribable}.
      */
     unsubscribeAll(): void;
-}
-
-export function toSubscriber<T>(
-    next?: PartialObserver<T> | ((value: T) => void),
-    error?: (error: any) => void,
-    complete?: () => void
-): Subscriber<T> {
-    if (next instanceof Subscriber) {
-        return next as Subscriber<T>;
-    }
-
-    return { next, error, complete } as Subscriber<T>;
 }
 
 /**
