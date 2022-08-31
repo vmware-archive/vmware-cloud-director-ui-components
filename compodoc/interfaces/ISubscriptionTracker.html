@@ -343,8 +343,8 @@ Will call the {@param complete} when complete, and {@param error} when errors ha
 
     <div class="tab-pane fade  tab-source-code" id="c-source">
         <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Injectable, OnDestroy } from &#x27;@angular/core&#x27;;
-import { Subscriber } from &#x27;rxjs&#x27;;
 import { Observable, PartialObserver, Subscription } from &#x27;rxjs&#x27;;
+import { toSubscriber } from &#x27;rxjs/internal-compatibility&#x27;;
 
 /**
  * An interface that knows how to subscribe and unsubscribe from observables.
@@ -370,18 +370,6 @@ export interface ISubscriptionTracker {
      * Unsubscribes from all subscriptions on this {@link Subscribable}.
      */
     unsubscribeAll(): void;
-}
-
-export function toSubscriber&lt;T&gt;(
-    next?: PartialObserver&lt;T&gt; | ((value: T) &#x3D;&gt; void),
-    error?: (error: any) &#x3D;&gt; void,
-    complete?: () &#x3D;&gt; void
-): Subscriber&lt;T&gt; {
-    if (next instanceof Subscriber) {
-        return next as Subscriber&lt;T&gt;;
-    }
-
-    return { next, error, complete } as Subscriber&lt;T&gt;;
 }
 
 /**
