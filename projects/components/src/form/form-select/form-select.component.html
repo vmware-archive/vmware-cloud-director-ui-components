@@ -30,8 +30,8 @@
             </clr-signpost>
 
             <span class="clr-subtext" *ngIf="showErrors" [id]="errorsId">
-                <div *ngFor="let key of errorKeys">
-                    <div>{{ key | translate: [formControl.value] }}</div>
+                <div *ngFor="let error of translatedErrors">
+                    <div>{{ error }}</div>
                 </div>
             </span>
 

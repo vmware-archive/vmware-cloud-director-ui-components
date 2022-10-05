@@ -5,6 +5,7 @@
 
 import { Component, Input, Optional, Self } from '@angular/core';
 import { NgControl } from '@angular/forms';
+import { TranslationService } from '@vcd/i18n';
 import { SelectOption } from '../../common/interfaces/select-option';
 import { BaseFormControl } from '../base-form-control';
 
@@ -32,8 +33,8 @@ export class FormSelectComponent extends BaseFormControl {
      */
     @Input() hint: string;
 
-    constructor(@Self() @Optional() ngControl: NgControl) {
-        super(ngControl);
+    constructor(@Self() @Optional() ngControl: NgControl, protected translationService: TranslationService) {
+        super(ngControl, translationService);
     }
 
     get selectedOption(): SelectOption {

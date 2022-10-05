@@ -15,6 +15,7 @@ import {
     ViewChild,
 } from '@angular/core';
 import { AbstractControl, FormControl, NgControl, ValidationErrors } from '@angular/forms';
+import { TranslationService } from '@vcd/i18n';
 import { BaseFormControl, defaultValidatorForControl } from '../base-form-control';
 
 /**
@@ -92,8 +93,8 @@ export class FormInputComponent extends BaseFormControl implements AfterViewInit
      */
     @Output() escapeClicked = new EventEmitter<boolean>(false);
 
-    constructor(@Self() @Optional() controlDirective: NgControl) {
-        super(controlDirective);
+    constructor(@Self() @Optional() controlDirective: NgControl, protected translationService: TranslationService) {
+        super(controlDirective, translationService);
     }
 
     /**

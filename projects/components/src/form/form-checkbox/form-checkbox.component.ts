@@ -5,6 +5,7 @@
 
 import { Component, Input, OnInit, Optional, Self } from '@angular/core';
 import { NgControl } from '@angular/forms';
+import { TranslationService } from '@vcd/i18n';
 import { BaseFormControl } from '../base-form-control';
 
 export enum CheckBoxStyling {
@@ -63,7 +64,7 @@ export class FormCheckboxComponent extends BaseFormControl {
         return this.styling === CheckBoxStyling.CHECKBOX;
     }
 
-    constructor(@Self() @Optional() controlDirective: NgControl) {
-        super(controlDirective);
+    constructor(@Self() @Optional() controlDirective: NgControl, protected translationService: TranslationService) {
+        super(controlDirective, translationService);
     }
 }

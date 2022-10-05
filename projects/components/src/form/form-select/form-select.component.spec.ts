@@ -4,7 +4,7 @@
  */
 
 import { Component, ViewChild } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { AbstractControl, FormBuilder, FormGroup, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
 import { SelectOption } from '../../common/interfaces/select-option';
 import { WidgetFinder, WidgetObject } from '../../utils/test/widget-object';
 import { configureFormInputTestingModule } from '../base-form-control.spec';
@@ -29,6 +29,10 @@ export class VcdFormSelectWidgetObject extends WidgetObject<FormSelectComponent>
         return this.selectElement.value;
     }
 
+    get validationMessages(): string[] {
+        return this.findElement('.clr-subtext').children.map((el) => el.nativeElement.textContent);
+    }
+
     select(index: number): void {
         this.selectElement.selectedIndex = index;
         this.selectElement.dispatchEvent(new Event('change'));
@@ -47,7 +51,7 @@ describe('FormSelectComponent', () => {
         finder.detectChanges();
         hostComponent = finder.hostComponent;
 
-        selectInput = finder.find({ woConstructor: VcdFormSelectWidgetObject });
+        selectInput = finder.find({ woConstructor: VcdFormSelectWidgetObject, className: 'select-input' });
     });
 
     describe('selectedOption', () => {
@@ -108,13 +112,47 @@ describe('FormSelectComponent', () => {
             selectInput.select(1);
             expect(selectInput.clrIconShape).toEqual('');
         });
+
+        it('validator can return key/value where the value is an array to be passed to translation service', () => {
+            const selectNumberWo = finder.find({
+                woConstructor: VcdFormSelectWidgetObject,
+                className: 'select-number-input',
+            });
+            selectNumberWo.select(5);
+            const firstValidationMessage = JSON.parse(selectNumberWo.validationMessages[0]);
+            expect(firstValidationMessage).toEqual({
+                key: 'vcd.cc.warning.numRange',
+                params: ['placeholder', 'one', 'three'],
+            });
+        });
+
+        it(
+            'validator can return key/value where the value is NOT an array,' +
+                ' in which case an array of control\'s value is passed to the translation service',
+            () => {
+                const selectNumberWo = finder.find({
+                    woConstructor: VcdFormSelectWidgetObject,
+                    className: 'select-number-input',
+                });
+                selectNumberWo.select(0);
+                const firstValidationMessage = JSON.parse(selectNumberWo.validationMessages[0]);
+                expect(firstValidationMessage).toEqual({ key: 'vcd.cc.not.a.number', params: ['-'] });
+            }
+        );
     });
 });
 
 @Component({
     template: `
         <form [formGroup]="formGroup">
-            <vcd-form-select #selectInputComponent [options]="options" [formControlName]="'selectInput'">
+            <vcd-form-select
+                #selectInputComponent
+                [options]="options"
+                [formControlName]="'selectInput'"
+                class="select-input"
+            >
+            </vcd-form-select>
+            <vcd-form-select [options]="numberOptions" [formControlName]="'selectNumber'" class="select-number-input">
             </vcd-form-select>
         </form>
     `,
@@ -145,11 +183,56 @@ class TestHostComponent {
         },
     ];
 
+    numberOptions: SelectOption[] = [
+        {
+            display: '-',
+            value: '-',
+        },
+        {
+            display: 'zero',
+            value: 0,
+        },
+        {
+            display: 'one',
+            value: 1,
+        },
+        {
+            display: 'two',
+            value: 2,
+        },
+        {
+            display: 'three',
+            value: 3,
+        },
+        {
+            display: 'four',
+            value: 4,
+        },
+    ];
+
     constructor(private fb: FormBuilder) {
         this.formGroup = this.fb.group({
             selectInput: ['one', [Validators.required]],
+            selectNumber: [0, [this.numberValidator, this.numRangeValidator]],
         });
     }
+
+    private numberValidator: ValidatorFn = (control: AbstractControl): ValidationErrors | null => {
+        // vcd.cc.not.a.number={0} is not a number
+        if (isNaN(Number(control.value))) {
+            return { 'vcd.cc.not.a.number': true };
+        }
+
+        return null;
+    };
+
+    private numRangeValidator: ValidatorFn = (control: AbstractControl): ValidationErrors | null => {
+        const value = Number(control.value);
+        if (value < 1 || value > 3) {
+            return { 'vcd.cc.warning.numRange': ['placeholder', 'one', 'three'] };
+        }
+        return null;
+    };
 }
 
 function getOptionWithValueAsNumber(): SelectOption {
