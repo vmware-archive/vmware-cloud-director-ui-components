@@ -8,9 +8,14 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { VcdFormModule } from '@vcd/ui-components';
 import { FormSelectDisabledExampleComponent } from './form-select-disabled.example.component';
 import { FormSelectExampleComponent } from './form-select.example.component';
+import { FormSelectValidationExampleComponent } from './form-select-validation.example.component';
 
 @NgModule({
-    declarations: [FormSelectExampleComponent, FormSelectDisabledExampleComponent],
+    declarations: [
+        FormSelectExampleComponent,
+        FormSelectDisabledExampleComponent,
+        FormSelectValidationExampleComponent,
+    ],
     imports: [VcdFormModule, ReactiveFormsModule],
     exports: [FormSelectExampleComponent],
 })

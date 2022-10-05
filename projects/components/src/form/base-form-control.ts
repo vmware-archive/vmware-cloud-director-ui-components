@@ -5,6 +5,7 @@
 
 import { Directive, Input } from '@angular/core';
 import { AbstractControl, ControlValueAccessor, FormControl, NgControl, ValidatorFn } from '@angular/forms';
+import { TranslationService } from '@vcd/i18n';
 import { IdGenerator } from '../utils/id-generator/id-generator';
 import { CanBeReadOnly } from './interfaces/can-be-read-only.interface';
 
@@ -110,7 +111,7 @@ export class BaseFormControl implements ControlValueAccessor, CanBeReadOnly {
      */
     protected initialValue: number | string | boolean;
 
-    constructor(ngControl: NgControl) {
+    constructor(ngControl: NgControl, protected translationService: TranslationService) {
         if (ngControl) {
             ngControl.valueAccessor = this;
             this.formControlNameDirective = ngControl;
@@ -140,6 +141,18 @@ export class BaseFormControl implements ControlValueAccessor, CanBeReadOnly {
         return Object.keys(this.formControl.errors || {});
     }
 
+    /**
+     * Return the translated error strings.
+     */
+    get translatedErrors(): string[] {
+        return this.errorKeys.map((errorKey) => {
+            return this.translationService.translate(
+                errorKey,
+                this.getTranslationParams(this.formControl.errors[errorKey])
+            );
+        });
+    }
+
     registerOnChange(onChange: (...args: unknown[]) => unknown): void {
         this.onChange = onChange;
     }
@@ -153,4 +166,15 @@ export class BaseFormControl implements ControlValueAccessor, CanBeReadOnly {
     }
 
     writeValue(val: any): void {}
+
+    /**
+     * When errorObjectValue param is not an array we pass back the control's value to stay backward compatible.
+     */
+    private getTranslationParams(errorObjectValue: any): any {
+        if (Array.isArray(errorObjectValue)) {
+            return errorObjectValue;
+        }
+
+        return [this.formControl.value];
+    }
 }

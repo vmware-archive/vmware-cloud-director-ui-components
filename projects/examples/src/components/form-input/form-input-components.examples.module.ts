@@ -22,6 +22,7 @@ import { NumberWithUnitFormInputUnitlessExampleComponent } from './number-with-u
 import { NumberWithUnitFormInputUnitlessExampleModule } from './number-with-unit-form-input-unitless.example.module';
 import { NumberWithUnitFormInputExampleComponent } from './number-with-unit-form-input.example.component';
 import { NumberWithUnitFormInputExampleModule } from './number-with-unit-form-input.example.module';
+import { FormSelectValidationExampleComponent } from './form-select-validation.example.component';
 
 Documentation.registerDocumentationEntry({
     component: FormInputComponent,
@@ -50,6 +51,11 @@ Documentation.registerDocumentationEntry({
             component: FormSelectDisabledExampleComponent,
             title: 'Select form input with disabled options',
             urlSegment: 'form-select-disabled',
+        },
+        {
+            component: FormSelectValidationExampleComponent,
+            title: 'Select form input validation',
+            urlSegment: 'form-select-validation',
         },
     ],
 });
