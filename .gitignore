@@ -53,3 +53,5 @@ projects/examples/gen
 projects/examples/src/compodoc
 projects/examples/src/assets/i18n.json
 projects/components/src/assets/i18n.json
+
+.angular
