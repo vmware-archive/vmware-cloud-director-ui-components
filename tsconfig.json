@@ -1,25 +1,19 @@
 {
-  "compileOnSave": false,
-  "compilerOptions": {
-    "baseUrl": "./",
-    "outDir": "./dist/out-tsc",
-    "sourceMap": true,
-    "declaration": false,
-    "downlevelIteration": true,
-    "experimentalDecorators": true,
-    "module": "es2020",
-    "moduleResolution": "node",
-    "importHelpers": true,
-    "target": "es2017",
-    "typeRoots": [
-      "node_modules/@types"
-    ],
-    "lib": [
-      "es2018",
-      "dom",
-      "es2020.string"
-    ],
-    "paths": {
+    "compileOnSave": false,
+    "compilerOptions": {
+        "baseUrl": "./",
+        "outDir": "./dist/out-tsc",
+        "sourceMap": true,
+        "declaration": false,
+        "downlevelIteration": true,
+        "experimentalDecorators": true,
+        "module": "es2020",
+        "moduleResolution": "node",
+        "importHelpers": true,
+        "target": "es2017",
+        "typeRoots": ["node_modules/@types"],
+        "lib": ["es2018", "dom", "es2020.string"],
+        "paths": {
       "@vcd/ui-components": [
         "dist/components"
       ],
@@ -35,12 +29,12 @@
       "route-analyzer/*": [
         "dist/route-analyzer/*"
       ]
+        },
+        "resolveJsonModule": true,
+        "esModuleInterop": true
     },
-    "resolveJsonModule": true,
-    "esModuleInterop": true
-  },
-  "angularCompilerOptions": {
-    "fullTemplateTypeCheck": true,
-    "strictInjectionParameters": true
-  }
+    "angularCompilerOptions": {
+        "fullTemplateTypeCheck": true,
+        "strictInjectionParameters": true
+    }
 }

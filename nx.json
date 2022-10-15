@@ -1,0 +1,48 @@
+{
+    "extends": "nx/presets/npm.json",
+    "tasksRunnerOptions": {
+        "default": {
+            "runner": "@nrwl/nx-cloud",
+            "options": {
+                "cacheableOperations": [],
+                "accessToken": "OWZjM2JhNTAtOWY0OC00NGVkLWE2NjYtN2I5MDMwOTliZTIzfHJlYWQtd3JpdGU="
+            }
+        }
+    },
+    "targetDefaults": {
+        "test": {
+            "inputs": ["default", "^default", "{workspaceRoot}/jest.preset.js"]
+        }
+    },
+    "affected": {
+        "defaultBase": "master"
+    },
+    "workspaceLayout": {
+        "libsDir": "projects",
+        "appsDir": "projects"
+    },
+    "cli": {
+        "analytics": false,
+        "cache": {
+            "enabled": true,
+            "path": ".cache",
+            "environment": "all"
+        }
+    },
+    "generators": {
+        "@nrwl/angular:application": {
+            "style": "css",
+            "linter": "eslint",
+            "unitTestRunner": "karma",
+            "e2eTestRunner": "cypress"
+        },
+        "@nrwl/angular:library": {
+            "linter": "eslint",
+            "unitTestRunner": "karma"
+        },
+        "@nrwl/angular:component": {
+            "style": "css"
+        }
+    },
+    "defaultProject": "examples"
+}
