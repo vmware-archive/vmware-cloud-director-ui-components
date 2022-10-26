@@ -1,0 +1,32 @@
+{
+    "$schema": "../../node_modules/nx/schemas/workspace-schema.json",
+    "projectType": "library",
+    "root": "projects/ng-live-docs",
+    "sourceRoot": "projects/ng-live-docs/src",
+    "prefix": "lib",
+    "targets": {
+        "build": {
+            "executor": "@angular-devkit/build-angular:ng-packagr",
+            "options": {
+                "project": "projects/ng-live-docs/ng-package.json"
+            },
+            "configurations": {
+                "production": {
+                    "tsConfig": "projects/ng-live-docs/tsconfig.lib.prod.json"
+                },
+                "development": {
+                    "tsConfig": "projects/ng-live-docs/tsconfig.lib.json"
+                }
+            },
+            "defaultConfiguration": "production"
+        },
+        "test": {
+            "executor": "@angular-devkit/build-angular:karma",
+            "options": {
+                "main": "projects/ng-live-docs/src/test.ts",
+                "tsConfig": "projects/ng-live-docs/tsconfig.spec.json",
+                "karmaConfig": "projects/ng-live-docs/karma.conf.js"
+            }
+        }
+    }
+}

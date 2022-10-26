@@ -1,5 +1,4 @@
 {
-    "extends": "nx/presets/npm.json",
     "tasksRunnerOptions": {
         "default": {
             "runner": "@nrwl/nx-cloud",
@@ -44,5 +43,6 @@
             "style": "css"
         }
     },
-    "defaultProject": "examples"
+    "defaultProject": "examples",
+    "$schema": "./node_modules/nx/schemas/nx-schema.json"
 }
