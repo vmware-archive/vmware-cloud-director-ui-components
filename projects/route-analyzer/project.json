@@ -1,0 +1,29 @@
+{
+    "projectType": "library",
+    "root": "projects/route-analyzer",
+    "sourceRoot": "projects/route-analyzer/src",
+    "prefix": "vcd",
+    "targets": {
+        "build": {
+            "executor": "@angular-devkit/build-angular:ng-packagr",
+            "options": {
+                "tsConfig": "projects/route-analyzer/tsconfig.lib.json",
+                "project": "projects/route-analyzer/ng-package.json"
+            }
+        },
+        "test": {
+            "executor": "@angular-devkit/build-angular:karma",
+            "options": {
+                "main": "projects/route-analyzer/src/test.ts",
+                "tsConfig": "projects/route-analyzer/tsconfig.spec.json",
+                "karmaConfig": "projects/route-analyzer/karma.conf.js"
+            }
+        },
+        "lint": {
+            "executor": "@angular-eslint/builder:lint",
+            "options": {
+                "lintFilePatterns": ["projects/route-analyzer/**/*.ts", "projects/route-analyzer/**/*.html"]
+            }
+        }
+    }
+}
