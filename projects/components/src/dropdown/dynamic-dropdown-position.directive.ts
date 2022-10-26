@@ -5,7 +5,6 @@
 
 import { DOCUMENT } from '@angular/common';
 import {
-    AfterContentInit,
     ContentChild,
     Directive,
     ElementRef,
@@ -53,8 +52,8 @@ const MENU_BUFFER_SPACE = 150;
 @Directive({
     selector: 'clr-dropdown[vcdDynamicDropdown]',
 })
-export class DynamicDropdownPositionDirective implements AfterContentInit {
-    private contentAreaElement: HTMLElement;
+export class DynamicDropdownPositionDirective {
+    private contentAreaElement: HTMLElement | null;
     private dropdownTriggerElement: HTMLElement;
     private dropdownMenuElement: HTMLElement;
     private dropdownTriggerRect: DOMRect;
@@ -71,6 +70,7 @@ export class DynamicDropdownPositionDirective implements AfterContentInit {
                 // Recalculate the dropdown position on open
                 this.dropdownTriggerRect = this.dropdownTriggerElement.getBoundingClientRect();
                 this.dropdownMenuRect = this.dropdownMenuElement.getBoundingClientRect();
+                this.setContentAreaElement();
                 this.resetPosition(this.dropdownMenuElement, this.positionTop, this.positionLeft);
             }
             try {
@@ -91,10 +91,12 @@ export class DynamicDropdownPositionDirective implements AfterContentInit {
         @Optional() @SkipSelf() private parentDropdown: DynamicDropdownPositionDirective
     ) {}
 
-    ngAfterContentInit(): void {
+    private setContentAreaElement(): void {
         this.isInsideModal = this.document.body.classList.contains(NO_SCROLLING_CLASSNAME);
         if (!this.isInsideModal) {
             this.contentAreaElement = this.document.body.querySelector(CONTENT_AREA_SELECTOR) as HTMLElement;
+        } else {
+            this.contentAreaElement = null;
         }
     }
 
