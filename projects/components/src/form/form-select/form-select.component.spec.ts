@@ -25,10 +25,6 @@ export class VcdFormSelectWidgetObject extends WidgetObject<FormSelectComponent>
         return clrIconDebugEl?.nativeElement.getAttribute('shape') || '';
     }
 
-    get selectedOptionText(): string {
-        return this.selectElement.selectedOptions[0].text;
-    }
-
     get value(): string {
         return this.selectElement.value;
     }
@@ -94,9 +90,9 @@ describe('FormSelectComponent', () => {
 
     describe('model to view changes', () => {
         it('selects the option in the view whose value matches with value set on the form control', () => {
-            expect(selectInput.selectedOptionText).toEqual(hostComponent.options[1].display);
+            expect(selectInput.value).toEqual(hostComponent.options[1].value as string);
             hostComponent.formGroup.get('selectInput').setValue(hostComponent.options[2].value);
-            expect(selectInput.selectedOptionText).toEqual(hostComponent.options[2].display);
+            expect(selectInput.value).toEqual(hostComponent.options[2].value as string);
         });
     });
 
