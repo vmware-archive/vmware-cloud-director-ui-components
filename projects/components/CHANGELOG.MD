@@ -6,6 +6,19 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
+
+## [13.0.1-dev.3]
+### Fixed
+* `vcd-form-select` can now accept validators that return values to be used with translation
+* Fixed bug where `vcd-action-menu` would not display in some cases because of https://github.com/angular/angular/issues/19742
+  and the fact that we were querying the DOM to determine where to show the menu.
+
+## [13.0.1-dev.2]
+Angular upgrade - RXJS 6.5.5 being used to avoid having to migrate vcd_ui out of rxjs-compat for now
+
+## [13.0.1-dev.1]
+Angular upgrade - RXJS 7.4
+
 ### Fixed
 - A bug where findWidget in Cypress searched from the root rather than from the current widget
 
