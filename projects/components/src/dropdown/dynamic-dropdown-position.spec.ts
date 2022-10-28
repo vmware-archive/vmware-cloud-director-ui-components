@@ -6,7 +6,7 @@
 import { Component, ElementRef, Query, ViewChild } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { ClarityModule, ClrDropdown } from '@clr/angular';
-import { DynamicDropdownPositionDirective } from './dynamic-dropdown-position.directive';
+import { DynamicDropdownPositionDirective, NO_SCROLLING_CLASSNAME } from './dynamic-dropdown-position.directive';
 
 enum Dropdowns {
     DEFAULT = 'defaultDropdown',
@@ -20,7 +20,7 @@ interface HasFixtureAndDropdownHelper {
 }
 
 describe('DynamicDropdownPositionDirective', () => {
-    beforeEach(async function(this: HasFixtureAndDropdownHelper): Promise<void> {
+    beforeEach(async function (this: HasFixtureAndDropdownHelper): Promise<void> {
         await TestBed.configureTestingModule({
             imports: [ClarityModule],
             declarations: [DynamicDropdownPositionDirective, TestHostComponent],
@@ -30,7 +30,7 @@ describe('DynamicDropdownPositionDirective', () => {
         this.helper = this.fixture.componentInstance;
     });
 
-    it('opens the dropdown towards bottom by default when there is enough space', function(this: HasFixtureAndDropdownHelper): void {
+    it('opens the dropdown towards bottom by default when there is enough space', function (this: HasFixtureAndDropdownHelper): void {
         this.helper.openDropdown(Dropdowns.DEFAULT);
         this.fixture.detectChanges();
         expect(this.helper.isDropdownGoingToBeClippedAtBottom(Dropdowns.DEFAULT)).toBe(false);
@@ -40,7 +40,7 @@ describe('DynamicDropdownPositionDirective', () => {
     it(
         'shifts the dropdown position to top of the dropdown trigger when it is going to get clipped at the ' +
             'bottom',
-        function(this: HasFixtureAndDropdownHelper): void {
+        function (this: HasFixtureAndDropdownHelper): void {
             this.helper.openDropdown(Dropdowns.BOTTOM_CLIPPED);
             this.fixture.detectChanges();
             expect(this.helper.isDropdownGoingToBeClippedAtBottom(Dropdowns.BOTTOM_CLIPPED)).toBe(true);
@@ -49,13 +49,31 @@ describe('DynamicDropdownPositionDirective', () => {
         }
     );
 
-    it('shifts the dropdown position towards the left when it is going to get clipped on the' + ' right side', function(
-        this: HasFixtureAndDropdownHelper
-    ): void {
+    it(
+        'shifts the dropdown position towards the left when it is going to get clipped on the' + ' right side',
+        function (this: HasFixtureAndDropdownHelper): void {
+            this.helper.openDropdown(Dropdowns.RIGHT_CLIPPED);
+            this.fixture.detectChanges();
+            expect(this.helper.isDropdownGoingToBeClippedOnRight(Dropdowns.RIGHT_CLIPPED)).toBe(true);
+            expect(this.helper.isDropdownOpenToLeft(Dropdowns.RIGHT_CLIPPED)).toBe(true);
+        }
+    );
+
+    it('does not shift when inside modals', function (this: HasFixtureAndDropdownHelper): void {
+        spyOn(document.body.classList, 'contains').withArgs(NO_SCROLLING_CLASSNAME).and.returnValue(true);
+        spyOnProperty(window, 'innerHeight').and.returnValue(1024); // necessary to keep test results consistent across headed and headless runs
+
+        this.helper.openDropdown(Dropdowns.DEFAULT);
+        this.fixture.detectChanges();
+        expect(this.helper.isDropdownPositionShifted(Dropdowns.DEFAULT)).toBe(false);
+
+        this.helper.openDropdown(Dropdowns.BOTTOM_CLIPPED);
+        this.fixture.detectChanges();
+        expect(this.helper.isDropdownPositionShifted(Dropdowns.BOTTOM_CLIPPED)).toBe(false);
+
         this.helper.openDropdown(Dropdowns.RIGHT_CLIPPED);
         this.fixture.detectChanges();
-        expect(this.helper.isDropdownGoingToBeClippedOnRight(Dropdowns.RIGHT_CLIPPED)).toBe(true);
-        expect(this.helper.isDropdownOpenToLeft(Dropdowns.RIGHT_CLIPPED)).toBe(true);
+        expect(this.helper.isDropdownPositionShifted(Dropdowns.RIGHT_CLIPPED)).toBe(false);
     });
 });
 
@@ -65,7 +83,7 @@ describe('DynamicDropdownPositionDirective', () => {
             <div>
                 <clr-dropdown vcdDynamicDropdown #defaultDropdown>
                     <button class="btn btn-link first-dropdown-toggle" clrDropdownTrigger>Dropdown 1</button>
-                    <clr-dropdown-menu *clrIfOpen>
+                    <clr-dropdown-menu *clrIfOpen #defaultDropdownMenu>
                         <button type="button" clrDropdownItem>Action 1</button>
                         <button type="button" clrDropdownItem>Action 2</button>
                         <button type="button" clrDropdownItem>Link 1</button>
@@ -77,7 +95,7 @@ describe('DynamicDropdownPositionDirective', () => {
             <div class="top-right">
                 <clr-dropdown vcdDynamicDropdown #rightClippedDropdown>
                     <button class="btn btn-link first-dropdown-toggle" clrDropdownTrigger>Dropdown 2</button>
-                    <clr-dropdown-menu [clrPosition]="'top-right'" *clrIfOpen>
+                    <clr-dropdown-menu [clrPosition]="'top-right'" *clrIfOpen #rightClippedDropdownMenu>
                         <button type="button" clrDropdownItem>Action 1</button>
                         <button type="button" clrDropdownItem>Action 2</button>
                         <button type="button" clrDropdownItem>Link 1</button>
@@ -89,7 +107,7 @@ describe('DynamicDropdownPositionDirective', () => {
             <div class="bottom-left">
                 <clr-dropdown vcdDynamicDropdown #bottomClippedDropdown>
                     <button class="btn btn-link first-dropdown-toggle" clrDropdownTrigger>Dropdown 3</button>
-                    <clr-dropdown-menu *clrIfOpen>
+                    <clr-dropdown-menu *clrIfOpen #bottomClippedDropdownMenu>
                         <button type="button" clrDropdownItem>Action 1</button>
                         <button type="button" clrDropdownItem>Action 2</button>
                         <button type="button" clrDropdownItem>Link 1</button>
@@ -126,14 +144,17 @@ class TestHostComponent {
     @ViewChild('defaultDropdown') defaultDropdown: ClrDropdown;
     @ViewChild('defaultDropdown', { read: DynamicDropdownPositionDirective })
     defaultDirective: DynamicDropdownPositionDirective;
+    @ViewChild('defaultDropdownMenu', { read: ElementRef }) defaultDropdownElementRef: ElementRef;
 
     @ViewChild('rightClippedDropdown') rightClippedDropdown: ClrDropdown;
     @ViewChild('rightClippedDropdown', { read: DynamicDropdownPositionDirective })
     rightClippedDirective: DynamicDropdownPositionDirective;
+    @ViewChild('rightClippedDropdownMenu', { read: ElementRef }) rightClippedDropdownElementRef: ElementRef;
 
     @ViewChild('bottomClippedDropdown') bottomClippedDropdown: ClrDropdown;
     @ViewChild('bottomClippedDropdown', { read: DynamicDropdownPositionDirective })
     bottomClippedDirective: DynamicDropdownPositionDirective;
+    @ViewChild('bottomClippedDropdownMenu', { read: ElementRef }) bottomClippedDropdownElementRef: ElementRef;
 
     @ViewChild('dropdownContainer') dropdownContainer: ElementRef;
 
@@ -210,5 +231,18 @@ class TestHostComponent {
         const dropdownTriggerPosition = this.getDropdownTriggerPosition(dropdown);
         const dropdownPosition = this.getDropdownPosition(dropdown);
         return dropdownTriggerPosition.top > dropdownPosition.top;
+    }
+
+    isDropdownPositionShifted(dropdown: Dropdowns) {
+        const elementRefs = {
+            [Dropdowns.DEFAULT]: this.defaultDropdownElementRef,
+            [Dropdowns.BOTTOM_CLIPPED]: this.bottomClippedDropdownElementRef,
+            [Dropdowns.RIGHT_CLIPPED]: this.rightClippedDropdownElementRef,
+        };
+        const { nativeElement } = elementRefs[dropdown];
+        const computedStyleMap = nativeElement.computedStyleMap();
+        const isTopShifted = computedStyleMap.get('top').value > 0;
+        const isLeftShifted = computedStyleMap.get('left').value > 0;
+        return isTopShifted || isLeftShifted;
     }
 }

@@ -5,7 +5,6 @@
 
 import { DOCUMENT } from '@angular/common';
 import {
-    AfterContentInit,
     ContentChild,
     Directive,
     ElementRef,
@@ -18,7 +17,7 @@ import {
 import { ClrDropdown, ClrDropdownMenu } from '@clr/angular';
 
 const CONTENT_AREA_SELECTOR = '.content-area';
-const NO_SCROLLING_CLASSNAME = 'no-scrolling'; // Set by Clarity when a modal is opened
+export const NO_SCROLLING_CLASSNAME = 'no-scrolling'; // Set by Clarity when a modal is opened
 // Extra space on the right and left of drop down menus to shift them left or right and prevent any clipping
 const MENU_BUFFER_SPACE = 150;
 
@@ -53,8 +52,8 @@ const MENU_BUFFER_SPACE = 150;
 @Directive({
     selector: 'clr-dropdown[vcdDynamicDropdown]',
 })
-export class DynamicDropdownPositionDirective implements AfterContentInit {
-    private contentAreaElement: HTMLElement;
+export class DynamicDropdownPositionDirective {
+    private contentAreaElement: HTMLElement | null;
     private dropdownTriggerElement: HTMLElement;
     private dropdownMenuElement: HTMLElement;
     private dropdownTriggerRect: DOMRect;
@@ -71,6 +70,10 @@ export class DynamicDropdownPositionDirective implements AfterContentInit {
                 // Recalculate the dropdown position on open
                 this.dropdownTriggerRect = this.dropdownTriggerElement.getBoundingClientRect();
                 this.dropdownMenuRect = this.dropdownMenuElement.getBoundingClientRect();
+                this.isInsideModal = this.document.body.classList.contains(NO_SCROLLING_CLASSNAME);
+                this.contentAreaElement = this.isInsideModal
+                    ? null
+                    : (this.document.body.querySelector(CONTENT_AREA_SELECTOR) as HTMLElement);
                 this.resetPosition(this.dropdownMenuElement, this.positionTop, this.positionLeft);
             }
             try {
@@ -90,13 +93,6 @@ export class DynamicDropdownPositionDirective implements AfterContentInit {
         private dropDownBtn: ClrDropdown,
         @Optional() @SkipSelf() private parentDropdown: DynamicDropdownPositionDirective
     ) {}
-
-    ngAfterContentInit(): void {
-        this.isInsideModal = this.document.body.classList.contains(NO_SCROLLING_CLASSNAME);
-        if (!this.isInsideModal) {
-            this.contentAreaElement = this.document.body.querySelector(CONTENT_AREA_SELECTOR) as HTMLElement;
-        }
-    }
 
     private get positionTop(): number {
         const dropdownTriggerRect = this.dropdownTriggerRect;
