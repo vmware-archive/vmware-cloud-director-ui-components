@@ -194,12 +194,12 @@ to display a checkbox or toggle switch on the UI.</p>
             <tbody>
                 <tr>
                     <td class="col-md-4">
-<code>constructor(controlDirective: <a href="https://angular.io/api/forms/NgControl" target="_blank">NgControl</a>)</code>
+<code>constructor(controlDirective: <a href="https://angular.io/api/forms/NgControl" target="_blank">NgControl</a>, translationService: TranslationService)</code>
                     </td>
                 </tr>
                         <tr>
                             <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="64" class="link-to-prism">projects/components/src/form/form-checkbox/form-checkbox.component.ts:64</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="65" class="link-to-prism">projects/components/src/form/form-checkbox/form-checkbox.component.ts:65</a></div>
                             </td>
                         </tr>
 
@@ -221,6 +221,18 @@ to display a checkbox or toggle switch on the UI.</p>
                                                   
                                                         <td>
                                                                         <code><a href="https://angular.io/api/forms/NgControl" target="_blank" >NgControl</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>translationService</td>
+                                                  
+                                                        <td>
+                                                                    <code>TranslationService</code>
                                                         </td>
                                                   
                                                     <td>
@@ -255,7 +267,7 @@ to display a checkbox or toggle switch on the UI.</p>
                 </tr>
                         <tr>
                             <td class="col-md-2" colspan="2">
-                                    <div class="io-line">Defined in <a href="" data-line="60" class="link-to-prism">projects/components/src/form/form-checkbox/form-checkbox.component.ts:60</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="61" class="link-to-prism">projects/components/src/form/form-checkbox/form-checkbox.component.ts:61</a></div>
                             </td>
                         </tr>
                 <tr>
@@ -287,7 +299,7 @@ to display a checkbox or toggle switch on the UI.</p>
                 </tr>
                         <tr>
                             <td class="col-md-2" colspan="2">
-                                    <div class="io-line">Defined in <a href="" data-line="55" class="link-to-prism">projects/components/src/form/form-checkbox/form-checkbox.component.ts:55</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="56" class="link-to-prism">projects/components/src/form/form-checkbox/form-checkbox.component.ts:56</a></div>
                             </td>
                         </tr>
                 <tr>
@@ -314,7 +326,7 @@ to display a checkbox or toggle switch on the UI.</p>
                 </tr>
                         <tr>
                             <td class="col-md-2" colspan="2">
-                                    <div class="io-line">Defined in <a href="" data-line="50" class="link-to-prism">projects/components/src/form/form-checkbox/form-checkbox.component.ts:50</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="51" class="link-to-prism">projects/components/src/form/form-checkbox/form-checkbox.component.ts:51</a></div>
                             </td>
                         </tr>
                 <tr>
@@ -346,7 +358,7 @@ to display a checkbox or toggle switch on the UI.</p>
                 </tr>
                         <tr>
                             <td class="col-md-2" colspan="2">
-                                    <div class="io-line">Defined in <a href="" data-line="45" class="link-to-prism">projects/components/src/form/form-checkbox/form-checkbox.component.ts:45</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="46" class="link-to-prism">projects/components/src/form/form-checkbox/form-checkbox.component.ts:46</a></div>
                             </td>
                         </tr>
                 <tr>
@@ -378,7 +390,7 @@ to display a checkbox or toggle switch on the UI.</p>
                 </tr>
                         <tr>
                             <td class="col-md-2" colspan="2">
-                                    <div class="io-line">Defined in <a href="" data-line="40" class="link-to-prism">projects/components/src/form/form-checkbox/form-checkbox.component.ts:40</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="41" class="link-to-prism">projects/components/src/form/form-checkbox/form-checkbox.component.ts:41</a></div>
                             </td>
                         </tr>
                 <tr>
@@ -405,7 +417,7 @@ to display a checkbox or toggle switch on the UI.</p>
                 </tr>
                         <tr>
                             <td class="col-md-2" colspan="2">
-                                    <div class="io-line">Defined in <a href="" data-line="35" class="link-to-prism">projects/components/src/form/form-checkbox/form-checkbox.component.ts:35</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="36" class="link-to-prism">projects/components/src/form/form-checkbox/form-checkbox.component.ts:36</a></div>
                             </td>
                         </tr>
                 <tr>
@@ -442,7 +454,7 @@ to display a checkbox or toggle switch on the UI.</p>
                 </tr>
                             <tr>
                                 <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="62" class="link-to-prism">projects/components/src/form/form-checkbox/form-checkbox.component.ts:62</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="63" class="link-to-prism">projects/components/src/form/form-checkbox/form-checkbox.component.ts:63</a></div>
                                 </td>
                             </tr>
 
@@ -455,6 +467,7 @@ to display a checkbox or toggle switch on the UI.</p>
     <div class="tab-pane fade  tab-source-code" id="c-source">
         <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Component, Input, OnInit, Optional, Self } from &#x27;@angular/core&#x27;;
 import { NgControl } from &#x27;@angular/forms&#x27;;
+import { TranslationService } from &#x27;@vcd/i18n&#x27;;
 import { BaseFormControl } from &#x27;../base-form-control&#x27;;
 
 export enum CheckBoxStyling {
@@ -513,8 +526,8 @@ export class FormCheckboxComponent extends BaseFormControl {
         return this.styling &#x3D;&#x3D;&#x3D; CheckBoxStyling.CHECKBOX;
     }
 
-    constructor(@Self() @Optional() controlDirective: NgControl) {
-        super(controlDirective);
+    constructor(@Self() @Optional() controlDirective: NgControl, protected translationService: TranslationService) {
+        super(controlDirective, translationService);
     }
 }
 </code></pre>

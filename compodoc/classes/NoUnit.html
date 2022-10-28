@@ -1153,11 +1153,11 @@ export class NumberWithUnitFormInputComponent extends BaseFormControl implements
     constructor(
         @Self() @Optional() controlDirective: NgControl,
         private fb: FormBuilder,
-        private translationService: TranslationService,
+        protected translationService: TranslationService,
         private unitFormatter: UnitFormatter,
         private changeDetector: ChangeDetectorRef
     ) {
-        super(controlDirective);
+        super(controlDirective, translationService);
     }
 
     ngOnInit(): void {
