@@ -1,4 +1,5 @@
 {
+    "name": "components",
     "$schema": "../../node_modules/nx/schemas/project-schema.json",
     "projectType": "library",
     "root": "projects/components",
@@ -6,12 +7,33 @@
     "prefix": "vcd",
 
     "targets": {
-        "build": {
-            "executor": "@angular-devkit/build-angular:ng-packagr",
+        "pre-build": {
+            "executor": "@nrwl/angular:package",
+            "outputs": ["dist/components"],
             "options": {
-                "tsConfig": "projects/components/tsconfig.lib.json",
                 "project": "projects/components/ng-package.json"
-            }
+            },
+            "configurations": {
+                "production": {
+                    "tsConfig": "projects/components/tsconfig.lib.prod.json"
+                },
+                "development": {
+                    "tsConfig": "projects/components/tsconfig.lib.json"
+                }
+            },
+            "defaultConfiguration": "production",
+            "dependsOn": ["build-18n-json", "^build"]
+        },
+
+        "build": {
+            "executor": "nx:run-commands",
+            "options": {
+                "commands": [
+                    "node projects/components/src/assets/index.js",
+                    "copyfiles -f projects/components/src/assets/i18n.json dist/components"
+                ]
+            },
+            "dependsOn": ["pre-build"]
         },
         "test": {
             "executor": "@angular-devkit/build-angular:karma",
