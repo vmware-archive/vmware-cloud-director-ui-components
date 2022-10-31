@@ -17,7 +17,7 @@
         "build:examples": "ng build examples",
         "build:examples-prod": "ng build examples --configuration=production --base-href=/vmware-cloud-director-ui-components/",
         "build:examples-aot": "ng build examples --aot=true",
-        "build:components": "ng build components",
+        "build:components": "nx build components",
         "postbuild:components": "npm run generate-translations",
         "build:i18n": "ng build i18n",
         "build:route-analyzer": "ng build route-analyzer && tsc -p projects/route-analyzer/tsconfig.cli.json",
@@ -38,7 +38,6 @@
         "e2e": "cypress open",
         "build-components-doc": "mkdirp projects/examples/gen && node dist/ng-live-docs/index.js projects/components/tsconfig.lib.json projects/components/src/public-api.ts projects/examples/gen/components-doc.json && compodoc -p ./projects/components/tsconfig.lib.json -d projects/examples/src/compodoc",
         "build-examples-doc": "mkdirp projects/examples/gen && node dist/ng-live-docs/index.js projects/examples/tsconfig.app.json projects/examples/src/main.ts projects/examples/gen/examples-doc.json",
-        "generate-translations": "node projects/components/src/assets/index.js && copyfiles -f projects/components/src/assets/i18n.json dist/components",
         "generate-example-translations": "node projects/i18n/scripts/index.js dist/components/i18n.json projects/examples/src/assets/our-translations.json projects/examples/src/assets/i18n.json",
         "postinstall": "ngcc --properties es2020 browser module main"
     },
