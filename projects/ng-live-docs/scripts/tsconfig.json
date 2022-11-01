@@ -8,6 +8,7 @@
     "sourceMap": true,
     "target": "es2016",
     "outDir": "../../../dist/ng-live-docs",
+    "types": ["jasmine", "node"],
     "lib": [
       "es2015",
       "dom"
