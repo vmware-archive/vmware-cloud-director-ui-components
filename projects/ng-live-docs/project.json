@@ -1,12 +1,14 @@
 {
-    "$schema": "../../node_modules/nx/schemas/workspace-schema.json",
+    "name": "ng-live-docs",
+    "$schema": "../../node_modules/nx/schemas/project-schema.json",
     "projectType": "library",
     "root": "projects/ng-live-docs",
     "sourceRoot": "projects/ng-live-docs/src",
-    "prefix": "lib",
+    "prefix": "vmw",
     "targets": {
-        "build": {
-            "executor": "@angular-devkit/build-angular:ng-packagr",
+        "pre-build": {
+            "executor": "@nrwl/angular:package",
+            "outputs": ["dist/ng-live-docs"],
             "options": {
                 "project": "projects/ng-live-docs/ng-package.json"
             },
@@ -20,12 +22,32 @@
             },
             "defaultConfiguration": "production"
         },
+
+        "build": {
+            "executor": "nx:run-commands",
+            "options": {
+                "commands": [
+                    "tsc -p projects/ng-live-docs/scripts/tsconfig.json",
+                    "copyfiles -f projects/components/src/assets/i18n.json dist/components",
+                    "tsc -p projects/ng-live-docs/tsconfig.schematics.json",
+                    "cd projects/ng-live-docs && copyfiles \"schematics/**/collection.json\" \"schematics/**/schema.json\" \"schematics/**/files/**\" ../../dist/ng-live-docs"
+                ]
+            },
+            "dependsOn": ["pre-build"]
+        },
+
         "test": {
             "executor": "@angular-devkit/build-angular:karma",
             "options": {
                 "main": "projects/ng-live-docs/src/test.ts",
                 "tsConfig": "projects/ng-live-docs/tsconfig.spec.json",
                 "karmaConfig": "projects/ng-live-docs/karma.conf.js"
+            }
+        },
+        "lint": {
+            "executor": "@angular-eslint/builder:lint",
+            "options": {
+                "lintFilePatterns": ["projects/ng-live-docs/**/*.ts", "projects/ng-live-docs/**/*.html"]
             }
         }
     }

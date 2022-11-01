@@ -11,7 +11,7 @@
     "prefix": "vcd",
     "targets": {
 
-        "build-base": {
+        "build": {
             "executor": "@angular-devkit/build-angular:browser",
             "options": {
                 "preserveSymlinks": true,
@@ -67,15 +67,15 @@
                     ]
                 }
             },
-            "defaultConfiguration": ""
+            "defaultConfiguration": "",
+            "dependsOn": ["build-base"]
         },
-        "build": {
+        "build-base": {
           "executor": "nx:run-commands",
           "options": {
             "command": "npm run build-components-doc && npm run generate-example-translations && npm run build-examples-doc",
             "cwd": "."
-          },
-          "dependsOn": ["build-base"]
+          }
         },
       "serve": {
             "executor": "@angular-devkit/build-angular:dev-server",
