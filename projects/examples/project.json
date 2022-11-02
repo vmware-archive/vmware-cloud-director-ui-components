@@ -68,14 +68,42 @@
             "defaultConfiguration": "",
             "dependsOn": ["build-base"]
         },
-        "build-base": {
+        "build-components-doc": {
             "executor": "nx:run-commands",
             "options": {
-                "command": "npm run build-components-doc && npm run generate-example-translations && npm run build-examples-doc",
-                "cwd": "."
-            },
-          "dependsOn": ["^build"]
+                "commands": [
+                  "mkdirp projects/examples/gen",
+                  "node dist/ng-live-docs/index.js projects/components/tsconfig.lib.json projects/components/src/public-api.ts projects/examples/gen/components-doc.json",
+                  "compodoc -p ./projects/components/tsconfig.lib.json -d projects/examples/src/compodoc"
+                ],
+                "cwd": ".",
+                "parallel": false
+            }
         },
+        "build-examples-doc": {
+            "executor": "nx:run-commands",
+            "options": {
+                "commands": [
+                    "mkdirp projects/examples/gen",
+                    "node dist/ng-live-docs/index.js projects/examples/tsconfig.app.json projects/examples/src/main.ts projects/examples/gen/examples-doc.json"
+                ],
+                "parallel": false,
+                "cwd": "."
+            }
+        },
+
+        "generate-example-translations": {
+            "executor": "nx:run-commands",
+            "options": {
+                "command": "node projects/i18n/scripts/index.js dist/components/i18n.json projects/examples/src/assets/our-translations.json projects/examples/src/assets/i18n.json",
+                "cwd": "."
+            }
+        },
+
+        "build-base": {
+            "dependsOn": ["^build", "build-components-doc", "build-examples-doc", "generate-example-translations"]
+        },
+
         "serve": {
             "executor": "@angular-devkit/build-angular:dev-server",
             "options": {
@@ -88,12 +116,7 @@
             },
           "dependsOn": ["^build"]
         },
-        "extract-i18n": {
-            "executor": "@angular-devkit/build-angular:extract-i18n",
-            "options": {
-                "browserTarget": "examples:build"
-            }
-        },
+
         "test": {
             "executor": "@angular-devkit/build-angular:karma",
             "options": {

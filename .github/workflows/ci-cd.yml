@@ -158,11 +158,7 @@ jobs:
                   key: ${{github.sha}}-examples
 
             - run: |
-                  npm run build-components-doc
-                  npm run build-examples-doc
-                  npm run generate-translations
-                  npm run generate-example-translations
-                  npm run build:examples-prod
+                  npx nx build examples --configuration=production --base-href=/vmware-cloud-director-ui-components/
 
     build-route-analyzer:
         runs-on: ubuntu-latest
