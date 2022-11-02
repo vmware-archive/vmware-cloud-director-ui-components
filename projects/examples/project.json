@@ -73,7 +73,8 @@
             "options": {
                 "command": "npm run build-components-doc && npm run generate-example-translations && npm run build-examples-doc",
                 "cwd": "."
-          }
+            },
+          "dependsOn": ["^build"]
         },
         "serve": {
             "executor": "@angular-devkit/build-angular:dev-server",
@@ -84,7 +85,8 @@
                 "production": {
                     "browserTarget": "examples:build:production"
                 }
-            }
+            },
+          "dependsOn": ["^build"]
         },
         "extract-i18n": {
             "executor": "@angular-devkit/build-angular:extract-i18n",
