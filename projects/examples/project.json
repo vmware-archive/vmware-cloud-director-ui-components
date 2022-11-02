@@ -1,16 +1,14 @@
 {
-  "$schema": "../../node_modules/nx/schemas/workspace-schema.json",
-  "projectType": "application",
+    "$schema": "../../node_modules/nx/schemas/workspace-schema.json",
+    "projectType": "application",
     "generators": {
         "@schematics/angular:component": {
             "style": "scss"
         }
     },
-    "root": "projects/examples",
     "sourceRoot": "projects/examples/src",
     "prefix": "vcd",
     "targets": {
-
         "build": {
             "executor": "@angular-devkit/build-angular:browser",
             "options": {
@@ -71,13 +69,13 @@
             "dependsOn": ["build-base"]
         },
         "build-base": {
-          "executor": "nx:run-commands",
-          "options": {
-            "command": "npm run build-components-doc && npm run generate-example-translations && npm run build-examples-doc",
-            "cwd": "."
+            "executor": "nx:run-commands",
+            "options": {
+                "command": "npm run build-components-doc && npm run generate-example-translations && npm run build-examples-doc",
+                "cwd": "."
           }
         },
-      "serve": {
+        "serve": {
             "executor": "@angular-devkit/build-angular:dev-server",
             "options": {
                 "browserTarget": "examples:build"

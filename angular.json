@@ -1,12 +1,12 @@
 {
-    "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
-    "version": 2,
-    "newProjectRoot": "projects",
-    "projects": {
-        "components": "projects/components",
-        "examples": "projects/examples",
-        "i18n": "projects/i18n",
-        "ng-live-docs": "projects/ng-live-docs",
-        "route-analyzer": "projects/route-analyzer"
-    }
+  "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
+  "version": 2,
+  "newProjectRoot": "projects",
+  "projects": {
+    "components": "projects/components",
+    "examples": "projects/examples",
+    "i18n": "projects/i18n",
+    "ng-live-docs": "projects/ng-live-docs",
+    "route-analyzer": "projects/route-analyzer"
+  }
 }

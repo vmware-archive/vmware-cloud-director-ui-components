@@ -1,6 +1,5 @@
 {
     "projectType": "library",
-    "root": "projects/route-analyzer",
     "sourceRoot": "projects/route-analyzer/src",
     "prefix": "vcd",
     "targets": {
