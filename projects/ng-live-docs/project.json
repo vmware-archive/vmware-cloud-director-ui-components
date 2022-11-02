@@ -2,13 +2,12 @@
     "name": "ng-live-docs",
     "$schema": "../../node_modules/nx/schemas/project-schema.json",
     "projectType": "library",
-    "root": "projects/ng-live-docs",
     "sourceRoot": "projects/ng-live-docs/src",
     "prefix": "vmw",
     "targets": {
         "pre-build": {
             "executor": "@nrwl/angular:package",
-            "outputs": ["dist/ng-live-docs"],
+            "outputs": ["{workspaceRoot}/dist/ng-live-docs"],
             "options": {
                 "project": "projects/ng-live-docs/ng-package.json"
             },
@@ -22,7 +21,6 @@
             },
             "defaultConfiguration": "production"
         },
-
         "build": {
             "executor": "nx:run-commands",
             "options": {
@@ -35,7 +33,6 @@
             },
             "dependsOn": ["pre-build"]
         },
-
         "test": {
             "executor": "@angular-devkit/build-angular:karma",
             "options": {

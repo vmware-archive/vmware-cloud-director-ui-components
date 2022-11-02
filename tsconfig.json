@@ -14,10 +14,11 @@
         "typeRoots": ["node_modules/@types"],
         "lib": ["es2018", "dom", "es2020.string"],
         "paths": {
-          "@vcd/i18n": ["dist/i18n"],
-          "@vcd/ui-components": ["./projects/components/src/index.ts"],
-          "@vmw/ng-live-docs": ["./projects/ng-live-docs/src/public-api.ts"],
-          "@vcd/route-analyzer": ["./projects/route-analyzer/src/public-api.ts"]        },
+            "@vcd/i18n": ["./dist/i18n"],
+            "@vcd/route-analyzer": ["./projects/route-analyzer/src/public-api.ts"],
+            "@vcd/ui-components": ["./projects/components/src/index.ts"],
+            "@vmw/ng-live-docs": ["./projects/ng-live-docs/src/public-api.ts"]
+        },
         "resolveJsonModule": true,
         "esModuleInterop": true
     },

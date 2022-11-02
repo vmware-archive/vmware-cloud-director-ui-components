@@ -2,14 +2,12 @@
     "name": "components",
     "$schema": "../../node_modules/nx/schemas/project-schema.json",
     "projectType": "library",
-    "root": "projects/components",
     "sourceRoot": "projects/components/src",
     "prefix": "vcd",
-
     "targets": {
         "pre-build": {
             "executor": "@nrwl/angular:package",
-            "outputs": ["dist/components"],
+            "outputs": ["{workspaceRoot}/dist/components"],
             "options": {
                 "project": "projects/components/ng-package.json"
             },
@@ -24,7 +22,6 @@
             "defaultConfiguration": "production",
             "dependsOn": ["^build"]
         },
-
         "build": {
             "executor": "nx:run-commands",
             "options": {
