@@ -25,7 +25,8 @@
         "default",
         "^default",
         "{workspaceRoot}/jest.preset.js"
-      ]
+      ],
+      "dependsOn": ["^build"]
     }
   },
   "namedInputs": {
