@@ -12,8 +12,8 @@
     "tls": false
   },
   "scripts": {
-    "build:examples-prod": "",
     "e2e": "cypress open",
+    "test:components:debug": "nx test components --watch=true --browsers=Chrome",
     "postinstall": "ngcc --properties es2020 browser module main"
   },
   "private": true,

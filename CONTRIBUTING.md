@@ -21,10 +21,11 @@ This is a rough outline of what a contributor's workflow looks like:
 -   Every commit must contain unit tests, striving for full coverage. If full coverage cannot be achieved, the Pull
     Request should explain why tests could not be written.
 -   Descriptive Pull Requests:
-
     -   Include list of steps for manual testing
     -   Explain alternatives that were considered
     -   For bug fixes, explain what was causing the issue, don't repeat the text from the issue
+    -   Always update the respective [CHANGELOG](projects/components/CHANGELOG.MD) when making changes into the 
+        `## [Unreleased]` section so are available when a release is published.
 
 # Merge vs fast-forward
 
@@ -68,6 +69,8 @@ Be sure to add a comment to the PR indicating your new changes are ready to revi
 notification when you git push.
 
 ### Code Style
+Handled by prettier. Your code will be formatted before committing but IntelliJ and VS Code can use prettier as its
+formatting tool.
 
 ### Formatting Commit Messages
 

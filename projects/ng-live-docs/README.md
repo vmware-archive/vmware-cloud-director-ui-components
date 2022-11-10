@@ -132,4 +132,4 @@ Your application may host compodoc to allow the type arguments in the API viewer
 
 -   Generate the compodoc by running compodoc -p tsconfig.json in your relevant library.
 -   Add this generated folder to the assets of your Angular app
--   Pass an extra argument to NgLiveDocsModule.forRoot to indicate the the URL of compodoc assets
+-   Pass an extra argument to NgLiveDocsModule.forRoot to indicate the URL of compodoc assets
