@@ -37,156 +37,52 @@ jobs:
                   GH_TOKEN: ${{ secrets.GH_TOKEN }}
 
     publish-components:
-        if: contains(github.event.head_commit.message, '[publish @vcd/ui-components')
-            && github.event_name == 'push'
-            && github.ref == 'refs/heads/master'
         needs: [nx-build]
         runs-on: ubuntu-latest
+        # Optimization to avoid checking out the code when not needed
+        if: contains(github.event.head_commit.message, '[publish @vcd/ui-components')
         steps:
             - uses: actions/checkout@v3
-            # Default registry is github's internal npm registry
-            - name: Setup Node registry
-              uses: actions/setup-node@v1
+            - uses: ./.github/actions/publish
               with:
-                  node-version: 16.10.0
-                  registry-url: https://registry.npmjs.org/
-            - uses: bahmutov/npm-install@v1
-
-            - name: Check if package.json changed
-              id: check-version
-              uses: EndBug/version-check@v2
-              with:
-                  diff-search: true
-                  file-name: ./projects/components/package.json
-
-            - name: Publish components@next
-              if: contains(github.event.head_commit.message, '[publish @vcd/ui-components]')
-              run: |
-                  npx nx build components
-                  cd ./dist/components
-                  npm publish --tag next --access public
-              env:
-                  NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}
-
-            - name: Publish components@latest
-              if: contains(github.event.head_commit.message, '[publish @vcd/ui-components@latest]')
-              run: |
-                  npx nx build components
-                  cd ./dist/components
-                  npm publish
-              env:
-                  NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}
+                  nx-name: components
+                  npm-name: '@vcd/ui-components'
+                  npm-token: ${{inputs.npm-token}}
 
     publish-i18n:
-        if: contains(github.event.head_commit.message, '[publish @vcd/i18n')
-            && github.event_name == 'push'
-            && github.ref == 'refs/heads/master'
         needs: [nx-build]
         runs-on: ubuntu-latest
+        # Optimization to avoid checking out the code when not needed
+        if: contains(github.event.head_commit.message, '[publish @vcd/i18n')
         steps:
             - uses: actions/checkout@v3
-            # Default registry is github's internal npm registry
-            - name: Setup Node registry
-              uses: actions/setup-node@v3
+            - uses: ./.github/actions/publish
               with:
-                  node-version: 16.10.0
-                  registry-url: https://registry.npmjs.org/
-            - uses: bahmutov/npm-install@v1
-            - name: Check if package.json changed
-              id: check-version
-              uses: EndBug/version-check@v2
-              with:
-                  diff-search: true
-                  file-name: ./projects/i18n/package.json
-
-            - name: Publish i18n@next
-              if: contains(github.event.head_commit.message, '[publish @vcd/i18n]')
-              run: |
-                  npx nx build i18n
-                  cd ./dist/i18n
-                  npm publish --tag next --access public
-              env:
-                  NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}
-
-            - name: Publish i18n@latest
-              if: contains(github.event.head_commit.message, '[publish @vcd/i18n@latest]')
-              run: |
-                  npx nx build i18n
-                  cd ./dist/i18n
-                  npm publish
-              env:
-                  NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}
+                  nx-name: i18n
+                  npm-name: '@vcd/i18n'
+                  npm-token: ${{inputs.npm-token}}
 
     publish-route-analyzer:
-        if: contains(github.event.head_commit.message, '[publish @vcd/route-analyzer')
-            && github.event_name == 'push'
-            && github.ref == 'refs/heads/master'
         needs: [nx-build]
         runs-on: ubuntu-latest
+        # Optimization to avoid checking out the code when not needed
+        if: contains(github.event.head_commit.message, '[publish @vcd/route-analyzer')
         steps:
             - uses: actions/checkout@v3
-            # Default registry is github's internal npm registry
-            - name: Setup Node registry
-              uses: actions/setup-node@v3
+            - uses: ./.github/actions/publish
               with:
-                  node-version: 16.10.0
-                  registry-url: https://registry.npmjs.org/
-            - uses: bahmutov/npm-install@v1
-            - name: Check if package.json changed
-              id: check-version
-              uses: EndBug/version-check@v2
-              with:
-                  diff-search: true
-                  file-name: ./projects/route-analyzer/package.json
-
-            - name: Publish route-analyzer@next
-              if: contains(github.event.head_commit.message, '[publish @vcd/route-analyzer]')
-              run: |
-                  npx nx build route-analyzer
-                  cd ./dist/route-analyzer
-                  npm publish --tag next --access public
-              env:
-                  NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}
-
-            - name: Publish route-analyzer@latest
-              if: contains(github.event.head_commit.message, '[publish @vcd/route-analyzer@latest]')
-              run: |
-                  npx nx build route-analyzer
-                  cd ./dist/route-analyzer
-                  npm publish
-              env:
-                  NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}
+                  nx-name: route-analyzer
+                  npm-name: '@vcd/route-analyzer'
+                  npm-token: ${{inputs.npm-token}}
 
     publish-ng-live-docs:
-        if: contains(github.event.head_commit.message, '[publish @vmw/ng-live-docs')
-            && github.event_name == 'push'
-            && github.ref == 'refs/heads/master'
         needs: [nx-build]
         runs-on: ubuntu-latest
+        # Optimization to avoid checking out the code when not needed
+        if: contains(github.event.head_commit.message, '[publish @vmw/ng-live-docs')
         steps:
             - uses: actions/checkout@v3
-            # Default registry is github's internal npm registry
-            - name: Setup Node registry
-              uses: actions/setup-node@v3
+            - uses: ./.github/actions/publish
               with:
-                  node-version: 16.10.0
-                  registry-url: https://registry.npmjs.org/
-            - uses: bahmutov/npm-install@v1
-
-            - name: Publish ng-live-docs@next
-              if: contains(github.event.head_commit.message, '[publish @vmw/ng-live-docs]')
-              run: |
-                  npx nx build ng-live-docs
-                  cd ./dist/ng-live-docs
-                  npm publish --tag next --access public
-              env:
-                  NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}
-
-            - name: Publish ng-live-docs@latest
-              if: contains(github.event.head_commit.message, '[publish @vmw/ng-live-docs@latest]')
-              run: |
-                  npx nx build ng-live-docs
-                  cd ./dist/ng-live-docs
-                  npm publish
-              env:
-                  NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}
+                  nx-name: ng-live-docs
+                  npm-name: '@vmw/ng-live-docs'

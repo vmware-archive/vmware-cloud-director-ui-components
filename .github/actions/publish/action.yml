@@ -1,0 +1,45 @@
+name: 'Publish VCD-UI Library'
+description: 'Publishes one of the packages in this repo as latest or next'
+inputs:
+    nx-name:
+        description: 'Name of project as used in nx commands'
+        required: true
+
+    npm-name:
+        description: 'Name of project as will be published to npm'
+        required: true
+
+    npm-token:
+        description: 'Token to be used when publishing'
+        required: true
+
+runs:
+    using: "composite"
+    steps:
+        # Default registry is github's internal npm registry
+        - name: Setup Node registry
+          uses: actions/setup-node@v3
+          with:
+              node-version: 16.10.0
+              registry-url: https://registry.npmjs.org/
+        - uses: bahmutov/npm-install@v1
+
+        - name: 'Publish ${{ inputs.npm-name }}@next'
+          if: contains(github.event.head_commit.message, '[publish ${{ inputs.npm-name }}]'))
+          run: |
+              npx nx build ${{ inputs.nx-name }}
+              cd ./dist/${{ inputs.nx-name }}
+              npm publish --tag next --access public
+          shell: bash
+          env:
+              NODE_AUTH_TOKEN: ${{inputs.npm-token}}
+
+        - name: 'Publish ${{ inputs.npm-name}}@latest'
+          if: contains(github.event.head_commit.message, '[publish ${{inputs.npm-name}}@latest]')
+          run: |
+              npx nx build ${{ inputs.nx-name }}
+              cd ./dist/${{ inputs.nx-name }}
+              npm publish --access public
+          shell: bash
+          env:
+              NODE_AUTH_TOKEN: ${{inputs.npm-token}}
