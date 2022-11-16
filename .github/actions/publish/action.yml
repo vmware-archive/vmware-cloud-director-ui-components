@@ -13,6 +13,10 @@ inputs:
         description: 'Token to be used when publishing'
         required: true
 
+    npm-publish-tag:
+        description: 'what to pass as the --tag option when calling `npm publish`'
+        required: true
+
 runs:
     using: "composite"
     steps:
@@ -24,22 +28,12 @@ runs:
               registry-url: https://registry.npmjs.org/
         - uses: bahmutov/npm-install@v1
 
-        - name: 'Publish ${{ inputs.npm-name }}@next'
-          if: contains(github.event.head_commit.message, '[publish ${{ inputs.npm-name }}]'))
+        - name: 'Publish ${{ inputs.npm-name }}@${{ inputs.npm-publish-tag }}'
           run: |
               npx nx build ${{ inputs.nx-name }}
               cd ./dist/${{ inputs.nx-name }}
-              npm publish --tag next --access public
+              npm publish --tag ${{ inputs.npm-publish-tag }} --access public  --dry-run
           shell: bash
           env:
               NODE_AUTH_TOKEN: ${{inputs.npm-token}}
 
-        - name: 'Publish ${{ inputs.npm-name}}@latest'
-          if: contains(github.event.head_commit.message, '[publish ${{inputs.npm-name}}@latest]')
-          run: |
-              npx nx build ${{ inputs.nx-name }}
-              cd ./dist/${{ inputs.nx-name }}
-              npm publish --access public
-          shell: bash
-          env:
-              NODE_AUTH_TOKEN: ${{inputs.npm-token}}

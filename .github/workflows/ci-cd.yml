@@ -29,60 +29,14 @@ jobs:
         name: Deploying to Github pages
         needs: [nx-build]
         steps:
+            -   uses: actions/checkout@v3
+            -   uses: actions/setup-node@v3
+                with:
+                    node-version: 16.10.0
+            -   uses: bahmutov/npm-install@v1
             - run: |
                   npx nx build examples --configuration=production --base-href=/vmware-cloud-director-ui-components/
                   npx ng deploy --no-build
               if: github.event_name == 'push' && github.ref == 'refs/heads/master'
               env:
                   GH_TOKEN: ${{ secrets.GH_TOKEN }}
-
-    publish-components:
-        needs: [nx-build]
-        runs-on: ubuntu-latest
-        # Optimization to avoid checking out the code when not needed
-        if: contains(github.event.head_commit.message, '[publish @vcd/ui-components')
-        steps:
-            - uses: actions/checkout@v3
-            - uses: ./.github/actions/publish
-              with:
-                  nx-name: components
-                  npm-name: '@vcd/ui-components'
-                  npm-token: ${{inputs.npm-token}}
-
-    publish-i18n:
-        needs: [nx-build]
-        runs-on: ubuntu-latest
-        # Optimization to avoid checking out the code when not needed
-        if: contains(github.event.head_commit.message, '[publish @vcd/i18n')
-        steps:
-            - uses: actions/checkout@v3
-            - uses: ./.github/actions/publish
-              with:
-                  nx-name: i18n
-                  npm-name: '@vcd/i18n'
-                  npm-token: ${{inputs.npm-token}}
-
-    publish-route-analyzer:
-        needs: [nx-build]
-        runs-on: ubuntu-latest
-        # Optimization to avoid checking out the code when not needed
-        if: contains(github.event.head_commit.message, '[publish @vcd/route-analyzer')
-        steps:
-            - uses: actions/checkout@v3
-            - uses: ./.github/actions/publish
-              with:
-                  nx-name: route-analyzer
-                  npm-name: '@vcd/route-analyzer'
-                  npm-token: ${{inputs.npm-token}}
-
-    publish-ng-live-docs:
-        needs: [nx-build]
-        runs-on: ubuntu-latest
-        # Optimization to avoid checking out the code when not needed
-        if: contains(github.event.head_commit.message, '[publish @vmw/ng-live-docs')
-        steps:
-            - uses: actions/checkout@v3
-            - uses: ./.github/actions/publish
-              with:
-                  nx-name: ng-live-docs
-                  npm-name: '@vmw/ng-live-docs'
