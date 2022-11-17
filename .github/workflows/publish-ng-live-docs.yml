@@ -1,0 +1,16 @@
+name: Publish @vcd/ng-live-docs@latest
+
+on: [ workflow_dispatch ]
+
+
+jobs:
+    publish-components:
+        runs-on: ubuntu-latest
+        steps:
+            - uses: actions/checkout@v3
+            - uses: ./.github/actions/publish
+              with:
+                  nx-name: ng-live-docs
+                  npm-name: '@vmw/ng-live-docs'
+                  npm-publish-tag: latest
+                  npm-token: ${{ secrets.GH_TOKEN }}

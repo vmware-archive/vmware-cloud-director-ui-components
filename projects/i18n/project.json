@@ -1,0 +1,39 @@
+{
+    "name": "i18n",
+    "$schema": "../../node_modules/nx/schemas/project-schema.json",
+    "projectType": "library",
+    "sourceRoot": "projects/i18n/src",
+    "prefix": "vcd",
+    "targets": {
+        "build": {
+            "executor": "@nrwl/angular:package",
+            "outputs": ["{workspaceRoot}/dist/i18n"],
+            "options": {
+                "project": "projects/i18n/ng-package.json"
+            },
+            "configurations": {
+                "production": {
+                    "tsConfig": "projects/i18n/tsconfig.lib.prod.json"
+                },
+                "development": {
+                    "tsConfig": "projects/i18n/tsconfig.lib.json"
+                }
+            },
+            "defaultConfiguration": "production"
+        },
+        "test": {
+            "executor": "@angular-devkit/build-angular:karma",
+            "options": {
+                "main": "projects/i18n/src/test.ts",
+                "tsConfig": "projects/i18n/tsconfig.spec.json",
+                "karmaConfig": "projects/i18n/karma.conf.js"
+            }
+        },
+        "lint": {
+            "executor": "@angular-eslint/builder:lint",
+            "options": {
+                "lintFilePatterns": ["projects/i18n/**/*.ts", "projects/i18n/**/*.html"]
+            }
+        }
+    }
+}

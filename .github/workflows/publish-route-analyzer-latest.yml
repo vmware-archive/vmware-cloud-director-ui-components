@@ -1,0 +1,15 @@
+name: Publish @vcd/route-analyzer@latest
+
+on: [ workflow_dispatch ]
+
+jobs:
+    publish-components:
+        runs-on: ubuntu-latest
+        steps:
+            - uses: actions/checkout@v3
+            - uses: ./.github/actions/publish
+              with:
+                  nx-name: route-analyzer
+                  npm-name: '@vcd/route-analyzer'
+                  npm-publish-tag: latest
+                  npm-token: ${{ secrets.GH_TOKEN }}

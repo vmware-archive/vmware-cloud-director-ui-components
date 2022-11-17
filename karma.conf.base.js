@@ -23,8 +23,8 @@ module.exports = function generateKarmaConf(projectName) {
             port: 9876,
             colors: true,
             logLevel: config.LOG_INFO,
-            autoWatch: true,
-            browsers: ['Chrome'],
+            autoWatch: false,
+            browsers: ['ChromeHeadless'],
             customLaunchers: {
                 ChromeHeadlessNoSandbox: {
                     base: 'ChromeHeadless',
@@ -32,6 +32,7 @@ module.exports = function generateKarmaConf(projectName) {
                 },
             },
             singleRun: true,
+            codeCoverage: true,
             restartOnFileChange: true,
         });
     };

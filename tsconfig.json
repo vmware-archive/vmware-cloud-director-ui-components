@@ -1,46 +1,29 @@
 {
-  "compileOnSave": false,
-  "compilerOptions": {
-    "baseUrl": "./",
-    "outDir": "./dist/out-tsc",
-    "sourceMap": true,
-    "declaration": false,
-    "downlevelIteration": true,
-    "experimentalDecorators": true,
-    "module": "es2020",
-    "moduleResolution": "node",
-    "importHelpers": true,
-    "target": "es2017",
-    "typeRoots": [
-      "node_modules/@types"
-    ],
-    "lib": [
-      "es2018",
-      "dom",
-      "es2020.string"
-    ],
-    "paths": {
-      "@vcd/ui-components": [
-        "dist/components"
-      ],
-      "@vcd/i18n": [
-        "dist/i18n"
-      ],
-      "@vmw/ng-live-docs": [
-        "dist/ng-live-docs"
-      ],
-      "route-analyzer": [
-        "dist/route-analyzer"
-      ],
-      "route-analyzer/*": [
-        "dist/route-analyzer/*"
-      ]
+    "compileOnSave": false,
+    "compilerOptions": {
+        "baseUrl": "./",
+        "outDir": "./dist/out-tsc",
+        "sourceMap": true,
+        "declaration": false,
+        "downlevelIteration": true,
+        "experimentalDecorators": true,
+        "module": "es2020",
+        "moduleResolution": "node",
+        "importHelpers": true,
+        "target": "es2017",
+        "typeRoots": ["node_modules/@types"],
+        "lib": ["es2018", "dom", "es2020.string"],
+        "paths": {
+            "@vcd/i18n": ["./dist/i18n"],
+            "@vcd/route-analyzer": ["./projects/route-analyzer/src/public-api.ts"],
+            "@vcd/ui-components": ["./projects/components/src/index.ts"],
+            "@vmw/ng-live-docs": ["./projects/ng-live-docs/src/public-api.ts"]
+        },
+        "resolveJsonModule": true,
+        "esModuleInterop": true
     },
-    "resolveJsonModule": true,
-    "esModuleInterop": true
-  },
-  "angularCompilerOptions": {
-    "fullTemplateTypeCheck": true,
-    "strictInjectionParameters": true
-  }
+    "angularCompilerOptions": {
+        "fullTemplateTypeCheck": true,
+        "strictInjectionParameters": true
+    }
 }

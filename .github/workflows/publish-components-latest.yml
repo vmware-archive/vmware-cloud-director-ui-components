@@ -1,0 +1,15 @@
+name: Publish @vcd/ui-components@latest
+
+on: [ workflow_dispatch ]
+
+jobs:
+    publish-components:
+        runs-on: ubuntu-latest
+        steps:
+            - uses: actions/checkout@v3
+            - uses: ./.github/actions/publish
+              with:
+                  nx-name: components
+                  npm-name: '@vcd/ui-components'
+                  npm-publish-tag: latest
+                  npm-token: ${{ secrets.GH_TOKEN }}

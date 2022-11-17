@@ -27,7 +27,7 @@ imports: [
 Then, in the constructor of your App Module, inject the `TranslationService` and call `registerTranslations`. If you wish
 to load translations as imported Typescript files, pass the relevant `TranslationSet`. If you wish to load via HTTP, pass no arguments.
 
-I.E.:
+Example:
 
 ```
 constructor(translationService: TranslationService) {
@@ -44,12 +44,8 @@ can use the `TranslationPipe` in any HTML files to translate strings:
 
 ## Build
 
-Run `npm run build:i18n` to build the project. The build artifacts will be stored in the `dist/` directory.
-
-## Publishing
-
-After building your library with `npm run build:i18n`, go to the dist folder `cd dist/i18n` and run `npm publish`.
+Run `nx build i18n` to build the project. The build artifacts will be stored in the `dist/` directory.
 
 ## Running unit tests
 
-Run `npm run test:i18n` to execute the unit tests via [Karma](https://karma-runner.github.io).
+Run `nx test i18n` to execute the unit tests via [Karma](https://karma-runner.github.io).
