@@ -29,15 +29,15 @@ jobs:
         runs-on: ubuntu-latest
         name: Deploying to Github pages
         needs: [nx-build]
+        if: github.event_name == 'push' && github.ref == 'refs/heads/master'
         steps:
-            -   uses: actions/checkout@v3
-            -   uses: actions/setup-node@v3
-                with:
-                    node-version: 16.10.0
-            -   uses: bahmutov/npm-install@v1
-            - run: |
-                  npx nx build examples --configuration=production --base-href=/vmware-cloud-director-ui-components/
-                  npx ng deploy --no-build
-              if: github.event_name == 'push' && github.ref == 'refs/heads/master'
+            - uses: actions/checkout@v3
+            - uses: actions/setup-node@v3
+              with:
+                  node-version: 16.10.0
+            - uses: bahmutov/npm-install@v1
+              run: |
+                npx nx build examples --configuration=production --base-href=/vmware-cloud-director-ui-components/
+                npx ng deploy --no-build
               env:
-                  GH_TOKEN: ${{ secrets.GH_TOKEN }}
+                GH_TOKEN: ${{ secrets.GH_TOKEN }}
