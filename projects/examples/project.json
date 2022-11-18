@@ -9,7 +9,7 @@
     "sourceRoot": "projects/examples/src",
     "prefix": "vcd",
     "targets": {
-        "build": {
+        "build":  {
             "executor": "@angular-devkit/build-angular:browser",
             "options": {
                 "preserveSymlinks": true,
@@ -66,7 +66,7 @@
                 }
             },
             "defaultConfiguration": "",
-            "dependsOn": ["build-base"]
+            "dependsOn": ["build-components-doc", "build-examples-doc", "generate-example-translations"]
         },
         "build-components-doc": {
             "executor": "nx:run-commands",
@@ -78,7 +78,8 @@
                 ],
                 "cwd": ".",
                 "parallel": false
-            }
+            },
+            "dependsOn": ["^build"]
         },
         "build-examples-doc": {
             "executor": "nx:run-commands",
@@ -89,7 +90,8 @@
                 ],
                 "parallel": false,
                 "cwd": "."
-            }
+            },
+            "dependsOn": ["^build"]
         },
 
         "generate-example-translations": {
@@ -97,11 +99,8 @@
             "options": {
                 "command": "node projects/i18n/scripts/index.js dist/components/i18n.json projects/examples/src/assets/our-translations.json projects/examples/src/assets/i18n.json",
                 "cwd": "."
-            }
-        },
-
-        "build-base": {
-            "dependsOn": ["^build", "build-components-doc", "build-examples-doc", "generate-example-translations"]
+            },
+            "dependsOn": ["^build"]
         },
 
         "serve": {

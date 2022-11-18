@@ -30,9 +30,9 @@ runs:
 
         - name: 'Publish ${{ inputs.npm-name }}@${{ inputs.npm-publish-tag }}'
           run: |
-              npx nx build ${{ inputs.nx-name }}
+              npx nx build ${{ inputs.nx-name }} --configuration=production
               cd ./dist/${{ inputs.nx-name }}
-              npm publish --tag ${{ inputs.npm-publish-tag }} --access public  --dry-run
+              npm publish --tag ${{ inputs.npm-publish-tag }} --access public
           shell: bash
           env:
               NODE_AUTH_TOKEN: ${{inputs.npm-token}}
