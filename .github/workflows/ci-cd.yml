@@ -36,7 +36,7 @@ jobs:
               with:
                   node-version: 16.10.0
             - uses: bahmutov/npm-install@v1
-              run: |
+            - run: |
                 npx nx build examples --configuration=production --base-href=/vmware-cloud-director-ui-components/
                 npx ng deploy --no-build
               env:
