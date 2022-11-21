@@ -46,16 +46,15 @@ as an open-source patch.</p>
 </ul>
 <h2 id="contribution-requirements">Contribution Requirements</h2>
 <ul>
-<li><p>Public/exported members must be documented using <a href="https://github.com/microsoft/tsdoc">tsdoc</a></p>
-</li>
-<li><p>Every commit must contain unit tests, striving for full coverage. If full coverage cannot be achieved, the Pull
-Request should explain why tests could not be written.</p>
-</li>
-<li><p>Descriptive Pull Requests:</p>
-<ul>
+<li>Public/exported members must be documented using <a href="https://github.com/microsoft/tsdoc">tsdoc</a></li>
+<li>Every commit must contain unit tests, striving for full coverage. If full coverage cannot be achieved, the Pull
+Request should explain why tests could not be written.</li>
+<li>Descriptive Pull Requests:<ul>
 <li>Include list of steps for manual testing</li>
 <li>Explain alternatives that were considered</li>
 <li>For bug fixes, explain what was causing the issue, don&#39;t repeat the text from the issue</li>
+<li>Always update the respective <a href="projects/components/CHANGELOG.MD">CHANGELOG</a> when making changes into the 
+<code>## [Unreleased]</code> section so are available when a release is published.</li>
 </ul>
 </li>
 </ul>
@@ -80,6 +79,8 @@ git rebase -i --autosquash master
 git push --force-with-lease origin my-new-feature</code></pre></div><p>Be sure to add a comment to the PR indicating your new changes are ready to review, as GitHub does not generate a
 notification when you git push.</p>
 <h3 id="code-style">Code Style</h3>
+<p>Handled by prettier. Your code will be formatted before committing but IntelliJ and VS Code can use prettier as its
+formatting tool.</p>
 <h3 id="formatting-commit-messages">Formatting Commit Messages</h3>
 <p>We follow the conventions on <a href="http://chris.beams.io/posts/git-commit/">How to Write a Git Commit Message</a>.</p>
 <p>Be sure to include any related GitHub issue references in the commit message. See

@@ -32,41 +32,49 @@
 
 <h1 id="vmware-cloud-director-ui-common-components">VMware Cloud Director UI Common Components</h1>
 <h2 id="repo-structure">Repo Structure</h2>
-<p>This <a href="https://angular.io/guide/file-structure#multiple-projects">monorepo</a> contains five separate but related projects:</p>
+<p>This <a href="https://angular.io/guide/file-structure#multiple-projects">monorepo</a> uses <a href="https://nx.dev/">NX</a>. You
+can install nx globally but we suggest you always use <code>npx nx</code> from inside the project. That ensures you&#39;re
+using our NX version.
+To test, build, or run any of its projects, run <code>nx test|build|lint {project}</code> where <code>project</code> can be:</p>
+<ul>
+<li><code>components</code></li>
+<li><code>i18n</code></li>
+<li><code>ng-live-docs</code></li>
+<li><code>route-analyzer</code></li>
+</ul>
+<h4 id="online-examples">Online Examples</h4>
+<p>The examples application is deployed using <a href=".github/workflows/ci-cd.yml">GitHub Actions</a>. Visit
+<a href="https://vmware.github.io/vmware-cloud-director-ui-components/">our examples site</a> for live examples with source
+code that you can edit/run on stackblitz.</p>
+<p>To serve the examples applications, run <code>nx serve</code>, making sure you have run <code>npm ci</code> after fetching latest.</p>
 <h3 id="component-library-projectscomponents-vcdui-components">Component Library (./projects/components) <code>@vcd/ui-components</code></h3>
 <p>Reusable components for vcd-ui and its plugin developers. See its <a href="projects/components/README.md">README</a>
 for further details.</p>
 <h3 id="internalization-library-projectsi18n-vcdi18n">Internalization Library (./projects/i18n) <code>@vcd/i18n</code></h3>
 <p>Translation code for vcd-ui and its plugin developers. See its <a href="projects/i18n/README.md">README</a>
 for further details.</p>
+<h3 id="ng-live-docs-projectsng-live-docs-vmwng-live-docs">NG Live docs (./projects/ng-live-docs) <code>@vmw/ng-live-docs</code>.</h3>
+<p>Enables Angular based UI component libraries to embed editable code snippets in their application. It was created
+since storybook didn&#39;t support Angular when this was created.</p>
+<p>See <a href="https://vmware.github.io/vmware-cloud-director-ui-components/dataExporter">https://vmware.github.io/vmware-cloud-director-ui-components/dataExporter</a> for an example and its
+<a href="projects/ng-live-docs/README.md">README</a> for further details.</p>
 <h3 id="route-analyzer-projectsroute-analyzer-vcdroute-analyzer">Route Analyzer (./projects/route-analyzer) <code>@vcd/route-analyzer</code>.</h3>
 <p>Route Analyzer statically analyzes angular source code and generates a json file with all the available routes,
 including the ones from lazy loaded modules. See its <a href="projects/route-analyzer/README.md">README</a>
 for further details.</p>
-<h3 id="ng-live-docs-projectsng-live-docs-vmwng-live-docs">NG Live docs (./projects/ng-live-docs) <code>@vmw/ng-live-docs</code>.</h3>
-<p>Enables Angular based UI component libraries to embed editable code snippets win their showcase style application.</p>
-<p>See <a href="https://vmware.github.io/vmware-cloud-director-ui-components/dataExporter">https://vmware.github.io/vmware-cloud-director-ui-components/dataExporter</a> for an example and its
-<a href="projects/ng-live-docs/README.md">README</a> for further details.</p>
-<h3 id="examples-app-projectsexamples">Examples App (./projects/examples)</h3>
-<p>The application that showcases <code>@vcd/ui-components</code> using <code>@vmw/ng-live-docs</code>.</p>
-<p>Run <code>npm install</code> first. Then run <code>npm run build:i18n</code> followed by <code>npm run build:components</code> to build.</p>
-<p>Run <code>npm start</code> for a dev server. Navigate to <code>http://localhost:4200/</code>. The app will automatically reload if
-you change any of the source files. This is where you&#39;ll see changes made in <a href="./projects/components">components</a>.</p>
-<h4 id="online-examples">Online Examples</h4>
-<p>Visit <a href="https://vmware.github.io/vmware-cloud-director-ui-components/">our live examples site</a> for live examples, with source code, that you run on stackblitz. Powered by <a href="https://github.com/vmware/live-docs">Live Docs</a></p>
 <h2 id="peer-dependencies">Peer Dependencies</h2>
 <p>The component library depends on <a href="https://clarity.design/">Clarity</a> and <a href="https://angular.io/">Angular</a>
-which must must be installed from your application&#39;s <code>package.json</code>. See <a href="package.json">package.json</a> for version
+which must be installed from your application&#39;s <code>package.json</code>. See <a href="package.json">package.json</a> for version
 information.</p>
 <h2 id="code-scaffolding">Code scaffolding</h2>
-<p>Run <code>ng generate component component-name</code> to generate a new component. You can also use
-<code>ng generate directive|pipe|service|class|guard|interface|enum|module</code>.</p>
-<h2 id="build">Build</h2>
-<p>Run <code>npm run build:i18n</code> and <code>npm run build:components</code>. The build artifacts will be stored in the <code>dist/</code> directory.</p>
+<p>To generate a new component, service or directive, run <code>nx g component|service|direct --project=components</code>.</p>
 <h2 id="running-unit-tests">Running unit tests</h2>
-<p>Run <code>npm run test:components</code>, or <code>npm run test:i18n</code> to execute the unit tests via <a href="https://karma-runner.github.io">Karma</a>.</p>
+<p>Run <code>nx test {project}</code>. If you want to debug karma unit tests, you can pass <code>--watch=true --browsers=Chrome</code>. Notice
+that route analyzer uses jest. <a href="https://www.jetbrains.com/help/idea/running-unit-tests-on-jest.html">IntelliJ</a> and
+<a href="https://gist.github.com/jherax/231b2dda7f9cce20e13f4590594fdb70">VS Code</a> both have tools to debug node applications
+from its IDE.</p>
 <h2 id="running-end-to-end-tests-examples-app">Running end-to-end tests (Examples App)</h2>
-<p>Run <code>ng e2e</code> to execute the end-to-end tests via <a href="http://www.protractortest.org/">Protractor</a>.</p>
+<p>Run <code>npm run e2e</code> to execute the end-to-end tests with Cypress</p>
 <h2 id="cloning-the-repo">Cloning the repo</h2>
 <p>We typically use <code>git clone https://github.com/vmware/vmware-cloud-director-ui-components ./vcd-ui-common</code> to avoid
 the extremely long folder name.</p>
@@ -98,14 +106,12 @@ anywhere in your commit message:</p>
 </ul>
 <p>Note that <code>@latest</code> releases are only to be created when we release a version of VCD. Most releases, except for the
 final release that is used by a release of VCD, should be <code>@next</code>.</p>
+<p>Be sure to always update the <a href="projects/components/CHANGELOG.MD">CHANGELOG</a> for the project you&#39;re updating.</p>
 <p>Merging the PR will publish the mentioned packages when it&#39;s pushed to master</p>
-<h2 id="angular-cli">Angular CLI</h2>
-<p>This project was generated with <a href="https://github.com/angular/angular-cli">Angular CLI</a> version 8.3.20. We attempt to
-keep the project following CLI guidelines so we can benefit from ng update.</p>
 <h2 id="further-help">Further help</h2>
-<p>To get further help, please file issues on github.</p>
-<p>To get more help on the Angular CLI use <code>ng help</code> or go check out the
-<a href="https://github.com/angular/angular-cli/blob/master/README.md">Angular CLI README</a>.</p>
+<p>To get further help, please file issues on GitHub.</p>
+<p>To get more help on NX, use <code>nx --help</code> or go check out the
+<a href="https://nx.dev/recipes/adopting-nx/migration-angular">NX for Angular instructions</a>.</p>
 
 
 

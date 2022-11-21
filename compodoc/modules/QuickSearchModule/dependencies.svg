@@ -14,21 +14,21 @@
 <title>cluster_QuickSearchModule</title>
 <polygon fill="none" stroke="black" stroke-dasharray="1,5" points="8,-32.8 8,-295.8 606,-295.8 606,-32.8 8,-32.8"/>
 </g>
-<g id="clust5" class="cluster">
-<title>cluster_QuickSearchModule_imports</title>
-<polygon fill="none" stroke="black" points="368,-105.8 368,-157.8 598,-157.8 598,-105.8 368,-105.8"/>
+<g id="clust6" class="cluster">
+<title>cluster_QuickSearchModule_exports</title>
+<polygon fill="none" stroke="black" points="192,-235.8 192,-287.8 366,-287.8 366,-235.8 192,-235.8"/>
 </g>
 <g id="clust4" class="cluster">
 <title>cluster_QuickSearchModule_QuickSearchComponent_providers</title>
-<polygon fill="none" stroke="black" points="164,-40.8 164,-157.8 360,-157.8 360,-40.8 164,-40.8"/>
+<polygon fill="none" stroke="black" points="402,-40.8 402,-157.8 598,-157.8 598,-40.8 402,-40.8"/>
+</g>
+<g id="clust5" class="cluster">
+<title>cluster_QuickSearchModule_imports</title>
+<polygon fill="none" stroke="black" points="164,-105.8 164,-157.8 394,-157.8 394,-105.8 164,-105.8"/>
 </g>
 <g id="clust2" class="cluster">
 <title>cluster_QuickSearchModule_declarations</title>
 <polygon fill="none" stroke="black" points="16,-105.8 16,-157.8 156,-157.8 156,-105.8 16,-105.8"/>
-</g>
-<g id="clust6" class="cluster">
-<title>cluster_QuickSearchModule_exports</title>
-<polygon fill="none" stroke="black" points="175,-235.8 175,-287.8 349,-287.8 349,-235.8 175,-235.8"/>
 </g>
 <!-- DrawerComponent -->
 <g id="node1" class="node">
@@ -39,62 +39,62 @@
 <!-- QuickSearchModule -->
 <g id="node3" class="node">
 <title>QuickSearchModule</title>
-<polygon fill="#8dd3c7" stroke="black" points="327.86,-214.8 324.86,-218.8 303.86,-218.8 300.86,-214.8 196.14,-214.8 196.14,-178.8 327.86,-178.8 327.86,-214.8"/>
-<text text-anchor="middle" x="262" y="-192.6" font-family="Times,serif" font-size="14.00">QuickSearchModule</text>
+<polygon fill="#8dd3c7" stroke="black" points="344.86,-214.8 341.86,-218.8 320.86,-218.8 317.86,-214.8 213.14,-214.8 213.14,-178.8 344.86,-178.8 344.86,-214.8"/>
+<text text-anchor="middle" x="279" y="-192.6" font-family="Times,serif" font-size="14.00">QuickSearchModule</text>
 </g>
 <!-- DrawerComponent&#45;&gt;QuickSearchModule -->
 <g id="edge1" class="edge">
 <title>DrawerComponent&#45;&gt;QuickSearchModule</title>
-<path fill="none" stroke="black" d="M86,-149.91C86,-169.14 86,-196.8 86,-196.8 86,-196.8 185.96,-196.8 185.96,-196.8"/>
-<polygon fill="black" stroke="black" points="185.96,-200.3 195.96,-196.8 185.96,-193.3 185.96,-200.3"/>
+<path fill="none" stroke="black" d="M86,-149.91C86,-169.14 86,-196.8 86,-196.8 86,-196.8 203.12,-196.8 203.12,-196.8"/>
+<polygon fill="black" stroke="black" points="203.12,-200.3 213.12,-196.8 203.12,-193.3 203.12,-200.3"/>
 </g>
 <!-- QuickSearchComponent -->
 <g id="node2" class="node">
 <title>QuickSearchComponent</title>
-<polygon fill="#ffffb3" stroke="black" points="338.64,-149.8 185.36,-149.8 185.36,-113.8 338.64,-113.8 338.64,-149.8"/>
-<text text-anchor="middle" x="262" y="-127.6" font-family="Times,serif" font-size="14.00">QuickSearchComponent</text>
+<polygon fill="#ffffb3" stroke="black" points="569.64,-149.8 416.36,-149.8 416.36,-113.8 569.64,-113.8 569.64,-149.8"/>
+<text text-anchor="middle" x="493" y="-127.6" font-family="Times,serif" font-size="14.00">QuickSearchComponent</text>
 </g>
 <!-- QuickSearchComponent&#45;&gt;QuickSearchModule -->
 <g id="edge2" class="edge">
 <title>QuickSearchComponent&#45;&gt;QuickSearchModule</title>
-<path fill="none" stroke="black" d="M262,-149.91C262,-149.91 262,-168.79 262,-168.79"/>
-<polygon fill="black" stroke="black" points="258.5,-168.79 262,-178.79 265.5,-168.79 258.5,-168.79"/>
+<path fill="none" stroke="black" d="M493,-149.91C493,-169.14 493,-196.8 493,-196.8 493,-196.8 354.95,-196.8 354.95,-196.8"/>
+<polygon fill="black" stroke="black" points="354.95,-193.3 344.95,-196.8 354.95,-200.3 354.95,-193.3"/>
 </g>
 <!-- QuickSearchComponent  -->
 <g id="node6" class="node">
 <title>QuickSearchComponent </title>
-<polygon fill="#fb8072" stroke="black" points="340.63,-279.8 183.37,-279.8 183.37,-243.8 340.63,-243.8 340.63,-279.8"/>
-<text text-anchor="middle" x="262" y="-257.6" font-family="Times,serif" font-size="14.00">QuickSearchComponent </text>
+<polygon fill="#fb8072" stroke="black" points="357.63,-279.8 200.37,-279.8 200.37,-243.8 357.63,-243.8 357.63,-279.8"/>
+<text text-anchor="middle" x="279" y="-257.6" font-family="Times,serif" font-size="14.00">QuickSearchComponent </text>
 </g>
 <!-- QuickSearchModule&#45;&gt;QuickSearchComponent  -->
 <g id="edge5" class="edge">
 <title>QuickSearchModule&#45;&gt;QuickSearchComponent </title>
-<path fill="none" stroke="black" stroke-dasharray="5,2" d="M262,-214.91C262,-214.91 262,-233.79 262,-233.79"/>
-<polygon fill="black" stroke="black" points="258.5,-233.79 262,-243.79 265.5,-233.79 258.5,-233.79"/>
+<path fill="none" stroke="black" stroke-dasharray="5,2" d="M279,-214.91C279,-214.91 279,-233.79 279,-233.79"/>
+<polygon fill="black" stroke="black" points="275.5,-233.79 279,-243.79 282.5,-233.79 275.5,-233.79"/>
 </g>
 <!-- SubscriptionTracker -->
 <g id="node4" class="node">
 <title>SubscriptionTracker</title>
-<ellipse fill="#fdb462" stroke="black" cx="262" cy="-66.8" rx="89.75" ry="18"/>
-<text text-anchor="middle" x="262" y="-62.6" font-family="Times,serif" font-size="14.00">SubscriptionTracker</text>
+<ellipse fill="#fdb462" stroke="black" cx="500" cy="-66.8" rx="89.75" ry="18"/>
+<text text-anchor="middle" x="500" y="-62.6" font-family="Times,serif" font-size="14.00">SubscriptionTracker</text>
 </g>
 <!-- SubscriptionTracker&#45;&gt;QuickSearchComponent -->
 <g id="edge3" class="edge">
 <title>SubscriptionTracker&#45;&gt;QuickSearchComponent</title>
-<path fill="none" stroke="black" d="M262,-84.91C262,-84.91 262,-103.79 262,-103.79"/>
-<polygon fill="black" stroke="black" points="258.5,-103.79 262,-113.79 265.5,-103.79 258.5,-103.79"/>
+<path fill="none" stroke="black" d="M493,-84.91C493,-84.91 493,-103.79 493,-103.79"/>
+<polygon fill="black" stroke="black" points="489.5,-103.79 493,-113.79 496.5,-103.79 489.5,-103.79"/>
 </g>
 <!-- ShowClippedTextDirectiveModule -->
 <g id="node5" class="node">
 <title>ShowClippedTextDirectiveModule</title>
-<polygon fill="#8dd3c7" stroke="black" points="589.52,-149.8 586.52,-153.8 565.52,-153.8 562.52,-149.8 376.48,-149.8 376.48,-113.8 589.52,-113.8 589.52,-149.8"/>
-<text text-anchor="middle" x="483" y="-127.6" font-family="Times,serif" font-size="14.00">ShowClippedTextDirectiveModule</text>
+<polygon fill="#8dd3c7" stroke="black" points="385.52,-149.8 382.52,-153.8 361.52,-153.8 358.52,-149.8 172.48,-149.8 172.48,-113.8 385.52,-113.8 385.52,-149.8"/>
+<text text-anchor="middle" x="279" y="-127.6" font-family="Times,serif" font-size="14.00">ShowClippedTextDirectiveModule</text>
 </g>
 <!-- ShowClippedTextDirectiveModule&#45;&gt;QuickSearchModule -->
 <g id="edge4" class="edge">
 <title>ShowClippedTextDirectiveModule&#45;&gt;QuickSearchModule</title>
-<path fill="none" stroke="black" d="M483,-149.91C483,-169.14 483,-196.8 483,-196.8 483,-196.8 338.01,-196.8 338.01,-196.8"/>
-<polygon fill="black" stroke="black" points="338.01,-193.3 328.01,-196.8 338.01,-200.3 338.01,-193.3"/>
+<path fill="none" stroke="black" d="M279,-149.91C279,-149.91 279,-168.79 279,-168.79"/>
+<polygon fill="black" stroke="black" points="275.5,-168.79 279,-178.79 282.5,-168.79 275.5,-168.79"/>
 </g>
 </g>
 </svg>
