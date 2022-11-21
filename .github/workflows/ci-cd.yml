@@ -38,6 +38,6 @@ jobs:
             - uses: bahmutov/npm-install@v1
             - run: |
                 npx nx build examples --configuration=production --base-href=/vmware-cloud-director-ui-components/
-                npx ng deploy --no-build
+                npx nx deploy --no-build
               env:
                 GH_TOKEN: ${{ secrets.GH_TOKEN }}
