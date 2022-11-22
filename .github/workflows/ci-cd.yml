@@ -36,8 +36,10 @@ jobs:
               with:
                   node-version: 16.10.0
             - uses: bahmutov/npm-install@v1
+            # --cname does not need to be passed but we get a schema validation error if we don't pass anything
+            # > Property 'cname' does not match the schema. 'false' should be a 'string'.
             - run: |
                 npx nx build examples --configuration=production --base-href=/vmware-cloud-director-ui-components/
-                npx nx deploy --no-build
+                npx nx deploy examples --no-build --cname=
               env:
                 GH_TOKEN: ${{ secrets.GH_TOKEN }}
