@@ -14,13 +14,13 @@
 <title>cluster_ShowClippedTextDirectiveModule</title>
 <polygon fill="none" stroke="black" stroke-dasharray="1,5" points="8,-32.8 8,-230.8 238,-230.8 238,-32.8 8,-32.8"/>
 </g>
-<g id="clust2" class="cluster">
-<title>cluster_ShowClippedTextDirectiveModule_declarations</title>
-<polygon fill="none" stroke="black" points="30,-40.8 30,-92.8 216,-92.8 216,-40.8 30,-40.8"/>
-</g>
 <g id="clust5" class="cluster">
 <title>cluster_ShowClippedTextDirectiveModule_exports</title>
 <polygon fill="none" stroke="black" points="28,-170.8 28,-222.8 218,-222.8 218,-170.8 28,-170.8"/>
+</g>
+<g id="clust2" class="cluster">
+<title>cluster_ShowClippedTextDirectiveModule_declarations</title>
+<polygon fill="none" stroke="black" points="30,-40.8 30,-92.8 216,-92.8 216,-40.8 30,-40.8"/>
 </g>
 <!-- ShowClippedTextDirective -->
 <g id="node1" class="node">
