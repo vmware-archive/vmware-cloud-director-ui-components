@@ -193,11 +193,11 @@ export class NumberWithUnitFormInputComponent extends BaseFormControl implements
     unitMax: number;
 
     /**
-     * This is the last real value for the input. Used in case when user toggles the unlimited checkbox twice in a row.
+     * This is the last text value for the input. Used in case when user toggles the unlimited checkbox twice in a row.
      * When unlimited is checked the value of the input is cleared, then when toggled again, the input value should be
      * set to the last value.
      */
-    lastRealValue: number = null;
+    private lastTextValue: string = '';
 
     /**
      * Should this functionality be provided at the base class?
@@ -245,7 +245,6 @@ export class NumberWithUnitFormInputComponent extends BaseFormControl implements
 
     onUnlimitedCheckboxChange(unlimitedChecked: boolean): void {
         this.unlimitedControlValue = unlimitedChecked;
-        this.textInputValue = unlimitedChecked ? '' : this.lastRealValue?.toString() || '';
 
         // If there is no unit currently selected, we need to writeValue to recalculate everything.
         if (!this.unitsControlValue && !unlimitedChecked) {
@@ -258,8 +257,10 @@ export class NumberWithUnitFormInputComponent extends BaseFormControl implements
             this.changeDetector.detectChanges();
             this.textInputEl.focus();
             this.textInputEl.select();
+            this.textInputValue = this.lastTextValue;
         } else {
-            this.lastRealValue = this.bestValue;
+            this.lastTextValue = this.textInputValue;
+            this.textInputValue = '';
         }
         this.fireUiChange();
     }
@@ -322,8 +323,8 @@ export class NumberWithUnitFormInputComponent extends BaseFormControl implements
 
         if (!this.isUnlimitedValue(value)) {
             if (this.bestValue) {
-                this.lastRealValue = this.bestValue;
                 this.textInputValue = this.bestValue.toString();
+                this.lastTextValue = this.textInputValue;
             }
             if (this.bestUnit) {
                 this.unitsControlValue = this.bestUnit.getMultiplier().toString();
