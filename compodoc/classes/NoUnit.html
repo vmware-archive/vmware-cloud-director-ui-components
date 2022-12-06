@@ -194,7 +194,7 @@
                     </tr>
                         <tr>
                             <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="514" class="link-to-prism">projects/components/src/form/number-with-unit-input/number-with-unit-form-input.component.ts:514</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="515" class="link-to-prism">projects/components/src/form/number-with-unit-input/number-with-unit-form-input.component.ts:515</a></div>
                             </td>
                         </tr>
 
@@ -302,8 +302,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="515"
-                            class="link-to-prism">projects/components/src/form/number-with-unit-input/number-with-unit-form-input.component.ts:515</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="516"
+                            class="link-to-prism">projects/components/src/form/number-with-unit-input/number-with-unit-form-input.component.ts:516</a></div>
                 </td>
             </tr>
 
@@ -384,8 +384,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="519"
-                            class="link-to-prism">projects/components/src/form/number-with-unit-input/number-with-unit-form-input.component.ts:519</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="520"
+                            class="link-to-prism">projects/components/src/form/number-with-unit-input/number-with-unit-form-input.component.ts:520</a></div>
                 </td>
             </tr>
 
@@ -423,8 +423,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="523"
-                            class="link-to-prism">projects/components/src/form/number-with-unit-input/number-with-unit-form-input.component.ts:523</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="524"
+                            class="link-to-prism">projects/components/src/form/number-with-unit-input/number-with-unit-form-input.component.ts:524</a></div>
                 </td>
             </tr>
 
@@ -1131,11 +1131,11 @@ export class NumberWithUnitFormInputComponent extends BaseFormControl implements
     unitMax: number;
 
     /**
-     * This is the last real value for the input. Used in case when user toggles the unlimited checkbox twice in a row.
+     * This is the last text value for the input. Used in case when user toggles the unlimited checkbox twice in a row.
      * When unlimited is checked the value of the input is cleared, then when toggled again, the input value should be
      * set to the last value.
      */
-    lastRealValue: number &#x3D; null;
+    private lastTextValue: string &#x3D; &#x27;&#x27;;
 
     /**
      * Should this functionality be provided at the base class?
@@ -1183,7 +1183,6 @@ export class NumberWithUnitFormInputComponent extends BaseFormControl implements
 
     onUnlimitedCheckboxChange(unlimitedChecked: boolean): void {
         this.unlimitedControlValue &#x3D; unlimitedChecked;
-        this.textInputValue &#x3D; unlimitedChecked ? &#x27;&#x27; : this.lastRealValue?.toString() || &#x27;&#x27;;
 
         // If there is no unit currently selected, we need to writeValue to recalculate everything.
         if (!this.unitsControlValue &amp;&amp; !unlimitedChecked) {
@@ -1196,8 +1195,10 @@ export class NumberWithUnitFormInputComponent extends BaseFormControl implements
             this.changeDetector.detectChanges();
             this.textInputEl.focus();
             this.textInputEl.select();
+            this.textInputValue &#x3D; this.lastTextValue;
         } else {
-            this.lastRealValue &#x3D; this.bestValue;
+            this.lastTextValue &#x3D; this.textInputValue;
+            this.textInputValue &#x3D; &#x27;&#x27;;
         }
         this.fireUiChange();
     }
@@ -1260,8 +1261,8 @@ export class NumberWithUnitFormInputComponent extends BaseFormControl implements
 
         if (!this.isUnlimitedValue(value)) {
             if (this.bestValue) {
-                this.lastRealValue &#x3D; this.bestValue;
                 this.textInputValue &#x3D; this.bestValue.toString();
+                this.lastTextValue &#x3D; this.textInputValue;
             }
             if (this.bestUnit) {
                 this.unitsControlValue &#x3D; this.bestUnit.getMultiplier().toString();
