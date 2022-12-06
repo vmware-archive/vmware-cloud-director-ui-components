@@ -208,6 +208,28 @@ describe('VcdNumberWithUnitFormInputComponent', () => {
             expect(noUnlimited.isInputFieldDisabled).toBe(false);
             expect(noUnlimited.displayValue).toEqual(ts.translate(Hertz.Mhz.getValueWithUnitTranslationKey(), [-1]));
         }));
+
+        it('restores the previous input when toggling and un-toggling the unlimited checkbox', fakeAsync(() => {
+            const testValue = 123;
+            // input testValue mhz into numberWithUnitInput
+            numberWithUnitInput.typeInput(testValue.toString());
+            expect(numberWithUnitInput.displayValue).toEqual(
+                ts.translate(Hertz.Mhz.getValueWithUnitTranslationKey(), [testValue])
+            );
+            expect(numberWithUnitInput.formControl.value).toEqual(testValue);
+
+            // toggle ON unlimited, assert component value is changed
+            numberWithUnitInput.clickUnlimitedCheckbox();
+            expect(numberWithUnitInput.displayValue).toEqual(ts.translate('vcd.cc.unlimited'));
+            expect(numberWithUnitInput.formControl.value).toEqual(-1);
+
+            // toggle OFF unlimited, assert component value is restored
+            numberWithUnitInput.clickUnlimitedCheckbox();
+            expect(numberWithUnitInput.displayValue).toEqual(
+                ts.translate(Hertz.Mhz.getValueWithUnitTranslationKey(), [testValue])
+            );
+            expect(numberWithUnitInput.formControl.value).toEqual(testValue);
+        }));
     });
 
     describe('unitOptions', () => {
