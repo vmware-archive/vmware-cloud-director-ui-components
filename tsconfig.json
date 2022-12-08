@@ -16,7 +16,7 @@
         "paths": {
             "@vcd/i18n": ["./dist/i18n"],
             "@vcd/route-analyzer": ["./projects/route-analyzer/src/public-api.ts"],
-            "@vcd/ui-components": ["./projects/components/src/index.ts"],
+            "@vcd/ui-components": ["./projects/components/src/public-api.ts"],
             "@vmw/ng-live-docs": ["./projects/ng-live-docs/src/public-api.ts"]
         },
         "resolveJsonModule": true,
