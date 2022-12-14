@@ -14,6 +14,10 @@
 <title>cluster_VcdActivityReporterModule</title>
 <polygon fill="none" stroke="black" stroke-dasharray="1,5" points="8,-32.8 8,-230.8 868,-230.8 868,-32.8 8,-32.8"/>
 </g>
+<g id="clust6" class="cluster">
+<title>cluster_VcdActivityReporterModule_exports</title>
+<polygon fill="none" stroke="black" points="160,-170.8 160,-222.8 638,-222.8 638,-170.8 160,-170.8"/>
+</g>
 <g id="clust2" class="cluster">
 <title>cluster_VcdActivityReporterModule_declarations</title>
 <polygon fill="none" stroke="black" points="390,-40.8 390,-92.8 860,-92.8 860,-40.8 390,-40.8"/>
@@ -21,10 +25,6 @@
 <g id="clust5" class="cluster">
 <title>cluster_VcdActivityReporterModule_imports</title>
 <polygon fill="none" stroke="black" points="16,-40.8 16,-92.8 382,-92.8 382,-40.8 16,-40.8"/>
-</g>
-<g id="clust6" class="cluster">
-<title>cluster_VcdActivityReporterModule_exports</title>
-<polygon fill="none" stroke="black" points="160,-170.8 160,-222.8 638,-222.8 638,-170.8 160,-170.8"/>
 </g>
 <!-- BannerActivityReporterComponent -->
 <g id="node1" class="node">
