@@ -12,9 +12,9 @@ import { FormSelectComponent, SelectOption } from '@vcd/ui-components';
  */
 @Component({
     selector: 'vcd-form-select-disabled-example',
-    templateUrl: './form-select-disabled.example.component.html',
+    templateUrl: './form-select-disabled-options.example.component.html',
 })
-export class FormSelectDisabledExampleComponent implements OnInit {
+export class FormSelectDisabledOptionsExampleComponent implements OnInit {
     formGroup: FormGroup;
 
     @ViewChild('selectInputComponent', { static: true }) selectInputComponent: FormSelectComponent;
