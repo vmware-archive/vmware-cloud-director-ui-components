@@ -1,5 +1,5 @@
 /*!
- * Copyright 2020 VMware, Inc.
+ * Copyright 2022 VMware, Inc.
  * SPDX-License-Identifier: BSD-2-Clause
  */
 
@@ -23,6 +23,7 @@ import { NumberWithUnitFormInputUnitlessExampleModule } from './number-with-unit
 import { NumberWithUnitFormInputExampleComponent } from './number-with-unit-form-input.example.component';
 import { NumberWithUnitFormInputExampleModule } from './number-with-unit-form-input.example.module';
 import { FormSelectValidationExampleComponent } from './form-select-validation.example.component';
+import { FormSelectDisabledExampleComponent } from './form-select-disabled.example.component';
 
 Documentation.registerDocumentationEntry({
     component: FormInputComponent,
@@ -56,6 +57,11 @@ Documentation.registerDocumentationEntry({
             component: FormSelectValidationExampleComponent,
             title: 'Select form input validation',
             urlSegment: 'form-select-validation',
+        },
+        {
+            component: FormSelectDisabledExampleComponent,
+            title: 'Disabled and ReadOnly Select form input',
+            urlSegment: 'form-select-disabled',
         },
     ],
 });

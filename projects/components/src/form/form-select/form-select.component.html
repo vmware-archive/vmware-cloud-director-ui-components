@@ -1,5 +1,9 @@
 <div class="form-group">
-    <div class="clr-form-control" [vcdResponsiveInput]="{ disabled: !isResponsive }">
+    <div
+        class="clr-form-control"
+        [vcdResponsiveInput]="{ disabled: !isResponsive }"
+        [ngClass]="{ 'clr-form-control-disabled': disabled }"
+    >
         <label *ngIf="label" [for]="id" class="clr-control-label" [ngClass]="{ 'required-field': showAsterisk }">{{
             label
         }}</label>
@@ -9,6 +13,7 @@
         <div class="clr-control-container" [ngClass]="{ 'clr-error': showErrors }">
             <div class="clr-select-wrapper" [ngClass]="{ 'showing-hint': !!hint }" *ngIf="!isReadOnly">
                 <select
+                    class="clr-select"
                     [id]="id"
                     [attr.aria-required]="showAsterisk"
                     [attr.aria-describedby]="showErrors ? errorsId : ''"

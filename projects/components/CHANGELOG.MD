@@ -9,6 +9,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Fixed
 * Fixed `@vcd/ui-components` compiler path not pointing to `public-api.ts`.
 * Fixed `DataExporterComponent` info icons not being tabbable.
+* Fixed `vcd-form-select` disable state.
 
 ## [13.0.1-dev.4]
 ### Fixed
