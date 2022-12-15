@@ -8,6 +8,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 ### Fixed
 * Fixed `@vcd/ui-components` compiler path not pointing to `public-api.ts`.
+* Fixed `DataExporterComponent` info icons not being tabbable.
 
 ## [13.0.1-dev.4]
 ### Fixed
