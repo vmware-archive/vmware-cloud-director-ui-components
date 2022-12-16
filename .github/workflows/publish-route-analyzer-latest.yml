@@ -12,4 +12,4 @@ jobs:
                   nx-name: route-analyzer
                   npm-name: '@vcd/route-analyzer'
                   npm-publish-tag: latest
-                  npm-token: ${{ secrets.GH_TOKEN }}
+                  npm-token: ${{ secrets.NPM_TOKEN }}

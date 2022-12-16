@@ -12,4 +12,4 @@ jobs:
                   nx-name: components
                   npm-name: '@vcd/ui-components'
                   npm-publish-tag: next
-                  npm-token: ${{ secrets.GH_TOKEN }}
+                  npm-token: ${{ secrets.NPM_TOKEN }}
