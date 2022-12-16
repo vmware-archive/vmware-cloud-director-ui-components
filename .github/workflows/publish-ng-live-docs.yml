@@ -13,4 +13,4 @@ jobs:
                   nx-name: ng-live-docs
                   npm-name: '@vmw/ng-live-docs'
                   npm-publish-tag: latest
-                  npm-token: ${{ secrets.GH_TOKEN }}
+                  npm-token: ${{ secrets.NPM_TOKEN }}

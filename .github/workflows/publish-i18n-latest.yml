@@ -13,4 +13,4 @@ jobs:
                   nx-name: i18n
                   npm-name: '@vcd/i18n'
                   npm-publish-tag: latest
-                  npm-token: ${{ secrets.GH_TOKEN }}
+                  npm-token: ${{ secrets.NPM_TOKEN }}
