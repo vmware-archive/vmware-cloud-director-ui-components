@@ -1,9 +1,20 @@
 <form [formGroup]="formGroup" class="clr-form-horizontal">
+    <h3>Disabled select component:</h3>
     <vcd-form-select
         [showAsterisk]="true"
-        [label]="'Select Input with disabled option'"
+        [label]="'Disabled Input'"
         [options]="options"
-        [formControlName]="'selectInput'"
+        [formControlName]="'disabledSelect'"
+    >
+    </vcd-form-select>
+
+    <h3>Read-only select component:</h3>
+    <vcd-form-select
+        [showAsterisk]="true"
+        [label]="'Read-only Input'"
+        [options]="options"
+        [formControlName]="'readOnlySelect'"
+        [isReadOnly]="true"
     >
     </vcd-form-select>
 </form>

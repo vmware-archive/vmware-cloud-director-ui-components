@@ -1,5 +1,9 @@
 <div class="form-group">
-    <div class="clr-form-control" [vcdResponsiveInput]="{ disabled: !isResponsive }">
+    <div
+        class="clr-form-control"
+        [vcdResponsiveInput]="{ disabled: !isResponsive }"
+        [ngClass]="{ 'clr-form-control-disabled': disabled }"
+    >
         <label *ngIf="label" class="clr-control-label" [for]="id" [ngClass]="{ 'required-field': showAsterisk }">{{
             label
         }}</label>

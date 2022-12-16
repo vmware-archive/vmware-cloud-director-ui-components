@@ -1,5 +1,5 @@
 /*!
- * Copyright 2020 VMware, Inc.
+ * Copyright 2022 VMware, Inc.
  * SPDX-License-Identifier: BSD-2-Clause
  */
 
@@ -15,7 +15,7 @@ import { FormCheckboxExampleComponent } from './form-checkbox.example.component'
 import { FormCheckboxExampleModule } from './form-checkbox.example.module';
 import { FormInputExampleComponent } from './form-input.example.component';
 import { FormInputExampleModule } from './form-input.example.module';
-import { FormSelectDisabledExampleComponent } from './form-select-disabled.example.component';
+import { FormSelectDisabledOptionsExampleComponent } from './form-select-disabled-options.example.component';
 import { FormSelectExampleComponent } from './form-select.example.component';
 import { FormSelectExampleModule } from './form-select.example.module';
 import { NumberWithUnitFormInputUnitlessExampleComponent } from './number-with-unit-form-input-unitless.example.component';
@@ -23,6 +23,7 @@ import { NumberWithUnitFormInputUnitlessExampleModule } from './number-with-unit
 import { NumberWithUnitFormInputExampleComponent } from './number-with-unit-form-input.example.component';
 import { NumberWithUnitFormInputExampleModule } from './number-with-unit-form-input.example.module';
 import { FormSelectValidationExampleComponent } from './form-select-validation.example.component';
+import { FormSelectDisabledExampleComponent } from './form-select-disabled.example.component';
 
 Documentation.registerDocumentationEntry({
     component: FormInputComponent,
@@ -48,14 +49,19 @@ Documentation.registerDocumentationEntry({
             urlSegment: 'form-select',
         },
         {
-            component: FormSelectDisabledExampleComponent,
+            component: FormSelectDisabledOptionsExampleComponent,
             title: 'Select form input with disabled options',
-            urlSegment: 'form-select-disabled',
+            urlSegment: 'form-select-disabled-options',
         },
         {
             component: FormSelectValidationExampleComponent,
             title: 'Select form input validation',
             urlSegment: 'form-select-validation',
+        },
+        {
+            component: FormSelectDisabledExampleComponent,
+            title: 'Disabled and ReadOnly Select form input',
+            urlSegment: 'form-select-disabled',
         },
     ],
 });
