@@ -20,4 +20,13 @@
     >
     </vcd-form-input>
     <vcd-form-input [label]="'Date Input'" [type]="'datetime-local'" [formControlName]="'dateInput'"> </vcd-form-input>
+
+    <hr />
+
+    <vcd-form-checkbox
+        [label]="'Disable components'"
+        [formControlName]="'disabledInputs'"
+        [text]="'Toggle disabled state of controls'"
+    >
+    </vcd-form-checkbox>
 </form>

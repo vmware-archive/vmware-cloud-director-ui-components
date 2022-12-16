@@ -3,7 +3,7 @@
         #checkbox
         [label]="'Checkbox'"
         [formControlName]="'checkboxInput'"
-        [description]="'Toggle this checkbox to enable/disable the toggle switch below'"
+        [description]="'Description below'"
         [text]="'Right Label'"
         hint="Hints display in a signpost"
     >
@@ -14,9 +14,19 @@
         [label]="'Toggle switch'"
         [styling]="styling.TOGGLESWITCH"
         [formControlName]="'toggleInput'"
-        [description]="'Helper Text'"
+        [description]="'Helper Text tha goes below'"
         text="another right label"
         hint="Hints go inside the signpost, let's make it longer"
+    >
+    </vcd-form-checkbox>
+
+    <hr />
+
+    <vcd-form-checkbox
+        [label]="'Disable components'"
+        [formControlName]="'enabledDisabled'"
+        [description]="'Toggle this checkbox to enable/disable the toggles'"
+        [text]="'Toggle disabled state of controls'"
     >
     </vcd-form-checkbox>
 </form>

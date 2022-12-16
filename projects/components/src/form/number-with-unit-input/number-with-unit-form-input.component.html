@@ -4,7 +4,11 @@
 </div>
 
 <div *ngIf="!isReadOnly">
-    <div class="clr-form-control" [vcdResponsiveInput]="{ disabled: !isResponsive }">
+    <div
+        class="clr-form-control"
+        [ngClass]="{ 'clr-form-control-disabled': disabled }"
+        [vcdResponsiveInput]="{ disabled: !isResponsive }"
+    >
         <label *ngIf="label" class="clr-control-label" [for]="id" [ngClass]="{ 'required-field': showAsterisk }">{{
             label
         }}</label>

@@ -22,14 +22,16 @@ export class FormCheckboxExampleComponent implements OnInit {
     constructor(private fb: FormBuilder) {
         this.formGroup = this.fb.group({
             checkboxInput: [true],
-            toggleInput: [false],
+            toggleInput: [true],
+            enabledDisabled: [false],
         });
     }
 
     ngOnInit(): void {
-        this.formGroup.get('checkboxInput').valueChanges.subscribe((value) => {
+        this.formGroup.get('enabledDisabled').valueChanges.subscribe((value) => {
             // eslint-disable-next-line @typescript-eslint/no-unused-expressions
-            value ? this.formGroup.controls.toggleInput.enable() : this.formGroup.controls.toggleInput.disable();
+            const { checkboxInput, toggleInput } = this.formGroup.controls;
+            [checkboxInput, toggleInput].forEach((c) => (value ? c.disable() : c.enable()));
         });
     }
 }
