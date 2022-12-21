@@ -58,7 +58,8 @@ export interface FilterRendererSpec<C> extends ComponentRendererSpec<C> {
 })
 // eslint-disable-next-line @angular-eslint/directive-class-suffix
 export abstract class DatagridFilter<V, C extends FilterConfig<V>>
-    implements OnInit, ClrDatagridFilterInterface<V>, ComponentRenderer<C> {
+    implements OnInit, ClrDatagridFilterInterface<V>, ComponentRenderer<C>
+{
     formGroup = this.createFormGroup();
 
     protected constructor(filterContainer: ClrDatagridFilter, private subscriptionTracker: SubscriptionTracker) {
@@ -92,7 +93,7 @@ export abstract class DatagridFilter<V, C extends FilterConfig<V>>
         const obs = this.getDebounceTimeMs()
             ? this.formGroup.valueChanges.pipe(debounceTime(this.getDebounceTimeMs()))
             : this.formGroup.valueChanges;
-        this.subscriptionTracker.subscribe(obs, () => this.changes.next());
+        this.subscriptionTracker.subscribe(obs, () => this.changes.next(null));
     }
 
     /**
