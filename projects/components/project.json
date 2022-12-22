@@ -1,54 +1,67 @@
 {
-    "name": "components",
-    "$schema": "../../node_modules/nx/schemas/project-schema.json",
-    "projectType": "library",
-    "sourceRoot": "projects/components/src",
-    "prefix": "vcd",
-    "targets": {
-        "pre-build": {
-            "executor": "@nrwl/angular:package",
-            "outputs": ["{workspaceRoot}/dist/components"],
-            "options": {
-                "project": "projects/components/ng-package.json"
-            },
-            "configurations": {
-                "production": {
-                    "tsConfig": "projects/components/tsconfig.lib.prod.json"
-                },
-                "development": {
-                    "tsConfig": "projects/components/tsconfig.lib.json"
-                }
-            },
-            "defaultConfiguration": "production",
-            "dependsOn": ["^build"]
+  "name": "components",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "projectType": "library",
+  "sourceRoot": "projects/components/src",
+  "prefix": "vcd",
+  "targets": {
+    "pre-build": {
+      "executor": "@nrwl/angular:package",
+      "outputs": [
+        "{workspaceRoot}/dist/components"
+      ],
+      "options": {
+        "project": "projects/components/ng-package.json"
+      },
+      "configurations": {
+        "production": {
+          "tsConfig": "projects/components/tsconfig.lib.prod.json"
         },
-        "build": {
-            "executor": "nx:run-commands",
-            "options": {
-                "commands": [
-                    "node projects/components/src/assets/index.js",
-                    "copyfiles -f projects/components/src/assets/i18n.json dist/components"
-                ]
-            },
-            "dependsOn": ["pre-build"]
-        },
-        "test": {
-            "executor": "@angular-devkit/build-angular:karma",
-            "options": {
-                "main": "projects/components/src/test.ts",
-                "tsConfig": "projects/components/tsconfig.spec.json",
-                "karmaConfig": "projects/components/karma.conf.js",
-                "styles": ["node_modules/@clr/ui/clr-ui.min.css"],
-                "stylePreprocessorOptions": {
-                    "includePaths": ["node_modules"]
-                }
-            }
-        },
-        "lint": {
-            "executor": "@angular-eslint/builder:lint",
-            "options": {
-                "lintFilePatterns": ["projects/components/**/*.ts", "projects/components/**/*.html"]
-            }
+        "development": {
+          "tsConfig": "projects/components/tsconfig.lib.json"
         }
+      },
+      "defaultConfiguration": "production",
+      "dependsOn": [
+        "^build"
+      ]
+    },
+    "build": {
+      "executor": "nx:run-commands",
+      "options": {
+        "commands": [
+          "node projects/components/src/assets/index.js",
+          "copyfiles -f projects/components/src/assets/i18n.json dist/components"
+        ]
+      },
+      "dependsOn": [
+        "pre-build"
+      ]
+    },
+    "test": {
+      "executor": "@angular-devkit/build-angular:karma",
+      "options": {
+        "main": "projects/components/src/test.ts",
+        "tsConfig": "projects/components/tsconfig.spec.json",
+        "karmaConfig": "projects/components/karma.conf.js",
+        "styles": [
+          "node_modules/@clr/ui/clr-ui.min.css"
+        ],
+        "stylePreprocessorOptions": {
+          "includePaths": [
+            "node_modules"
+          ]
+        }
+      }
+    },
+    "lint": {
+      "executor": "@angular-eslint/builder:lint",
+      "options": {
+        "lintFilePatterns": [
+          "projects/components/**/*.ts",
+          "projects/components/**/*.html"
+        ]
+      }
     }
+  }
 }
