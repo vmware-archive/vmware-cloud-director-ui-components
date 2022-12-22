@@ -9,7 +9,7 @@
     "sourceRoot": "projects/examples/src",
     "prefix": "vcd",
     "targets": {
-        "build":  {
+        "build": {
             "executor": "@angular-devkit/build-angular:browser",
             "options": {
                 "preserveSymlinks": true,
@@ -72,9 +72,9 @@
             "executor": "nx:run-commands",
             "options": {
                 "commands": [
-                  "mkdirp projects/examples/gen",
-                  "node dist/ng-live-docs/index.js projects/components/tsconfig.lib.json projects/components/src/public-api.ts projects/examples/gen/components-doc.json",
-                  "compodoc -p ./projects/components/tsconfig.lib.json -d projects/examples/src/compodoc"
+                    "mkdirp projects/examples/gen",
+                    "node dist/ng-live-docs/index.js projects/components/tsconfig.lib.json projects/components/src/public-api.ts projects/examples/gen/components-doc.json",
+                    "compodoc -p ./projects/components/tsconfig.lib.json -d projects/examples/src/compodoc"
                 ],
                 "cwd": ".",
                 "parallel": false
@@ -93,7 +93,6 @@
             },
             "dependsOn": ["^build"]
         },
-
         "generate-example-translations": {
             "executor": "nx:run-commands",
             "options": {
@@ -102,7 +101,6 @@
             },
             "dependsOn": ["^build"]
         },
-
         "serve": {
             "executor": "@angular-devkit/build-angular:dev-server",
             "options": {
@@ -113,9 +111,8 @@
                     "browserTarget": "examples:build:production"
                 }
             },
-          "dependsOn": ["^build"]
+            "dependsOn": ["^build"]
         },
-
         "test": {
             "executor": "@angular-devkit/build-angular:karma",
             "options": {
@@ -160,5 +157,6 @@
                 "email": "prudhvi.af121@gmail.com"
             }
         }
-    }
+    },
+    "name": "examples"
 }
