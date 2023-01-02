@@ -4,7 +4,7 @@
  */
 
 import { Component, Host, OnDestroy } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
+import { AbstractControl, FormControl, FormGroup } from '@angular/forms';
 import { ClrDatagridFilter } from '@clr/angular';
 import { SelectOption } from '../../common/interfaces/select-option';
 import { SubscriptionTracker } from '../../common/subscription/subscription-tracker';
@@ -38,6 +38,9 @@ interface MultiSelectOptionInternal extends MultiSelectOption {
 }
 
 const idGenerator = new IdGenerator('vcd-multiselect-filter-id');
+
+// Add a little safety,we don't know the names of the controls, but we do know they will all be checkboxes
+type BooleanFormGroup = FormGroup<{ [name: string]: AbstractControl<boolean, boolean> }>;
 
 /**
  * Used within a clarity grid column {@link DatagridComponent} to render a filter widget with list of checkboxes to select
@@ -77,9 +80,7 @@ export class DatagridMultiSelectFilterComponent extends DatagridFilter<string[],
      */
     options: MultiSelectOptionInternal[];
 
-    createFormGroup(): FormGroup {
-        return new FormGroup({});
-    }
+    formGroup: BooleanFormGroup = new FormGroup({});
 
     /**
      * Overrides the config property because, the formGroup controls are defined by the config set by the caller.
@@ -105,7 +106,7 @@ export class DatagridMultiSelectFilterComponent extends DatagridFilter<string[],
 
     setValue(values: string[]): void {
         values.forEach((frmCtrl) => {
-            const correspondingFormCtrl = this.formGroup.get(frmCtrl);
+            const correspondingFormCtrl = this.formGroup.controls[frmCtrl];
             if (!correspondingFormCtrl) {
                 throw Error(`A multi select filter option with value '${frmCtrl}' does not exist`);
             }

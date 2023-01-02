@@ -12,24 +12,21 @@ import { CheckBoxStyling, FormCheckboxComponent } from '@vcd/ui-components';
     templateUrl: `./form-checkbox.example.component.html`,
 })
 export class FormCheckboxExampleComponent implements OnInit {
-    formGroup: FormGroup;
+    formGroup = this.fb.group({
+        checkboxInput: [true],
+        toggleInput: [true],
+        enabledDisabled: [false],
+    });
 
     styling = CheckBoxStyling;
 
     @ViewChild('checkbox', { static: true }) checkboxComponent: FormCheckboxComponent;
     @ViewChild('toggleswitch', { static: true }) toggleSwitchComponent: FormCheckboxComponent;
 
-    constructor(private fb: FormBuilder) {
-        this.formGroup = this.fb.group({
-            checkboxInput: [true],
-            toggleInput: [true],
-            enabledDisabled: [false],
-        });
-    }
+    constructor(private fb: FormBuilder) {}
 
     ngOnInit(): void {
-        this.formGroup.get('enabledDisabled').valueChanges.subscribe((value) => {
-            // eslint-disable-next-line @typescript-eslint/no-unused-expressions
+        this.formGroup.controls.enabledDisabled.valueChanges.subscribe((value) => {
             const { checkboxInput, toggleInput } = this.formGroup.controls;
             [checkboxInput, toggleInput].forEach((c) => (value ? c.disable() : c.enable()));
         });

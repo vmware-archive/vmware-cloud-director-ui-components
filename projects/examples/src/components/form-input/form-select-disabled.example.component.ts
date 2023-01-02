@@ -3,9 +3,9 @@
  * SPDX-License-Identifier: BSD-2-Clause
  */
 
-import { Component, ViewChild } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { FormSelectComponent, SelectOption } from '@vcd/ui-components';
+import { Component } from '@angular/core';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { SelectOption } from '@vcd/ui-components';
 
 @Component({
     selector: 'vcd-form-select-disabled-example-component',

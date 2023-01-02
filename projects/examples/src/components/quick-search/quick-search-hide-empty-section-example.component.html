@@ -4,11 +4,11 @@ Press <kbd>Command</kbd>+<kbd>f</kbd> on MacOS / <kbd>Ctrl</kbd>+<kbd>f</kbd> on
 
 <p>Use the form below to configure the Quick Search</p>
 
-<form [formGroup]="formGroup" class="clr-form-horizontal">
+<form class="clr-form-horizontal">
     <vcd-form-checkbox
         [label]="'Hide empty section'"
         [styling]="CheckBoxStyling.TOGGLESWITCH"
-        [formControlName]="'hideEmptySections'"
+        [formControl]="formGroup.controls.hideEmptySections"
     >
     </vcd-form-checkbox>
 </form>
@@ -16,5 +16,5 @@ Press <kbd>Command</kbd>+<kbd>f</kbd> on MacOS / <kbd>Ctrl</kbd>+<kbd>f</kbd> on
 <vcd-quick-search
     accessibilityTitle="Quick Search"
     [(open)]="spotlightOpen"
-    [placeholder]="formGroup.value.placeholder"
+    [placeholder]="formGroup.controls.placeholder.value"
 ></vcd-quick-search>

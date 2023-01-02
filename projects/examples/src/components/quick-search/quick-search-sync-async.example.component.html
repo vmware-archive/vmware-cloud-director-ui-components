@@ -8,11 +8,11 @@ Press <kbd>Command</kbd>+<kbd>f</kbd> on MacOS / <kbd>Ctrl</kbd>+<kbd>f</kbd> on
 <p>Press 'Enter' to invoke the selected action. You can also use the mouse to click on an item</p>
 <p>Use the form below to configure the Quick Search</p>
 
-<form [formGroup]="formGroup" class="clr-form-horizontal">
+<form class="clr-form-horizontal">
     <vcd-form-input
         label="Placeholder"
         [type]="'text'"
-        [formControlName]="'placeholder'"
+        [formControl]="formGroup.controls.placeholder"
         description="The text to be shown in the quick search input field when it is empty"
     >
     </vcd-form-input>

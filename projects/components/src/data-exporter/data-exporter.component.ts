@@ -3,8 +3,8 @@
  * SPDX-License-Identifier: BSD-2-Clause
  */
 
-import { Component, EventEmitter, Input, OnDestroy, OnInit, Output, ViewChild } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
+import { Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
+import { AbstractControl, FormControl, FormGroup } from '@angular/forms';
 import { ClrDropdown } from '@clr/angular';
 import { LazyString, TranslationService } from '@vcd/i18n';
 import { SubscriptionTracker } from '../common/subscription/subscription-tracker';
@@ -22,12 +22,6 @@ export interface ExportColumn {
      * The name of the field in the JSON that is returned and converted to a viewable format
      */
     fieldName: string;
-}
-
-export enum UserOptions {
-    selectAll = 'selectAll',
-    friendlyNames = 'friendlyNames',
-    sanitize = 'sanitize',
 }
 
 /**
@@ -268,14 +262,14 @@ export class DataExporterComponent implements OnInit {
 
     private fieldNameMap = new Map<string, ExportColumn>();
 
-    formGroup: FormGroup;
+    formGroup: FormGroup<{ [key: string]: AbstractControl<boolean> }>;
 
     exportStage: LazyString;
 
     optionsFormGroup = new FormGroup({
-        [UserOptions.selectAll]: new FormControl(true),
-        [UserOptions.friendlyNames]: new FormControl(true),
-        [UserOptions.sanitize]: new FormControl(true),
+        selectAll: new FormControl(true),
+        friendlyNames: new FormControl(true),
+        sanitize: new FormControl(true),
     });
 
     /**
@@ -294,15 +288,15 @@ export class DataExporterComponent implements OnInit {
     }
 
     get selectAllControl(): FormControl {
-        return this.optionsFormGroup.get(UserOptions.selectAll) as FormControl;
+        return this.optionsFormGroup.controls.selectAll;
     }
 
     get sanitizeControl(): FormControl {
-        return this.optionsFormGroup.get(UserOptions.sanitize) as FormControl;
+        return this.optionsFormGroup.controls.sanitize;
     }
 
     get friendlyFieldsControl(): FormControl {
-        return this.optionsFormGroup.get(UserOptions.friendlyNames) as FormControl;
+        return this.optionsFormGroup.controls.friendlyNames;
     }
 
     get isExportEnabled(): boolean {
@@ -400,9 +394,8 @@ export class DataExporterComponent implements OnInit {
         if (this.fieldNameMap.has(fieldName)) {
             const exportColumn = this.fieldNameMap.get(fieldName);
             return this.getDisplayNameForColumn(exportColumn);
-        } else {
-            return fieldName;
         }
+        return fieldName;
     }
 
     getDisplayNameForColumn(col: ExportColumn): string {

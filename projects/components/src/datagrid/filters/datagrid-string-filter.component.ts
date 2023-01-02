@@ -3,8 +3,8 @@
  * SPDX-License-Identifier: BSD-2-Clause
  */
 
-import { Component, Host, OnDestroy } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
+import { Component } from '@angular/core';
+import { FormControl, FormGroup } from '@angular/forms';
 import { ClrDatagridFilter } from '@clr/angular';
 import { SubscriptionTracker } from '../../common/subscription/subscription-tracker';
 import { FilterBuilder } from '../../utils/filter-builder';
@@ -30,11 +30,9 @@ export interface DatagridStringFilterConfig extends FilterConfig<string> {
     providers: [SubscriptionTracker],
 })
 export class DatagridStringFilterComponent extends DatagridFilter<string, DatagridStringFilterConfig> {
-    createFormGroup(): FormGroup {
-        return new FormGroup({
-            filterText: new FormControl(''),
-        });
-    }
+    formGroup = new FormGroup({
+        filterText: new FormControl(''),
+    });
 
     constructor(private filterContainer: ClrDatagridFilter, subTracker: SubscriptionTracker) {
         super(filterContainer, subTracker);
@@ -48,7 +46,7 @@ export class DatagridStringFilterComponent extends DatagridFilter<string, Datagr
 
     getValue(): string {
         const filterBuilder = new FilterBuilder().is(this.queryField);
-        let value = this.formGroup.get('filterText').value;
+        let value = this.formGroup.controls.filterText.value;
         if (this.config && this.config.wildCardPosition) {
             value = this.addWildCard(value, this.config.wildCardPosition);
         }
@@ -56,7 +54,7 @@ export class DatagridStringFilterComponent extends DatagridFilter<string, Datagr
     }
 
     isActive(): boolean {
-        return !!this.formGroup && this.formGroup.get('filterText').value;
+        return !!(this.formGroup && this.formGroup.controls.filterText.value);
     }
 
     /**

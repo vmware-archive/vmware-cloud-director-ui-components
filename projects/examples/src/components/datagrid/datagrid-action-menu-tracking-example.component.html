@@ -1,23 +1,23 @@
 This example shows how you can track the action menu availability and get the action state from it.
 <p>Use the form below to configure the Actions and observe the tracking response below the grid</p>
 
-<form [formGroup]="formGroup" clrForm class="clr-form clr-form-compact">
+<form clrForm class="clr-form clr-form-compact">
     <vcd-form-checkbox
         [label]="'Static actions'"
         [styling]="CheckBoxStyling.TOGGLESWITCH"
-        [formControlName]="'staticActions'"
+        [formControl]="formGroup.controls.staticActions"
     >
     </vcd-form-checkbox>
     <vcd-form-checkbox
         [label]="'Contextual actions'"
         [styling]="CheckBoxStyling.TOGGLESWITCH"
-        [formControlName]="'contextualActions'"
+        [formControl]="formGroup.controls.contextualActions"
     >
     </vcd-form-checkbox>
     <vcd-form-checkbox
         [label]="'Enable actions'"
         [styling]="CheckBoxStyling.TOGGLESWITCH"
-        [formControlName]="'enableActions'"
+        [formControl]="formGroup.controls.enableActions"
     >
     </vcd-form-checkbox>
 </form>

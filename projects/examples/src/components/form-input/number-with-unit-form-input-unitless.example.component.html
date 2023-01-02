@@ -6,23 +6,23 @@ The "Warn Level" percent example also disables the "unlimited" functionality.
     You can play with the form below to examine validators, min/max values, unlimited values, readonly & disabled state
     etc.
 </p>
-<form [formGroup]="formGroup" class="clr-form-horizontal">
+<form class="clr-form-horizontal">
     <section>
         <vcd-form-checkbox
             [label]="'Readonly'"
             [styling]="CheckBoxStyling.TOGGLESWITCH"
-            [formControlName]="'readonly'"
+            [formControl]="formGroup.controls.readonly"
         ></vcd-form-checkbox>
         <vcd-form-checkbox
             [label]="'Disabled'"
             [styling]="CheckBoxStyling.TOGGLESWITCH"
-            [formControlName]="'disabled'"
+            [formControl]="formGroup.controls.disabled"
         ></vcd-form-checkbox>
     </section>
 
     <section>
         <vcd-number-with-unit-form-input
-            [formControlName]="'noUnit'"
+            [formControl]="formGroup.controls.noUnit"
             [label]="'Session Limit'"
             [unitOptions]="[]"
             [showAsterisk]="true"
@@ -40,10 +40,10 @@ The "Warn Level" percent example also disables the "unlimited" functionality.
         <vcd-form-checkbox
             [label]="'Validator shows %'"
             [styling]="CheckBoxStyling.TOGGLESWITCH"
-            [formControlName]="'validatorShowPercent'"
+            [formControl]="formGroup.controls.validatorShowPercent"
         ></vcd-form-checkbox>
         <vcd-number-with-unit-form-input
-            [formControlName]="'percentUnit'"
+            [formControl]="formGroup.controls.percentUnit"
             [label]="'Warn Level'"
             [unitOptions]="[Percent.ZERO_TO_100]"
             [max]="maxPercent"
@@ -56,7 +56,7 @@ The "Warn Level" percent example also disables the "unlimited" functionality.
     <section>
         <vcd-number-with-unit-form-input
             #myInput
-            [formControlName]="'operationLimit'"
+            [formControl]="formGroup.controls.operationLimit"
             [label]="'Operations Limit'"
             [unitOptions]="[]"
             [unlimitedValue]="operationLimitUnlimited"

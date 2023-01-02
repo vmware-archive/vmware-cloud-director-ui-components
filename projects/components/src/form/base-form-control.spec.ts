@@ -84,21 +84,20 @@ describe('BaseFormControl', () => {
 
 @Component({
     template: `
-        <form [formGroup]="formGroup">
-            <vcd-form-input #stringInput [type]="'text'" [formControlName]="'stringInput'"> </vcd-form-input>
+        <form>
+            <vcd-form-input #stringInput [type]="'text'" [formControl]="formGroup.controls.stringInput">
+            </vcd-form-input>
         </form>
     `,
 })
 class TestHostComponent {
-    formGroup: FormGroup;
+    formGroup = this.fb.group({
+        stringInput: ['test', [Validators.required]],
+    });
 
     @ViewChild('stringInput', { static: true }) baseFormInput: FormInputComponent;
 
-    constructor(private fb: FormBuilder) {
-        this.formGroup = this.fb.group({
-            ['stringInput']: ['test', [Validators.required]],
-        });
-    }
+    constructor(private fb: FormBuilder) {}
 }
 
 export async function configureFormInputTestingModule(testHostComponent: Type<unknown>): Promise<void> {

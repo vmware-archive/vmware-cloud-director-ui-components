@@ -8,24 +8,24 @@ type of units.
     You can play with the form below to examine validators, min/max values, unlimited values, readonly & disabled state
     etc.
 </p>
-<form [formGroup]="formGroup" class="clr-form-horizontal">
+<form class="clr-form-horizontal">
     <section>
         <vcd-form-checkbox
             [label]="'Readonly'"
             [styling]="CheckBoxStyling.TOGGLESWITCH"
-            [formControlName]="'readonly'"
+            [formControl]="formGroup.controls.readonly"
         ></vcd-form-checkbox>
 
         <vcd-form-checkbox
             [label]="'Disabled'"
             [styling]="CheckBoxStyling.TOGGLESWITCH"
-            [formControlName]="'disabled'"
+            [formControl]="formGroup.controls.disabled"
         ></vcd-form-checkbox>
     </section>
 
     <section>
         <vcd-number-with-unit-form-input
-            [formControlName]="'memory'"
+            [formControl]="formGroup.controls.memory"
             [label]="'Memory'"
             [unitOptions]="memoryOptions"
             [inputValueUnit]="memoryFormControlValueUnit"
@@ -52,7 +52,7 @@ type of units.
 
     <section>
         <vcd-number-with-unit-form-input
-            [formControlName]="'cpuLimit'"
+            [formControl]="formGroup.controls.cpuLimit"
             [label]="'CPU speed'"
             [unitOptions]="hertzOptions"
             [max]="maxCpuAllowedMhz"
@@ -69,7 +69,7 @@ type of units.
 
     <section>
         <vcd-number-with-unit-form-input
-            [formControlName]="'timePeriodSelection'"
+            [formControl]="formGroup.controls.timePeriodSelection"
             [label]="'Time Period'"
             [unitOptions]="timePeriodOptions"
             [min]="timePeriodMin"

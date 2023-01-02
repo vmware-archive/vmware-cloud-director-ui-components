@@ -4,7 +4,7 @@
  */
 
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder } from '@angular/forms';
 import {
     CheckBoxStyling,
     QuickSearchProviderDefaults,
@@ -23,7 +23,10 @@ import Mousetrap from 'mousetrap';
 export class QuickSearchHideEmptySectionExampleComponent implements OnInit, OnDestroy {
     CheckBoxStyling = CheckBoxStyling;
 
-    formGroup: FormGroup;
+    formGroup = this.fb.group({
+        hideEmptySections: [false],
+    });
+
     kbdShortcut = 'mod+f';
     spotlightOpen: boolean;
 
@@ -36,17 +39,13 @@ export class QuickSearchHideEmptySectionExampleComponent implements OnInit, OnDe
         private searchRegistrar: QuickSearchRegistrarService,
         private subscriptionTracker: SubscriptionTracker
     ) {
-        // Create an instance of mouse trap within the constructor so that any bount shortcut event handler
+        // Create an instance of mousetrap within the constructor so that any bound shortcut event handler
         // would be executed within the angular zone
         this.mousetrap = new Mousetrap();
-        // For this example we'd like mouse trap to always run
+        // For this example we'd like mousetrap to always run
         this.mousetrap.stopCallback = () => {
             return false;
         };
-
-        this.formGroup = this.fb.group({
-            ['hideEmptySections']: [false],
-        });
     }
 
     ngOnInit(): void {

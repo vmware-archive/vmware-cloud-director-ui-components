@@ -2,81 +2,78 @@
     <h3 class="modal-title">{{ dialogHeader | lazyString }}</h3>
     <div class="modal-body">
         <div>
-            <ul class="list-unstyled" [formGroup]="optionsFormGroup">
-                <li>
-                    <div class="flex-row">
-                        <clr-checkbox-wrapper>
-                            <input
-                                class="friendly-names"
-                                type="checkbox"
-                                clrCheckbox
-                                [formControl]="this.friendlyFieldsControl"
-                            />
-                            <label [attr.data-ui]="DataUi.friendlyNamesToggleLabel">{{
-                                friendlyNamesCheckboxLabel | lazyString
-                            }}</label>
-                        </clr-checkbox-wrapper>
-                        <div class="fill-space"></div>
-                        <clr-signpost>
-                            <clr-signpost-content *clrIfOpen>
-                                <span>{{ friendlyNamesInfoMessage | lazyString }}</span>
-                            </clr-signpost-content>
-                        </clr-signpost>
-                    </div>
-                    <i>{{ friendlyNamesHint | lazyString }}</i>
-                    <div class="flex-row">
-                        <clr-checkbox-wrapper>
-                            <input type="checkbox" clrCheckbox [formControl]="this.sanitizeControl" />
-                            <label>{{ sanitizeCheckboxLabel | lazyString }}</label>
-                        </clr-checkbox-wrapper>
-                        <div class="fill-space"></div>
-                        <clr-signpost>
-                            <clr-signpost-content *clrIfOpen>
-                                <span>{{ sanitizeInfoMessage | lazyString }}</span>
-                            </clr-signpost-content>
-                        </clr-signpost>
-                    </div>
-                    <i>{{ sanitizeCheckboxHint | lazyString }}</i>
-                    <div class="flex-row">
-                        <clr-checkbox-wrapper>
-                            <input type="checkbox" clrCheckbox [formControl]="this.selectAllControl" />
-                            <label [attr.data-ui]="DataUi.selectAllToggleLabel">{{ exportAllText | lazyString }}</label>
-                        </clr-checkbox-wrapper>
-                        <clr-dropdown [clrCloseMenuOnItemClick]="false">
-                            <clr-icon
-                                [attr.shape]="isDropdownOpen ? 'caret up' : 'caret down'"
-                                size="24"
-                                clrDropdownTrigger
-                                class="dropdown-button"
-                                [attr.data-ui]="DataUi.columnCheckboxArrow"
-                                *ngIf="!this.selectAllControl.value"
-                            ></clr-icon>
-                            <clr-dropdown-menu clrPosition="bottom" [formGroup]="formGroup" *clrIfOpen #dropdownMenu>
-                                <li
-                                    clrDropdownItem
-                                    *ngFor="let col of columns"
-                                    (click)="selectColumn(col)"
-                                    [attr.data-ui]="DataUi.columnSelectionMenuOptions"
-                                >
-                                    <clr-checkbox-wrapper class="column-checkbox">
-                                        <input
-                                            type="checkbox"
-                                            clrCheckbox
-                                            [formControlName]="col.fieldName"
-                                            (click)="$event.stopPropagation()"
-                                        />
-                                        <label (click)="$event.stopPropagation()">{{
-                                            this.friendlyFieldsControl.value
-                                                ? getDisplayNameForColumn(col)
-                                                : col.fieldName
-                                        }}</label>
-                                    </clr-checkbox-wrapper>
-                                </li>
-                            </clr-dropdown-menu>
-                        </clr-dropdown>
-                    </div>
-                </li>
-            </ul>
+            <div class="flex-row">
+                <clr-checkbox-wrapper>
+                    <input
+                        class="friendly-names"
+                        type="checkbox"
+                        clrCheckbox
+                        [formControl]="this.friendlyFieldsControl"
+                    />
+                    <label [attr.data-ui]="DataUi.friendlyNamesToggleLabel">{{
+                        friendlyNamesCheckboxLabel | lazyString
+                    }}</label>
+                </clr-checkbox-wrapper>
+                <div class="fill-space"></div>
+                <clr-signpost>
+                    <clr-signpost-content *clrIfOpen>
+                        <span>{{ friendlyNamesInfoMessage | lazyString }}</span>
+                    </clr-signpost-content>
+                </clr-signpost>
+            </div>
+            <i>{{ friendlyNamesHint | lazyString }}</i>
+            <div class="flex-row">
+                <clr-checkbox-wrapper>
+                    <input type="checkbox" clrCheckbox [formControl]="this.sanitizeControl" />
+                    <label>{{ sanitizeCheckboxLabel | lazyString }}</label>
+                </clr-checkbox-wrapper>
+                <div class="fill-space"></div>
+                <clr-signpost>
+                    <clr-signpost-content *clrIfOpen>
+                        <span>{{ sanitizeInfoMessage | lazyString }}</span>
+                    </clr-signpost-content>
+                </clr-signpost>
+            </div>
+            <i>{{ sanitizeCheckboxHint | lazyString }}</i>
+            <div class="flex-row">
+                <clr-checkbox-wrapper>
+                    <input type="checkbox" clrCheckbox [formControl]="this.selectAllControl" />
+                    <label [attr.data-ui]="DataUi.selectAllToggleLabel">{{ exportAllText | lazyString }}</label>
+                </clr-checkbox-wrapper>
+                <clr-dropdown [clrCloseMenuOnItemClick]="false">
+                    <clr-icon
+                        [attr.shape]="isDropdownOpen ? 'caret up' : 'caret down'"
+                        size="24"
+                        clrDropdownTrigger
+                        class="dropdown-button"
+                        [attr.data-ui]="DataUi.columnCheckboxArrow"
+                        *ngIf="!this.selectAllControl.value"
+                    ></clr-icon>
+                    <clr-dropdown-menu clrPosition="bottom" [formGroup]="formGroup" *clrIfOpen #dropdownMenu>
+                        <ul>
+                            <li
+                                clrDropdownItem
+                                *ngFor="let col of columns"
+                                (click)="selectColumn(col)"
+                                [attr.data-ui]="DataUi.columnSelectionMenuOptions"
+                            >
+                                <clr-checkbox-wrapper class="column-checkbox">
+                                    <input
+                                        type="checkbox"
+                                        clrCheckbox
+                                        [formControlName]="col.fieldName"
+                                        (click)="$event.stopPropagation()"
+                                    />
+                                    <label (click)="$event.stopPropagation()">{{
+                                        this.friendlyFieldsControl.value ? getDisplayNameForColumn(col) : col.fieldName
+                                    }}</label>
+                                </clr-checkbox-wrapper>
+                            </li>
+                        </ul>
+                    </clr-dropdown-menu>
+                </clr-dropdown>
+            </div>
+
             <span
                 class="x-button label"
                 *ngFor="let column of selectedColumns"

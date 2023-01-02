@@ -20,7 +20,10 @@ import Mousetrap from 'mousetrap';
     providers: [QuickSearchRegistrarService],
 })
 export class QuickSearchSyncAsyncExampleComponent implements OnInit, OnDestroy {
-    formGroup: FormGroup;
+    formGroup = this.fb.group({
+        ['placeholder']: [''],
+    });
+
     kbdShortcut = 'mod+f';
     spotlightOpen: boolean;
 
@@ -29,17 +32,13 @@ export class QuickSearchSyncAsyncExampleComponent implements OnInit, OnDestroy {
 
     private readonly mousetrap: MousetrapInstance;
     constructor(private fb: FormBuilder, private searchRegistrar: QuickSearchRegistrarService) {
-        // Create an instance of mouse trap within the constructor so that any bount shortcut event handler
+        // Create an instance of mousetrap within the constructor so that any bound shortcut event handler
         // would be executed within the angular zone
         this.mousetrap = new Mousetrap();
-        // For this example we'd like mouse trap to always run
+        // For this example we'd like mousetrap to always run
         this.mousetrap.stopCallback = () => {
             return false;
         };
-
-        this.formGroup = this.fb.group({
-            ['placeholder']: [''],
-        });
     }
 
     ngOnInit(): void {

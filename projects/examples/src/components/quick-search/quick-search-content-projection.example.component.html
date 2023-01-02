@@ -8,22 +8,22 @@
 </p>
 <p>Use the form below to configure the projected content</p>
 
-<form [formGroup]="formGroup" class="clr-form-horizontal">
+<form class="clr-form-horizontal">
     <vcd-form-checkbox
         [label]="'Display info at the top'"
         [styling]="styling.TOGGLESWITCH"
-        [formControlName]="'topSection'"
+        [formControl]="formGroup.controls.topSection"
     >
     </vcd-form-checkbox>
     <vcd-form-checkbox
         [label]="'Display info at the bottom'"
         [styling]="styling.TOGGLESWITCH"
-        [formControlName]="'bottomSection'"
+        [formControl]="formGroup.controls.bottomSection"
     >
     </vcd-form-checkbox>
 </form>
 
 <vcd-quick-search accessibilityTitle="Quick Search" [(open)]="spotlightOpen" [placeholder]="'Search...'">
-    <div class="top-of-results info" *ngIf="formGroup.controls['topSection'].value">Top of results</div>
-    <div class="bottom-of-results info" *ngIf="formGroup.controls['bottomSection'].value">Bottom of results</div>
+    <div class="top-of-results info" *ngIf="formGroup.controls.topSection.value">Top of results</div>
+    <div class="bottom-of-results info" *ngIf="formGroup.controls.bottomSection.value">Bottom of results</div>
 </vcd-quick-search>

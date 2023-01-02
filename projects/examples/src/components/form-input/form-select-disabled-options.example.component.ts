@@ -4,7 +4,7 @@
  */
 
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, Validators } from '@angular/forms';
 import { FormSelectComponent, SelectOption } from '@vcd/ui-components';
 
 /**
@@ -15,7 +15,9 @@ import { FormSelectComponent, SelectOption } from '@vcd/ui-components';
     templateUrl: './form-select-disabled-options.example.component.html',
 })
 export class FormSelectDisabledOptionsExampleComponent implements OnInit {
-    formGroup: FormGroup;
+    formGroup = this.fb.group({
+        selectInput: ['one', [Validators.required]],
+    });
 
     @ViewChild('selectInputComponent', { static: true }) selectInputComponent: FormSelectComponent;
 
@@ -40,11 +42,7 @@ export class FormSelectDisabledOptionsExampleComponent implements OnInit {
         },
     ];
 
-    constructor(private fb: FormBuilder) {
-        this.formGroup = this.fb.group({
-            selectInput: ['one', [Validators.required]],
-        });
-    }
+    constructor(private fb: FormBuilder) {}
 
     ngOnInit() {}
 }

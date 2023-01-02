@@ -16,7 +16,7 @@ import {
     SimpleChanges,
     ViewChild,
 } from '@angular/core';
-import { FormBuilder, NgControl, ValidationErrors, ValidatorFn } from '@angular/forms';
+import { NgControl, ValidationErrors, ValidatorFn } from '@angular/forms';
 import { TranslationService } from '@vcd/i18n';
 import { SelectOption } from '../../common/interfaces';
 import { FormValidators } from '../../form/validators';
@@ -42,10 +42,10 @@ export const UNLIMITED = -1;
     templateUrl: './number-with-unit-form-input.component.html',
     styleUrls: ['../form.scss', './number-with-unit-form-input.component.scss'],
 })
-export class NumberWithUnitFormInputComponent extends BaseFormControl implements OnChanges, OnInit {
+export class NumberWithUnitFormInputComponent extends BaseFormControl<number> implements OnChanges, OnInit {
     /**
      * List of available units. Consider the following options for the array:
-     * # array with more than one elements
+     * # array with more than one element
      *    - a dropdown unit selection is shown. You must also provide {@link inputValueUnit}
      * # single element array
      *    - a string notation for no dropdown, {@link inputValueUnit} is derived from the element
@@ -214,7 +214,6 @@ export class NumberWithUnitFormInputComponent extends BaseFormControl implements
 
     constructor(
         @Self() @Optional() controlDirective: NgControl,
-        private fb: FormBuilder,
         protected translationService: TranslationService,
         private unitFormatter: UnitFormatter,
         private changeDetector: ChangeDetectorRef

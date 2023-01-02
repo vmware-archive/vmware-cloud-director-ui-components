@@ -38,7 +38,8 @@ export interface DatagridNumericFilterConfig extends FilterConfig<DatagridNumeri
 })
 export class DatagridNumericFilterComponent
     extends DatagridFilter<DatagridNumericFilterValue, DatagridNumericFilterConfig>
-    implements OnInit {
+    implements OnInit
+{
     maxNumberLength = Number.MAX_SAFE_INTEGER.toString().length;
 
     @ViewChild('from') fromInput: NumberWithUnitFormInputComponent;
@@ -72,12 +73,11 @@ export class DatagridNumericFilterComponent
     get unit(): Unit {
         return this._unit;
     }
-    createFormGroup(): FormGroup {
-        return new FormGroup({
-            [FormFields.from]: new FormControl(null),
-            [FormFields.to]: new FormControl(null),
-        });
-    }
+
+    formGroup = new FormGroup({
+        from: new FormControl(null as number),
+        to: new FormControl(null as number),
+    });
 
     constructor(private filterContainer: ClrDatagridFilter, subTracker: SubscriptionTracker) {
         super(filterContainer, subTracker);
@@ -93,21 +93,21 @@ export class DatagridNumericFilterComponent
             return;
         }
         if (typeof values[0] === 'number') {
-            this.formGroup.get(FormFields.from).setValue(values[0]);
+            this.formGroup.controls.from.setValue(values[0]);
         } else {
-            this.formGroup.get(FormFields.from).setValue(null);
+            this.formGroup.controls.from.setValue(null);
         }
         if (typeof values[1] === 'number') {
-            this.formGroup.get(FormFields.to).setValue(values[1]);
+            this.formGroup.controls.to.setValue(values[1]);
         } else {
-            this.formGroup.get(FormFields.to).setValue(null);
+            this.formGroup.controls.to.setValue(null);
         }
     }
 
     getValue(): string {
         const filterBuilder = new FilterBuilder().is(this.queryField);
-        const from = this.formGroup.get(FormFields.from).value;
-        const to = this.formGroup.get(FormFields.to).value;
+        const from = this.formGroup.controls.from.value;
+        const to = this.formGroup.controls.to.value;
         if (typeof from === 'number' && typeof to !== 'number') {
             return filterBuilder.greaterThan(from).getString();
         }
@@ -122,8 +122,8 @@ export class DatagridNumericFilterComponent
     isActive(): boolean {
         return !!(
             this.formGroup &&
-            (typeof this.formGroup.get(FormFields.from).value === 'number' ||
-                typeof this.formGroup.get(FormFields.to).value === 'number')
+            (typeof this.formGroup.controls.from.value === 'number' ||
+                typeof this.formGroup.controls.to.value === 'number')
         );
     }
 

@@ -17,16 +17,16 @@ export class FormInputExampleComponent implements OnInit {
                 et dolore magna aliqua.`;
 
     formGroup = this.fb.group({
-        ['stringInput']: ['test@vcd.com', [Validators.required, Validators.email, Validators.maxLength(15)]],
-        ['numberInput']: [75, [Validators.required]],
-        ['dateInput']: [new Date().toISOString()],
-        ['disabledInputs']: [false],
+        stringInput: ['test@vcd.com', [Validators.required, Validators.email, Validators.maxLength(15)]],
+        numberInput: [75, [Validators.required]],
+        dateInput: [new Date().toISOString()],
+        disabledInputs: [false],
     });
 
     constructor(private fb: FormBuilder) {}
 
     ngOnInit(): void {
-        this.formGroup.get('disabledInputs').valueChanges.subscribe((value) => {
+        this.formGroup.controls.disabledInputs.valueChanges.subscribe((value) => {
             // eslint-disable-next-line @typescript-eslint/no-unused-expressions
             const { stringInput, numberInput, dateInput } = this.formGroup.controls;
             [stringInput, numberInput, dateInput].forEach((c) => (value ? c.disable() : c.enable()));

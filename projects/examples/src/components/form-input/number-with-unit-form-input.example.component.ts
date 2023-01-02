@@ -23,7 +23,6 @@ import {
     providers: [SubscriptionTracker],
 })
 export class NumberWithUnitFormInputExampleComponent {
-    formGroup: FormGroup;
     // CPU
     hertzOptions: Unit[] = [Hertz.Mhz, Hertz.Ghz];
     cpuSpeedFormControlValueUnit: Unit = Hertz.Mhz;
@@ -39,43 +38,44 @@ export class NumberWithUnitFormInputExampleComponent {
     timePeriodMin: number = 1;
     timePeriodMax: number = 720;
 
+    formGroup = this.fb.group({
+        readonly: new FormControl(false),
+        disabled: new FormControl(false),
+        memory: new FormControl(1024 * 2, [
+            Validators.required,
+            this.numberWithUnitsFormValidators.isInRange(
+                10,
+                this.maxMemoryAllowedMB,
+                this.memoryFormControlValueUnit,
+                this.memoryOptions
+            ),
+        ]),
+        cpuLimit: new FormControl(-1, [
+            this.numberWithUnitsFormValidators.isInRange(
+                0,
+                this.maxCpuAllowedMhz,
+                this.cpuSpeedFormControlValueUnit,
+                this.hertzOptions
+            ),
+        ]),
+        timePeriodSelection: new FormControl(1, [
+            this.numberWithUnitsFormValidators.isInRange(
+                this.timePeriodMin,
+                this.timePeriodMax,
+                this.timePeriodBaseUnit,
+                this.timePeriodOptions
+            ),
+        ]),
+    });
+
     CheckBoxStyling = CheckBoxStyling;
 
     constructor(
-        fb: FormBuilder,
-        numberWithUnitsFormValidators: NumberWithUnitsFormValidatorsFactory,
+        private fb: FormBuilder,
+        private numberWithUnitsFormValidators: NumberWithUnitsFormValidatorsFactory,
         private unitFormatter: UnitFormatter,
         private subscriptionTracker: SubscriptionTracker
     ) {
-        const memoryValidator = numberWithUnitsFormValidators.isInRange(
-            10,
-            this.maxMemoryAllowedMB,
-            this.memoryFormControlValueUnit,
-            this.memoryOptions
-        );
-
-        const cpuValidator = numberWithUnitsFormValidators.isInRange(
-            0,
-            this.maxCpuAllowedMhz,
-            this.cpuSpeedFormControlValueUnit,
-            this.hertzOptions
-        );
-
-        const timePeriodValidator = numberWithUnitsFormValidators.isInRange(
-            this.timePeriodMin,
-            this.timePeriodMax,
-            this.timePeriodBaseUnit,
-            this.timePeriodOptions
-        );
-
-        this.formGroup = fb.group({
-            readonly: new FormControl(false),
-            disabled: new FormControl(false),
-            memory: new FormControl(1024 * 2, [Validators.required, memoryValidator]),
-            cpuLimit: new FormControl(-1, [cpuValidator]),
-            timePeriodSelection: new FormControl(1, [timePeriodValidator]),
-        });
-
         this.subscriptionTracker.subscribe(this.formGroup.controls.disabled.valueChanges, (value) => {
             if (value) {
                 this.formGroup.controls.cpuLimit.disable();
@@ -90,7 +90,7 @@ export class NumberWithUnitFormInputExampleComponent {
     }
 
     get formattedTimePeriodValue() {
-        const timePeriodValue = this.formGroup.get('timePeriodSelection').value;
+        const timePeriodValue = this.formGroup.controls.timePeriodSelection.value;
 
         return this.unitFormatter.format(timePeriodValue, this.timePeriodBaseUnit, this.timePeriodBaseUnit, 0);
     }

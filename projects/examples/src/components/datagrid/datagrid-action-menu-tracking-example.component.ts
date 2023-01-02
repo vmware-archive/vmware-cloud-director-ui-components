@@ -4,7 +4,7 @@
  */
 
 import { AfterViewInit, ChangeDetectorRef, Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder } from '@angular/forms';
 import {
     ActionItem,
     ActionStyling,
@@ -32,21 +32,21 @@ interface Record {
     styleUrls: ['datagrid-action-menu-tracking-example.component.scss'],
     providers: [SubscriptionTracker],
 })
-export class DatagridActionMenuTrackingExampleComponent<R extends Record> implements OnInit, AfterViewInit, OnDestroy {
-    @ViewChild(DatagridComponent, { static: false }) dg: DatagridComponent<R>;
+export class DatagridActionMenuTrackingExampleComponent implements OnInit, AfterViewInit, OnDestroy {
+    @ViewChild(DatagridComponent, { static: false }) dg: DatagridComponent<Record>;
 
     gridData: GridDataFetchResult<Record> = {
         items: [],
     };
 
-    columns: GridColumn<R>[] = [
+    columns: GridColumn<Record>[] = [
         {
             displayName: 'Some Value',
             renderer: 'value',
         },
     ];
 
-    actions: ActionItem<R, unknown>[] = [];
+    actions: ActionItem<Record, unknown>[] = [];
 
     actionDisplayConfig: DatagridActionDisplayConfig = {
         contextual: {
@@ -58,14 +58,14 @@ export class DatagridActionMenuTrackingExampleComponent<R extends Record> implem
     };
 
     formGroup = this.fb.group({
-                                 ['enableActions']: [true],
-                                 ['contextualActions']: [true],
-                                 ['staticActions']: [true],
-                             });
+        enableActions: [true],
+        contextualActions: [true],
+        staticActions: [true],
+    });
 
     isActionMenuAvailable = false;
 
-    private readonly staticActions: ActionItem<R, unknown>[] = [
+    private readonly staticActions: ActionItem<Record, unknown>[] = [
         {
             textKey: 'Add',
             handler: () => {
@@ -78,7 +78,7 @@ export class DatagridActionMenuTrackingExampleComponent<R extends Record> implem
         },
     ];
 
-    private readonly contextualActions: ActionItem<R, unknown>[] = [
+    private readonly contextualActions: ActionItem<Record, unknown>[] = [
         {
             textKey: 'Delete',
             handler: () => {
@@ -118,7 +118,7 @@ export class DatagridActionMenuTrackingExampleComponent<R extends Record> implem
         this.subscriptionTracker.subscribe(this.dg.mainActionMenu.changes, this.processActionMenuAvailability);
     }
 
-    refresh(eventData: GridState<R>): void {
+    refresh(eventData: GridState<Record>): void {
         this.gridData = {
             items: [{ value: 'Value a' }, { value: 'Value b' }],
             totalItems: 2,

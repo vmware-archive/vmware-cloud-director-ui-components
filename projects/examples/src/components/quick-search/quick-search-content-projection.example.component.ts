@@ -21,7 +21,10 @@ import Mousetrap from 'mousetrap';
     providers: [QuickSearchRegistrarService],
 })
 export class QuickSearchContentProjectionExampleComponent implements OnInit, OnDestroy {
-    formGroup: FormGroup;
+    formGroup = this.fb.group({
+        topSection: [false],
+        bottomSection: [true],
+    });
     kbdShortcut = 'mod+f';
     spotlightOpen: boolean;
     styling = CheckBoxStyling;
@@ -35,11 +38,6 @@ export class QuickSearchContentProjectionExampleComponent implements OnInit, OnD
         this.mousetrap.stopCallback = () => {
             return false;
         };
-
-        this.formGroup = this.fb.group({
-            ['topSection']: [false],
-            ['bottomSection']: [true],
-        });
     }
 
     ngOnInit(): void {
