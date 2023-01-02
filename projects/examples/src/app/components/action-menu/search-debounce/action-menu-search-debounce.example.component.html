@@ -1,8 +1,11 @@
 <div>
+    <button (click)="spotlightOpen = !spotlightOpen">
+        Press to toggle Quick Search and search through the actions
+    </button>
     <p>
-        Press 'command+.' on Mac OS or 'ctrl+.' on PC to open quick search and search through all the actions. Notice
-        that there is a spinner displayed initially for 300ms before displaying the action items. This is because the
-        action search provider is created to debounce the search using 2nd argument(boolean) passed to its constructor.
+        Notice that there is a spinner displayed initially for 300ms before displaying the action items. This is because
+        the action search provider is created to debounce the search using 2nd argument(boolean) passed to its
+        constructor.
     </p>
     <vcd-action-menu
         [actions]="actions"

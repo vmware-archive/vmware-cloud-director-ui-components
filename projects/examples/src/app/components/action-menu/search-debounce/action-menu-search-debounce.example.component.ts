@@ -15,7 +15,6 @@ import {
     QuickSearchService,
     TextIcon,
 } from '@vcd/ui-components';
-import Mousetrap from 'mousetrap';
 
 interface Record {
     value: string;
@@ -32,15 +31,14 @@ interface HandlerData {
     templateUrl: './action-menu-search-debounce.example.component.html',
     styleUrls: ['./action-menu-search-debounce.example.component.scss'],
 })
-export class ActionMenuSearchDebounceExampleComponent<R extends Record, T extends HandlerData>
-    implements OnInit, OnDestroy {
+export class ActionMenuSearchDebounceExampleComponent implements OnInit, OnDestroy {
     constructor(private spotlightSearchService: QuickSearchService, private translationService: TranslationService) {}
 
     kbdShortcut = 'mod+.';
     spotlightOpen: boolean;
     actionSearchProvider = new ActionSearchProvider(this.translationService, true);
 
-    actions: ActionItem<R, T>[] = [
+    actions: ActionItem<Record, HandlerData>[] = [
         {
             textKey: 'Static Featured 1',
             handler: () => console.log('Static Featured 1'),
@@ -49,14 +47,15 @@ export class ActionMenuSearchDebounceExampleComponent<R extends Record, T extend
         },
         {
             textKey: 'Static 1',
-            handler: (rec: R[], data: T) => console.log('Static 1 with custom handler data: ', JSON.stringify(data)),
-            handlerData: { foo: 'foo', bar: 'bar' } as T,
+            handler: (rec: Record[], data: HandlerData) =>
+                console.log('Static 1 with custom handler data: ', JSON.stringify(data)),
+            handlerData: { foo: 'foo', bar: 'bar' } as HandlerData,
             actionType: ActionType.STATIC,
             isTranslatable: false,
         },
         {
             textKey: 'Contextual 1',
-            availability: (rec: R[]) => rec.length === 1,
+            availability: (rec: Record[]) => rec.length === 1,
             handler: () => console.log('Contextual 1'),
             isTranslatable: false,
         },
@@ -75,7 +74,7 @@ export class ActionMenuSearchDebounceExampleComponent<R extends Record, T extend
         },
     };
 
-    private _selectedEntities: Record[] = [{ value: 'Selected entity', paused: false }] as R[];
+    private _selectedEntities: Record[] = [{ value: 'Selected entity', paused: false }] as Record[];
     set selectedEntities(val: Record[]) {
         this._selectedEntities = [...val];
         this.actionSearchProvider.selectedEntities = val;
@@ -87,22 +86,6 @@ export class ActionMenuSearchDebounceExampleComponent<R extends Record, T extend
     private actionProviderName = 'actionMenuExampleComponent';
 
     ngOnInit(): void {
-        const mousetrap = new Mousetrap();
-        const originalStopCallback = mousetrap.stopCallback;
-        mousetrap.stopCallback = (e: ExtendedKeyboardEvent, element: Element, combo: string): boolean => {
-            // If a modifier key is used then do not stop the callback from being called despite of the event origin
-            // i.e. `ctrl+.` on input fields should not stop the callback,
-            // while `.` should stop it and echo `.` in the input
-            if (['command'].some((key) => combo.includes(key))) {
-                return false;
-            }
-            return originalStopCallback.call(mousetrap, e, element, combo);
-        };
-
-        mousetrap.bind(this.kbdShortcut, () => {
-            this.spotlightOpen = true;
-            return false;
-        });
         this.actionSearchProvider.actions = this.actions;
         this.actionSearchProvider.selectedEntities = this.selectedEntities;
         this.actionSearchProvider.sectionName = this.translationService.translate(
