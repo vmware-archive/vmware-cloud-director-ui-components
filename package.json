@@ -51,7 +51,7 @@
     "prismjs": "^1.23.0",
     "properties": "1.2.1",
     "rbradford-compodoc": "^1.1.11",
-    "rxjs": "6.5.5",
+    "rxjs": "^7.8.0",
     "schematics-utilities": "^2.0.3",
     "systemjs": "0.20.19",
     "tslib": "^2.3.0",

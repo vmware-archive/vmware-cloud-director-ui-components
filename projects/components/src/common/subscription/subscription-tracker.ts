@@ -39,18 +39,8 @@ export interface ISubscriptionTracker {
 export class SubscriptionTracker implements ISubscriptionTracker, OnDestroy {
     private subscriptions: Subscription[] = [];
 
-    subscribe<T>(
-        observable: Observable<T>,
-        observerOrNext?: PartialObserver<T> | ((value: T) => void),
-        error?: (error: any) => void,
-        complete?: () => void
-    ): Subscription {
-        let subscription: Subscription;
-        if (typeof observerOrNext === 'function') {
-            subscription = observable.subscribe({ next: observerOrNext, error, complete });
-        } else {
-            subscription = observable.subscribe(observerOrNext);
-        }
+    subscribe<T>(observable: Observable<T>, observerOrNext?: PartialObserver<T> | ((value: T) => void)): Subscription {
+        const subscription = observable.subscribe(observerOrNext);
         this.subscriptions.push(subscription);
         return subscription;
     }
