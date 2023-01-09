@@ -6,3 +6,4 @@
 export * from './data-exporter.component';
 export * from './data-exporter.module';
 export * from './data-exporter.wo';
+export * from './csv-exporter.service';
