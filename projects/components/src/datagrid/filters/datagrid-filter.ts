@@ -95,7 +95,7 @@ export abstract class DatagridFilter<V, C extends FilterConfig<V>, F extends For
         const obs = this.getDebounceTimeMs()
             ? this.formGroup.valueChanges.pipe(debounceTime(this.getDebounceTimeMs()))
             : this.formGroup.valueChanges;
-        this.subscriptionTracker.subscribe(obs, () => this.changes.next());
+        this.subscriptionTracker.subscribe(obs, () => this.changes.next(null));
     }
 
     /**
