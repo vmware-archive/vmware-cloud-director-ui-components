@@ -2,6 +2,7 @@
  * Copyright 2020 VMware, Inc.
  * SPDX-License-Identifier: BSD-2-Clause
  */
+import * as path from 'path';
 import * as ts from 'typescript';
 import { AppRoute } from './app-route';
 import { ANGULAR_CORE, ROUTE_PROP } from './constants';
@@ -54,7 +55,11 @@ export function getRoutes(program: ts.Program): AppRoute[] {
         .filter(hasValue) // Not all the files that contain router usage, contain router configuration call
         .map((moduleRouteCall) => routeCallToRoutes(moduleRouteCall, program.getTypeChecker()));
 
-    const moduleAppRoutes: ModuleAppRoutes[] = fixupLoadChildren(moduleRoutes, moduleFiles);
+    const moduleAppRoutes: ModuleAppRoutes[] = fixupLoadChildren(
+        moduleRoutes,
+        moduleFiles,
+        program.getCurrentDirectory()
+    );
 
     // Get only the routes into a single array
     const appRoutes: AppRoute[] = moduleAppRoutes
@@ -228,7 +233,8 @@ function getModulefromLoadChildrenCall(expr: ts.Expression): string {
  */
 function fixupLoadChildren(
     moduleRoutesWithLoadChildren: ModuleRoutes[],
-    allModuleFiles: ts.SourceFile[]
+    allModuleFiles: ts.SourceFile[],
+    programDirectory: string
 ): ModuleAppRoutes[] {
     // Used for optimization: instead of an array, build a map
     const routesByModule = new Map(
@@ -240,12 +246,13 @@ function fixupLoadChildren(
 
     // Lazy loaded module references are in fact substituted with the actual route configuration
     const moduleRoutes: ModuleRoutes[] = moduleRoutesWithLoadChildren.map((moduleRoute) => {
+        const moduleFolderPath = path.dirname(moduleRoute.module.fileName);
         const routes = moduleRoute.routes.map((route) => {
             if (!route.loadChildren) {
                 return route;
             }
             const { loadChildren, ...routeWithNoLoadChildren } = route;
-            const referencedModule = getReferencedModule(loadChildren);
+            const referencedModule = getReferencedModule(getLoadChildrenAbsolutePath(moduleFolderPath, loadChildren));
             const children: AppRoute[] = [...routesByModule.get(referencedModule)];
             referencedLazyLoadedModules[referencedModule.fileName] = true;
             const newRoute: AppRoute = {
@@ -261,16 +268,15 @@ function fixupLoadChildren(
     return moduleRoutes.filter((moduleRoute) => !referencedLazyLoadedModules[moduleRoute.module.fileName]);
 
     function getReferencedModule(loadChildrenModule: string): ts.SourceFile {
-        const moduleFileName = loadChildrenModule.substring(loadChildrenModule.lastIndexOf('/') + 1);
-        let referencedModule = moduleRoutesWithLoadChildren.find((moduleRoute) =>
-            moduleRoute.module.fileName.includes(moduleFileName)
+        let referencedModule = moduleRoutesWithLoadChildren.find(
+            (moduleRoute) => moduleRoute.module.fileName === loadChildrenModule
         );
 
         // referencedModule may not be found when routing modules are used. In this case the feature module
         // imports the feature routing module and the feature routing module is the one that
         // contains the RouteModule.forRoot / forChild call
         if (!referencedModule) {
-            const moduleFile = allModuleFiles.find((sourceFile) => sourceFile.fileName.includes(moduleFileName));
+            const moduleFile = allModuleFiles.find((sourceFile) => sourceFile.fileName === loadChildrenModule);
             // In general moduleFile should be found if the naming convention is kept
             if (moduleFile) {
                 // Go through the import statements and get those that contain 'module'
@@ -300,5 +306,16 @@ function fixupLoadChildren(
             throw new Error(`No data for the referenced module '${referencedModule}' found`);
         }
         return referencedModule.module;
+    }
+
+    // Using absolute path prevents issues when two module files have the exact same name
+    function getLoadChildrenAbsolutePath(moduleFolderPath: string, loadChildrenImportPath: string): string {
+        // root filenames are user provided and may be relative (eg. see package json's gen-app-routes:tenant)
+        const absolutePath = path.isAbsolute(moduleFolderPath)
+            ? path.join(moduleFolderPath, loadChildrenImportPath)
+            : path.join(programDirectory, moduleFolderPath, loadChildrenImportPath);
+
+        // Must append the file extension, as the TS imports never include it
+        return `${absolutePath}.ts`;
     }
 }
