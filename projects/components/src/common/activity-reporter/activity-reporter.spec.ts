@@ -24,10 +24,10 @@ interface HasPromiseAndReporter {
 }
 
 describe('ActivityReporter', () => {
-    beforeEach(function(this: HasPromiseAndReporter): void {
+    beforeEach(function (this: HasPromiseAndReporter): void {
         this.promise = new Promise<string>((promiseResolve, promiseReject) => {
-            this.resolve = stuff => promiseResolve(stuff);
-            this.reject = stuff => promiseReject(stuff);
+            this.resolve = (stuff) => promiseResolve(stuff);
+            this.reject = (stuff) => promiseReject(stuff);
         });
 
         this.reporter = new SimpleReporter(new ActivityPromiseResolver());
@@ -37,19 +37,25 @@ describe('ActivityReporter', () => {
     });
 
     class SimpleReporter extends ActivityReporter {
-        reportError(errorText: string): void {}
+        reportError(errorText: string): void {
+            // Will be spied on
+        }
 
-        reportSuccess(successMessage?: string): void {}
+        reportSuccess(successMessage?: string): void {
+            // Will be spied on
+        }
 
-        startActivity(): void {}
+        startActivity(): void {
+            // Will be spied on
+        }
     }
 
     describe('monitorGet', () => {
-        it('reports success when the promise is resolved', function(this: HasPromiseAndReporter): Promise<void> {
+        it('reports success when the promise is resolved', function (this: HasPromiseAndReporter): Promise<void> {
             const getPromise = this.reporter.monitorGet(this.promise);
             expect(this.startSpy).toHaveBeenCalledTimes(1);
 
-            const toReturn = getPromise.then(result => {
+            const toReturn = getPromise.then((result) => {
                 expect(this.reportSuccessSpy).toHaveBeenCalledTimes(1);
             });
 
@@ -58,10 +64,10 @@ describe('ActivityReporter', () => {
             return toReturn;
         });
 
-        it('reports error when the promise is rejected', function(this: HasPromiseAndReporter): Promise<void> {
+        it('reports error when the promise is rejected', function (this: HasPromiseAndReporter): Promise<void> {
             const getPromise = this.reporter.monitorGet(this.promise);
             expect(this.startSpy).toHaveBeenCalledTimes(1);
-            const toReturn = getPromise.then(result => {
+            const toReturn = getPromise.then((result) => {
                 expect(this.reportErrorSpy).toHaveBeenCalledWith('bad!');
             });
             this.reject('bad!');
@@ -70,11 +76,11 @@ describe('ActivityReporter', () => {
     });
 
     describe('monitorEdit', () => {
-        it('reports success when the promise is resolved', function(this: HasPromiseAndReporter): Promise<void> {
+        it('reports success when the promise is resolved', function (this: HasPromiseAndReporter): Promise<void> {
             const editPromise = this.reporter.monitorEdit(this.promise);
             expect(this.startSpy).toHaveBeenCalledTimes(1);
 
-            const toReturn = editPromise.then(result => {
+            const toReturn = editPromise.then((result) => {
                 expect(this.reportSuccessSpy).toHaveBeenCalledTimes(1);
             });
 
@@ -83,10 +89,10 @@ describe('ActivityReporter', () => {
             return toReturn;
         });
 
-        it('reports error when the promise is rejected', function(this: HasPromiseAndReporter): Promise<void> {
+        it('reports error when the promise is rejected', function (this: HasPromiseAndReporter): Promise<void> {
             const editPromise = this.reporter.monitorEdit(this.promise);
             expect(this.startSpy).toHaveBeenCalledTimes(1);
-            const toReturn = editPromise.then(result => {
+            const toReturn = editPromise.then((result) => {
                 expect(this.reportErrorSpy).toHaveBeenCalledWith('bad!');
             });
             this.reject('bad!');
@@ -95,11 +101,11 @@ describe('ActivityReporter', () => {
     });
 
     describe('monitorGetAll', () => {
-        it('reports success when the promise is resolved', function(this: HasPromiseAndReporter): Promise<void> {
-            const getPromise = this.reporter.monitorGetAll(this.promise.then(result => [result]));
+        it('reports success when the promise is resolved', function (this: HasPromiseAndReporter): Promise<void> {
+            const getPromise = this.reporter.monitorGetAll(this.promise.then((result) => [result]));
             expect(this.startSpy).toHaveBeenCalledTimes(1);
 
-            const toReturn = getPromise.then(result => {
+            const toReturn = getPromise.then((result) => {
                 expect(this.reportSuccessSpy).toHaveBeenCalledTimes(1);
             });
 
@@ -108,10 +114,10 @@ describe('ActivityReporter', () => {
             return toReturn;
         });
 
-        it('reports error when the promise is rejected', function(this: HasPromiseAndReporter): Promise<void> {
-            const getPromise = this.reporter.monitorGetAll(this.promise.then(result => [result]));
+        it('reports error when the promise is rejected', function (this: HasPromiseAndReporter): Promise<void> {
+            const getPromise = this.reporter.monitorGetAll(this.promise.then((result) => [result]));
             expect(this.startSpy).toHaveBeenCalledTimes(1);
-            const toReturn = getPromise.then(result => {
+            const toReturn = getPromise.then((result) => {
                 expect(this.reportErrorSpy).toHaveBeenCalledWith('bad!');
             });
             this.reject('bad!');

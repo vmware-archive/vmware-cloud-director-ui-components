@@ -109,7 +109,9 @@ export abstract class DatagridFilter<V, C extends FilterConfig<V>, F extends For
      * Called inside setter of {@link DatagridFilter#config} and Defined in the derived classes to perform some logic before
      * assigning the UI widget configuration and setting a value
      */
-    protected onBeforeSetConfig(config: C): void {}
+    protected onBeforeSetConfig(config: C): void {
+        // No default behavior
+    }
 
     /**
      * Used for assigning a value to a filter from outside

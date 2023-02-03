@@ -123,15 +123,16 @@ describe('ActionMenuComponent', () => {
             expect(action.actionType).toEqual(ActionType.STATIC);
         });
     });
-    it('get staticFeaturedActions returns only the actions that are marked as' + ' static_featured', function (
-        this: HasFinderAndActionMenu
-    ): void {
-        this.actionMenu.actions = [...STATIC_FEATURED_ACTIONS].concat([...CONTEXTUAL_FEATURED_ACTIONS]);
-        this.finder.detectChanges();
-        this.actionMenu.staticFeaturedActions.forEach((action) => {
-            expect(action.actionType).toEqual(ActionType.STATIC_FEATURED);
-        });
-    });
+    it(
+        'get staticFeaturedActions returns only the actions that are marked as' + ' static_featured',
+        function (this: HasFinderAndActionMenu): void {
+            this.actionMenu.actions = [...STATIC_FEATURED_ACTIONS].concat([...CONTEXTUAL_FEATURED_ACTIONS]);
+            this.finder.detectChanges();
+            this.actionMenu.staticFeaturedActions.forEach((action) => {
+                expect(action.actionType).toEqual(ActionType.STATIC_FEATURED);
+            });
+        }
+    );
     describe('getContextualFeaturedActions', () => {
         beforeEach(function (this: HasFinderAndActionMenu): void {
             this.actionMenu.actions = [...CONTEXTUAL_FEATURED_ACTIONS].concat([...STATIC_FEATURED_ACTIONS]);
@@ -142,18 +143,19 @@ describe('ActionMenuComponent', () => {
                 },
             ];
         });
-        it('returns only actions that are both available and also marked as' + ' contextual_featured', function (
-            this: HasFinderAndActionMenu
-        ): void {
-            this.actionMenu.actionDisplayConfig = { ...ACTION_DISPLAY_CONFIG };
-            this.finder.detectChanges();
-            const availableContextualFeaturedActions = this.actionMenu.contextualFeaturedActions;
-            expect(CONTEXTUAL_FEATURED_ACTIONS.length).toEqual(3);
-            expect(availableContextualFeaturedActions.length).toEqual(2);
-            availableContextualFeaturedActions.forEach((action) => {
-                expect(action.actionType).toEqual(ActionType.CONTEXTUAL_FEATURED);
-            });
-        });
+        it(
+            'returns only actions that are both available and also marked as' + ' contextual_featured',
+            function (this: HasFinderAndActionMenu): void {
+                this.actionMenu.actionDisplayConfig = { ...ACTION_DISPLAY_CONFIG };
+                this.finder.detectChanges();
+                const availableContextualFeaturedActions = this.actionMenu.contextualFeaturedActions;
+                expect(CONTEXTUAL_FEATURED_ACTIONS.length).toEqual(3);
+                expect(availableContextualFeaturedActions.length).toEqual(2);
+                availableContextualFeaturedActions.forEach((action) => {
+                    expect(action.actionType).toEqual(ActionType.CONTEXTUAL_FEATURED);
+                });
+            }
+        );
         it('does not return an action list with more items than featuredCount', function (this: HasFinderAndActionMenu): void {
             this.actionMenu.actionDisplayConfig = {
                 contextual: {
@@ -240,25 +242,26 @@ describe('ActionMenuComponent', () => {
         );
     });
     describe('isActionDisabled', () => {
-        it('returns the output of disabled, if its a function or just disabled if its a ' + 'boolean', function (
-            this: HasFinderAndActionMenu
-        ): void {
-            const action: ActionItem<Record, HandlerData> = {
-                textKey: 'action',
-                handler: () => {},
-                disabled: () => true,
-            };
-            expect(this.actionMenu.isActionDisabled(action)).toBeTruthy();
-            action.disabled = false;
-            expect(this.actionMenu.isActionDisabled(action)).toBeFalsy();
+        it(
+            'returns the output of disabled, if its a function or just disabled if its a ' + 'boolean',
+            function (this: HasFinderAndActionMenu): void {
+                const action: ActionItem<Record, HandlerData> = {
+                    textKey: 'action',
+                    handler: () => undefined,
+                    disabled: () => true,
+                };
+                expect(this.actionMenu.isActionDisabled(action)).toBeTruthy();
+                action.disabled = false;
+                expect(this.actionMenu.isActionDisabled(action)).toBeFalsy();
 
-            const action2 = {
-                textKey: 'action',
-                handler: () => {},
-                disabled: true,
-            };
-            expect(this.actionMenu.isActionDisabled(action2)).toBeTruthy();
-        });
+                const action2 = {
+                    textKey: 'action',
+                    handler: () => undefined,
+                    disabled: true,
+                };
+                expect(this.actionMenu.isActionDisabled(action2)).toBeTruthy();
+            }
+        );
     });
     describe('getFlattenedActionList', () => {
         it('returns nested featured actions by adding them to a flattened list', function (this: HasFinderAndActionMenu): void {
@@ -471,18 +474,18 @@ const ACTION_DISPLAY_CONFIG = {
 const ACTIONS_WITH_NO_ACTION_TYPES = [
     {
         textKey: 'action.1',
-        handler: () => {},
+        handler: () => undefined,
         availability: () => false,
         disabled: () => true,
     },
     {
         textKey: 'action.2',
-        handler: () => {},
+        handler: () => undefined,
         availability: () => true,
         children: [
             {
                 textKey: 'children.action.1',
-                handler: () => {},
+                handler: () => undefined,
             },
         ],
     },
@@ -571,12 +574,12 @@ const NESTED_ACTIONS: any[] = [
 const CONTEXTUAL_ACTIONS = [
     {
         textKey: 'contextual.1',
-        handler: () => {},
+        handler: () => undefined,
         availability: () => false,
     },
     {
         textKey: 'contextual.2',
-        handler: () => {},
+        handler: () => undefined,
         availability: () => true,
     },
 ];
@@ -584,10 +587,10 @@ const CONTEXTUAL_ACTIONS = [
 const FLAT_LIST_OF_ACTIONS_WITH_NO_ACTION_TYPE = [
     {
         textKey: 'Contextual 1',
-        handler: () => {},
+        handler: () => undefined,
     },
     {
         textKey: 'Contextual 2',
-        handler: () => {},
+        handler: () => undefined,
     },
 ];

@@ -25,9 +25,7 @@ interface MyEntity {
     templateUrl: './sharing-modal-example.component.html',
     styleUrls: ['./sharing-modal-example.component.scss'],
 })
-export class SharingModalExampleComponent implements OnInit {
-    constructor() {}
-
+export class SharingModalExampleComponent {
     opened = false;
 
     title: LazyString = 'Sharing Modal Example';
@@ -131,8 +129,6 @@ export class SharingModalExampleComponent implements OnInit {
             ],
         },
     };
-
-    ngOnInit(): void {}
 
     log(event): void {
         console.log(event);

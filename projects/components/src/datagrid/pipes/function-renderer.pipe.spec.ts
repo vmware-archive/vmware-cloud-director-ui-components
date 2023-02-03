@@ -9,7 +9,7 @@ describe('FunctionRendererPipe', () => {
     const functionRendererPipe = new FunctionRendererPipe();
 
     it('returns null if item or function is not provided', () => {
-        expect(functionRendererPipe.transform(null, () => {})).toBeNull();
+        expect(functionRendererPipe.transform(null, () => undefined)).toBeNull();
         expect(functionRendererPipe.transform({}, null)).toBeNull();
     });
 
@@ -17,10 +17,10 @@ describe('FunctionRendererPipe', () => {
         const item = {
             prop: 'value',
         };
-        const foo = (obj: any) => {
+        const foo = (obj: { prop: string }) => {
             return obj.prop;
         };
-        const boo = (obj: any) => {
+        const boo = (obj: unknown) => {
             return !!obj;
         };
         expect(functionRendererPipe.transform(item, foo)).toEqual('value');

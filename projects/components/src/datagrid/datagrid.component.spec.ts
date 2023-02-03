@@ -21,13 +21,12 @@ import {
 import { ShowClippedTextDirective, TooltipSize } from '../lib/directives/show-clipped-text.directive';
 import { ClrDatagridWidgetObject } from '../utils/test/datagrid/datagrid.wo';
 import { VcdDatagridWidgetObject } from '../utils/test/datagrid/vcd-datagrid.wo';
-import { timeout } from '../utils/test/test-utils';
 import { AngularWidgetObjectFinder } from '../utils/test/widget-object/angular/angular-widget-finder';
 import { TestElement } from '../utils/test/widget-object/angular/angular-widget-object-element';
 import {
     ActivityIndicatorType,
-    DatagridContextualActionPosition,
     DatagridComponent,
+    DatagridContextualActionPosition,
     DEFAULT_PAGINATION_TRANSLATION_KEY,
     GridDataFetchResult,
     GridSelectionType,
@@ -1022,18 +1021,6 @@ describe('DatagridComponent', () => {
             });
         });
 
-        describe('getRowLoadingListenerInjector()', () => {
-            beforeEach(function (this: HasFinderAndGrid): void {
-                this.hostComponent.columns = [
-                    {
-                        displayName: 'Column',
-                        renderer: 'name',
-                    },
-                ];
-                this.finder.detectChanges();
-            });
-        });
-
         describe('@Output() refresh', () => {
             beforeEach(function (this: HasFinderAndGrid): void {
                 this.hostComponent.columns = [
@@ -1429,11 +1416,13 @@ describe('DatagridComponent', () => {
             it('returns translated string', async function (this: HasFinderAndGrid): Promise<void> {
                 this.finder.detectChanges();
                 const component = this.hostComponent.grid;
-                const translatedString = await (component.getPaginationTranslation({
-                    firstItem: 1,
-                    lastItem: 10,
-                    totalItems: 100,
-                } as any) as Observable<string>)
+                const translatedString = await (
+                    component.getPaginationTranslation({
+                        firstItem: 1,
+                        lastItem: 10,
+                        totalItems: 100,
+                    } as any) as Observable<string>
+                )
                     .pipe(first())
                     .toPromise();
 
@@ -1588,13 +1577,17 @@ export class HostWithDatagridComponent {
 
     trackBy = (index, record: RecordId) => record.name;
 
-    selectionChanged(selection: MockRecord[]): void {}
+    selectionChanged(selection: MockRecord[]): void {
+        // Will be spied on
+    }
 
     clrDatarowCssClassGetter(a: MockRecord, index: number): string {
         return '';
     }
 
-    refresh(eventData: GridState<MockRecord>): void {}
+    refresh(eventData: GridState<MockRecord>): void {
+        // Will be spied on
+    }
 
     getGridTrackBy(): TrackByFunction<MockRecord> {
         return this.grid.datagrid.items.trackBy;
@@ -1613,7 +1606,6 @@ class DatagridDetailsComponent {
 })
 class DatagridDetailsPaneComponent {
     configSetTimes = 0;
-    constructor() {}
 
     set config(config: any) {
         this.configSetTimes++;

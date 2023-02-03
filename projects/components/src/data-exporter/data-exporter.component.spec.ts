@@ -372,8 +372,9 @@ class TestHostComponent {
 
     exportColumns: ExportColumn[] = TestData.exportColumns;
 
-    // Will be mocked in tests
-    onExportRequest(request: DataExportRequestEvent): void {}
+    onExportRequest(request: DataExportRequestEvent): void {
+        // Will be mocked in tests
+    }
 }
 
 @Component({
@@ -393,6 +394,7 @@ class TestExporterColumnsWithoutDisplayNameComponent {
 
     exportColumns: ExportColumn[] = TestData.exportColumnsWithoutDisplayName;
 
-    // Will be mocked in tests
-    onExportRequest(request: DataExportRequestEvent): void {}
+    onExportRequest(request: DataExportRequestEvent): void {
+        // Will be mocked in tests
+    }
 }
