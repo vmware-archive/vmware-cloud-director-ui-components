@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: BSD-2-Clause
  */
 
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { FormSelectComponent, SelectOption } from '@vcd/ui-components';
 
@@ -14,7 +14,7 @@ import { FormSelectComponent, SelectOption } from '@vcd/ui-components';
     selector: 'vcd-form-select-disabled-example',
     templateUrl: './form-select-disabled-options.example.component.html',
 })
-export class FormSelectDisabledOptionsExampleComponent implements OnInit {
+export class FormSelectDisabledOptionsExampleComponent {
     formGroup = this.fb.group({
         selectInput: ['one', [Validators.required]],
     });
@@ -43,6 +43,4 @@ export class FormSelectDisabledOptionsExampleComponent implements OnInit {
     ];
 
     constructor(private fb: FormBuilder) {}
-
-    ngOnInit() {}
 }

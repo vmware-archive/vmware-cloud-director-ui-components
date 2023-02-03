@@ -4,10 +4,10 @@
  */
 
 import MessageFormat from '@messageformat/core';
-import { combineLatest, Observable, of, ReplaySubject } from 'rxjs';
+import { combineLatest, Observable, ReplaySubject } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { TranslationLoader } from '../loader/translation-loader';
-import { FormatDateOptions, TranslationService, TranslationSet, TRANSLATION_MAPPING } from './translation-service';
+import { FormatDateOptions, TRANSLATION_MAPPING, TranslationService, TranslationSet } from './translation-service';
 
 /**
  * Translation service to implement ICU MessageFormat.
