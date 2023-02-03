@@ -5,7 +5,7 @@
 import { evaluate, EvaluateResult } from '@wessberg/ts-evaluator';
 import * as ts from 'typescript';
 
-export function hasValue(item: any): boolean {
+export function hasValue(item: unknown): boolean {
     return item !== null && item !== undefined;
 }
 
