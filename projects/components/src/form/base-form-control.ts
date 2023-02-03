@@ -169,7 +169,9 @@ export class BaseFormControl<V> implements ControlValueAccessor, CanBeReadOnly {
         this.disabled = isDisabled;
     }
 
-    writeValue(val: any): void {}
+    writeValue(val: unknown): void {
+        // No default behavior but subclasses should update the
+    }
 
     /**
      * When errorObjectValue param is not an array we pass back the control's value to stay backward compatible.

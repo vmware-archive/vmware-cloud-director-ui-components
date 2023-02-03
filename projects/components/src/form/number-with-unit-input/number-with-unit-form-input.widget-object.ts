@@ -18,6 +18,11 @@ export class NumberWithUnitFormInputWidgetObject extends WidgetObject<NumberWith
         return this.component.formControl;
     }
 
+    get unlimitedLabel(): string {
+        // The unlimited checkbox is the label, which is where the unlimited text is displayed
+        return this.unlimitedCheckbox.innerText;
+    }
+
     get displayValue(): string {
         return this.component.displayValue;
     }
