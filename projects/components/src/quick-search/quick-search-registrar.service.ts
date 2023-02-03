@@ -4,7 +4,7 @@
  */
 
 import { Injectable, OnDestroy } from '@angular/core';
-import { QuickSearchProvider, QuickSearchNestedProvider } from './quick-search.provider';
+import { QuickSearchNestedProvider, QuickSearchProvider } from './quick-search.provider';
 import { QuickSearchService } from './quick-search.service';
 
 /**

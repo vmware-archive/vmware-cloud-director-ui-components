@@ -2,7 +2,7 @@
  * Copyright 2021 VMware, Inc.
  * SPDX-License-Identifier: BSD-2-Clause
  */
-import { normalize, join, strings, Path } from '@angular-devkit/core';
+import { join, normalize, Path, strings } from '@angular-devkit/core';
 import { AppRoute } from './app-route';
 
 export function generateRouteBuilder(routes: AppRoute[]): string {

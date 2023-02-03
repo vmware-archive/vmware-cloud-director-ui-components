@@ -14,7 +14,7 @@ import System from 'systemjs/dist/system';
 (window as any).SystemJs = System.registry.set('@vcd/common', System.newModule({})); // >= 9.5
 import 'zone.js';
 import 'zone.js/testing';
-// eslint-disable-next-line import/order
+// eslint-disable-next-line sort-imports
 import { getTestBed } from '@angular/core/testing';
 import { BrowserDynamicTestingModule, platformBrowserDynamicTesting } from '@angular/platform-browser-dynamic/testing';
 
