@@ -4,7 +4,7 @@
  */
 
 import { CommonUtil } from '../utils';
-import { QuickSearchResultsType } from './quick-search-result';
+import { QuickSearchResults, QuickSearchResultsType } from './quick-search-result';
 import { ActiveQuickSearchFilter } from './quick-search.service';
 
 export const PROVIDER_SEARCH_DEBOUNCE_TIME = 300;
@@ -85,14 +85,12 @@ export abstract class QuickSearchProviderDefaults implements QuickSearchProvider
      */
     constructor(shouldDebounceInput: boolean) {
         if (shouldDebounceInput) {
-            // The return type is being ignored because, createBufferedPromise function returns a function that returns a Promise which
-            // in turn wraps the return value of search function and TS compiler is not accepting () => Promise<QuickSearchResultsType>
-            // as () => QuickSearchResultsType. However, this is not a problem because, QuickSearchResultsType can be of type
-            // Promise<QuickSearchResults> and Promise<Promise<QuickSearchResults>> can be assigned to Promise<QuickSearchResults>
-            // @ts-ignore
-            this.search = CommonUtil.createBufferedPromise(this.search, this, PROVIDER_SEARCH_DEBOUNCE_TIME);
+            this.search = CommonUtil.createBufferedPromise(this.search, this, PROVIDER_SEARCH_DEBOUNCE_TIME) as (
+                str: string
+            ) => Promise<QuickSearchResults>;
         }
     }
+
     sectionName = '';
     order = -1;
     data: unknown;
