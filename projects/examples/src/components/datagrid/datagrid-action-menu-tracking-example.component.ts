@@ -142,9 +142,9 @@ export class DatagridActionMenuTrackingExampleComponent implements OnInit, After
 
     private updateNumberOfAvailableActions = () => {
         this.numberOfAvailableActions = [
-            ...this.dg.mainActionMenu.first?.staticActions,
-            ...this.dg.mainActionMenu.first?.staticFeaturedActions,
-            ...this.dg.mainActionMenu.first?.contextualActions,
+            ...[this.dg.mainActionMenu.first?.staticActions || []],
+            ...[this.dg.mainActionMenu.first?.staticFeaturedActions || []],
+            ...[this.dg.mainActionMenu.first?.contextualActions || []],
         ].length;
         this.cd.detectChanges();
     };
