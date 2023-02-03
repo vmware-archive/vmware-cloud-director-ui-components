@@ -108,8 +108,13 @@ export function evaluateNode(
  * @param typeChecker
  */
 export function getTagName(initializer: ts.Expression, typeChecker: ts.TypeChecker): string | undefined {
-    const routeComponentInitializer = getValueDeclaration(initializer, typeChecker);
-    const componentDecorator = routeComponentInitializer?.decorators.find((dec) => {
+    const classInitializer = getValueDeclaration(initializer, typeChecker);
+    const errorMessage = `Invalid expression passed to getTagName. Expected class declaration with @Component annotation`;
+    if (!ts.isClassDeclaration(classInitializer)) {
+        throw new Error(errorMessage);
+    }
+
+    const componentDecorator = ts.getDecorators(classInitializer).find((dec: ts.Node) => {
         return (
             ts.isDecorator(dec) &&
             ts.isCallExpression(dec.expression) &&
@@ -119,9 +124,7 @@ export function getTagName(initializer: ts.Expression, typeChecker: ts.TypeCheck
     });
 
     if (!componentDecorator) {
-        throw new Error(
-            `Invalid expression passed to getTagName. Expected class declaration with @Component annotation`
-        );
+        throw new Error(errorMessage);
     }
     // We guaranteed it's a callExpression with the above
     const compDecoratorArg = (componentDecorator.expression as ts.CallExpression).arguments[0];
