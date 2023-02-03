@@ -79,6 +79,7 @@ describe('SharingModalComponent', () => {
 
         this.finder = new AngularWidgetObjectFinder(TestHostComponent);
         this.finder.detectChanges();
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
         // @ts-ignore
         this.widget = this.finder.find(VcdDropdownWidgetObject);
     });
@@ -252,9 +253,7 @@ describe('SharingModalComponent', () => {
             this.widget.openComboboxButton().click();
         });
 
-        it('shows a warning at the bottom about missing results', async function (this: HasVcdSharingModal): Promise<
-            void
-        > {
+        it('shows a warning at the bottom about missing results', async function (this: HasVcdSharingModal): Promise<void> {
             this.finder.hostComponent.tabs = [
                 {
                     id: 'user',
@@ -616,9 +615,9 @@ describe('SharingModalComponent', () => {
             this.widget.getTabByHeader('Users').click();
             await timeout(0);
             this.finder.detectChanges();
-            (this.widget.getActiveTab().unwrap().getComponentInstance() as SharingModalTabComponent<
-                any
-            >).updateEntityRights(
+            (
+                this.widget.getActiveTab().unwrap().getComponentInstance() as SharingModalTabComponent<any>
+            ).updateEntityRights(
                 {
                     name: 'ryan',
                     id: 'ryan',
@@ -663,8 +662,6 @@ describe('SharingModalComponent', () => {
     ></vcd-sharing-modal>`,
 })
 export class TestHostComponent {
-    constructor() {}
-
     opened = true;
 
     title: string;
@@ -675,5 +672,7 @@ export class TestHostComponent {
 
     formValue: SharingModalResult = {};
 
-    output(event: SharingModalResult): void {}
+    output(event: SharingModalResult): void {
+        // Do nothing
+    }
 }

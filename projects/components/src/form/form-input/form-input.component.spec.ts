@@ -4,7 +4,7 @@
  */
 
 import { Component } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, Validators } from '@angular/forms';
 import { WidgetFinder, WidgetObject } from '../../utils/test/widget-object';
 import { configureFormInputTestingModule } from '../base-form-control.spec';
 import { FormInputComponent, getFormattedDateValue } from './form-input.component';
@@ -102,6 +102,8 @@ describe('FormInputComponent', () => {
         describe('type number', () => {
             it('updates the form control with string input converted into a floating-point number', () => {
                 numberInput.enter('70.9');
+                // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+                // @ts-ignore
                 expect(hostComponent.formGroup.controls.numberInput.value).toEqual(70.9);
             });
 
@@ -162,7 +164,6 @@ describe('FormInputComponent', () => {
                 #inputWithDescription
                 [description]="'Test'"
                 [formControl]="controls.inputWithDescription"
-                s
             ></vcd-form-input>
             <vcd-form-input
                 #requiredInput
