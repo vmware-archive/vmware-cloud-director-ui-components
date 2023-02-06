@@ -34,6 +34,7 @@
                     type="button"
                     clrDropdownTrigger
                     [attr.data-ui]="DataUi.filterButton(filter.id)"
+                    [attr.aria-label]="'vcd.cc.search.filterBy.btn.label' | translate: filter.dropdownText"
                 >
                     {{ filter.dropdownText }}
                     <clr-icon shape="caret down"></clr-icon>
