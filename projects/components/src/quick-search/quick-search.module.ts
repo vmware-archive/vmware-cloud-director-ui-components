@@ -9,6 +9,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ClarityModule } from '@clr/angular';
 import { I18nModule } from '@vcd/i18n';
 import { ShowClippedTextDirectiveModule } from '../lib/directives/show-clipped-text.directive.module';
+import { AriaActivedescendantModule } from '../lib/directives';
 import { DrawerComponent } from './drawer/drawer.component';
 import { QuickSearchComponent } from './quick-search.component';
 
@@ -20,6 +21,7 @@ import { QuickSearchComponent } from './quick-search.component';
         ReactiveFormsModule,
         I18nModule,
         ShowClippedTextDirectiveModule,
+        AriaActivedescendantModule,
     ],
     declarations: [QuickSearchComponent, DrawerComponent],
     exports: [QuickSearchComponent],

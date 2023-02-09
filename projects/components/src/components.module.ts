@@ -17,6 +17,7 @@ import { ResponsiveInputDirectiveModule } from './lib/directives/responsive-inpu
 import { ShowClippedTextDirectiveModule } from './lib/directives/show-clipped-text.directive.module';
 import { QuickSearchModule } from './quick-search/quick-search.module';
 import { VcdSharingModalModule } from './sharing-modal/sharing-modal.module';
+import { AriaActivedescendantModule } from './lib/directives';
 
 @NgModule({
     exports: [
@@ -33,6 +34,7 @@ import { VcdSharingModalModule } from './sharing-modal/sharing-modal.module';
         ResponsiveInputDirectiveModule,
         AlternativeTextModule,
         VcdSharingModalModule,
+        AriaActivedescendantModule,
     ],
 })
 export class VcdComponentsModule {}

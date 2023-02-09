@@ -84,16 +84,20 @@
 </ng-template>
 
 <ng-template let-searchSection #searchSectionTemplate>
-    <ul class="list-unstyled compact">
+    <ul class="list-unstyled compact" role="none">
         <li
             class="search-result-item"
-            role="button"
-            *ngFor="let item of searchSection.result?.items"
+            role="row"
+            *ngFor="let item of searchSection.result?.items; let i = index"
             (click)="itemClicked(item)"
             [ngClass]="item === selectedItem ? 'selected' : ''"
             [attr.data-ui]="DataUi.searchResultItems"
         >
-            {{ item.displayText }}
+            <span role="gridcell">
+                <button [vcdAriaActiveDescendant]="item === selectedItem">
+                    {{ item.displayText }}
+                </button>
+            </span>
         </li>
         <li>
             <clr-alert
@@ -123,11 +127,15 @@
         </div>
         <input
             #searchInput
-            type="text"
+            type="search"
+            role="searchbox"
             class="clr-input"
             [placeholder]="placeholder || ''"
             [(ngModel)]="searchCriteria"
             [attr.data-ui]="DataUi.searchInput"
+            [attr.aria-owns]="resultsGridId"
+            [attr.aria-controls]="resultsGridId"
+            [attr.aria-activedescendant]="activeDescendantId"
         />
         <button class="btn btn-link pin-button" (click)="togglePinned()">
             <clr-icon shape="pin" size="20" [ngClass]="this.searchService.isPinned ? 'is-solid' : ''"> </clr-icon>
@@ -136,24 +144,29 @@
     <clr-control-helper class="input-helper">{{ helper }}</clr-control-helper>
     <ng-container *ngTemplateOutlet="filtersSection"> </ng-container>
     <ng-content select=".top-of-results"></ng-content>
-    <div class="search-result-container">
-        <section
+    <div class="search-result-container" role="grid" [attr.id]="resultsGridId" *ngIf="searchInput.value !== ''">
+        <div
             class="no-results"
+            role="row"
             [attr.data-ui]="DataUi.noResults"
             *ngIf="searchService.hasNoResults && !searchService.isLoading"
         >
-            {{ 'vcd.cc.quickSearch.noResults' | translate }}
-        </section>
-        <section
+            <span role="gridcell" [vcdAriaActiveDescendant]="searchService.hasNoResults && !searchService.isLoading">
+                {{ 'vcd.cc.quickSearch.noResults' | translate }}
+            </span>
+        </div>
+        <div
             *ngFor="let searchSection of _ungroupedSearchSections; let i = index; trackBy: sectionTrackBy"
             class="search-result-section section-index-0-{{ i + 1 }}"
             data-ui="search-result-section"
         >
-            <div *ngIf="!searchSection.isLoading">
+            <div *ngIf="!searchSection.isLoading" role="rowgroup" [attr.aria-labelledby]="'ungrouped-search-' + i">
                 <h5
                     *ngIf="searchSection.shouldShowText"
                     class="search-result-section-title"
+                    role="presentation"
                     [attr.data-ui]="DataUi.searchResultSectionTitles"
+                    [attr.id]="'ungrouped-search-' + i"
                 >
                     <ng-container *ngTemplateOutlet="sectionTitle; context: { $implicit: searchSection }">
                     </ng-container>
@@ -161,24 +174,30 @@
                 <ng-container *ngTemplateOutlet="searchSectionTemplate; context: { $implicit: searchSection }">
                 </ng-container>
             </div>
-        </section>
+        </div>
         <div *ngFor="let parentSearchSection of _groupedSearchSections; let n = index; trackBy: groupSectionTrackBy">
             <h5
                 *ngIf="showParentSectionTitle(parentSearchSection)"
                 class="search-result-section-title"
                 [attr.data-ui]="DataUi.searchResultSectionTitles"
+                [attr.id]="'grouped-search-result-' + n"
+                role="presentation"
             >
                 {{ parentSearchSection.headerTitle }}
             </h5>
-            <section
+            <div
                 *ngFor="let searchSection of parentSearchSection.subSections; let i = index; trackBy: sectionTrackBy"
                 class="sub-section"
+                role="rowgroup"
+                [attr.aria-labelledby]="'grouped-search-result-' + n + ' ' + 'grouped-search-result-section' + i"
             >
                 <div *ngIf="!searchSection.isLoading">
                     <p
                         *ngIf="searchSection.shouldShowText"
+                        role="presentation"
                         class="p2 search-result-section-title search-result-section section-index-{{ n }}-{{ i }}"
                         [attr.data-ui]="DataUi.searchResultSectionTitles"
+                        [attr.id]="'grouped-search-result-section' + i"
                     >
                         <ng-container *ngTemplateOutlet="sectionTitle; context: { $implicit: searchSection }">
                         </ng-container>
@@ -186,7 +205,7 @@
                     <ng-container *ngTemplateOutlet="searchSectionTemplate; context: { $implicit: searchSection }">
                     </ng-container>
                 </div>
-            </section>
+            </div>
         </div>
     </div>
     <ng-content select=".bottom-of-results"></ng-content>

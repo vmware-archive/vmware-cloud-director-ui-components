@@ -9,7 +9,6 @@ import {
     ElementRef,
     EventEmitter,
     Input,
-    OnDestroy,
     OnInit,
     Output,
     ViewChild,
@@ -18,6 +17,8 @@ import { TranslationService } from '@vcd/i18n';
 import { combineLatest } from 'rxjs';
 import { DomUtil } from '../utils/dom-util';
 import { SubscriptionTracker } from '../common/subscription/subscription-tracker';
+import { IdGenerator } from '../utils';
+import { AriaActiveDescendantService } from '../lib/directives';
 import { QuickSearchResultItem } from './quick-search-result';
 import {
     GroupedSearchSections,
@@ -82,7 +83,14 @@ export interface ResultActivatedEvent {
     selector: 'vcd-quick-search',
     templateUrl: './quick-search.component.html',
     styleUrls: ['./quick-search.component.scss'],
-    providers: [SubscriptionTracker],
+    providers: [
+        SubscriptionTracker,
+        AriaActiveDescendantService,
+        {
+            provide: IdGenerator,
+            useValue: new IdGenerator('vcd-quick-search'),
+        },
+    ],
 })
 export class QuickSearchComponent implements OnInit {
     /**
@@ -120,13 +128,17 @@ export class QuickSearchComponent implements OnInit {
     @Output() resultActivated: EventEmitter<ResultActivatedEvent> = new EventEmitter<ResultActivatedEvent>();
 
     DataUi = DataUi;
+    activeDescendantId: string;
+    resultsGridId: string = this.idGenerator.generate();
 
     constructor(
         public searchService: QuickSearchService,
+        public translationService: TranslationService,
+        public ariaActivedescendantService: AriaActiveDescendantService,
         private changeDetectorRef: ChangeDetectorRef,
         private el: ElementRef,
-        public translationService: TranslationService,
-        private subscriptionTracker: SubscriptionTracker
+        private subscriptionTracker: SubscriptionTracker,
+        private idGenerator: IdGenerator
     ) {}
 
     private _searchCriteria: string = '';
@@ -155,6 +167,11 @@ export class QuickSearchComponent implements OnInit {
     selectedItem: QuickSearchResultItem;
 
     ngOnInit(): void {
+        this.ariaActivedescendantService.activeDescendantObservable.subscribe((id: string) => {
+            this.activeDescendantId = id;
+            this.changeDetectorRef.detectChanges();
+        });
+
         this.subscriptionTracker.subscribe(
             combineLatest([
                 this.searchService.groupedSearchSectionChanged,
