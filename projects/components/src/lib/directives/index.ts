@@ -9,3 +9,4 @@ export * from './responsive-input/responsive-input.directive';
 export * from './responsive-input/responsive-input.module';
 export * from './show-clipped-text.directive';
 export * from './show-clipped-text.directive.module';
+export * from './aria-activedescendant';

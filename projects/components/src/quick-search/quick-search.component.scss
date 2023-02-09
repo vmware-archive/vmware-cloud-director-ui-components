@@ -56,6 +56,12 @@
             &:hover {
                 background-color: var(--clr-tree-link-hover-color);
             }
+
+            // These buttons are placed for semantic reasons
+            button {
+                background: none;
+                border: none;
+            }
         }
     }
 }
