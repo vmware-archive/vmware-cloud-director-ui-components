@@ -137,7 +137,12 @@
             [attr.aria-controls]="resultsGridId"
             [attr.aria-activedescendant]="activeDescendantId"
         />
-        <button class="btn btn-link pin-button" (click)="togglePinned()">
+        <button
+            class="btn btn-link pin-button"
+            [attr.aria-label]="'vcd.cc.search.pin.btn.label' | translate: accessibilityTitle"
+            [attr.aria-pressed]="searchService.isPinned"
+            (click)="togglePinned()"
+        >
             <clr-icon shape="pin" size="20" [ngClass]="this.searchService.isPinned ? 'is-solid' : ''"> </clr-icon>
         </button>
     </div>
