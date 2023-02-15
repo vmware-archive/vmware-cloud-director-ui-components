@@ -23,7 +23,7 @@
     </vcd-form-checkbox>
 </form>
 
-<vcd-quick-search [(open)]="spotlightOpen" [placeholder]="'Search...'">
+<vcd-quick-search accessibilityTitle="Quick Search" [(open)]="spotlightOpen" [placeholder]="'Search...'">
     <div class="top-of-results info" *ngIf="formGroup.controls['topSection'].value">Top of results</div>
     <div class="bottom-of-results info" *ngIf="formGroup.controls['bottomSection'].value">Bottom of results</div>
 </vcd-quick-search>

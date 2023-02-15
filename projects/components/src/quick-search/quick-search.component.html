@@ -234,6 +234,7 @@
     (keydown.enter)="onEnterKey($event)"
     *ngIf="!searchService.isPinned; else drawerComponent"
 >
+    <h1 class="modal-title">{{ accessibilityTitle }}</h1>
     <div class="modal-body" [attr.data-ui]="DataUi.modalBody">
         <ng-container *ngTemplateOutlet="quickSearchInterior"> </ng-container>
     </div>
