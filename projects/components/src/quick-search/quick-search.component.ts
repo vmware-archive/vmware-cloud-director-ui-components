@@ -116,6 +116,12 @@ export class QuickSearchComponent implements OnInit {
     }
 
     /**
+     * Visually hidden title adds dialog label for screen readers.
+     */
+    @Input()
+    public accessibilityTitle: string;
+
+    /**
      * This method along with `open` property provide two-way binding [(open)] for controlling the visibility state
      * of the quick search component
      */

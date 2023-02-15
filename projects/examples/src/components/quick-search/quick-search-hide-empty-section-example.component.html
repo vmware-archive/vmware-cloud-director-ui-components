@@ -13,4 +13,8 @@ Press <kbd>Command</kbd>+<kbd>f</kbd> on MacOS / <kbd>Ctrl</kbd>+<kbd>f</kbd> on
     </vcd-form-checkbox>
 </form>
 
-<vcd-quick-search [(open)]="spotlightOpen" [placeholder]="formGroup.value.placeholder"> </vcd-quick-search>
+<vcd-quick-search
+    accessibilityTitle="Quick Search"
+    [(open)]="spotlightOpen"
+    [placeholder]="formGroup.value.placeholder"
+></vcd-quick-search>
