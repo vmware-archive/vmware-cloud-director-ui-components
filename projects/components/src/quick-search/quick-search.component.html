@@ -72,7 +72,11 @@
                 <button
                     type="button"
                     class="btn btn-icon btn-link remove-col-button"
-                    aria-label="home"
+                    [attr.aria-label]="
+                        'vcd.cc.quickSearch.removeFilter'
+                            | translate
+                                : { selectedFilter: filter.bubbleI18nKey | translate: { option: option.display } }
+                    "
                     (click)="searchService.selectFilter(filter.id, [option.key], false)"
                 >
                     <clr-icon shape="close" class="badge badge-info"> </clr-icon>
