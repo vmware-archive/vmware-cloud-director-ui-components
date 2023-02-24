@@ -315,7 +315,13 @@ function fixupLoadChildren(
             ? path.join(moduleFolderPath, loadChildrenImportPath)
             : path.join(programDirectory, moduleFolderPath, loadChildrenImportPath);
 
+        /**
+         * This conversion to posix is necessary since this script is using posix paths everywhere else.
+         * Not converting here would break for windows users, because the above `path.join` will have generated windows paths.
+         */
+        const absolutePathAsPosix = absolutePath.split(path.sep).join(path.posix.sep);
+
         // Must append the file extension, as the TS imports never include it
-        return `${absolutePath}.ts`;
+        return `${absolutePathAsPosix}.ts`;
     }
 }
