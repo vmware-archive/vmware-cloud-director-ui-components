@@ -6,14 +6,15 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
+
+## [13.0.1-dev.6]
+
 ### Fixed
 * Fixed accessibility of filters inside the quick-search component
 * Fixed inaccessibility of quick-search results by a screen reader  
 * Added a name property for quick-search dialog so that a screen reader can announce a proper dialog name
 * Fixed accessibility of the pin button inside the quick-search component
 * Removed empty space above search input inside the quick-search component
-
-### Fixed
 * Fixed `QuickSearchComponent` filter button aria-label.
 
 ## [13.0.1-dev.6]
