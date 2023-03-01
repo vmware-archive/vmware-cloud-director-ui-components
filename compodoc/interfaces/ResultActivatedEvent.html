@@ -204,7 +204,6 @@ i.e. its event handler has been called.</p>
     ElementRef,
     EventEmitter,
     Input,
-    OnDestroy,
     OnInit,
     Output,
     ViewChild,
@@ -213,6 +212,8 @@ import { TranslationService } from &#x27;@vcd/i18n&#x27;;
 import { combineLatest } from &#x27;rxjs&#x27;;
 import { DomUtil } from &#x27;../utils/dom-util&#x27;;
 import { SubscriptionTracker } from &#x27;../common/subscription/subscription-tracker&#x27;;
+import { IdGenerator } from &#x27;../utils&#x27;;
+import { AriaActiveDescendantService } from &#x27;../lib/directives&#x27;;
 import { QuickSearchResultItem } from &#x27;./quick-search-result&#x27;;
 import {
     GroupedSearchSections,
@@ -277,7 +278,14 @@ export interface ResultActivatedEvent {
     selector: &#x27;vcd-quick-search&#x27;,
     templateUrl: &#x27;./quick-search.component.html&#x27;,
     styleUrls: [&#x27;./quick-search.component.scss&#x27;],
-    providers: [SubscriptionTracker],
+    providers: [
+        SubscriptionTracker,
+        AriaActiveDescendantService,
+        {
+            provide: IdGenerator,
+            useValue: new IdGenerator(&#x27;vcd-quick-search&#x27;),
+        },
+    ],
 })
 export class QuickSearchComponent implements OnInit {
     /**
@@ -303,6 +311,12 @@ export class QuickSearchComponent implements OnInit {
     }
 
     /**
+     * Visually hidden title adds dialog label for screen readers.
+     */
+    @Input()
+    public accessibilityTitle: string;
+
+    /**
      * This method along with &#x60;open&#x60; property provide two-way binding [(open)] for controlling the visibility state
      * of the quick search component
      */
@@ -315,13 +329,17 @@ export class QuickSearchComponent implements OnInit {
     @Output() resultActivated: EventEmitter&lt;ResultActivatedEvent&gt; &#x3D; new EventEmitter&lt;ResultActivatedEvent&gt;();
 
     DataUi &#x3D; DataUi;
+    activeDescendantId: string;
+    resultsGridId: string &#x3D; this.idGenerator.generate();
 
     constructor(
         public searchService: QuickSearchService,
+        public translationService: TranslationService,
+        public ariaActivedescendantService: AriaActiveDescendantService,
         private changeDetectorRef: ChangeDetectorRef,
         private el: ElementRef,
-        public translationService: TranslationService,
-        private subscriptionTracker: SubscriptionTracker
+        private subscriptionTracker: SubscriptionTracker,
+        private idGenerator: IdGenerator
     ) {}
 
     private _searchCriteria: string &#x3D; &#x27;&#x27;;
@@ -350,6 +368,11 @@ export class QuickSearchComponent implements OnInit {
     selectedItem: QuickSearchResultItem;
 
     ngOnInit(): void {
+        this.ariaActivedescendantService.activeDescendantObservable.subscribe((id: string) &#x3D;&gt; {
+            this.activeDescendantId &#x3D; id;
+            this.changeDetectorRef.detectChanges();
+        });
+
         this.subscriptionTracker.subscribe(
             combineLatest([
                 this.searchService.groupedSearchSectionChanged,

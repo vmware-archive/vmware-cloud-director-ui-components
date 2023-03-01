@@ -75,6 +75,24 @@ customElements.define('compodoc-menu', class extends HTMLElement {
                                 </li>
                             </li>
                             <li class="link">
+                                <a href="modules/AriaActivedescendantModule.html" data-type="entity-link">AriaActivedescendantModule</a>
+                                <li class="chapter inner">
+                                    <div class="simple menu-toggler" data-toggle="collapse" ${ isNormalMode ?
+                                        'data-target="#directives-links-module-AriaActivedescendantModule-faf7d0930086e9e4a5388bd3a63fc484"' : 'data-target="#xs-directives-links-module-AriaActivedescendantModule-faf7d0930086e9e4a5388bd3a63fc484"' }>
+                                        <span class="icon ion-md-code-working"></span>
+                                        <span>Directives</span>
+                                        <span class="icon ion-ios-arrow-down"></span>
+                                    </div>
+                                    <ul class="links collapse" ${ isNormalMode ? 'id="directives-links-module-AriaActivedescendantModule-faf7d0930086e9e4a5388bd3a63fc484"' :
+                                        'id="xs-directives-links-module-AriaActivedescendantModule-faf7d0930086e9e4a5388bd3a63fc484"' }>
+                                        <li class="link">
+                                            <a href="directives/AriaActiveDescendantDirective.html"
+                                                data-type="entity-link" data-context="sub-entity" data-context-id="modules">AriaActiveDescendantDirective</a>
+                                        </li>
+                                    </ul>
+                                </li>
+                            </li>
+                            <li class="link">
                                 <a href="modules/DropdownModule.html" data-type="entity-link">DropdownModule</a>
                                     <li class="chapter inner">
                                         <div class="simple menu-toggler" data-toggle="collapse" ${ isNormalMode ?
@@ -160,13 +178,13 @@ customElements.define('compodoc-menu', class extends HTMLElement {
                                 <a href="modules/QuickSearchModule.html" data-type="entity-link">QuickSearchModule</a>
                                     <li class="chapter inner">
                                         <div class="simple menu-toggler" data-toggle="collapse" ${ isNormalMode ?
-                                            'data-target="#components-links-module-QuickSearchModule-d823661678a717e393303e973fb03ea9"' : 'data-target="#xs-components-links-module-QuickSearchModule-d823661678a717e393303e973fb03ea9"' }>
+                                            'data-target="#components-links-module-QuickSearchModule-dc519f6fc34fe0c61bc0ed43900dfa7b"' : 'data-target="#xs-components-links-module-QuickSearchModule-dc519f6fc34fe0c61bc0ed43900dfa7b"' }>
                                             <span class="icon ion-md-cog"></span>
                                             <span>Components</span>
                                             <span class="icon ion-ios-arrow-down"></span>
                                         </div>
-                                        <ul class="links collapse" ${ isNormalMode ? 'id="components-links-module-QuickSearchModule-d823661678a717e393303e973fb03ea9"' :
-                                            'id="xs-components-links-module-QuickSearchModule-d823661678a717e393303e973fb03ea9"' }>
+                                        <ul class="links collapse" ${ isNormalMode ? 'id="components-links-module-QuickSearchModule-dc519f6fc34fe0c61bc0ed43900dfa7b"' :
+                                            'id="xs-components-links-module-QuickSearchModule-dc519f6fc34fe0c61bc0ed43900dfa7b"' }>
                                             <li class="link">
                                                 <a href="components/DrawerComponent.html"
                                                     data-type="entity-link" data-context="sub-entity" data-context-id="modules">DrawerComponent</a>
@@ -688,6 +706,9 @@ customElements.define('compodoc-menu', class extends HTMLElement {
                                 <span class="icon ion-ios-arrow-down"></span>
                             </div>
                             <ul class="links collapse " ${ isNormalMode ? 'id="injectables-links"' : 'id="xs-injectables-links"' }>
+                                <li class="link">
+                                    <a href="injectables/AriaActiveDescendantService.html" data-type="entity-link">AriaActiveDescendantService</a>
+                                </li>
                                 <li class="link">
                                     <a href="injectables/CsvExporterService.html" data-type="entity-link">CsvExporterService</a>
                                 </li>
