@@ -47,6 +47,14 @@ describe('SubscriptionTracker', () => {
             subject.next();
             expect(spy).toHaveBeenCalledTimes(2);
         });
+        it('adds a subscription with PartialObserver', () => {
+            const destroyable = new DestroyableComponent(new SubscriptionTracker());
+            const spy = createSpy('observableSubscriptionForPartialObserver');
+            const subject = new Subject<void>();
+            destroyable.tracker.subscribe(subject, { next: spy });
+            subject.next();
+            expect(spy).toHaveBeenCalledTimes(1);
+        });
     });
 
     describe('unsubscribing', () => {

@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: BSD-2-Clause
  */
 
-import { Directive, Input, OnDestroy, OnInit } from '@angular/core';
+import { Directive, Input, OnInit } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { ClrDatagridFilter, ClrDatagridFilterInterface } from '@clr/angular';
 import { Subject } from 'rxjs';
@@ -58,7 +58,8 @@ export interface FilterRendererSpec<C> extends ComponentRendererSpec<C> {
 })
 // eslint-disable-next-line @angular-eslint/directive-class-suffix
 export abstract class DatagridFilter<V, C extends FilterConfig<V>>
-    implements OnInit, ClrDatagridFilterInterface<V>, ComponentRenderer<C> {
+    implements OnInit, ClrDatagridFilterInterface<V>, ComponentRenderer<C>
+{
     formGroup = this.createFormGroup();
 
     protected constructor(filterContainer: ClrDatagridFilter, private subscriptionTracker: SubscriptionTracker) {
@@ -86,7 +87,7 @@ export abstract class DatagridFilter<V, C extends FilterConfig<V>>
     /**
      * Emits whenever a filter form inputs changes
      */
-    changes = new Subject<null>();
+    changes = new Subject<void>();
 
     ngOnInit(): void {
         const obs = this.getDebounceTimeMs()

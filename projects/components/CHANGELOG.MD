@@ -7,6 +7,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed
+* Implemented forward compatibility with RxJS 7.
+
 ## [13.0.1-dev.6]
 
 ### Fixed

@@ -120,6 +120,7 @@
     "karma-coverage-istanbul-reporter": "3.0.3",
     "karma-jasmine": "~4.0.0",
     "karma-jasmine-html-reporter": "^1.5.0",
+    "macos-release": "3.1.0",
     "mkdirp": "^1.0.4",
     "ng-packagr": "13.3.1",
     "nx": "15.0.4",
