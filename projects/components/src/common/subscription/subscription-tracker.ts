@@ -5,7 +5,6 @@
 
 import { Injectable, OnDestroy } from '@angular/core';
 import { Observable, PartialObserver, Subscription } from 'rxjs';
-import { toSubscriber } from 'rxjs/internal-compatibility';
 
 /**
  * An interface that knows how to subscribe and unsubscribe from observables.
@@ -46,7 +45,12 @@ export class SubscriptionTracker implements ISubscriptionTracker, OnDestroy {
         error?: (error: any) => void,
         complete?: () => void
     ): Subscription {
-        const subscription = observable.subscribe(toSubscriber(observerOrNext, error, complete));
+        let subscription: Subscription;
+        if (typeof observerOrNext === 'function') {
+            subscription = observable.subscribe({ next: observerOrNext, error, complete });
+        } else {
+            subscription = observable.subscribe(observerOrNext);
+        }
         this.subscriptions.push(subscription);
         return subscription;
     }
