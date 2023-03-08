@@ -17,6 +17,10 @@ export class VcdFormSelectWidgetObject extends WidgetObject<FormSelectComponent>
         return this.findElement('select').nativeElement;
     }
 
+    private get subtextElement(): HTMLElement {
+        return this.findElement('.clr-subtext').nativeElement;
+    }
+
     /**
      * Returns the 'shape' attribute if defined, returns empty string if undefined
      */
@@ -37,6 +41,14 @@ export class VcdFormSelectWidgetObject extends WidgetObject<FormSelectComponent>
         this.selectElement.selectedIndex = index;
         this.selectElement.dispatchEvent(new Event('change'));
         this.detectChanges();
+    }
+
+    getInputAttributeValue(attribute: string): string {
+        return this.selectElement.getAttribute(attribute);
+    }
+
+    getSubtextAttributeValue(attribute: string): string {
+        return this.subtextElement.getAttribute(attribute);
     }
 }
 
@@ -128,7 +140,7 @@ describe('FormSelectComponent', () => {
 
         it(
             'validator can return key/value where the value is NOT an array,' +
-                ' in which case an array of control\'s value is passed to the translation service',
+            ' in which case an array of control\'s value is passed to the translation service',
             () => {
                 const selectNumberWo = finder.find({
                     woConstructor: VcdFormSelectWidgetObject,
@@ -140,6 +152,23 @@ describe('FormSelectComponent', () => {
             }
         );
     });
+
+    describe('ARIA', () => {
+        it('has "aria-describedby" attribute value set to "errorsId" when "showErrors" is "true"', () => {
+            selectInput.select(0); // Selecting first empty value option to trigger the required validator.
+            expect(selectInput.getSubtextAttributeValue('id')).toBe(selectInput.component.errorsId);
+            expect(selectInput.getInputAttributeValue('aria-describedby')).toBe(selectInput.component.errorsId);
+        });
+
+        it('has "aria-describedby" attribute value set to "descriptionId" when "showErrors" is "false"', () => {
+            expect(selectInput.getSubtextAttributeValue('id')).toBe(
+                selectInput.component.descriptionId
+            );
+            expect(selectInput.getInputAttributeValue('aria-describedby')).toBe(
+                selectInput.component.descriptionId
+            );
+        });
+    });
 });
 
 @Component({
@@ -150,6 +179,7 @@ describe('FormSelectComponent', () => {
                 [options]="options"
                 [formControlName]="'selectInput'"
                 class="select-input"
+                [description]="'Help Text'"
             >
             </vcd-form-select>
             <vcd-form-select [options]="numberOptions" [formControlName]="'selectNumber'" class="select-number-input">
