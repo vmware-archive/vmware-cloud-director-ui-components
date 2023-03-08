@@ -16,7 +16,7 @@
                     class="clr-select"
                     [id]="id"
                     [attr.aria-required]="showAsterisk"
-                    [attr.aria-describedby]="showErrors ? errorsId : ''"
+                    [attr.aria-describedby]="showErrors ? errorsId : descriptionId"
                     [formControl]="formControl"
                 >
                     <option *ngFor="let option of options" [value]="option.value" [disabled]="option.disabled">
