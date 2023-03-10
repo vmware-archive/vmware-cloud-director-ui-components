@@ -128,8 +128,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="18"
-                            class="link-to-prism">projects/components/src/common/subscription/subscription-tracker.ts:18</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="17"
+                            class="link-to-prism">projects/components/src/common/subscription/subscription-tracker.ts:17</a></div>
                 </td>
             </tr>
 
@@ -245,8 +245,8 @@ Will call the {@param complete} when complete, and {@param error} when errors ha
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="28"
-                            class="link-to-prism">projects/components/src/common/subscription/subscription-tracker.ts:28</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="27"
+                            class="link-to-prism">projects/components/src/common/subscription/subscription-tracker.ts:27</a></div>
                 </td>
             </tr>
 
@@ -317,8 +317,8 @@ Will call the {@param complete} when complete, and {@param error} when errors ha
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="33"
-                            class="link-to-prism">projects/components/src/common/subscription/subscription-tracker.ts:33</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="32"
+                            class="link-to-prism">projects/components/src/common/subscription/subscription-tracker.ts:32</a></div>
                 </td>
             </tr>
 
@@ -344,7 +344,6 @@ Will call the {@param complete} when complete, and {@param error} when errors ha
     <div class="tab-pane fade  tab-source-code" id="c-source">
         <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Injectable, OnDestroy } from &#x27;@angular/core&#x27;;
 import { Observable, PartialObserver, Subscription } from &#x27;rxjs&#x27;;
-import { toSubscriber } from &#x27;rxjs/internal-compatibility&#x27;;
 
 /**
  * An interface that knows how to subscribe and unsubscribe from observables.
@@ -385,7 +384,12 @@ export class SubscriptionTracker implements ISubscriptionTracker, OnDestroy {
         error?: (error: any) &#x3D;&gt; void,
         complete?: () &#x3D;&gt; void
     ): Subscription {
-        const subscription &#x3D; observable.subscribe(toSubscriber(observerOrNext, error, complete));
+        let subscription: Subscription;
+        if (typeof observerOrNext &#x3D;&#x3D;&#x3D; &#x27;function&#x27;) {
+            subscription &#x3D; observable.subscribe({ next: observerOrNext, error, complete });
+        } else {
+            subscription &#x3D; observable.subscribe(observerOrNext);
+        }
         this.subscriptions.push(subscription);
         return subscription;
     }
