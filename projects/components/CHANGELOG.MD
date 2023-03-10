@@ -11,6 +11,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 * Implemented forward compatibility with RxJS 7.
+### Fixed
+* Reverted package.json and package-lock.json
 
 ## [13.0.1-dev.7]
 
