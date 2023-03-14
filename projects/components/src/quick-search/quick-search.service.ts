@@ -174,6 +174,11 @@ export class QuickSearchService {
     public hasNoResults: boolean = false;
 
     /**
+     * The total number of results of a last search
+     */
+    public resultsCount: number = 0;
+
+    /**
      * Register a search provider
      * @param provider The search provider {@link QuickSearchProvider}
      */
@@ -322,6 +327,7 @@ export class QuickSearchService {
         this.lastActiveFilters = activeFilters;
         this.lastSearchCriteria = searchCriteria;
         this.updateActiveSections(activeFilters);
+        this.resultsCount = 0;
 
         // Remember which is the current search. This will help us not to show results from an old search
         const searchId = ++this.searchId;
@@ -362,6 +368,8 @@ export class QuickSearchService {
                 // search function. However, we don't currently see any problem with that because the following code just re assigns variables
                 // with same values
                 searchSection.result = searchResult;
+                this.resultsCount += searchResult?.items?.length || 0;
+
                 searchSection.hasPartialResult = this.hasPartialResult(searchSection);
                 searchSection.isLoading = false;
                 this.hasNoResults = this.checkHasNoResults();

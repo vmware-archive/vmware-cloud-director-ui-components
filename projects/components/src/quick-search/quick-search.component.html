@@ -160,7 +160,7 @@
             [attr.data-ui]="DataUi.noResults"
             *ngIf="searchService.hasNoResults && !searchService.isLoading"
         >
-            <span role="gridcell" [vcdAriaActiveDescendant]="searchService.hasNoResults && !searchService.isLoading">
+            <span role="gridcell">
                 {{ 'vcd.cc.quickSearch.noResults' | translate }}
             </span>
         </div>
@@ -218,6 +218,16 @@
         </div>
     </div>
     <ng-content select=".bottom-of-results"></ng-content>
+    <div aria-live="polite" cds-layout="display:screen-reader-only">
+        <ng-container *ngIf="!searchService.isLoading">
+            <ng-container *ngIf="searchService.resultsCount > 0; else noResultsAmount">
+                {{ 'vcd.cc.search.results.amount' | translate: searchService.resultsCount }}
+            </ng-container>
+            <ng-template #noResultsAmount>
+                {{ 'vcd.cc.quickSearch.noResults' | translate }}
+            </ng-template>
+        </ng-container>
+    </div>
 </ng-template>
 
 <ng-template #drawerComponent>
