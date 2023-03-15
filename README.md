@@ -46,9 +46,9 @@ for further details.
 
 ## Peer Dependencies
 
-The component library depends on [Clarity](https://clarity.design/) and [Angular](https://angular.io/)
-which must be installed from your application's `package.json`. See [package.json](package.json) for version
-information.
+The component library depends on [Clarity](https://clarity.design/), [Clarity Core](https://core.clarity.design) and 
+[Angular](https://angular.io/) which must be installed from your application's `package.json`. 
+See [package.json](package.json) for version information.
 
 ## Code scaffolding
 
