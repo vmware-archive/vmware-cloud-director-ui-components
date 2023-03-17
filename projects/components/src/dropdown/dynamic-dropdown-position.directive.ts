@@ -109,7 +109,16 @@ export class DynamicDropdownPositionDirective {
         }
         const contentAreaRect = this.contentAreaElement.getBoundingClientRect();
         // When not in a modal, the position is relative to the `.content-area` element
-        if (dropdownMenuRect.bottom <= contentAreaRect.bottom) {
+
+        const enoughSpaceAtTheBottom = dropdownMenuRect.height <= contentAreaRect.bottom - dropdownTriggerRect.bottom;
+        const enoughSpaceAtTheTop = dropdownMenuRect.height <= dropdownTriggerRect.top - contentAreaRect.top;
+
+        if (!enoughSpaceAtTheBottom && !enoughSpaceAtTheTop) {
+            // If there is not ennough space at the top and bottom, keep the dropdown at the middle of the screen
+            return -(window.innerHeight / 2);
+        }
+
+        if (enoughSpaceAtTheBottom) {
             // Don't shift to the top if it's not being clipped at the bottom
             return 0;
         }
@@ -119,7 +128,7 @@ export class DynamicDropdownPositionDirective {
             const isFirstDropdownTrigger = !!this.dropdownTriggerElement.querySelector('button.first-dropdown-toggle');
             return isFirstDropdownTrigger ? -(dropdownTriggerHeight + dropdownMenuHeight) : -dropdownMenuHeight;
         }
-        if (dropdownTriggerRect.top - dropdownMenuRect.height < contentAreaRect.top) {
+        if (enoughSpaceAtTheTop) {
             // If the menu can get clipped by moving it to the top, push it down
             return -(dropdownMenuRect.bottom - contentAreaRect.bottom);
         }

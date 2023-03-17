@@ -8,6 +8,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 ### Fixed
 * Added ARIA support for vcd-form-select so that screen readers can read the description text if added
+* Dropdown position was re-computed incorrectly when the dropdown is re-drawn multiple times.
 
 ## [13.0.1-dev.8]
 
