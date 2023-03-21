@@ -328,8 +328,8 @@ users have to scroll down to access it.</p>
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="194"
-                            class="link-to-prism">projects/components/src/dropdown/dynamic-dropdown-position.directive.ts:194</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="203"
+                            class="link-to-prism">projects/components/src/dropdown/dynamic-dropdown-position.directive.ts:203</a></div>
                 </td>
             </tr>
 
@@ -374,8 +374,8 @@ and reposition it, which may not be a good user experience.</p>
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="184"
-                            class="link-to-prism">projects/components/src/dropdown/dynamic-dropdown-position.directive.ts:184</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="193"
+                            class="link-to-prism">projects/components/src/dropdown/dynamic-dropdown-position.directive.ts:193</a></div>
                 </td>
             </tr>
 
@@ -728,7 +728,7 @@ relatively to itself by setting transform: translateX/Y property.</p>
                 </tr>
                             <tr>
                                 <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="130" class="link-to-prism">projects/components/src/dropdown/dynamic-dropdown-position.directive.ts:130</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="139" class="link-to-prism">projects/components/src/dropdown/dynamic-dropdown-position.directive.ts:139</a></div>
                                 </td>
                             </tr>
 
@@ -846,7 +846,16 @@ export class DynamicDropdownPositionDirective {
         }
         const contentAreaRect &#x3D; this.contentAreaElement.getBoundingClientRect();
         // When not in a modal, the position is relative to the &#x60;.content-area&#x60; element
-        if (dropdownMenuRect.bottom &lt;&#x3D; contentAreaRect.bottom) {
+
+        const enoughSpaceAtTheBottom &#x3D; dropdownMenuRect.height &lt;&#x3D; contentAreaRect.bottom - dropdownTriggerRect.bottom;
+        const enoughSpaceAtTheTop &#x3D; dropdownMenuRect.height &lt;&#x3D; dropdownTriggerRect.top - contentAreaRect.top;
+
+        if (!enoughSpaceAtTheBottom &amp;&amp; !enoughSpaceAtTheTop) {
+            // If there is not ennough space at the top and bottom, keep the dropdown at the middle of the screen
+            return -(window.innerHeight / 2);
+        }
+
+        if (enoughSpaceAtTheBottom) {
             // Don&#x27;t shift to the top if it&#x27;s not being clipped at the bottom
             return 0;
         }
@@ -856,7 +865,7 @@ export class DynamicDropdownPositionDirective {
             const isFirstDropdownTrigger &#x3D; !!this.dropdownTriggerElement.querySelector(&#x27;button.first-dropdown-toggle&#x27;);
             return isFirstDropdownTrigger ? -(dropdownTriggerHeight + dropdownMenuHeight) : -dropdownMenuHeight;
         }
-        if (dropdownTriggerRect.top - dropdownMenuRect.height &lt; contentAreaRect.top) {
+        if (enoughSpaceAtTheTop) {
             // If the menu can get clipped by moving it to the top, push it down
             return -(dropdownMenuRect.bottom - contentAreaRect.bottom);
         }
