@@ -45,6 +45,10 @@ export interface BaseActionItem<R, T> {
      */
     textKey?: string;
     /**
+     * The i18n key or a translated string for the action button's aria-label. If omitted, textKey will be used instead.
+     */
+    ariaLabel?: string;
+    /**
      * The css class the button should have.
      *
      * Must be unique among all added actions within an action list
@@ -79,7 +83,7 @@ export interface BaseActionItem<R, T> {
      */
     children?: ActionItem<R, T>[];
     /**
-     * To mark if the {@link #ActionItem.textKey} has to be translated or not
+     * To mark if {@link #ActionItem.textKey} and {@link #ActionItem.ariaLabel} have to be translated or not.
      */
     isTranslatable?: boolean;
     /**

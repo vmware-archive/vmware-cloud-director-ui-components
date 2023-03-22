@@ -92,6 +92,11 @@
         (click)="runActionHandler(action)"
         [disabled]="isActionDisabled(action)"
         [attr.data-ui]="action.textKey"
+        [attr.aria-label]="
+            action.isTranslatable === false
+                ? action.ariaLabel || action.textKey
+                : (action.ariaLabel || action.textKey | translate)
+        "
     >
         <ng-container *ngIf="shouldShowText">{{
             action.isTranslatable === false ? action.textKey : (action.textKey | translate)
