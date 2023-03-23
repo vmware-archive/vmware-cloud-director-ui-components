@@ -807,10 +807,15 @@ describe('DatagridComponent', () => {
                 this.finder.detectChanges();
 
                 // Palo Alto should be selectable
-                expect(this.clrGridWidget.getSelectionInputForRow(0).unwrap().enabled()).toBeTruthy();
+                expect(
+                    this.clrGridWidget.getSelectionInputForRow(0).unwrap().attributes().getNamedItem('aria-disabled')
+                ).toBeNull();
 
                 // Other cities aren't selectable
-                expect(this.clrGridWidget.getSelectionInputForRow(1).unwrap().enabled()).toBeFalsy();
+                expect(
+                    this.clrGridWidget.getSelectionInputForRow(1).unwrap().attributes().getNamedItem('aria-disabled')
+                        .value
+                ).toBe('true');
             });
 
             it('returns true when isRowSelectableCallback is not set', function (this: HasFinderAndGrid): void {
@@ -1132,9 +1137,7 @@ describe('DatagridComponent', () => {
                 ];
                 this.finder.detectChanges();
 
-                console.log(this.hostComponent.getGridTrackBy().toString());
-
-                expect(this.hostComponent.getGridTrackBy()(0, mockData[0])).toEqual(mockData[0].name);
+                expect(this.hostComponent.grid.datagrid.items.trackBy(mockData[0], 0)).toEqual(mockData[0].name);
             });
         });
 
@@ -1587,10 +1590,6 @@ export class HostWithDatagridComponent {
 
     refresh(eventData: GridState<MockRecord>): void {
         // Will be spied on
-    }
-
-    getGridTrackBy(): TrackByFunction<MockRecord> {
-        return this.grid.datagrid.items.trackBy;
     }
 }
 

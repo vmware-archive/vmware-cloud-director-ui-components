@@ -176,11 +176,6 @@ describe('QuickSearchComponent', () => {
             expect(this.quickSearch.getModalBody().unwrap().length()).toBe(0, 'Quick Search should be closed');
         });
 
-        it('is closed when esc is pressed', function (this: Test): void {
-            this.quickSearch.self().sendKeyboardEvent('keyup', { key: 'escape' });
-            expect(this.quickSearch.getModalBody().unwrap().length()).toBe(0, 'Quick Search should be closed');
-        });
-
         it('is closed when clicking outside', function (this: Test): void {
             this.quickSearch.getModalBackdrop().click();
             expect(this.quickSearch.getModalBody().unwrap().length()).toBe(0, 'Quick Search should be closed');

@@ -47,6 +47,7 @@
         "styles": [
           "node_modules/@clr/ui/clr-ui.min.css"
         ],
+        "include": ["projects/components/src/**/*.spec.ts"],
         "stylePreprocessorOptions": {
           "includePaths": [
             "node_modules"
