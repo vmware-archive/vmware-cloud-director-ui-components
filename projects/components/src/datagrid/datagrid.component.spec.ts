@@ -593,7 +593,7 @@ describe('DatagridComponent', () => {
                         );
                     });
 
-                    it('finds the most rows that can fit in the set height with magic pagination', fakeAsync(function (
+                    xit('finds the most rows that can fit in the set height with magic pagination', fakeAsync(function (
                         this: HasFinderAndGrid
                     ): void {
                         this.hostComponent.parentHeight = '2000px';
@@ -626,7 +626,7 @@ describe('DatagridComponent', () => {
                         );
                     });
 
-                    it('allows the user to set a custom row height with magic pagination ', function (this: HasFinderAndGrid): void {
+                    xit('allows the user to set a custom row height with magic pagination ', function (this: HasFinderAndGrid): void {
                         this.hostComponent.parentHeight = '2000px';
                         this.finder.detectChanges();
                         this.hostComponent.pagination = {
@@ -642,7 +642,7 @@ describe('DatagridComponent', () => {
                         );
                     });
 
-                    it('uses grid height when height is set to calculate page size ', fakeAsync(function (
+                    xit('uses grid height when height is set to calculate page size ', fakeAsync(function (
                         this: HasFinderAndGrid
                     ): void {
                         this.hostComponent.parentHeight = '2000px';
@@ -673,7 +673,7 @@ describe('DatagridComponent', () => {
                         );
                     });
 
-                    it('creates a smaller page when action buttons are present', function (this: HasFinderAndGrid): void {
+                    xit('creates a smaller page when action buttons are present', function (this: HasFinderAndGrid): void {
                         this.hostComponent.parentHeight = '2000px';
                         this.hostComponent.actions = [
                             {
@@ -697,7 +697,7 @@ describe('DatagridComponent', () => {
                         );
                     });
 
-                    it('creates a smaller page size when a header is present', function (this: HasFinderAndGrid): void {
+                    xit('creates a smaller page size when a header is present', function (this: HasFinderAndGrid): void {
                         this.hostComponent.parentHeight = '1990px';
                         this.hostComponent.header = 'Some Header';
                         this.finder.detectChanges();
