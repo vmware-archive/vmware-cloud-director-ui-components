@@ -1,13 +1,13 @@
 {
     "name": "@vcd/ui-components",
-    "version": "13.0.1-dev.9",
+    "version": "15.0.1-dev.1",
     "dependencies": {
         "@ngx-formly/core": ">=6.0.4"
     },
     "peerDependencies": {
-        "@clr/angular": ">=13.5.0",
-        "@angular/common": ">=13.3.11",
-        "@angular/core": ">=13.3.11",
+        "@clr/angular": ">=15.0.3",
+        "@angular/common": ">=15.2.3",
+        "@angular/core": ">=15.2.3",
         "@vcd/i18n": ">=1.0.0-dev.1",
         "@vcd/angular-client": "0.0.2-alpha.1",
         "@vcd/bindings": "9.1.1"
