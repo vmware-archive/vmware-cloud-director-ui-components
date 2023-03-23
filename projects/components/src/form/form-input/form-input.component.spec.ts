@@ -4,7 +4,7 @@
  */
 
 import { Component } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, Validators } from '@angular/forms';
 import { WidgetFinder, WidgetObject } from '../../utils/test/widget-object';
 import { configureFormInputTestingModule } from '../base-form-control.spec';
 import { FormInputComponent, getFormattedDateValue } from './form-input.component';
@@ -75,17 +75,19 @@ describe('FormInputComponent', () => {
     describe('writeValue, when input is of', () => {
         describe('type string', () => {
             it('initializes the input with the value with which formControl is initialized', () => {
-                expect(stringInput.value).toEqual(hostComponent.formGroup.get('stringInput').value);
+                expect(stringInput.value).toEqual(hostComponent.formGroup.controls.stringInput.value);
             });
         });
         describe('type number', () => {
             it('initializes the input by converting the initial form control number value to string of base 10', () => {
-                expect(numberInput.value).toEqual(hostComponent.formGroup.get('numberInput').value.toString());
+                expect(numberInput.value).toEqual(hostComponent.formGroup.controls.numberInput.value.toString());
             });
         });
         describe('type datetime-local', () => {
             it('initializes the input by formatting the initial form control date-string value', () => {
-                expect(dateInput.value).toEqual(getFormattedDateValue(hostComponent.formGroup.get('dateInput').value));
+                expect(dateInput.value).toEqual(
+                    getFormattedDateValue(hostComponent.formGroup.controls.dateInput.value)
+                );
             });
         });
     });
@@ -94,25 +96,29 @@ describe('FormInputComponent', () => {
         describe('type string', () => {
             it('updates the form control with value entered', () => {
                 stringInput.enter('Just testing');
-                expect(hostComponent.formGroup.get('stringInput').value).toEqual('Just testing');
+                expect(hostComponent.formGroup.controls.stringInput.value).toEqual('Just testing');
             });
         });
         describe('type number', () => {
             it('updates the form control with string input converted into a floating-point number', () => {
                 numberInput.enter('70.9');
-                expect(hostComponent.formGroup.get('numberInput').value).toEqual(70.9);
+                // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+                // @ts-ignore
+                expect(hostComponent.formGroup.controls.numberInput.value).toEqual(70.9);
             });
 
             it('is not valid when set to null', () => {
                 numberInput.enter(null);
-                expect(hostComponent.formGroup.get('numberInput').valid).toBeFalsy();
+                expect(hostComponent.formGroup.controls.numberInput.valid).toBeFalsy();
             });
         });
         describe('type datetime-local', () => {
             it('updates the form control with string input converted into a ISO formatted date string', () => {
                 const dateTimeLocale = getFormattedDateValue(new Date().toLocaleString());
                 dateInput.enter(dateTimeLocale);
-                expect(hostComponent.formGroup.get('dateInput').value).toEqual(new Date(dateTimeLocale).toISOString());
+                expect(hostComponent.formGroup.controls.dateInput.value).toEqual(
+                    new Date(dateTimeLocale).toISOString()
+                );
             });
         });
     });
@@ -149,31 +155,34 @@ describe('FormInputComponent', () => {
 
 @Component({
     template: `
-        <form [formGroup]="formGroup">
-            <vcd-form-input #stringInput [type]="'text'" [formControlName]="'stringInput'"> </vcd-form-input>
-            <vcd-form-input #numberInput [type]="'number'" [formControlName]="'numberInput'"> </vcd-form-input>
-            <vcd-form-input #dateInput [type]="'datetime-local'" [formControlName]="'dateInput'"> </vcd-form-input>
-            <vcd-form-input #inputWithLabel [label]="'Test'" [formControlName]="'inputWithLabel'"></vcd-form-input>
+        <form>
+            <vcd-form-input #stringInput [type]="'text'" [formControl]="controls.stringInput"> </vcd-form-input>
+            <vcd-form-input #numberInput [type]="'number'" [formControl]="controls.numberInput"> </vcd-form-input>
+            <vcd-form-input #dateInput [type]="'datetime-local'" [formControl]="controls.dateInput"> </vcd-form-input>
+            <vcd-form-input #inputWithLabel [label]="'Test'" [formControl]="controls.inputWithLabel"></vcd-form-input>
             <vcd-form-input
                 #inputWithDescription
                 [description]="'Test'"
-                [formControlName]="'inputWithDescription'"
+                [formControl]="controls.inputWithDescription"
             ></vcd-form-input>
-            <vcd-form-input #requiredInput [showAsterisk]="true" [formControlName]="'requiredInput'"></vcd-form-input>
+            <vcd-form-input
+                #requiredInput
+                [showAsterisk]="true"
+                [formControl]="controls.requiredInput"
+            ></vcd-form-input>
         </form>
     `,
 })
 class TestHostComponent {
-    formGroup: FormGroup;
+    formGroup = this.fb.group({
+        stringInput: ['test'],
+        numberInput: [[70.9], Validators.required],
+        dateInput: [new Date().toISOString()],
+        inputWithLabel: [''],
+        inputWithDescription: [''],
+        requiredInput: ['Test', Validators.required],
+    });
+    controls = this.formGroup.controls;
 
-    constructor(private fb: FormBuilder) {
-        this.formGroup = this.fb.group({
-            stringInput: ['test'],
-            numberInput: [[70.9], Validators.required],
-            dateInput: [new Date().toISOString()],
-            inputWithLabel: [''],
-            inputWithDescription: [''],
-            requiredInput: ['Test', Validators.required],
-        });
-    }
+    constructor(private fb: FormBuilder) {}
 }

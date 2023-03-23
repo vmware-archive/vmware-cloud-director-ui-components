@@ -16,13 +16,14 @@ import {
     SimpleChanges,
     ViewChild,
 } from '@angular/core';
-import { FormBuilder, NgControl, ValidationErrors, ValidatorFn } from '@angular/forms';
+import { NgControl, ValidationErrors, ValidatorFn } from '@angular/forms';
 import { TranslationService } from '@vcd/i18n';
 import { SelectOption } from '../../common/interfaces';
 import { FormValidators } from '../../form/validators';
 import { Unit } from '../../utils/unit/unit';
 import { UnitFormatter } from '../../utils/unit/unit-formatter';
 import { BaseFormControl, defaultValidatorForControl } from '../base-form-control';
+import { LazyString } from '../../utils/types';
 
 /**
  * -1 is the number to specify a value of unlimited.
@@ -42,10 +43,10 @@ export const UNLIMITED = -1;
     templateUrl: './number-with-unit-form-input.component.html',
     styleUrls: ['../form.scss', './number-with-unit-form-input.component.scss'],
 })
-export class NumberWithUnitFormInputComponent extends BaseFormControl implements OnChanges, OnInit {
+export class NumberWithUnitFormInputComponent extends BaseFormControl<number> implements OnChanges, OnInit {
     /**
      * List of available units. Consider the following options for the array:
-     * # array with more than one elements
+     * # array with more than one element
      *    - a dropdown unit selection is shown. You must also provide {@link inputValueUnit}
      * # single element array
      *    - a string notation for no dropdown, {@link inputValueUnit} is derived from the element
@@ -105,7 +106,7 @@ export class NumberWithUnitFormInputComponent extends BaseFormControl implements
      * Optional.
      * Default is the translation of vcd.cc.unlimited key.
      */
-    @Input() unlimitedText: string = this.translationService.translate('vcd.cc.unlimited');
+    @Input() unlimitedText: LazyString = this.translationService.translateAsync('vcd.cc.unlimited');
 
     /**
      * Minimum value allowed relevant to {@link inputValueUnit}. Default is 0.
@@ -214,7 +215,6 @@ export class NumberWithUnitFormInputComponent extends BaseFormControl implements
 
     constructor(
         @Self() @Optional() controlDirective: NgControl,
-        private fb: FormBuilder,
         protected translationService: TranslationService,
         private unitFormatter: UnitFormatter,
         private changeDetector: ChangeDetectorRef
@@ -282,8 +282,10 @@ export class NumberWithUnitFormInputComponent extends BaseFormControl implements
         this.fireUiChange();
     }
 
+    // Boolean attributes expect true to add an attribute and null to remove the attribute
+    // which is why the return type is a bit funky
     get shouldDisableNumberAndUnitControls(): true | null {
-        const shouldDisable = this.unlimitedControlValue || this.disabled;
+        const shouldDisable = this.disabled || this.unlimitedControlValue;
         return shouldDisable || null;
     }
 
@@ -420,9 +422,18 @@ export class NumberWithUnitFormInputComponent extends BaseFormControl implements
         this.unitMax = this.inputValueUnit.getOutputValue(this.max, selectedUnit);
     }
 
+    /**
+     * Returns the display value for the selected number/unit
+     * Returns an empty string if the element is currently set to unlimited
+     */
     get displayValue(): string {
+        // This was used in tests before to make sure we displayed a custom message
+        // However, since the word for unlimited can be translated, it must be a LazyString
+        // which is returned from `TranslationService.translateAsync()`
+        // However, tests can't really use a LazyString, they are only intended to be used from
+        // templates with the lazyString pipe
         if (this.unlimitedControlValue) {
-            return this.unlimitedText;
+            return '';
         }
 
         const value = Number(this.textInputValue);

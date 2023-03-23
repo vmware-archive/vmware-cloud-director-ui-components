@@ -1,4 +1,4 @@
-<form [formGroup]="formGroup" class="clr-form-horizontal">
+<form class="clr-form-horizontal">
     The select element supports hints with new lines. See the source code for the required HTML
 
     <vcd-form-select
@@ -7,7 +7,7 @@
         [description]="'Select Input description.'"
         [hint]="'Select Input hint\n\nAdd new lines as needed'"
         [options]="options"
-        [formControlName]="'selectInput'"
+        [formControl]="formGroup.controls.selectInput"
     >
     </vcd-form-select>
 </form>

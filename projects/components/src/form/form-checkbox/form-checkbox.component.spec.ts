@@ -74,11 +74,11 @@ describe('FormCheckboxComponent', () => {
 
 @Component({
     template: `
-        <form [formGroup]="formGroup">
+        <form>
             <vcd-form-checkbox
                 #checkbox
                 [label]="'Checkbox'"
-                [formControlName]="'checkboxInput'"
+                [formControl]="formGroup.controls.checkboxInput"
                 [description]="'Helper Text'"
             >
             </vcd-form-checkbox>
@@ -87,7 +87,7 @@ describe('FormCheckboxComponent', () => {
                 #toggleswitch
                 [label]="'Toggle switch'"
                 [styling]="styling.TOGGLESWITCH"
-                [formControlName]="'toggleInput'"
+                [formControl]="formGroup.controls.toggleInput"
                 [description]="'Helper Text'"
             >
             </vcd-form-checkbox>
@@ -95,17 +95,14 @@ describe('FormCheckboxComponent', () => {
     `,
 })
 class TestHostComponent {
-    formGroup: FormGroup;
-
+    formGroup = this.fb.group({
+        checkboxInput: [true],
+        toggleInput: [false],
+    });
     styling = CheckBoxStyling;
 
     @ViewChild('checkbox', { static: true }) checkboxComponent: FormCheckboxComponent;
     @ViewChild('toggleswitch', { static: true }) toggleSwitchComponent: FormCheckboxComponent;
 
-    constructor(private fb: FormBuilder) {
-        this.formGroup = this.fb.group({
-            checkboxInput: [true],
-            toggleInput: [false],
-        });
-    }
+    constructor(private fb: FormBuilder) {}
 }

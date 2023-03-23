@@ -3,14 +3,14 @@
  * SPDX-License-Identifier: BSD-2-Clause
  */
 
-import { InjectionToken, ModuleWithProviders, NgModule } from '@angular/core';
+import { ModuleWithProviders, NgModule } from '@angular/core';
 import { CompoDocRetrieverService } from './compodoc/compodoc-retriever.service';
 import { CompodocSchema } from './compodoc/compodoc-schema';
 import { DocumentationContainerModule } from './documentation-container/documentation-container.module';
 import { DocumentationRetrieverService } from './documentation-retriever.service';
 import { COMPODOC_URL, DOCUMENTATION_DATA } from './injection-tokens';
 import { StackBlitzInfo } from './interfaces';
-import { StackBlitzWriterService, STACKBLITZ_INFO } from './stack-blitz-writer.service';
+import { STACKBLITZ_INFO, StackBlitzWriterService } from './stack-blitz-writer.service';
 
 const declarations = [];
 

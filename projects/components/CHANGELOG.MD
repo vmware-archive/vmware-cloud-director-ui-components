@@ -7,6 +7,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [15.0.1-dev.1]
+First release with Angular/Clarity 15
+
 ## [13.0.1-dev.9]
 
 ### Fixed

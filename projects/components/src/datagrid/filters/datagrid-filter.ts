@@ -52,15 +52,17 @@ export interface FilterRendererSpec<C> extends ComponentRendererSpec<C> {
  * {@link GridColumn.filter}
  * V is the type of filter input value that is passed into setValue method
  * C extends FilterConfig<V> is configuration of a filter that contains queryField and a value of type V
+ * F is the specific FormGroup type used by the implementing filter component so that it can have type safety
+ *   while the base class still knows that it's a FormGroup but doesn't care about its internal shape.
  */
 @Directive({
     providers: [SubscriptionTracker],
 })
 // eslint-disable-next-line @angular-eslint/directive-class-suffix
-export abstract class DatagridFilter<V, C extends FilterConfig<V>>
+export abstract class DatagridFilter<V, C extends FilterConfig<V>, F extends FormGroup = FormGroup>
     implements OnInit, ClrDatagridFilterInterface<V>, ComponentRenderer<C>
 {
-    formGroup = this.createFormGroup();
+    abstract formGroup: F;
 
     protected constructor(filterContainer: ClrDatagridFilter, private subscriptionTracker: SubscriptionTracker) {
         filterContainer.setFilter(this);
@@ -69,7 +71,7 @@ export abstract class DatagridFilter<V, C extends FilterConfig<V>>
     /**
      * Sets the configuration needed for a filter UI widget and also it's value.
      * Assigned from {@link ComponentRendererOutletDirective#assignValue} after the filter component is created.
-     * Used by the getValue method in sub classes to format the FIQL string output.
+     * Used by the getValue method in subclasses to format the FIQL string output.
      */
     protected _config: C;
     @Input() set config(val: C) {
@@ -93,7 +95,7 @@ export abstract class DatagridFilter<V, C extends FilterConfig<V>>
         const obs = this.getDebounceTimeMs()
             ? this.formGroup.valueChanges.pipe(debounceTime(this.getDebounceTimeMs()))
             : this.formGroup.valueChanges;
-        this.subscriptionTracker.subscribe(obs, () => this.changes.next());
+        this.subscriptionTracker.subscribe(obs, () => this.changes.next(null));
     }
 
     /**
@@ -107,12 +109,9 @@ export abstract class DatagridFilter<V, C extends FilterConfig<V>>
      * Called inside setter of {@link DatagridFilter#config} and Defined in the derived classes to perform some logic before
      * assigning the UI widget configuration and setting a value
      */
-    protected onBeforeSetConfig(config: C): void {}
-
-    /**
-     * To initialize the {@link formGroup} from sub classes
-     */
-    abstract createFormGroup(): FormGroup;
+    protected onBeforeSetConfig(config: C): void {
+        // No default behavior
+    }
 
     /**
      * Used for assigning a value to a filter from outside
@@ -137,7 +136,7 @@ export abstract class DatagridFilter<V, C extends FilterConfig<V>>
     }
 
     /**
-     * @see unit tests of sub class {@link DatagridStringFilterComponent} for unit tests of following methods
+     * @see unit tests of subclass {@link DatagridStringFilterComponent} for unit tests of following methods
      */
     /**
      * Used in the {@link #getValue} method to make it part of the FIQL formatted string

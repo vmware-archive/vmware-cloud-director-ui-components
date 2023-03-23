@@ -23,18 +23,19 @@ export function defaultValidatorForControl(control: AbstractControl, defaultVali
 
     const oldSetValidators = control.setValidators;
     control.setValidators = (validators) => {
-        // Could be array, single value or null
+        // Could be an array, single value or null
         const validatorsArray = Array.isArray(validators) ? validators : [validators].filter(Boolean);
         return oldSetValidators.call(control, [defaultValidator, ...validatorsArray]);
     };
 }
 /**
  * Wrapper to enforce UX decisions like readonly-ness, label position and error displaying. And also to make
- * the form control backing a form control name directive available to sub classes.
+ * the form control backing a form control name directive available to subclasses.
+ *
+ * V is the type of the control's value
  */
-@Directive({})
-// eslint-disable-next-line @angular-eslint/directive-class-suffix
-export class BaseFormControl implements ControlValueAccessor, CanBeReadOnly {
+@Directive()
+export class BaseFormControl<V> implements ControlValueAccessor, CanBeReadOnly {
     /**
      * Auto generated ID for the input field.
      */
@@ -120,11 +121,14 @@ export class BaseFormControl implements ControlValueAccessor, CanBeReadOnly {
 
     /**
      * The FormControl associated with the FormControlName directive
+     *
+     * If one was not associated using [formControl] or [formControlName], we'll create one to keep things working.
+     * This is so that components can still be used without a form control
      */
-    get formControl(): FormControl {
-        return this.formControlNameDirective
-            ? (this.formControlNameDirective.control as FormControl)
-            : new FormControl('');
+    get formControl(): FormControl<V> {
+        return (
+            this.formControlNameDirective ? this.formControlNameDirective.control : new FormControl(null as V)
+        ) as FormControl<V>;
     }
 
     get showErrors(): boolean {
@@ -165,7 +169,9 @@ export class BaseFormControl implements ControlValueAccessor, CanBeReadOnly {
         this.disabled = isDisabled;
     }
 
-    writeValue(val: any): void {}
+    writeValue(val: unknown): void {
+        // No default behavior but subclasses should update the
+    }
 
     /**
      * When errorObjectValue param is not an array we pass back the control's value to stay backward compatible.

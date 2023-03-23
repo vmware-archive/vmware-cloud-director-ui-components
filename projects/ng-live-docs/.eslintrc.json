@@ -1,5 +1,5 @@
 {
-  "extends": "../../.eslintrc.js",
+  "extends": "../../.eslintrc.json",
   "ignorePatterns": [
     "!**/*"
   ],
@@ -31,30 +31,8 @@
             "prefix": "vmw",
             "style": "camelCase"
           }
-        ],
-        "@typescript-eslint/adjacent-overload-signatures": "off",
-        "@typescript-eslint/explicit-member-accessibility": [
-          "off",
-          {
-            "accessibility": "explicit"
-          }
-        ],
-        "arrow-parens": [
-          "off",
-          "always"
-        ],
-        "import/order": "error",
-        "no-multiple-empty-lines": "error",
-        "no-new-func": "error",
-        "no-octal": "error",
-        "no-octal-escape": "error"
+        ]
       }
-    },
-    {
-      "files": [
-        "*.html"
-      ],
-      "rules": {}
     }
   ]
 }

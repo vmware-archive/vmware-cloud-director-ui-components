@@ -1,164 +1,181 @@
 {
-    "$schema": "../../node_modules/nx/schemas/workspace-schema.json",
-    "projectType": "application",
-    "generators": {
-        "@schematics/angular:component": {
-            "style": "scss"
-        }
-    },
-    "sourceRoot": "projects/examples/src",
-    "prefix": "vcd",
-    "targets": {
-        "build":  {
-            "executor": "@angular-devkit/build-angular:browser",
-            "options": {
-                "preserveSymlinks": true,
-                "outputPath": "dist/examples",
-                "index": "projects/examples/src/index.html",
-                "main": "projects/examples/src/main.ts",
-                "polyfills": "projects/examples/src/polyfills.ts",
-                "tsConfig": "projects/examples/tsconfig.app.json",
-                "aot": false,
-                "assets": [
-                    "projects/examples/src/favicon.ico",
-                    "projects/examples/src/assets",
-                    "projects/examples/src/compodoc"
-                ],
-                "styles": [
-                    "node_modules/@clr/icons/clr-icons.min.css",
-                    "node_modules/@clr/ui/clr-ui.min.css",
-                    "projects/examples/src/styles.scss"
-                ],
-                "scripts": ["node_modules/@clr/icons/clr-icons.min.js"],
-                "vendorChunk": true,
-                "extractLicenses": false,
-                "buildOptimizer": false,
-                "sourceMap": true,
-                "optimization": false,
-                "namedChunks": true
-            },
-            "configurations": {
-                "production": {
-                    "fileReplacements": [
-                        {
-                            "replace": "projects/examples/src/environments/environment.ts",
-                            "with": "projects/examples/src/environments/environment.prod.ts"
-                        }
-                    ],
-                    "outputHashing": "all",
-                    "sourceMap": false,
-                    "namedChunks": false,
-                    "aot": true,
-                    "extractLicenses": true,
-                    "vendorChunk": false,
-                    "budgets": [
-                        {
-                            "type": "initial",
-                            "maximumWarning": "2mb",
-                            "maximumError": "20mb"
-                        },
-                        {
-                            "type": "anyComponentStyle",
-                            "maximumWarning": "6kb",
-                            "maximumError": "10kb"
-                        }
-                    ]
-                }
-            },
-            "defaultConfiguration": "",
-            "dependsOn": ["build-components-doc", "build-examples-doc", "generate-example-translations"]
-        },
-        "build-components-doc": {
-            "executor": "nx:run-commands",
-            "options": {
-                "commands": [
-                  "mkdirp projects/examples/gen",
-                  "node dist/ng-live-docs/index.js projects/components/tsconfig.lib.json projects/components/src/public-api.ts projects/examples/gen/components-doc.json",
-                  "compodoc -p ./projects/components/tsconfig.lib.json -d projects/examples/src/compodoc"
-                ],
-                "cwd": ".",
-                "parallel": false
-            },
-            "dependsOn": ["^build"]
-        },
-        "build-examples-doc": {
-            "executor": "nx:run-commands",
-            "options": {
-                "commands": [
-                    "mkdirp projects/examples/gen",
-                    "node dist/ng-live-docs/index.js projects/examples/tsconfig.app.json projects/examples/src/main.ts projects/examples/gen/examples-doc.json"
-                ],
-                "parallel": false,
-                "cwd": "."
-            },
-            "dependsOn": ["^build"]
-        },
-
-        "generate-example-translations": {
-            "executor": "nx:run-commands",
-            "options": {
-                "command": "node projects/i18n/scripts/index.js dist/components/i18n.json projects/examples/src/assets/our-translations.json projects/examples/src/assets/i18n.json",
-                "cwd": "."
-            },
-            "dependsOn": ["^build"]
-        },
-
-        "serve": {
-            "executor": "@angular-devkit/build-angular:dev-server",
-            "options": {
-                "browserTarget": "examples:build"
-            },
-            "configurations": {
-                "production": {
-                    "browserTarget": "examples:build:production"
-                }
-            },
-          "dependsOn": ["^build"]
-        },
-
-        "test": {
-            "executor": "@angular-devkit/build-angular:karma",
-            "options": {
-                "main": "projects/examples/src/test.ts",
-                "polyfills": "projects/examples/src/polyfills.ts",
-                "tsConfig": "projects/examples/tsconfig.spec.json",
-                "karmaConfig": "projects/examples/karma.conf.js",
-                "assets": [
-                    "projects/examples/src/favicon.ico",
-                    "projects/examples/src/assets",
-                    "projects/examples/src/compodoc"
-                ],
-                "styles": ["projects/examples/src/styles.scss"],
-                "scripts": []
-            }
-        },
-        "lint": {
-            "executor": "@angular-eslint/builder:lint",
-            "options": {
-                "lintFilePatterns": ["projects/examples/**/*.ts", "projects/examples/**/*.html"]
-            }
-        },
-        "e2e": {
-            "executor": "@angular-devkit/build-angular:protractor",
-            "options": {
-                "protractorConfig": "projects/examples/e2e/protractor.conf.js",
-                "devServerTarget": "examples:serve"
-            },
-            "configurations": {
-                "production": {
-                    "devServerTarget": "examples:serve:production"
-                }
-            }
-        },
-        "deploy": {
-            "executor": "angular-cli-ghpages:deploy",
-            "options": {
-                "repo": "https://github.com/vmware/vmware-cloud-director-ui-components",
-                "baseHref": "/vmware-cloud-director-ui-components/",
-                "noSilent": true,
-                "name": "ps37",
-                "email": "prudhvi.af121@gmail.com"
-            }
-        }
+  "name": "examples",
+  "$schema": "../../node_modules/nx/schemas/workspace-schema.json",
+  "projectType": "application",
+  "generators": {
+    "@schematics/angular:component": {
+      "style": "scss"
     }
+  },
+  "sourceRoot": "projects/examples/src",
+  "prefix": "vcd",
+  "targets": {
+    "build": {
+      "executor": "@angular-devkit/build-angular:browser",
+      "options": {
+        "preserveSymlinks": true,
+        "outputPath": "dist/examples",
+        "index": "projects/examples/src/index.html",
+        "main": "projects/examples/src/main.ts",
+        "polyfills": "projects/examples/src/polyfills.ts",
+        "tsConfig": "projects/examples/tsconfig.app.json",
+        "aot": false,
+        "assets": [
+          "projects/examples/src/favicon.ico",
+          "projects/examples/src/assets",
+          "projects/examples/src/compodoc"
+        ],
+        "styles": [
+          "node_modules/@clr/icons/clr-icons.min.css",
+          "node_modules/@clr/ui/clr-ui.min.css",
+          "projects/examples/src/styles.scss"
+        ],
+        "scripts": [
+          "node_modules/@clr/icons/clr-icons.min.js"
+        ],
+        "vendorChunk": true,
+        "extractLicenses": false,
+        "buildOptimizer": false,
+        "sourceMap": true,
+        "optimization": false,
+        "namedChunks": true
+      },
+      "configurations": {
+        "production": {
+          "fileReplacements": [
+            {
+              "replace": "projects/examples/src/environments/environment.ts",
+              "with": "projects/examples/src/environments/environment.prod.ts"
+            }
+          ],
+          "outputHashing": "all",
+          "sourceMap": false,
+          "namedChunks": false,
+          "aot": true,
+          "extractLicenses": true,
+          "vendorChunk": false,
+          "budgets": [
+            {
+              "type": "initial",
+              "maximumWarning": "2mb",
+              "maximumError": "20mb"
+            },
+            {
+              "type": "anyComponentStyle",
+              "maximumWarning": "6kb",
+              "maximumError": "10kb"
+            }
+          ]
+        }
+      },
+      "defaultConfiguration": "",
+      "dependsOn": [
+        "build-components-doc",
+        "build-examples-doc",
+        "generate-example-translations"
+      ]
+    },
+    "build-components-doc": {
+      "executor": "nx:run-commands",
+      "options": {
+        "commands": [
+          "mkdirp projects/examples/gen",
+          "node dist/ng-live-docs/index.js projects/components/tsconfig.lib.json projects/components/src/public-api.ts projects/examples/gen/components-doc.json",
+          "compodoc -p ./projects/components/tsconfig.lib.json -d projects/examples/src/compodoc"
+        ],
+        "cwd": ".",
+        "parallel": false
+      },
+      "dependsOn": [
+        "^build"
+      ]
+    },
+    "build-examples-doc": {
+      "executor": "nx:run-commands",
+      "options": {
+        "commands": [
+          "mkdirp projects/examples/gen",
+          "node dist/ng-live-docs/index.js projects/examples/tsconfig.app.json projects/examples/src/main.ts projects/examples/gen/examples-doc.json"
+        ],
+        "parallel": false,
+        "cwd": "."
+      },
+      "dependsOn": [
+        "^build"
+      ]
+    },
+    "generate-example-translations": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "node projects/i18n/scripts/index.js dist/components/i18n.json projects/examples/src/assets/our-translations.json projects/examples/src/assets/i18n.json",
+        "cwd": "."
+      },
+      "dependsOn": [
+        "^build"
+      ]
+    },
+    "serve": {
+      "executor": "@angular-devkit/build-angular:dev-server",
+      "options": {
+        "browserTarget": "examples:build"
+      },
+      "configurations": {
+        "production": {
+          "browserTarget": "examples:build:production"
+        }
+      },
+      "dependsOn": [
+        "^build"
+      ]
+    },
+    "test": {
+      "executor": "@angular-devkit/build-angular:karma",
+      "options": {
+        "main": "projects/examples/src/test.ts",
+        "polyfills": "projects/examples/src/polyfills.ts",
+        "tsConfig": "projects/examples/tsconfig.spec.json",
+        "karmaConfig": "projects/examples/karma.conf.js",
+        "assets": [
+          "projects/examples/src/favicon.ico",
+          "projects/examples/src/assets",
+          "projects/examples/src/compodoc"
+        ],
+        "styles": [
+          "projects/examples/src/styles.scss"
+        ],
+        "scripts": []
+      }
+    },
+    "lint": {
+      "executor": "@angular-eslint/builder:lint",
+      "options": {
+        "lintFilePatterns": [
+          "projects/examples/**/*.ts",
+          "projects/examples/**/*.html"
+        ]
+      }
+    },
+    "e2e": {
+      "executor": "@angular-devkit/build-angular:protractor",
+      "options": {
+        "protractorConfig": "projects/examples/e2e/protractor.conf.js",
+        "devServerTarget": "examples:serve"
+      },
+      "configurations": {
+        "production": {
+          "devServerTarget": "examples:serve:production"
+        }
+      }
+    },
+    "deploy": {
+      "executor": "angular-cli-ghpages:deploy",
+      "options": {
+        "repo": "https://github.com/vmware/vmware-cloud-director-ui-components",
+        "baseHref": "/vmware-cloud-director-ui-components/",
+        "noSilent": true,
+        "name": "ps37",
+        "email": "prudhvi.af121@gmail.com"
+      }
+    }
+  }
 }

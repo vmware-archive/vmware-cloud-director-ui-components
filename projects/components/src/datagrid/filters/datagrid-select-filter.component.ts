@@ -2,7 +2,7 @@
  * Copyright 2019 VMware, Inc.
  * SPDX-License-Identifier: BSD-2-Clause
  */
-import { Component, Host, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { ClrDatagridFilter } from '@clr/angular';
 import { SelectOption } from '../../common/interfaces/select-option';
@@ -54,7 +54,8 @@ export interface DatagridSelectFilterConfig extends FilterConfig<string | number
 })
 export class DatagridSelectFilterComponent
     extends DatagridFilter<string | number, DatagridSelectFilterConfig>
-    implements OnInit {
+    implements OnInit
+{
     /**
      * Displayed as the first option with a falsy value. Selecting this option would deactivate the filter
      */
@@ -63,17 +64,12 @@ export class DatagridSelectFilterComponent
         display: '',
     };
 
-    createFormGroup(): FormGroup {
-        return new FormGroup({
-            filterSelect: new FormControl(''),
-        });
-    }
+    formGroup = new FormGroup({
+        filterSelect: new FormControl('' as string | number),
+    });
 
     constructor(private filterContainer: ClrDatagridFilter, private fb: FormBuilder, subTracker: SubscriptionTracker) {
         super(filterContainer, subTracker);
-        this.formGroup = this.fb.group({
-            filterSelect: '',
-        });
     }
 
     protected getDebounceTimeMs(): number {
@@ -91,15 +87,15 @@ export class DatagridSelectFilterComponent
 
     getValue(): string {
         if (this.config.customFiql) {
-            return this.formGroup.get('filterSelect').value;
+            return this.formGroup.controls.filterSelect.value.toString();
         }
         const filterBuilder = new FilterBuilder().is(this.queryField);
-        const value = this.formGroup.get('filterSelect').value;
+        const value = this.formGroup.controls.filterSelect.value;
         return filterBuilder.equalTo(value).getString();
     }
 
     isActive(): boolean {
-        return !!this.formGroup && this.formGroup.get('filterSelect').value;
+        return !!(this.formGroup && this.formGroup.controls.filterSelect.value);
     }
 }
 

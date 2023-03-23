@@ -22,7 +22,9 @@ const declarations = [FormInputComponent, FormSelectComponent, FormCheckboxCompo
     imports: [
         ClarityModule,
         FormsModule,
-        ReactiveFormsModule,
+        ReactiveFormsModule.withConfig({
+            callSetDisabledState: 'whenDisabledForLegacyCode',
+        }),
         CommonModule,
         I18nModule,
         ResponsiveInputDirectiveModule,

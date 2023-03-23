@@ -13,7 +13,7 @@ class SimpleSearchProvider implements QuickSearchProvider {
 
     shouldDebounceInput: boolean;
     search(criteria: string): QuickSearchResultsType {
-        return { items: [{ displayText: 'hello', handler: () => {} }] };
+        return { items: [{ displayText: 'hello', handler: () => undefined }] };
     }
 }
 
@@ -171,7 +171,7 @@ describe('QuickSearchService', () => {
             const secondProvider = new SimpleSearchProvider();
             service.registerProvider(firstProvider);
             service.registerProvider(secondProvider);
-            const toRun = { fun: () => {} };
+            const toRun = { fun: () => undefined };
             const spy = spyOn(toRun, 'fun');
             await service.doSearch('hello', undefined, toRun.fun);
             expect(spy).toHaveBeenCalledTimes(2);

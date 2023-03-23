@@ -26,7 +26,9 @@
         "^default",
         "{workspaceRoot}/jest.preset.js"
       ],
-      "dependsOn": ["^build"]
+      "dependsOn": [
+        "^build"
+      ]
     }
   },
   "namedInputs": {
@@ -76,6 +78,5 @@
     "@nrwl/angular:component": {
       "style": "css"
     }
-  },
-  "defaultProject": "examples"
+  }
 }

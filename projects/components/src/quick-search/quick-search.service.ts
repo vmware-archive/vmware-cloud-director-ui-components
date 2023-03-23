@@ -5,7 +5,7 @@
 
 import { Injectable } from '@angular/core';
 import { ReplaySubject } from 'rxjs';
-import { QuickSearchProvider, QuickSearchNestedProvider } from './quick-search.provider';
+import { QuickSearchNestedProvider, QuickSearchProvider } from './quick-search.provider';
 import { QuickSearchResults } from '.';
 
 /**

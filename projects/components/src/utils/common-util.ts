@@ -44,14 +44,13 @@ export class CommonUtil {
         let pendingPromise: Promise<ReturnType<T>> = null;
         // eslint-disable-next-line @typescript-eslint/ban-types
         let resolver: Function;
-        // eslint-disable-next-line prefer-arrow/prefer-arrow-functions
-        return function (): Promise<any> {
+        return function (...args): Promise<any> {
             if (!pendingPromise) {
                 pendingPromise = new Promise((resolve) => {
                     resolver = resolve;
                 });
             }
-            const callArgs = Array.from(arguments);
+            const callArgs = args;
             if (timerId) {
                 clearTimeout(timerId);
                 timerId = null;

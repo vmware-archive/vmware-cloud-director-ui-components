@@ -382,6 +382,7 @@ function updateExistingModule(
     }
     const sourceText = buffer.toString('utf-8');
     const sourceFile = ts.createSourceFile(fileName, sourceText, ts.ScriptTarget.Latest, true);
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
     const nodes: ts.Node[] = getSourceNodes(sourceFile);
     if (nodes.length === 0) {

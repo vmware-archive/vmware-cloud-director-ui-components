@@ -50,9 +50,11 @@ function generateDocumentation(fileNames: string[], options: ts.CompilerOptions)
     }
 
     function isNgModuleClass(cls: ts.ClassDeclaration): boolean {
-        return !!cls.decorators.find((decorator) => {
-            return (decorator.expression.getFirstToken(sourceFile) as ts.Identifier).text === NG_MODULE;
-        });
+        return !ts.canHaveDecorators(cls)
+            ? false
+            : ts.getDecorators(cls).some((decorator) => {
+                  return (decorator.expression.getFirstToken(sourceFile) as ts.Identifier).text === NG_MODULE;
+              });
     }
 
     function serializeModule(node: ts.ClassDeclaration): ModuleEntry {

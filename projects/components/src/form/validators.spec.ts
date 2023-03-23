@@ -18,7 +18,7 @@ describe('FormValidators', () => {
         });
     });
     describe('isNumberInRange', () => {
-        let formControl: FormControl;
+        let formControl: FormControl<number | string>;
         let numberInRangeValidator: ValidatorFn;
         beforeEach(() => {
             formControl = new FormControl();

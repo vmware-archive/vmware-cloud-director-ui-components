@@ -94,11 +94,11 @@ export class DatagridActionDisplayConfigExampleComponent implements OnInit {
 
     selectionType = GridSelectionType.Single;
 
-    contextualFormGroup = this.fb.group({
-        ['styling']: [ActionStyling.INLINE],
-        ['buttonContents']: [TextIcon.TEXT],
-        ['position']: [DatagridContextualActionPosition.TOP],
-        ['featuredCount']: [2],
+    formGroup = this.fb.group({
+        styling: [ActionStyling.INLINE],
+        buttonContents: [TextIcon.TEXT],
+        position: [DatagridContextualActionPosition.TOP],
+        featuredCount: [2],
     });
 
     stylingOptions: SelectOption[] = [
@@ -153,23 +153,24 @@ export class DatagridActionDisplayConfigExampleComponent implements OnInit {
     ngOnInit(): void {
         this.updateFeaturedCountControl(this.actionDisplayConfig.contextual);
 
-        this.contextualFormGroup.valueChanges.subscribe((formValue) => {
+        this.formGroup.valueChanges.subscribe((formValue) => {
             this.updateFeaturedCountControl(formValue);
             this.updateGridSelectionType(formValue);
 
             this.actionDisplayConfig = {
-                contextual: { ...this.contextualFormGroup.value },
+                // TODO-NG-UPDATE @irahov. I'm not sure what this is complaining about
+                contextual: { ...(this.formGroup.value as any) },
             };
         });
     }
 
     updateFeaturedCountControl(value) {
         if (value.styling === ActionStyling.INLINE) {
-            this.contextualFormGroup.get('featuredCount').enable({ onlySelf: true, emitEvent: false });
+            this.formGroup.controls.featuredCount.enable({ onlySelf: true, emitEvent: false });
         } else {
-            this.contextualFormGroup.get('featuredCount').disable({ onlySelf: true, emitEvent: false });
+            this.formGroup.controls.featuredCount.disable({ onlySelf: true, emitEvent: false });
         }
-        this.contextualFormGroup.updateValueAndValidity({ onlySelf: true, emitEvent: false });
+        this.formGroup.updateValueAndValidity({ onlySelf: true, emitEvent: false });
     }
 
     updateGridSelectionType(value) {

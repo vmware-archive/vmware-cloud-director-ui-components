@@ -102,8 +102,6 @@ export class TestHostComponent {
     public hertzOptions: Unit[] = [Hertz.Mhz, Hertz.Ghz];
     public formControlValueUnit: Unit = Hertz.Mhz;
     public ghz: Unit = Hertz.Ghz;
-
-    constructor() {}
 }
 
 describe('VcdNumberWithUnitFormInputComponent', () => {
@@ -168,7 +166,7 @@ describe('VcdNumberWithUnitFormInputComponent', () => {
                 woConstructor: NumberWithUnitFormInputWidgetObject,
                 className: 'initially-unlimited',
             });
-            expect(numberWithUnitInputUnlimited.displayValue).toEqual(ts.translate('vcd.cc.unlimited'));
+            expect(numberWithUnitInputUnlimited.formControl.value).toEqual(-1);
             numberWithUnitInputUnlimited.clickUnlimitedCheckbox();
             expect(numberWithUnitInputUnlimited.selectedUnitDisplayValue).toEqual('MHz');
         });
@@ -187,7 +185,6 @@ describe('VcdNumberWithUnitFormInputComponent', () => {
             numberWithUnitInput.detectChanges();
             expect(numberWithUnitInput.isInputValueFocused).toBe(false);
             expect(numberWithUnitInput.isInputFieldDisabled).toBe(true);
-            expect(numberWithUnitInput.displayValue).toEqual(ts.translate('vcd.cc.unlimited'));
         }));
 
         it('does not select unlimited when the unlimited value is typed if unlimited is disabled', fakeAsync(() => {
@@ -220,7 +217,6 @@ describe('VcdNumberWithUnitFormInputComponent', () => {
 
             // toggle ON unlimited, assert component value is changed
             numberWithUnitInput.clickUnlimitedCheckbox();
-            expect(numberWithUnitInput.displayValue).toEqual(ts.translate('vcd.cc.unlimited'));
             expect(numberWithUnitInput.formControl.value).toEqual(-1);
 
             // toggle OFF unlimited, assert component value is restored
@@ -313,8 +309,14 @@ describe('VcdNumberWithUnitFormInputComponent', () => {
                 woConstructor: NumberWithUnitFormInputWidgetObject,
                 className: 'initially-unlimited',
             });
-            expect(numberWithUnitInputInitializedUnlimited.isInputFieldDisabled).toEqual(true);
-            expect(numberWithUnitInputInitializedUnlimited.isUnitDropdownDisabled).toEqual(true);
+            expect(numberWithUnitInputInitializedUnlimited.isInputFieldDisabled).toEqual(
+                true,
+                'Numeric text field should have been disabled'
+            );
+            expect(numberWithUnitInputInitializedUnlimited.isUnitDropdownDisabled).toEqual(
+                true,
+                'Unit dropdown should have been disabled'
+            );
         });
 
         it('disables text input when set to unlimited programmatically', () => {
@@ -346,12 +348,12 @@ describe('VcdNumberWithUnitFormInputComponent', () => {
             );
         });
 
-        it('will output unlimited', () => {
+        it('outputs an empty string when unlimited', () => {
             const numberWithUnitInputUnlimited = finder.find({
                 woConstructor: NumberWithUnitFormInputWidgetObject,
                 className: 'initially-unlimited',
             });
-            expect(numberWithUnitInputUnlimited.displayValue).toEqual(ts.translate('vcd.cc.unlimited'));
+            expect(numberWithUnitInputUnlimited.displayValue).toEqual('');
         });
 
         it('gives a display when the value is unset', () => {
@@ -394,6 +396,13 @@ describe('VcdNumberWithUnitFormInputComponent', () => {
                 ts.translate(Hertz.Ghz.getValueWithUnitTranslationKey(), [8.19])
             );
         });
+
+        it('displays the translated unlimited text when set to unlimited', () => {
+            numberWithUnitInput.component.isReadOnly = true;
+            numberWithUnitInput.formControl.setValue(-1);
+            numberWithUnitInput.detectChanges();
+            expect(numberWithUnitInput.readonlyText).toBe(ts.translate('vcd.cc.unlimited'));
+        });
     });
 
     describe('inputValueUnit', () => {
@@ -414,20 +423,22 @@ describe('VcdNumberWithUnitFormInputComponent', () => {
     });
 
     describe('setDisabledState', () => {
-        it(
-            'disables or enables comboUnitOptions and limited formControls when cpuLimit formControl is disabled or' +
-                'enabled',
-            () => {
-                numberWithUnitInput.formControl.disable();
-                numberWithUnitInput.detectChanges();
-                expect(numberWithUnitInput.isInputFieldDisabled).toBe(true);
-                expect(numberWithUnitInput.isUnitDropdownDisabled).toBe(true);
-                numberWithUnitInput.formControl.enable();
-                numberWithUnitInput.detectChanges();
-                expect(numberWithUnitInput.isInputFieldDisabled).toBe(false);
-                expect(numberWithUnitInput.isUnitDropdownDisabled).toBe(false);
-            }
-        );
+        it('disables and enables the numeric text field and the unit dropdown', () => {
+            numberWithUnitInput.formControl.disable();
+            numberWithUnitInput.detectChanges();
+            expect(numberWithUnitInput.isInputFieldDisabled).toBe(
+                true,
+                'Text input should be disabled when form control is disabled'
+            );
+            expect(numberWithUnitInput.isUnitDropdownDisabled).toBe(
+                true,
+                'unit dropdown should be disabled when form control is disabled'
+            );
+            numberWithUnitInput.formControl.enable();
+            numberWithUnitInput.detectChanges();
+            expect(numberWithUnitInput.isInputFieldDisabled).toBe(false);
+            expect(numberWithUnitInput.isUnitDropdownDisabled).toBe(false);
+        });
     });
 
     describe('set selectedUnit', () => {
@@ -457,7 +468,7 @@ describe('VcdNumberWithUnitFormInputComponent', () => {
                 className: 'initially-unlimited',
             });
 
-            expect(numberWithUnitInputUnlimited.displayValue).toEqual(ts.translate('vcd.cc.unlimited'));
+            expect(numberWithUnitInputUnlimited.unlimitedLabel).toEqual(ts.translate('vcd.cc.unlimited'));
         });
 
         it('shows custom unlimited text', () => {
@@ -466,7 +477,7 @@ describe('VcdNumberWithUnitFormInputComponent', () => {
                 className: 'custom-unlimited',
             });
 
-            expect(numberWithUnitInputUnlimitedCustomText.displayValue).toEqual(CUSTOM_UNLIMITED_TEXT);
+            expect(numberWithUnitInputUnlimitedCustomText.unlimitedLabel).toEqual(CUSTOM_UNLIMITED_TEXT);
         });
     });
 });

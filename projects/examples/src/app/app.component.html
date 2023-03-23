@@ -19,20 +19,17 @@
     </clr-header>
 
     <div class="content-container">
-        <nav class="sidenav" [clr-nav-level]="2">
-            <section class="sidenav-content">
-                <section class="nav-group">
-                    <label>Components</label>
-                    <ul class="nav-list">
-                        <li *ngFor="let entry of sideNavEntries">
-                            <a class="nav-link" [routerLink]="entry.path" [routerLinkActive]="['active']">
-                                {{ entry.title }}
-                            </a>
-                        </li>
-                    </ul>
-                </section>
-            </section>
-        </nav>
+        <clr-vertical-nav>
+            <label class="nav-header">Components</label>
+            <a
+                *ngFor="let entry of sideNavEntries"
+                clrVerticalNavLink
+                [routerLink]="entry.path"
+                [routerLinkActive]="['active']"
+            >
+                {{ entry.title }}
+            </a>
+        </clr-vertical-nav>
 
         <main class="content-area">
             <ng-template vcdTabset="[]"></ng-template>

@@ -75,12 +75,16 @@ export class AngularWidgetObjectElement implements WidgetObjectElement<TestEleme
     /**
      * @inheritdoc
      */
-    check(options?: unknown): void {}
+    check(options?: unknown): void {
+        // To implement
+    }
 
     /**
      * @inheritdoc
      */
-    uncheck(options?: unknown): void {}
+    uncheck(options?: unknown): void {
+        // To implement
+    }
 
     /**
      * @inheritdoc

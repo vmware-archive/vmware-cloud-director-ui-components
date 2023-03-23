@@ -22,6 +22,7 @@ import {
 import { ClrDatagrid, ClrDatagridPagination, ClrDatagridStateInterface } from '@clr/angular';
 import { LazyString, TranslationService } from '@vcd/i18n';
 import { Observable } from 'rxjs';
+import { FormGroup } from '@angular/forms';
 import { ActionMenuComponent } from '../action-menu/action-menu.component';
 import { ActivityReporter } from '../common/activity-reporter';
 import { ActionHandlerType, ActionItem, ActionType } from '../common/interfaces/action-item.interface';
@@ -317,7 +318,6 @@ export class DatagridComponent<R extends B, B = any> implements OnInit, AfterVie
             this.changeDetectorRef.detectChanges();
         }
         this.updateSelectedItems();
-
     }
 
     /**
@@ -876,7 +876,9 @@ export class DatagridComponent<R extends B, B = any> implements OnInit, AfterVie
             },
         };
         if (state.filters) {
-            vcdDgState.filters = state.filters.map((filter: DatagridFilter<unknown, unknown>) => filter.getValue());
+            vcdDgState.filters = state.filters.map((filter: DatagridFilter<unknown, unknown, FormGroup>) =>
+                filter.getValue()
+            );
         }
         if (state.sort && typeof state.sort.by === 'string') {
             vcdDgState.sortColumn = {

@@ -1,9 +1,9 @@
-<form [formGroup]="formGroup" class="clr-form-horizontal">
+<form class="clr-form-horizontal">
     <vcd-form-input
         [label]="'String Input'"
         [type]="'text'"
         [showAsterisk]="true"
-        [formControlName]="'stringInput'"
+        [formControl]="formGroup.controls.stringInput"
         [hint]="longHint"
         [hintPosition]="'top-right'"
         [description]="'Input with required, email and maxLength(15) validators'"
@@ -13,19 +13,20 @@
     <vcd-form-input
         [label]="'Number Input'"
         [type]="'number'"
-        [formControlName]="'numberInput'"
+        [formControl]="formGroup.controls.numberInput"
         [min]="70"
         [max]="80"
         [description]="'This input has min attribute set to 70 and max set to 80'"
     >
     </vcd-form-input>
-    <vcd-form-input [label]="'Date Input'" [type]="'datetime-local'" [formControlName]="'dateInput'"> </vcd-form-input>
+    <vcd-form-input [label]="'Date Input'" [type]="'datetime-local'" [formControl]="formGroup.controls.dateInput">
+    </vcd-form-input>
 
     <hr />
 
     <vcd-form-checkbox
         [label]="'Disable components'"
-        [formControlName]="'disabledInputs'"
+        [formControl]="formGroup.controls.disabledInputs"
         [text]="'Toggle disabled state of controls'"
     >
     </vcd-form-checkbox>

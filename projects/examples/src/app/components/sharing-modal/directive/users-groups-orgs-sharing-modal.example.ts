@@ -17,8 +17,6 @@ interface MyEntity {
     styleUrls: ['./users-groups-orgs-sharing-modal.example.scss'],
 })
 export class UsersGroupsOrgsSharingModalExampleComponent {
-    constructor() {}
-
     opened = false;
 
     title = 'Sharing Modal Example';

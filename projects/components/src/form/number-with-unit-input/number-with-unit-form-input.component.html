@@ -1,6 +1,6 @@
 <div class="clr-form-control" [vcdResponsiveInput]="{ disabled: !isResponsive }" *ngIf="isReadOnly">
     <label *ngIf="label" class="clr-control-label">{{ label }}</label>
-    <span class="clr-control-container readonly-text">{{ displayValue || '-' }}</span>
+    <span class="clr-control-container readonly-text">{{ displayValue || (unlimitedText | lazyString) }}</span>
 </div>
 
 <div *ngIf="!isReadOnly">
@@ -80,7 +80,7 @@
                     (ngModelChange)="onUnlimitedCheckboxChange($event)"
                     [ngModel]="unlimitedControlValue"
                 />
-                <label class="clr-control-label" [for]="id + 'checkbox'">{{ unlimitedText }}</label>
+                <label class="clr-control-label" [for]="id + 'checkbox'">{{ unlimitedText | lazyString }}</label>
             </div>
         </div>
     </div>

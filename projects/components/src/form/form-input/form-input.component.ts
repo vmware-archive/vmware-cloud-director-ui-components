@@ -34,7 +34,7 @@ import { BaseFormControl, defaultValidatorForControl } from '../base-form-contro
     templateUrl: './form-input.component.html',
     styleUrls: ['../form.scss', './form-input.component.scss'],
 })
-export class FormInputComponent extends BaseFormControl implements AfterViewInit {
+export class FormInputComponent extends BaseFormControl<string | number | Date> implements AfterViewInit {
     /**
      * Input 'placeholder' field.
      */

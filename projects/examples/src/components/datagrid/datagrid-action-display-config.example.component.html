@@ -1,10 +1,10 @@
 <h4>Contextual action display configuration:</h4>
-<form [formGroup]="contextualFormGroup" class="clr-form-horizontal">
+<form class="clr-form-horizontal">
     <vcd-form-select
         [label]="'Styling'"
         [description]="'Display actions inline or in a dropdown'"
         [options]="stylingOptions"
-        [formControlName]="'styling'"
+        [formControl]="formGroup.controls.styling"
     >
     </vcd-form-select>
 
@@ -12,7 +12,7 @@
         [label]="'Button Contents'"
         [description]="'Content of action buttons'"
         [options]="buttonContentsOptions"
-        [formControlName]="'buttonContents'"
+        [formControl]="formGroup.controls.buttonContents"
     >
     </vcd-form-select>
 
@@ -20,7 +20,7 @@
         [label]="'Position'"
         [description]="'Where in the datagrid should the contextual actions be displayed'"
         [options]="positionOptions"
-        [formControlName]="'position'"
+        [formControl]="formGroup.controls.position"
     >
     </vcd-form-select>
 
@@ -30,7 +30,7 @@
             'How many of the contextual actions that are marked as featured should be displayed in featured section'
         "
         [type]="'number'"
-        [formControlName]="'featuredCount'"
+        [formControl]="formGroup.controls.featuredCount"
     >
     </vcd-form-input>
 </form>

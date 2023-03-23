@@ -98,16 +98,16 @@ describe('FormSelectComponent', () => {
 
     describe('view to model changes', () => {
         it('updates the form control with value of the option selected from dropdown', () => {
-            expect(hostComponent.formGroup.get('selectInput').value).toEqual(hostComponent.options[1].value);
+            expect(hostComponent.formGroup.controls.selectInput.value).toEqual(hostComponent.options[1].value);
             selectInput.select(2);
-            expect(hostComponent.formGroup.get('selectInput').value).toEqual(hostComponent.options[2].value);
+            expect(hostComponent.formGroup.controls.selectInput.value).toEqual(hostComponent.options[2].value);
         });
     });
 
     describe('model to view changes', () => {
         it('selects the option in the view whose value matches with value set on the form control', () => {
             expect(selectInput.value).toEqual(hostComponent.options[1].value as string);
-            hostComponent.formGroup.get('selectInput').setValue(hostComponent.options[2].value);
+            hostComponent.formGroup.controls.selectInput.setValue(hostComponent.options[2].value);
             expect(selectInput.value).toEqual(hostComponent.options[2].value as string);
         });
     });
@@ -171,25 +171,43 @@ describe('FormSelectComponent', () => {
     });
 });
 
+function numberValidator(control: AbstractControl): ValidationErrors | null {
+    // vcd.cc.not.a.number={0} is not a number
+    if (isNaN(Number(control.value))) {
+        return { 'vcd.cc.not.a.number': true };
+    }
+
+    return null;
+}
+
+function numRangeValidator(control: AbstractControl): ValidationErrors | null {
+    const value = Number(control.value);
+    if (value < 1 || value > 3) {
+        return { 'vcd.cc.warning.numRange': ['placeholder', 'one', 'three'] };
+    }
+    return null;
+}
 @Component({
     template: `
-        <form [formGroup]="formGroup">
+        <form>
             <vcd-form-select
                 #selectInputComponent
                 [options]="options"
-                [formControlName]="'selectInput'"
+                [formControl]="formGroup.controls.selectInput"
                 class="select-input"
                 [description]="'Help Text'"
             >
             </vcd-form-select>
-            <vcd-form-select [options]="numberOptions" [formControlName]="'selectNumber'" class="select-number-input">
+            <vcd-form-select
+                [options]="numberOptions"
+                [formControl]="formGroup.controls.selectNumber"
+                class="select-number-input"
+            >
             </vcd-form-select>
         </form>
     `,
 })
 class TestHostComponent {
-    formGroup: FormGroup;
-
     @ViewChild('selectInputComponent', { static: true }) selectInputComponent: FormSelectComponent;
 
     options: SelectOption[] = [
@@ -240,29 +258,12 @@ class TestHostComponent {
         },
     ];
 
-    constructor(private fb: FormBuilder) {
-        this.formGroup = this.fb.group({
-            selectInput: ['one', [Validators.required]],
-            selectNumber: [0, [this.numberValidator, this.numRangeValidator]],
-        });
-    }
+    formGroup = this.fb.group({
+        selectInput: ['one' as number | string, [Validators.required]],
+        selectNumber: [0, [numberValidator, numRangeValidator]],
+    });
 
-    private numberValidator: ValidatorFn = (control: AbstractControl): ValidationErrors | null => {
-        // vcd.cc.not.a.number={0} is not a number
-        if (isNaN(Number(control.value))) {
-            return { 'vcd.cc.not.a.number': true };
-        }
-
-        return null;
-    };
-
-    private numRangeValidator: ValidatorFn = (control: AbstractControl): ValidationErrors | null => {
-        const value = Number(control.value);
-        if (value < 1 || value > 3) {
-            return { 'vcd.cc.warning.numRange': ['placeholder', 'one', 'three'] };
-        }
-        return null;
-    };
+    constructor(private fb: FormBuilder) {}
 }
 
 function getOptionWithValueAsNumber(): SelectOption {

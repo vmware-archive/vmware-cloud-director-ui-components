@@ -3,15 +3,14 @@
  * SPDX-License-Identifier: BSD-2-Clause
  */
 
-import { Component, OnDestroy, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { Component, OnInit } from '@angular/core';
+import { FormBuilder } from '@angular/forms';
 import {
     QuickSearchProviderDefaults,
     QuickSearchRegistrarService,
     QuickSearchResultItem,
     QuickSearchResultsType,
 } from '@vcd/ui-components';
-import Mousetrap from 'mousetrap';
 
 @Component({
     selector: 'vcd-quick-search-sync-async-example',
@@ -19,44 +18,25 @@ import Mousetrap from 'mousetrap';
     templateUrl: './quick-search-sync-async.example.component.html',
     providers: [QuickSearchRegistrarService],
 })
-export class QuickSearchSyncAsyncExampleComponent implements OnInit, OnDestroy {
-    formGroup: FormGroup;
-    kbdShortcut = 'mod+f';
-    spotlightOpen: boolean;
+export class QuickSearchSyncAsyncExampleComponent implements OnInit {
+    formGroup = this.fb.group({
+        placeholder: [''],
+    });
+
+    spotlightOpen = false;
 
     private lazyLoadedProvider = new LazyLoadedActionsSearchProvider();
     private actionsSearchProvider = new ActionsSearchProvider();
 
-    private readonly mousetrap: MousetrapInstance;
-    constructor(private fb: FormBuilder, private searchRegistrar: QuickSearchRegistrarService) {
-        // Create an instance of mouse trap within the constructor so that any bount shortcut event handler
-        // would be executed within the angular zone
-        this.mousetrap = new Mousetrap();
-        // For this example we'd like mouse trap to always run
-        this.mousetrap.stopCallback = () => {
-            return false;
-        };
-
-        this.formGroup = this.fb.group({
-            ['placeholder']: [''],
-        });
-    }
+    constructor(private fb: FormBuilder, private searchRegistrar: QuickSearchRegistrarService) {}
 
     ngOnInit(): void {
-        this.mousetrap.bind(this.kbdShortcut, () => {
-            this.spotlightOpen = true;
-            return false;
-        });
         this.searchRegistrar.register(this.actionsSearchProvider);
         this.searchRegistrar.register(new PagedActionsSearchProvider());
 
         // Register LazyLoadedActionsSearchProvider and ensure they go first in the list
         this.lazyLoadedProvider.order = 0;
         this.searchRegistrar.register(this.lazyLoadedProvider);
-    }
-
-    ngOnDestroy(): void {
-        this.mousetrap.reset();
     }
 }
 

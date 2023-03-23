@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: BSD-2-Clause
  */
 
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { TooltipSize } from '@vcd/ui-components';
 
 @Component({
@@ -11,7 +11,7 @@ import { TooltipSize } from '@vcd/ui-components';
     templateUrl: './show-clipped-text-sizing-example.component.html',
     styleUrls: ['./show-clipped-text-sizing-example.component.scss'],
 })
-export class ShowClippedTextSizingExampleComponent implements OnInit {
+export class ShowClippedTextSizingExampleComponent {
     TooltipSize = TooltipSize;
 
     text =
@@ -24,8 +24,4 @@ export class ShowClippedTextSizingExampleComponent implements OnInit {
     text3 =
         'Something else for 3... long that will require clipping in most cases so we add random text' +
         ' to make sure that clipping happens on initially';
-
-    constructor() {}
-
-    ngOnInit(): void {}
 }
