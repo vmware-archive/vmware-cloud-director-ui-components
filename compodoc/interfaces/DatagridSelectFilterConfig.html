@@ -189,7 +189,7 @@
 
 
     <div class="tab-pane fade  tab-source-code" id="c-source">
-        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Component, Host, OnDestroy, OnInit } from &#x27;@angular/core&#x27;;
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Component, OnInit } from &#x27;@angular/core&#x27;;
 import { FormBuilder, FormControl, FormGroup } from &#x27;@angular/forms&#x27;;
 import { ClrDatagridFilter } from &#x27;@clr/angular&#x27;;
 import { SelectOption } from &#x27;../../common/interfaces/select-option&#x27;;
@@ -241,7 +241,8 @@ export interface DatagridSelectFilterConfig extends FilterConfig&lt;string | num
 })
 export class DatagridSelectFilterComponent
     extends DatagridFilter&lt;string | number, DatagridSelectFilterConfig&gt;
-    implements OnInit {
+    implements OnInit
+{
     /**
      * Displayed as the first option with a falsy value. Selecting this option would deactivate the filter
      */
@@ -250,17 +251,12 @@ export class DatagridSelectFilterComponent
         display: &#x27;&#x27;,
     };
 
-    createFormGroup(): FormGroup {
-        return new FormGroup({
-            filterSelect: new FormControl(&#x27;&#x27;),
-        });
-    }
+    formGroup &#x3D; new FormGroup({
+        filterSelect: new FormControl(&#x27;&#x27; as string | number),
+    });
 
     constructor(private filterContainer: ClrDatagridFilter, private fb: FormBuilder, subTracker: SubscriptionTracker) {
         super(filterContainer, subTracker);
-        this.formGroup &#x3D; this.fb.group({
-            filterSelect: &#x27;&#x27;,
-        });
     }
 
     protected getDebounceTimeMs(): number {
@@ -278,15 +274,15 @@ export class DatagridSelectFilterComponent
 
     getValue(): string {
         if (this.config.customFiql) {
-            return this.formGroup.get(&#x27;filterSelect&#x27;).value;
+            return this.formGroup.controls.filterSelect.value.toString();
         }
         const filterBuilder &#x3D; new FilterBuilder().is(this.queryField);
-        const value &#x3D; this.formGroup.get(&#x27;filterSelect&#x27;).value;
+        const value &#x3D; this.formGroup.controls.filterSelect.value;
         return filterBuilder.equalTo(value).getString();
     }
 
     isActive(): boolean {
-        return !!this.formGroup &amp;&amp; this.formGroup.get(&#x27;filterSelect&#x27;).value;
+        return !!(this.formGroup &amp;&amp; this.formGroup.controls.filterSelect.value);
     }
 }
 

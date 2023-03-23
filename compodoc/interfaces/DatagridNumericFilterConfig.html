@@ -218,7 +218,8 @@ export interface DatagridNumericFilterConfig extends FilterConfig&lt;DatagridNum
 })
 export class DatagridNumericFilterComponent
     extends DatagridFilter&lt;DatagridNumericFilterValue, DatagridNumericFilterConfig&gt;
-    implements OnInit {
+    implements OnInit
+{
     maxNumberLength &#x3D; Number.MAX_SAFE_INTEGER.toString().length;
 
     @ViewChild(&#x27;from&#x27;) fromInput: NumberWithUnitFormInputComponent;
@@ -252,12 +253,11 @@ export class DatagridNumericFilterComponent
     get unit(): Unit {
         return this._unit;
     }
-    createFormGroup(): FormGroup {
-        return new FormGroup({
-            [FormFields.from]: new FormControl(null),
-            [FormFields.to]: new FormControl(null),
-        });
-    }
+
+    formGroup &#x3D; new FormGroup({
+        from: new FormControl(null as number),
+        to: new FormControl(null as number),
+    });
 
     constructor(private filterContainer: ClrDatagridFilter, subTracker: SubscriptionTracker) {
         super(filterContainer, subTracker);
@@ -273,21 +273,21 @@ export class DatagridNumericFilterComponent
             return;
         }
         if (typeof values[0] &#x3D;&#x3D;&#x3D; &#x27;number&#x27;) {
-            this.formGroup.get(FormFields.from).setValue(values[0]);
+            this.formGroup.controls.from.setValue(values[0]);
         } else {
-            this.formGroup.get(FormFields.from).setValue(null);
+            this.formGroup.controls.from.setValue(null);
         }
         if (typeof values[1] &#x3D;&#x3D;&#x3D; &#x27;number&#x27;) {
-            this.formGroup.get(FormFields.to).setValue(values[1]);
+            this.formGroup.controls.to.setValue(values[1]);
         } else {
-            this.formGroup.get(FormFields.to).setValue(null);
+            this.formGroup.controls.to.setValue(null);
         }
     }
 
     getValue(): string {
         const filterBuilder &#x3D; new FilterBuilder().is(this.queryField);
-        const from &#x3D; this.formGroup.get(FormFields.from).value;
-        const to &#x3D; this.formGroup.get(FormFields.to).value;
+        const from &#x3D; this.formGroup.controls.from.value;
+        const to &#x3D; this.formGroup.controls.to.value;
         if (typeof from &#x3D;&#x3D;&#x3D; &#x27;number&#x27; &amp;&amp; typeof to !&#x3D;&#x3D; &#x27;number&#x27;) {
             return filterBuilder.greaterThan(from).getString();
         }
@@ -302,8 +302,8 @@ export class DatagridNumericFilterComponent
     isActive(): boolean {
         return !!(
             this.formGroup &amp;&amp;
-            (typeof this.formGroup.get(FormFields.from).value &#x3D;&#x3D;&#x3D; &#x27;number&#x27; ||
-                typeof this.formGroup.get(FormFields.to).value &#x3D;&#x3D;&#x3D; &#x27;number&#x27;)
+            (typeof this.formGroup.controls.from.value &#x3D;&#x3D;&#x3D; &#x27;number&#x27; ||
+                typeof this.formGroup.controls.to.value &#x3D;&#x3D;&#x3D; &#x27;number&#x27;)
         );
     }
 

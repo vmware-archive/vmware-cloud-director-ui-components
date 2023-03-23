@@ -208,7 +208,7 @@
                     </tr>
                         <tr>
                             <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="98" class="link-to-prism">projects/components/src/quick-search/quick-search.provider.ts:98</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="96" class="link-to-prism">projects/components/src/quick-search/quick-search.provider.ts:96</a></div>
                             </td>
                         </tr>
 
@@ -240,7 +240,7 @@
                     </tr>
                         <tr>
                             <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="97" class="link-to-prism">projects/components/src/quick-search/quick-search.provider.ts:97</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="95" class="link-to-prism">projects/components/src/quick-search/quick-search.provider.ts:95</a></div>
                             </td>
                         </tr>
 
@@ -268,7 +268,7 @@
                     </tr>
                         <tr>
                             <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="99" class="link-to-prism">projects/components/src/quick-search/quick-search.provider.ts:99</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="97" class="link-to-prism">projects/components/src/quick-search/quick-search.provider.ts:97</a></div>
                             </td>
                         </tr>
 
@@ -300,7 +300,7 @@
                     </tr>
                         <tr>
                             <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="96" class="link-to-prism">projects/components/src/quick-search/quick-search.provider.ts:96</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="94" class="link-to-prism">projects/components/src/quick-search/quick-search.provider.ts:94</a></div>
                             </td>
                         </tr>
 
@@ -336,8 +336,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="103"
-                            class="link-to-prism">projects/components/src/quick-search/quick-search.provider.ts:103</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="101"
+                            class="link-to-prism">projects/components/src/quick-search/quick-search.provider.ts:101</a></div>
                 </td>
             </tr>
 
@@ -408,8 +408,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="101"
-                            class="link-to-prism">projects/components/src/quick-search/quick-search.provider.ts:101</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="99"
+                            class="link-to-prism">projects/components/src/quick-search/quick-search.provider.ts:99</a></div>
                 </td>
             </tr>
 
@@ -479,7 +479,7 @@
 
     <div class="tab-pane fade  tab-source-code" id="c-source">
         <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { CommonUtil } from &#x27;../utils&#x27;;
-import { QuickSearchResultsType } from &#x27;./quick-search-result&#x27;;
+import { QuickSearchResults, QuickSearchResultsType } from &#x27;./quick-search-result&#x27;;
 import { ActiveQuickSearchFilter } from &#x27;./quick-search.service&#x27;;
 
 export const PROVIDER_SEARCH_DEBOUNCE_TIME &#x3D; 300;
@@ -560,14 +560,12 @@ export abstract class QuickSearchProviderDefaults implements QuickSearchProvider
      */
     constructor(shouldDebounceInput: boolean) {
         if (shouldDebounceInput) {
-            // The return type is being ignored because, createBufferedPromise function returns a function that returns a Promise which
-            // in turn wraps the return value of search function and TS compiler is not accepting () &#x3D;&gt; Promise&lt;QuickSearchResultsType&gt;
-            // as () &#x3D;&gt; QuickSearchResultsType. However, this is not a problem because, QuickSearchResultsType can be of type
-            // Promise&lt;QuickSearchResults&gt; and Promise&lt;Promise&lt;QuickSearchResults&gt;&gt; can be assigned to Promise&lt;QuickSearchResults&gt;
-            // @ts-ignore
-            this.search &#x3D; CommonUtil.createBufferedPromise(this.search, this, PROVIDER_SEARCH_DEBOUNCE_TIME);
+            this.search &#x3D; CommonUtil.createBufferedPromise(this.search, this, PROVIDER_SEARCH_DEBOUNCE_TIME) as (
+                str: string
+            ) &#x3D;&gt; Promise&lt;QuickSearchResults&gt;;
         }
     }
+
     sectionName &#x3D; &#x27;&#x27;;
     order &#x3D; -1;
     data: unknown;

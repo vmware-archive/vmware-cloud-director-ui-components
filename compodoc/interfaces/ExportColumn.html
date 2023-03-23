@@ -183,8 +183,8 @@
 
 
     <div class="tab-pane fade  tab-source-code" id="c-source">
-        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Component, EventEmitter, Input, OnDestroy, OnInit, Output, ViewChild } from &#x27;@angular/core&#x27;;
-import { FormControl, FormGroup } from &#x27;@angular/forms&#x27;;
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Component, EventEmitter, Input, OnInit, Output, ViewChild } from &#x27;@angular/core&#x27;;
+import { AbstractControl, FormControl, FormGroup } from &#x27;@angular/forms&#x27;;
 import { ClrDropdown } from &#x27;@clr/angular&#x27;;
 import { LazyString, TranslationService } from &#x27;@vcd/i18n&#x27;;
 import { SubscriptionTracker } from &#x27;../common/subscription/subscription-tracker&#x27;;
@@ -202,12 +202,6 @@ export interface ExportColumn {
      * The name of the field in the JSON that is returned and converted to a viewable format
      */
     fieldName: string;
-}
-
-export enum UserOptions {
-    selectAll &#x3D; &#x27;selectAll&#x27;,
-    friendlyNames &#x3D; &#x27;friendlyNames&#x27;,
-    sanitize &#x3D; &#x27;sanitize&#x27;,
 }
 
 /**
@@ -448,14 +442,14 @@ export class DataExporterComponent implements OnInit {
 
     private fieldNameMap &#x3D; new Map&lt;string, ExportColumn&gt;();
 
-    formGroup: FormGroup;
+    formGroup: FormGroup&lt;{ [key: string]: AbstractControl&lt;boolean&gt; }&gt;;
 
     exportStage: LazyString;
 
     optionsFormGroup &#x3D; new FormGroup({
-        [UserOptions.selectAll]: new FormControl(true),
-        [UserOptions.friendlyNames]: new FormControl(true),
-        [UserOptions.sanitize]: new FormControl(true),
+        selectAll: new FormControl(true),
+        friendlyNames: new FormControl(true),
+        sanitize: new FormControl(true),
     });
 
     /**
@@ -474,15 +468,15 @@ export class DataExporterComponent implements OnInit {
     }
 
     get selectAllControl(): FormControl {
-        return this.optionsFormGroup.get(UserOptions.selectAll) as FormControl;
+        return this.optionsFormGroup.controls.selectAll;
     }
 
     get sanitizeControl(): FormControl {
-        return this.optionsFormGroup.get(UserOptions.sanitize) as FormControl;
+        return this.optionsFormGroup.controls.sanitize;
     }
 
     get friendlyFieldsControl(): FormControl {
-        return this.optionsFormGroup.get(UserOptions.friendlyNames) as FormControl;
+        return this.optionsFormGroup.controls.friendlyNames;
     }
 
     get isExportEnabled(): boolean {
@@ -580,9 +574,8 @@ export class DataExporterComponent implements OnInit {
         if (this.fieldNameMap.has(fieldName)) {
             const exportColumn &#x3D; this.fieldNameMap.get(fieldName);
             return this.getDisplayNameForColumn(exportColumn);
-        } else {
-            return fieldName;
         }
+        return fieldName;
     }
 
     getDisplayNameForColumn(col: ExportColumn): string {

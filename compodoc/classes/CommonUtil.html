@@ -475,14 +475,13 @@ calls. This is not</p>
         let pendingPromise: Promise&lt;ReturnType&lt;T&gt;&gt; &#x3D; null;
         // eslint-disable-next-line @typescript-eslint/ban-types
         let resolver: Function;
-        // eslint-disable-next-line prefer-arrow/prefer-arrow-functions
-        return function (): Promise&lt;any&gt; {
+        return function (...args): Promise&lt;any&gt; {
             if (!pendingPromise) {
                 pendingPromise &#x3D; new Promise((resolve) &#x3D;&gt; {
                     resolver &#x3D; resolve;
                 });
             }
-            const callArgs &#x3D; Array.from(arguments);
+            const callArgs &#x3D; args;
             if (timerId) {
                 clearTimeout(timerId);
                 timerId &#x3D; null;

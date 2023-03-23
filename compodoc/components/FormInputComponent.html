@@ -945,7 +945,7 @@ import { BaseFormControl, defaultValidatorForControl } from &#x27;../base-form-c
     templateUrl: &#x27;./form-input.component.html&#x27;,
     styleUrls: [&#x27;../form.scss&#x27;, &#x27;./form-input.component.scss&#x27;],
 })
-export class FormInputComponent extends BaseFormControl implements AfterViewInit {
+export class FormInputComponent extends BaseFormControl&lt;string | number | Date&gt; implements AfterViewInit {
     /**
      * Input &#x27;placeholder&#x27; field.
      */

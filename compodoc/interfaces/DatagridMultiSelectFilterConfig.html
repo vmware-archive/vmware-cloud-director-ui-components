@@ -139,7 +139,7 @@
 
     <div class="tab-pane fade  tab-source-code" id="c-source">
         <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Component, Host, OnDestroy } from &#x27;@angular/core&#x27;;
-import { FormControl, FormGroup } from &#x27;@angular/forms&#x27;;
+import { AbstractControl, FormControl, FormGroup } from &#x27;@angular/forms&#x27;;
 import { ClrDatagridFilter } from &#x27;@clr/angular&#x27;;
 import { SelectOption } from &#x27;../../common/interfaces/select-option&#x27;;
 import { SubscriptionTracker } from &#x27;../../common/subscription/subscription-tracker&#x27;;
@@ -173,6 +173,9 @@ interface MultiSelectOptionInternal extends MultiSelectOption {
 }
 
 const idGenerator &#x3D; new IdGenerator(&#x27;vcd-multiselect-filter-id&#x27;);
+
+// Add a little safety,we don&#x27;t know the names of the controls, but we do know they will all be checkboxes
+type BooleanFormGroup &#x3D; FormGroup&lt;{ [name: string]: AbstractControl&lt;boolean, boolean&gt; }&gt;;
 
 /**
  * Used within a clarity grid column {@link DatagridComponent} to render a filter widget with list of checkboxes to select
@@ -212,9 +215,7 @@ export class DatagridMultiSelectFilterComponent extends DatagridFilter&lt;string
      */
     options: MultiSelectOptionInternal[];
 
-    createFormGroup(): FormGroup {
-        return new FormGroup({});
-    }
+    formGroup: BooleanFormGroup &#x3D; new FormGroup({});
 
     /**
      * Overrides the config property because, the formGroup controls are defined by the config set by the caller.
@@ -240,7 +241,7 @@ export class DatagridMultiSelectFilterComponent extends DatagridFilter&lt;string
 
     setValue(values: string[]): void {
         values.forEach((frmCtrl) &#x3D;&gt; {
-            const correspondingFormCtrl &#x3D; this.formGroup.get(frmCtrl);
+            const correspondingFormCtrl &#x3D; this.formGroup.controls[frmCtrl];
             if (!correspondingFormCtrl) {
                 throw Error(&#x60;A multi select filter option with value &#x27;${frmCtrl}&#x27; does not exist&#x60;);
             }

@@ -149,8 +149,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="73"
-                            class="link-to-prism">projects/components/src/common/subscription/subscription-tracker.ts:73</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="63"
+                            class="link-to-prism">projects/components/src/common/subscription/subscription-tracker.ts:63</a></div>
                 </td>
             </tr>
 
@@ -181,7 +181,7 @@
             </tr>
             <tr>
                 <td class="col-md-4">
-<code>subscribe(observable: Observable<T>, observerOrNext?: PartialObserver<T> | , error?: (error?: <a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank">any</a>) => void, complete?: () => void)</code>
+<code>subscribe(observable: Observable<T>, observerOrNext?: PartialObserver<T> | )</code>
                 </td>
             </tr>
 
@@ -240,30 +240,6 @@
 
 
                                 </tr>
-                                <tr>
-                                    <td>error</td>
-                                    <td>
-                                                <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/function" target="_blank" >function</a></code>
-                                    </td>
-
-                                    <td>
-                                        Yes
-                                    </td>
-
-
-                                </tr>
-                                <tr>
-                                    <td>complete</td>
-                                    <td>
-                                                <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/function" target="_blank" >function</a></code>
-                                    </td>
-
-                                    <td>
-                                        Yes
-                                    </td>
-
-
-                                </tr>
                             </tbody>
                         </table>
                     </div>
@@ -302,8 +278,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="58"
-                            class="link-to-prism">projects/components/src/common/subscription/subscription-tracker.ts:58</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="48"
+                            class="link-to-prism">projects/components/src/common/subscription/subscription-tracker.ts:48</a></div>
                 </td>
             </tr>
 
@@ -372,8 +348,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="68"
-                            class="link-to-prism">projects/components/src/common/subscription/subscription-tracker.ts:68</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="58"
+                            class="link-to-prism">projects/components/src/common/subscription/subscription-tracker.ts:58</a></div>
                 </td>
             </tr>
 
@@ -470,18 +446,8 @@ export interface ISubscriptionTracker {
 export class SubscriptionTracker implements ISubscriptionTracker, OnDestroy {
     private subscriptions: Subscription[] &#x3D; [];
 
-    subscribe&lt;T&gt;(
-        observable: Observable&lt;T&gt;,
-        observerOrNext?: PartialObserver&lt;T&gt; | ((value: T) &#x3D;&gt; void),
-        error?: (error: any) &#x3D;&gt; void,
-        complete?: () &#x3D;&gt; void
-    ): Subscription {
-        let subscription: Subscription;
-        if (typeof observerOrNext &#x3D;&#x3D;&#x3D; &#x27;function&#x27;) {
-            subscription &#x3D; observable.subscribe({ next: observerOrNext, error, complete });
-        } else {
-            subscription &#x3D; observable.subscribe(observerOrNext);
-        }
+    subscribe&lt;T&gt;(observable: Observable&lt;T&gt;, observerOrNext?: PartialObserver&lt;T&gt; | ((value: T) &#x3D;&gt; void)): Subscription {
+        const subscription &#x3D; observable.subscribe(observerOrNext);
         this.subscriptions.push(subscription);
         return subscription;
     }

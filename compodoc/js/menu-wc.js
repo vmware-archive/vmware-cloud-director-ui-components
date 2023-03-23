@@ -386,13 +386,13 @@ customElements.define('compodoc-menu', class extends HTMLElement {
                                 <a href="modules/VcdFormlyModule.html" data-type="entity-link">VcdFormlyModule</a>
                                     <li class="chapter inner">
                                         <div class="simple menu-toggler" data-toggle="collapse" ${ isNormalMode ?
-                                            'data-target="#components-links-module-VcdFormlyModule-04a7b5b06ec114b99ee0d3eedda2b2c6"' : 'data-target="#xs-components-links-module-VcdFormlyModule-04a7b5b06ec114b99ee0d3eedda2b2c6"' }>
+                                            'data-target="#components-links-module-VcdFormlyModule-2c8229a4d77e93c06632b31db8c9be11"' : 'data-target="#xs-components-links-module-VcdFormlyModule-2c8229a4d77e93c06632b31db8c9be11"' }>
                                             <span class="icon ion-md-cog"></span>
                                             <span>Components</span>
                                             <span class="icon ion-ios-arrow-down"></span>
                                         </div>
-                                        <ul class="links collapse" ${ isNormalMode ? 'id="components-links-module-VcdFormlyModule-04a7b5b06ec114b99ee0d3eedda2b2c6"' :
-                                            'id="xs-components-links-module-VcdFormlyModule-04a7b5b06ec114b99ee0d3eedda2b2c6"' }>
+                                        <ul class="links collapse" ${ isNormalMode ? 'id="components-links-module-VcdFormlyModule-2c8229a4d77e93c06632b31db8c9be11"' :
+                                            'id="xs-components-links-module-VcdFormlyModule-2c8229a4d77e93c06632b31db8c9be11"' }>
                                             <li class="link">
                                                 <a href="components/FormlyInputComponent.html"
                                                     data-type="entity-link" data-context="sub-entity" data-context-id="modules">FormlyInputComponent</a>
@@ -412,13 +412,13 @@ customElements.define('compodoc-menu', class extends HTMLElement {
                                 <a href="modules/VcdFormModule.html" data-type="entity-link">VcdFormModule</a>
                                     <li class="chapter inner">
                                         <div class="simple menu-toggler" data-toggle="collapse" ${ isNormalMode ?
-                                            'data-target="#components-links-module-VcdFormModule-b0e6f0be81ef242e88e6a06004fbe1aa"' : 'data-target="#xs-components-links-module-VcdFormModule-b0e6f0be81ef242e88e6a06004fbe1aa"' }>
+                                            'data-target="#components-links-module-VcdFormModule-93dfe5016d31ed1268ca7b177653d04b"' : 'data-target="#xs-components-links-module-VcdFormModule-93dfe5016d31ed1268ca7b177653d04b"' }>
                                             <span class="icon ion-md-cog"></span>
                                             <span>Components</span>
                                             <span class="icon ion-ios-arrow-down"></span>
                                         </div>
-                                        <ul class="links collapse" ${ isNormalMode ? 'id="components-links-module-VcdFormModule-b0e6f0be81ef242e88e6a06004fbe1aa"' :
-                                            'id="xs-components-links-module-VcdFormModule-b0e6f0be81ef242e88e6a06004fbe1aa"' }>
+                                        <ul class="links collapse" ${ isNormalMode ? 'id="components-links-module-VcdFormModule-93dfe5016d31ed1268ca7b177653d04b"' :
+                                            'id="xs-components-links-module-VcdFormModule-93dfe5016d31ed1268ca7b177653d04b"' }>
                                             <li class="link">
                                                 <a href="components/FormCheckboxComponent.html"
                                                     data-type="entity-link" data-context="sub-entity" data-context-id="modules">FormCheckboxComponent</a>
@@ -439,13 +439,13 @@ customElements.define('compodoc-menu', class extends HTMLElement {
                                     </li>
                                 <li class="chapter inner">
                                     <div class="simple menu-toggler" data-toggle="collapse" ${ isNormalMode ?
-                                        'data-target="#injectables-links-module-VcdFormModule-b0e6f0be81ef242e88e6a06004fbe1aa"' : 'data-target="#xs-injectables-links-module-VcdFormModule-b0e6f0be81ef242e88e6a06004fbe1aa"' }>
+                                        'data-target="#injectables-links-module-VcdFormModule-93dfe5016d31ed1268ca7b177653d04b"' : 'data-target="#xs-injectables-links-module-VcdFormModule-93dfe5016d31ed1268ca7b177653d04b"' }>
                                         <span class="icon ion-md-arrow-round-down"></span>
                                         <span>Injectables</span>
                                         <span class="icon ion-ios-arrow-down"></span>
                                     </div>
-                                    <ul class="links collapse" ${ isNormalMode ? 'id="injectables-links-module-VcdFormModule-b0e6f0be81ef242e88e6a06004fbe1aa"' :
-                                        'id="xs-injectables-links-module-VcdFormModule-b0e6f0be81ef242e88e6a06004fbe1aa"' }>
+                                    <ul class="links collapse" ${ isNormalMode ? 'id="injectables-links-module-VcdFormModule-93dfe5016d31ed1268ca7b177653d04b"' :
+                                        'id="xs-injectables-links-module-VcdFormModule-93dfe5016d31ed1268ca7b177653d04b"' }>
                                         <li class="link">
                                             <a href="injectables/UnitFormatter.html"
                                                 data-type="entity-link" data-context="sub-entity" data-context-id="modules" }>UnitFormatter</a>

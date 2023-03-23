@@ -194,7 +194,7 @@
                     </tr>
                         <tr>
                             <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="515" class="link-to-prism">projects/components/src/form/number-with-unit-input/number-with-unit-form-input.component.ts:515</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="526" class="link-to-prism">projects/components/src/form/number-with-unit-input/number-with-unit-form-input.component.ts:526</a></div>
                             </td>
                         </tr>
 
@@ -302,8 +302,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="516"
-                            class="link-to-prism">projects/components/src/form/number-with-unit-input/number-with-unit-form-input.component.ts:516</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="527"
+                            class="link-to-prism">projects/components/src/form/number-with-unit-input/number-with-unit-form-input.component.ts:527</a></div>
                 </td>
             </tr>
 
@@ -384,8 +384,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="520"
-                            class="link-to-prism">projects/components/src/form/number-with-unit-input/number-with-unit-form-input.component.ts:520</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="531"
+                            class="link-to-prism">projects/components/src/form/number-with-unit-input/number-with-unit-form-input.component.ts:531</a></div>
                 </td>
             </tr>
 
@@ -423,8 +423,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="524"
-                            class="link-to-prism">projects/components/src/form/number-with-unit-input/number-with-unit-form-input.component.ts:524</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="535"
+                            class="link-to-prism">projects/components/src/form/number-with-unit-input/number-with-unit-form-input.component.ts:535</a></div>
                 </td>
             </tr>
 
@@ -954,13 +954,14 @@
     SimpleChanges,
     ViewChild,
 } from &#x27;@angular/core&#x27;;
-import { FormBuilder, NgControl, ValidationErrors, ValidatorFn } from &#x27;@angular/forms&#x27;;
+import { NgControl, ValidationErrors, ValidatorFn } from &#x27;@angular/forms&#x27;;
 import { TranslationService } from &#x27;@vcd/i18n&#x27;;
 import { SelectOption } from &#x27;../../common/interfaces&#x27;;
 import { FormValidators } from &#x27;../../form/validators&#x27;;
 import { Unit } from &#x27;../../utils/unit/unit&#x27;;
 import { UnitFormatter } from &#x27;../../utils/unit/unit-formatter&#x27;;
 import { BaseFormControl, defaultValidatorForControl } from &#x27;../base-form-control&#x27;;
+import { LazyString } from &#x27;../../utils/types&#x27;;
 
 /**
  * -1 is the number to specify a value of unlimited.
@@ -980,10 +981,10 @@ export const UNLIMITED &#x3D; -1;
     templateUrl: &#x27;./number-with-unit-form-input.component.html&#x27;,
     styleUrls: [&#x27;../form.scss&#x27;, &#x27;./number-with-unit-form-input.component.scss&#x27;],
 })
-export class NumberWithUnitFormInputComponent extends BaseFormControl implements OnChanges, OnInit {
+export class NumberWithUnitFormInputComponent extends BaseFormControl&lt;number&gt; implements OnChanges, OnInit {
     /**
      * List of available units. Consider the following options for the array:
-     * # array with more than one elements
+     * # array with more than one element
      *    - a dropdown unit selection is shown. You must also provide {@link inputValueUnit}
      * # single element array
      *    - a string notation for no dropdown, {@link inputValueUnit} is derived from the element
@@ -1043,7 +1044,7 @@ export class NumberWithUnitFormInputComponent extends BaseFormControl implements
      * Optional.
      * Default is the translation of vcd.cc.unlimited key.
      */
-    @Input() unlimitedText: string &#x3D; this.translationService.translate(&#x27;vcd.cc.unlimited&#x27;);
+    @Input() unlimitedText: LazyString &#x3D; this.translationService.translateAsync(&#x27;vcd.cc.unlimited&#x27;);
 
     /**
      * Minimum value allowed relevant to {@link inputValueUnit}. Default is 0.
@@ -1152,7 +1153,6 @@ export class NumberWithUnitFormInputComponent extends BaseFormControl implements
 
     constructor(
         @Self() @Optional() controlDirective: NgControl,
-        private fb: FormBuilder,
         protected translationService: TranslationService,
         private unitFormatter: UnitFormatter,
         private changeDetector: ChangeDetectorRef
@@ -1220,8 +1220,10 @@ export class NumberWithUnitFormInputComponent extends BaseFormControl implements
         this.fireUiChange();
     }
 
+    // Boolean attributes expect true to add an attribute and null to remove the attribute
+    // which is why the return type is a bit funky
     get shouldDisableNumberAndUnitControls(): true | null {
-        const shouldDisable &#x3D; this.unlimitedControlValue || this.disabled;
+        const shouldDisable &#x3D; this.disabled || this.unlimitedControlValue;
         return shouldDisable || null;
     }
 
@@ -1358,9 +1360,18 @@ export class NumberWithUnitFormInputComponent extends BaseFormControl implements
         this.unitMax &#x3D; this.inputValueUnit.getOutputValue(this.max, selectedUnit);
     }
 
+    /**
+     * Returns the display value for the selected number/unit
+     * Returns an empty string if the element is currently set to unlimited
+     */
     get displayValue(): string {
+        // This was used in tests before to make sure we displayed a custom message
+        // However, since the word for unlimited can be translated, it must be a LazyString
+        // which is returned from &#x60;TranslationService.translateAsync()&#x60;
+        // However, tests can&#x27;t really use a LazyString, they are only intended to be used from
+        // templates with the lazyString pipe
         if (this.unlimitedControlValue) {
-            return this.unlimitedText;
+            return &#x27;&#x27;;
         }
 
         const value &#x3D; Number(this.textInputValue);

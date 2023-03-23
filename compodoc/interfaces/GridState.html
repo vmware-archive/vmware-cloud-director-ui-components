@@ -253,6 +253,7 @@ part of the event <a href="DatagridComponent.gridRefresh">DatagridComponent.grid
 import { ClrDatagrid, ClrDatagridPagination, ClrDatagridStateInterface } from &#x27;@clr/angular&#x27;;
 import { LazyString, TranslationService } from &#x27;@vcd/i18n&#x27;;
 import { Observable } from &#x27;rxjs&#x27;;
+import { FormGroup } from &#x27;@angular/forms&#x27;;
 import { ActionMenuComponent } from &#x27;../action-menu/action-menu.component&#x27;;
 import { ActivityReporter } from &#x27;../common/activity-reporter&#x27;;
 import { ActionHandlerType, ActionItem, ActionType } from &#x27;../common/interfaces/action-item.interface&#x27;;
@@ -548,7 +549,6 @@ export class DatagridComponent&lt;R extends B, B &#x3D; any&gt; implements OnIni
             this.changeDetectorRef.detectChanges();
         }
         this.updateSelectedItems();
-
     }
 
     /**
@@ -1107,7 +1107,9 @@ export class DatagridComponent&lt;R extends B, B &#x3D; any&gt; implements OnIni
             },
         };
         if (state.filters) {
-            vcdDgState.filters &#x3D; state.filters.map((filter: DatagridFilter&lt;unknown, unknown&gt;) &#x3D;&gt; filter.getValue());
+            vcdDgState.filters &#x3D; state.filters.map((filter: DatagridFilter&lt;unknown, unknown, FormGroup&gt;) &#x3D;&gt;
+                filter.getValue()
+            );
         }
         if (state.sort &amp;&amp; typeof state.sort.by &#x3D;&#x3D;&#x3D; &#x27;string&#x27;) {
             vcdDgState.sortColumn &#x3D; {

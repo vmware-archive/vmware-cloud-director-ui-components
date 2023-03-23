@@ -145,8 +145,8 @@
 
 
     <div class="tab-pane fade  tab-source-code" id="c-source">
-        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Component, Host, OnDestroy } from &#x27;@angular/core&#x27;;
-import { FormBuilder, FormControl, FormGroup } from &#x27;@angular/forms&#x27;;
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Component } from &#x27;@angular/core&#x27;;
+import { FormControl, FormGroup } from &#x27;@angular/forms&#x27;;
 import { ClrDatagridFilter } from &#x27;@clr/angular&#x27;;
 import { SubscriptionTracker } from &#x27;../../common/subscription/subscription-tracker&#x27;;
 import { FilterBuilder } from &#x27;../../utils/filter-builder&#x27;;
@@ -172,11 +172,9 @@ export interface DatagridStringFilterConfig extends FilterConfig&lt;string&gt; {
     providers: [SubscriptionTracker],
 })
 export class DatagridStringFilterComponent extends DatagridFilter&lt;string, DatagridStringFilterConfig&gt; {
-    createFormGroup(): FormGroup {
-        return new FormGroup({
-            filterText: new FormControl(&#x27;&#x27;),
-        });
-    }
+    formGroup &#x3D; new FormGroup({
+        filterText: new FormControl(&#x27;&#x27;),
+    });
 
     constructor(private filterContainer: ClrDatagridFilter, subTracker: SubscriptionTracker) {
         super(filterContainer, subTracker);
@@ -190,7 +188,7 @@ export class DatagridStringFilterComponent extends DatagridFilter&lt;string, Dat
 
     getValue(): string {
         const filterBuilder &#x3D; new FilterBuilder().is(this.queryField);
-        let value &#x3D; this.formGroup.get(&#x27;filterText&#x27;).value;
+        let value &#x3D; this.formGroup.controls.filterText.value;
         if (this.config &amp;&amp; this.config.wildCardPosition) {
             value &#x3D; this.addWildCard(value, this.config.wildCardPosition);
         }
@@ -198,7 +196,7 @@ export class DatagridStringFilterComponent extends DatagridFilter&lt;string, Dat
     }
 
     isActive(): boolean {
-        return !!this.formGroup &amp;&amp; this.formGroup.get(&#x27;filterText&#x27;).value;
+        return !!(this.formGroup &amp;&amp; this.formGroup.controls.filterText.value);
     }
 
     /**

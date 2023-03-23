@@ -491,7 +491,7 @@ export enum CheckBoxStyling {
     templateUrl: &#x27;./form-checkbox.component.html&#x27;,
     styleUrls: [&#x27;../form.scss&#x27;, &#x27;./form-checkbox.component.scss&#x27;],
 })
-export class FormCheckboxComponent extends BaseFormControl {
+export class FormCheckboxComponent extends BaseFormControl&lt;boolean&gt; {
     /**
      * The label that appears next to the control
      */

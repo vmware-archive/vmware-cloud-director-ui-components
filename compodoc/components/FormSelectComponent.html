@@ -377,7 +377,7 @@ import { BaseFormControl } from &#x27;../base-form-control&#x27;;
     templateUrl: &#x27;form-select.component.html&#x27;,
     styleUrls: [&#x27;../form.scss&#x27;, &#x27;./form-select.component.scss&#x27;],
 })
-export class FormSelectComponent extends BaseFormControl {
+export class FormSelectComponent extends BaseFormControl&lt;string | number&gt; {
     /**
      * The displayed options for the select element
      */

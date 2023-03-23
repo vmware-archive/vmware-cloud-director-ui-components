@@ -66,7 +66,9 @@
 clr-dg-filter component and are dynamically rendered by <a href="../directives/ComponentRendererOutletDirective.html">ComponentRendererOutletDirective</a> using
 <a href="GridColumn.filter">GridColumn.filter</a>
 V is the type of filter input value that is passed into setValue method
-C extends FilterConfig<V> is configuration of a filter that contains queryField and a value of type V</p>
+C extends FilterConfig<V> is configuration of a filter that contains queryField and a value of type V
+F is the specific FormGroup type used by the implementing filter component so that it can have type safety
+   while the base class still knows that it&#39;s a FormGroup but doesn&#39;t care about its internal shape.</p>
 
             </p>
 
@@ -118,6 +120,7 @@ C extends FilterConfig<V> is configuration of a filter that contains queryField 
                                 <a href="#changes">changes</a>
                             </li>
                             <li>
+                                    <span class="modifier">Abstract</span>
                                 <a href="#formGroup">formGroup</a>
                             </li>
                         </ul>
@@ -134,10 +137,6 @@ C extends FilterConfig<V> is configuration of a filter that contains queryField 
                         <ul class="index-list">
                             <li>
                                 <a href="#accepts">accepts</a>
-                            </li>
-                            <li>
-                                    <span class="modifier">Abstract</span>
-                                <a href="#createFormGroup">createFormGroup</a>
                             </li>
                             <li>
                                     <span class="modifier">Protected</span>
@@ -217,7 +216,7 @@ C extends FilterConfig<V> is configuration of a filter that contains queryField 
                 </tr>
                         <tr>
                             <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="63" class="link-to-prism">projects/components/src/datagrid/filters/datagrid-filter.ts:63</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="65" class="link-to-prism">projects/components/src/datagrid/filters/datagrid-filter.ts:65</a></div>
                             </td>
                         </tr>
 
@@ -285,7 +284,7 @@ C extends FilterConfig<V> is configuration of a filter that contains queryField 
                 </tr>
                         <tr>
                             <td class="col-md-2" colspan="2">
-                                    <div class="io-line">Defined in <a href="" data-line="75" class="link-to-prism">projects/components/src/datagrid/filters/datagrid-filter.ts:75</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="77" class="link-to-prism">projects/components/src/datagrid/filters/datagrid-filter.ts:77</a></div>
                             </td>
                         </tr>
             </tbody>
@@ -321,8 +320,8 @@ C extends FilterConfig<V> is configuration of a filter that contains queryField 
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="135"
-                            class="link-to-prism">projects/components/src/datagrid/filters/datagrid-filter.ts:135</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="134"
+                            class="link-to-prism">projects/components/src/datagrid/filters/datagrid-filter.ts:134</a></div>
                 </td>
             </tr>
 
@@ -334,49 +333,6 @@ C extends FilterConfig<V> is configuration of a filter that contains queryField 
 
                     <div class="io-description">
                         <b>Returns : </b>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank" >boolean</a></code>
-
-                    </div>
-                </td>
-            </tr>
-        </tbody>
-    </table>
-    <table class="table table-sm table-bordered">
-        <tbody>
-            <tr>
-                <td class="col-md-4">
-                    <a name="createFormGroup"></a>
-                    <span class="name">
-                        <b>
-                            <span class="modifier">Abstract</span>
-                            createFormGroup
-                        </b>
-                        <a href="#createFormGroup"><span class="icon ion-ios-link"></span></a>
-                    </span>
-                </td>
-            </tr>
-            <tr>
-                <td class="col-md-4">
-                    <span class="modifier-icon icon ion-ios-reset"></span>
-                    <code>createFormGroup()</code>
-                </td>
-            </tr>
-
-
-            <tr>
-                <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="115"
-                            class="link-to-prism">projects/components/src/datagrid/filters/datagrid-filter.ts:115</a></div>
-                </td>
-            </tr>
-
-
-            <tr>
-                <td class="col-md-4">
-                    <div class="io-description"><p>To initialize the <a href="formGroup">formGroup</a> from sub classes</p>
-</div>
-
-                    <div class="io-description">
-                        <b>Returns : </b>        <code><a href="https://angular.io/api/forms/FormGroup" target="_blank" >FormGroup</a></code>
 
                     </div>
                 </td>
@@ -407,8 +363,8 @@ C extends FilterConfig<V> is configuration of a filter that contains queryField 
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="102"
-                            class="link-to-prism">projects/components/src/datagrid/filters/datagrid-filter.ts:102</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="104"
+                            class="link-to-prism">projects/components/src/datagrid/filters/datagrid-filter.ts:104</a></div>
                 </td>
             </tr>
 
@@ -450,8 +406,8 @@ C extends FilterConfig<V> is configuration of a filter that contains queryField 
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="125"
-                            class="link-to-prism">projects/components/src/datagrid/filters/datagrid-filter.ts:125</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="124"
+                            class="link-to-prism">projects/components/src/datagrid/filters/datagrid-filter.ts:124</a></div>
                 </td>
             </tr>
 
@@ -493,8 +449,8 @@ C extends FilterConfig<V> is configuration of a filter that contains queryField 
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="130"
-                            class="link-to-prism">projects/components/src/datagrid/filters/datagrid-filter.ts:130</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="129"
+                            class="link-to-prism">projects/components/src/datagrid/filters/datagrid-filter.ts:129</a></div>
                 </td>
             </tr>
 
@@ -534,8 +490,8 @@ C extends FilterConfig<V> is configuration of a filter that contains queryField 
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="92"
-                            class="link-to-prism">projects/components/src/datagrid/filters/datagrid-filter.ts:92</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="94"
+                            class="link-to-prism">projects/components/src/datagrid/filters/datagrid-filter.ts:94</a></div>
                 </td>
             </tr>
 
@@ -575,8 +531,8 @@ C extends FilterConfig<V> is configuration of a filter that contains queryField 
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="110"
-                            class="link-to-prism">projects/components/src/datagrid/filters/datagrid-filter.ts:110</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="112"
+                            class="link-to-prism">projects/components/src/datagrid/filters/datagrid-filter.ts:112</a></div>
                 </td>
             </tr>
 
@@ -650,8 +606,8 @@ assigning the UI widget configuration and setting a value</p>
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="120"
-                            class="link-to-prism">projects/components/src/datagrid/filters/datagrid-filter.ts:120</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="119"
+                            class="link-to-prism">projects/components/src/datagrid/filters/datagrid-filter.ts:119</a></div>
                 </td>
             </tr>
 
@@ -727,7 +683,7 @@ assigning the UI widget configuration and setting a value</p>
                     </tr>
                         <tr>
                             <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="74" class="link-to-prism">projects/components/src/datagrid/filters/datagrid-filter.ts:74</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="76" class="link-to-prism">projects/components/src/datagrid/filters/datagrid-filter.ts:76</a></div>
                             </td>
                         </tr>
 
@@ -735,7 +691,7 @@ assigning the UI widget configuration and setting a value</p>
                     <td class="col-md-4">
                         <div class="io-description"><p>Sets the configuration needed for a filter UI widget and also it&#39;s value.
 Assigned from <a href="../directives/ComponentRendererOutletDirective.html#assignValue">ComponentRendererOutletDirective</a> after the filter component is created.
-Used by the getValue method in sub classes to format the FIQL string output.</p>
+Used by the getValue method in subclasses to format the FIQL string output.</p>
 </div>
                     </td>
                 </tr>
@@ -767,7 +723,7 @@ Used by the getValue method in sub classes to format the FIQL string output.</p>
                     </tr>
                         <tr>
                             <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="90" class="link-to-prism">projects/components/src/datagrid/filters/datagrid-filter.ts:90</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="92" class="link-to-prism">projects/components/src/datagrid/filters/datagrid-filter.ts:92</a></div>
                             </td>
                         </tr>
 
@@ -787,6 +743,7 @@ Used by the getValue method in sub classes to format the FIQL string output.</p>
                         <a name="formGroup"></a>
                         <span class="name">
                             <b>
+                                <span class="modifier">Abstract</span>
                             formGroup</b>
                             <a href="#formGroup"><span class="icon ion-ios-link"></span></a>
                         </span>
@@ -794,18 +751,13 @@ Used by the getValue method in sub classes to format the FIQL string output.</p>
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                            <i>Type : </i>    <code>this.createFormGroup()</code>
+                            <i>Type : </i>    <code>F</code>
 
-                        </td>
-                    </tr>
-                    <tr>
-                        <td class="col-md-4">
-                            <i>Default value : </i><code>this.createFormGroup()</code>
                         </td>
                     </tr>
                         <tr>
                             <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="63" class="link-to-prism">projects/components/src/datagrid/filters/datagrid-filter.ts:63</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="65" class="link-to-prism">projects/components/src/datagrid/filters/datagrid-filter.ts:65</a></div>
                             </td>
                         </tr>
 
@@ -834,7 +786,7 @@ Used by the getValue method in sub classes to format the FIQL string output.</p>
                 </tr>
                             <tr>
                                 <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="83" class="link-to-prism">projects/components/src/datagrid/filters/datagrid-filter.ts:83</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="85" class="link-to-prism">projects/components/src/datagrid/filters/datagrid-filter.ts:85</a></div>
                                 </td>
                             </tr>
 
@@ -845,7 +797,7 @@ Used by the getValue method in sub classes to format the FIQL string output.</p>
                 </tr>
                             <tr>
                                 <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="75" class="link-to-prism">projects/components/src/datagrid/filters/datagrid-filter.ts:75</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="77" class="link-to-prism">projects/components/src/datagrid/filters/datagrid-filter.ts:77</a></div>
                                 </td>
                             </tr>
                     <tr>
@@ -899,7 +851,7 @@ Used by the getValue method in sub classes to format the FIQL string output.</p>
                 </tr>
                             <tr>
                                 <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="145" class="link-to-prism">projects/components/src/datagrid/filters/datagrid-filter.ts:145</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="144" class="link-to-prism">projects/components/src/datagrid/filters/datagrid-filter.ts:144</a></div>
                                 </td>
                             </tr>
                     <tr>
@@ -971,15 +923,17 @@ export interface FilterRendererSpec&lt;C&gt; extends ComponentRendererSpec&lt;C&
  * {@link GridColumn.filter}
  * V is the type of filter input value that is passed into setValue method
  * C extends FilterConfig&lt;V&gt; is configuration of a filter that contains queryField and a value of type V
+ * F is the specific FormGroup type used by the implementing filter component so that it can have type safety
+ *   while the base class still knows that it&#x27;s a FormGroup but doesn&#x27;t care about its internal shape.
  */
 @Directive({
     providers: [SubscriptionTracker],
 })
 // eslint-disable-next-line @angular-eslint/directive-class-suffix
-export abstract class DatagridFilter&lt;V, C extends FilterConfig&lt;V&gt;&gt;
+export abstract class DatagridFilter&lt;V, C extends FilterConfig&lt;V&gt;, F extends FormGroup &#x3D; FormGroup&gt;
     implements OnInit, ClrDatagridFilterInterface&lt;V&gt;, ComponentRenderer&lt;C&gt;
 {
-    formGroup &#x3D; this.createFormGroup();
+    abstract formGroup: F;
 
     protected constructor(filterContainer: ClrDatagridFilter, private subscriptionTracker: SubscriptionTracker) {
         filterContainer.setFilter(this);
@@ -988,7 +942,7 @@ export abstract class DatagridFilter&lt;V, C extends FilterConfig&lt;V&gt;&gt;
     /**
      * Sets the configuration needed for a filter UI widget and also it&#x27;s value.
      * Assigned from {@link ComponentRendererOutletDirective#assignValue} after the filter component is created.
-     * Used by the getValue method in sub classes to format the FIQL string output.
+     * Used by the getValue method in subclasses to format the FIQL string output.
      */
     protected _config: C;
     @Input() set config(val: C) {
@@ -1012,7 +966,7 @@ export abstract class DatagridFilter&lt;V, C extends FilterConfig&lt;V&gt;&gt;
         const obs &#x3D; this.getDebounceTimeMs()
             ? this.formGroup.valueChanges.pipe(debounceTime(this.getDebounceTimeMs()))
             : this.formGroup.valueChanges;
-        this.subscriptionTracker.subscribe(obs, () &#x3D;&gt; this.changes.next());
+        this.subscriptionTracker.subscribe(obs, () &#x3D;&gt; this.changes.next(null));
     }
 
     /**
@@ -1026,12 +980,9 @@ export abstract class DatagridFilter&lt;V, C extends FilterConfig&lt;V&gt;&gt;
      * Called inside setter of {@link DatagridFilter#config} and Defined in the derived classes to perform some logic before
      * assigning the UI widget configuration and setting a value
      */
-    protected onBeforeSetConfig(config: C): void {}
-
-    /**
-     * To initialize the {@link formGroup} from sub classes
-     */
-    abstract createFormGroup(): FormGroup;
+    protected onBeforeSetConfig(config: C): void {
+        // No default behavior
+    }
 
     /**
      * Used for assigning a value to a filter from outside
@@ -1056,7 +1007,7 @@ export abstract class DatagridFilter&lt;V, C extends FilterConfig&lt;V&gt;&gt;
     }
 
     /**
-     * @see unit tests of sub class {@link DatagridStringFilterComponent} for unit tests of following methods
+     * @see unit tests of subclass {@link DatagridStringFilterComponent} for unit tests of following methods
      */
     /**
      * Used in the {@link #getValue} method to make it part of the FIQL formatted string
