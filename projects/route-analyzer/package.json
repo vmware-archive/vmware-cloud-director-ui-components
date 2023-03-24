@@ -1,6 +1,6 @@
 {
     "name": "@vcd/route-analyzer",
-    "version": "0.0.11",
+    "version": "0.0.12",
     "bin": "cli.js",
     "dependencies": {
         "ts-evaluator": "1.1.0",
