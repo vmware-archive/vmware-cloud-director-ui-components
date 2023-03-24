@@ -94,10 +94,10 @@ export function evaluateNode(
     // otherwise the evaluation may not succeed.
     const val: EvaluateResult = evaluate({ node, typeChecker, typescript: ts });
     if (val.success) {
-        console.error({ evaluating: node.getText(), val });
         return val.value as object;
     }
     if (throwOnFailure) {
+        console.error({ evaluating: node.getText(), val });
         throw new Error(`Corner case hit when evaluating: `);
     }
 }
