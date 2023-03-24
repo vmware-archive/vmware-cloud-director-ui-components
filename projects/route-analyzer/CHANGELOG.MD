@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.0.11]
+### [Added]
+Updated to Typescript 4.8
+
 ## [0.0.10]
 ### [Fixed]
 - Fixed a regression where the route-analyzer was unnable to find routes on windows machines
