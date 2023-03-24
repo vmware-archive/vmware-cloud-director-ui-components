@@ -1,14 +1,14 @@
 {
     "name": "@vcd/route-analyzer",
-    "version": "0.0.10",
+    "version": "0.0.11",
     "bin": "cli.js",
     "dependencies": {
-        "@wessberg/ts-evaluator": "0.0.25",
+        "ts-evaluator": "1.1.0",
         "yargs": "17.2.1",
-        "@angular-devkit/core": "^13.3.9"
+        "@angular-devkit/core": "^15"
     },
     "peerDependencies": {
-        "typescript": "^3.x"
+        "typescript": "^4.x"
     },
     "devDependencies": {
         "ts-node": "^10.8.2",

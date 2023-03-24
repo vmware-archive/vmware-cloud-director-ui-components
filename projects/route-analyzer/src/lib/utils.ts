@@ -2,7 +2,7 @@
  * Copyright 2020 VMware, Inc.
  * SPDX-License-Identifier: BSD-2-Clause
  */
-import { evaluate, EvaluateResult } from '@wessberg/ts-evaluator';
+import { evaluate, EvaluateResult } from 'ts-evaluator';
 import * as ts from 'typescript';
 
 export function hasValue(item: unknown): boolean {
@@ -94,6 +94,7 @@ export function evaluateNode(
     // otherwise the evaluation may not succeed.
     const val: EvaluateResult = evaluate({ node, typeChecker, typescript: ts });
     if (val.success) {
+        console.error({ evaluating: node.getText(), val });
         return val.value as object;
     }
     if (throwOnFailure) {
