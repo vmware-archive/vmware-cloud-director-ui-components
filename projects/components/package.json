@@ -1,6 +1,6 @@
 {
     "name": "@vcd/ui-components",
-    "version": "13.0.1-dev.9",
+    "version": "13.0.1-dev.10",
     "dependencies": {
         "@ngx-formly/core": "5.6.1"
     },
