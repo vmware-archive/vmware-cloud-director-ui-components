@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [13.0.1-dev.11]
+### Fixed
+Remove external link from Data Exporter
+
 ## [13.0.1-dev.10]
 
 ### Added
