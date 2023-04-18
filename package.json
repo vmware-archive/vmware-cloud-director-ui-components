@@ -41,7 +41,6 @@
     "@vcd/bindings": "9.1.1",
     "@webcomponents/custom-elements": "^1.5.0",
     "angular-cli-ghpages": "1.0.0",
-    "codecov.io": "0.1.6",
     "copyfiles": "^2.4.1",
     "cross-spawn": "^7.0.3",
     "karma-coverage": "2.2.0",
