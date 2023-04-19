@@ -17,16 +17,11 @@ import {
     Tree,
     url,
 } from '@angular-devkit/schematics';
-import {
-    Change,
-    getSourceNodes,
-    InsertChange,
-    NoopChange,
-    WorkspaceProject,
-    WorkspaceSchema,
-} from 'schematics-utilities';
+import { Change, InsertChange, NoopChange } from '@schematics/angular/utility/change';
+import { getSourceNodes } from '@schematics/angular/utility/ast-utils';
 import * as ts from 'typescript';
 import { Schema as ExampleSchema } from './schema';
+import { WorkspaceProject, WorkspaceSchema } from '@schematics/angular/utility/workspace-models';
 
 const componentTypeMap: { [key: string]: RegExp } = {
     component: /\w+component$/i,
