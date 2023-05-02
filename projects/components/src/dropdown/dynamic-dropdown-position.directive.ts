@@ -114,8 +114,14 @@ export class DynamicDropdownPositionDirective {
         const enoughSpaceAtTheTop = dropdownMenuRect.height <= dropdownTriggerRect.top - contentAreaRect.top;
 
         if (!enoughSpaceAtTheBottom && !enoughSpaceAtTheTop) {
-            // If there is not ennough space at the top and bottom, keep the dropdown at the middle of the screen
-            return -(window.innerHeight / 2);
+            /**
+             * If there is not enough space at the top and bottom, keep the dropdown at the middle of the screen,
+             * relative to the dropdown trigger.
+             *
+             * IMPORTANT: In some cases the menu might be cut off, becuase there is no space on the screen,
+             * based on the rules of this (positionTop) function.
+             */
+            return -dropdownMenuHeight / 2;
         }
 
         if (enoughSpaceAtTheBottom) {
