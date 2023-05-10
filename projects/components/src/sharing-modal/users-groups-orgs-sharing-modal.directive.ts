@@ -4,7 +4,7 @@
  */
 
 import { Component, Directive, Inject, Input, OnInit, Optional } from '@angular/core';
-import { Query, VcdApiClient } from '@vcd/angular-client';
+import { Query, VcdApiClient } from '@vcd/sdk';
 import { GroupType, OrgType, UserType } from '@vcd/bindings/vcloud/api/rest/schema_v1_5/index';
 import { TranslationService } from '@vcd/i18n';
 import { ComponentRenderer } from '../datagrid/interfaces/component-renderer.interface';

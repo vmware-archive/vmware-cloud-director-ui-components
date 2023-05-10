@@ -5,7 +5,7 @@
 
 // This file is required by karma.conf.js and loads recursively all the .spec and framework files
 /**
- * Patches in SystemJs for use by the VCD Angular Client. This package is @vcd/angular-client.
+ * Patches in SystemJs for use by the VCD Angular Client. This package is @vcd/sdk
  * This project requires that you use system JS to provide a module that gives injection tokens. We need
  * to mock this module.
  */

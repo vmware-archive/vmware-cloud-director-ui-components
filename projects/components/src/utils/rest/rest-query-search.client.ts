@@ -4,7 +4,7 @@
  */
 
 import { Injectable, Injector } from '@angular/core';
-import { Query, VcdApiClient, VcdHttpClient } from '@vcd/angular-client';
+import { Query, VcdApiClient, VcdHttpClient } from '@vcd/sdk';
 import { GroupType, OrgType, UserType } from '@vcd/bindings/vcloud/api/rest/schema_v1_5';
 import { Observable } from 'rxjs';
 import { FilterBuilder } from '../filter-builder';
