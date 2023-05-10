@@ -1,5 +1,12 @@
 # I18n
 
+- [I18n](#i18n)
+  - [To install](#to-install)
+  - [Usage](#usage)
+  - [Build](#build)
+  - [Running unit tests](#running-unit-tests)
+
+
 The library of translation utilities provided to internationalize VMware Cloud Director. VCD UI plugin developers can
 install this library to translate their app and have a reduced bundle size.
 

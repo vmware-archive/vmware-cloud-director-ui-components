@@ -1,5 +1,22 @@
 # VMware Cloud Director UI Common Components
 
+- [VMware Cloud Director UI Common Components](#vmware-cloud-director-ui-common-components)
+  - [Repo Structure](#repo-structure)
+      - [Online Examples](#online-examples)
+    - [Component Library (./projects/components) `@vcd/ui-components`](#component-library-projectscomponents-vcdui-components)
+    - [Internalization Library (./projects/i18n) `@vcd/i18n`](#internalization-library-projectsi18n-vcdi18n)
+    - [NG Live docs (./projects/ng-live-docs) `@vmw/ng-live-docs`.](#ng-live-docs-projectsng-live-docs-vmwng-live-docs)
+    - [Route Analyzer (./projects/route-analyzer) `@vcd/route-analyzer`.](#route-analyzer-projectsroute-analyzer-vcdroute-analyzer)
+  - [Peer Dependencies](#peer-dependencies)
+  - [Code scaffolding](#code-scaffolding)
+  - [Running unit tests](#running-unit-tests)
+  - [Running end-to-end tests (Examples App)](#running-end-to-end-tests-examples-app)
+  - [Cloning the repo](#cloning-the-repo)
+  - [Versioning](#versioning)
+  - [Publishing](#publishing)
+  - [Further help](#further-help)
+
+
 ## Repo Structure
 
 This [monorepo](https://angular.io/guide/file-structure#multiple-projects) uses [NX](https://nx.dev/). You

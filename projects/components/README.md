@@ -1,5 +1,10 @@
 # Components
 
+- [Components](#components)
+  - [To install](#to-install)
+  - [Examples site](#examples-site)
+
+
 A library of UI components used by VMware Cloud Director. VCD UI plugin developers can use these components to ensure
 plugins share the VCD UX. This library also provides a file title i18n.json that contains all the default
 translations for the strings in our components. This file is intended for usage with [@vcd/i18n](../../projects/i18n/README.md).

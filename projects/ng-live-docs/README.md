@@ -1,5 +1,20 @@
 # NgLiveDocs
 
+- [NgLiveDocs](#nglivedocs)
+  - [Background](#background)
+  - [Features](#features)
+  - [Code scaffolding](#code-scaffolding)
+  - [Build](#build)
+  - [Running unit tests](#running-unit-tests)
+  - [How to use it](#how-to-use-it)
+    - [To install](#to-install)
+    - [Generate documentation:](#generate-documentation)
+    - [Creating examples and their modules:](#creating-examples-and-their-modules)
+    - [App entry module changes:](#app-entry-module-changes)
+    - [Adding examples to the HTML:](#adding-examples-to-the-html)
+    - [Hosting Compodoc (optional)](#hosting-compodoc-optional)
+
+
 ## Background
 
 By running a script to scour through your projects containing your UI components and their respective examples,
