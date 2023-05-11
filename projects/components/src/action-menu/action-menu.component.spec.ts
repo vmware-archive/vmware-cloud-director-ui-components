@@ -14,8 +14,7 @@ import {
     ContextualActionInlineDisplayConfig,
     TextIcon,
 } from '../common/interfaces';
-import { BaseWidgetObject } from '../utils/test/widget-object/widget-object';
-import { AngularWidgetObjectFinder } from '../utils/test/widget-object/angular/angular-widget-finder';
+import { AngularWidgetObjectFinder, BaseWidgetObject } from '@vcd/widget-object';
 import { ActionMenuComponent, getDefaultActionDisplayConfig } from './action-menu.component';
 import { VcdActionMenuModule } from './action-menu.module';
 import createSpy = jasmine.createSpy;

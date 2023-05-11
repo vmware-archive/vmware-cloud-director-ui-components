@@ -7,6 +7,7 @@
     "examples": "projects/examples",
     "i18n": "projects/i18n",
     "ng-live-docs": "projects/ng-live-docs",
-    "route-analyzer": "projects/route-analyzer"
+    "route-analyzer": "projects/route-analyzer",
+    "widget-object": "projects/widget-object"
   }
 }

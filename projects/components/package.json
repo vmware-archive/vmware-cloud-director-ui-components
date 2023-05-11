@@ -8,7 +8,8 @@
         "@clr/angular": ">=15.0.3",
         "@angular/common": ">=15.2.3",
         "@angular/core": ">=15.2.3",
-        "@vcd/i18n": ">=1.0.0-dev.1",
+        "@vcd/i18n": ">=1.0.0",
+        "@vcd/widget-object": ">=0.0.1",
         "@vcd/angular-client": "0.0.2-alpha.1",
         "@vcd/bindings": "9.1.1"
     }

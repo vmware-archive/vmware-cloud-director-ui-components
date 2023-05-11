@@ -1,0 +1,15 @@
+name: Publish @vcd/widget-object@latest
+
+on: [workflow_dispatch]
+
+jobs:
+    publish-components:
+        runs-on: ubuntu-latest
+        steps:
+            - uses: actions/checkout@v3
+            - uses: ./.github/actions/publish
+              with:
+                  nx-name: components
+                  npm-name: '@vcd/widget-object'
+                  npm-publish-tag: latest
+                  npm-token: ${{ secrets.NPM_TOKEN }}

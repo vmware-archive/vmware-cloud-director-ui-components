@@ -24,7 +24,7 @@ export class AngularWidgetObjectElement implements WidgetObjectElement<TestEleme
     get(selector: string | FindElementOptions): AngularWidgetObjectElement {
         const cssSelector = SelectorUtil.extractSelector(selector);
         const elements = this.testElement.elements;
-        let matches = [].concat(...elements.map((element) => element.queryAll(By.css(cssSelector))));
+        let matches = elements.map((element) => element.queryAll(By.css(cssSelector))).flat();
         if (typeof selector !== 'string') {
             if (typeof selector.index === 'number') {
                 matches = [matches[selector.index]];
@@ -41,7 +41,7 @@ export class AngularWidgetObjectElement implements WidgetObjectElement<TestEleme
      */
     getByText(cssSelector: string, value: string): AngularWidgetObjectElement {
         const elements = this.testElement.elements;
-        let nextElements = [].concat(...elements.map((element) => element.queryAll(By.css(cssSelector))));
+        let nextElements = elements.map((element) => element.queryAll(By.css(cssSelector))).flat();
         nextElements = nextElements.filter((el) => el.nativeElement.textContent.includes(value));
         return new AngularWidgetObjectElement(new TestElement(nextElements, this.testElement.fixture));
     }
@@ -50,12 +50,11 @@ export class AngularWidgetObjectElement implements WidgetObjectElement<TestEleme
      * @inheritdoc
      */
     parents(cssSelector: string): AngularWidgetObjectElement {
-        return new AngularWidgetObjectElement(
-            new TestElement(
-                this.testElement.elements.map((el) => this.findParent(cssSelector, el.parent)),
-                this.testElement.fixture
-            )
-        );
+        const elements = this.testElement.elements.map((el) =>
+            this.findParent(cssSelector, el.parent)
+        ) as DebugElement[];
+
+        return new AngularWidgetObjectElement(new TestElement(elements, this.testElement.fixture));
     }
 
     /**
@@ -101,9 +100,9 @@ export class AngularWidgetObjectElement implements WidgetObjectElement<TestEleme
      * Looks up the chain of debug elements until it finds a parent that matches the CSS selector.
      * Checks the given element.
      */
-    private findParent(cssSelector: string, debugElement: DebugElement): DebugElement {
+    private findParent(cssSelector: string, debugElement: DebugElement | null): DebugElement | null {
         if (!debugElement) {
-            return;
+            return null;
         }
         if (debugElement.nativeElement.matches(cssSelector)) {
             return debugElement;
@@ -154,7 +153,7 @@ export class TestElement implements Iterable<TestElement> {
         return this.elements[0];
     }
 
-    private forEach(cb: (item: DebugElement, index, array: DebugElement[]) => void): void {
+    private forEach(cb: (item: DebugElement, index: number, array: DebugElement[]) => void): void {
         this.elements.forEach(cb);
     }
 
@@ -162,7 +161,7 @@ export class TestElement implements Iterable<TestElement> {
      * Gives the text of the first element.
      */
     text(): string {
-        return this.firstNativeElement.textContent.trim();
+        return this.firstNativeElement.textContent ? this.firstNativeElement.textContent.trim() : '';
     }
 
     /**
@@ -326,7 +325,7 @@ export class TestElement implements Iterable<TestElement> {
     /**
      * Finds the first parent element that matches the CSS selector
      */
-    private findParents(debugEl: DebugElement, cssSelector: string): DebugElement {
+    private findParents(debugEl: DebugElement | null, cssSelector: string): DebugElement | null {
         if (!debugEl) {
             return null;
         }

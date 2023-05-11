@@ -9,14 +9,13 @@ import { fakeAsync, TestBed, tick } from '@angular/core/testing';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { ClarityModule } from '@clr/angular';
 import { MockTranslationService, TranslationService } from '@vcd/i18n';
-import { AngularWidgetObjectFinder } from '../utils/test/widget-object/angular/angular-widget-finder';
-import { TestElement } from '../utils/test/widget-object/angular/angular-widget-object-element';
 import { QuickSearchResultItem, QuickSearchResultsType } from './quick-search-result';
 import { QuickSearchComponent, ResultActivatedEvent } from './quick-search.component';
 import { QuickSearchService } from './quick-search.service';
 import { QuickSearchModule } from './quick-search.module';
 import { QuickSearchProviderDefaults } from './quick-search.provider';
 import { QuickSearchWo } from './quick-search.wo';
+import { AngularWidgetObjectFinder, TestElement } from '@vcd/widget-object';
 
 interface Test {
     finder: AngularWidgetObjectFinder<HostSpotlightSearchComponent>;

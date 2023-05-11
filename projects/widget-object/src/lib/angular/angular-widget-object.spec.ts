@@ -123,35 +123,39 @@ class ClickTrackerWidgetObject<T> extends BaseWidgetObject<T> {
 class HostComponent {}
 
 interface HasAngularFinder {
-    finder: AngularWidgetObjectFinder;
+    finder?: AngularWidgetObjectFinder;
 }
 
 /**
  * Test object for the tests below
  */
 interface HasClickTracker {
-    clickTracker: ClickTrackerWidgetObject<TestElement>;
-    fixture: ComponentFixture<ClickTrackerComponent>;
+    clickTracker?: ClickTrackerWidgetObject<TestElement>;
+    fixture?: ComponentFixture<ClickTrackerComponent>;
 }
 
-function setup(fixtureRoot: Type<unknown>): void {
-    beforeEach(async function (this: HasAngularFinder): Promise<void> {
+function setup(fixtureRoot: Type<unknown>, test: Partial<HasAngularFinder>): void {
+    beforeEach(async () => {
         await TestBed.configureTestingModule({
             imports: [FormsModule],
             declarations: [ClickTrackerComponent, fixtureRoot],
         }).compileComponents();
-        this.finder = new AngularWidgetObjectFinder(fixtureRoot);
-        this.finder.detectChanges();
+        test.finder = new AngularWidgetObjectFinder(fixtureRoot);
+        test.finder.detectChanges();
     });
 }
 
 describe('AngularWidgetFinder', () => {
+    const test: HasAngularFinder = {};
+    afterEach(() => {
+        delete test.finder;
+    });
     describe('when there is a single instance within host', () => {
-        setup(HostComponent);
+        setup(HostComponent, test);
 
         describe('find', () => {
             it('returns the first one within the fixture if no classname is specified', function (this: HasAngularFinder): void {
-                const widget = this.finder.find<ClickTrackerWidgetObject<TestElement>>(ClickTrackerWidgetObject);
+                const widget = test.finder!.find<ClickTrackerWidgetObject<TestElement>>(ClickTrackerWidgetObject);
                 expect(widget.getHeaderText().unwrap().text()).toEqual('hello');
             });
         });
@@ -159,47 +163,52 @@ describe('AngularWidgetFinder', () => {
 });
 
 describe('AngularWidgetObjectElement', () => {
+    const test: HasClickTracker = {};
     beforeEach(async function (this: HasClickTracker): Promise<void> {
         await TestBed.configureTestingModule({
             imports: [FormsModule],
             declarations: [ClickTrackerComponent],
         }).compileComponents();
 
-        this.fixture = TestBed.createComponent(ClickTrackerComponent);
-        this.fixture.detectChanges();
-        this.clickTracker = new ClickTrackerWidgetObject(
-            new AngularWidgetObjectElement(new TestElement([this.fixture.debugElement], this.fixture))
+        test.fixture = TestBed.createComponent(ClickTrackerComponent);
+        test.fixture.detectChanges();
+        test.clickTracker = new ClickTrackerWidgetObject(
+            new AngularWidgetObjectElement(new TestElement([test.fixture.debugElement], test.fixture))
         );
+    });
+    afterEach(() => {
+        delete test.fixture;
+        delete test.clickTracker;
     });
 
     describe('get', () => {
-        it('can find elements by CSS selector', function (this: HasClickTracker): void {
-            expect(this.clickTracker.getClickCount().unwrap().text()).toEqual('0');
+        it('can find elements by CSS selector', () => {
+            expect(test.clickTracker!.getClickCount().unwrap().text()).toEqual('0');
         });
-        it('can find an element by text', function (this: HasClickTracker): void {
-            expect(this.clickTracker.getButtonByLabel({ text: 'BUTTON2' }).unwrap().text()).toEqual('BUTTON2');
+        it('can find an element by text', () => {
+            expect(test.clickTracker!.getButtonByLabel({ text: 'BUTTON2' }).unwrap().text()).toEqual('BUTTON2');
         });
-        it('finds multiple elements using text', function (this: HasClickTracker): void {
-            expect(this.clickTracker.getButtonByLabel({ text: 'BUTTON3' }).unwrap().elements.length).toBe(2);
+        it('finds multiple elements using text', () => {
+            expect(test.clickTracker!.getButtonByLabel({ text: 'BUTTON3' }).unwrap().elements.length).toBe(2);
         });
-        it('finds single element using exactText', function (this: HasClickTracker): void {
-            expect(this.clickTracker.getButtonByLabel({ exactText: 'BUTTON3' }).unwrap().elements.length).toBe(1);
+        it('finds single element using exactText', () => {
+            expect(test.clickTracker!.getButtonByLabel({ exactText: 'BUTTON3' }).unwrap().elements.length).toBe(1);
         });
-        it('can find an element by index', function (this: HasClickTracker): void {
-            expect(this.clickTracker.getButtonByLabel({ index: 0 }).unwrap().text()).toEqual('BUTTON');
+        it('can find an element by index', () => {
+            expect(test.clickTracker!.getButtonByLabel({ index: 0 }).unwrap().text()).toEqual('BUTTON');
         });
     });
 
     describe('findWidget', () => {
-        it('can find widgets within widgets', function (this: HasClickTracker): void {
-            expect(this.clickTracker.findHeaderWidget().getBoldText().unwrap().text()).toEqual('hello');
+        it('can find widgets within widgets', () => {
+            expect(test.clickTracker!.findHeaderWidget().getBoldText().unwrap().text()).toEqual('hello');
         });
     });
 
     describe('parents', () => {
-        it('can find a parent by css selector', function (this: HasClickTracker): void {
-            this.clickTracker.getTrackerElementUsingParent().click();
-            expect(this.clickTracker.getClickCount().unwrap().text()).toEqual('1');
+        it('can find a parent by css selector', () => {
+            test.clickTracker!.getTrackerElementUsingParent().click();
+            expect(test.clickTracker!.getClickCount().unwrap().text()).toEqual('1');
         });
     });
 });
@@ -209,63 +218,70 @@ describe('AngularWidgetObjectElement', () => {
  * in the concrete {@link ClickTrackerWidgetObject}
  */
 describe('TestElement', () => {
-    beforeEach(async function (this: HasClickTracker): Promise<void> {
+    const test: HasClickTracker = {};
+
+    beforeEach(async () => {
         await TestBed.configureTestingModule({
             imports: [FormsModule],
             declarations: [ClickTrackerComponent],
         }).compileComponents();
 
-        this.fixture = TestBed.createComponent(ClickTrackerComponent);
-        this.fixture.detectChanges();
-        this.clickTracker = new ClickTrackerWidgetObject(
-            new AngularWidgetObjectElement(new TestElement([this.fixture.debugElement], this.fixture))
+        test.fixture = TestBed.createComponent(ClickTrackerComponent);
+        test.fixture.detectChanges();
+        test.clickTracker = new ClickTrackerWidgetObject(
+            new AngularWidgetObjectElement(new TestElement([test.fixture.debugElement], test.fixture))
         );
     });
 
+    afterEach(() => {
+        delete test.fixture;
+        delete test.clickTracker;
+    });
+
     describe('text', () => {
-        it('can find elements within itself passing a css query', function (this: HasClickTracker): void {
-            expect(this.clickTracker.getClickCount().unwrap().text()).toEqual('0');
+        it('can find elements within itself passing a css query', () => {
+            expect(test.clickTracker!.getClickCount().unwrap().text()).toEqual('0');
         });
     });
 
     describe('click', () => {
-        it('calls detectChanges after clicking', function (this: HasClickTracker): void {
-            this.clickTracker.getTrackerElement().click();
-            expect(this.clickTracker.getClickCount().unwrap().text()).toEqual('1');
+        it('calls detectChanges after clicking', () => {
+            test.clickTracker!.getTrackerElement().click();
+            expect(test.clickTracker!.getClickCount().unwrap().text()).toEqual('1');
         });
     });
 
     describe('value', () => {
-        it('gives the value from an input', fakeAsync(function (this: HasClickTracker): void {
-            this.clickTracker.self().getComponentInstance().name = 'Ryan';
-            this.clickTracker.self().detectChanges();
+        it('gives the value from an input', fakeAsync(() => {
+            test.clickTracker!.self().getComponentInstance().name = 'Ryan';
+            test.clickTracker!.self().detectChanges();
             tick();
-            expect(this.clickTracker.getNameInput().unwrap().value()).toEqual('Ryan');
+            expect(test.clickTracker!.getNameInput().unwrap().value()).toEqual('Ryan');
         }));
     });
 
     describe('clear', () => {
-        it('clears the input', fakeAsync(function (this: HasClickTracker): void {
-            this.clickTracker.self().getComponentInstance().name = 'Ryan';
-            this.clickTracker.self().detectChanges();
+        it('clears the input', fakeAsync(() => {
+            test.clickTracker!.self().getComponentInstance().name = 'Ryan';
+            test.clickTracker!.self().detectChanges();
             tick();
-            expect(this.clickTracker.getNameInput().unwrap().value()).toEqual('Ryan');
-            this.clickTracker.getNameInput().clear();
-            expect(this.clickTracker.getNameInput().unwrap().value()).toEqual('');
+            expect(test.clickTracker!.getNameInput().unwrap().value()).toEqual('Ryan');
+            test.clickTracker!.getNameInput().clear();
+            expect(test.clickTracker!.getNameInput().unwrap().value()).toEqual('');
         }));
     });
 
     describe('length', () => {
-        it('says how many elements are in this TestElement', function (this: HasClickTracker): void {
-            expect(this.clickTracker.getButtons().unwrap().length()).toEqual(4);
+        it('says how many elements are in this TestElement', () => {
+            expect(test.clickTracker!.getButtons().unwrap().length()).toEqual(4);
         });
     });
 
     describe('toArray', () => {
-        it('turns the TestElement to an array of TestElements', function (this: HasClickTracker): void {
+        it('turns the TestElement to an array of TestElements', () => {
             expect(
-                this.clickTracker
-                    .getButtons()
+                test
+                    .clickTracker!.getButtons()
                     .unwrap()
                     .toArray()
                     .map((el) => el.text())
@@ -274,31 +290,31 @@ describe('TestElement', () => {
     });
 
     describe('classes', () => {
-        it('gives the classes of an input', function (this: HasClickTracker): void {
-            expect(this.clickTracker.getNameInput().unwrap().classes()).toContain('name');
+        it('gives the classes of an input', () => {
+            expect(test.clickTracker!.getNameInput().unwrap().classes()).toContain('name');
         });
     });
 
     describe('clear', () => {
-        it('clears a given input', function (this: HasClickTracker): void {
-            this.clickTracker.typeNameInput('ryan');
-            expect(this.clickTracker.getNameInput().unwrap().value()).toEqual('ryan');
-            this.clickTracker.typeNameInput('hannah');
-            expect(this.clickTracker.getNameInput().unwrap().value()).toEqual('hannah');
+        it('clears a given input', () => {
+            test.clickTracker!.typeNameInput('ryan');
+            expect(test.clickTracker!.getNameInput().unwrap().value()).toEqual('ryan');
+            test.clickTracker!.typeNameInput('hannah');
+            expect(test.clickTracker!.getNameInput().unwrap().value()).toEqual('hannah');
         });
     });
 
     describe('select', () => {
-        it('selects an option based on the option text', function (this: HasClickTracker): void {
+        it('selects an option based on the option text', () => {
             const selectText = 'Ipsum';
 
-            this.clickTracker.getSelect().select(selectText);
+            test.clickTracker!.getSelect().select(selectText);
 
-            const options = this.clickTracker.getOptions().unwrap().elements;
-            expect(options[0].properties.selected).toBeFalsy();
-            expect(options[1].properties.selected).toBeTruthy();
+            const options = test.clickTracker!.getOptions().unwrap().elements;
+            expect(options[0].properties['selected']).toBeFalsy();
+            expect(options[1].properties['selected']).toBeTruthy();
             expect(options[1].nativeElement.text).toBe(selectText);
-            expect(options[2].properties.selected).toBeFalsy();
+            expect(options[2].properties['selected']).toBeFalsy();
         });
     });
 });

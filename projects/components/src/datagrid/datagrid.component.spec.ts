@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: BSD-2-Clause
  */
 
-import { Component, HostBinding, TrackByFunction, ViewChild } from '@angular/core';
+import { Component, HostBinding, ViewChild } from '@angular/core';
 import { fakeAsync, TestBed, tick } from '@angular/core/testing';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { LoadingListener } from '@clr/angular';
@@ -19,10 +19,6 @@ import {
     TextIcon,
 } from '../common/interfaces/action-item.interface';
 import { ShowClippedTextDirective, TooltipSize } from '../lib/directives/show-clipped-text.directive';
-import { ClrDatagridWidgetObject } from '../utils/test/datagrid/datagrid.wo';
-import { VcdDatagridWidgetObject } from '../utils/test/datagrid/vcd-datagrid.wo';
-import { AngularWidgetObjectFinder } from '../utils/test/widget-object/angular/angular-widget-finder';
-import { TestElement } from '../utils/test/widget-object/angular/angular-widget-object-element';
 import {
     ActivityIndicatorType,
     DatagridComponent,
@@ -39,6 +35,12 @@ import { DatagridActionDisplayConfig } from './interfaces/datagrid-action-displa
 import { ColumnComponentRendererSpec, GridColumn, GridColumnHideable } from './interfaces/datagrid-column.interface';
 import { mockData, MockRecord } from './mock-data';
 import { BoldTextRendererComponent } from './renderers/bold-text-renderer.component';
+import {
+    AngularWidgetObjectFinder,
+    ClrDatagridWidgetObject,
+    TestElement,
+    VcdDatagridWidgetObject,
+} from '@vcd/widget-object';
 
 interface RecordId {
     name: string;

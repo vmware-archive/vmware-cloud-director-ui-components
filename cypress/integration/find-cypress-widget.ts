@@ -3,14 +3,14 @@
  * SPDX-License-Identifier: BSD-2-Clause
  */
 
+import Cypress from 'cypress';
 import {
     BaseWidgetObject,
     CypressWidgetObjectFinder,
-    DataExporterWidgetObject,
     FindableWidget,
-} from '@vcd/ui-components';
-import { FindCypressWidgetOptions } from '@vcd/ui-components';
-import Cypress from 'cypress';
+    FindCypressWidgetOptions,
+} from '@vcd/widget-object';
+import { DataExporterWidgetObject } from '@vcd/ui-components';
 
 type Chainable = Cypress.Chainable;
 

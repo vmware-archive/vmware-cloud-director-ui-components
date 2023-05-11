@@ -2,12 +2,7 @@
  * Copyright 2019 VMware, Inc.
  * SPDX-License-Identifier: BSD-2-Clause
  */
-import {
-    createDatagridFilterTestHelper,
-    createDatagridFilterTestHelperWithFinder,
-    FilterTestHostComponent,
-} from '../../utils/test/datagrid/filter-utils';
-import { AngularWidgetObjectFinder } from '../../utils/test/widget-object/angular/angular-widget-finder';
+
 import { Bytes } from '../../utils/unit/unit';
 import { DatagridFilter } from './datagrid-filter';
 import {
@@ -15,6 +10,12 @@ import {
     DatagridNumericFilterComponent,
     DatagridNumericFilterConfig,
 } from './datagrid-numeric-filter.component';
+import { AngularWidgetObjectFinder } from '@vcd/widget-object';
+import {
+    createDatagridFilterTestHelper,
+    createDatagridFilterTestHelperWithFinder,
+    FilterTestHostComponent,
+} from '../../utils/filter-utils';
 
 interface HasDgNumericFilter {
     filter: DatagridFilter<[number, number], DatagridNumericFilterConfig>;

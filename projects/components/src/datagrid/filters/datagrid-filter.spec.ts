@@ -4,11 +4,11 @@
  */
 
 import { fakeAsync, tick } from '@angular/core/testing';
-import { createDatagridFilterTestHelper } from '../../utils/test/datagrid/filter-utils';
 import { DatagridFilter, DEBOUNCE_TIME_FOR_GRID_FILTER_CHANGES } from './datagrid-filter';
 import { DatagridSelectFilterComponent } from './datagrid-select-filter.component';
 import { DatagridStringFilterComponent, WildCardPosition } from './datagrid-string-filter.component';
 import { HasDgStringFilter } from './datagrid-string-filter.component.spec';
+import { createDatagridFilterTestHelper } from '../../utils/filter-utils';
 
 /**
  * Tests for the DatagridFilter base class use the sub class DatagridStringFilterComponent instead of writing a dummy
@@ -16,26 +16,26 @@ import { HasDgStringFilter } from './datagrid-string-filter.component.spec';
  */
 describe('DatagridFilter', () => {
     describe('config', () => {
-        beforeEach(function(this: HasDgStringFilter): void {
+        beforeEach(function (this: HasDgStringFilter): void {
             this.filter = createDatagridFilterTestHelper(DatagridStringFilterComponent, {
                 wildCardPosition: WildCardPosition.END,
             });
         });
-        it('configures the filter wildCardPosition as WildCardPosition.END', function(this: HasDgStringFilter): void {
+        it('configures the filter wildCardPosition as WildCardPosition.END', function (this: HasDgStringFilter): void {
             expect(this.filter.config.wildCardPosition).toEqual(WildCardPosition.END);
         });
     });
     describe('ClrDatagridFilterInterface.changes', () => {
-        beforeEach(function(this: HasDgStringFilter): void {
+        beforeEach(function (this: HasDgStringFilter): void {
             this.filter = createDatagridFilterTestHelper(DatagridStringFilterComponent);
         });
-        it('emits when setValue is called', fakeAsync(function(this: HasDgStringFilter): void {
+        it('emits when setValue is called', fakeAsync(function (this: HasDgStringFilter): void {
             const spy = spyOn(this.filter.changes, 'next');
             this.filter.setValue('test-input');
             tick(DEBOUNCE_TIME_FOR_GRID_FILTER_CHANGES);
             expect(spy).toHaveBeenCalled();
         }));
-        it('emits when config is set', fakeAsync(function(this: HasDgStringFilter): void {
+        it('emits when config is set', fakeAsync(function (this: HasDgStringFilter): void {
             const spy = spyOn(this.filter.changes, 'next');
             this.filter.config = { value: 'test-input' };
             tick(DEBOUNCE_TIME_FOR_GRID_FILTER_CHANGES);
@@ -62,10 +62,10 @@ describe('DatagridFilter', () => {
         });
     });
     describe('onBeforeSetConfig', () => {
-        beforeEach(function(this: HasDgStringFilter): void {
+        beforeEach(function (this: HasDgStringFilter): void {
             this.filter = createDatagridFilterTestHelper(DatagridStringFilterComponent);
         });
-        it('gets called with config as parameter when config is set', function(this: HasDgStringFilter): void {
+        it('gets called with config as parameter when config is set', function (this: HasDgStringFilter): void {
             const onBeforeSetconfigSpy = spyOn<any>(this.filter, 'onBeforeSetConfig');
             this.filter.config = {
                 wildCardPosition: WildCardPosition.END,

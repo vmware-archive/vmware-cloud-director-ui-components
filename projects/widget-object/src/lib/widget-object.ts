@@ -3,11 +3,6 @@
  * SPDX-License-Identifier: BSD-2-Clause
  */
 /**
- * A function tht finds an HTML Element wrapper of some type `T`
- */
-type ElementLocator<T> = (options?: FindElementOptions) => T;
-
-/**
  * Like unknown but can be an object but also needs to be cast before it can be used (since an empty object doesn't
  * allow properties)
  *
@@ -15,7 +10,7 @@ type ElementLocator<T> = (options?: FindElementOptions) => T;
  * specifying a timeout for a cypress command. An implementation specific type should be used in their implementation of
  * the WidgetObjectElement
  */
-type UnknownOptions = {};
+export type UnknownOptions = {};
 
 export type FindElementOptions = {
     /** CSS selector used to query. Ignored if {@link #dataUiSelector} is passed */

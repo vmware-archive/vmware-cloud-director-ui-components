@@ -10,7 +10,7 @@
     "module": "es2020",
     "moduleResolution": "node",
     "importHelpers": true,
-    "target": "ES2022",
+    "target": "es2020",
     "typeRoots": [
       "node_modules/@types"
     ],
@@ -28,6 +28,9 @@
       ],
       "@vcd/ui-components": [
         "./projects/components/src/public-api.ts"
+      ],
+      "@vcd/widget-object": [
+        "./dist/widget-object"
       ],
       "@vmw/ng-live-docs": [
         "./projects/ng-live-docs/src/public-api.ts"

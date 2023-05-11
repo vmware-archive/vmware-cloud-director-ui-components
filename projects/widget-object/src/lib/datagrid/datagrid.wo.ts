@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: BSD-2-Clause
  */
 
-import { BaseWidgetObject, WidgetObjectElement } from '../widget-object/widget-object';
+import { BaseWidgetObject, WidgetObjectElement } from '../';
 
 const Css = {
     ROW: 'clr-dg-row',
