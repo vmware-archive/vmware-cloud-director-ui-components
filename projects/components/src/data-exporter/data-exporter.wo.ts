@@ -2,7 +2,7 @@
  * Copyright 2019-2020 VMware, Inc.
  * SPDX-License-Identifier: BSD-2-Clause
  */
-import { BaseWidgetObject } from '../utils/test/widget-object/widget-object';
+import { BaseWidgetObject } from '@vcd/widget-object';
 import { DataUi } from './data-exporter.component';
 
 /**

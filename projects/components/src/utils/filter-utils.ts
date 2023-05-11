@@ -12,12 +12,10 @@ import {
     GridColumn,
     GridDataFetchResult,
     VcdDatagridModule,
-} from '../../../datagrid';
-import { MockRecord } from '../../../datagrid/mock-data';
-import { IdGenerator } from '../../id-generator/id-generator';
-import { AngularWidgetObjectFinder } from '../widget-object/angular/angular-widget-finder';
-import { TestElement } from '../widget-object/angular/angular-widget-object-element';
-import { ClrDatagridWidgetObject } from './datagrid.wo';
+} from '../datagrid';
+import { MockRecord } from '../datagrid/mock-data';
+import { AngularWidgetObjectFinder, ClrDatagridWidgetObject, TestElement } from '@vcd/widget-object';
+import { IdGenerator } from '@vcd/ui-components';
 
 function getFilter<V, C>(element: TestElement, filterType: Type<DatagridFilter<V, C>>): DatagridFilter<V, C> {
     return element.parents('body').queryDirective(filterType);

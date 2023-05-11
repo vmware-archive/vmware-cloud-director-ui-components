@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: BSD-2-Clause
  */
 
-import { BaseWidgetObject, FindElementOptions } from '../utils/test/widget-object/widget-object';
+import { BaseWidgetObject, FindElementOptions } from '@vcd/widget-object';
 import { DataUi } from './quick-search.dataui';
 
 const QUICK_SEARCH_CURRENT_RESULT = '.selected';
