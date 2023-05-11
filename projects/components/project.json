@@ -1,5 +1,5 @@
 {
-  "name": "components",
+  "name": "@vcd/ui-components",
   "$schema": "../../node_modules/nx/schemas/project-schema.json",
   "projectType": "library",
   "sourceRoot": "projects/components/src",

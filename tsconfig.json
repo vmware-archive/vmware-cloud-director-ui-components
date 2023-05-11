@@ -30,7 +30,7 @@
         "./projects/components/src/public-api.ts"
       ],
       "@vcd/widget-object": [
-        "projects/widget-object/src/index.ts"
+        "./dist/widget-object"
       ],
       "@vmw/ng-live-docs": [
         "./projects/ng-live-docs/src/public-api.ts"
