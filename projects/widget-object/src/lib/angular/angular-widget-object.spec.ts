@@ -295,10 +295,10 @@ describe('TestElement', () => {
             this.clickTracker.getSelect().select(selectText);
 
             const options = this.clickTracker.getOptions().unwrap().elements;
-            expect(options[0].properties.selected).toBeFalsy();
-            expect(options[1].properties.selected).toBeTruthy();
+            expect(options[0].properties['selected']).toBeFalsy();
+            expect(options[1].properties['selected']).toBeTruthy();
             expect(options[1].nativeElement.text).toBe(selectText);
-            expect(options[2].properties.selected).toBeFalsy();
+            expect(options[2].properties['selected']).toBeFalsy();
         });
     });
 });

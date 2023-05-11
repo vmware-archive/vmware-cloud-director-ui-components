@@ -16,6 +16,9 @@ export class SelectorUtil {
                 return `[data-ui="${selector.dataUiSelector}"]`;
             }
 
+            if (!selector.cssSelector) {
+                throw new Error('Expected selector to contain either a `dataUiSelector` or `cssSelector` property');
+            }
             return selector.cssSelector;
         }
     }

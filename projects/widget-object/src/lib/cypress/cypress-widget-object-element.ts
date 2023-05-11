@@ -8,11 +8,13 @@ import {
     ElementActions,
     FindableWidget,
     FindElementOptions,
+    UnknownOptions,
     WidgetObjectElement,
 } from '../widget-object';
 import { CypressWidgetObjectFinder, FindCypressWidgetOptions } from './cypress-widget-finder';
-
-declare const cy;
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-ignore
+declare const cy: any;
 
 /**
  * Implementation of WidgetObjectElement for Cypress chainables
@@ -39,7 +41,7 @@ export class CypressWidgetObjectElement<T extends ElementActions> implements Wid
     get(selector: string | FindElementOptions): CypressWidgetObjectElement<T> {
         const root = this.getBase();
         const cssSelector = SelectorUtil.extractSelector(selector);
-        let chainable: any;
+        let chainable: T;
         if (typeof selector === 'string') {
             chainable = root.find(selector);
         } else if (typeof selector.index === 'number') {
@@ -83,42 +85,42 @@ export class CypressWidgetObjectElement<T extends ElementActions> implements Wid
      * @inheritdoc
      */
     click(options?: unknown): void {
-        this.chainable.click(options);
+        this.chainable.click(options as UnknownOptions);
     }
 
     /**
      * @inheritdoc
      */
     type(value: string, options: unknown): void {
-        this.chainable.type(value, options);
+        this.chainable.type(value, options as UnknownOptions);
     }
 
     /**
      * @inheritdoc
      */
     select(text: string, options: unknown): void {
-        this.chainable.select(text, options);
+        this.chainable.select(text, options as UnknownOptions);
     }
 
     /**
      * @inheritdoc
      */
     check(options?: unknown): void {
-        this.chainable.check(options);
+        this.chainable.check(options as UnknownOptions);
     }
 
     /**
      * @inheritdoc
      */
     uncheck(options?: unknown): void {
-        this.chainable.uncheck(options);
+        this.chainable.uncheck(options as UnknownOptions);
     }
 
     /**
      * @inheritdoc
      */
     clear(options?: unknown): void {
-        this.chainable.clear(options);
+        this.chainable.clear(options as UnknownOptions);
     }
 
     /**
@@ -132,6 +134,8 @@ export class CypressWidgetObjectElement<T extends ElementActions> implements Wid
      * Gives the correct base for this current query.
      * This is to override the behavior where calls to .find will permanently change the scope of the query.
      */
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
     private getBase(): any {
         if (this.isRoot) {
             return cy.get('@' + this.alias);

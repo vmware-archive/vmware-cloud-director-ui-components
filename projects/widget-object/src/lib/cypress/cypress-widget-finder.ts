@@ -2,12 +2,29 @@
  * Copyright 2020-2021 VMware, Inc.
  * SPDX-License-Identifier: BSD-2-Clause
  */
-
-import { IdGenerator } from '../../../id-generator/id-generator';
 import { BaseWidgetObject, ElementActions, FindableWidget, FindElementOptions } from '../widget-object';
 import { CypressWidgetObjectElement } from './cypress-widget-object-element';
 
-declare const cy;
+/**
+ * Copied from common components. Ideally would be a third library the common components and widget-object import from
+ */
+export class IdGenerator {
+    private static idCounter = 0;
+
+    /**
+     * Getter that returns the a unique ID
+     */
+    generate(): string {
+        return `${this.prefix}-${IdGenerator.idCounter++}`;
+    }
+
+    /**
+     * The string to be prefixed for {@link IdGenerator#id} returned
+     */
+    constructor(private prefix: string) {}
+}
+
+declare const cy: any;
 const cypressWidgetIdGenerator = new IdGenerator('cy-id');
 
 export interface FindCypressWidgetOptions extends FindElementOptions {
@@ -48,7 +65,7 @@ export class CypressWidgetObjectFinder<T> {
         } else {
             ancestor = cy.get('body', { timeout: findOptions?.options?.timeout });
         }
-        const parentWidget = new CypressWidgetObjectElement(ancestor, false, undefined);
+        const parentWidget = new CypressWidgetObjectElement(ancestor, false, '');
         let query = widgetConstructor.tagName;
         if (findOptions?.cssSelector) {
             query = query + findOptions.cssSelector;

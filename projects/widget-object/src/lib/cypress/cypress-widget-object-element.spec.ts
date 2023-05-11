@@ -11,35 +11,35 @@ class MockCy {
         return this;
     }
 
-    get(selector: string, options?: any) {
+    get(selector: string, options?: unknown) {
         return this;
     }
 
-    find(selector: string, options?: any) {
+    find(selector: string, options?: unknown) {
         return this;
     }
 
-    contains(tagName: string, text: string | RegExp, options?: any) {
+    contains(tagName: string, text: string | RegExp, options?: unknown) {
         return this;
     }
 
-    click(options?: any) {
+    click(options?: unknown) {
         return this;
     }
 
-    type(text: string, options?: any) {
+    type(text: string, options?: unknown) {
         return this;
     }
 
-    select(text: string, options?: any) {
+    select(text: string, options?: unknown) {
         return this;
     }
 
-    check(options?: any) {
+    check(options?: unknown) {
         return this;
     }
 
-    uncheck(options?: any) {
+    uncheck(options?: unknown) {
         return this;
     }
 
@@ -51,13 +51,15 @@ class MockCy {
         return this;
     }
 
-    clear(options?: any) {
+    clear(options?: unknown) {
         return this;
     }
 }
 
 // eslint-disable-next-line no-var
 var cy = new MockCy();
+
+const win = window as unknown as { cy?: MockCy };
 
 class FakeWidget<T> extends BaseWidgetObject<T> {
     static tagName = 'hello';
@@ -66,12 +68,12 @@ class FakeWidget<T> extends BaseWidgetObject<T> {
 describe('CypressWidgetObjectFinder', () => {
     beforeEach(() => {
         // eslint-disable-next-line
-        window['cy'] = cy;
+        win.cy = cy;
     });
 
     afterEach(() => {
         // eslint-disable-next-line
-        delete window['cy'];
+        delete win.cy;
     });
 
     describe('find', () => {
@@ -110,12 +112,12 @@ describe('CypressWidgetObjectFinder', () => {
 describe('CypressWidgetObjectElement', () => {
     beforeEach(() => {
         // eslint-disable-next-line
-        window['cy'] = cy;
+        win.cy = cy;
     });
 
     afterEach(() => {
         // eslint-disable-next-line
-        delete window['cy'];
+        delete win.cy;
     });
 
     describe('findWidget', () => {
