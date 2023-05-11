@@ -7,12 +7,12 @@ import { Component } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MockTranslationService, TranslationService } from '@vcd/i18n';
-import { AngularWidgetObjectFinder, BaseWidgetObject, ClrDatagridWidgetObject, TestElement } from '../utils';
 import { timeout } from '../utils/test/test-utils';
 import { SharingTab } from './tabs/sharing-modal-tab.component';
 import { SharingModalResult, SharingSelectAllToggle } from './sharing-modal.component';
 import { VcdSharingModalModule } from './sharing-modal.module';
 import { SharingModalTabComponent, VcdSharingModalError } from './tabs/sharing-modal-tab.component';
+import { AngularWidgetObjectFinder, BaseWidgetObject, ClrDatagridWidgetObject, TestElement } from '@vcd/widget-object';
 
 interface HasVcdSharingModal {
     finder: AngularWidgetObjectFinder<TestHostComponent>;

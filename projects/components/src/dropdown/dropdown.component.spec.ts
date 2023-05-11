@@ -7,9 +7,7 @@ import { Component } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
 import { MockTranslationService, TranslationService } from '@vcd/i18n';
 import { ActionItem } from '../common/interfaces';
-import { TestElement } from '../utils';
-import { AngularWidgetObjectFinder } from '../utils/test/widget-object/angular/angular-widget-finder';
-import { BaseWidgetObject } from '../utils/test/widget-object/widget-object';
+import { AngularWidgetObjectFinder, BaseWidgetObject, TestElement } from '@vcd/widget-object';
 import { DropdownComponent, NESTED_MENU_HIDE_DELAY } from './dropdown.component';
 import { DropdownModule } from './dropdown.module';
 
@@ -224,19 +222,20 @@ describe('DropdownComponent', () => {
                 .getComponentInstance() as DropdownComponent;
             expect(nestedDropdownComponent.clrDropdown.toggleService.open).toBeTruthy();
         });
-        it('closes the nested dropdown when mouse is moved out of the nested dropdown' + 'trigger', async function (
-            this: HasVcdDropdown
-        ): Promise<void> {
-            this.dropdownWidget.getDropdownToggleButton(PRIMARY_DROPDOWN_TOGGLE_CLASS_NAME).click();
-            this.dropdownWidget.getDropdownToggleButton(NESTED_DROPDOWN_TOGGLE_CLASS_NAME).mouseOver();
-            const nestedDropdownComponent = this.dropdownWidget
-                .getDropdown(NESTED_DROPDOWN_TOGGLE_CLASS_NAME)
-                .getComponentInstance() as DropdownComponent;
-            expect(nestedDropdownComponent.clrDropdown.toggleService.open).toBeTruthy();
-            this.dropdownWidget.getDropdownToggleButton(NESTED_DROPDOWN_TOGGLE_CLASS_NAME).mouseOut();
-            await new Promise((resolve) => window.setTimeout(resolve, NESTED_MENU_HIDE_DELAY));
-            expect(nestedDropdownComponent.clrDropdown.toggleService.open).toBeFalsy();
-        });
+        it(
+            'closes the nested dropdown when mouse is moved out of the nested dropdown' + 'trigger',
+            async function (this: HasVcdDropdown): Promise<void> {
+                this.dropdownWidget.getDropdownToggleButton(PRIMARY_DROPDOWN_TOGGLE_CLASS_NAME).click();
+                this.dropdownWidget.getDropdownToggleButton(NESTED_DROPDOWN_TOGGLE_CLASS_NAME).mouseOver();
+                const nestedDropdownComponent = this.dropdownWidget
+                    .getDropdown(NESTED_DROPDOWN_TOGGLE_CLASS_NAME)
+                    .getComponentInstance() as DropdownComponent;
+                expect(nestedDropdownComponent.clrDropdown.toggleService.open).toBeTruthy();
+                this.dropdownWidget.getDropdownToggleButton(NESTED_DROPDOWN_TOGGLE_CLASS_NAME).mouseOut();
+                await new Promise((resolve) => window.setTimeout(resolve, NESTED_MENU_HIDE_DELAY));
+                expect(nestedDropdownComponent.clrDropdown.toggleService.open).toBeFalsy();
+            }
+        );
     });
 });
 

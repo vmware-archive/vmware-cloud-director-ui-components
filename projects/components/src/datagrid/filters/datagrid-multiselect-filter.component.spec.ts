@@ -3,12 +3,12 @@
  * SPDX-License-Identifier: BSD-2-Clause
  */
 
-import { createDatagridFilterTestHelper, FilterTestHostComponent } from '../../utils/test/datagrid/filter-utils';
 import { DatagridFilter } from './datagrid-filter';
 import {
     DatagridMultiSelectFilterComponent,
     DatagridMultiSelectFilterConfig,
 } from './datagrid-multiselect-filter.component';
+import { createDatagridFilterTestHelper, FilterTestHostComponent } from '../../utils/filter-utils';
 
 interface HasDgMultiSelectFilter {
     filter: DatagridFilter<string[], DatagridMultiSelectFilterConfig>;

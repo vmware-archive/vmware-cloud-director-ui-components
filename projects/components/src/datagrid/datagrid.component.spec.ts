@@ -35,7 +35,12 @@ import { DatagridActionDisplayConfig } from './interfaces/datagrid-action-displa
 import { ColumnComponentRendererSpec, GridColumn, GridColumnHideable } from './interfaces/datagrid-column.interface';
 import { mockData, MockRecord } from './mock-data';
 import { BoldTextRendererComponent } from './renderers/bold-text-renderer.component';
-import { AngularWidgetObjectFinder, TestElement, VcdDatagridWidgetObject } from '@vcd/widget-object';
+import {
+    AngularWidgetObjectFinder,
+    ClrDatagridWidgetObject,
+    TestElement,
+    VcdDatagridWidgetObject,
+} from '@vcd/widget-object';
 
 interface RecordId {
     name: string;

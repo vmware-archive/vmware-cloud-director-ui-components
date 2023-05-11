@@ -3,7 +3,6 @@
  * SPDX-License-Identifier: BSD-2-Clause
  */
 
-import { createDatagridFilterTestHelper, FilterTestHostComponent } from '../../utils/test/datagrid/filter-utils';
 import { DatagridFilter } from './datagrid-filter';
 import {
     DatagridStringFilter,
@@ -11,6 +10,7 @@ import {
     DatagridStringFilterConfig,
     WildCardPosition,
 } from './datagrid-string-filter.component';
+import { createDatagridFilterTestHelper, FilterTestHostComponent } from '../../utils/filter-utils';
 
 export interface HasDgStringFilter {
     filter: DatagridFilter<string, DatagridStringFilterConfig>;

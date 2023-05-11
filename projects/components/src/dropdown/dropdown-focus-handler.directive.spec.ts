@@ -7,8 +7,6 @@ import { Component, ViewChild } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
 import { MockTranslationService, TranslationService } from '@vcd/i18n';
 import { ActionItem, TextIcon } from '../common/interfaces';
-import { AngularWidgetObjectFinder } from '../utils/test/widget-object/angular/angular-widget-finder';
-import { TestElement } from '../utils/test/widget-object/angular/angular-widget-object-element';
 import { DropdownFocusHandlerDirective, MenuItem } from './dropdown.component';
 import { DropdownComponent } from './dropdown.component';
 import {
@@ -17,6 +15,7 @@ import {
     VcdDropdownWidgetObject,
 } from './dropdown.component.spec';
 import { DropdownModule } from './dropdown.module';
+import { AngularWidgetObjectFinder, TestElement } from '@vcd/widget-object';
 
 interface HasVcdDropdown {
     finder: AngularWidgetObjectFinder<TestHostComponent>;
