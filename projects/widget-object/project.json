@@ -8,7 +8,7 @@
             "executor": "@nrwl/js:tsc",
             "outputs": ["{options.outputPath}"],
             "options": {
-                "outputPath": "dist/projects/widget-object",
+                "outputPath": "dist/widget-object",
                 "main": "projects/widget-object/src/index.ts",
                 "tsConfig": "projects/widget-object/tsconfig.lib.json",
                 "assets": ["projects/widget-object/*.md"]
