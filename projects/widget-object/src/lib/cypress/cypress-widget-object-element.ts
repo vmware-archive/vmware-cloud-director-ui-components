@@ -12,8 +12,6 @@ import {
     WidgetObjectElement,
 } from '../widget-object';
 import { CypressWidgetObjectFinder, FindCypressWidgetOptions } from './cypress-widget-finder';
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-// @ts-ignore
 declare const cy: any;
 
 /**
@@ -134,8 +132,6 @@ export class CypressWidgetObjectElement<T extends ElementActions> implements Wid
      * Gives the correct base for this current query.
      * This is to override the behavior where calls to .find will permanently change the scope of the query.
      */
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    // @ts-ignore
     private getBase(): any {
         if (this.isRoot) {
             return cy.get('@' + this.alias);

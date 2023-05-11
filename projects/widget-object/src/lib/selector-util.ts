@@ -11,15 +11,14 @@ export class SelectorUtil {
     static extractSelector(selector: string | FindElementOptions): string {
         if (typeof selector === 'string') {
             return selector;
-        } else {
-            if (selector.dataUiSelector) {
-                return `[data-ui="${selector.dataUiSelector}"]`;
-            }
-
-            if (!selector.cssSelector) {
-                throw new Error('Expected selector to contain either a `dataUiSelector` or `cssSelector` property');
-            }
-            return selector.cssSelector;
         }
+        if (selector.dataUiSelector) {
+            return `[data-ui="${selector.dataUiSelector}"]`;
+        }
+
+        if (!selector.cssSelector) {
+            throw new Error('Expected selector to contain either a `dataUiSelector` or `cssSelector` property');
+        }
+        return selector.cssSelector;
     }
 }
