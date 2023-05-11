@@ -18,7 +18,7 @@ inputs:
         required: true
 
 runs:
-    using: "composite"
+    using: 'composite'
     steps:
         # Default registry is github's internal npm registry
         - name: Setup Node registry
@@ -33,8 +33,7 @@ runs:
               npx nx build ${{ inputs.nx-name }} --configuration=production
               cd ./dist/${{ inputs.nx-name }}
               echo "//registry.npmjs.org/:_authToken=\${NPM_TOKEN}" > .npmrc
-              npm publish --tag ${{ inputs.npm-publish-tag }} --public
+              npm publish --tag ${{ inputs.npm-publish-tag }} --access public
           shell: bash
           env:
               NPM_TOKEN: ${{inputs.npm-token}}
-
