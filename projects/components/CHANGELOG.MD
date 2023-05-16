@@ -10,7 +10,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [15.0.1-dev.3]
 
 ### Fixed
-* Restore behavior of SelectorUtils that was broken when splitting out WidgetObject
 * Remove of extra space in action columns on datagrid when using inline actions
 
 ## [15.0.1-dev.2]
