@@ -6,7 +6,15 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
+
+## [15.0.1-dev.2]
+First version of @vcd/ui-components without WidgetObject and its related files
+
+### Fixed
 Fix: VM actions menu is being cutoff at the top and not displaying Power On/Off action
+
+### Removed
+All WidgetObject related files were moved to @vcd/widget-object
 
 ## [15.0.1-dev.1]
 First release with Angular/Clarity 15
