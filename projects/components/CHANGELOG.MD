@@ -6,7 +6,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
-Fix: VM actions menu is being cutoff at the top and not displaying Power On/Off action
+
+## [13.0.1-dev.12]
+### Fixed
+VM actions menu was being cutoff at the top and not displaying some actions
 
 ## [13.0.1-dev.11]
 ### Fixed
