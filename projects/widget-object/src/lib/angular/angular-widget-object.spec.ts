@@ -6,7 +6,7 @@
 import { Component, Input, Type } from '@angular/core';
 import { ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
-import { BaseWidgetObject } from '../widget-object';
+import { BaseWidgetObject, WidgetObjectElement } from '../widget-object';
 import { AngularWidgetObjectFinder } from './angular-widget-finder';
 import { AngularWidgetObjectElement, TestElement } from './angular-widget-object-element';
 
@@ -112,6 +112,10 @@ class ClickTrackerWidgetObject<T> extends BaseWidgetObject<T> {
         this.getNameInput().clear();
         this.getNameInput().type(value);
     }
+
+    getButton33(): WidgetObjectElement<T> {
+        return this.el.get({ exactText: 'BUTTON33' });
+    }
 }
 
 /**
@@ -196,6 +200,9 @@ describe('AngularWidgetObjectElement', () => {
         });
         it('can find an element by index', () => {
             expect(test.clickTracker!.getButtonByLabel({ index: 0 }).unwrap().text()).toEqual('BUTTON');
+        });
+        it('can find an element by text without using selectors', () => {
+            expect(test.clickTracker!.getButton33().unwrap().text()).toEqual('BUTTON33');
         });
     });
 

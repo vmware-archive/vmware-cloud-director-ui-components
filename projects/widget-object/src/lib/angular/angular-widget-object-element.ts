@@ -24,7 +24,10 @@ export class AngularWidgetObjectElement implements WidgetObjectElement<TestEleme
     get(selector: string | FindElementOptions): AngularWidgetObjectElement {
         const cssSelector = SelectorUtil.extractSelector(selector);
         const elements = this.testElement.elements;
-        let matches = elements.map((element) => element.queryAll(By.css(cssSelector))).flat();
+        // If no selector is given, get all descendants
+        let matches = elements
+            .map((element) => element.queryAll(cssSelector ? By.css(cssSelector) : () => true))
+            .flat();
         if (typeof selector !== 'string') {
             if (typeof selector.index === 'number') {
                 matches = [matches[selector.index]];
