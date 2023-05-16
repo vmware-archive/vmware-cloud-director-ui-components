@@ -6,19 +6,20 @@ import { FindElementOptions } from './widget-object';
 
 export class SelectorUtil {
     /**
-     * Extracts the selector from the parameter passed
+     * Extracts the selector from the parameter passed. It is possible that selector is a `FindElementOptions` but
+     * does not contain dataUiSelector or cssSelector. That would
+     *
+     * @return a CSS selector string to be used or undefined if no CSS selector can be found
      */
-    static extractSelector(selector: string | FindElementOptions): string {
+    static extractSelector(selector: string | FindElementOptions): string | undefined {
         if (typeof selector === 'string') {
             return selector;
-        }
-        if (selector.dataUiSelector) {
-            return `[data-ui="${selector.dataUiSelector}"]`;
-        }
+        } else {
+            if (selector.dataUiSelector) {
+                return `[data-ui="${selector.dataUiSelector}"]`;
+            }
 
-        if (!selector.cssSelector) {
-            throw new Error('Expected selector to contain either a `dataUiSelector` or `cssSelector` property');
+            return selector.cssSelector;
         }
-        return selector.cssSelector;
     }
 }
