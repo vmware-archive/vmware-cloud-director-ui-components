@@ -50,9 +50,16 @@ clr-dg-action-bar.top-action-bar {
     flex: 0 1 auto;
 }
 
-.action-button-cell {
-    padding-top: $PADDING;
-    padding-bottom: $PADDING;
+.dropdown-actions {
+    min-width: unset;
+    width: 38px !important;
+
+    ::ng-deep .nested-dropdown {
+        padding: 0 0.6rem 0 0;
+        .dropdown-toggle {
+            padding: 0;
+        }
+    }
 }
 
 .action-button-group {
