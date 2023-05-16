@@ -18,8 +18,13 @@
         <ng-container *ngTemplateOutlet="actionBar"> </ng-container>
     </clr-dg-action-bar>
 
-    <clr-dg-column *ngIf="shouldDisplayContextualActionsInRow" [ngClass]="'buttons-' + maxFeaturedActionsOnRow">
-        {{ 'vcd.cc.datagrid.actions' | translate }}
+    <clr-dg-column
+        *ngIf="shouldDisplayContextualActionsInRow"
+        [ngClass]="shouldDisplayContextualActionsInDropdpown ?  'dropdown-actions' : 'buttons-' + maxFeaturedActionsOnRow"
+        >
+        <ng-container *ngIf="!shouldDisplayContextualActionsInDropdpown"> 
+            {{ 'vcd.cc.datagrid.actions' | translate }} 
+        </ng-container>
     </clr-dg-column>
     <clr-dg-column
         *ngFor="let column of columnsConfig; trackBy: columnTrackBy"
@@ -52,7 +57,7 @@
         <clr-dg-cell
             *ngIf="shouldDisplayContextualActionsInRow"
             class="action-button-cell"
-            [ngClass]="'buttons-' + maxFeaturedActionsOnRow"
+            [ngClass]="shouldDisplayContextualActionsInDropdpown ?  'dropdown-actions' : 'buttons-' + maxFeaturedActionsOnRow"
         >
             <vcd-action-menu
                 #actionMenuInRow
@@ -124,3 +129,4 @@
     >
     </vcd-action-menu>
 </ng-template>
+

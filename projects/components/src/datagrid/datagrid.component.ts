@@ -25,7 +25,7 @@ import { Observable } from 'rxjs';
 import { FormGroup } from '@angular/forms';
 import { ActionMenuComponent } from '../action-menu/action-menu.component';
 import { ActivityReporter } from '../common/activity-reporter';
-import { ActionHandlerType, ActionItem, ActionType } from '../common/interfaces/action-item.interface';
+import { ActionHandlerType, ActionItem, ActionStyling, ActionType } from '../common/interfaces/action-item.interface';
 import { SubscriptionTracker } from '../common/subscription/subscription-tracker';
 import { TooltipSize } from '../lib/directives/show-clipped-text.directive';
 import { DatagridFilter } from './filters/datagrid-filter';
@@ -475,6 +475,13 @@ export class DatagridComponent<R extends B, B = any> implements OnInit, AfterVie
      */
     get shouldDisplayContextualActionsInRow(): boolean {
         return this.actionDisplayConfig?.contextual?.position === DatagridContextualActionPosition.ROW;
+    }
+
+    /**
+     * If the contextual buttons should display in a row.
+     */
+    get shouldDisplayContextualActionsInDropdpown(): boolean {
+        return this.actionDisplayConfig?.contextual?.styling === ActionStyling.DROPDOWN;
     }
 
     /**
