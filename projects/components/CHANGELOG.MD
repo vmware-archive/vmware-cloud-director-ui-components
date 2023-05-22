@@ -6,6 +6,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
+-  Remove flattening of actions, fixes bug "Context of a VM keeps refreshing when powering ON a VM"
 
 ## [13.0.1-dev.12]
 ### Fixed

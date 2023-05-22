@@ -133,7 +133,7 @@ export class DropdownComponent implements AfterViewInit {
      * Nested list of dropdown objects
      */
     @Input() set items(items: ActionItem<unknown, unknown>[]) {
-        this._items = this.flattenNestedItemsWithSingleChild(items);
+        this._items = items;
     }
     get items(): ActionItem<unknown, unknown>[] {
         return this._items;
@@ -267,33 +267,6 @@ export class DropdownComponent implements AfterViewInit {
      * NOTE: Without this, nested drop downs don't get rendered on the screen
      */
     @Input() trackByFunction: TrackByFunction<ActionItem<unknown, unknown>> = (index, item) => item.textKey;
-
-    private flattenNestedItemsWithSingleChild(items: ActionItem<unknown, unknown>[]): ActionItem<unknown, unknown>[] {
-        items.forEach((item) => {
-            // Flatten out the dropdowns with single children at each level of dropdown
-            this.flattenItemsWithSingleChild(items);
-            if (item.children) {
-                // Repeat the same for other nested levels
-                this.flattenNestedItemsWithSingleChild(item.children);
-            }
-        });
-        return items;
-    }
-
-    private flattenItemsWithSingleChild(items: ActionItem<unknown, unknown>[]): void {
-        const singleChildItemIndices: number[] = [];
-        items.forEach((item, index) => {
-            // Collect the indices of single child items
-            if (item.children && item.children.length === 1) {
-                singleChildItemIndices.push(index);
-            }
-        });
-        singleChildItemIndices.forEach((singleChildItemIndex) => {
-            // Delete them from the original list and add their children to the beginning of the current list
-            const singleChildItem = items.splice(singleChildItemIndex, 1).pop();
-            items.unshift(singleChildItem.children[0]);
-        });
-    }
 
     /**
      * Nested menus are toggled using the mouseover and mouseout events instead of mouse clicks. So the claritys
@@ -539,9 +512,9 @@ export class DropdownFocusHandlerDirective implements AfterViewInit, OnDestroy {
 
     private getDropdownItemElement(item: Element): HTMLElement {
         // We only need the underlying button that opens the nested dropdown as that is the activatable/focusable item
-        return (item.matches(ActivatableMenuItemType.BUTTON)
-            ? item
-            : item.querySelector(NESTED_DROPDOWN_TRIGGER)) as HTMLElement;
+        return (
+            item.matches(ActivatableMenuItemType.BUTTON) ? item : item.querySelector(NESTED_DROPDOWN_TRIGGER)
+        ) as HTMLElement;
     }
 
     private linkMenuItems(): void {
