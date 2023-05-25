@@ -79,8 +79,8 @@
       "executor": "nx:run-commands",
       "options": {
         "commands": [
-          "mkdirp projects/examples/gen",
-          "node dist/ng-live-docs/index.js projects/components/tsconfig.lib.json projects/components/src/public-api.ts projects/examples/gen/components-doc.json",
+          "mkdirp projects/examples/src/gen",
+          "node dist/ng-live-docs/index.js projects/components/tsconfig.lib.json projects/components/src/public-api.ts projects/examples/src/gen/components-doc.json",
           "compodoc -p ./projects/components/tsconfig.lib.json -d projects/examples/src/compodoc"
         ],
         "cwd": ".",
@@ -94,8 +94,8 @@
       "executor": "nx:run-commands",
       "options": {
         "commands": [
-          "mkdirp projects/examples/gen",
-          "node dist/ng-live-docs/index.js projects/examples/tsconfig.app.json projects/examples/src/main.ts projects/examples/gen/examples-doc.json"
+          "mkdirp projects/examples/src/gen",
+          "node dist/ng-live-docs/index.js projects/examples/tsconfig.app.json projects/examples/src/main.ts projects/examples/src/gen/examples-doc.json"
         ],
         "parallel": false,
         "cwd": "."
