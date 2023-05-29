@@ -7,6 +7,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [13.0.1-dev.13]
+-  Remove flattening of actions, fixes bug "Context of a VM keeps refreshing when powering ON a VM"
+
 ## [13.0.1-dev.12]
 ### Fixed
 VM actions menu was being cutoff at the top and not displaying some actions

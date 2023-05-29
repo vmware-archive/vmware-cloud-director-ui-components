@@ -113,7 +113,10 @@
                     "browserTarget": "examples:build:production"
                 }
             },
-          "dependsOn": ["^build"]
+          "dependsOn": [
+            "build",
+            "^build"
+          ]
         },
 
         "test": {
