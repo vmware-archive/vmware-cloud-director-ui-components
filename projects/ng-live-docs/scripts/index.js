@@ -11,7 +11,7 @@ const UTF8 = 'utf8';
 const compodocTempFile = './documentation/documentation.json';
 
 // Run compodoc in with the passed in config
-const compodoc = spawn.sync('compodoc', ['-p', `${tsConfigFile}`, '-e', 'json']);
+const compodoc = spawn.sync('npx', ['compodoc', '-p', `${tsConfigFile}`, '-e', 'json']);
 outputFromExec(compodoc, 'compodoc');
 const compodocData = JSON.parse(fs.readFileSync(compodocTempFile, UTF8));
 

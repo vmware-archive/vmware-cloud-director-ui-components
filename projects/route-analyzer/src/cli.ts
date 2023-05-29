@@ -40,7 +40,7 @@ const argv = yargs
     .alias('help', 'h')
     .parseSync();
 
-const UTF8 = 'utf8';
+const UTF8 = 'utf8' as const;
 
 const appRoutes = routeAnalyzer.getRoutesByEntryPoint([argv.entryFile], {
     target: ts.ScriptTarget.ES5,

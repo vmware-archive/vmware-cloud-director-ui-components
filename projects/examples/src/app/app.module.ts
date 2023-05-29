@@ -16,8 +16,8 @@ import { FormlyModule } from '@ngx-formly/core';
 import { I18nModule, TranslationService } from '@vcd/i18n';
 import { ActivityPromiseResolver, VcdComponentsModule } from '@vcd/ui-components';
 import { CompodocSchema, NgLiveDocsModule, StackBlitzInfo } from '@vmw/ng-live-docs';
-import componentsDocumentationJson from '../../gen/components-doc.json';
-import examplesDocumentationJson from '../../gen/examples-doc.json';
+import componentsDocumentationJson from '../gen/components-doc.json';
+import examplesDocumentationJson from '../gen/examples-doc.json';
 import { ActivityReporterExamplesModule } from '../components/activity-reporter/activity-reporter.examples.module';
 import { DataExporterExamplesModule } from '../components/data-exporter/data-exporter.examples.module';
 import { DatagridExamplesModule } from '../components/datagrid/datagrid.examples.module';
@@ -47,8 +47,8 @@ export function moduleFinder(componentName: string): string {
  * the doc jsons are given as null to the NgLiveDocsModule.
  * NOTE: The following two has to be exported otherwise the AoT compiler won't see it.
  */
-export const docJson1: CompodocSchema = (componentsDocumentationJson as unknown) as CompodocSchema;
-export const docJson2: CompodocSchema = (examplesDocumentationJson as unknown) as CompodocSchema;
+export const docJson1: CompodocSchema = componentsDocumentationJson as unknown as CompodocSchema;
+export const docJson2: CompodocSchema = examplesDocumentationJson as unknown as CompodocSchema;
 export const sbInfo: StackBlitzInfo = {
     templateId: 'vcd-ui-cc-starter-template',
     projectName: 'VMware Cloud Director UI Components',
