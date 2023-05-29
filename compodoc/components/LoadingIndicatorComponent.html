@@ -8,11 +8,12 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
         <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
-	      <link rel="stylesheet" href="../styles/style.css">
+	   <link rel="stylesheet" href="../styles/style.css">
+        <link rel="stylesheet" href="../styles/dark.css">
     </head>
     <body>
 
-        <div class="navbar navbar-default navbar-fixed-top visible-xs">
+        <div class="navbar navbar-default navbar-fixed-top d-block d-sm-none">
             <a href="../" class="navbar-brand">vmware-cloud-director-ui-components documentation</a>
             <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
         </div>
@@ -34,35 +35,43 @@
 
 
 <ol class="breadcrumb">
-  <li>Components</li>
-  <li>LoadingIndicatorComponent</li>
+  <li class="breadcrumb-item">Components</li>
+  <li class="breadcrumb-item"
+  >
+  LoadingIndicatorComponent</li>
 </ol>
 
 <ul class="nav nav-tabs" role="tablist">
-        <li class="active">
-            <a href="#info" role="tab" id="info-tab" data-toggle="tab" data-link="info">Info</a>
+        <li class="nav-item">
+            <a href="#info" class="nav-link active"
+                role="tab" id="info-tab" data-bs-toggle="tab" data-link="info">Info</a>
         </li>
-        <li >
-            <a href="#source" role="tab" id="source-tab" data-toggle="tab" data-link="source">Source</a>
+        <li class="nav-item">
+            <a href="#source" class="nav-link"
+                role="tab" id="source-tab" data-bs-toggle="tab" data-link="source">Source</a>
         </li>
-        <li >
-            <a href="#templateData" role="tab" id="templateData-tab" data-toggle="tab" data-link="template">Template</a>
+        <li class="nav-item">
+            <a href="#templateData" class="nav-link"
+                role="tab" id="templateData-tab" data-bs-toggle="tab" data-link="template">Template</a>
         </li>
-        <li >
-            <a href="#styleData" role="tab" id="styleData-tab" data-toggle="tab" data-link="style">Styles</a>
+        <li class="nav-item">
+            <a href="#styleData" class="nav-link"
+                role="tab" id="styleData-tab" data-bs-toggle="tab" data-link="style">Styles</a>
         </li>
-        <li >
-            <a href="#tree" role="tab" id="tree-tab" data-toggle="tab" data-link="dom-tree">DOM Tree</a>
+        <li class="nav-item">
+            <a href="#tree" class="nav-link"
+                role="tab" id="tree-tab" data-bs-toggle="tab" data-link="dom-tree">DOM Tree</a>
         </li>
 </ul>
 
 <div class="tab-content">
-    <div class="tab-pane fade active in" id="c-info"><p class="comment">
+    <div class="tab-pane fade active in" id="info"><p class="comment">
     <h3>File</h3>
 </p>
 <p class="comment">
     <code>projects/components/src/common/loading/loading-indicator.component.ts</code>
 </p>
+
 
     <p class="comment">
         <h3>Description</h3>
@@ -75,10 +84,11 @@
 
 
 
-<section>
+<section data-compodoc="block-metadata">
     <h3>Metadata</h3>
-    <table class="table table-sm table-hover">
+    <table class="table table-sm table-hover metadata">
         <tbody>
+
 
 
 
@@ -94,6 +104,8 @@
                 <td class="col-md-3">selector</td>
                 <td class="col-md-9"><code>vcd-loading-indicator</code></td>
             </tr>
+
+
 
             <tr>
                 <td class="col-md-3">styleUrls</td>
@@ -118,7 +130,7 @@
     </table>
 </section>
 
-    <section>
+    <section data-compodoc="block-index">
     <h3 id="index">Index</h3>
     <table class="table table-sm table-bordered index-table">
         <tbody>
@@ -132,12 +144,12 @@
                         <ul class="index-list">
                             <li>
                                     <span class="modifier">Private</span>
-                                <a href="#_size">_size</a>
+                                <a href="#_size" >_size</a>
                             </li>
                             <li>
                                     <span class="modifier">Private</span>
                                     <span class="modifier">Readonly</span>
-                                <a href="#defaultSpinnerSize">defaultSpinnerSize</a>
+                                <a href="#defaultSpinnerSize" >defaultSpinnerSize</a>
                             </li>
                         </ul>
                     </td>
@@ -153,16 +165,16 @@
                     <td class="col-md-4">
                         <ul class="index-list">
                             <li>
-                                <a href="#isLoading">isLoading</a>
+                                <a href="#isLoading" >isLoading</a>
                             </li>
                             <li>
-                                <a href="#loadingTextKey">loadingTextKey</a>
+                                <a href="#loadingTextKey" >loadingTextKey</a>
                             </li>
                             <li>
-                                <a href="#showSpinner">showSpinner</a>
+                                <a href="#showSpinner" >showSpinner</a>
                             </li>
                             <li>
-                                <a href="#size">size</a>
+                                <a href="#size" >size</a>
                             </li>
                         </ul>
                     </td>
@@ -180,7 +192,7 @@
                         <td class="col-md-4">
                             <ul class="index-list">
                                 <li>
-                                    <a href="#size">size</a>
+                                    <a href="#size" >size</a>
                                 </li>
                             </ul>
                         </td>
@@ -190,7 +202,7 @@
 </section>
 
 
-    <section>
+    <section data-compodoc="block-inputs">
     <h3 id="inputs">Inputs</h3>
         <table class="table table-sm table-bordered">
             <tbody>
@@ -316,44 +328,43 @@ Sets default size if provided value is not from specified sized.</p>
 
 
 
-    <section>
+    <section data-compodoc="block-properties">
     
-        <h3 id="inputs">
-            Properties
-        </h3>
-        <table class="table table-sm table-bordered">
-            <tbody>
+    <h3 id="inputs">
+        Properties
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="_size"></a>
+                    <span class="name">
+                            <span class="modifier">Private</span>
+                        <span ><b>_size</b></span>
+                        <a href="#_size"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
                 <tr>
                     <td class="col-md-4">
-                        <a name="_size"></a>
-                        <span class="name">
-                            <b>
-                                <span class="modifier">Private</span>
-                            _size</b>
-                            <a href="#_size"><span class="icon ion-ios-link"></span></a>
-                        </span>
+                        <i>Type : </i>        <code><a href="../miscellaneous/typealiases.html#SpinnerSize" target="_self" >SpinnerSize</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>this.defaultSpinnerSize</code>
                     </td>
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                            <i>Type : </i>        <code><a href="../miscellaneous/typealiases.html#SpinnerSize" target="_self" >SpinnerSize</a></code>
-
+                                <div class="io-line">Defined in <a href="" data-line="38" class="link-to-prism">projects/components/src/common/loading/loading-indicator.component.ts:38</a></div>
                         </td>
                     </tr>
-                    <tr>
-                        <td class="col-md-4">
-                            <i>Default value : </i><code>this.defaultSpinnerSize</code>
-                        </td>
-                    </tr>
-                        <tr>
-                            <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="38" class="link-to-prism">projects/components/src/common/loading/loading-indicator.component.ts:38</a></div>
-                            </td>
-                        </tr>
 
-                <tr>
-                    <td class="col-md-4">
-                        <div class="io-description"><p>Spinner size.</p>
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Spinner size.</p>
 <p>Spinners can be displayed in three sizes:</p>
 <ul>
 <li>sm(Small): This is the required sizing for inline spinners (see above). It measures 18x18 pixels.</li>
@@ -361,54 +372,53 @@ Sets default size if provided value is not from specified sized.</p>
 <li>lg(Large): This is the default size for page spinners (see above).</li>
 </ul>
 </div>
-                    </td>
-                </tr>
+                </td>
+            </tr>
 
-            </tbody>
-        </table>
-        <table class="table table-sm table-bordered">
-            <tbody>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="defaultSpinnerSize"></a>
+                    <span class="name">
+                            <span class="modifier">Private</span>
+                            <span class="modifier">Readonly</span>
+                        <span ><b>defaultSpinnerSize</b></span>
+                        <a href="#defaultSpinnerSize"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
                 <tr>
                     <td class="col-md-4">
-                        <a name="defaultSpinnerSize"></a>
-                        <span class="name">
-                            <b>
-                                <span class="modifier">Private</span>
-                                <span class="modifier">Readonly</span>
-                            defaultSpinnerSize</b>
-                            <a href="#defaultSpinnerSize"><span class="icon ion-ios-link"></span></a>
-                        </span>
+                        <i>Type : </i>        <code><a href="../miscellaneous/typealiases.html#SpinnerSize" target="_self" >SpinnerSize</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>SIZES.md</code>
                     </td>
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                            <i>Type : </i>        <code><a href="../miscellaneous/typealiases.html#SpinnerSize" target="_self" >SpinnerSize</a></code>
-
+                                <div class="io-line">Defined in <a href="" data-line="27" class="link-to-prism">projects/components/src/common/loading/loading-indicator.component.ts:27</a></div>
                         </td>
                     </tr>
-                    <tr>
-                        <td class="col-md-4">
-                            <i>Default value : </i><code>SIZES.md</code>
-                        </td>
-                    </tr>
-                        <tr>
-                            <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="27" class="link-to-prism">projects/components/src/common/loading/loading-indicator.component.ts:27</a></div>
-                            </td>
-                        </tr>
 
-                <tr>
-                    <td class="col-md-4">
-                        <div class="io-description"><p>Default spinner size set to &quot;md&quot; - medium used within the modal dialogs</p>
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Default spinner size set to &quot;md&quot; - medium used within the modal dialogs</p>
 </div>
-                    </td>
-                </tr>
+                </td>
+            </tr>
 
-            </tbody>
-        </table>
+        </tbody>
+    </table>
 </section>
 
-    <section>
+    <section data-compodoc="block-accessors">
     <h3 id="accessors">
         Accessors
     </h3>
@@ -445,7 +455,7 @@ Sets default size if provided value is not from specified sized.</p>
 
                 <tr>
                     <td class="col-md-4">
-                        <span class="accessor"><b>set</b><code>size(size)</code></span>
+                        <span class="accessor"><b>set</b><code>size(size: <a href="../undefineds/SpinnerSize.html" target="_self">SpinnerSize</a>)</code></span>
                     </td>
                 </tr>
                             <tr>
@@ -465,6 +475,7 @@ Sets default size if provided value is not from specified sized.</p>
                                             <thead>
                                                 <tr>
                                                     <td>Name</td>
+                                                        <td>Type</td>
                                                     <td>Optional</td>
                                                 </tr>
                                             </thead>
@@ -472,6 +483,9 @@ Sets default size if provided value is not from specified sized.</p>
                                                     <tr>
                                                             <td>size</td>
                                                     
+                                                            <td>
+                                                                            <code><a href="../miscellaneous/typealiases.html#SpinnerSize" target="_self" >SpinnerSize</a></code>
+                                                            </td>
                                                     
                                                         <td>
                                                                 No
@@ -495,7 +509,7 @@ Sets default size if provided value is not from specified sized.</p>
 </div>
 
 
-    <div class="tab-pane fade  tab-source-code" id="c-source">
+    <div class="tab-pane fade  tab-source-code" id="source">
         <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Component, Input } from &#x27;@angular/core&#x27;;
 
 export enum SIZES {
@@ -570,7 +584,7 @@ export class LoadingIndicatorComponent {
 </code></pre>
     </div>
 
-    <div class="tab-pane fade " id="c-templateData">
+    <div class="tab-pane fade " id="templateData">
         <pre class="line-numbers"><code class="language-html">&lt;ng-container *ngIf&#x3D;&quot;isLoading&quot;&gt;
     &lt;div class&#x3D;&quot;overlay&quot;&gt;&lt;/div&gt;
     &lt;div *ngIf&#x3D;&quot;showSpinner&quot; class&#x3D;&quot;indicator-container&quot;&gt;
@@ -584,7 +598,7 @@ export class LoadingIndicatorComponent {
 </code></pre>
     </div>
 
-    <div class="tab-pane fade " id="c-styleData">
+    <div class="tab-pane fade " id="styleData">
                 <p class="comment">
                     <code>loading-indicator.component.scss</code>
                 </p>
@@ -625,7 +639,7 @@ $overlay-background-color-modal: rgba(255, 255, 255, 0.5);
 </code></pre>
     </div>
 
-    <div class="tab-pane fade " id="c-tree">
+    <div class="tab-pane fade " id="tree">
         <div id="tree-container"></div>
         <div class="tree-legend">
             <div class="title">
@@ -652,7 +666,7 @@ $overlay-background-color-modal: rgba(255, 255, 255, 0.5);
 <script>
         var COMPONENT_TEMPLATE = '<div><ng-container *ngIf="isLoading">    <div class="overlay"></div>    <div *ngIf="showSpinner" class="indicator-container">        <div>            <span [ngClass]="[\'spinner\', loadingTextKey ? \'spinner-inline\' : \'spinner-\' + size]"> </span>            <span class="qa-loading-text" *ngIf="loadingTextKey">{{ loadingTextKey | translate }}</span>        </div>    </div></ng-container><ng-content></ng-content></div>'
     var COMPONENTS = [{'name': 'ActionMenuComponent', 'selector': 'vcd-action-menu'},{'name': 'BannerActivityReporterComponent', 'selector': 'vcd-banner-activity-reporter'},{'name': 'BoldTextRendererComponent', 'selector': 'vcd-bold-text-renderer'},{'name': 'DataExporterComponent', 'selector': 'vcd-data-exporter'},{'name': 'DatagridComponent', 'selector': 'vcd-datagrid'},{'name': 'DatagridMultiSelectFilterComponent', 'selector': 'vcd-dg-multiselect-filter'},{'name': 'DatagridNumericFilterComponent', 'selector': 'vcd-dg-numeric-filter'},{'name': 'DatagridSelectFilterComponent', 'selector': 'vcd-dg-select-filter'},{'name': 'DatagridStringFilterComponent', 'selector': 'vcd-dg-string-filter'},{'name': 'DrawerComponent', 'selector': 'vcd-drawer-component'},{'name': 'DropdownComponent', 'selector': 'vcd-dropdown'},{'name': 'ErrorBannerComponent', 'selector': 'vcd-error-banner'},{'name': 'FilterTestHostComponent', 'selector': ''},{'name': 'FormCheckboxComponent', 'selector': 'vcd-form-checkbox'},{'name': 'FormInputComponent', 'selector': 'vcd-form-input'},{'name': 'FormlyInputComponent', 'selector': 'vcd-formly-input'},{'name': 'FormlyNumberWithUnitInputComponent', 'selector': 'vcd-formly-number-with-unit-input'},{'name': 'FormlySelectComponent', 'selector': 'vcd-formly-select'},{'name': 'FormSelectComponent', 'selector': 'vcd-form-select'},{'name': 'LoadingIndicatorComponent', 'selector': 'vcd-loading-indicator'},{'name': 'NumberWithUnitFormInputComponent', 'selector': 'vcd-number-with-unit-form-input'},{'name': 'QuickSearchComponent', 'selector': 'vcd-quick-search'},{'name': 'RightsDropdownRendererComponent', 'selector': 'vcd-rights-dropdown-renderer'},{'name': 'SharingModalComponent', 'selector': 'vcd-sharing-modal'},{'name': 'SharingModalGroupRenderComponent', 'selector': 'vcd-sharing-modal-group-renderer'},{'name': 'SharingModalOrgRenderComponent', 'selector': 'vcd-sharing-modal-group-renderer'},{'name': 'SharingModalTabComponent', 'selector': 'vcd-sharing-modal-tab'},{'name': 'SharingModalUserRenderComponent', 'selector': 'vcd-sharing-modal-user-renderer'},{'name': 'ShowClippedTextDirectiveTestHostComponent', 'selector': ''},{'name': 'SpinnerActivityReporterComponent', 'selector': 'vcd-spinner-activity-reporter'},{'name': 'VcdSelectAllToggleComponent', 'selector': 'vcd-select-all-toggle'}];
-    var DIRECTIVES = [{'name': 'AlternativeTextDirective', 'selector': 'clr-icon'},{'name': 'AriaActiveDescendantDirective', 'selector': '[vcdAriaActiveDescendant]'},{'name': 'ComponentRendererOutletDirective', 'selector': '[vcdComponentRendererOutlet]'},{'name': 'DatagridFilter', 'selector': ''},{'name': 'DropdownFocusHandlerDirective', 'selector': 'vcd-dropdown[vcdDropdownFocusHandler]'},{'name': 'DynamicDropdownPositionDirective', 'selector': 'clr-dropdown[vcdDynamicDropdown]'},{'name': 'ResponsiveInputDirective', 'selector': '.clr-form-control[vcdResponsiveInput]'},{'name': 'ShowClippedTextDirective', 'selector': '[vcdShowClippedText]'},{'name': 'UsersGroupsOrgsSharingModalDirective', 'selector': 'vcd-sharing-modal[vcdUsersGroupsOrgsSharingModal]'}];
+    var DIRECTIVES = [{'name': 'AlternativeTextDirective', 'selector': 'clr-icon'},{'name': 'AriaActiveDescendantDirective', 'selector': '[vcdAriaActiveDescendant]'},{'name': 'BaseFormControl', 'selector': ''},{'name': 'ComponentRendererOutletDirective', 'selector': '[vcdComponentRendererOutlet]'},{'name': 'DatagridFilter', 'selector': ''},{'name': 'DropdownFocusHandlerDirective', 'selector': 'vcd-dropdown[vcdDropdownFocusHandler]'},{'name': 'DynamicDropdownPositionDirective', 'selector': 'clr-dropdown[vcdDynamicDropdown]'},{'name': 'ResponsiveInputDirective', 'selector': '.clr-form-control[vcdResponsiveInput]'},{'name': 'ShowClippedTextDirective', 'selector': '[vcdShowClippedText]'},{'name': 'UsersGroupsOrgsSharingModalDirective', 'selector': 'vcd-sharing-modal[vcdUsersGroupsOrgsSharingModal]'}];
     var ACTUAL_COMPONENT = {'name': 'LoadingIndicatorComponent'};
 </script>
 <script src="../js/tree.js"></script>
@@ -666,14 +680,16 @@ $overlay-background-color-modal: rgba(255, 255, 255, 0.5);
 
 
 
-                   
+
+
+
 
 
 
 
                    </div><div class="search-results">
     <div class="has-results">
-        <h1 class="search-results-title"><span class='search-results-count'></span> result-matching "<span class='search-query'></span>"</h1>
+        <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
         <ul class="search-results-list"></ul>
     </div>
     <div class="no-results">
@@ -685,6 +701,15 @@ $overlay-background-color-modal: rgba(255, 255, 255, 0.5);
            </div>
        </div>
 
+          <label class="dark-mode-switch">
+               <input type="checkbox">
+               <span class="slider">
+                    <svg class="slider-icon" viewBox="0 0 24 24" fill="none" height="20" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" width="20" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"></path>
+                    </svg>
+               </span>
+          </label>
+
        <script>
             var COMPODOC_CURRENT_PAGE_DEPTH = 1;
             var COMPODOC_CURRENT_PAGE_CONTEXT = 'component';
@@ -694,9 +719,9 @@ $overlay-background-color-modal: rgba(255, 255, 255, 0.5);
 
        <script src="../js/libs/custom-elements.min.js"></script>
        <script src="../js/libs/lit-html.js"></script>
-       <!-- Required to polyfill modern browsers as code is ES5 for IE... -->
-       <script src="../js/libs/custom-elements-es5-adapter.js" charset="utf-8" defer></script>
+
        <script src="../js/menu-wc.js" defer></script>
+       <script nomodule src="../js/menu-wc_es5.js" defer></script>
 
        <script src="../js/libs/bootstrap-native.js"></script>
 

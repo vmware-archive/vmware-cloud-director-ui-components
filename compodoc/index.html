@@ -8,11 +8,12 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
         <link rel="icon" type="image/x-icon" href="./images/favicon.ico">
-	      <link rel="stylesheet" href="./styles/style.css">
+	   <link rel="stylesheet" href="./styles/style.css">
+        <link rel="stylesheet" href="./styles/dark.css">
     </head>
     <body>
 
-        <div class="navbar navbar-default navbar-fixed-top visible-xs">
+        <div class="navbar navbar-default navbar-fixed-top d-block d-sm-none">
             <a href="./" class="navbar-brand">vmware-cloud-director-ui-components documentation</a>
             <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
         </div>
@@ -30,8 +31,8 @@
                <div class="content getting-started">
                    <div class="content-data">
 
-<h1 id="vmware-cloud-director-ui-common-components">VMware Cloud Director UI Common Components</h1>
-<h2 id="repo-structure">Repo Structure</h2>
+<h1>VMware Cloud Director UI Common Components</h1>
+<h2>Repo Structure</h2>
 <p>This <a href="https://angular.io/guide/file-structure#multiple-projects">monorepo</a> uses <a href="https://nx.dev/">NX</a>. You
 can install nx globally but we suggest you always use <code>npx nx</code> from inside the project. That ensures you&#39;re
 using our NX version.
@@ -42,46 +43,46 @@ To test, build, or run any of its projects, run <code>nx test|build|lint {projec
 <li><code>ng-live-docs</code></li>
 <li><code>route-analyzer</code></li>
 </ul>
-<h4 id="online-examples">Online Examples</h4>
+<h4>Online Examples</h4>
 <p>The examples application is deployed using <a href=".github/workflows/ci-cd.yml">GitHub Actions</a>. Visit
 <a href="https://vmware.github.io/vmware-cloud-director-ui-components/">our examples site</a> for live examples with source
 code that you can edit/run on stackblitz.</p>
 <p>To serve the examples applications, run <code>nx serve</code>, making sure you have run <code>npm ci</code> after fetching latest.</p>
-<h3 id="component-library-projectscomponents-vcdui-components">Component Library (./projects/components) <code>@vcd/ui-components</code></h3>
+<h3>Component Library (./projects/components) <code>@vcd/ui-components</code></h3>
 <p>Reusable components for vcd-ui and its plugin developers. See its <a href="projects/components/README.md">README</a>
 for further details.</p>
-<h3 id="internalization-library-projectsi18n-vcdi18n">Internalization Library (./projects/i18n) <code>@vcd/i18n</code></h3>
+<h3>Internalization Library (./projects/i18n) <code>@vcd/i18n</code></h3>
 <p>Translation code for vcd-ui and its plugin developers. See its <a href="projects/i18n/README.md">README</a>
 for further details.</p>
-<h3 id="ng-live-docs-projectsng-live-docs-vmwng-live-docs">NG Live docs (./projects/ng-live-docs) <code>@vmw/ng-live-docs</code>.</h3>
+<h3>NG Live docs (./projects/ng-live-docs) <code>@vmw/ng-live-docs</code>.</h3>
 <p>Enables Angular based UI component libraries to embed editable code snippets in their application. It was created
 since storybook didn&#39;t support Angular when this was created.</p>
 <p>See <a href="https://vmware.github.io/vmware-cloud-director-ui-components/dataExporter">https://vmware.github.io/vmware-cloud-director-ui-components/dataExporter</a> for an example and its
 <a href="projects/ng-live-docs/README.md">README</a> for further details.</p>
-<h3 id="route-analyzer-projectsroute-analyzer-vcdroute-analyzer">Route Analyzer (./projects/route-analyzer) <code>@vcd/route-analyzer</code>.</h3>
+<h3>Route Analyzer (./projects/route-analyzer) <code>@vcd/route-analyzer</code>.</h3>
 <p>Route Analyzer statically analyzes angular source code and generates a json file with all the available routes,
 including the ones from lazy loaded modules. See its <a href="projects/route-analyzer/README.md">README</a>
 for further details.</p>
-<h2 id="peer-dependencies">Peer Dependencies</h2>
+<h2>Peer Dependencies</h2>
 <p>The component library depends on <a href="https://clarity.design/">Clarity</a> and <a href="https://angular.io/">Angular</a>
 which must be installed from your application&#39;s <code>package.json</code>. See <a href="package.json">package.json</a> for version
 information.</p>
-<h2 id="code-scaffolding">Code scaffolding</h2>
+<h2>Code scaffolding</h2>
 <p>To generate a new component, service or directive, run <code>nx g component|service|direct --project=components</code>.</p>
-<h2 id="running-unit-tests">Running unit tests</h2>
+<h2>Running unit tests</h2>
 <p>Run <code>nx test {project}</code>. If you want to debug karma unit tests, you can pass <code>--watch=true --browsers=Chrome</code>. Notice
 that route analyzer uses jest. <a href="https://www.jetbrains.com/help/idea/running-unit-tests-on-jest.html">IntelliJ</a> and
 <a href="https://gist.github.com/jherax/231b2dda7f9cce20e13f4590594fdb70">VS Code</a> both have tools to debug node applications
 from its IDE.</p>
-<h2 id="running-end-to-end-tests-examples-app">Running end-to-end tests (Examples App)</h2>
+<h2>Running end-to-end tests (Examples App)</h2>
 <p>Run <code>npm run e2e</code> to execute the end-to-end tests with Cypress</p>
-<h2 id="cloning-the-repo">Cloning the repo</h2>
+<h2>Cloning the repo</h2>
 <p>We typically use <code>git clone https://github.com/vmware/vmware-cloud-director-ui-components ./vcd-ui-common</code> to avoid
 the extremely long folder name.</p>
-<h2 id="versioning">Versioning</h2>
+<h2>Versioning</h2>
 <p>For all official releases, versioning should be semantic as per <a href="https://docs.npmjs.com/about-semantic-versioning">NPM&#39;s documentation</a>.</p>
 <p>For all development, nightly builds, the version should be created using <code>npm version prerelease --preid=dev</code>.</p>
-<h2 id="publishing">Publishing</h2>
+<h2>Publishing</h2>
 <p>See <a href=".github/workflows/ci-cd.yml">ci-cd.yml</a></p>
 <p>We recommend that a separate PR be created when publishing a new version of the library. To publish a new version
 of <code>@vcd/ui-components</code> or <code>@vcd/route-analyzer</code> or <code>@vcd/i18n</code> or <code>@vmw/ng-live-docs</code>, you must add the following
@@ -108,7 +109,7 @@ anywhere in your commit message:</p>
 final release that is used by a release of VCD, should be <code>@next</code>.</p>
 <p>Be sure to always update the <a href="projects/components/CHANGELOG.MD">CHANGELOG</a> for the project you&#39;re updating.</p>
 <p>Merging the PR will publish the mentioned packages when it&#39;s pushed to master</p>
-<h2 id="further-help">Further help</h2>
+<h2>Further help</h2>
 <p>To get further help, please file issues on GitHub.</p>
 <p>To get more help on NX, use <code>nx --help</code> or go check out the
 <a href="https://nx.dev/recipes/adopting-nx/migration-angular">NX for Angular instructions</a>.</p>
@@ -126,14 +127,16 @@ final release that is used by a release of VCD, should be <code>@next</code>.</p
 
 
 
-                   
+
+
+
 
 
 
 
                    </div><div class="search-results">
     <div class="has-results">
-        <h1 class="search-results-title"><span class='search-results-count'></span> result-matching "<span class='search-query'></span>"</h1>
+        <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
         <ul class="search-results-list"></ul>
     </div>
     <div class="no-results">
@@ -145,6 +148,15 @@ final release that is used by a release of VCD, should be <code>@next</code>.</p
            </div>
        </div>
 
+          <label class="dark-mode-switch">
+               <input type="checkbox">
+               <span class="slider">
+                    <svg class="slider-icon" viewBox="0 0 24 24" fill="none" height="20" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" width="20" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"></path>
+                    </svg>
+               </span>
+          </label>
+
        <script>
             var COMPODOC_CURRENT_PAGE_DEPTH = 0;
             var COMPODOC_CURRENT_PAGE_CONTEXT = 'getting-started';
@@ -154,9 +166,9 @@ final release that is used by a release of VCD, should be <code>@next</code>.</p
 
        <script src="./js/libs/custom-elements.min.js"></script>
        <script src="./js/libs/lit-html.js"></script>
-       <!-- Required to polyfill modern browsers as code is ES5 for IE... -->
-       <script src="./js/libs/custom-elements-es5-adapter.js" charset="utf-8" defer></script>
+
        <script src="./js/menu-wc.js" defer></script>
+       <script nomodule src="./js/menu-wc_es5.js" defer></script>
 
        <script src="./js/libs/bootstrap-native.js"></script>
 

@@ -8,11 +8,12 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
         <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
-	      <link rel="stylesheet" href="../styles/style.css">
+	   <link rel="stylesheet" href="../styles/style.css">
+        <link rel="stylesheet" href="../styles/dark.css">
     </head>
     <body>
 
-        <div class="navbar navbar-default navbar-fixed-top visible-xs">
+        <div class="navbar navbar-default navbar-fixed-top d-block d-sm-none">
             <a href="../" class="navbar-brand">vmware-cloud-director-ui-components documentation</a>
             <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
         </div>
@@ -34,35 +35,43 @@
 
 
 <ol class="breadcrumb">
-  <li>Components</li>
-  <li>QuickSearchComponent</li>
+  <li class="breadcrumb-item">Components</li>
+  <li class="breadcrumb-item"
+  >
+  QuickSearchComponent</li>
 </ol>
 
 <ul class="nav nav-tabs" role="tablist">
-        <li class="active">
-            <a href="#info" role="tab" id="info-tab" data-toggle="tab" data-link="info">Info</a>
+        <li class="nav-item">
+            <a href="#info" class="nav-link active"
+                role="tab" id="info-tab" data-bs-toggle="tab" data-link="info">Info</a>
         </li>
-        <li >
-            <a href="#source" role="tab" id="source-tab" data-toggle="tab" data-link="source">Source</a>
+        <li class="nav-item">
+            <a href="#source" class="nav-link"
+                role="tab" id="source-tab" data-bs-toggle="tab" data-link="source">Source</a>
         </li>
-        <li >
-            <a href="#templateData" role="tab" id="templateData-tab" data-toggle="tab" data-link="template">Template</a>
+        <li class="nav-item">
+            <a href="#templateData" class="nav-link"
+                role="tab" id="templateData-tab" data-bs-toggle="tab" data-link="template">Template</a>
         </li>
-        <li >
-            <a href="#styleData" role="tab" id="styleData-tab" data-toggle="tab" data-link="style">Styles</a>
+        <li class="nav-item">
+            <a href="#styleData" class="nav-link"
+                role="tab" id="styleData-tab" data-bs-toggle="tab" data-link="style">Styles</a>
         </li>
-        <li >
-            <a href="#tree" role="tab" id="tree-tab" data-toggle="tab" data-link="dom-tree">DOM Tree</a>
+        <li class="nav-item">
+            <a href="#tree" class="nav-link"
+                role="tab" id="tree-tab" data-bs-toggle="tab" data-link="dom-tree">DOM Tree</a>
         </li>
 </ul>
 
 <div class="tab-content">
-    <div class="tab-pane fade active in" id="c-info"><p class="comment">
+    <div class="tab-pane fade active in" id="info"><p class="comment">
     <h3>File</h3>
 </p>
 <p class="comment">
     <code>projects/components/src/quick-search/quick-search.component.ts</code>
 </p>
+
 
     <p class="comment">
         <h3>Description</h3>
@@ -75,19 +84,22 @@ but rather a group of objects that work together in order to allow the developer
 for the end user.</p>
 <p>Basically the VCD Quick Search consists of:</p>
 <ul>
-     <li>QuickSearchComponent - the visual component that you should include in your template</li>
-     <li><a href="../injectables/QuickSearchService.html">QuickSearchService</a><a href="/compodoc/injectables/QuickSearchService.html">QuickSearchService</a>
-     - the service that you should register your own providers with</li>
-     <li><a href="../interfaces/QuickSearchProvider.html">QuickSearchProvider</a><a href="/compodoc/interfaces/QuickSearchProvider.html">QuickSearchProvider</a>
-     - the interface your search provider should implement.
-     It can return either an array of <a href="../interfaces/QuickSearchResults.html">QuickSearchResults</a> or a promise for lazy loading of results</li>
+    <li>QuickSearchComponent - the visual component that you should include in your template</li>
+    <li><a href="../injectables/QuickSearchService.html">QuickSearchService</a><a href="/compodoc/injectables/QuickSearchService.html">QuickSearchService</a>
+    - the service that you should register your own providers with</li>
+    <li><a href="../interfaces/QuickSearchProvider.html">QuickSearchProvider</a><a href="/compodoc/interfaces/QuickSearchProvider.html">QuickSearchProvider</a>
+    - the interface your search provider should implement.
+    It can return either an array of <a href="../interfaces/QuickSearchResults.html">QuickSearchResults</a> or a promise for lazy loading of results</li>
 </ul>
 
 <p>QuickSearchComponent:</p>
-<div><pre class="line-numbers"><code class="language-none">&lt;vcd-quick-search
-    [(open)]=&quot;quickSearchOpen&quot;
-    [placeholder]=&quot;&#39;Search ...&#39;&quot;
-&gt;&lt;/vcd-quick-search&gt;</code></pre></div><p><a href="../injectables/QuickSearchService.html">QuickSearchService</a>:</p>
+<p>   &lt;vcd-quick-search
+       [(open)]=&quot;quickSearchOpen&quot;
+       [placeholder]=&quot;&#39;Search ...&#39;&quot;</p>
+<blockquote>
+</vcd-quick-search>
+</blockquote>
+<p><a href="../injectables/QuickSearchService.html">QuickSearchService</a>:</p>
 <p>This service works along with the component in order to provide search results displayed. Those results are grouped
 in sections based on the registered provider <a href="../interfaces/QuickSearchProvider.html">QuickSearchProvider</a>.</p>
 <p>You can provide order of the search providers, hence the order of the displayed sections</p>
@@ -102,14 +114,15 @@ in sections based on the registered provider <a href="../interfaces/QuickSearchP
         <h3>Implements</h3>
     </p>
     <p class="comment">
-                    <code><a href="https://angular.io/api/core/OnInit" target="_blank" >OnInit</a></code>
+                <code>OnInit</code>
     </p>
 
 
-<section>
+<section data-compodoc="block-metadata">
     <h3>Metadata</h3>
-    <table class="table table-sm table-hover">
+    <table class="table table-sm table-hover metadata">
         <tbody>
+
 
 
 
@@ -136,6 +149,8 @@ in sections based on the registered provider <a href="../interfaces/QuickSearchP
                 <td class="col-md-9"><code>vcd-quick-search</code></td>
             </tr>
 
+
+
             <tr>
                 <td class="col-md-3">styleUrls</td>
                 <td class="col-md-9"><code>./quick-search.component.scss</code></td>
@@ -159,7 +174,7 @@ in sections based on the registered provider <a href="../interfaces/QuickSearchP
     </table>
 </section>
 
-    <section>
+    <section data-compodoc="block-index">
     <h3 id="index">Index</h3>
     <table class="table table-sm table-bordered index-table">
         <tbody>
@@ -172,48 +187,49 @@ in sections based on the registered provider <a href="../interfaces/QuickSearchP
                     <td class="col-md-4">
                         <ul class="index-list">
                             <li>
-                                <a href="#_filterValues">_filterValues</a>
+                                <a href="#_filterValues" >_filterValues</a>
                             </li>
                             <li>
-                                <a href="#_groupedSearchSections">_groupedSearchSections</a>
-                            </li>
-                            <li>
-                                    <span class="modifier">Private</span>
-                                <a href="#_open">_open</a>
+                                <a href="#_groupedSearchSections" >_groupedSearchSections</a>
                             </li>
                             <li>
                                     <span class="modifier">Private</span>
-                                <a href="#_searchCriteria">_searchCriteria</a>
+                                <a href="#_open" >_open</a>
                             </li>
                             <li>
-                                <a href="#_ungroupedSearchSections">_ungroupedSearchSections</a>
+                                    <span class="modifier">Private</span>
+                                <a href="#_searchCriteria" >_searchCriteria</a>
                             </li>
                             <li>
-                                <a href="#activeDescendantId">activeDescendantId</a>
+                                <a href="#_ungroupedSearchSections" >_ungroupedSearchSections</a>
                             </li>
                             <li>
-                                    <span class="modifier">Public</span>
-                                <a href="#ariaActivedescendantService">ariaActivedescendantService</a>
-                            </li>
-                            <li>
-                                <a href="#DataUi">DataUi</a>
-                            </li>
-                            <li>
-                                <a href="#resultsGridId">resultsGridId</a>
-                            </li>
-                            <li>
-                                <a href="#searchInput">searchInput</a>
+                                <a href="#activeDescendantId" >activeDescendantId</a>
                             </li>
                             <li>
                                     <span class="modifier">Public</span>
-                                <a href="#searchService">searchService</a>
+                                <a href="#ariaActivedescendantService" >ariaActivedescendantService</a>
                             </li>
                             <li>
-                                <a href="#selectedItem">selectedItem</a>
+                                <a href="#DataUi" >DataUi</a>
+                            </li>
+                            <li>
+                                <a href="#resultsGridId" >resultsGridId</a>
+                            </li>
+                            <li>
+                                    <span class="modifier"></span>
+                                <a href="#searchInput" >searchInput</a>
                             </li>
                             <li>
                                     <span class="modifier">Public</span>
-                                <a href="#translationService">translationService</a>
+                                <a href="#searchService" >searchService</a>
+                            </li>
+                            <li>
+                                <a href="#selectedItem" >selectedItem</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Public</span>
+                                <a href="#translationService" >translationService</a>
                             </li>
                         </ul>
                     </td>
@@ -229,67 +245,67 @@ in sections based on the registered provider <a href="../interfaces/QuickSearchP
                         <ul class="index-list">
                             <li>
                                     <span class="modifier">Private</span>
-                                <a href="#doSearch">doSearch</a>
+                                <a href="#doSearch" >doSearch</a>
                             </li>
                             <li>
-                                <a href="#filterOptionTrackBy">filterOptionTrackBy</a>
+                                <a href="#filterOptionTrackBy" >filterOptionTrackBy</a>
                             </li>
                             <li>
-                                <a href="#filterTrackBy">filterTrackBy</a>
-                            </li>
-                            <li>
-                                    <span class="modifier">Private</span>
-                                <a href="#genericSelectNext">genericSelectNext</a>
-                            </li>
-                            <li>
-                                <a href="#getFilterOptionValue">getFilterOptionValue</a>
+                                <a href="#filterTrackBy" >filterTrackBy</a>
                             </li>
                             <li>
                                     <span class="modifier">Private</span>
-                                <a href="#getFlattenedSearchSections">getFlattenedSearchSections</a>
+                                <a href="#genericSelectNext" >genericSelectNext</a>
                             </li>
                             <li>
-                                <a href="#groupSectionTrackBy">groupSectionTrackBy</a>
-                            </li>
-                            <li>
-                                    <span class="modifier">Private</span>
-                                <a href="#handleItem">handleItem</a>
+                                <a href="#getFilterOptionValue" >getFilterOptionValue</a>
                             </li>
                             <li>
                                     <span class="modifier">Private</span>
-                                <a href="#handleOpen">handleOpen</a>
+                                <a href="#getFlattenedSearchSections" >getFlattenedSearchSections</a>
                             </li>
                             <li>
-                                <a href="#itemClicked">itemClicked</a>
-                            </li>
-                            <li>
-                                <a href="#ngOnInit">ngOnInit</a>
-                            </li>
-                            <li>
-                                <a href="#onArrowDown">onArrowDown</a>
-                            </li>
-                            <li>
-                                <a href="#onArrowUp">onArrowUp</a>
-                            </li>
-                            <li>
-                                <a href="#onEnterKey">onEnterKey</a>
-                            </li>
-                            <li>
-                                <a href="#sectionTrackBy">sectionTrackBy</a>
+                                <a href="#groupSectionTrackBy" >groupSectionTrackBy</a>
                             </li>
                             <li>
                                     <span class="modifier">Private</span>
-                                <a href="#selectFirst">selectFirst</a>
+                                <a href="#handleItem" >handleItem</a>
                             </li>
                             <li>
                                     <span class="modifier">Private</span>
-                                <a href="#selectNext">selectNext</a>
+                                <a href="#handleOpen" >handleOpen</a>
                             </li>
                             <li>
-                                <a href="#showParentSectionTitle">showParentSectionTitle</a>
+                                <a href="#itemClicked" >itemClicked</a>
                             </li>
                             <li>
-                                <a href="#togglePinned">togglePinned</a>
+                                <a href="#ngOnInit" >ngOnInit</a>
+                            </li>
+                            <li>
+                                <a href="#onArrowDown" >onArrowDown</a>
+                            </li>
+                            <li>
+                                <a href="#onArrowUp" >onArrowUp</a>
+                            </li>
+                            <li>
+                                <a href="#onEnterKey" >onEnterKey</a>
+                            </li>
+                            <li>
+                                <a href="#sectionTrackBy" >sectionTrackBy</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#selectFirst" >selectFirst</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#selectNext" >selectNext</a>
+                            </li>
+                            <li>
+                                <a href="#showParentSectionTitle" >showParentSectionTitle</a>
+                            </li>
+                            <li>
+                                <a href="#togglePinned" >togglePinned</a>
                             </li>
                         </ul>
                     </td>
@@ -304,16 +320,16 @@ in sections based on the registered provider <a href="../interfaces/QuickSearchP
                     <td class="col-md-4">
                         <ul class="index-list">
                             <li>
-                                <a href="#accessibilityTitle">accessibilityTitle</a>
+                                <a href="#accessibilityTitle" >accessibilityTitle</a>
                             </li>
                             <li>
-                                <a href="#helper">helper</a>
+                                <a href="#helper" >helper</a>
                             </li>
                             <li>
-                                <a href="#open">open</a>
+                                <a href="#open" >open</a>
                             </li>
                             <li>
-                                <a href="#placeholder">placeholder</a>
+                                <a href="#placeholder" >placeholder</a>
                             </li>
                         </ul>
                     </td>
@@ -328,10 +344,10 @@ in sections based on the registered provider <a href="../interfaces/QuickSearchP
                     <td class="col-md-4">
                         <ul class="index-list">
                             <li>
-                                <a href="#openChange">openChange</a>
+                                <a href="#openChange" >openChange</a>
                             </li>
                             <li>
-                                <a href="#resultActivated">resultActivated</a>
+                                <a href="#resultActivated" >resultActivated</a>
                             </li>
                         </ul>
                     </td>
@@ -348,10 +364,10 @@ in sections based on the registered provider <a href="../interfaces/QuickSearchP
                         <td class="col-md-4">
                             <ul class="index-list">
                                 <li>
-                                    <a href="#open">open</a>
+                                    <a href="#open" >open</a>
                                 </li>
                                 <li>
-                                    <a href="#searchCriteria">searchCriteria</a>
+                                    <a href="#searchCriteria" >searchCriteria</a>
                                 </li>
                             </ul>
                         </td>
@@ -360,13 +376,13 @@ in sections based on the registered provider <a href="../interfaces/QuickSearchP
     </table>
 </section>
 
-    <section>
+    <section data-compodoc="block-constructor">
     <h3 id="constructor">Constructor</h3>
         <table class="table table-sm table-bordered">
             <tbody>
                 <tr>
                     <td class="col-md-4">
-<code>constructor(searchService: <a href="../injectables/QuickSearchService.html">QuickSearchService</a>, translationService: TranslationService, ariaActivedescendantService: <a href="../injectables/AriaActiveDescendantService.html">AriaActiveDescendantService</a>, changeDetectorRef: <a href="https://angular.io/api/core/ChangeDetectorRef" target="_blank">ChangeDetectorRef</a>, el: <a href="https://angular.io/api/core/ElementRef" target="_blank">ElementRef</a>, subscriptionTracker: <a href="../injectables/SubscriptionTracker.html">SubscriptionTracker</a>, idGenerator: <a href="../classes/IdGenerator.html">IdGenerator</a>)</code>
+<code>constructor(searchService: <a href="../injectables/QuickSearchService.html" target="_self">QuickSearchService</a>, translationService: TranslationService, ariaActivedescendantService: <a href="../injectables/AriaActiveDescendantService.html" target="_self">AriaActiveDescendantService</a>, changeDetectorRef: ChangeDetectorRef, el: ElementRef, subscriptionTracker: <a href="../injectables/SubscriptionTracker.html" target="_self">SubscriptionTracker</a>, idGenerator: <a href="../classes/IdGenerator.html" target="_self">IdGenerator</a>)</code>
                     </td>
                 </tr>
                         <tr>
@@ -428,7 +444,7 @@ in sections based on the registered provider <a href="../interfaces/QuickSearchP
                                                         <td>changeDetectorRef</td>
                                                   
                                                         <td>
-                                                                        <code><a href="https://angular.io/api/core/ChangeDetectorRef" target="_blank" >ChangeDetectorRef</a></code>
+                                                                    <code>ChangeDetectorRef</code>
                                                         </td>
                                                   
                                                     <td>
@@ -440,7 +456,7 @@ in sections based on the registered provider <a href="../interfaces/QuickSearchP
                                                         <td>el</td>
                                                   
                                                         <td>
-                                                                        <code><a href="https://angular.io/api/core/ElementRef" target="_blank" >ElementRef</a></code>
+                                                                    <code>ElementRef</code>
                                                         </td>
                                                   
                                                     <td>
@@ -481,7 +497,7 @@ in sections based on the registered provider <a href="../interfaces/QuickSearchP
         </table>
 </section>
 
-    <section>
+    <section data-compodoc="block-inputs">
     <h3 id="inputs">Inputs</h3>
         <table class="table table-sm table-bordered">
             <tbody>
@@ -593,7 +609,7 @@ of the quick search component</p>
             </tbody>
         </table>
 </section>
-    <section>
+    <section data-compodoc="block-outputs">
     <h3 id="outputs">Outputs</h3>
         <table class="table table-sm table-bordered">
             <tbody>
@@ -654,7 +670,7 @@ This happens when item is clicked or &#39;Enter&#39; is pressed when there is a 
 </section>
 
 
-    <section>
+    <section data-compodoc="block-methods">
     
     <h3 id="methods">
         Methods
@@ -665,10 +681,8 @@ This happens when item is clicked or &#39;Enter&#39; is pressed when there is a 
                 <td class="col-md-4">
                     <a name="doSearch"></a>
                     <span class="name">
-                        <b>
-                            <span class="modifier">Private</span>
-                            doSearch
-                        </b>
+                        <span class="modifier">Private</span>
+                        <span ><b>doSearch</b></span>
                         <a href="#doSearch"><span class="icon ion-ios-link"></span></a>
                     </span>
                 </td>
@@ -696,6 +710,7 @@ This happens when item is clicked or &#39;Enter&#39; is pressed when there is a 
 
                     <div class="io-description">
                         <b>Parameters :</b>
+                        
                         <table class="params">
                             <thead>
                                 <tr>
@@ -744,16 +759,14 @@ This happens when item is clicked or &#39;Enter&#39; is pressed when there is a 
                 <td class="col-md-4">
                     <a name="filterOptionTrackBy"></a>
                     <span class="name">
-                        <b>
-                            filterOptionTrackBy
-                        </b>
+                        <span ><b>filterOptionTrackBy</b></span>
                         <a href="#filterOptionTrackBy"><span class="icon ion-ios-link"></span></a>
                     </span>
                 </td>
             </tr>
             <tr>
                 <td class="col-md-4">
-<code>filterOptionTrackBy(_index: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank">number</a>, filterOption: <a href="../interfaces/QuickSearchFilterOption.html">QuickSearchFilterOption</a>)</code>
+<code>filterOptionTrackBy(_index: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank">number</a>, filterOption: <a href="../interfaces/QuickSearchFilterOption.html" target="_self">QuickSearchFilterOption</a>)</code>
                 </td>
             </tr>
 
@@ -771,6 +784,7 @@ This happens when item is clicked or &#39;Enter&#39; is pressed when there is a 
 
                     <div class="io-description">
                         <b>Parameters :</b>
+                        
                         <table class="params">
                             <thead>
                                 <tr>
@@ -826,16 +840,14 @@ This happens when item is clicked or &#39;Enter&#39; is pressed when there is a 
                 <td class="col-md-4">
                     <a name="filterTrackBy"></a>
                     <span class="name">
-                        <b>
-                            filterTrackBy
-                        </b>
+                        <span ><b>filterTrackBy</b></span>
                         <a href="#filterTrackBy"><span class="icon ion-ios-link"></span></a>
                     </span>
                 </td>
             </tr>
             <tr>
                 <td class="col-md-4">
-<code>filterTrackBy(_index: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank">number</a>, filterOption: <a href="../interfaces/QuickSearchFilter.html">QuickSearchFilter</a>)</code>
+<code>filterTrackBy(_index: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank">number</a>, filterOption: <a href="../interfaces/QuickSearchFilter.html" target="_self">QuickSearchFilter</a>)</code>
                 </td>
             </tr>
 
@@ -853,6 +865,7 @@ This happens when item is clicked or &#39;Enter&#39; is pressed when there is a 
 
                     <div class="io-description">
                         <b>Parameters :</b>
+                        
                         <table class="params">
                             <thead>
                                 <tr>
@@ -908,10 +921,8 @@ This happens when item is clicked or &#39;Enter&#39; is pressed when there is a 
                 <td class="col-md-4">
                     <a name="genericSelectNext"></a>
                     <span class="name">
-                        <b>
-                            <span class="modifier">Private</span>
-                            genericSelectNext
-                        </b>
+                        <span class="modifier">Private</span>
+                        <span ><b>genericSelectNext</b></span>
                         <a href="#genericSelectNext"><span class="icon ion-ios-link"></span></a>
                     </span>
                 </td>
@@ -946,6 +957,7 @@ This happens when item is clicked or &#39;Enter&#39; is pressed when there is a 
 
                     <div class="io-description">
                         <b>Parameters :</b>
+                        
                         <table class="params">
                             <thead>
                                 <tr>
@@ -1013,9 +1025,7 @@ This happens when item is clicked or &#39;Enter&#39; is pressed when there is a 
                 <td class="col-md-4">
                     <a name="getFilterOptionValue"></a>
                     <span class="name">
-                        <b>
-                            getFilterOptionValue
-                        </b>
+                        <span ><b>getFilterOptionValue</b></span>
                         <a href="#getFilterOptionValue"><span class="icon ion-ios-link"></span></a>
                     </span>
                 </td>
@@ -1040,6 +1050,7 @@ This happens when item is clicked or &#39;Enter&#39; is pressed when there is a 
 
                     <div class="io-description">
                         <b>Parameters :</b>
+                        
                         <table class="params">
                             <thead>
                                 <tr>
@@ -1095,10 +1106,8 @@ This happens when item is clicked or &#39;Enter&#39; is pressed when there is a 
                 <td class="col-md-4">
                     <a name="getFlattenedSearchSections"></a>
                     <span class="name">
-                        <b>
-                            <span class="modifier">Private</span>
-                            getFlattenedSearchSections
-                        </b>
+                        <span class="modifier">Private</span>
+                        <span ><b>getFlattenedSearchSections</b></span>
                         <a href="#getFlattenedSearchSections"><span class="icon ion-ios-link"></span></a>
                     </span>
                 </td>
@@ -1136,16 +1145,14 @@ This happens when item is clicked or &#39;Enter&#39; is pressed when there is a 
                 <td class="col-md-4">
                     <a name="groupSectionTrackBy"></a>
                     <span class="name">
-                        <b>
-                            groupSectionTrackBy
-                        </b>
+                        <span ><b>groupSectionTrackBy</b></span>
                         <a href="#groupSectionTrackBy"><span class="icon ion-ios-link"></span></a>
                     </span>
                 </td>
             </tr>
             <tr>
                 <td class="col-md-4">
-<code>groupSectionTrackBy(_index: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank">number</a>, groupedSection: <a href="../interfaces/GroupedSearchSections.html">GroupedSearchSections</a>)</code>
+<code>groupSectionTrackBy(_index: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank">number</a>, groupedSection: <a href="../interfaces/GroupedSearchSections.html" target="_self">GroupedSearchSections</a>)</code>
                 </td>
             </tr>
 
@@ -1163,6 +1170,7 @@ This happens when item is clicked or &#39;Enter&#39; is pressed when there is a 
 
                     <div class="io-description">
                         <b>Parameters :</b>
+                        
                         <table class="params">
                             <thead>
                                 <tr>
@@ -1218,10 +1226,8 @@ This happens when item is clicked or &#39;Enter&#39; is pressed when there is a 
                 <td class="col-md-4">
                     <a name="handleItem"></a>
                     <span class="name">
-                        <b>
-                            <span class="modifier">Private</span>
-                            handleItem
-                        </b>
+                        <span class="modifier">Private</span>
+                        <span ><b>handleItem</b></span>
                         <a href="#handleItem"><span class="icon ion-ios-link"></span></a>
                     </span>
                 </td>
@@ -1229,7 +1235,7 @@ This happens when item is clicked or &#39;Enter&#39; is pressed when there is a 
             <tr>
                 <td class="col-md-4">
                     <span class="modifier-icon icon ion-ios-reset"></span>
-                    <code>handleItem(item: <a href="../interfaces/QuickSearchResultItem.html">QuickSearchResultItem</a>, clicked: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank">boolean</a>)</code>
+                    <code>handleItem(item: <a href="../interfaces/QuickSearchResultItem.html" target="_self">QuickSearchResultItem</a>, clicked: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank">boolean</a>)</code>
                 </td>
             </tr>
 
@@ -1247,6 +1253,7 @@ This happens when item is clicked or &#39;Enter&#39; is pressed when there is a 
 
                     <div class="io-description">
                         <b>Parameters :</b>
+                        
                         <table class="params">
                             <thead>
                                 <tr>
@@ -1302,10 +1309,8 @@ This happens when item is clicked or &#39;Enter&#39; is pressed when there is a 
                 <td class="col-md-4">
                     <a name="handleOpen"></a>
                     <span class="name">
-                        <b>
-                            <span class="modifier">Private</span>
-                            handleOpen
-                        </b>
+                        <span class="modifier">Private</span>
+                        <span ><b>handleOpen</b></span>
                         <a href="#handleOpen"><span class="icon ion-ios-link"></span></a>
                     </span>
                 </td>
@@ -1333,6 +1338,7 @@ This happens when item is clicked or &#39;Enter&#39; is pressed when there is a 
 
                     <div class="io-description">
                         <b>Parameters :</b>
+                        
                         <table class="params">
                             <thead>
                                 <tr>
@@ -1381,16 +1387,14 @@ This happens when item is clicked or &#39;Enter&#39; is pressed when there is a 
                 <td class="col-md-4">
                     <a name="itemClicked"></a>
                     <span class="name">
-                        <b>
-                            itemClicked
-                        </b>
+                        <span ><b>itemClicked</b></span>
                         <a href="#itemClicked"><span class="icon ion-ios-link"></span></a>
                     </span>
                 </td>
             </tr>
             <tr>
                 <td class="col-md-4">
-<code>itemClicked(item: <a href="../interfaces/QuickSearchResultItem.html">QuickSearchResultItem</a>)</code>
+<code>itemClicked(item: <a href="../interfaces/QuickSearchResultItem.html" target="_self">QuickSearchResultItem</a>)</code>
                 </td>
             </tr>
 
@@ -1408,6 +1412,7 @@ This happens when item is clicked or &#39;Enter&#39; is pressed when there is a 
 
                     <div class="io-description">
                         <b>Parameters :</b>
+                        
                         <table class="params">
                             <thead>
                                 <tr>
@@ -1451,9 +1456,7 @@ This happens when item is clicked or &#39;Enter&#39; is pressed when there is a 
                 <td class="col-md-4">
                     <a name="ngOnInit"></a>
                     <span class="name">
-                        <b>
-                            ngOnInit
-                        </b>
+                        <span ><b>ngOnInit</b></span>
                         <a href="#ngOnInit"><span class="icon ion-ios-link"></span></a>
                     </span>
                 </td>
@@ -1490,9 +1493,7 @@ This happens when item is clicked or &#39;Enter&#39; is pressed when there is a 
                 <td class="col-md-4">
                     <a name="onArrowDown"></a>
                     <span class="name">
-                        <b>
-                            onArrowDown
-                        </b>
+                        <span ><b>onArrowDown</b></span>
                         <a href="#onArrowDown"><span class="icon ion-ios-link"></span></a>
                     </span>
                 </td>
@@ -1517,6 +1518,7 @@ This happens when item is clicked or &#39;Enter&#39; is pressed when there is a 
 
                     <div class="io-description">
                         <b>Parameters :</b>
+                        
                         <table class="params">
                             <thead>
                                 <tr>
@@ -1560,9 +1562,7 @@ This happens when item is clicked or &#39;Enter&#39; is pressed when there is a 
                 <td class="col-md-4">
                     <a name="onArrowUp"></a>
                     <span class="name">
-                        <b>
-                            onArrowUp
-                        </b>
+                        <span ><b>onArrowUp</b></span>
                         <a href="#onArrowUp"><span class="icon ion-ios-link"></span></a>
                     </span>
                 </td>
@@ -1587,6 +1587,7 @@ This happens when item is clicked or &#39;Enter&#39; is pressed when there is a 
 
                     <div class="io-description">
                         <b>Parameters :</b>
+                        
                         <table class="params">
                             <thead>
                                 <tr>
@@ -1630,9 +1631,7 @@ This happens when item is clicked or &#39;Enter&#39; is pressed when there is a 
                 <td class="col-md-4">
                     <a name="onEnterKey"></a>
                     <span class="name">
-                        <b>
-                            onEnterKey
-                        </b>
+                        <span ><b>onEnterKey</b></span>
                         <a href="#onEnterKey"><span class="icon ion-ios-link"></span></a>
                     </span>
                 </td>
@@ -1657,6 +1656,7 @@ This happens when item is clicked or &#39;Enter&#39; is pressed when there is a 
 
                     <div class="io-description">
                         <b>Parameters :</b>
+                        
                         <table class="params">
                             <thead>
                                 <tr>
@@ -1696,16 +1696,14 @@ This happens when item is clicked or &#39;Enter&#39; is pressed when there is a 
                 <td class="col-md-4">
                     <a name="sectionTrackBy"></a>
                     <span class="name">
-                        <b>
-                            sectionTrackBy
-                        </b>
+                        <span ><b>sectionTrackBy</b></span>
                         <a href="#sectionTrackBy"><span class="icon ion-ios-link"></span></a>
                     </span>
                 </td>
             </tr>
             <tr>
                 <td class="col-md-4">
-<code>sectionTrackBy(_index: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank">number</a>, searchSection: <a href="../interfaces/SearchSection.html">SearchSection</a>)</code>
+<code>sectionTrackBy(_index: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank">number</a>, searchSection: <a href="../interfaces/SearchSection.html" target="_self">SearchSection</a>)</code>
                 </td>
             </tr>
 
@@ -1723,6 +1721,7 @@ This happens when item is clicked or &#39;Enter&#39; is pressed when there is a 
 
                     <div class="io-description">
                         <b>Parameters :</b>
+                        
                         <table class="params">
                             <thead>
                                 <tr>
@@ -1778,10 +1777,8 @@ This happens when item is clicked or &#39;Enter&#39; is pressed when there is a 
                 <td class="col-md-4">
                     <a name="selectFirst"></a>
                     <span class="name">
-                        <b>
-                            <span class="modifier">Private</span>
-                            selectFirst
-                        </b>
+                        <span class="modifier">Private</span>
+                        <span ><b>selectFirst</b></span>
                         <a href="#selectFirst"><span class="icon ion-ios-link"></span></a>
                     </span>
                 </td>
@@ -1809,6 +1806,7 @@ This happens when item is clicked or &#39;Enter&#39; is pressed when there is a 
 
                     <div class="io-description">
                         <b>Parameters :</b>
+                        
                         <table class="params">
                             <thead>
                                 <tr>
@@ -1857,10 +1855,8 @@ This happens when item is clicked or &#39;Enter&#39; is pressed when there is a 
                 <td class="col-md-4">
                     <a name="selectNext"></a>
                     <span class="name">
-                        <b>
-                            <span class="modifier">Private</span>
-                            selectNext
-                        </b>
+                        <span class="modifier">Private</span>
+                        <span ><b>selectNext</b></span>
                         <a href="#selectNext"><span class="icon ion-ios-link"></span></a>
                     </span>
                 </td>
@@ -1886,6 +1882,7 @@ This happens when item is clicked or &#39;Enter&#39; is pressed when there is a 
 
                     <div class="io-description">
                         <b>Parameters :</b>
+                        
                         <table class="params">
                             <thead>
                                 <tr>
@@ -1929,16 +1926,14 @@ This happens when item is clicked or &#39;Enter&#39; is pressed when there is a 
                 <td class="col-md-4">
                     <a name="showParentSectionTitle"></a>
                     <span class="name">
-                        <b>
-                            showParentSectionTitle
-                        </b>
+                        <span ><b>showParentSectionTitle</b></span>
                         <a href="#showParentSectionTitle"><span class="icon ion-ios-link"></span></a>
                     </span>
                 </td>
             </tr>
             <tr>
                 <td class="col-md-4">
-<code>showParentSectionTitle(parentSection: <a href="../interfaces/GroupedSearchSections.html">GroupedSearchSections</a>)</code>
+<code>showParentSectionTitle(parentSection: <a href="../interfaces/GroupedSearchSections.html" target="_self">GroupedSearchSections</a>)</code>
                 </td>
             </tr>
 
@@ -1956,6 +1951,7 @@ This happens when item is clicked or &#39;Enter&#39; is pressed when there is a 
 
                     <div class="io-description">
                         <b>Parameters :</b>
+                        
                         <table class="params">
                             <thead>
                                 <tr>
@@ -1999,9 +1995,7 @@ This happens when item is clicked or &#39;Enter&#39; is pressed when there is a 
                 <td class="col-md-4">
                     <a name="togglePinned"></a>
                     <span class="name">
-                        <b>
-                            togglePinned
-                        </b>
+                        <span ><b>togglePinned</b></span>
                         <a href="#togglePinned"><span class="icon ion-ios-link"></span></a>
                     </span>
                 </td>
@@ -2033,420 +2027,396 @@ This happens when item is clicked or &#39;Enter&#39; is pressed when there is a 
         </tbody>
     </table>
 </section>
-    <section>
+    <section data-compodoc="block-properties">
     
-        <h3 id="inputs">
-            Properties
-        </h3>
-        <table class="table table-sm table-bordered">
-            <tbody>
+    <h3 id="inputs">
+        Properties
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="_filterValues"></a>
+                    <span class="name">
+                        <span ><b>_filterValues</b></span>
+                        <a href="#_filterValues"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
                 <tr>
                     <td class="col-md-4">
-                        <a name="_filterValues"></a>
-                        <span class="name">
-                            <b>
-                            _filterValues</b>
-                            <a href="#_filterValues"><span class="icon ion-ios-link"></span></a>
-                        </span>
+                        <i>Type : </i>    <code>Map&lt;string | QuickSearchFilterOption[]&gt;</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>new Map()</code>
                     </td>
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                            <i>Type : </i>    <code>Map&lt;string | QuickSearchFilterOption[]&gt;</code>
-
+                                <div class="io-line">Defined in <a href="" data-line="166" class="link-to-prism">projects/components/src/quick-search/quick-search.component.ts:166</a></div>
                         </td>
                     </tr>
-                    <tr>
-                        <td class="col-md-4">
-                            <i>Default value : </i><code>new Map()</code>
-                        </td>
-                    </tr>
-                        <tr>
-                            <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="166" class="link-to-prism">projects/components/src/quick-search/quick-search.component.ts:166</a></div>
-                            </td>
-                        </tr>
 
 
-            </tbody>
-        </table>
-        <table class="table table-sm table-bordered">
-            <tbody>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="_groupedSearchSections"></a>
+                    <span class="name">
+                        <span ><b>_groupedSearchSections</b></span>
+                        <a href="#_groupedSearchSections"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
                 <tr>
                     <td class="col-md-4">
-                        <a name="_groupedSearchSections"></a>
-                        <span class="name">
-                            <b>
-                            _groupedSearchSections</b>
-                            <a href="#_groupedSearchSections"><span class="icon ion-ios-link"></span></a>
-                        </span>
+                        <i>Type : </i>    <code>GroupedSearchSections[]</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>[]</code>
                     </td>
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                            <i>Type : </i>    <code>GroupedSearchSections[]</code>
-
+                                <div class="io-line">Defined in <a href="" data-line="163" class="link-to-prism">projects/components/src/quick-search/quick-search.component.ts:163</a></div>
                         </td>
                     </tr>
-                    <tr>
-                        <td class="col-md-4">
-                            <i>Default value : </i><code>[]</code>
-                        </td>
-                    </tr>
-                        <tr>
-                            <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="163" class="link-to-prism">projects/components/src/quick-search/quick-search.component.ts:163</a></div>
-                            </td>
-                        </tr>
 
 
-            </tbody>
-        </table>
-        <table class="table table-sm table-bordered">
-            <tbody>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="_open"></a>
+                    <span class="name">
+                            <span class="modifier">Private</span>
+                        <span ><b>_open</b></span>
+                        <a href="#_open"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
                 <tr>
                     <td class="col-md-4">
-                        <a name="_open"></a>
-                        <span class="name">
-                            <b>
-                                <span class="modifier">Private</span>
-                            _open</b>
-                            <a href="#_open"><span class="icon ion-ios-link"></span></a>
-                        </span>
+                        <i>Default value : </i><code>false</code>
                     </td>
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                            <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank" >boolean</a></code>
-
+                                <div class="io-line">Defined in <a href="" data-line="161" class="link-to-prism">projects/components/src/quick-search/quick-search.component.ts:161</a></div>
                         </td>
                     </tr>
-                    <tr>
-                        <td class="col-md-4">
-                            <i>Default value : </i><code>false</code>
-                        </td>
-                    </tr>
-                        <tr>
-                            <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="161" class="link-to-prism">projects/components/src/quick-search/quick-search.component.ts:161</a></div>
-                            </td>
-                        </tr>
 
 
-            </tbody>
-        </table>
-        <table class="table table-sm table-bordered">
-            <tbody>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="_searchCriteria"></a>
+                    <span class="name">
+                            <span class="modifier">Private</span>
+                        <span ><b>_searchCriteria</b></span>
+                        <a href="#_searchCriteria"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
                 <tr>
                     <td class="col-md-4">
-                        <a name="_searchCriteria"></a>
-                        <span class="name">
-                            <b>
-                                <span class="modifier">Private</span>
-                            _searchCriteria</b>
-                            <a href="#_searchCriteria"><span class="icon ion-ios-link"></span></a>
-                        </span>
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>&#x27;&#x27;</code>
                     </td>
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                            <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
-
+                                <div class="io-line">Defined in <a href="" data-line="150" class="link-to-prism">projects/components/src/quick-search/quick-search.component.ts:150</a></div>
                         </td>
                     </tr>
-                    <tr>
-                        <td class="col-md-4">
-                            <i>Default value : </i><code>&#x27;&#x27;</code>
-                        </td>
-                    </tr>
-                        <tr>
-                            <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="150" class="link-to-prism">projects/components/src/quick-search/quick-search.component.ts:150</a></div>
-                            </td>
-                        </tr>
 
 
-            </tbody>
-        </table>
-        <table class="table table-sm table-bordered">
-            <tbody>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="_ungroupedSearchSections"></a>
+                    <span class="name">
+                        <span ><b>_ungroupedSearchSections</b></span>
+                        <a href="#_ungroupedSearchSections"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
                 <tr>
                     <td class="col-md-4">
-                        <a name="_ungroupedSearchSections"></a>
-                        <span class="name">
-                            <b>
-                            _ungroupedSearchSections</b>
-                            <a href="#_ungroupedSearchSections"><span class="icon ion-ios-link"></span></a>
-                        </span>
+                        <i>Type : </i>        <code><a href="../interfaces/SearchSection.html" target="_self" >SearchSection[]</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>[]</code>
                     </td>
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                            <i>Type : </i>        <code><a href="../interfaces/SearchSection.html" target="_self" >SearchSection[]</a></code>
-
+                                <div class="io-line">Defined in <a href="" data-line="164" class="link-to-prism">projects/components/src/quick-search/quick-search.component.ts:164</a></div>
                         </td>
                     </tr>
-                    <tr>
-                        <td class="col-md-4">
-                            <i>Default value : </i><code>[]</code>
-                        </td>
-                    </tr>
-                        <tr>
-                            <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="164" class="link-to-prism">projects/components/src/quick-search/quick-search.component.ts:164</a></div>
-                            </td>
-                        </tr>
 
 
-            </tbody>
-        </table>
-        <table class="table table-sm table-bordered">
-            <tbody>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="activeDescendantId"></a>
+                    <span class="name">
+                        <span ><b>activeDescendantId</b></span>
+                        <a href="#activeDescendantId"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
                 <tr>
                     <td class="col-md-4">
-                        <a name="activeDescendantId"></a>
-                        <span class="name">
-                            <b>
-                            activeDescendantId</b>
-                            <a href="#activeDescendantId"><span class="icon ion-ios-link"></span></a>
-                        </span>
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
                     </td>
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                            <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
-
+                                <div class="io-line">Defined in <a href="" data-line="137" class="link-to-prism">projects/components/src/quick-search/quick-search.component.ts:137</a></div>
                         </td>
                     </tr>
-                        <tr>
-                            <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="137" class="link-to-prism">projects/components/src/quick-search/quick-search.component.ts:137</a></div>
-                            </td>
-                        </tr>
 
 
-            </tbody>
-        </table>
-        <table class="table table-sm table-bordered">
-            <tbody>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="ariaActivedescendantService"></a>
+                    <span class="name">
+                            <span class="modifier">Public</span>
+                        <span ><b>ariaActivedescendantService</b></span>
+                        <a href="#ariaActivedescendantService"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
                 <tr>
                     <td class="col-md-4">
-                        <a name="ariaActivedescendantService"></a>
-                        <span class="name">
-                            <b>
-                                <span class="modifier">Public</span>
-                            ariaActivedescendantService</b>
-                            <a href="#ariaActivedescendantService"><span class="icon ion-ios-link"></span></a>
-                        </span>
+                        <i>Type : </i>        <code><a href="../injectables/AriaActiveDescendantService.html" target="_self" >AriaActiveDescendantService</a></code>
+
                     </td>
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                            <i>Type : </i>        <code><a href="../injectables/AriaActiveDescendantService.html" target="_self" >AriaActiveDescendantService</a></code>
-
+                                <div class="io-line">Defined in <a href="" data-line="143" class="link-to-prism">projects/components/src/quick-search/quick-search.component.ts:143</a></div>
                         </td>
                     </tr>
-                        <tr>
-                            <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="143" class="link-to-prism">projects/components/src/quick-search/quick-search.component.ts:143</a></div>
-                            </td>
-                        </tr>
 
 
-            </tbody>
-        </table>
-        <table class="table table-sm table-bordered">
-            <tbody>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="DataUi"></a>
+                    <span class="name">
+                        <span ><b>DataUi</b></span>
+                        <a href="#DataUi"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
                 <tr>
                     <td class="col-md-4">
-                        <a name="DataUi"></a>
-                        <span class="name">
-                            <b>
-                            DataUi</b>
-                            <a href="#DataUi"><span class="icon ion-ios-link"></span></a>
-                        </span>
+                        <i>Default value : </i><code>DataUi</code>
                     </td>
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                            <i>Type : </i>        <code><a href="../miscellaneous/variables.html#DataUi" target="_self" >DataUi</a></code>
-
+                                <div class="io-line">Defined in <a href="" data-line="136" class="link-to-prism">projects/components/src/quick-search/quick-search.component.ts:136</a></div>
                         </td>
                     </tr>
-                    <tr>
-                        <td class="col-md-4">
-                            <i>Default value : </i><code>DataUi</code>
-                        </td>
-                    </tr>
-                        <tr>
-                            <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="136" class="link-to-prism">projects/components/src/quick-search/quick-search.component.ts:136</a></div>
-                            </td>
-                        </tr>
 
 
-            </tbody>
-        </table>
-        <table class="table table-sm table-bordered">
-            <tbody>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="resultsGridId"></a>
+                    <span class="name">
+                        <span ><b>resultsGridId</b></span>
+                        <a href="#resultsGridId"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
                 <tr>
                     <td class="col-md-4">
-                        <a name="resultsGridId"></a>
-                        <span class="name">
-                            <b>
-                            resultsGridId</b>
-                            <a href="#resultsGridId"><span class="icon ion-ios-link"></span></a>
-                        </span>
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>this.idGenerator.generate()</code>
                     </td>
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                            <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
-
+                                <div class="io-line">Defined in <a href="" data-line="138" class="link-to-prism">projects/components/src/quick-search/quick-search.component.ts:138</a></div>
                         </td>
                     </tr>
-                    <tr>
-                        <td class="col-md-4">
-                            <i>Default value : </i><code>this.idGenerator.generate()</code>
-                        </td>
-                    </tr>
-                        <tr>
-                            <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="138" class="link-to-prism">projects/components/src/quick-search/quick-search.component.ts:138</a></div>
-                            </td>
-                        </tr>
 
 
-            </tbody>
-        </table>
-        <table class="table table-sm table-bordered">
-            <tbody>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="searchInput"></a>
+                    <span class="name">
+                            <span class="modifier"></span>
+                        <span ><b>searchInput</b></span>
+                        <a href="#searchInput"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
                 <tr>
                     <td class="col-md-4">
-                        <a name="searchInput"></a>
-                        <span class="name">
-                            <b>
-                            searchInput</b>
-                            <a href="#searchInput"><span class="icon ion-ios-link"></span></a>
-                        </span>
+                        <i>Type : </i>    <code>ElementRef</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <b>Decorators : </b>
+                        <br />
+                        <code>
+                            @ViewChild(&#x27;searchInput&#x27;, {static: false, read: ElementRef})<br />
+                        </code>
                     </td>
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                            <i>Type : </i>        <code><a href="https://angular.io/api/core/ElementRef" target="_blank" >ElementRef</a></code>
-
+                                <div class="io-line">Defined in <a href="" data-line="168" class="link-to-prism">projects/components/src/quick-search/quick-search.component.ts:168</a></div>
                         </td>
                     </tr>
-                    <tr>
-                        <td class="col-md-4">
-                            <b>Decorators : </b>
-                            <br />
-                            <code>
-                                @ViewChild(&#x27;searchInput&#x27;, {static: false, read: ElementRef})<br />
-                            </code>
-                        </td>
-                    </tr>
-                        <tr>
-                            <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="168" class="link-to-prism">projects/components/src/quick-search/quick-search.component.ts:168</a></div>
-                            </td>
-                        </tr>
 
 
-            </tbody>
-        </table>
-        <table class="table table-sm table-bordered">
-            <tbody>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="searchService"></a>
+                    <span class="name">
+                            <span class="modifier">Public</span>
+                        <span ><b>searchService</b></span>
+                        <a href="#searchService"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
                 <tr>
                     <td class="col-md-4">
-                        <a name="searchService"></a>
-                        <span class="name">
-                            <b>
-                                <span class="modifier">Public</span>
-                            searchService</b>
-                            <a href="#searchService"><span class="icon ion-ios-link"></span></a>
-                        </span>
+                        <i>Type : </i>        <code><a href="../injectables/QuickSearchService.html" target="_self" >QuickSearchService</a></code>
+
                     </td>
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                            <i>Type : </i>        <code><a href="../injectables/QuickSearchService.html" target="_self" >QuickSearchService</a></code>
-
+                                <div class="io-line">Defined in <a href="" data-line="141" class="link-to-prism">projects/components/src/quick-search/quick-search.component.ts:141</a></div>
                         </td>
                     </tr>
-                        <tr>
-                            <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="141" class="link-to-prism">projects/components/src/quick-search/quick-search.component.ts:141</a></div>
-                            </td>
-                        </tr>
 
 
-            </tbody>
-        </table>
-        <table class="table table-sm table-bordered">
-            <tbody>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="selectedItem"></a>
+                    <span class="name">
+                        <span ><b>selectedItem</b></span>
+                        <a href="#selectedItem"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
                 <tr>
                     <td class="col-md-4">
-                        <a name="selectedItem"></a>
-                        <span class="name">
-                            <b>
-                            selectedItem</b>
-                            <a href="#selectedItem"><span class="icon ion-ios-link"></span></a>
-                        </span>
+                        <i>Type : </i>        <code><a href="../interfaces/QuickSearchResultItem.html" target="_self" >QuickSearchResultItem</a></code>
+
                     </td>
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                            <i>Type : </i>        <code><a href="../interfaces/QuickSearchResultItem.html" target="_self" >QuickSearchResultItem</a></code>
-
+                                <div class="io-line">Defined in <a href="" data-line="173" class="link-to-prism">projects/components/src/quick-search/quick-search.component.ts:173</a></div>
                         </td>
                     </tr>
-                        <tr>
-                            <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="173" class="link-to-prism">projects/components/src/quick-search/quick-search.component.ts:173</a></div>
-                            </td>
-                        </tr>
 
-                <tr>
-                    <td class="col-md-4">
-                        <div class="io-description"><p>The selected result in the results section.</p>
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>The selected result in the results section.</p>
 </div>
-                    </td>
-                </tr>
+                </td>
+            </tr>
 
-            </tbody>
-        </table>
-        <table class="table table-sm table-bordered">
-            <tbody>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="translationService"></a>
+                    <span class="name">
+                            <span class="modifier">Public</span>
+                        <span ><b>translationService</b></span>
+                        <a href="#translationService"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
                 <tr>
                     <td class="col-md-4">
-                        <a name="translationService"></a>
-                        <span class="name">
-                            <b>
-                                <span class="modifier">Public</span>
-                            translationService</b>
-                            <a href="#translationService"><span class="icon ion-ios-link"></span></a>
-                        </span>
+                        <i>Type : </i>    <code>TranslationService</code>
+
                     </td>
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                            <i>Type : </i>    <code>TranslationService</code>
-
+                                <div class="io-line">Defined in <a href="" data-line="142" class="link-to-prism">projects/components/src/quick-search/quick-search.component.ts:142</a></div>
                         </td>
                     </tr>
-                        <tr>
-                            <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="142" class="link-to-prism">projects/components/src/quick-search/quick-search.component.ts:142</a></div>
-                            </td>
-                        </tr>
 
 
-            </tbody>
-        </table>
+        </tbody>
+    </table>
 </section>
 
-    <section>
+    <section data-compodoc="block-accessors">
     <h3 id="accessors">
         Accessors
     </h3>
@@ -2595,7 +2565,7 @@ of the quick search component</p>
 </div>
 
 
-    <div class="tab-pane fade  tab-source-code" id="c-source">
+    <div class="tab-pane fade  tab-source-code" id="source">
         <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import {
     ChangeDetectorRef,
     Component,
@@ -2990,7 +2960,7 @@ export class QuickSearchComponent implements OnInit {
 </code></pre>
     </div>
 
-    <div class="tab-pane fade " id="c-templateData">
+    <div class="tab-pane fade " id="templateData">
         <pre class="line-numbers"><code class="language-html">&lt;ng-template #sectionTitle let-searchSection&gt;
     &lt;div class&#x3D;&quot;section-title-wrapper&quot;&gt;
         &lt;clr-icon *ngIf&#x3D;&quot;searchSection.icon&quot; [attr.shape]&#x3D;&quot;searchSection.icon&quot; size&#x3D;&quot;20&quot;&gt; &lt;/clr-icon&gt;
@@ -3240,7 +3210,7 @@ export class QuickSearchComponent implements OnInit {
 </code></pre>
     </div>
 
-    <div class="tab-pane fade " id="c-styleData">
+    <div class="tab-pane fade " id="styleData">
                 <p class="comment">
                     <code>./quick-search.component.scss</code>
                 </p>
@@ -3409,7 +3379,7 @@ button.btn-link.remove-col-button {
 </code></pre>
     </div>
 
-    <div class="tab-pane fade " id="c-tree">
+    <div class="tab-pane fade " id="tree">
         <div id="tree-container"></div>
         <div class="tree-legend">
             <div class="title">
@@ -3436,7 +3406,7 @@ button.btn-link.remove-col-button {
 <script>
         var COMPONENT_TEMPLATE = '<div><ng-template #sectionTitle let-searchSection>    <div class="section-title-wrapper">        <clr-icon *ngIf="searchSection.icon" [attr.shape]="searchSection.icon" size="20"> </clr-icon>        <div *ngIf="searchSection.hasPartialResult; let partial; else: partial">            {{                \'vcd.cc.quickSearch.partialResultTitle\'                    | translate                        : {                              title: searchSection.provider.sectionName,                              lastItem: partial.lastItem,                              totalItems: partial.totalItems                          }            }}        </div>        <ng-template #partial>            {{ searchSection.provider.sectionName }}        </ng-template>    </div></ng-template><ng-template #filtersSection>    <div class="filter-container" *ngIf="this.searchService.filters.length > 0">        <p>{{ \'vcd.cc.search.filterBy\' | translate }}</p>        <ng-container *ngFor="let filter of this.searchService.filters; trackBy: filterTrackBy">            <clr-dropdown                [clrCloseMenuOnItemClick]="false"                *ngIf="filter.options.length > 1"                (keydown.arrowup)="$event.stopPropagation()"                (keydown.arrowdown)="$event.stopPropagation()"                (keydown.enter)="$event.stopPropagation()"            >                <button                    class="dropdown-toggle btn btn-link"                    type="button"                    clrDropdownTrigger                    [attr.data-ui]="DataUi.filterButton(filter.id)"                    [attr.aria-label]="\'vcd.cc.search.filterBy.btn.label\' | translate: filter.dropdownText"                >                    {{ filter.dropdownText }}                    <clr-icon shape="caret down"></clr-icon>                </button>                <clr-dropdown-menu clrPosition="bottom" *clrIfOpen #dropdownMenu>                    <li                        clrDropdownItem                        *ngFor="let option of filter.options; trackBy: filterOptionTrackBy"                        (click)="searchService.selectFilter(filter.id, [option.key], false)"                    >                        <clr-checkbox-wrapper class="column-checkbox">                            <input                                type="checkbox"                                clrCheckbox                                (click)="$event.stopPropagation()"                                [ngModel]="getFilterOptionValue(filter.id, option.key)"                                (ngModelChange)="searchService.selectFilter(filter.id, [option.key], false)"                                [attr.data-ui]="DataUi.filterDropdownItem"                            />                            <label (click)="$event.stopPropagation()">{{ option.display }}</label>                        </clr-checkbox-wrapper>                    </li>                </clr-dropdown-menu>            </clr-dropdown>        </ng-container>    </div>    <div>        <ng-container *ngFor="let filter of this.searchService.filters; trackBy: filterTrackBy">            <span                class="filter-bubble label"                *ngFor="let option of _filterValues.get(filter.id); trackBy: filterOptionTrackBy"            >                <span [vcdShowClippedText]="{ disabled: !open }">{{                    filter.bubbleI18nKey | translate: { option: option.display }                }}</span>                <button                    type="button"                    class="btn btn-icon btn-link remove-col-button"                    [attr.aria-label]="                        \'vcd.cc.quickSearch.removeFilter\'                            | translate                                : { selectedFilter: filter.bubbleI18nKey | translate: { option: option.display } }                    "                    (click)="searchService.selectFilter(filter.id, [option.key], false)"                >                    <clr-icon shape="close" class="badge badge-info"> </clr-icon>                </button>            </span>        </ng-container>    </div></ng-template><ng-template let-searchSection #searchSectionTemplate>    <ul class="list-unstyled compact" role="none">        <li            class="search-result-item"            role="row"            *ngFor="let item of searchSection.result?.items; let i = index"            (click)="itemClicked(item)"            [ngClass]="item === selectedItem ? \'selected\' : \'\'"            [attr.data-ui]="DataUi.searchResultItems"        >            <span role="gridcell">                <button [vcdAriaActiveDescendant]="item === selectedItem">                    {{ item.displayText }}                </button>            </span>        </li>        <li>            <clr-alert                *ngIf="searchSection.hasPartialResult"                [clrAlertType]="\'warning\'"                [clrAlertSizeSmall]="true"                [clrAlertClosable]="false"            >                <clr-alert-item [attr.data-ui]="DataUi.searchResultAlerts">                    {{ \'vcd.cc.quickSearch.refineQuery\' | translate: { max: searchSection.result.items.length } }}                </clr-alert-item>            </clr-alert>        </li>    </ul></ng-template><ng-template #quickSearchInterior>    <div class="search-input-container" data-ui="search-input-container">        <div class="search-icon-container">            <clr-icon shape="search" size="20" *ngIf="!searchService.isLoading"></clr-icon>            <clr-spinner                [clrSmall]="true"                [clrInline]="true"                [attr.data-ui]="DataUi.spinner"                *ngIf="searchService.isLoading"            ></clr-spinner>        </div>        <input            #searchInput            type="search"            role="searchbox"            class="clr-input"            [placeholder]="placeholder || \'\'"            [(ngModel)]="searchCriteria"            [attr.data-ui]="DataUi.searchInput"            [attr.aria-owns]="resultsGridId"            [attr.aria-controls]="resultsGridId"            [attr.aria-activedescendant]="activeDescendantId"        />        <button            class="btn btn-link pin-button"            [attr.aria-label]="\'vcd.cc.search.pin.btn.label\' | translate: accessibilityTitle"            [attr.aria-pressed]="searchService.isPinned"            (click)="togglePinned()"        >            <clr-icon shape="pin" size="20" [ngClass]="this.searchService.isPinned ? \'is-solid\' : \'\'"> </clr-icon>        </button>    </div>    <clr-control-helper class="input-helper">{{ helper }}</clr-control-helper>    <ng-container *ngTemplateOutlet="filtersSection"> </ng-container>    <ng-content select=".top-of-results"></ng-content>    <div class="search-result-container" role="grid" [attr.id]="resultsGridId" *ngIf="searchInput.value !== \'\'">        <div            class="no-results"            role="row"            [attr.data-ui]="DataUi.noResults"            *ngIf="searchService.hasNoResults && !searchService.isLoading"        >            <span role="gridcell" [vcdAriaActiveDescendant]="searchService.hasNoResults && !searchService.isLoading">                {{ \'vcd.cc.quickSearch.noResults\' | translate }}            </span>        </div>        <div            *ngFor="let searchSection of _ungroupedSearchSections; let i = index; trackBy: sectionTrackBy"            class="search-result-section section-index-0-{{ i + 1 }}"            data-ui="search-result-section"        >            <div *ngIf="!searchSection.isLoading" role="rowgroup" [attr.aria-labelledby]="\'ungrouped-search-\' + i">                <h5                    *ngIf="searchSection.shouldShowText"                    class="search-result-section-title"                    role="presentation"                    [attr.data-ui]="DataUi.searchResultSectionTitles"                    [attr.id]="\'ungrouped-search-\' + i"                >                    <ng-container *ngTemplateOutlet="sectionTitle; context: { $implicit: searchSection }">                    </ng-container>                </h5>                <ng-container *ngTemplateOutlet="searchSectionTemplate; context: { $implicit: searchSection }">                </ng-container>            </div>        </div>        <div *ngFor="let parentSearchSection of _groupedSearchSections; let n = index; trackBy: groupSectionTrackBy">            <h5                *ngIf="showParentSectionTitle(parentSearchSection)"                class="search-result-section-title"                [attr.data-ui]="DataUi.searchResultSectionTitles"                [attr.id]="\'grouped-search-result-\' + n"                role="presentation"            >                {{ parentSearchSection.headerTitle }}            </h5>            <div                *ngFor="let searchSection of parentSearchSection.subSections; let i = index; trackBy: sectionTrackBy"                class="sub-section"                role="rowgroup"                [attr.aria-labelledby]="\'grouped-search-result-\' + n + \' \' + \'grouped-search-result-section\' + i"            >                <div *ngIf="!searchSection.isLoading">                    <p                        *ngIf="searchSection.shouldShowText"                        role="presentation"                        class="p2 search-result-section-title search-result-section section-index-{{ n }}-{{ i }}"                        [attr.data-ui]="DataUi.searchResultSectionTitles"                        [attr.id]="\'grouped-search-result-section\' + i"                    >                        <ng-container *ngTemplateOutlet="sectionTitle; context: { $implicit: searchSection }">                        </ng-container>                    </p>                    <ng-container *ngTemplateOutlet="searchSectionTemplate; context: { $implicit: searchSection }">                    </ng-container>                </div>            </div>        </div>    </div>    <ng-content select=".bottom-of-results"></ng-content></ng-template><ng-template #drawerComponent>    <vcd-drawer-component        (keydown.arrowup)="onArrowUp($event)"        (keydown.arrowdown)="onArrowDown($event)"        (keydown.enter)="onEnterKey($event)"        class="modal-body"    >        <ng-container *ngTemplateOutlet="quickSearchInterior"> </ng-container>    </vcd-drawer-component></ng-template><clr-modal    [(clrModalOpen)]="open"    [clrModalStaticBackdrop]="false"    (keydown.arrowup)="onArrowUp($event)"    (keydown.arrowdown)="onArrowDown($event)"    (keydown.enter)="onEnterKey($event)"    *ngIf="!searchService.isPinned; else drawerComponent">    <h1 class="modal-title">{{ accessibilityTitle }}</h1>    <div class="modal-body" [attr.data-ui]="DataUi.modalBody">        <ng-container *ngTemplateOutlet="quickSearchInterior"> </ng-container>    </div></clr-modal></div>'
     var COMPONENTS = [{'name': 'ActionMenuComponent', 'selector': 'vcd-action-menu'},{'name': 'BannerActivityReporterComponent', 'selector': 'vcd-banner-activity-reporter'},{'name': 'BoldTextRendererComponent', 'selector': 'vcd-bold-text-renderer'},{'name': 'DataExporterComponent', 'selector': 'vcd-data-exporter'},{'name': 'DatagridComponent', 'selector': 'vcd-datagrid'},{'name': 'DatagridMultiSelectFilterComponent', 'selector': 'vcd-dg-multiselect-filter'},{'name': 'DatagridNumericFilterComponent', 'selector': 'vcd-dg-numeric-filter'},{'name': 'DatagridSelectFilterComponent', 'selector': 'vcd-dg-select-filter'},{'name': 'DatagridStringFilterComponent', 'selector': 'vcd-dg-string-filter'},{'name': 'DrawerComponent', 'selector': 'vcd-drawer-component'},{'name': 'DropdownComponent', 'selector': 'vcd-dropdown'},{'name': 'ErrorBannerComponent', 'selector': 'vcd-error-banner'},{'name': 'FilterTestHostComponent', 'selector': ''},{'name': 'FormCheckboxComponent', 'selector': 'vcd-form-checkbox'},{'name': 'FormInputComponent', 'selector': 'vcd-form-input'},{'name': 'FormlyInputComponent', 'selector': 'vcd-formly-input'},{'name': 'FormlyNumberWithUnitInputComponent', 'selector': 'vcd-formly-number-with-unit-input'},{'name': 'FormlySelectComponent', 'selector': 'vcd-formly-select'},{'name': 'FormSelectComponent', 'selector': 'vcd-form-select'},{'name': 'LoadingIndicatorComponent', 'selector': 'vcd-loading-indicator'},{'name': 'NumberWithUnitFormInputComponent', 'selector': 'vcd-number-with-unit-form-input'},{'name': 'QuickSearchComponent', 'selector': 'vcd-quick-search'},{'name': 'RightsDropdownRendererComponent', 'selector': 'vcd-rights-dropdown-renderer'},{'name': 'SharingModalComponent', 'selector': 'vcd-sharing-modal'},{'name': 'SharingModalGroupRenderComponent', 'selector': 'vcd-sharing-modal-group-renderer'},{'name': 'SharingModalOrgRenderComponent', 'selector': 'vcd-sharing-modal-group-renderer'},{'name': 'SharingModalTabComponent', 'selector': 'vcd-sharing-modal-tab'},{'name': 'SharingModalUserRenderComponent', 'selector': 'vcd-sharing-modal-user-renderer'},{'name': 'ShowClippedTextDirectiveTestHostComponent', 'selector': ''},{'name': 'SpinnerActivityReporterComponent', 'selector': 'vcd-spinner-activity-reporter'},{'name': 'VcdSelectAllToggleComponent', 'selector': 'vcd-select-all-toggle'}];
-    var DIRECTIVES = [{'name': 'AlternativeTextDirective', 'selector': 'clr-icon'},{'name': 'AriaActiveDescendantDirective', 'selector': '[vcdAriaActiveDescendant]'},{'name': 'ComponentRendererOutletDirective', 'selector': '[vcdComponentRendererOutlet]'},{'name': 'DatagridFilter', 'selector': ''},{'name': 'DropdownFocusHandlerDirective', 'selector': 'vcd-dropdown[vcdDropdownFocusHandler]'},{'name': 'DynamicDropdownPositionDirective', 'selector': 'clr-dropdown[vcdDynamicDropdown]'},{'name': 'ResponsiveInputDirective', 'selector': '.clr-form-control[vcdResponsiveInput]'},{'name': 'ShowClippedTextDirective', 'selector': '[vcdShowClippedText]'},{'name': 'UsersGroupsOrgsSharingModalDirective', 'selector': 'vcd-sharing-modal[vcdUsersGroupsOrgsSharingModal]'}];
+    var DIRECTIVES = [{'name': 'AlternativeTextDirective', 'selector': 'clr-icon'},{'name': 'AriaActiveDescendantDirective', 'selector': '[vcdAriaActiveDescendant]'},{'name': 'BaseFormControl', 'selector': ''},{'name': 'ComponentRendererOutletDirective', 'selector': '[vcdComponentRendererOutlet]'},{'name': 'DatagridFilter', 'selector': ''},{'name': 'DropdownFocusHandlerDirective', 'selector': 'vcd-dropdown[vcdDropdownFocusHandler]'},{'name': 'DynamicDropdownPositionDirective', 'selector': 'clr-dropdown[vcdDynamicDropdown]'},{'name': 'ResponsiveInputDirective', 'selector': '.clr-form-control[vcdResponsiveInput]'},{'name': 'ShowClippedTextDirective', 'selector': '[vcdShowClippedText]'},{'name': 'UsersGroupsOrgsSharingModalDirective', 'selector': 'vcd-sharing-modal[vcdUsersGroupsOrgsSharingModal]'}];
     var ACTUAL_COMPONENT = {'name': 'QuickSearchComponent'};
 </script>
 <script src="../js/tree.js"></script>
@@ -3450,14 +3420,16 @@ button.btn-link.remove-col-button {
 
 
 
-                   
+
+
+
 
 
 
 
                    </div><div class="search-results">
     <div class="has-results">
-        <h1 class="search-results-title"><span class='search-results-count'></span> result-matching "<span class='search-query'></span>"</h1>
+        <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
         <ul class="search-results-list"></ul>
     </div>
     <div class="no-results">
@@ -3469,6 +3441,15 @@ button.btn-link.remove-col-button {
            </div>
        </div>
 
+          <label class="dark-mode-switch">
+               <input type="checkbox">
+               <span class="slider">
+                    <svg class="slider-icon" viewBox="0 0 24 24" fill="none" height="20" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" width="20" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"></path>
+                    </svg>
+               </span>
+          </label>
+
        <script>
             var COMPODOC_CURRENT_PAGE_DEPTH = 1;
             var COMPODOC_CURRENT_PAGE_CONTEXT = 'component';
@@ -3478,9 +3459,9 @@ button.btn-link.remove-col-button {
 
        <script src="../js/libs/custom-elements.min.js"></script>
        <script src="../js/libs/lit-html.js"></script>
-       <!-- Required to polyfill modern browsers as code is ES5 for IE... -->
-       <script src="../js/libs/custom-elements-es5-adapter.js" charset="utf-8" defer></script>
+
        <script src="../js/menu-wc.js" defer></script>
+       <script nomodule src="../js/menu-wc_es5.js" defer></script>
 
        <script src="../js/libs/bootstrap-native.js"></script>
 

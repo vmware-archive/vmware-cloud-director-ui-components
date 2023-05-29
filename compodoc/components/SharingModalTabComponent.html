@@ -8,11 +8,12 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
         <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
-	      <link rel="stylesheet" href="../styles/style.css">
+	   <link rel="stylesheet" href="../styles/style.css">
+        <link rel="stylesheet" href="../styles/dark.css">
     </head>
     <body>
 
-        <div class="navbar navbar-default navbar-fixed-top visible-xs">
+        <div class="navbar navbar-default navbar-fixed-top d-block d-sm-none">
             <a href="../" class="navbar-brand">vmware-cloud-director-ui-components documentation</a>
             <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
         </div>
@@ -34,35 +35,43 @@
 
 
 <ol class="breadcrumb">
-  <li>Components</li>
-  <li>SharingModalTabComponent</li>
+  <li class="breadcrumb-item">Components</li>
+  <li class="breadcrumb-item"
+  >
+  SharingModalTabComponent</li>
 </ol>
 
 <ul class="nav nav-tabs" role="tablist">
-        <li class="active">
-            <a href="#info" role="tab" id="info-tab" data-toggle="tab" data-link="info">Info</a>
+        <li class="nav-item">
+            <a href="#info" class="nav-link active"
+                role="tab" id="info-tab" data-bs-toggle="tab" data-link="info">Info</a>
         </li>
-        <li >
-            <a href="#source" role="tab" id="source-tab" data-toggle="tab" data-link="source">Source</a>
+        <li class="nav-item">
+            <a href="#source" class="nav-link"
+                role="tab" id="source-tab" data-bs-toggle="tab" data-link="source">Source</a>
         </li>
-        <li >
-            <a href="#templateData" role="tab" id="templateData-tab" data-toggle="tab" data-link="template">Template</a>
+        <li class="nav-item">
+            <a href="#templateData" class="nav-link"
+                role="tab" id="templateData-tab" data-bs-toggle="tab" data-link="template">Template</a>
         </li>
-        <li >
-            <a href="#styleData" role="tab" id="styleData-tab" data-toggle="tab" data-link="style">Styles</a>
+        <li class="nav-item">
+            <a href="#styleData" class="nav-link"
+                role="tab" id="styleData-tab" data-bs-toggle="tab" data-link="style">Styles</a>
         </li>
-        <li >
-            <a href="#tree" role="tab" id="tree-tab" data-toggle="tab" data-link="dom-tree">DOM Tree</a>
+        <li class="nav-item">
+            <a href="#tree" class="nav-link"
+                role="tab" id="tree-tab" data-bs-toggle="tab" data-link="dom-tree">DOM Tree</a>
         </li>
 </ul>
 
 <div class="tab-content">
-    <div class="tab-pane fade active in" id="c-info"><p class="comment">
+    <div class="tab-pane fade active in" id="info"><p class="comment">
     <h3>File</h3>
 </p>
 <p class="comment">
     <code>projects/components/src/sharing-modal/tabs/sharing-modal-tab.component.ts</code>
 </p>
+
 
     <p class="comment">
         <h3>Description</h3>
@@ -77,20 +86,16 @@
         <h3>Implements</h3>
     </p>
     <p class="comment">
-                    <code><a href="https://angular.io/api/core/OnInit" target="_blank" >OnInit</a></code>
-                    <code><a href="https://angular.io/api/core/AfterViewInit" target="_blank" >AfterViewInit</a></code>
+                <code>OnInit</code>
+                <code>AfterViewInit</code>
     </p>
 
-    <p class="comment">
-        <h3>Example</h3>
-    </p>
-    <div class="io-description">
-    </div>
 
-<section>
+<section data-compodoc="block-metadata">
     <h3>Metadata</h3>
-    <table class="table table-sm table-hover">
+    <table class="table table-sm table-hover metadata">
         <tbody>
+
 
 
 
@@ -112,6 +117,8 @@
                 <td class="col-md-3">selector</td>
                 <td class="col-md-9"><code>vcd-sharing-modal-tab</code></td>
             </tr>
+
+
 
             <tr>
                 <td class="col-md-3">styleUrls</td>
@@ -136,7 +143,7 @@
     </table>
 </section>
 
-    <section>
+    <section data-compodoc="block-index">
     <h3 id="index">Index</h3>
     <table class="table table-sm table-bordered index-table">
         <tbody>
@@ -149,50 +156,50 @@
                     <td class="col-md-4">
                         <ul class="index-list">
                             <li>
-                                <a href="#actionDisplayConfig">actionDisplayConfig</a>
+                                <a href="#actionDisplayConfig" >actionDisplayConfig</a>
                             </li>
                             <li>
-                                <a href="#actions">actions</a>
-                            </li>
-                            <li>
-                                    <span class="modifier">Private</span>
-                                <a href="#allSharedWith">allSharedWith</a>
+                                <a href="#actions" >actions</a>
                             </li>
                             <li>
                                     <span class="modifier">Private</span>
-                                <a href="#bufferedSearch">bufferedSearch</a>
-                            </li>
-                            <li>
-                                <a href="#columns">columns</a>
-                            </li>
-                            <li>
-                                <a href="#comboboxSelection">comboboxSelection</a>
-                            </li>
-                            <li>
-                                <a href="#currentlySelectedRightValue">currentlySelectedRightValue</a>
-                            </li>
-                            <li>
-                                <a href="#gridItems">gridItems</a>
+                                <a href="#allSharedWith" >allSharedWith</a>
                             </li>
                             <li>
                                     <span class="modifier">Private</span>
-                                <a href="#gridState">gridState</a>
+                                <a href="#bufferedSearch" >bufferedSearch</a>
                             </li>
                             <li>
-                                <a href="#paginationInfo">paginationInfo</a>
+                                <a href="#columns" >columns</a>
                             </li>
                             <li>
-                                <a href="#searchError">searchError</a>
+                                <a href="#comboboxSelection" >comboboxSelection</a>
                             </li>
                             <li>
-                                <a href="#searchResults">searchResults</a>
+                                <a href="#currentlySelectedRightValue" >currentlySelectedRightValue</a>
                             </li>
                             <li>
-                                <a href="#totalSearchResults">totalSearchResults</a>
+                                <a href="#gridItems" >gridItems</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#gridState" >gridState</a>
+                            </li>
+                            <li>
+                                <a href="#paginationInfo" >paginationInfo</a>
+                            </li>
+                            <li>
+                                <a href="#searchError" >searchError</a>
+                            </li>
+                            <li>
+                                <a href="#searchResults" >searchResults</a>
+                            </li>
+                            <li>
+                                <a href="#totalSearchResults" >totalSearchResults</a>
                             </li>
                             <li>
                                     <span class="modifier">Public</span>
-                                <a href="#translationService">translationService</a>
+                                <a href="#translationService" >translationService</a>
                             </li>
                         </ul>
                     </td>
@@ -207,53 +214,53 @@
                     <td class="col-md-4">
                         <ul class="index-list">
                             <li>
-                                <a href="#addPendingEntities">addPendingEntities</a>
+                                <a href="#addPendingEntities" >addPendingEntities</a>
                             </li>
                             <li>
-                                <a href="#defaultRenderer">defaultRenderer</a>
+                                <a href="#defaultRenderer" >defaultRenderer</a>
                             </li>
                             <li>
-                                <a href="#doSearchInternal">doSearchInternal</a>
+                                <a href="#doSearchInternal" >doSearchInternal</a>
                             </li>
                             <li>
-                                <a href="#entityTrackBy">entityTrackBy</a>
+                                <a href="#entityTrackBy" >entityTrackBy</a>
                             </li>
                             <li>
-                                <a href="#getEntityRenderSpec">getEntityRenderSpec</a>
+                                <a href="#getEntityRenderSpec" >getEntityRenderSpec</a>
                             </li>
                             <li>
-                                <a href="#getPaginationTranslation">getPaginationTranslation</a>
+                                <a href="#getPaginationTranslation" >getPaginationTranslation</a>
                             </li>
                             <li>
                                     <span class="modifier">Private</span>
-                                <a href="#getRightByValue">getRightByValue</a>
+                                <a href="#getRightByValue" >getRightByValue</a>
                             </li>
                             <li>
-                                <a href="#gridRefreshed">gridRefreshed</a>
+                                <a href="#gridRefreshed" >gridRefreshed</a>
                             </li>
                             <li>
-                                <a href="#isComboboxSubmittable">isComboboxSubmittable</a>
+                                <a href="#isComboboxSubmittable" >isComboboxSubmittable</a>
                             </li>
                             <li>
-                                <a href="#isOwner">isOwner</a>
+                                <a href="#isOwner" >isOwner</a>
                             </li>
                             <li>
-                                <a href="#ngAfterViewInit">ngAfterViewInit</a>
+                                <a href="#ngAfterViewInit" >ngAfterViewInit</a>
                             </li>
                             <li>
-                                <a href="#ngOnInit">ngOnInit</a>
+                                <a href="#ngOnInit" >ngOnInit</a>
                             </li>
                             <li>
-                                <a href="#removeEntity">removeEntity</a>
+                                <a href="#removeEntity" >removeEntity</a>
                             </li>
                             <li>
-                                <a href="#shouldShowWarning">shouldShowWarning</a>
+                                <a href="#shouldShowWarning" >shouldShowWarning</a>
                             </li>
                             <li>
-                                <a href="#updateEntityRights">updateEntityRights</a>
+                                <a href="#updateEntityRights" >updateEntityRights</a>
                             </li>
                             <li>
-                                <a href="#updateGridItems">updateGridItems</a>
+                                <a href="#updateGridItems" >updateGridItems</a>
                             </li>
                         </ul>
                     </td>
@@ -268,28 +275,28 @@
                     <td class="col-md-4">
                         <ul class="index-list">
                             <li>
-                                <a href="#comboboxPlaceholder">comboboxPlaceholder</a>
+                                <a href="#comboboxPlaceholder" >comboboxPlaceholder</a>
                             </li>
                             <li>
-                                <a href="#currentlySharedWith">currentlySharedWith</a>
+                                <a href="#currentlySharedWith" >currentlySharedWith</a>
                             </li>
                             <li>
-                                <a href="#entityRenderer">entityRenderer</a>
+                                <a href="#entityRenderer" >entityRenderer</a>
                             </li>
                             <li>
-                                <a href="#id">id</a>
+                                <a href="#id" >id</a>
                             </li>
                             <li>
-                                <a href="#isSelectAll">isSelectAll</a>
+                                <a href="#isSelectAll" >isSelectAll</a>
                             </li>
                             <li>
-                                <a href="#makeSearch">makeSearch</a>
+                                <a href="#makeSearch" >makeSearch</a>
                             </li>
                             <li>
-                                <a href="#rightsOptions">rightsOptions</a>
+                                <a href="#rightsOptions" >rightsOptions</a>
                             </li>
                             <li>
-                                <a href="#selectAllText">selectAllText</a>
+                                <a href="#selectAllText" >selectAllText</a>
                             </li>
                         </ul>
                     </td>
@@ -304,7 +311,7 @@
                     <td class="col-md-4">
                         <ul class="index-list">
                             <li>
-                                <a href="#currentlySharedWithChange">currentlySharedWithChange</a>
+                                <a href="#currentlySharedWithChange" >currentlySharedWithChange</a>
                             </li>
                         </ul>
                     </td>
@@ -321,7 +328,7 @@
                         <td class="col-md-4">
                             <ul class="index-list">
                                 <li>
-                                    <a href="#currentlySharedWith">currentlySharedWith</a>
+                                    <a href="#currentlySharedWith" >currentlySharedWith</a>
                                 </li>
                             </ul>
                         </td>
@@ -330,13 +337,13 @@
     </table>
 </section>
 
-    <section>
+    <section data-compodoc="block-constructor">
     <h3 id="constructor">Constructor</h3>
         <table class="table table-sm table-bordered">
             <tbody>
                 <tr>
                     <td class="col-md-4">
-<code>constructor(translationService: TranslationService, subTracker: <a href="../injectables/SubscriptionTracker.html">SubscriptionTracker</a>)</code>
+<code>constructor(translationService: TranslationService, subTracker: <a href="../injectables/SubscriptionTracker.html" target="_self">SubscriptionTracker</a>)</code>
                     </td>
                 </tr>
                         <tr>
@@ -391,7 +398,7 @@
         </table>
 </section>
 
-    <section>
+    <section data-compodoc="block-inputs">
     <h3 id="inputs">Inputs</h3>
         <table class="table table-sm table-bordered">
             <tbody>
@@ -430,7 +437,7 @@
                 </tr>
                 <tr>
                     <td class="col-md-4">
-                        <i>Type : </i>        <code><a href="../miscellaneous/typealiases.html#IsSelected" target="_self" >IsSelected&lt;T&gt;[]</a></code>
+                        <i>Type : </i>        <code><a href="../miscellaneous/typealiases.html#IsSelected" target="_self" >IsSelected[]</a></code>
 
                     </td>
                 </tr>
@@ -543,9 +550,7 @@
                 </tr>
                 <tr>
                     <td class="col-md-4">
-                        <i>Type : </i>        <code><a href="../interfaces/SearchResult.html" target="_self" >(criteria?: string): Promise&lt;SearchResult&lt;T&gt;&gt; &#x3D;&gt; {
-        throw new Error(&#x27;No implementation for makeSearch&#x27;);
-    }</a></code>
+                        <i>Type : </i>        <code><a href="../interfaces/SearchResult.html" target="_self" >(criteria?: string) &#x3D;&gt; Promise&lt;SearchResult&lt;T&gt;&gt;</a></code>
 
                     </td>
                 </tr>
@@ -624,7 +629,7 @@
             </tbody>
         </table>
 </section>
-    <section>
+    <section data-compodoc="block-outputs">
     <h3 id="outputs">Outputs</h3>
         <table class="table table-sm table-bordered">
             <tbody>
@@ -656,7 +661,7 @@
 </section>
 
 
-    <section>
+    <section data-compodoc="block-methods">
     
     <h3 id="methods">
         Methods
@@ -667,9 +672,7 @@
                 <td class="col-md-4">
                     <a name="addPendingEntities"></a>
                     <span class="name">
-                        <b>
-                            addPendingEntities
-                        </b>
+                        <span ><b>addPendingEntities</b></span>
                         <a href="#addPendingEntities"><span class="icon ion-ios-link"></span></a>
                     </span>
                 </td>
@@ -708,16 +711,14 @@
                 <td class="col-md-4">
                     <a name="defaultRenderer"></a>
                     <span class="name">
-                        <b>
-                            defaultRenderer
-                        </b>
+                        <span ><b>defaultRenderer</b></span>
                         <a href="#defaultRenderer"><span class="icon ion-ios-link"></span></a>
                     </span>
                 </td>
             </tr>
             <tr>
                 <td class="col-md-4">
-<code>defaultRenderer(entity: <a href="../undefineds/HasId.html">HasId<T></a>)</code>
+<code>defaultRenderer(entity: <a href="../undefineds/HasId.html" target="_self">HasId&lt;T&gt;</a>)</code>
                 </td>
             </tr>
 
@@ -735,6 +736,7 @@
 
                     <div class="io-description">
                         <b>Parameters :</b>
+                        
                         <table class="params">
                             <thead>
                                 <tr>
@@ -778,9 +780,7 @@
                 <td class="col-md-4">
                     <a name="doSearchInternal"></a>
                     <span class="name">
-                        <b>
-                            doSearchInternal
-                        </b>
+                        <span ><b>doSearchInternal</b></span>
                         <a href="#doSearchInternal"><span class="icon ion-ios-link"></span></a>
                     </span>
                 </td>
@@ -807,6 +807,7 @@
 
                     <div class="io-description">
                         <b>Parameters :</b>
+                        
                         <table class="params">
                             <thead>
                                 <tr>
@@ -850,16 +851,14 @@
                 <td class="col-md-4">
                     <a name="entityTrackBy"></a>
                     <span class="name">
-                        <b>
-                            entityTrackBy
-                        </b>
+                        <span ><b>entityTrackBy</b></span>
                         <a href="#entityTrackBy"><span class="icon ion-ios-link"></span></a>
                     </span>
                 </td>
             </tr>
             <tr>
                 <td class="col-md-4">
-<code>entityTrackBy(_index: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank">number</a>, entity: <a href="../undefineds/HasId.html">HasId<T></a>)</code>
+<code>entityTrackBy(_index: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank">number</a>, entity: <a href="../undefineds/HasId.html" target="_self">HasId&lt;T&gt;</a>)</code>
                 </td>
             </tr>
 
@@ -879,6 +878,7 @@
 
                     <div class="io-description">
                         <b>Parameters :</b>
+                        
                         <table class="params">
                             <thead>
                                 <tr>
@@ -934,16 +934,14 @@
                 <td class="col-md-4">
                     <a name="getEntityRenderSpec"></a>
                     <span class="name">
-                        <b>
-                            getEntityRenderSpec
-                        </b>
+                        <span ><b>getEntityRenderSpec</b></span>
                         <a href="#getEntityRenderSpec"><span class="icon ion-ios-link"></span></a>
                     </span>
                 </td>
             </tr>
             <tr>
                 <td class="col-md-4">
-<code>getEntityRenderSpec(entity: <a href="../undefineds/HasId.html">HasId<T></a>)</code>
+<code>getEntityRenderSpec(entity: <a href="../undefineds/HasId.html" target="_self">HasId&lt;T&gt;</a>)</code>
                 </td>
             </tr>
 
@@ -963,6 +961,7 @@
 
                     <div class="io-description">
                         <b>Parameters :</b>
+                        
                         <table class="params">
                             <thead>
                                 <tr>
@@ -1006,9 +1005,7 @@
                 <td class="col-md-4">
                     <a name="getPaginationTranslation"></a>
                     <span class="name">
-                        <b>
-                            getPaginationTranslation
-                        </b>
+                        <span ><b>getPaginationTranslation</b></span>
                         <a href="#getPaginationTranslation"><span class="icon ion-ios-link"></span></a>
                     </span>
                 </td>
@@ -1035,6 +1032,7 @@
 
                     <div class="io-description">
                         <b>Parameters :</b>
+                        
                         <table class="params">
                             <thead>
                                 <tr>
@@ -1078,10 +1076,8 @@
                 <td class="col-md-4">
                     <a name="getRightByValue"></a>
                     <span class="name">
-                        <b>
-                            <span class="modifier">Private</span>
-                            getRightByValue
-                        </b>
+                        <span class="modifier">Private</span>
+                        <span ><b>getRightByValue</b></span>
                         <a href="#getRightByValue"><span class="icon ion-ios-link"></span></a>
                     </span>
                 </td>
@@ -1107,6 +1103,7 @@
 
                     <div class="io-description">
                         <b>Parameters :</b>
+                        
                         <table class="params">
                             <thead>
                                 <tr>
@@ -1150,16 +1147,14 @@
                 <td class="col-md-4">
                     <a name="gridRefreshed"></a>
                     <span class="name">
-                        <b>
-                            gridRefreshed
-                        </b>
+                        <span ><b>gridRefreshed</b></span>
                         <a href="#gridRefreshed"><span class="icon ion-ios-link"></span></a>
                     </span>
                 </td>
             </tr>
             <tr>
                 <td class="col-md-4">
-<code>gridRefreshed(state: <a href="../interfaces/GridState.html">GridState<IsSelected<T>></a>)</code>
+<code>gridRefreshed(state: <a href="../interfaces/GridState.html" target="_self">GridState&lt;IsSelected&lt;T&gt;&gt;</a>)</code>
                 </td>
             </tr>
 
@@ -1177,6 +1172,7 @@
 
                     <div class="io-description">
                         <b>Parameters :</b>
+                        
                         <table class="params">
                             <thead>
                                 <tr>
@@ -1220,9 +1216,7 @@
                 <td class="col-md-4">
                     <a name="isComboboxSubmittable"></a>
                     <span class="name">
-                        <b>
-                            isComboboxSubmittable
-                        </b>
+                        <span ><b>isComboboxSubmittable</b></span>
                         <a href="#isComboboxSubmittable"><span class="icon ion-ios-link"></span></a>
                     </span>
                 </td>
@@ -1261,16 +1255,14 @@
                 <td class="col-md-4">
                     <a name="isOwner"></a>
                     <span class="name">
-                        <b>
-                            isOwner
-                        </b>
+                        <span ><b>isOwner</b></span>
                         <a href="#isOwner"><span class="icon ion-ios-link"></span></a>
                     </span>
                 </td>
             </tr>
             <tr>
                 <td class="col-md-4">
-<code>isOwner(entity: <a href="../undefineds/IsSelected.html">IsSelected<T></a>)</code>
+<code>isOwner(entity: <a href="../undefineds/IsSelected.html" target="_self">IsSelected&lt;T&gt;</a>)</code>
                 </td>
             </tr>
 
@@ -1290,6 +1282,7 @@
 
                     <div class="io-description">
                         <b>Parameters :</b>
+                        
                         <table class="params">
                             <thead>
                                 <tr>
@@ -1333,9 +1326,7 @@
                 <td class="col-md-4">
                     <a name="ngAfterViewInit"></a>
                     <span class="name">
-                        <b>
-                            ngAfterViewInit
-                        </b>
+                        <span ><b>ngAfterViewInit</b></span>
                         <a href="#ngAfterViewInit"><span class="icon ion-ios-link"></span></a>
                     </span>
                 </td>
@@ -1372,9 +1363,7 @@
                 <td class="col-md-4">
                     <a name="ngOnInit"></a>
                     <span class="name">
-                        <b>
-                            ngOnInit
-                        </b>
+                        <span ><b>ngOnInit</b></span>
                         <a href="#ngOnInit"><span class="icon ion-ios-link"></span></a>
                     </span>
                 </td>
@@ -1411,16 +1400,14 @@
                 <td class="col-md-4">
                     <a name="removeEntity"></a>
                     <span class="name">
-                        <b>
-                            removeEntity
-                        </b>
+                        <span ><b>removeEntity</b></span>
                         <a href="#removeEntity"><span class="icon ion-ios-link"></span></a>
                     </span>
                 </td>
             </tr>
             <tr>
                 <td class="col-md-4">
-<code>removeEntity(entity: <a href="../undefineds/HasId.html">HasId<T></a>)</code>
+<code>removeEntity(entity: <a href="../undefineds/HasId.html" target="_self">HasId&lt;T&gt;</a>)</code>
                 </td>
             </tr>
 
@@ -1440,6 +1427,7 @@
 
                     <div class="io-description">
                         <b>Parameters :</b>
+                        
                         <table class="params">
                             <thead>
                                 <tr>
@@ -1483,9 +1471,7 @@
                 <td class="col-md-4">
                     <a name="shouldShowWarning"></a>
                     <span class="name">
-                        <b>
-                            shouldShowWarning
-                        </b>
+                        <span ><b>shouldShowWarning</b></span>
                         <a href="#shouldShowWarning"><span class="icon ion-ios-link"></span></a>
                     </span>
                 </td>
@@ -1510,6 +1496,7 @@
 
                     <div class="io-description">
                         <b>Parameters :</b>
+                        
                         <table class="params">
                             <thead>
                                 <tr>
@@ -1565,16 +1552,14 @@
                 <td class="col-md-4">
                     <a name="updateEntityRights"></a>
                     <span class="name">
-                        <b>
-                            updateEntityRights
-                        </b>
+                        <span ><b>updateEntityRights</b></span>
                         <a href="#updateEntityRights"><span class="icon ion-ios-link"></span></a>
                     </span>
                 </td>
             </tr>
             <tr>
                 <td class="col-md-4">
-<code>updateEntityRights(entity: <a href="../undefineds/IsSelected.html">IsSelected<T></a>, newAccessRight: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
+<code>updateEntityRights(entity: <a href="../undefineds/IsSelected.html" target="_self">IsSelected&lt;T&gt;</a>, newAccessRight: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
                 </td>
             </tr>
 
@@ -1594,6 +1579,7 @@
 
                     <div class="io-description">
                         <b>Parameters :</b>
+                        
                         <table class="params">
                             <thead>
                                 <tr>
@@ -1649,9 +1635,7 @@
                 <td class="col-md-4">
                     <a name="updateGridItems"></a>
                     <span class="name">
-                        <b>
-                            updateGridItems
-                        </b>
+                        <span ><b>updateGridItems</b></span>
                         <a href="#updateGridItems"><span class="icon ion-ios-link"></span></a>
                     </span>
                 </td>
@@ -1683,70 +1667,68 @@
         </tbody>
     </table>
 </section>
-    <section>
+    <section data-compodoc="block-properties">
     
-        <h3 id="inputs">
-            Properties
-        </h3>
-        <table class="table table-sm table-bordered">
-            <tbody>
+    <h3 id="inputs">
+        Properties
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="actionDisplayConfig"></a>
+                    <span class="name">
+                        <span ><b>actionDisplayConfig</b></span>
+                        <a href="#actionDisplayConfig"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
                 <tr>
                     <td class="col-md-4">
-                        <a name="actionDisplayConfig"></a>
-                        <span class="name">
-                            <b>
-                            actionDisplayConfig</b>
-                            <a href="#actionDisplayConfig"><span class="icon ion-ios-link"></span></a>
-                        </span>
+                        <i>Type : </i>        <code><a href="../interfaces/DatagridActionDisplayConfig.html" target="_self" >DatagridActionDisplayConfig</a></code>
+
                     </td>
                 </tr>
-                    <tr>
-                        <td class="col-md-4">
-                            <i>Type : </i>        <code><a href="../interfaces/DatagridActionDisplayConfig.html" target="_self" >DatagridActionDisplayConfig</a></code>
-
-                        </td>
-                    </tr>
-                    <tr>
-                        <td class="col-md-4">
-                            <i>Default value : </i><code>{
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>{
         contextual: {
             styling: ActionStyling.INLINE,
             buttonContents: TextIcon.ICON,
             position: DatagridContextualActionPosition.ROW,
         },
     }</code>
-                        </td>
-                    </tr>
-                        <tr>
-                            <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="229" class="link-to-prism">projects/components/src/sharing-modal/tabs/sharing-modal-tab.component.ts:229</a></div>
-                            </td>
-                        </tr>
-
-
-            </tbody>
-        </table>
-        <table class="table table-sm table-bordered">
-            <tbody>
-                <tr>
-                    <td class="col-md-4">
-                        <a name="actions"></a>
-                        <span class="name">
-                            <b>
-                            actions</b>
-                            <a href="#actions"><span class="icon ion-ios-link"></span></a>
-                        </span>
                     </td>
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                            <i>Type : </i>    <code>ActionItem&lt;IsSelected&lt;T&gt;, unknown&gt;[]</code>
-
+                                <div class="io-line">Defined in <a href="" data-line="229" class="link-to-prism">projects/components/src/sharing-modal/tabs/sharing-modal-tab.component.ts:229</a></div>
                         </td>
                     </tr>
-                    <tr>
-                        <td class="col-md-4">
-                            <i>Default value : </i><code>[
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="actions"></a>
+                    <span class="name">
+                        <span ><b>actions</b></span>
+                        <a href="#actions"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>ActionItem&lt;IsSelected&lt;T&gt;, &gt;[]</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>[
         {
             icon: &#x27;trash&#x27;,
             availability: (record: IsSelected&lt;T&gt;[]) &#x3D;&gt; !this.isOwner(record[0]),
@@ -1756,416 +1738,404 @@
             },
         },
     ]</code>
-                        </td>
-                    </tr>
-                        <tr>
-                            <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="218" class="link-to-prism">projects/components/src/sharing-modal/tabs/sharing-modal-tab.component.ts:218</a></div>
-                            </td>
-                        </tr>
-
-
-            </tbody>
-        </table>
-        <table class="table table-sm table-bordered">
-            <tbody>
-                <tr>
-                    <td class="col-md-4">
-                        <a name="allSharedWith"></a>
-                        <span class="name">
-                            <b>
-                                <span class="modifier">Private</span>
-                            allSharedWith</b>
-                            <a href="#allSharedWith"><span class="icon ion-ios-link"></span></a>
-                        </span>
                     </td>
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                            <i>Type : </i>        <code><a href="../miscellaneous/typealiases.html#IsSelected" target="_self" >IsSelected&lt;T&gt;[]</a></code>
-
+                                <div class="io-line">Defined in <a href="" data-line="218" class="link-to-prism">projects/components/src/sharing-modal/tabs/sharing-modal-tab.component.ts:218</a></div>
                         </td>
                     </tr>
-                    <tr>
-                        <td class="col-md-4">
-                            <i>Default value : </i><code>[]</code>
-                        </td>
-                    </tr>
-                        <tr>
-                            <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="254" class="link-to-prism">projects/components/src/sharing-modal/tabs/sharing-modal-tab.component.ts:254</a></div>
-                            </td>
-                        </tr>
 
 
-            </tbody>
-        </table>
-        <table class="table table-sm table-bordered">
-            <tbody>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="allSharedWith"></a>
+                    <span class="name">
+                            <span class="modifier">Private</span>
+                        <span ><b>allSharedWith</b></span>
+                        <a href="#allSharedWith"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
                 <tr>
                     <td class="col-md-4">
-                        <a name="bufferedSearch"></a>
-                        <span class="name">
-                            <b>
-                                <span class="modifier">Private</span>
-                            bufferedSearch</b>
-                            <a href="#bufferedSearch"><span class="icon ion-ios-link"></span></a>
-                        </span>
+                        <i>Type : </i>        <code><a href="../miscellaneous/typealiases.html#IsSelected" target="_self" >IsSelected&lt;T&gt;[]</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>[]</code>
                     </td>
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                            <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/function" target="_blank" >function</a></code>
-
+                                <div class="io-line">Defined in <a href="" data-line="254" class="link-to-prism">projects/components/src/sharing-modal/tabs/sharing-modal-tab.component.ts:254</a></div>
                         </td>
                     </tr>
-                        <tr>
-                            <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="253" class="link-to-prism">projects/components/src/sharing-modal/tabs/sharing-modal-tab.component.ts:253</a></div>
-                            </td>
-                        </tr>
 
 
-            </tbody>
-        </table>
-        <table class="table table-sm table-bordered">
-            <tbody>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="bufferedSearch"></a>
+                    <span class="name">
+                            <span class="modifier">Private</span>
+                        <span ><b>bufferedSearch</b></span>
+                        <a href="#bufferedSearch"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
                 <tr>
                     <td class="col-md-4">
-                        <a name="columns"></a>
-                        <span class="name">
-                            <b>
-                            columns</b>
-                            <a href="#columns"><span class="icon ion-ios-link"></span></a>
-                        </span>
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/function" target="_blank" >function</a></code>
+
                     </td>
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                            <i>Type : </i>        <code><a href="../interfaces/GridColumn.html" target="_self" >GridColumn&lt;IsSelected&lt;T&gt;&gt;[]</a></code>
-
+                                <div class="io-line">Defined in <a href="" data-line="253" class="link-to-prism">projects/components/src/sharing-modal/tabs/sharing-modal-tab.component.ts:253</a></div>
                         </td>
                     </tr>
-                    <tr>
-                        <td class="col-md-4">
-                            <i>Default value : </i><code>[]</code>
-                        </td>
-                    </tr>
-                        <tr>
-                            <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="211" class="link-to-prism">projects/components/src/sharing-modal/tabs/sharing-modal-tab.component.ts:211</a></div>
-                            </td>
-                        </tr>
 
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="columns"></a>
+                    <span class="name">
+                        <span ><b>columns</b></span>
+                        <a href="#columns"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
                 <tr>
                     <td class="col-md-4">
-                        <div class="io-description"><p>START GRID CONFIGURATION</p>
+                        <i>Type : </i>        <code><a href="../interfaces/GridColumn.html" target="_self" >GridColumn&lt;IsSelected&lt;T&gt;&gt;[]</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>[]</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="211" class="link-to-prism">projects/components/src/sharing-modal/tabs/sharing-modal-tab.component.ts:211</a></div>
+                        </td>
+                    </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>START GRID CONFIGURATION</p>
 </div>
-                    </td>
-                </tr>
+                </td>
+            </tr>
 
-            </tbody>
-        </table>
-        <table class="table table-sm table-bordered">
-            <tbody>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="comboboxSelection"></a>
+                    <span class="name">
+                        <span ><b>comboboxSelection</b></span>
+                        <a href="#comboboxSelection"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
                 <tr>
                     <td class="col-md-4">
-                        <a name="comboboxSelection"></a>
-                        <span class="name">
-                            <b>
-                            comboboxSelection</b>
-                            <a href="#comboboxSelection"><span class="icon ion-ios-link"></span></a>
-                        </span>
+                        <i>Type : </i>        <code><a href="../miscellaneous/typealiases.html#HasId" target="_self" >HasId&lt;T&gt;[]</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>[]</code>
                     </td>
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                            <i>Type : </i>        <code><a href="../miscellaneous/typealiases.html#HasId" target="_self" >HasId&lt;T&gt;[]</a></code>
-
+                                <div class="io-line">Defined in <a href="" data-line="206" class="link-to-prism">projects/components/src/sharing-modal/tabs/sharing-modal-tab.component.ts:206</a></div>
                         </td>
                     </tr>
-                    <tr>
-                        <td class="col-md-4">
-                            <i>Default value : </i><code>[]</code>
-                        </td>
-                    </tr>
-                        <tr>
-                            <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="206" class="link-to-prism">projects/components/src/sharing-modal/tabs/sharing-modal-tab.component.ts:206</a></div>
-                            </td>
-                        </tr>
 
-                <tr>
-                    <td class="col-md-4">
-                        <div class="io-description"><p>The entities currently selected in the combobox,</p>
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>The entities currently selected in the combobox,</p>
 </div>
-                    </td>
-                </tr>
+                </td>
+            </tr>
 
-            </tbody>
-        </table>
-        <table class="table table-sm table-bordered">
-            <tbody>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="currentlySelectedRightValue"></a>
+                    <span class="name">
+                        <span ><b>currentlySelectedRightValue</b></span>
+                        <a href="#currentlySelectedRightValue"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
                 <tr>
                     <td class="col-md-4">
-                        <a name="currentlySelectedRightValue"></a>
-                        <span class="name">
-                            <b>
-                            currentlySelectedRightValue</b>
-                            <a href="#currentlySelectedRightValue"><span class="icon ion-ios-link"></span></a>
-                        </span>
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
                     </td>
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                            <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
-
+                                <div class="io-line">Defined in <a href="" data-line="195" class="link-to-prism">projects/components/src/sharing-modal/tabs/sharing-modal-tab.component.ts:195</a></div>
                         </td>
                     </tr>
-                        <tr>
-                            <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="195" class="link-to-prism">projects/components/src/sharing-modal/tabs/sharing-modal-tab.component.ts:195</a></div>
-                            </td>
-                        </tr>
 
-                <tr>
-                    <td class="col-md-4">
-                        <div class="io-description"><p>The right that is currently selected in the rights dropdown for pending users.</p>
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>The right that is currently selected in the rights dropdown for pending users.</p>
 </div>
-                    </td>
-                </tr>
+                </td>
+            </tr>
 
-            </tbody>
-        </table>
-        <table class="table table-sm table-bordered">
-            <tbody>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="gridItems"></a>
+                    <span class="name">
+                        <span ><b>gridItems</b></span>
+                        <a href="#gridItems"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
                 <tr>
                     <td class="col-md-4">
-                        <a name="gridItems"></a>
-                        <span class="name">
-                            <b>
-                            gridItems</b>
-                            <a href="#gridItems"><span class="icon ion-ios-link"></span></a>
-                        </span>
+                        <i>Type : </i>        <code><a href="../interfaces/GridDataFetchResult.html" target="_self" >GridDataFetchResult&lt;IsSelected&lt;T&gt;&gt;</a></code>
+
                     </td>
                 </tr>
-                    <tr>
-                        <td class="col-md-4">
-                            <i>Type : </i>        <code><a href="../interfaces/GridDataFetchResult.html" target="_self" >GridDataFetchResult&lt;IsSelected&lt;T&gt;&gt;</a></code>
-
-                        </td>
-                    </tr>
-                    <tr>
-                        <td class="col-md-4">
-                            <i>Default value : </i><code>{
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>{
         items: [],
         totalItems: 0,
     }</code>
-                        </td>
-                    </tr>
-                        <tr>
-                            <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="213" class="link-to-prism">projects/components/src/sharing-modal/tabs/sharing-modal-tab.component.ts:213</a></div>
-                            </td>
-                        </tr>
-
-
-            </tbody>
-        </table>
-        <table class="table table-sm table-bordered">
-            <tbody>
-                <tr>
-                    <td class="col-md-4">
-                        <a name="gridState"></a>
-                        <span class="name">
-                            <b>
-                                <span class="modifier">Private</span>
-                            gridState</b>
-                            <a href="#gridState"><span class="icon ion-ios-link"></span></a>
-                        </span>
                     </td>
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                            <i>Type : </i>        <code><a href="../interfaces/GridState.html" target="_self" >GridState&lt;IsSelected&lt;T&gt;&gt;</a></code>
-
+                                <div class="io-line">Defined in <a href="" data-line="213" class="link-to-prism">projects/components/src/sharing-modal/tabs/sharing-modal-tab.component.ts:213</a></div>
                         </td>
                     </tr>
-                        <tr>
-                            <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="255" class="link-to-prism">projects/components/src/sharing-modal/tabs/sharing-modal-tab.component.ts:255</a></div>
-                            </td>
-                        </tr>
 
 
-            </tbody>
-        </table>
-        <table class="table table-sm table-bordered">
-            <tbody>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="gridState"></a>
+                    <span class="name">
+                            <span class="modifier">Private</span>
+                        <span ><b>gridState</b></span>
+                        <a href="#gridState"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
                 <tr>
                     <td class="col-md-4">
-                        <a name="paginationInfo"></a>
-                        <span class="name">
-                            <b>
-                            paginationInfo</b>
-                            <a href="#paginationInfo"><span class="icon ion-ios-link"></span></a>
-                        </span>
+                        <i>Type : </i>        <code><a href="../interfaces/GridState.html" target="_self" >GridState&lt;IsSelected&lt;T&gt;&gt;</a></code>
+
                     </td>
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                            <i>Type : </i>        <code><a href="../interfaces/PaginationConfiguration.html" target="_self" >PaginationConfiguration</a></code>
-
+                                <div class="io-line">Defined in <a href="" data-line="255" class="link-to-prism">projects/components/src/sharing-modal/tabs/sharing-modal-tab.component.ts:255</a></div>
                         </td>
                     </tr>
-                    <tr>
-                        <td class="col-md-4">
-                            <i>Default value : </i><code>{
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="paginationInfo"></a>
+                    <span class="name">
+                        <span ><b>paginationInfo</b></span>
+                        <a href="#paginationInfo"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="../interfaces/PaginationConfiguration.html" target="_self" >PaginationConfiguration</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>{
         pageSize: 10,
         pageSizeOptions: [10, 20, 50, 100],
         shouldShowPageNumberInput: true,
         shouldShowPageSizeSelector: true,
     }</code>
-                        </td>
-                    </tr>
-                        <tr>
-                            <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="237" class="link-to-prism">projects/components/src/sharing-modal/tabs/sharing-modal-tab.component.ts:237</a></div>
-                            </td>
-                        </tr>
-
-
-            </tbody>
-        </table>
-        <table class="table table-sm table-bordered">
-            <tbody>
-                <tr>
-                    <td class="col-md-4">
-                        <a name="searchError"></a>
-                        <span class="name">
-                            <b>
-                            searchError</b>
-                            <a href="#searchError"><span class="icon ion-ios-link"></span></a>
-                        </span>
                     </td>
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                            <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
-
+                                <div class="io-line">Defined in <a href="" data-line="237" class="link-to-prism">projects/components/src/sharing-modal/tabs/sharing-modal-tab.component.ts:237</a></div>
                         </td>
                     </tr>
-                    <tr>
-                        <td class="col-md-4">
-                            <i>Default value : </i><code>undefined</code>
-                        </td>
-                    </tr>
-                        <tr>
-                            <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="251" class="link-to-prism">projects/components/src/sharing-modal/tabs/sharing-modal-tab.component.ts:251</a></div>
-                            </td>
-                        </tr>
 
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="searchError"></a>
+                    <span class="name">
+                        <span ><b>searchError</b></span>
+                        <a href="#searchError"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
                 <tr>
                     <td class="col-md-4">
-                        <div class="io-description"><p>END GRID CONFIGURATION</p>
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>undefined</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="251" class="link-to-prism">projects/components/src/sharing-modal/tabs/sharing-modal-tab.component.ts:251</a></div>
+                        </td>
+                    </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>The error returned from a call to makeSearch. Undefined if there is no error.</p>
 </div>
-                    </td>
-                </tr>
+                </td>
+            </tr>
 
-            </tbody>
-        </table>
-        <table class="table table-sm table-bordered">
-            <tbody>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="searchResults"></a>
+                    <span class="name">
+                        <span ><b>searchResults</b></span>
+                        <a href="#searchResults"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
                 <tr>
                     <td class="col-md-4">
-                        <a name="searchResults"></a>
-                        <span class="name">
-                            <b>
-                            searchResults</b>
-                            <a href="#searchResults"><span class="icon ion-ios-link"></span></a>
-                        </span>
+                        <i>Type : </i>        <code><a href="../miscellaneous/typealiases.html#HasId" target="_self" >HasId&lt;T&gt;[]</a></code>
+
                     </td>
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                            <i>Type : </i>        <code><a href="../miscellaneous/typealiases.html#HasId" target="_self" >HasId&lt;T&gt;[]</a></code>
-
+                                <div class="io-line">Defined in <a href="" data-line="200" class="link-to-prism">projects/components/src/sharing-modal/tabs/sharing-modal-tab.component.ts:200</a></div>
                         </td>
                     </tr>
-                        <tr>
-                            <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="200" class="link-to-prism">projects/components/src/sharing-modal/tabs/sharing-modal-tab.component.ts:200</a></div>
-                            </td>
-                        </tr>
 
-                <tr>
-                    <td class="col-md-4">
-                        <div class="io-description"><p>The results returned from a search in the combobox.</p>
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>The results returned from a search in the combobox.</p>
 </div>
-                    </td>
-                </tr>
+                </td>
+            </tr>
 
-            </tbody>
-        </table>
-        <table class="table table-sm table-bordered">
-            <tbody>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="totalSearchResults"></a>
+                    <span class="name">
+                        <span ><b>totalSearchResults</b></span>
+                        <a href="#totalSearchResults"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
                 <tr>
                     <td class="col-md-4">
-                        <a name="totalSearchResults"></a>
-                        <span class="name">
-                            <b>
-                            totalSearchResults</b>
-                            <a href="#totalSearchResults"><span class="icon ion-ios-link"></span></a>
-                        </span>
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+
                     </td>
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                            <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
-
+                                <div class="io-line">Defined in <a href="" data-line="201" class="link-to-prism">projects/components/src/sharing-modal/tabs/sharing-modal-tab.component.ts:201</a></div>
                         </td>
                     </tr>
-                        <tr>
-                            <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="201" class="link-to-prism">projects/components/src/sharing-modal/tabs/sharing-modal-tab.component.ts:201</a></div>
-                            </td>
-                        </tr>
 
 
-            </tbody>
-        </table>
-        <table class="table table-sm table-bordered">
-            <tbody>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="translationService"></a>
+                    <span class="name">
+                            <span class="modifier">Public</span>
+                        <span ><b>translationService</b></span>
+                        <a href="#translationService"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
                 <tr>
                     <td class="col-md-4">
-                        <a name="translationService"></a>
-                        <span class="name">
-                            <b>
-                                <span class="modifier">Public</span>
-                            translationService</b>
-                            <a href="#translationService"><span class="icon ion-ios-link"></span></a>
-                        </span>
+                        <i>Type : </i>    <code>TranslationService</code>
+
                     </td>
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                            <i>Type : </i>    <code>TranslationService</code>
-
+                                <div class="io-line">Defined in <a href="" data-line="135" class="link-to-prism">projects/components/src/sharing-modal/tabs/sharing-modal-tab.component.ts:135</a></div>
                         </td>
                     </tr>
-                        <tr>
-                            <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="135" class="link-to-prism">projects/components/src/sharing-modal/tabs/sharing-modal-tab.component.ts:135</a></div>
-                            </td>
-                        </tr>
 
 
-            </tbody>
-        </table>
+        </tbody>
+    </table>
 </section>
 
-    <section>
+    <section data-compodoc="block-accessors">
     <h3 id="accessors">
         Accessors
     </h3>
@@ -2191,7 +2161,7 @@
 
                 <tr>
                     <td class="col-md-4">
-                        <span class="accessor"><b>set</b><code>currentlySharedWith(currentlySharedWith: [])</code></span>
+                        <span class="accessor"><b>set</b><code>currentlySharedWith(currentlySharedWith: <a href="../undefineds/IsSelected.html" target="_self">IsSelected&lt;T&gt;[]</a>)</code></span>
                     </td>
                 </tr>
                             <tr>
@@ -2219,7 +2189,7 @@
                                                             <td>currentlySharedWith</td>
                                                     
                                                             <td>
-                                                                        <code>[]</code>
+                                                                            <code><a href="../miscellaneous/typealiases.html#IsSelected" target="_self" >IsSelected&lt;T&gt;[]</a></code>
                                                             </td>
                                                     
                                                         <td>
@@ -2244,7 +2214,7 @@
 </div>
 
 
-    <div class="tab-pane fade  tab-source-code" id="c-source">
+    <div class="tab-pane fade  tab-source-code" id="source">
         <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { AfterViewInit, Component, EventEmitter, Input, OnDestroy, OnInit, Output } from &#x27;@angular/core&#x27;;
 import { ClrDatagridPagination } from &#x27;@clr/angular&#x27;;
 import { LazyString, TranslationService } from &#x27;@vcd/i18n&#x27;;
@@ -2683,7 +2653,7 @@ export class SharingModalTabComponent&lt;T&gt; implements OnInit, AfterViewInit 
 </code></pre>
     </div>
 
-    <div class="tab-pane fade " id="c-templateData">
+    <div class="tab-pane fade " id="templateData">
         <pre class="line-numbers"><code class="language-html">&lt;div class&#x3D;&quot;search-container&quot;&gt;
     &lt;clr-combobox-container class&#x3D;&quot;combobox-container&quot;&gt;
         &lt;clr-combobox
@@ -2785,7 +2755,7 @@ export class SharingModalTabComponent&lt;T&gt; implements OnInit, AfterViewInit 
 </code></pre>
     </div>
 
-    <div class="tab-pane fade " id="c-styleData">
+    <div class="tab-pane fade " id="styleData">
                 <p class="comment">
                     <code>./sharing-modal-tab.component.scss</code>
                 </p>
@@ -2877,7 +2847,7 @@ button.add {
 </code></pre>
     </div>
 
-    <div class="tab-pane fade " id="c-tree">
+    <div class="tab-pane fade " id="tree">
         <div id="tree-container"></div>
         <div class="tree-legend">
             <div class="title">
@@ -2904,7 +2874,7 @@ button.add {
 <script>
         var COMPONENT_TEMPLATE = '<div><div class="search-container">    <clr-combobox-container class="combobox-container">        <clr-combobox            [(ngModel)]="comboboxSelection"            name="multiSelect"            clrMulti="true"            (clrInputChange)="doSearchInternal($event)"            (clrOpenChange)="doSearchInternal()"            [clrLoading]="!searchResults"            [disabled]="this.isSelectAll"            [placeholder]="comboboxPlaceholder | lazyString"        >            <ng-container *clrOptionSelected="let selected">                <ng-template                    *ngIf="entityRenderer; else name"                    [vcdComponentRendererOutlet]="{ rendererSpec: getEntityRenderSpec(selected) }"                >                </ng-template>                <ng-template #name>                    {{ selected.name }}                </ng-template>            </ng-container>            <clr-options>                <div *ngIf="searchError; else showOptions" class="clr-mock-option">                    <vcd-error-banner                        class="search-error"                        [errorMessage]="searchError"                        [alertClosable]="false"                    ></vcd-error-banner>                </div>                <ng-template #showOptions>                    <clr-option *ngFor="let entity of searchResults; trackBy: entityTrackBy" [clrValue]="entity">                        <ng-template                            *ngIf="entityRenderer; else name"                            [vcdComponentRendererOutlet]="{ rendererSpec: getEntityRenderSpec(entity) }"                        >                        </ng-template>                        <ng-template #name>                            {{ defaultRenderer(entity) }}                        </ng-template>                    </clr-option>                    <div                        class="clr-mock-option"                        *ngIf="searchResults && shouldShowWarning(totalSearchResults, searchResults.length)"                    >                        <clr-alert [clrAlertType]="\'warning\'">                            <clr-alert-item>                                <span class="alert-text search-warning">                                    {{                                        this.translationService.translateAsync(\'vcd.cc.sharing-results-warning\', [                                            searchResults.length,                                            totalSearchResults                                        ]) | lazyString                                    }}                                </span>                            </clr-alert-item>                        </clr-alert>                    </div>                </ng-template>            </clr-options>        </clr-combobox>    </clr-combobox-container>    <select        clrSelect        name="options"        [(ngModel)]="currentlySelectedRightValue"        [disabled]="this.isComboboxSubmittable()"        class="rights-selector"    >        <option *ngFor="let option of rightsOptions" value="{{ option.value }}">            {{ option.display | lazyString }}        </option>    </select>    <button class="btn add" (click)="addPendingEntities()" [disabled]="this.isComboboxSubmittable()">        {{ \'vcd.cc.add\' | translate }}    </button></div><div class="grid-container">    <vcd-datagrid        [columns]="columns"        [gridData]="gridItems"        [actions]="actions"        [actionDisplayConfig]="actionDisplayConfig"        *ngIf="!this.isSelectAll; else placeholderGrid"        [height]="400"        (gridRefresh)="gridRefreshed($event)"        [pagination]="paginationInfo"    >    </vcd-datagrid>    <ng-template #placeholderGrid>        <div class="rectangle">            <div class="content">                <clr-icon shape="assign-user" size="35" class="select-all-icon"></clr-icon>                <h4 class="select-all-placeholder">{{ selectAllText | lazyString }}</h4>            </div>        </div>    </ng-template></div></div>'
     var COMPONENTS = [{'name': 'ActionMenuComponent', 'selector': 'vcd-action-menu'},{'name': 'BannerActivityReporterComponent', 'selector': 'vcd-banner-activity-reporter'},{'name': 'BoldTextRendererComponent', 'selector': 'vcd-bold-text-renderer'},{'name': 'DataExporterComponent', 'selector': 'vcd-data-exporter'},{'name': 'DatagridComponent', 'selector': 'vcd-datagrid'},{'name': 'DatagridMultiSelectFilterComponent', 'selector': 'vcd-dg-multiselect-filter'},{'name': 'DatagridNumericFilterComponent', 'selector': 'vcd-dg-numeric-filter'},{'name': 'DatagridSelectFilterComponent', 'selector': 'vcd-dg-select-filter'},{'name': 'DatagridStringFilterComponent', 'selector': 'vcd-dg-string-filter'},{'name': 'DrawerComponent', 'selector': 'vcd-drawer-component'},{'name': 'DropdownComponent', 'selector': 'vcd-dropdown'},{'name': 'ErrorBannerComponent', 'selector': 'vcd-error-banner'},{'name': 'FilterTestHostComponent', 'selector': ''},{'name': 'FormCheckboxComponent', 'selector': 'vcd-form-checkbox'},{'name': 'FormInputComponent', 'selector': 'vcd-form-input'},{'name': 'FormlyInputComponent', 'selector': 'vcd-formly-input'},{'name': 'FormlyNumberWithUnitInputComponent', 'selector': 'vcd-formly-number-with-unit-input'},{'name': 'FormlySelectComponent', 'selector': 'vcd-formly-select'},{'name': 'FormSelectComponent', 'selector': 'vcd-form-select'},{'name': 'LoadingIndicatorComponent', 'selector': 'vcd-loading-indicator'},{'name': 'NumberWithUnitFormInputComponent', 'selector': 'vcd-number-with-unit-form-input'},{'name': 'QuickSearchComponent', 'selector': 'vcd-quick-search'},{'name': 'RightsDropdownRendererComponent', 'selector': 'vcd-rights-dropdown-renderer'},{'name': 'SharingModalComponent', 'selector': 'vcd-sharing-modal'},{'name': 'SharingModalGroupRenderComponent', 'selector': 'vcd-sharing-modal-group-renderer'},{'name': 'SharingModalOrgRenderComponent', 'selector': 'vcd-sharing-modal-group-renderer'},{'name': 'SharingModalTabComponent', 'selector': 'vcd-sharing-modal-tab'},{'name': 'SharingModalUserRenderComponent', 'selector': 'vcd-sharing-modal-user-renderer'},{'name': 'ShowClippedTextDirectiveTestHostComponent', 'selector': ''},{'name': 'SpinnerActivityReporterComponent', 'selector': 'vcd-spinner-activity-reporter'},{'name': 'VcdSelectAllToggleComponent', 'selector': 'vcd-select-all-toggle'}];
-    var DIRECTIVES = [{'name': 'AlternativeTextDirective', 'selector': 'clr-icon'},{'name': 'AriaActiveDescendantDirective', 'selector': '[vcdAriaActiveDescendant]'},{'name': 'ComponentRendererOutletDirective', 'selector': '[vcdComponentRendererOutlet]'},{'name': 'DatagridFilter', 'selector': ''},{'name': 'DropdownFocusHandlerDirective', 'selector': 'vcd-dropdown[vcdDropdownFocusHandler]'},{'name': 'DynamicDropdownPositionDirective', 'selector': 'clr-dropdown[vcdDynamicDropdown]'},{'name': 'ResponsiveInputDirective', 'selector': '.clr-form-control[vcdResponsiveInput]'},{'name': 'ShowClippedTextDirective', 'selector': '[vcdShowClippedText]'},{'name': 'UsersGroupsOrgsSharingModalDirective', 'selector': 'vcd-sharing-modal[vcdUsersGroupsOrgsSharingModal]'}];
+    var DIRECTIVES = [{'name': 'AlternativeTextDirective', 'selector': 'clr-icon'},{'name': 'AriaActiveDescendantDirective', 'selector': '[vcdAriaActiveDescendant]'},{'name': 'BaseFormControl', 'selector': ''},{'name': 'ComponentRendererOutletDirective', 'selector': '[vcdComponentRendererOutlet]'},{'name': 'DatagridFilter', 'selector': ''},{'name': 'DropdownFocusHandlerDirective', 'selector': 'vcd-dropdown[vcdDropdownFocusHandler]'},{'name': 'DynamicDropdownPositionDirective', 'selector': 'clr-dropdown[vcdDynamicDropdown]'},{'name': 'ResponsiveInputDirective', 'selector': '.clr-form-control[vcdResponsiveInput]'},{'name': 'ShowClippedTextDirective', 'selector': '[vcdShowClippedText]'},{'name': 'UsersGroupsOrgsSharingModalDirective', 'selector': 'vcd-sharing-modal[vcdUsersGroupsOrgsSharingModal]'}];
     var ACTUAL_COMPONENT = {'name': 'SharingModalTabComponent'};
 </script>
 <script src="../js/tree.js"></script>
@@ -2918,14 +2888,16 @@ button.add {
 
 
 
-                   
+
+
+
 
 
 
 
                    </div><div class="search-results">
     <div class="has-results">
-        <h1 class="search-results-title"><span class='search-results-count'></span> result-matching "<span class='search-query'></span>"</h1>
+        <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
         <ul class="search-results-list"></ul>
     </div>
     <div class="no-results">
@@ -2937,6 +2909,15 @@ button.add {
            </div>
        </div>
 
+          <label class="dark-mode-switch">
+               <input type="checkbox">
+               <span class="slider">
+                    <svg class="slider-icon" viewBox="0 0 24 24" fill="none" height="20" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" width="20" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"></path>
+                    </svg>
+               </span>
+          </label>
+
        <script>
             var COMPODOC_CURRENT_PAGE_DEPTH = 1;
             var COMPODOC_CURRENT_PAGE_CONTEXT = 'component';
@@ -2946,9 +2927,9 @@ button.add {
 
        <script src="../js/libs/custom-elements.min.js"></script>
        <script src="../js/libs/lit-html.js"></script>
-       <!-- Required to polyfill modern browsers as code is ES5 for IE... -->
-       <script src="../js/libs/custom-elements-es5-adapter.js" charset="utf-8" defer></script>
+
        <script src="../js/menu-wc.js" defer></script>
+       <script nomodule src="../js/menu-wc_es5.js" defer></script>
 
        <script src="../js/libs/bootstrap-native.js"></script>
 

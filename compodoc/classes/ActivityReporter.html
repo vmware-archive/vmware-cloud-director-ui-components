@@ -8,11 +8,12 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
         <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
-	      <link rel="stylesheet" href="../styles/style.css">
+	   <link rel="stylesheet" href="../styles/style.css">
+        <link rel="stylesheet" href="../styles/dark.css">
     </head>
     <body>
 
-        <div class="navbar navbar-default navbar-fixed-top visible-xs">
+        <div class="navbar navbar-default navbar-fixed-top d-block d-sm-none">
             <a href="../" class="navbar-brand">vmware-cloud-director-ui-components documentation</a>
             <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
         </div>
@@ -40,28 +41,36 @@
 
 
 
+
 <ol class="breadcrumb">
-  <li>Classes</li>
-  <li>ActivityReporter</li>
+  <li class="breadcrumb-item">Classes</li>
+  <li class="breadcrumb-item" >ActivityReporter</li>
 </ol>
 
 <ul class="nav nav-tabs" role="tablist">
-        <li class="active">
-            <a href="#info" role="tab" id="info-tab" data-toggle="tab" data-link="info">Info</a>
+        <li class="nav-item">
+            <a href="#info" 
+                class="nav-link"
+                class="nav-link active"
+                role="tab" id="info-tab" data-bs-toggle="tab" data-link="info">Info</a>
         </li>
-        <li >
-            <a href="#source" role="tab" id="source-tab" data-toggle="tab" data-link="source">Source</a>
+        <li class="nav-item">
+            <a href="#source" 
+                class="nav-link"
+                
+                role="tab" id="source-tab" data-bs-toggle="tab" data-link="source">Source</a>
         </li>
 </ul>
 
 <div class="tab-content">
-    <div class="tab-pane fade active in" id="c-info">
+    <div class="tab-pane fade active in" id="info">
         <p class="comment">
             <h3>File</h3>
         </p>
         <p class="comment">
             <code>projects/components/src/common/activity-reporter/activity-reporter.ts</code>
         </p>
+
 
             <p class="comment">
                 <h3>Description</h3>
@@ -76,7 +85,7 @@ Currently, only one concurrent activity is supported.</p>
 
 
 
-            <section>
+            <section data-compodoc="block-index">
     <h3 id="index">Index</h3>
     <table class="table table-sm table-bordered index-table">
         <tbody>
@@ -91,27 +100,27 @@ Currently, only one concurrent activity is supported.</p>
                         <ul class="index-list">
                             <li>
                                     <span class="modifier">Async</span>
-                                <a href="#monitorEdit">monitorEdit</a>
+                                <a href="#monitorEdit" >monitorEdit</a>
                             </li>
                             <li>
                                     <span class="modifier">Async</span>
-                                <a href="#monitorGet">monitorGet</a>
+                                <a href="#monitorGet" >monitorGet</a>
                             </li>
                             <li>
                                     <span class="modifier">Async</span>
-                                <a href="#monitorGetAll">monitorGetAll</a>
+                                <a href="#monitorGetAll" >monitorGetAll</a>
                             </li>
                             <li>
                                     <span class="modifier">Abstract</span>
-                                <a href="#reportError">reportError</a>
+                                <a href="#reportError" >reportError</a>
                             </li>
                             <li>
                                     <span class="modifier">Abstract</span>
-                                <a href="#reportSuccess">reportSuccess</a>
+                                <a href="#reportSuccess" >reportSuccess</a>
                             </li>
                             <li>
                                     <span class="modifier">Abstract</span>
-                                <a href="#startActivity">startActivity</a>
+                                <a href="#startActivity" >startActivity</a>
                             </li>
                         </ul>
                     </td>
@@ -125,13 +134,13 @@ Currently, only one concurrent activity is supported.</p>
     </table>
 </section>
 
-            <section>
+            <section data-compodoc="block-constructor">
     <h3 id="constructor">Constructor</h3>
         <table class="table table-sm table-bordered">
             <tbody>
                 <tr>
                     <td class="col-md-4">
-<code>constructor(promiseResolver: <a href="../classes/ActivityPromiseResolver.html">ActivityPromiseResolver<unknown></a>)</code>
+<code>constructor(promiseResolver: <a href="../classess/ActivityPromiseResolver.html" target="_self">ActivityPromiseResolver&lt;&gt;</a>)</code>
                     </td>
                 </tr>
                         <tr>
@@ -159,7 +168,7 @@ Currently, only one concurrent activity is supported.</p>
                                                         <td>promiseResolver</td>
                                                   
                                                         <td>
-                                                                        <code><a href="../classes/ActivityPromiseResolver.html" target="_self" >ActivityPromiseResolver&lt;unknown&gt;</a></code>
+                                                                        <code><a href="../classess/ActivityPromiseResolver.html" target="_self" >ActivityPromiseResolver&lt;&gt;</a></code>
                                                         </td>
                                                   
                                                     <td>
@@ -177,7 +186,7 @@ Currently, only one concurrent activity is supported.</p>
 </section>
 
 
-            <section>
+            <section data-compodoc="block-methods">
     
     <h3 id="methods">
         Methods
@@ -188,10 +197,8 @@ Currently, only one concurrent activity is supported.</p>
                 <td class="col-md-4">
                     <a name="monitorEdit"></a>
                     <span class="name">
-                        <b>
-                            <span class="modifier">Async</span>
-                            monitorEdit
-                        </b>
+                        <span class="modifier">Async</span>
+                        <span ><b>monitorEdit</b></span>
                         <a href="#monitorEdit"><span class="icon ion-ios-link"></span></a>
                     </span>
                 </td>
@@ -227,6 +234,7 @@ Currently, only one concurrent activity is supported.</p>
 
                     <div class="io-description">
                         <b>Parameters :</b>
+                        
                         <table class="params">
                             <thead>
                                 <tr>
@@ -282,10 +290,8 @@ Currently, only one concurrent activity is supported.</p>
                 <td class="col-md-4">
                     <a name="monitorGet"></a>
                     <span class="name">
-                        <b>
-                            <span class="modifier">Async</span>
-                            monitorGet
-                        </b>
+                        <span class="modifier">Async</span>
+                        <span ><b>monitorGet</b></span>
                         <a href="#monitorGet"><span class="icon ion-ios-link"></span></a>
                     </span>
                 </td>
@@ -321,6 +327,7 @@ Currently, only one concurrent activity is supported.</p>
 
                     <div class="io-description">
                         <b>Parameters :</b>
+                        
                         <table class="params">
                             <thead>
                                 <tr>
@@ -364,10 +371,8 @@ Currently, only one concurrent activity is supported.</p>
                 <td class="col-md-4">
                     <a name="monitorGetAll"></a>
                     <span class="name">
-                        <b>
-                            <span class="modifier">Async</span>
-                            monitorGetAll
-                        </b>
+                        <span class="modifier">Async</span>
+                        <span ><b>monitorGetAll</b></span>
                         <a href="#monitorGetAll"><span class="icon ion-ios-link"></span></a>
                     </span>
                 </td>
@@ -403,6 +408,7 @@ Currently, only one concurrent activity is supported.</p>
 
                     <div class="io-description">
                         <b>Parameters :</b>
+                        
                         <table class="params">
                             <thead>
                                 <tr>
@@ -446,10 +452,8 @@ Currently, only one concurrent activity is supported.</p>
                 <td class="col-md-4">
                     <a name="reportError"></a>
                     <span class="name">
-                        <b>
-                            <span class="modifier">Abstract</span>
-                            reportError
-                        </b>
+                        <span class="modifier">Abstract</span>
+                        <span ><b>reportError</b></span>
                         <a href="#reportError"><span class="icon ion-ios-link"></span></a>
                     </span>
                 </td>
@@ -473,10 +477,12 @@ Currently, only one concurrent activity is supported.</p>
             <tr>
                 <td class="col-md-4">
                     <div class="io-description"><p>Override this method to provide custom error reporting behavior.</p>
+<p> @param errorText The text to display in the error alert.</p>
 </div>
 
                     <div class="io-description">
                         <b>Parameters :</b>
+                        
                         <table class="params">
                             <thead>
                                 <tr>
@@ -525,10 +531,8 @@ Currently, only one concurrent activity is supported.</p>
                 <td class="col-md-4">
                     <a name="reportSuccess"></a>
                     <span class="name">
-                        <b>
-                            <span class="modifier">Abstract</span>
-                            reportSuccess
-                        </b>
+                        <span class="modifier">Abstract</span>
+                        <span ><b>reportSuccess</b></span>
                         <a href="#reportSuccess"><span class="icon ion-ios-link"></span></a>
                     </span>
                 </td>
@@ -556,6 +560,7 @@ Currently, only one concurrent activity is supported.</p>
 
                     <div class="io-description">
                         <b>Parameters :</b>
+                        
                         <table class="params">
                             <thead>
                                 <tr>
@@ -604,10 +609,8 @@ Currently, only one concurrent activity is supported.</p>
                 <td class="col-md-4">
                     <a name="startActivity"></a>
                     <span class="name">
-                        <b>
-                            <span class="modifier">Abstract</span>
-                            startActivity
-                        </b>
+                        <span class="modifier">Abstract</span>
+                        <span ><b>startActivity</b></span>
                         <a href="#startActivity"><span class="icon ion-ios-link"></span></a>
                     </span>
                 </td>
@@ -648,7 +651,7 @@ Currently, only one concurrent activity is supported.</p>
     </div>
 
 
-    <div class="tab-pane fade  tab-source-code" id="c-source">
+    <div class="tab-pane fade  tab-source-code" id="source">
         <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { ActivityPromiseResolver } from &#x27;./activity-promise-resolver&#x27;;
 
 /**
@@ -734,14 +737,15 @@ export abstract class ActivityReporter {
 
 
 
-                   
+
+
 
 
 
 
                    </div><div class="search-results">
     <div class="has-results">
-        <h1 class="search-results-title"><span class='search-results-count'></span> result-matching "<span class='search-query'></span>"</h1>
+        <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
         <ul class="search-results-list"></ul>
     </div>
     <div class="no-results">
@@ -753,6 +757,15 @@ export abstract class ActivityReporter {
            </div>
        </div>
 
+          <label class="dark-mode-switch">
+               <input type="checkbox">
+               <span class="slider">
+                    <svg class="slider-icon" viewBox="0 0 24 24" fill="none" height="20" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" width="20" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"></path>
+                    </svg>
+               </span>
+          </label>
+
        <script>
             var COMPODOC_CURRENT_PAGE_DEPTH = 1;
             var COMPODOC_CURRENT_PAGE_CONTEXT = 'class';
@@ -762,9 +775,9 @@ export abstract class ActivityReporter {
 
        <script src="../js/libs/custom-elements.min.js"></script>
        <script src="../js/libs/lit-html.js"></script>
-       <!-- Required to polyfill modern browsers as code is ES5 for IE... -->
-       <script src="../js/libs/custom-elements-es5-adapter.js" charset="utf-8" defer></script>
+
        <script src="../js/menu-wc.js" defer></script>
+       <script nomodule src="../js/menu-wc_es5.js" defer></script>
 
        <script src="../js/libs/bootstrap-native.js"></script>
 

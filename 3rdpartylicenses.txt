@@ -191,6 +191,8 @@ BSD-2-Clause
 
 @vcd/ui-components
 
+@vcd/widget-object
+
 @vmw/ng-live-docs
 
 lit

@@ -8,11 +8,12 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
         <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
-	      <link rel="stylesheet" href="../styles/style.css">
+	   <link rel="stylesheet" href="../styles/style.css">
+        <link rel="stylesheet" href="../styles/dark.css">
     </head>
     <body>
 
-        <div class="navbar navbar-default navbar-fixed-top visible-xs">
+        <div class="navbar navbar-default navbar-fixed-top d-block d-sm-none">
             <a href="../" class="navbar-brand">vmware-cloud-director-ui-components documentation</a>
             <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
         </div>
@@ -39,22 +40,29 @@
 
 
 
+
 <ol class="breadcrumb">
-  <li>Pipes</li>
-  <li>NestedPropertyPipe</li>
+  <li class="breadcrumb-item">Pipes</li>
+  <li class="breadcrumb-item" >NestedPropertyPipe</li>
 </ol>
 
 <ul class="nav nav-tabs" role="tablist">
-        <li class="active">
-            <a href="#info" role="tab" id="info-tab" data-toggle="tab" data-link="info">Info</a>
+        <li class="nav-item">
+            <a href="#info" 
+                class="nav-link"
+                class="nav-link active"
+                role="tab" id="info-tab" data-bs-toggle="tab" data-link="info">Info</a>
         </li>
-        <li >
-            <a href="#source" role="tab" id="source-tab" data-toggle="tab" data-link="source">Source</a>
+        <li class="nav-item">
+            <a href="#source" 
+                class="nav-link"
+                
+                role="tab" id="source-tab" data-bs-toggle="tab" data-link="source">Source</a>
         </li>
 </ul>
 
 <div class="tab-content">
-    <div class="tab-pane fade active in" id="c-info">
+    <div class="tab-pane fade active in" id="info">
 
         <p class="comment">
             <h3>File</h3>
@@ -63,6 +71,7 @@
             <code>projects/components/src/common/pipes/nested-property.pipe.ts</code>
         </p>
 
+
             <p class="comment">
                 <h3>Description</h3>
             </p>
@@ -70,20 +79,20 @@
                 <p>Used for extracting the value of nested property of an object.</p>
 <p>Example:
 const obj = {
-     a: {
-         b: {
-             c: &#39;c&#39;
-         }
-     }
+    a: {
+        b: {
+            c: &#39;c&#39;
+        }
+    }
 }</p>
 <p>Invoking <code>{{ obj | nestedProperty: &#39;a.b.c&#39; }}</code> in a template produces c</p>
 
             </p>
 
 
-        <section>
+        <section data-compodoc="block-metadata">
             <h3>Metadata</h3>
-            <table class="table table-sm table-hover">
+            <table class="table table-sm table-hover metadata">
                 <tbody>
                     <tr>
                         <td class="col-md-3">Name</td>
@@ -97,7 +106,7 @@ const obj = {
             </table>
         </section>
 
-            <section>
+            <section data-compodoc="block-methods">
     
     <h3 id="methods">
         Methods
@@ -108,10 +117,8 @@ const obj = {
                 <td class="col-md-4">
                     <a name="transform"></a>
                     <span class="name">
-                        <b>
-                            <span class="modifier">Public</span>
-                            transform
-                        </b>
+                        <span class="modifier">Public</span>
+                        <span ><b>transform</b></span>
                         <a href="#transform"><span class="icon ion-ios-link"></span></a>
                     </span>
                 </td>
@@ -145,6 +152,7 @@ const obj = {
 
                     <div class="io-description">
                         <b>Parameters :</b>
+                        
                         <table class="params">
                             <thead>
                                 <tr>
@@ -199,7 +207,7 @@ const obj = {
     </div>
 
 
-    <div class="tab-pane fade  tab-source-code" id="c-source">
+    <div class="tab-pane fade  tab-source-code" id="source">
         <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { DatePipe, DecimalPipe } from &#x27;@angular/common&#x27;;
 import { Inject, LOCALE_ID, Pipe, PipeTransform } from &#x27;@angular/core&#x27;;
 
@@ -269,14 +277,15 @@ function isNullOrUndefined(value: unknown): boolean {
 
 
 
-                   
+
+
 
 
 
 
                    </div><div class="search-results">
     <div class="has-results">
-        <h1 class="search-results-title"><span class='search-results-count'></span> result-matching "<span class='search-query'></span>"</h1>
+        <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
         <ul class="search-results-list"></ul>
     </div>
     <div class="no-results">
@@ -288,6 +297,15 @@ function isNullOrUndefined(value: unknown): boolean {
            </div>
        </div>
 
+          <label class="dark-mode-switch">
+               <input type="checkbox">
+               <span class="slider">
+                    <svg class="slider-icon" viewBox="0 0 24 24" fill="none" height="20" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" width="20" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"></path>
+                    </svg>
+               </span>
+          </label>
+
        <script>
             var COMPODOC_CURRENT_PAGE_DEPTH = 1;
             var COMPODOC_CURRENT_PAGE_CONTEXT = 'pipe';
@@ -297,9 +315,9 @@ function isNullOrUndefined(value: unknown): boolean {
 
        <script src="../js/libs/custom-elements.min.js"></script>
        <script src="../js/libs/lit-html.js"></script>
-       <!-- Required to polyfill modern browsers as code is ES5 for IE... -->
-       <script src="../js/libs/custom-elements-es5-adapter.js" charset="utf-8" defer></script>
+
        <script src="../js/menu-wc.js" defer></script>
+       <script nomodule src="../js/menu-wc_es5.js" defer></script>
 
        <script src="../js/libs/bootstrap-native.js"></script>
 

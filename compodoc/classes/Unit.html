@@ -8,11 +8,12 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
         <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
-	      <link rel="stylesheet" href="../styles/style.css">
+	   <link rel="stylesheet" href="../styles/style.css">
+        <link rel="stylesheet" href="../styles/dark.css">
     </head>
     <body>
 
-        <div class="navbar navbar-default navbar-fixed-top visible-xs">
+        <div class="navbar navbar-default navbar-fixed-top d-block d-sm-none">
             <a href="../" class="navbar-brand">vmware-cloud-director-ui-components documentation</a>
             <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
         </div>
@@ -40,28 +41,36 @@
 
 
 
+
 <ol class="breadcrumb">
-  <li>Classes</li>
-  <li>Unit</li>
+  <li class="breadcrumb-item">Classes</li>
+  <li class="breadcrumb-item" >Unit</li>
 </ol>
 
 <ul class="nav nav-tabs" role="tablist">
-        <li class="active">
-            <a href="#info" role="tab" id="info-tab" data-toggle="tab" data-link="info">Info</a>
+        <li class="nav-item">
+            <a href="#info" 
+                class="nav-link"
+                class="nav-link active"
+                role="tab" id="info-tab" data-bs-toggle="tab" data-link="info">Info</a>
         </li>
-        <li >
-            <a href="#source" role="tab" id="source-tab" data-toggle="tab" data-link="source">Source</a>
+        <li class="nav-item">
+            <a href="#source" 
+                class="nav-link"
+                
+                role="tab" id="source-tab" data-bs-toggle="tab" data-link="source">Source</a>
         </li>
 </ul>
 
 <div class="tab-content">
-    <div class="tab-pane fade active in" id="c-info">
+    <div class="tab-pane fade active in" id="info">
         <p class="comment">
             <h3>File</h3>
         </p>
         <p class="comment">
             <code>projects/components/src/utils/unit/unit.ts</code>
         </p>
+
 
             <p class="comment">
                 <h3>Description</h3>
@@ -75,7 +84,7 @@ multiplier that converts to baseUnit.</p>
 
 
 
-            <section>
+            <section data-compodoc="block-index">
     <h3 id="index">Index</h3>
     <table class="table table-sm table-bordered index-table">
         <tbody>
@@ -90,12 +99,12 @@ multiplier that converts to baseUnit.</p>
                             <li>
                                     <span class="modifier">Private</span>
                                     <span class="modifier">Readonly</span>
-                                <a href="#_multiplier">_multiplier</a>
+                                <a href="#_multiplier" >_multiplier</a>
                             </li>
                             <li>
                                     <span class="modifier">Private</span>
                                     <span class="modifier">Readonly</span>
-                                <a href="#_unitName">_unitName</a>
+                                <a href="#_unitName" >_unitName</a>
                             </li>
                         </ul>
                     </td>
@@ -111,31 +120,31 @@ multiplier that converts to baseUnit.</p>
                         <ul class="index-list">
                             <li>
                                     <span class="modifier">Abstract</span>
-                                <a href="#findBestUnit">findBestUnit</a>
+                                <a href="#findBestUnit" >findBestUnit</a>
                             </li>
                             <li>
                                     <span class="modifier">Public</span>
-                                <a href="#getBaseValue">getBaseValue</a>
+                                <a href="#getBaseValue" >getBaseValue</a>
                             </li>
                             <li>
                                     <span class="modifier">Public</span>
-                                <a href="#getMultiplier">getMultiplier</a>
+                                <a href="#getMultiplier" >getMultiplier</a>
                             </li>
                             <li>
                                     <span class="modifier">Public</span>
-                                <a href="#getOutputValue">getOutputValue</a>
+                                <a href="#getOutputValue" >getOutputValue</a>
                             </li>
                             <li>
                                     <span class="modifier">Public</span>
-                                <a href="#getUnitName">getUnitName</a>
+                                <a href="#getUnitName" >getUnitName</a>
                             </li>
                             <li>
                                     <span class="modifier">Abstract</span>
-                                <a href="#getUnitNameTranslationKey">getUnitNameTranslationKey</a>
+                                <a href="#getUnitNameTranslationKey" >getUnitNameTranslationKey</a>
                             </li>
                             <li>
                                     <span class="modifier">Abstract</span>
-                                <a href="#getValueWithUnitTranslationKey">getValueWithUnitTranslationKey</a>
+                                <a href="#getValueWithUnitTranslationKey" >getValueWithUnitTranslationKey</a>
                             </li>
                         </ul>
                     </td>
@@ -149,7 +158,7 @@ multiplier that converts to baseUnit.</p>
     </table>
 </section>
 
-            <section>
+            <section data-compodoc="block-constructor">
     <h3 id="constructor">Constructor</h3>
         <table class="table table-sm table-bordered">
             <tbody>
@@ -166,6 +175,8 @@ multiplier that converts to baseUnit.</p>
 
                 <tr>
                     <td class="col-md-4">
+                            <div class="io-description"><p>keys for each type of Unit.</p>
+</div>
                             <div>
                                     <b>Parameters :</b>
                                     <table class="params">
@@ -190,10 +201,10 @@ multiplier that converts to baseUnit.</p>
                                                     </td>
                                                     
                                                         <td>
-                                                                <code><ul>
+                                                                <ul>
 <li>Value that is used to convert this to base unit</li>
 </ul>
-</code>
+
                                                         </td>
                                                 </tr>
                                                 <tr>
@@ -208,11 +219,11 @@ multiplier that converts to baseUnit.</p>
                                                     </td>
                                                     
                                                         <td>
-                                                                <code><ul>
+                                                                <ul>
 <li>Name of the Unit. Also used to construct translation
 keys for each type of Unit.</li>
 </ul>
-</code>
+
                                                         </td>
                                                 </tr>
                                         </tbody>
@@ -224,72 +235,70 @@ keys for each type of Unit.</li>
         </table>
 </section>
 
-            <section>
+            <section data-compodoc="block-properties">
     
-        <h3 id="inputs">
-            Properties
-        </h3>
-        <table class="table table-sm table-bordered">
-            <tbody>
+    <h3 id="inputs">
+        Properties
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="_multiplier"></a>
+                    <span class="name">
+                            <span class="modifier">Private</span>
+                            <span class="modifier">Readonly</span>
+                        <span ><b>_multiplier</b></span>
+                        <a href="#_multiplier"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
                 <tr>
                     <td class="col-md-4">
-                        <a name="_multiplier"></a>
-                        <span class="name">
-                            <b>
-                                <span class="modifier">Private</span>
-                                <span class="modifier">Readonly</span>
-                            _multiplier</b>
-                            <a href="#_multiplier"><span class="icon ion-ios-link"></span></a>
-                        </span>
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+
                     </td>
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                            <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
-
+                                <div class="io-line">Defined in <a href="" data-line="13" class="link-to-prism">projects/components/src/utils/unit/unit.ts:13</a></div>
                         </td>
                     </tr>
-                        <tr>
-                            <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="13" class="link-to-prism">projects/components/src/utils/unit/unit.ts:13</a></div>
-                            </td>
-                        </tr>
 
 
-            </tbody>
-        </table>
-        <table class="table table-sm table-bordered">
-            <tbody>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="_unitName"></a>
+                    <span class="name">
+                            <span class="modifier">Private</span>
+                            <span class="modifier">Readonly</span>
+                        <span ><b>_unitName</b></span>
+                        <a href="#_unitName"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
                 <tr>
                     <td class="col-md-4">
-                        <a name="_unitName"></a>
-                        <span class="name">
-                            <b>
-                                <span class="modifier">Private</span>
-                                <span class="modifier">Readonly</span>
-                            _unitName</b>
-                            <a href="#_unitName"><span class="icon ion-ios-link"></span></a>
-                        </span>
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
                     </td>
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                            <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
-
+                                <div class="io-line">Defined in <a href="" data-line="14" class="link-to-prism">projects/components/src/utils/unit/unit.ts:14</a></div>
                         </td>
                     </tr>
-                        <tr>
-                            <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="14" class="link-to-prism">projects/components/src/utils/unit/unit.ts:14</a></div>
-                            </td>
-                        </tr>
 
 
-            </tbody>
-        </table>
+        </tbody>
+    </table>
 </section>
 
-            <section>
+            <section data-compodoc="block-methods">
     
     <h3 id="methods">
         Methods
@@ -300,10 +309,8 @@ keys for each type of Unit.</li>
                 <td class="col-md-4">
                     <a name="findBestUnit"></a>
                     <span class="name">
-                        <b>
-                            <span class="modifier">Abstract</span>
-                            findBestUnit
-                        </b>
+                        <span class="modifier">Abstract</span>
+                        <span ><b>findBestUnit</b></span>
                         <a href="#findBestUnit"><span class="icon ion-ios-link"></span></a>
                     </span>
                 </td>
@@ -311,7 +318,7 @@ keys for each type of Unit.</li>
             <tr>
                 <td class="col-md-4">
                     <span class="modifier-icon icon ion-ios-reset"></span>
-                    <code>findBestUnit(value: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank">number</a>, availableUnits: <a href="../classes/Unit.html">Unit[]</a>)</code>
+                    <code>findBestUnit(value: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank">number</a>, availableUnits: <a href="../classes/Unit.html" target="_self">Unit[]</a>)</code>
                 </td>
             </tr>
 
@@ -332,6 +339,7 @@ keys for each type of Unit.</li>
 
                     <div class="io-description">
                         <b>Parameters :</b>
+                        
                         <table class="params">
                             <thead>
                                 <tr>
@@ -400,10 +408,8 @@ keys for each type of Unit.</li>
                 <td class="col-md-4">
                     <a name="getBaseValue"></a>
                     <span class="name">
-                        <b>
-                            <span class="modifier">Public</span>
-                            getBaseValue
-                        </b>
+                        <span class="modifier">Public</span>
+                        <span ><b>getBaseValue</b></span>
                         <a href="#getBaseValue"><span class="icon ion-ios-link"></span></a>
                     </span>
                 </td>
@@ -431,6 +437,7 @@ keys for each type of Unit.</li>
 
                     <div class="io-description">
                         <b>Parameters :</b>
+                        
                         <table class="params">
                             <thead>
                                 <tr>
@@ -481,10 +488,8 @@ keys for each type of Unit.</li>
                 <td class="col-md-4">
                     <a name="getMultiplier"></a>
                     <span class="name">
-                        <b>
-                            <span class="modifier">Public</span>
-                            getMultiplier
-                        </b>
+                        <span class="modifier">Public</span>
+                        <span ><b>getMultiplier</b></span>
                         <a href="#getMultiplier"><span class="icon ion-ios-link"></span></a>
                     </span>
                 </td>
@@ -522,10 +527,8 @@ keys for each type of Unit.</li>
                 <td class="col-md-4">
                     <a name="getOutputValue"></a>
                     <span class="name">
-                        <b>
-                            <span class="modifier">Public</span>
-                            getOutputValue
-                        </b>
+                        <span class="modifier">Public</span>
+                        <span ><b>getOutputValue</b></span>
                         <a href="#getOutputValue"><span class="icon ion-ios-link"></span></a>
                     </span>
                 </td>
@@ -533,7 +536,7 @@ keys for each type of Unit.</li>
             <tr>
                 <td class="col-md-4">
                     <span class="modifier-icon icon ion-ios-reset"></span>
-                    <code>getOutputValue(value, outputUnit: <a href="../classes/Unit.html">Unit</a>)</code>
+                    <code>getOutputValue(value, outputUnit: <a href="../classes/Unit.html" target="_self">Unit</a>)</code>
                 </td>
             </tr>
 
@@ -553,6 +556,7 @@ keys for each type of Unit.</li>
 
                     <div class="io-description">
                         <b>Parameters :</b>
+                        
                         <table class="params">
                             <thead>
                                 <tr>
@@ -620,10 +624,8 @@ keys for each type of Unit.</li>
                 <td class="col-md-4">
                     <a name="getUnitName"></a>
                     <span class="name">
-                        <b>
-                            <span class="modifier">Public</span>
-                            getUnitName
-                        </b>
+                        <span class="modifier">Public</span>
+                        <span ><b>getUnitName</b></span>
                         <a href="#getUnitName"><span class="icon ion-ios-link"></span></a>
                     </span>
                 </td>
@@ -661,10 +663,8 @@ keys for each type of Unit.</li>
                 <td class="col-md-4">
                     <a name="getUnitNameTranslationKey"></a>
                     <span class="name">
-                        <b>
-                            <span class="modifier">Abstract</span>
-                            getUnitNameTranslationKey
-                        </b>
+                        <span class="modifier">Abstract</span>
+                        <span ><b>getUnitNameTranslationKey</b></span>
                         <a href="#getUnitNameTranslationKey"><span class="icon ion-ios-link"></span></a>
                     </span>
                 </td>
@@ -705,10 +705,8 @@ keys for each type of Unit.</li>
                 <td class="col-md-4">
                     <a name="getValueWithUnitTranslationKey"></a>
                     <span class="name">
-                        <b>
-                            <span class="modifier">Abstract</span>
-                            getValueWithUnitTranslationKey
-                        </b>
+                        <span class="modifier">Abstract</span>
+                        <span ><b>getValueWithUnitTranslationKey</b></span>
                         <a href="#getValueWithUnitTranslationKey"><span class="icon ion-ios-link"></span></a>
                     </span>
                 </td>
@@ -752,7 +750,7 @@ keys for each type of Unit.</li>
     </div>
 
 
-    <div class="tab-pane fade  tab-source-code" id="c-source">
+    <div class="tab-pane fade  tab-source-code" id="source">
         <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { CommonUtil } from &#x27;../common-util&#x27;;
 
 /**
@@ -1053,14 +1051,15 @@ export class TimePeriod extends Unit {
 
 
 
-                   
+
+
 
 
 
 
                    </div><div class="search-results">
     <div class="has-results">
-        <h1 class="search-results-title"><span class='search-results-count'></span> result-matching "<span class='search-query'></span>"</h1>
+        <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
         <ul class="search-results-list"></ul>
     </div>
     <div class="no-results">
@@ -1072,6 +1071,15 @@ export class TimePeriod extends Unit {
            </div>
        </div>
 
+          <label class="dark-mode-switch">
+               <input type="checkbox">
+               <span class="slider">
+                    <svg class="slider-icon" viewBox="0 0 24 24" fill="none" height="20" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" width="20" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"></path>
+                    </svg>
+               </span>
+          </label>
+
        <script>
             var COMPODOC_CURRENT_PAGE_DEPTH = 1;
             var COMPODOC_CURRENT_PAGE_CONTEXT = 'class';
@@ -1081,9 +1089,9 @@ export class TimePeriod extends Unit {
 
        <script src="../js/libs/custom-elements.min.js"></script>
        <script src="../js/libs/lit-html.js"></script>
-       <!-- Required to polyfill modern browsers as code is ES5 for IE... -->
-       <script src="../js/libs/custom-elements-es5-adapter.js" charset="utf-8" defer></script>
+
        <script src="../js/menu-wc.js" defer></script>
+       <script nomodule src="../js/menu-wc_es5.js" defer></script>
 
        <script src="../js/libs/bootstrap-native.js"></script>
 

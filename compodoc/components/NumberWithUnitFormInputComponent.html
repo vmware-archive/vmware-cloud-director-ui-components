@@ -8,11 +8,12 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
         <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
-	      <link rel="stylesheet" href="../styles/style.css">
+	   <link rel="stylesheet" href="../styles/style.css">
+        <link rel="stylesheet" href="../styles/dark.css">
     </head>
     <body>
 
-        <div class="navbar navbar-default navbar-fixed-top visible-xs">
+        <div class="navbar navbar-default navbar-fixed-top d-block d-sm-none">
             <a href="../" class="navbar-brand">vmware-cloud-director-ui-components documentation</a>
             <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
         </div>
@@ -34,35 +35,43 @@
 
 
 <ol class="breadcrumb">
-  <li>Components</li>
-  <li>NumberWithUnitFormInputComponent</li>
+  <li class="breadcrumb-item">Components</li>
+  <li class="breadcrumb-item"
+  >
+  NumberWithUnitFormInputComponent</li>
 </ol>
 
 <ul class="nav nav-tabs" role="tablist">
-        <li class="active">
-            <a href="#info" role="tab" id="info-tab" data-toggle="tab" data-link="info">Info</a>
+        <li class="nav-item">
+            <a href="#info" class="nav-link active"
+                role="tab" id="info-tab" data-bs-toggle="tab" data-link="info">Info</a>
         </li>
-        <li >
-            <a href="#source" role="tab" id="source-tab" data-toggle="tab" data-link="source">Source</a>
+        <li class="nav-item">
+            <a href="#source" class="nav-link"
+                role="tab" id="source-tab" data-bs-toggle="tab" data-link="source">Source</a>
         </li>
-        <li >
-            <a href="#templateData" role="tab" id="templateData-tab" data-toggle="tab" data-link="template">Template</a>
+        <li class="nav-item">
+            <a href="#templateData" class="nav-link"
+                role="tab" id="templateData-tab" data-bs-toggle="tab" data-link="template">Template</a>
         </li>
-        <li >
-            <a href="#styleData" role="tab" id="styleData-tab" data-toggle="tab" data-link="style">Styles</a>
+        <li class="nav-item">
+            <a href="#styleData" class="nav-link"
+                role="tab" id="styleData-tab" data-bs-toggle="tab" data-link="style">Styles</a>
         </li>
-        <li >
-            <a href="#tree" role="tab" id="tree-tab" data-toggle="tab" data-link="dom-tree">DOM Tree</a>
+        <li class="nav-item">
+            <a href="#tree" class="nav-link"
+                role="tab" id="tree-tab" data-bs-toggle="tab" data-link="dom-tree">DOM Tree</a>
         </li>
 </ul>
 
 <div class="tab-content">
-    <div class="tab-pane fade active in" id="c-info"><p class="comment">
+    <div class="tab-pane fade active in" id="info"><p class="comment">
     <h3>File</h3>
 </p>
 <p class="comment">
     <code>projects/components/src/form/number-with-unit-input/number-with-unit-form-input.component.ts</code>
 </p>
+
 
     <p class="comment">
         <h3>Description</h3>
@@ -79,22 +88,23 @@ but rather a string notation for the unit. If the array is empty then there are 
         <h3>Extends</h3>
     </p>
     <p class="comment">
-            <code>BaseFormControl</code>
+                <code><a href="../directives/BaseFormControl.html" target="_self" >BaseFormControl</a></code>
     </p>
 
     <p class="comment">
         <h3>Implements</h3>
     </p>
     <p class="comment">
-                    <code><a href="https://angular.io/api/core/OnChanges" target="_blank" >OnChanges</a></code>
-                    <code><a href="https://angular.io/api/core/OnInit" target="_blank" >OnInit</a></code>
+                <code>OnChanges</code>
+                <code>OnInit</code>
     </p>
 
 
-<section>
+<section data-compodoc="block-metadata">
     <h3>Metadata</h3>
-    <table class="table table-sm table-hover">
+    <table class="table table-sm table-hover metadata">
         <tbody>
+
 
 
 
@@ -110,6 +120,8 @@ but rather a string notation for the unit. If the array is empty then there are 
                 <td class="col-md-3">selector</td>
                 <td class="col-md-9"><code>vcd-number-with-unit-form-input</code></td>
             </tr>
+
+
 
             <tr>
                 <td class="col-md-3">styleUrls</td>
@@ -134,7 +146,7 @@ but rather a string notation for the unit. If the array is empty then there are 
     </table>
 </section>
 
-    <section>
+    <section data-compodoc="block-index">
     <h3 id="index">Index</h3>
     <table class="table table-sm table-bordered index-table">
         <tbody>
@@ -148,48 +160,77 @@ but rather a string notation for the unit. If the array is empty then there are 
                         <ul class="index-list">
                             <li>
                                     <span class="modifier">Private</span>
-                                <a href="#_unitOptions">_unitOptions</a>
+                                <a href="#_unitOptions" >_unitOptions</a>
                             </li>
                             <li>
                                     <span class="modifier">Private</span>
-                                <a href="#bestUnit">bestUnit</a>
+                                <a href="#bestUnit" >bestUnit</a>
                             </li>
                             <li>
                                     <span class="modifier">Private</span>
-                                <a href="#bestValue">bestValue</a>
+                                <a href="#bestValue" >bestValue</a>
                             </li>
                             <li>
-                                <a href="#comboOptions">comboOptions</a>
-                            </li>
-                            <li>
-                                    <span class="modifier">Private</span>
-                                <a href="#comboOptionUnitMap">comboOptionUnitMap</a>
+                                <a href="#comboOptions" >comboOptions</a>
                             </li>
                             <li>
                                     <span class="modifier">Private</span>
-                                <a href="#lastTextValue">lastTextValue</a>
+                                <a href="#comboOptionUnitMap" >comboOptionUnitMap</a>
                             </li>
                             <li>
                                     <span class="modifier">Private</span>
-                                <a href="#ngOnInitCalled">ngOnInitCalled</a>
+                                <a href="#lastTextValue" >lastTextValue</a>
                             </li>
                             <li>
-                                <a href="#textInput">textInput</a>
+                                    <span class="modifier">Private</span>
+                                <a href="#ngOnInitCalled" >ngOnInitCalled</a>
                             </li>
                             <li>
-                                <a href="#textInputValue">textInputValue</a>
+                                    <span class="modifier"></span>
+                                <a href="#textInput" >textInput</a>
                             </li>
                             <li>
-                                <a href="#unitMax">unitMax</a>
+                                <a href="#textInputValue" >textInputValue</a>
                             </li>
                             <li>
-                                <a href="#unitMin">unitMin</a>
+                                <a href="#unitMax" >unitMax</a>
                             </li>
                             <li>
-                                <a href="#unitsControlValue">unitsControlValue</a>
+                                <a href="#unitMin" >unitMin</a>
                             </li>
                             <li>
-                                <a href="#unlimitedControlValue">unlimitedControlValue</a>
+                                <a href="#unitsControlValue" >unitsControlValue</a>
+                            </li>
+                            <li>
+                                <a href="#unlimitedControlValue" >unlimitedControlValue</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Readonly</span>
+                                <a href="#descriptionId" >descriptionId</a>
+                            </li>
+                            <li>
+                                <a href="#disabled" >disabled</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Readonly</span>
+                                <a href="#errorsId" >errorsId</a>
+                            </li>
+                            <li>
+                                <a href="#formControlNameDirective" >formControlNameDirective</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Readonly</span>
+                                <a href="#id" >id</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Protected</span>
+                                <a href="#initialValue" >initialValue</a>
+                            </li>
+                            <li>
+                                <a href="#onChange" >onChange</a>
+                            </li>
+                            <li>
+                                <a href="#onTouch" >onTouch</a>
                             </li>
                         </ul>
                     </td>
@@ -205,58 +246,71 @@ but rather a string notation for the unit. If the array is empty then there are 
                         <ul class="index-list">
                             <li>
                                     <span class="modifier">Private</span>
-                                <a href="#computeBestUnitAndValue">computeBestUnitAndValue</a>
+                                <a href="#computeBestUnitAndValue" >computeBestUnitAndValue</a>
                             </li>
                             <li>
-                                <a href="#fireUiChange">fireUiChange</a>
+                                <a href="#fireUiChange" >fireUiChange</a>
                             </li>
                             <li>
-                                <a href="#getErrorTranslationParams">getErrorTranslationParams</a>
-                            </li>
-                            <li>
-                                    <span class="modifier">Private</span>
-                                <a href="#getSelectedComboUnit">getSelectedComboUnit</a>
+                                <a href="#getErrorTranslationParams" >getErrorTranslationParams</a>
                             </li>
                             <li>
                                     <span class="modifier">Private</span>
-                                <a href="#getSelectedUnit">getSelectedUnit</a>
+                                <a href="#getSelectedComboUnit" >getSelectedComboUnit</a>
                             </li>
                             <li>
                                     <span class="modifier">Private</span>
-                                <a href="#getValue">getValue</a>
+                                <a href="#getSelectedUnit" >getSelectedUnit</a>
                             </li>
                             <li>
                                     <span class="modifier">Private</span>
-                                <a href="#isUnlimitedValue">isUnlimitedValue</a>
-                            </li>
-                            <li>
-                                <a href="#ngOnChanges">ngOnChanges</a>
-                            </li>
-                            <li>
-                                <a href="#ngOnInit">ngOnInit</a>
-                            </li>
-                            <li>
-                                <a href="#onTextInputChange">onTextInputChange</a>
-                            </li>
-                            <li>
-                                <a href="#onUnitChange">onUnitChange</a>
-                            </li>
-                            <li>
-                                <a href="#onUnlimitedCheckboxChange">onUnlimitedCheckboxChange</a>
+                                <a href="#getValue" >getValue</a>
                             </li>
                             <li>
                                     <span class="modifier">Private</span>
-                                <a href="#recalculateUnitMinMax">recalculateUnitMinMax</a>
+                                <a href="#isUnlimitedValue" >isUnlimitedValue</a>
                             </li>
                             <li>
-                                <a href="#updateUnlimitedCheckbox">updateUnlimitedCheckbox</a>
+                                <a href="#ngOnChanges" >ngOnChanges</a>
+                            </li>
+                            <li>
+                                <a href="#ngOnInit" >ngOnInit</a>
+                            </li>
+                            <li>
+                                <a href="#onTextInputChange" >onTextInputChange</a>
+                            </li>
+                            <li>
+                                <a href="#onUnitChange" >onUnitChange</a>
+                            </li>
+                            <li>
+                                <a href="#onUnlimitedCheckboxChange" >onUnlimitedCheckboxChange</a>
                             </li>
                             <li>
                                     <span class="modifier">Private</span>
-                                <a href="#validateNumber">validateNumber</a>
+                                <a href="#recalculateUnitMinMax" >recalculateUnitMinMax</a>
                             </li>
                             <li>
-                                <a href="#writeValue">writeValue</a>
+                                <a href="#updateUnlimitedCheckbox" >updateUnlimitedCheckbox</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#validateNumber" >validateNumber</a>
+                            </li>
+                            <li>
+                                <a href="#writeValue" >writeValue</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#getTranslationParams" >getTranslationParams</a>
+                            </li>
+                            <li>
+                                <a href="#registerOnChange" >registerOnChange</a>
+                            </li>
+                            <li>
+                                <a href="#registerOnTouched" >registerOnTouched</a>
+                            </li>
+                            <li>
+                                <a href="#setDisabledState" >setDisabledState</a>
                             </li>
                         </ul>
                     </td>
@@ -271,43 +325,61 @@ but rather a string notation for the unit. If the array is empty then there are 
                     <td class="col-md-4">
                         <ul class="index-list">
                             <li>
-                                <a href="#hint">hint</a>
+                                <a href="#hint" >hint</a>
                             </li>
                             <li>
-                                <a href="#hintPosition">hintPosition</a>
+                                <a href="#hintPosition" >hintPosition</a>
                             </li>
                             <li>
-                                <a href="#initialValueUnit">initialValueUnit</a>
+                                <a href="#initialValueUnit" >initialValueUnit</a>
                             </li>
                             <li>
-                                <a href="#inputValueUnit">inputValueUnit</a>
+                                <a href="#inputValueUnit" >inputValueUnit</a>
                             </li>
                             <li>
-                                <a href="#max">max</a>
+                                <a href="#max" >max</a>
                             </li>
                             <li>
-                                <a href="#maxlength">maxlength</a>
+                                <a href="#maxlength" >maxlength</a>
                             </li>
                             <li>
-                                <a href="#min">min</a>
+                                <a href="#min" >min</a>
                             </li>
                             <li>
-                                <a href="#placeholder">placeholder</a>
+                                <a href="#placeholder" >placeholder</a>
                             </li>
                             <li>
-                                <a href="#showUnlimitedOption">showUnlimitedOption</a>
+                                <a href="#showUnlimitedOption" >showUnlimitedOption</a>
                             </li>
                             <li>
-                                <a href="#size">size</a>
+                                <a href="#size" >size</a>
                             </li>
                             <li>
-                                <a href="#unitOptions">unitOptions</a>
+                                <a href="#unitOptions" >unitOptions</a>
                             </li>
                             <li>
-                                <a href="#unlimitedText">unlimitedText</a>
+                                <a href="#unlimitedText" >unlimitedText</a>
                             </li>
                             <li>
-                                <a href="#unlimitedValue">unlimitedValue</a>
+                                <a href="#unlimitedValue" >unlimitedValue</a>
+                            </li>
+                            <li>
+                                <a href="#description" >description</a>
+                            </li>
+                            <li>
+                                <a href="#errorLabels" >errorLabels</a>
+                            </li>
+                            <li>
+                                <a href="#isReadOnly" >isReadOnly</a>
+                            </li>
+                            <li>
+                                <a href="#isResponsive" >isResponsive</a>
+                            </li>
+                            <li>
+                                <a href="#label" >label</a>
+                            </li>
+                            <li>
+                                <a href="#showAsterisk" >showAsterisk</a>
                             </li>
                         </ul>
                     </td>
@@ -325,22 +397,22 @@ but rather a string notation for the unit. If the array is empty then there are 
                         <td class="col-md-4">
                             <ul class="index-list">
                                 <li>
-                                    <a href="#unitOptions">unitOptions</a>
+                                    <a href="#unitOptions" >unitOptions</a>
                                 </li>
                                 <li>
-                                    <a href="#textInputEl">textInputEl</a>
+                                    <a href="#textInputEl" >textInputEl</a>
                                 </li>
                                 <li>
-                                    <a href="#selectedUnit">selectedUnit</a>
+                                    <a href="#selectedUnit" >selectedUnit</a>
                                 </li>
                                 <li>
-                                    <a href="#shouldDisableNumberAndUnitControls">shouldDisableNumberAndUnitControls</a>
+                                    <a href="#shouldDisableNumberAndUnitControls" >shouldDisableNumberAndUnitControls</a>
                                 </li>
                                 <li>
-                                    <a href="#displayValue">displayValue</a>
+                                    <a href="#displayValue" >displayValue</a>
                                 </li>
                                 <li>
-                                    <a href="#errors">errors</a>
+                                    <a href="#errors" >errors</a>
                                 </li>
                             </ul>
                         </td>
@@ -349,13 +421,13 @@ but rather a string notation for the unit. If the array is empty then there are 
     </table>
 </section>
 
-    <section>
+    <section data-compodoc="block-constructor">
     <h3 id="constructor">Constructor</h3>
         <table class="table table-sm table-bordered">
             <tbody>
                 <tr>
                     <td class="col-md-4">
-<code>constructor(controlDirective: <a href="https://angular.io/api/forms/NgControl" target="_blank">NgControl</a>, translationService: TranslationService, unitFormatter: <a href="../injectables/UnitFormatter.html">UnitFormatter</a>, changeDetector: <a href="https://angular.io/api/core/ChangeDetectorRef" target="_blank">ChangeDetectorRef</a>)</code>
+<code>constructor(controlDirective: NgControl, translationService: TranslationService, unitFormatter: <a href="../injectables/UnitFormatter.html" target="_self">UnitFormatter</a>, changeDetector: ChangeDetectorRef)</code>
                     </td>
                 </tr>
                         <tr>
@@ -381,7 +453,7 @@ but rather a string notation for the unit. If the array is empty then there are 
                                                         <td>controlDirective</td>
                                                   
                                                         <td>
-                                                                        <code><a href="https://angular.io/api/forms/NgControl" target="_blank" >NgControl</a></code>
+                                                                    <code>NgControl</code>
                                                         </td>
                                                   
                                                     <td>
@@ -417,7 +489,7 @@ but rather a string notation for the unit. If the array is empty then there are 
                                                         <td>changeDetector</td>
                                                   
                                                         <td>
-                                                                        <code><a href="https://angular.io/api/core/ChangeDetectorRef" target="_blank" >ChangeDetectorRef</a></code>
+                                                                    <code>ChangeDetectorRef</code>
                                                         </td>
                                                   
                                                     <td>
@@ -434,7 +506,7 @@ but rather a string notation for the unit. If the array is empty then there are 
         </table>
 </section>
 
-    <section>
+    <section data-compodoc="block-inputs">
     <h3 id="inputs">Inputs</h3>
         <table class="table table-sm table-bordered">
             <tbody>
@@ -766,10 +838,19 @@ Required when a multi element array is provided for <a href="unitOptions">unitOp
                 <tr>
                     <td class="col-md-4">
                         <div class="io-description"><p>List of available units. Consider the following options for the array:</p>
-<h1 id="array-with-more-than-one-element">array with more than one element</h1>
-<div><pre class="line-numbers"><code class="language-none">- a dropdown unit selection is shown. You must also provide {&#64;link inputValueUnit}</code></pre></div><h1 id="single-element-array">single element array</h1>
-<div><pre class="line-numbers"><code class="language-none">- a string notation for no dropdown, {&#64;link inputValueUnit} is derived from the element</code></pre></div><h1 id="empty-array">empty array</h1>
-<div><pre class="line-numbers"><code class="language-none">- no units at all</code></pre></div></div>
+<h1>array with more than one element</h1>
+<ul>
+<li>a dropdown unit selection is shown. You must also provide <a href="inputValueUnit">inputValueUnit</a></li>
+</ul>
+<h1>single element array</h1>
+<ul>
+<li>a string notation for no dropdown, <a href="inputValueUnit">inputValueUnit</a> is derived from the element</li>
+</ul>
+<h1>empty array</h1>
+<ul>
+<li>no units at all</li>
+</ul>
+</div>
                     </td>
                 </tr>
             </tbody>
@@ -840,11 +921,245 @@ Default is the translation of vcd.cc.unlimited key.</p>
                 </tr>
             </tbody>
         </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="description"></a>
+                        <b>description</b>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>&#x27;\u00A0&#x27;</code>
+                    </td>
+                </tr>
+                            <tr>
+                                <td class="col-md-4" colspan="2">
+                                    <div class="io-line">Inherited from         <code><a href="../directives/BaseFormControl.html" target="_self" >BaseFormControl</a></code>
+</div>
+                                </td>
+                            </tr>
+                        <tr>
+                            <td class="col-md-2" colspan="2">
+                                    <div class="io-line">Defined in         <code><a href="../directives/BaseFormControl.html#source" target="_self" >BaseFormControl:83</a></code>
+</div>
+                            </td>
+                        </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <div class="io-description"><p>The description that appears below the control
+\u00A0 is &nbsp; (non-breaking space)</p>
+</div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="errorLabels"></a>
+                        <b>errorLabels</b>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>string[]</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>[]</code>
+                    </td>
+                </tr>
+                            <tr>
+                                <td class="col-md-4" colspan="2">
+                                    <div class="io-line">Inherited from         <code><a href="../directives/BaseFormControl.html" target="_self" >BaseFormControl</a></code>
+</div>
+                                </td>
+                            </tr>
+                        <tr>
+                            <td class="col-md-2" colspan="2">
+                                    <div class="io-line">Defined in         <code><a href="../directives/BaseFormControl.html#source" target="_self" >BaseFormControl:93</a></code>
+</div>
+                            </td>
+                        </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <div class="io-description"><p>Error labels to be used instead of NgControl error keys</p>
+</div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="isReadOnly"></a>
+                        <b>isReadOnly</b>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank" >boolean</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>false</code>
+                    </td>
+                </tr>
+                            <tr>
+                                <td class="col-md-4" colspan="2">
+                                    <div class="io-line">Inherited from         <code><a href="../directives/BaseFormControl.html" target="_self" >BaseFormControl</a></code>
+</div>
+                                </td>
+                            </tr>
+                        <tr>
+                            <td class="col-md-2" colspan="2">
+                                    <div class="io-line">Defined in         <code><a href="../directives/BaseFormControl.html#source" target="_self" >BaseFormControl:88</a></code>
+</div>
+                            </td>
+                        </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <div class="io-description"><p>Whether this component is in readonly mode</p>
+</div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="isResponsive"></a>
+                        <b>isResponsive</b>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank" >boolean</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>true</code>
+                    </td>
+                </tr>
+                            <tr>
+                                <td class="col-md-4" colspan="2">
+                                    <div class="io-line">Inherited from         <code><a href="../directives/BaseFormControl.html" target="_self" >BaseFormControl</a></code>
+</div>
+                                </td>
+                            </tr>
+                        <tr>
+                            <td class="col-md-2" colspan="2">
+                                    <div class="io-line">Defined in         <code><a href="../directives/BaseFormControl.html#source" target="_self" >BaseFormControl:103</a></code>
+</div>
+                            </td>
+                        </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <div class="io-description"><p>If this is true, Clarity responsive classes will be added to the component&#39;s elements so that label and input
+elements are on separate lines when on small screens or inside small containers.</p>
+<p>Note that if a form control is being used inside a <code>.clr-form-vertical</code>, the controls should all have
+isResponsive set to false, since that will cause labels to always display on a separate line and adding
+the responsive styles would interfere with that</p>
+</div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="label"></a>
+                        <b>label</b>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                    </td>
+                </tr>
+                            <tr>
+                                <td class="col-md-4" colspan="2">
+                                    <div class="io-line">Inherited from         <code><a href="../directives/BaseFormControl.html" target="_self" >BaseFormControl</a></code>
+</div>
+                                </td>
+                            </tr>
+                        <tr>
+                            <td class="col-md-2" colspan="2">
+                                    <div class="io-line">Defined in         <code><a href="../directives/BaseFormControl.html#source" target="_self" >BaseFormControl:77</a></code>
+</div>
+                            </td>
+                        </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <div class="io-description"><p>The label that appears before the control</p>
+</div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="showAsterisk"></a>
+                        <b>showAsterisk</b>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank" >boolean</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>false</code>
+                    </td>
+                </tr>
+                            <tr>
+                                <td class="col-md-4" colspan="2">
+                                    <div class="io-line">Inherited from         <code><a href="../directives/BaseFormControl.html" target="_self" >BaseFormControl</a></code>
+</div>
+                                </td>
+                            </tr>
+                        <tr>
+                            <td class="col-md-2" colspan="2">
+                                    <div class="io-line">Defined in         <code><a href="../directives/BaseFormControl.html#source" target="_self" >BaseFormControl:72</a></code>
+</div>
+                            </td>
+                        </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <div class="io-description"><p>Show the asterisk next to the control when true</p>
+</div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
 </section>
 
 
 
-    <section>
+    <section data-compodoc="block-methods">
     
     <h3 id="methods">
         Methods
@@ -855,10 +1170,8 @@ Default is the translation of vcd.cc.unlimited key.</p>
                 <td class="col-md-4">
                     <a name="computeBestUnitAndValue"></a>
                     <span class="name">
-                        <b>
-                            <span class="modifier">Private</span>
-                            computeBestUnitAndValue
-                        </b>
+                        <span class="modifier">Private</span>
+                        <span ><b>computeBestUnitAndValue</b></span>
                         <a href="#computeBestUnitAndValue"><span class="icon ion-ios-link"></span></a>
                     </span>
                 </td>
@@ -884,6 +1197,7 @@ Default is the translation of vcd.cc.unlimited key.</p>
 
                     <div class="io-description">
                         <b>Parameters :</b>
+                        
                         <table class="params">
                             <thead>
                                 <tr>
@@ -927,9 +1241,7 @@ Default is the translation of vcd.cc.unlimited key.</p>
                 <td class="col-md-4">
                     <a name="fireUiChange"></a>
                     <span class="name">
-                        <b>
-                            fireUiChange
-                        </b>
+                        <span ><b>fireUiChange</b></span>
                         <a href="#fireUiChange"><span class="icon ion-ios-link"></span></a>
                     </span>
                 </td>
@@ -968,9 +1280,7 @@ Default is the translation of vcd.cc.unlimited key.</p>
                 <td class="col-md-4">
                     <a name="getErrorTranslationParams"></a>
                     <span class="name">
-                        <b>
-                            getErrorTranslationParams
-                        </b>
+                        <span ><b>getErrorTranslationParams</b></span>
                         <a href="#getErrorTranslationParams"><span class="icon ion-ios-link"></span></a>
                     </span>
                 </td>
@@ -995,6 +1305,7 @@ Default is the translation of vcd.cc.unlimited key.</p>
 
                     <div class="io-description">
                         <b>Parameters :</b>
+                        
                         <table class="params">
                             <thead>
                                 <tr>
@@ -1038,10 +1349,8 @@ Default is the translation of vcd.cc.unlimited key.</p>
                 <td class="col-md-4">
                     <a name="getSelectedComboUnit"></a>
                     <span class="name">
-                        <b>
-                            <span class="modifier">Private</span>
-                            getSelectedComboUnit
-                        </b>
+                        <span class="modifier">Private</span>
+                        <span ><b>getSelectedComboUnit</b></span>
                         <a href="#getSelectedComboUnit"><span class="icon ion-ios-link"></span></a>
                     </span>
                 </td>
@@ -1069,6 +1378,7 @@ Default is the translation of vcd.cc.unlimited key.</p>
 
                     <div class="io-description">
                         <b>Parameters :</b>
+                        
                         <table class="params">
                             <thead>
                                 <tr>
@@ -1117,10 +1427,8 @@ Default is the translation of vcd.cc.unlimited key.</p>
                 <td class="col-md-4">
                     <a name="getSelectedUnit"></a>
                     <span class="name">
-                        <b>
-                            <span class="modifier">Private</span>
-                            getSelectedUnit
-                        </b>
+                        <span class="modifier">Private</span>
+                        <span ><b>getSelectedUnit</b></span>
                         <a href="#getSelectedUnit"><span class="icon ion-ios-link"></span></a>
                     </span>
                 </td>
@@ -1160,10 +1468,8 @@ Default is the translation of vcd.cc.unlimited key.</p>
                 <td class="col-md-4">
                     <a name="getValue"></a>
                     <span class="name">
-                        <b>
-                            <span class="modifier">Private</span>
-                            getValue
-                        </b>
+                        <span class="modifier">Private</span>
+                        <span ><b>getValue</b></span>
                         <a href="#getValue"><span class="icon ion-ios-link"></span></a>
                     </span>
                 </td>
@@ -1203,10 +1509,8 @@ Default is the translation of vcd.cc.unlimited key.</p>
                 <td class="col-md-4">
                     <a name="isUnlimitedValue"></a>
                     <span class="name">
-                        <b>
-                            <span class="modifier">Private</span>
-                            isUnlimitedValue
-                        </b>
+                        <span class="modifier">Private</span>
+                        <span ><b>isUnlimitedValue</b></span>
                         <a href="#isUnlimitedValue"><span class="icon ion-ios-link"></span></a>
                     </span>
                 </td>
@@ -1234,6 +1538,7 @@ Default is the translation of vcd.cc.unlimited key.</p>
 
                     <div class="io-description">
                         <b>Parameters :</b>
+                        
                         <table class="params">
                             <thead>
                                 <tr>
@@ -1277,16 +1582,14 @@ Default is the translation of vcd.cc.unlimited key.</p>
                 <td class="col-md-4">
                     <a name="ngOnChanges"></a>
                     <span class="name">
-                        <b>
-                            ngOnChanges
-                        </b>
+                        <span ><b>ngOnChanges</b></span>
                         <a href="#ngOnChanges"><span class="icon ion-ios-link"></span></a>
                     </span>
                 </td>
             </tr>
             <tr>
                 <td class="col-md-4">
-<code>ngOnChanges(changes: <a href="https://angular.io/api/core/SimpleChanges" target="_blank">SimpleChanges</a>)</code>
+<code>ngOnChanges(changes: SimpleChanges)</code>
                 </td>
             </tr>
 
@@ -1304,6 +1607,7 @@ Default is the translation of vcd.cc.unlimited key.</p>
 
                     <div class="io-description">
                         <b>Parameters :</b>
+                        
                         <table class="params">
                             <thead>
                                 <tr>
@@ -1316,7 +1620,7 @@ Default is the translation of vcd.cc.unlimited key.</p>
                                 <tr>
                                     <td>changes</td>
                                     <td>
-                                                <code><a href="https://angular.io/api/core/SimpleChanges" target="_blank" >SimpleChanges</a></code>
+                                            <code>SimpleChanges</code>
                                     </td>
 
                                     <td>
@@ -1347,9 +1651,7 @@ Default is the translation of vcd.cc.unlimited key.</p>
                 <td class="col-md-4">
                     <a name="ngOnInit"></a>
                     <span class="name">
-                        <b>
-                            ngOnInit
-                        </b>
+                        <span ><b>ngOnInit</b></span>
                         <a href="#ngOnInit"><span class="icon ion-ios-link"></span></a>
                     </span>
                 </td>
@@ -1386,9 +1688,7 @@ Default is the translation of vcd.cc.unlimited key.</p>
                 <td class="col-md-4">
                     <a name="onTextInputChange"></a>
                     <span class="name">
-                        <b>
-                            onTextInputChange
-                        </b>
+                        <span ><b>onTextInputChange</b></span>
                         <a href="#onTextInputChange"><span class="icon ion-ios-link"></span></a>
                     </span>
                 </td>
@@ -1415,6 +1715,7 @@ Default is the translation of vcd.cc.unlimited key.</p>
 
                     <div class="io-description">
                         <b>Parameters :</b>
+                        
                         <table class="params">
                             <thead>
                                 <tr>
@@ -1458,9 +1759,7 @@ Default is the translation of vcd.cc.unlimited key.</p>
                 <td class="col-md-4">
                     <a name="onUnitChange"></a>
                     <span class="name">
-                        <b>
-                            onUnitChange
-                        </b>
+                        <span ><b>onUnitChange</b></span>
                         <a href="#onUnitChange"><span class="icon ion-ios-link"></span></a>
                     </span>
                 </td>
@@ -1487,6 +1786,7 @@ Default is the translation of vcd.cc.unlimited key.</p>
 
                     <div class="io-description">
                         <b>Parameters :</b>
+                        
                         <table class="params">
                             <thead>
                                 <tr>
@@ -1530,9 +1830,7 @@ Default is the translation of vcd.cc.unlimited key.</p>
                 <td class="col-md-4">
                     <a name="onUnlimitedCheckboxChange"></a>
                     <span class="name">
-                        <b>
-                            onUnlimitedCheckboxChange
-                        </b>
+                        <span ><b>onUnlimitedCheckboxChange</b></span>
                         <a href="#onUnlimitedCheckboxChange"><span class="icon ion-ios-link"></span></a>
                     </span>
                 </td>
@@ -1557,6 +1855,7 @@ Default is the translation of vcd.cc.unlimited key.</p>
 
                     <div class="io-description">
                         <b>Parameters :</b>
+                        
                         <table class="params">
                             <thead>
                                 <tr>
@@ -1600,10 +1899,8 @@ Default is the translation of vcd.cc.unlimited key.</p>
                 <td class="col-md-4">
                     <a name="recalculateUnitMinMax"></a>
                     <span class="name">
-                        <b>
-                            <span class="modifier">Private</span>
-                            recalculateUnitMinMax
-                        </b>
+                        <span class="modifier">Private</span>
+                        <span ><b>recalculateUnitMinMax</b></span>
                         <a href="#recalculateUnitMinMax"><span class="icon ion-ios-link"></span></a>
                     </span>
                 </td>
@@ -1641,9 +1938,7 @@ Default is the translation of vcd.cc.unlimited key.</p>
                 <td class="col-md-4">
                     <a name="updateUnlimitedCheckbox"></a>
                     <span class="name">
-                        <b>
-                            updateUnlimitedCheckbox
-                        </b>
+                        <span ><b>updateUnlimitedCheckbox</b></span>
                         <a href="#updateUnlimitedCheckbox"><span class="icon ion-ios-link"></span></a>
                     </span>
                 </td>
@@ -1682,10 +1977,8 @@ Default is the translation of vcd.cc.unlimited key.</p>
                 <td class="col-md-4">
                     <a name="validateNumber"></a>
                     <span class="name">
-                        <b>
-                            <span class="modifier">Private</span>
-                            validateNumber
-                        </b>
+                        <span class="modifier">Private</span>
+                        <span ><b>validateNumber</b></span>
                         <a href="#validateNumber"><span class="icon ion-ios-link"></span></a>
                     </span>
                 </td>
@@ -1712,7 +2005,7 @@ Default is the translation of vcd.cc.unlimited key.</p>
 </div>
 
                     <div class="io-description">
-                        <b>Returns : </b>        <code><a href="https://angular.io/api/forms/ValidationErrors" target="_blank" >ValidationErrors</a></code>
+                        <b>Returns : </b>    <code>ValidationErrors</code>
 
                     </div>
                 </td>
@@ -1725,9 +2018,7 @@ Default is the translation of vcd.cc.unlimited key.</p>
                 <td class="col-md-4">
                     <a name="writeValue"></a>
                     <span class="name">
-                        <b>
-                            writeValue
-                        </b>
+                        <span ><b>writeValue</b></span>
                         <a href="#writeValue"><span class="icon ion-ios-link"></span></a>
                     </span>
                 </td>
@@ -1741,8 +2032,14 @@ Default is the translation of vcd.cc.unlimited key.</p>
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="309"
-                            class="link-to-prism">projects/components/src/form/number-with-unit-input/number-with-unit-form-input.component.ts:309</a></div>
+                    <div class="io-line">Inherited from         <code><a href="../directives/BaseFormControl.html" target="_self" >BaseFormControl</a></code>
+</div>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-line">Defined in         <code><a href="../directives/BaseFormControl.html#source" target="_self" >BaseFormControl:309</a></code>
+</div>
                 </td>
             </tr>
 
@@ -1752,6 +2049,7 @@ Default is the translation of vcd.cc.unlimited key.</p>
 
                     <div class="io-description">
                         <b>Parameters :</b>
+                        
                         <table class="params">
                             <thead>
                                 <tr>
@@ -1789,491 +2087,1101 @@ Default is the translation of vcd.cc.unlimited key.</p>
             </tr>
         </tbody>
     </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="getTranslationParams"></a>
+                    <span class="name">
+                        <span class="modifier">Private</span>
+                        <span ><b>getTranslationParams</b></span>
+                        <a href="#getTranslationParams"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                    <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>getTranslationParams(errorObjectValue: <a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank">any</a>)</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Inherited from         <code><a href="../directives/BaseFormControl.html" target="_self" >BaseFormControl</a></code>
+</div>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-line">Defined in         <code><a href="../directives/BaseFormControl.html#source" target="_self" >BaseFormControl:179</a></code>
+</div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>When errorObjectValue param is not an array we pass back the control&#39;s value to stay backward compatible.</p>
+</div>
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Type</td>
+                                    <td>Optional</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>errorObjectValue</td>
+                                    <td>
+                                                <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+
+                    </div>
+                    <div class="io-description">
+                        
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="registerOnChange"></a>
+                    <span class="name">
+                        <span ><b>registerOnChange</b></span>
+                        <a href="#registerOnChange"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>registerOnChange(onChange: (args: []) => void)</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Inherited from         <code><a href="../directives/BaseFormControl.html" target="_self" >BaseFormControl</a></code>
+</div>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-line">Defined in         <code><a href="../directives/BaseFormControl.html#source" target="_self" >BaseFormControl:160</a></code>
+</div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Type</td>
+                                    <td>Optional</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>onChange</td>
+                                    <td>
+                                                <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/function" target="_blank" >function</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                    </div>
+                    <div class="io-description">
+                        
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="registerOnTouched"></a>
+                    <span class="name">
+                        <span ><b>registerOnTouched</b></span>
+                        <a href="#registerOnTouched"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>registerOnTouched(onTouched: (args: []) => void)</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Inherited from         <code><a href="../directives/BaseFormControl.html" target="_self" >BaseFormControl</a></code>
+</div>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-line">Defined in         <code><a href="../directives/BaseFormControl.html#source" target="_self" >BaseFormControl:164</a></code>
+</div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Type</td>
+                                    <td>Optional</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>onTouched</td>
+                                    <td>
+                                                <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/function" target="_blank" >function</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                    </div>
+                    <div class="io-description">
+                        
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="setDisabledState"></a>
+                    <span class="name">
+                        <span ><b>setDisabledState</b></span>
+                        <a href="#setDisabledState"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>setDisabledState(isDisabled: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank">boolean</a>)</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Inherited from         <code><a href="../directives/BaseFormControl.html" target="_self" >BaseFormControl</a></code>
+</div>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-line">Defined in         <code><a href="../directives/BaseFormControl.html#source" target="_self" >BaseFormControl:168</a></code>
+</div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Type</td>
+                                    <td>Optional</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>isDisabled</td>
+                                    <td>
+                                                <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank" >boolean</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                    </div>
+                    <div class="io-description">
+                        
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
 </section>
-    <section>
+    <section data-compodoc="block-properties">
     
-        <h3 id="inputs">
-            Properties
-        </h3>
-        <table class="table table-sm table-bordered">
-            <tbody>
+    <h3 id="inputs">
+        Properties
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="_unitOptions"></a>
+                    <span class="name">
+                            <span class="modifier">Private</span>
+                        <span ><b>_unitOptions</b></span>
+                        <a href="#_unitOptions"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
                 <tr>
                     <td class="col-md-4">
-                        <a name="_unitOptions"></a>
-                        <span class="name">
-                            <b>
-                                <span class="modifier">Private</span>
-                            _unitOptions</b>
-                            <a href="#_unitOptions"><span class="icon ion-ios-link"></span></a>
-                        </span>
+                        <i>Type : </i>        <code><a href="../classes/Unit.html" target="_self" >Unit[]</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>[]</code>
                     </td>
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                            <i>Type : </i>        <code><a href="../classes/Unit.html" target="_self" >Unit[]</a></code>
-
+                                <div class="io-line">Defined in <a href="" data-line="146" class="link-to-prism">projects/components/src/form/number-with-unit-input/number-with-unit-form-input.component.ts:146</a></div>
                         </td>
                     </tr>
-                    <tr>
-                        <td class="col-md-4">
-                            <i>Default value : </i><code>[]</code>
-                        </td>
-                    </tr>
-                        <tr>
-                            <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="146" class="link-to-prism">projects/components/src/form/number-with-unit-input/number-with-unit-form-input.component.ts:146</a></div>
-                            </td>
-                        </tr>
 
 
-            </tbody>
-        </table>
-        <table class="table table-sm table-bordered">
-            <tbody>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="bestUnit"></a>
+                    <span class="name">
+                            <span class="modifier">Private</span>
+                        <span ><b>bestUnit</b></span>
+                        <a href="#bestUnit"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
                 <tr>
                     <td class="col-md-4">
-                        <a name="bestUnit"></a>
-                        <span class="name">
-                            <b>
-                                <span class="modifier">Private</span>
-                            bestUnit</b>
-                            <a href="#bestUnit"><span class="icon ion-ios-link"></span></a>
-                        </span>
+                        <i>Type : </i>        <code><a href="../classes/Unit.html" target="_self" >Unit</a></code>
+
                     </td>
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                            <i>Type : </i>        <code><a href="../classes/Unit.html" target="_self" >Unit</a></code>
-
+                                <div class="io-line">Defined in <a href="" data-line="184" class="link-to-prism">projects/components/src/form/number-with-unit-input/number-with-unit-form-input.component.ts:184</a></div>
                         </td>
                     </tr>
-                        <tr>
-                            <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="184" class="link-to-prism">projects/components/src/form/number-with-unit-input/number-with-unit-form-input.component.ts:184</a></div>
-                            </td>
-                        </tr>
 
 
-            </tbody>
-        </table>
-        <table class="table table-sm table-bordered">
-            <tbody>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="bestValue"></a>
+                    <span class="name">
+                            <span class="modifier">Private</span>
+                        <span ><b>bestValue</b></span>
+                        <a href="#bestValue"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
                 <tr>
                     <td class="col-md-4">
-                        <a name="bestValue"></a>
-                        <span class="name">
-                            <b>
-                                <span class="modifier">Private</span>
-                            bestValue</b>
-                            <a href="#bestValue"><span class="icon ion-ios-link"></span></a>
-                        </span>
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>null</code>
                     </td>
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                            <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
-
+                                <div class="io-line">Defined in <a href="" data-line="181" class="link-to-prism">projects/components/src/form/number-with-unit-input/number-with-unit-form-input.component.ts:181</a></div>
                         </td>
                     </tr>
-                    <tr>
-                        <td class="col-md-4">
-                            <i>Default value : </i><code>null</code>
-                        </td>
-                    </tr>
-                        <tr>
-                            <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="181" class="link-to-prism">projects/components/src/form/number-with-unit-input/number-with-unit-form-input.component.ts:181</a></div>
-                            </td>
-                        </tr>
 
 
-            </tbody>
-        </table>
-        <table class="table table-sm table-bordered">
-            <tbody>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="comboOptions"></a>
+                    <span class="name">
+                        <span ><b>comboOptions</b></span>
+                        <a href="#comboOptions"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
                 <tr>
                     <td class="col-md-4">
-                        <a name="comboOptions"></a>
-                        <span class="name">
-                            <b>
-                            comboOptions</b>
-                            <a href="#comboOptions"><span class="icon ion-ios-link"></span></a>
-                        </span>
+                        <i>Type : </i>        <code><a href="../interfaces/SelectOption.html" target="_self" >SelectOption[]</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>[]</code>
                     </td>
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                            <i>Type : </i>        <code><a href="../interfaces/SelectOption.html" target="_self" >SelectOption[]</a></code>
-
+                                <div class="io-line">Defined in <a href="" data-line="172" class="link-to-prism">projects/components/src/form/number-with-unit-input/number-with-unit-form-input.component.ts:172</a></div>
                         </td>
                     </tr>
-                    <tr>
-                        <td class="col-md-4">
-                            <i>Default value : </i><code>[]</code>
-                        </td>
-                    </tr>
-                        <tr>
-                            <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="172" class="link-to-prism">projects/components/src/form/number-with-unit-input/number-with-unit-form-input.component.ts:172</a></div>
-                            </td>
-                        </tr>
 
-                <tr>
-                    <td class="col-md-4">
-                        <div class="io-description"><p>A drop down of available units</p>
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>A drop down of available units</p>
 <p>This list is constructed from list of
 available units in <a href="unitOptions">unitOptions</a></p>
 </div>
-                    </td>
-                </tr>
+                </td>
+            </tr>
 
-            </tbody>
-        </table>
-        <table class="table table-sm table-bordered">
-            <tbody>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="comboOptionUnitMap"></a>
+                    <span class="name">
+                            <span class="modifier">Private</span>
+                        <span ><b>comboOptionUnitMap</b></span>
+                        <a href="#comboOptionUnitMap"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
                 <tr>
                     <td class="col-md-4">
-                        <a name="comboOptionUnitMap"></a>
-                        <span class="name">
-                            <b>
-                                <span class="modifier">Private</span>
-                            comboOptionUnitMap</b>
-                            <a href="#comboOptionUnitMap"><span class="icon ion-ios-link"></span></a>
-                        </span>
+                        <i>Type : </i>        <code><a href="../interfaces/SelectOption.html" target="_self" >Map&lt;SelectOption | Unit&gt;</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>new Map()</code>
                     </td>
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                            <i>Type : </i>        <code><a href="../interfaces/SelectOption.html" target="_self" >Map&lt;SelectOption | Unit&gt;</a></code>
-
+                                <div class="io-line">Defined in <a href="" data-line="178" class="link-to-prism">projects/components/src/form/number-with-unit-input/number-with-unit-form-input.component.ts:178</a></div>
                         </td>
                     </tr>
-                    <tr>
-                        <td class="col-md-4">
-                            <i>Default value : </i><code>new Map()</code>
-                        </td>
-                    </tr>
-                        <tr>
-                            <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="178" class="link-to-prism">projects/components/src/form/number-with-unit-input/number-with-unit-form-input.component.ts:178</a></div>
-                            </td>
-                        </tr>
 
-                <tr>
-                    <td class="col-md-4">
-                        <div class="io-description"><p>Map of SelectOption and Unit which is used to
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Map of SelectOption and Unit which is used to
 extract Unit for a given SelectOption.</p>
 </div>
-                    </td>
-                </tr>
+                </td>
+            </tr>
 
-            </tbody>
-        </table>
-        <table class="table table-sm table-bordered">
-            <tbody>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="lastTextValue"></a>
+                    <span class="name">
+                            <span class="modifier">Private</span>
+                        <span ><b>lastTextValue</b></span>
+                        <a href="#lastTextValue"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
                 <tr>
                     <td class="col-md-4">
-                        <a name="lastTextValue"></a>
-                        <span class="name">
-                            <b>
-                                <span class="modifier">Private</span>
-                            lastTextValue</b>
-                            <a href="#lastTextValue"><span class="icon ion-ios-link"></span></a>
-                        </span>
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>&#x27;&#x27;</code>
                     </td>
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                            <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
-
+                                <div class="io-line">Defined in <a href="" data-line="201" class="link-to-prism">projects/components/src/form/number-with-unit-input/number-with-unit-form-input.component.ts:201</a></div>
                         </td>
                     </tr>
-                    <tr>
-                        <td class="col-md-4">
-                            <i>Default value : </i><code>&#x27;&#x27;</code>
-                        </td>
-                    </tr>
-                        <tr>
-                            <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="201" class="link-to-prism">projects/components/src/form/number-with-unit-input/number-with-unit-form-input.component.ts:201</a></div>
-                            </td>
-                        </tr>
 
-                <tr>
-                    <td class="col-md-4">
-                        <div class="io-description"><p>This is the last text value for the input. Used in case when user toggles the unlimited checkbox twice in a row.
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>This is the last text value for the input. Used in case when user toggles the unlimited checkbox twice in a row.
 When unlimited is checked the value of the input is cleared, then when toggled again, the input value should be
 set to the last value.</p>
 </div>
-                    </td>
-                </tr>
+                </td>
+            </tr>
 
-            </tbody>
-        </table>
-        <table class="table table-sm table-bordered">
-            <tbody>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="ngOnInitCalled"></a>
+                    <span class="name">
+                            <span class="modifier">Private</span>
+                        <span ><b>ngOnInitCalled</b></span>
+                        <a href="#ngOnInitCalled"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
                 <tr>
                     <td class="col-md-4">
-                        <a name="ngOnInitCalled"></a>
-                        <span class="name">
-                            <b>
-                                <span class="modifier">Private</span>
-                            ngOnInitCalled</b>
-                            <a href="#ngOnInitCalled"><span class="icon ion-ios-link"></span></a>
-                        </span>
+                        <i>Default value : </i><code>false</code>
                     </td>
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                            <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank" >boolean</a></code>
-
+                                <div class="io-line">Defined in <a href="" data-line="206" class="link-to-prism">projects/components/src/form/number-with-unit-input/number-with-unit-form-input.component.ts:206</a></div>
                         </td>
                     </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Should this functionality be provided at the base class?</p>
+</div>
+                </td>
+            </tr>
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="textInput"></a>
+                    <span class="name">
+                            <span class="modifier"></span>
+                        <span ><b>textInput</b></span>
+                        <a href="#textInput"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>ElementRef</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <b>Decorators : </b>
+                        <br />
+                        <code>
+                            @ViewChild(&#x27;textInput&#x27;, {static: false})<br />
+                        </code>
+                    </td>
+                </tr>
                     <tr>
                         <td class="col-md-4">
-                            <i>Default value : </i><code>false</code>
+                                <div class="io-line">Defined in <a href="" data-line="151" class="link-to-prism">projects/components/src/form/number-with-unit-input/number-with-unit-form-input.component.ts:151</a></div>
                         </td>
                     </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>The input field element, where numbers are entered. Null if readonly.</p>
+</div>
+                </td>
+            </tr>
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="textInputValue"></a>
+                    <span class="name">
+                        <span ><b>textInputValue</b></span>
+                        <a href="#textInputValue"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>null</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="158" class="link-to-prism">projects/components/src/form/number-with-unit-input/number-with-unit-form-input.component.ts:158</a></div>
+                        </td>
+                    </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>ngModel for the number input</p>
+</div>
+                </td>
+            </tr>
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="unitMax"></a>
+                    <span class="name">
+                        <span ><b>unitMax</b></span>
+                        <a href="#unitMax"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="194" class="link-to-prism">projects/components/src/form/number-with-unit-input/number-with-unit-form-input.component.ts:194</a></div>
+                        </td>
+                    </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>The maximum value calculated from the <a href="max">max</a> value converted to the currently selected unit</p>
+</div>
+                </td>
+            </tr>
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="unitMin"></a>
+                    <span class="name">
+                        <span ><b>unitMin</b></span>
+                        <a href="#unitMin"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="189" class="link-to-prism">projects/components/src/form/number-with-unit-input/number-with-unit-form-input.component.ts:189</a></div>
+                        </td>
+                    </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>The minimum value calculated from the <a href="min">min</a> value converted to the currently selected unit</p>
+</div>
+                </td>
+            </tr>
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="unitsControlValue"></a>
+                    <span class="name">
+                        <span ><b>unitsControlValue</b></span>
+                        <a href="#unitsControlValue"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>null</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="161" class="link-to-prism">projects/components/src/form/number-with-unit-input/number-with-unit-form-input.component.ts:161</a></div>
+                        </td>
+                    </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>ngModel for the unit selector</p>
+</div>
+                </td>
+            </tr>
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="unlimitedControlValue"></a>
+                    <span class="name">
+                        <span ><b>unlimitedControlValue</b></span>
+                        <a href="#unlimitedControlValue"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>false</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="164" class="link-to-prism">projects/components/src/form/number-with-unit-input/number-with-unit-form-input.component.ts:164</a></div>
+                        </td>
+                    </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>ngModel for the unlimited checkbox</p>
+</div>
+                </td>
+            </tr>
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="descriptionId"></a>
+                    <span class="name">
+                            <span class="modifier">Readonly</span>
+                        <span ><b>descriptionId</b></span>
+                        <a href="#descriptionId"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>&#x60;${this.id}-description&#x60;</code>
+                    </td>
+                </tr>
                         <tr>
                             <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="206" class="link-to-prism">projects/components/src/form/number-with-unit-input/number-with-unit-form-input.component.ts:206</a></div>
+                                <div class="io-line">Inherited from         <code><a href="../directives/BaseFormControl.html" target="_self" >BaseFormControl</a></code>
+</div>
                             </td>
                         </tr>
-
-                <tr>
-                    <td class="col-md-4">
-                        <div class="io-description"><p>Should this functionality be provided at the base class?</p>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in         <code><a href="../directives/BaseFormControl.html#source" target="_self" >BaseFormControl:47</a></code>
 </div>
-                    </td>
-                </tr>
+                        </td>
+                    </tr>
 
-            </tbody>
-        </table>
-        <table class="table table-sm table-bordered">
-            <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Auto generated ID for the description field.</p>
+</div>
+                </td>
+            </tr>
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="disabled"></a>
+                    <span class="name">
+                        <span ><b>disabled</b></span>
+                        <a href="#disabled"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
                 <tr>
                     <td class="col-md-4">
-                        <a name="textInput"></a>
-                        <span class="name">
-                            <b>
-                            textInput</b>
-                            <a href="#textInput"><span class="icon ion-ios-link"></span></a>
-                        </span>
+                        <i>Default value : </i><code>false</code>
                     </td>
                 </tr>
-                    <tr>
-                        <td class="col-md-4">
-                            <i>Type : </i>        <code><a href="https://angular.io/api/core/ElementRef" target="_blank" >ElementRef</a></code>
-
-                        </td>
-                    </tr>
-                    <tr>
-                        <td class="col-md-4">
-                            <b>Decorators : </b>
-                            <br />
-                            <code>
-                                @ViewChild(&#x27;textInput&#x27;, {static: false})<br />
-                            </code>
-                        </td>
-                    </tr>
                         <tr>
                             <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="151" class="link-to-prism">projects/components/src/form/number-with-unit-input/number-with-unit-form-input.component.ts:151</a></div>
+                                <div class="io-line">Inherited from         <code><a href="../directives/BaseFormControl.html" target="_self" >BaseFormControl</a></code>
+</div>
                             </td>
                         </tr>
-
-                <tr>
-                    <td class="col-md-4">
-                        <div class="io-description"><p>The input field element, where numbers are entered. Null if readonly.</p>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in         <code><a href="../directives/BaseFormControl.html#source" target="_self" >BaseFormControl:67</a></code>
 </div>
-                    </td>
-                </tr>
+                        </td>
+                    </tr>
 
-            </tbody>
-        </table>
-        <table class="table table-sm table-bordered">
-            <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Whether the control is disabled.</p>
+</div>
+                </td>
+            </tr>
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="errorsId"></a>
+                    <span class="name">
+                            <span class="modifier">Readonly</span>
+                        <span ><b>errorsId</b></span>
+                        <a href="#errorsId"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
                 <tr>
                     <td class="col-md-4">
-                        <a name="textInputValue"></a>
-                        <span class="name">
-                            <b>
-                            textInputValue</b>
-                            <a href="#textInputValue"><span class="icon ion-ios-link"></span></a>
-                        </span>
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
                     </td>
                 </tr>
-                    <tr>
-                        <td class="col-md-4">
-                            <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
-
-                        </td>
-                    </tr>
-                    <tr>
-                        <td class="col-md-4">
-                            <i>Default value : </i><code>null</code>
-                        </td>
-                    </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>&#x60;${this.id}-errors&#x60;</code>
+                    </td>
+                </tr>
                         <tr>
                             <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="158" class="link-to-prism">projects/components/src/form/number-with-unit-input/number-with-unit-form-input.component.ts:158</a></div>
+                                <div class="io-line">Inherited from         <code><a href="../directives/BaseFormControl.html" target="_self" >BaseFormControl</a></code>
+</div>
                             </td>
                         </tr>
-
-                <tr>
-                    <td class="col-md-4">
-                        <div class="io-description"><p>ngModel for the number input </p>
-</div>
-                    </td>
-                </tr>
-
-            </tbody>
-        </table>
-        <table class="table table-sm table-bordered">
-            <tbody>
-                <tr>
-                    <td class="col-md-4">
-                        <a name="unitMax"></a>
-                        <span class="name">
-                            <b>
-                            unitMax</b>
-                            <a href="#unitMax"><span class="icon ion-ios-link"></span></a>
-                        </span>
-                    </td>
-                </tr>
                     <tr>
                         <td class="col-md-4">
-                            <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
-
+                                <div class="io-line">Defined in         <code><a href="../directives/BaseFormControl.html#source" target="_self" >BaseFormControl:52</a></code>
+</div>
                         </td>
                     </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Auto generated ID for the error field.</p>
+</div>
+                </td>
+            </tr>
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="formControlNameDirective"></a>
+                    <span class="name">
+                        <span ><b>formControlNameDirective</b></span>
+                        <a href="#formControlNameDirective"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>NgControl</code>
+
+                    </td>
+                </tr>
                         <tr>
                             <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="194" class="link-to-prism">projects/components/src/form/number-with-unit-input/number-with-unit-form-input.component.ts:194</a></div>
+                                <div class="io-line">Inherited from         <code><a href="../directives/BaseFormControl.html" target="_self" >BaseFormControl</a></code>
+</div>
                             </td>
                         </tr>
-
-                <tr>
-                    <td class="col-md-4">
-                        <div class="io-description"><p>The maximum value calculated from the <a href="max">max</a> value converted to the currently selected unit</p>
-</div>
-                    </td>
-                </tr>
-
-            </tbody>
-        </table>
-        <table class="table table-sm table-bordered">
-            <tbody>
-                <tr>
-                    <td class="col-md-4">
-                        <a name="unitMin"></a>
-                        <span class="name">
-                            <b>
-                            unitMin</b>
-                            <a href="#unitMin"><span class="icon ion-ios-link"></span></a>
-                        </span>
-                    </td>
-                </tr>
                     <tr>
                         <td class="col-md-4">
-                            <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
-
+                                <div class="io-line">Defined in         <code><a href="../directives/BaseFormControl.html#source" target="_self" >BaseFormControl:108</a></code>
+</div>
                         </td>
                     </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>FormControlName directive</p>
+</div>
+                </td>
+            </tr>
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="id"></a>
+                    <span class="name">
+                            <span class="modifier">Readonly</span>
+                        <span ><b>id</b></span>
+                        <a href="#id"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>idGenerator.generate()</code>
+                    </td>
+                </tr>
                         <tr>
                             <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="189" class="link-to-prism">projects/components/src/form/number-with-unit-input/number-with-unit-form-input.component.ts:189</a></div>
+                                <div class="io-line">Inherited from         <code><a href="../directives/BaseFormControl.html" target="_self" >BaseFormControl</a></code>
+</div>
                             </td>
                         </tr>
-
-                <tr>
-                    <td class="col-md-4">
-                        <div class="io-description"><p>The minimum value calculated from the <a href="min">min</a> value converted to the currently selected unit</p>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in         <code><a href="../directives/BaseFormControl.html#source" target="_self" >BaseFormControl:42</a></code>
 </div>
-                    </td>
-                </tr>
+                        </td>
+                    </tr>
 
-            </tbody>
-        </table>
-        <table class="table table-sm table-bordered">
-            <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Auto generated ID for the input field.</p>
+</div>
+                </td>
+            </tr>
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="initialValue"></a>
+                    <span class="name">
+                            <span class="modifier">Protected</span>
+                        <span ><b>initialValue</b></span>
+                        <a href="#initialValue"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
                 <tr>
                     <td class="col-md-4">
-                        <a name="unitsControlValue"></a>
-                        <span class="name">
-                            <b>
-                            unitsControlValue</b>
-                            <a href="#unitsControlValue"><span class="icon ion-ios-link"></span></a>
-                        </span>
+                        <i>Type : </i>    <code>number | string | boolean</code>
+
                     </td>
                 </tr>
-                    <tr>
-                        <td class="col-md-4">
-                            <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
-
-                        </td>
-                    </tr>
-                    <tr>
-                        <td class="col-md-4">
-                            <i>Default value : </i><code>null</code>
-                        </td>
-                    </tr>
                         <tr>
                             <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="161" class="link-to-prism">projects/components/src/form/number-with-unit-input/number-with-unit-form-input.component.ts:161</a></div>
+                                <div class="io-line">Inherited from         <code><a href="../directives/BaseFormControl.html" target="_self" >BaseFormControl</a></code>
+</div>
                             </td>
                         </tr>
-
-                <tr>
-                    <td class="col-md-4">
-                        <div class="io-description"><p>ngModel for the unit selector </p>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in         <code><a href="../directives/BaseFormControl.html#source" target="_self" >BaseFormControl:113</a></code>
 </div>
-                    </td>
-                </tr>
+                        </td>
+                    </tr>
 
-            </tbody>
-        </table>
-        <table class="table table-sm table-bordered">
-            <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>To store the initial value of the input form control.</p>
+</div>
+                </td>
+            </tr>
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="onChange"></a>
+                    <span class="name">
+                        <span ><b>onChange</b></span>
+                        <a href="#onChange"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
                 <tr>
                     <td class="col-md-4">
-                        <a name="unlimitedControlValue"></a>
-                        <span class="name">
-                            <b>
-                            unlimitedControlValue</b>
-                            <a href="#unlimitedControlValue"><span class="icon ion-ios-link"></span></a>
-                        </span>
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/function" target="_blank" >function</a></code>
+
                     </td>
                 </tr>
-                    <tr>
-                        <td class="col-md-4">
-                            <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank" >boolean</a></code>
-
-                        </td>
-                    </tr>
-                    <tr>
-                        <td class="col-md-4">
-                            <i>Default value : </i><code>false</code>
-                        </td>
-                    </tr>
                         <tr>
                             <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="164" class="link-to-prism">projects/components/src/form/number-with-unit-input/number-with-unit-form-input.component.ts:164</a></div>
+                                <div class="io-line">Inherited from         <code><a href="../directives/BaseFormControl.html" target="_self" >BaseFormControl</a></code>
+</div>
                             </td>
                         </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in         <code><a href="../directives/BaseFormControl.html#source" target="_self" >BaseFormControl:57</a></code>
+</div>
+                        </td>
+                    </tr>
 
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Change callback.</p>
+</div>
+                </td>
+            </tr>
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="onTouch"></a>
+                    <span class="name">
+                        <span ><b>onTouch</b></span>
+                        <a href="#onTouch"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
                 <tr>
                     <td class="col-md-4">
-                        <div class="io-description"><p>ngModel for the unlimited checkbox </p>
-</div>
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/function" target="_blank" >function</a></code>
+
                     </td>
                 </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                <div class="io-line">Inherited from         <code><a href="../directives/BaseFormControl.html" target="_self" >BaseFormControl</a></code>
+</div>
+                            </td>
+                        </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in         <code><a href="../directives/BaseFormControl.html#source" target="_self" >BaseFormControl:62</a></code>
+</div>
+                        </td>
+                    </tr>
 
-            </tbody>
-        </table>
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Touch callback.</p>
+</div>
+                </td>
+            </tr>
+
+        </tbody>
+    </table>
 </section>
 
-    <section>
+    <section data-compodoc="block-accessors">
     <h3 id="accessors">
         Accessors
     </h3>
@@ -2299,7 +3207,7 @@ set to the last value.</p>
 
                 <tr>
                     <td class="col-md-4">
-                        <span class="accessor"><b>set</b><code>unitOptions(unitOptions: [])</code></span>
+                        <span class="accessor"><b>set</b><code>unitOptions(unitOptions: <a href="../classes/Unit.html" target="_self">Unit[]</a>)</code></span>
                     </td>
                 </tr>
                             <tr>
@@ -2310,10 +3218,19 @@ set to the last value.</p>
                     <tr>
                         <td class="col-md-4">
                                 <div class="io-description"><p>List of available units. Consider the following options for the array:</p>
-<h1 id="array-with-more-than-one-element">array with more than one element</h1>
-<div><pre class="line-numbers"><code class="language-none">- a dropdown unit selection is shown. You must also provide {&#64;link inputValueUnit}</code></pre></div><h1 id="single-element-array">single element array</h1>
-<div><pre class="line-numbers"><code class="language-none">- a string notation for no dropdown, {&#64;link inputValueUnit} is derived from the element</code></pre></div><h1 id="empty-array">empty array</h1>
-<div><pre class="line-numbers"><code class="language-none">- no units at all</code></pre></div></div>
+<h1>array with more than one element</h1>
+<ul>
+<li>a dropdown unit selection is shown. You must also provide <a href="inputValueUnit">inputValueUnit</a></li>
+</ul>
+<h1>single element array</h1>
+<ul>
+<li>a string notation for no dropdown, <a href="inputValueUnit">inputValueUnit</a> is derived from the element</li>
+</ul>
+<h1>empty array</h1>
+<ul>
+<li>no units at all</li>
+</ul>
+</div>
 
                                 <div class="io-description">
                                         <b>Parameters :</b>
@@ -2330,7 +3247,7 @@ set to the last value.</p>
                                                             <td>unitOptions</td>
                                                     
                                                             <td>
-                                                                        <code>[]</code>
+                                                                            <code><a href="../classes/Unit.html" target="_self" >Unit[]</a></code>
                                                             </td>
                                                     
                                                         <td>
@@ -2422,8 +3339,8 @@ set to the last value.</p>
                                                         </td>
                                                         
                                                             <td>
-                                                                    <code><p>Should be one of the value that you pass in {</p>
-</code>
+                                                                    <p>Should be one of the value that you pass in  to select the Unit.</p>
+
                                                             </td>
                                                     </tr>
                                             </tbody>
@@ -2516,11 +3433,14 @@ Returns an empty string if the element is currently set to unlimited</p>
                             </tr>
                     <tr>
                         <td class="col-md-4">
+                                <div class="io-description"><p>an array for positional based message format or <code>{msgKey: string}</code> for a named message format.
+See ValidationErrors.</p>
+</div>
 
                                 <div>
                                 </div>
                                 <div class="io-description">
-                                    <b>Returns : </b>        <code><a href="https://angular.io/api/forms/ValidationErrors" target="_blank" >ValidationErrors</a></code>
+                                    <b>Returns : </b>    <code>ValidationErrors</code>
 
                                 </div>
                         </td>
@@ -2532,7 +3452,7 @@ Returns an empty string if the element is currently set to unlimited</p>
 </div>
 
 
-    <div class="tab-pane fade  tab-source-code" id="c-source">
+    <div class="tab-pane fade  tab-source-code" id="source">
         <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import {
     ChangeDetectorRef,
     Component,
@@ -3069,7 +3989,7 @@ class NoUnit extends Unit {
 </code></pre>
     </div>
 
-    <div class="tab-pane fade " id="c-templateData">
+    <div class="tab-pane fade " id="templateData">
         <pre class="line-numbers"><code class="language-html">&lt;div class&#x3D;&quot;clr-form-control&quot; [vcdResponsiveInput]&#x3D;&quot;{ disabled: !isResponsive }&quot; *ngIf&#x3D;&quot;isReadOnly&quot;&gt;
     &lt;label *ngIf&#x3D;&quot;label&quot; class&#x3D;&quot;clr-control-label&quot;&gt;{{ label }}&lt;/label&gt;
     &lt;span class&#x3D;&quot;clr-control-container readonly-text&quot;&gt;{{ displayValue || (unlimitedText | lazyString) }}&lt;/span&gt;
@@ -3160,7 +4080,7 @@ class NoUnit extends Unit {
 </code></pre>
     </div>
 
-    <div class="tab-pane fade " id="c-styleData">
+    <div class="tab-pane fade " id="styleData">
                 <p class="comment">
                     <code>../form.scss</code>
                 </p>
@@ -3219,7 +4139,7 @@ div.clr-select-wrapper {
 </code></pre>
     </div>
 
-    <div class="tab-pane fade " id="c-tree">
+    <div class="tab-pane fade " id="tree">
         <div id="tree-container"></div>
         <div class="tree-legend">
             <div class="title">
@@ -3246,7 +4166,7 @@ div.clr-select-wrapper {
 <script>
         var COMPONENT_TEMPLATE = '<div><div class="clr-form-control" [vcdResponsiveInput]="{ disabled: !isResponsive }" *ngIf="isReadOnly">    <label *ngIf="label" class="clr-control-label">{{ label }}</label>    <span class="clr-control-container readonly-text">{{ displayValue || (unlimitedText | lazyString) }}</span></div><div *ngIf="!isReadOnly">    <div        class="clr-form-control"        [ngClass]="{ \'clr-form-control-disabled\': disabled }"        [vcdResponsiveInput]="{ disabled: !isResponsive }"    >        <label *ngIf="label" class="clr-control-label" [for]="id" [ngClass]="{ \'required-field\': showAsterisk }">{{            label        }}</label>        <div class="clr-control-container" [ngClass]="{ \'clr-error\': showErrors }">            <div class="clr-input-wrapper">                <input                    [id]="id"                    class="clr-input"                    type="number"                    [min]="unitMin"                    [max]="unitMax"                    #textInput                    (ngModelChange)="onTextInputChange($event)"                    [ngModel]="textInputValue"                    [attr.disabled]="shouldDisableNumberAndUnitControls"                    [attr.placeholder]="placeholder"                    [attr.size]="size"                    [attr.aria-required]="showAsterisk"                    [attr.aria-describedby]="showErrors ? errorsId : descriptionId"                    (blur)="updateUnlimitedCheckbox()"                />                <ng-container [ngSwitch]="unitOptions.length">                    <ng-container *ngSwitchCase="0">                        <!-- Do not display unit -->                    </ng-container>                    <div class="single-option" *ngSwitchCase="1">                        {{ unitOptions[0].getUnitNameTranslationKey() | translate }}                    </div>                    <div class="clr-select-wrapper" *ngSwitchDefault>                        <select                            [id]="id + \'unit\'"                            (ngModelChange)="onUnitChange($event)"                            [ngModel]="unitsControlValue"                            [attr.disabled]="shouldDisableNumberAndUnitControls"                        >                            <option *ngFor="let option of comboOptions" [value]="option.value">                                {{ option.isTranslatable ? (option.display | translate) : option.display }}                            </option>                        </select>                    </div>                </ng-container>                <clr-icon *ngIf="showErrors" class="clr-validate-icon" shape="exclamation-circle"></clr-icon>                <clr-signpost *ngIf="hint">                    <clr-signpost-content [clrPosition]="hintPosition" *clrIfOpen>                        <p>{{ hint }}</p>                    </clr-signpost-content>                </clr-signpost>            </div>            <div class="clr-subtext" *ngIf="showErrors" [id]="errorsId">                <div *ngFor="let error of errors | keyvalue">                    <div>{{ error.key | translate: getErrorTranslationParams(error.value) }}</div>                </div>            </div>            <div class="clr-subtext" *ngIf="!showErrors && description" [id]="descriptionId">                {{ description }}            </div>            <div                *ngIf="showUnlimitedOption"                class="clr-checkbox-wrapper"                [ngClass]="{ \'clr-form-control-disabled\': disabled }"            >                <input                    type="checkbox"                    class="clr-checkbox"                    [attr.disabled]="disabled || null"                    [id]="id + \'checkbox\'"                    (ngModelChange)="onUnlimitedCheckboxChange($event)"                    [ngModel]="unlimitedControlValue"                />                <label class="clr-control-label" [for]="id + \'checkbox\'">{{ unlimitedText | lazyString }}</label>            </div>        </div>    </div></div></div>'
     var COMPONENTS = [{'name': 'ActionMenuComponent', 'selector': 'vcd-action-menu'},{'name': 'BannerActivityReporterComponent', 'selector': 'vcd-banner-activity-reporter'},{'name': 'BoldTextRendererComponent', 'selector': 'vcd-bold-text-renderer'},{'name': 'DataExporterComponent', 'selector': 'vcd-data-exporter'},{'name': 'DatagridComponent', 'selector': 'vcd-datagrid'},{'name': 'DatagridMultiSelectFilterComponent', 'selector': 'vcd-dg-multiselect-filter'},{'name': 'DatagridNumericFilterComponent', 'selector': 'vcd-dg-numeric-filter'},{'name': 'DatagridSelectFilterComponent', 'selector': 'vcd-dg-select-filter'},{'name': 'DatagridStringFilterComponent', 'selector': 'vcd-dg-string-filter'},{'name': 'DrawerComponent', 'selector': 'vcd-drawer-component'},{'name': 'DropdownComponent', 'selector': 'vcd-dropdown'},{'name': 'ErrorBannerComponent', 'selector': 'vcd-error-banner'},{'name': 'FilterTestHostComponent', 'selector': ''},{'name': 'FormCheckboxComponent', 'selector': 'vcd-form-checkbox'},{'name': 'FormInputComponent', 'selector': 'vcd-form-input'},{'name': 'FormlyInputComponent', 'selector': 'vcd-formly-input'},{'name': 'FormlyNumberWithUnitInputComponent', 'selector': 'vcd-formly-number-with-unit-input'},{'name': 'FormlySelectComponent', 'selector': 'vcd-formly-select'},{'name': 'FormSelectComponent', 'selector': 'vcd-form-select'},{'name': 'LoadingIndicatorComponent', 'selector': 'vcd-loading-indicator'},{'name': 'NumberWithUnitFormInputComponent', 'selector': 'vcd-number-with-unit-form-input'},{'name': 'QuickSearchComponent', 'selector': 'vcd-quick-search'},{'name': 'RightsDropdownRendererComponent', 'selector': 'vcd-rights-dropdown-renderer'},{'name': 'SharingModalComponent', 'selector': 'vcd-sharing-modal'},{'name': 'SharingModalGroupRenderComponent', 'selector': 'vcd-sharing-modal-group-renderer'},{'name': 'SharingModalOrgRenderComponent', 'selector': 'vcd-sharing-modal-group-renderer'},{'name': 'SharingModalTabComponent', 'selector': 'vcd-sharing-modal-tab'},{'name': 'SharingModalUserRenderComponent', 'selector': 'vcd-sharing-modal-user-renderer'},{'name': 'ShowClippedTextDirectiveTestHostComponent', 'selector': ''},{'name': 'SpinnerActivityReporterComponent', 'selector': 'vcd-spinner-activity-reporter'},{'name': 'VcdSelectAllToggleComponent', 'selector': 'vcd-select-all-toggle'}];
-    var DIRECTIVES = [{'name': 'AlternativeTextDirective', 'selector': 'clr-icon'},{'name': 'AriaActiveDescendantDirective', 'selector': '[vcdAriaActiveDescendant]'},{'name': 'ComponentRendererOutletDirective', 'selector': '[vcdComponentRendererOutlet]'},{'name': 'DatagridFilter', 'selector': ''},{'name': 'DropdownFocusHandlerDirective', 'selector': 'vcd-dropdown[vcdDropdownFocusHandler]'},{'name': 'DynamicDropdownPositionDirective', 'selector': 'clr-dropdown[vcdDynamicDropdown]'},{'name': 'ResponsiveInputDirective', 'selector': '.clr-form-control[vcdResponsiveInput]'},{'name': 'ShowClippedTextDirective', 'selector': '[vcdShowClippedText]'},{'name': 'UsersGroupsOrgsSharingModalDirective', 'selector': 'vcd-sharing-modal[vcdUsersGroupsOrgsSharingModal]'}];
+    var DIRECTIVES = [{'name': 'AlternativeTextDirective', 'selector': 'clr-icon'},{'name': 'AriaActiveDescendantDirective', 'selector': '[vcdAriaActiveDescendant]'},{'name': 'BaseFormControl', 'selector': ''},{'name': 'ComponentRendererOutletDirective', 'selector': '[vcdComponentRendererOutlet]'},{'name': 'DatagridFilter', 'selector': ''},{'name': 'DropdownFocusHandlerDirective', 'selector': 'vcd-dropdown[vcdDropdownFocusHandler]'},{'name': 'DynamicDropdownPositionDirective', 'selector': 'clr-dropdown[vcdDynamicDropdown]'},{'name': 'ResponsiveInputDirective', 'selector': '.clr-form-control[vcdResponsiveInput]'},{'name': 'ShowClippedTextDirective', 'selector': '[vcdShowClippedText]'},{'name': 'UsersGroupsOrgsSharingModalDirective', 'selector': 'vcd-sharing-modal[vcdUsersGroupsOrgsSharingModal]'}];
     var ACTUAL_COMPONENT = {'name': 'NumberWithUnitFormInputComponent'};
 </script>
 <script src="../js/tree.js"></script>
@@ -3260,14 +4180,16 @@ div.clr-select-wrapper {
 
 
 
-                   
+
+
+
 
 
 
 
                    </div><div class="search-results">
     <div class="has-results">
-        <h1 class="search-results-title"><span class='search-results-count'></span> result-matching "<span class='search-query'></span>"</h1>
+        <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
         <ul class="search-results-list"></ul>
     </div>
     <div class="no-results">
@@ -3279,6 +4201,15 @@ div.clr-select-wrapper {
            </div>
        </div>
 
+          <label class="dark-mode-switch">
+               <input type="checkbox">
+               <span class="slider">
+                    <svg class="slider-icon" viewBox="0 0 24 24" fill="none" height="20" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" width="20" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"></path>
+                    </svg>
+               </span>
+          </label>
+
        <script>
             var COMPODOC_CURRENT_PAGE_DEPTH = 1;
             var COMPODOC_CURRENT_PAGE_CONTEXT = 'component';
@@ -3288,9 +4219,9 @@ div.clr-select-wrapper {
 
        <script src="../js/libs/custom-elements.min.js"></script>
        <script src="../js/libs/lit-html.js"></script>
-       <!-- Required to polyfill modern browsers as code is ES5 for IE... -->
-       <script src="../js/libs/custom-elements-es5-adapter.js" charset="utf-8" defer></script>
+
        <script src="../js/menu-wc.js" defer></script>
+       <script nomodule src="../js/menu-wc_es5.js" defer></script>
 
        <script src="../js/libs/bootstrap-native.js"></script>
 

@@ -8,11 +8,12 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
         <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
-	      <link rel="stylesheet" href="../styles/style.css">
+	   <link rel="stylesheet" href="../styles/style.css">
+        <link rel="stylesheet" href="../styles/dark.css">
     </head>
     <body>
 
-        <div class="navbar navbar-default navbar-fixed-top visible-xs">
+        <div class="navbar navbar-default navbar-fixed-top d-block d-sm-none">
             <a href="../" class="navbar-brand">vmware-cloud-director-ui-components documentation</a>
             <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
         </div>
@@ -34,35 +35,43 @@
 
 
 <ol class="breadcrumb">
-  <li>Components</li>
-  <li>ActionMenuComponent</li>
+  <li class="breadcrumb-item">Components</li>
+  <li class="breadcrumb-item"
+  >
+  ActionMenuComponent</li>
 </ol>
 
 <ul class="nav nav-tabs" role="tablist">
-        <li class="active">
-            <a href="#info" role="tab" id="info-tab" data-toggle="tab" data-link="info">Info</a>
+        <li class="nav-item">
+            <a href="#info" class="nav-link active"
+                role="tab" id="info-tab" data-bs-toggle="tab" data-link="info">Info</a>
         </li>
-        <li >
-            <a href="#source" role="tab" id="source-tab" data-toggle="tab" data-link="source">Source</a>
+        <li class="nav-item">
+            <a href="#source" class="nav-link"
+                role="tab" id="source-tab" data-bs-toggle="tab" data-link="source">Source</a>
         </li>
-        <li >
-            <a href="#templateData" role="tab" id="templateData-tab" data-toggle="tab" data-link="template">Template</a>
+        <li class="nav-item">
+            <a href="#templateData" class="nav-link"
+                role="tab" id="templateData-tab" data-bs-toggle="tab" data-link="template">Template</a>
         </li>
-        <li >
-            <a href="#styleData" role="tab" id="styleData-tab" data-toggle="tab" data-link="style">Styles</a>
+        <li class="nav-item">
+            <a href="#styleData" class="nav-link"
+                role="tab" id="styleData-tab" data-bs-toggle="tab" data-link="style">Styles</a>
         </li>
-        <li >
-            <a href="#tree" role="tab" id="tree-tab" data-toggle="tab" data-link="dom-tree">DOM Tree</a>
+        <li class="nav-item">
+            <a href="#tree" class="nav-link"
+                role="tab" id="tree-tab" data-bs-toggle="tab" data-link="dom-tree">DOM Tree</a>
         </li>
 </ul>
 
 <div class="tab-content">
-    <div class="tab-pane fade active in" id="c-info"><p class="comment">
+    <div class="tab-pane fade active in" id="info"><p class="comment">
     <h3>File</h3>
 </p>
 <p class="comment">
     <code>projects/components/src/action-menu/action-menu.component.ts</code>
 </p>
+
 
     <p class="comment">
         <h3>Description</h3>
@@ -79,14 +88,15 @@ T is the type of custom data passed to action handler methods</p>
         <h3>Implements</h3>
     </p>
     <p class="comment">
-                    <code><a href="https://angular.io/api/core/OnDestroy" target="_blank" >OnDestroy</a></code>
+                <code>OnDestroy</code>
     </p>
 
 
-<section>
+<section data-compodoc="block-metadata">
     <h3>Metadata</h3>
-    <table class="table table-sm table-hover">
+    <table class="table table-sm table-hover metadata">
         <tbody>
+
 
 
 
@@ -102,6 +112,8 @@ T is the type of custom data passed to action handler methods</p>
                 <td class="col-md-3">selector</td>
                 <td class="col-md-9"><code>vcd-action-menu</code></td>
             </tr>
+
+
 
             <tr>
                 <td class="col-md-3">styleUrls</td>
@@ -126,7 +138,7 @@ T is the type of custom data passed to action handler methods</p>
     </table>
 </section>
 
-    <section>
+    <section data-compodoc="block-index">
     <h3 id="index">Index</h3>
     <table class="table table-sm table-bordered index-table">
         <tbody>
@@ -140,85 +152,85 @@ T is the type of custom data passed to action handler methods</p>
                         <ul class="index-list">
                             <li>
                                     <span class="modifier">Private</span>
-                                <a href="#_actionDisplayConfig">_actionDisplayConfig</a>
+                                <a href="#_actionDisplayConfig" >_actionDisplayConfig</a>
                             </li>
                             <li>
-                                <a href="#_actions">_actions</a>
-                            </li>
-                            <li>
-                                    <span class="modifier">Private</span>
-                                <a href="#_originalActions">_originalActions</a>
+                                <a href="#_actions" >_actions</a>
                             </li>
                             <li>
                                     <span class="modifier">Private</span>
-                                <a href="#_selectedEntities">_selectedEntities</a>
-                            </li>
-                            <li>
-                                <a href="#actionsTrackBy">actionsTrackBy</a>
-                            </li>
-                            <li>
-                                <a href="#actionStyling">actionStyling</a>
+                                <a href="#_originalActions" >_originalActions</a>
                             </li>
                             <li>
                                     <span class="modifier">Private</span>
-                                <a href="#actionsWithAvailabilityCb">actionsWithAvailabilityCb</a>
+                                <a href="#_selectedEntities" >_selectedEntities</a>
                             </li>
                             <li>
-                                <a href="#contextualActions">contextualActions</a>
+                                <a href="#actionsTrackBy" >actionsTrackBy</a>
                             </li>
                             <li>
-                                <a href="#contextualFeaturedActions">contextualFeaturedActions</a>
+                                <a href="#actionStyling" >actionStyling</a>
                             </li>
                             <li>
-                                <a href="#inlineDropdownTriggerBtnText">inlineDropdownTriggerBtnText</a>
+                                    <span class="modifier">Private</span>
+                                <a href="#actionsWithAvailabilityCb" >actionsWithAvailabilityCb</a>
                             </li>
                             <li>
-                                <a href="#isObservable">isObservable</a>
+                                <a href="#contextualActions" >contextualActions</a>
                             </li>
                             <li>
-                                <a href="#lastAvailabilitySubscriptions">lastAvailabilitySubscriptions</a>
+                                <a href="#contextualFeaturedActions" >contextualFeaturedActions</a>
                             </li>
                             <li>
-                                <a href="#lastAvailabilityValue">lastAvailabilityValue</a>
+                                <a href="#inlineDropdownTriggerBtnText" >inlineDropdownTriggerBtnText</a>
                             </li>
                             <li>
-                                <a href="#shouldDisplayActionsInline">shouldDisplayActionsInline</a>
+                                <a href="#isObservable" >isObservable</a>
                             </li>
                             <li>
-                                <a href="#shouldDisplayContextualActionsDropdown">shouldDisplayContextualActionsDropdown</a>
+                                <a href="#lastAvailabilitySubscriptions" >lastAvailabilitySubscriptions</a>
                             </li>
                             <li>
-                                <a href="#shouldDisplayContextualActionsDropdownInline">shouldDisplayContextualActionsDropdownInline</a>
+                                <a href="#lastAvailabilityValue" >lastAvailabilityValue</a>
                             </li>
                             <li>
-                                <a href="#shouldDisplayContextualActionsInline">shouldDisplayContextualActionsInline</a>
+                                <a href="#shouldDisplayActionsInline" >shouldDisplayActionsInline</a>
                             </li>
                             <li>
-                                <a href="#shouldDisplayStaticActionsInline">shouldDisplayStaticActionsInline</a>
+                                <a href="#shouldDisplayContextualActionsDropdown" >shouldDisplayContextualActionsDropdown</a>
                             </li>
                             <li>
-                                <a href="#shouldDisplayStaticAndStaticFeaturedActionsDropdown">shouldDisplayStaticAndStaticFeaturedActionsDropdown</a>
+                                <a href="#shouldDisplayContextualActionsDropdownInline" >shouldDisplayContextualActionsDropdownInline</a>
                             </li>
                             <li>
-                                <a href="#shouldDisplayStaticFeaturedActionsInline">shouldDisplayStaticFeaturedActionsInline</a>
+                                <a href="#shouldDisplayContextualActionsInline" >shouldDisplayContextualActionsInline</a>
                             </li>
                             <li>
-                                <a href="#shouldShowIcon">shouldShowIcon</a>
+                                <a href="#shouldDisplayStaticActionsInline" >shouldDisplayStaticActionsInline</a>
                             </li>
                             <li>
-                                <a href="#shouldShowText">shouldShowText</a>
+                                <a href="#shouldDisplayStaticAndStaticFeaturedActionsDropdown" >shouldDisplayStaticAndStaticFeaturedActionsDropdown</a>
                             </li>
                             <li>
-                                <a href="#shouldShowTooltip">shouldShowTooltip</a>
+                                <a href="#shouldDisplayStaticFeaturedActionsInline" >shouldDisplayStaticFeaturedActionsInline</a>
                             </li>
                             <li>
-                                <a href="#staticActions">staticActions</a>
+                                <a href="#shouldShowIcon" >shouldShowIcon</a>
                             </li>
                             <li>
-                                <a href="#staticDropdownActions">staticDropdownActions</a>
+                                <a href="#shouldShowText" >shouldShowText</a>
                             </li>
                             <li>
-                                <a href="#staticFeaturedActions">staticFeaturedActions</a>
+                                <a href="#shouldShowTooltip" >shouldShowTooltip</a>
+                            </li>
+                            <li>
+                                <a href="#staticActions" >staticActions</a>
+                            </li>
+                            <li>
+                                <a href="#staticDropdownActions" >staticDropdownActions</a>
+                            </li>
+                            <li>
+                                <a href="#staticFeaturedActions" >staticFeaturedActions</a>
                             </li>
                         </ul>
                     </td>
@@ -234,90 +246,90 @@ T is the type of custom data passed to action handler methods</p>
                         <ul class="index-list">
                             <li>
                                     <span class="modifier">Private</span>
-                                <a href="#changeAvailabilityCallbacks">changeAvailabilityCallbacks</a>
+                                <a href="#changeAvailabilityCallbacks" >changeAvailabilityCallbacks</a>
                             </li>
                             <li>
                                     <span class="modifier">Private</span>
-                                <a href="#clearLastAvailabilitySubs">clearLastAvailabilitySubs</a>
+                                <a href="#clearLastAvailabilitySubs" >clearLastAvailabilitySubs</a>
                             </li>
                             <li>
                                     <span class="modifier">Private</span>
-                                <a href="#getContextualActions">getContextualActions</a>
+                                <a href="#getContextualActions" >getContextualActions</a>
                             </li>
                             <li>
                                     <span class="modifier">Private</span>
-                                <a href="#getContextualFeaturedActions">getContextualFeaturedActions</a>
+                                <a href="#getContextualFeaturedActions" >getContextualFeaturedActions</a>
                             </li>
                             <li>
                                     <span class="modifier">Private</span>
-                                <a href="#getFlattenedActionList">getFlattenedActionList</a>
+                                <a href="#getFlattenedActionList" >getFlattenedActionList</a>
                             </li>
                             <li>
-                                <a href="#getSelectedEntities">getSelectedEntities</a>
-                            </li>
-                            <li>
-                                    <span class="modifier">Private</span>
-                                <a href="#getShouldDisplayActionsInline">getShouldDisplayActionsInline</a>
+                                <a href="#getSelectedEntities" >getSelectedEntities</a>
                             </li>
                             <li>
                                     <span class="modifier">Private</span>
-                                <a href="#getStaticActions">getStaticActions</a>
+                                <a href="#getShouldDisplayActionsInline" >getShouldDisplayActionsInline</a>
                             </li>
                             <li>
                                     <span class="modifier">Private</span>
-                                <a href="#getStaticDropdownActions">getStaticDropdownActions</a>
+                                <a href="#getStaticActions" >getStaticActions</a>
                             </li>
                             <li>
                                     <span class="modifier">Private</span>
-                                <a href="#getStaticFeaturedActions">getStaticFeaturedActions</a>
+                                <a href="#getStaticDropdownActions" >getStaticDropdownActions</a>
                             </li>
                             <li>
                                     <span class="modifier">Private</span>
-                                <a href="#isActionAvailable">isActionAvailable</a>
-                            </li>
-                            <li>
-                                <a href="#isActionDisabled">isActionDisabled</a>
+                                <a href="#getStaticFeaturedActions" >getStaticFeaturedActions</a>
                             </li>
                             <li>
                                     <span class="modifier">Private</span>
-                                <a href="#isShallowEqual">isShallowEqual</a>
+                                <a href="#isActionAvailable" >isActionAvailable</a>
+                            </li>
+                            <li>
+                                <a href="#isActionDisabled" >isActionDisabled</a>
                             </li>
                             <li>
                                     <span class="modifier">Private</span>
-                                <a href="#markUnmarkedActions">markUnmarkedActions</a>
-                            </li>
-                            <li>
-                                <a href="#ngOnDestroy">ngOnDestroy</a>
+                                <a href="#isShallowEqual" >isShallowEqual</a>
                             </li>
                             <li>
                                     <span class="modifier">Private</span>
-                                <a href="#refreshActions">refreshActions</a>
+                                <a href="#markUnmarkedActions" >markUnmarkedActions</a>
                             </li>
                             <li>
-                                <a href="#runActionHandler">runActionHandler</a>
-                            </li>
-                            <li>
-                                    <span class="modifier">Private</span>
-                                <a href="#shouldDisplayContextualActions">shouldDisplayContextualActions</a>
+                                <a href="#ngOnDestroy" >ngOnDestroy</a>
                             </li>
                             <li>
                                     <span class="modifier">Private</span>
-                                <a href="#shouldDisplayStaticActions">shouldDisplayStaticActions</a>
+                                <a href="#refreshActions" >refreshActions</a>
+                            </li>
+                            <li>
+                                <a href="#runActionHandler" >runActionHandler</a>
                             </li>
                             <li>
                                     <span class="modifier">Private</span>
-                                <a href="#shouldDisplayStaticFeaturedActions">shouldDisplayStaticFeaturedActions</a>
+                                <a href="#shouldDisplayContextualActions" >shouldDisplayContextualActions</a>
                             </li>
                             <li>
                                     <span class="modifier">Private</span>
-                                <a href="#updateActionDisplayFlags">updateActionDisplayFlags</a>
+                                <a href="#shouldDisplayStaticActions" >shouldDisplayStaticActions</a>
                             </li>
                             <li>
                                     <span class="modifier">Private</span>
-                                <a href="#updateActionListsAndDisplayFlags">updateActionListsAndDisplayFlags</a>
+                                <a href="#shouldDisplayStaticFeaturedActions" >shouldDisplayStaticFeaturedActions</a>
                             </li>
                             <li>
-                                <a href="#updateDisplayedActions">updateDisplayedActions</a>
+                                    <span class="modifier">Private</span>
+                                <a href="#updateActionDisplayFlags" >updateActionDisplayFlags</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#updateActionListsAndDisplayFlags" >updateActionListsAndDisplayFlags</a>
+                            </li>
+                            <li>
+                                <a href="#updateDisplayedActions" >updateDisplayedActions</a>
                             </li>
                         </ul>
                     </td>
@@ -332,28 +344,28 @@ T is the type of custom data passed to action handler methods</p>
                     <td class="col-md-4">
                         <ul class="index-list">
                             <li>
-                                <a href="#actionDisplayConfig">actionDisplayConfig</a>
+                                <a href="#actionDisplayConfig" >actionDisplayConfig</a>
                             </li>
                             <li>
-                                <a href="#actions">actions</a>
+                                <a href="#actions" >actions</a>
                             </li>
                             <li>
-                                <a href="#disabled">disabled</a>
+                                <a href="#disabled" >disabled</a>
                             </li>
                             <li>
-                                <a href="#dropdownPosition">dropdownPosition</a>
+                                <a href="#dropdownPosition" >dropdownPosition</a>
                             </li>
                             <li>
-                                <a href="#dropdownTriggerBtnIcon">dropdownTriggerBtnIcon</a>
+                                <a href="#dropdownTriggerBtnIcon" >dropdownTriggerBtnIcon</a>
                             </li>
                             <li>
-                                <a href="#dropdownTriggerBtnText">dropdownTriggerBtnText</a>
+                                <a href="#dropdownTriggerBtnText" >dropdownTriggerBtnText</a>
                             </li>
                             <li>
-                                <a href="#nestedDropdownPosition">nestedDropdownPosition</a>
+                                <a href="#nestedDropdownPosition" >nestedDropdownPosition</a>
                             </li>
                             <li>
-                                <a href="#selectedEntities">selectedEntities</a>
+                                <a href="#selectedEntities" >selectedEntities</a>
                             </li>
                         </ul>
                     </td>
@@ -368,7 +380,7 @@ T is the type of custom data passed to action handler methods</p>
                     <td class="col-md-4">
                         <ul class="index-list">
                             <li>
-                                <a href="#actionsUpdate">actionsUpdate</a>
+                                <a href="#actionsUpdate" >actionsUpdate</a>
                             </li>
                         </ul>
                     </td>
@@ -385,13 +397,13 @@ T is the type of custom data passed to action handler methods</p>
                         <td class="col-md-4">
                             <ul class="index-list">
                                 <li>
-                                    <a href="#actions">actions</a>
+                                    <a href="#actions" >actions</a>
                                 </li>
                                 <li>
-                                    <a href="#actionDisplayConfig">actionDisplayConfig</a>
+                                    <a href="#actionDisplayConfig" >actionDisplayConfig</a>
                                 </li>
                                 <li>
-                                    <a href="#selectedEntities">selectedEntities</a>
+                                    <a href="#selectedEntities" >selectedEntities</a>
                                 </li>
                             </ul>
                         </td>
@@ -401,7 +413,7 @@ T is the type of custom data passed to action handler methods</p>
 </section>
 
 
-    <section>
+    <section data-compodoc="block-inputs">
     <h3 id="inputs">Inputs</h3>
         <table class="table table-sm table-bordered">
             <tbody>
@@ -441,7 +453,7 @@ If null or undefined is passed, default config <a href="_actionDisplayConfig">_a
                 </tr>
                 <tr>
                     <td class="col-md-4">
-                        <i>Type : </i>        <code><a href="../miscellaneous/typealiases.html#ActionItem" target="_self" >ActionItem&lt;R, T&gt;[]</a></code>
+                        <i>Type : </i>        <code><a href="../miscellaneous/typealiases.html#ActionItem" target="_self" >ActionItem[]</a></code>
 
                     </td>
                 </tr>
@@ -621,7 +633,7 @@ If null or undefined is passed, default config <a href="_actionDisplayConfig">_a
                 </tr>
                 <tr>
                     <td class="col-md-4">
-                        <i>Type : </i>    <code>R[] | R</code>
+                        <i>Type : </i>    <code>[] | R</code>
 
                     </td>
                 </tr>
@@ -640,7 +652,7 @@ availability of actions, action lists are updated when the input is updated</p>
             </tbody>
         </table>
 </section>
-    <section>
+    <section data-compodoc="block-outputs">
     <h3 id="outputs">Outputs</h3>
         <table class="table table-sm table-bordered">
             <tbody>
@@ -673,7 +685,7 @@ Then one can get the actual actions from <a href="staticActions">staticActions</
 </section>
 
 
-    <section>
+    <section data-compodoc="block-methods">
     
     <h3 id="methods">
         Methods
@@ -684,10 +696,8 @@ Then one can get the actual actions from <a href="staticActions">staticActions</
                 <td class="col-md-4">
                     <a name="changeAvailabilityCallbacks"></a>
                     <span class="name">
-                        <b>
-                            <span class="modifier">Private</span>
-                            changeAvailabilityCallbacks
-                        </b>
+                        <span class="modifier">Private</span>
+                        <span ><b>changeAvailabilityCallbacks</b></span>
                         <a href="#changeAvailabilityCallbacks"><span class="icon ion-ios-link"></span></a>
                     </span>
                 </td>
@@ -716,6 +726,7 @@ and adds a magic property called <a href="../miscellaneous/variables.html#lastAv
 
                     <div class="io-description">
                         <b>Parameters :</b>
+                        
                         <table class="params">
                             <thead>
                                 <tr>
@@ -755,10 +766,8 @@ and adds a magic property called <a href="../miscellaneous/variables.html#lastAv
                 <td class="col-md-4">
                     <a name="clearLastAvailabilitySubs"></a>
                     <span class="name">
-                        <b>
-                            <span class="modifier">Private</span>
-                            clearLastAvailabilitySubs
-                        </b>
+                        <span class="modifier">Private</span>
+                        <span ><b>clearLastAvailabilitySubs</b></span>
                         <a href="#clearLastAvailabilitySubs"><span class="icon ion-ios-link"></span></a>
                     </span>
                 </td>
@@ -796,10 +805,8 @@ and adds a magic property called <a href="../miscellaneous/variables.html#lastAv
                 <td class="col-md-4">
                     <a name="getContextualActions"></a>
                     <span class="name">
-                        <b>
-                            <span class="modifier">Private</span>
-                            getContextualActions
-                        </b>
+                        <span class="modifier">Private</span>
+                        <span ><b>getContextualActions</b></span>
                         <a href="#getContextualActions"><span class="icon ion-ios-link"></span></a>
                     </span>
                 </td>
@@ -837,10 +844,8 @@ and adds a magic property called <a href="../miscellaneous/variables.html#lastAv
                 <td class="col-md-4">
                     <a name="getContextualFeaturedActions"></a>
                     <span class="name">
-                        <b>
-                            <span class="modifier">Private</span>
-                            getContextualFeaturedActions
-                        </b>
+                        <span class="modifier">Private</span>
+                        <span ><b>getContextualFeaturedActions</b></span>
                         <a href="#getContextualFeaturedActions"><span class="icon ion-ios-link"></span></a>
                     </span>
                 </td>
@@ -878,10 +883,8 @@ and adds a magic property called <a href="../miscellaneous/variables.html#lastAv
                 <td class="col-md-4">
                     <a name="getFlattenedActionList"></a>
                     <span class="name">
-                        <b>
-                            <span class="modifier">Private</span>
-                            getFlattenedActionList
-                        </b>
+                        <span class="modifier">Private</span>
+                        <span ><b>getFlattenedActionList</b></span>
                         <a href="#getFlattenedActionList"><span class="icon ion-ios-link"></span></a>
                     </span>
                 </td>
@@ -889,7 +892,7 @@ and adds a magic property called <a href="../miscellaneous/variables.html#lastAv
             <tr>
                 <td class="col-md-4">
                     <span class="modifier-icon icon ion-ios-reset"></span>
-                    <code>getFlattenedActionList(actions: <a href="../interfaces/ActionItemInternal.html">ActionItemInternal<R, T>[] | ActionItem<R, T>[]</a>, actionType: <a href="../undefineds/ActionType.html">ActionType</a>)</code>
+                    <code>getFlattenedActionList(actions: <a href="../interfaces/ActionItemInternal.html" target="_self">ActionItemInternal&lt;R, T&gt;[] | ActionItem&lt;R, T&gt;[]</a>, actionType: <a href="../undefineds/ActionType.html" target="_self">ActionType</a>)</code>
                 </td>
             </tr>
 
@@ -909,6 +912,7 @@ and adds a magic property called <a href="../miscellaneous/variables.html#lastAv
 
                     <div class="io-description">
                         <b>Parameters :</b>
+                        
                         <table class="params">
                             <thead>
                                 <tr>
@@ -964,9 +968,7 @@ and adds a magic property called <a href="../miscellaneous/variables.html#lastAv
                 <td class="col-md-4">
                     <a name="getSelectedEntities"></a>
                     <span class="name">
-                        <b>
-                            getSelectedEntities
-                        </b>
+                        <span ><b>getSelectedEntities</b></span>
                         <a href="#getSelectedEntities"><span class="icon ion-ios-link"></span></a>
                     </span>
                 </td>
@@ -1006,10 +1008,8 @@ Note: This is not a getter because its matching setter can accept an array or a 
                 <td class="col-md-4">
                     <a name="getShouldDisplayActionsInline"></a>
                     <span class="name">
-                        <b>
-                            <span class="modifier">Private</span>
-                            getShouldDisplayActionsInline
-                        </b>
+                        <span class="modifier">Private</span>
+                        <span ><b>getShouldDisplayActionsInline</b></span>
                         <a href="#getShouldDisplayActionsInline"><span class="icon ion-ios-link"></span></a>
                     </span>
                 </td>
@@ -1047,10 +1047,8 @@ Note: This is not a getter because its matching setter can accept an array or a 
                 <td class="col-md-4">
                     <a name="getStaticActions"></a>
                     <span class="name">
-                        <b>
-                            <span class="modifier">Private</span>
-                            getStaticActions
-                        </b>
+                        <span class="modifier">Private</span>
+                        <span ><b>getStaticActions</b></span>
                         <a href="#getStaticActions"><span class="icon ion-ios-link"></span></a>
                     </span>
                 </td>
@@ -1088,10 +1086,8 @@ Note: This is not a getter because its matching setter can accept an array or a 
                 <td class="col-md-4">
                     <a name="getStaticDropdownActions"></a>
                     <span class="name">
-                        <b>
-                            <span class="modifier">Private</span>
-                            getStaticDropdownActions
-                        </b>
+                        <span class="modifier">Private</span>
+                        <span ><b>getStaticDropdownActions</b></span>
                         <a href="#getStaticDropdownActions"><span class="icon ion-ios-link"></span></a>
                     </span>
                 </td>
@@ -1129,10 +1125,8 @@ Note: This is not a getter because its matching setter can accept an array or a 
                 <td class="col-md-4">
                     <a name="getStaticFeaturedActions"></a>
                     <span class="name">
-                        <b>
-                            <span class="modifier">Private</span>
-                            getStaticFeaturedActions
-                        </b>
+                        <span class="modifier">Private</span>
+                        <span ><b>getStaticFeaturedActions</b></span>
                         <a href="#getStaticFeaturedActions"><span class="icon ion-ios-link"></span></a>
                     </span>
                 </td>
@@ -1170,10 +1164,8 @@ Note: This is not a getter because its matching setter can accept an array or a 
                 <td class="col-md-4">
                     <a name="isActionAvailable"></a>
                     <span class="name">
-                        <b>
-                            <span class="modifier">Private</span>
-                            isActionAvailable
-                        </b>
+                        <span class="modifier">Private</span>
+                        <span ><b>isActionAvailable</b></span>
                         <a href="#isActionAvailable"><span class="icon ion-ios-link"></span></a>
                     </span>
                 </td>
@@ -1181,7 +1173,7 @@ Note: This is not a getter because its matching setter can accept an array or a 
             <tr>
                 <td class="col-md-4">
                     <span class="modifier-icon icon ion-ios-reset"></span>
-                    <code>isActionAvailable(action: <a href="../interfaces/ActionItemInternal.html">ActionItem<R | T> | ActionItemInternal<R | T></a>)</code>
+                    <code>isActionAvailable(action: <a href="../interfaces/ActionItemInternal.html" target="_self">ActionItem&lt;R | T&gt; | ActionItemInternal&lt;R | T&gt;</a>)</code>
                 </td>
             </tr>
 
@@ -1203,6 +1195,7 @@ disabled mode</p>
 
                     <div class="io-description">
                         <b>Parameters :</b>
+                        
                         <table class="params">
                             <thead>
                                 <tr>
@@ -1246,16 +1239,14 @@ disabled mode</p>
                 <td class="col-md-4">
                     <a name="isActionDisabled"></a>
                     <span class="name">
-                        <b>
-                            isActionDisabled
-                        </b>
+                        <span ><b>isActionDisabled</b></span>
                         <a href="#isActionDisabled"><span class="icon ion-ios-link"></span></a>
                     </span>
                 </td>
             </tr>
             <tr>
                 <td class="col-md-4">
-<code>isActionDisabled(action: <a href="../interfaces/ActionItemInternal.html">ActionItem<R | T> | ActionItemInternal<R | T></a>)</code>
+<code>isActionDisabled(action: <a href="../interfaces/ActionItemInternal.html" target="_self">ActionItem&lt;R | T&gt; | ActionItemInternal&lt;R | T&gt;</a>)</code>
                 </td>
             </tr>
 
@@ -1275,6 +1266,7 @@ disabled mode</p>
 
                     <div class="io-description">
                         <b>Parameters :</b>
+                        
                         <table class="params">
                             <thead>
                                 <tr>
@@ -1318,10 +1310,8 @@ disabled mode</p>
                 <td class="col-md-4">
                     <a name="isShallowEqual"></a>
                     <span class="name">
-                        <b>
-                            <span class="modifier">Private</span>
-                            isShallowEqual
-                        </b>
+                        <span class="modifier">Private</span>
+                        <span ><b>isShallowEqual</b></span>
                         <a href="#isShallowEqual"><span class="icon ion-ios-link"></span></a>
                     </span>
                 </td>
@@ -1329,7 +1319,7 @@ disabled mode</p>
             <tr>
                 <td class="col-md-4">
                     <span class="modifier-icon icon ion-ios-reset"></span>
-                    <code>isShallowEqual(arr1: unknown[], arr2: unknown[])</code>
+                    <code>isShallowEqual(arr1: [], arr2: [])</code>
                 </td>
             </tr>
 
@@ -1349,6 +1339,7 @@ disabled mode</p>
 
                     <div class="io-description">
                         <b>Parameters :</b>
+                        
                         <table class="params">
                             <thead>
                                 <tr>
@@ -1361,7 +1352,7 @@ disabled mode</p>
                                 <tr>
                                     <td>arr1</td>
                                     <td>
-                                            <code>unknown[]</code>
+                                            <code>[]</code>
                                     </td>
 
                                     <td>
@@ -1373,7 +1364,7 @@ disabled mode</p>
                                 <tr>
                                     <td>arr2</td>
                                     <td>
-                                            <code>unknown[]</code>
+                                            <code>[]</code>
                                     </td>
 
                                     <td>
@@ -1404,10 +1395,8 @@ disabled mode</p>
                 <td class="col-md-4">
                     <a name="markUnmarkedActions"></a>
                     <span class="name">
-                        <b>
-                            <span class="modifier">Private</span>
-                            markUnmarkedActions
-                        </b>
+                        <span class="modifier">Private</span>
+                        <span ><b>markUnmarkedActions</b></span>
                         <a href="#markUnmarkedActions"><span class="icon ion-ios-link"></span></a>
                     </span>
                 </td>
@@ -1415,7 +1404,7 @@ disabled mode</p>
             <tr>
                 <td class="col-md-4">
                     <span class="modifier-icon icon ion-ios-reset"></span>
-                    <code>markUnmarkedActions(actions: <a href="../undefineds/ActionItem.html">ActionItem<R, T>[]</a>, shouldMarkUnmarkedActionsAsContextual: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank">boolean</a>)</code>
+                    <code>markUnmarkedActions(actions: <a href="../undefineds/ActionItem.html" target="_self">ActionItem&lt;R, T&gt;[]</a>, shouldMarkUnmarkedActionsAsContextual: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank">boolean</a>)</code>
                 </td>
             </tr>
 
@@ -1433,6 +1422,7 @@ disabled mode</p>
 
                     <div class="io-description">
                         <b>Parameters :</b>
+                        
                         <table class="params">
                             <thead>
                                 <tr>
@@ -1488,9 +1478,7 @@ disabled mode</p>
                 <td class="col-md-4">
                     <a name="ngOnDestroy"></a>
                     <span class="name">
-                        <b>
-                            ngOnDestroy
-                        </b>
+                        <span ><b>ngOnDestroy</b></span>
                         <a href="#ngOnDestroy"><span class="icon ion-ios-link"></span></a>
                     </span>
                 </td>
@@ -1527,10 +1515,8 @@ disabled mode</p>
                 <td class="col-md-4">
                     <a name="refreshActions"></a>
                     <span class="name">
-                        <b>
-                            <span class="modifier">Private</span>
-                            refreshActions
-                        </b>
+                        <span class="modifier">Private</span>
+                        <span ><b>refreshActions</b></span>
                         <a href="#refreshActions"><span class="icon ion-ios-link"></span></a>
                     </span>
                 </td>
@@ -1538,7 +1524,7 @@ disabled mode</p>
             <tr>
                 <td class="col-md-4">
                     <span class="modifier-icon icon ion-ios-reset"></span>
-                    <code>refreshActions(actions: <a href="../undefineds/ActionItem.html">ActionItem<R, T>[]</a>)</code>
+                    <code>refreshActions(actions: <a href="../undefineds/ActionItem.html" target="_self">ActionItem&lt;R, T&gt;[]</a>)</code>
                 </td>
             </tr>
 
@@ -1556,6 +1542,7 @@ disabled mode</p>
 
                     <div class="io-description">
                         <b>Parameters :</b>
+                        
                         <table class="params">
                             <thead>
                                 <tr>
@@ -1599,16 +1586,14 @@ disabled mode</p>
                 <td class="col-md-4">
                     <a name="runActionHandler"></a>
                     <span class="name">
-                        <b>
-                            runActionHandler
-                        </b>
+                        <span ><b>runActionHandler</b></span>
                         <a href="#runActionHandler"><span class="icon ion-ios-link"></span></a>
                     </span>
                 </td>
             </tr>
             <tr>
                 <td class="col-md-4">
-<code>runActionHandler(action: <a href="../undefineds/ActionItem.html">ActionItem<R | T></a>)</code>
+<code>runActionHandler(action: <a href="../undefineds/ActionItem.html" target="_self">ActionItem&lt;R | T&gt;</a>)</code>
                 </td>
             </tr>
 
@@ -1628,6 +1613,7 @@ disabled mode</p>
 
                     <div class="io-description">
                         <b>Parameters :</b>
+                        
                         <table class="params">
                             <thead>
                                 <tr>
@@ -1671,10 +1657,8 @@ disabled mode</p>
                 <td class="col-md-4">
                     <a name="shouldDisplayContextualActions"></a>
                     <span class="name">
-                        <b>
-                            <span class="modifier">Private</span>
-                            shouldDisplayContextualActions
-                        </b>
+                        <span class="modifier">Private</span>
+                        <span ><b>shouldDisplayContextualActions</b></span>
                         <a href="#shouldDisplayContextualActions"><span class="icon ion-ios-link"></span></a>
                     </span>
                 </td>
@@ -1682,7 +1666,7 @@ disabled mode</p>
             <tr>
                 <td class="col-md-4">
                     <span class="modifier-icon icon ion-ios-reset"></span>
-                    <code>shouldDisplayContextualActions(style: <a href="../undefineds/ActionStyling.html">ActionStyling</a>)</code>
+                    <code>shouldDisplayContextualActions(style: <a href="../undefineds/ActionStyling.html" target="_self">ActionStyling</a>)</code>
                 </td>
             </tr>
 
@@ -1700,6 +1684,7 @@ disabled mode</p>
 
                     <div class="io-description">
                         <b>Parameters :</b>
+                        
                         <table class="params">
                             <thead>
                                 <tr>
@@ -1743,10 +1728,8 @@ disabled mode</p>
                 <td class="col-md-4">
                     <a name="shouldDisplayStaticActions"></a>
                     <span class="name">
-                        <b>
-                            <span class="modifier">Private</span>
-                            shouldDisplayStaticActions
-                        </b>
+                        <span class="modifier">Private</span>
+                        <span ><b>shouldDisplayStaticActions</b></span>
                         <a href="#shouldDisplayStaticActions"><span class="icon ion-ios-link"></span></a>
                     </span>
                 </td>
@@ -1754,7 +1737,7 @@ disabled mode</p>
             <tr>
                 <td class="col-md-4">
                     <span class="modifier-icon icon ion-ios-reset"></span>
-                    <code>shouldDisplayStaticActions(style: <a href="../undefineds/ActionStyling.html">ActionStyling</a>)</code>
+                    <code>shouldDisplayStaticActions(style: <a href="../undefineds/ActionStyling.html" target="_self">ActionStyling</a>)</code>
                 </td>
             </tr>
 
@@ -1772,6 +1755,7 @@ disabled mode</p>
 
                     <div class="io-description">
                         <b>Parameters :</b>
+                        
                         <table class="params">
                             <thead>
                                 <tr>
@@ -1815,10 +1799,8 @@ disabled mode</p>
                 <td class="col-md-4">
                     <a name="shouldDisplayStaticFeaturedActions"></a>
                     <span class="name">
-                        <b>
-                            <span class="modifier">Private</span>
-                            shouldDisplayStaticFeaturedActions
-                        </b>
+                        <span class="modifier">Private</span>
+                        <span ><b>shouldDisplayStaticFeaturedActions</b></span>
                         <a href="#shouldDisplayStaticFeaturedActions"><span class="icon ion-ios-link"></span></a>
                     </span>
                 </td>
@@ -1826,7 +1808,7 @@ disabled mode</p>
             <tr>
                 <td class="col-md-4">
                     <span class="modifier-icon icon ion-ios-reset"></span>
-                    <code>shouldDisplayStaticFeaturedActions(style: <a href="../undefineds/ActionStyling.html">ActionStyling</a>)</code>
+                    <code>shouldDisplayStaticFeaturedActions(style: <a href="../undefineds/ActionStyling.html" target="_self">ActionStyling</a>)</code>
                 </td>
             </tr>
 
@@ -1844,6 +1826,7 @@ disabled mode</p>
 
                     <div class="io-description">
                         <b>Parameters :</b>
+                        
                         <table class="params">
                             <thead>
                                 <tr>
@@ -1887,10 +1870,8 @@ disabled mode</p>
                 <td class="col-md-4">
                     <a name="updateActionDisplayFlags"></a>
                     <span class="name">
-                        <b>
-                            <span class="modifier">Private</span>
-                            updateActionDisplayFlags
-                        </b>
+                        <span class="modifier">Private</span>
+                        <span ><b>updateActionDisplayFlags</b></span>
                         <a href="#updateActionDisplayFlags"><span class="icon ion-ios-link"></span></a>
                     </span>
                 </td>
@@ -1928,10 +1909,8 @@ disabled mode</p>
                 <td class="col-md-4">
                     <a name="updateActionListsAndDisplayFlags"></a>
                     <span class="name">
-                        <b>
-                            <span class="modifier">Private</span>
-                            updateActionListsAndDisplayFlags
-                        </b>
+                        <span class="modifier">Private</span>
+                        <span ><b>updateActionListsAndDisplayFlags</b></span>
                         <a href="#updateActionListsAndDisplayFlags"><span class="icon ion-ios-link"></span></a>
                     </span>
                 </td>
@@ -1969,9 +1948,7 @@ disabled mode</p>
                 <td class="col-md-4">
                     <a name="updateDisplayedActions"></a>
                     <span class="name">
-                        <b>
-                            updateDisplayedActions
-                        </b>
+                        <span ><b>updateDisplayedActions</b></span>
                         <a href="#updateDisplayedActions"><span class="icon ion-ios-link"></span></a>
                     </span>
                 </td>
@@ -2009,955 +1986,905 @@ this method will re-trigger the availability call backs of actions</p>
         </tbody>
     </table>
 </section>
-    <section>
+    <section data-compodoc="block-properties">
     
-        <h3 id="inputs">
-            Properties
-        </h3>
-        <table class="table table-sm table-bordered">
-            <tbody>
+    <h3 id="inputs">
+        Properties
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="_actionDisplayConfig"></a>
+                    <span class="name">
+                            <span class="modifier">Private</span>
+                        <span ><b>_actionDisplayConfig</b></span>
+                        <a href="#_actionDisplayConfig"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
                 <tr>
                     <td class="col-md-4">
-                        <a name="_actionDisplayConfig"></a>
-                        <span class="name">
-                            <b>
-                                <span class="modifier">Private</span>
-                            _actionDisplayConfig</b>
-                            <a href="#_actionDisplayConfig"><span class="icon ion-ios-link"></span></a>
-                        </span>
+                        <i>Type : </i>        <code><a href="../interfaces/ActionDisplayConfig.html" target="_self" >ActionDisplayConfig</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>getDefaultActionDisplayConfig()</code>
                     </td>
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                            <i>Type : </i>        <code><a href="../interfaces/ActionDisplayConfig.html" target="_self" >ActionDisplayConfig</a></code>
-
+                                <div class="io-line">Defined in <a href="" data-line="103" class="link-to-prism">projects/components/src/action-menu/action-menu.component.ts:103</a></div>
                         </td>
                     </tr>
-                    <tr>
-                        <td class="col-md-4">
-                            <i>Default value : </i><code>getDefaultActionDisplayConfig()</code>
-                        </td>
-                    </tr>
-                        <tr>
-                            <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="103" class="link-to-prism">projects/components/src/action-menu/action-menu.component.ts:103</a></div>
-                            </td>
-                        </tr>
 
 
-            </tbody>
-        </table>
-        <table class="table table-sm table-bordered">
-            <tbody>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="_actions"></a>
+                    <span class="name">
+                        <span ><b>_actions</b></span>
+                        <a href="#_actions"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
                 <tr>
                     <td class="col-md-4">
-                        <a name="_actions"></a>
-                        <span class="name">
-                            <b>
-                            _actions</b>
-                            <a href="#_actions"><span class="icon ion-ios-link"></span></a>
-                        </span>
+                        <i>Type : </i>        <code><a href="../interfaces/ActionItemInternal.html" target="_self" >ActionItemInternal&lt;R, T&gt;[]</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>[]</code>
                     </td>
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                            <i>Type : </i>        <code><a href="../interfaces/ActionItemInternal.html" target="_self" >ActionItemInternal&lt;R, T&gt;[]</a></code>
-
+                                <div class="io-line">Defined in <a href="" data-line="101" class="link-to-prism">projects/components/src/action-menu/action-menu.component.ts:101</a></div>
                         </td>
                     </tr>
-                    <tr>
-                        <td class="col-md-4">
-                            <i>Default value : </i><code>[]</code>
-                        </td>
-                    </tr>
-                        <tr>
-                            <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="101" class="link-to-prism">projects/components/src/action-menu/action-menu.component.ts:101</a></div>
-                            </td>
-                        </tr>
 
-                <tr>
-                    <td class="col-md-4">
-                        <div class="io-description"><p>Access modifier is public in order to access this property in unit tests</p>
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Access modifier is public in order to access this property in unit tests</p>
 </div>
-                    </td>
-                </tr>
+                </td>
+            </tr>
 
-            </tbody>
-        </table>
-        <table class="table table-sm table-bordered">
-            <tbody>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="_originalActions"></a>
+                    <span class="name">
+                            <span class="modifier">Private</span>
+                        <span ><b>_originalActions</b></span>
+                        <a href="#_originalActions"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
                 <tr>
                     <td class="col-md-4">
-                        <a name="_originalActions"></a>
-                        <span class="name">
-                            <b>
-                                <span class="modifier">Private</span>
-                            _originalActions</b>
-                            <a href="#_originalActions"><span class="icon ion-ios-link"></span></a>
-                        </span>
+                        <i>Type : </i>        <code><a href="../miscellaneous/typealiases.html#ActionItem" target="_self" >ActionItem&lt;R, T&gt;[]</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>[]</code>
                     </td>
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                            <i>Type : </i>        <code><a href="../miscellaneous/typealiases.html#ActionItem" target="_self" >ActionItem&lt;R, T&gt;[]</a></code>
-
+                                <div class="io-line">Defined in <a href="" data-line="96" class="link-to-prism">projects/components/src/action-menu/action-menu.component.ts:96</a></div>
                         </td>
                     </tr>
-                    <tr>
-                        <td class="col-md-4">
-                            <i>Default value : </i><code>[]</code>
-                        </td>
-                    </tr>
-                        <tr>
-                            <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="96" class="link-to-prism">projects/components/src/action-menu/action-menu.component.ts:96</a></div>
-                            </td>
-                        </tr>
 
-                <tr>
-                    <td class="col-md-4">
-                        <div class="io-description"><p>Original actions as provided to this component without any modifications</p>
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Original actions as provided to this component without any modifications</p>
 </div>
-                    </td>
-                </tr>
+                </td>
+            </tr>
 
-            </tbody>
-        </table>
-        <table class="table table-sm table-bordered">
-            <tbody>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="_selectedEntities"></a>
+                    <span class="name">
+                            <span class="modifier">Private</span>
+                        <span ><b>_selectedEntities</b></span>
+                        <a href="#_selectedEntities"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
                 <tr>
                     <td class="col-md-4">
-                        <a name="_selectedEntities"></a>
-                        <span class="name">
-                            <b>
-                                <span class="modifier">Private</span>
-                            _selectedEntities</b>
-                            <a href="#_selectedEntities"><span class="icon ion-ios-link"></span></a>
-                        </span>
+                        <i>Type : </i>    <code>R[]</code>
+
                     </td>
                 </tr>
-                    <tr>
-                        <td class="col-md-4">
-                            <i>Type : </i>    <code>R[]</code>
-
-                        </td>
-                    </tr>
-                    <tr>
-                        <td class="col-md-4">
-                            <i>Default value : </i><code>[]</code>
-                        </td>
-                    </tr>
-                        <tr>
-                            <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="264" class="link-to-prism">projects/components/src/action-menu/action-menu.component.ts:264</a></div>
-                            </td>
-                        </tr>
-
-
-            </tbody>
-        </table>
-        <table class="table table-sm table-bordered">
-            <tbody>
                 <tr>
                     <td class="col-md-4">
-                        <a name="actionsTrackBy"></a>
-                        <span class="name">
-                            <b>
-                            actionsTrackBy</b>
-                            <a href="#actionsTrackBy"><span class="icon ion-ios-link"></span></a>
-                        </span>
+                        <i>Default value : </i><code>[]</code>
                     </td>
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                            <i>Type : </i>        <code><a href="../miscellaneous/typealiases.html#ActionItem" target="_self" >TrackByFunction&lt;ActionItem&lt;R, T&gt;&gt;</a></code>
-
+                                <div class="io-line">Defined in <a href="" data-line="264" class="link-to-prism">projects/components/src/action-menu/action-menu.component.ts:264</a></div>
                         </td>
                     </tr>
-                    <tr>
-                        <td class="col-md-4">
-                            <i>Default value : </i><code>() &#x3D;&gt; {...}</code>
-                        </td>
-                    </tr>
-                        <tr>
-                            <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="480" class="link-to-prism">projects/components/src/action-menu/action-menu.component.ts:480</a></div>
-                            </td>
-                        </tr>
 
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="actionsTrackBy"></a>
+                    <span class="name">
+                        <span ><b>actionsTrackBy</b></span>
+                        <a href="#actionsTrackBy"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
                 <tr>
                     <td class="col-md-4">
-                        <div class="io-description"><p>Used as <a href="ngForTrackBy">ngForTrackBy</a> input value when iterating over action lists <a href="DropdownComponent.trackByFunction">DropdownComponent.trackByFunction</a>
+                        <i>Type : </i>        <code><a href="../miscellaneous/typealiases.html#ActionItem" target="_self" >TrackByFunction&lt;ActionItem&lt;R, T&gt;&gt;</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>() &#x3D;&gt; {...}</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="480" class="link-to-prism">projects/components/src/action-menu/action-menu.component.ts:480</a></div>
+                        </td>
+                    </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Used as <a href="ngForTrackBy">ngForTrackBy</a> input value when iterating over action lists <a href="DropdownComponent.trackByFunction">DropdownComponent.trackByFunction</a>
 Without this method as input for ngForTrackBy, the dropdown gets rendered off screen</p>
 </div>
-                    </td>
-                </tr>
+                </td>
+            </tr>
 
-            </tbody>
-        </table>
-        <table class="table table-sm table-bordered">
-            <tbody>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="actionStyling"></a>
+                    <span class="name">
+                        <span ><b>actionStyling</b></span>
+                        <a href="#actionStyling"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
                 <tr>
                     <td class="col-md-4">
-                        <a name="actionStyling"></a>
-                        <span class="name">
-                            <b>
-                            actionStyling</b>
-                            <a href="#actionStyling"><span class="icon ion-ios-link"></span></a>
-                        </span>
+                        <i>Default value : </i><code>ActionStyling</code>
                     </td>
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                            <i>Type : </i>        <code><a href="../miscellaneous/enumerations.html#ActionStyling" target="_self" >ActionStyling</a></code>
-
+                                <div class="io-line">Defined in <a href="" data-line="183" class="link-to-prism">projects/components/src/action-menu/action-menu.component.ts:183</a></div>
                         </td>
                     </tr>
-                    <tr>
-                        <td class="col-md-4">
-                            <i>Default value : </i><code>ActionStyling</code>
-                        </td>
-                    </tr>
-                        <tr>
-                            <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="183" class="link-to-prism">projects/components/src/action-menu/action-menu.component.ts:183</a></div>
-                            </td>
-                        </tr>
 
-                <tr>
-                    <td class="col-md-4">
-                        <div class="io-description"><p>Used in the html template</p>
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Used in the html template</p>
 </div>
-                    </td>
-                </tr>
+                </td>
+            </tr>
 
-            </tbody>
-        </table>
-        <table class="table table-sm table-bordered">
-            <tbody>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="actionsWithAvailabilityCb"></a>
+                    <span class="name">
+                            <span class="modifier">Private</span>
+                        <span ><b>actionsWithAvailabilityCb</b></span>
+                        <a href="#actionsWithAvailabilityCb"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
                 <tr>
                     <td class="col-md-4">
-                        <a name="actionsWithAvailabilityCb"></a>
-                        <span class="name">
-                            <b>
-                                <span class="modifier">Private</span>
-                            actionsWithAvailabilityCb</b>
-                            <a href="#actionsWithAvailabilityCb"><span class="icon ion-ios-link"></span></a>
-                        </span>
+                        <i>Type : </i>        <code><a href="../miscellaneous/typealiases.html#ActionItem" target="_self" >ActionItem&lt;R, T&gt;[]</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>[]</code>
                     </td>
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                            <i>Type : </i>        <code><a href="../miscellaneous/typealiases.html#ActionItem" target="_self" >ActionItem&lt;R, T&gt;[]</a></code>
-
+                                <div class="io-line">Defined in <a href="" data-line="124" class="link-to-prism">projects/components/src/action-menu/action-menu.component.ts:124</a></div>
                         </td>
                     </tr>
-                    <tr>
-                        <td class="col-md-4">
-                            <i>Default value : </i><code>[]</code>
-                        </td>
-                    </tr>
-                        <tr>
-                            <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="124" class="link-to-prism">projects/components/src/action-menu/action-menu.component.ts:124</a></div>
-                            </td>
-                        </tr>
 
-                <tr>
-                    <td class="col-md-4">
-                        <div class="io-description"><p>Copy of actions passed with their availability call backs. This is because, when the selected entities get updated, we need to use
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Copy of actions passed with their availability call backs. This is because, when the selected entities get updated, we need to use
 those CBs to calculate the availability again</p>
 </div>
-                    </td>
-                </tr>
+                </td>
+            </tr>
 
-            </tbody>
-        </table>
-        <table class="table table-sm table-bordered">
-            <tbody>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="contextualActions"></a>
+                    <span class="name">
+                        <span ><b>contextualActions</b></span>
+                        <a href="#contextualActions"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
                 <tr>
                     <td class="col-md-4">
-                        <a name="contextualActions"></a>
-                        <span class="name">
-                            <b>
-                            contextualActions</b>
-                            <a href="#contextualActions"><span class="icon ion-ios-link"></span></a>
-                        </span>
+                        <i>Type : </i>        <code><a href="../interfaces/ActionItemInternal.html" target="_self" >ActionItemInternal&lt;R, T&gt;[]</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>[]</code>
                     </td>
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                            <i>Type : </i>        <code><a href="../interfaces/ActionItemInternal.html" target="_self" >ActionItemInternal&lt;R, T&gt;[]</a></code>
-
+                                <div class="io-line">Defined in <a href="" data-line="199" class="link-to-prism">projects/components/src/action-menu/action-menu.component.ts:199</a></div>
                         </td>
                     </tr>
-                    <tr>
-                        <td class="col-md-4">
-                            <i>Default value : </i><code>[]</code>
-                        </td>
-                    </tr>
-                        <tr>
-                            <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="199" class="link-to-prism">projects/components/src/action-menu/action-menu.component.ts:199</a></div>
-                            </td>
-                        </tr>
 
-                <tr>
-                    <td class="col-md-4">
-                        <div class="io-description"><p>All the actions that depend on selected entities</p>
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>All the actions that depend on selected entities</p>
 </div>
-                    </td>
-                </tr>
+                </td>
+            </tr>
 
-            </tbody>
-        </table>
-        <table class="table table-sm table-bordered">
-            <tbody>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="contextualFeaturedActions"></a>
+                    <span class="name">
+                        <span ><b>contextualFeaturedActions</b></span>
+                        <a href="#contextualFeaturedActions"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
                 <tr>
                     <td class="col-md-4">
-                        <a name="contextualFeaturedActions"></a>
-                        <span class="name">
-                            <b>
-                            contextualFeaturedActions</b>
-                            <a href="#contextualFeaturedActions"><span class="icon ion-ios-link"></span></a>
-                        </span>
+                        <i>Type : </i>        <code><a href="../interfaces/ActionItemInternal.html" target="_self" >ActionItemInternal&lt;R, T&gt;[]</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>[]</code>
                     </td>
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                            <i>Type : </i>        <code><a href="../interfaces/ActionItemInternal.html" target="_self" >ActionItemInternal&lt;R, T&gt;[]</a></code>
-
+                                <div class="io-line">Defined in <a href="" data-line="194" class="link-to-prism">projects/components/src/action-menu/action-menu.component.ts:194</a></div>
                         </td>
                     </tr>
-                    <tr>
-                        <td class="col-md-4">
-                            <i>Default value : </i><code>[]</code>
-                        </td>
-                    </tr>
-                        <tr>
-                            <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="194" class="link-to-prism">projects/components/src/action-menu/action-menu.component.ts:194</a></div>
-                            </td>
-                        </tr>
 
-                <tr>
-                    <td class="col-md-4">
-                        <div class="io-description"><p>Actions that depend on selected entities and belong to main menu list. The returned list length is less than or
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Actions that depend on selected entities and belong to main menu list. The returned list length is less than or
 equal to the configured featured count in <a href="actionDisplayConfig">actionDisplayConfig</a></p>
 </div>
-                    </td>
-                </tr>
+                </td>
+            </tr>
 
-            </tbody>
-        </table>
-        <table class="table table-sm table-bordered">
-            <tbody>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="inlineDropdownTriggerBtnText"></a>
+                    <span class="name">
+                        <span ><b>inlineDropdownTriggerBtnText</b></span>
+                        <a href="#inlineDropdownTriggerBtnText"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
                 <tr>
                     <td class="col-md-4">
-                        <a name="inlineDropdownTriggerBtnText"></a>
-                        <span class="name">
-                            <b>
-                            inlineDropdownTriggerBtnText</b>
-                            <a href="#inlineDropdownTriggerBtnText"><span class="icon ion-ios-link"></span></a>
-                        </span>
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>&#x27;vcd.cc.action.menu.actions&#x27;</code>
                     </td>
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                            <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
-
+                                <div class="io-line">Defined in <a href="" data-line="141" class="link-to-prism">projects/components/src/action-menu/action-menu.component.ts:141</a></div>
                         </td>
                     </tr>
-                    <tr>
-                        <td class="col-md-4">
-                            <i>Default value : </i><code>&#x27;vcd.cc.action.menu.actions&#x27;</code>
-                        </td>
-                    </tr>
-                        <tr>
-                            <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="141" class="link-to-prism">projects/components/src/action-menu/action-menu.component.ts:141</a></div>
-                            </td>
-                        </tr>
 
-                <tr>
-                    <td class="col-md-4">
-                        <div class="io-description"><p>Text Content of the action menu dropdown trigger button inside the .inline-actions-container</p>
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Text Content of the action menu dropdown trigger button inside the .inline-actions-container</p>
 </div>
-                    </td>
-                </tr>
+                </td>
+            </tr>
 
-            </tbody>
-        </table>
-        <table class="table table-sm table-bordered">
-            <tbody>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="isObservable"></a>
+                    <span class="name">
+                        <span ><b>isObservable</b></span>
+                        <a href="#isObservable"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
                 <tr>
                     <td class="col-md-4">
-                        <a name="isObservable"></a>
-                        <span class="name">
-                            <b>
-                            isObservable</b>
-                            <a href="#isObservable"><span class="icon ion-ios-link"></span></a>
-                        </span>
+                        <i>Default value : </i><code>isObservable</code>
                     </td>
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                            <i>Type : </i>    <code>isObservable</code>
-
+                                <div class="io-line">Defined in <a href="" data-line="246" class="link-to-prism">projects/components/src/action-menu/action-menu.component.ts:246</a></div>
                         </td>
                     </tr>
-                    <tr>
-                        <td class="col-md-4">
-                            <i>Default value : </i><code>isObservable</code>
-                        </td>
-                    </tr>
-                        <tr>
-                            <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="246" class="link-to-prism">projects/components/src/action-menu/action-menu.component.ts:246</a></div>
-                            </td>
-                        </tr>
 
-                <tr>
-                    <td class="col-md-4">
-                        <div class="io-description"><p>Used for deciding if the availability has to be passed through an Async pipe in the template</p>
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Used for deciding if the availability has to be passed through an Async pipe in the template</p>
 </div>
-                    </td>
-                </tr>
+                </td>
+            </tr>
 
-            </tbody>
-        </table>
-        <table class="table table-sm table-bordered">
-            <tbody>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="lastAvailabilitySubscriptions"></a>
+                    <span class="name">
+                        <span ><b>lastAvailabilitySubscriptions</b></span>
+                        <a href="#lastAvailabilitySubscriptions"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
                 <tr>
                     <td class="col-md-4">
-                        <a name="lastAvailabilitySubscriptions"></a>
-                        <span class="name">
-                            <b>
-                            lastAvailabilitySubscriptions</b>
-                            <a href="#lastAvailabilitySubscriptions"><span class="icon ion-ios-link"></span></a>
-                        </span>
+                        <i>Type : </i>    <code>Subscription[]</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>[]</code>
                     </td>
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                            <i>Type : </i>    <code>Subscription[]</code>
-
+                                <div class="io-line">Defined in <a href="" data-line="73" class="link-to-prism">projects/components/src/action-menu/action-menu.component.ts:73</a></div>
                         </td>
                     </tr>
-                    <tr>
-                        <td class="col-md-4">
-                            <i>Default value : </i><code>[]</code>
-                        </td>
-                    </tr>
-                        <tr>
-                            <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="73" class="link-to-prism">projects/components/src/action-menu/action-menu.component.ts:73</a></div>
-                            </td>
-                        </tr>
 
-                <tr>
-                    <td class="col-md-4">
-                        <div class="io-description"><p>Stores all the subscriptions of availability observables. Used for un-subscribing from subscriptions that are not needed</p>
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Stores all the subscriptions of availability observables. Used for un-subscribing from subscriptions that are not needed</p>
 </div>
-                    </td>
-                </tr>
+                </td>
+            </tr>
 
-            </tbody>
-        </table>
-        <table class="table table-sm table-bordered">
-            <tbody>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="lastAvailabilityValue"></a>
+                    <span class="name">
+                        <span ><b>lastAvailabilityValue</b></span>
+                        <a href="#lastAvailabilityValue"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
                 <tr>
                     <td class="col-md-4">
-                        <a name="lastAvailabilityValue"></a>
-                        <span class="name">
-                            <b>
-                            lastAvailabilityValue</b>
-                            <a href="#lastAvailabilityValue"><span class="icon ion-ios-link"></span></a>
-                        </span>
+                        <i>Default value : </i><code>lastAvailabilityValue</code>
                     </td>
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                            <i>Type : </i>        <code><a href="../miscellaneous/variables.html#lastAvailabilityValue" target="_self" >lastAvailabilityValue</a></code>
-
+                                <div class="io-line">Defined in <a href="" data-line="69" class="link-to-prism">projects/components/src/action-menu/action-menu.component.ts:69</a></div>
                         </td>
                     </tr>
-                    <tr>
-                        <td class="col-md-4">
-                            <i>Default value : </i><code>lastAvailabilityValue</code>
-                        </td>
-                    </tr>
-                        <tr>
-                            <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="69" class="link-to-prism">projects/components/src/action-menu/action-menu.component.ts:69</a></div>
-                            </td>
-                        </tr>
 
-                <tr>
-                    <td class="col-md-4">
-                        <div class="io-description"><p>To access the private key lastAvailabilityValue from the template</p>
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>To access the private key lastAvailabilityValue from the template</p>
 </div>
-                    </td>
-                </tr>
+                </td>
+            </tr>
 
-            </tbody>
-        </table>
-        <table class="table table-sm table-bordered">
-            <tbody>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="shouldDisplayActionsInline"></a>
+                    <span class="name">
+                        <span ><b>shouldDisplayActionsInline</b></span>
+                        <a href="#shouldDisplayActionsInline"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
                 <tr>
                     <td class="col-md-4">
-                        <a name="shouldDisplayActionsInline"></a>
-                        <span class="name">
-                            <b>
-                            shouldDisplayActionsInline</b>
-                            <a href="#shouldDisplayActionsInline"><span class="icon ion-ios-link"></span></a>
-                        </span>
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank" >boolean</a></code>
+
                     </td>
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                            <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank" >boolean</a></code>
-
+                                <div class="io-line">Defined in <a href="" data-line="215" class="link-to-prism">projects/components/src/action-menu/action-menu.component.ts:215</a></div>
                         </td>
                     </tr>
-                        <tr>
-                            <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="215" class="link-to-prism">projects/components/src/action-menu/action-menu.component.ts:215</a></div>
-                            </td>
-                        </tr>
 
-                <tr>
-                    <td class="col-md-4">
-                        <div class="io-description"><p>To show or hide the container elements containing inline and also dropdown actions</p>
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>To show or hide the container elements containing inline and also dropdown actions</p>
 </div>
-                    </td>
-                </tr>
+                </td>
+            </tr>
 
-            </tbody>
-        </table>
-        <table class="table table-sm table-bordered">
-            <tbody>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="shouldDisplayContextualActionsDropdown"></a>
+                    <span class="name">
+                        <span ><b>shouldDisplayContextualActionsDropdown</b></span>
+                        <a href="#shouldDisplayContextualActionsDropdown"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
                 <tr>
                     <td class="col-md-4">
-                        <a name="shouldDisplayContextualActionsDropdown"></a>
-                        <span class="name">
-                            <b>
-                            shouldDisplayContextualActionsDropdown</b>
-                            <a href="#shouldDisplayContextualActionsDropdown"><span class="icon ion-ios-link"></span></a>
-                        </span>
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank" >boolean</a></code>
+
                     </td>
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                            <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank" >boolean</a></code>
-
+                                <div class="io-line">Defined in <a href="" data-line="241" class="link-to-prism">projects/components/src/action-menu/action-menu.component.ts:241</a></div>
                         </td>
                     </tr>
-                        <tr>
-                            <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="241" class="link-to-prism">projects/components/src/action-menu/action-menu.component.ts:241</a></div>
-                            </td>
-                        </tr>
 
-                <tr>
-                    <td class="col-md-4">
-                        <div class="io-description"><p>To show or hide <a href="ActionType.CONTEXTUAL">ActionType.CONTEXTUAL</a> and <a href="ActionType.CONTEXTUAL_FEATURED">ActionType.CONTEXTUAL_FEATURED</a> actions in a dropdown</p>
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>To show or hide <a href="ActionType.CONTEXTUAL">ActionType.CONTEXTUAL</a> and <a href="ActionType.CONTEXTUAL_FEATURED">ActionType.CONTEXTUAL_FEATURED</a> actions in a dropdown</p>
 </div>
-                    </td>
-                </tr>
+                </td>
+            </tr>
 
-            </tbody>
-        </table>
-        <table class="table table-sm table-bordered">
-            <tbody>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="shouldDisplayContextualActionsDropdownInline"></a>
+                    <span class="name">
+                        <span ><b>shouldDisplayContextualActionsDropdownInline</b></span>
+                        <a href="#shouldDisplayContextualActionsDropdownInline"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
                 <tr>
                     <td class="col-md-4">
-                        <a name="shouldDisplayContextualActionsDropdownInline"></a>
-                        <span class="name">
-                            <b>
-                            shouldDisplayContextualActionsDropdownInline</b>
-                            <a href="#shouldDisplayContextualActionsDropdownInline"><span class="icon ion-ios-link"></span></a>
-                        </span>
+                        <i>Default value : </i><code>false</code>
                     </td>
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                            <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank" >boolean</a></code>
-
+                                <div class="io-line">Defined in <a href="" data-line="130" class="link-to-prism">projects/components/src/action-menu/action-menu.component.ts:130</a></div>
                         </td>
                     </tr>
-                    <tr>
-                        <td class="col-md-4">
-                            <i>Default value : </i><code>false</code>
-                        </td>
-                    </tr>
-                        <tr>
-                            <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="130" class="link-to-prism">projects/components/src/action-menu/action-menu.component.ts:130</a></div>
-                            </td>
-                        </tr>
 
-                <tr>
-                    <td class="col-md-4">
-                        <div class="io-description"><p>When there are no nested actions and if all of the contextual actions are marked to be featured, there is no need to show
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>When there are no nested actions and if all of the contextual actions are marked to be featured, there is no need to show
 the contextual actions dropdown in the inline actions container</p>
 </div>
-                    </td>
-                </tr>
+                </td>
+            </tr>
 
-            </tbody>
-        </table>
-        <table class="table table-sm table-bordered">
-            <tbody>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="shouldDisplayContextualActionsInline"></a>
+                    <span class="name">
+                        <span ><b>shouldDisplayContextualActionsInline</b></span>
+                        <a href="#shouldDisplayContextualActionsInline"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
                 <tr>
                     <td class="col-md-4">
-                        <a name="shouldDisplayContextualActionsInline"></a>
-                        <span class="name">
-                            <b>
-                            shouldDisplayContextualActionsInline</b>
-                            <a href="#shouldDisplayContextualActionsInline"><span class="icon ion-ios-link"></span></a>
-                        </span>
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank" >boolean</a></code>
+
                     </td>
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                            <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank" >boolean</a></code>
-
+                                <div class="io-line">Defined in <a href="" data-line="221" class="link-to-prism">projects/components/src/action-menu/action-menu.component.ts:221</a></div>
                         </td>
                     </tr>
-                        <tr>
-                            <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="221" class="link-to-prism">projects/components/src/action-menu/action-menu.component.ts:221</a></div>
-                            </td>
-                        </tr>
 
-                <tr>
-                    <td class="col-md-4">
-                        <div class="io-description"><p>To show or hide <a href="ActionType.CONTEXTUAL">ActionType.CONTEXTUAL</a> and <a href="ActionType.CONTEXTUAL_FEATURED">ActionType.CONTEXTUAL_FEATURED</a> actions in inline
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>To show or hide <a href="ActionType.CONTEXTUAL">ActionType.CONTEXTUAL</a> and <a href="ActionType.CONTEXTUAL_FEATURED">ActionType.CONTEXTUAL_FEATURED</a> actions in inline
 action container</p>
 </div>
-                    </td>
-                </tr>
+                </td>
+            </tr>
 
-            </tbody>
-        </table>
-        <table class="table table-sm table-bordered">
-            <tbody>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="shouldDisplayStaticActionsInline"></a>
+                    <span class="name">
+                        <span ><b>shouldDisplayStaticActionsInline</b></span>
+                        <a href="#shouldDisplayStaticActionsInline"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
                 <tr>
                     <td class="col-md-4">
-                        <a name="shouldDisplayStaticActionsInline"></a>
-                        <span class="name">
-                            <b>
-                            shouldDisplayStaticActionsInline</b>
-                            <a href="#shouldDisplayStaticActionsInline"><span class="icon ion-ios-link"></span></a>
-                        </span>
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank" >boolean</a></code>
+
                     </td>
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                            <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank" >boolean</a></code>
-
+                                <div class="io-line">Defined in <a href="" data-line="231" class="link-to-prism">projects/components/src/action-menu/action-menu.component.ts:231</a></div>
                         </td>
                     </tr>
-                        <tr>
-                            <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="231" class="link-to-prism">projects/components/src/action-menu/action-menu.component.ts:231</a></div>
-                            </td>
-                        </tr>
 
-                <tr>
-                    <td class="col-md-4">
-                        <div class="io-description"><p>To show or hide <a href="ActionType.STATIC">ActionType.STATIC</a> actions in inline action container</p>
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>To show or hide <a href="ActionType.STATIC">ActionType.STATIC</a> actions in inline action container</p>
 </div>
-                    </td>
-                </tr>
+                </td>
+            </tr>
 
-            </tbody>
-        </table>
-        <table class="table table-sm table-bordered">
-            <tbody>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="shouldDisplayStaticAndStaticFeaturedActionsDropdown"></a>
+                    <span class="name">
+                        <span ><b>shouldDisplayStaticAndStaticFeaturedActionsDropdown</b></span>
+                        <a href="#shouldDisplayStaticAndStaticFeaturedActionsDropdown"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
                 <tr>
                     <td class="col-md-4">
-                        <a name="shouldDisplayStaticAndStaticFeaturedActionsDropdown"></a>
-                        <span class="name">
-                            <b>
-                            shouldDisplayStaticAndStaticFeaturedActionsDropdown</b>
-                            <a href="#shouldDisplayStaticAndStaticFeaturedActionsDropdown"><span class="icon ion-ios-link"></span></a>
-                        </span>
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank" >boolean</a></code>
+
                     </td>
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                            <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank" >boolean</a></code>
-
+                                <div class="io-line">Defined in <a href="" data-line="236" class="link-to-prism">projects/components/src/action-menu/action-menu.component.ts:236</a></div>
                         </td>
                     </tr>
-                        <tr>
-                            <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="236" class="link-to-prism">projects/components/src/action-menu/action-menu.component.ts:236</a></div>
-                            </td>
-                        </tr>
 
-                <tr>
-                    <td class="col-md-4">
-                        <div class="io-description"><p>To show or hide <a href="ActionType.STATIC_FEATURED">ActionType.STATIC_FEATURED</a> and <a href="ActionType.STATIC">ActionType.STATIC</a> actions in a dropdown</p>
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>To show or hide <a href="ActionType.STATIC_FEATURED">ActionType.STATIC_FEATURED</a> and <a href="ActionType.STATIC">ActionType.STATIC</a> actions in a dropdown</p>
 </div>
-                    </td>
-                </tr>
+                </td>
+            </tr>
 
-            </tbody>
-        </table>
-        <table class="table table-sm table-bordered">
-            <tbody>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="shouldDisplayStaticFeaturedActionsInline"></a>
+                    <span class="name">
+                        <span ><b>shouldDisplayStaticFeaturedActionsInline</b></span>
+                        <a href="#shouldDisplayStaticFeaturedActionsInline"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
                 <tr>
                     <td class="col-md-4">
-                        <a name="shouldDisplayStaticFeaturedActionsInline"></a>
-                        <span class="name">
-                            <b>
-                            shouldDisplayStaticFeaturedActionsInline</b>
-                            <a href="#shouldDisplayStaticFeaturedActionsInline"><span class="icon ion-ios-link"></span></a>
-                        </span>
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank" >boolean</a></code>
+
                     </td>
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                            <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank" >boolean</a></code>
-
+                                <div class="io-line">Defined in <a href="" data-line="226" class="link-to-prism">projects/components/src/action-menu/action-menu.component.ts:226</a></div>
                         </td>
                     </tr>
-                        <tr>
-                            <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="226" class="link-to-prism">projects/components/src/action-menu/action-menu.component.ts:226</a></div>
-                            </td>
-                        </tr>
 
-                <tr>
-                    <td class="col-md-4">
-                        <div class="io-description"><p>To show or hide <a href="ActionType.STATIC_FEATURED">ActionType.STATIC_FEATURED</a> actions in inline action container</p>
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>To show or hide <a href="ActionType.STATIC_FEATURED">ActionType.STATIC_FEATURED</a> actions in inline action container</p>
 </div>
-                    </td>
-                </tr>
+                </td>
+            </tr>
 
-            </tbody>
-        </table>
-        <table class="table table-sm table-bordered">
-            <tbody>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="shouldShowIcon"></a>
+                    <span class="name">
+                        <span ><b>shouldShowIcon</b></span>
+                        <a href="#shouldShowIcon"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
                 <tr>
                     <td class="col-md-4">
-                        <a name="shouldShowIcon"></a>
-                        <span class="name">
-                            <b>
-                            shouldShowIcon</b>
-                            <a href="#shouldShowIcon"><span class="icon ion-ios-link"></span></a>
-                        </span>
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank" >boolean</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>(TextIcon.ICON &amp; this.actionDisplayConfig.contextual.buttonContents) &#x3D;&#x3D;&#x3D; TextIcon.ICON</code>
                     </td>
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                            <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank" >boolean</a></code>
-
+                                <div class="io-line">Defined in <a href="" data-line="168" class="link-to-prism">projects/components/src/action-menu/action-menu.component.ts:168</a></div>
                         </td>
                     </tr>
-                    <tr>
-                        <td class="col-md-4">
-                            <i>Default value : </i><code>(TextIcon.ICON &amp; this.actionDisplayConfig.contextual.buttonContents) &#x3D;&#x3D;&#x3D; TextIcon.ICON</code>
-                        </td>
-                    </tr>
-                        <tr>
-                            <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="168" class="link-to-prism">projects/components/src/action-menu/action-menu.component.ts:168</a></div>
-                            </td>
-                        </tr>
 
-                <tr>
-                    <td class="col-md-4">
-                        <div class="io-description"><p>If a icon should be displayed inside contextual buttons</p>
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>If a icon should be displayed inside contextual buttons</p>
 </div>
-                    </td>
-                </tr>
+                </td>
+            </tr>
 
-            </tbody>
-        </table>
-        <table class="table table-sm table-bordered">
-            <tbody>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="shouldShowText"></a>
+                    <span class="name">
+                        <span ><b>shouldShowText</b></span>
+                        <a href="#shouldShowText"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
                 <tr>
                     <td class="col-md-4">
-                        <a name="shouldShowText"></a>
-                        <span class="name">
-                            <b>
-                            shouldShowText</b>
-                            <a href="#shouldShowText"><span class="icon ion-ios-link"></span></a>
-                        </span>
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank" >boolean</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>(TextIcon.TEXT &amp; this.actionDisplayConfig.contextual.buttonContents) &#x3D;&#x3D;&#x3D; TextIcon.TEXT</code>
                     </td>
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                            <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank" >boolean</a></code>
-
+                                <div class="io-line">Defined in <a href="" data-line="173" class="link-to-prism">projects/components/src/action-menu/action-menu.component.ts:173</a></div>
                         </td>
                     </tr>
-                    <tr>
-                        <td class="col-md-4">
-                            <i>Default value : </i><code>(TextIcon.TEXT &amp; this.actionDisplayConfig.contextual.buttonContents) &#x3D;&#x3D;&#x3D; TextIcon.TEXT</code>
-                        </td>
-                    </tr>
-                        <tr>
-                            <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="173" class="link-to-prism">projects/components/src/action-menu/action-menu.component.ts:173</a></div>
-                            </td>
-                        </tr>
 
-                <tr>
-                    <td class="col-md-4">
-                        <div class="io-description"><p>If a text should be displayed inside contextual buttons</p>
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>If a text should be displayed inside contextual buttons</p>
 </div>
-                    </td>
-                </tr>
+                </td>
+            </tr>
 
-            </tbody>
-        </table>
-        <table class="table table-sm table-bordered">
-            <tbody>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="shouldShowTooltip"></a>
+                    <span class="name">
+                        <span ><b>shouldShowTooltip</b></span>
+                        <a href="#shouldShowTooltip"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
                 <tr>
                     <td class="col-md-4">
-                        <a name="shouldShowTooltip"></a>
-                        <span class="name">
-                            <b>
-                            shouldShowTooltip</b>
-                            <a href="#shouldShowTooltip"><span class="icon ion-ios-link"></span></a>
-                        </span>
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank" >boolean</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>this.actionDisplayConfig.contextual.buttonContents &#x3D;&#x3D;&#x3D; TextIcon.ICON</code>
                     </td>
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                            <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank" >boolean</a></code>
-
+                                <div class="io-line">Defined in <a href="" data-line="178" class="link-to-prism">projects/components/src/action-menu/action-menu.component.ts:178</a></div>
                         </td>
                     </tr>
-                    <tr>
-                        <td class="col-md-4">
-                            <i>Default value : </i><code>this.actionDisplayConfig.contextual.buttonContents &#x3D;&#x3D;&#x3D; TextIcon.ICON</code>
-                        </td>
-                    </tr>
-                        <tr>
-                            <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="178" class="link-to-prism">projects/components/src/action-menu/action-menu.component.ts:178</a></div>
-                            </td>
-                        </tr>
 
-                <tr>
-                    <td class="col-md-4">
-                        <div class="io-description"><p>If the contextual buttons with icons should have a tooltip</p>
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>If the contextual buttons with icons should have a tooltip</p>
 </div>
-                    </td>
-                </tr>
+                </td>
+            </tr>
 
-            </tbody>
-        </table>
-        <table class="table table-sm table-bordered">
-            <tbody>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="staticActions"></a>
+                    <span class="name">
+                        <span ><b>staticActions</b></span>
+                        <a href="#staticActions"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
                 <tr>
                     <td class="col-md-4">
-                        <a name="staticActions"></a>
-                        <span class="name">
-                            <b>
-                            staticActions</b>
-                            <a href="#staticActions"><span class="icon ion-ios-link"></span></a>
-                        </span>
+                        <i>Type : </i>        <code><a href="../interfaces/ActionItemInternal.html" target="_self" >ActionItemInternal&lt;R, T&gt;[]</a></code>
+
                     </td>
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                            <i>Type : </i>        <code><a href="../interfaces/ActionItemInternal.html" target="_self" >ActionItemInternal&lt;R, T&gt;[]</a></code>
-
+                                <div class="io-line">Defined in <a href="" data-line="210" class="link-to-prism">projects/components/src/action-menu/action-menu.component.ts:210</a></div>
                         </td>
                     </tr>
-                        <tr>
-                            <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="210" class="link-to-prism">projects/components/src/action-menu/action-menu.component.ts:210</a></div>
-                            </td>
-                        </tr>
 
-                <tr>
-                    <td class="col-md-4">
-                        <div class="io-description"><p>List of only the actions that are marked as <a href="ActionType.STATIC">ActionType.STATIC</a></p>
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>List of only the actions that are marked as <a href="ActionType.STATIC">ActionType.STATIC</a></p>
 </div>
-                    </td>
-                </tr>
+                </td>
+            </tr>
 
-            </tbody>
-        </table>
-        <table class="table table-sm table-bordered">
-            <tbody>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="staticDropdownActions"></a>
+                    <span class="name">
+                        <span ><b>staticDropdownActions</b></span>
+                        <a href="#staticDropdownActions"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
                 <tr>
                     <td class="col-md-4">
-                        <a name="staticDropdownActions"></a>
-                        <span class="name">
-                            <b>
-                            staticDropdownActions</b>
-                            <a href="#staticDropdownActions"><span class="icon ion-ios-link"></span></a>
-                        </span>
+                        <i>Type : </i>        <code><a href="../interfaces/ActionItemInternal.html" target="_self" >ActionItemInternal&lt;R, T&gt;[] | object</a></code>
+
                     </td>
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                            <i>Type : </i>        <code><a href="../interfaces/ActionItemInternal.html" target="_self" >ActionItemInternal&lt;R, T&gt;[] | object</a></code>
-
+                                <div class="io-line">Defined in <a href="" data-line="205" class="link-to-prism">projects/components/src/action-menu/action-menu.component.ts:205</a></div>
                         </td>
                     </tr>
-                        <tr>
-                            <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="205" class="link-to-prism">projects/components/src/action-menu/action-menu.component.ts:205</a></div>
-                            </td>
-                        </tr>
 
-                <tr>
-                    <td class="col-md-4">
-                        <div class="io-description"><p>List containing all the static actions. It has static featured actions in the beginning of the list followed by
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>List containing all the static actions. It has static featured actions in the beginning of the list followed by
 non-featured static actions as children of grouped action called &#39;vcd.cc.action.menu.all.actions&#39;</p>
 </div>
-                    </td>
-                </tr>
+                </td>
+            </tr>
 
-            </tbody>
-        </table>
-        <table class="table table-sm table-bordered">
-            <tbody>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="staticFeaturedActions"></a>
+                    <span class="name">
+                        <span ><b>staticFeaturedActions</b></span>
+                        <a href="#staticFeaturedActions"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
                 <tr>
                     <td class="col-md-4">
-                        <a name="staticFeaturedActions"></a>
-                        <span class="name">
-                            <b>
-                            staticFeaturedActions</b>
-                            <a href="#staticFeaturedActions"><span class="icon ion-ios-link"></span></a>
-                        </span>
+                        <i>Type : </i>        <code><a href="../interfaces/ActionItemInternal.html" target="_self" >ActionItemInternal&lt;R, T&gt;[]</a></code>
+
                     </td>
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                            <i>Type : </i>        <code><a href="../interfaces/ActionItemInternal.html" target="_self" >ActionItemInternal&lt;R, T&gt;[]</a></code>
-
+                                <div class="io-line">Defined in <a href="" data-line="188" class="link-to-prism">projects/components/src/action-menu/action-menu.component.ts:188</a></div>
                         </td>
                     </tr>
-                        <tr>
-                            <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="188" class="link-to-prism">projects/components/src/action-menu/action-menu.component.ts:188</a></div>
-                            </td>
-                        </tr>
 
-                <tr>
-                    <td class="col-md-4">
-                        <div class="io-description"><p>List of actions that are marked as <a href="ActionType.STATIC_FEATURED">ActionType.STATIC_FEATURED</a> only</p>
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>List of actions that are marked as <a href="ActionType.STATIC_FEATURED">ActionType.STATIC_FEATURED</a> only</p>
 </div>
-                    </td>
-                </tr>
+                </td>
+            </tr>
 
-            </tbody>
-        </table>
+        </tbody>
+    </table>
 </section>
 
-    <section>
+    <section data-compodoc="block-accessors">
     <h3 id="accessors">
         Accessors
     </h3>
@@ -2973,7 +2900,7 @@ non-featured static actions as children of grouped action called &#39;vcd.cc.act
 
                 <tr>
                     <td class="col-md-4">
-                        <span class="accessor"><b>set</b><code>actions(actions: [])</code></span>
+                        <span class="accessor"><b>set</b><code>actions(actions: <a href="../undefineds/ActionItem.html" target="_self">ActionItem&lt;R, T&gt;[]</a>)</code></span>
                     </td>
                 </tr>
                             <tr>
@@ -3001,7 +2928,7 @@ non-featured static actions as children of grouped action called &#39;vcd.cc.act
                                                             <td>actions</td>
                                                     
                                                             <td>
-                                                                        <code>[]</code>
+                                                                            <code><a href="../miscellaneous/typealiases.html#ActionItem" target="_self" >ActionItem&lt;R, T&gt;[]</a></code>
                                                             </td>
                                                     
                                                         <td>
@@ -3044,7 +2971,7 @@ non-featured static actions as children of grouped action called &#39;vcd.cc.act
 
                 <tr>
                     <td class="col-md-4">
-                        <span class="accessor"><b>set</b><code>actionDisplayConfig(config)</code></span>
+                        <span class="accessor"><b>set</b><code>actionDisplayConfig(config: <a href="../interfaces/ActionDisplayConfig.html" target="_self">ActionDisplayConfig</a>)</code></span>
                     </td>
                 </tr>
                             <tr>
@@ -3064,6 +2991,7 @@ If null or undefined is passed, default config <a href="_actionDisplayConfig">_a
                                             <thead>
                                                 <tr>
                                                     <td>Name</td>
+                                                        <td>Type</td>
                                                     <td>Optional</td>
                                                 </tr>
                                             </thead>
@@ -3071,6 +2999,9 @@ If null or undefined is passed, default config <a href="_actionDisplayConfig">_a
                                                     <tr>
                                                             <td>config</td>
                                                     
+                                                            <td>
+                                                                            <code><a href="../interfaces/ActionDisplayConfig.html" target="_self" >ActionDisplayConfig</a></code>
+                                                            </td>
                                                     
                                                         <td>
                                                                 No
@@ -3102,7 +3033,7 @@ If null or undefined is passed, default config <a href="_actionDisplayConfig">_a
 
                 <tr>
                     <td class="col-md-4">
-                        <span class="accessor"><b>set</b><code>selectedEntities(val)</code></span>
+                        <span class="accessor"><b>set</b><code>selectedEntities(val: R[] | R)</code></span>
                     </td>
                 </tr>
                             <tr>
@@ -3122,6 +3053,7 @@ availability of actions, action lists are updated when the input is updated</p>
                                             <thead>
                                                 <tr>
                                                     <td>Name</td>
+                                                        <td>Type</td>
                                                     <td>Optional</td>
                                                         <td>Description</td>
                                                 </tr>
@@ -3130,14 +3062,17 @@ availability of actions, action lists are updated when the input is updated</p>
                                                     <tr>
                                                             <td>val</td>
                                                     
+                                                            <td>
+                                                                        <code>R[] | R</code>
+                                                            </td>
                                                     
                                                         <td>
                                                                 No
                                                         </td>
                                                         
                                                             <td>
-                                                                    <code><p>Is an array in case of batch selection and is a single item for example in the case of data grids with single selection</p>
-</code>
+                                                                    <p>Is an array in case of batch selection and is a single item for example in the case of data grids with single selection</p>
+
                                                             </td>
                                                     </tr>
                                             </tbody>
@@ -3157,7 +3092,7 @@ availability of actions, action lists are updated when the input is updated</p>
 </div>
 
 
-    <div class="tab-pane fade  tab-source-code" id="c-source">
+    <div class="tab-pane fade  tab-source-code" id="source">
         <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Component, EventEmitter, Input, OnDestroy, Output, TrackByFunction } from &#x27;@angular/core&#x27;;
 import { isObservable, Observable, Subscription } from &#x27;rxjs&#x27;;
 import {
@@ -3694,7 +3629,7 @@ export class ActionMenuComponent&lt;R, T&gt; implements OnDestroy {
 </code></pre>
     </div>
 
-    <div class="tab-pane fade " id="c-templateData">
+    <div class="tab-pane fade " id="templateData">
         <pre class="line-numbers"><code class="language-html">&lt;div class&#x3D;&quot;inline-actions-container&quot; *ngIf&#x3D;&quot;shouldDisplayActionsInline&quot;&gt;
     &lt;ng-container *ngIf&#x3D;&quot;shouldDisplayStaticFeaturedActionsInline&quot;&gt;
         &lt;ng-container *ngFor&#x3D;&quot;let action of staticFeaturedActions; trackBy: actionsTrackBy&quot;&gt;
@@ -3805,7 +3740,7 @@ export class ActionMenuComponent&lt;R, T&gt; implements OnDestroy {
 </code></pre>
     </div>
 
-    <div class="tab-pane fade " id="c-styleData">
+    <div class="tab-pane fade " id="styleData">
                 <p class="comment">
                     <code>./action-menu.component.scss</code>
                 </p>
@@ -3827,7 +3762,7 @@ export class ActionMenuComponent&lt;R, T&gt; implements OnDestroy {
 </code></pre>
     </div>
 
-    <div class="tab-pane fade " id="c-tree">
+    <div class="tab-pane fade " id="tree">
         <div id="tree-container"></div>
         <div class="tree-legend">
             <div class="title">
@@ -3854,7 +3789,7 @@ export class ActionMenuComponent&lt;R, T&gt; implements OnDestroy {
 <script>
         var COMPONENT_TEMPLATE = '<div><div class="inline-actions-container" *ngIf="shouldDisplayActionsInline">    <ng-container *ngIf="shouldDisplayStaticFeaturedActionsInline">        <ng-container *ngFor="let action of staticFeaturedActions; trackBy: actionsTrackBy">            <ng-template                *ngTemplateOutlet="                    isObservable(action.availability) ? obsTmpl : actionButtonTmpl;                    context: { $implicit: action }                "            ></ng-template>        </ng-container>    </ng-container>    <ng-container *ngIf="shouldDisplayContextualActionsInline">        <ng-container *ngFor="let action of contextualFeaturedActions; trackBy: actionsTrackBy">            <ng-template                *ngTemplateOutlet="                    isObservable(action.availability) ? obsTmpl : actionButtonTmpl;                    context: { $implicit: action }                "            ></ng-template>        </ng-container>        <vcd-dropdown            vcdDropdownFocusHandler            class="inline-action-dropdown"            *ngIf="shouldDisplayContextualActionsDropdownInline"            [items]="contextualActions"            [trackByFunction]="actionsTrackBy"            [dropdownPosition]="dropdownPosition"            [nestedDropdownPosition]="nestedDropdownPosition"            [selectedEntities]="getSelectedEntities()"            [dropdownTriggerBtnTxt]="inlineDropdownTriggerBtnText | translate"            [dropdownItemContents]="actionDisplayConfig.contextual.buttonContents"            [isDropdownDisabled]="disabled"        ></vcd-dropdown>    </ng-container>    <ng-container *ngIf="shouldDisplayStaticActionsInline">        <div class="static-actions-separator"></div>        <ng-container *ngFor="let action of staticActions; trackBy: actionsTrackBy">            <ng-template                *ngTemplateOutlet="                    isObservable(action.availability) ? obsTmpl : actionButtonTmpl;                    context: { $implicit: action }                "            ></ng-template>        </ng-container>    </ng-container></div><vcd-dropdown    vcdDropdownFocusHandler    *ngIf="shouldDisplayStaticAndStaticFeaturedActionsDropdown"    [items]="staticDropdownActions"    [trackByFunction]="actionsTrackBy"    [dropdownPosition]="dropdownPosition"    [nestedDropdownPosition]="nestedDropdownPosition"    [selectedEntities]="getSelectedEntities()"    [dropdownTriggerBtnTxt]="dropdownTriggerBtnText | translate"    [dropdownTriggerBtnIcon]="dropdownTriggerBtnIcon"    [dropdownItemContents]="actionDisplayConfig.contextual.buttonContents"    [isDropdownDisabled]="disabled"></vcd-dropdown><vcd-dropdown    vcdDropdownFocusHandler    *ngIf="shouldDisplayContextualActionsDropdown"    [items]="contextualActions"    [trackByFunction]="actionsTrackBy"    [dropdownPosition]="dropdownPosition"    [nestedDropdownPosition]="nestedDropdownPosition"    [selectedEntities]="getSelectedEntities()"    [dropdownTriggerBtnTxt]="dropdownTriggerBtnText | translate"    [dropdownTriggerBtnIcon]="dropdownTriggerBtnIcon"    [dropdownItemContents]="actionDisplayConfig.contextual.buttonContents"    [isDropdownDisabled]="disabled"></vcd-dropdown><ng-template #obsTmpl let-action>    <ng-template        *ngIf="action[lastAvailabilityValue]"        [ngTemplateOutlet]="actionButtonTmpl"        [ngTemplateOutletContext]="{ $implicit: action }"    ></ng-template></ng-template><ng-template #actionButtonTmpl let-action>    <button        *ngIf="action.availability"        class="btn btn-link"        [ngClass]="action.class"        (click)="runActionHandler(action)"        [disabled]="isActionDisabled(action)"        [attr.data-ui]="action.textKey"    >        <ng-container *ngIf="shouldShowText">{{            action.isTranslatable === false ? action.textKey : (action.textKey | translate)        }}</ng-container>        <a *ngIf="shouldShowIcon" role="tooltip" aria-haspopup="true" class="tooltip tooltip-sm">            <clr-icon [attr.size]="\'1em\'" [attr.shape]="action.icon"></clr-icon>            <span class="tooltip-content" *ngIf="shouldShowTooltip">{{                action.isTranslatable === false ? action.textKey : (action.textKey | translate)            }}</span>        </a>    </button></ng-template></div>'
     var COMPONENTS = [{'name': 'ActionMenuComponent', 'selector': 'vcd-action-menu'},{'name': 'BannerActivityReporterComponent', 'selector': 'vcd-banner-activity-reporter'},{'name': 'BoldTextRendererComponent', 'selector': 'vcd-bold-text-renderer'},{'name': 'DataExporterComponent', 'selector': 'vcd-data-exporter'},{'name': 'DatagridComponent', 'selector': 'vcd-datagrid'},{'name': 'DatagridMultiSelectFilterComponent', 'selector': 'vcd-dg-multiselect-filter'},{'name': 'DatagridNumericFilterComponent', 'selector': 'vcd-dg-numeric-filter'},{'name': 'DatagridSelectFilterComponent', 'selector': 'vcd-dg-select-filter'},{'name': 'DatagridStringFilterComponent', 'selector': 'vcd-dg-string-filter'},{'name': 'DrawerComponent', 'selector': 'vcd-drawer-component'},{'name': 'DropdownComponent', 'selector': 'vcd-dropdown'},{'name': 'ErrorBannerComponent', 'selector': 'vcd-error-banner'},{'name': 'FilterTestHostComponent', 'selector': ''},{'name': 'FormCheckboxComponent', 'selector': 'vcd-form-checkbox'},{'name': 'FormInputComponent', 'selector': 'vcd-form-input'},{'name': 'FormlyInputComponent', 'selector': 'vcd-formly-input'},{'name': 'FormlyNumberWithUnitInputComponent', 'selector': 'vcd-formly-number-with-unit-input'},{'name': 'FormlySelectComponent', 'selector': 'vcd-formly-select'},{'name': 'FormSelectComponent', 'selector': 'vcd-form-select'},{'name': 'LoadingIndicatorComponent', 'selector': 'vcd-loading-indicator'},{'name': 'NumberWithUnitFormInputComponent', 'selector': 'vcd-number-with-unit-form-input'},{'name': 'QuickSearchComponent', 'selector': 'vcd-quick-search'},{'name': 'RightsDropdownRendererComponent', 'selector': 'vcd-rights-dropdown-renderer'},{'name': 'SharingModalComponent', 'selector': 'vcd-sharing-modal'},{'name': 'SharingModalGroupRenderComponent', 'selector': 'vcd-sharing-modal-group-renderer'},{'name': 'SharingModalOrgRenderComponent', 'selector': 'vcd-sharing-modal-group-renderer'},{'name': 'SharingModalTabComponent', 'selector': 'vcd-sharing-modal-tab'},{'name': 'SharingModalUserRenderComponent', 'selector': 'vcd-sharing-modal-user-renderer'},{'name': 'ShowClippedTextDirectiveTestHostComponent', 'selector': ''},{'name': 'SpinnerActivityReporterComponent', 'selector': 'vcd-spinner-activity-reporter'},{'name': 'VcdSelectAllToggleComponent', 'selector': 'vcd-select-all-toggle'}];
-    var DIRECTIVES = [{'name': 'AlternativeTextDirective', 'selector': 'clr-icon'},{'name': 'AriaActiveDescendantDirective', 'selector': '[vcdAriaActiveDescendant]'},{'name': 'ComponentRendererOutletDirective', 'selector': '[vcdComponentRendererOutlet]'},{'name': 'DatagridFilter', 'selector': ''},{'name': 'DropdownFocusHandlerDirective', 'selector': 'vcd-dropdown[vcdDropdownFocusHandler]'},{'name': 'DynamicDropdownPositionDirective', 'selector': 'clr-dropdown[vcdDynamicDropdown]'},{'name': 'ResponsiveInputDirective', 'selector': '.clr-form-control[vcdResponsiveInput]'},{'name': 'ShowClippedTextDirective', 'selector': '[vcdShowClippedText]'},{'name': 'UsersGroupsOrgsSharingModalDirective', 'selector': 'vcd-sharing-modal[vcdUsersGroupsOrgsSharingModal]'}];
+    var DIRECTIVES = [{'name': 'AlternativeTextDirective', 'selector': 'clr-icon'},{'name': 'AriaActiveDescendantDirective', 'selector': '[vcdAriaActiveDescendant]'},{'name': 'BaseFormControl', 'selector': ''},{'name': 'ComponentRendererOutletDirective', 'selector': '[vcdComponentRendererOutlet]'},{'name': 'DatagridFilter', 'selector': ''},{'name': 'DropdownFocusHandlerDirective', 'selector': 'vcd-dropdown[vcdDropdownFocusHandler]'},{'name': 'DynamicDropdownPositionDirective', 'selector': 'clr-dropdown[vcdDynamicDropdown]'},{'name': 'ResponsiveInputDirective', 'selector': '.clr-form-control[vcdResponsiveInput]'},{'name': 'ShowClippedTextDirective', 'selector': '[vcdShowClippedText]'},{'name': 'UsersGroupsOrgsSharingModalDirective', 'selector': 'vcd-sharing-modal[vcdUsersGroupsOrgsSharingModal]'}];
     var ACTUAL_COMPONENT = {'name': 'ActionMenuComponent'};
 </script>
 <script src="../js/tree.js"></script>
@@ -3868,14 +3803,16 @@ export class ActionMenuComponent&lt;R, T&gt; implements OnDestroy {
 
 
 
-                   
+
+
+
 
 
 
 
                    </div><div class="search-results">
     <div class="has-results">
-        <h1 class="search-results-title"><span class='search-results-count'></span> result-matching "<span class='search-query'></span>"</h1>
+        <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
         <ul class="search-results-list"></ul>
     </div>
     <div class="no-results">
@@ -3887,6 +3824,15 @@ export class ActionMenuComponent&lt;R, T&gt; implements OnDestroy {
            </div>
        </div>
 
+          <label class="dark-mode-switch">
+               <input type="checkbox">
+               <span class="slider">
+                    <svg class="slider-icon" viewBox="0 0 24 24" fill="none" height="20" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" width="20" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"></path>
+                    </svg>
+               </span>
+          </label>
+
        <script>
             var COMPODOC_CURRENT_PAGE_DEPTH = 1;
             var COMPODOC_CURRENT_PAGE_CONTEXT = 'component';
@@ -3896,9 +3842,9 @@ export class ActionMenuComponent&lt;R, T&gt; implements OnDestroy {
 
        <script src="../js/libs/custom-elements.min.js"></script>
        <script src="../js/libs/lit-html.js"></script>
-       <!-- Required to polyfill modern browsers as code is ES5 for IE... -->
-       <script src="../js/libs/custom-elements-es5-adapter.js" charset="utf-8" defer></script>
+
        <script src="../js/menu-wc.js" defer></script>
+       <script nomodule src="../js/menu-wc_es5.js" defer></script>
 
        <script src="../js/libs/bootstrap-native.js"></script>
 

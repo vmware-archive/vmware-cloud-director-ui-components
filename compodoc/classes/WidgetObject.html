@@ -8,11 +8,12 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
         <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
-	      <link rel="stylesheet" href="../styles/style.css">
+	   <link rel="stylesheet" href="../styles/style.css">
+        <link rel="stylesheet" href="../styles/dark.css">
     </head>
     <body>
 
-        <div class="navbar navbar-default navbar-fixed-top visible-xs">
+        <div class="navbar navbar-default navbar-fixed-top d-block d-sm-none">
             <a href="../" class="navbar-brand">vmware-cloud-director-ui-components documentation</a>
             <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
         </div>
@@ -40,22 +41,31 @@
 
 
 
+
 <ol class="breadcrumb">
-  <li>Classes</li>
-  <li>WidgetObject</li>
+  <li class="breadcrumb-item">Classes</li>
+  <li class="breadcrumb-item" 
+        class="breadcrumb-item deprecated-name"
+    >WidgetObject</li>
 </ol>
 
 <ul class="nav nav-tabs" role="tablist">
-        <li class="active">
-            <a href="#info" role="tab" id="info-tab" data-toggle="tab" data-link="info">Info</a>
+        <li class="nav-item">
+            <a href="#info" 
+                class="nav-link"
+                class="nav-link active"
+                role="tab" id="info-tab" data-bs-toggle="tab" data-link="info">Info</a>
         </li>
-        <li >
-            <a href="#source" role="tab" id="source-tab" data-toggle="tab" data-link="source">Source</a>
+        <li class="nav-item">
+            <a href="#source" 
+                class="nav-link"
+                
+                role="tab" id="source-tab" data-bs-toggle="tab" data-link="source">Source</a>
         </li>
 </ul>
 
 <div class="tab-content">
-    <div class="tab-pane fade active in" id="c-info">
+    <div class="tab-pane fade active in" id="info">
         <p class="comment">
             <h3>File</h3>
         </p>
@@ -64,20 +74,25 @@
         </p>
 
             <p class="comment">
+                <h3 class="deprecated">Deprecated</h3>
+            </p>
+            <p class="comment">
+                
+            </p>
+
+            <p class="comment">
                 <h3>Description</h3>
             </p>
             <p class="comment">
                 <p>An implementation of the page object pattern, but applied to widgets, since they can be reused on multiple pages.</p>
 <p>The main purpose for the wrapper are providing access to the internals of a widget avoiding duplication of code that
 queries the internals of a component from a test.</p>
-<h2 id="subclass-rules">Subclass Rules</h2>
+<h2>Subclass Rules</h2>
 <ul>
 <li>Methods exposed by subclasses should not expose HTMLElements or DebugElements directly. That would encourage
-callers to query it from the outside creating potential duplicate querying code and abstraction leaks.<ul>
+callers to query it from the outside creating potential duplicate querying code and abstraction leaks.</li>
 <li>Subclasses also should not have testing assertions. They should only provide the state and the calling test can
 assert code on its own.</li>
-</ul>
-</li>
 </ul>
 <p><code>T</code> is the type of the JS/TS object being wrapped</p>
 <p>It is recommended that files for implementations be named with a <code>.wo.ts</code> extension</p>
@@ -86,13 +101,8 @@ assert code on its own.</li>
 
 
 
-            <p class="comment">
-                <h3>Example</h3>
-            </p>
-            <div class="io-description">
-            </div>
 
-            <section>
+            <section data-compodoc="block-index">
     <h3 id="index">Index</h3>
     <table class="table table-sm table-bordered index-table">
         <tbody>
@@ -106,7 +116,7 @@ assert code on its own.</li>
                         <ul class="index-list">
                             <li>
                                     <span class="modifier">Public</span>
-                                <a href="#component">component</a>
+                                <a href="#component" >component</a>
                             </li>
                         </ul>
                     </td>
@@ -122,38 +132,38 @@ assert code on its own.</li>
                         <ul class="index-list">
                             <li>
                                     <span class="modifier">Protected</span>
-                                <a href="#click">click</a>
+                                <a href="#click" >click</a>
                             </li>
                             <li>
-                                <a href="#detectChanges">detectChanges</a>
-                            </li>
-                            <li>
-                                    <span class="modifier">Protected</span>
-                                <a href="#findElement">findElement</a>
+                                <a href="#detectChanges" >detectChanges</a>
                             </li>
                             <li>
                                     <span class="modifier">Protected</span>
-                                <a href="#findElements">findElements</a>
+                                <a href="#findElement" >findElement</a>
                             </li>
                             <li>
                                     <span class="modifier">Protected</span>
-                                <a href="#getNodeText">getNodeText</a>
+                                <a href="#findElements" >findElements</a>
                             </li>
                             <li>
                                     <span class="modifier">Protected</span>
-                                <a href="#getText">getText</a>
+                                <a href="#getNodeText" >getNodeText</a>
                             </li>
                             <li>
                                     <span class="modifier">Protected</span>
-                                <a href="#getTexts">getTexts</a>
+                                <a href="#getText" >getText</a>
                             </li>
                             <li>
                                     <span class="modifier">Protected</span>
-                                <a href="#sendKeyboardEvent">sendKeyboardEvent</a>
+                                <a href="#getTexts" >getTexts</a>
                             </li>
                             <li>
                                     <span class="modifier">Protected</span>
-                                <a href="#setInputValue">setInputValue</a>
+                                <a href="#sendKeyboardEvent" >sendKeyboardEvent</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Protected</span>
+                                <a href="#setInputValue" >setInputValue</a>
                             </li>
                         </ul>
                     </td>
@@ -167,13 +177,13 @@ assert code on its own.</li>
     </table>
 </section>
 
-            <section>
+            <section data-compodoc="block-constructor">
     <h3 id="constructor">Constructor</h3>
         <table class="table table-sm table-bordered">
             <tbody>
                 <tr>
                     <td class="col-md-4">
-<code>constructor(fixture: ComponentFixture<any>, root: <a href="https://angular.io/api/core/DebugElement" target="_blank">DebugElement</a>, component: T)</code>
+<code>constructor(fixture: ComponentFixture<any>, root: DebugElement, component: T)</code>
                     </td>
                 </tr>
                         <tr>
@@ -186,6 +196,8 @@ assert code on its own.</li>
                     <td class="col-md-4">
                             <div class="io-description"><p>Constructor should only be called directly if you are directly instantiating the widget being wrapped (T). If you
 need to find a widget within the tree, you should use <a href="find">find</a>.</p>
+<p>component but there are times when we must check the DOM.
+requires re-rendering of the DOM.</p>
 </div>
                             <div>
                                     <b>Parameters :</b>
@@ -211,15 +223,16 @@ need to find a widget within the tree, you should use <a href="find">find</a>.</
                                                     </td>
                                                     
                                                         <td>
-                                                                <code><p>The test fixture, so we can call {</p>
-</code>
+                                                                <p>The test fixture, so we can call <a href="ComponentFixture.detectChanges">ComponentFixture.detectChanges</a> after something that
+requires re-rendering of the DOM.</p>
+
                                                         </td>
                                                 </tr>
                                                 <tr>
                                                         <td>root</td>
                                                   
                                                         <td>
-                                                                        <code><a href="https://angular.io/api/core/DebugElement" target="_blank" >DebugElement</a></code>
+                                                                    <code>DebugElement</code>
                                                         </td>
                                                   
                                                     <td>
@@ -227,9 +240,9 @@ need to find a widget within the tree, you should use <a href="find">find</a>.</
                                                     </td>
                                                     
                                                         <td>
-                                                                <code><p>The root element (host) for the component instance. We typically prefer to interact with the
+                                                                <p>The root element (host) for the component instance. We typically prefer to interact with the
 component but there are times when we must check the DOM.</p>
-</code>
+
                                                         </td>
                                                 </tr>
                                                 <tr>
@@ -244,8 +257,8 @@ component but there are times when we must check the DOM.</p>
                                                     </td>
                                                     
                                                         <td>
-                                                                <code><p>The component instance being managed. Whenever possible, we should access the component&#39;s API.</p>
-</code>
+                                                                <p>The component instance being managed. Whenever possible, we should access the component&#39;s API.</p>
+
                                                         </td>
                                                 </tr>
                                         </tbody>
@@ -257,52 +270,51 @@ component but there are times when we must check the DOM.</p>
         </table>
 </section>
 
-            <section>
+            <section data-compodoc="block-properties">
     
-        <h3 id="inputs">
-            Properties
-        </h3>
-        <table class="table table-sm table-bordered">
-            <tbody>
+    <h3 id="inputs">
+        Properties
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="component"></a>
+                    <span class="name">
+                            <span class="modifier">Public</span>
+                        <span ><b>component</b></span>
+                        <a href="#component"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
                 <tr>
                     <td class="col-md-4">
-                        <a name="component"></a>
-                        <span class="name">
-                            <b>
-                                <span class="modifier">Public</span>
-                            component</b>
-                            <a href="#component"><span class="icon ion-ios-link"></span></a>
-                        </span>
+                        <i>Type : </i>    <code>T</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>fixture.componentInstance</code>
                     </td>
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                            <i>Type : </i>    <code>T</code>
-
+                                <div class="io-line">Defined in <a href="" data-line="44" class="link-to-prism">projects/components/src/utils/test/widget-object.ts:44</a></div>
                         </td>
                     </tr>
-                    <tr>
-                        <td class="col-md-4">
-                            <i>Default value : </i><code>fixture.componentInstance</code>
-                        </td>
-                    </tr>
-                        <tr>
-                            <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="44" class="link-to-prism">projects/components/src/utils/test/widget-object.ts:44</a></div>
-                            </td>
-                        </tr>
 
-                <tr>
-                    <td class="col-md-4">
-                        <div class="io-description">The component instance being managed. Whenever possible, we should access the component's API.</div>
-                    </td>
-                </tr>
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description">The component instance being managed. Whenever possible, we should access the component's API.</div>
+                </td>
+            </tr>
 
-            </tbody>
-        </table>
+        </tbody>
+    </table>
 </section>
 
-            <section>
+            <section data-compodoc="block-methods">
     
     <h3 id="methods">
         Methods
@@ -313,10 +325,8 @@ component but there are times when we must check the DOM.</p>
                 <td class="col-md-4">
                     <a name="click"></a>
                     <span class="name">
-                        <b>
-                            <span class="modifier">Protected</span>
-                            click
-                        </b>
+                        <span class="modifier">Protected</span>
+                        <span ><b>click</b></span>
                         <a href="#click"><span class="icon ion-ios-link"></span></a>
                     </span>
                 </td>
@@ -324,7 +334,7 @@ component but there are times when we must check the DOM.</p>
             <tr>
                 <td class="col-md-4">
                     <span class="modifier-icon icon ion-ios-reset"></span>
-                    <code>click(cssSelector?: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>, parent: <a href="https://angular.io/api/core/DebugElement" target="_blank">DebugElement</a>)</code>
+                    <code>click(cssSelector?: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>, parent: DebugElement)</code>
                 </td>
             </tr>
 
@@ -339,11 +349,13 @@ component but there are times when we must check the DOM.</p>
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-description"><p>Clicks an element and detects changes so the DOM is immediately updated</p>
+                    <div class="io-description"><p>Clicks an element and detects changes so the DOM is immediately updated
+receive the click event</p>
 </div>
 
                     <div class="io-description">
                         <b>Parameters :</b>
+                        
                         <table class="params">
                             <thead>
                                 <tr>
@@ -377,7 +389,7 @@ receive the click event</p>
                                 <tr>
                                     <td>parent</td>
                                     <td>
-                                                <code><a href="https://angular.io/api/core/DebugElement" target="_blank" >DebugElement</a></code>
+                                            <code>DebugElement</code>
                                     </td>
 
                                     <td>
@@ -389,7 +401,7 @@ receive the click event</p>
                                     </td>
 
                                     <td>
-                                        <p>the parent element for which to search for the {</p>
+                                        <p>the parent element for which to search for the {@param cssSelector} within. Defaults to root if not provided.</p>
 
                                     </td>
                                 </tr>
@@ -415,9 +427,7 @@ receive the click event</p>
                 <td class="col-md-4">
                     <a name="detectChanges"></a>
                     <span class="name">
-                        <b>
-                            detectChanges
-                        </b>
+                        <span ><b>detectChanges</b></span>
                         <a href="#detectChanges"><span class="icon ion-ios-link"></span></a>
                     </span>
                 </td>
@@ -454,10 +464,8 @@ receive the click event</p>
                 <td class="col-md-4">
                     <a name="findElement"></a>
                     <span class="name">
-                        <b>
-                            <span class="modifier">Protected</span>
-                            findElement
-                        </b>
+                        <span class="modifier">Protected</span>
+                        <span ><b>findElement</b></span>
                         <a href="#findElement"><span class="icon ion-ios-link"></span></a>
                     </span>
                 </td>
@@ -465,7 +473,7 @@ receive the click event</p>
             <tr>
                 <td class="col-md-4">
                     <span class="modifier-icon icon ion-ios-reset"></span>
-                    <code>findElement(selector: string | Type<unknown>, parent: <a href="https://angular.io/api/core/DebugElement" target="_blank">DebugElement</a>)</code>
+                    <code>findElement(selector: string | Type<>, parent: DebugElement)</code>
                 </td>
             </tr>
 
@@ -485,6 +493,7 @@ receive the click event</p>
 
                     <div class="io-description">
                         <b>Parameters :</b>
+                        
                         <table class="params">
                             <thead>
                                 <tr>
@@ -499,7 +508,7 @@ receive the click event</p>
                                 <tr>
                                     <td>selector</td>
                                     <td>
-                                            <code>string | Type&lt;unknown&gt;</code>
+                                            <code>string | Type&lt;&gt;</code>
                                     </td>
 
                                     <td>
@@ -517,7 +526,7 @@ receive the click event</p>
                                 <tr>
                                     <td>parent</td>
                                     <td>
-                                                <code><a href="https://angular.io/api/core/DebugElement" target="_blank" >DebugElement</a></code>
+                                            <code>DebugElement</code>
                                     </td>
 
                                     <td>
@@ -539,7 +548,7 @@ receive the click event</p>
                     <div>
                     </div>
                     <div class="io-description">
-                        <b>Returns : </b>        <code><a href="https://angular.io/api/core/DebugElement" target="_blank" >DebugElement</a></code>
+                        <b>Returns : </b>    <code>DebugElement</code>
 
                     </div>
                     <div class="io-description">
@@ -555,10 +564,8 @@ receive the click event</p>
                 <td class="col-md-4">
                     <a name="findElements"></a>
                     <span class="name">
-                        <b>
-                            <span class="modifier">Protected</span>
-                            findElements
-                        </b>
+                        <span class="modifier">Protected</span>
+                        <span ><b>findElements</b></span>
                         <a href="#findElements"><span class="icon ion-ios-link"></span></a>
                     </span>
                 </td>
@@ -566,7 +573,7 @@ receive the click event</p>
             <tr>
                 <td class="col-md-4">
                     <span class="modifier-icon icon ion-ios-reset"></span>
-                    <code>findElements(selector: string | Type<unknown>, parent: <a href="https://angular.io/api/core/DebugElement" target="_blank">DebugElement</a>)</code>
+                    <code>findElements(selector: string | Type<>, parent: DebugElement)</code>
                 </td>
             </tr>
 
@@ -586,6 +593,7 @@ receive the click event</p>
 
                     <div class="io-description">
                         <b>Parameters :</b>
+                        
                         <table class="params">
                             <thead>
                                 <tr>
@@ -599,7 +607,7 @@ receive the click event</p>
                                 <tr>
                                     <td>selector</td>
                                     <td>
-                                            <code>string | Type&lt;unknown&gt;</code>
+                                            <code>string | Type&lt;&gt;</code>
                                     </td>
 
                                     <td>
@@ -613,7 +621,7 @@ receive the click event</p>
                                 <tr>
                                     <td>parent</td>
                                     <td>
-                                                <code><a href="https://angular.io/api/core/DebugElement" target="_blank" >DebugElement</a></code>
+                                            <code>DebugElement</code>
                                     </td>
 
                                     <td>
@@ -647,10 +655,8 @@ receive the click event</p>
                 <td class="col-md-4">
                     <a name="getNodeText"></a>
                     <span class="name">
-                        <b>
-                            <span class="modifier">Protected</span>
-                            getNodeText
-                        </b>
+                        <span class="modifier">Protected</span>
+                        <span ><b>getNodeText</b></span>
                         <a href="#getNodeText"><span class="icon ion-ios-link"></span></a>
                     </span>
                 </td>
@@ -658,7 +664,7 @@ receive the click event</p>
             <tr>
                 <td class="col-md-4">
                     <span class="modifier-icon icon ion-ios-reset"></span>
-                    <code>getNodeText(el: <a href="https://angular.io/api/core/DebugElement" target="_blank">DebugElement</a>)</code>
+                    <code>getNodeText(el: DebugElement)</code>
                 </td>
             </tr>
 
@@ -676,6 +682,7 @@ receive the click event</p>
 
                     <div class="io-description">
                         <b>Parameters :</b>
+                        
                         <table class="params">
                             <thead>
                                 <tr>
@@ -688,7 +695,7 @@ receive the click event</p>
                                 <tr>
                                     <td>el</td>
                                     <td>
-                                                <code><a href="https://angular.io/api/core/DebugElement" target="_blank" >DebugElement</a></code>
+                                            <code>DebugElement</code>
                                     </td>
 
                                     <td>
@@ -719,10 +726,8 @@ receive the click event</p>
                 <td class="col-md-4">
                     <a name="getText"></a>
                     <span class="name">
-                        <b>
-                            <span class="modifier">Protected</span>
-                            getText
-                        </b>
+                        <span class="modifier">Protected</span>
+                        <span ><b>getText</b></span>
                         <a href="#getText"><span class="icon ion-ios-link"></span></a>
                     </span>
                 </td>
@@ -730,7 +735,7 @@ receive the click event</p>
             <tr>
                 <td class="col-md-4">
                     <span class="modifier-icon icon ion-ios-reset"></span>
-                    <code>getText(cssSelector: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>, parent: <a href="https://angular.io/api/core/DebugElement" target="_blank">DebugElement</a>)</code>
+                    <code>getText(cssSelector: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>, parent: DebugElement)</code>
                 </td>
             </tr>
 
@@ -751,6 +756,7 @@ If the element cannot be found, gives empty string.</p>
 
                     <div class="io-description">
                         <b>Parameters :</b>
+                        
                         <table class="params">
                             <thead>
                                 <tr>
@@ -783,7 +789,7 @@ If the element cannot be found, gives empty string.</p>
                                 <tr>
                                     <td>parent</td>
                                     <td>
-                                                <code><a href="https://angular.io/api/core/DebugElement" target="_blank" >DebugElement</a></code>
+                                            <code>DebugElement</code>
                                     </td>
 
                                     <td>
@@ -821,10 +827,8 @@ If the element cannot be found, gives empty string.</p>
                 <td class="col-md-4">
                     <a name="getTexts"></a>
                     <span class="name">
-                        <b>
-                            <span class="modifier">Protected</span>
-                            getTexts
-                        </b>
+                        <span class="modifier">Protected</span>
+                        <span ><b>getTexts</b></span>
                         <a href="#getTexts"><span class="icon ion-ios-link"></span></a>
                     </span>
                 </td>
@@ -852,6 +856,7 @@ If the element cannot be found, gives empty string.</p>
 
                     <div class="io-description">
                         <b>Parameters :</b>
+                        
                         <table class="params">
                             <thead>
                                 <tr>
@@ -895,10 +900,8 @@ If the element cannot be found, gives empty string.</p>
                 <td class="col-md-4">
                     <a name="sendKeyboardEvent"></a>
                     <span class="name">
-                        <b>
-                            <span class="modifier">Protected</span>
-                            sendKeyboardEvent
-                        </b>
+                        <span class="modifier">Protected</span>
+                        <span ><b>sendKeyboardEvent</b></span>
                         <a href="#sendKeyboardEvent"><span class="icon ion-ios-link"></span></a>
                     </span>
                 </td>
@@ -906,7 +909,7 @@ If the element cannot be found, gives empty string.</p>
             <tr>
                 <td class="col-md-4">
                     <span class="modifier-icon icon ion-ios-reset"></span>
-                    <code>sendKeyboardEvent(eventType, eventProperties: literal type, cssSelector?: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>, parent: <a href="https://angular.io/api/core/DebugElement" target="_blank">DebugElement</a>)</code>
+                    <code>sendKeyboardEvent(eventType, eventProperties: literal type, cssSelector?: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>, parent: DebugElement)</code>
                 </td>
             </tr>
 
@@ -924,11 +927,13 @@ If the element cannot be found, gives empty string.</p>
                     <div class="io-description"><p>Send a keyboard event of type {@param eventType} with properties {@param eventProperties} on an element
 found by the {@param cssSelector} within the provided {@param parent} or the current root element.
 Setting the event properties is done with <code>Object.defineProperty</code> on the created event. This allows setting
-properties like <code>which</code> that is deprecated and cannot be set with the native approach of creating keyboard event.</p>
+properties like <code>which</code> that is deprecated and cannot be set with the native approach of creating keyboard event.
+       If not passed in, the event will be triggered on the entire node</p>
 </div>
 
                     <div class="io-description">
                         <b>Parameters :</b>
+                        
                         <table class="params">
                             <thead>
                                 <tr>
@@ -997,7 +1002,7 @@ If not passed in, the event will be triggered on the entire node</p>
                                 <tr>
                                     <td>parent</td>
                                     <td>
-                                                <code><a href="https://angular.io/api/core/DebugElement" target="_blank" >DebugElement</a></code>
+                                            <code>DebugElement</code>
                                     </td>
 
                                     <td>
@@ -1009,7 +1014,7 @@ If not passed in, the event will be triggered on the entire node</p>
                                     </td>
 
                                     <td>
-                                        <p>the parent element for which to search for the {</p>
+                                        <p>the parent element for which to search for the {@param cssSelector} within. Defaults to root if not provided.</p>
 
                                     </td>
                                 </tr>
@@ -1035,10 +1040,8 @@ If not passed in, the event will be triggered on the entire node</p>
                 <td class="col-md-4">
                     <a name="setInputValue"></a>
                     <span class="name">
-                        <b>
-                            <span class="modifier">Protected</span>
-                            setInputValue
-                        </b>
+                        <span class="modifier">Protected</span>
+                        <span ><b>setInputValue</b></span>
                         <a href="#setInputValue"><span class="icon ion-ios-link"></span></a>
                     </span>
                 </td>
@@ -1046,7 +1049,7 @@ If not passed in, the event will be triggered on the entire node</p>
             <tr>
                 <td class="col-md-4">
                     <span class="modifier-icon icon ion-ios-reset"></span>
-                    <code>setInputValue(value: string | number, cssSelector?: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>, parent: <a href="https://angular.io/api/core/DebugElement" target="_blank">DebugElement</a>)</code>
+                    <code>setInputValue(value: string | number, cssSelector?: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>, parent: DebugElement)</code>
                 </td>
             </tr>
 
@@ -1061,11 +1064,13 @@ If not passed in, the event will be triggered on the entire node</p>
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-description"><p>Sets the value of an input element or textarea element</p>
+                    <div class="io-description"><p>Sets the value of an input element or textarea element
+       If not passed in, the event will be triggered on the entire node</p>
 </div>
 
                     <div class="io-description">
                         <b>Parameters :</b>
+                        
                         <table class="params">
                             <thead>
                                 <tr>
@@ -1117,7 +1122,7 @@ If not passed in, the event will be triggered on the entire node</p>
                                 <tr>
                                     <td>parent</td>
                                     <td>
-                                                <code><a href="https://angular.io/api/core/DebugElement" target="_blank" >DebugElement</a></code>
+                                            <code>DebugElement</code>
                                     </td>
 
                                     <td>
@@ -1129,7 +1134,7 @@ If not passed in, the event will be triggered on the entire node</p>
                                     </td>
 
                                     <td>
-                                        <p>the parent element for which to search for the {</p>
+                                        <p>the parent element for which to search for the {@param cssSelector} within. Defaults to root if not provided.</p>
 
                                     </td>
                                 </tr>
@@ -1158,7 +1163,7 @@ If not passed in, the event will be triggered on the entire node</p>
     </div>
 
 
-    <div class="tab-pane fade  tab-source-code" id="c-source">
+    <div class="tab-pane fade  tab-source-code" id="source">
         <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { DebugElement, Type } from &#x27;@angular/core&#x27;;
 import { ComponentFixture, TestBed } from &#x27;@angular/core/testing&#x27;;
 import { By } from &#x27;@angular/platform-browser&#x27;;
@@ -1418,14 +1423,15 @@ export interface HasFinder&lt;T &#x3D; unknown&gt; {
 
 
 
-                   
+
+
 
 
 
 
                    </div><div class="search-results">
     <div class="has-results">
-        <h1 class="search-results-title"><span class='search-results-count'></span> result-matching "<span class='search-query'></span>"</h1>
+        <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
         <ul class="search-results-list"></ul>
     </div>
     <div class="no-results">
@@ -1437,6 +1443,15 @@ export interface HasFinder&lt;T &#x3D; unknown&gt; {
            </div>
        </div>
 
+          <label class="dark-mode-switch">
+               <input type="checkbox">
+               <span class="slider">
+                    <svg class="slider-icon" viewBox="0 0 24 24" fill="none" height="20" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" width="20" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"></path>
+                    </svg>
+               </span>
+          </label>
+
        <script>
             var COMPODOC_CURRENT_PAGE_DEPTH = 1;
             var COMPODOC_CURRENT_PAGE_CONTEXT = 'class';
@@ -1446,9 +1461,9 @@ export interface HasFinder&lt;T &#x3D; unknown&gt; {
 
        <script src="../js/libs/custom-elements.min.js"></script>
        <script src="../js/libs/lit-html.js"></script>
-       <!-- Required to polyfill modern browsers as code is ES5 for IE... -->
-       <script src="../js/libs/custom-elements-es5-adapter.js" charset="utf-8" defer></script>
+
        <script src="../js/menu-wc.js" defer></script>
+       <script nomodule src="../js/menu-wc_es5.js" defer></script>
 
        <script src="../js/libs/bootstrap-native.js"></script>
 

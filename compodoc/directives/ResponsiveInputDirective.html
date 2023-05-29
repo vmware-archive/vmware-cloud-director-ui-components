@@ -8,11 +8,12 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
         <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
-	      <link rel="stylesheet" href="../styles/style.css">
+	   <link rel="stylesheet" href="../styles/style.css">
+        <link rel="stylesheet" href="../styles/dark.css">
     </head>
     <body>
 
-        <div class="navbar navbar-default navbar-fixed-top visible-xs">
+        <div class="navbar navbar-default navbar-fixed-top d-block d-sm-none">
             <a href="../" class="navbar-brand">vmware-cloud-director-ui-components documentation</a>
             <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
         </div>
@@ -35,28 +36,36 @@
 
 
 
+
 <ol class="breadcrumb">
-  <li>Directives</li>
-  <li>ResponsiveInputDirective</li>
+  <li class="breadcrumb-item">Directives</li>
+  <li class="breadcrumb-item" >ResponsiveInputDirective</li>
 </ol>
 
 <ul class="nav nav-tabs" role="tablist">
-        <li class="active">
-            <a href="#info" role="tab" id="info-tab" data-toggle="tab" data-link="info">Info</a>
+        <li class="nav-item">
+            <a href="#info" 
+                class="nav-link"
+                class="nav-link active"
+                role="tab" id="info-tab" data-bs-toggle="tab" data-link="info">Info</a>
         </li>
-        <li >
-            <a href="#source" role="tab" id="source-tab" data-toggle="tab" data-link="source">Source</a>
+        <li class="nav-item">
+            <a href="#source" 
+                class="nav-link"
+                
+                role="tab" id="source-tab" data-bs-toggle="tab" data-link="source">Source</a>
         </li>
 </ul>
 
 <div class="tab-content">
-    <div class="tab-pane fade active in" id="c-info">
+    <div class="tab-pane fade active in" id="info">
         <p class="comment">
             <h3>File</h3>
         </p>
         <p class="comment">
             <code>projects/components/src/lib/directives/responsive-input/responsive-input.directive.ts</code>
         </p>
+
 
             <p class="comment">
                 <h3>Description</h3>
@@ -68,17 +77,18 @@ lines and to control the label width for large screens.</p>
 
             </p>
 
+
             <p class="comment">
                 <h3>Implements</h3>
             </p>
             <p class="comment">
-                            <code><a href="https://angular.io/api/core/AfterViewChecked" target="_blank" >AfterViewChecked</a></code>
+                        <code>AfterViewChecked</code>
             </p>
 
 
-        <section>
+        <section data-compodoc="block-metadata">
             <h3>Metadata</h3>
-            <table class="table table-sm table-hover">
+            <table class="table table-sm table-hover metadata">
                 <tbody>
 
                     <tr>
@@ -86,11 +96,14 @@ lines and to control the label width for large screens.</p>
                         <td class="col-md-9"><code>.clr-form-control[vcdResponsiveInput]</code></td>
                     </tr>
 
+
+
+
                 </tbody>
             </table>
         </section>
 
-            <section>
+            <section data-compodoc="block-index">
     <h3 id="index">Index</h3>
     <table class="table table-sm table-bordered index-table">
         <tbody>
@@ -104,15 +117,20 @@ lines and to control the label width for large screens.</p>
                         <ul class="index-list">
                             <li>
                                     <span class="modifier">Private</span>
-                                <a href="#_disabled">_disabled</a>
+                                <a href="#_disabled" >_disabled</a>
                             </li>
                             <li>
                                     <span class="modifier">Private</span>
-                                <a href="#breakPoint">breakPoint</a>
+                                <a href="#breakPoint" >breakPoint</a>
+                            </li>
+                            <li>
+                                    <span class="modifier"></span>
+                                    <span class="modifier">Public</span>
+                                <a href="#clrGridRow" >clrGridRow</a>
                             </li>
                             <li>
                                     <span class="modifier">Private</span>
-                                <a href="#elementWidth">elementWidth</a>
+                                <a href="#elementWidth" >elementWidth</a>
                             </li>
                         </ul>
                     </td>
@@ -128,10 +146,10 @@ lines and to control the label width for large screens.</p>
                         <ul class="index-list">
                             <li>
                                     <span class="modifier">Private</span>
-                                <a href="#applyClasses">applyClasses</a>
+                                <a href="#applyClasses" >applyClasses</a>
                             </li>
                             <li>
-                                <a href="#ngAfterViewChecked">ngAfterViewChecked</a>
+                                <a href="#ngAfterViewChecked" >ngAfterViewChecked</a>
                             </li>
                         </ul>
                     </td>
@@ -146,7 +164,7 @@ lines and to control the label width for large screens.</p>
                     <td class="col-md-4">
                         <ul class="index-list">
                             <li>
-                                <a href="#vcdResponsiveInput">vcdResponsiveInput</a>
+                                <a href="#vcdResponsiveInput" >vcdResponsiveInput</a>
                             </li>
                         </ul>
                     </td>
@@ -162,7 +180,7 @@ lines and to control the label width for large screens.</p>
                     <td class="col-md-4">
                         <ul class="index-list">
                             <li>
-                                <a href="#class.clr-row">class.clr-row</a>
+                                <a href="#class.clr-row" >class.clr-row</a>
                             </li>
                         </ul>
                     </td>
@@ -178,10 +196,10 @@ lines and to control the label width for large screens.</p>
                         <td class="col-md-4">
                             <ul class="index-list">
                                 <li>
-                                    <a href="#options">options</a>
+                                    <a href="#options" >options</a>
                                 </li>
                                 <li>
-                                    <a href="#disabled">disabled</a>
+                                    <a href="#disabled" >disabled</a>
                                 </li>
                             </ul>
                         </td>
@@ -190,7 +208,7 @@ lines and to control the label width for large screens.</p>
     </table>
 </section>
 
-            <section>
+            <section data-compodoc="block-constructor">
     <h3 id="constructor">Constructor</h3>
         <table class="table table-sm table-bordered">
             <tbody>
@@ -239,7 +257,7 @@ lines and to control the label width for large screens.</p>
         </table>
 </section>
 
-            <section>
+            <section data-compodoc="block-inputs">
     <h3 id="inputs">Inputs</h3>
         <table class="table table-sm table-bordered">
             <tbody>
@@ -270,43 +288,42 @@ lines and to control the label width for large screens.</p>
         </table>
 </section>
 
-            <section>
-    <h3>HostBindings</h3>        <table class="table table-sm table-bordered">
-            <tbody>
+            <section data-compodoc="block-properties">
+    <h3>HostBindings</h3>    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="class.clr-row"></a>
+                    <span class="name">
+                        <span ><b>class.clr-row</b></span>
+                        <a href="#class.clr-row"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
                 <tr>
                     <td class="col-md-4">
-                        <a name="class.clr-row"></a>
-                        <span class="name">
-                            <b>
-                            class.clr-row</b>
-                            <a href="#class.clr-row"><span class="icon ion-ios-link"></span></a>
-                        </span>
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank" >boolean</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>true</code>
                     </td>
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                            <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank" >boolean</a></code>
-
+                                <div class="io-line">Defined in <a href="" data-line="43" class="link-to-prism">projects/components/src/lib/directives/responsive-input/responsive-input.directive.ts:43</a></div>
                         </td>
                     </tr>
-                    <tr>
-                        <td class="col-md-4">
-                            <i>Default value : </i><code>true</code>
-                        </td>
-                    </tr>
-                        <tr>
-                            <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="43" class="link-to-prism">projects/components/src/lib/directives/responsive-input/responsive-input.directive.ts:43</a></div>
-                            </td>
-                        </tr>
 
 
-            </tbody>
-        </table>
+        </tbody>
+    </table>
 </section>
 
 
-            <section>
+            <section data-compodoc="block-methods">
     
     <h3 id="methods">
         Methods
@@ -317,10 +334,8 @@ lines and to control the label width for large screens.</p>
                 <td class="col-md-4">
                     <a name="applyClasses"></a>
                     <span class="name">
-                        <b>
-                            <span class="modifier">Private</span>
-                            applyClasses
-                        </b>
+                        <span class="modifier">Private</span>
+                        <span ><b>applyClasses</b></span>
                         <a href="#applyClasses"><span class="icon ion-ios-link"></span></a>
                     </span>
                 </td>
@@ -328,7 +343,7 @@ lines and to control the label width for large screens.</p>
             <tr>
                 <td class="col-md-4">
                     <span class="modifier-icon icon ion-ios-reset"></span>
-                    <code>applyClasses(className: "label" | "container", mdSize: <a href="../undefineds/ColSize.html">ColSize</a>)</code>
+                    <code>applyClasses(className: "label" | "container", mdSize: <a href="../undefineds/ColSize.html" target="_self">ColSize</a>)</code>
                 </td>
             </tr>
 
@@ -346,6 +361,7 @@ lines and to control the label width for large screens.</p>
 
                     <div class="io-description">
                         <b>Parameters :</b>
+                        
                         <table class="params">
                             <thead>
                                 <tr>
@@ -401,9 +417,7 @@ lines and to control the label width for large screens.</p>
                 <td class="col-md-4">
                     <a name="ngAfterViewChecked"></a>
                     <span class="name">
-                        <b>
-                            ngAfterViewChecked
-                        </b>
+                        <span ><b>ngAfterViewChecked</b></span>
                         <a href="#ngAfterViewChecked"><span class="icon ion-ios-link"></span></a>
                     </span>
                 </td>
@@ -435,113 +449,140 @@ lines and to control the label width for large screens.</p>
         </tbody>
     </table>
 </section>
-            <section>
+            <section data-compodoc="block-properties">
     
-        <h3 id="inputs">
-            Properties
-        </h3>
-        <table class="table table-sm table-bordered">
-            <tbody>
+    <h3 id="inputs">
+        Properties
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="_disabled"></a>
+                    <span class="name">
+                            <span class="modifier">Private</span>
+                        <span ><b>_disabled</b></span>
+                        <a href="#_disabled"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
                 <tr>
                     <td class="col-md-4">
-                        <a name="_disabled"></a>
-                        <span class="name">
-                            <b>
-                                <span class="modifier">Private</span>
-                            _disabled</b>
-                            <a href="#_disabled"><span class="icon ion-ios-link"></span></a>
-                        </span>
+                        <i>Default value : </i><code>false</code>
                     </td>
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                            <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank" >boolean</a></code>
-
+                                <div class="io-line">Defined in <a href="" data-line="41" class="link-to-prism">projects/components/src/lib/directives/responsive-input/responsive-input.directive.ts:41</a></div>
                         </td>
                     </tr>
-                    <tr>
-                        <td class="col-md-4">
-                            <i>Default value : </i><code>false</code>
-                        </td>
-                    </tr>
-                        <tr>
-                            <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="41" class="link-to-prism">projects/components/src/lib/directives/responsive-input/responsive-input.directive.ts:41</a></div>
-                            </td>
-                        </tr>
 
 
-            </tbody>
-        </table>
-        <table class="table table-sm table-bordered">
-            <tbody>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="breakPoint"></a>
+                    <span class="name">
+                            <span class="modifier">Private</span>
+                        <span ><b>breakPoint</b></span>
+                        <a href="#breakPoint"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
                 <tr>
                     <td class="col-md-4">
-                        <a name="breakPoint"></a>
-                        <span class="name">
-                            <b>
-                                <span class="modifier">Private</span>
-                            breakPoint</b>
-                            <a href="#breakPoint"><span class="icon ion-ios-link"></span></a>
-                        </span>
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>768</code>
                     </td>
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                            <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
-
+                                <div class="io-line">Defined in <a href="" data-line="26" class="link-to-prism">projects/components/src/lib/directives/responsive-input/responsive-input.directive.ts:26</a></div>
                         </td>
                     </tr>
-                    <tr>
-                        <td class="col-md-4">
-                            <i>Default value : </i><code>768</code>
-                        </td>
-                    </tr>
-                        <tr>
-                            <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="26" class="link-to-prism">projects/components/src/lib/directives/responsive-input/responsive-input.directive.ts:26</a></div>
-                            </td>
-                        </tr>
 
 
-            </tbody>
-        </table>
-        <table class="table table-sm table-bordered">
-            <tbody>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="clrGridRow"></a>
+                    <span class="name">
+                            <span class="modifier"></span>
+                            <span class="modifier">Public</span>
+                        <span ><b>clrGridRow</b></span>
+                        <a href="#clrGridRow"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
                 <tr>
                     <td class="col-md-4">
-                        <a name="elementWidth"></a>
-                        <span class="name">
-                            <b>
-                                <span class="modifier">Private</span>
-                            elementWidth</b>
-                            <a href="#elementWidth"><span class="icon ion-ios-link"></span></a>
-                        </span>
+                        <i>Default value : </i><code>true</code>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <b>Decorators : </b>
+                        <br />
+                        <code>
+                            @HostBinding(&#x27;class.clr-row&#x27;)<br />
+                        </code>
                     </td>
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                            <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
-
+                                <div class="io-line">Defined in <a href="" data-line="43" class="link-to-prism">projects/components/src/lib/directives/responsive-input/responsive-input.directive.ts:43</a></div>
                         </td>
                     </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="elementWidth"></a>
+                    <span class="name">
+                            <span class="modifier">Private</span>
+                        <span ><b>elementWidth</b></span>
+                        <a href="#elementWidth"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>0</code>
+                    </td>
+                </tr>
                     <tr>
                         <td class="col-md-4">
-                            <i>Default value : </i><code>0</code>
+                                <div class="io-line">Defined in <a href="" data-line="24" class="link-to-prism">projects/components/src/lib/directives/responsive-input/responsive-input.directive.ts:24</a></div>
                         </td>
                     </tr>
-                        <tr>
-                            <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="24" class="link-to-prism">projects/components/src/lib/directives/responsive-input/responsive-input.directive.ts:24</a></div>
-                            </td>
-                        </tr>
 
 
-            </tbody>
-        </table>
+        </tbody>
+    </table>
 </section>
 
-            <section>
+            <section data-compodoc="block-accessors">
     <h3 id="accessors">
         Accessors
     </h3>
@@ -557,7 +598,7 @@ lines and to control the label width for large screens.</p>
 
                 <tr>
                     <td class="col-md-4">
-                        <span class="accessor"><b>set</b><code>options(value)</code></span>
+                        <span class="accessor"><b>set</b><code>options(value: <a href="../interfaces/ResponsiveInputOptions.html" target="_self">ResponsiveInputOptions</a>)</code></span>
                     </td>
                 </tr>
                             <tr>
@@ -576,6 +617,7 @@ lines and to control the label width for large screens.</p>
                                             <thead>
                                                 <tr>
                                                     <td>Name</td>
+                                                        <td>Type</td>
                                                     <td>Optional</td>
                                                 </tr>
                                             </thead>
@@ -583,6 +625,9 @@ lines and to control the label width for large screens.</p>
                                                     <tr>
                                                             <td>value</td>
                                                     
+                                                            <td>
+                                                                            <code><a href="../interfaces/ResponsiveInputOptions.html" target="_self" >ResponsiveInputOptions</a></code>
+                                                            </td>
                                                     
                                                         <td>
                                                                 No
@@ -629,7 +674,7 @@ lines and to control the label width for large screens.</p>
     </div>
 
 
-    <div class="tab-pane fade  tab-source-code" id="c-source">
+    <div class="tab-pane fade  tab-source-code" id="source">
         <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { AfterViewChecked, Directive, ElementRef, HostBinding, Input } from &#x27;@angular/core&#x27;;
 
 type ColSize &#x3D; &#x27;3&#x27; | &#x27;4&#x27; | &#x27;8&#x27; | &#x27;9&#x27;;
@@ -708,14 +753,15 @@ export class ResponsiveInputDirective implements AfterViewChecked {
 
 
 
-                   
+
+
 
 
 
 
                    </div><div class="search-results">
     <div class="has-results">
-        <h1 class="search-results-title"><span class='search-results-count'></span> result-matching "<span class='search-query'></span>"</h1>
+        <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
         <ul class="search-results-list"></ul>
     </div>
     <div class="no-results">
@@ -727,6 +773,15 @@ export class ResponsiveInputDirective implements AfterViewChecked {
            </div>
        </div>
 
+          <label class="dark-mode-switch">
+               <input type="checkbox">
+               <span class="slider">
+                    <svg class="slider-icon" viewBox="0 0 24 24" fill="none" height="20" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" width="20" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"></path>
+                    </svg>
+               </span>
+          </label>
+
        <script>
             var COMPODOC_CURRENT_PAGE_DEPTH = 1;
             var COMPODOC_CURRENT_PAGE_CONTEXT = 'directive';
@@ -736,9 +791,9 @@ export class ResponsiveInputDirective implements AfterViewChecked {
 
        <script src="../js/libs/custom-elements.min.js"></script>
        <script src="../js/libs/lit-html.js"></script>
-       <!-- Required to polyfill modern browsers as code is ES5 for IE... -->
-       <script src="../js/libs/custom-elements-es5-adapter.js" charset="utf-8" defer></script>
+
        <script src="../js/menu-wc.js" defer></script>
+       <script nomodule src="../js/menu-wc_es5.js" defer></script>
 
        <script src="../js/libs/bootstrap-native.js"></script>
 

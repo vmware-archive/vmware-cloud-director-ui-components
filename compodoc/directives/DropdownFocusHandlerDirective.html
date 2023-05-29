@@ -8,11 +8,12 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
         <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
-	      <link rel="stylesheet" href="../styles/style.css">
+	   <link rel="stylesheet" href="../styles/style.css">
+        <link rel="stylesheet" href="../styles/dark.css">
     </head>
     <body>
 
-        <div class="navbar navbar-default navbar-fixed-top visible-xs">
+        <div class="navbar navbar-default navbar-fixed-top d-block d-sm-none">
             <a href="../" class="navbar-brand">vmware-cloud-director-ui-components documentation</a>
             <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
         </div>
@@ -35,28 +36,36 @@
 
 
 
+
 <ol class="breadcrumb">
-  <li>Directives</li>
-  <li>DropdownFocusHandlerDirective</li>
+  <li class="breadcrumb-item">Directives</li>
+  <li class="breadcrumb-item" >DropdownFocusHandlerDirective</li>
 </ol>
 
 <ul class="nav nav-tabs" role="tablist">
-        <li class="active">
-            <a href="#info" role="tab" id="info-tab" data-toggle="tab" data-link="info">Info</a>
+        <li class="nav-item">
+            <a href="#info" 
+                class="nav-link"
+                class="nav-link active"
+                role="tab" id="info-tab" data-bs-toggle="tab" data-link="info">Info</a>
         </li>
-        <li >
-            <a href="#source" role="tab" id="source-tab" data-toggle="tab" data-link="source">Source</a>
+        <li class="nav-item">
+            <a href="#source" 
+                class="nav-link"
+                
+                role="tab" id="source-tab" data-bs-toggle="tab" data-link="source">Source</a>
         </li>
 </ul>
 
 <div class="tab-content">
-    <div class="tab-pane fade active in" id="c-info">
+    <div class="tab-pane fade active in" id="info">
         <p class="comment">
             <h3>File</h3>
         </p>
         <p class="comment">
             <code>projects/components/src/dropdown/dropdown.component.ts</code>
         </p>
+
 
             <p class="comment">
                 <h3>Description</h3>
@@ -67,18 +76,19 @@ neighbors in the 4 directions. It then uses the <a href="../injectables/Dropdown
 
             </p>
 
+
             <p class="comment">
                 <h3>Implements</h3>
             </p>
             <p class="comment">
-                            <code><a href="https://angular.io/api/core/AfterViewInit" target="_blank" >AfterViewInit</a></code>
-                            <code><a href="https://angular.io/api/core/OnDestroy" target="_blank" >OnDestroy</a></code>
+                        <code>AfterViewInit</code>
+                        <code>OnDestroy</code>
             </p>
 
 
-        <section>
+        <section data-compodoc="block-metadata">
             <h3>Metadata</h3>
-            <table class="table table-sm table-hover">
+            <table class="table table-sm table-hover metadata">
                 <tbody>
                     <tr>
                         <td class="col-md-3">Providers</td>
@@ -94,11 +104,14 @@ neighbors in the 4 directions. It then uses the <a href="../injectables/Dropdown
                         <td class="col-md-9"><code>vcd-dropdown[vcdDropdownFocusHandler]</code></td>
                     </tr>
 
+
+
+
                 </tbody>
             </table>
         </section>
 
-            <section>
+            <section data-compodoc="block-index">
     <h3 id="index">Index</h3>
     <table class="table table-sm table-bordered index-table">
         <tbody>
@@ -112,34 +125,34 @@ neighbors in the 4 directions. It then uses the <a href="../injectables/Dropdown
                         <ul class="index-list">
                             <li>
                                     <span class="modifier">Private</span>
-                                <a href="#closeVcdDropdown">closeVcdDropdown</a>
+                                <a href="#closeVcdDropdown" >closeVcdDropdown</a>
                             </li>
                             <li>
                                     <span class="modifier">Private</span>
-                                <a href="#clrDropdownMenuEl">clrDropdownMenuEl</a>
+                                <a href="#clrDropdownMenuEl" >clrDropdownMenuEl</a>
                             </li>
                             <li>
                                     <span class="modifier">Private</span>
-                                <a href="#dropdownTriggerEl">dropdownTriggerEl</a>
+                                <a href="#dropdownTriggerEl" >dropdownTriggerEl</a>
                             </li>
                             <li>
                                     <span class="modifier">Private</span>
-                                <a href="#isRootDropdown">isRootDropdown</a>
+                                <a href="#isRootDropdown" >isRootDropdown</a>
                             </li>
                             <li>
-                                <a href="#menuItems">menuItems</a>
-                            </li>
-                            <li>
-                                    <span class="modifier">Private</span>
-                                <a href="#menuTrigger">menuTrigger</a>
+                                <a href="#menuItems" >menuItems</a>
                             </li>
                             <li>
                                     <span class="modifier">Private</span>
-                                <a href="#timeoutId">timeoutId</a>
+                                <a href="#menuTrigger" >menuTrigger</a>
                             </li>
                             <li>
                                     <span class="modifier">Private</span>
-                                <a href="#unlistenRightArrowKeyPress">unlistenRightArrowKeyPress</a>
+                                <a href="#timeoutId" >timeoutId</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#unlistenRightArrowKeyPress" >unlistenRightArrowKeyPress</a>
                             </li>
                         </ul>
                     </td>
@@ -155,37 +168,37 @@ neighbors in the 4 directions. It then uses the <a href="../injectables/Dropdown
                         <ul class="index-list">
                             <li>
                                     <span class="modifier">Private</span>
-                                <a href="#getDropdownItemElement">getDropdownItemElement</a>
+                                <a href="#getDropdownItemElement" >getDropdownItemElement</a>
                             </li>
                             <li>
                                     <span class="modifier">Private</span>
-                                <a href="#linkMenuItems">linkMenuItems</a>
+                                <a href="#linkMenuItems" >linkMenuItems</a>
                             </li>
                             <li>
                                     <span class="modifier">Private</span>
-                                <a href="#linkVertical">linkVertical</a>
+                                <a href="#linkVertical" >linkVertical</a>
                             </li>
                             <li>
                                     <span class="modifier">Private</span>
-                                <a href="#listenToRightArrowKeyPressOnNestedTrigger">listenToRightArrowKeyPressOnNestedTrigger</a>
+                                <a href="#listenToRightArrowKeyPressOnNestedTrigger" >listenToRightArrowKeyPressOnNestedTrigger</a>
                             </li>
                             <li>
                                     <span class="modifier">Private</span>
-                                <a href="#moveFocusToFirstItem">moveFocusToFirstItem</a>
+                                <a href="#moveFocusToFirstItem" >moveFocusToFirstItem</a>
                             </li>
                             <li>
-                                <a href="#ngAfterViewInit">ngAfterViewInit</a>
+                                <a href="#ngAfterViewInit" >ngAfterViewInit</a>
                             </li>
                             <li>
-                                <a href="#ngOnDestroy">ngOnDestroy</a>
-                            </li>
-                            <li>
-                                    <span class="modifier">Private</span>
-                                <a href="#registerRootMenuContainer">registerRootMenuContainer</a>
+                                <a href="#ngOnDestroy" >ngOnDestroy</a>
                             </li>
                             <li>
                                     <span class="modifier">Private</span>
-                                <a href="#reset">reset</a>
+                                <a href="#registerRootMenuContainer" >registerRootMenuContainer</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#reset" >reset</a>
                             </li>
                         </ul>
                     </td>
@@ -204,10 +217,10 @@ neighbors in the 4 directions. It then uses the <a href="../injectables/Dropdown
                         <td class="col-md-4">
                             <ul class="index-list">
                                 <li>
-                                    <a href="#rootMenuTrigger">rootMenuTrigger</a>
+                                    <a href="#rootMenuTrigger" >rootMenuTrigger</a>
                                 </li>
                                 <li>
-                                    <a href="#nestedMenuTrigger">nestedMenuTrigger</a>
+                                    <a href="#nestedMenuTrigger" >nestedMenuTrigger</a>
                                 </li>
                             </ul>
                         </td>
@@ -216,18 +229,18 @@ neighbors in the 4 directions. It then uses the <a href="../injectables/Dropdown
     </table>
 </section>
 
-            <section>
+            <section data-compodoc="block-constructor">
     <h3 id="constructor">Constructor</h3>
         <table class="table table-sm table-bordered">
             <tbody>
                 <tr>
                     <td class="col-md-4">
-<code>constructor(parentVcdDropdown: <a href="../components/DropdownComponent.html">DropdownComponent</a>, parentFocusHandler: DropdownFocusHandlerDirective, hostVcdDropdown: <a href="../components/DropdownComponent.html">DropdownComponent</a>, focusHandlerService: <a href="../injectables/DropdownFocusHandlerService.html">DropdownFocusHandlerService</a>, renderer: <a href="https://angular.io/api/core/Renderer2" target="_blank">Renderer2</a>, subscriptionTracker: <a href="../injectables/SubscriptionTracker.html">SubscriptionTracker</a>)</code>
+<code>constructor(parentVcdDropdown: <a href="../components/DropdownComponent.html" target="_self">DropdownComponent</a>, parentFocusHandler: <a href="../directives/DropdownFocusHandlerDirective.html" target="_self">DropdownFocusHandlerDirective</a>, hostVcdDropdown: <a href="../components/DropdownComponent.html" target="_self">DropdownComponent</a>, focusHandlerService: <a href="../injectables/DropdownFocusHandlerService.html" target="_self">DropdownFocusHandlerService</a>, renderer: Renderer2, subscriptionTracker: <a href="../injectables/SubscriptionTracker.html" target="_self">SubscriptionTracker</a>)</code>
                     </td>
                 </tr>
                         <tr>
                             <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="442" class="link-to-prism">projects/components/src/dropdown/dropdown.component.ts:442</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="415" class="link-to-prism">projects/components/src/dropdown/dropdown.component.ts:415</a></div>
                             </td>
                         </tr>
 
@@ -260,7 +273,7 @@ neighbors in the 4 directions. It then uses the <a href="../injectables/Dropdown
                                                         <td>parentFocusHandler</td>
                                                   
                                                         <td>
-                                                                    <code>DropdownFocusHandlerDirective</code>
+                                                                        <code><a href="../directives/DropdownFocusHandlerDirective.html" target="_self" >DropdownFocusHandlerDirective</a></code>
                                                         </td>
                                                   
                                                     <td>
@@ -296,7 +309,7 @@ neighbors in the 4 directions. It then uses the <a href="../injectables/Dropdown
                                                         <td>renderer</td>
                                                   
                                                         <td>
-                                                                        <code><a href="https://angular.io/api/core/Renderer2" target="_blank" >Renderer2</a></code>
+                                                                    <code>Renderer2</code>
                                                         </td>
                                                   
                                                     <td>
@@ -329,7 +342,7 @@ neighbors in the 4 directions. It then uses the <a href="../injectables/Dropdown
 
 
 
-            <section>
+            <section data-compodoc="block-methods">
     
     <h3 id="methods">
         Methods
@@ -340,10 +353,8 @@ neighbors in the 4 directions. It then uses the <a href="../injectables/Dropdown
                 <td class="col-md-4">
                     <a name="getDropdownItemElement"></a>
                     <span class="name">
-                        <b>
-                            <span class="modifier">Private</span>
-                            getDropdownItemElement
-                        </b>
+                        <span class="modifier">Private</span>
+                        <span ><b>getDropdownItemElement</b></span>
                         <a href="#getDropdownItemElement"><span class="icon ion-ios-link"></span></a>
                     </span>
                 </td>
@@ -358,8 +369,8 @@ neighbors in the 4 directions. It then uses the <a href="../injectables/Dropdown
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="540"
-                            class="link-to-prism">projects/components/src/dropdown/dropdown.component.ts:540</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="513"
+                            class="link-to-prism">projects/components/src/dropdown/dropdown.component.ts:513</a></div>
                 </td>
             </tr>
 
@@ -369,6 +380,7 @@ neighbors in the 4 directions. It then uses the <a href="../injectables/Dropdown
 
                     <div class="io-description">
                         <b>Parameters :</b>
+                        
                         <table class="params">
                             <thead>
                                 <tr>
@@ -412,10 +424,8 @@ neighbors in the 4 directions. It then uses the <a href="../injectables/Dropdown
                 <td class="col-md-4">
                     <a name="linkMenuItems"></a>
                     <span class="name">
-                        <b>
-                            <span class="modifier">Private</span>
-                            linkMenuItems
-                        </b>
+                        <span class="modifier">Private</span>
+                        <span ><b>linkMenuItems</b></span>
                         <a href="#linkMenuItems"><span class="icon ion-ios-link"></span></a>
                     </span>
                 </td>
@@ -430,8 +440,8 @@ neighbors in the 4 directions. It then uses the <a href="../injectables/Dropdown
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="547"
-                            class="link-to-prism">projects/components/src/dropdown/dropdown.component.ts:547</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="520"
+                            class="link-to-prism">projects/components/src/dropdown/dropdown.component.ts:520</a></div>
                 </td>
             </tr>
 
@@ -453,10 +463,8 @@ neighbors in the 4 directions. It then uses the <a href="../injectables/Dropdown
                 <td class="col-md-4">
                     <a name="linkVertical"></a>
                     <span class="name">
-                        <b>
-                            <span class="modifier">Private</span>
-                            linkVertical
-                        </b>
+                        <span class="modifier">Private</span>
+                        <span ><b>linkVertical</b></span>
                         <a href="#linkVertical"><span class="icon ion-ios-link"></span></a>
                     </span>
                 </td>
@@ -471,8 +479,8 @@ neighbors in the 4 directions. It then uses the <a href="../injectables/Dropdown
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="588"
-                            class="link-to-prism">projects/components/src/dropdown/dropdown.component.ts:588</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="561"
+                            class="link-to-prism">projects/components/src/dropdown/dropdown.component.ts:561</a></div>
                 </td>
             </tr>
 
@@ -494,10 +502,8 @@ neighbors in the 4 directions. It then uses the <a href="../injectables/Dropdown
                 <td class="col-md-4">
                     <a name="listenToRightArrowKeyPressOnNestedTrigger"></a>
                     <span class="name">
-                        <b>
-                            <span class="modifier">Private</span>
-                            listenToRightArrowKeyPressOnNestedTrigger
-                        </b>
+                        <span class="modifier">Private</span>
+                        <span ><b>listenToRightArrowKeyPressOnNestedTrigger</b></span>
                         <a href="#listenToRightArrowKeyPressOnNestedTrigger"><span class="icon ion-ios-link"></span></a>
                     </span>
                 </td>
@@ -512,8 +518,8 @@ neighbors in the 4 directions. It then uses the <a href="../injectables/Dropdown
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="494"
-                            class="link-to-prism">projects/components/src/dropdown/dropdown.component.ts:494</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="467"
+                            class="link-to-prism">projects/components/src/dropdown/dropdown.component.ts:467</a></div>
                 </td>
             </tr>
 
@@ -539,10 +545,8 @@ arrow on a nested menu is opening other sibling menus as well</p>
                 <td class="col-md-4">
                     <a name="moveFocusToFirstItem"></a>
                     <span class="name">
-                        <b>
-                            <span class="modifier">Private</span>
-                            moveFocusToFirstItem
-                        </b>
+                        <span class="modifier">Private</span>
+                        <span ><b>moveFocusToFirstItem</b></span>
                         <a href="#moveFocusToFirstItem"><span class="icon ion-ios-link"></span></a>
                     </span>
                 </td>
@@ -557,8 +561,8 @@ arrow on a nested menu is opening other sibling menus as well</p>
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="526"
-                            class="link-to-prism">projects/components/src/dropdown/dropdown.component.ts:526</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="499"
+                            class="link-to-prism">projects/components/src/dropdown/dropdown.component.ts:499</a></div>
                 </td>
             </tr>
 
@@ -580,9 +584,7 @@ arrow on a nested menu is opening other sibling menus as well</p>
                 <td class="col-md-4">
                     <a name="ngAfterViewInit"></a>
                     <span class="name">
-                        <b>
-                            ngAfterViewInit
-                        </b>
+                        <span ><b>ngAfterViewInit</b></span>
                         <a href="#ngAfterViewInit"><span class="icon ion-ios-link"></span></a>
                     </span>
                 </td>
@@ -596,8 +598,8 @@ arrow on a nested menu is opening other sibling menus as well</p>
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="470"
-                            class="link-to-prism">projects/components/src/dropdown/dropdown.component.ts:470</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="443"
+                            class="link-to-prism">projects/components/src/dropdown/dropdown.component.ts:443</a></div>
                 </td>
             </tr>
 
@@ -622,9 +624,7 @@ them. It also then moves the focus to first item in the opened menu list.</p>
                 <td class="col-md-4">
                     <a name="ngOnDestroy"></a>
                     <span class="name">
-                        <b>
-                            ngOnDestroy
-                        </b>
+                        <span ><b>ngOnDestroy</b></span>
                         <a href="#ngOnDestroy"><span class="icon ion-ios-link"></span></a>
                     </span>
                 </td>
@@ -638,8 +638,8 @@ them. It also then moves the focus to first item in the opened menu list.</p>
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="513"
-                            class="link-to-prism">projects/components/src/dropdown/dropdown.component.ts:513</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="486"
+                            class="link-to-prism">projects/components/src/dropdown/dropdown.component.ts:486</a></div>
                 </td>
             </tr>
 
@@ -661,10 +661,8 @@ them. It also then moves the focus to first item in the opened menu list.</p>
                 <td class="col-md-4">
                     <a name="registerRootMenuContainer"></a>
                     <span class="name">
-                        <b>
-                            <span class="modifier">Private</span>
-                            registerRootMenuContainer
-                        </b>
+                        <span class="modifier">Private</span>
+                        <span ><b>registerRootMenuContainer</b></span>
                         <a href="#registerRootMenuContainer"><span class="icon ion-ios-link"></span></a>
                     </span>
                 </td>
@@ -679,8 +677,8 @@ them. It also then moves the focus to first item in the opened menu list.</p>
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="519"
-                            class="link-to-prism">projects/components/src/dropdown/dropdown.component.ts:519</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="492"
+                            class="link-to-prism">projects/components/src/dropdown/dropdown.component.ts:492</a></div>
                 </td>
             </tr>
 
@@ -702,10 +700,8 @@ them. It also then moves the focus to first item in the opened menu list.</p>
                 <td class="col-md-4">
                     <a name="reset"></a>
                     <span class="name">
-                        <b>
-                            <span class="modifier">Private</span>
-                            reset
-                        </b>
+                        <span class="modifier">Private</span>
+                        <span ><b>reset</b></span>
                         <a href="#reset"><span class="icon ion-ios-link"></span></a>
                     </span>
                 </td>
@@ -720,8 +716,8 @@ them. It also then moves the focus to first item in the opened menu list.</p>
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="505"
-                            class="link-to-prism">projects/components/src/dropdown/dropdown.component.ts:505</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="478"
+                            class="link-to-prism">projects/components/src/dropdown/dropdown.component.ts:478</a></div>
                 </td>
             </tr>
 
@@ -738,261 +734,239 @@ them. It also then moves the focus to first item in the opened menu list.</p>
         </tbody>
     </table>
 </section>
-            <section>
+            <section data-compodoc="block-properties">
     
-        <h3 id="inputs">
-            Properties
-        </h3>
-        <table class="table table-sm table-bordered">
-            <tbody>
+    <h3 id="inputs">
+        Properties
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="closeVcdDropdown"></a>
+                    <span class="name">
+                            <span class="modifier">Private</span>
+                        <span ><b>closeVcdDropdown</b></span>
+                        <a href="#closeVcdDropdown"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
                 <tr>
                     <td class="col-md-4">
-                        <a name="closeVcdDropdown"></a>
-                        <span class="name">
-                            <b>
-                                <span class="modifier">Private</span>
-                            closeVcdDropdown</b>
-                            <a href="#closeVcdDropdown"><span class="icon ion-ios-link"></span></a>
-                        </span>
+                        <i>Default value : </i><code>() &#x3D;&gt; {...}</code>
                     </td>
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                            <i>Type : </i>    <code>() &#x3D;&gt; {
-        this.hostVcdDropdown.clrDropdown.toggleService.open &#x3D; false;
-    }</code>
-
+                                <div class="io-line">Defined in <a href="" data-line="542" class="link-to-prism">projects/components/src/dropdown/dropdown.component.ts:542</a></div>
                         </td>
                     </tr>
-                    <tr>
-                        <td class="col-md-4">
-                            <i>Default value : </i><code>() &#x3D;&gt; {...}</code>
-                        </td>
-                    </tr>
-                        <tr>
-                            <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="569" class="link-to-prism">projects/components/src/dropdown/dropdown.component.ts:569</a></div>
-                            </td>
-                        </tr>
 
 
-            </tbody>
-        </table>
-        <table class="table table-sm table-bordered">
-            <tbody>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="clrDropdownMenuEl"></a>
+                    <span class="name">
+                            <span class="modifier">Private</span>
+                        <span ><b>clrDropdownMenuEl</b></span>
+                        <a href="#clrDropdownMenuEl"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
                 <tr>
                     <td class="col-md-4">
-                        <a name="clrDropdownMenuEl"></a>
-                        <span class="name">
-                            <b>
-                                <span class="modifier">Private</span>
-                            clrDropdownMenuEl</b>
-                            <a href="#clrDropdownMenuEl"><span class="icon ion-ios-link"></span></a>
-                        </span>
+                        <i>Type : </i>    <code>HTMLElement</code>
+
                     </td>
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                            <i>Type : </i>    <code>HTMLElement</code>
-
+                                <div class="io-line">Defined in <a href="" data-line="434" class="link-to-prism">projects/components/src/dropdown/dropdown.component.ts:434</a></div>
                         </td>
                     </tr>
-                        <tr>
-                            <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="461" class="link-to-prism">projects/components/src/dropdown/dropdown.component.ts:461</a></div>
-                            </td>
-                        </tr>
 
 
-            </tbody>
-        </table>
-        <table class="table table-sm table-bordered">
-            <tbody>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="dropdownTriggerEl"></a>
+                    <span class="name">
+                            <span class="modifier">Private</span>
+                        <span ><b>dropdownTriggerEl</b></span>
+                        <a href="#dropdownTriggerEl"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
                 <tr>
                     <td class="col-md-4">
-                        <a name="dropdownTriggerEl"></a>
-                        <span class="name">
-                            <b>
-                                <span class="modifier">Private</span>
-                            dropdownTriggerEl</b>
-                            <a href="#dropdownTriggerEl"><span class="icon ion-ios-link"></span></a>
-                        </span>
+                        <i>Type : </i>    <code>HTMLElement</code>
+
                     </td>
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                            <i>Type : </i>    <code>HTMLElement</code>
-
+                                <div class="io-line">Defined in <a href="" data-line="433" class="link-to-prism">projects/components/src/dropdown/dropdown.component.ts:433</a></div>
                         </td>
                     </tr>
-                        <tr>
-                            <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="460" class="link-to-prism">projects/components/src/dropdown/dropdown.component.ts:460</a></div>
-                            </td>
-                        </tr>
 
 
-            </tbody>
-        </table>
-        <table class="table table-sm table-bordered">
-            <tbody>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="isRootDropdown"></a>
+                    <span class="name">
+                            <span class="modifier">Private</span>
+                        <span ><b>isRootDropdown</b></span>
+                        <a href="#isRootDropdown"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
                 <tr>
                     <td class="col-md-4">
-                        <a name="isRootDropdown"></a>
-                        <span class="name">
-                            <b>
-                                <span class="modifier">Private</span>
-                            isRootDropdown</b>
-                            <a href="#isRootDropdown"><span class="icon ion-ios-link"></span></a>
-                        </span>
+                        <i>Default value : </i><code>!this.parentVcdDropdown</code>
                     </td>
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                            <i>Type : </i>    <code>!this.parentVcdDropdown</code>
-
+                                <div class="io-line">Defined in <a href="" data-line="435" class="link-to-prism">projects/components/src/dropdown/dropdown.component.ts:435</a></div>
                         </td>
                     </tr>
-                    <tr>
-                        <td class="col-md-4">
-                            <i>Default value : </i><code>!this.parentVcdDropdown</code>
-                        </td>
-                    </tr>
-                        <tr>
-                            <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="462" class="link-to-prism">projects/components/src/dropdown/dropdown.component.ts:462</a></div>
-                            </td>
-                        </tr>
 
 
-            </tbody>
-        </table>
-        <table class="table table-sm table-bordered">
-            <tbody>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="menuItems"></a>
+                    <span class="name">
+                        <span ><b>menuItems</b></span>
+                        <a href="#menuItems"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
                 <tr>
                     <td class="col-md-4">
-                        <a name="menuItems"></a>
-                        <span class="name">
-                            <b>
-                            menuItems</b>
-                            <a href="#menuItems"><span class="icon ion-ios-link"></span></a>
-                        </span>
+                        <i>Type : </i>        <code><a href="../interfaces/MenuItem.html" target="_self" >MenuItem[]</a></code>
+
                     </td>
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                            <i>Type : </i>        <code><a href="../interfaces/MenuItem.html" target="_self" >MenuItem[]</a></code>
-
+                                <div class="io-line">Defined in <a href="" data-line="428" class="link-to-prism">projects/components/src/dropdown/dropdown.component.ts:428</a></div>
                         </td>
                     </tr>
-                        <tr>
-                            <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="455" class="link-to-prism">projects/components/src/dropdown/dropdown.component.ts:455</a></div>
-                            </td>
-                        </tr>
 
-                <tr>
-                    <td class="col-md-4">
-                        <div class="io-description"><p>List of focusable menu items with their neighbors in 4 directions.</p>
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>List of focusable menu items with their neighbors in 4 directions.</p>
 </div>
-                    </td>
-                </tr>
+                </td>
+            </tr>
 
-            </tbody>
-        </table>
-        <table class="table table-sm table-bordered">
-            <tbody>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="menuTrigger"></a>
+                    <span class="name">
+                            <span class="modifier">Private</span>
+                        <span ><b>menuTrigger</b></span>
+                        <a href="#menuTrigger"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
                 <tr>
                     <td class="col-md-4">
-                        <a name="menuTrigger"></a>
-                        <span class="name">
-                            <b>
-                                <span class="modifier">Private</span>
-                            menuTrigger</b>
-                            <a href="#menuTrigger"><span class="icon ion-ios-link"></span></a>
-                        </span>
+                        <i>Type : </i>        <code><a href="../interfaces/MenuItem.html" target="_self" >MenuItem</a></code>
+
                     </td>
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                            <i>Type : </i>        <code><a href="../interfaces/MenuItem.html" target="_self" >MenuItem</a></code>
-
+                                <div class="io-line">Defined in <a href="" data-line="432" class="link-to-prism">projects/components/src/dropdown/dropdown.component.ts:432</a></div>
                         </td>
                     </tr>
-                        <tr>
-                            <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="459" class="link-to-prism">projects/components/src/dropdown/dropdown.component.ts:459</a></div>
-                            </td>
-                        </tr>
 
-                <tr>
-                    <td class="col-md-4">
-                        <div class="io-description"><p>The menu item which can toggle this menu. This can be the root dropdown trigger or nested menu trigger</p>
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>The menu item which can toggle this menu. This can be the root dropdown trigger or nested menu trigger</p>
 </div>
-                    </td>
-                </tr>
+                </td>
+            </tr>
 
-            </tbody>
-        </table>
-        <table class="table table-sm table-bordered">
-            <tbody>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="timeoutId"></a>
+                    <span class="name">
+                            <span class="modifier">Private</span>
+                        <span ><b>timeoutId</b></span>
+                        <a href="#timeoutId"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
                 <tr>
                     <td class="col-md-4">
-                        <a name="timeoutId"></a>
-                        <span class="name">
-                            <b>
-                                <span class="modifier">Private</span>
-                            timeoutId</b>
-                            <a href="#timeoutId"><span class="icon ion-ios-link"></span></a>
-                        </span>
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+
                     </td>
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                            <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
-
+                                <div class="io-line">Defined in <a href="" data-line="436" class="link-to-prism">projects/components/src/dropdown/dropdown.component.ts:436</a></div>
                         </td>
                     </tr>
-                        <tr>
-                            <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="463" class="link-to-prism">projects/components/src/dropdown/dropdown.component.ts:463</a></div>
-                            </td>
-                        </tr>
 
 
-            </tbody>
-        </table>
-        <table class="table table-sm table-bordered">
-            <tbody>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="unlistenRightArrowKeyPress"></a>
+                    <span class="name">
+                            <span class="modifier">Private</span>
+                        <span ><b>unlistenRightArrowKeyPress</b></span>
+                        <a href="#unlistenRightArrowKeyPress"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
                 <tr>
                     <td class="col-md-4">
-                        <a name="unlistenRightArrowKeyPress"></a>
-                        <span class="name">
-                            <b>
-                                <span class="modifier">Private</span>
-                            unlistenRightArrowKeyPress</b>
-                            <a href="#unlistenRightArrowKeyPress"><span class="icon ion-ios-link"></span></a>
-                        </span>
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/function" target="_blank" >function</a></code>
+
                     </td>
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                            <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/function" target="_blank" >function</a></code>
-
+                                <div class="io-line">Defined in <a href="" data-line="437" class="link-to-prism">projects/components/src/dropdown/dropdown.component.ts:437</a></div>
                         </td>
                     </tr>
-                        <tr>
-                            <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="464" class="link-to-prism">projects/components/src/dropdown/dropdown.component.ts:464</a></div>
-                            </td>
-                        </tr>
 
 
-            </tbody>
-        </table>
+        </tbody>
+    </table>
 </section>
 
-            <section>
+            <section data-compodoc="block-accessors">
     <h3 id="accessors">
         Accessors
     </h3>
@@ -1012,7 +986,7 @@ them. It also then moves the focus to first item in the opened menu list.</p>
                 </tr>
                             <tr>
                                 <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="573" class="link-to-prism">projects/components/src/dropdown/dropdown.component.ts:573</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="546" class="link-to-prism">projects/components/src/dropdown/dropdown.component.ts:546</a></div>
                                 </td>
                             </tr>
 
@@ -1034,7 +1008,7 @@ them. It also then moves the focus to first item in the opened menu list.</p>
                 </tr>
                             <tr>
                                 <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="580" class="link-to-prism">projects/components/src/dropdown/dropdown.component.ts:580</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="553" class="link-to-prism">projects/components/src/dropdown/dropdown.component.ts:553</a></div>
                                 </td>
                             </tr>
 
@@ -1045,7 +1019,7 @@ them. It also then moves the focus to first item in the opened menu list.</p>
     </div>
 
 
-    <div class="tab-pane fade  tab-source-code" id="c-source">
+    <div class="tab-pane fade  tab-source-code" id="source">
         <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import {
     AfterViewInit,
     Component,
@@ -1176,7 +1150,7 @@ export class DropdownComponent implements AfterViewInit {
      * Nested list of dropdown objects
      */
     @Input() set items(items: ActionItem&lt;unknown, unknown&gt;[]) {
-        this._items &#x3D; this.flattenNestedItemsWithSingleChild(items);
+        this._items &#x3D; items;
     }
     get items(): ActionItem&lt;unknown, unknown&gt;[] {
         return this._items;
@@ -1310,33 +1284,6 @@ export class DropdownComponent implements AfterViewInit {
      * NOTE: Without this, nested drop downs don&#x27;t get rendered on the screen
      */
     @Input() trackByFunction: TrackByFunction&lt;ActionItem&lt;unknown, unknown&gt;&gt; &#x3D; (index, item) &#x3D;&gt; item.textKey;
-
-    private flattenNestedItemsWithSingleChild(items: ActionItem&lt;unknown, unknown&gt;[]): ActionItem&lt;unknown, unknown&gt;[] {
-        items.forEach((item) &#x3D;&gt; {
-            // Flatten out the dropdowns with single children at each level of dropdown
-            this.flattenItemsWithSingleChild(items);
-            if (item.children) {
-                // Repeat the same for other nested levels
-                this.flattenNestedItemsWithSingleChild(item.children);
-            }
-        });
-        return items;
-    }
-
-    private flattenItemsWithSingleChild(items: ActionItem&lt;unknown, unknown&gt;[]): void {
-        const singleChildItemIndices: number[] &#x3D; [];
-        items.forEach((item, index) &#x3D;&gt; {
-            // Collect the indices of single child items
-            if (item.children &amp;&amp; item.children.length &#x3D;&#x3D;&#x3D; 1) {
-                singleChildItemIndices.push(index);
-            }
-        });
-        singleChildItemIndices.forEach((singleChildItemIndex) &#x3D;&gt; {
-            // Delete them from the original list and add their children to the beginning of the current list
-            const singleChildItem &#x3D; items.splice(singleChildItemIndex, 1).pop();
-            items.unshift(singleChildItem.children[0]);
-        });
-    }
 
     /**
      * Nested menus are toggled using the mouseover and mouseout events instead of mouse clicks. So the claritys
@@ -1582,9 +1529,9 @@ export class DropdownFocusHandlerDirective implements AfterViewInit, OnDestroy {
 
     private getDropdownItemElement(item: Element): HTMLElement {
         // We only need the underlying button that opens the nested dropdown as that is the activatable/focusable item
-        return (item.matches(ActivatableMenuItemType.BUTTON)
-            ? item
-            : item.querySelector(NESTED_DROPDOWN_TRIGGER)) as HTMLElement;
+        return (
+            item.matches(ActivatableMenuItemType.BUTTON) ? item : item.querySelector(NESTED_DROPDOWN_TRIGGER)
+        ) as HTMLElement;
     }
 
     private linkMenuItems(): void {
@@ -1655,14 +1602,15 @@ export class DropdownFocusHandlerDirective implements AfterViewInit, OnDestroy {
 
 
 
-                   
+
+
 
 
 
 
                    </div><div class="search-results">
     <div class="has-results">
-        <h1 class="search-results-title"><span class='search-results-count'></span> result-matching "<span class='search-query'></span>"</h1>
+        <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
         <ul class="search-results-list"></ul>
     </div>
     <div class="no-results">
@@ -1674,6 +1622,15 @@ export class DropdownFocusHandlerDirective implements AfterViewInit, OnDestroy {
            </div>
        </div>
 
+          <label class="dark-mode-switch">
+               <input type="checkbox">
+               <span class="slider">
+                    <svg class="slider-icon" viewBox="0 0 24 24" fill="none" height="20" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" width="20" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"></path>
+                    </svg>
+               </span>
+          </label>
+
        <script>
             var COMPODOC_CURRENT_PAGE_DEPTH = 1;
             var COMPODOC_CURRENT_PAGE_CONTEXT = 'directive';
@@ -1683,9 +1640,9 @@ export class DropdownFocusHandlerDirective implements AfterViewInit, OnDestroy {
 
        <script src="../js/libs/custom-elements.min.js"></script>
        <script src="../js/libs/lit-html.js"></script>
-       <!-- Required to polyfill modern browsers as code is ES5 for IE... -->
-       <script src="../js/libs/custom-elements-es5-adapter.js" charset="utf-8" defer></script>
+
        <script src="../js/menu-wc.js" defer></script>
+       <script nomodule src="../js/menu-wc_es5.js" defer></script>
 
        <script src="../js/libs/bootstrap-native.js"></script>
 

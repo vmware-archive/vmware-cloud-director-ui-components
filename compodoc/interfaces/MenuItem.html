@@ -8,11 +8,12 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
         <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
-	      <link rel="stylesheet" href="../styles/style.css">
+	   <link rel="stylesheet" href="../styles/style.css">
+        <link rel="stylesheet" href="../styles/dark.css">
     </head>
     <body>
 
-        <div class="navbar navbar-default navbar-fixed-top visible-xs">
+        <div class="navbar navbar-default navbar-fixed-top d-block d-sm-none">
             <a href="../" class="navbar-brand">vmware-cloud-director-ui-components documentation</a>
             <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
         </div>
@@ -41,28 +42,38 @@
 
 
 
+
 <ol class="breadcrumb">
-  <li>Interfaces</li>
-  <li>MenuItem</li>
+  <li class="breadcrumb-item">Interfaces</li>
+  <li class="breadcrumb-item"
+  >
+  MenuItem</li>
 </ol>
 
 <ul class="nav nav-tabs" role="tablist">
-        <li class="active">
-            <a href="#info" role="tab" id="info-tab" data-toggle="tab" data-link="info">Info</a>
+        <li class="nav-item">
+            <a href="#info" 
+                class="nav-link"
+                class="nav-link active"
+                role="tab" id="info-tab" data-bs-toggle="tab" data-link="info">Info</a>
         </li>
-        <li >
-            <a href="#source" role="tab" id="source-tab" data-toggle="tab" data-link="source">Source</a>
+        <li class="nav-item">
+            <a href="#source" 
+                class="nav-link"
+                
+                role="tab" id="source-tab" data-bs-toggle="tab" data-link="source">Source</a>
         </li>
 </ul>
 
 <div class="tab-content">
-    <div class="tab-pane fade active in" id="c-info">
+    <div class="tab-pane fade active in" id="info">
         <p class="comment">
             <h3>File</h3>
         </p>
         <p class="comment">
             <code>projects/components/src/dropdown/dropdown.component.ts</code>
         </p>
+
 
             <p class="comment">
                 <h3>Description</h3>
@@ -73,7 +84,7 @@
             </p>
 
 
-        <section>
+        <section data-compodoc="block-index">
             <h3 id="index">Index</h3>
             <table class="table table-sm table-bordered index-table">
                 <tbody>
@@ -87,26 +98,44 @@
                             <ul class="index-list">
                                 <li>
                                             <span class="modifier">Optional</span>
-                                        <a href="#closeMenu">closeMenu</a>
+                                        <a href="#closeMenu" 
+>
+                                            closeMenu
+                                        </a>
                                 </li>
                                 <li>
                                             <span class="modifier">Optional</span>
-                                        <a href="#down">down</a>
+                                        <a href="#down" 
+>
+                                            down
+                                        </a>
                                 </li>
                                 <li>
-                                        <a href="#element">element</a>
+                                        <a href="#element" 
+>
+                                            element
+                                        </a>
                                 </li>
                                 <li>
                                             <span class="modifier">Optional</span>
-                                        <a href="#left">left</a>
+                                        <a href="#left" 
+>
+                                            left
+                                        </a>
                                 </li>
                                 <li>
                                             <span class="modifier">Optional</span>
-                                        <a href="#right">right</a>
+                                        <a href="#right" 
+>
+                                            right
+                                        </a>
                                 </li>
                                 <li>
                                             <span class="modifier">Optional</span>
-                                        <a href="#up">up</a>
+                                        <a href="#up" 
+>
+                                            up
+                                        </a>
                                 </li>
                             </ul>
                         </td>
@@ -117,14 +146,18 @@
 
 
 
-            <section>
+            <section data-compodoc="block-properties">
                 <h3 id="inputs">Properties</h3>
                     <table class="table table-sm table-bordered">
                         <tbody>
                                 <tr>
                                     <td class="col-md-4">
                                         <a name="closeMenu"></a>
-                                        <span class="name"><b>closeMenu</b><a href="#closeMenu"><span class="icon ion-ios-link"></span></a></span>
+                                        <span class="name "><b>closeMenu</b>
+                                            <a href="#closeMenu">
+                                                <span class="icon ion-ios-link"></span>
+                                            </a>
+                                        </span>
                                     </td>
                                 </tr>
                                 <tr>
@@ -164,7 +197,11 @@
                                 <tr>
                                     <td class="col-md-4">
                                         <a name="down"></a>
-                                        <span class="name"><b>down</b><a href="#down"><span class="icon ion-ios-link"></span></a></span>
+                                        <span class="name "><b>down</b>
+                                            <a href="#down">
+                                                <span class="icon ion-ios-link"></span>
+                                            </a>
+                                        </span>
                                     </td>
                                 </tr>
                                 <tr>
@@ -198,7 +235,11 @@
                                 <tr>
                                     <td class="col-md-4">
                                         <a name="element"></a>
-                                        <span class="name"><b>element</b><a href="#element"><span class="icon ion-ios-link"></span></a></span>
+                                        <span class="name "><b>element</b>
+                                            <a href="#element">
+                                                <span class="icon ion-ios-link"></span>
+                                            </a>
+                                        </span>
                                     </td>
                                 </tr>
                                 <tr>
@@ -233,7 +274,11 @@
                                 <tr>
                                     <td class="col-md-4">
                                         <a name="left"></a>
-                                        <span class="name"><b>left</b><a href="#left"><span class="icon ion-ios-link"></span></a></span>
+                                        <span class="name "><b>left</b>
+                                            <a href="#left">
+                                                <span class="icon ion-ios-link"></span>
+                                            </a>
+                                        </span>
                                     </td>
                                 </tr>
                                 <tr>
@@ -267,7 +312,11 @@
                                 <tr>
                                     <td class="col-md-4">
                                         <a name="right"></a>
-                                        <span class="name"><b>right</b><a href="#right"><span class="icon ion-ios-link"></span></a></span>
+                                        <span class="name "><b>right</b>
+                                            <a href="#right">
+                                                <span class="icon ion-ios-link"></span>
+                                            </a>
+                                        </span>
                                     </td>
                                 </tr>
                                 <tr>
@@ -301,7 +350,11 @@
                                 <tr>
                                     <td class="col-md-4">
                                         <a name="up"></a>
-                                        <span class="name"><b>up</b><a href="#up"><span class="icon ion-ios-link"></span></a></span>
+                                        <span class="name "><b>up</b>
+                                            <a href="#up">
+                                                <span class="icon ion-ios-link"></span>
+                                            </a>
+                                        </span>
                                     </td>
                                 </tr>
                                 <tr>
@@ -340,7 +393,7 @@
     </div>
 
 
-    <div class="tab-pane fade  tab-source-code" id="c-source">
+    <div class="tab-pane fade  tab-source-code" id="source">
         <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import {
     AfterViewInit,
     Component,
@@ -471,7 +524,7 @@ export class DropdownComponent implements AfterViewInit {
      * Nested list of dropdown objects
      */
     @Input() set items(items: ActionItem&lt;unknown, unknown&gt;[]) {
-        this._items &#x3D; this.flattenNestedItemsWithSingleChild(items);
+        this._items &#x3D; items;
     }
     get items(): ActionItem&lt;unknown, unknown&gt;[] {
         return this._items;
@@ -605,33 +658,6 @@ export class DropdownComponent implements AfterViewInit {
      * NOTE: Without this, nested drop downs don&#x27;t get rendered on the screen
      */
     @Input() trackByFunction: TrackByFunction&lt;ActionItem&lt;unknown, unknown&gt;&gt; &#x3D; (index, item) &#x3D;&gt; item.textKey;
-
-    private flattenNestedItemsWithSingleChild(items: ActionItem&lt;unknown, unknown&gt;[]): ActionItem&lt;unknown, unknown&gt;[] {
-        items.forEach((item) &#x3D;&gt; {
-            // Flatten out the dropdowns with single children at each level of dropdown
-            this.flattenItemsWithSingleChild(items);
-            if (item.children) {
-                // Repeat the same for other nested levels
-                this.flattenNestedItemsWithSingleChild(item.children);
-            }
-        });
-        return items;
-    }
-
-    private flattenItemsWithSingleChild(items: ActionItem&lt;unknown, unknown&gt;[]): void {
-        const singleChildItemIndices: number[] &#x3D; [];
-        items.forEach((item, index) &#x3D;&gt; {
-            // Collect the indices of single child items
-            if (item.children &amp;&amp; item.children.length &#x3D;&#x3D;&#x3D; 1) {
-                singleChildItemIndices.push(index);
-            }
-        });
-        singleChildItemIndices.forEach((singleChildItemIndex) &#x3D;&gt; {
-            // Delete them from the original list and add their children to the beginning of the current list
-            const singleChildItem &#x3D; items.splice(singleChildItemIndex, 1).pop();
-            items.unshift(singleChildItem.children[0]);
-        });
-    }
 
     /**
      * Nested menus are toggled using the mouseover and mouseout events instead of mouse clicks. So the claritys
@@ -877,9 +903,9 @@ export class DropdownFocusHandlerDirective implements AfterViewInit, OnDestroy {
 
     private getDropdownItemElement(item: Element): HTMLElement {
         // We only need the underlying button that opens the nested dropdown as that is the activatable/focusable item
-        return (item.matches(ActivatableMenuItemType.BUTTON)
-            ? item
-            : item.querySelector(NESTED_DROPDOWN_TRIGGER)) as HTMLElement;
+        return (
+            item.matches(ActivatableMenuItemType.BUTTON) ? item : item.querySelector(NESTED_DROPDOWN_TRIGGER)
+        ) as HTMLElement;
     }
 
     private linkMenuItems(): void {
@@ -943,14 +969,15 @@ export class DropdownFocusHandlerDirective implements AfterViewInit, OnDestroy {
 </div>
 
 
-                   
+
+
 
 
 
 
                    </div><div class="search-results">
     <div class="has-results">
-        <h1 class="search-results-title"><span class='search-results-count'></span> result-matching "<span class='search-query'></span>"</h1>
+        <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
         <ul class="search-results-list"></ul>
     </div>
     <div class="no-results">
@@ -962,6 +989,15 @@ export class DropdownFocusHandlerDirective implements AfterViewInit, OnDestroy {
            </div>
        </div>
 
+          <label class="dark-mode-switch">
+               <input type="checkbox">
+               <span class="slider">
+                    <svg class="slider-icon" viewBox="0 0 24 24" fill="none" height="20" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" width="20" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"></path>
+                    </svg>
+               </span>
+          </label>
+
        <script>
             var COMPODOC_CURRENT_PAGE_DEPTH = 1;
             var COMPODOC_CURRENT_PAGE_CONTEXT = 'interface';
@@ -971,9 +1007,9 @@ export class DropdownFocusHandlerDirective implements AfterViewInit, OnDestroy {
 
        <script src="../js/libs/custom-elements.min.js"></script>
        <script src="../js/libs/lit-html.js"></script>
-       <!-- Required to polyfill modern browsers as code is ES5 for IE... -->
-       <script src="../js/libs/custom-elements-es5-adapter.js" charset="utf-8" defer></script>
+
        <script src="../js/menu-wc.js" defer></script>
+       <script nomodule src="../js/menu-wc_es5.js" defer></script>
 
        <script src="../js/libs/bootstrap-native.js"></script>
 

@@ -8,11 +8,12 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
         <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
-	      <link rel="stylesheet" href="../styles/style.css">
+	   <link rel="stylesheet" href="../styles/style.css">
+        <link rel="stylesheet" href="../styles/dark.css">
     </head>
     <body>
 
-        <div class="navbar navbar-default navbar-fixed-top visible-xs">
+        <div class="navbar navbar-default navbar-fixed-top d-block d-sm-none">
             <a href="../" class="navbar-brand">vmware-cloud-director-ui-components documentation</a>
             <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
         </div>
@@ -40,28 +41,36 @@
 
 
 
+
 <ol class="breadcrumb">
-  <li>Classes</li>
-  <li>NumberWithUnitFormInputWidgetObject</li>
+  <li class="breadcrumb-item">Classes</li>
+  <li class="breadcrumb-item" >NumberWithUnitFormInputWidgetObject</li>
 </ol>
 
 <ul class="nav nav-tabs" role="tablist">
-        <li class="active">
-            <a href="#info" role="tab" id="info-tab" data-toggle="tab" data-link="info">Info</a>
+        <li class="nav-item">
+            <a href="#info" 
+                class="nav-link"
+                class="nav-link active"
+                role="tab" id="info-tab" data-bs-toggle="tab" data-link="info">Info</a>
         </li>
-        <li >
-            <a href="#source" role="tab" id="source-tab" data-toggle="tab" data-link="source">Source</a>
+        <li class="nav-item">
+            <a href="#source" 
+                class="nav-link"
+                
+                role="tab" id="source-tab" data-bs-toggle="tab" data-link="source">Source</a>
         </li>
 </ul>
 
 <div class="tab-content">
-    <div class="tab-pane fade active in" id="c-info">
+    <div class="tab-pane fade active in" id="info">
         <p class="comment">
             <h3>File</h3>
         </p>
         <p class="comment">
             <code>projects/components/src/form/number-with-unit-input/number-with-unit-form-input.widget-object.ts</code>
         </p>
+
 
             <p class="comment">
                 <h3>Description</h3>
@@ -80,7 +89,7 @@
 
 
 
-            <section>
+            <section data-compodoc="block-index">
     <h3 id="index">Index</h3>
     <table class="table table-sm table-bordered index-table">
         <tbody>
@@ -94,11 +103,11 @@
                         <ul class="index-list">
                             <li>
                                     <span class="modifier">Static</span>
-                                <a href="#tagName">tagName</a>
+                                <a href="#tagName" >tagName</a>
                             </li>
                             <li>
                                     <span class="modifier">Public</span>
-                                <a href="#component">component</a>
+                                <a href="#component" >component</a>
                             </li>
                         </ul>
                     </td>
@@ -113,63 +122,63 @@
                     <td class="col-md-4">
                         <ul class="index-list">
                             <li>
-                                <a href="#blurInput">blurInput</a>
+                                <a href="#blurInput" >blurInput</a>
                             </li>
                             <li>
-                                <a href="#clickUnlimitedCheckbox">clickUnlimitedCheckbox</a>
+                                <a href="#clickUnlimitedCheckbox" >clickUnlimitedCheckbox</a>
                             </li>
                             <li>
-                                <a href="#getNativeElement">getNativeElement</a>
+                                <a href="#getNativeElement" >getNativeElement</a>
                             </li>
                             <li>
-                                <a href="#selectUnit">selectUnit</a>
+                                <a href="#selectUnit" >selectUnit</a>
                             </li>
                             <li>
-                                <a href="#setInputValueUnit">setInputValueUnit</a>
+                                <a href="#setInputValueUnit" >setInputValueUnit</a>
                             </li>
                             <li>
-                                <a href="#setUnitOptionsToNone">setUnitOptionsToNone</a>
+                                <a href="#setUnitOptionsToNone" >setUnitOptionsToNone</a>
                             </li>
                             <li>
-                                <a href="#setUnitOptionsToPercent">setUnitOptionsToPercent</a>
+                                <a href="#setUnitOptionsToPercent" >setUnitOptionsToPercent</a>
                             </li>
                             <li>
-                                <a href="#typeInput">typeInput</a>
-                            </li>
-                            <li>
-                                    <span class="modifier">Protected</span>
-                                <a href="#click">click</a>
-                            </li>
-                            <li>
-                                <a href="#detectChanges">detectChanges</a>
+                                <a href="#typeInput" >typeInput</a>
                             </li>
                             <li>
                                     <span class="modifier">Protected</span>
-                                <a href="#findElement">findElement</a>
+                                <a href="#click" >click</a>
+                            </li>
+                            <li>
+                                <a href="#detectChanges" >detectChanges</a>
                             </li>
                             <li>
                                     <span class="modifier">Protected</span>
-                                <a href="#findElements">findElements</a>
+                                <a href="#findElement" >findElement</a>
                             </li>
                             <li>
                                     <span class="modifier">Protected</span>
-                                <a href="#getNodeText">getNodeText</a>
+                                <a href="#findElements" >findElements</a>
                             </li>
                             <li>
                                     <span class="modifier">Protected</span>
-                                <a href="#getText">getText</a>
+                                <a href="#getNodeText" >getNodeText</a>
                             </li>
                             <li>
                                     <span class="modifier">Protected</span>
-                                <a href="#getTexts">getTexts</a>
+                                <a href="#getText" >getText</a>
                             </li>
                             <li>
                                     <span class="modifier">Protected</span>
-                                <a href="#sendKeyboardEvent">sendKeyboardEvent</a>
+                                <a href="#getTexts" >getTexts</a>
                             </li>
                             <li>
                                     <span class="modifier">Protected</span>
-                                <a href="#setInputValue">setInputValue</a>
+                                <a href="#sendKeyboardEvent" >sendKeyboardEvent</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Protected</span>
+                                <a href="#setInputValue" >setInputValue</a>
                             </li>
                         </ul>
                     </td>
@@ -188,52 +197,52 @@
                         <td class="col-md-4">
                             <ul class="index-list">
                                 <li>
-                                    <a href="#formControl">formControl</a>
+                                    <a href="#formControl" >formControl</a>
                                 </li>
                                 <li>
-                                    <a href="#unlimitedLabel">unlimitedLabel</a>
+                                    <a href="#unlimitedLabel" >unlimitedLabel</a>
                                 </li>
                                 <li>
-                                    <a href="#displayValue">displayValue</a>
+                                    <a href="#displayValue" >displayValue</a>
                                 </li>
                                 <li>
-                                    <a href="#readonlyText">readonlyText</a>
+                                    <a href="#readonlyText" >readonlyText</a>
                                 </li>
                                 <li>
-                                    <a href="#isShowingUnlimitedCheckbox">isShowingUnlimitedCheckbox</a>
+                                    <a href="#isShowingUnlimitedCheckbox" >isShowingUnlimitedCheckbox</a>
                                 </li>
                                 <li>
-                                    <a href="#unlimitedCheckbox">unlimitedCheckbox</a>
+                                    <a href="#unlimitedCheckbox" >unlimitedCheckbox</a>
                                 </li>
                                 <li>
-                                    <a href="#unitDropdown">unitDropdown</a>
+                                    <a href="#unitDropdown" >unitDropdown</a>
                                 </li>
                                 <li>
-                                    <a href="#textInputValue">textInputValue</a>
+                                    <a href="#textInputValue" >textInputValue</a>
                                 </li>
                                 <li>
-                                    <a href="#isShowingUnitDropdown">isShowingUnitDropdown</a>
+                                    <a href="#isShowingUnitDropdown" >isShowingUnitDropdown</a>
                                 </li>
                                 <li>
-                                    <a href="#isUnitDropdownDisabled">isUnitDropdownDisabled</a>
+                                    <a href="#isUnitDropdownDisabled" >isUnitDropdownDisabled</a>
                                 </li>
                                 <li>
-                                    <a href="#inputElement">inputElement</a>
+                                    <a href="#inputElement" >inputElement</a>
                                 </li>
                                 <li>
-                                    <a href="#isInputValueFocused">isInputValueFocused</a>
+                                    <a href="#isInputValueFocused" >isInputValueFocused</a>
                                 </li>
                                 <li>
-                                    <a href="#isInputFieldDisabled">isInputFieldDisabled</a>
+                                    <a href="#isInputFieldDisabled" >isInputFieldDisabled</a>
                                 </li>
                                 <li>
-                                    <a href="#selectedUnitDisplayValue">selectedUnitDisplayValue</a>
+                                    <a href="#selectedUnitDisplayValue" >selectedUnitDisplayValue</a>
                                 </li>
                                 <li>
-                                    <a href="#isUnitDropDownDisplayed">isUnitDropDownDisplayed</a>
+                                    <a href="#isUnitDropDownDisplayed" >isUnitDropDownDisplayed</a>
                                 </li>
                                 <li>
-                                    <a href="#singleUnitDisplayText">singleUnitDisplayText</a>
+                                    <a href="#singleUnitDisplayText" >singleUnitDisplayText</a>
                                 </li>
                             </ul>
                         </td>
@@ -243,92 +252,90 @@
 </section>
 
 
-            <section>
+            <section data-compodoc="block-properties">
     
-        <h3 id="inputs">
-            Properties
-        </h3>
-        <table class="table table-sm table-bordered">
-            <tbody>
+    <h3 id="inputs">
+        Properties
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="tagName"></a>
+                    <span class="name">
+                            <span class="modifier">Static</span>
+                        <span ><b>tagName</b></span>
+                        <a href="#tagName"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
                 <tr>
                     <td class="col-md-4">
-                        <a name="tagName"></a>
-                        <span class="name">
-                            <b>
-                                <span class="modifier">Static</span>
-                            tagName</b>
-                            <a href="#tagName"><span class="icon ion-ios-link"></span></a>
-                        </span>
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>&#x27;vcd-number-with-unit-form-input&#x27;</code>
                     </td>
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                            <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
-
+                                <div class="io-line">Defined in <a href="" data-line="15" class="link-to-prism">projects/components/src/form/number-with-unit-input/number-with-unit-form-input.widget-object.ts:15</a></div>
                         </td>
                     </tr>
-                    <tr>
-                        <td class="col-md-4">
-                            <i>Default value : </i><code>&#x27;vcd-number-with-unit-form-input&#x27;</code>
-                        </td>
-                    </tr>
-                        <tr>
-                            <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="15" class="link-to-prism">projects/components/src/form/number-with-unit-input/number-with-unit-form-input.widget-object.ts:15</a></div>
-                            </td>
-                        </tr>
 
 
-            </tbody>
-        </table>
-        <table class="table table-sm table-bordered">
-            <tbody>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="component"></a>
+                    <span class="name">
+                            <span class="modifier">Public</span>
+                        <span ><b>component</b></span>
+                        <a href="#component"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
                 <tr>
                     <td class="col-md-4">
-                        <a name="component"></a>
-                        <span class="name">
-                            <b>
-                                <span class="modifier">Public</span>
-                            component</b>
-                            <a href="#component"><span class="icon ion-ios-link"></span></a>
-                        </span>
+                        <i>Type : </i>    <code>T</code>
+
                     </td>
                 </tr>
-                    <tr>
-                        <td class="col-md-4">
-                            <i>Type : </i>    <code>T</code>
-
-                        </td>
-                    </tr>
-                    <tr>
-                        <td class="col-md-4">
-                            <i>Default value : </i><code>fixture.componentInstance</code>
-                        </td>
-                    </tr>
-                            <tr>
-                                <td class="col-md-4">
-                                    <div class="io-line">Inherited from         <code><a href="../classes/WidgetObject.html" target="_self" >WidgetObject</a></code>
-</div>
-                                </td>
-                            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>fixture.componentInstance</code>
+                    </td>
+                </tr>
                         <tr>
                             <td class="col-md-4">
-                                    <div class="io-line">Defined in         <code><a href="../classes/WidgetObject.html#source" target="_self" >WidgetObject:44</a></code>
+                                <div class="io-line">Inherited from         <code><a href="../classes/WidgetObject.html" target="_self" >WidgetObject</a></code>
 </div>
                             </td>
                         </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in         <code><a href="../classes/WidgetObject.html#source" target="_self" >WidgetObject:44</a></code>
+</div>
+                        </td>
+                    </tr>
 
-                <tr>
-                    <td class="col-md-4">
-                        <div class="io-description">The component instance being managed. Whenever possible, we should access the component's API.</div>
-                    </td>
-                </tr>
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description">The component instance being managed. Whenever possible, we should access the component's API.</div>
+                </td>
+            </tr>
 
-            </tbody>
-        </table>
+        </tbody>
+    </table>
 </section>
 
-            <section>
+            <section data-compodoc="block-methods">
     
     <h3 id="methods">
         Methods
@@ -339,9 +346,7 @@
                 <td class="col-md-4">
                     <a name="blurInput"></a>
                     <span class="name">
-                        <b>
-                            blurInput
-                        </b>
+                        <span ><b>blurInput</b></span>
                         <a href="#blurInput"><span class="icon ion-ios-link"></span></a>
                     </span>
                 </td>
@@ -378,9 +383,7 @@
                 <td class="col-md-4">
                     <a name="clickUnlimitedCheckbox"></a>
                     <span class="name">
-                        <b>
-                            clickUnlimitedCheckbox
-                        </b>
+                        <span ><b>clickUnlimitedCheckbox</b></span>
                         <a href="#clickUnlimitedCheckbox"><span class="icon ion-ios-link"></span></a>
                     </span>
                 </td>
@@ -417,9 +420,7 @@
                 <td class="col-md-4">
                     <a name="getNativeElement"></a>
                     <span class="name">
-                        <b>
-                            getNativeElement
-                        </b>
+                        <span ><b>getNativeElement</b></span>
                         <a href="#getNativeElement"><span class="icon ion-ios-link"></span></a>
                     </span>
                 </td>
@@ -444,6 +445,7 @@
 
                     <div class="io-description">
                         <b>Parameters :</b>
+                        
                         <table class="params">
                             <thead>
                                 <tr>
@@ -487,16 +489,14 @@
                 <td class="col-md-4">
                     <a name="selectUnit"></a>
                     <span class="name">
-                        <b>
-                            selectUnit
-                        </b>
+                        <span ><b>selectUnit</b></span>
                         <a href="#selectUnit"><span class="icon ion-ios-link"></span></a>
                     </span>
                 </td>
             </tr>
             <tr>
                 <td class="col-md-4">
-<code>selectUnit(unit: <a href="../classes/Unit.html">Unit</a>)</code>
+<code>selectUnit(unit: <a href="../classes/Unit.html" target="_self">Unit</a>)</code>
                 </td>
             </tr>
 
@@ -514,6 +514,7 @@
 
                     <div class="io-description">
                         <b>Parameters :</b>
+                        
                         <table class="params">
                             <thead>
                                 <tr>
@@ -557,16 +558,14 @@
                 <td class="col-md-4">
                     <a name="setInputValueUnit"></a>
                     <span class="name">
-                        <b>
-                            setInputValueUnit
-                        </b>
+                        <span ><b>setInputValueUnit</b></span>
                         <a href="#setInputValueUnit"><span class="icon ion-ios-link"></span></a>
                     </span>
                 </td>
             </tr>
             <tr>
                 <td class="col-md-4">
-<code>setInputValueUnit(unit: <a href="../classes/Unit.html">Unit</a>)</code>
+<code>setInputValueUnit(unit: <a href="../classes/Unit.html" target="_self">Unit</a>)</code>
                 </td>
             </tr>
 
@@ -584,6 +583,7 @@
 
                     <div class="io-description">
                         <b>Parameters :</b>
+                        
                         <table class="params">
                             <thead>
                                 <tr>
@@ -627,9 +627,7 @@
                 <td class="col-md-4">
                     <a name="setUnitOptionsToNone"></a>
                     <span class="name">
-                        <b>
-                            setUnitOptionsToNone
-                        </b>
+                        <span ><b>setUnitOptionsToNone</b></span>
                         <a href="#setUnitOptionsToNone"><span class="icon ion-ios-link"></span></a>
                     </span>
                 </td>
@@ -666,9 +664,7 @@
                 <td class="col-md-4">
                     <a name="setUnitOptionsToPercent"></a>
                     <span class="name">
-                        <b>
-                            setUnitOptionsToPercent
-                        </b>
+                        <span ><b>setUnitOptionsToPercent</b></span>
                         <a href="#setUnitOptionsToPercent"><span class="icon ion-ios-link"></span></a>
                     </span>
                 </td>
@@ -705,9 +701,7 @@
                 <td class="col-md-4">
                     <a name="typeInput"></a>
                     <span class="name">
-                        <b>
-                            typeInput
-                        </b>
+                        <span ><b>typeInput</b></span>
                         <a href="#typeInput"><span class="icon ion-ios-link"></span></a>
                     </span>
                 </td>
@@ -732,6 +726,7 @@
 
                     <div class="io-description">
                         <b>Parameters :</b>
+                        
                         <table class="params">
                             <thead>
                                 <tr>
@@ -775,10 +770,8 @@
                 <td class="col-md-4">
                     <a name="click"></a>
                     <span class="name">
-                        <b>
-                            <span class="modifier">Protected</span>
-                            click
-                        </b>
+                        <span class="modifier">Protected</span>
+                        <span ><b>click</b></span>
                         <a href="#click"><span class="icon ion-ios-link"></span></a>
                     </span>
                 </td>
@@ -786,7 +779,7 @@
             <tr>
                 <td class="col-md-4">
                     <span class="modifier-icon icon ion-ios-reset"></span>
-                    <code>click(cssSelector?: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>, parent: <a href="https://angular.io/api/core/DebugElement" target="_blank">DebugElement</a>)</code>
+                    <code>click(cssSelector?: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>, parent: DebugElement)</code>
                 </td>
             </tr>
 
@@ -807,11 +800,13 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-description"><p>Clicks an element and detects changes so the DOM is immediately updated</p>
+                    <div class="io-description"><p>Clicks an element and detects changes so the DOM is immediately updated
+receive the click event</p>
 </div>
 
                     <div class="io-description">
                         <b>Parameters :</b>
+                        
                         <table class="params">
                             <thead>
                                 <tr>
@@ -845,7 +840,7 @@ receive the click event</p>
                                 <tr>
                                     <td>parent</td>
                                     <td>
-                                                <code><a href="https://angular.io/api/core/DebugElement" target="_blank" >DebugElement</a></code>
+                                            <code>DebugElement</code>
                                     </td>
 
                                     <td>
@@ -857,7 +852,7 @@ receive the click event</p>
                                     </td>
 
                                     <td>
-                                        <p>the parent element for which to search for the {</p>
+                                        <p>the parent element for which to search for the {@param cssSelector} within. Defaults to root if not provided.</p>
 
                                     </td>
                                 </tr>
@@ -883,9 +878,7 @@ receive the click event</p>
                 <td class="col-md-4">
                     <a name="detectChanges"></a>
                     <span class="name">
-                        <b>
-                            detectChanges
-                        </b>
+                        <span ><b>detectChanges</b></span>
                         <a href="#detectChanges"><span class="icon ion-ios-link"></span></a>
                     </span>
                 </td>
@@ -928,10 +921,8 @@ receive the click event</p>
                 <td class="col-md-4">
                     <a name="findElement"></a>
                     <span class="name">
-                        <b>
-                            <span class="modifier">Protected</span>
-                            findElement
-                        </b>
+                        <span class="modifier">Protected</span>
+                        <span ><b>findElement</b></span>
                         <a href="#findElement"><span class="icon ion-ios-link"></span></a>
                     </span>
                 </td>
@@ -939,7 +930,7 @@ receive the click event</p>
             <tr>
                 <td class="col-md-4">
                     <span class="modifier-icon icon ion-ios-reset"></span>
-                    <code>findElement(selector: string | Type<unknown>, parent: <a href="https://angular.io/api/core/DebugElement" target="_blank">DebugElement</a>)</code>
+                    <code>findElement(selector: string | Type<>, parent: DebugElement)</code>
                 </td>
             </tr>
 
@@ -965,6 +956,7 @@ receive the click event</p>
 
                     <div class="io-description">
                         <b>Parameters :</b>
+                        
                         <table class="params">
                             <thead>
                                 <tr>
@@ -979,7 +971,7 @@ receive the click event</p>
                                 <tr>
                                     <td>selector</td>
                                     <td>
-                                            <code>string | Type&lt;unknown&gt;</code>
+                                            <code>string | Type&lt;&gt;</code>
                                     </td>
 
                                     <td>
@@ -997,7 +989,7 @@ receive the click event</p>
                                 <tr>
                                     <td>parent</td>
                                     <td>
-                                                <code><a href="https://angular.io/api/core/DebugElement" target="_blank" >DebugElement</a></code>
+                                            <code>DebugElement</code>
                                     </td>
 
                                     <td>
@@ -1019,7 +1011,7 @@ receive the click event</p>
                     <div>
                     </div>
                     <div class="io-description">
-                        <b>Returns : </b>        <code><a href="https://angular.io/api/core/DebugElement" target="_blank" >DebugElement</a></code>
+                        <b>Returns : </b>    <code>DebugElement</code>
 
                     </div>
                     <div class="io-description">
@@ -1035,10 +1027,8 @@ receive the click event</p>
                 <td class="col-md-4">
                     <a name="findElements"></a>
                     <span class="name">
-                        <b>
-                            <span class="modifier">Protected</span>
-                            findElements
-                        </b>
+                        <span class="modifier">Protected</span>
+                        <span ><b>findElements</b></span>
                         <a href="#findElements"><span class="icon ion-ios-link"></span></a>
                     </span>
                 </td>
@@ -1046,7 +1036,7 @@ receive the click event</p>
             <tr>
                 <td class="col-md-4">
                     <span class="modifier-icon icon ion-ios-reset"></span>
-                    <code>findElements(selector: string | Type<unknown>, parent: <a href="https://angular.io/api/core/DebugElement" target="_blank">DebugElement</a>)</code>
+                    <code>findElements(selector: string | Type<>, parent: DebugElement)</code>
                 </td>
             </tr>
 
@@ -1072,6 +1062,7 @@ receive the click event</p>
 
                     <div class="io-description">
                         <b>Parameters :</b>
+                        
                         <table class="params">
                             <thead>
                                 <tr>
@@ -1085,7 +1076,7 @@ receive the click event</p>
                                 <tr>
                                     <td>selector</td>
                                     <td>
-                                            <code>string | Type&lt;unknown&gt;</code>
+                                            <code>string | Type&lt;&gt;</code>
                                     </td>
 
                                     <td>
@@ -1099,7 +1090,7 @@ receive the click event</p>
                                 <tr>
                                     <td>parent</td>
                                     <td>
-                                                <code><a href="https://angular.io/api/core/DebugElement" target="_blank" >DebugElement</a></code>
+                                            <code>DebugElement</code>
                                     </td>
 
                                     <td>
@@ -1133,10 +1124,8 @@ receive the click event</p>
                 <td class="col-md-4">
                     <a name="getNodeText"></a>
                     <span class="name">
-                        <b>
-                            <span class="modifier">Protected</span>
-                            getNodeText
-                        </b>
+                        <span class="modifier">Protected</span>
+                        <span ><b>getNodeText</b></span>
                         <a href="#getNodeText"><span class="icon ion-ios-link"></span></a>
                     </span>
                 </td>
@@ -1144,7 +1133,7 @@ receive the click event</p>
             <tr>
                 <td class="col-md-4">
                     <span class="modifier-icon icon ion-ios-reset"></span>
-                    <code>getNodeText(el: <a href="https://angular.io/api/core/DebugElement" target="_blank">DebugElement</a>)</code>
+                    <code>getNodeText(el: DebugElement)</code>
                 </td>
             </tr>
 
@@ -1168,6 +1157,7 @@ receive the click event</p>
 
                     <div class="io-description">
                         <b>Parameters :</b>
+                        
                         <table class="params">
                             <thead>
                                 <tr>
@@ -1180,7 +1170,7 @@ receive the click event</p>
                                 <tr>
                                     <td>el</td>
                                     <td>
-                                                <code><a href="https://angular.io/api/core/DebugElement" target="_blank" >DebugElement</a></code>
+                                            <code>DebugElement</code>
                                     </td>
 
                                     <td>
@@ -1211,10 +1201,8 @@ receive the click event</p>
                 <td class="col-md-4">
                     <a name="getText"></a>
                     <span class="name">
-                        <b>
-                            <span class="modifier">Protected</span>
-                            getText
-                        </b>
+                        <span class="modifier">Protected</span>
+                        <span ><b>getText</b></span>
                         <a href="#getText"><span class="icon ion-ios-link"></span></a>
                     </span>
                 </td>
@@ -1222,7 +1210,7 @@ receive the click event</p>
             <tr>
                 <td class="col-md-4">
                     <span class="modifier-icon icon ion-ios-reset"></span>
-                    <code>getText(cssSelector: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>, parent: <a href="https://angular.io/api/core/DebugElement" target="_blank">DebugElement</a>)</code>
+                    <code>getText(cssSelector: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>, parent: DebugElement)</code>
                 </td>
             </tr>
 
@@ -1249,6 +1237,7 @@ If the element cannot be found, gives empty string.</p>
 
                     <div class="io-description">
                         <b>Parameters :</b>
+                        
                         <table class="params">
                             <thead>
                                 <tr>
@@ -1281,7 +1270,7 @@ If the element cannot be found, gives empty string.</p>
                                 <tr>
                                     <td>parent</td>
                                     <td>
-                                                <code><a href="https://angular.io/api/core/DebugElement" target="_blank" >DebugElement</a></code>
+                                            <code>DebugElement</code>
                                     </td>
 
                                     <td>
@@ -1319,10 +1308,8 @@ If the element cannot be found, gives empty string.</p>
                 <td class="col-md-4">
                     <a name="getTexts"></a>
                     <span class="name">
-                        <b>
-                            <span class="modifier">Protected</span>
-                            getTexts
-                        </b>
+                        <span class="modifier">Protected</span>
+                        <span ><b>getTexts</b></span>
                         <a href="#getTexts"><span class="icon ion-ios-link"></span></a>
                     </span>
                 </td>
@@ -1356,6 +1343,7 @@ If the element cannot be found, gives empty string.</p>
 
                     <div class="io-description">
                         <b>Parameters :</b>
+                        
                         <table class="params">
                             <thead>
                                 <tr>
@@ -1399,10 +1387,8 @@ If the element cannot be found, gives empty string.</p>
                 <td class="col-md-4">
                     <a name="sendKeyboardEvent"></a>
                     <span class="name">
-                        <b>
-                            <span class="modifier">Protected</span>
-                            sendKeyboardEvent
-                        </b>
+                        <span class="modifier">Protected</span>
+                        <span ><b>sendKeyboardEvent</b></span>
                         <a href="#sendKeyboardEvent"><span class="icon ion-ios-link"></span></a>
                     </span>
                 </td>
@@ -1410,7 +1396,7 @@ If the element cannot be found, gives empty string.</p>
             <tr>
                 <td class="col-md-4">
                     <span class="modifier-icon icon ion-ios-reset"></span>
-                    <code>sendKeyboardEvent(eventType, eventProperties: literal type, cssSelector?: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>, parent: <a href="https://angular.io/api/core/DebugElement" target="_blank">DebugElement</a>)</code>
+                    <code>sendKeyboardEvent(eventType, eventProperties: literal type, cssSelector?: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>, parent: DebugElement)</code>
                 </td>
             </tr>
 
@@ -1434,11 +1420,13 @@ If the element cannot be found, gives empty string.</p>
                     <div class="io-description"><p>Send a keyboard event of type {@param eventType} with properties {@param eventProperties} on an element
 found by the {@param cssSelector} within the provided {@param parent} or the current root element.
 Setting the event properties is done with <code>Object.defineProperty</code> on the created event. This allows setting
-properties like <code>which</code> that is deprecated and cannot be set with the native approach of creating keyboard event.</p>
+properties like <code>which</code> that is deprecated and cannot be set with the native approach of creating keyboard event.
+       If not passed in, the event will be triggered on the entire node</p>
 </div>
 
                     <div class="io-description">
                         <b>Parameters :</b>
+                        
                         <table class="params">
                             <thead>
                                 <tr>
@@ -1507,7 +1495,7 @@ If not passed in, the event will be triggered on the entire node</p>
                                 <tr>
                                     <td>parent</td>
                                     <td>
-                                                <code><a href="https://angular.io/api/core/DebugElement" target="_blank" >DebugElement</a></code>
+                                            <code>DebugElement</code>
                                     </td>
 
                                     <td>
@@ -1519,7 +1507,7 @@ If not passed in, the event will be triggered on the entire node</p>
                                     </td>
 
                                     <td>
-                                        <p>the parent element for which to search for the {</p>
+                                        <p>the parent element for which to search for the {@param cssSelector} within. Defaults to root if not provided.</p>
 
                                     </td>
                                 </tr>
@@ -1545,10 +1533,8 @@ If not passed in, the event will be triggered on the entire node</p>
                 <td class="col-md-4">
                     <a name="setInputValue"></a>
                     <span class="name">
-                        <b>
-                            <span class="modifier">Protected</span>
-                            setInputValue
-                        </b>
+                        <span class="modifier">Protected</span>
+                        <span ><b>setInputValue</b></span>
                         <a href="#setInputValue"><span class="icon ion-ios-link"></span></a>
                     </span>
                 </td>
@@ -1556,7 +1542,7 @@ If not passed in, the event will be triggered on the entire node</p>
             <tr>
                 <td class="col-md-4">
                     <span class="modifier-icon icon ion-ios-reset"></span>
-                    <code>setInputValue(value: string | number, cssSelector?: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>, parent: <a href="https://angular.io/api/core/DebugElement" target="_blank">DebugElement</a>)</code>
+                    <code>setInputValue(value: string | number, cssSelector?: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>, parent: DebugElement)</code>
                 </td>
             </tr>
 
@@ -1577,11 +1563,13 @@ If not passed in, the event will be triggered on the entire node</p>
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-description"><p>Sets the value of an input element or textarea element</p>
+                    <div class="io-description"><p>Sets the value of an input element or textarea element
+       If not passed in, the event will be triggered on the entire node</p>
 </div>
 
                     <div class="io-description">
                         <b>Parameters :</b>
+                        
                         <table class="params">
                             <thead>
                                 <tr>
@@ -1633,7 +1621,7 @@ If not passed in, the event will be triggered on the entire node</p>
                                 <tr>
                                     <td>parent</td>
                                     <td>
-                                                <code><a href="https://angular.io/api/core/DebugElement" target="_blank" >DebugElement</a></code>
+                                            <code>DebugElement</code>
                                     </td>
 
                                     <td>
@@ -1645,7 +1633,7 @@ If not passed in, the event will be triggered on the entire node</p>
                                     </td>
 
                                     <td>
-                                        <p>the parent element for which to search for the {</p>
+                                        <p>the parent element for which to search for the {@param cssSelector} within. Defaults to root if not provided.</p>
 
                                     </td>
                                 </tr>
@@ -1671,7 +1659,7 @@ If not passed in, the event will be triggered on the entire node</p>
 
 
 
-            <section>
+            <section data-compodoc="block-accessors">
     <h3 id="accessors">
         Accessors
     </h3>
@@ -2090,7 +2078,7 @@ If not passed in, the event will be triggered on the entire node</p>
     </div>
 
 
-    <div class="tab-pane fade  tab-source-code" id="c-source">
+    <div class="tab-pane fade  tab-source-code" id="source">
         <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { AbstractControl } from &#x27;@angular/forms&#x27;;
 import { WidgetObject } from &#x27;../../utils/test/widget-object&#x27;;
 import { Percent, Unit } from &#x27;../../utils/unit/unit&#x27;;
@@ -2223,14 +2211,15 @@ export class NumberWithUnitFormInputWidgetObject extends WidgetObject&lt;NumberW
 
 
 
-                   
+
+
 
 
 
 
                    </div><div class="search-results">
     <div class="has-results">
-        <h1 class="search-results-title"><span class='search-results-count'></span> result-matching "<span class='search-query'></span>"</h1>
+        <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
         <ul class="search-results-list"></ul>
     </div>
     <div class="no-results">
@@ -2242,6 +2231,15 @@ export class NumberWithUnitFormInputWidgetObject extends WidgetObject&lt;NumberW
            </div>
        </div>
 
+          <label class="dark-mode-switch">
+               <input type="checkbox">
+               <span class="slider">
+                    <svg class="slider-icon" viewBox="0 0 24 24" fill="none" height="20" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" width="20" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"></path>
+                    </svg>
+               </span>
+          </label>
+
        <script>
             var COMPODOC_CURRENT_PAGE_DEPTH = 1;
             var COMPODOC_CURRENT_PAGE_CONTEXT = 'class';
@@ -2251,9 +2249,9 @@ export class NumberWithUnitFormInputWidgetObject extends WidgetObject&lt;NumberW
 
        <script src="../js/libs/custom-elements.min.js"></script>
        <script src="../js/libs/lit-html.js"></script>
-       <!-- Required to polyfill modern browsers as code is ES5 for IE... -->
-       <script src="../js/libs/custom-elements-es5-adapter.js" charset="utf-8" defer></script>
+
        <script src="../js/menu-wc.js" defer></script>
+       <script nomodule src="../js/menu-wc_es5.js" defer></script>
 
        <script src="../js/libs/bootstrap-native.js"></script>
 

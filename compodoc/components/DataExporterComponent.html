@@ -8,11 +8,12 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
         <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
-	      <link rel="stylesheet" href="../styles/style.css">
+	   <link rel="stylesheet" href="../styles/style.css">
+        <link rel="stylesheet" href="../styles/dark.css">
     </head>
     <body>
 
-        <div class="navbar navbar-default navbar-fixed-top visible-xs">
+        <div class="navbar navbar-default navbar-fixed-top d-block d-sm-none">
             <a href="../" class="navbar-brand">vmware-cloud-director-ui-components documentation</a>
             <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
         </div>
@@ -34,35 +35,43 @@
 
 
 <ol class="breadcrumb">
-  <li>Components</li>
-  <li>DataExporterComponent</li>
+  <li class="breadcrumb-item">Components</li>
+  <li class="breadcrumb-item"
+  >
+  DataExporterComponent</li>
 </ol>
 
 <ul class="nav nav-tabs" role="tablist">
-        <li class="active">
-            <a href="#info" role="tab" id="info-tab" data-toggle="tab" data-link="info">Info</a>
+        <li class="nav-item">
+            <a href="#info" class="nav-link active"
+                role="tab" id="info-tab" data-bs-toggle="tab" data-link="info">Info</a>
         </li>
-        <li >
-            <a href="#source" role="tab" id="source-tab" data-toggle="tab" data-link="source">Source</a>
+        <li class="nav-item">
+            <a href="#source" class="nav-link"
+                role="tab" id="source-tab" data-bs-toggle="tab" data-link="source">Source</a>
         </li>
-        <li >
-            <a href="#templateData" role="tab" id="templateData-tab" data-toggle="tab" data-link="template">Template</a>
+        <li class="nav-item">
+            <a href="#templateData" class="nav-link"
+                role="tab" id="templateData-tab" data-bs-toggle="tab" data-link="template">Template</a>
         </li>
-        <li >
-            <a href="#styleData" role="tab" id="styleData-tab" data-toggle="tab" data-link="style">Styles</a>
+        <li class="nav-item">
+            <a href="#styleData" class="nav-link"
+                role="tab" id="styleData-tab" data-bs-toggle="tab" data-link="style">Styles</a>
         </li>
-        <li >
-            <a href="#tree" role="tab" id="tree-tab" data-toggle="tab" data-link="dom-tree">DOM Tree</a>
+        <li class="nav-item">
+            <a href="#tree" class="nav-link"
+                role="tab" id="tree-tab" data-bs-toggle="tab" data-link="dom-tree">DOM Tree</a>
         </li>
 </ul>
 
 <div class="tab-content">
-    <div class="tab-pane fade active in" id="c-info"><p class="comment">
+    <div class="tab-pane fade active in" id="info"><p class="comment">
     <h3>File</h3>
 </p>
 <p class="comment">
     <code>projects/components/src/data-exporter/data-exporter.component.ts</code>
 </p>
+
 
     <p class="comment">
         <h3>Description</h3>
@@ -82,14 +91,15 @@
         <h3>Implements</h3>
     </p>
     <p class="comment">
-                    <code><a href="https://angular.io/api/core/OnInit" target="_blank" >OnInit</a></code>
+                <code>OnInit</code>
     </p>
 
 
-<section>
+<section data-compodoc="block-metadata">
     <h3>Metadata</h3>
-    <table class="table table-sm table-hover">
+    <table class="table table-sm table-hover metadata">
         <tbody>
+
 
 
 
@@ -111,6 +121,8 @@
                 <td class="col-md-3">selector</td>
                 <td class="col-md-9"><code>vcd-data-exporter</code></td>
             </tr>
+
+
 
             <tr>
                 <td class="col-md-3">styleUrls</td>
@@ -135,7 +147,7 @@
     </table>
 </section>
 
-    <section>
+    <section data-compodoc="block-index">
     <h3 id="index">Index</h3>
     <table class="table table-sm table-bordered index-table">
         <tbody>
@@ -149,41 +161,41 @@
                         <ul class="index-list">
                             <li>
                                     <span class="modifier">Private</span>
-                                <a href="#_columnDropdown">_columnDropdown</a>
+                                <a href="#_columnDropdown" >_columnDropdown</a>
                             </li>
                             <li>
-                                <a href="#_columns">_columns</a>
-                            </li>
-                            <li>
-                                    <span class="modifier">Private</span>
-                                <a href="#_isRequestPending">_isRequestPending</a>
+                                <a href="#_columns" >_columns</a>
                             </li>
                             <li>
                                     <span class="modifier">Private</span>
-                                <a href="#_open">_open</a>
+                                <a href="#_isRequestPending" >_isRequestPending</a>
                             </li>
                             <li>
                                     <span class="modifier">Private</span>
-                                <a href="#_progress">_progress</a>
-                            </li>
-                            <li>
-                                <a href="#DataUi">DataUi</a>
-                            </li>
-                            <li>
-                                <a href="#exportStage">exportStage</a>
+                                <a href="#_open" >_open</a>
                             </li>
                             <li>
                                     <span class="modifier">Private</span>
-                                <a href="#fieldNameMap">fieldNameMap</a>
+                                <a href="#_progress" >_progress</a>
                             </li>
                             <li>
-                                <a href="#formGroup">formGroup</a>
+                                <a href="#DataUi" >DataUi</a>
                             </li>
                             <li>
-                                <a href="#isDropdownOpen">isDropdownOpen</a>
+                                <a href="#exportStage" >exportStage</a>
                             </li>
                             <li>
-                                <a href="#optionsFormGroup">optionsFormGroup</a>
+                                    <span class="modifier">Private</span>
+                                <a href="#fieldNameMap" >fieldNameMap</a>
+                            </li>
+                            <li>
+                                <a href="#formGroup" >formGroup</a>
+                            </li>
+                            <li>
+                                <a href="#isDropdownOpen" >isDropdownOpen</a>
+                            </li>
+                            <li>
+                                <a href="#optionsFormGroup" >optionsFormGroup</a>
                             </li>
                         </ul>
                     </td>
@@ -198,38 +210,38 @@
                     <td class="col-md-4">
                         <ul class="index-list">
                             <li>
-                                <a href="#downloadData">downloadData</a>
+                                <a href="#downloadData" >downloadData</a>
                             </li>
                             <li>
                                     <span class="modifier">Private</span>
-                                <a href="#exportData">exportData</a>
+                                <a href="#exportData" >exportData</a>
                             </li>
                             <li>
-                                <a href="#getColumnSelection">getColumnSelection</a>
+                                <a href="#getColumnSelection" >getColumnSelection</a>
                             </li>
                             <li>
-                                <a href="#getDisplayNameForColumn">getDisplayNameForColumn</a>
-                            </li>
-                            <li>
-                                    <span class="modifier">Private</span>
-                                <a href="#getDisplayNameForField">getDisplayNameForField</a>
-                            </li>
-                            <li>
-                                <a href="#ngOnInit">ngOnInit</a>
-                            </li>
-                            <li>
-                                <a href="#onClickExport">onClickExport</a>
-                            </li>
-                            <li>
-                                <a href="#selectColumn">selectColumn</a>
+                                <a href="#getDisplayNameForColumn" >getDisplayNameForColumn</a>
                             </li>
                             <li>
                                     <span class="modifier">Private</span>
-                                <a href="#updateFieldNameMap">updateFieldNameMap</a>
+                                <a href="#getDisplayNameForField" >getDisplayNameForField</a>
+                            </li>
+                            <li>
+                                <a href="#ngOnInit" >ngOnInit</a>
+                            </li>
+                            <li>
+                                <a href="#onClickExport" >onClickExport</a>
+                            </li>
+                            <li>
+                                <a href="#selectColumn" >selectColumn</a>
                             </li>
                             <li>
                                     <span class="modifier">Private</span>
-                                <a href="#updateProgress">updateProgress</a>
+                                <a href="#updateFieldNameMap" >updateFieldNameMap</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#updateProgress" >updateProgress</a>
                             </li>
                         </ul>
                     </td>
@@ -244,58 +256,58 @@
                     <td class="col-md-4">
                         <ul class="index-list">
                             <li>
-                                <a href="#cancelText">cancelText</a>
+                                <a href="#cancelText" >cancelText</a>
                             </li>
                             <li>
-                                <a href="#columns">columns</a>
+                                <a href="#columns" >columns</a>
                             </li>
                             <li>
-                                <a href="#dialogHeader">dialogHeader</a>
+                                <a href="#dialogHeader" >dialogHeader</a>
                             </li>
                             <li>
-                                <a href="#downloadingMessage">downloadingMessage</a>
+                                <a href="#downloadingMessage" >downloadingMessage</a>
                             </li>
                             <li>
-                                <a href="#exportAllText">exportAllText</a>
+                                <a href="#exportAllText" >exportAllText</a>
                             </li>
                             <li>
-                                <a href="#exportText">exportText</a>
+                                <a href="#exportText" >exportText</a>
                             </li>
                             <li>
-                                <a href="#fileName">fileName</a>
+                                <a href="#fileName" >fileName</a>
                             </li>
                             <li>
-                                <a href="#friendlyNamesCheckboxLabel">friendlyNamesCheckboxLabel</a>
+                                <a href="#friendlyNamesCheckboxLabel" >friendlyNamesCheckboxLabel</a>
                             </li>
                             <li>
-                                <a href="#friendlyNamesHint">friendlyNamesHint</a>
+                                <a href="#friendlyNamesHint" >friendlyNamesHint</a>
                             </li>
                             <li>
-                                <a href="#friendlyNamesInfoMessage">friendlyNamesInfoMessage</a>
+                                <a href="#friendlyNamesInfoMessage" >friendlyNamesInfoMessage</a>
                             </li>
                             <li>
-                                <a href="#noText">noText</a>
+                                <a href="#noText" >noText</a>
                             </li>
                             <li>
-                                <a href="#open">open</a>
+                                <a href="#open" >open</a>
                             </li>
                             <li>
-                                <a href="#sanitizeCheckboxHint">sanitizeCheckboxHint</a>
+                                <a href="#sanitizeCheckboxHint" >sanitizeCheckboxHint</a>
                             </li>
                             <li>
-                                <a href="#sanitizeCheckboxLabel">sanitizeCheckboxLabel</a>
+                                <a href="#sanitizeCheckboxLabel" >sanitizeCheckboxLabel</a>
                             </li>
                             <li>
-                                <a href="#sanitizeInfoMessage">sanitizeInfoMessage</a>
+                                <a href="#sanitizeInfoMessage" >sanitizeInfoMessage</a>
                             </li>
                             <li>
-                                <a href="#selectColumnsText">selectColumnsText</a>
+                                <a href="#selectColumnsText" >selectColumnsText</a>
                             </li>
                             <li>
-                                <a href="#writingMessage">writingMessage</a>
+                                <a href="#writingMessage" >writingMessage</a>
                             </li>
                             <li>
-                                <a href="#yesText">yesText</a>
+                                <a href="#yesText" >yesText</a>
                             </li>
                         </ul>
                     </td>
@@ -310,10 +322,10 @@
                     <td class="col-md-4">
                         <ul class="index-list">
                             <li>
-                                <a href="#dataExportRequest">dataExportRequest</a>
+                                <a href="#dataExportRequest" >dataExportRequest</a>
                             </li>
                             <li>
-                                <a href="#openChange">openChange</a>
+                                <a href="#openChange" >openChange</a>
                             </li>
                         </ul>
                     </td>
@@ -330,37 +342,37 @@
                         <td class="col-md-4">
                             <ul class="index-list">
                                 <li>
-                                    <a href="#columnDropdown">columnDropdown</a>
+                                    <a href="#columnDropdown" >columnDropdown</a>
                                 </li>
                                 <li>
-                                    <a href="#columns">columns</a>
+                                    <a href="#columns" >columns</a>
                                 </li>
                                 <li>
-                                    <a href="#open">open</a>
+                                    <a href="#open" >open</a>
                                 </li>
                                 <li>
-                                    <a href="#isRequestPending">isRequestPending</a>
+                                    <a href="#isRequestPending" >isRequestPending</a>
                                 </li>
                                 <li>
-                                    <a href="#progress">progress</a>
+                                    <a href="#progress" >progress</a>
                                 </li>
                                 <li>
-                                    <a href="#selectAllControl">selectAllControl</a>
+                                    <a href="#selectAllControl" >selectAllControl</a>
                                 </li>
                                 <li>
-                                    <a href="#sanitizeControl">sanitizeControl</a>
+                                    <a href="#sanitizeControl" >sanitizeControl</a>
                                 </li>
                                 <li>
-                                    <a href="#friendlyFieldsControl">friendlyFieldsControl</a>
+                                    <a href="#friendlyFieldsControl" >friendlyFieldsControl</a>
                                 </li>
                                 <li>
-                                    <a href="#isExportEnabled">isExportEnabled</a>
+                                    <a href="#isExportEnabled" >isExportEnabled</a>
                                 </li>
                                 <li>
-                                    <a href="#shouldShowBubbles">shouldShowBubbles</a>
+                                    <a href="#shouldShowBubbles" >shouldShowBubbles</a>
                                 </li>
                                 <li>
-                                    <a href="#selectedColumns">selectedColumns</a>
+                                    <a href="#selectedColumns" >selectedColumns</a>
                                 </li>
                             </ul>
                         </td>
@@ -369,13 +381,13 @@
     </table>
 </section>
 
-    <section>
+    <section data-compodoc="block-constructor">
     <h3 id="constructor">Constructor</h3>
         <table class="table table-sm table-bordered">
             <tbody>
                 <tr>
                     <td class="col-md-4">
-<code>constructor(csvExporterService: <a href="../injectables/CsvExporterService.html">CsvExporterService</a>, translationService: TranslationService, subscriptionTracker: <a href="../injectables/SubscriptionTracker.html">SubscriptionTracker</a>)</code>
+<code>constructor(csvExporterService: <a href="../injectables/CsvExporterService.html" target="_self">CsvExporterService</a>, translationService: TranslationService, subscriptionTracker: <a href="../injectables/SubscriptionTracker.html" target="_self">SubscriptionTracker</a>)</code>
                     </td>
                 </tr>
                         <tr>
@@ -442,7 +454,7 @@
         </table>
 </section>
 
-    <section>
+    <section data-compodoc="block-inputs">
     <h3 id="inputs">Inputs</h3>
         <table class="table table-sm table-bordered">
             <tbody>
@@ -1012,7 +1024,7 @@ Display name defaults to field name if there is no displayName</p>
             </tbody>
         </table>
 </section>
-    <section>
+    <section data-compodoc="block-outputs">
     <h3 id="outputs">Outputs</h3>
         <table class="table table-sm table-bordered">
             <tbody>
@@ -1024,7 +1036,7 @@ Display name defaults to field name if there is no displayName</p>
                 </tr>
                 <tr>
                     <td class="col-md-4">
-                        <i>Type : </i>        <code><a href="../interfaces/DataExportRequestEvent.html" target="_self" >EventEmitter&lt;DataExportRequestEvent&gt;</a></code>
+                        <i>Type : </i>    <code>EventEmitter</code>
 
                     </td>
                 </tr>
@@ -1051,7 +1063,7 @@ Display name defaults to field name if there is no displayName</p>
                 </tr>
                 <tr>
                     <td class="col-md-4">
-                        <i>Type : </i>    <code>EventEmitter&lt;boolean&gt;</code>
+                        <i>Type : </i>    <code>EventEmitter</code>
 
                     </td>
                 </tr>
@@ -1071,7 +1083,7 @@ Display name defaults to field name if there is no displayName</p>
 </section>
 
 
-    <section>
+    <section data-compodoc="block-methods">
     
     <h3 id="methods">
         Methods
@@ -1082,9 +1094,7 @@ Display name defaults to field name if there is no displayName</p>
                 <td class="col-md-4">
                     <a name="downloadData"></a>
                     <span class="name">
-                        <b>
-                            downloadData
-                        </b>
+                        <span ><b>downloadData</b></span>
                         <a href="#downloadData"><span class="icon ion-ios-link"></span></a>
                     </span>
                 </td>
@@ -1109,6 +1119,7 @@ Display name defaults to field name if there is no displayName</p>
 
                     <div class="io-description">
                         <b>Parameters :</b>
+                        
                         <table class="params">
                             <thead>
                                 <tr>
@@ -1170,10 +1181,8 @@ Display name defaults to field name if there is no displayName</p>
                 <td class="col-md-4">
                     <a name="exportData"></a>
                     <span class="name">
-                        <b>
-                            <span class="modifier">Private</span>
-                            exportData
-                        </b>
+                        <span class="modifier">Private</span>
+                        <span ><b>exportData</b></span>
                         <a href="#exportData"><span class="icon ion-ios-link"></span></a>
                     </span>
                 </td>
@@ -1199,6 +1208,7 @@ Display name defaults to field name if there is no displayName</p>
 
                     <div class="io-description">
                         <b>Parameters :</b>
+                        
                         <table class="params">
                             <thead>
                                 <tr>
@@ -1242,16 +1252,14 @@ Display name defaults to field name if there is no displayName</p>
                 <td class="col-md-4">
                     <a name="getColumnSelection"></a>
                     <span class="name">
-                        <b>
-                            getColumnSelection
-                        </b>
+                        <span ><b>getColumnSelection</b></span>
                         <a href="#getColumnSelection"><span class="icon ion-ios-link"></span></a>
                     </span>
                 </td>
             </tr>
             <tr>
                 <td class="col-md-4">
-<code>getColumnSelection(column: <a href="../interfaces/ExportColumn.html">ExportColumn</a>)</code>
+<code>getColumnSelection(column: <a href="../interfaces/ExportColumn.html" target="_self">ExportColumn</a>)</code>
                 </td>
             </tr>
 
@@ -1271,6 +1279,7 @@ Display name defaults to field name if there is no displayName</p>
 
                     <div class="io-description">
                         <b>Parameters :</b>
+                        
                         <table class="params">
                             <thead>
                                 <tr>
@@ -1314,16 +1323,14 @@ Display name defaults to field name if there is no displayName</p>
                 <td class="col-md-4">
                     <a name="getDisplayNameForColumn"></a>
                     <span class="name">
-                        <b>
-                            getDisplayNameForColumn
-                        </b>
+                        <span ><b>getDisplayNameForColumn</b></span>
                         <a href="#getDisplayNameForColumn"><span class="icon ion-ios-link"></span></a>
                     </span>
                 </td>
             </tr>
             <tr>
                 <td class="col-md-4">
-<code>getDisplayNameForColumn(col: <a href="../interfaces/ExportColumn.html">ExportColumn</a>)</code>
+<code>getDisplayNameForColumn(col: <a href="../interfaces/ExportColumn.html" target="_self">ExportColumn</a>)</code>
                 </td>
             </tr>
 
@@ -1341,6 +1348,7 @@ Display name defaults to field name if there is no displayName</p>
 
                     <div class="io-description">
                         <b>Parameters :</b>
+                        
                         <table class="params">
                             <thead>
                                 <tr>
@@ -1384,10 +1392,8 @@ Display name defaults to field name if there is no displayName</p>
                 <td class="col-md-4">
                     <a name="getDisplayNameForField"></a>
                     <span class="name">
-                        <b>
-                            <span class="modifier">Private</span>
-                            getDisplayNameForField
-                        </b>
+                        <span class="modifier">Private</span>
+                        <span ><b>getDisplayNameForField</b></span>
                         <a href="#getDisplayNameForField"><span class="icon ion-ios-link"></span></a>
                     </span>
                 </td>
@@ -1413,6 +1419,7 @@ Display name defaults to field name if there is no displayName</p>
 
                     <div class="io-description">
                         <b>Parameters :</b>
+                        
                         <table class="params">
                             <thead>
                                 <tr>
@@ -1456,9 +1463,7 @@ Display name defaults to field name if there is no displayName</p>
                 <td class="col-md-4">
                     <a name="ngOnInit"></a>
                     <span class="name">
-                        <b>
-                            ngOnInit
-                        </b>
+                        <span ><b>ngOnInit</b></span>
                         <a href="#ngOnInit"><span class="icon ion-ios-link"></span></a>
                     </span>
                 </td>
@@ -1495,9 +1500,7 @@ Display name defaults to field name if there is no displayName</p>
                 <td class="col-md-4">
                     <a name="onClickExport"></a>
                     <span class="name">
-                        <b>
-                            onClickExport
-                        </b>
+                        <span ><b>onClickExport</b></span>
                         <a href="#onClickExport"><span class="icon ion-ios-link"></span></a>
                     </span>
                 </td>
@@ -1534,16 +1537,14 @@ Display name defaults to field name if there is no displayName</p>
                 <td class="col-md-4">
                     <a name="selectColumn"></a>
                     <span class="name">
-                        <b>
-                            selectColumn
-                        </b>
+                        <span ><b>selectColumn</b></span>
                         <a href="#selectColumn"><span class="icon ion-ios-link"></span></a>
                     </span>
                 </td>
             </tr>
             <tr>
                 <td class="col-md-4">
-<code>selectColumn(column: <a href="../interfaces/ExportColumn.html">ExportColumn</a>, selected: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank">boolean</a>)</code>
+<code>selectColumn(column: <a href="../interfaces/ExportColumn.html" target="_self">ExportColumn</a>, selected: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank">boolean</a>)</code>
                 </td>
             </tr>
 
@@ -1563,6 +1564,7 @@ Display name defaults to field name if there is no displayName</p>
 
                     <div class="io-description">
                         <b>Parameters :</b>
+                        
                         <table class="params">
                             <thead>
                                 <tr>
@@ -1624,10 +1626,8 @@ Display name defaults to field name if there is no displayName</p>
                 <td class="col-md-4">
                     <a name="updateFieldNameMap"></a>
                     <span class="name">
-                        <b>
-                            <span class="modifier">Private</span>
-                            updateFieldNameMap
-                        </b>
+                        <span class="modifier">Private</span>
+                        <span ><b>updateFieldNameMap</b></span>
                         <a href="#updateFieldNameMap"><span class="icon ion-ios-link"></span></a>
                     </span>
                 </td>
@@ -1635,7 +1635,7 @@ Display name defaults to field name if there is no displayName</p>
             <tr>
                 <td class="col-md-4">
                     <span class="modifier-icon icon ion-ios-reset"></span>
-                    <code>updateFieldNameMap(cols: <a href="../interfaces/ExportColumn.html">ExportColumn[]</a>)</code>
+                    <code>updateFieldNameMap(cols: <a href="../interfaces/ExportColumn.html" target="_self">ExportColumn[]</a>)</code>
                 </td>
             </tr>
 
@@ -1653,6 +1653,7 @@ Display name defaults to field name if there is no displayName</p>
 
                     <div class="io-description">
                         <b>Parameters :</b>
+                        
                         <table class="params">
                             <thead>
                                 <tr>
@@ -1696,10 +1697,8 @@ Display name defaults to field name if there is no displayName</p>
                 <td class="col-md-4">
                     <a name="updateProgress"></a>
                     <span class="name">
-                        <b>
-                            <span class="modifier">Private</span>
-                            updateProgress
-                        </b>
+                        <span class="modifier">Private</span>
+                        <span ><b>updateProgress</b></span>
                         <a href="#updateProgress"><span class="icon ion-ios-link"></span></a>
                     </span>
                 </td>
@@ -1725,6 +1724,7 @@ Display name defaults to field name if there is no displayName</p>
 
                     <div class="io-description">
                         <b>Parameters :</b>
+                        
                         <table class="params">
                             <thead>
                                 <tr>
@@ -1763,366 +1763,319 @@ Display name defaults to field name if there is no displayName</p>
         </tbody>
     </table>
 </section>
-    <section>
+    <section data-compodoc="block-properties">
     
-        <h3 id="inputs">
-            Properties
-        </h3>
-        <table class="table table-sm table-bordered">
-            <tbody>
+    <h3 id="inputs">
+        Properties
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="_columnDropdown"></a>
+                    <span class="name">
+                            <span class="modifier">Private</span>
+                        <span ><b>_columnDropdown</b></span>
+                        <a href="#_columnDropdown"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
                 <tr>
                     <td class="col-md-4">
-                        <a name="_columnDropdown"></a>
-                        <span class="name">
-                            <b>
-                                <span class="modifier">Private</span>
-                            _columnDropdown</b>
-                            <a href="#_columnDropdown"><span class="icon ion-ios-link"></span></a>
-                        </span>
+                        <i>Type : </i>    <code>ClrDropdown</code>
+
                     </td>
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                            <i>Type : </i>    <code>ClrDropdown</code>
-
+                                <div class="io-line">Defined in <a href="" data-line="110" class="link-to-prism">projects/components/src/data-exporter/data-exporter.component.ts:110</a></div>
                         </td>
                     </tr>
-                        <tr>
-                            <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="110" class="link-to-prism">projects/components/src/data-exporter/data-exporter.component.ts:110</a></div>
-                            </td>
-                        </tr>
 
 
-            </tbody>
-        </table>
-        <table class="table table-sm table-bordered">
-            <tbody>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="_columns"></a>
+                    <span class="name">
+                        <span ><b>_columns</b></span>
+                        <a href="#_columns"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
                 <tr>
                     <td class="col-md-4">
-                        <a name="_columns"></a>
-                        <span class="name">
-                            <b>
-                            _columns</b>
-                            <a href="#_columns"><span class="icon ion-ios-link"></span></a>
-                        </span>
+                        <i>Type : </i>        <code><a href="../interfaces/ExportColumn.html" target="_self" >ExportColumn[]</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>[]</code>
                     </td>
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                            <i>Type : </i>        <code><a href="../interfaces/ExportColumn.html" target="_self" >ExportColumn[]</a></code>
-
+                                <div class="io-line">Defined in <a href="" data-line="112" class="link-to-prism">projects/components/src/data-exporter/data-exporter.component.ts:112</a></div>
                         </td>
                     </tr>
-                    <tr>
-                        <td class="col-md-4">
-                            <i>Default value : </i><code>[]</code>
-                        </td>
-                    </tr>
-                        <tr>
-                            <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="112" class="link-to-prism">projects/components/src/data-exporter/data-exporter.component.ts:112</a></div>
-                            </td>
-                        </tr>
 
 
-            </tbody>
-        </table>
-        <table class="table table-sm table-bordered">
-            <tbody>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="_isRequestPending"></a>
+                    <span class="name">
+                            <span class="modifier">Private</span>
+                        <span ><b>_isRequestPending</b></span>
+                        <a href="#_isRequestPending"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
                 <tr>
                     <td class="col-md-4">
-                        <a name="_isRequestPending"></a>
-                        <span class="name">
-                            <b>
-                                <span class="modifier">Private</span>
-                            _isRequestPending</b>
-                            <a href="#_isRequestPending"><span class="icon ion-ios-link"></span></a>
-                        </span>
+                        <i>Default value : </i><code>false</code>
                     </td>
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                            <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank" >boolean</a></code>
-
+                                <div class="io-line">Defined in <a href="" data-line="253" class="link-to-prism">projects/components/src/data-exporter/data-exporter.component.ts:253</a></div>
                         </td>
                     </tr>
-                    <tr>
-                        <td class="col-md-4">
-                            <i>Default value : </i><code>false</code>
-                        </td>
-                    </tr>
-                        <tr>
-                            <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="253" class="link-to-prism">projects/components/src/data-exporter/data-exporter.component.ts:253</a></div>
-                            </td>
-                        </tr>
 
 
-            </tbody>
-        </table>
-        <table class="table table-sm table-bordered">
-            <tbody>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="_open"></a>
+                    <span class="name">
+                            <span class="modifier">Private</span>
+                        <span ><b>_open</b></span>
+                        <a href="#_open"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
                 <tr>
                     <td class="col-md-4">
-                        <a name="_open"></a>
-                        <span class="name">
-                            <b>
-                                <span class="modifier">Private</span>
-                            _open</b>
-                            <a href="#_open"><span class="icon ion-ios-link"></span></a>
-                        </span>
+                        <i>Default value : </i><code>false</code>
                     </td>
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                            <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank" >boolean</a></code>
-
+                                <div class="io-line">Defined in <a href="" data-line="235" class="link-to-prism">projects/components/src/data-exporter/data-exporter.component.ts:235</a></div>
                         </td>
                     </tr>
-                    <tr>
-                        <td class="col-md-4">
-                            <i>Default value : </i><code>false</code>
-                        </td>
-                    </tr>
-                        <tr>
-                            <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="235" class="link-to-prism">projects/components/src/data-exporter/data-exporter.component.ts:235</a></div>
-                            </td>
-                        </tr>
 
 
-            </tbody>
-        </table>
-        <table class="table table-sm table-bordered">
-            <tbody>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="_progress"></a>
+                    <span class="name">
+                            <span class="modifier">Private</span>
+                        <span ><b>_progress</b></span>
+                        <a href="#_progress"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
                 <tr>
                     <td class="col-md-4">
-                        <a name="_progress"></a>
-                        <span class="name">
-                            <b>
-                                <span class="modifier">Private</span>
-                            _progress</b>
-                            <a href="#_progress"><span class="icon ion-ios-link"></span></a>
-                        </span>
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>0</code>
                     </td>
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                            <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
-
+                                <div class="io-line">Defined in <a href="" data-line="261" class="link-to-prism">projects/components/src/data-exporter/data-exporter.component.ts:261</a></div>
                         </td>
                     </tr>
-                    <tr>
-                        <td class="col-md-4">
-                            <i>Default value : </i><code>0</code>
-                        </td>
-                    </tr>
-                        <tr>
-                            <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="261" class="link-to-prism">projects/components/src/data-exporter/data-exporter.component.ts:261</a></div>
-                            </td>
-                        </tr>
 
 
-            </tbody>
-        </table>
-        <table class="table table-sm table-bordered">
-            <tbody>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="DataUi"></a>
+                    <span class="name">
+                        <span ><b>DataUi</b></span>
+                        <a href="#DataUi"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
                 <tr>
                     <td class="col-md-4">
-                        <a name="DataUi"></a>
-                        <span class="name">
-                            <b>
-                            DataUi</b>
-                            <a href="#DataUi"><span class="icon ion-ios-link"></span></a>
-                        </span>
+                        <i>Default value : </i><code>DataUi</code>
                     </td>
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                            <i>Type : </i>        <code><a href="../miscellaneous/variables.html#DataUi" target="_self" >DataUi</a></code>
-
+                                <div class="io-line">Defined in <a href="" data-line="92" class="link-to-prism">projects/components/src/data-exporter/data-exporter.component.ts:92</a></div>
                         </td>
                     </tr>
-                    <tr>
-                        <td class="col-md-4">
-                            <i>Default value : </i><code>DataUi</code>
-                        </td>
-                    </tr>
-                        <tr>
-                            <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="92" class="link-to-prism">projects/components/src/data-exporter/data-exporter.component.ts:92</a></div>
-                            </td>
-                        </tr>
 
 
-            </tbody>
-        </table>
-        <table class="table table-sm table-bordered">
-            <tbody>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="exportStage"></a>
+                    <span class="name">
+                        <span ><b>exportStage</b></span>
+                        <a href="#exportStage"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
                 <tr>
                     <td class="col-md-4">
-                        <a name="exportStage"></a>
-                        <span class="name">
-                            <b>
-                            exportStage</b>
-                            <a href="#exportStage"><span class="icon ion-ios-link"></span></a>
-                        </span>
+                        <i>Type : </i>        <code><a href="../miscellaneous/typealiases.html#LazyString" target="_self" >LazyString</a></code>
+
                     </td>
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                            <i>Type : </i>        <code><a href="../miscellaneous/typealiases.html#LazyString" target="_self" >LazyString</a></code>
-
+                                <div class="io-line">Defined in <a href="" data-line="267" class="link-to-prism">projects/components/src/data-exporter/data-exporter.component.ts:267</a></div>
                         </td>
                     </tr>
-                        <tr>
-                            <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="267" class="link-to-prism">projects/components/src/data-exporter/data-exporter.component.ts:267</a></div>
-                            </td>
-                        </tr>
 
 
-            </tbody>
-        </table>
-        <table class="table table-sm table-bordered">
-            <tbody>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="fieldNameMap"></a>
+                    <span class="name">
+                            <span class="modifier">Private</span>
+                        <span ><b>fieldNameMap</b></span>
+                        <a href="#fieldNameMap"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
                 <tr>
                     <td class="col-md-4">
-                        <a name="fieldNameMap"></a>
-                        <span class="name">
-                            <b>
-                                <span class="modifier">Private</span>
-                            fieldNameMap</b>
-                            <a href="#fieldNameMap"><span class="icon ion-ios-link"></span></a>
-                        </span>
+                        <i>Default value : </i><code>new Map&lt;string, ExportColumn&gt;()</code>
                     </td>
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                            <i>Type : </i>        <code><a href="../interfaces/ExportColumn.html" target="_self" >Map&lt;string, ExportColumn&gt;</a></code>
-
+                                <div class="io-line">Defined in <a href="" data-line="263" class="link-to-prism">projects/components/src/data-exporter/data-exporter.component.ts:263</a></div>
                         </td>
                     </tr>
-                    <tr>
-                        <td class="col-md-4">
-                            <i>Default value : </i><code>new Map&lt;string, ExportColumn&gt;()</code>
-                        </td>
-                    </tr>
-                        <tr>
-                            <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="263" class="link-to-prism">projects/components/src/data-exporter/data-exporter.component.ts:263</a></div>
-                            </td>
-                        </tr>
 
 
-            </tbody>
-        </table>
-        <table class="table table-sm table-bordered">
-            <tbody>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="formGroup"></a>
+                    <span class="name">
+                        <span ><b>formGroup</b></span>
+                        <a href="#formGroup"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
                 <tr>
                     <td class="col-md-4">
-                        <a name="formGroup"></a>
-                        <span class="name">
-                            <b>
-                            formGroup</b>
-                            <a href="#formGroup"><span class="icon ion-ios-link"></span></a>
-                        </span>
+                        <i>Type : </i>    <code>FormGroup&lt;literal type&gt;</code>
+
                     </td>
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                            <i>Type : </i>    <code>FormGroup&lt;literal type&gt;</code>
-
+                                <div class="io-line">Defined in <a href="" data-line="265" class="link-to-prism">projects/components/src/data-exporter/data-exporter.component.ts:265</a></div>
                         </td>
                     </tr>
-                        <tr>
-                            <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="265" class="link-to-prism">projects/components/src/data-exporter/data-exporter.component.ts:265</a></div>
-                            </td>
-                        </tr>
 
 
-            </tbody>
-        </table>
-        <table class="table table-sm table-bordered">
-            <tbody>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="isDropdownOpen"></a>
+                    <span class="name">
+                        <span ><b>isDropdownOpen</b></span>
+                        <a href="#isDropdownOpen"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
                 <tr>
                     <td class="col-md-4">
-                        <a name="isDropdownOpen"></a>
-                        <span class="name">
-                            <b>
-                            isDropdownOpen</b>
-                            <a href="#isDropdownOpen"><span class="icon ion-ios-link"></span></a>
-                        </span>
+                        <i>Default value : </i><code>false</code>
                     </td>
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                            <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank" >boolean</a></code>
-
+                                <div class="io-line">Defined in <a href="" data-line="278" class="link-to-prism">projects/components/src/data-exporter/data-exporter.component.ts:278</a></div>
                         </td>
                     </tr>
-                    <tr>
-                        <td class="col-md-4">
-                            <i>Default value : </i><code>false</code>
-                        </td>
-                    </tr>
-                        <tr>
-                            <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="278" class="link-to-prism">projects/components/src/data-exporter/data-exporter.component.ts:278</a></div>
-                            </td>
-                        </tr>
 
-                <tr>
-                    <td class="col-md-4">
-                        <div class="io-description"><p>Says if the column selection dropdown is open.</p>
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Says if the column selection dropdown is open.</p>
 </div>
-                    </td>
-                </tr>
+                </td>
+            </tr>
 
-            </tbody>
-        </table>
-        <table class="table table-sm table-bordered">
-            <tbody>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="optionsFormGroup"></a>
+                    <span class="name">
+                        <span ><b>optionsFormGroup</b></span>
+                        <a href="#optionsFormGroup"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
                 <tr>
                     <td class="col-md-4">
-                        <a name="optionsFormGroup"></a>
-                        <span class="name">
-                            <b>
-                            optionsFormGroup</b>
-                            <a href="#optionsFormGroup"><span class="icon ion-ios-link"></span></a>
-                        </span>
-                    </td>
-                </tr>
-                    <tr>
-                        <td class="col-md-4">
-                            <i>Type : </i>        <code><a href="https://angular.io/api/forms/FormGroup" target="_blank" >FormGroup</a></code>
-
-                        </td>
-                    </tr>
-                    <tr>
-                        <td class="col-md-4">
-                            <i>Default value : </i><code>new FormGroup({
+                        <i>Default value : </i><code>new FormGroup({
         selectAll: new FormControl(true),
         friendlyNames: new FormControl(true),
         sanitize: new FormControl(true),
     })</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="269" class="link-to-prism">projects/components/src/data-exporter/data-exporter.component.ts:269</a></div>
                         </td>
                     </tr>
-                        <tr>
-                            <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="269" class="link-to-prism">projects/components/src/data-exporter/data-exporter.component.ts:269</a></div>
-                            </td>
-                        </tr>
 
 
-            </tbody>
-        </table>
+        </tbody>
+    </table>
 </section>
 
-    <section>
+    <section data-compodoc="block-accessors">
     <h3 id="accessors">
         Accessors
     </h3>
@@ -2138,7 +2091,7 @@ Display name defaults to field name if there is no displayName</p>
 
                 <tr>
                     <td class="col-md-4">
-                        <span class="accessor"><b>set</b><code>columnDropdown(columnDropdown)</code></span>
+                        <span class="accessor"><b>set</b><code>columnDropdown(columnDropdown: ClrDropdown)</code></span>
                     </td>
                 </tr>
                             <tr>
@@ -2155,6 +2108,7 @@ Display name defaults to field name if there is no displayName</p>
                                             <thead>
                                                 <tr>
                                                     <td>Name</td>
+                                                        <td>Type</td>
                                                     <td>Optional</td>
                                                 </tr>
                                             </thead>
@@ -2162,6 +2116,9 @@ Display name defaults to field name if there is no displayName</p>
                                                     <tr>
                                                             <td>columnDropdown</td>
                                                     
+                                                            <td>
+                                                                        <code>ClrDropdown</code>
+                                                            </td>
                                                     
                                                         <td>
                                                                 No
@@ -2203,7 +2160,7 @@ Display name defaults to field name if there is no displayName</p>
 
                 <tr>
                     <td class="col-md-4">
-                        <span class="accessor"><b>set</b><code>columns(cols: [])</code></span>
+                        <span class="accessor"><b>set</b><code>columns(cols: <a href="../interfaces/ExportColumn.html" target="_self">ExportColumn[]</a>)</code></span>
                     </td>
                 </tr>
                             <tr>
@@ -2232,7 +2189,7 @@ Display name defaults to field name if there is no displayName</p>
                                                             <td>cols</td>
                                                     
                                                             <td>
-                                                                        <code>[]</code>
+                                                                            <code><a href="../interfaces/ExportColumn.html" target="_self" >ExportColumn[]</a></code>
                                                             </td>
                                                     
                                                         <td>
@@ -2538,7 +2495,7 @@ or an error is thrown</p>
 </div>
 
 
-    <div class="tab-pane fade  tab-source-code" id="c-source">
+    <div class="tab-pane fade  tab-source-code" id="source">
         <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Component, EventEmitter, Input, OnInit, Output, ViewChild } from &#x27;@angular/core&#x27;;
 import { AbstractControl, FormControl, FormGroup } from &#x27;@angular/forms&#x27;;
 import { ClrDropdown } from &#x27;@clr/angular&#x27;;
@@ -2945,7 +2902,7 @@ export class DataExporterComponent implements OnInit {
 </code></pre>
     </div>
 
-    <div class="tab-pane fade " id="c-templateData">
+    <div class="tab-pane fade " id="templateData">
         <pre class="line-numbers"><code class="language-html">&lt;clr-modal [clrModalOpen]&#x3D;&quot;open&quot; (clrModalOpenChange)&#x3D;&quot;openChange.emit($event)&quot; [clrModalSize]&#x3D;&quot;&#x27;md&#x27;&quot; #modal&gt;
     &lt;h3 class&#x3D;&quot;modal-title&quot;&gt;{{ dialogHeader | lazyString }}&lt;/h3&gt;
     &lt;div class&#x3D;&quot;modal-body&quot;&gt;
@@ -3066,7 +3023,7 @@ export class DataExporterComponent implements OnInit {
 </code></pre>
     </div>
 
-    <div class="tab-pane fade " id="c-styleData">
+    <div class="tab-pane fade " id="styleData">
                 <p class="comment">
                     <code>./data-exporter.component.scss</code>
                 </p>
@@ -3125,7 +3082,7 @@ button.btn-link.remove-col-button {
 </code></pre>
     </div>
 
-    <div class="tab-pane fade " id="c-tree">
+    <div class="tab-pane fade " id="tree">
         <div id="tree-container"></div>
         <div class="tree-legend">
             <div class="title">
@@ -3152,7 +3109,7 @@ button.btn-link.remove-col-button {
 <script>
         var COMPONENT_TEMPLATE = '<div><clr-modal [clrModalOpen]="open" (clrModalOpenChange)="openChange.emit($event)" [clrModalSize]="\'md\'" #modal>    <h3 class="modal-title">{{ dialogHeader | lazyString }}</h3>    <div class="modal-body">        <div>            <div class="flex-row">                <clr-checkbox-wrapper>                    <input                        class="friendly-names"                        type="checkbox"                        clrCheckbox                        [formControl]="this.friendlyFieldsControl"                    />                    <label [attr.data-ui]="DataUi.friendlyNamesToggleLabel">{{                        friendlyNamesCheckboxLabel | lazyString                    }}</label>                </clr-checkbox-wrapper>                <div class="fill-space"></div>                <clr-signpost>                    <clr-signpost-content *clrIfOpen>                        <span>{{ friendlyNamesInfoMessage | lazyString }}</span>                    </clr-signpost-content>                </clr-signpost>            </div>            <i>{{ friendlyNamesHint | lazyString }}</i>            <div class="flex-row">                <clr-checkbox-wrapper>                    <input type="checkbox" clrCheckbox [formControl]="this.sanitizeControl" />                    <label>{{ sanitizeCheckboxLabel | lazyString }}</label>                </clr-checkbox-wrapper>                <div class="fill-space"></div>                <clr-signpost>                    <clr-signpost-content *clrIfOpen>                        <span>{{ sanitizeInfoMessage | lazyString }}</span>                    </clr-signpost-content>                </clr-signpost>            </div>            <i>{{ sanitizeCheckboxHint | lazyString }}</i>            <div class="flex-row">                <clr-checkbox-wrapper>                    <input type="checkbox" clrCheckbox [formControl]="this.selectAllControl" />                    <label [attr.data-ui]="DataUi.selectAllToggleLabel">{{ exportAllText | lazyString }}</label>                </clr-checkbox-wrapper>                <clr-dropdown [clrCloseMenuOnItemClick]="false">                    <clr-icon                        [attr.shape]="isDropdownOpen ? \'caret up\' : \'caret down\'"                        size="24"                        clrDropdownTrigger                        class="dropdown-button"                        [attr.data-ui]="DataUi.columnCheckboxArrow"                        *ngIf="!this.selectAllControl.value"                    ></clr-icon>                    <clr-dropdown-menu clrPosition="bottom" [formGroup]="formGroup" *clrIfOpen #dropdownMenu>                        <ul>                            <li                                clrDropdownItem                                *ngFor="let col of columns"                                (click)="selectColumn(col)"                                [attr.data-ui]="DataUi.columnSelectionMenuOptions"                            >                                <clr-checkbox-wrapper class="column-checkbox">                                    <input                                        type="checkbox"                                        clrCheckbox                                        [formControlName]="col.fieldName"                                        (click)="$event.stopPropagation()"                                    />                                    <label (click)="$event.stopPropagation()">{{                                        this.friendlyFieldsControl.value ? getDisplayNameForColumn(col) : col.fieldName                                    }}</label>                                </clr-checkbox-wrapper>                            </li>                        </ul>                    </clr-dropdown-menu>                </clr-dropdown>            </div>            <span                class="x-button label"                *ngFor="let column of selectedColumns"                [attr.data-ui]="DataUi.columnSelectionBubbles"                [ngStyle]="{ visibility: shouldShowBubbles ? \'visible\' : \'hidden\' }"            >                {{ this.friendlyFieldsControl.value ? getDisplayNameForColumn(column) : column.fieldName }}                <button                    type="button"                    class="btn btn-icon btn-link remove-col-button"                    aria-label="home"                    (click)="selectColumn(column, false)"                    [attr.data-ui]="DataUi.columnBubblesX"                >                    <clr-icon shape="close" class="badge badge-info"> </clr-icon>                </button>            </span>        </div>        <div class="progress-divider"></div>        <ng-container *ngIf="isRequestPending">{{ exportStage | lazyString }}</ng-container>        <div class="progress-divider"></div>        <div class="progress" [ngClass]="{ loop: progress === -1, pending: isRequestPending }">            <progress max="100" value="{{ progress * 100 }}" [attr.data-ui]="DataUi.progressInput"></progress>        </div>    </div>    <div class="modal-footer">        <button type="button" class="btn btn-outline" (click)="open = false" [attr.data-ui]="DataUi.cancelButton">            {{ cancelText | lazyString }}        </button>        <button            type="button"            class="btn btn-primary"            [disabled]="!isExportEnabled"            (click)="onClickExport()"            [attr.data-ui]="DataUi.exportButton"        >            {{ exportText | lazyString }}        </button>    </div></clr-modal></div>'
     var COMPONENTS = [{'name': 'ActionMenuComponent', 'selector': 'vcd-action-menu'},{'name': 'BannerActivityReporterComponent', 'selector': 'vcd-banner-activity-reporter'},{'name': 'BoldTextRendererComponent', 'selector': 'vcd-bold-text-renderer'},{'name': 'DataExporterComponent', 'selector': 'vcd-data-exporter'},{'name': 'DatagridComponent', 'selector': 'vcd-datagrid'},{'name': 'DatagridMultiSelectFilterComponent', 'selector': 'vcd-dg-multiselect-filter'},{'name': 'DatagridNumericFilterComponent', 'selector': 'vcd-dg-numeric-filter'},{'name': 'DatagridSelectFilterComponent', 'selector': 'vcd-dg-select-filter'},{'name': 'DatagridStringFilterComponent', 'selector': 'vcd-dg-string-filter'},{'name': 'DrawerComponent', 'selector': 'vcd-drawer-component'},{'name': 'DropdownComponent', 'selector': 'vcd-dropdown'},{'name': 'ErrorBannerComponent', 'selector': 'vcd-error-banner'},{'name': 'FilterTestHostComponent', 'selector': ''},{'name': 'FormCheckboxComponent', 'selector': 'vcd-form-checkbox'},{'name': 'FormInputComponent', 'selector': 'vcd-form-input'},{'name': 'FormlyInputComponent', 'selector': 'vcd-formly-input'},{'name': 'FormlyNumberWithUnitInputComponent', 'selector': 'vcd-formly-number-with-unit-input'},{'name': 'FormlySelectComponent', 'selector': 'vcd-formly-select'},{'name': 'FormSelectComponent', 'selector': 'vcd-form-select'},{'name': 'LoadingIndicatorComponent', 'selector': 'vcd-loading-indicator'},{'name': 'NumberWithUnitFormInputComponent', 'selector': 'vcd-number-with-unit-form-input'},{'name': 'QuickSearchComponent', 'selector': 'vcd-quick-search'},{'name': 'RightsDropdownRendererComponent', 'selector': 'vcd-rights-dropdown-renderer'},{'name': 'SharingModalComponent', 'selector': 'vcd-sharing-modal'},{'name': 'SharingModalGroupRenderComponent', 'selector': 'vcd-sharing-modal-group-renderer'},{'name': 'SharingModalOrgRenderComponent', 'selector': 'vcd-sharing-modal-group-renderer'},{'name': 'SharingModalTabComponent', 'selector': 'vcd-sharing-modal-tab'},{'name': 'SharingModalUserRenderComponent', 'selector': 'vcd-sharing-modal-user-renderer'},{'name': 'ShowClippedTextDirectiveTestHostComponent', 'selector': ''},{'name': 'SpinnerActivityReporterComponent', 'selector': 'vcd-spinner-activity-reporter'},{'name': 'VcdSelectAllToggleComponent', 'selector': 'vcd-select-all-toggle'}];
-    var DIRECTIVES = [{'name': 'AlternativeTextDirective', 'selector': 'clr-icon'},{'name': 'AriaActiveDescendantDirective', 'selector': '[vcdAriaActiveDescendant]'},{'name': 'ComponentRendererOutletDirective', 'selector': '[vcdComponentRendererOutlet]'},{'name': 'DatagridFilter', 'selector': ''},{'name': 'DropdownFocusHandlerDirective', 'selector': 'vcd-dropdown[vcdDropdownFocusHandler]'},{'name': 'DynamicDropdownPositionDirective', 'selector': 'clr-dropdown[vcdDynamicDropdown]'},{'name': 'ResponsiveInputDirective', 'selector': '.clr-form-control[vcdResponsiveInput]'},{'name': 'ShowClippedTextDirective', 'selector': '[vcdShowClippedText]'},{'name': 'UsersGroupsOrgsSharingModalDirective', 'selector': 'vcd-sharing-modal[vcdUsersGroupsOrgsSharingModal]'}];
+    var DIRECTIVES = [{'name': 'AlternativeTextDirective', 'selector': 'clr-icon'},{'name': 'AriaActiveDescendantDirective', 'selector': '[vcdAriaActiveDescendant]'},{'name': 'BaseFormControl', 'selector': ''},{'name': 'ComponentRendererOutletDirective', 'selector': '[vcdComponentRendererOutlet]'},{'name': 'DatagridFilter', 'selector': ''},{'name': 'DropdownFocusHandlerDirective', 'selector': 'vcd-dropdown[vcdDropdownFocusHandler]'},{'name': 'DynamicDropdownPositionDirective', 'selector': 'clr-dropdown[vcdDynamicDropdown]'},{'name': 'ResponsiveInputDirective', 'selector': '.clr-form-control[vcdResponsiveInput]'},{'name': 'ShowClippedTextDirective', 'selector': '[vcdShowClippedText]'},{'name': 'UsersGroupsOrgsSharingModalDirective', 'selector': 'vcd-sharing-modal[vcdUsersGroupsOrgsSharingModal]'}];
     var ACTUAL_COMPONENT = {'name': 'DataExporterComponent'};
 </script>
 <script src="../js/tree.js"></script>
@@ -3166,14 +3123,16 @@ button.btn-link.remove-col-button {
 
 
 
-                   
+
+
+
 
 
 
 
                    </div><div class="search-results">
     <div class="has-results">
-        <h1 class="search-results-title"><span class='search-results-count'></span> result-matching "<span class='search-query'></span>"</h1>
+        <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
         <ul class="search-results-list"></ul>
     </div>
     <div class="no-results">
@@ -3185,6 +3144,15 @@ button.btn-link.remove-col-button {
            </div>
        </div>
 
+          <label class="dark-mode-switch">
+               <input type="checkbox">
+               <span class="slider">
+                    <svg class="slider-icon" viewBox="0 0 24 24" fill="none" height="20" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" width="20" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"></path>
+                    </svg>
+               </span>
+          </label>
+
        <script>
             var COMPODOC_CURRENT_PAGE_DEPTH = 1;
             var COMPODOC_CURRENT_PAGE_CONTEXT = 'component';
@@ -3194,9 +3162,9 @@ button.btn-link.remove-col-button {
 
        <script src="../js/libs/custom-elements.min.js"></script>
        <script src="../js/libs/lit-html.js"></script>
-       <!-- Required to polyfill modern browsers as code is ES5 for IE... -->
-       <script src="../js/libs/custom-elements-es5-adapter.js" charset="utf-8" defer></script>
+
        <script src="../js/menu-wc.js" defer></script>
+       <script nomodule src="../js/menu-wc_es5.js" defer></script>
 
        <script src="../js/libs/bootstrap-native.js"></script>
 
