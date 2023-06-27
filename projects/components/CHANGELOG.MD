@@ -6,6 +6,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
+- Minor fix for datagrid dropdown actions column width in some corner cases when datagrid is empty or the columns are rendered before the grid is populated with data
 
 ## [15.0.1-dev.5]
 
