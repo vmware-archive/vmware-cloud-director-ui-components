@@ -52,7 +52,7 @@ clr-dg-action-bar.top-action-bar {
 
 .dropdown-actions {
     min-width: unset;
-    width: 38px !important;
+    max-width: 38px;
 
     ::ng-deep .nested-dropdown {
         padding: 0 0.6rem 0 0;

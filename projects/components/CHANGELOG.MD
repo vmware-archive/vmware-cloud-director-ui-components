@@ -7,7 +7,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
-## [15.0.1-dev.3]
+## [15.0.1-dev.5]
+
+### Fixed
+- Hide actions column in datagrid if there is no contextual actions
+- Remove extra space in datagrid dropdown actions column in some corner cases when datagrid is empty or the columns are rendered before the grid is populated with data
+
+## [15.0.1-dev.4]
 
 ### Removed
 -  Remove flattening of actions, fixes bug "Context of a VM keeps refreshing when powering ON a VM"

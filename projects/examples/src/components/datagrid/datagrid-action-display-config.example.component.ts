@@ -47,27 +47,29 @@ export class DatagridActionDisplayConfigExampleComponent implements OnInit {
             },
             isTranslatable: false,
             icon: 'cloud',
+            actionType: ActionType.STATIC_FEATURED,
         },
         {
             textKey: 'Featured 1',
             handler: () => null,
             isTranslatable: false,
             icon: 'user',
-            actionType: ActionType.CONTEXTUAL_FEATURED,
+            actionType: ActionType.STATIC_FEATURED,
         },
         {
             textKey: 'Nested actions',
+            actionType: ActionType.STATIC_FEATURED,
             children: [
                 {
                     textKey: 'Featured 2',
-                    actionType: ActionType.CONTEXTUAL_FEATURED,
+                    actionType: ActionType.STATIC_FEATURED,
                     handler: () => null,
                     isTranslatable: false,
                     icon: 'cog',
                 },
                 {
                     textKey: 'Featured 3',
-                    actionType: ActionType.CONTEXTUAL_FEATURED,
+                    actionType: ActionType.STATIC_FEATURED,
                     handler: () => null,
                     isTranslatable: false,
                     icon: 'folder',
