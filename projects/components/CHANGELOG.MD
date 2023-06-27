@@ -6,10 +6,14 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
-- Hide actions column in datagrid if there is no contextual actions
-- minor fix for datagrid dropdown actions column width in some corner cases when datagrid is empty or the columns are rendered before the grid is populated with data
 
-## [15.0.1-dev.3]
+## [15.0.1-dev.5]
+
+### Fixed
+- Hide actions column in datagrid if there is no contextual actions
+- Remove extra space in datagrid dropdown actions column in some corner cases when datagrid is empty or the columns are rendered before the grid is populated with data
+
+## [15.0.1-dev.4]
 
 ### Removed
 -  Remove flattening of actions, fixes bug "Context of a VM keeps refreshing when powering ON a VM"
