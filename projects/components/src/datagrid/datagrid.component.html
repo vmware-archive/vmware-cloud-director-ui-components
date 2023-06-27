@@ -19,7 +19,7 @@
     </clr-dg-action-bar>
 
     <clr-dg-column
-        *ngIf="shouldDisplayContextualActionsInRow"
+        *ngIf="shouldDisplayContextualActionsInRow && contextualActions?.length"
         [ngClass]="shouldDisplayContextualActionsInDropdpown ?  'dropdown-actions' : 'buttons-' + maxFeaturedActionsOnRow"
         >
         <ng-container *ngIf="!shouldDisplayContextualActionsInDropdpown"> 
@@ -55,7 +55,7 @@
         [clrDgSelectable]="isRowSelectable(restItem)"
     >
         <clr-dg-cell
-            *ngIf="shouldDisplayContextualActionsInRow"
+            *ngIf="shouldDisplayContextualActionsInRow && contextualActions?.length"
             class="action-button-cell"
             [ngClass]="shouldDisplayContextualActionsInDropdpown ?  'dropdown-actions' : 'buttons-' + maxFeaturedActionsOnRow"
         >
