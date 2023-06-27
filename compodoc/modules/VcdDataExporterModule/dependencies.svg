@@ -24,17 +24,13 @@
 <title>cluster_VcdDataExporterModule</title>
 <polygon fill="none" stroke="black" stroke-dasharray="1,5" points="142,-70 142,-333 354,-333 354,-70 142,-70"/>
 </g>
+<g id="clust3" class="cluster">
+<title>cluster_VcdDataExporterModule_DataExporterComponent_providers</title>
+<polygon fill="none" stroke="black" points="150,-78 150,-195 346,-195 346,-78 150,-78"/>
+</g>
 <g id="clust5" class="cluster">
 <title>cluster_VcdDataExporterModule_exports</title>
 <polygon fill="none" stroke="black" points="160,-273 160,-325 336,-325 336,-273 160,-273"/>
-</g>
-<g id="clust2" class="cluster">
-<title>cluster_VcdDataExporterModule_declarations</title>
-<polygon fill="none" stroke="black" points="162,-143 162,-195 334,-195 334,-143 162,-143"/>
-</g>
-<g id="clust3" class="cluster">
-<title>cluster_VcdDataExporterModule_DataExporterComponent_providers</title>
-<polygon fill="none" stroke="black" points="150,-78 150,-130 346,-130 346,-78 150,-78"/>
 </g>
 <!-- DataExporterComponent -->
 <g id="node1" class="node">
