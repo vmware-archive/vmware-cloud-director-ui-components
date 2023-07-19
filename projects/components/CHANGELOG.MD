@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [15.0.1-dev.6]
+
 ### Changed
 * Updated documentation to require the Clarity Core library and styles.
 * Updated remove filter string to be consistent with other VMware products.
