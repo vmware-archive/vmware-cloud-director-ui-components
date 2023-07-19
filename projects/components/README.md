@@ -9,6 +9,11 @@ translations for the strings in our components. This file is intended for usage 
 `npm install @vcd/ui-components` for the latest stable release or
 `npm install @vcd/ui-components@next` for the upcoming release, which could contain APIs that may not be stable
 
+## Dependencies
+The UI components library depends on [Clarity Angular](https://clarity.design) and [Clarity Core](https://core.clarity.design) libraries and styles.
+- [Install the Clarity Core guide](https://core.clarity.design/get-started/developing/)
+- [Install the Clarity Angular guide](https://clarity.design/documentation/get-started)
+
 
 ## Examples site
 Visit [our live examples site](https://vmware.github.io/vmware-cloud-director-ui-components/) for live examples, with source code, that you run on stackblitz. Powered by [Live Docs](https://github.com/vmware/live-docs)
