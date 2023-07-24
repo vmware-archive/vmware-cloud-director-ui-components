@@ -1,5 +1,5 @@
 /*!
- * Copyright 2019-2021 VMware, Inc.
+ * Copyright 2019-2023 VMware, Inc.
  * SPDX-License-Identifier: BSD-2-Clause
  */
 
@@ -46,6 +46,8 @@ import { DatagridThreeRenderersExampleComponent } from './datagrid-three-rendere
 import { DatagridThreeRenderersExampleModule } from './datagrid-three-renderers.example.module';
 import { DatagridIsRowSelectableExampleComponent } from './datagrid-is-row-selectable-example.component';
 import { DatagridIsRowSelectableExampleModule } from './datagrid-is-row-selectable-example.module';
+import { DatagridPreserveSelectionExampleComponent } from './datagrid-preserve-selection.example.component';
+import { DatagridPreserveSelectionExampleModule } from './datagrid-preserve-selection.example.module';
 
 Documentation.registerDocumentationEntry({
     component: DatagridComponent,
@@ -123,6 +125,11 @@ Documentation.registerDocumentationEntry({
             urlSegment: 'datagrid-filter',
         },
         {
+            component: DatagridPreserveSelectionExampleComponent,
+            title: 'Preserve selection',
+            urlSegment: 'preserve-selection',
+        },
+        {
             component: DatagridCliptextExampleComponent,
             title: 'Cliptext in the datagrid cells',
             urlSegment: 'datagrid-cliptext',
@@ -179,6 +186,7 @@ Documentation.registerDocumentationEntry({
         DatagridColumnWidthExampleModule,
         DatagridActionDisplayConfigExampleModule,
         DatagridIsRowSelectableExampleModule,
+        DatagridPreserveSelectionExampleModule,
     ],
 })
 export class DatagridExamplesModule {}
