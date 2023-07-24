@@ -9,6 +9,7 @@
     (clrDgRefresh)="gridStateChanged($event)"
     (clrDgSelectedChange)="onClarityDatafridSelectionChange()"
     (clrDgSingleSelectedChange)="onClarityDatafridSelectionChange()"
+    [clrDgPreserveSelection]="preserveSelection"
 >
     <clr-dg-placeholder>{{ emptyGridPlaceholder }}</clr-dg-placeholder>
     <clr-dg-action-bar class="top-action-bar" *ngIf="shouldShowActionBarOnTop">
@@ -22,8 +23,8 @@
         *ngIf="shouldDisplayContextualActionsInRow && contextualActions?.length"
         [ngClass]="shouldDisplayContextualActionsInDropdpown ?  'dropdown-actions' : 'buttons-' + maxFeaturedActionsOnRow"
         >
-        <ng-container *ngIf="!shouldDisplayContextualActionsInDropdpown"> 
-            {{ 'vcd.cc.datagrid.actions' | translate }} 
+        <ng-container *ngIf="!shouldDisplayContextualActionsInDropdpown">
+            {{ 'vcd.cc.datagrid.actions' | translate }}
         </ng-container>
     </clr-dg-column>
     <clr-dg-column
@@ -57,7 +58,9 @@
         <clr-dg-cell
             *ngIf="shouldDisplayContextualActionsInRow && contextualActions?.length"
             class="action-button-cell"
-            [ngClass]="shouldDisplayContextualActionsInDropdpown ?  'dropdown-actions' : 'buttons-' + maxFeaturedActionsOnRow"
+            [ngClass]="
+                shouldDisplayContextualActionsInDropdpown ? 'dropdown-actions' : 'buttons-' + maxFeaturedActionsOnRow
+            "
         >
             <vcd-action-menu
                 #actionMenuInRow
@@ -129,4 +132,3 @@
     >
     </vcd-action-menu>
 </ng-template>
-
