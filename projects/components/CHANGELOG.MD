@@ -7,6 +7,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Fixed
+- Fix tooltip keyboard accessibility
+
 ## [15.0.1-dev.7]
 
 ### Fixed

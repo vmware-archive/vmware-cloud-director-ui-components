@@ -13,6 +13,7 @@ import { ShowClippedTextPositioningExampleComponent } from './positioning/show-c
 import { ShowClippedTextPositioningExampleModule } from './positioning/show-clipped-text-positioning-example.module';
 import { ShowClippedTextSizingExampleComponent } from './sizing/show-clipped-text-sizing-example.component';
 import { ShowClippedTextSizingExampleModule } from './sizing/show-clipped-text-sizing-example.module';
+import { FocusingClippedTextExampleComponent } from './focusing/focusing-clipped-text-example.component';
 
 Documentation.registerDocumentationEntry({
     component: ShowClippedTextDirective,
@@ -33,6 +34,11 @@ Documentation.registerDocumentationEntry({
             component: HideClippedTextPositioningExampleComponent,
             title: 'Hide the tooltip when the component is destroyed',
             urlSegment: 'hide-clipped-text',
+        },
+        {
+            component: FocusingClippedTextExampleComponent,
+            title: 'Focusing on host element when it overflows',
+            urlSegment: 'focus-clipped-text',
         },
     ],
 });
