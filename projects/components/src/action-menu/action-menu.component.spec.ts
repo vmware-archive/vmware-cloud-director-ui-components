@@ -14,18 +14,28 @@ import {
     ContextualActionInlineDisplayConfig,
     TextIcon,
 } from '../common/interfaces';
-import { AngularWidgetObjectFinder, BaseWidgetObject } from '@vcd/widget-object';
+import { AngularWidgetObjectFinder, BaseWidgetObject, TestElement, WidgetObjectElement } from '@vcd/widget-object';
 import { ActionMenuComponent, getDefaultActionDisplayConfig } from './action-menu.component';
 import { VcdActionMenuModule } from './action-menu.module';
+import { of } from 'rxjs';
 import createSpy = jasmine.createSpy;
 
 interface HasFinderAndActionMenu {
     finder: AngularWidgetObjectFinder<TestHostComponent<Record>>;
+    widget: ActionMenuWidgetObject<TestElement>;
     actionMenu: ActionMenuComponent<Record, HandlerData>;
 }
 
 export class ActionMenuWidgetObject<T> extends BaseWidgetObject<T> {
     static tagName = 'vcd-action-menu';
+
+    getDropdownToggleButton(): WidgetObjectElement<T> {
+        return this.el.get(`.first-dropdown-toggle`);
+    }
+
+    getDropdownItems(): WidgetObjectElement<T> {
+        return this.el.get('.dropdown-item');
+    }
 }
 
 describe('ActionMenuComponent', () => {
@@ -43,7 +53,89 @@ describe('ActionMenuComponent', () => {
 
         this.finder = new AngularWidgetObjectFinder(TestHostComponent);
         this.finder.detectChanges();
-        this.actionMenu = this.finder.find(ActionMenuWidgetObject).self().getComponentInstance();
+        this.widget = this.finder.find<ActionMenuWidgetObject<TestElement>>(ActionMenuWidgetObject);
+        this.actionMenu = this.widget.self().getComponentInstance();
+    });
+
+    describe('availability', () => {
+        beforeEach(function (this: HasFinderAndActionMenu): void {
+            this.actionMenu.actionDisplayConfig = { contextual: { styling: ActionStyling.INLINE } };
+            this.actionMenu.selectedEntities = [{ value: 'foo', paused: false }];
+        });
+
+        it('shows actions that have no availability set', function (this: HasFinderAndActionMenu): void {
+            this.actionMenu.actions = [{ actionType: ActionType.CONTEXTUAL, textKey: 'action.available' }];
+            this.finder.detectChanges();
+            this.widget.getDropdownToggleButton().click();
+            expect(this.widget.getDropdownItems().unwrap().elements.length).toEqual(1);
+        });
+
+        it('does not show actions that use an availability function which returns false', function (this: HasFinderAndActionMenu): void {
+            this.actionMenu.actions = [
+                { actionType: ActionType.CONTEXTUAL, textKey: 'action.not.available', availability: () => false },
+            ];
+            this.finder.detectChanges();
+            this.widget.getDropdownToggleButton().click();
+            expect(this.actionMenu._actions[0].availability).toBeFalsy();
+            expect(this.widget.getDropdownItems().unwrap().elements.length).toEqual(0);
+        });
+
+        it('does not show actions that use an availability Observable with false value', function (this: HasFinderAndActionMenu): void {
+            this.actionMenu.actions = [
+                { actionType: ActionType.CONTEXTUAL, textKey: 'action.not.available', availability: of(false) },
+            ];
+            this.finder.detectChanges();
+            this.widget.getDropdownToggleButton().click();
+            expect(this.widget.getDropdownItems().unwrap().elements.length).toEqual(0);
+        });
+
+        it('shows actions that use an availability function which returns true', function (this: HasFinderAndActionMenu): void {
+            this.actionMenu.actions = [
+                { actionType: ActionType.CONTEXTUAL, textKey: 'action.available', availability: () => true },
+            ];
+            this.finder.detectChanges();
+            this.widget.getDropdownToggleButton().click();
+            expect(this.actionMenu._actions[0].availability).toBeTruthy();
+            expect(this.widget.getDropdownItems().unwrap().elements.length).toEqual(1);
+        });
+
+        it('shows actions that use an availability Observable with true value', function (this: HasFinderAndActionMenu): void {
+            this.actionMenu.actions = [
+                { actionType: ActionType.CONTEXTUAL, textKey: 'action.available', availability: of(true) },
+            ];
+            this.finder.detectChanges();
+            this.widget.getDropdownToggleButton().click();
+            expect(this.widget.getDropdownItems().unwrap().elements.length).toEqual(1);
+        });
+
+        it('hides disabled actions which use an availability function which returns false', function (this: HasFinderAndActionMenu): void {
+            this.actionMenu.actions = [
+                {
+                    actionType: ActionType.CONTEXTUAL,
+                    textKey: 'action.not.available',
+                    availability: () => false,
+                    disabled: true,
+                },
+            ];
+            this.finder.detectChanges();
+            this.widget.getDropdownToggleButton().click();
+            expect(this.actionMenu._actions[0].availability).toBeFalsy();
+            expect(this.widget.getDropdownItems().unwrap().elements.length).toEqual(0);
+        });
+
+        it('hides disabled actions which use an availability Observable with false value', function (this: HasFinderAndActionMenu): void {
+            this.actionMenu.actions = [
+                {
+                    actionType: ActionType.CONTEXTUAL,
+                    textKey: 'action.not.available',
+                    availability: of(false),
+                    disabled: true,
+                },
+            ];
+            this.finder.detectChanges();
+            this.widget.getDropdownToggleButton().click();
+            expect(this.widget.getDropdownItems().unwrap().elements.length).toEqual(0);
+        });
     });
 
     describe('set actions', () => {

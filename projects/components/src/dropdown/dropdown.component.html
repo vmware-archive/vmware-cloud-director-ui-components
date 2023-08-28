@@ -58,6 +58,13 @@
                     ></ng-template>
                 </ng-container>
 
+                <!--
+                TODO:
+                We use lastAvailabilityValue here but this component doesn't set this field on its items so
+                items with availability Observables probably won't be displayed.
+                We should refactor this component to handle those items similarly to how
+                action-menu.component.ts does.
+                -->
                 <ng-template #obsTmpl let-item>
                     <ng-template
                         *ngIf="item[lastAvailabilityValue]"
@@ -68,6 +75,7 @@
 
                 <ng-template #actionButtonTmpl let-item>
                     <button
+                        *ngIf="isItemAvailable(item)"
                         [ngClass]="[item.class ? item.class : '', shouldShowIcon ? 'btn-icon' : '', 'btn', 'btn-link']"
                         clrDropdownItem
                         (click)="onItemClicked(item)"

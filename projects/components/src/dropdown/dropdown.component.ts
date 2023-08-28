@@ -18,7 +18,6 @@ import {
     Provider,
     QueryList,
     Renderer2,
-    Self,
     SkipSelf,
     TrackByFunction,
     ViewChild,
@@ -391,6 +390,26 @@ export class DropdownComponent implements AfterViewInit {
      */
     isItemDisabled(item: ActionItem<any, any>): boolean {
         return (CommonUtil.isFunction(item.disabled) ? item.disabled(this.selectedEntities) : item.disabled) as boolean;
+    }
+
+    /**
+     * This function evaluates the item's availability and defaults to true.
+     *
+     * The action-menu.component.ts passes ActionItemInternal to this component,
+     * so the availability property can be a function, observable or boolean.
+     */
+    public isItemAvailable(item: ActionItem<any, any> | (ActionItem<any, any> & { available: boolean })): boolean {
+        if (isObservable(item.availability)) {
+            return item[lastAvailabilityValue];
+        }
+        if (typeof item.availability === 'boolean') {
+            return item.availability;
+        }
+        if (CommonUtil.isFunction(item.availability)) {
+            return this.selectedEntities?.length > 0 && item.availability(this.selectedEntities);
+        }
+
+        return true;
     }
 
     /**
