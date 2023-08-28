@@ -4,6 +4,9 @@
  */
 
 import { Directive, ElementRef, Input, OnDestroy, OnInit } from '@angular/core';
+import { Subject } from 'rxjs';
+import { debounceTime } from 'rxjs/operators';
+import { SubscriptionTracker } from '../../common/subscription';
 
 export enum TooltipPosition {
     tl = 'tooltip-top-left',
@@ -206,11 +209,17 @@ type EventHandler = (e: MouseEvent) => void;
 function watchEvents(el: HTMLElement, mouseIn: EventHandler, mouseOut: EventHandler): void {
     el.addEventListener('mouseenter', mouseIn);
     el.addEventListener('mouseleave', mouseOut);
+
+    el.addEventListener('focus', mouseIn);
+    el.addEventListener('blur', mouseOut);
 }
 
 function unwatchEvents(el: HTMLElement, mouseIn: EventHandler, mouseOut: EventHandler): void {
     el.removeEventListener('mouseenter', mouseIn);
     el.removeEventListener('mouseleave', mouseOut);
+
+    el.removeEventListener('focus', mouseIn);
+    el.removeEventListener('blur', mouseOut);
 }
 
 function setStyle(el: HTMLElement, style: Partial<CSSStyleDeclaration>): void {
@@ -223,6 +232,7 @@ function setStyle(el: HTMLElement, style: Partial<CSSStyleDeclaration>): void {
  */
 @Directive({
     selector: '[vcdShowClippedText]',
+    providers: [SubscriptionTracker],
 })
 export class ShowClippedTextDirective implements OnDestroy, OnInit {
     /** To destroy the tooltip when no longer needed */
@@ -251,13 +261,18 @@ export class ShowClippedTextDirective implements OnDestroy, OnInit {
     mouseoutDelay = 500;
     tooltipSize = TooltipSize.md;
     disabled = false;
+    oldTabIndex: number | null;
 
     /**
      * The HTML element receiving the directive
      */
     public hostElement: HTMLElement = this.host.nativeElement;
 
-    constructor(private host: ElementRef) {}
+    private mutationObserver: MutationObserver;
+    private resizeObserver: ResizeObserver;
+    private hostElementMutation$ = new Subject<MutationRecord[] | ResizeObserverEntry[]>();
+
+    constructor(private host: ElementRef, private subTracker: SubscriptionTracker) {}
 
     ngOnInit(): void {
         if (!this.disabled) {
@@ -276,6 +291,23 @@ export class ShowClippedTextDirective implements OnDestroy, OnInit {
             whiteSpace: 'nowrap',
             textOverflow: 'ellipsis',
         });
+
+        const tabIndex = this.hostElement.getAttribute('tabIndex');
+        this.oldTabIndex = tabIndex === null ? null : +tabIndex;
+
+        this.subTracker.subscribe(
+            this.hostElementMutation$.asObservable().pipe(debounceTime(300)),
+            this.onHostElementMutation
+        );
+
+        this.mutationObserver = new MutationObserver((e) => this.hostElementMutation$.next(e));
+        this.mutationObserver.observe(this.hostElement, {
+            subtree: true,
+            characterData: true,
+        });
+
+        this.resizeObserver = new ResizeObserver((e) => this.hostElementMutation$.next(e));
+        this.resizeObserver.observe(this.hostElement);
     }
 
     ngOnDestroy(): void {
@@ -287,6 +319,9 @@ export class ShowClippedTextDirective implements OnDestroy, OnInit {
     deactivate(): void {
         ShowClippedTextDirective.instanceCount--;
         unwatchEvents(this.hostElement, this.onMouseIn, this.onMouseOut);
+        this.mutationObserver?.disconnect();
+        this.resizeObserver?.disconnect();
+
         if (tip.currentDirective === this) {
             tip.hideTooltip(0);
         }
@@ -309,6 +344,25 @@ export class ShowClippedTextDirective implements OnDestroy, OnInit {
     private onMouseOut = () => {
         tip.hideTooltip(this.mouseoutDelay);
     };
+
+    private onHostElementMutation = () => {
+        const tabIndexIsNotPresetted = this.oldTabIndex < 0 || this.oldTabIndex === null;
+
+        if (this.isOverflowing() && tabIndexIsNotPresetted) {
+            this.hostElement.setAttribute('tabIndex', String(0));
+        } else {
+            this.setTabIndexToOldValue();
+        }
+    };
+
+    private setTabIndexToOldValue(): void {
+        if (this.oldTabIndex === null) {
+            this.hostElement.removeAttribute('tabIndex');
+            return;
+        }
+
+        this.hostElement.setAttribute('tabIndex', String(this.oldTabIndex));
+    }
 
     private isOverflowing(): boolean {
         // Text overflows when the content element's width is less than its scrollWidth.

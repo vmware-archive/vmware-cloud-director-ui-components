@@ -1,0 +1,63 @@
+<section>
+    The clipped text directive accessibility and user control! Components with overflow content to become focusable,
+    ensuring seamless keyboard navigation for tooltip-equipped components. To test it you can modify content through
+    input and adjust component size via a range slider located below. It is expected the host element to not be
+    focusable when it not overflows, in case it had no predefined positive tab index.
+</section>
+
+<section>
+    <h4>Host element with default tab index</h4>
+    <div class="clr-row">
+        <clr-input-container class="clr-col-md-6">
+            <label>Text for div below:</label>
+            <input
+                clrInput
+                name="name"
+                ngModel="Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet et minus saepe sapiente. Delectus, facilis itaque neque optio quis soluta."
+                #divContent
+            />
+        </clr-input-container>
+        <clr-range-container [clrRangeHasProgress]="true" class="clr-col-md-6">
+            <label>Component size: {{ divWidth.value + ' px' }} </label>
+            <input type="range" clrRange ngModel="100" min="100" max="1000" #divWidth />
+        </clr-range-container>
+    </div>
+    <div class="clr-row">
+        <div
+            class="example-el"
+            [vcdShowClippedText]="{ size: TooltipSize.sm }"
+            [ngStyle]="{ width: divWidth.value + 'px' }"
+        >
+            {{ divContent.value }}
+        </div>
+    </div>
+</section>
+<section>
+    <h4>Host element with predefined positive tab index</h4>
+    <div class="clr-row">
+        <clr-input-container class="clr-col-md-6">
+            <label>Text for div below:</label>
+            <input
+                clrInput
+                tabindex="1"
+                name="name"
+                ngModel="Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet et minus saepe sapiente. Delectus, facilis itaque neque optio quis soluta."
+                #divContent1
+            />
+        </clr-input-container>
+        <clr-range-container [clrRangeHasProgress]="true" class="clr-col-md-6">
+            <label>Component size: {{ divWidth1.value + ' px' }} </label>
+            <input type="range" clrRange ngModel="100" min="100" max="1000" tabindex="2" #divWidth1 />
+        </clr-range-container>
+    </div>
+    <div class="clr-row">
+        <div
+            class="example-el"
+            tabindex="3"
+            [vcdShowClippedText]="{ size: TooltipSize.sm }"
+            [ngStyle]="{ width: divWidth1.value + 'px' }"
+        >
+            {{ divContent1.value }}
+        </div>
+    </div>
+</section>
