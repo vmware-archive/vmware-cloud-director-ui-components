@@ -323,7 +323,7 @@ export class ActionMenuComponent<R, T> implements OnDestroy {
     private changeAvailabilityCallbacks(actions) {
         return actions.map((action) => {
             const actionCopy: ActionItemInternal<R, T> = { ...action };
-            if (action.availability instanceof Observable) {
+            if (isObservable(action.availability)) {
                 this.lastAvailabilitySubscriptions.push(
                     action.availability.subscribe((value) => {
                         actionCopy[lastAvailabilityValue] = value;
@@ -369,23 +369,20 @@ export class ActionMenuComponent<R, T> implements OnDestroy {
     }
 
     /**
-     * Used only for actions that don't have their availability as Observables.
-     * An action whose availability is false but has the disabled state set to true is still shown on the screen in
-     * disabled mode
+     * This function evaluates the item's availability and defaults to true.
+     *
+     * The action-menu.component.ts passes ActionItemInternal to this component,
+     * so the availability property can be a function, observable or boolean.
      */
     private isActionAvailable(action: ActionItem<R, T> | ActionItemInternal<R, T>): boolean {
-        let isActionAvailable = true;
-        if (action.availability == null) {
-            isActionAvailable = true;
-        }
-        if (typeof action.availability === 'boolean') {
-            isActionAvailable = action.availability;
+        if (isObservable(action.availability)) {
+            return action[lastAvailabilityValue];
         }
         if (CommonUtil.isFunction(action.availability)) {
-            isActionAvailable =
-                this.getSelectedEntities().length > 0 && action.availability(this.getSelectedEntities());
+            return this.getSelectedEntities().length > 0 && action.availability(this.getSelectedEntities());
         }
-        return isActionAvailable || this.isActionDisabled(action);
+
+        return true;
     }
 
     private getStaticFeaturedActions(): ActionItemInternal<R, T>[] {
@@ -414,7 +411,7 @@ export class ActionMenuComponent<R, T> implements OnDestroy {
         return this.staticFeaturedActions.concat([
             {
                 textKey: 'vcd.cc.action.menu.other.actions',
-                children: (this.staticActions as any) as ActionItem<R, T>[],
+                children: this.staticActions as ActionItem<R, T>[],
             },
         ]);
     }
