@@ -73,7 +73,7 @@ A flat list of objects containing a route builder function and the
 HTML tagName associated with the component that will be rendered by that
 route. Objects are exported as separate objects like the example below
 
-### Example TypeScript output
+### Example output
 
 ```typescript
 export const administration_accessControl_users_userId_general = {
@@ -114,6 +114,82 @@ for (const entry of topLevelRoutes) {
 
 -   Compilation errors if routes change
 -   No hard coding or joining path segments from application.
+
+## Segments Typescript
+
+A list of strings representing each segment found in the application. Each
+string is prepended with `segment_`.
+
+### Example output
+
+If we use `/administration/access-control/users/:userId/general` as an example route, the following
+variables will be generated
+
+```typescript
+export const segment_administration = 'administration';
+export const segment_accessControl = 'access-control';
+export const segment_users = 'users';
+export const segment_userId = ':userId';
+export const segment_general = 'general';
+```
+
+### Example usage
+
+#### Do not use variables in your route definitions
+
+Your route definitions are the source of truth, just define them using regular strings.
+It will be easier to read your routes.
+
+```typescript
+const routes = [
+    {
+        path: CLOUD_RESOURCES.ORGANIZATIONS,
+        component: OrganizationsListTenantComponent,
+    },
+    {
+        path: `${CLOUD_RESOURCES.ORGANIZATIONS}/:${CLOUD_RESOURCES.ORGANIZATION_ID}`,
+        loadChildren: () => import('@my/org-details.module').then((m) => m.OrgDetailsModule),
+    },
+];
+```
+
+Becomes
+
+```typescript
+const routes = [
+    {
+        path: 'organizations',
+        component: OrgListComponent,
+    },
+    {
+        path: 'organizations/:orgId',
+        loadChildren: () => import('@my/org-details.module').then((m) => m.OrgDetailsModule),
+    },
+];
+```
+
+And you use it from places where you need relative links or when reading router attributes
+
+```typescript
+constructor(private activatedRoute: ActivatedRoute) {
+    this.activatedRoute.queryParams.subscribe(params => {
+        let date = params[segment_orgId];
+    });
+}
+```
+
+```typescript
+router.navigate(`../${segments_general}`);
+```
+
+### Benefits
+
+-   Partial string value checking through compilation if segments change
+    -   Not fail-proof since the segments aren't scoped to whole routes. That
+        means you won't get an error if the same segment still exists somewhere else in your route definitions
+-   Leave your route definitions easier to read if you had been previously using manually
+    maintained constants for your route.
+    -   At the expense of being forced to duplicate strings in route definitions
 
 ## Public API
 

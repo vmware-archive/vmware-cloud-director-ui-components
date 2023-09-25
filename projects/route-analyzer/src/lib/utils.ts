@@ -50,7 +50,7 @@ export function getArrayItemsInitializer(
     if (ts.isIdentifier(expression)) {
         const variableInitializer = getVariableInitializer(expression, typeChecker);
         if (ts.isObjectLiteralExpression(variableInitializer)) {
-            arrayLiteralExpression = ts.createArrayLiteral([variableInitializer]);
+            arrayLiteralExpression = ts.factory.createArrayLiteralExpression([variableInitializer]);
         } else if (ts.isArrayLiteralExpression(variableInitializer)) {
             arrayLiteralExpression = variableInitializer;
         } else {
@@ -97,7 +97,6 @@ export function evaluateNode(
         return val.value as object;
     }
     if (throwOnFailure) {
-        console.error({ evaluating: node.getText(), val });
         throw new Error(`Corner case hit when evaluating: `);
     }
 }

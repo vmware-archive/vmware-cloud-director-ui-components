@@ -10,6 +10,8 @@ import ts from 'typescript';
 import yargs from 'yargs';
 import * as routeAnalyzer from './lib/route-analyzer';
 import { generateRouteBuilder } from './lib/gen-route-builder';
+import { generateRouteSegments } from './lib/gen-route-segments';
+import { join, normalize } from '@angular-devkit/core';
 
 const argv = yargs
     .option('entryFile', {
@@ -35,6 +37,12 @@ const argv = yargs
         type: 'string',
         default: 'app-routes.ts',
     })
+    .option('segmentsFile', {
+        alias: 's',
+        description: 'Name of TypeScript file containing all route segments as separate constants.',
+        type: 'string',
+        default: 'app-segments.ts',
+    })
     .help()
     .demandOption(['entryFile', 'outputDirectory'])
     .alias('help', 'h')
@@ -48,9 +56,11 @@ const appRoutes = routeAnalyzer.getRoutesByEntryPoint([argv.entryFile], {
 });
 
 const options = { mode: 0o755, encoding: UTF8 };
-const outputJsonFile = argv.outputDirectory + '/' + argv.jsonFile;
-const outputTs = argv.outputDirectory + '/' + argv.tsFile;
+const outputJsonFile = join(normalize(argv.outputDirectory), argv.jsonFile);
+const outputTs = join(normalize(argv.outputDirectory), argv.tsFile);
+const outputTsSegments = join(normalize(argv.outputDirectory), argv.segmentsFile);
 
 fs.mkdirSync(argv.outputDirectory, { recursive: true });
 fs.writeFileSync(outputJsonFile, JSON.stringify(appRoutes, undefined, 2), options);
 fs.writeFileSync(outputTs, generateRouteBuilder(appRoutes), options);
+fs.writeFileSync(outputTsSegments, generateRouteSegments(appRoutes), options);
