@@ -6,7 +6,13 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
-## [0.0.11]
+
+
+## [0.0.13]
+### [Added]
+Generate file with segments to be used when redirecting to relative URLs or when reading params from the URL
+
+## [0.0.12]
 ### [Fixed]
 Logging on `evaluateNode` now happens on errors only.
 
