@@ -40,7 +40,7 @@ interface Data {
         </form>
         <vcd-datagrid
             [gridData]="gridData"
-            (gridRefresh)="refresh($event)"
+            (gridRefresh)="refresh()"
             [columns]="columns"
             [selectionType]="selectionType"
             [datagridSelection]="selectedItems"
