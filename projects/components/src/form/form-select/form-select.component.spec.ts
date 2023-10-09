@@ -13,6 +13,10 @@ import { FormSelectComponent } from './form-select.component';
 export class VcdFormSelectWidgetObject extends WidgetObject<FormSelectComponent> {
     static tagName = `vcd-form-select`;
 
+    private get labelElement(): HTMLElement {
+        return this.findElement('.clr-form-control > label.clr-control-label')?.nativeElement;
+    }
+
     private get selectElement(): HTMLSelectElement {
         return this.findElement('select').nativeElement;
     }
@@ -50,12 +54,21 @@ export class VcdFormSelectWidgetObject extends WidgetObject<FormSelectComponent>
     getSubtextAttributeValue(attribute: string): string {
         return this.subtextElement.getAttribute(attribute);
     }
+
+    getLabelAttributeValue(attribute: string): string {
+        return this.labelElement.getAttribute(attribute);
+    }
+
+    get hasLabelElement(): boolean {
+        return !!this.labelElement;
+    }
 }
 
 describe('FormSelectComponent', () => {
     let hostComponent: TestHostComponent;
     let finder: WidgetFinder<TestHostComponent>;
     let selectInput: VcdFormSelectWidgetObject;
+    let selectWithoutLabel: VcdFormSelectWidgetObject;
 
     beforeEach(async () => {
         await configureFormInputTestingModule(TestHostComponent);
@@ -64,6 +77,10 @@ describe('FormSelectComponent', () => {
         hostComponent = finder.hostComponent;
 
         selectInput = finder.find({ woConstructor: VcdFormSelectWidgetObject, className: 'select-input' });
+        selectWithoutLabel = finder.find({
+            woConstructor: VcdFormSelectWidgetObject,
+            className: 'select-without-label',
+        });
     });
 
     describe('selectedOption', () => {
@@ -140,7 +157,7 @@ describe('FormSelectComponent', () => {
 
         it(
             'validator can return key/value where the value is NOT an array,' +
-            ' in which case an array of control\'s value is passed to the translation service',
+                " in which case an array of control's value is passed to the translation service",
             () => {
                 const selectNumberWo = finder.find({
                     woConstructor: VcdFormSelectWidgetObject,
@@ -154,6 +171,19 @@ describe('FormSelectComponent', () => {
     });
 
     describe('ARIA', () => {
+        it('has label "for" attribute set to input id when label is set', () => {
+            expect(selectInput.getLabelAttributeValue('for')).toBe(selectInput.getInputAttributeValue('id'));
+        });
+
+        it("does not have 'aria-label' attribute when label is set", () => {
+            expect(selectWithoutLabel.getInputAttributeValue('arial-label')).toBe(null);
+        });
+
+        it("has 'aria-label' attribute when label is hidden", () => {
+            expect(selectWithoutLabel.hasLabelElement).toBe(false);
+            expect(selectWithoutLabel.getInputAttributeValue('aria-label')).toBeDefined();
+        });
+
         it('has "aria-describedby" attribute value set to "errorsId" when "showErrors" is "true"', () => {
             selectInput.select(0); // Selecting first empty value option to trigger the required validator.
             expect(selectInput.getSubtextAttributeValue('id')).toBe(selectInput.component.errorsId);
@@ -161,12 +191,8 @@ describe('FormSelectComponent', () => {
         });
 
         it('has "aria-describedby" attribute value set to "descriptionId" when "showErrors" is "false"', () => {
-            expect(selectInput.getSubtextAttributeValue('id')).toBe(
-                selectInput.component.descriptionId
-            );
-            expect(selectInput.getInputAttributeValue('aria-describedby')).toBe(
-                selectInput.component.descriptionId
-            );
+            expect(selectInput.getSubtextAttributeValue('id')).toBe(selectInput.component.descriptionId);
+            expect(selectInput.getInputAttributeValue('aria-describedby')).toBe(selectInput.component.descriptionId);
         });
     });
 });
@@ -192,6 +218,7 @@ function numRangeValidator(control: AbstractControl): ValidationErrors | null {
         <form>
             <vcd-form-select
                 #selectInputComponent
+                [label]="'String options'"
                 [options]="options"
                 [formControl]="formGroup.controls.selectInput"
                 class="select-input"
@@ -199,9 +226,18 @@ function numRangeValidator(control: AbstractControl): ValidationErrors | null {
             >
             </vcd-form-select>
             <vcd-form-select
+                [label]="'Number options'"
                 [options]="numberOptions"
                 [formControl]="formGroup.controls.selectNumber"
                 class="select-number-input"
+            >
+            </vcd-form-select>
+            <vcd-form-select
+                [options]="numberOptions"
+                [formControl]="formGroup.controls.selectWithoutLabel"
+                class="select-without-label"
+                [label]="'Select with no label displayed'"
+                [hideLabel]="true"
             >
             </vcd-form-select>
         </form>
@@ -261,6 +297,7 @@ class TestHostComponent {
     formGroup = this.fb.group({
         selectInput: ['one' as number | string, [Validators.required]],
         selectNumber: [0, [numberValidator, numRangeValidator]],
+        selectWithoutLabel: [0],
     });
 
     constructor(private fb: FormBuilder) {}

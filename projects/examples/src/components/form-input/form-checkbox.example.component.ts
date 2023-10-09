@@ -9,13 +9,14 @@ import { CheckBoxStyling, FormCheckboxComponent } from '@vcd/ui-components';
 
 @Component({
     selector: 'vcd-form-checkbox-example-component',
-    templateUrl: `./form-checkbox.example.component.html`,
+    templateUrl: './form-checkbox.example.component.html',
 })
 export class FormCheckboxExampleComponent implements OnInit {
     formGroup = this.fb.group({
         checkboxInput: [true],
         toggleInput: [true],
         enabledDisabled: [false],
+        noLabelInput: [true],
     });
 
     styling = CheckBoxStyling;

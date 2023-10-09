@@ -22,6 +22,14 @@
     <vcd-form-input [label]="'Date Input'" [type]="'datetime-local'" [formControl]="formGroup.controls.dateInput">
     </vcd-form-input>
 
+    <vcd-form-input
+        [label]="'aria label set'"
+        [hideLabel]="true"
+        [type]="'text'"
+        [formControl]="formGroup.controls.noLabel"
+    >
+    </vcd-form-input>
+
     <hr />
 
     <vcd-form-checkbox

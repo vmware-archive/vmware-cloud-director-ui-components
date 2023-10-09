@@ -4,7 +4,7 @@
  */
 
 import { Component, ViewChild } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder } from '@angular/forms';
 import { WidgetFinder, WidgetObject } from '../../utils/test/widget-object';
 import { configureFormInputTestingModule } from '../base-form-control.spec';
 import { CheckBoxStyling, FormCheckboxComponent } from './form-checkbox.component';
@@ -16,6 +16,10 @@ export class VcdFormCheckboxWidgetObject extends WidgetObject<FormCheckboxCompon
         return this.findElement('input').nativeElement;
     }
 
+    private get labelElement(): HTMLElement {
+        return this.findElement('.clr-form-control > label.clr-control-label')?.nativeElement;
+    }
+
     get value(): boolean {
         return this.checkboxElement.checked;
     }
@@ -25,6 +29,18 @@ export class VcdFormCheckboxWidgetObject extends WidgetObject<FormCheckboxCompon
         this.checkboxElement.dispatchEvent(new Event('change'));
         this.detectChanges();
     }
+
+    getLabelAttributeValue(attribute: string): string {
+        return this.labelElement.getAttribute(attribute);
+    }
+
+    getInputAttributeValue(attribute: string): string {
+        return this.checkboxElement.getAttribute(attribute);
+    }
+
+    get hasLabelElement(): boolean {
+        return !!this.labelElement;
+    }
 }
 
 describe('FormCheckboxComponent', () => {
@@ -32,6 +48,7 @@ describe('FormCheckboxComponent', () => {
     let finder: WidgetFinder<TestHostComponent>;
     let checkboxInput: VcdFormCheckboxWidgetObject;
     let toggleSwitchInput: VcdFormCheckboxWidgetObject;
+    let checkboxWithoutLabel: VcdFormCheckboxWidgetObject;
 
     beforeEach(async () => {
         await configureFormInputTestingModule(TestHostComponent);
@@ -42,6 +59,10 @@ describe('FormCheckboxComponent', () => {
         const checkboxWidgetObjects = finder.findWidgets({ woConstructor: VcdFormCheckboxWidgetObject });
         checkboxInput = checkboxWidgetObjects[0];
         toggleSwitchInput = checkboxWidgetObjects[1];
+        checkboxWithoutLabel = finder.find({
+            woConstructor: VcdFormCheckboxWidgetObject,
+            className: 'checkbox-without-label',
+        });
     });
 
     describe('isCheckbox', () => {
@@ -70,6 +91,21 @@ describe('FormCheckboxComponent', () => {
             expect(checkboxInput.value).toEqual(false);
         });
     });
+
+    describe('ARIA', () => {
+        it('has label "for" attribute set to input id when label is set', () => {
+            expect(checkboxInput.getLabelAttributeValue('for')).toBe(checkboxInput.getInputAttributeValue('id'));
+        });
+
+        it("does not have 'aria-label' attribute when label is set", () => {
+            expect(checkboxWithoutLabel.getInputAttributeValue('arial-label')).toBe(null);
+        });
+
+        it("has 'aria-label' attribute when label is hidden", () => {
+            expect(checkboxWithoutLabel.hasLabelElement).toBe(false);
+            expect(checkboxWithoutLabel.getInputAttributeValue('aria-label')).toBeDefined();
+        });
+    });
 });
 
 @Component({
@@ -91,6 +127,15 @@ describe('FormCheckboxComponent', () => {
                 [description]="'Helper Text'"
             >
             </vcd-form-checkbox>
+
+            <vcd-form-checkbox
+                class="checkbox-without-label"
+                [label]="'Checkbox aria label'"
+                [hideLabel]="true"
+                [formControl]="formGroup.controls.noLabelInput"
+                [description]="'Helper Text'"
+            >
+            </vcd-form-checkbox>
         </form>
     `,
 })
@@ -98,6 +143,7 @@ class TestHostComponent {
     formGroup = this.fb.group({
         checkboxInput: [true],
         toggleInput: [false],
+        noLabelInput: [true],
     });
     styling = CheckBoxStyling;
 

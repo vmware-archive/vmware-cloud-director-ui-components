@@ -4,7 +4,7 @@
         [vcdResponsiveInput]="{ disabled: !isResponsive }"
         [ngClass]="{ 'clr-form-control-disabled': disabled }"
     >
-        <label *ngIf="label" class="clr-control-label" [for]="id" [ngClass]="{ 'required-field': showAsterisk }">{{
+        <label *ngIf="!hideLabel" class="clr-control-label" [for]="id" [ngClass]="{ 'required-field': showAsterisk }">{{
             label
         }}</label>
         <div class="clr-control-container" [ngClass]="{ 'clr-error': showErrors }">
@@ -20,6 +20,7 @@
                     [attr.size]="size"
                     [min]="min"
                     [max]="max"
+                    [attr.aria-label]="!hideLabel ? null : label"
                     [attr.maxlength]="maxlength"
                     [attr.aria-required]="showAsterisk"
                     [attr.aria-describedby]="showErrors ? errorsId : descriptionId"
