@@ -4,12 +4,13 @@
         [vcdResponsiveInput]="{ disabled: !isResponsive }"
         [ngClass]="{ 'clr-form-control-disabled': disabled }"
     >
-        <label class="clr-control-label" [for]="id" *ngIf="label">{{ label }}</label>
+        <label class="clr-control-label" [for]="id" *ngIf="!hideLabel">{{ label }}</label>
         <div class="clr-control-container" [ngClass]="{ 'clr-error': showErrors }">
             <div [ngClass]="{ 'clr-checkbox-wrapper': isCheckbox, 'clr-toggle-wrapper': !isCheckbox }">
                 <input
                     type="checkbox"
                     [id]="id"
+                    [attr.aria-label]="!hideLabel ? null : label"
                     [attr.aria-describedby]="showErrors ? errorsId : descriptionId"
                     [ngClass]="{ 'clr-checkbox': isCheckbox, 'clr-toggle': !isCheckbox }"
                     [formControl]="formControl"

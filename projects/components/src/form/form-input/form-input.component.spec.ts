@@ -13,7 +13,7 @@ export class VcdFormInputWidgetObject extends WidgetObject<FormInputComponent> {
     static tagName = `vcd-form-input`;
 
     private get labelElement(): HTMLElement {
-        return this.findElement('label').nativeElement;
+        return this.findElement('.clr-form-control > label.clr-control-label')?.nativeElement;
     }
 
     private get subtextElement(): HTMLElement {
@@ -45,6 +45,10 @@ export class VcdFormInputWidgetObject extends WidgetObject<FormInputComponent> {
     getSubtextAttributeValue(attribute: string): string {
         return this.subtextElement.getAttribute(attribute);
     }
+
+    get hasLabelElement(): boolean {
+        return !!this.labelElement;
+    }
 }
 
 describe('FormInputComponent', () => {
@@ -56,6 +60,7 @@ describe('FormInputComponent', () => {
     let inputWithLabel: VcdFormInputWidgetObject;
     let inputWithDescription: VcdFormInputWidgetObject;
     let requiredInput: VcdFormInputWidgetObject;
+    let inputWithoutLabel: VcdFormInputWidgetObject;
 
     beforeEach(async () => {
         await configureFormInputTestingModule(TestHostComponent);
@@ -70,6 +75,7 @@ describe('FormInputComponent', () => {
         inputWithLabel = inputWidgetObjects[3];
         inputWithDescription = inputWidgetObjects[4];
         requiredInput = inputWidgetObjects[5];
+        inputWithoutLabel = finder.find({ woConstructor: VcdFormInputWidgetObject, className: 'input-without-label' });
     });
 
     describe('writeValue, when input is of', () => {
@@ -128,6 +134,15 @@ describe('FormInputComponent', () => {
             expect(inputWithLabel.getLabelAttributeValue('for')).toBe(inputWithLabel.getInputAttributeValue('id'));
         });
 
+        it("does not have 'aria-label' attribute when label is set", () => {
+            expect(inputWithLabel.getInputAttributeValue('arial-label')).toBe(null);
+        });
+
+        it("has 'aria-label' attribute when label is hidden", () => {
+            expect(inputWithoutLabel.hasLabelElement).toBe(false);
+            expect(inputWithoutLabel.getInputAttributeValue('aria-label')).toBeDefined();
+        });
+
         it('has "aria-required" attribute set to false when "showAsterisk" is "false"', () => {
             expect(inputWithLabel.getInputAttributeValue('aria-required')).toBe('false');
         });
@@ -170,6 +185,12 @@ describe('FormInputComponent', () => {
                 [showAsterisk]="true"
                 [formControl]="controls.requiredInput"
             ></vcd-form-input>
+            <vcd-form-input
+                class="input-without-label"
+                [label]="'Test'"
+                [hideLabel]="true"
+                [formControl]="controls.inputWithoutLabel"
+            ></vcd-form-input>
         </form>
     `,
 })
@@ -181,6 +202,7 @@ class TestHostComponent {
         inputWithLabel: [''],
         inputWithDescription: [''],
         requiredInput: ['Test', Validators.required],
+        inputWithoutLabel: [''],
     });
     controls = this.formGroup.controls;
 

@@ -20,6 +20,7 @@ export class FormInputExampleComponent implements OnInit {
         stringInput: ['test@vcd.com', [Validators.required, Validators.email, Validators.maxLength(15)]],
         numberInput: [75, [Validators.required]],
         dateInput: [new Date().toISOString()],
+        noLabel: ['aria label set'],
         disabledInputs: [false],
     });
 

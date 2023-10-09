@@ -20,6 +20,18 @@
     >
     </vcd-form-checkbox>
 
+    <fieldset>
+        <label>Checkbox without label</label>
+        <vcd-form-checkbox
+            #checkbox
+            [label]="'Test A11Y label requirement'"
+            [hideLabel]="true"
+            [formControl]="formGroup.controls.noLabelInput"
+            [description]="'Helper Text'"
+        >
+        </vcd-form-checkbox>
+    </fieldset>
+
     <hr />
 
     <vcd-form-checkbox

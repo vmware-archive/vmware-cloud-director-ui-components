@@ -73,8 +73,16 @@ export class BaseFormControl<V> implements ControlValueAccessor, CanBeReadOnly {
 
     /**
      * The label that appears before the control
+     * To comply with accessibility requirements this input is required.
+     * For backward compatibility, label will be hidden if it is not passed,
+     * but preferred way for hiding it is by using the `hideLabel` input.
      */
     @Input() label: string;
+
+    /**
+     * Set to `true` to hide the label.
+     */
+    @Input() hideLabel = false;
 
     /**
      * The description that appears below the control

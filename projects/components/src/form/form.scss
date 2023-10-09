@@ -14,3 +14,7 @@ clr-signpost-content p:first-child {
     // Text will wrap when necessary, and on line breaks.
     white-space: pre-line;
 }
+
+label.clr-control-label:empty {
+    display: none;
+}
