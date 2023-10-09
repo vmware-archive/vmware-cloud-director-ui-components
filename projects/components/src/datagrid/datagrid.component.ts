@@ -375,7 +375,9 @@ export class DatagridComponent<R extends B, B = any> implements OnInit, AfterVie
         private translationService: TranslationService,
         private changeDetectorRef: ChangeDetectorRef,
         private subTracker: SubscriptionTracker
-    ) {}
+    ) {
+        this.trackBy = (index: number, record): string => (record as any).href;
+    }
 
     /**
      * The pagination information that the user should supply.
@@ -684,6 +686,9 @@ export class DatagridComponent<R extends B, B = any> implements OnInit, AfterVie
     };
     private currentDetailRowRenderSpec: { rendererSpec: ComponentRendererSpec<DetailRowConfig<R>> };
 
+    protected clrDgItemsTrackBy: (record: B) => any;
+    private _trackBy: TrackByFunction<B>;
+
     private getContextualActions(): ActionItem<R, unknown>[] {
         return this.actions.filter(
             (action) => action.actionType !== ActionType.STATIC_FEATURED && action.actionType !== ActionType.STATIC
@@ -735,9 +740,24 @@ export class DatagridComponent<R extends B, B = any> implements OnInit, AfterVie
      *
      * If the record has a href, defaults to that. Else, defaults to index.
      */
-    @Input() trackBy: TrackByFunction<B> = (index: number, record): string => {
-        return (record as any).href;
-    };
+    @Input() set trackBy(trackByFn: TrackByFunction<B>) {
+        this._trackBy = trackByFn;
+        /**
+         * We are reusing the trackByFn as an identity function for the new `clrDgItemsTrackBy`, which
+         * was introduced to fix the [clrDgSelectable] bug (see: https://github.com/vmware-clarity/ng-clarity/pull/539)
+         *
+         * However `clrDgItemsTrackBy` does not accept an index as fist parameter (which `trackBy` does), as
+         * we don't have an index when we are comparing selection items across different pagination pages.
+         * Hence passing a hard coded '0' below.
+         *
+         * See more: https://jira.eng.vmware.com/browse/CDE-1313
+         */
+        this.clrDgItemsTrackBy = (record) => trackByFn(0, record);
+    }
+
+    get trackBy(): TrackByFunction<B> {
+        return this._trackBy;
+    }
 
     /**
      * Returns an identifier for the given column at the given index.
