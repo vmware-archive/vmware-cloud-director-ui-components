@@ -10,6 +10,7 @@
     (clrDgSelectedChange)="onClarityDatafridSelectionChange()"
     (clrDgSingleSelectedChange)="onClarityDatafridSelectionChange()"
     [clrDgPreserveSelection]="preserveSelection"
+    [clrDgItemsTrackBy]="clrDgItemsTrackBy"
 >
     <clr-dg-placeholder>{{ emptyGridPlaceholder }}</clr-dg-placeholder>
     <clr-dg-action-bar class="top-action-bar" *ngIf="shouldShowActionBarOnTop">
