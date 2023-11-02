@@ -48,6 +48,7 @@ import { DatagridIsRowSelectableExampleComponent } from './datagrid-is-row-selec
 import { DatagridIsRowSelectableExampleModule } from './datagrid-is-row-selectable-example.module';
 import { DatagridPreserveSelectionExampleComponent } from './datagrid-preserve-selection.example.component';
 import { DatagridPreserveSelectionExampleModule } from './datagrid-preserve-selection.example.module';
+import { DatagridStringFilterPlaceholderExampleComponent } from './datagrid-string-filter-placeholder.example.component';
 
 Documentation.registerDocumentationEntry({
     component: DatagridComponent,
@@ -158,6 +159,11 @@ Documentation.registerDocumentationEntry({
             component: DatagridColumnWidthExampleComponent,
             title: 'Set the width of columns through CSS class names',
             urlSegment: 'datagrid-column-width',
+        },
+        {
+            component: DatagridStringFilterPlaceholderExampleComponent,
+            title: 'String Filter Placeholder',
+            urlSegment: 'datagrid-filter-placeholder',
         },
     ],
 });

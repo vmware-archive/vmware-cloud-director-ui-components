@@ -1,3 +1,10 @@
 <form>
-    <input type="text" name="search" [formControl]="formGroup.controls.filterText" class="clr-input" />
+    <input
+        type="text"
+        name="search"
+        class="clr-input"
+        [attr.aria-label]="placeholder | lazyString"
+        [placeholder]="placeholder | lazyString"
+        [formControl]="formGroup.controls.filterText"
+    />
 </form>

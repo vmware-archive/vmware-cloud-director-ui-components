@@ -9,6 +9,8 @@ import { ClrDatagridFilter } from '@clr/angular';
 import { SubscriptionTracker } from '../../common/subscription/subscription-tracker';
 import { FilterBuilder } from '../../utils/filter-builder';
 import { DatagridFilter, FilterComponentRendererSpec, FilterConfig, FilterRendererSpec } from './datagrid-filter';
+import { TranslationService } from '@vcd/i18n';
+import { LazyString } from '../../utils/types';
 
 export enum WildCardPosition {
     NONE = 0,
@@ -22,6 +24,7 @@ export enum WildCardPosition {
  */
 export interface DatagridStringFilterConfig extends FilterConfig<string> {
     wildCardPosition?: WildCardPosition;
+    placeholder?: string;
 }
 
 @Component({
@@ -34,7 +37,13 @@ export class DatagridStringFilterComponent extends DatagridFilter<string, Datagr
         filterText: new FormControl(''),
     });
 
-    constructor(private filterContainer: ClrDatagridFilter, subTracker: SubscriptionTracker) {
+    protected placeholder: LazyString;
+
+    constructor(
+        private filterContainer: ClrDatagridFilter,
+        private translationService: TranslationService,
+        subTracker: SubscriptionTracker
+    ) {
         super(filterContainer, subTracker);
     }
 
@@ -51,6 +60,11 @@ export class DatagridStringFilterComponent extends DatagridFilter<string, Datagr
             value = this.addWildCard(value, this.config.wildCardPosition);
         }
         return filterBuilder.equalTo(value).getString();
+    }
+
+    protected onBeforeSetConfig(config: DatagridStringFilterConfig) {
+        this.placeholder =
+            config?.placeholder || this.translationService.translateAsync('vcd.cc.datagrid.common.filter.items');
     }
 
     isActive(): boolean {
@@ -77,16 +91,19 @@ export class DatagridStringFilterComponent extends DatagridFilter<string, Datagr
  * Creates a {@link FilterRendererSpec} with the given config.
  * @param wildCardPosition where the * should go in the FIQL string output.
  * @param value the default value of the filter
+ * @param placeholder for the input field
  */
 export function DatagridStringFilter(
     wildCardPosition?: WildCardPosition,
-    value?: string
+    value?: string,
+    placeholder?: string
 ): FilterRendererSpec<DatagridStringFilterConfig> {
     return FilterComponentRendererSpec({
         type: DatagridStringFilterComponent,
         config: {
             wildCardPosition,
             value,
+            placeholder,
         },
     });
 }
