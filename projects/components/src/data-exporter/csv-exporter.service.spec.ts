@@ -7,45 +7,6 @@ import { TestBed } from '@angular/core/testing';
 import { CsvExporterService } from './csv-exporter.service';
 
 describe('CsvExporterService', () => {
-    describe('hasPotentialInjection', () => {
-        it('doesnt detect injection on a row without formulas', () => {
-            const service: CsvExporterService = TestBed.inject(CsvExporterService);
-            expect(
-                service.hasPotentialInjection([
-                    ['a+', 'b'],
-                    [1, 2],
-                ])
-            ).toBeFalsy();
-        });
-
-        it('does detect injection on a row with formulas', () => {
-            const service: CsvExporterService = TestBed.inject(CsvExporterService);
-            expect(
-                service.hasPotentialInjection([
-                    ['+', 'b'],
-                    [1, 2],
-                ])
-            ).toBeTruthy();
-            expect(
-                service.hasPotentialInjection([
-                    ['-', 'b'],
-                    [1, 2],
-                ])
-            ).toBeTruthy();
-            expect(
-                service.hasPotentialInjection([
-                    ['=', 'b'],
-                    [1, 2],
-                ])
-            ).toBeTruthy();
-            expect(
-                service.hasPotentialInjection([
-                    ['@', 'b'],
-                    [1, 2],
-                ])
-            ).toBeTruthy();
-        });
-    });
     // Byte order mark for UTF-8
     const BOM = '\ufeff';
     describe('createCsv', () => {
@@ -116,30 +77,28 @@ describe('CsvExporterService', () => {
             ).toEqual(BOM + 'a,b\n,');
         });
 
-        it('adds a tab character if the value begins with any special characters', () => {
-            const service: CsvExporterService = TestBed.inject(CsvExporterService);
-            expect(
-                service.createCsv(
-                    [
-                        ['+', '-', '@', '='],
-                        [null, undefined],
-                    ],
-                    true
-                )
-            ).toEqual(BOM + '\t+,\t-,\t@,\t=\n,');
-        });
+        describe('csv sanitizing', () => {
+            it('prepends a single quote if the value begins with any special characters', () => {
+                const service: CsvExporterService = TestBed.inject(CsvExporterService);
+                expect(service.createCsv([['+a', '-a', '@a', '=a', '\ta', '\ra']], true)).toEqual(
+                    `${BOM}'+a,'-a,'@a,'=a,a,a`
+                );
+            });
 
-        it('does not add a tab character if the value contains but does not begin with with any special characters', () => {
-            const service: CsvExporterService = TestBed.inject(CsvExporterService);
-            expect(
-                service.createCsv(
-                    [
-                        ['a+', 'a-', 'a@', 'a='],
-                        [null, undefined],
-                    ],
-                    true
-                )
-            ).toEqual(BOM + 'a+,a-,a@,a=\n,');
+            it('prepends a single quote if the value begins with any special characters and has been escaped for quotes', () => {
+                const service: CsvExporterService = TestBed.inject(CsvExporterService);
+                expect(service.createCsv([['=1+"1"']], true)).toEqual(`${BOM}"'=1+""1"""`);
+            });
+
+            it('does not prepend a single quote if the value contains but does not begin with with any special characters', () => {
+                const service: CsvExporterService = TestBed.inject(CsvExporterService);
+                expect(service.createCsv([['a+', 'a-', 'a@', 'a=']], true)).toEqual(BOM + 'a+,a-,a@,a=');
+            });
+
+            it('ignores whitespace around the cell value and escapes leading control character', () => {
+                const service: CsvExporterService = TestBed.inject(CsvExporterService);
+                expect(service.createCsv([[' \t\r\n=1+"1"']], true)).toEqual(`${BOM}"'=1+""1"""`);
+            });
         });
 
         it('encodes JavaScript object to JSON string', () => {

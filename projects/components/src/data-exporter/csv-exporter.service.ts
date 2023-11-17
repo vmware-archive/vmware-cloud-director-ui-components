@@ -5,6 +5,33 @@
 
 import { Injectable } from '@angular/core';
 
+// From https://owasp.org/www-community/attacks/CSV_Injection
+// * Equals to (=)
+// * Plus (+)
+// * Minus (-)
+// * At (@)
+// * Tab (0x09), \t
+// * Carriage return (0x0D), \r
+//
+// If a cell starts with one of these, it should be sanitized with a single quote
+// be prepending it to the special character.
+//
+// This would break a script but it's better than causing a Formula to be executed
+// on a user's computer.
+
+// See https://stackoverflow.com/a/3561711/227299
+function escapeRegex(string) {
+    return string.replace(/[/\-\\^$*+?.()|[\]{}]/g, '\\$&');
+}
+const LEADING_CHARS = escapeRegex(['=', '+', '-', '@', '\t', '\r'].join(''));
+
+const LEADING_CONTROL_CHAR = new RegExp(`^[${LEADING_CHARS}]`);
+
+const SANITIZE_CHAR = `'`;
+
+const CELL_SEPARATOR = ',';
+
+const LINE_SEPARATOR = '\n';
 @Injectable({
     providedIn: 'root',
 })
@@ -20,15 +47,7 @@ export class CsvExporterService {
      */
     public createCsv(rows: any[][], shouldSanitize = false): string {
         // BOM Mark to help Excel open the CSV when it contains UTF-8 characters
-        return '\ufeff' + rows.map((row) => processRow(row, shouldSanitize)).join('\n');
-    }
-
-    /**
-     * Whether the CSV that would result from the export is at risk of code injection
-     * @param rows 2D array of data. First row is the names for the fields
-     */
-    public hasPotentialInjection(rows: any[][]): boolean {
-        return rows.some(hasPotentialInjection);
+        return '\ufeff' + rows.map((row) => processRow(row, shouldSanitize)).join(LINE_SEPARATOR);
     }
 
     /**
@@ -50,15 +69,6 @@ export class CsvExporterService {
     }
 }
 
-const LEADING_CONTROL_CHAR = /^[-+=@]/;
-
-/**
- * Whether the given row data is at risk of code injection when exported to CSV.
- */
-function hasPotentialInjection(row: unknown[]): boolean {
-    return row.some((cell) => LEADING_CONTROL_CHAR.test(encodeValue(cell, false)));
-}
-
 /**
  * Returns a string
  * @param row A list of cells to be turned into a CSV string, separated by commas
@@ -66,7 +76,7 @@ function hasPotentialInjection(row: unknown[]): boolean {
  * possible code injection
  */
 function processRow(row: unknown[], shouldSanitize: boolean): string {
-    return row.map((cell) => encodeValue(cell, shouldSanitize)).join(',');
+    return row.map((cell) => encodeValue(cell, shouldSanitize)).join(CELL_SEPARATOR);
 }
 
 /**
@@ -85,13 +95,12 @@ function encodeValue(cellValue: unknown, shouldSanitize: boolean): string {
     // Double quotes are doubled
     let result = innerValue.replace(/"/g, '""');
 
-    // Add quotes around the whole thing if it contains new lines
-    if (result.search(/[",\n]/g) >= 0) {
-        result = `"${result}"`;
-    }
-    // Escape against
     if (shouldSanitize) {
-        return sanitizeString(result);
+        result = sanitizeString(result);
+    }
+    // Add quotes around the whole thing if it contains special characters
+    if (result.search(/[",\n\r]/g) >= 0) {
+        result = `"${result}"`;
     }
     return result;
 }
@@ -101,8 +110,11 @@ function encodeValue(cellValue: unknown, shouldSanitize: boolean): string {
  * special character.
  */
 function sanitizeString(value: string): string {
-    if (LEADING_CONTROL_CHAR.test(value)) {
-        return '\t' + value;
+    // Trim the string since space before a control character is ignored by
+    // many CSV parsers, e.g., Numbers on a Mac
+    const trimmed = value.trim();
+    if (LEADING_CONTROL_CHAR.test(trimmed)) {
+        return SANITIZE_CHAR + trimmed;
     }
-    return value;
+    return trimmed;
 }

@@ -349,7 +349,7 @@ const InjectionData = {
 
 const FixedInjection = {
     exportData: [
-        { name: '\t+a', desc: 'Tis what tis' },
+        { name: `'+a`, desc: 'Tis what tis' },
         { name: 'Jill', desc: 'Still tis what tis' },
     ],
 };
