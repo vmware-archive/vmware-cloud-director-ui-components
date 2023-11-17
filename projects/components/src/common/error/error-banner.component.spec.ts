@@ -59,6 +59,40 @@ describe('ErrorBannerComponent', () => {
         });
     });
 
+    describe('errorMessage two-way binding', () => {
+        beforeEach(function (this: HasFinderAndError): void {
+            this.finder.hostComponent.message = 'Error!!';
+            this.finder.detectChanges();
+        });
+
+        it('sets the errorMessage to null when closed with the X button', function (this: HasFinderAndError): void {
+            this.errorBannerWO.close();
+            this.finder.detectChanges();
+            expect(this.finder.hostComponent.message).toBe(null);
+            expect(this.errorBannerWO.getDisplayedError()).toBe('');
+        });
+
+        it('does not reset the errorMessage when closed with null', function (this: HasFinderAndError): void {
+            this.finder.hostComponent.message = null;
+            this.finder.detectChanges();
+            expect(this.finder.hostComponent.message).toBe(null);
+            expect(this.errorBannerWO.getDisplayedError()).toBe('');
+        });
+
+        it('does not reset the errorMessage when closed with empty string', function (this: HasFinderAndError): void {
+            this.finder.hostComponent.message = '';
+            this.finder.detectChanges();
+            expect(this.finder.hostComponent.message).toBe('');
+            expect(this.errorBannerWO.getDisplayedError()).toBe('');
+        });
+
+        it('does not reset the errorMessage when closed with undefined', function (this: HasFinderAndError): void {
+            this.finder.hostComponent.message = undefined;
+            this.finder.detectChanges();
+            expect(this.finder.hostComponent.message).toBe(undefined);
+            expect(this.errorBannerWO.getDisplayedError()).toBe('');
+        });
+    });
     describe('ARIA role', () => {
         it('is `alert` for the default alertType `danger`', function (this: HasFinderAndError): void {
             expect(this.errorBannerWO.ariaRole).toBe('alert');

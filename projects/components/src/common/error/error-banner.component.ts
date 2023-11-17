@@ -1,9 +1,11 @@
 /*!
- * Copyright 2020 VMware, Inc.
+ * Copyright 2020-2023 VMware, Inc.
  * SPDX-License-Identifier: BSD-2-Clause
  */
 
 import { Component, EventEmitter, Input, Output } from '@angular/core';
+
+const NO_ERROR_VALUE = null;
 
 /**
  * Component that displays the error message only if a non empty errorMessage is passed in
@@ -14,7 +16,7 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
     styleUrls: ['./error-banner.component.scss'],
 })
 export class ErrorBannerComponent {
-    private _errorMessage;
+    private _errorMessage: string | null = NO_ERROR_VALUE;
 
     closed = true;
 
@@ -44,7 +46,7 @@ export class ErrorBannerComponent {
      * Sets the error message displayed by this error banner.
      */
     set errorMessage(val: string) {
-        this._errorMessage = val;
+        this._errorMessage = val || NO_ERROR_VALUE;
         this.closed = !val;
     }
 
@@ -58,8 +60,10 @@ export class ErrorBannerComponent {
      */
     onAlertClosedChange(closed: boolean): void {
         if (closed) {
-            this._errorMessage = undefined;
-            this.errorMessageChange.emit(undefined);
+            if (this._errorMessage) {
+                this._errorMessage = NO_ERROR_VALUE;
+                this.errorMessageChange.emit(this._errorMessage);
+            }
             this.dismissed.next();
         }
     }
