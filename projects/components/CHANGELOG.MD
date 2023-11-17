@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [15.0.1-dev.12]
+### Fixed
+- Fixed CSV Sanitization problem when a value contained quotes or started with whitespace
+
 ## [15.0.1-dev.11]
 ### Fixed
 - Add placeholder for datagrid-string filter to resolve accessibility issue
