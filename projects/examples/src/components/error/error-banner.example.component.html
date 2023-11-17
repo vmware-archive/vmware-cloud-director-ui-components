@@ -1,2 +1,2 @@
-<button (click)="showError = !showError">Show/Hide Error</button>
-<vcd-error-banner [errorMessage]="showError ? 'Error!' : undefined"></vcd-error-banner>
+<button (click)="errorMessage = errorMessage ? null : 'Error!'">Show/Hide Error</button>
+<vcd-error-banner [(errorMessage)]="errorMessage"></vcd-error-banner>
