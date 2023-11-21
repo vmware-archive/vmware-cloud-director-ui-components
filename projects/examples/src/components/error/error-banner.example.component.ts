@@ -1,5 +1,5 @@
 /*!
- * Copyright 2020 VMware, Inc.
+ * Copyright 2020-2023 VMware, Inc.
  * SPDX-License-Identifier: BSD-2-Clause
  */
 
@@ -13,5 +13,5 @@ import { Component } from '@angular/core';
     templateUrl: './error-banner.example.component.html',
 })
 export class ErrorBannerExampleComponent {
-    showError = false;
+    errorMessage: string;
 }

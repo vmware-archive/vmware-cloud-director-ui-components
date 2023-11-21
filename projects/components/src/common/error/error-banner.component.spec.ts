@@ -1,5 +1,5 @@
 /*!
- * Copyright 2020 VMware, Inc.
+ * Copyright 2020-2023 VMware, Inc.
  * SPDX-License-Identifier: BSD-2-Clause
  */
 
@@ -20,6 +20,7 @@ class TestErrorComponent {
 
 interface HasFinderAndError {
     finder: WidgetFinder<TestErrorComponent>;
+    errorBannerWO: ErrorBannerWidgetObject;
 }
 
 describe('ErrorBannerComponent', () => {
@@ -30,36 +31,83 @@ describe('ErrorBannerComponent', () => {
         }).compileComponents();
 
         this.finder = new WidgetFinder(TestErrorComponent);
+        this.errorBannerWO = this.finder.find({ woConstructor: ErrorBannerWidgetObject });
         this.finder.detectChanges();
     });
 
-    it('can display an error when shown', function (this: HasFinderAndError): void {
-        this.finder.hostComponent.message = 'Error!!';
-        this.finder.detectChanges();
-        expect(this.finder.hostComponent.errorBanner.closed).toBeFalsy();
-        expect(this.finder.hostComponent.errorBanner.errorMessage).toEqual('Error!!');
-        this.finder.hostComponent.errorBanner.onAlertClosedChange(true);
-        expect(this.finder.hostComponent.errorBanner.errorMessage).toBeFalsy();
+    describe('general', () => {
+        it('can display an error', function (this: HasFinderAndError): void {
+            this.finder.hostComponent.message = 'Error!!';
+            this.finder.detectChanges();
+            expect(this.errorBannerWO.getDisplayedError()).toBe('Error!!');
+        });
+
+        it('hides the error when closed with the X button', function (this: HasFinderAndError): void {
+            this.finder.hostComponent.message = 'Error!!';
+            this.finder.detectChanges();
+            this.errorBannerWO.close();
+            this.finder.detectChanges();
+            expect(this.errorBannerWO.getDisplayedError()).toBe('');
+        });
+
+        it('hides the error when closed with null', function (this: HasFinderAndError): void {
+            this.finder.hostComponent.message = 'Error!!';
+            this.finder.detectChanges();
+            this.finder.hostComponent.message = null;
+            this.finder.detectChanges();
+            expect(this.errorBannerWO.getDisplayedError()).toBe('');
+        });
     });
 
+    describe('errorMessage two-way binding', () => {
+        beforeEach(function (this: HasFinderAndError): void {
+            this.finder.hostComponent.message = 'Error!!';
+            this.finder.detectChanges();
+        });
+
+        it('sets the errorMessage to null when closed with the X button', function (this: HasFinderAndError): void {
+            this.errorBannerWO.close();
+            this.finder.detectChanges();
+            expect(this.finder.hostComponent.message).toBe(null);
+            expect(this.errorBannerWO.getDisplayedError()).toBe('');
+        });
+
+        it('does not reset the errorMessage when closed with null', function (this: HasFinderAndError): void {
+            this.finder.hostComponent.message = null;
+            this.finder.detectChanges();
+            expect(this.finder.hostComponent.message).toBe(null);
+            expect(this.errorBannerWO.getDisplayedError()).toBe('');
+        });
+
+        it('does not reset the errorMessage when closed with empty string', function (this: HasFinderAndError): void {
+            this.finder.hostComponent.message = '';
+            this.finder.detectChanges();
+            expect(this.finder.hostComponent.message).toBe('');
+            expect(this.errorBannerWO.getDisplayedError()).toBe('');
+        });
+
+        it('does not reset the errorMessage when closed with undefined', function (this: HasFinderAndError): void {
+            this.finder.hostComponent.message = undefined;
+            this.finder.detectChanges();
+            expect(this.finder.hostComponent.message).toBe(undefined);
+            expect(this.errorBannerWO.getDisplayedError()).toBe('');
+        });
+    });
     describe('ARIA role', () => {
         it('is `alert` for the default alertType `danger`', function (this: HasFinderAndError): void {
-            const errorBannerWO = this.finder.find({ woConstructor: ErrorBannerWidgetObject });
-            expect(errorBannerWO.ariaRole).toBe('alert');
+            expect(this.errorBannerWO.ariaRole).toBe('alert');
         });
 
         it('is `status` for the alertType `warning`', function (this: HasFinderAndError): void {
             this.finder.hostComponent.errorBanner.alertType = 'warning';
             this.finder.detectChanges();
-            const errorBannerWO = this.finder.find({ woConstructor: ErrorBannerWidgetObject });
-            expect(errorBannerWO.ariaRole).toBe('status');
+            expect(this.errorBannerWO.ariaRole).toBe('status');
         });
 
         it('is `status` for the alertType `info`', function (this: HasFinderAndError): void {
             this.finder.hostComponent.errorBanner.alertType = 'info';
             this.finder.detectChanges();
-            const errorBannerWO = this.finder.find({ woConstructor: ErrorBannerWidgetObject });
-            expect(errorBannerWO.ariaRole).toBe('status');
+            expect(this.errorBannerWO.ariaRole).toBe('status');
         });
     });
 });
