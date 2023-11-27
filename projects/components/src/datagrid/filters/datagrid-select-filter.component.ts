@@ -2,7 +2,7 @@
  * Copyright 2019-2023 VMware, Inc.
  * SPDX-License-Identifier: BSD-2-Clause
  */
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { ClrDatagridFilter } from '@clr/angular';
 import { SelectOption } from '../../common/interfaces/select-option';
@@ -56,6 +56,8 @@ export class DatagridSelectFilterComponent
     extends DatagridFilter<string | number, DatagridSelectFilterConfig>
     implements OnInit
 {
+    @ViewChild('selectElement') selectElement: ElementRef;
+
     /**
      * Displayed as the first option with a falsy value. Selecting this option would deactivate the filter
      */
@@ -96,6 +98,10 @@ export class DatagridSelectFilterComponent
 
     isActive(): boolean {
         return !!(this.formGroup && this.formGroup.controls.filterSelect.value);
+    }
+
+    protected setFocus() {
+        this.selectElement?.nativeElement.focus();
     }
 }
 

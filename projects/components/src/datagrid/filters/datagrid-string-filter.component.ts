@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: BSD-2-Clause
  */
 
-import { Component } from '@angular/core';
+import { Component, ElementRef, ViewChild } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { ClrDatagridFilter } from '@clr/angular';
 import { SubscriptionTracker } from '../../common/subscription/subscription-tracker';
@@ -37,6 +37,8 @@ export class DatagridStringFilterComponent extends DatagridFilter<string, Datagr
         filterText: new FormControl(''),
     });
 
+    @ViewChild('inputElement') inputElement: ElementRef;
+
     protected placeholder: LazyString;
 
     constructor(
@@ -69,6 +71,10 @@ export class DatagridStringFilterComponent extends DatagridFilter<string, Datagr
 
     isActive(): boolean {
         return !!(this.formGroup && this.formGroup.controls.filterText.value);
+    }
+
+    protected setFocus() {
+        this.inputElement?.nativeElement.focus();
     }
 
     /**
