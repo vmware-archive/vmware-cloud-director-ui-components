@@ -1,5 +1,5 @@
 /*!
- * Copyright 2019 VMware, Inc.
+ * Copyright 2019-2023 VMware, Inc.
  * SPDX-License-Identifier: BSD-2-Clause
  */
 
@@ -79,7 +79,7 @@ export class DatagridNumericFilterComponent
         to: new FormControl(null as number),
     });
 
-    constructor(private filterContainer: ClrDatagridFilter, subTracker: SubscriptionTracker) {
+    constructor(filterContainer: ClrDatagridFilter, subTracker: SubscriptionTracker) {
         super(filterContainer, subTracker);
     }
 

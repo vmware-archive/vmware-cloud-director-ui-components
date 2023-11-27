@@ -1,5 +1,5 @@
 /*!
- * Copyright 2019 VMware, Inc.
+ * Copyright 2019-2023 VMware, Inc.
  * SPDX-License-Identifier: BSD-2-Clause
  */
 
@@ -64,7 +64,10 @@ export abstract class DatagridFilter<V, C extends FilterConfig<V>, F extends For
 {
     abstract formGroup: F;
 
-    protected constructor(filterContainer: ClrDatagridFilter, private subscriptionTracker: SubscriptionTracker) {
+    protected constructor(
+        protected filterContainer: ClrDatagridFilter,
+        private subscriptionTracker: SubscriptionTracker
+    ) {
         filterContainer.setFilter(this);
     }
 

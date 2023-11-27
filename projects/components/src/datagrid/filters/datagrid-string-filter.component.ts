@@ -1,5 +1,5 @@
 /*!
- * Copyright 2019 VMware, Inc.
+ * Copyright 2019-2023 VMware, Inc.
  * SPDX-License-Identifier: BSD-2-Clause
  */
 
@@ -40,7 +40,7 @@ export class DatagridStringFilterComponent extends DatagridFilter<string, Datagr
     protected placeholder: LazyString;
 
     constructor(
-        private filterContainer: ClrDatagridFilter,
+        filterContainer: ClrDatagridFilter,
         private translationService: TranslationService,
         subTracker: SubscriptionTracker
     ) {

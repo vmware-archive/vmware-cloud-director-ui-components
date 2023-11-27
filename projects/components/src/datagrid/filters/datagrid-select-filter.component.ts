@@ -1,5 +1,5 @@
 /*!
- * Copyright 2019 VMware, Inc.
+ * Copyright 2019-2023 VMware, Inc.
  * SPDX-License-Identifier: BSD-2-Clause
  */
 import { Component, OnInit } from '@angular/core';
@@ -68,7 +68,7 @@ export class DatagridSelectFilterComponent
         filterSelect: new FormControl('' as string | number),
     });
 
-    constructor(private filterContainer: ClrDatagridFilter, private fb: FormBuilder, subTracker: SubscriptionTracker) {
+    constructor(filterContainer: ClrDatagridFilter, private fb: FormBuilder, subTracker: SubscriptionTracker) {
         super(filterContainer, subTracker);
     }
 

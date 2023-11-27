@@ -1,5 +1,5 @@
 /*!
- * Copyright 2019 VMware, Inc.
+ * Copyright 2019-2023 VMware, Inc.
  * SPDX-License-Identifier: BSD-2-Clause
  */
 
@@ -71,7 +71,7 @@ type BooleanFormGroup = FormGroup<{ [name: string]: AbstractControl<boolean, boo
     providers: [SubscriptionTracker],
 })
 export class DatagridMultiSelectFilterComponent extends DatagridFilter<string[], DatagridMultiSelectFilterConfig> {
-    constructor(private filterContainer: ClrDatagridFilter, subTracker: SubscriptionTracker) {
+    constructor(filterContainer: ClrDatagridFilter, subTracker: SubscriptionTracker) {
         super(filterContainer, subTracker);
     }
 
