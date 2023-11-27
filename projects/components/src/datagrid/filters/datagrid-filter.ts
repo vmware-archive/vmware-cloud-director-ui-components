@@ -1,12 +1,12 @@
 /*!
- * Copyright 2019 VMware, Inc.
+ * Copyright 2019-2023 VMware, Inc.
  * SPDX-License-Identifier: BSD-2-Clause
  */
 
 import { Directive, Input, OnInit } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { ClrDatagridFilter, ClrDatagridFilterInterface } from '@clr/angular';
-import { Subject } from 'rxjs';
+import { Subject, timer } from 'rxjs';
 import { debounceTime } from 'rxjs/operators';
 import { SubscriptionTracker } from '../../common/subscription/subscription-tracker';
 import {
@@ -64,7 +64,10 @@ export abstract class DatagridFilter<V, C extends FilterConfig<V>, F extends For
 {
     abstract formGroup: F;
 
-    protected constructor(filterContainer: ClrDatagridFilter, private subscriptionTracker: SubscriptionTracker) {
+    protected constructor(
+        protected filterContainer: ClrDatagridFilter,
+        private subscriptionTracker: SubscriptionTracker
+    ) {
         filterContainer.setFilter(this);
     }
 
@@ -96,6 +99,17 @@ export abstract class DatagridFilter<V, C extends FilterConfig<V>, F extends For
             ? this.formGroup.valueChanges.pipe(debounceTime(this.getDebounceTimeMs()))
             : this.formGroup.valueChanges;
         this.subscriptionTracker.subscribe(obs, () => this.changes.next(null));
+        this.subscribeToSetFocusWhenOpened();
+    }
+
+    private subscribeToSetFocusWhenOpened(): void {
+        this.subscriptionTracker.subscribe(this.filterContainer.openChange, (open: boolean) => {
+            if (open) {
+                this.subscriptionTracker.subscribe(timer(50), () => {
+                    this.setFocus();
+                });
+            }
+        });
     }
 
     /**
@@ -127,6 +141,11 @@ export abstract class DatagridFilter<V, C extends FilterConfig<V>, F extends For
      * Return true if the filter is currently activated (e.g. a value is provided)
      */
     abstract isActive(): boolean;
+
+    /**
+     * Called when the filter is opened to allow setting the focus on the desired element
+     */
+    protected abstract setFocus(): void;
 
     /**
      * Required by Clarity but ignored since we don't support client side filtering

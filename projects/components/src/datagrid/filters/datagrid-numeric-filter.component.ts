@@ -1,10 +1,10 @@
 /*!
- * Copyright 2019 VMware, Inc.
+ * Copyright 2019-2023 VMware, Inc.
  * SPDX-License-Identifier: BSD-2-Clause
  */
 
-import { Component, Host, Input, OnDestroy, OnInit, ViewChild } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
+import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
+import { FormControl, FormGroup } from '@angular/forms';
 import { ClrDatagridFilter } from '@clr/angular';
 import { SubscriptionTracker } from '../../common/subscription/subscription-tracker';
 import { NumberWithUnitFormInputComponent } from '../../form';
@@ -79,7 +79,7 @@ export class DatagridNumericFilterComponent
         to: new FormControl(null as number),
     });
 
-    constructor(private filterContainer: ClrDatagridFilter, subTracker: SubscriptionTracker) {
+    constructor(filterContainer: ClrDatagridFilter, subTracker: SubscriptionTracker, private elemRef: ElementRef) {
         super(filterContainer, subTracker);
     }
 
@@ -129,6 +129,10 @@ export class DatagridNumericFilterComponent
 
     close(): void {
         this.filterContainer.open = false;
+    }
+
+    protected setFocus() {
+        this.elemRef?.nativeElement?.querySelector('input')?.focus();
     }
 }
 

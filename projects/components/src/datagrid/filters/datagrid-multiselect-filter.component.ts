@@ -1,9 +1,9 @@
 /*!
- * Copyright 2019 VMware, Inc.
+ * Copyright 2019-2023 VMware, Inc.
  * SPDX-License-Identifier: BSD-2-Clause
  */
 
-import { Component, Host, OnDestroy } from '@angular/core';
+import { Component, ElementRef } from '@angular/core';
 import { AbstractControl, FormControl, FormGroup } from '@angular/forms';
 import { ClrDatagridFilter } from '@clr/angular';
 import { SelectOption } from '../../common/interfaces/select-option';
@@ -71,7 +71,7 @@ type BooleanFormGroup = FormGroup<{ [name: string]: AbstractControl<boolean, boo
     providers: [SubscriptionTracker],
 })
 export class DatagridMultiSelectFilterComponent extends DatagridFilter<string[], DatagridMultiSelectFilterConfig> {
-    constructor(private filterContainer: ClrDatagridFilter, subTracker: SubscriptionTracker) {
+    constructor(filterContainer: ClrDatagridFilter, subTracker: SubscriptionTracker, private elemRef: ElementRef) {
         super(filterContainer, subTracker);
     }
 
@@ -126,6 +126,10 @@ export class DatagridMultiSelectFilterComponent extends DatagridFilter<string[],
             this.formGroup &&
             !!Object.keys(this.formGroup.getRawValue()).filter((frmCtrl) => this.formGroup.get(frmCtrl).value).length
         );
+    }
+
+    protected setFocus() {
+        this.elemRef?.nativeElement?.querySelector('input')?.focus();
     }
 }
 
