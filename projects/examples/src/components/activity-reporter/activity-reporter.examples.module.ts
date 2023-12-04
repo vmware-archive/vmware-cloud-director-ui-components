@@ -1,5 +1,5 @@
 /*!
- * Copyright 2020 VMware, Inc.
+ * Copyright 2020-2023 VMware, Inc.
  * SPDX-License-Identifier: BSD-2-Clause
  */
 
@@ -10,6 +10,8 @@ import { BannerActivityReporterExampleComponent } from './banner-activity-report
 import { BannerActivityReporterExampleModule } from './banner-activity-reporter.example.module';
 import { SpinnerActivityReporterExampleComponent } from './spinner-activity-reporter.example.component';
 import { SpinnerActivityReporterExampleModule } from './spinner-activity-reporter.example.module';
+import { BannerActivityReporterScrollIntoViewExampleComponent } from './banner-activity-reporter-scroll-into-view.example.component';
+import { BannerActivityReporterScrollIntoViewExampleModule } from './banner-activity-reporter-scroll-into-view.example.module';
 
 Documentation.registerDocumentationEntry({
     component: BannerActivityReporterComponent,
@@ -20,6 +22,11 @@ Documentation.registerDocumentationEntry({
             component: BannerActivityReporterExampleComponent,
             title: 'Show/Hide the banner activity reporter',
             urlSegment: 'banner-activity-reporter',
+        },
+        {
+            component: BannerActivityReporterScrollIntoViewExampleComponent,
+            title: 'Scroll into view of the banner activity reporter',
+            urlSegment: 'banner-activity-reporter-scroll-into-view',
         },
     ],
 });
@@ -41,6 +48,10 @@ Documentation.registerDocumentationEntry({
  * A module that imports all activity reporter examples.
  */
 @NgModule({
-    imports: [SpinnerActivityReporterExampleModule, BannerActivityReporterExampleModule],
+    imports: [
+        SpinnerActivityReporterExampleModule,
+        BannerActivityReporterExampleModule,
+        BannerActivityReporterScrollIntoViewExampleModule,
+    ],
 })
 export class ActivityReporterExamplesModule {}

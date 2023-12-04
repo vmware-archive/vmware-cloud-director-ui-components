@@ -13,6 +13,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Fix ErrorBannerExampleComponent when closed with X button
 ### Changed
 * errorMessage reset value is `null` instead of `undefined`
+* Add scrollIntoView method for the vcd-banner-activity-reporter
+* Add examples for vcd-banner-activity-reporter scrollIntoView behavior
 
 ## [15.0.1-dev.12]
 ### Fixed
