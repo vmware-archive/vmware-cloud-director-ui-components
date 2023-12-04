@@ -8,6 +8,7 @@ import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ClarityModule } from '@clr/angular';
 import { I18nModule } from '@vcd/i18n';
+import { IconsModule } from '../icons';
 import { AlternativeTextModule } from '../lib/directives/alternative-text/alternative-text.module';
 import { ResponsiveInputDirectiveModule } from '../lib/directives/responsive-input/responsive-input.module';
 import { UnitFormatter } from '../utils/unit/unit-formatter';
@@ -29,6 +30,7 @@ const declarations = [FormInputComponent, FormSelectComponent, FormCheckboxCompo
         I18nModule,
         ResponsiveInputDirectiveModule,
         AlternativeTextModule,
+        IconsModule,
     ],
     declarations,
     providers: [UnitFormatter],

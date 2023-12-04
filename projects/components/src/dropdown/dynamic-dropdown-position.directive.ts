@@ -32,7 +32,7 @@ const MENU_BUFFER_SPACE = 150;
  * <clr-dropdown vcdDropdown>
  *     <button class="btn btn-link vm-power-link" clrDropdownTrigger>
  *         {{ 'vm.actions' | translate }}
- *         <clr-icon shape="caret down"></clr-icon>
+ *         <cds-icon shape="caret" direction="down"></cds-icon>
  *         </button>
  *     <clr-dropdown-menu *clrIfOpen>
  *         <label class="dropdown-header">Dropdown header</label>

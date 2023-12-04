@@ -80,5 +80,5 @@ export class QuickSearchWo<T> extends BaseWidgetObject<T> {
     /**
      * Gives the icon next to each section title.
      */
-    getTitleIcons = (options?: FindElementOptions) => this.getSearchResultSectionTitles(options).get('clr-icon');
+    getTitleIcons = (options?: FindElementOptions) => this.getSearchResultSectionTitles(options).get('cds-icon');
 }

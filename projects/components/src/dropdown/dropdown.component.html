@@ -14,9 +14,9 @@
     >
         <ng-container *ngIf="dropdownTriggerBtnTxt">
             {{ dropdownTriggerBtnTxt }}
-            <clr-icon *ngIf="!isNestedDropdown" shape="caret down"></clr-icon>
+            <cds-icon *ngIf="!isNestedDropdown" shape="caret" direction="down"></cds-icon>
         </ng-container>
-        <clr-icon *ngIf="!dropdownTriggerBtnTxt" [attr.shape]="dropdownTriggerBtnIcon"></clr-icon>
+        <cds-icon *ngIf="!dropdownTriggerBtnTxt" [attr.shape]="dropdownTriggerBtnIcon"></cds-icon>
     </button>
 
     <ng-container *ngIf="!isDropdownDisabled">
@@ -90,7 +90,7 @@
                         }}</ng-container>
 
                         <a *ngIf="shouldShowIcon" role="tooltip" aria-haspopup="true" class="tooltip tooltip-sm">
-                            <clr-icon size="1em" [attr.shape]="item.icon"></clr-icon>
+                            <cds-icon size="md" [attr.shape]="item.icon"></cds-icon>
                             <span class="tooltip-content" *ngIf="shouldShowTooltip">{{
                                 item.textKey | translate
                             }}</span>

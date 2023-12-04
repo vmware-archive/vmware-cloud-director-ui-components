@@ -6,6 +6,7 @@
 import { Component } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { ClarityModule } from '@clr/angular';
+import { IconsModule } from '../../../icons';
 import { WidgetObject } from '../../../utils/test/widget-object';
 import { ALTERNATIVE_TEXT } from './alternative-text.directive';
 import { AlternativeTextModule } from './alternative-text.module';
@@ -17,15 +18,15 @@ interface TestContext {
 
 @Component({
     template: `
-        <clr-icon shape="home" [vcdAlternativeText]="altText">
+        <cds-icon shape="home" [vcdAlternativeText]="altText">
             <svg></svg>
-        </clr-icon>
-        <clr-icon shape="check">
+        </cds-icon>
+        <cds-icon shape="check">
             <svg></svg>
-        </clr-icon>
-        <clr-icon shape="times" [vcdAlternativeText]="'Times icon'">
+        </cds-icon>
+        <cds-icon shape="times" [vcdAlternativeText]="'Times icon'">
             <svg alt="pre-set text"></svg>
-        </clr-icon>
+        </cds-icon>
     `,
 })
 export class TestHostComponent {
@@ -34,14 +35,14 @@ export class TestHostComponent {
 
 class ComponentTestWidget extends WidgetObject<TestHostComponent> {
     public getAlternativeText(shape: string): string {
-        return this.findElement(`clr-icon[shape="${shape}"] svg`).nativeElement.getAttribute(ALTERNATIVE_TEXT);
+        return this.findElement(`cds-icon[shape="${shape}"] svg`).nativeElement.getAttribute(ALTERNATIVE_TEXT);
     }
 }
 
 describe('AlternativeTextDirective', () => {
     beforeEach(async () => {
         await TestBed.configureTestingModule({
-            imports: [ClarityModule, AlternativeTextModule],
+            imports: [ClarityModule, AlternativeTextModule, IconsModule],
             declarations: [TestHostComponent],
         }).compileComponents();
     });

@@ -1,6 +1,6 @@
 <ng-template #sectionTitle let-searchSection>
     <div class="section-title-wrapper">
-        <clr-icon *ngIf="searchSection.icon" [attr.shape]="searchSection.icon" size="20"> </clr-icon>
+        <cds-icon *ngIf="searchSection.icon" [attr.shape]="searchSection.icon" size="md"> </cds-icon>
         <div *ngIf="searchSection.hasPartialResult; let partial; else: partial">
             {{
                 'vcd.cc.quickSearch.partialResultTitle'
@@ -37,7 +37,7 @@
                     [attr.aria-label]="'vcd.cc.search.filterBy.btn.label' | translate: filter.dropdownText"
                 >
                     {{ filter.dropdownText }}
-                    <clr-icon shape="caret down"></clr-icon>
+                    <cds-icon shape="caret" direction="down"></cds-icon>
                 </button>
                 <clr-dropdown-menu clrPosition="bottom" *clrIfOpen #dropdownMenu>
                     <li
@@ -80,7 +80,7 @@
                     "
                     (click)="searchService.selectFilter(filter.id, [option.key], false)"
                 >
-                    <clr-icon shape="close" class="badge badge-info"> </clr-icon>
+                    <cds-icon shape="close"> </cds-icon>
                 </button>
             </span>
         </ng-container>
@@ -121,7 +121,7 @@
 <ng-template #quickSearchInterior>
     <div class="search-input-container" data-ui="search-input-container">
         <div class="search-icon-container">
-            <clr-icon shape="search" size="20" *ngIf="!searchService.isLoading"></clr-icon>
+            <cds-icon shape="search" *ngIf="!searchService.isLoading"></cds-icon>
             <clr-spinner
                 [clrSmall]="true"
                 [clrInline]="true"
@@ -147,7 +147,7 @@
             [attr.aria-pressed]="searchService.isPinned"
             (click)="togglePinned()"
         >
-            <clr-icon shape="pin" size="20" [ngClass]="this.searchService.isPinned ? 'is-solid' : ''"> </clr-icon>
+            <cds-icon shape="pin" size="md" [attr.solid]="this.searchService.isPinned"> </cds-icon>
         </button>
     </div>
     <clr-control-helper class="input-helper">{{ helper }}</clr-control-helper>

@@ -21,10 +21,10 @@
     .search-input-container {
         margin-top: 0.25rem;
         display: flex;
+        gap: 0.5rem;
 
         .search-icon-container {
-            margin-top: 2px;
-            margin-right: 4px;
+            flex: none;
         }
 
         .clr-input {
@@ -109,7 +109,7 @@ clr-control-helper.input-helper {
     margin-top: 0;
 }
 
-.search-icon-container {
+.search-icon-container cds-icon {
     width: 20px;
     height: 20px;
 }
