@@ -24,7 +24,7 @@
                         {{ option.isTranslatable ? (option.display | translate) : option.display }}
                     </option>
                 </select>
-                <clr-icon *ngIf="showErrors" class="clr-validate-icon" shape="exclamation-circle"></clr-icon>
+                <cds-icon *ngIf="showErrors" class="clr-validate-icon" shape="exclamation-circle"></cds-icon>
             </div>
 
             <ng-content select="aside"></ng-content>

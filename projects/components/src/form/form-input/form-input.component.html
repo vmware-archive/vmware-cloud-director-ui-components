@@ -28,7 +28,7 @@
                     (keyup.enter)="enterClicked.emit(true)"
                     (keyup.escape)="escapeClicked.emit(true)"
                 />
-                <clr-icon *ngIf="showErrors && !hint" class="clr-validate-icon" shape="exclamation-circle"></clr-icon>
+                <cds-icon *ngIf="showErrors && !hint" class="clr-validate-icon" shape="exclamation-circle"></cds-icon>
                 <ng-content select="aside"></ng-content>
                 <clr-signpost *ngIf="hint">
                     <clr-signpost-content [clrPosition]="hintPosition" *clrIfOpen>

@@ -8,11 +8,12 @@ import { NgModule } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import { ClarityModule } from '@clr/angular';
 import { I18nModule } from '@vcd/i18n';
+import { IconsModule } from '../icons';
 import { DataExporterComponent } from './data-exporter.component';
 
 @NgModule({
     declarations: [DataExporterComponent],
-    imports: [CommonModule, ReactiveFormsModule, ClarityModule, I18nModule],
+    imports: [CommonModule, ReactiveFormsModule, ClarityModule, I18nModule, IconsModule],
     exports: [DataExporterComponent],
 })
 export class VcdDataExporterModule {}

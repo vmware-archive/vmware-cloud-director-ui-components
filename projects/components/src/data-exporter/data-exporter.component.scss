@@ -40,8 +40,8 @@ clr-dropdown-menu {
     overflow: auto;
 }
 
-.x-button.label {
-    padding: 0 0.1rem 0.02rem;
+.label:has(> button) {
+    padding-right: var(--cds-global-space-3);
 }
 
 button.btn-link.remove-col-button {

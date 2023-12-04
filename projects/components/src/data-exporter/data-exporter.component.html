@@ -41,14 +41,15 @@
                     <label [attr.data-ui]="DataUi.selectAllToggleLabel">{{ exportAllText | lazyString }}</label>
                 </clr-checkbox-wrapper>
                 <clr-dropdown [clrCloseMenuOnItemClick]="false">
-                    <clr-icon
-                        [attr.shape]="isDropdownOpen ? 'caret up' : 'caret down'"
-                        size="24"
+                    <cds-icon
+                        shape="caret"
+                        size="md"
+                        [attr.direction]="isDropdownOpen ? 'up' : 'down'"
                         clrDropdownTrigger
                         class="dropdown-button"
                         [attr.data-ui]="DataUi.columnCheckboxArrow"
                         *ngIf="!this.selectAllControl.value"
-                    ></clr-icon>
+                    ></cds-icon>
                     <clr-dropdown-menu clrPosition="bottom" [formGroup]="formGroup" *clrIfOpen #dropdownMenu>
                         <ul>
                             <li
@@ -75,7 +76,7 @@
             </div>
 
             <span
-                class="x-button label"
+                class="label"
                 *ngFor="let column of selectedColumns"
                 [attr.data-ui]="DataUi.columnSelectionBubbles"
                 [ngStyle]="{ visibility: shouldShowBubbles ? 'visible' : 'hidden' }"
@@ -88,7 +89,7 @@
                     (click)="selectColumn(column, false)"
                     [attr.data-ui]="DataUi.columnBubblesX"
                 >
-                    <clr-icon shape="close" class="badge badge-info"> </clr-icon>
+                    <cds-icon shape="close" size="sm"> </cds-icon>
                 </button>
             </span>
         </div>

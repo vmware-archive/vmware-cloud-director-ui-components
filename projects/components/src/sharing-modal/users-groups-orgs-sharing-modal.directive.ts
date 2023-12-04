@@ -195,7 +195,7 @@ export class UsersGroupsOrgsSharingModalDirective implements OnInit {
 }
 @Component({
     selector: 'vcd-sharing-modal-user-renderer',
-    template: ` <clr-icon [attr.size]="'1em'" [attr.shape]="'user'"></clr-icon> {{ config.name }}`,
+    template: ` <cds-icon size="md" shape="user"></cds-icon> {{ config.name }}`,
 })
 export class SharingModalUserRenderComponent implements ComponentRenderer<HasId<UserType>> {
     @Input() config: HasId<UserType>;
@@ -203,7 +203,7 @@ export class SharingModalUserRenderComponent implements ComponentRenderer<HasId<
 
 @Component({
     selector: 'vcd-sharing-modal-group-renderer',
-    template: ` <clr-icon [attr.size]="'1em'" [attr.shape]="'users'"></clr-icon> {{ config.name }}`,
+    template: ` <cds-icon size="md" shape="users"></cds-icon> {{ config.name }}`,
 })
 export class SharingModalGroupRenderComponent implements ComponentRenderer<HasId<UserType>> {
     @Input() config: HasId<UserType>;
@@ -211,7 +211,7 @@ export class SharingModalGroupRenderComponent implements ComponentRenderer<HasId
 
 @Component({
     selector: 'vcd-sharing-modal-group-renderer',
-    template: ` <clr-icon [attr.size]="'1em'" [attr.shape]="'organization'"></clr-icon> {{ config.name }}`,
+    template: ` <cds-icon size="md" shape="organization"></cds-icon> {{ config.name }}`,
 })
 export class SharingModalOrgRenderComponent implements ComponentRenderer<HasId<UserType>> {
     @Input() config: HasId<UserType>;

@@ -12,7 +12,7 @@ export const ALTERNATIVE_TEXT = 'alt';
  */
 @Directive({
     // eslint-disable-next-line @angular-eslint/directive-selector
-    selector: 'clr-icon',
+    selector: 'cds-icon',
 })
 export class AlternativeTextDirective implements AfterViewInit {
     @Input() vcdAlternativeText: string = '';

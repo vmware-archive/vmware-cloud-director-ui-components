@@ -12,6 +12,7 @@ import { VcdErrorBannerModule } from '../common/error/error-banner.module';
 import { VcdDatagridModule } from '../datagrid/datagrid.module';
 import { VcdComponentRendererOutletModule } from '../datagrid/directives/component-renderer-outlet.module';
 import { DropdownModule } from '../dropdown/dropdown.module';
+import { IconsModule } from '../icons';
 import { RestQueryService } from '../utils/rest/rest-query-search.client';
 import { RightsDropdownRendererComponent } from './renderers/rights-dropdown-renderer';
 import { VcdSelectAllToggleComponent } from './select-all-checkbox/select-all-toggle.component';
@@ -40,6 +41,7 @@ import {
         FormsModule,
         ReactiveFormsModule,
         ClarityModule,
+        IconsModule,
         I18nModule,
         DropdownModule,
         VcdDatagridModule,
