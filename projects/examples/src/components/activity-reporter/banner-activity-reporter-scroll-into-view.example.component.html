@@ -1,0 +1,13 @@
+<clr-wizard [clrWizardOpen]="true">
+    <clr-wizard-title>Wizard</clr-wizard-title>
+    <clr-wizard-page>
+        <ng-template clrPageTitle>Wizard Page</ng-template>
+        Throw Error and Report Success buttons at the bottom of page after pressing Start Activity Reporter.
+        <button *ngIf="!showBanner" (click)="startActivity()">Start Activity Reporter</button>
+        <vcd-banner-activity-reporter></vcd-banner-activity-reporter>
+        <br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
+
+        <button *ngIf="showBanner" (click)="throwError()">Throw Error</button>
+        <button *ngIf="showBanner" (click)="reportSuccess()">Report Success</button>
+    </clr-wizard-page>
+</clr-wizard>

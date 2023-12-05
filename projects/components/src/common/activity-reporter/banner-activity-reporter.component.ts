@@ -1,9 +1,9 @@
 /*!
- * Copyright 2020 VMware, Inc.
+ * Copyright 2020-2023 VMware, Inc.
  * SPDX-License-Identifier: BSD-2-Clause
  */
 
-import { Component, Inject, Input } from '@angular/core';
+import { Component, ElementRef, Inject, Input } from '@angular/core';
 import { TranslationService } from '@vcd/i18n';
 import { LazyString } from '@vcd/i18n';
 import { ActivityPromiseResolver } from './activity-promise-resolver';
@@ -29,6 +29,7 @@ export class BannerActivityReporterComponent extends ActivityReporter {
 
     constructor(
         private translationService: TranslationService,
+        private elementRef: ElementRef,
         @Inject(ActivityPromiseResolver) promiseResolver: ActivityPromiseResolver<any>
     ) {
         super(promiseResolver);
@@ -49,6 +50,7 @@ export class BannerActivityReporterComponent extends ActivityReporter {
     reportError(errorText: string): void {
         this.errorText = errorText;
         this.running = false;
+        this.scrollIntoView();
     }
 
     /**
@@ -59,6 +61,7 @@ export class BannerActivityReporterComponent extends ActivityReporter {
             this.successMessage = successMessage;
         }
         this.running = false;
+        this.scrollIntoView();
     }
 
     /**
@@ -73,6 +76,13 @@ export class BannerActivityReporterComponent extends ActivityReporter {
      */
     onSuccessClosed(): void {
         this.successMessage = null;
+    }
+
+    /**
+     * Scroll to the banner activity reporter.
+     */
+    private scrollIntoView(): void {
+        this.elementRef.nativeElement.scrollIntoView({ block: 'nearest', behavior: 'smooth' });
     }
 
     /*
