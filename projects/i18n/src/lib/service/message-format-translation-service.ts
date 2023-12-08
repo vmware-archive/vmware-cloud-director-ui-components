@@ -7,7 +7,7 @@ import MessageFormat from '@messageformat/core';
 import { combineLatest, Observable, ReplaySubject } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { TranslationLoader } from '../loader/translation-loader';
-import { FormatDateOptions, TRANSLATION_MAPPING, TranslationService, TranslationSet } from './translation-service';
+import { FormatDateOptions, FormatNumberOptions, TRANSLATION_MAPPING, TranslationService, TranslationSet } from './translation-service';
 
 /**
  * Translation service to implement ICU MessageFormat.
@@ -92,7 +92,7 @@ export class MessageFormatTranslationService extends TranslationService {
      * Otherwise uses message-format to format the string.
      * @param key translation key
      * @param params array of substitutions. arrays can be of the form [a, b, c] for positional parameters
-     *      or [{'key1': a, 'key2' b}]
+     *      or [{'key1': a, 'key2': b}]
      * @return an observable of the translated string.
      */
     public translateAsync(key: string, params?: any[]): Observable<string> {
@@ -101,10 +101,14 @@ export class MessageFormatTranslationService extends TranslationService {
 
     private translateHelper(key: string, translations: TranslationSet, params?: any[]): string {
         let paramsToUse: any = params;
-        const paramObject = params ? (params.length ? params[0] : {}) : {};
+        const paramObject = params?.length ? params[0] : {};
         if (paramObject !== null && typeof paramObject === 'object') {
             paramsToUse = paramObject;
+        } else {
+            // localize params if number
+            paramsToUse = paramsToUse.map((element) => typeof element === 'number' ? this.formatNumber(element) : element);
         }
+
         if (translations[this.preferredLocale] && translations[this.preferredLocale][key]) {
             return this.formatString(this.preferredLocale, key, paramsToUse, translations);
         } else if (translations[this.fallbackLocale] && translations[this.fallbackLocale][key]) {
@@ -117,6 +121,20 @@ export class MessageFormatTranslationService extends TranslationService {
         const template = translations[locale][key];
         const message = new MessageFormat(locale).compile(template);
         return message(translationMap);
+    }
+
+    /**
+     * Use Intl services to format number.
+     * @param number number to format
+     * @param options to specify the format of the number string.
+     * If is not set, it will use internal default option for number.
+     * @return formatted number.
+     */
+    public formatNumber(number: number, options?: FormatNumberOptions): string {
+        if (options) {
+            return new Intl.NumberFormat(this.preferredLocale, options).format(number);
+        }
+        return new Intl.NumberFormat(this.preferredLocale, this.defaultNumberFormat).format(number);
     }
 
     /**
