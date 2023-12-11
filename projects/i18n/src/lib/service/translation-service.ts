@@ -6,6 +6,7 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import DateTimeFormatOptions = Intl.DateTimeFormatOptions;
+import NumberFormatOptions = Intl.NumberFormatOptions;
 
 /**
  * Basic translations.
@@ -53,6 +54,15 @@ abstract class TranslationService {
         ...this.defaultTimeFormat,
     };
 
+    /** 
+     * Options to format Number
+     */
+    protected readonly defaultNumberFormat: NumberFormatOptions = {
+        // override the default which is 3 to be able to respect user defined precision
+        maximumFractionDigits: 20,
+        useGrouping: false
+    };
+
     /**
      * Register translations (used by moådules)
      */
@@ -73,6 +83,14 @@ abstract class TranslationService {
      * @return translated string.
      */
     abstract translate(key: string, params?: any[]): string;
+
+    /**
+     * Format a number with current locale.
+     * @param number number
+     * @param options to specify the format of the number string.
+     * @return formatted number.
+     */
+    abstract formatNumber(number: number, options?: object): string;
 
     /**
      * Format a date with current locale.
@@ -120,4 +138,5 @@ export const TRANSLATION_MAPPING = {
  *          false (for 24-hour format)
  */
 export type  FormatDateOptions =  DateTimeFormatOptions;
+export type FormatNumberOptions = NumberFormatOptions;
 export { TranslationService };

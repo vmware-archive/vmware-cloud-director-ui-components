@@ -31,6 +31,10 @@ class MockTranslationService extends TranslationService {
         return new BehaviorSubject(this.translate(key, params));
     }
 
+    formatNumber(number: number): string {
+        return number.toLocaleString();
+    }
+
     formatDate(date: Date): string {
         return date.toLocaleString();
     }
